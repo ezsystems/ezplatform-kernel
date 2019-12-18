@@ -1,8 +1,6 @@
 <?php
 
 /**
- * File contains: eZ\Publish\Core\Persistence\Legacy\Tests\TestCase class.
- *
  * @copyright Copyright (C) eZ Systems AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
@@ -12,18 +10,19 @@ use Doctrine\Common\EventManager as DoctrineEventManager;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ConnectionException;
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\Query\QueryBuilder;
 use eZ\Publish\API\Repository\Tests\LegacySchemaImporter;
 use eZ\Publish\Core\Persistence\Doctrine\ConnectionHandler;
-use eZ\Publish\Core\Persistence\Database\SelectQuery;
 use eZ\Publish\Core\Persistence\Legacy\SharedGateway;
 use eZ\Publish\Core\Persistence\Tests\DatabaseConnectionFactory;
 use eZ\Publish\SPI\Tests\Persistence\FileFixtureFactory;
 use eZ\Publish\SPI\Tests\Persistence\FixtureImporter;
 use EzSystems\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform;
-use PHPUnit\Framework\TestCase as BaseTestCase;
 use InvalidArgumentException;
-use ReflectionObject;
 use PDOException;
+use PHPUnit\Framework\TestCase as BaseTestCase;
+use ReflectionObject;
 use ReflectionProperty;
 
 /**
@@ -220,21 +219,16 @@ abstract class TestCase extends BaseTestCase
      * The expectation MUST be passed as a two dimensional array containing
      * rows of columns.
      *
-     * @param array $expectation
-     * @param \eZ\Publish\Core\Persistence\Database\SelectQuery $query
-     * @param string $message
+     * @param array $expectation expected raw database rows
      */
-    public static function assertQueryResult(array $expectation, SelectQuery $query, $message = '')
-    {
-        $statement = $query->prepare();
-        $statement->execute();
+    public static function assertQueryResult(
+        array $expectation,
+        QueryBuilder $query,
+        string $message = ''
+    ): void {
+        $result = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
-        $result = [];
-        while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
-            $result[] = $row;
-        }
-
-        return self::assertEquals(
+        self::assertEquals(
             self::getResultTextRepresentation($expectation),
             self::getResultTextRepresentation($result),
             $message
