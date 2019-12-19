@@ -107,8 +107,6 @@ abstract class TestCase extends BaseTestCase
 
     /**
      * Get native Doctrine database connection.
-     *
-     * @throws \Doctrine\DBAL\DBALException
      */
     final public function getDatabaseConnection(): Connection
     {
@@ -119,7 +117,11 @@ abstract class TestCase extends BaseTestCase
                 $eventManager
             );
 
-            $this->connection = $connectionFactory->createConnection($this->getDsn());
+            try {
+                $this->connection = $connectionFactory->createConnection($this->getDsn());
+            } catch (DBALException $e) {
+                self::fail('Connection failed: ' . $e->getMessage());
+            }
         }
 
         return $this->connection;
