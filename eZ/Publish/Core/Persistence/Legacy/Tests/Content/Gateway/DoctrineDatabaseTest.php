@@ -6,6 +6,7 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Gateway;
 
+use Doctrine\DBAL\ParameterType;
 use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
 use eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase;
 use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
@@ -1025,8 +1026,10 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
     /**
      * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::deleteField
+     *
+     * @throws \Doctrine\DBAL\DBALException
      */
-    public function testDeleteField()
+    public function testDeleteField(): void
     {
         $this->insertDatabaseFixture(
             __DIR__ . '/../_fixtures/contentobjects.php'
@@ -1044,7 +1047,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
         $this->assertQueryResult(
             [],
-            $this->getDatabaseHandler()->createSelectQuery()
+            $this->getDatabaseConnection()->createQueryBuilder()
                 ->select('*')
                 ->from('ezcontentobject_attribute')
                 ->where('id=22')
@@ -1512,25 +1515,28 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
     /**
      * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::deleteRelation
+     *
+     * @throws \Doctrine\DBAL\DBALException
      */
-    public function testDeleteRelationWithCompositeBitmask()
+    public function testDeleteRelationWithCompositeBitmask(): void
     {
         $this->insertRelationFixture();
 
         $gateway = $this->getDatabaseGateway();
         $gateway->deleteRelation(11, RelationValue::COMMON);
 
-        /** @var $query \eZ\Publish\Core\Persistence\Database\SelectQuery */
-        $query = $this->getDatabaseHandler()->createSelectQuery();
+        $query = $this->getDatabaseConnection()->createQueryBuilder();
         $this->assertQueryResult(
             [['relation_type' => RelationValue::LINK]],
-            $query->select(
-                ['relation_type']
-            )->from(
-                'ezcontentobject_link'
-            )->where(
-                $query->expr->eq('id', 11)
-            )
+            $query
+                ->select(['relation_type'])
+                ->from('ezcontentobject_link')
+                ->where(
+                    $query->expr()->eq(
+                        'id',
+                        $query->createPositionalParameter(11, ParameterType::INTEGER)
+                    )
+                )
         );
     }
 
@@ -1538,8 +1544,10 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
      * Test for the updateAlwaysAvailableFlag() method.
      *
      * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::updateAlwaysAvailableFlag
+     *
+     * @throws \Doctrine\DBAL\DBALException
      */
-    public function testUpdateAlwaysAvailableFlagRemove()
+    public function testUpdateAlwaysAvailableFlagRemove(): void
     {
         $this->insertDatabaseFixture(
             __DIR__ . '/../_fixtures/contentobjects.php'
@@ -1548,47 +1556,57 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         $gateway = $this->getDatabaseGateway();
         $gateway->updateAlwaysAvailableFlag(103, false);
 
+        $connection = $this->getDatabaseConnection();
+        $query = $connection->createQueryBuilder();
         $this->assertQueryResult(
             [['id' => 2]],
-            $this->getDatabaseHandler()->createSelectQuery()->select(
-                ['language_mask']
-            )->from(
-                'ezcontentobject'
-            )->where(
-                'id = 103'
-            )
+            $query
+                ->select(['language_mask'])
+                ->from('ezcontentobject')
+                ->where(
+                    $query->expr()->eq(
+                        'id',
+                        $query->createPositionalParameter(103, ParameterType::INTEGER)
+                    )
+                )
         );
 
-        $query = $this->getDatabaseHandler()->createSelectQuery();
+        $query = $connection->createQueryBuilder();
         $this->assertQueryResult(
             [['language_id' => 2]],
-            $query->select(
-                ['language_id']
-            )->from(
-                'ezcontentobject_name'
-            )->where(
-                $query->expr->lAnd(
-                    $query->expr->eq('contentobject_id', 103),
-                    $query->expr->eq('content_version', 1)
+            $query
+                ->select(
+                    ['language_id']
+                )->from(
+                    'ezcontentobject_name'
+                )->where(
+                    $query->expr()->andX(
+                        $query->expr()->eq(
+                            'contentobject_id',
+                            $query->createPositionalParameter(103, ParameterType::INTEGER)
+                        ),
+                        $query->expr()->eq(
+                            'content_version',
+                            $query->createPositionalParameter(1, ParameterType::INTEGER)
+                        )
+                    )
                 )
-            )
         );
 
-        $query = $this->getDatabaseHandler()->createSelectQuery();
+        $query = $connection->createQueryBuilder();
         $this->assertQueryResult(
             [
                 ['language_id' => 2],
             ],
-            $query->selectDistinct(
-                ['language_id']
-            )->from(
-                'ezcontentobject_attribute'
-            )->where(
-                $query->expr->lAnd(
-                    $query->expr->eq('contentobject_id', 103),
-                    $query->expr->eq('version', 1)
+            $query
+                ->select('DISTINCT language_id')
+                ->from('ezcontentobject_attribute')
+                ->where(
+                    $query->expr()->andX(
+                        $query->expr()->eq('contentobject_id', 103),
+                        $query->expr()->eq('version', 1)
+                    )
                 )
-            )
         );
     }
 
@@ -1596,57 +1614,72 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
      * Test for the updateAlwaysAvailableFlag() method.
      *
      * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::updateAlwaysAvailableFlag
+     *
+     * @throws \Doctrine\DBAL\DBALException
      */
-    public function testUpdateAlwaysAvailableFlagAdd()
+    public function testUpdateAlwaysAvailableFlagAdd(): void
     {
         $this->insertDatabaseFixture(
             __DIR__ . '/../_fixtures/contentobjects.php'
         );
 
         $gateway = $this->getDatabaseGateway();
-        $gateway->updateAlwaysAvailableFlag(102, true);
+        $contentId = 102;
+        $gateway->updateAlwaysAvailableFlag($contentId, true);
 
+        $connection = $this->getDatabaseConnection();
+        $expectedLanguageId = 3;
         $this->assertQueryResult(
-            [['id' => 3]],
-            $this->getDatabaseHandler()->createSelectQuery()->select(
-                ['language_mask']
-            )->from(
-                'ezcontentobject'
-            )->where(
-                'id = 102'
-            )
+            [['id' => $expectedLanguageId]],
+            $connection->createQueryBuilder()
+                ->select(['language_mask'])
+                ->from('ezcontentobject')
+                ->where('id = 102')
         );
 
-        $query = $this->getDatabaseHandler()->createSelectQuery();
-        $this->assertQueryResult(
-            [['language_id' => 3]],
-            $query->select(
-                ['language_id']
-            )->from(
-                'ezcontentobject_name'
-            )->where(
-                $query->expr->lAnd(
-                    $query->expr->eq('contentobject_id', 102),
-                    $query->expr->eq('content_version', 1)
-                )
-            )
-        );
-
-        $query = $this->getDatabaseHandler()->createSelectQuery();
+        $versionNo = 1;
+        $query = $this->getDatabaseConnection()->createQueryBuilder();
         $this->assertQueryResult(
             [
-                ['language_id' => 3],
+                ['language_id' => $expectedLanguageId],
             ],
-            $query->selectDistinct(
-                ['language_id']
-            )->from(
-                'ezcontentobject_attribute'
-            )->where(
-                $query->expr->lAnd(
-                    $query->expr->eq('contentobject_id', 102),
-                    $query->expr->eq('version', 1)
+            $query
+                ->select('language_id')
+                ->from('ezcontentobject_name')
+                ->where(
+                    $query->expr()->andX(
+                        $query->expr()->eq(
+                            'contentobject_id',
+                            $query->createPositionalParameter($contentId, ParameterType::INTEGER)
+                        ),
+                        $query->expr()->eq(
+                            'content_version',
+                            $query->createPositionalParameter($versionNo, ParameterType::INTEGER)
+                        )
+                    )
                 )
-            )
+        );
+
+        $query = $this->getDatabaseConnection()->createQueryBuilder();
+        $this->assertQueryResult(
+            [
+                ['language_id' => $expectedLanguageId],
+            ],
+            $query
+                ->select('DISTINCT language_id')
+                ->from('ezcontentobject_attribute')
+                ->where(
+                    $query->expr()->andX(
+                        $query->expr()->eq(
+                            'contentobject_id',
+                            $query->createPositionalParameter($contentId, ParameterType::INTEGER)
+                        ),
+                        $query->expr()->eq(
+                            'version',
+                            $query->createPositionalParameter($versionNo, ParameterType::INTEGER)
+                        )
+                    )
+                )
         );
     }
 
@@ -1654,8 +1687,11 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
      * Test for the updateAlwaysAvailableFlag() method.
      *
      * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::updateAlwaysAvailableFlag
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    public function testUpdateContentAddAlwaysAvailableFlagMultilingual()
+    public function testUpdateContentAddAlwaysAvailableFlagMultilingual(): void
     {
         $this->insertDatabaseFixture(
             __DIR__ . '/../_fixtures/contentobjects_multilingual.php'
@@ -1672,7 +1708,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
         $this->assertQueryResult(
             [['id' => 7]],
-            $this->getDatabaseHandler()->createSelectQuery()->select(
+            $this->getDatabaseConnection()->createQueryBuilder()->select(
                 ['language_mask']
             )->from(
                 'ezcontentobject'
@@ -1681,40 +1717,22 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
             )
         );
 
-        $query = $this->getDatabaseHandler()->createSelectQuery();
-        $this->assertQueryResult(
+        $this->assertContentVersionAttributesLanguages(
+            4,
+            2,
             [
                 ['id' => '7', 'language_id' => 2],
                 ['id' => '8', 'language_id' => 5],
-            ],
-            $query->selectDistinct(
-                ['id', 'language_id']
-            )->from(
-                'ezcontentobject_attribute'
-            )->where(
-                $query->expr->lAnd(
-                    $query->expr->eq('contentobject_id', 4),
-                    $query->expr->eq('version', 2)
-                )
-            )->orderBy('id')
+            ]
         );
 
-        $query = $this->getDatabaseHandler()->createSelectQuery();
-        $this->assertQueryResult(
+        $this->assertContentVersionAttributesLanguages(
+            4,
+            1,
             [
                 ['id' => '7', 'language_id' => 2],
                 ['id' => '8', 'language_id' => 5],
-            ],
-            $query->selectDistinct(
-                ['id', 'language_id']
-            )->from(
-                'ezcontentobject_attribute'
-            )->where(
-                $query->expr->lAnd(
-                    $query->expr->eq('contentobject_id', 4),
-                    $query->expr->eq('version', 1)
-                )
-            )->orderBy('id')
+            ]
         );
     }
 
@@ -1722,8 +1740,11 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
      * Test for the updateAlwaysAvailableFlag() method.
      *
      * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::updateAlwaysAvailableFlag
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    public function testUpdateContentRemoveAlwaysAvailableFlagMultilingual()
+    public function testUpdateContentRemoveAlwaysAvailableFlagMultilingual(): void
     {
         $this->insertDatabaseFixture(
             __DIR__ . '/../_fixtures/contentobjects_multilingual.php'
@@ -1740,7 +1761,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
         $this->assertQueryResult(
             [['id' => 6]],
-            $this->getDatabaseHandler()->createSelectQuery()->select(
+            $this->getDatabaseConnection()->createQueryBuilder()->select(
                 ['language_mask']
             )->from(
                 'ezcontentobject'
@@ -1749,44 +1770,29 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
             )
         );
 
-        $query = $this->getDatabaseHandler()->createSelectQuery();
-        $this->assertQueryResult(
+        $this->assertContentVersionAttributesLanguages(
+            4,
+            2,
             [
                 ['id' => '7', 'language_id' => 2],
                 ['id' => '8', 'language_id' => 4],
-            ],
-            $query->selectDistinct(
-                ['id', 'language_id']
-            )->from(
-                'ezcontentobject_attribute'
-            )->where(
-                $query->expr->lAnd(
-                    $query->expr->eq('contentobject_id', 4),
-                    $query->expr->eq('version', 2)
-                )
-            )->orderBy('id')
+            ]
         );
 
-        $query = $this->getDatabaseHandler()->createSelectQuery();
-        $this->assertQueryResult(
+        $this->assertContentVersionAttributesLanguages(
+            4,
+            1,
             [
                 ['id' => '7', 'language_id' => 2],
                 ['id' => '8', 'language_id' => 5],
-            ],
-            $query->selectDistinct(
-                ['id', 'language_id']
-            )->from(
-                'ezcontentobject_attribute'
-            )->where(
-                $query->expr->lAnd(
-                    $query->expr->eq('contentobject_id', 4),
-                    $query->expr->eq('version', 1)
-                )
-            )->orderBy('id')
+            ]
         );
     }
 
-    public function testLoadVersionInfo()
+    /**
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function testLoadVersionInfo(): void
     {
         $this->insertDatabaseFixture(
             __DIR__ . '/../_fixtures/contentobjects.php'
@@ -1811,26 +1817,36 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
      * @param int $toId
      *
      * @return int
+     *
+     * @throws \Doctrine\DBAL\DBALException
      */
-    protected function countContentRelations($fromId = null, $toId = null)
+    protected function countContentRelations(?int $fromId = null, ?int $toId = null): int
     {
-        $query = $this->getDatabaseHandler()->createSelectQuery();
-        $query->select('count(*)')
+        $connection = $this->getDatabaseConnection();
+        $dbPlatform = $connection->getDatabasePlatform();
+        $query = $connection->createQueryBuilder();
+        $query
+            ->select($dbPlatform->getCountExpression('id'))
             ->from('ezcontentobject_link');
 
         if ($fromId !== null) {
             $query->where(
-                'from_contentobject_id=' . $fromId
+                $query->expr()->eq(
+                    'from_contentobject_id',
+                    $query->createPositionalParameter($fromId)
+                )
             );
         }
         if ($toId !== null) {
-            $query->where(
-                'to_contentobject_id=' . $toId
+            $query->andWhere(
+                $query->expr()->eq(
+                    'to_contentobject_id',
+                    $query->createPositionalParameter($toId)
+                )
             );
         }
 
-        $statement = $query->prepare();
-        $statement->execute();
+        $statement = $query->execute();
 
         return (int)$statement->fetchColumn();
     }
@@ -1841,21 +1857,29 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
      * @param int $contentId
      *
      * @return int
+     *
+     * @throws \Doctrine\DBAL\DBALException
      */
-    protected function countContentFields($contentId = null)
+    protected function countContentFields(?int $contentId = null): int
     {
-        $query = $this->getDatabaseHandler()->createSelectQuery();
-        $query->select('count(*)')
+        $connection = $this->getDatabaseConnection();
+        $dbPlatform = $connection->getDatabasePlatform();
+
+        $query = $connection->createQueryBuilder();
+        $query
+            ->select($dbPlatform->getCountExpression('id'))
             ->from('ezcontentobject_attribute');
 
         if ($contentId !== null) {
             $query->where(
-                'contentobject_id=' . $contentId
+                $query->expr()->eq(
+                    'contentobject_id',
+                    $query->createPositionalParameter($contentId, ParameterType::INTEGER)
+                )
             );
         }
 
-        $statement = $query->prepare();
-        $statement->execute();
+        $statement = $query->execute();
 
         return (int)$statement->fetchColumn();
     }
@@ -1866,21 +1890,29 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
      * @param int $contentId
      *
      * @return int
+     *
+     * @throws \Doctrine\DBAL\DBALException
      */
-    protected function countContentVersions($contentId = null)
+    protected function countContentVersions(?int $contentId = null): int
     {
-        $query = $this->getDatabaseHandler()->createSelectQuery();
-        $query->select('count(*)')
+        $connection = $this->getDatabaseConnection();
+        $dbPlatform = $connection->getDatabasePlatform();
+
+        $query = $connection->createQueryBuilder();
+        $query
+            ->select($dbPlatform->getCountExpression('id'))
             ->from('ezcontentobject_version');
 
         if ($contentId !== null) {
             $query->where(
-                'contentobject_id=' . $contentId
+                $query->expr()->eq(
+                    'contentobject_id',
+                    $query->createPositionalParameter($contentId, ParameterType::INTEGER)
+                )
             );
         }
 
-        $statement = $query->prepare();
-        $statement->execute();
+        $statement = $query->execute();
 
         return (int)$statement->fetchColumn();
     }
@@ -1891,21 +1923,29 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
      * @param int $contentId
      *
      * @return int
+     *
+     * @throws \Doctrine\DBAL\DBALException
      */
-    protected function countContentNames($contentId = null)
+    protected function countContentNames(?int $contentId = null): int
     {
-        $query = $this->getDatabaseHandler()->createSelectQuery();
-        $query->select('count(*)')
+        $connection = $this->getDatabaseConnection();
+        $dbPlatform = $connection->getDatabasePlatform();
+
+        $query = $connection->createQueryBuilder();
+        $query
+            ->select($dbPlatform->getCountExpression('contentobject_id'))
             ->from('ezcontentobject_name');
 
         if ($contentId !== null) {
             $query->where(
-                'contentobject_id=' . $contentId
+                $query->expr()->eq(
+                    'contentobject_id',
+                    $query->createPositionalParameter($contentId, ParameterType::INTEGER)
+                )
             );
         }
 
-        $statement = $query->prepare();
-        $statement->execute();
+        $statement = $query->execute();
 
         return (int)$statement->fetchColumn();
     }
@@ -1913,24 +1953,31 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Counts the number of content objects.
      *
-     * @param int $contentId
+     * @param int|null $contentId
      *
      * @return int
+     *
+     * @throws \Doctrine\DBAL\DBALException
      */
-    protected function countContent($contentId = null)
+    protected function countContent(?int $contentId = null): int
     {
-        $query = $this->getDatabaseHandler()->createSelectQuery();
-        $query->select('count(*)')
+        $connection = $this->getDatabaseConnection();
+        $dbPlatform = $connection->getDatabasePlatform();
+        $query = $connection->createQueryBuilder();
+        $query
+            ->select($dbPlatform->getCountExpression('id'))
             ->from('ezcontentobject');
 
         if ($contentId !== null) {
             $query->where(
-                'id=' . $contentId
+                $query->expr()->eq(
+                    'id',
+                    $query->createPositionalParameter($contentId, ParameterType::INTEGER)
+                )
             );
         }
 
-        $statement = $query->prepare();
-        $statement->execute();
+        $statement = $query->execute();
 
         return (int)$statement->fetchColumn();
     }
@@ -2034,5 +2081,39 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         $struct->type = RelationValue::COMMON;
 
         return $struct;
+    }
+
+    /**
+     * @param int $contentId
+     * @param int $versionNo
+     * @param array $expectation
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    private function assertContentVersionAttributesLanguages(
+        int $contentId,
+        int $versionNo,
+        array $expectation
+    ): void {
+        $query = $this->getDatabaseConnection()->createQueryBuilder();
+        $this->assertQueryResult(
+            $expectation,
+            $query
+                ->select('DISTINCT id, language_id')
+                ->from('ezcontentobject_attribute')
+                ->where(
+                    $query->expr()->andX(
+                        $query->expr()->eq(
+                            'contentobject_id',
+                            $query->createPositionalParameter($contentId, ParameterType::INTEGER)
+                        ),
+                        $query->expr()->eq(
+                            'version',
+                            $query->createPositionalParameter($versionNo, ParameterType::INTEGER)
+                        )
+                    )
+                )
+                ->orderBy('id')
+        );
     }
 }
