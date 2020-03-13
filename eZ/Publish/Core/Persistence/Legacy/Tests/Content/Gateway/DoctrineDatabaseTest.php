@@ -61,8 +61,8 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
                     'status' => ContentInfo::STATUS_DRAFT,
                 ],
             ],
-            $this->getDatabaseHandler()
-                ->createSelectQuery()
+            $this->getDatabaseConnection()
+                ->createQueryBuilder()
                 ->select(
                     [
                         'name',
@@ -154,7 +154,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         $version->status = 0;
         $version->creationDate = 1312278322;
         $version->modificationDate = 1312278323;
-        $version->initialLanguageCode = 'eng-GB';
+        $version->initialLanguageCode = self::ENG_GB;
         $version->contentInfo = new ContentInfo(
             [
                 'id' => 2342,
@@ -192,8 +192,8 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
                     // 'user_id',
                 ],
             ],
-            $this->getDatabaseHandler()
-                ->createSelectQuery()
+            $this->getDatabaseConnection()
+                ->createQueryBuilder()
                 ->select(
                     [
                         'contentobject_id',
@@ -232,8 +232,8 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
         $this->assertQueryResult(
             [[VersionInfo::STATUS_PENDING]],
-            $this->getDatabaseHandler()
-                ->createSelectQuery()
+            $this->getDatabaseConnection()
+                ->createQueryBuilder()
                 ->select('status')
                 ->from('ezcontentobject_version')
         );
@@ -241,8 +241,8 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         // check that content status has not been set to published
         $this->assertQueryResult(
             [[VersionInfo::STATUS_DRAFT]],
-            $this->getDatabaseHandler()
-                ->createSelectQuery()
+            $this->getDatabaseConnection()
+                ->createQueryBuilder()
                 ->select('status')
                 ->from('ezcontentobject')
         );
@@ -270,8 +270,8 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
         $this->assertQueryResult(
             [[VersionInfo::STATUS_PUBLISHED]],
-            $this->getDatabaseHandler()
-                ->createSelectQuery()
+            $this->getDatabaseConnection()
+                ->createQueryBuilder()
                 ->select('status')
                 ->from('ezcontentobject_version')
         );
@@ -279,8 +279,8 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         // check that content status has been set to published
         $this->assertQueryResult(
             [[ContentInfo::STATUS_PUBLISHED]],
-            $this->getDatabaseHandler()
-                ->createSelectQuery()
+            $this->getDatabaseConnection()
+                ->createQueryBuilder()
                 ->select('status')
                 ->from('ezcontentobject')
         );
@@ -324,7 +324,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
                     'name' => 'Thoth',
                 ],
             ],
-            $this->getDatabaseHandler()->createSelectQuery()
+            $this->getDatabaseConnection()->createQueryBuilder()
                 ->select(
                     'initial_language_id',
                     'modified',
@@ -384,7 +384,8 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
         $gateway->updateVersion(10, 2, $this->getUpdateStructFixture());
 
-        $query = $this->getDatabaseHandler()->createSelectQuery();
+        $query = $this->getDatabaseConnection()->createQueryBuilder();
+        $expr = $query->expr();
         $this->assertQueryResult(
             [
                 [
@@ -402,9 +403,9 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
                     ]
                 )->from('ezcontentobject_version')
                 ->where(
-                    $query->expr->lAnd(
-                        $query->expr->eq('contentobject_id', 10),
-                        $query->expr->eq('version', 2)
+                    $expr->andX(
+                        $expr->eq('contentobject_id', 10),
+                        $expr->eq('version', 2)
                     )
                 )
         );
@@ -433,15 +434,15 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
                     'data_int' => '42',
                     'data_text' => 'Test text',
                     'data_type_string' => 'ezstring',
-                    'language_code' => 'eng-GB',
+                    'language_code' => self::ENG_GB,
                     'language_id' => '4',
                     'sort_key_int' => '23',
                     'sort_key_string' => 'Test',
                     'version' => '1',
                 ],
             ],
-            $this->getDatabaseHandler()
-                ->createSelectQuery()
+            $this->getDatabaseConnection()
+                ->createQueryBuilder()
                 ->select(
                     [
                         'contentclassattribute_id',
@@ -468,7 +469,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         $content = $this->getContentFixture();
         $content->versionInfo->contentInfo->id = 2342;
         // Set main language to the one used in the field fixture
-        $content->versionInfo->contentInfo->mainLanguageCode = 'eng-GB';
+        $content->versionInfo->contentInfo->mainLanguageCode = self::ENG_GB;
 
         $field = $this->getFieldFixture();
         $value = $this->getStorageValueFixture();
@@ -485,15 +486,15 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
                     'data_int' => '42',
                     'data_text' => 'Test text',
                     'data_type_string' => 'ezstring',
-                    'language_code' => 'eng-GB',
+                    'language_code' => self::ENG_GB,
                     'language_id' => '5',
                     'sort_key_int' => '23',
                     'sort_key_string' => 'Test',
                     'version' => '1',
                 ],
             ],
-            $this->getDatabaseHandler()
-                ->createSelectQuery()
+            $this->getDatabaseConnection()
+                ->createQueryBuilder()
                 ->select(
                     [
                         'contentclassattribute_id',
@@ -549,8 +550,8 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
                     'sort_key_string' => 'new_text',
                 ],
             ],
-            $this->getDatabaseHandler()
-                ->createSelectQuery()
+            $this->getDatabaseConnection()
+                ->createQueryBuilder()
                 ->select(
                     [
                         'data_float',
@@ -612,8 +613,8 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
                     'sort_key_string' => 'new_text',
                 ],
             ],
-            $this->getDatabaseHandler()
-                ->createSelectQuery()
+            $this->getDatabaseConnection()
+                ->createQueryBuilder()
                 ->select(
                     [
                         'data_float',
@@ -732,7 +733,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
         $this->assertValuesInRows(
             'ezcontentobject_attribute_language_code',
-            ['eng-US', 'eng-GB'],
+            ['eng-US', self::ENG_GB],
             $res
         );
 
@@ -805,11 +806,11 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
 
         $gateway = $this->getDatabaseGateway();
-        $res = $gateway->load(226, 2, ['eng-GB']);
+        $res = $gateway->load(226, 2, [self::ENG_GB]);
 
         $this->assertValuesInRows(
             'ezcontentobject_attribute_language_code',
-            ['eng-GB'],
+            [self::ENG_GB],
             $res
         );
         $this->assertValuesInRows(
@@ -1183,11 +1184,11 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
         $gateway = $this->getDatabaseGateway();
 
-        $gateway->setName(14, 2, 'Hello world!', 'eng-GB');
+        $gateway->setName(14, 2, 'Hello world!', self::ENG_GB);
 
-        $query = $this->getDatabaseHandler()->createSelectQuery();
+        $query = $this->getDatabaseConnection()->createQueryBuilder();
         $this->assertQueryResult(
-            [['eng-GB', 2, 14, 4, 'Hello world!', 'eng-GB']],
+            [[self::ENG_GB, 2, 14, 4, 'Hello world!', self::ENG_GB]],
             $query
                 ->select(
                     [
@@ -1200,13 +1201,12 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
                     ]
                 )
                 ->from('ezcontentobject_name')
-                ->where(
-                    $query->expr->lAnd(
-                        $query->expr->eq('contentobject_id', 14),
-                        $query->expr->eq('content_version', 2),
-                        $query->expr->eq('content_translation', $query->bindValue('eng-GB'))
-                    )
-                )
+                ->where('contentobject_id = :content_id')
+                ->andWhere('content_version = :version_no')
+                ->andWhere('content_translation = :language_code')
+                ->setParameter('content_id', 14, ParameterType::INTEGER)
+                ->setParameter('version_no', 2, ParameterType::INTEGER)
+                ->setParameter('language_code', self::ENG_GB, ParameterType::STRING)
         );
     }
 
@@ -1482,8 +1482,8 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
                     'relation_type' => $struct->type,
                 ],
             ],
-            $this->getDatabaseHandler()
-                ->createSelectQuery()
+            $this->getDatabaseConnection()
+                ->createQueryBuilder()
                 ->select(
                     [
                         'id',
@@ -2007,7 +2007,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
         $field->fieldDefinitionId = 231;
         $field->type = 'ezstring';
-        $field->languageCode = 'eng-GB';
+        $field->languageCode = self::ENG_GB;
         $field->versionNo = 1;
 
         return $field;
