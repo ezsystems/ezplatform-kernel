@@ -126,8 +126,7 @@ abstract class FileBaseIntegrationTest extends BaseIntegrationTest
 
     protected function getContainer()
     {
-        $config = include __DIR__ . '/../../../../../config.php';
-        $installDir = $config['install_dir'];
+        $installDir = dirname(__DIR__, 5);
 
         $containerBuilder = new ContainerBuilder();
         $settingsPath = $installDir . '/eZ/Publish/Core/settings/';

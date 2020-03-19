@@ -297,11 +297,11 @@ class Legacy extends SetupFactory
     public function getServiceContainer()
     {
         if (!isset(self::$serviceContainer)) {
-            $config = include __DIR__ . '/../../../../../../config.php';
-            $installDir = $config['install_dir'];
+            $installDir = dirname(__DIR__, 6);
+            $cacheDir = "{$installDir}/var/cache";
 
             /** @var \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder */
-            $containerBuilder = include $config['container_builder_path'];
+            $containerBuilder = require "{$installDir}/eZ/Publish/Core/settings/containerBuilder.php";
 
             /* @var \Symfony\Component\DependencyInjection\Loader\YamlFileLoader $loader */
             $loader->load('search_engines/legacy.yml');
@@ -327,7 +327,7 @@ class Legacy extends SetupFactory
             self::$serviceContainer = new ServiceContainer(
                 $containerBuilder,
                 $installDir,
-                $config['cache_dir'],
+                $cacheDir,
                 true,
                 true
             );

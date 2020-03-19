@@ -68,8 +68,7 @@ abstract class BaseIntegrationTest extends TestCase
     {
         static $installDir = null;
         if ($installDir === null) {
-            $config = require __DIR__ . '/../../../../../config.php';
-            $installDir = $config['install_dir'];
+            $installDir = dirname(__DIR__, 5);
         }
 
         return $installDir;
@@ -559,8 +558,7 @@ abstract class BaseIntegrationTest extends TestCase
 
     protected function getContainer()
     {
-        $config = include __DIR__ . '/../../../../../config.php';
-        $installDir = $config['install_dir'];
+        $installDir = dirname(__DIR__, 5);
 
         $containerBuilder = new ContainerBuilder();
         $settingsPath = $installDir . '/eZ/Publish/Core/settings/';

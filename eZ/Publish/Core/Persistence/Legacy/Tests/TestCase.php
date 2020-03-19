@@ -304,8 +304,7 @@ abstract class TestCase extends BaseTestCase
     {
         static $installDir = null;
         if ($installDir === null) {
-            $config = require 'config.php';
-            $installDir = $config['install_dir'];
+            $installDir = dirname(__DIR__, 5);
         }
 
         return $installDir;
