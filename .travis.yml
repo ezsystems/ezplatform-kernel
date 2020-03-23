@@ -40,9 +40,6 @@ matrix:
       env: TEST_CONFIG="phpunit-integration-legacy.xml" DB="postgresql" DATABASE="pgsql://postgres@localhost/testdb"
     - php: 7.3
       env: TEST_CONFIG="phpunit-integration-legacy.xml" DB="mysql" DATABASE="mysql://root@localhost/testdb"
-# Disabled as it currently fails, integration tests are not written for language config awareness in Repo, should probably be opt in by test
-#    - php: 7.3
-#      env: TEST_CONFIG="phpunit-integration-legacy.xml" DB="mysql" DATABASE="mysql://root@localhost/testdb" REPOSITORY_SERVICE_ID="ezpublish.siteaccessaware.repository"
     - name: 'Code Style Check'
       php: 7.3
       env: CHECK_CS=1
