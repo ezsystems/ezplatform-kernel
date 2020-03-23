@@ -26,7 +26,6 @@ matrix:
     - name: 'Unit tests'
       php: 7.3
       install:
-        - ./bin/.travis/prepare_unittest.sh
         - travis_retry composer install --no-progress --no-interaction --no-suggest --prefer-dist
         - TEST_TIMEZONE=${TEST_TIMEZONES["`shuf -i 0-2 -n 1`"]} echo "Testing using ${TEST_TIMEZONE} timezone"
       script: php -d date.timezone=$TEST_TIMEZONE -d memory_limit=-1 vendor/bin/phpunit -c phpunit.xml
@@ -51,7 +50,7 @@ matrix:
         - SOLR_CONFIG="vendor/ezsystems/ezplatform-solr-search-engine/lib/Resources/config/solr/schema.xml vendor/ezsystems/ezplatform-solr-search-engine/lib/Resources/config/solr/custom-fields-types.xml vendor/ezsystems/ezplatform-solr-search-engine/lib/Resources/config/solr/language-fieldtypes.xml"
         - JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre/"
       install:
-        - ./bin/.travis/prepare_unittest.sh
+        - ./bin/.travis/configure_redis.sh
         - sudo apt-get install openjdk-8-jdk
         - composer require --dev --no-update ezsystems/ezplatform-solr-search-engine:^3.0.0@dev
         - travis_retry composer install --no-progress --no-interaction --no-suggest --prefer-dist
@@ -63,7 +62,7 @@ matrix:
       php: 7.3
       env: DB="postgresql" DATABASE="pgsql://postgres@localhost/testdb"
       install:
-        - ./bin/.travis/prepare_unittest.sh
+        - ./bin/.travis/configure_postgresql.sh
         - travis_retry composer install --no-progress --no-interaction --no-suggest --prefer-dist
         - TEST_TIMEZONE=${TEST_TIMEZONES["`shuf -i 0-2 -n 1`"]} echo "Testing using ${TEST_TIMEZONE} timezone"
       script: php -d date.timezone=$TEST_TIMEZONE -d memory_limit=-1 vendor/bin/phpunit -c phpunit-integration-legacy.xml
@@ -72,7 +71,7 @@ matrix:
       php: 7.3
       env: DB="mysql" DATABASE="mysql://root@localhost/testdb"
       install:
-        - ./bin/.travis/prepare_unittest.sh
+        - ./bin/.travis/configure_mysql.sh
         - travis_retry composer install --no-progress --no-interaction --no-suggest --prefer-dist
         - TEST_TIMEZONE=${TEST_TIMEZONES["`shuf -i 0-2 -n 1`"]} echo "Testing using ${TEST_TIMEZONE} timezone"
       script: php -d date.timezone=$TEST_TIMEZONE -d memory_limit=-1 vendor/bin/phpunit -c phpunit-integration-legacy.xml
@@ -96,6 +95,8 @@ before_install:
   - phpenv config-rm xdebug.ini
   # make sure we use UTF-8 encoding
   - echo "default_charset=UTF-8" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  # Setup GitHub key to avoid api rate limit (pure auth read only key, no rights, for use by ezsystems repos only!)
+  - composer config -g github-oauth.github.com "d0285ed5c8644f30547572ead2ed897431c1fc09"
 
 notifications:
   slack:
