@@ -44,12 +44,3 @@ if [ "$TEST_CONFIG" = "phpunit-integration-legacy-solr.xml" ] ; then
     echo "> Require ezsystems/ezplatform-solr-search-engine:^3.0.0@dev"
     composer require --no-update ezsystems/ezplatform-solr-search-engine:^3.0.0@dev
 fi
-
-# Switch to another Symfony version if asked for
-if [ "$SYMFONY_VERSION" != "" ] ; then
-    echo "> Update symfony/symfony requirement to ${SYMFONY_VERSION}"
-    composer require --no-update symfony/symfony="${SYMFONY_VERSION}"
-    # Remove php-cs-fixer as it is not needed for these tests and tends to cause Symfony version conflicts
-    echo "> Remove php-cs-fixer"
-    composer remove --dev --no-update friendsofphp/php-cs-fixer
-fi
