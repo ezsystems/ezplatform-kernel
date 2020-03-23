@@ -14,12 +14,10 @@ cache:
 
 env:
   global:
-    # For functional and acceptance tests
-    - COMPOSE_FILE="doc/docker/base-dev.yml:doc/docker/selenium.yml"
     - PHP_INI_ENV_memory_limit=512M
-    # In order to specify extra flags like ignoring platform reqs, using only stable packages and so on.
-    - COMPOSER_FLAGS=""
     - COMPOSER_MEMORY_LIMIT=4G
+    # Test on random timezone to detect timezone issues
+    - TEST_TIMEZONES=("America/New_York" "Asia/Calcutta" "UTC")
 
 matrix:
   fast_finish: true
@@ -27,26 +25,62 @@ matrix:
 # 7.3
     - name: 'Unit tests'
       php: 7.3
-      env: TEST_CONFIG="phpunit.xml"
-    - name: "Kernel Behat Core tests"
+      install:
+        - ./bin/.travis/prepare_unittest.sh
+        - travis_retry composer install --no-progress --no-interaction --no-suggest --prefer-dist
+        - TEST_TIMEZONE=${TEST_TIMEZONES["`shuf -i 0-2 -n 1`"]} echo "Testing using ${TEST_TIMEZONE} timezone"
+      script: php -d date.timezone=$TEST_TIMEZONE -d memory_limit=-1 vendor/bin/phpunit -c phpunit.xml
+
+    - name: 'Kernel Behat Core tests'
       php: 7.3
       env:
         - COMPOSE_FILE="doc/docker/base-dev.yml:doc/docker/selenium.yml"
-        - BEHAT_OPTS="--profile=core --tags=~@broken"
         - APP_ENV=behat
         - APP_DEBUG=1
+      install: ./bin/.travis/prepare_behat.sh
+      script:
+        - cd "$HOME/build/ezplatform"
+        - docker-compose exec --user www-data app sh -c "bin/behat --profile=core --tags=~@broken"
+
     - name: 'Solr 7.7.2 integration tests (using shared cores) with Redis cache pool'
       php: 7.3
-      env: SOLR_VERSION="7.7.2" TEST_CONFIG="phpunit-integration-legacy-solr.xml" CUSTOM_CACHE_POOL="singleredis" CORES_SETUP="shared" SOLR_CONFIG="vendor/ezsystems/ezplatform-solr-search-engine/lib/Resources/config/solr/schema.xml vendor/ezsystems/ezplatform-solr-search-engine/lib/Resources/config/solr/custom-fields-types.xml vendor/ezsystems/ezplatform-solr-search-engine/lib/Resources/config/solr/language-fieldtypes.xml" JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre/"
+      env:
+        - SOLR_VERSION="7.7.2"
+        - CUSTOM_CACHE_POOL="singleredis"
+        - CORES_SETUP="shared"
+        - SOLR_CONFIG="vendor/ezsystems/ezplatform-solr-search-engine/lib/Resources/config/solr/schema.xml vendor/ezsystems/ezplatform-solr-search-engine/lib/Resources/config/solr/custom-fields-types.xml vendor/ezsystems/ezplatform-solr-search-engine/lib/Resources/config/solr/language-fieldtypes.xml"
+        - JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre/"
+      install:
+        - ./bin/.travis/prepare_unittest.sh
+        - sudo apt-get install openjdk-8-jdk
+        - composer require --dev --no-update ezsystems/ezplatform-solr-search-engine:^3.0.0@dev
+        - travis_retry composer install --no-progress --no-interaction --no-suggest --prefer-dist
+        - ./vendor/ezsystems/ezplatform-solr-search-engine/bin/.travis/init_solr.sh
+        - TEST_TIMEZONE=${TEST_TIMEZONES["`shuf -i 0-2 -n 1`"]} echo "Testing using ${TEST_TIMEZONE} timezone"
+      script: php -d date.timezone=$TEST_TIMEZONE -d memory_limit=-1 vendor/bin/phpunit -c phpunit-integration-legacy-solr.xml
+
     - name: 'PostgreSQL integration tests'
       php: 7.3
-      env: TEST_CONFIG="phpunit-integration-legacy.xml" DB="postgresql" DATABASE="pgsql://postgres@localhost/testdb"
+      env: DB="postgresql" DATABASE="pgsql://postgres@localhost/testdb"
+      install:
+        - ./bin/.travis/prepare_unittest.sh
+        - travis_retry composer install --no-progress --no-interaction --no-suggest --prefer-dist
+        - TEST_TIMEZONE=${TEST_TIMEZONES["`shuf -i 0-2 -n 1`"]} echo "Testing using ${TEST_TIMEZONE} timezone"
+      script: php -d date.timezone=$TEST_TIMEZONE -d memory_limit=-1 vendor/bin/phpunit -c phpunit-integration-legacy.xml
+
     - name: 'MySQL integration tests'
       php: 7.3
-      env: TEST_CONFIG="phpunit-integration-legacy.xml" DB="mysql" DATABASE="mysql://root@localhost/testdb"
+      env: DB="mysql" DATABASE="mysql://root@localhost/testdb"
+      install:
+        - ./bin/.travis/prepare_unittest.sh
+        - travis_retry composer install --no-progress --no-interaction --no-suggest --prefer-dist
+        - TEST_TIMEZONE=${TEST_TIMEZONES["`shuf -i 0-2 -n 1`"]} echo "Testing using ${TEST_TIMEZONE} timezone"
+      script: php -d date.timezone=$TEST_TIMEZONE -d memory_limit=-1 vendor/bin/phpunit -c phpunit-integration-legacy.xml
+
     - name: 'Code Style Check'
       php: 7.3
-      env: CHECK_CS=1
+      install: travis_retry composer install --no-progress --no-interaction --no-suggest --prefer-dist
+      script: ./bin/.travis/check_code_style.sh
 
 # test only master, stable branches and pull requests
 branches:
@@ -58,29 +92,10 @@ branches:
 before_install:
   # Disable memory_limit for composer
   - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-  # Disable XDebug for all jobs as we don't generate test coverge on travis
+  # Disable XDebug for all jobs as we don't generate test coverage on Travis
   - phpenv config-rm xdebug.ini
   # make sure we use UTF-8 encoding
   - echo "default_charset=UTF-8" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-  # Prepare system
-  - if [ "$TEST_CONFIG" != "" ] ; then ./bin/.travis/prepare_unittest.sh ; fi
-  - if [ "$BEHAT_OPTS" != "" ] ; then ./bin/.travis/prepare_behat.sh ; fi
-  # Execute Symfony command if specified
-  - if [ "$SF_CMD" != "" ] ; then cd "$HOME/build/ezplatform"; docker-compose exec --user www-data app sh -c "bin/console $SF_CMD" ; fi
-  # Detecting timezone issues by testing on random timezone
-  - TEST_TIMEZONES=("America/New_York" "Asia/Calcutta" "UTC")
-  - TEST_TIMEZONE=${TEST_TIMEZONES["`shuf -i 0-2 -n 1`"]}
-
-install:
-  - if [ "$TEST_CONFIG" != "" -o "$CHECK_CS" = "1" ] ; then travis_retry composer install --no-progress --no-interaction --prefer-dist $COMPOSER_FLAGS; fi
-  # Setup Solr search if asked for
-  - if [ "$TEST_CONFIG" = "phpunit-integration-legacy-solr.xml" ] ; then ./vendor/ezsystems/ezplatform-solr-search-engine/bin/.travis/init_solr.sh; fi
-
-# execute phpunit or behat as the script command
-script:
-  - if [ "$TEST_CONFIG" != "" ] ; then php -d date.timezone=$TEST_TIMEZONE -d memory_limit=-1 vendor/bin/phpunit -c $TEST_CONFIG ; fi
-  - if [ "$BEHAT_OPTS" != "" ] ; then cd "$HOME/build/ezplatform"; docker-compose exec --user www-data app sh -c "bin/behat $BEHAT_OPTS" ; fi
-  - if [ "$CHECK_CS" = "1" ] ; then ./bin/.travis/check_code_style.sh; fi
 
 notifications:
   slack:

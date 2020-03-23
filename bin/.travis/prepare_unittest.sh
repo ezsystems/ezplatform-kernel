@@ -36,11 +36,3 @@ if [ "$DB" = "postgresql" ] ; then sudo mount -o remount,size=25% /var/ramfs; ps
 
 # Setup GitHub key to avoid api rate limit (pure auth read only key, no rights, for use by ezsystems repos only!)
 composer config -g github-oauth.github.com "d0285ed5c8644f30547572ead2ed897431c1fc09"
-
-# solr package search API integration tests
-if [ "$TEST_CONFIG" = "phpunit-integration-legacy-solr.xml" ] ; then
-    # Install openJDK8 as default v11 is too new for SOLR
-    sudo apt-get install openjdk-8-jdk
-    echo "> Require ezsystems/ezplatform-solr-search-engine:^3.0.0@dev"
-    composer require --no-update ezsystems/ezplatform-solr-search-engine:^3.0.0@dev
-fi
