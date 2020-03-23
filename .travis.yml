@@ -16,7 +16,6 @@ env:
   global:
     - PHP_INI_ENV_memory_limit=512M
     - COMPOSER_MEMORY_LIMIT=4G
-    # Test on random timezone to detect timezone issues
     - TEST_TIMEZONES=("America/New_York" "Asia/Calcutta" "UTC")
 
 matrix:
@@ -27,7 +26,7 @@ matrix:
       php: 7.3
       install:
         - travis_retry composer install --no-progress --no-interaction --no-suggest --prefer-dist
-        - TEST_TIMEZONE=${TEST_TIMEZONES["`shuf -i 0-2 -n 1`"]} echo "Testing using ${TEST_TIMEZONE} timezone"
+        - echo "Testing using ${TEST_TIMEZONE} timezone"
       script: php -d date.timezone=$TEST_TIMEZONE -d memory_limit=-1 vendor/bin/phpunit -c phpunit.xml
 
     - name: 'Kernel Behat Core tests'
@@ -55,7 +54,7 @@ matrix:
         - composer require --dev --no-update ezsystems/ezplatform-solr-search-engine:^3.0.0@dev
         - travis_retry composer install --no-progress --no-interaction --no-suggest --prefer-dist
         - ./vendor/ezsystems/ezplatform-solr-search-engine/bin/.travis/init_solr.sh
-        - TEST_TIMEZONE=${TEST_TIMEZONES["`shuf -i 0-2 -n 1`"]} echo "Testing using ${TEST_TIMEZONE} timezone"
+        - echo "Testing using ${TEST_TIMEZONE} timezone"
       script: php -d date.timezone=$TEST_TIMEZONE -d memory_limit=-1 vendor/bin/phpunit -c phpunit-integration-legacy-solr.xml
 
     - name: 'PostgreSQL integration tests'
@@ -64,7 +63,7 @@ matrix:
       install:
         - ./bin/.travis/configure_postgresql.sh
         - travis_retry composer install --no-progress --no-interaction --no-suggest --prefer-dist
-        - TEST_TIMEZONE=${TEST_TIMEZONES["`shuf -i 0-2 -n 1`"]} echo "Testing using ${TEST_TIMEZONE} timezone"
+        - echo "Testing using ${TEST_TIMEZONE} timezone"
       script: php -d date.timezone=$TEST_TIMEZONE -d memory_limit=-1 vendor/bin/phpunit -c phpunit-integration-legacy.xml
 
     - name: 'MySQL integration tests'
@@ -73,7 +72,7 @@ matrix:
       install:
         - ./bin/.travis/configure_mysql.sh
         - travis_retry composer install --no-progress --no-interaction --no-suggest --prefer-dist
-        - TEST_TIMEZONE=${TEST_TIMEZONES["`shuf -i 0-2 -n 1`"]} echo "Testing using ${TEST_TIMEZONE} timezone"
+        - echo "Testing using ${TEST_TIMEZONE} timezone"
       script: php -d date.timezone=$TEST_TIMEZONE -d memory_limit=-1 vendor/bin/phpunit -c phpunit-integration-legacy.xml
 
     - name: 'Code Style Check'
@@ -97,6 +96,8 @@ before_install:
   - echo "default_charset=UTF-8" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   # Setup GitHub key to avoid api rate limit (pure auth read only key, no rights, for use by ezsystems repos only!)
   - composer config -g github-oauth.github.com "d0285ed5c8644f30547572ead2ed897431c1fc09"
+  # Test on random timezone to detect timezone issues
+  - TEST_TIMEZONE=${TEST_TIMEZONES["`shuf -i 0-2 -n 1`"]}
 
 notifications:
   slack:
