@@ -94,7 +94,12 @@ class SecurityListenerTest extends TestCase
 
     public function testOnInteractiveLoginAlreadyEzUser()
     {
+        $apiUser = $this->createMock(APIUser::class);
         $user = $this->createMock(UserInterface::class);
+        $user
+            ->expects($this->once())
+            ->method('getAPIUser')
+            ->willReturn($apiUser);
         $token = $this->createMock(TokenInterface::class);
         $token
             ->expects($this->once())

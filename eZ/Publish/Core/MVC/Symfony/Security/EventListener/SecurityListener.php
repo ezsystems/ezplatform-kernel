@@ -108,7 +108,12 @@ class SecurityListener implements EventSubscriberInterface
     {
         $token = $event->getAuthenticationToken();
         $originalUser = $token->getUser();
-        if ($originalUser instanceof eZUser || !$originalUser instanceof UserInterface) {
+        if ($originalUser instanceof eZUser) {
+            $this->permissionResolver->setCurrentUserReference($originalUser->getAPIUser());
+
+            return;
+        }
+        if (!$originalUser instanceof UserInterface) {
             return;
         }
 
