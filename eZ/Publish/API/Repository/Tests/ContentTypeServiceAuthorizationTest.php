@@ -12,7 +12,6 @@ namespace eZ\Publish\API\Repository\Tests;
  * Test case for operations in the ContentTypeServiceAuthorization using in memory storage.
  *
  * @see eZ\Publish\API\Repository\ContentTypeService
- * @depends eZ\Publish\API\Repository\Tests\UserServiceTest::testLoadUser
  * @group integration
  * @group authorization
  */
@@ -22,7 +21,6 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
      * Test for the createContentTypeGroup() method.
      *
      * @see \eZ\Publish\API\Repository\ContentTypeService::createContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentTypeGroup
      */
     public function testCreateContentTypeGroupThrowsUnauthorizedException()
     {
@@ -63,7 +61,6 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
      * Test for the updateContentTypeGroup() method.
      *
      * @see \eZ\Publish\API\Repository\ContentTypeService::updateContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUpdateContentTypeGroup
      */
     public function testUpdateContentTypeGroupThrowsUnauthorizedException()
     {
@@ -113,7 +110,6 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
      * Test for the deleteContentTypeGroup() method.
      *
      * @see \eZ\Publish\API\Repository\ContentTypeService::deleteContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testDeleteContentTypeGroup
      */
     public function testDeleteContentTypeGroupThrowsUnauthorizedException()
     {
@@ -150,7 +146,6 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
      * Test for the createContentType() method.
      *
      * @see \eZ\Publish\API\Repository\ContentTypeService::createContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentType
      */
     public function testCreateContentTypeThrowsUnauthorizedException()
     {
@@ -207,7 +202,6 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
      * Test for the updateContentTypeDraft() method.
      *
      * @see \eZ\Publish\API\Repository\ContentTypeService::updateContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUpdateContentTypeDraft
      */
     public function testUpdateContentTypeDraftThrowsUnauthorizedException()
     {
@@ -259,7 +253,6 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
      * Test for the addFieldDefinition() method.
      *
      * @see \eZ\Publish\API\Repository\ContentTypeService::addFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testAddFieldDefinition
      */
     public function testAddFieldDefinitionThrowsUnauthorizedException()
     {
@@ -315,7 +308,6 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
      * Test for the removeFieldDefinition() method.
      *
      * @see \eZ\Publish\API\Repository\ContentTypeService::removeFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testRemoveFieldDefinition
      */
     public function testRemoveFieldDefinitionThrowsUnauthorizedException()
     {
@@ -348,7 +340,6 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
      * Test for the updateFieldDefinition() method.
      *
      * @see \eZ\Publish\API\Repository\ContentTypeService::updateFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUpdateFieldDefinition
      */
     public function testUpdateFieldDefinitionThrowsUnauthorizedException()
     {
@@ -406,7 +397,6 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
      * Test for the publishContentTypeDraft() method.
      *
      * @see \eZ\Publish\API\Repository\ContentTypeService::publishContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testPublishContentTypeDraft
      */
     public function testPublishContentTypeDraftThrowsUnauthorizedException()
     {
@@ -437,7 +427,6 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
      * Test for the createContentTypeDraft() method.
      *
      * @see \eZ\Publish\API\Repository\ContentTypeService::createContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentTypeDraft
      */
     public function testCreateContentTypeDraftThrowsUnauthorizedException()
     {
@@ -469,7 +458,6 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
      * Test for the deleteContentType() method.
      *
      * @see \eZ\Publish\API\Repository\ContentTypeService::deleteContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testDeleteContentType
      */
     public function testDeleteContentTypeThrowsUnauthorizedException()
     {
@@ -501,7 +489,6 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
      * Test for the copyContentType() method.
      *
      * @see \eZ\Publish\API\Repository\ContentTypeService::copyContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCopyContentType
      */
     public function testCopyContentTypeThrowsUnauthorizedException()
     {
@@ -533,7 +520,6 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
      * Test for the assignContentTypeGroup() method.
      *
      * @see \eZ\Publish\API\Repository\ContentTypeService::assignContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testAssignContentTypeGroup
      */
     public function testAssignContentTypeGroupThrowsUnauthorizedException()
     {
@@ -566,7 +552,6 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
      * Test for the unassignContentTypeGroup() method.
      *
      * @see \eZ\Publish\API\Repository\ContentTypeService::unassignContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUnassignContentTypeGroup
      */
     public function testUnassignContentTypeGroupThrowsUnauthorizedException()
     {
