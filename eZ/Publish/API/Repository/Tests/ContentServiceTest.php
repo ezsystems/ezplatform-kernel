@@ -85,7 +85,6 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the newContentCreateStruct() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::newContentCreateStruct()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeByIdentifier
      * @group user
      * @group field-type
      */
