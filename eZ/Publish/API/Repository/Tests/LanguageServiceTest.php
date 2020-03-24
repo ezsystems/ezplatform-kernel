@@ -59,7 +59,7 @@ class LanguageServiceTest extends BaseTest
      * @return \eZ\Publish\API\Repository\Values\Content\Language
      *
      * @covers \eZ\Publish\API\Repository\LanguageService::createLanguage
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testNewLanguageCreateStruct
+     * @depends testNewLanguageCreateStruct
      */
     public function testCreateLanguage()
     {
@@ -90,7 +90,7 @@ class LanguageServiceTest extends BaseTest
      * @param \eZ\Publish\API\Repository\Values\Content\Language $language
      *
      * @covers \eZ\Publish\API\Repository\LanguageService::createLanguage
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testCreateLanguage
+     * @depends testCreateLanguage
      */
     public function testCreateLanguageSetsIdPropertyOnReturnedLanguage($language)
     {
@@ -103,7 +103,7 @@ class LanguageServiceTest extends BaseTest
      * @param \eZ\Publish\API\Repository\Values\Content\Language $language
      *
      * @covers \eZ\Publish\API\Repository\LanguageService::createLanguage
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testCreateLanguage
+     * @depends testCreateLanguage
      */
     public function testCreateLanguageSetsExpectedProperties($language)
     {
@@ -125,7 +125,7 @@ class LanguageServiceTest extends BaseTest
      * Test for the createLanguage() method.
      *
      * @covers \eZ\Publish\API\Repository\LanguageService::createLanguage
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testCreateLanguage
+     * @depends testCreateLanguage
      */
     public function testCreateLanguageThrowsInvalidArgumentException()
     {
@@ -214,7 +214,7 @@ class LanguageServiceTest extends BaseTest
      * Test for the updateLanguageName() method.
      *
      * @covers \eZ\Publish\API\Repository\LanguageService::updateLanguageName
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testLoadLanguageById
+     * @depends testLoadLanguageById
      */
     public function testUpdateLanguageName()
     {
@@ -278,7 +278,7 @@ class LanguageServiceTest extends BaseTest
      * Test for the enableLanguage() method.
      *
      * @covers \eZ\Publish\API\Repository\LanguageService::enableLanguage
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testLoadLanguageById
+     * @depends testLoadLanguageById
      */
     public function testEnableLanguage()
     {
@@ -307,7 +307,7 @@ class LanguageServiceTest extends BaseTest
      * Test for the disableLanguage() method.
      *
      * @covers \eZ\Publish\API\Repository\LanguageService::disableLanguage
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testLoadLanguageById
+     * @depends testLoadLanguageById
      */
     public function testDisableLanguage()
     {
@@ -425,8 +425,8 @@ class LanguageServiceTest extends BaseTest
      * Test for the loadLanguages() method.
      *
      * @covers \eZ\Publish\API\Repository\LanguageService::loadLanguages
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testCreateLanguage
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testLoadLanguage
+     * @depends testCreateLanguage
+     * @depends testLoadLanguage
      */
     public function testLoadLanguages()
     {
@@ -470,7 +470,7 @@ class LanguageServiceTest extends BaseTest
      * Test for the loadLanguages() method.
      *
      * @covers \eZ\Publish\API\Repository\LanguageService::loadLanguages
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testCreateLanguage
+     * @depends testCreateLanguage
      */
     public function loadLanguagesReturnsAnEmptyArrayByDefault()
     {
@@ -485,7 +485,7 @@ class LanguageServiceTest extends BaseTest
      * Test for the deleteLanguage() method.
      *
      * @covers \eZ\Publish\API\Repository\LanguageService::deleteLanguage
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testLoadLanguages
+     * @depends testLoadLanguages
      */
     public function testDeleteLanguage()
     {
@@ -527,7 +527,7 @@ class LanguageServiceTest extends BaseTest
      * we cannot declare them here.
      *
      * @covers \eZ\Publish\API\Repository\LanguageService::deleteLanguage
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testDeleteLanguage
+     * @depends testDeleteLanguage
      * @depend(s) eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
      */
     public function testDeleteLanguageThrowsInvalidArgumentException()
@@ -589,7 +589,7 @@ class LanguageServiceTest extends BaseTest
      * Test for the createLanguage() method.
      *
      * @covers \eZ\Publish\API\Repository\LanguageService::createLanguage
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testCreateLanguage
+     * @depends testCreateLanguage
      */
     public function testCreateLanguageInTransactionWithRollback()
     {
@@ -634,7 +634,7 @@ class LanguageServiceTest extends BaseTest
      * Test for the createLanguage() method.
      *
      * @covers \eZ\Publish\API\Repository\LanguageService::createLanguage
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testCreateLanguage
+     * @depends testCreateLanguage
      */
     public function testCreateLanguageInTransactionWithCommit()
     {
@@ -675,7 +675,7 @@ class LanguageServiceTest extends BaseTest
      * Test for the updateLanguageName() method.
      *
      * @covers \eZ\Publish\API\Repository\LanguageService::updateLanguageName
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testUpdateLanguageName
+     * @depends testUpdateLanguageName
      */
     public function testUpdateLanguageNameInTransactionWithRollback()
     {
@@ -713,7 +713,7 @@ class LanguageServiceTest extends BaseTest
      * Test for the updateLanguageName() method.
      *
      * @covers \eZ\Publish\API\Repository\LanguageService::updateLanguageName
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testUpdateLanguageName
+     * @depends testUpdateLanguageName
      */
     public function testUpdateLanguageNameInTransactionWithCommit()
     {

@@ -104,7 +104,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @return \eZ\Publish\API\Repository\Values\Content\Content
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testNewContentCreateStruct
+     * @depends testNewContentCreateStruct
      * @group user
      * @group field-type
      */
@@ -140,7 +140,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @return \eZ\Publish\API\Repository\Values\Content\Content
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testNewContentCreateStruct
+     * @depends testNewContentCreateStruct
      * @group user
      * @group field-type
      */
@@ -201,7 +201,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @return \eZ\Publish\API\Repository\Values\Content\Content
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
+     * @depends testCreateContent
      */
     public function testCreateContentSetsContentInfo($content)
     {
@@ -216,7 +216,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @param \eZ\Publish\API\Repository\Values\Content\Content $content
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentSetsContentInfo
+     * @depends testCreateContentSetsContentInfo
      */
     public function testCreateContentSetsExpectedContentInfo($content)
     {
@@ -259,7 +259,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @return \eZ\Publish\API\Repository\Values\Content\Content
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
+     * @depends testCreateContent
      */
     public function testCreateContentSetsVersionInfo($content)
     {
@@ -274,7 +274,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @param \eZ\Publish\API\Repository\Values\Content\Content $content
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentSetsVersionInfo
+     * @depends testCreateContentSetsVersionInfo
      */
     public function testCreateContentSetsExpectedVersionInfo($content)
     {
@@ -332,7 +332,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the createContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
+     * @depends testCreateContent
      */
     public function testCreateContentThrowsInvalidArgumentException()
     {
@@ -367,7 +367,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the createContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
+     * @depends testCreateContent
      */
     public function testCreateContentThrowsInvalidArgumentExceptionOnFieldTypeNotAccept()
     {
@@ -387,7 +387,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the createContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
+     * @depends testCreateContent
      */
     public function testCreateContentThrowsContentFieldValidationException()
     {
@@ -410,7 +410,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the createContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
+     * @depends testCreateContent
      */
     public function testCreateContentRequiredFieldMissing()
     {
@@ -436,7 +436,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @see \eZ\Publish\API\Repository\ContentService::createContent($contentCreateStruct, $locationCreateStructs)
      * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testCreateLocation
      * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocationByRemoteId
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
+     * @depends testCreateContent
      * @group user
      */
     public function testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately()
@@ -453,7 +453,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the createContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContent($contentCreateStruct, $locationCreateStructs)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
+     * @depends testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
      */
     public function testCreateContentThrowsInvalidArgumentExceptionWithLocationCreateParameter()
     {
@@ -524,7 +524,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the returned value of the loadContentInfo() method.
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @depends testLoadContentInfo
      * @covers \eZ\Publish\API\Repository\ContentService::loadContentInfo
      *
      * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
@@ -538,7 +538,7 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @depends testLoadContentInfo
      * @covers \eZ\Publish\API\Repository\ContentService::loadContentInfo
      *
      * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
@@ -552,7 +552,7 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @depends testLoadContentInfo
      * @covers \eZ\Publish\API\Repository\ContentService::loadContentInfo
      *
      * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
@@ -566,7 +566,7 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @depends testLoadContentInfo
      * @covers \eZ\Publish\API\Repository\ContentService::loadContentInfo
      *
      * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
@@ -580,7 +580,7 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @depends testLoadContentInfo
      * @covers \eZ\Publish\API\Repository\ContentService::loadContentInfo
      *
      * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
@@ -594,7 +594,7 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @depends testLoadContentInfo
      * @covers \eZ\Publish\API\Repository\ContentService::loadContentInfo
      *
      * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
@@ -611,7 +611,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContentInfo() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContentInfo()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @depends testLoadContentInfo
      */
     public function testLoadContentInfoThrowsNotFoundException()
     {
@@ -672,7 +672,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the returned value of the loadContentInfoByRemoteId() method.
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfoByRemoteId
+     * @depends testLoadContentInfoByRemoteId
      * @covers \eZ\Publish\API\Repository\ContentService::loadContentInfoByRemoteId
      *
      * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
@@ -703,7 +703,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContentInfoByRemoteId() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContentInfoByRemoteId()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfoByRemoteId
+     * @depends testLoadContentInfoByRemoteId
      */
     public function testLoadContentInfoByRemoteIdThrowsNotFoundException()
     {
@@ -716,7 +716,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadVersionInfo() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadVersionInfo()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @depends testLoadContentInfo
      * @group user
      */
     public function testLoadVersionInfo()
@@ -760,7 +760,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the returned value of the loadVersionInfoById() method.
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfoById
+     * @depends testLoadVersionInfoById
      * @covers \eZ\Publish\Core\Repository\ContentService::loadVersionInfoById
      *
      * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
@@ -792,7 +792,7 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfoById
+     * @depends testLoadVersionInfoById
      * @covers \eZ\Publish\Core\Repository\ContentService::loadVersionInfoById
      *
      * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
@@ -806,7 +806,7 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfoById
+     * @depends testLoadVersionInfoById
      * @covers \eZ\Publish\Core\Repository\ContentService::loadVersionInfoById
      *
      * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
@@ -820,7 +820,7 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfoById
+     * @depends testLoadVersionInfoById
      * @covers \eZ\Publish\Core\Repository\ContentService::loadVersionInfoById
      *
      * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
@@ -839,7 +839,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadVersionInfoById() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadVersionInfoById()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfoById
+     * @depends testLoadVersionInfoById
      */
     public function testLoadVersionInfoByIdThrowsNotFoundException()
     {
@@ -854,7 +854,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContentByContentInfo() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContentByContentInfo()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @depends testLoadContentInfo
      */
     public function testLoadContentByContentInfo()
     {
@@ -877,7 +877,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContentByVersionInfo() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContentByVersionInfo()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfo
+     * @depends testLoadVersionInfo
      */
     public function testLoadContentByVersionInfo()
     {
@@ -924,7 +924,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
+     * @depends testLoadContent
      */
     public function testLoadContentThrowsNotFoundException()
     {
@@ -984,7 +984,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContentByRemoteId() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContentByRemoteId()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentByRemoteId
+     * @depends testLoadContentByRemoteId
      */
     public function testLoadContentByRemoteIdThrowsNotFoundException()
     {
@@ -1000,10 +1000,10 @@ class ContentServiceTest extends BaseContentServiceTest
      * @return \eZ\Publish\API\Repository\Values\Content\Content
      *
      * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfo
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
+     * @depends testLoadContent
+     * @depends testLoadContentInfo
+     * @depends testLoadVersionInfo
+     * @depends testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
      * @group user
      * @group field-type
      */
@@ -1030,7 +1030,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @param \eZ\Publish\API\Repository\Values\Content\Content $content
      *
      * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @depends testPublishVersion
      */
     public function testPublishVersionSetsExpectedContentInfo($content)
     {
@@ -1071,7 +1071,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @param \eZ\Publish\API\Repository\Values\Content\Content $content
      *
      * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @depends testPublishVersion
      */
     public function testPublishVersionSetsExpectedVersionInfo($content)
     {
@@ -1139,8 +1139,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * @return \eZ\Publish\API\Repository\Values\Content\Content
      *
      * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @depends testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
+     * @depends testPublishVersion
      */
     public function testPublishVersionCreatesLocationsDefinedOnCreate()
     {
@@ -1162,7 +1162,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the publishVersion() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionCreatesLocationsDefinedOnCreate
+     * @depends testPublishVersionCreatesLocationsDefinedOnCreate
      */
     public function testCreateContentWithLocationCreateParameterCreatesExpectedLocation(array $testData)
     {
@@ -1195,7 +1195,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the publishVersion() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @depends testPublishVersion
      */
     public function testPublishVersionThrowsBadStateException()
     {
@@ -1244,7 +1244,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @return \eZ\Publish\API\Repository\Values\Content\Content
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @depends testPublishVersion
      * @group user
      */
     public function testCreateContentDraft()
@@ -1292,7 +1292,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Note: Editors have access to version_read, which is needed to load content drafts.
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @depends testPublishVersion
      * @group user
      */
     public function testCreateContentDraftAndLoadAccess()
@@ -1317,7 +1317,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @param \eZ\Publish\API\Repository\Values\Content\Content $draft
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @depends testCreateContentDraft
      */
     public function testCreateContentDraftSetsExpectedProperties($draft)
     {
@@ -1339,7 +1339,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @param \eZ\Publish\API\Repository\Values\Content\Content $draft
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @depends testCreateContentDraft
      */
     public function testCreateContentDraftSetsContentInfo($draft)
     {
@@ -1374,7 +1374,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @param \eZ\Publish\API\Repository\Values\Content\Content $draft
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @depends testCreateContentDraft
      */
     public function testCreateContentDraftSetsVersionInfo($draft)
     {
@@ -1408,8 +1408,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * @param \eZ\Publish\API\Repository\Values\Content\Content $draft
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfo
+     * @depends testCreateContentDraft
+     * @depends testLoadVersionInfo
      */
     public function testCreateContentDraftLoadVersionInfoStillLoadsPublishedVersion($draft)
     {
@@ -1428,8 +1428,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the createContentDraft() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @depends testLoadContent
+     * @depends testCreateContentDraft
      */
     public function testCreateContentDraftLoadContentStillLoadsPublishedVersion()
     {
@@ -1448,8 +1448,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the createContentDraft() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentByRemoteId
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @depends testLoadContentByRemoteId
+     * @depends testCreateContentDraft
      */
     public function testCreateContentDraftLoadContentByRemoteIdStillLoadsPublishedVersion()
     {
@@ -1468,8 +1468,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the createContentDraft() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentByContentInfo
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @depends testLoadContentByContentInfo
+     * @depends testCreateContentDraft
      */
     public function testCreateContentDraftLoadContentByContentInfoStillLoadsPublishedVersion()
     {
@@ -1514,8 +1514,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * @return \eZ\Publish\API\Repository\Values\Content\Content
      *
      * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testNewContentUpdateStruct
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @depends testNewContentUpdateStruct
+     * @depends testCreateContentDraft
      * @group user
      * @group field-type
      */
@@ -1543,8 +1543,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * @return \eZ\Publish\API\Repository\Values\Content\Content
      *
      * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testNewContentUpdateStruct
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @depends testNewContentUpdateStruct
+     * @depends testCreateContentDraft
      * @group user
      * @group field-type
      */
@@ -1572,7 +1572,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @param \eZ\Publish\API\Repository\Values\Content\Content $content
      *
      * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @depends testUpdateContent
      */
     public function testUpdateContentSetsExpectedFields($content)
     {
@@ -1606,7 +1606,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the updateContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @depends testUpdateContent
      */
     public function testUpdateContentThrowsBadStateException()
     {
@@ -1632,7 +1632,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the updateContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @depends testUpdateContent
      */
     public function testUpdateContentThrowsInvalidArgumentExceptionWhenFieldTypeDoesNotAccept()
     {
@@ -1655,7 +1655,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the updateContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @depends testUpdateContent
      */
     public function testUpdateContentWhenMandatoryFieldIsEmpty()
     {
@@ -1681,7 +1681,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the updateContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @depends testUpdateContent
      */
     public function testUpdateContentThrowsContentFieldValidationException()
     {
@@ -1707,7 +1707,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the updateContent() method.
      *
      * @covers \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @depends testUpdateContent
      */
     public function testUpdateContentValidatorIgnoresRequiredFieldsOfNotUpdatedLanguages()
     {
@@ -1748,7 +1748,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the updateContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @depends testUpdateContent
      */
     public function testUpdateContentWithNotUpdatingMandatoryField()
     {
@@ -1782,7 +1782,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the createContentDraft() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContentDraft($contentInfo, $versionInfo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @depends testUpdateContent
      */
     public function testCreateContentDraftWithSecondParameter()
     {
@@ -1823,8 +1823,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the publishVersion() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @depends testPublishVersion
+     * @depends testUpdateContent
      */
     public function testPublishVersionFromContentDraft()
     {
@@ -1851,7 +1851,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the publishVersion() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @depends testPublishVersionFromContentDraft
      */
     public function testPublishVersionFromContentDraftArchivesOldVersion()
     {
@@ -1878,7 +1878,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the publishVersion() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @depends testPublishVersionFromContentDraft
      */
     public function testPublishVersionFromContentDraftUpdatesContentInfoCurrentVersion()
     {
@@ -1891,7 +1891,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the publishVersion() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @depends testPublishVersionFromContentDraft
      */
     public function testPublishVersionFromOldContentDraftArchivesNewerVersionNo()
     {
@@ -1918,7 +1918,7 @@ class ContentServiceTest extends BaseContentServiceTest
      *
      * @todo Adapt this when per content type archive limited is added on repository Content Type model.
      * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @depends testPublishVersionFromContentDraft
      */
     public function testPublishVersionNotCreatingUnlimitedArchives()
     {
@@ -2010,8 +2010,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * @return \eZ\Publish\API\Repository\Values\Content\Content
      *
      * @see \eZ\Publish\API\Repository\ContentService::updateContentMetadata()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testNewContentMetadataUpdateStruct
+     * @depends testPublishVersion
+     * @depends testNewContentMetadataUpdateStruct
      * @group user
      */
     public function testUpdateContentMetadata()
@@ -2047,7 +2047,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @param \eZ\Publish\API\Repository\Values\Content\Content $content
      *
      * @see \eZ\Publish\API\Repository\ContentService::updateContentMetadata()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContentMetadata
+     * @depends testUpdateContentMetadata
      */
     public function testUpdateContentMetadataSetsExpectedProperties($content)
     {
@@ -2086,7 +2086,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @param \eZ\Publish\API\Repository\Values\Content\Content $content
      *
      * @see \eZ\Publish\API\Repository\ContentService::updateContentMetadata()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContentMetadata
+     * @depends testUpdateContentMetadata
      */
     public function testUpdateContentMetadataNotUpdatesContentVersion($content)
     {
@@ -2097,7 +2097,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the updateContentMetadata() method.
      *
      * @covers \eZ\Publish\API\Repository\ContentService::updateContentMetadata()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContentMetadata
+     * @depends testUpdateContentMetadata
      */
     public function testUpdateContentMetadataThrowsInvalidArgumentExceptionOnDuplicateRemoteId()
     {
@@ -2223,7 +2223,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the deleteContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::deleteContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @depends testPublishVersionFromContentDraft
      */
     public function testDeleteContent()
     {
@@ -2249,7 +2249,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * "contentService: Unable to delete a content with an empty file attribute"
      *
      * @see \eZ\Publish\API\Repository\ContentService::deleteContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @depends testPublishVersionFromContentDraft
      */
     public function testDeleteContentWithEmptyBinaryField()
     {
@@ -2329,7 +2329,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContentDrafts() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContentDrafts()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @depends testCreateContentDraft
      */
     public function testLoadContentDrafts()
     {
@@ -2492,7 +2492,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadVersionInfo() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadVersionInfo($contentInfo, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @depends testPublishVersionFromContentDraft
      */
     public function testLoadVersionInfoWithSecondParameter()
     {
@@ -2516,7 +2516,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadVersionInfo() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadVersionInfo($contentInfo, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfoWithSecondParameter
+     * @depends testLoadVersionInfoWithSecondParameter
      */
     public function testLoadVersionInfoThrowsNotFoundExceptionWithSecondParameter()
     {
@@ -2532,7 +2532,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadVersionInfoById() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadVersionInfoById($contentId, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfoWithSecondParameter
+     * @depends testLoadVersionInfoWithSecondParameter
      */
     public function testLoadVersionInfoByIdWithSecondParameter()
     {
@@ -2560,7 +2560,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the returned value of the loadVersionInfoById() method.
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfoByIdWithSecondParameter
+     * @depends testLoadVersionInfoByIdWithSecondParameter
      * @covers \eZ\Publish\API\Repository\ContentService::loadVersionInfoById
      *
      * @param array $data
@@ -2626,8 +2626,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContentByVersionInfo() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContentByVersionInfo($versionInfo, $languages)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentByVersionInfo
+     * @depends testCreateContent
+     * @depends testLoadContentByVersionInfo
      */
     public function testLoadContentByVersionInfoWithSecondParameter()
     {
@@ -2702,7 +2702,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContentByContentInfo() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContentByContentInfo($contentInfo, $languages)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentByContentInfo
+     * @depends testLoadContentByContentInfo
      */
     public function testLoadContentByContentInfoWithLanguageParameters()
     {
@@ -2811,7 +2811,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContentByContentInfo() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContentByContentInfo($contentInfo, $languages, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentByContentInfo
+     * @depends testLoadContentByContentInfo
      */
     public function testLoadContentByContentInfoWithVersionNumberParameter()
     {
@@ -2842,7 +2842,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContentByContentInfo() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContentByContentInfo($contentInfo, $languages, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentByContentInfoWithVersionNumberParameter
+     * @depends testLoadContentByContentInfoWithVersionNumberParameter
      */
     public function testLoadContentByContentInfoThrowsNotFoundExceptionWithVersionNumberParameter()
     {
@@ -2858,7 +2858,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContent($contentId, $languages)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @depends testPublishVersionFromContentDraft
      */
     public function testLoadContentWithPrioritizedLanguages()
     {
@@ -2875,7 +2875,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContent() method using undefined translation.
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentWithPrioritizedLanguages
+     * @depends testLoadContentWithPrioritizedLanguages
      *
      * @param \eZ\Publish\API\Repository\Values\Content\Content $contentDraft
      */
@@ -2890,7 +2890,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentWithPrioritizedLanguages
+     * @depends testLoadContentWithPrioritizedLanguages
      */
     public function testLoadContentPassTroughPrioritizedLanguagesToContentType(Content $content): void
     {
@@ -2908,7 +2908,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContent($contentId, $languages, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @depends testPublishVersionFromContentDraft
      */
     public function testLoadContentWithThirdParameter()
     {
@@ -2932,7 +2932,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContent($contentId, $languages, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentWithThirdParameter
+     * @depends testLoadContentWithThirdParameter
      */
     public function testLoadContentThrowsNotFoundExceptionWithThirdParameter()
     {
@@ -2948,7 +2948,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContentByRemoteId() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContentByRemoteId($remoteId, $languages)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @depends testPublishVersionFromContentDraft
      */
     public function testLoadContentByRemoteIdWithSecondParameter()
     {
@@ -2971,7 +2971,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContentByRemoteId() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContentByRemoteId($remoteId, $languages, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @depends testPublishVersionFromContentDraft
      */
     public function testLoadContentByRemoteIdWithThirdParameter()
     {
@@ -2999,7 +2999,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadContentByRemoteId() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadContentByRemoteId($remoteId, $languages, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentByRemoteIdWithThirdParameter
+     * @depends testLoadContentByRemoteIdWithThirdParameter
      */
     public function testLoadContentByRemoteIdThrowsNotFoundExceptionWithThirdParameter()
     {
@@ -3055,10 +3055,10 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the deleteVersion() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::deleteVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @depends testLoadContent
+     * @depends testCreateContent
+     * @depends testPublishVersion
+     * @depends testCreateContentDraft
      */
     public function testDeleteVersion()
     {
@@ -3085,9 +3085,9 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the deleteVersion() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::deleteVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @depends testLoadContent
+     * @depends testCreateContent
+     * @depends testPublishVersion
      */
     public function testDeleteVersionThrowsBadStateExceptionOnPublishedVersion()
     {
@@ -3103,9 +3103,9 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the deleteVersion() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::deleteVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @depends testLoadContent
+     * @depends testCreateContent
+     * @depends testPublishVersion
      */
     public function testDeleteVersionWorksIfOnlyVersionIsDraft()
     {
@@ -3124,7 +3124,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadVersions() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadVersions()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @depends testPublishVersion
      *
      * @return VersionInfo[]
      */
@@ -3148,7 +3148,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadVersions() method.
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersions
+     * @depends testLoadVersions
      * @covers \eZ\Publish\Core\Repository\ContentService::loadVersions
      *
      * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo[] $versions
@@ -3201,7 +3201,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the copyContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::copyContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @depends testPublishVersionFromContentDraft
      * @group field-type
      */
     public function testCopyContent()
@@ -3262,7 +3262,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * See settings/test/integration_legacy.yml for service override.
      *
      * @see \eZ\Publish\API\Repository\ContentService::copyContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @depends testPublishVersionFromContentDraft
      * @group field-type
      */
     public function testCopyContentWithNewOwner()
@@ -3322,7 +3322,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the copyContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::copyContent($contentInfo, $destinationLocationCreateStruct, $versionInfo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCopyContent
+     * @depends testCopyContent
      */
     public function testCopyContentWithGivenVersion()
     {
@@ -3380,7 +3380,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @return \eZ\Publish\API\Repository\Values\Content\Content
      *
      * @see \eZ\Publish\API\Repository\ContentService::addRelation()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @depends testPublishVersionFromContentDraft
      */
     public function testAddRelation()
     {
@@ -3408,7 +3408,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @param \eZ\Publish\API\Repository\Values\Content\Relation[] $relations
      *
      * @see \eZ\Publish\API\Repository\ContentService::addRelation()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
+     * @depends testAddRelation
      */
     public function testAddRelationAddsRelationToContent($relations)
     {
@@ -3445,7 +3445,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @param \eZ\Publish\API\Repository\Values\Content\Relation[] $relations
      *
      * @see \eZ\Publish\API\Repository\ContentService::addRelation()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
+     * @depends testAddRelation
      */
     public function testAddRelationSetsExpectedRelations($relations)
     {
@@ -3458,7 +3458,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @return \eZ\Publish\API\Repository\Values\Content\Relation[]
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelationSetsExpectedRelations
+     * @depends testAddRelationSetsExpectedRelations
      */
     public function testCreateContentDraftWithRelations()
     {
@@ -3483,7 +3483,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @param \eZ\Publish\API\Repository\Values\Content\Relation[] $relations
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Relation[]
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraftWithRelations
+     * @depends testCreateContentDraftWithRelations
      */
     public function testCreateContentDraftWithRelationsCreatesRelations($relations)
     {
@@ -3500,7 +3500,7 @@ class ContentServiceTest extends BaseContentServiceTest
      *
      * @param \eZ\Publish\API\Repository\Values\Content\Relation[] $relations
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraftWithRelationsCreatesRelations
+     * @depends testCreateContentDraftWithRelationsCreatesRelations
      */
     public function testCreateContentDraftWithRelationsCreatesExpectedRelations($relations)
     {
@@ -3511,7 +3511,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the addRelation() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::addRelation()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
+     * @depends testAddRelation
      */
     public function testAddRelationThrowsBadStateException()
     {
@@ -3532,7 +3532,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadRelations() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadRelations()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
+     * @depends testAddRelation
      */
     public function testLoadRelations()
     {
@@ -3593,8 +3593,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadRelations() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadRelations()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadRelations
+     * @depends testAddRelation
+     * @depends testLoadRelations
      */
     public function testLoadRelationsSkipsArchivedContent()
     {
@@ -3648,8 +3648,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadRelations() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadRelations()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadRelations
+     * @depends testAddRelation
+     * @depends testLoadRelations
      */
     public function testLoadRelationsSkipsDraftContent()
     {
@@ -3751,7 +3751,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadReverseRelations() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadReverseRelations()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
+     * @depends testAddRelation
      */
     public function testLoadReverseRelations()
     {
@@ -3832,8 +3832,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadReverseRelations() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadReverseRelations()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadReverseRelations
+     * @depends testAddRelation
+     * @depends testLoadReverseRelations
      */
     public function testLoadReverseRelationsSkipsArchivedContent()
     {
@@ -3905,8 +3905,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the loadReverseRelations() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::loadReverseRelations()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadReverseRelations
+     * @depends testAddRelation
+     * @depends testLoadReverseRelations
      */
     public function testLoadReverseRelationsSkipsDraftContent()
     {
@@ -4122,7 +4122,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the deleteRelation() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::deleteRelation()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadRelations
+     * @depends testLoadRelations
      */
     public function testDeleteRelation()
     {
@@ -4148,7 +4148,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the deleteRelation() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::deleteRelation()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testDeleteRelation
+     * @depends testDeleteRelation
      */
     public function testDeleteRelationThrowsBadStateException()
     {
@@ -4181,7 +4181,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the deleteRelation() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::deleteRelation()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testDeleteRelation
+     * @depends testDeleteRelation
      */
     public function testDeleteRelationThrowsInvalidArgumentException()
     {
@@ -4202,8 +4202,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the createContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
+     * @depends testCreateContent
+     * @depends testLoadContent
      */
     public function testCreateContentInTransactionWithRollback()
     {
@@ -4254,8 +4254,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the createContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
+     * @depends testCreateContent
+     * @depends testLoadContent
      */
     public function testCreateContentInTransactionWithCommit()
     {
@@ -4301,8 +4301,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the createContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContent($contentCreateStruct, $locationCreateStructs)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentThrowsNotFoundException
+     * @depends testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
+     * @depends testLoadContentThrowsNotFoundException
      */
     public function testCreateContentWithLocationCreateParameterInTransactionWithRollback()
     {
@@ -4338,8 +4338,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the createContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContent($contentCreateStruct, $locationCreateStructs)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentThrowsNotFoundException
+     * @depends testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
+     * @depends testLoadContentThrowsNotFoundException
      */
     public function testCreateContentWithLocationCreateParameterInTransactionWithCommit()
     {
@@ -4371,8 +4371,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the createContentDraft() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
+     * @depends testCreateContentDraft
+     * @depends testLoadContent
      */
     public function testCreateContentDraftInTransactionWithRollback()
     {
@@ -4415,8 +4415,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the createContentDraft() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
+     * @depends testCreateContentDraft
+     * @depends testLoadContent
      */
     public function testCreateContentDraftInTransactionWithCommit()
     {
@@ -4457,8 +4457,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the publishVersion() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
+     * @depends testPublishVersion
+     * @depends testLoadContent
      */
     public function testPublishVersionInTransactionWithRollback()
     {
@@ -4503,8 +4503,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the publishVersion() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfo
+     * @depends testPublishVersion
+     * @depends testLoadVersionInfo
      */
     public function testPublishVersionInTransactionWithCommit()
     {
@@ -4543,9 +4543,9 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the updateContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @depends testUpdateContent
+     * @depends testLoadContent
+     * @depends testLoadContentInfo
      */
     public function testUpdateContentInTransactionWithRollback()
     {
@@ -4593,9 +4593,9 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the updateContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @depends testUpdateContent
+     * @depends testLoadContent
+     * @depends testLoadContentInfo
      */
     public function testUpdateContentInTransactionWithCommit()
     {
@@ -4643,8 +4643,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the updateContentMetadata() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::updateContentMetadata()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContentMetadata
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @depends testUpdateContentMetadata
+     * @depends testLoadContentInfo
      */
     public function testUpdateContentMetadataInTransactionWithRollback()
     {
@@ -4690,8 +4690,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the updateContentMetadata() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::updateContentMetadata()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContentMetadata
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @depends testUpdateContentMetadata
+     * @depends testLoadContentInfo
      */
     public function testUpdateContentMetadataInTransactionWithCommit()
     {
@@ -4783,9 +4783,9 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the deleteVersion() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::deleteVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentDrafts
+     * @depends testCreateContent
+     * @depends testLoadContentInfo
+     * @depends testLoadContentDrafts
      */
     public function testDeleteVersionInTransactionWithRollback()
     {
@@ -4822,9 +4822,9 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the deleteVersion() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::deleteVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentDrafts
+     * @depends testCreateContent
+     * @depends testLoadContentInfo
+     * @depends testLoadContentDrafts
      */
     public function testDeleteVersionInTransactionWithCommit()
     {
@@ -4861,8 +4861,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the deleteContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::deleteContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testDeleteContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @depends testDeleteContent
+     * @depends testLoadContentInfo
      */
     public function testDeleteContentInTransactionWithRollback()
     {
@@ -4898,8 +4898,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the deleteContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::deleteContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testDeleteContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @depends testDeleteContent
+     * @depends testLoadContentInfo
      */
     public function testDeleteContentInTransactionWithCommit()
     {
@@ -4939,7 +4939,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the copyContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::copyContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCopyContent
+     * @depends testCopyContent
      * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testNewLocationCreateStruct
      * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocationChildren
      * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocation
@@ -4989,7 +4989,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the copyContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::copyContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCopyContent
+     * @depends testCopyContent
      * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testNewLocationCreateStruct
      * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocationChildren
      * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocation

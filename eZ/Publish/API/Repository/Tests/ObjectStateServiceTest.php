@@ -599,7 +599,7 @@ class ObjectStateServiceTest extends BaseTest
      * Test for the updateObjectStateGroup() method.
      *
      * @covers \eZ\Publish\API\Repository\ObjectStateService::updateObjectStateGroup
-     * @depends eZ\Publish\API\Repository\Tests\ObjectStateServiceTest::testLoadObjectStateGroup
+     * @depends testLoadObjectStateGroup
      */
     public function testUpdateObjectStateGroup()
     {
@@ -655,7 +655,7 @@ class ObjectStateServiceTest extends BaseTest
      * Test service method for partially updating object state group.
      *
      * @covers \eZ\Publish\API\Repository\ObjectStateService::updateObjectStateGroup
-     * @depends eZ\Publish\API\Repository\Tests\ObjectStateServiceTest::testLoadObjectStateGroup
+     * @depends testLoadObjectStateGroup
      */
     public function testUpdateObjectStateGroupChosenFieldsOnly()
     {
@@ -1149,7 +1149,7 @@ class ObjectStateServiceTest extends BaseTest
         $objectStateService = $repository->getObjectStateService();
 
         $objectStateData = $this->testCreateObjectState();
-        /** @see \eZ\Publish\API\Repository\Tests\ObjectStateServiceTest::testCreateObjectState */
+        /** @see \testCreateObjectState */
         $objectState = $objectStateData[2];
         /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectState $objectState */
         $loadedObjectState = $objectStateService->loadObjectState($objectState->id, $prioritizedLanguages);
@@ -1227,7 +1227,7 @@ class ObjectStateServiceTest extends BaseTest
      * Test for the updateObjectState() method.
      *
      * @covers \eZ\Publish\API\Repository\ObjectStateService::updateObjectState
-     * @depends eZ\Publish\API\Repository\Tests\ObjectStateServiceTest::testLoadObjectState
+     * @depends testLoadObjectState
      */
     public function testUpdateObjectState()
     {
@@ -1282,7 +1282,7 @@ class ObjectStateServiceTest extends BaseTest
      * Test service method for partially updating object state.
      *
      * @covers \eZ\Publish\API\Repository\ObjectStateService::updateObjectState
-     * @depends eZ\Publish\API\Repository\Tests\ObjectStateServiceTest::testLoadObjectState
+     * @depends testLoadObjectState
      */
     public function testUpdateObjectStateChosenFieldsOnly()
     {
@@ -1449,7 +1449,6 @@ class ObjectStateServiceTest extends BaseTest
      *
      *
      * @see \eZ\Publish\API\Repository\ObjectStateService::getContentState()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
      * @depends testLoadObjectState
      */
     public function testGetContentState()
@@ -1486,8 +1485,6 @@ class ObjectStateServiceTest extends BaseTest
     /**
      * testGetInitialObjectState.
      *
-     *
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
      * @depends testLoadObjectState
      */
     public function testGetInitialObjectState()
@@ -1552,9 +1549,7 @@ class ObjectStateServiceTest extends BaseTest
     /**
      * Test for the setContentState() method.
      *
-     *
      * @see \eZ\Publish\API\Repository\ObjectStateService::setContentState()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
      * @depends testLoadObjectState
      */
     public function testSetContentState()
@@ -1599,7 +1594,7 @@ class ObjectStateServiceTest extends BaseTest
      * Test for the setContentState() method.
      *
      * @covers \eZ\Publish\API\Repository\ObjectStateService::setContentState
-     * @depends eZ\Publish\API\Repository\Tests\ObjectStateServiceTest::testSetContentState
+     * @depends testSetContentState
      */
     public function testSetContentStateThrowsInvalidArgumentException()
     {

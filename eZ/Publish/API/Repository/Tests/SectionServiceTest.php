@@ -92,7 +92,7 @@ class SectionServiceTest extends BaseTest
      * Test for the createSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::createSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testNewSectionCreateStruct
+     * @depends testNewSectionCreateStruct
      */
     public function testCreateSection()
     {
@@ -115,7 +115,7 @@ class SectionServiceTest extends BaseTest
      * Test for the createSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::createSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testNewSectionCreateStruct
+     * @depends testNewSectionCreateStruct
      */
     public function testCreateSectionForUserWithSectionLimitation()
     {
@@ -153,7 +153,7 @@ class SectionServiceTest extends BaseTest
      * Test for the createSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::createSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testCreateSection
+     * @depends testCreateSection
      */
     public function testCreateSectionThrowsInvalidArgumentException()
     {
@@ -183,7 +183,7 @@ class SectionServiceTest extends BaseTest
      * Test for the loadSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::loadSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testCreateSection
+     * @depends testCreateSection
      */
     public function testLoadSection()
     {
@@ -244,9 +244,9 @@ class SectionServiceTest extends BaseTest
      * Test for the updateSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::updateSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testCreateSection
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testLoadSection
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testNewSectionUpdateStruct
+     * @depends testCreateSection
+     * @depends testLoadSection
+     * @depends testNewSectionUpdateStruct
      */
     public function testUpdateSection()
     {
@@ -281,9 +281,9 @@ class SectionServiceTest extends BaseTest
      * Test for the updateSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::updateSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testCreateSection
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testLoadSection
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testNewSectionUpdateStruct
+     * @depends testCreateSection
+     * @depends testLoadSection
+     * @depends testNewSectionUpdateStruct
      */
     public function testUpdateSectionForUserWithSectionLimitation()
     {
@@ -338,7 +338,7 @@ class SectionServiceTest extends BaseTest
      * Test for the updateSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::updateSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testUpdateSection
+     * @depends testUpdateSection
      */
     public function testUpdateSectionKeepsSectionIdentifierOnNameUpdate()
     {
@@ -365,7 +365,7 @@ class SectionServiceTest extends BaseTest
      * Test for the updateSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::updateSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testUpdateSection
+     * @depends testUpdateSection
      */
     public function testUpdateSectionWithSectionIdentifierOnNameUpdate()
     {
@@ -395,7 +395,7 @@ class SectionServiceTest extends BaseTest
      * Test for the updateSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::updateSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testUpdateSection
+     * @depends testUpdateSection
      */
     public function testUpdateSectionKeepsSectionNameOnIdentifierUpdate()
     {
@@ -423,7 +423,7 @@ class SectionServiceTest extends BaseTest
      * Test for the updateSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::updateSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testUpdateSection
+     * @depends testUpdateSection
      */
     public function testUpdateSectionThrowsInvalidArgumentException()
     {
@@ -460,7 +460,7 @@ class SectionServiceTest extends BaseTest
      * Test for the loadSections() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::loadSections()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testCreateSection
+     * @depends testCreateSection
      */
     public function testLoadSections()
     {
@@ -482,7 +482,7 @@ class SectionServiceTest extends BaseTest
      * Test for the loadSections() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::loadSections()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testCreateSection
+     * @depends testCreateSection
      */
     public function testLoadSectionsReturnsDefaultSectionsByDefault()
     {
@@ -543,7 +543,7 @@ class SectionServiceTest extends BaseTest
      * Test for the loadSectionByIdentifier() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::loadSectionByIdentifier()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testCreateSection
+     * @depends testCreateSection
      */
     public function testLoadSectionByIdentifier()
     {
@@ -645,7 +645,7 @@ class SectionServiceTest extends BaseTest
      * Test for the assignSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::assignSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testCountAssignedContents
+     * @depends testCountAssignedContents
      */
     public function testAssignSection()
     {
@@ -702,7 +702,7 @@ class SectionServiceTest extends BaseTest
      * Test for the assignSectionToSubtree() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::assignSectionToSubtree()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testCreateSection
+     * @depends testCreateSection
      */
     public function testAssignSectionToSubtree()
     {
@@ -754,7 +754,7 @@ class SectionServiceTest extends BaseTest
      * Test for the countAssignedContents() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::countAssignedContents()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testCreateSection
+     * @depends testCreateSection
      */
     public function testCountAssignedContentsReturnsZeroByDefault()
     {
@@ -780,7 +780,7 @@ class SectionServiceTest extends BaseTest
      * Test for the isSectionUsed() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::isSectionUsed()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testCreateSection
+     * @depends testCreateSection
      */
     public function testIsSectionUsedReturnsZeroByDefault()
     {
@@ -806,7 +806,7 @@ class SectionServiceTest extends BaseTest
      * Test for the deleteSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::deleteSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testLoadSections
+     * @depends testLoadSections
      */
     public function testDeleteSection()
     {
@@ -832,7 +832,7 @@ class SectionServiceTest extends BaseTest
      * Test for the deleteSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::deleteSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testDeleteSection
+     * @depends testDeleteSection
      */
     public function testDeleteSectionThrowsNotFoundException()
     {
@@ -861,7 +861,7 @@ class SectionServiceTest extends BaseTest
      * Test for the deleteSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::deleteSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testAssignSection
+     * @depends testAssignSection
      */
     public function testDeleteSectionThrowsBadStateException()
     {
@@ -898,8 +898,8 @@ class SectionServiceTest extends BaseTest
      * Test for the createSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::createSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testCreateSection
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testLoadSectionByIdentifier
+     * @depends testCreateSection
+     * @depends testLoadSectionByIdentifier
      */
     public function testCreateSectionInTransactionWithRollback()
     {
@@ -943,8 +943,8 @@ class SectionServiceTest extends BaseTest
      * Test for the createSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::createSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testCreateSection
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testLoadSectionByIdentifier
+     * @depends testCreateSection
+     * @depends testLoadSectionByIdentifier
      */
     public function testCreateSectionInTransactionWithCommit()
     {
@@ -984,8 +984,8 @@ class SectionServiceTest extends BaseTest
      * Test for the createSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::createSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testUpdateSection
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testLoadSectionByIdentifier
+     * @depends testUpdateSection
+     * @depends testLoadSectionByIdentifier
      */
     public function testUpdateSectionInTransactionWithRollback()
     {
@@ -1027,8 +1027,8 @@ class SectionServiceTest extends BaseTest
      * Test for the createSection() method.
      *
      * @see \eZ\Publish\API\Repository\SectionService::createSection()
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testUpdateSection
-     * @depends eZ\Publish\API\Repository\Tests\SectionServiceTest::testLoadSectionByIdentifier
+     * @depends testUpdateSection
+     * @depends testLoadSectionByIdentifier
      */
     public function testUpdateSectionInTransactionWithCommit()
     {

@@ -37,7 +37,6 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the trash() method.
      *
      * @see \eZ\Publish\API\Repository\TrashService::trash()
-     * @depends eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocationByRemoteId
      */
     public function testTrash()
     {
@@ -55,7 +54,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the trash() method.
      *
      * @see \eZ\Publish\API\Repository\TrashService::trash()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testTrashSetsExpectedTrashItemProperties()
     {
@@ -89,7 +88,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the trash() method.
      *
      * @see \eZ\Publish\API\Repository\TrashService::trash()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testTrashRemovesLocationFromMainStorage()
     {
@@ -115,7 +114,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the trash() method.
      *
      * @see \eZ\Publish\API\Repository\TrashService::trash()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testTrashRemovesChildLocationsFromMainStorage()
     {
@@ -151,7 +150,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the trash() method.
      *
      * @see \eZ\Publish\API\Repository\TrashService::trash()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testTrashDecrementsChildCountOnParentLocation()
     {
@@ -231,7 +230,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the loadTrashItem() method.
      *
      * @covers \eZ\Publish\API\Repository\TrashService::loadTrashItem
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testLoadTrashItem()
     {
@@ -286,7 +285,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the loadTrashItem() method.
      *
      * @see \eZ\Publish\API\Repository\TrashService::loadTrashItem()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testLoadTrashItem
+     * @depends testLoadTrashItem
      */
     public function testLoadTrashItemThrowsNotFoundException()
     {
@@ -308,7 +307,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the recover() method.
      *
      * @covers \eZ\Publish\API\Repository\TrashService::recover
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testRecover()
     {
@@ -373,7 +372,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the trash() method.
      *
      * @see \eZ\Publish\API\Repository\TrashService::recover()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testNotFoundAliasAfterRemoveIt()
     {
@@ -400,7 +399,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the recover() method.
      *
      * @see \eZ\Publish\API\Repository\TrashService::recover()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testAliasesForRemovedItems()
     {
@@ -443,7 +442,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the recover() method.
      *
      * @see \eZ\Publish\API\Repository\TrashService::recover()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testRecover
+     * @depends testRecover
      */
     public function testRecoverDoesNotRestoreChildLocations()
     {
@@ -493,7 +492,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the recover() method.
      *
      * @see \eZ\Publish\API\Repository\TrashService::recover($trashItem, $newParentLocation)
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testRecover
+     * @depends testRecover
      *
      * @todo Fix naming
      */
@@ -545,7 +544,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the recover() method.
      *
      * @see \eZ\Publish\API\Repository\TrashService::recover($trashItem)
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testRecover
+     * @depends testRecover
      */
     public function testRecoverIncrementsChildCountOnOriginalParent()
     {
@@ -585,7 +584,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the recover() method.
      *
      * @see \eZ\Publish\API\Repository\TrashService::recover($trashItem, $newParentLocation)
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testRecoverWithLocationCreateStructParameter
+     * @depends testRecoverWithLocationCreateStructParameter
      */
     public function testRecoverWithLocationCreateStructParameterIncrementsChildCountOnNewParent()
     {
@@ -656,7 +655,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the findTrashItems() method.
      *
      * @see \eZ\Publish\API\Repository\TrashService::findTrashItems()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testFindTrashItems()
     {
@@ -692,7 +691,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the findTrashItems() method for it's result structure.
      *
      * @see \eZ\Publish\API\Repository\TrashService::findTrashItems()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testFindTrashItemsLimits()
     {
@@ -723,7 +722,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the findTrashItems() method.
      *
      * @see \eZ\Publish\API\Repository\TrashService::findTrashItems()
-     * @depends \eZ\Publish\API\Repository\Tests\TrashServiceTest::testFindTrashItems
+     * @depends testFindTrashItems
      */
     public function testFindTrashItemsLimitedAccess()
     {
@@ -752,7 +751,7 @@ class TrashServiceTest extends BaseTrashServiceTest
         /* END: Use Case */
 
         $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\Values\\Content\\SearchResult',
+            SearchResult::class,
             $searchResult
         );
 
@@ -764,7 +763,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the emptyTrash() method.
      *
      * @see \eZ\Publish\API\Repository\TrashService::emptyTrash()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testFindTrashItems
+     * @depends testFindTrashItems
      */
     public function testEmptyTrash()
     {
@@ -800,7 +799,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the emptyTrash() method with user which has subtree limitations.
      *
      * @see \eZ\Publish\API\Repository\TrashService::emptyTrash()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testFindTrashItems
+     * @depends testFindTrashItems
      */
     public function testEmptyTrashForUserWithSubtreeLimitation()
     {
@@ -849,7 +848,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * Test for the deleteTrashItem() method.
      *
      * @see \eZ\Publish\API\Repository\TrashService::deleteTrashItem()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testFindTrashItems
+     * @depends testFindTrashItems
      */
     public function testDeleteTrashItem()
     {

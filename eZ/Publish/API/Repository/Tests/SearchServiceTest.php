@@ -1182,7 +1182,7 @@ class SearchServiceTest extends BaseTest
      *
      * @dataProvider getRelationFieldFilterSearches
      * @see \eZ\Publish\API\Repository\SearchService::findContentInfo()
-     * @depends eZ\Publish\API\Repository\Tests\SearchServiceTest::testRelationContentCreation
+     * @depends testRelationContentCreation
      */
     public function testFindRelationFieldContentInfoFiltered($queryData, $fixture)
     {
@@ -1196,7 +1196,7 @@ class SearchServiceTest extends BaseTest
      *
      * @dataProvider getRelationFieldFilterSearches
      * @see \eZ\Publish\API\Repository\SearchService::findLocations()
-     * @depends eZ\Publish\API\Repository\Tests\SearchServiceTest::testRelationContentCreation
+     * @depends testRelationContentCreation
      */
     public function testFindRelationFieldLocationsFiltered($queryData, $fixture)
     {
@@ -1534,7 +1534,7 @@ class SearchServiceTest extends BaseTest
      * Test for the findContent() method.
      *
      * @see \eZ\Publish\API\Repository\SearchService::findContent()
-     * @depends eZ\Publish\API\Repository\Tests\SearchServiceTest::testFieldCollectionContains
+     * @depends testFieldCollectionContains
      */
     public function testFieldCollectionContainsNoMatch()
     {

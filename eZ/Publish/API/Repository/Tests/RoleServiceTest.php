@@ -58,7 +58,7 @@ class RoleServiceTest extends BaseTest
      * Test for the newRoleCreateStruct() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::newRoleCreateStruct()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testNewRoleCreateStruct
+     * @depends testNewRoleCreateStruct
      */
     public function testNewRoleCreateStructSetsNamePropertyOnStruct()
     {
@@ -78,7 +78,7 @@ class RoleServiceTest extends BaseTest
      * Test for the createRole() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::createRole()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testNewRoleCreateStruct
+     * @depends testNewRoleCreateStruct
      */
     public function testCreateRole()
     {
@@ -111,7 +111,7 @@ class RoleServiceTest extends BaseTest
      * Test for the createRole() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::createRole()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRole
+     * @depends testCreateRole
      */
     public function testRoleCreateStructValues(array $data)
     {
@@ -137,7 +137,7 @@ class RoleServiceTest extends BaseTest
      * Test for the createRole() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::createRole()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testNewRoleCreateStruct
+     * @depends testNewRoleCreateStruct
      */
     public function testCreateRoleWithPolicy()
     {
@@ -184,7 +184,7 @@ class RoleServiceTest extends BaseTest
      * Test for the createRole() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::createRole()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRoleWithPolicy
+     * @depends testCreateRoleWithPolicy
      */
     public function testRoleCreateStructValuesWithPolicy(array $data)
     {
@@ -305,7 +305,7 @@ class RoleServiceTest extends BaseTest
      * Test for the createRoleDraft() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::createRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testNewRoleCreateStruct
+     * @depends testNewRoleCreateStruct
      */
     public function testCreateRoleDraft()
     {
@@ -336,7 +336,7 @@ class RoleServiceTest extends BaseTest
      * Test for the createRole() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::createRole()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRole
+     * @depends testCreateRole
      */
     public function testCreateRoleThrowsInvalidArgumentException()
     {
@@ -362,7 +362,7 @@ class RoleServiceTest extends BaseTest
      * Test for the createRoleDraft() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::createRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRoleDraft
+     * @depends testCreateRoleDraft
      */
     public function testCreateRoleDraftThrowsInvalidArgumentException()
     {
@@ -433,7 +433,7 @@ class RoleServiceTest extends BaseTest
      * Test for the createRole() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::createRole()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testNewRoleCreateStruct
+     * @depends testNewRoleCreateStruct
      */
     public function testCreateRoleInTransactionWithRollback()
     {
@@ -469,7 +469,7 @@ class RoleServiceTest extends BaseTest
      * Test for the createRoleDraft() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::createRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testNewRoleCreateStruct
+     * @depends testNewRoleCreateStruct
      */
     public function testCreateRoleDraftInTransactionWithRollback()
     {
@@ -505,7 +505,7 @@ class RoleServiceTest extends BaseTest
      * Test for the loadRole() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::loadRole()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRole
+     * @depends testCreateRole
      */
     public function testLoadRole()
     {
@@ -534,7 +534,7 @@ class RoleServiceTest extends BaseTest
      * Test for the loadRoleDraft() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::loadRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRoleDraft
+     * @depends testCreateRoleDraft
      */
     public function testLoadRoleDraft()
     {
@@ -588,7 +588,7 @@ class RoleServiceTest extends BaseTest
      * Test for the loadRole() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::loadRole()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testLoadRole
+     * @depends testLoadRole
      */
     public function testLoadRoleThrowsNotFoundException()
     {
@@ -611,7 +611,7 @@ class RoleServiceTest extends BaseTest
      * Test for the loadRoleDraft() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::loadRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testLoadRoleDraft
+     * @depends testLoadRoleDraft
      */
     public function testLoadRoleDraftThrowsNotFoundException()
     {
@@ -651,7 +651,7 @@ class RoleServiceTest extends BaseTest
      * Test for the loadRoleByIdentifier() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::loadRoleByIdentifier()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRole
+     * @depends testCreateRole
      */
     public function testLoadRoleByIdentifier()
     {
@@ -680,7 +680,7 @@ class RoleServiceTest extends BaseTest
      * Test for the loadRoleByIdentifier() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::loadRoleByIdentifier()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testLoadRoleByIdentifier
+     * @depends testLoadRoleByIdentifier
      */
     public function testLoadRoleByIdentifierThrowsNotFoundException()
     {
@@ -702,7 +702,7 @@ class RoleServiceTest extends BaseTest
      * Test for the loadRoles() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::loadRoles()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRole
+     * @depends testCreateRole
      */
     public function testLoadRoles()
     {
@@ -738,7 +738,7 @@ class RoleServiceTest extends BaseTest
      * Test for the loadRoles() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::loadRoles()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testLoadRoles
+     * @depends testLoadRoles
      */
     public function testLoadRolesReturnsExpectedSetOfDefaultRoles()
     {
@@ -788,8 +788,8 @@ class RoleServiceTest extends BaseTest
      * Test for the updateRoleDraft() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::updateRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testNewRoleUpdateStruct
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testLoadRoleDraft
+     * @depends testNewRoleUpdateStruct
+     * @depends testLoadRoleDraft
      */
     public function testUpdateRoleDraft()
     {
@@ -820,7 +820,7 @@ class RoleServiceTest extends BaseTest
      * Test for the updateRoleDraft() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::updateRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testUpdateRoleDraft
+     * @depends testUpdateRoleDraft
      */
     public function testUpdateRoleDraftThrowsInvalidArgumentException()
     {
@@ -849,8 +849,8 @@ class RoleServiceTest extends BaseTest
      * Test for the deleteRole() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::deleteRole()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRole
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testLoadRoles
+     * @depends testCreateRole
+     * @depends testLoadRoles
      */
     public function testDeleteRole()
     {
@@ -877,7 +877,7 @@ class RoleServiceTest extends BaseTest
      * Test for the deleteRoleDraft() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::deleteRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testLoadRoleDraft
+     * @depends testLoadRoleDraft
      */
     public function testDeleteRoleDraft()
     {
@@ -922,7 +922,7 @@ class RoleServiceTest extends BaseTest
      * Test for the newPolicyCreateStruct() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::newPolicyCreateStruct()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testNewPolicyCreateStruct
+     * @depends testNewPolicyCreateStruct
      */
     public function testNewPolicyCreateStructSetsStructProperties()
     {
@@ -943,8 +943,8 @@ class RoleServiceTest extends BaseTest
      * Test for the addPolicyByRoleDraft() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::addPolicyByRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRoleDraft
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testNewPolicyCreateStruct
+     * @depends testCreateRoleDraft
+     * @depends testNewPolicyCreateStruct
      */
     public function testAddPolicyByRoleDraft()
     {
@@ -1005,7 +1005,7 @@ class RoleServiceTest extends BaseTest
      * @return array [\eZ\Publish\API\Repository\Values\User\RoleDraft, \eZ\Publish\API\Repository\Values\User\Policy]
      *
      * @see \eZ\Publish\API\Repository\RoleService::addPolicyByRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAddPolicyByRoleDraft
+     * @depends testAddPolicyByRoleDraft
      */
     public function testAddPolicyByRoleDraftUpdatesRole()
     {
@@ -1046,7 +1046,7 @@ class RoleServiceTest extends BaseTest
      * @param array $roleAndPolicy
      *
      * @see \eZ\Publish\API\Repository\RoleService::addPolicyByRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAddPolicyByRoleDraftUpdatesRole
+     * @depends testAddPolicyByRoleDraftUpdatesRole
      */
     public function testAddPolicyByRoleDraftSetsPolicyProperties($roleAndPolicy)
     {
@@ -1062,8 +1062,8 @@ class RoleServiceTest extends BaseTest
      * Test for the addPolicyByRoleDraft() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::addPolicyByRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testNewPolicyCreateStruct
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRoleDraft
+     * @depends testNewPolicyCreateStruct
+     * @depends testCreateRoleDraft
      */
     public function testAddPolicyByRoleDraftThrowsLimitationValidationException()
     {
@@ -1102,7 +1102,7 @@ class RoleServiceTest extends BaseTest
      * Test for the createRole() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::createRole()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAddPolicyByRoleDraftUpdatesRole
+     * @depends testAddPolicyByRoleDraftUpdatesRole
      */
     public function testCreateRoleWithAddPolicy()
     {
@@ -1162,7 +1162,7 @@ class RoleServiceTest extends BaseTest
      * Test for the createRoleDraft() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::createRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAddPolicyByRoleDraftUpdatesRole
+     * @depends testAddPolicyByRoleDraftUpdatesRole
      */
     public function testCreateRoleDraftWithAddPolicy()
     {
@@ -1293,8 +1293,8 @@ class RoleServiceTest extends BaseTest
      * @return array
      *
      * @see \eZ\Publish\API\Repository\RoleService::updatePolicyByRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAddPolicyByRoleDraft
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testNewPolicyUpdateStruct
+     * @depends testAddPolicyByRoleDraft
+     * @depends testNewPolicyUpdateStruct
      */
     public function testUpdatePolicyByRoleDraft()
     {
@@ -1370,7 +1370,7 @@ class RoleServiceTest extends BaseTest
      * @param array $roleAndPolicy
      *
      * @see \eZ\Publish\API\Repository\RoleService::testUpdatePolicyByRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testUpdatePolicyByRoleDraft
+     * @depends testUpdatePolicyByRoleDraft
      */
     public function testUpdatePolicyUpdatesLimitations($roleAndPolicy)
     {
@@ -1396,7 +1396,7 @@ class RoleServiceTest extends BaseTest
      * @param \eZ\Publish\API\Repository\Values\User\Role $role
      *
      * @see \eZ\Publish\API\Repository\RoleService::updatePolicyByRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testUpdatePolicyUpdatesLimitations
+     * @depends testUpdatePolicyUpdatesLimitations
      */
     public function testUpdatePolicyUpdatesRole($role)
     {
@@ -1426,11 +1426,11 @@ class RoleServiceTest extends BaseTest
      * Test for the updatePolicy() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::updatePolicyByRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAddPolicyByRoleDraft
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testNewPolicyCreateStruct
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testNewPolicyUpdateStruct
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testNewRoleCreateStruct
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRole
+     * @depends testAddPolicyByRoleDraft
+     * @depends testNewPolicyCreateStruct
+     * @depends testNewPolicyUpdateStruct
+     * @depends testNewRoleCreateStruct
+     * @depends testCreateRole
      */
     public function testUpdatePolicyByRoleDraftThrowsLimitationValidationException()
     {
@@ -1499,7 +1499,7 @@ class RoleServiceTest extends BaseTest
      * Test for the removePolicyByRoleDraft() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::removePolicyByRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAddPolicyByRoleDraft
+     * @depends testAddPolicyByRoleDraft
      */
     public function testRemovePolicyByRoleDraft()
     {
@@ -1638,7 +1638,7 @@ class RoleServiceTest extends BaseTest
      * @return \eZ\Publish\API\Repository\Values\User\RoleAssignment[]
      *
      * @see \eZ\Publish\API\Repository\RoleService::getRoleAssignments()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testLoadRoleByIdentifier
+     * @depends testLoadRoleByIdentifier
      */
     public function testGetRoleAssignments()
     {
@@ -1674,7 +1674,7 @@ class RoleServiceTest extends BaseTest
      * @param \eZ\Publish\API\Repository\Values\User\RoleAssignment[] $roleAssignments
      *
      * @see \eZ\Publish\API\Repository\RoleService::getRoleAssignments()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testGetRoleAssignments
+     * @depends testGetRoleAssignments
      */
     public function testGetRoleAssignmentsContainExpectedLimitation(array $roleAssignments)
     {
@@ -1688,7 +1688,7 @@ class RoleServiceTest extends BaseTest
      * Test for the assignRoleToUser() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::assignRoleToUser()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testGetRoleAssignments
+     * @depends testGetRoleAssignments
      */
     public function testAssignRoleToUser()
     {
@@ -1716,7 +1716,7 @@ class RoleServiceTest extends BaseTest
      * Test for the assignRoleToUser() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::assignRoleToUser($role, $user, $roleLimitation)
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAssignRoleToUser
+     * @depends testAssignRoleToUser
      */
     public function testAssignRoleToUserWithRoleLimitation()
     {
@@ -1821,8 +1821,8 @@ class RoleServiceTest extends BaseTest
      * Test for the assignRoleToUser() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::assignRoleToUser($role, $user, $roleLimitation)
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAssignRoleToUser
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testLoadRoleByIdentifier
+     * @depends testAssignRoleToUser
+     * @depends testLoadRoleByIdentifier
      */
     public function testAssignRoleToUserWithRoleLimitationThrowsLimitationValidationException()
     {
@@ -1862,8 +1862,8 @@ class RoleServiceTest extends BaseTest
      * Makes sure assigning role several times throws.
      *
      * @see \eZ\Publish\API\Repository\RoleService::assignRoleToUser($role, $user, $roleLimitation)
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAssignRoleToUser
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testLoadRoleByIdentifier
+     * @depends testAssignRoleToUser
+     * @depends testLoadRoleByIdentifier
      */
     public function testAssignRoleToUserThrowsInvalidArgumentException()
     {
@@ -1907,8 +1907,8 @@ class RoleServiceTest extends BaseTest
      * Makes sure assigning role several times with same limitations throws.
      *
      * @see \eZ\Publish\API\Repository\RoleService::assignRoleToUser($role, $user, $roleLimitation)
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAssignRoleToUser
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testLoadRoleByIdentifier
+     * @depends testAssignRoleToUser
+     * @depends testLoadRoleByIdentifier
      */
     public function testAssignRoleToUserWithRoleLimitationThrowsInvalidArgumentException()
     {
@@ -1960,7 +1960,7 @@ class RoleServiceTest extends BaseTest
      * Test for the removeRoleAssignment() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::removeRoleAssignment()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAssignRoleToUser
+     * @depends testAssignRoleToUser
      */
     public function testRemoveRoleAssignment()
     {
@@ -1995,8 +1995,8 @@ class RoleServiceTest extends BaseTest
      * Test for the getRoleAssignmentsForUser() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::getRoleAssignmentsForUser()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAssignRoleToUser
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRoleWithAddPolicy
+     * @depends testAssignRoleToUser
+     * @depends testCreateRoleWithAddPolicy
      */
     public function testGetRoleAssignmentsForUserDirect()
     {
@@ -2050,8 +2050,8 @@ class RoleServiceTest extends BaseTest
      * Test for the getRoleAssignmentsForUser() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::getRoleAssignmentsForUser()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAssignRoleToUser
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRoleWithAddPolicy
+     * @depends testAssignRoleToUser
+     * @depends testCreateRoleWithAddPolicy
      */
     public function testGetRoleAssignmentsForUserEmpty()
     {
@@ -2074,8 +2074,8 @@ class RoleServiceTest extends BaseTest
      * Test for the getRoleAssignmentsForUser() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::getRoleAssignmentsForUser()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAssignRoleToUser
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRoleWithAddPolicy
+     * @depends testAssignRoleToUser
+     * @depends testCreateRoleWithAddPolicy
      */
     public function testGetRoleAssignmentsForUserInherited()
     {
@@ -2102,7 +2102,7 @@ class RoleServiceTest extends BaseTest
      * Test for the assignRoleToUserGroup() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::assignRoleToUserGroup()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testGetRoleAssignments
+     * @depends testGetRoleAssignments
      */
     public function testAssignRoleToUserGroup()
     {
@@ -2160,7 +2160,7 @@ class RoleServiceTest extends BaseTest
      * Test for the assignRoleToUserGroup() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::assignRoleToUserGroup($role, $userGroup, $roleLimitation)
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAssignRoleToUserGroup
+     * @depends testAssignRoleToUserGroup
      */
     public function testAssignRoleToUserGroupWithRoleLimitation()
     {
@@ -2261,8 +2261,8 @@ class RoleServiceTest extends BaseTest
      * Test for the assignRoleToUserGroup() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::assignRoleToUserGroup($role, $userGroup, $roleLimitation)
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testLoadRoleByIdentifier
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAssignRoleToUserGroup
+     * @depends testLoadRoleByIdentifier
+     * @depends testAssignRoleToUserGroup
      */
     public function testAssignRoleToUserGroupWithRoleLimitationThrowsLimitationValidationException()
     {
@@ -2303,8 +2303,8 @@ class RoleServiceTest extends BaseTest
      * Makes sure assigning role several times throws.
      *
      * @see \eZ\Publish\API\Repository\RoleService::assignRoleToUserGroup($role, $userGroup, $roleLimitation)
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testLoadRoleByIdentifier
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAssignRoleToUserGroup
+     * @depends testLoadRoleByIdentifier
+     * @depends testAssignRoleToUserGroup
      */
     public function testAssignRoleToUserGroupThrowsInvalidArgumentException()
     {
@@ -2349,8 +2349,8 @@ class RoleServiceTest extends BaseTest
      * Makes sure assigning role several times with same limitations throws.
      *
      * @see \eZ\Publish\API\Repository\RoleService::assignRoleToUserGroup($role, $userGroup, $roleLimitation)
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testLoadRoleByIdentifier
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAssignRoleToUserGroup
+     * @depends testLoadRoleByIdentifier
+     * @depends testAssignRoleToUserGroup
      */
     public function testAssignRoleToUserGroupWithRoleLimitationThrowsInvalidArgumentException()
     {
@@ -2403,7 +2403,7 @@ class RoleServiceTest extends BaseTest
      * Test for the removeRoleAssignment() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::removeRoleAssignment()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAssignRoleToUserGroup
+     * @depends testAssignRoleToUserGroup
      */
     public function testRemoveRoleAssignmentFromUserGroup()
     {
@@ -2517,8 +2517,8 @@ class RoleServiceTest extends BaseTest
      * Test for the getRoleAssignmentsForUserGroup() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::getRoleAssignmentsForUserGroup()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAssignRoleToUserGroup
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRoleWithAddPolicy
+     * @depends testAssignRoleToUserGroup
+     * @depends testCreateRoleWithAddPolicy
      */
     public function testGetRoleAssignmentsForUserGroup()
     {
@@ -2567,8 +2567,8 @@ class RoleServiceTest extends BaseTest
      * Test for the getRoleAssignmentsForUser() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::getRoleAssignmentsForUser()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAssignRoleToUser
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAssignRoleToUserGroup
+     * @depends testAssignRoleToUser
+     * @depends testAssignRoleToUserGroup
      */
     public function testLoadPoliciesByUserId()
     {
@@ -2644,7 +2644,7 @@ class RoleServiceTest extends BaseTest
      * Test for the publishRoleDraft() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::publishRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRoleDraft
+     * @depends testCreateRoleDraft
      */
     public function testPublishRoleDraft()
     {
@@ -2681,8 +2681,8 @@ class RoleServiceTest extends BaseTest
      * Test for the publishRoleDraft() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::publishRoleDraft()
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCreateRoleDraft
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testAddPolicyByRoleDraft
+     * @depends testCreateRoleDraft
+     * @depends testAddPolicyByRoleDraft
      */
     public function testPublishRoleDraftAddPolicies()
     {
