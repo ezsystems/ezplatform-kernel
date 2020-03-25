@@ -37,7 +37,7 @@ class Indexer extends IncrementalIndexer
         foreach ($contentIds as $contentId) {
             try {
                 $info = $contentHandler->loadContentInfo($contentId);
-                if ($info->isPublished) {
+                if ($info->status === ContentInfo::STATUS_PUBLISHED) {
                     $this->searchHandler->indexContent(
                         $contentHandler->load($info->id, $info->currentVersionNo)
                     );
