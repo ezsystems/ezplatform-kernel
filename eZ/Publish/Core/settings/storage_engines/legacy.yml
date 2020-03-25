@@ -60,6 +60,6 @@ services:
     ezpublish.spi.persistence.legacy.transactionhandler:
         class: eZ\Publish\Core\Persistence\Legacy\TransactionHandler
         arguments:
-            - "@ezpublish.api.storage_engine.legacy.dbhandler"
-            - "@ezpublish.spi.persistence.legacy.content_type.handler.caching"
-            - "@ezpublish.spi.persistence.legacy.language.handler.caching"
+            $connection: '@ezpublish.api.storage_engine.legacy.connection'
+            $contentTypeHandler: '@ezpublish.spi.persistence.legacy.content_type.handler.caching'
+            $languageHandler: '@ezpublish.spi.persistence.legacy.language.handler.caching'
