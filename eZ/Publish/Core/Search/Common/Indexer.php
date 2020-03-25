@@ -9,14 +9,11 @@ namespace eZ\Publish\Core\Search\Common;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Statement;
 use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
 use eZ\Publish\SPI\Persistence\Content\ContentInfo;
 use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
 use eZ\Publish\SPI\Search\Handler as SearchHandler;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
-use PDO;
 
 /**
  * Base class for the Search Engine Indexer Service aimed to recreate Search Engine Index.
@@ -71,36 +68,5 @@ abstract class Indexer
             ->where($query->expr()->eq('status', ContentInfo::STATUS_PUBLISHED));
 
         return $query->execute();
-    }
-
-    /**
-     * Fetch location Ids for the given content object.
-     *
-     * @param int $contentObjectId
-     * @return array Location nodes Ids
-     */
-    protected function getContentLocationIds($contentObjectId)
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('node_id')
-            ->from(LocationGateway::CONTENT_TREE_TABLE)
-            ->where($query->expr()->eq('contentobject_id', $contentObjectId));
-        $stmt = $query->execute();
-        $nodeIds = $stmt->fetchAll(PDO::FETCH_COLUMN);
-
-        return is_array($nodeIds) ? array_map('intval', $nodeIds) : [];
-    }
-
-    /**
-     * Log warning while progress bar is shown.
-     *
-     * @param \Symfony\Component\Console\Helper\ProgressBar $progress
-     * @param $message
-     */
-    protected function logWarning(ProgressBar $progress, $message)
-    {
-        $progress->clear();
-        $this->logger->warning($message);
-        $progress->display();
     }
 }
