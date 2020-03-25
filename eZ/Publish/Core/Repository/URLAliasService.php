@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository;
 
+use eZ\Publish\API\Repository\LanguageResolver;
 use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\API\Repository\URLAliasService as URLAliasServiceInterface;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
@@ -41,32 +42,21 @@ class URLAliasService implements URLAliasServiceInterface
     /** @var \eZ\Publish\API\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /**
-     * Setups service with reference to repository object that created it & corresponding handler.
-     *
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\SPI\Persistence\Content\UrlAlias\Handler $urlAliasHandler
-     * @param \eZ\Publish\Core\Repository\Helper\NameSchemaService
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
-     * @param array $settings
-     */
+    /** @var \eZ\Publish\API\Repository\LanguageResolver */
+    private $languageResolver;
+
     public function __construct(
         RepositoryInterface $repository,
         Handler $urlAliasHandler,
         Helper\NameSchemaService $nameSchemaService,
         PermissionResolver $permissionResolver,
-        array $settings = []
+        LanguageResolver $languageResolver
     ) {
         $this->repository = $repository;
         $this->urlAliasHandler = $urlAliasHandler;
-        // Union makes sure default settings are ignored if provided in argument
-        $this->settings = $settings + [
-            'showAllTranslations' => false,
-        ];
-        // Get prioritized languages from language service to not have to call it several times
-        $this->settings['prioritizedLanguageList'] = $repository->getContentLanguageService()->getPrioritizedLanguageCodeList();
         $this->nameSchemaService = $nameSchemaService;
         $this->permissionResolver = $permissionResolver;
+        $this->languageResolver = $languageResolver;
     }
 
     /**
@@ -232,21 +222,21 @@ class URLAliasService implements URLAliasServiceInterface
             $custom
         );
         if ($showAllTranslations === null) {
-            $showAllTranslations = $this->settings['showAllTranslations'];
+            $showAllTranslations = $this->languageResolver->getShowAllTranslations();
         }
         if ($prioritizedLanguages === null) {
-            $prioritizedLanguages = $this->settings['prioritizedLanguageList'];
+            $prioritizedLanguages = $this->languageResolver->getPrioritizedLanguages();
         }
         $urlAliasList = [];
 
         foreach ($spiUrlAliasList as $spiUrlAlias) {
             if (
-                !$this->isUrlAliasLoadable(
-                    $spiUrlAlias,
-                    $languageCode,
-                    $showAllTranslations,
-                    $prioritizedLanguages
-                )
+            !$this->isUrlAliasLoadable(
+                $spiUrlAlias,
+                $languageCode,
+                $showAllTranslations,
+                $prioritizedLanguages
+            )
             ) {
                 continue;
             }
@@ -418,8 +408,8 @@ class URLAliasService implements URLAliasServiceInterface
                 $matchedLanguageCode = $this->selectAliasLanguageCode(
                     $spiUrlAlias,
                     $languageCode,
-                    $this->settings['showAllTranslations'],
-                    $this->settings['prioritizedLanguageList']
+                    $this->languageResolver->getShowAllTranslations(),
+                    $this->languageResolver->getPrioritizedLanguages()
                 );
             } else {
                 $matchedLanguageCode = $this->matchLanguageCode($spiUrlAlias->pathData[$level], $pathElement);
@@ -464,7 +454,7 @@ class URLAliasService implements URLAliasServiceInterface
     private function sortTranslationsByPrioritizedLanguages(array $translations)
     {
         $sortedTranslations = [];
-        foreach ($this->settings['prioritizedLanguageList'] as $languageCode) {
+        foreach ($this->languageResolver->getPrioritizedLanguages() as $languageCode) {
             if (isset($translations[$languageCode])) {
                 $sortedTranslations[] = [
                     'lang' => $languageCode,
@@ -535,7 +525,7 @@ class URLAliasService implements URLAliasServiceInterface
      */
     protected function isPathLoadable(array $pathData, array $languageCodes)
     {
-        if ($this->settings['showAllTranslations']) {
+        if ($this->languageResolver->getShowAllTranslations()) {
             return true;
         }
 
@@ -544,7 +534,7 @@ class URLAliasService implements URLAliasServiceInterface
                 continue;
             }
 
-            if (in_array($languageCodes[$level], $this->settings['prioritizedLanguageList'])) {
+            if (in_array($languageCodes[$level], $this->languageResolver->getPrioritizedLanguages())) {
                 continue;
             }
 
@@ -576,8 +566,8 @@ class URLAliasService implements URLAliasServiceInterface
             $path = $this->extractPath(
                 $spiUrlAlias,
                 $languageCode,
-                $this->settings['showAllTranslations'],
-                $this->settings['prioritizedLanguageList']
+                $this->languageResolver->getShowAllTranslations(),
+                $this->languageResolver->getPrioritizedLanguages()
             );
 
             if ($path === false) {
@@ -693,10 +683,10 @@ class URLAliasService implements URLAliasServiceInterface
         ?array $prioritizedLanguageList = null
     ): URLAlias {
         if ($showAllTranslations === null) {
-            $showAllTranslations = $this->settings['showAllTranslations'];
+            $showAllTranslations = $this->languageResolver->getShowAllTranslations();
         }
         if ($prioritizedLanguageList === null) {
-            $prioritizedLanguageList = $this->settings['prioritizedLanguageList'];
+            $prioritizedLanguageList = $this->languageResolver->getPrioritizedLanguages();
         }
         $urlAliases = $this->listLocationAliases(
             $location,
@@ -742,8 +732,8 @@ class URLAliasService implements URLAliasServiceInterface
         $path = $this->extractPath(
             $spiUrlAlias,
             null,
-            $this->settings['showAllTranslations'],
-            $this->settings['prioritizedLanguageList']
+            $this->languageResolver->getShowAllTranslations(),
+            $this->languageResolver->getPrioritizedLanguages()
         );
 
         if ($path === false) {
