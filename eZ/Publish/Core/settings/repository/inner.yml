@@ -9,7 +9,7 @@ services:
         arguments:
             - "%ezpublish.api.inner_repository.class%"
             - "%ezpublish.api.role.policy_map%"
-            - '@eZ\Publish\Core\Repository\SiteAccessAware\Language\LanguageResolver'
+            - '@eZ\Publish\API\Repository\LanguageResolver'
         calls:
             - [setContainer, ["@service_container"]]
 

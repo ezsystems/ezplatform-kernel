@@ -23,7 +23,7 @@ use eZ\Publish\API\Repository\Exceptions\ForbiddenException;
 use Exception;
 
 /**
- * URLAlias service.
+ * @internal Type-hint \eZ\Publish\API\Repository\URLAliasService instead.
  */
 class URLAliasService implements URLAliasServiceInterface
 {
@@ -32,9 +32,6 @@ class URLAliasService implements URLAliasServiceInterface
 
     /** @var \eZ\Publish\SPI\Persistence\Content\UrlAlias\Handler */
     protected $urlAliasHandler;
-
-    /** @var array */
-    protected $settings;
 
     /** @var \eZ\Publish\Core\Repository\Helper\NameSchemaService */
     protected $nameSchemaService;
