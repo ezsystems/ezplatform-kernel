@@ -18,6 +18,7 @@ use eZ\Publish\Core\Persistence\Legacy\SharedGateway;
 use eZ\Publish\Core\Persistence\Tests\DatabaseConnectionFactory;
 use eZ\Publish\SPI\Tests\Persistence\FileFixtureFactory;
 use eZ\Publish\SPI\Tests\Persistence\FixtureImporter;
+use eZ\Publish\SPI\Tests\Persistence\YamlFixture;
 use EzSystems\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform;
 use InvalidArgumentException;
 use PDOException;
@@ -203,6 +204,25 @@ abstract class TestCase extends BaseTestCase
         try {
             $fixtureImporter = new FixtureImporter($this->getDatabaseConnection());
             $fixtureImporter->import((new FileFixtureFactory())->buildFixture($file));
+        } catch (DBALException $e) {
+            self::fail('Database fixture import failed: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Insert test_data.yaml fixture, common for many test cases.
+     *
+     * See: eZ/Publish/API/Repository/Tests/_fixtures/Legacy/data/test_data.yaml
+     */
+    protected function insertSharedDatabaseFixture(): void
+    {
+        try {
+            $fixtureImporter = new FixtureImporter($this->getDatabaseConnection());
+            $fixtureImporter->import(
+                new YamlFixture(
+                    __DIR__ . '/../../../../API/Repository/Tests/_fixtures/Legacy/data/test_data.yaml'
+                )
+            );
         } catch (DBALException $e) {
             self::fail('Database fixture import failed: ' . $e->getMessage());
         }
