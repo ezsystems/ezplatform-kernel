@@ -77,7 +77,7 @@ class HandlerContentSortTest extends AbstractTestCase
             ),
             $this->createMock(LocationGateway::class),
             new Content\WordIndexer\Gateway\DoctrineDatabase(
-                $this->getDatabaseHandler(),
+                $this->getDatabaseConnection(),
                 $this->getContentTypeHandler(),
                 $this->getDefinitionBasedTransformationProcessor(),
                 new Content\WordIndexer\Repository\SearchIndex($this->getDatabaseConnection()),

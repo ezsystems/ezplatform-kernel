@@ -1,7 +1,7 @@
 services:
     eZ\Publish\Core\Search\Legacy\Content\WordIndexer\Gateway\DoctrineDatabase:
         arguments:
-            $dbHandler: '@ezpublish.api.storage_engine.legacy.dbhandler'
+            $connection: '@ezpublish.persistence.connection'
             $typeHandler: '@ezpublish.spi.persistence.content_type_handler'
             $transformationProcessor: '@ezpublish.api.storage_engine.transformation_processor'
             $searchIndex: '@eZ\Publish\Core\Search\Legacy\Content\WordIndexer\Repository\SearchIndex'
