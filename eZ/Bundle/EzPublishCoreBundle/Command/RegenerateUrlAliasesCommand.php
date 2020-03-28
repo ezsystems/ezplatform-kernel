@@ -123,17 +123,19 @@ EOT
             return 0;
         }
 
-        $helper = $this->getHelper('question');
-        $question = new ConfirmationQuestion(
-            sprintf(
-                "<info>Found %d Locations.</info>\n%s\n<info>Do you want to proceed? [y/N] </info>",
-                $locationsCount,
-                self::BEFORE_RUNNING_HINTS
-            ),
-            false
-        );
-        if (!$helper->ask($input, $output, $question)) {
-            return 0;
+        if (!$input->getOption('no-interaction')) {
+            $helper = $this->getHelper('question');
+            $question = new ConfirmationQuestion(
+                sprintf(
+                    "<info>Found %d Locations.</info>\n%s\n<info>Do you want to proceed? [y/N] </info>",
+                    $locationsCount,
+                    self::BEFORE_RUNNING_HINTS
+                ),
+                false
+            );
+            if (!$helper->ask($input, $output, $question)) {
+                return 0;
+            }
         }
 
         $this->regenerateSystemUrlAliases($output, $locationsCount, $locationIds, $iterationCount);
