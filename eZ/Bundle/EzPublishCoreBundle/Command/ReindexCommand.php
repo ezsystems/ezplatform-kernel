@@ -158,6 +158,12 @@ class ReindexCommand extends Command
                 InputOption::VALUE_OPTIONAL,
                 'Number of child processes to run in parallel for iterations, if set to "auto" it will set to number of CPU cores -1, set to "1" or "0" to disable',
                 'auto'
+            )->addOption(
+                'offset',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'Offset, useful when the script was interrupted and need to be resumed',
+                0
             )->setHelp(
                 <<<EOT
 The command <info>%command.name%</info> indexes the current configured database in the configured search engine index.
@@ -244,17 +250,18 @@ EOT
             return 0;
         }
 
+        $offset = (int) $input->getOption('offset');
         if ($since = $input->getOption('since')) {
-            $stmt = $this->getStatementContentSince(new DateTime($since));
-            $count = (int)$this->getStatementContentSince(new DateTime($since), true)->fetchColumn();
+            $stmt = $this->getStatementContentSince(new DateTime($since), false, $offset);
+            $count = max((int) $this->getStatementContentSince(new DateTime($since), true, $offset)->fetchColumn(), 0);
             $purge = false;
         } elseif ($locationId = (int) $input->getOption('subtree')) {
-            $stmt = $this->getStatementSubtree($locationId);
-            $count = (int) $this->getStatementSubtree($locationId, true)->fetchColumn();
+            $stmt = $this->getStatementSubtree($locationId, false, $offset);
+            $count = max((int) $this->getStatementSubtree($locationId, true, $offset)->fetchColumn() - $offset, 0);
             $purge = false;
         } else {
-            $stmt = $this->getStatementContentAll();
-            $count = (int) $this->getStatementContentAll(true)->fetchColumn();
+            $stmt = $this->getStatementContentAll(false, $offset);
+            $count = max((int) $this->getStatementContentAll(true)->fetchColumn() - $offset, 0);
             $purge = !$input->getOption('no-purge');
         }
 
@@ -355,16 +362,18 @@ EOT
     /**
      * @param DateTime $since
      * @param bool $count
+     * @param int $offset
      *
      * @return \Doctrine\DBAL\Driver\Statement
      */
-    private function getStatementContentSince(DateTime $since, $count = false)
+    private function getStatementContentSince(DateTime $since, $count = false, int $offset = 0)
     {
         $q = $this->connection->createQueryBuilder()
             ->select($count ? 'count(c.id)' : 'c.id')
             ->from('ezcontentobject', 'c')
             ->where('c.status = :status')->andWhere('c.modified >= :since')
             ->orderBy('c.modified')
+            ->setFirstResult($offset)
             ->setParameter('status', ContentInfo::STATUS_PUBLISHED, PDO::PARAM_INT)
             ->setParameter('since', $since->getTimestamp(), PDO::PARAM_INT);
 
@@ -374,12 +383,13 @@ EOT
     /**
      * @param mixed $locationId
      * @param bool $count
+     * @param int $offset
      *
      * @return \Doctrine\DBAL\Driver\Statement
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    private function getStatementSubtree($locationId, $count = false)
+    private function getStatementSubtree($locationId, $count = false, int $offset = 0)
     {
         $location = $this->locationHandler->load($locationId);
         $q = $this->connection->createQueryBuilder()
@@ -388,6 +398,7 @@ EOT
             ->innerJoin('c', 'ezcontentobject_tree', 't', 't.contentobject_id = c.id')
             ->where('c.status = :status')
             ->andWhere('t.path_string LIKE :path')
+            ->setFirstResult($offset)
             ->setParameter('status', ContentInfo::STATUS_PUBLISHED, PDO::PARAM_INT)
             ->setParameter('path', $location->pathString . '%', PDO::PARAM_STR);
 
@@ -396,15 +407,17 @@ EOT
 
     /**
      * @param bool $count
+     * @param int $offset
      *
      * @return \Doctrine\DBAL\Driver\Statement
      */
-    private function getStatementContentAll($count = false)
+    private function getStatementContentAll($count = false, int $offset = 0)
     {
         $q = $this->connection->createQueryBuilder()
             ->select($count ? 'count(c.id)' : 'c.id')
             ->from('ezcontentobject', 'c')
             ->where('c.status = :status')
+            ->setFirstResult($offset)
             ->setParameter('status', ContentInfo::STATUS_PUBLISHED, PDO::PARAM_INT);
 
         return $q->execute();
