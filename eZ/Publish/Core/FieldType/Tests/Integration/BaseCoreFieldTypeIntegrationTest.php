@@ -46,7 +46,7 @@ abstract class BaseCoreFieldTypeIntegrationTest extends APIBaseTest
      *
      * @return \Doctrine\DBAL\Connection|object
      */
-    protected function getDatabaseConnection()
+    protected function getDatabaseConnection(): Connection
     {
         try {
             return $this->getSetupFactory()->getServiceContainer()->get(
