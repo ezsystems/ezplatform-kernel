@@ -154,7 +154,7 @@ class HandlerLocationTest extends AbstractTestCase
                 $this->getDatabaseHandler(),
                 $this->getContentTypeHandler(),
                 $transformationProcessor,
-                new Content\WordIndexer\Repository\SearchIndex($this->getDatabaseHandler()),
+                new Content\WordIndexer\Repository\SearchIndex($this->getDatabaseConnection()),
                 $this->getLanguageMaskGenerator(),
                 $this->getFullTextSearchConfiguration()
             ),

@@ -80,7 +80,7 @@ class HandlerContentSortTest extends AbstractTestCase
                 $this->getDatabaseHandler(),
                 $this->getContentTypeHandler(),
                 $this->getDefinitionBasedTransformationProcessor(),
-                new Content\WordIndexer\Repository\SearchIndex($this->getDatabaseHandler()),
+                new Content\WordIndexer\Repository\SearchIndex($this->getDatabaseConnection()),
                 $this->getLanguageMaskGenerator(),
                 $this->getFullTextSearchConfiguration()
             ),
