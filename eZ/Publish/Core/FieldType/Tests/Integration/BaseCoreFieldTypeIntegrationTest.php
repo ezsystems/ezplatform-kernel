@@ -8,6 +8,8 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests\Integration;
 
+use Doctrine\DBAL\Connection;
+use ErrorException;
 use eZ\Publish\API\Repository\Tests\BaseTest as APIBaseTest;
 
 /**
@@ -46,8 +48,20 @@ abstract class BaseCoreFieldTypeIntegrationTest extends APIBaseTest
      */
     protected function getDatabaseConnection()
     {
-        return $this->getSetupFactory()->getServiceContainer()->get(
-            'ezpublish.api.storage_engine.legacy.connection'
-        );
+        try {
+            return $this->getSetupFactory()->getServiceContainer()->get(
+                'ezpublish.persistence.connection'
+            );
+        } catch (ErrorException $e) {
+            self::fail(
+                sprintf(
+                    '%s: %s in %s:%d',
+                    __METHOD__,
+                    $e->getMessage(),
+                    $e->getFile(),
+                    $e->getLine()
+                )
+            );
+        }
     }
 }

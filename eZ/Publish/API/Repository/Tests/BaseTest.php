@@ -620,7 +620,7 @@ abstract class BaseTest extends TestCase
     {
         $connection = $this
             ->getSetupFactory()
-            ->getServiceContainer()->get('ezpublish.api.storage_engine.legacy.connection');
+            ->getServiceContainer()->get('ezpublish.persistence.connection');
 
         if (!$connection instanceof Connection) {
             throw new \RuntimeException(
