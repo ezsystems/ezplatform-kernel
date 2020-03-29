@@ -8,59 +8,82 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler;
 
-use eZ\Publish\Core\Persistence\Database\SelectQuery;
+use Doctrine\DBAL\Query\QueryBuilder;
+use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use eZ\Publish\Core\Persistence\Legacy\URL\Gateway\DoctrineDatabase;
 use eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler;
 
 abstract class Base implements CriterionHandler
 {
     /**
      * Inner join `ezurl_object_link` table if not joined yet.
-     *
-     * @param \eZ\Publish\Core\Persistence\Database\SelectQuery $query
      */
-    protected function joinContentObjectLink(SelectQuery $query): void
+    protected function joinContentObjectLink(QueryBuilder $query): void
     {
-        if (strpos($query->getQuery(), 'INNER JOIN ezurl_object_link ') === false) {
+        if (false === $this->hasJoinedTable($query, DoctrineDatabase::URL_LINK_TABLE)) {
             $query->innerJoin(
-                'ezurl_object_link',
-                $query->expr->eq('ezurl.id', 'ezurl_object_link.url_id')
+                'url',
+                DoctrineDatabase::URL_LINK_TABLE,
+                'u_lnk',
+                'url.id = u_lnk.url_id'
             );
         }
     }
 
     /**
      * Inner join `ezcontentobject` table if not joined yet.
-     *
-     * @param \eZ\Publish\Core\Persistence\Database\SelectQuery $query
      */
-    protected function joinContentObject(SelectQuery $query): void
+    protected function joinContentObject(QueryBuilder $query): void
     {
-        if (strpos($query->getQuery(), 'INNER JOIN ezcontentobject ') === false) {
+        if (false === $this->hasJoinedTable($query, ContentGateway::CONTENT_ITEM_TABLE)) {
             $query->innerJoin(
-                'ezcontentobject',
-                $query->expr->eq('ezcontentobject.id', 'ezcontentobject_attribute.contentobject_id')
+                'f_def',
+                ContentGateway::CONTENT_ITEM_TABLE,
+                'c',
+                'c.id = f_def.contentobject_id'
             );
         }
     }
 
     /**
      * Inner join `ezcontentobject_attribute` table if not joined yet.
-     *
-     * @param \eZ\Publish\Core\Persistence\Database\SelectQuery $query
      */
-    protected function joinContentObjectAttribute(SelectQuery $query): void
+    protected function joinContentObjectAttribute(QueryBuilder $query): void
     {
-        if (strpos($query->getQuery(), 'INNER JOIN ezcontentobject_attribute ') === false) {
-            $query->innerJoin('ezcontentobject_attribute', $query->expr->lAnd(
-                $query->expr->eq(
-                    'ezurl_object_link.contentobject_attribute_id',
-                    'ezcontentobject_attribute.id'
-                ),
-                $query->expr->eq(
-                    'ezurl_object_link.contentobject_attribute_version',
-                    'ezcontentobject_attribute.version'
+        if (false === $this->hasJoinedTable($query, ContentGateway::CONTENT_FIELD_TABLE)) {
+            $query->innerJoin(
+                'u_lnk',
+                ContentGateway::CONTENT_FIELD_TABLE,
+                'f_def',
+                $query->expr()->andX(
+                    'u_lnk.contentobject_attribute_id = f_def.id',
+                    'u_lnk.contentobject_attribute_version = f_def.version'
                 )
-            ));
+            );
         }
+    }
+
+    protected function hasJoinedTable(QueryBuilder $queryBuilder, string $tableName): bool
+    {
+        $joinedParts = $queryBuilder->getQueryPart('join');
+        if (empty($joinedParts)) {
+            return false;
+        }
+
+        // extract 'joinTable' nested key and flatten the structure of query parts, which is:
+        // ['fromAlias' => [['joinTable' => '<table_name>'], ...]]
+        // note that one 'fromAlias' can have multiple different tables joined for it, though it's not usual case
+        $joinedTables = array_merge(
+            ...array_values(
+                array_map(
+                    static function (array $joinedPart): array {
+                        return array_column($joinedPart, 'joinTable');
+                    },
+                    $joinedParts
+                )
+            )
+        );
+
+        return in_array($tableName, $joinedTables, true);
     }
 }
