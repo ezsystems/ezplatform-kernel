@@ -104,6 +104,7 @@ Changes affecting version compatibility with deprecated ezpublish-kernel version
     * `\eZ\Publish\API\Repository\Values\Content\Query\Criterion\SectionId::createFromQueryBuilder`
     * `\eZ\Publish\API\Repository\Values\Content\Query\Criterion\Subtree::createFromQueryBuilder`
     * `\eZ\Publish\API\Repository\Values\Content\Query\Criterion\Visibility::createFromQueryBuilder`
+    * `\eZ\Bundle\EzPublishCoreBundle\URLChecker\URLHandlerInterface::setOptions`
     
 * Following SPI methods have been removed:
 
