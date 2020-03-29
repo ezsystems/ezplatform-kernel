@@ -78,6 +78,11 @@ EOT;
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Only Locations with provided ID\'s will have URL aliases regenerated',
                 []
+            )->addOption(
+                'force',
+                'f',
+                InputOption::VALUE_NONE,
+                'Prevents confirmation dialog. Please use it carefully.'
             )->setHelp(
                 <<<EOT
 {$beforeRunningHints}
@@ -136,6 +141,8 @@ EOT
             if (!$helper->ask($input, $output, $question)) {
                 return 0;
             }
+        } elseif (!$input->getOption('force')) {
+            return 1;
         }
 
         $this->regenerateSystemUrlAliases($output, $locationsCount, $locationIds, $iterationCount);
