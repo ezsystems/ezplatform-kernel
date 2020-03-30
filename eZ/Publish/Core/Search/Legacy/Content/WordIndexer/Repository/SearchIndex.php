@@ -211,7 +211,7 @@ class SearchIndex
     /**
      * Delete words not related to any content object.
      */
-    public function deleteWordsWithoutObjects(): void
+    public function deleteWordsWithoutObjects(): int
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -222,13 +222,14 @@ class SearchIndex
                     $query->createPositionalParameter(0, ParameterType::INTEGER)
                 )
             );
-        $query->execute();
+
+        return $query->execute();
     }
 
     /**
      * Delete relation between a word and a content object.
      */
-    public function deleteObjectWordsLink(int $contentId): void
+    public function deleteObjectWordsLink(int $contentId): int
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -239,7 +240,8 @@ class SearchIndex
                     $query->createPositionalParameter($contentId, ParameterType::INTEGER)
                 )
             );
-        $query->execute();
+
+        return $query->execute();
     }
 
     /**
