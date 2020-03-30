@@ -62,14 +62,4 @@ abstract class CriterionHandler
         Criterion $criterion,
         array $languageSettings
     );
-
-    /**
-     * Returns a unique table name.
-     *
-     * @return string
-     */
-    protected function getUniqueTableName()
-    {
-        return uniqid('CriterionHandler', true);
-    }
 }
