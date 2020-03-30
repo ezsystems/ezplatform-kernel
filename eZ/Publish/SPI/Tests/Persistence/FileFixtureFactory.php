@@ -22,7 +22,7 @@ final class FileFixtureFactory
     {
         $fileInfo = new SplFileInfo($filePath);
         $extension = $fileInfo->getExtension();
-        // note: there's no dependency injection available here, so using simple switch
+
         switch ($extension) {
             case 'yml':
             case 'yaml':

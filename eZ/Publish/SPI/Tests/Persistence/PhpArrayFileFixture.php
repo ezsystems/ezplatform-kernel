@@ -13,7 +13,7 @@ namespace eZ\Publish\SPI\Tests\Persistence;
  *
  * @internal for internal use by Repository test setup
  */
-class PhpArrayFileFixture extends BaseInMemoryCachedFileFixture
+final class PhpArrayFileFixture extends BaseInMemoryCachedFileFixture
 {
     protected function loadFixture(): array
     {

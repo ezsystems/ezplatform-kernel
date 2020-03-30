@@ -81,7 +81,7 @@ final class FixtureImporter
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    private function truncateTables(array $tables)
+    private function truncateTables(array $tables): void
     {
         $dbPlatform = $this->connection->getDatabasePlatform();
 
