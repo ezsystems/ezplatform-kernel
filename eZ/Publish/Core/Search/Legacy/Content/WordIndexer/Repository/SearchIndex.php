@@ -29,7 +29,7 @@ class SearchIndex
     /**
      * Fetch already indexed words from database (legacy db table: ezsearch_word).
      *
-     * @param array $words
+     * @param string[] $words
      */
     public function getWords(array $words): array
     {
@@ -48,7 +48,7 @@ class SearchIndex
     /**
      * Increase the object count of the given words by one.
      *
-     * @param array $wordId
+     * @param int[] $wordId
      */
     public function incrementWordObjectCount(array $wordId): void
     {
@@ -61,7 +61,7 @@ class SearchIndex
     /**
      * Decrease the object count of the given words by one.
      *
-     * @param array $wordId
+     * @param int[] $wordId
      */
     public function decrementWordObjectCount(array $wordId): void
     {
@@ -74,7 +74,7 @@ class SearchIndex
     /**
      * Insert new words (legacy db table: ezsearch_word).
      *
-     * @param array $words
+     * @param string[] $words
      */
     public function addWords(array $words): void
     {
