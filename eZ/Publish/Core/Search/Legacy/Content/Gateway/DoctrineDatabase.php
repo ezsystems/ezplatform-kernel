@@ -1,13 +1,12 @@
 <?php
 
 /**
- * File containing the DoctrineDatabase Content search Gateway class.
- *
  * @copyright Copyright (C) eZ Systems AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 namespace eZ\Publish\Core\Search\Legacy\Content\Gateway;
 
+use Doctrine\DBAL\Connection;
 use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
 use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
 use eZ\Publish\Core\Search\Legacy\Content\Gateway;
@@ -24,12 +23,11 @@ use PDO;
  */
 class DoctrineDatabase extends Gateway
 {
-    /**
-     * Database handler.
-     *
-     * @var \eZ\Publish\Core\Persistence\Database\DatabaseHandler
-     */
-    protected $handler;
+    /** @var \Doctrine\DBAL\Connection */
+    protected $connection;
+
+    /** @var \Doctrine\DBAL\Platforms\AbstractPlatform */
+    private $dbPlatform;
 
     /**
      * Criteria converter.
@@ -53,20 +51,16 @@ class DoctrineDatabase extends Gateway
     protected $languageHandler;
 
     /**
-     * Construct from handler handler.
-     *
-     * @param \eZ\Publish\Core\Persistence\Database\DatabaseHandler $handler
-     * @param \eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter $criteriaConverter
-     * @param \eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter $sortClauseConverter
-     * @param \eZ\Publish\SPI\Persistence\Content\Language\Handler $languageHandler
+     * @throws \Doctrine\DBAL\DBALException
      */
     public function __construct(
-        DatabaseHandler $handler,
+        Connection $connection,
         CriteriaConverter $criteriaConverter,
         SortClauseConverter $sortClauseConverter,
         LanguageHandler $languageHandler
     ) {
-        $this->handler = $handler;
+        $this->connection = $connection;
+        $this->dbPlatform = $connection->getDatabasePlatform();
         $this->criteriaConverter = $criteriaConverter;
         $this->sortClauseConverter = $sortClauseConverter;
         $this->languageHandler = $languageHandler;
