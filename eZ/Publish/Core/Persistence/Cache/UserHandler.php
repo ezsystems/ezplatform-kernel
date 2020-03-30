@@ -276,10 +276,7 @@ class UserHandler extends AbstractInMemoryPersistenceHandler implements UserHand
         return $this->persistenceHandler->userHandler()->createRoleDraft($roleId);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function copyRole(RoleCopyStruct $copyStruct)
+    public function copyRole(RoleCopyStruct $copyStruct): Role
     {
         $this->logger->logCall(__METHOD__, ['struct' => $copyStruct]);
 

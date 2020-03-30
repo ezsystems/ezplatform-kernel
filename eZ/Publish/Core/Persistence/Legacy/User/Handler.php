@@ -13,6 +13,7 @@ use eZ\Publish\SPI\Persistence\User;
 use eZ\Publish\SPI\Persistence\User\UserTokenUpdateStruct;
 use eZ\Publish\SPI\Persistence\User\Handler as BaseUserHandler;
 use eZ\Publish\SPI\Persistence\User\Role;
+use eZ\Publish\SPI\Persistence\User\RoleCopyStruct;
 use eZ\Publish\SPI\Persistence\User\RoleCreateStruct;
 use eZ\Publish\SPI\Persistence\User\RoleUpdateStruct;
 use eZ\Publish\SPI\Persistence\User\Policy;
@@ -294,10 +295,7 @@ class Handler implements BaseUserHandler
         return $role;
     }
 
-    /**
-     * Copies an existing role.
-     */
-    public function copyRole(User\RoleCopyStruct $copyStruct): Role
+    public function copyRole(RoleCopyStruct $copyStruct): Role
     {
         $role = $this->mapper->createRoleFromCopyStruct(
             $copyStruct

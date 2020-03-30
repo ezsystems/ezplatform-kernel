@@ -36,7 +36,7 @@ class RoleCopyStruct extends ValueObject
     /**
      * Contains an array of role policies.
      *
-     * @var array
+     * @var \eZ\Publish\API\Repository\Values\User\PolicyCreateStruct[]
      */
     public $policies = [];
 }

@@ -231,7 +231,7 @@ class RoleService implements RoleServiceInterface
         try {
             $spiRole = $this->userHandler->copyRole($spiRoleCopyStruct);
             $this->repository->commit();
-        } catch (BadStateException $e) {
+        } catch (\Exception $e) {
             $this->repository->rollback();
             throw $e;
         }

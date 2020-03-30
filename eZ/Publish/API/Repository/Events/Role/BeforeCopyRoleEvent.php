@@ -10,8 +10,8 @@ namespace eZ\Publish\API\Repository\Events\Role;
 
 use eZ\Publish\API\Repository\Values\User\RoleCopyStruct;
 use eZ\Publish\API\Repository\Values\User\Role;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
 use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use UnexpectedValueException;
 
 final class BeforeCopyRoleEvent extends BeforeEvent
 {
@@ -35,16 +35,26 @@ final class BeforeCopyRoleEvent extends BeforeEvent
         return $this->role;
     }
 
+    public function getRoleCopyStruct(): RoleCopyStruct
+    {
+        return $this->roleCopyStruct;
+    }
+
     /**
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      */
     public function getCopiedRole(): Role
     {
         if (!$this->hasCopiedRole()) {
-            throw new BadStateException(self::class, 'Event does not posses CopiedRole object.');
+            throw new UnexpectedValueException(sprintf('Return value is not set or not of type %s. Check hasCopiedRole() or set it using setCopiedRole() before you call the getter.', Role::class));
         }
 
         return $this->copiedRole;
+    }
+
+    public function setCopiedRole(?Role $copiedRole): void
+    {
+        $this->copiedRole = $copiedRole;
     }
 
     public function hasCopiedRole(): bool

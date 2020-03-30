@@ -48,9 +48,6 @@ abstract class Role extends ValueObject
      */
     protected $status;
 
-    /**
-     * @return int
-     */
     public function getStatus(): int
     {
         return $this->status;
