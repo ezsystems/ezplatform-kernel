@@ -6,7 +6,6 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\URL\Query\CriterionHandler;
 
-use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\Query\QueryBuilder;
 use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
 use eZ\Publish\API\Repository\Values\URL\Query\Criterion\MatchNone;
@@ -34,19 +33,7 @@ class MatchNoneTest extends CriterionHandlerTest
         $criterion = new MatchNone();
         $expected = '1 = 0';
 
-        $expressionBuilder = $this->createMock(ExpressionBuilder::class);
-        $expressionBuilder
-            ->expects($this->once())
-            ->method('eq')
-            ->with(1, 0)
-            ->willReturn($expected);
-
         $query = $this->createMock(QueryBuilder::class);
-        $query
-            ->expects($this->once())
-            ->method('expr')
-            ->willReturn($expressionBuilder);
-
         $converter = $this->createMock(CriteriaConverter::class);
 
         $handler = new MatchNoneHandler();
