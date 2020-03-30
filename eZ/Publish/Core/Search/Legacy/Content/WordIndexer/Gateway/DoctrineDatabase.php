@@ -66,9 +66,6 @@ class DoctrineDatabase extends Gateway
      */
     protected $fullTextSearchConfiguration;
 
-    /**
-     * @param array $fullTextSearchConfiguration
-     */
     public function __construct(
         Connection $connection,
         SPITypeHandler $typeHandler,
