@@ -29,6 +29,6 @@ class MatchNone implements CriterionHandler
         QueryBuilder $queryBuilder,
         Criterion $criterion
     ) {
-        return $queryBuilder->expr()->eq(1, 0);
+        return '1 = 0';
     }
 }

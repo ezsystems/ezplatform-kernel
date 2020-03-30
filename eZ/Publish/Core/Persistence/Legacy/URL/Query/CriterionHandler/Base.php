@@ -20,7 +20,7 @@ abstract class Base implements CriterionHandler
      */
     protected function joinContentObjectLink(QueryBuilder $query): void
     {
-        if (false === $this->hasJoinedTable($query, DoctrineDatabase::URL_LINK_TABLE)) {
+        if (!$this->hasJoinedTable($query, DoctrineDatabase::URL_LINK_TABLE)) {
             $query->innerJoin(
                 'url',
                 DoctrineDatabase::URL_LINK_TABLE,
@@ -35,7 +35,7 @@ abstract class Base implements CriterionHandler
      */
     protected function joinContentObject(QueryBuilder $query): void
     {
-        if (false === $this->hasJoinedTable($query, ContentGateway::CONTENT_ITEM_TABLE)) {
+        if (!$this->hasJoinedTable($query, ContentGateway::CONTENT_ITEM_TABLE)) {
             $query->innerJoin(
                 'f_def',
                 ContentGateway::CONTENT_ITEM_TABLE,
@@ -50,7 +50,7 @@ abstract class Base implements CriterionHandler
      */
     protected function joinContentObjectAttribute(QueryBuilder $query): void
     {
-        if (false === $this->hasJoinedTable($query, ContentGateway::CONTENT_FIELD_TABLE)) {
+        if (!$this->hasJoinedTable($query, ContentGateway::CONTENT_FIELD_TABLE)) {
             $query->innerJoin(
                 'u_lnk',
                 ContentGateway::CONTENT_FIELD_TABLE,
@@ -65,25 +65,16 @@ abstract class Base implements CriterionHandler
 
     protected function hasJoinedTable(QueryBuilder $queryBuilder, string $tableName): bool
     {
+        // find table name in a structure: ['fromAlias' => [['joinTable' => '<table_name>'], ...]]
         $joinedParts = $queryBuilder->getQueryPart('join');
-        if (empty($joinedParts)) {
-            return false;
+        foreach ($joinedParts as $joinedTables) {
+            foreach ($joinedTables as $join) {
+                if ($join['joinTable'] === $tableName) {
+                    return true;
+                }
+            }
         }
 
-        // extract 'joinTable' nested key and flatten the structure of query parts, which is:
-        // ['fromAlias' => [['joinTable' => '<table_name>'], ...]]
-        // note that one 'fromAlias' can have multiple different tables joined for it, though it's not usual case
-        $joinedTables = array_merge(
-            ...array_values(
-                array_map(
-                    static function (array $joinedPart): array {
-                        return array_column($joinedPart, 'joinTable');
-                    },
-                    $joinedParts
-                )
-            )
-        );
-
-        return in_array($tableName, $joinedTables, true);
+        return false;
     }
 }
