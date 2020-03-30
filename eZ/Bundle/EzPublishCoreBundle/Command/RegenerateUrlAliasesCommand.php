@@ -82,7 +82,7 @@ EOT;
                 'force',
                 'f',
                 InputOption::VALUE_NONE,
-                'Prevents confirmation dialog. Please use it carefully.'
+                'Prevents confirmation dialog when used with --no-interaction. Please use it carefully.'
             )->setHelp(
                 <<<EOT
 {$beforeRunningHints}
