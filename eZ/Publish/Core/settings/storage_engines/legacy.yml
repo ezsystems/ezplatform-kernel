@@ -42,15 +42,6 @@ services:
         lazy: true
         public: true # @todo should be private
 
-    # Compiler pass will alias 'ezpublish.api.storage_engine.legacy.connection' service to the StorageConnectionFactory
-    ezpublish.api.storage_engine.legacy.dbhandler:
-        class: eZ\Publish\Core\Persistence\Doctrine\ConnectionHandler
-        factory: ['eZ\Publish\Core\Persistence\Doctrine\ConnectionHandler', 'createFromConnection']
-        arguments:
-            - "@ezpublish.api.storage_engine.legacy.connection"
-        lazy: true
-        public: true # @todo should be private
-
     ezpublish.api.storage_engine.legacy.connection:
         class: Doctrine\DBAL\Connection
         factory: ['eZ\Publish\Core\Persistence\Doctrine\ConnectionHandler', 'createConnectionFromDSN']
