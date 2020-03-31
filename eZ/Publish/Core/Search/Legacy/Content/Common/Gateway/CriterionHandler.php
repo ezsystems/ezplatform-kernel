@@ -31,9 +31,16 @@ abstract class CriterionHandler
     /** @var \Doctrine\DBAL\Connection */
     protected $connection;
 
+    /** @var \Doctrine\DBAL\Platforms\AbstractPlatform|null */
+    protected $dbPlatform;
+
+    /**
+     * @throws \Doctrine\DBAL\DBALException
+     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
+        $this->dbPlatform = $connection->getDatabasePlatform();
     }
 
     /**
@@ -53,6 +60,7 @@ abstract class CriterionHandler
      * @param array $languageSettings
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      *
      * @return \Doctrine\DBAL\Query\Expression\CompositeExpression|string
      */
@@ -62,4 +70,19 @@ abstract class CriterionHandler
         Criterion $criterion,
         array $languageSettings
     );
+
+    protected function hasJoinedTable(QueryBuilder $queryBuilder, string $tableName): bool
+    {
+        // find table name in a structure: ['fromAlias' => [['joinTable' => '<table_name>'], ...]]
+        $joinedParts = $queryBuilder->getQueryPart('join');
+        foreach ($joinedParts as $joinedTables) {
+            foreach ($joinedTables as $join) {
+                if ($join['joinTable'] === $tableName) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }
