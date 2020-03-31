@@ -264,6 +264,13 @@ Changes affecting version compatibility with deprecated ezpublish-kernel version
 
 * Dynamic Settings feature has been dropped. It was conceptually not compatible with Symfony's Container. Consider injecting `\eZ\Publish\Core\MVC\ConfigResolverInterface` instead and using `getParameter` method to fetch SiteAccess dependent settings.
 
+* Field Type External Storage Handlers `$context` array no longer has the "connection" key. Rely on
+  injected Connection instead.
+
+* The deprecated Zeta Components (eZc) Database handler has been dropped. All classes and interfaces
+  from the namespaces `eZ\Publish\Core\Persistence\Database` and `eZ\Publish\Core\Persistence\Doctrine`
+  were removed.
+
 ## Deprecated features
 
 * Using SiteAccess-aware `pagelayout` setting is derecated, use `page_layout` instead.
@@ -387,6 +394,11 @@ Changes affecting version compatibility with deprecated ezpublish-kernel version
 * `ezpublish.persistence.external_storage_registry.factory`
 
 * `ezpublish.config.resolver.core` has been removed. `eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver` should be used instead
+
+* `ezpublish.api.search_engine.legacy.dbhandler` and `ezpublish.api.storage_engine.legacy.dbhandler`
+  have been removed. Inject `\Doctrine\DBAL\Connection` via `ezpublish.persistence.connection` instead.
+
+* `ezpublish.connection` has been removed. Use `ezpublish.persistence.connection` instead.
 
 ## Changed behavior
 
