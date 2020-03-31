@@ -122,6 +122,31 @@ class URLAliasServiceTest extends BaseTest
         );
     }
 
+    public function testLoad(): void
+    {
+        $repository = $this->getRepository();
+
+        $urlAliasService = $repository->getURLAliasService();
+
+        // Load URL alias for root location
+        $loadedUrlAlias = $urlAliasService->load('0-d41d8cd98f00b204e9800998ecf8427e');
+
+        $this->assertPropertiesCorrect(
+            [
+                'type' => URLAlias::LOCATION,
+                'destination' => 2,
+                'path' => '/',
+                'languageCodes' => ['eng-US', 'eng-GB'],
+                'alwaysAvailable' => true,
+                'isHistory' => false,
+                'isCustom' => false,
+                'forward' => false,
+            ],
+            $loadedUrlAlias,
+            true
+        );
+    }
+
     /**
      * @param array $testData
      *

@@ -202,21 +202,21 @@ abstract class BaseTest extends TestCase
      * @param mixed[] $expectedValues
      * @param \eZ\Publish\API\Repository\Values\ValueObject $actualObject
      */
-    protected function assertPropertiesCorrect(array $expectedValues, ValueObject $actualObject)
+    protected function assertPropertiesCorrect(array $expectedValues, ValueObject $actualObject, bool $strictComparison = false)
     {
         foreach ($expectedValues as $propertyName => $propertyValue) {
             if ($propertyValue instanceof ValueObject) {
-                $this->assertStructPropertiesCorrect($propertyValue, $actualObject->$propertyName);
+                $this->assertStructPropertiesCorrect($propertyValue, $actualObject->$propertyName, [], $strictComparison);
             } elseif (is_array($propertyValue)) {
                 foreach ($propertyValue as $key => $value) {
                     if ($value instanceof ValueObject) {
-                        $this->assertStructPropertiesCorrect($value, $actualObject->$propertyName[$key]);
+                        $this->assertStructPropertiesCorrect($value, $actualObject->$propertyName[$key], [], $strictComparison);
                     } else {
-                        $this->assertPropertiesEqual("$propertyName\[$key\]", $value, $actualObject->$propertyName[$key]);
+                        $this->assertPropertiesEqual("$propertyName\[$key\]", $value, $actualObject->$propertyName[$key], false, $strictComparison);
                     }
                 }
             } else {
-                $this->assertPropertiesEqual($propertyName, $propertyValue, $actualObject->$propertyName);
+                $this->assertPropertiesEqual($propertyName, $propertyValue, $actualObject->$propertyName, false, $strictComparison);
             }
         }
     }
@@ -252,18 +252,18 @@ abstract class BaseTest extends TestCase
      * @param \eZ\Publish\API\Repository\Values\ValueObject $actualObject
      * @param array $propertyNames
      */
-    protected function assertStructPropertiesCorrect(ValueObject $expectedValues, ValueObject $actualObject, array $additionalProperties = [])
+    protected function assertStructPropertiesCorrect(ValueObject $expectedValues, ValueObject $actualObject, array $additionalProperties = [], bool $strictComparison = false)
     {
         foreach ($expectedValues as $propertyName => $propertyValue) {
             if ($propertyValue instanceof ValueObject) {
-                $this->assertStructPropertiesCorrect($propertyValue, $actualObject->$propertyName);
+                $this->assertStructPropertiesCorrect($propertyValue, $actualObject->$propertyName, $additionalProperties, $strictComparison);
             } else {
-                $this->assertPropertiesEqual($propertyName, $propertyValue, $actualObject->$propertyName);
+                $this->assertPropertiesEqual($propertyName, $propertyValue, $actualObject->$propertyName, false, $strictComparison);
             }
         }
 
         foreach ($additionalProperties as $propertyName) {
-            $this->assertPropertiesEqual($propertyName, $expectedValues->$propertyName, $actualObject->$propertyName);
+            $this->assertPropertiesEqual($propertyName, $expectedValues->$propertyName, $actualObject->$propertyName, $strictComparison);
         }
     }
 
@@ -284,7 +284,7 @@ abstract class BaseTest extends TestCase
         usort($items, $sorter);
     }
 
-    private function assertPropertiesEqual($propertyName, $expectedValue, $actualValue, $sortArray = false)
+    private function assertPropertiesEqual($propertyName, $expectedValue, $actualValue, $sortArray = false, bool $strictComparison = false)
     {
         if ($expectedValue instanceof ArrayObject) {
             $expectedValue = $expectedValue->getArrayCopy();
@@ -302,11 +302,19 @@ abstract class BaseTest extends TestCase
             $this->sortItems($expectedValue);
         }
 
-        $this->assertEquals(
-            $expectedValue,
-            $actualValue,
-            sprintf('Object property "%s" incorrect.', $propertyName)
-        );
+        if ($strictComparison) {
+            $this->assertSame(
+                $expectedValue,
+                $actualValue,
+                sprintf('Object property "%s" incorrect.', $propertyName)
+            );
+        } else {
+            $this->assertEquals(
+                $expectedValue,
+                $actualValue,
+                sprintf('Object property "%s" incorrect.', $propertyName)
+            );
+        }
     }
 
     /**
