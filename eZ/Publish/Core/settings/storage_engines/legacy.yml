@@ -42,11 +42,7 @@ services:
         lazy: true
         public: true # @todo should be private
 
-    ezpublish.api.storage_engine.legacy.connection:
-        class: Doctrine\DBAL\Connection
-        factory: ['eZ\Publish\Core\Persistence\Doctrine\ConnectionHandler', 'createConnectionFromDSN']
-        arguments:
-            - "%legacy_dsn%"
+    ezpublish.api.storage_engine.legacy.connection: '@ezpublish.persistence.connection'
 
     ezpublish.spi.persistence.legacy.transactionhandler:
         class: eZ\Publish\Core\Persistence\Legacy\TransactionHandler
