@@ -104,7 +104,6 @@ Changes affecting version compatibility with deprecated ezpublish-kernel version
     * `\eZ\Publish\API\Repository\Values\Content\Query\Criterion\SectionId::createFromQueryBuilder`
     * `\eZ\Publish\API\Repository\Values\Content\Query\Criterion\Subtree::createFromQueryBuilder`
     * `\eZ\Publish\API\Repository\Values\Content\Query\Criterion\Visibility::createFromQueryBuilder`
-    * `\eZ\Bundle\EzPublishCoreBundle\URLChecker\URLHandlerInterface::setOptions`
     
 * Following SPI methods have been removed:
 
@@ -262,6 +261,8 @@ Changes affecting version compatibility with deprecated ezpublish-kernel version
   different ways of providing users configured in the application (ref.: https://symfony.com/doc/current/security/user_provider.html).
 
 * Legacy (SQL) Search Engine will no longer treat deprecated `%` as a search wildcard. Use `*` instead.
+
+* Dynamic Settings feature has been dropped. It was conceptually not compatible with Symfony's Container. Consider injecting `\eZ\Publish\Core\MVC\ConfigResolverInterface` instead and using `getParameter` method to fetch SiteAccess dependent settings.
 
 ## Deprecated features
 

@@ -1,21 +1,24 @@
 <?php
 
 /**
- * This file is part of the eZ Publish Kernel package.
- *
  * @copyright Copyright (C) eZ Systems AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
+
 namespace eZ\Publish\Core\IO\Adapter;
 
 use eZ\Publish\Core\IO\IOConfigProvider;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\SPI\MVC\EventSubscriber\SiteAccessChangeSubscriber;
+use eZ\Publish\SPI\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
 use League\Flysystem\Adapter\Local;
 use LogicException;
 
-class LocalAdapter extends Local implements SiteAccessChangeSubscriber
+/**
+ * @internal
+ */
+class LocalAdapter extends Local implements ConfigScopeChangeSubscriber
 {
     /** @var \eZ\Publish\Core\IO\IOConfigProvider */
     private $ioConfigProvider;
@@ -43,7 +46,7 @@ class LocalAdapter extends Local implements SiteAccessChangeSubscriber
      * Reconfigure Adapter due to SiteAccess change which implies
      * root dir and permissions could be different for new SiteAccess.
      */
-    public function onSiteAccessChange(SiteAccess $siteAccess): void
+    public function onConfigScopeChange(SiteAccess $siteAccess): void
     {
         $root = $this->ioConfigProvider->getRootDir();
         $root = is_link($root) ? realpath($root) : $root;
