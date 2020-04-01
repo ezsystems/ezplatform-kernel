@@ -4,11 +4,13 @@
  * @copyright Copyright (C) eZ Systems AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
+
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\EventListener;
 
 use eZ\Bundle\EzPublishCoreBundle\EventListener\RejectExplicitFrontControllerRequestsListener;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -16,17 +18,13 @@ use PHPUnit\Framework\TestCase;
 
 class RejectExplicitFrontControllerRequestsListenerTest extends TestCase
 {
-    /**
-     * @var \eZ\Bundle\EzPublishCoreBundle\EventListener\RejectExplicitFrontControllerRequestsListener
-     */
+    /** @var \eZ\Bundle\EzPublishCoreBundle\EventListener\RejectExplicitFrontControllerRequestsListener */
     private $eventListener;
 
-    /**
-     * @var \Symfony\Component\HttpKernel\HttpKernelInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
+    /** @var \Symfony\Component\HttpKernel\HttpKernelInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $httpKernel;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -34,7 +32,7 @@ class RejectExplicitFrontControllerRequestsListenerTest extends TestCase
         $this->httpKernel = $this->createMock(HttpKernelInterface::class);
     }
 
-    public function testSubscribedEvents()
+    public function testSubscribedEvents(): void
     {
         $this->assertSame(
             [
@@ -50,9 +48,9 @@ class RejectExplicitFrontControllerRequestsListenerTest extends TestCase
      * @dataProvider validRequestDataProvider
      * @doesNotPerformAssertions
      */
-    public function testOnKernelRequest(Request $request)
+    public function testOnKernelRequest(Request $request): void
     {
-        $event = new GetResponseEvent(
+        $event = new RequestEvent(
             $this->httpKernel,
             $request,
             HttpKernelInterface::MASTER_REQUEST
@@ -64,11 +62,11 @@ class RejectExplicitFrontControllerRequestsListenerTest extends TestCase
     /**
      * @dataProvider prohibitedRequestDataProvider
      */
-    public function testOnKernelRequestThrowsException(Request $request)
+    public function testOnKernelRequestThrowsException(Request $request): void
     {
         $this->expectException(NotFoundHttpException::class);
 
-        $event = new GetResponseEvent(
+        $event = new RequestEvent(
             $this->httpKernel,
             $request,
             HttpKernelInterface::MASTER_REQUEST
@@ -77,7 +75,7 @@ class RejectExplicitFrontControllerRequestsListenerTest extends TestCase
         $this->eventListener->onKernelRequest($event);
     }
 
-    public function validRequestDataProvider()
+    public function validRequestDataProvider(): array
     {
         return [
             [
@@ -200,7 +198,7 @@ class RejectExplicitFrontControllerRequestsListenerTest extends TestCase
         ];
     }
 
-    public function prohibitedRequestDataProvider()
+    public function prohibitedRequestDataProvider(): array
     {
         return [
             [
