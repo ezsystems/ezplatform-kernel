@@ -97,7 +97,7 @@ class ConfigScopeChangeAwareIOService implements IOServiceInterface, ConfigScope
 
     public function deleteBinaryFile(BinaryFile $binaryFile): void
     {
-        return $this->innerIOService->deleteBinaryFile($binaryFile);
+        $this->innerIOService->deleteBinaryFile($binaryFile);
     }
 
     public function newBinaryCreateStructFromUploadedFile(array $uploadedFile): BinaryFileCreateStruct
@@ -107,7 +107,7 @@ class ConfigScopeChangeAwareIOService implements IOServiceInterface, ConfigScope
 
     public function deleteDirectory($path): void
     {
-        return $this->innerIOService->deleteDirectory($path);
+        $this->innerIOService->deleteDirectory($path);
     }
 
     public function onConfigScopeChange(SiteAccess $siteAccess): void
