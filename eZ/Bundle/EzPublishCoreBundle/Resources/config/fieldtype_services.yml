@@ -62,14 +62,18 @@ services:
         alias: ezpublish.image_alias.imagine.alias_generator.image_asset
 
     ezpublish.fieldType.ezimage.io_service.published:
-        parent: ezpublish.core.io.service
-        calls:
-            - [ setPrefix, [ "$image.published_images_dir$" ] ]
+        class: eZ\Publish\Core\IO\ConfigScopeChangeAwareIOService
+        arguments:
+            $configResolver: '@ezpublish.config.resolver'
+            $innerIOService: '@ezpublish.core.io.service'
+            $prefixParameterName: 'image.published_images_dir'
 
     ezpublish.fieldType.ezimage.io_service.draft:
-        parent: ezpublish.core.io.service
-        calls:
-            - [ setPrefix, [ "$image.versioned_images_dir$" ] ]
+        class: eZ\Publish\Core\IO\ConfigScopeChangeAwareIOService
+        arguments:
+            $configResolver: '@ezpublish.config.resolver'
+            $innerIOService: '@ezpublish.core.io.service'
+            $prefixParameterName: 'image.versioned_images_dir'
 
     ezpublish.fieldType.ezimage.pathGenerator:
         class: eZ\Publish\Core\FieldType\Image\PathGenerator\LegacyPathGenerator
@@ -84,9 +88,11 @@ services:
 
     # BinaryFile
     ezpublish.fieldType.ezbinaryfile.io_service:
-        parent: ezpublish.core.io.service
-        calls:
-            - [ setPrefix, [ "$binary_dir$" ] ]
+        class: eZ\Publish\Core\IO\ConfigScopeChangeAwareIOService
+        arguments:
+            $configResolver: '@ezpublish.config.resolver'
+            $innerIOService: '@ezpublish.core.io.service'
+            $prefixParameterName: 'binary_dir'
 
     ezpublish.fieldType.ezbinaryfile.pathGenerator:
         class: eZ\Publish\Core\FieldType\BinaryBase\PathGenerator\LegacyPathGenerator
