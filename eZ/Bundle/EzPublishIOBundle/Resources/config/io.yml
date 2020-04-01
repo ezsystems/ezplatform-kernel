@@ -77,16 +77,16 @@ services:
 
     # Builds the binarydata and metadata handler based on the siteaccess config
     ezpublish.core.io.metadata_handler:
-        class: eZ\Publish\Core\IO\IOMetadataHandler
-        factory: ["@ezpublish.core.io.metadata_handler.registry", getConfiguredHandler]
+        class: eZ\Publish\Core\IO\IOBinarydataHandler\SiteAccessDependentMetadataHandler
         arguments:
-            - "$io.metadata_handler$"
+            $configResolver: '@ezpublish.config.resolver'
+            $dataHandlerRegistry: '@ezpublish.core.io.metadata_handler.registry'
 
     ezpublish.core.io.binarydata_handler:
-        class: eZ\Publish\Core\IO\IOBinarydataHandler
-        factory: ["@ezpublish.core.io.binarydata_handler.registry", getConfiguredHandler]
+        class: eZ\Publish\Core\IO\IOBinarydataHandler\SiteAccessDependentBinaryDataHandler
         arguments:
-            - "$io.binarydata_handler$"
+            $configResolver: '@ezpublish.config.resolver'
+            $dataHandlerRegistry: '@ezpublish.core.io.binarydata_handler.registry'
 
     ezpublish.core.io.metadata_handler.registry:
         class: eZ\Bundle\EzPublishIOBundle\ApiLoader\HandlerRegistry
