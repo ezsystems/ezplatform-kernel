@@ -96,15 +96,10 @@ services:
 
     # Inject the siteaccess config into a few io services
     ezpublish.core.io.flysystem.default_adapter:
-        class: League\Flysystem\Adapter\Local
-        factory: ["@ezpublish.core.io.flysystem.local_adapter_factory", build]
+        class: eZ\Publish\Core\IO\Adapter\LocalAdapter
         arguments:
             - '@eZ\Publish\Core\IO\IOConfigProvider'
-            - "$io.permissions.files$"
-            - "$io.permissions.directories$"
-
-    ezpublish.core.io.flysystem.local_adapter_factory:
-        class: eZ\Bundle\EzPublishIOBundle\DependencyInjection\Factory\LocalAdapterFactory
+            - '@ezpublish.config.resolver'
 
     ezpublish.core.io.prefix_url_decorator:
         class: eZ\Publish\Core\IO\UrlDecorator\AbsolutePrefix
