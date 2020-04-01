@@ -54,11 +54,8 @@ services:
 
     ezpublish.fieldType.ezimage.io_service.options_provider:
         class: eZ\Publish\Core\FieldType\Image\IO\OptionsProvider
-        calls:
-            - [ setVarDir, [ "$var_dir$" ] ]
-            - [ setStorageDir, [ "$storage_dir$" ] ]
-            - [ setDraftImagesDir, [ "$image.versioned_images_dir$" ] ]
-            - [ setPublishedImagesDir, [ "$image.published_images_dir$" ] ]
+        arguments:
+            $configResolver: '@ezpublish.config.resolver'
 
     # Image alias generator
     ezpublish.fieldType.ezimage.variation_service:
