@@ -10,7 +10,10 @@ namespace eZ\Publish\SPI\MVC\EventSubscriber;
 
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 
-interface SiteAccessChangeSubscriber
+/**
+ * Lets implementing class react to config scope changes.
+ */
+interface ConfigScopeChangeSubscriber
 {
-    public function onSiteAccessChange(SiteAccess $siteAccess):void;
+    public function onConfigScopeChange(SiteAccess $siteAccess): void;
 }
