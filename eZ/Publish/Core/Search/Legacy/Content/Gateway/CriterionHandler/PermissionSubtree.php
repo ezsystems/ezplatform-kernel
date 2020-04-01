@@ -46,8 +46,8 @@ class PermissionSubtree extends CriterionHandler
             );
         }
 
-        if (!$this->hasJoinedTable($queryBuilder, LocationGateway::CONTENT_TREE_TABLE)) {
-            $locationTableAlias = $this->connection->quoteIdentifier($table);
+        $locationTableAlias = $this->connection->quoteIdentifier($table);
+        if (!$this->hasJoinedTableAs($queryBuilder, $locationTableAlias)) {
             $queryBuilder
                 ->leftJoin(
                     'c',

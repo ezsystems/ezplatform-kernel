@@ -71,13 +71,13 @@ abstract class CriterionHandler
         array $languageSettings
     );
 
-    protected function hasJoinedTable(QueryBuilder $queryBuilder, string $tableName): bool
+    protected function hasJoinedTableAs(QueryBuilder $queryBuilder, string $tableAlias): bool
     {
         // find table name in a structure: ['fromAlias' => [['joinTable' => '<table_name>'], ...]]
         $joinedParts = $queryBuilder->getQueryPart('join');
         foreach ($joinedParts as $joinedTables) {
             foreach ($joinedTables as $join) {
-                if ($join['joinTable'] === $tableName) {
+                if ($join['joinAlias'] === $tableAlias) {
                     return true;
                 }
             }
