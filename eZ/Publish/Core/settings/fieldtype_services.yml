@@ -13,10 +13,8 @@ services:
 
     ezpublish.fieldType.ezimage.io_service.options_provider:
         class: eZ\Publish\Core\FieldType\Image\IO\OptionsProvider
-        calls:
-            - [ setVarDir, [ "%storage_dir%" ] ]
-            - [ setDraftImagesDir, [ "%image_draft_storage_prefix%" ] ]
-            - [ setPublishedImagesDir, [ "%image_storage_prefix%" ] ]
+        arguments:
+            $configResolver: '@ezpublish.config.resolver'
 
     ezpublish.fieldType.ezimage.io_service.published:
         parent: ezpublish.core.io.service
