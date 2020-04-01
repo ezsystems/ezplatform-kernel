@@ -325,7 +325,7 @@ class AssetMapperTest extends TestCase
     /**
      * @return \eZ\Publish\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected function mockConfigResolver(): ConfigResolverInterface
+    private function mockConfigResolver(): ConfigResolverInterface
     {
         $mock = $this->createMock(ConfigResolverInterface::class);
         $mock

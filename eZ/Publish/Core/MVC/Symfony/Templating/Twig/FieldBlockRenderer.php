@@ -319,33 +319,28 @@ class FieldBlockRenderer implements FieldBlockRendererInterface
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      */
-    protected function getResources(string $resourceType): array
+    private function getResources(string $resourceType): array
     {
-        if ($resourceType === 'fieldViewResources') {
-            return $this->sortResources($this->resourceProvider->getFieldViewResources());
+        switch ($resourceType) {
+            case 'fieldViewResources':
+                return $this->sortResources($this->resourceProvider->getFieldViewResources());
+            case 'fieldEditResources':
+                return $this->sortResources($this->resourceProvider->getFieldEditResources());
+            case 'fieldDefinitionViewResources':
+                return $this->sortResources($this->resourceProvider->getFieldDefinitionViewResources());
+            case 'fieldDefinitionEditResources':
+                return $this->sortResources($this->resourceProvider->getFieldDefinitionEditResources());
+            default:
+                throw new InvalidArgumentException(
+                    '$resourceType',
+                    sprintf('Invalid resource type: %s', $resourceType)
+                );
         }
-
-        if ($resourceType === 'fieldEditResources') {
-            return $this->sortResources($this->resourceProvider->getFieldEditResources());
-        }
-
-        if ($resourceType === 'fieldDefinitionViewResources') {
-            return $this->sortResources($this->resourceProvider->getFieldDefinitionViewResources());
-        }
-
-        if ($resourceType === 'fieldDefinitionEditResources') {
-            return $this->sortResources($this->resourceProvider->getFieldDefinitionEditResources());
-        }
-
-        throw new InvalidArgumentException(
-            '$resourceType',
-            sprintf('Invalid resource type: %s', $resourceType)
-        );
     }
 
-    protected function sortResources(array $resources): array
+    private function sortResources(array $resources): array
     {
-        usort($resources, static function (array $a, array $b) {
+        usort($resources, static function (array $a, array $b): int {
             return $b['priority'] - $a['priority'];
         });
 

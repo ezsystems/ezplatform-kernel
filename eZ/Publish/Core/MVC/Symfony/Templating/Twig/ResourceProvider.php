@@ -10,6 +10,9 @@ namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 
+/**
+ * @internal
+ */
 class ResourceProvider implements ResourceProviderInterface
 {
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */

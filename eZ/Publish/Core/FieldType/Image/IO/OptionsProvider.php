@@ -10,6 +10,9 @@ namespace eZ\Publish\Core\FieldType\Image\IO;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 
+/**
+ * @internal
+ */
 class OptionsProvider
 {
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */

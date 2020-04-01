@@ -15,16 +15,16 @@ use eZ\Publish\Core\MVC\ConfigResolverInterface;
 abstract class AbstractConfigResolverBasedURLHandler extends AbstractURLHandler
 {
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
-    protected $configResolver;
+    private $configResolver;
 
     /** @var string */
-    protected $parameterName;
+    private $parameterName;
 
     /** @var string|null */
-    protected $namespace;
+    private $namespace;
 
     /** @var string|null */
-    protected $scope;
+    private $scope;
 
     public function __construct(
         URLService $urlService,

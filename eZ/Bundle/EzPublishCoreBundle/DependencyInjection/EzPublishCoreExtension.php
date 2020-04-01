@@ -150,9 +150,7 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
                   ->addTag(
                       'kernel.event_listener',
                       ['method' => 'onConfigScopeChange', 'event' => MVCEvents::CONFIG_SCOPE_CHANGE]
-                  );
-
-        $container->registerForAutoconfiguration(ConfigScopeChangeSubscriber::class)
+                  )
                   ->addTag(
                       'kernel.event_listener',
                       ['method' => 'onConfigScopeChange', 'event' => MVCEvents::CONFIG_SCOPE_RESTORE]
