@@ -275,7 +275,9 @@ Changes affecting version compatibility with deprecated ezpublish-kernel version
 
 * Using SiteAccess-aware `pagelayout` setting is derecated, use `page_layout` instead.
 * View parameter `pagelayout` set by `pagelayout` setting is deprecated, use `page_layout` instead in your Twig templates.
-
+* The `$context` array of `\eZ\Publish\SPI\FieldType\FieldStorage` methods (`storeFieldData`,
+  `getFieldData`, `deleteFieldData`, `getIndexData`) is deprecated and will be dropped in the next
+  major version. Rely on injected Connection instead.
 
 ## Renamed features
 
