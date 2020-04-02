@@ -14,7 +14,7 @@ use eZ\Publish\SPI\IO\BinaryFileCreateStruct;
 /**
  * @internal
  */
-class SiteAccessDependentMetadataHandler implements IOMetadataHandler
+final class SiteAccessDependentMetadataHandler implements IOMetadataHandler
 {
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;

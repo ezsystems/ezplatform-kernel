@@ -18,7 +18,7 @@ use LogicException;
 /**
  * @internal
  */
-class LocalAdapter extends Local implements ConfigScopeChangeSubscriber
+final class LocalAdapter extends Local implements ConfigScopeChangeSubscriber
 {
     /** @var \eZ\Publish\Core\IO\IOConfigProvider */
     private $ioConfigProvider;

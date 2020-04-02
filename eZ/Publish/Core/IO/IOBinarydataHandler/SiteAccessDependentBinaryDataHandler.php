@@ -14,7 +14,7 @@ use eZ\Publish\SPI\IO\BinaryFileCreateStruct;
 /**
  * @internal
  */
-class SiteAccessDependentBinaryDataHandler implements IOBinaryDataHandler
+final class SiteAccessDependentBinaryDataHandler implements IOBinaryDataHandler
 {
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;

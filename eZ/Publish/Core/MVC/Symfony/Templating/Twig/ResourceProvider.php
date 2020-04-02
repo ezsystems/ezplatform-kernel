@@ -13,7 +13,7 @@ use eZ\Publish\Core\MVC\ConfigResolverInterface;
 /**
  * @internal
  */
-class ResourceProvider implements ResourceProviderInterface
+final class ResourceProvider implements ResourceProviderInterface
 {
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;

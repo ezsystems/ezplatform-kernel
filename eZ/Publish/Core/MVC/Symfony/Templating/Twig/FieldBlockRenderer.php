@@ -313,9 +313,7 @@ class FieldBlockRenderer implements FieldBlockRendererInterface
     }
 
     /**
-     * @param string $resourceType
-     *
-     * @return array
+     * @return array|\Twig\Template[]
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      */

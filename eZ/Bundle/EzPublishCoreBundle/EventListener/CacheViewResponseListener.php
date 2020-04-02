@@ -51,7 +51,7 @@ class CacheViewResponseListener implements EventSubscriberInterface
 
         $isTtlCacheEnabled = $this->configResolver->getParameter('content.ttl_cache');
         if ($isTtlCacheEnabled && !$response->headers->hasCacheControlDirective('s-maxage')) {
-            $response->setSharedMaxAge($this->configResolver->getParameter('content.default_ttl'));
+            $response->setSharedMaxAge((int) $this->configResolver->getParameter('content.default_ttl'));
         }
     }
 }
