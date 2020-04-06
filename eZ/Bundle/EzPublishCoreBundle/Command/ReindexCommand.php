@@ -251,6 +251,10 @@ EOT
         }
 
         $offset = (int) $input->getOption('offset');
+        if ($offset < 0) {
+            throw new InvalidArgumentException('--offset', "The value must be >= 0, you provided '{$offset}'");
+        }
+
         if ($since = $input->getOption('since')) {
             $stmt = $this->getStatementContentSince(new DateTime($since), false, $offset);
             $count = max((int) $this->getStatementContentSince(new DateTime($since), true, $offset)->fetchColumn(), 0);
@@ -389,7 +393,7 @@ EOT
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    private function getStatementSubtree($locationId, $count = false, int $offset = 0)
+    private function getStatementSubtree($locationId, $count = false, int $offset)
     {
         $location = $this->locationHandler->load($locationId);
         $q = $this->connection->createQueryBuilder()
@@ -411,7 +415,7 @@ EOT
      *
      * @return \Doctrine\DBAL\Driver\Statement
      */
-    private function getStatementContentAll($count = false, int $offset = 0)
+    private function getStatementContentAll($count = false, int $offset)
     {
         $q = $this->connection->createQueryBuilder()
             ->select($count ? 'count(c.id)' : 'c.id')
