@@ -8,6 +8,7 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests;
 
+use Exception;
 use eZ\Publish\Core\Base\ServiceContainer;
 use eZ\Publish\Core\Persistence\Legacy\Handler;
 use eZ\Publish\Core\Persistence\Legacy\Content\Handler as ContentHandler;
@@ -16,6 +17,7 @@ use eZ\Publish\Core\Persistence\Legacy\User\Handler as UserHandler;
 use eZ\Publish\Core\Persistence\Legacy\Content\Section\Handler as SectionHandler;
 use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler as UrlAliasHandler;
 use eZ\Publish\Core\Persistence\Legacy\TransactionHandler;
+use eZ\Publish\Core\Repository\Tests\RepositoryContainerBuilder;
 use eZ\Publish\SPI\Persistence\Content\Handler as SPIContentHandler;
 use eZ\Publish\SPI\Persistence\Content\Type\Handler as SPIContentTypeHandler;
 use eZ\Publish\SPI\Persistence\Content\Language\Handler as SPILanguageHandler;
@@ -270,14 +272,13 @@ class HandlerTest extends TestCase
         );
     }
 
+    /** @var \eZ\Publish\Core\Persistence\Legacy\Handler */
     protected static $legacyHandler;
 
     /**
      * Returns the Handler.
-     *
-     * @return Handler
      */
-    protected function getHandlerFixture()
+    protected function getHandlerFixture(): Handler
     {
         if (!isset(self::$legacyHandler)) {
             $container = $this->getContainer();
@@ -288,6 +289,7 @@ class HandlerTest extends TestCase
         return self::$legacyHandler;
     }
 
+    /** @var \Symfony\Component\DependencyInjection\ContainerInterface */
     protected static $container;
 
     protected function getContainer()
@@ -296,21 +298,12 @@ class HandlerTest extends TestCase
             $installDir = dirname(__DIR__, 6);
             $cacheDir = "{$installDir}/var/cache";
 
-            /** @var \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder */
-            $containerBuilder = require $installDir . '/eZ/Publish/Core/settings/containerBuilder.php';
-
-            /* @var \Symfony\Component\DependencyInjection\Loader\YamlFileLoader $loader */
-            $loader->load('search_engines/legacy.yml');
-            $loader->load('tests/integration_legacy.yml');
-
-            $containerBuilder->setParameter(
-                'languages',
-                ['eng-US', 'eng-GB']
-            );
-            $containerBuilder->setParameter(
-                'legacy_dsn',
-                $this->getDsn()
-            );
+            $containerBuilder = new RepositoryContainerBuilder();
+            try {
+                $containerBuilder->buildTestContainer();
+            } catch (Exception $e) {
+                self::fail('Building HandlerTest Container failed: ' . $e);
+            }
 
             self::$container = new ServiceContainer(
                 $containerBuilder,
