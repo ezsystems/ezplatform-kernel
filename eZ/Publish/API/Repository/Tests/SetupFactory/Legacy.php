@@ -1,16 +1,18 @@
 <?php
 
 /**
- * File containing the Test Setup Factory base class.
- *
  * @copyright Copyright (C) eZ Systems AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
+
 namespace eZ\Publish\API\Repository\Tests\SetupFactory;
 
 use Doctrine\DBAL\Connection;
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Tests\LegacySchemaImporter;
 use eZ\Publish\Core\Base\ServiceContainer;
+use eZ\Publish\Core\Repository\Tests\RepositoryContainerBuilder;
 use eZ\Publish\SPI\Tests\Persistence\Fixture;
 use eZ\Publish\SPI\Tests\Persistence\FixtureImporter;
 use eZ\Publish\SPI\Tests\Persistence\YamlFixture;
@@ -22,7 +24,6 @@ use eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler as Cachin
 use Exception;
 use eZ\Publish\Core\Repository\Values\User\UserReference;
 use Symfony\Component\Filesystem\Filesystem;
-use eZ\Publish\Core\Base\Container\Compiler;
 
 /**
  * A Test Factory is used to setup the infrastructure for a tests, based on a
@@ -71,13 +72,6 @@ class Legacy extends SetupFactory
      * @var \eZ\Publish\SPI\Tests\Persistence\Fixture
      */
     private static $initialDataFixture;
-
-    /**
-     * Cached in-memory post insert SQL statements.
-     *
-     * @var string[]
-     */
-    private static $postInsertStatements;
 
     protected $repositoryReference = 'ezpublish.api.repository';
 
@@ -141,9 +135,11 @@ class Legacy extends SetupFactory
      * @param bool $initializeFromScratch if the back end should be initialized
      *                                    from scratch or re-used
      *
-     * @return \eZ\Publish\API\Repository\Repository
+     * @throws \Doctrine\DBAL\ConnectionException
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Exception
      */
-    public function getRepository($initializeFromScratch = true)
+    public function getRepository($initializeFromScratch = true): Repository
     {
         if ($initializeFromScratch || !self::$schemaInitialized) {
             $this->initializeSchema();
@@ -292,37 +288,22 @@ class Legacy extends SetupFactory
     /**
      * Returns the service container used for initialization of the repository.
      *
-     * @return \eZ\Publish\Core\Base\ServiceContainer
+     * @throws \Exception
      */
-    public function getServiceContainer()
+    public function getServiceContainer(): ServiceContainer
     {
         if (!isset(self::$serviceContainer)) {
             $installDir = dirname(__DIR__, 6);
             $cacheDir = "{$installDir}/var/cache";
 
-            /** @var \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder */
-            $containerBuilder = require "{$installDir}/eZ/Publish/Core/settings/containerBuilder.php";
-
-            /* @var \Symfony\Component\DependencyInjection\Loader\YamlFileLoader $loader */
-            $loader->load('search_engines/legacy.yml');
-            $loader->load('tests/integration_legacy.yml');
-
+            $containerBuilder = new RepositoryContainerBuilder();
+            $containerBuilder->buildTestContainer();
             $this->externalBuildContainer($containerBuilder);
-
-            $containerBuilder->setParameter(
-                'legacy_dsn',
-                self::$dsn
-            );
 
             $containerBuilder->setParameter(
                 'io_root_dir',
                 self::$ioRootDir . '/' . $containerBuilder->getParameter('storage_dir')
             );
-
-            $containerBuilder->addCompilerPass(new Compiler\Search\FieldRegistryPass());
-
-            // load overrides just before creating test Container
-            $loader->load('tests/override.yml');
 
             self::$serviceContainer = new ServiceContainer(
                 $containerBuilder,
