@@ -1,8 +1,6 @@
 <?php
 
 /**
- * File containing ServiceContainer class.
- *
  * @copyright Copyright (C) eZ Systems AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
@@ -65,8 +63,8 @@ class ServiceContainer implements Container
     protected $bypassCache;
 
     /**
-     * @param string|ContainerInterface $container Path to the container file or container instance
-     * @param string $installDir Installation directory, required by default 'containerBuilder.php' file
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container container instance
+     * @param string $installDir Installation directory
      * @param string $cacheDir Directory where PHP container cache will be stored
      * @param bool $debug Default false should be used for production, if true resources will be checked
      *                    and cache will be regenerated if necessary
@@ -74,6 +72,17 @@ class ServiceContainer implements Container
      */
     public function __construct($container, $installDir, $cacheDir, $debug = false, $bypassCache = false)
     {
+        if (!$container instanceof ContainerInterface) {
+            @trigger_error(
+                sprintf(
+                    '%s expects its first argument to be an instance of %s. Passing something else ' .
+                    'is deprecated and will cause a fatal error in the next major version',
+                    __METHOD__,
+                    ContainerInterface::class
+                ),
+                E_USER_DEPRECATED
+            );
+        }
         $this->innerContainer = $container;
         $this->installDir = $installDir;
         $this->cacheDir = $cacheDir;
@@ -164,11 +173,9 @@ class ServiceContainer implements Container
     }
 
     /**
-     * Returns ContainerBuilder by including the default file 'containerBuilder.php' from settings directory.
-     *
      * @throws \RuntimeException
      */
-    protected function getContainer()
+    protected function getContainer(): ContainerInterface
     {
         if ($this->innerContainer instanceof ContainerInterface) {
             // Do nothing
@@ -180,7 +187,7 @@ class ServiceContainer implements Container
                 )
             );
         } else {
-            // 'containerBuilder.php' file expects $installDir variable to be set by caller
+            // container file expects $installDir variable to be set by caller
             $installDir = $this->installDir;
             $this->innerContainer = require_once $this->innerContainer;
         }
@@ -189,6 +196,8 @@ class ServiceContainer implements Container
         if ($this->innerContainer instanceof ContainerBuilder && !$this->innerContainer->isCompiled()) {
             $this->innerContainer->compile(true);
         }
+
+        return $this->innerContainer;
     }
 
     /**
