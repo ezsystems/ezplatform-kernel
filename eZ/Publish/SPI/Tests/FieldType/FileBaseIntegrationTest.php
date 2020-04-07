@@ -1,26 +1,15 @@
 <?php
 
+/**
+ * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
 namespace eZ\Publish\SPI\Tests\FieldType;
 
-use eZ\Publish\API\Repository\Tests\Container\Compiler\SetAllServicesPublicPass;
 use eZ\Publish\Core\IO\IOServiceInterface;
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
-use FileSystemIterator;
-use Symfony\Component\Filesystem\Filesystem as FilesystemComponent;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 abstract class FileBaseIntegrationTest extends BaseIntegrationTest
 {
-    /**
-     * Temporary storage directory.
-     *
-     * @var string
-     */
-    protected static $tmpDir;
-
     /** @var IOServiceInterface */
     protected $ioService;
 
@@ -61,118 +50,6 @@ abstract class FileBaseIntegrationTest extends BaseIntegrationTest
     abstract protected function getStoragePrefix();
 
     /**
-     * Sets up a temporary directory and stores its path in self::$tmpDir.
-     */
-    public static function setUpBeforeClass(): void
-    {
-        $calledClass = get_called_class();
-
-        $tmpFile = tempnam(
-            sys_get_temp_dir(),
-            'eZ_' . substr($calledClass, strrpos($calledClass, '\\') + 1)
-        );
-
-        // Convert file into directory
-        unlink($tmpFile);
-        mkdir($tmpFile);
-
-        self::$tmpDir = $tmpFile;
-
-        $storageDir = self::$tmpDir . '/var/ezdemo_site/storage';
-        if (!file_exists($storageDir)) {
-            $fs = new FilesystemComponent();
-            $fs->mkdir($storageDir);
-        }
-
-        self::$setUp = false;
-
-        parent::setUpBeforeClass();
-    }
-
-    /**
-     * Removes the temp dir.
-     */
-    public static function tearDownAfterClass(): void
-    {
-        self::removeRecursive(self::$tmpDir);
-        parent::tearDownAfterClass();
-    }
-
-    /**
-     * Removes the given directory path recursively.
-     *
-     * @param string $dir
-     */
-    protected static function removeRecursive($dir)
-    {
-        $iterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator(
-                $dir,
-                FileSystemIterator::KEY_AS_PATHNAME | FileSystemIterator::SKIP_DOTS | FileSystemIterator::CURRENT_AS_FILEINFO
-            ),
-            RecursiveIteratorIterator::CHILD_FIRST
-        );
-
-        foreach ($iterator as $path => $fileInfo) {
-            if ($fileInfo->isDir()) {
-                rmdir($path);
-            } else {
-                unlink($path);
-            }
-        }
-
-        rmdir($dir);
-    }
-
-    protected function getContainer()
-    {
-        $installDir = dirname(__DIR__, 5);
-
-        $containerBuilder = new ContainerBuilder();
-        $settingsPath = $installDir . '/eZ/Publish/Core/settings/';
-        $loader = new YamlFileLoader($containerBuilder, new FileLocator($settingsPath));
-
-        $loader->load('fieldtypes.yml');
-        $loader->load('io.yml');
-        $loader->load('repository.yml');
-        $loader->load('repository/inner.yml');
-        $loader->load('repository/event.yml');
-        $loader->load('repository/siteaccessaware.yml');
-        $loader->load('repository/autowire.yml');
-        $loader->load('fieldtype_external_storages.yml');
-        $loader->load('storage_engines/common.yml');
-        $loader->load('storage_engines/shortcuts.yml');
-        $loader->load('storage_engines/legacy.yml');
-        $loader->load('search_engines/legacy.yml');
-        $loader->load('storage_engines/cache.yml');
-        $loader->load('settings.yml');
-        $loader->load('fieldtype_services.yml');
-        $loader->load('utils.yml');
-        $loader->load('tests/common.yml');
-        $loader->load('tests/integration_legacy.yml');
-        $loader->load('policies.yml');
-        $loader->load('events.yml');
-        $loader->load('thumbnails.yml');
-
-        $containerBuilder->setParameter('ezpublish.kernel.root_dir', $installDir);
-
-        $containerBuilder->setParameter(
-            'legacy_dsn',
-            $this->getDsn()
-        );
-        $containerBuilder->setParameter(
-            'io_root_dir',
-            self::$tmpDir . '/var/ezdemo_site/storage'
-        );
-
-        $containerBuilder->addCompilerPass(new SetAllServicesPublicPass());
-
-        $containerBuilder->compile(true);
-
-        return $containerBuilder;
-    }
-
-    /**
      * Asserts that the IO File with uri $uri exists.
      *
      * @param string $uri
@@ -180,7 +57,7 @@ abstract class FileBaseIntegrationTest extends BaseIntegrationTest
     protected function assertIOUriExists($uri)
     {
         $this->assertFileExists(
-            self::$tmpDir . '/' . $uri,
+            self::$tmpIoRootDir . '/' . $uri,
             "Stored file uri $uri does not exist"
         );
     }
@@ -207,9 +84,9 @@ abstract class FileBaseIntegrationTest extends BaseIntegrationTest
         return $this->getStorageDir() . '/' . $this->getStoragePrefix() . '/' . $id;
     }
 
-    protected function getStorageDir()
+    protected function getStorageDir(): string
     {
-        return (self::$tmpDir ? self::$tmpDir . '/' : '') . self::$container->getParameter('storage_dir');
+        return self::$container->getParameter('io_root_dir');
     }
 
     protected function getFilesize($binaryFileId)

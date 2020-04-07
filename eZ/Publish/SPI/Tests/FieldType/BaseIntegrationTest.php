@@ -1,27 +1,29 @@
 <?php
 
 /**
- * File contains: eZ\Publish\SPI\Tests\FieldType\BaseIntegrationTest class.
- *
  * @copyright Copyright (C) eZ Systems AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 namespace eZ\Publish\SPI\Tests\FieldType;
 
-use eZ\Publish\API\Repository\Tests\Container\Compiler\SetAllServicesPublicPass;
+use Exception;
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\Core\Persistence;
 use eZ\Publish\Core\Persistence\TransformationProcessor\DefinitionBased;
 use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\Core\Persistence\Legacy;
+use eZ\Publish\Core\Repository\Tests\RepositoryContainerBuilder;
 use eZ\Publish\SPI\Persistence\Content;
 use eZ\Publish\SPI\Persistence\Content\Field;
 use eZ\Publish\SPI\Persistence\Content\Type;
 use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
 use eZ\Publish\SPI\Tests\Persistence\FixtureImporter;
 use eZ\Publish\SPI\Tests\Persistence\YamlFixture;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use FilesystemIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Filesystem\Filesystem as FilesystemComponent;
 
 /**
  * Integration test for the legacy storage.
@@ -62,17 +64,11 @@ abstract class BaseIntegrationTest extends TestCase
     protected static $container;
 
     /**
-     * @return string
+     * Temporary storage directory.
+     *
+     * @var string
      */
-    protected static function getInstallationDir()
-    {
-        static $installDir = null;
-        if ($installDir === null) {
-            $installDir = dirname(__DIR__, 5);
-        }
-
-        return $installDir;
-    }
+    protected static $tmpIoRootDir;
 
     /** @var \eZ\Publish\Core\Persistence\TransformationProcessor */
     protected $transformationProcessor;
@@ -526,7 +522,7 @@ abstract class BaseIntegrationTest extends TestCase
      */
     public function testDeleteField($content)
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $handler = $this->getCustomHandler();
         $contentHandler = $handler->contentHandler();
@@ -556,48 +552,75 @@ abstract class BaseIntegrationTest extends TestCase
         );
     }
 
-    protected function getContainer()
+    protected function getContainer(): ContainerInterface
     {
-        $installDir = dirname(__DIR__, 5);
-
-        $containerBuilder = new ContainerBuilder();
-        $settingsPath = $installDir . '/eZ/Publish/Core/settings/';
-        $loader = new YamlFileLoader($containerBuilder, new FileLocator($settingsPath));
-
-        $loader->load('fieldtypes.yml');
-        $loader->load('io.yml');
-        $loader->load('repository.yml');
-        $loader->load('repository/inner.yml');
-        $loader->load('repository/event.yml');
-        $loader->load('repository/siteaccessaware.yml');
-        $loader->load('repository/autowire.yml');
-        $loader->load('fieldtype_external_storages.yml');
-        $loader->load('storage_engines/common.yml');
-        $loader->load('storage_engines/shortcuts.yml');
-        $loader->load('storage_engines/legacy.yml');
-        $loader->load('search_engines/legacy.yml');
-        $loader->load('storage_engines/cache.yml');
-        $loader->load('settings.yml');
-        $loader->load('fieldtype_services.yml');
-        $loader->load('utils.yml');
-        $loader->load('tests/common.yml');
-        $loader->load('policies.yml');
-        $loader->load('events.yml');
-        $loader->load('tests/integration_legacy.yml');
-        $loader->load('thumbnails.yml');
-
-        $containerBuilder->setParameter('ezpublish.kernel.root_dir', $installDir);
+        $containerBuilder = new RepositoryContainerBuilder();
+        try {
+            $containerBuilder->buildTestContainer();
+        } catch (Exception $e) {
+            self::fail('Building integration tests Container failed: ' . $e);
+        }
 
         $containerBuilder->setParameter(
-            'legacy_dsn',
-            $this->getDsn()
+            'io_root_dir',
+            $this->createStorageDir('/var/ezdemo_site/storage')
         );
-
-        $containerBuilder->addCompilerPass(new SetAllServicesPublicPass());
 
         $containerBuilder->compile(true);
 
         return $containerBuilder;
+    }
+
+    public static function setUpBeforeClass(): void
+    {
+        self::$tmpIoRootDir = sys_get_temp_dir() . '/eZ_tests_' . md5(__CLASS__);
+    }
+
+    private function createStorageDir(string $path): string
+    {
+        $storageDir = self::$tmpIoRootDir . $path;
+        if (!file_exists($storageDir)) {
+            $fs = new FilesystemComponent();
+            $fs->mkdir($storageDir);
+        }
+
+        return $storageDir;
+    }
+
+    /**
+     * Removes the temp dir.
+     */
+    public static function tearDownAfterClass(): void
+    {
+        self::removeRecursive(self::$tmpIoRootDir);
+    }
+
+    /**
+     * Remove the given directory path recursively.
+     */
+    protected static function removeRecursive(string $dir): void
+    {
+        if (empty($dir) || !is_dir($dir)) {
+            return;
+        }
+
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator(
+                $dir,
+                FilesystemIterator::KEY_AS_PATHNAME | FilesystemIterator::SKIP_DOTS | FileSystemIterator::CURRENT_AS_FILEINFO
+            ),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
+
+        foreach ($iterator as $path => $fileInfo) {
+            if ($fileInfo->isDir()) {
+                rmdir($path);
+            } else {
+                unlink($path);
+            }
+        }
+
+        rmdir($dir);
     }
 
     /**
