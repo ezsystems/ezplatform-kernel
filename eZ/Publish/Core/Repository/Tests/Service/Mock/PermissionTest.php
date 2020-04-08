@@ -13,7 +13,7 @@ use eZ\Publish\Core\Repository\Permission\PermissionResolver;
 use eZ\Publish\Core\Repository\Values\User\UserReference;
 use eZ\Publish\Core\Repository\Repository as CoreRepository;
 use eZ\Publish\Core\Base\Exceptions\NotFound\LimitationNotFoundException;
-use eZ\Publish\Core\Repository\Helper\RoleDomainMapper;
+use eZ\Publish\Core\Repository\Mapper\RoleDomainMapper;
 use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
 use eZ\Publish\SPI\Limitation\Type;
 use eZ\Publish\SPI\Persistence\User\RoleAssignment;
@@ -1091,7 +1091,7 @@ class PermissionTest extends BaseServiceMockTest
     protected $roleDomainMapperMock;
 
     /**
-     * @return \eZ\Publish\Core\Repository\Helper\RoleDomainMapper|\PHPUnit\Framework\MockObject\MockObject
+     * @return \eZ\Publish\Core\Repository\Mapper\RoleDomainMapper|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getRoleDomainMapperMock($methods = [])
     {

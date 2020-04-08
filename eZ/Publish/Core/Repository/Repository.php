@@ -213,7 +213,7 @@ class Repository implements RepositoryInterface
     /** @var \eZ\Publish\Core\Repository\Permission\LimitationService */
     protected $limitationService;
 
-    /** @var \eZ\Publish\Core\Repository\Helper\RoleDomainMapper */
+    /** @var \eZ\Publish\Core\Repository\Mapper\RoleDomainMapper */
     protected $roleDomainMapper;
 
     /** @var \eZ\Publish\Core\Repository\Mapper\ContentDomainMapper */
@@ -639,7 +639,7 @@ class Repository implements RepositoryInterface
     /**
      * Get RoleDomainMapper.
      *
-     * @return \eZ\Publish\Core\Repository\Helper\RoleDomainMapper
+     * @return \eZ\Publish\Core\Repository\Mapper\RoleDomainMapper
      */
     protected function getRoleDomainMapper()
     {
@@ -647,7 +647,7 @@ class Repository implements RepositoryInterface
             return $this->roleDomainMapper;
         }
 
-        $this->roleDomainMapper = new Helper\RoleDomainMapper($this->limitationService);
+        $this->roleDomainMapper = new Mapper\RoleDomainMapper($this->limitationService);
 
         return $this->roleDomainMapper;
     }
