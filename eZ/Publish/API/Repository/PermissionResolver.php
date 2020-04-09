@@ -94,6 +94,4 @@ interface PermissionResolver
         array $targets = [],
         array $limitationsIdentifiers = []
     ): LookupLimitationResult;
-
-    public function sudo(callable $callback, RepositoryInterface $outerRepository);
 }
