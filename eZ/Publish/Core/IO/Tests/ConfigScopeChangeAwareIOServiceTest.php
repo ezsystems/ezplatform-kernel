@@ -22,7 +22,7 @@ final class ConfigScopeChangeAwareIOServiceTest extends TestCase
     protected const PREFIX_PARAMETER_NAME = 'param';
 
     /** @var \eZ\Publish\Core\IO\ConfigScopeChangeAwareIOService */
-    protected $IOService;
+    protected $ioService;
 
     /** @var \eZ\Publish\Core\IO\ConfigScopeChangeAwareIOService|\PHPUnit\Framework\MockObject\MockObject */
     protected $innerIOService;
@@ -42,7 +42,7 @@ final class ConfigScopeChangeAwareIOServiceTest extends TestCase
         ;
 
         $this->innerIOService = $this->createMock(IOServiceInterface::class);
-        $this->IOService = new ConfigScopeChangeAwareIOService(
+        $this->ioService = new ConfigScopeChangeAwareIOService(
             $this->configResolver,
             $this->innerIOService,
             self::PREFIX_PARAMETER_NAME
@@ -71,7 +71,7 @@ final class ConfigScopeChangeAwareIOServiceTest extends TestCase
             ->method('setPrefix')
         ;
 
-        $this->IOService->setPrefix(self::PREFIX);
+        $this->ioService->setPrefix(self::PREFIX);
     }
 
     public function testGetExternalPath(): void
@@ -86,7 +86,7 @@ final class ConfigScopeChangeAwareIOServiceTest extends TestCase
             ->willReturn($expectedExternalPath)
         ;
 
-        $externalPath = $this->IOService->getExternalPath($internalId);
+        $externalPath = $this->ioService->getExternalPath($internalId);
 
         $this->assertEquals($expectedExternalPath, $externalPath);
     }
@@ -315,6 +315,6 @@ final class ConfigScopeChangeAwareIOServiceTest extends TestCase
             ->method('setPrefix')
             ->with(self::PREFIX);
 
-        $this->IOService->onConfigScopeChange($siteAccess);
+        $this->ioService->onConfigScopeChange($siteAccess);
     }
 }
