@@ -16,7 +16,7 @@ use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\TestCase;
 
-class ConfigScopeChangeAwareIOServiceTest extends TestCase
+final class ConfigScopeChangeAwareIOServiceTest extends TestCase
 {
     protected const PREFIX = 'test-prefix';
     protected const PREFIX_PARAMETER_NAME = 'param';
