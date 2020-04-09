@@ -7,7 +7,7 @@
 namespace eZ\Publish\Core\Base\Container\ApiLoader;
 
 use eZ\Publish\API\Repository\LanguageResolver;
-use eZ\Publish\API\Repository\PermissionResolver;
+use eZ\Publish\API\Repository\PermissionService;
 use eZ\Publish\Core\FieldType\FieldTypeRegistry;
 use eZ\Publish\Core\Repository\Permission\LimitationService;
 use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
@@ -40,20 +40,14 @@ class RepositoryFactory implements ContainerAwareInterface
     /** @var \eZ\Publish\API\Repository\LanguageResolver */
     private $languageResolver;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
-    private $permissionResolver;
-
     public function __construct(
         $repositoryClass,
         array $policyMap,
-        LanguageResolver $languageResolver,
-        PermissionResolver $permissionResolver
+        LanguageResolver $languageResolver
     ) {
         $this->repositoryClass = $repositoryClass;
         $this->policyMap = $policyMap;
         $this->languageResolver = $languageResolver;
-
-        $this->permissionResolver = $permissionResolver;
     }
 
     /**
@@ -76,6 +70,7 @@ class RepositoryFactory implements ContainerAwareInterface
         Mapper\ContentDomainMapper $contentDomainMapper,
         Mapper\ContentTypeDomainMapper $contentTypeDomainMapper,
         LimitationService $limitationService,
+        PermissionService $permissionService,
         array $languages
     ): Repository {
         return new $this->repositoryClass(
@@ -91,7 +86,7 @@ class RepositoryFactory implements ContainerAwareInterface
             $contentTypeDomainMapper,
             $limitationService,
             $this->languageResolver,
-            $this->permissionResolver,
+            $permissionService,
             [
                 'role' => [
                     'policyMap' => $this->policyMap,
