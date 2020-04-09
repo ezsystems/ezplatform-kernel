@@ -17,6 +17,7 @@ services:
             - "%ezpublish.api.inner_repository.class%"
             - "%ezpublish.api.role.policy_map%"
             - '@eZ\Publish\API\Repository\LanguageResolver'
+            - '@eZ\Publish\API\Repository\PermissionResolver'
             - "@?logger"
         calls:
             - [setContainer, ["@service_container"]]

@@ -16,7 +16,9 @@ use eZ\Publish\API\Repository\Values\User\LookupPolicyLimitations;
 use eZ\Publish\API\Repository\Values\User\UserReference as APIUserReference;
 use eZ\Publish\API\Repository\Values\ValueObject;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\Repository\Helper\RoleDomainMapper;
+use eZ\Publish\Core\Repository\Values\User\UserReference;
 use eZ\Publish\SPI\Limitation\Target;
 use eZ\Publish\SPI\Limitation\TargetAwareType;
 use eZ\Publish\SPI\Limitation\Type as LimitationType;
@@ -62,21 +64,23 @@ class PermissionResolver implements PermissionResolverInterface
      * @param \eZ\Publish\Core\Repository\Helper\RoleDomainMapper $roleDomainMapper
      * @param \eZ\Publish\Core\Repository\Permission\LimitationService $limitationService
      * @param \eZ\Publish\SPI\Persistence\User\Handler $userHandler
-     * @param \eZ\Publish\API\Repository\Values\User\UserReference $userReference
-     * @param array $policyMap Map of system configured policies, for validation usage.
+     * @param array $policyMap
      */
     public function __construct(
         RoleDomainMapper $roleDomainMapper,
         LimitationService $limitationService,
         UserHandler $userHandler,
-        APIUserReference $userReference,
-        array $policyMap = []
+        ConfigResolverInterface $configResolver,
+        array $policyMap
     ) {
         $this->roleDomainMapper = $roleDomainMapper;
         $this->limitationService = $limitationService;
         $this->userHandler = $userHandler;
-        $this->currentUserRef = $userReference;
         $this->policyMap = $policyMap;
+
+        $this->currentUserRef = new UserReference(
+            $configResolver->getParameter('anonymous_user_id')
+        );
     }
 
     public function getCurrentUserReference(): APIUserReference

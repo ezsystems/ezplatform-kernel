@@ -92,6 +92,7 @@ abstract class Base extends TestCase
                 $this->getContentTypeDomainMapperMock(),
                 $this->getLimitationServiceMock(),
                 $this->getLanguageResolverMock(),
+                $this->getPermissionResolverMock(),
                 $serviceSettings,
             );
 

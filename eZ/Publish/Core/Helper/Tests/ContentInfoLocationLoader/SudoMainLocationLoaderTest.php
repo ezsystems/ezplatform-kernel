@@ -9,6 +9,7 @@ namespace eZ\Publish\Core\Helper\Tests\ContentInfoLocationLoader;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\Helper\ContentInfoLocationLoader\SudoMainLocationLoader;
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\Core\Repository\Repository;
@@ -140,6 +141,13 @@ class SudoMainLocationLoaderTest extends TestCase
      */
     private function getPermissionResolverMock()
     {
+        $configResolverMock = $this->createMock(ConfigResolverInterface::class);
+        $configResolverMock
+            ->expects($this->any())
+            ->method('getParameter')
+            ->with('anonymous_user_id')
+            ->willReturn(10);
+
         return $this
             ->getMockBuilder(PermissionResolver::class)
             ->setMethods(null)
@@ -155,9 +163,8 @@ class SudoMainLocationLoaderTest extends TestCase
                     $this
                         ->getMockBuilder(SPIUserHandler::class)
                         ->getMock(),
-                    $this
-                        ->getMockBuilder(UserReference::class)
-                        ->getMock(),
+                    $configResolverMock,
+                    []
                 ]
             )
             ->getMock();

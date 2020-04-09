@@ -7,6 +7,7 @@
 namespace eZ\Publish\Core\Base\Container\ApiLoader;
 
 use eZ\Publish\API\Repository\LanguageResolver;
+use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\Core\FieldType\FieldTypeRegistry;
 use eZ\Publish\Core\Repository\Permission\LimitationService;
 use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
@@ -39,14 +40,20 @@ class RepositoryFactory implements ContainerAwareInterface
     /** @var \eZ\Publish\API\Repository\LanguageResolver */
     private $languageResolver;
 
+    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    private $permissionResolver;
+
     public function __construct(
         $repositoryClass,
         array $policyMap,
-        LanguageResolver $languageResolver
+        LanguageResolver $languageResolver,
+        PermissionResolver $permissionResolver
     ) {
         $this->repositoryClass = $repositoryClass;
         $this->policyMap = $policyMap;
         $this->languageResolver = $languageResolver;
+
+        $this->permissionResolver = $permissionResolver;
     }
 
     /**
@@ -54,6 +61,19 @@ class RepositoryFactory implements ContainerAwareInterface
      *
      * This always returns the true inner Repository, please depend on ezpublish.api.repository and not this method
      * directly to make sure you get an instance wrapped inside Event / Cache / * functionality.
+     * @param \eZ\Publish\SPI\Persistence\Handler $persistenceHandler
+     * @param \eZ\Publish\SPI\Search\Handler $searchHandler
+     * @param \eZ\Publish\Core\Search\Common\BackgroundIndexer $backgroundIndexer
+     * @param \eZ\Publish\Core\Repository\Helper\RelationProcessor $relationProcessor
+     * @param \eZ\Publish\Core\FieldType\FieldTypeRegistry $fieldTypeRegistry
+     * @param \eZ\Publish\Core\Repository\User\PasswordHashServiceInterface $passwordHashService
+     * @param \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy $thumbnailStrategy
+     * @param \eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface $proxyDomainMapperFactory
+     * @param \eZ\Publish\Core\Repository\Mapper\ContentDomainMapper $contentDomainMapper
+     * @param \eZ\Publish\Core\Repository\Mapper\ContentTypeDomainMapper $contentTypeDomainMapper
+     * @param \eZ\Publish\Core\Repository\Permission\LimitationService $limitationService
+     * @param array $languages
+     * @return \eZ\Publish\API\Repository\Repository
      */
     public function buildRepository(
         PersistenceHandler $persistenceHandler,
@@ -66,7 +86,8 @@ class RepositoryFactory implements ContainerAwareInterface
         ProxyDomainMapperFactoryInterface $proxyDomainMapperFactory,
         Mapper\ContentDomainMapper $contentDomainMapper,
         Mapper\ContentTypeDomainMapper $contentTypeDomainMapper,
-        LimitationService $limitationService
+        LimitationService $limitationService,
+        array $languages
     ): Repository {
         return new $this->repositoryClass(
             $persistenceHandler,
@@ -81,11 +102,12 @@ class RepositoryFactory implements ContainerAwareInterface
             $contentTypeDomainMapper,
             $limitationService,
             $this->languageResolver,
+            $this->permissionResolver,
             [
                 'role' => [
                     'policyMap' => $this->policyMap,
                 ],
-                'languages' => $this->container->getParameter('languages'),
+                'languages' => $languages,
             ],
         );
     }

@@ -10,6 +10,7 @@ namespace eZ\Publish\Core\Repository;
 
 use eZ\Publish\API\Repository\LanguageResolver;
 use eZ\Publish\API\Repository\PermissionCriterionResolver as PermissionCriterionResolverInterface;
+use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
 use eZ\Publish\API\Repository\NotificationService as NotificationServiceInterface;
 use eZ\Publish\API\Repository\BookmarkService as BookmarkServiceInterface;
@@ -250,6 +251,9 @@ class Repository implements RepositoryInterface
     /** @var \eZ\Publish\API\Repository\LanguageResolver */
     private $languageResolver;
 
+    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    private $permissionResolver;
+
     public function __construct(
         PersistenceHandler $persistenceHandler,
         SearchHandler $searchHandler,
@@ -263,6 +267,7 @@ class Repository implements RepositoryInterface
         Mapper\ContentTypeDomainMapper $contentTypeDomainMapper,
         LimitationService $limitationService,
         LanguageResolver $languageResolver,
+        PermissionResolver $permissionResolver,
         array $serviceSettings = [],
         ?LoggerInterface $logger = null
     ) {
@@ -305,6 +310,7 @@ class Repository implements RepositoryInterface
         }
 
         $this->logger = null !== $logger ? $logger : new NullLogger();
+        $this->permissionResolver = $permissionResolver;
     }
 
     /**
@@ -784,23 +790,7 @@ class Repository implements RepositoryInterface
      */
     protected function getCachedPermissionsResolver()
     {
-        if ($this->permissionsHandler === null) {
-            $this->permissionsHandler = new CachedPermissionService(
-                $permissionResolver = new Permission\PermissionResolver(
-                    $this->getRoleDomainMapper(),
-                    $this->limitationService,
-                    $this->persistenceHandler->userHandler(),
-                    new UserReference($this->serviceSettings['user']['anonymousUserID']),
-                    $this->serviceSettings['role']['policyMap']
-                ),
-                new PermissionCriterionResolver(
-                    $permissionResolver,
-                    $this->limitationService
-                )
-            );
-        }
-
-        return $this->permissionsHandler;
+        return $this->permissionResolver;
     }
 
     /**

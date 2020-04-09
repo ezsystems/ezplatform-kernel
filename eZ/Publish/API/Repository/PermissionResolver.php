@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace eZ\Publish\API\Repository;
 
+use eZ\Publish\API\Repository\Repository as RepositoryInterface;
 use eZ\Publish\API\Repository\Values\User\LookupLimitationResult;
 use eZ\Publish\API\Repository\Values\User\UserReference;
 use eZ\Publish\API\Repository\Values\ValueObject;
@@ -93,4 +94,6 @@ interface PermissionResolver
         array $targets = [],
         array $limitationsIdentifiers = []
     ): LookupLimitationResult;
+
+    public function sudo(callable $callback, RepositoryInterface $outerRepository);
 }
