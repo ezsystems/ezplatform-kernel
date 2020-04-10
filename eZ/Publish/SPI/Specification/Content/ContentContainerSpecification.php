@@ -6,11 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Specification;
+namespace eZ\Publish\SPI\Specification\Content;
 
 use eZ\Publish\API\Repository\Values\Content\Content;
 
-interface ContentSpecification
+final class ContentContainerSpecification implements ContentSpecification
 {
-    public function isSatisfiedBy(Content $content): bool;
+    public function isSatisfiedBy(Content $content): bool
+    {
+        return $content->getContentType()->isContainer;
+    }
 }

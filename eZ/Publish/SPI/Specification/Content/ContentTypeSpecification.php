@@ -6,12 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Specification\Content;
+namespace eZ\Publish\SPI\Specification\Content;
 
 use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\SPI\Specification\ContentSpecification;
 
-class ContentTypeSpecification implements ContentSpecification
+final class ContentTypeSpecification implements ContentSpecification
 {
     /**
      * @var string
