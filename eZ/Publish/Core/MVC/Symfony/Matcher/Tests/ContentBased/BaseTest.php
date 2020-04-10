@@ -97,7 +97,6 @@ abstract class BaseTest extends TestCase
     {
         $configResolverMock = $this->createMock(ConfigResolverInterface::class);
         $configResolverMock
-            ->expects($this->any())
             ->method('getParameter')
             ->with('anonymous_user_id')
             ->willReturn(10);

@@ -60,11 +60,11 @@ class PermissionResolver implements PermissionResolverInterface
      */
     private $policyMap;
 
+    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    private $configResolver;
+
     /**
-     * @param \eZ\Publish\Core\Repository\Helper\RoleDomainMapper $roleDomainMapper
-     * @param \eZ\Publish\Core\Repository\Permission\LimitationService $limitationService
-     * @param \eZ\Publish\SPI\Persistence\User\Handler $userHandler
-     * @param array $policyMap
+     * @param array $policyMap Map of system configured policies, for validation usage.
      */
     public function __construct(
         RoleDomainMapper $roleDomainMapper,
@@ -76,15 +76,18 @@ class PermissionResolver implements PermissionResolverInterface
         $this->roleDomainMapper = $roleDomainMapper;
         $this->limitationService = $limitationService;
         $this->userHandler = $userHandler;
+        $this->configResolver = $configResolver;
         $this->policyMap = $policyMap;
-
-        $this->currentUserRef = new UserReference(
-            $configResolver->getParameter('anonymous_user_id')
-        );
     }
 
     public function getCurrentUserReference(): APIUserReference
     {
+        if (empty($this->currentUserRef)) {
+            $this->currentUserRef = new UserReference(
+                $this->configResolver->getParameter('anonymous_user_id')
+            );
+        }
+
         return $this->currentUserRef;
     }
 

@@ -119,32 +119,4 @@ class RememberMeRepositoryAuthenticationProviderTest extends TestCase
             [$authenticatedToken->getProviderKey(), $authenticatedToken->getSecret(), $authenticatedToken->getUsername()]
         );
     }
-
-    /**
-     * @return \eZ\Publish\Core\Repository\Permission\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject
-     */
-    private function getPermissionResolverMock()
-    {
-        return $this
-            ->getMockBuilder(PermissionResolver::class)
-            ->setMethods(null)
-            ->setConstructorArgs(
-                [
-                    $this
-                        ->getMockBuilder(RoleDomainMapper::class)
-                        ->disableOriginalConstructor()
-                        ->getMock(),
-                    $this
-                        ->getMockBuilder(LimitationService::class)
-                        ->getMock(),
-                    $this
-                        ->getMockBuilder(UserHandler::class)
-                        ->getMock(),
-                    $this
-                        ->getMockBuilder(UserReference::class)
-                        ->getMock(),
-                ]
-            )
-            ->getMock();
-    }
 }

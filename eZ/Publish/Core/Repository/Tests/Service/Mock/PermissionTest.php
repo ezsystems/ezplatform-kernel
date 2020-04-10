@@ -1011,7 +1011,6 @@ class PermissionTest extends BaseServiceMockTest
         if ($this->permissionResolverMock === null) {
             $configResolverMock = $this->createMock(ConfigResolverInterface::class);
             $configResolverMock
-                ->expects($this->any())
                 ->method('getParameter')
                 ->with('anonymous_user_id')
                 ->willReturn(10);

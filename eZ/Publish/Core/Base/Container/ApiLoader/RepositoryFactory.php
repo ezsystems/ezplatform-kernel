@@ -61,7 +61,8 @@ class RepositoryFactory implements ContainerAwareInterface
      *
      * This always returns the true inner Repository, please depend on ezpublish.api.repository and not this method
      * directly to make sure you get an instance wrapped inside Event / Cache / * functionality.
-     * @param array $languages
+     *
+     * @param string[] $languages
      */
     public function buildRepository(
         PersistenceHandler $persistenceHandler,
