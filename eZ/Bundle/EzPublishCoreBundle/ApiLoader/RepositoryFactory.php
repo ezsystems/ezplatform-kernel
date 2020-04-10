@@ -7,7 +7,7 @@
 namespace eZ\Bundle\EzPublishCoreBundle\ApiLoader;
 
 use eZ\Publish\API\Repository\LanguageResolver;
-use eZ\Publish\API\Repository\PermissionResolver;
+use eZ\Publish\API\Repository\PermissionService;
 use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\Core\FieldType\FieldTypeRegistry;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
@@ -48,15 +48,11 @@ class RepositoryFactory implements ContainerAwareInterface
     /** @var \eZ\Publish\API\Repository\LanguageResolver */
     private $languageResolver;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
-    private $permissionResolver;
-
     public function __construct(
         ConfigResolverInterface $configResolver,
         $repositoryClass,
         array $policyMap,
         LanguageResolver $languageResolver,
-        PermissionResolver $permissionResolver,
         LoggerInterface $logger = null
     ) {
         $this->configResolver = $configResolver;
@@ -64,7 +60,6 @@ class RepositoryFactory implements ContainerAwareInterface
         $this->policyMap = $policyMap;
         $this->languageResolver = $languageResolver;
         $this->logger = null !== $logger ? $logger : new NullLogger();
-        $this->permissionResolver = $permissionResolver;
     }
 
     /**
@@ -85,7 +80,8 @@ class RepositoryFactory implements ContainerAwareInterface
         Mapper\ContentDomainMapper $contentDomainMapper,
         Mapper\ContentTypeDomainMapper $contentTypeDomainMapper,
         Mapper\RoleDomainMapper $roleDomainMapper,
-        LimitationService $limitationService
+        LimitationService $limitationService,
+        PermissionService $permissionService
     ): Repository {
         $config = $this->container->get('ezpublish.api.repository_configuration_provider')->getRepositoryConfig();
 
@@ -103,7 +99,7 @@ class RepositoryFactory implements ContainerAwareInterface
             $roleDomainMapper,
             $limitationService,
             $this->languageResolver,
-            $this->permissionResolver,
+            $permissionService,
             [
                 'role' => [
                     'policyMap' => $this->policyMap,

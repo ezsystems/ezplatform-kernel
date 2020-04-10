@@ -10,7 +10,7 @@ namespace eZ\Publish\Core\Repository;
 
 use eZ\Publish\API\Repository\LanguageResolver;
 use eZ\Publish\API\Repository\PermissionCriterionResolver as PermissionCriterionResolverInterface;
-use eZ\Publish\API\Repository\PermissionResolver;
+use eZ\Publish\API\Repository\PermissionService;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
 use eZ\Publish\API\Repository\NotificationService as NotificationServiceInterface;
 use eZ\Publish\API\Repository\BookmarkService as BookmarkServiceInterface;
@@ -37,9 +37,6 @@ use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
 use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
 use eZ\Publish\Core\Repository\User\PasswordHashServiceInterface;
 use eZ\Publish\Core\Repository\Helper\RelationProcessor;
-use eZ\Publish\Core\Repository\Permission\CachedPermissionService;
-use eZ\Publish\Core\Repository\Permission\PermissionCriterionResolver;
-use eZ\Publish\Core\Repository\Values\User\UserReference;
 use eZ\Publish\Core\Search\Common\BackgroundIndexer;
 use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
@@ -223,13 +220,6 @@ class Repository implements RepositoryInterface
     /** @var \eZ\Publish\Core\Repository\Mapper\ContentTypeDomainMapper */
     protected $contentTypeDomainMapper;
 
-    /**
-     * Instance of permissions-resolver and -criterion resolver.
-     *
-     * @var \eZ\Publish\API\Repository\PermissionCriterionResolver|\eZ\Publish\API\Repository\PermissionResolver
-     */
-    protected $permissionsHandler;
-
     /** @var \eZ\Publish\Core\Search\Common\BackgroundIndexer|null */
     protected $backgroundIndexer;
 
@@ -251,8 +241,8 @@ class Repository implements RepositoryInterface
     /** @var \eZ\Publish\API\Repository\LanguageResolver */
     private $languageResolver;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
-    private $permissionResolver;
+    /** @var \eZ\Publish\API\Repository\PermissionService */
+    private $permissionService;
 
     public function __construct(
         PersistenceHandler $persistenceHandler,
@@ -268,7 +258,7 @@ class Repository implements RepositoryInterface
         Mapper\RoleDomainMapper $roleDomainMapper,
         LimitationService $limitationService,
         LanguageResolver $languageResolver,
-        PermissionResolver $permissionResolver,
+        PermissionService $permissionService,
         array $serviceSettings = [],
         ?LoggerInterface $logger = null
     ) {
@@ -285,6 +275,7 @@ class Repository implements RepositoryInterface
         $this->roleDomainMapper = $roleDomainMapper;
         $this->limitationService = $limitationService;
         $this->languageResolver = $languageResolver;
+        $this->permissionService = $permissionService;
 
         $this->serviceSettings = $serviceSettings + [
                 'content' => [],
@@ -312,7 +303,6 @@ class Repository implements RepositoryInterface
         }
 
         $this->logger = null !== $logger ? $logger : new NullLogger();
-        $this->permissionResolver = $permissionResolver;
     }
 
     /**
@@ -688,14 +678,9 @@ class Repository implements RepositoryInterface
         return $this->fieldTypeService;
     }
 
-    /**
-     * Get PermissionResolver.
-     *
-     * @return \eZ\Publish\API\Repository\PermissionResolver
-     */
     public function getPermissionResolver(): PermissionResolverInterface
     {
-        return $this->getCachedPermissionsResolver();
+        return $this->permissionService;
     }
 
     /**
@@ -766,22 +751,9 @@ class Repository implements RepositoryInterface
         return $this->proxyDomainMapper;
     }
 
-    /**
-     * Get PermissionCriterionResolver.
-     *
-     * @todo Move out from this & other repo instances when services becomes proper services in DIC terms using factory.
-     */
     protected function getPermissionCriterionResolver(): PermissionCriterionResolverInterface
     {
-        return $this->getCachedPermissionsResolver();
-    }
-
-    /**
-     * @return \eZ\Publish\API\Repository\PermissionCriterionResolver|\eZ\Publish\API\Repository\PermissionResolver
-     */
-    protected function getCachedPermissionsResolver()
-    {
-        return $this->permissionResolver;
+        return $this->permissionService;
     }
 
     /**

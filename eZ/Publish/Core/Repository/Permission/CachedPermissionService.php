@@ -10,6 +10,7 @@ namespace eZ\Publish\Core\Repository\Permission;
 
 use eZ\Publish\API\Repository\PermissionResolver as APIPermissionResolver;
 use eZ\Publish\API\Repository\PermissionCriterionResolver as APIPermissionCriterionResolver;
+use eZ\Publish\API\Repository\PermissionService;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
 use eZ\Publish\API\Repository\Values\User\LookupLimitationResult;
 use eZ\Publish\API\Repository\Values\User\UserReference;
@@ -27,7 +28,7 @@ use Exception;
  * The logic here uses a cache TTL of a few seconds, as this is in-memory cache we are not
  * able to know if any other concurrent user might be changing permissions.
  */
-class CachedPermissionService implements APIPermissionResolver, APIPermissionCriterionResolver
+class CachedPermissionService implements PermissionService
 {
     /** @var \eZ\Publish\API\Repository\PermissionResolver */
     private $innerPermissionResolver;
