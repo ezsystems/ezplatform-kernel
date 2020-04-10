@@ -201,4 +201,4 @@ services:
     eZ\Publish\Core\Repository\Permission\CachedPermissionService:
         arguments:
             $innerPermissionResolver: '@eZ\Publish\Core\Repository\Permission\PermissionResolver'
-            $permissionCriterionResolver: '@eZ\Publish\API\Repository\PermissionCriterionResolver'
+            $permissionCriterionResolver: '@eZ\Publish\Core\Repository\Permission\PermissionCriterionResolver'
