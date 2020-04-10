@@ -8,9 +8,6 @@ declare(strict_types=1);
 
 namespace eZ\Publish\API\Repository;
 
-/**
- * Marker for cached Permission Resolver.
- */
 interface PermissionService extends PermissionResolver, PermissionCriterionResolver
 {
 }
