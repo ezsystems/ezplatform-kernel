@@ -10,9 +10,9 @@ namespace eZ\Publish\SPI\Specification\Tests\Content;
 
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\Search\Tests\TestCase;
 use eZ\Publish\SPI\Specification\Content\ContentSpecification;
 use eZ\Publish\SPI\Specification\Content\ContentTypeSpecification;
+use PHPUnit\Framework\TestCase;
 
 final class ContentTypeSpecificationTest extends TestCase
 {
@@ -30,7 +30,7 @@ final class ContentTypeSpecificationTest extends TestCase
 
     public function testConstructorWithNotExistingContentTypeIdentifier(): void
     {
-        $contentTypeSpecification= new ContentTypeSpecification(
+        $contentTypeSpecification = new ContentTypeSpecification(
             self::NOT_EXISTING_CONTENT_TYPE_IDENTIFIER
         );
 
@@ -39,14 +39,13 @@ final class ContentTypeSpecificationTest extends TestCase
 
     /**
      * @covers \eZ\Publish\SPI\Specification\Content\ContentTypeSpecification::isSatisfiedBy
-     * @dataProvider isSatisfiedByProvider
+     * @dataProvider providerForIsSatisfiedBy
      */
     public function testIsSatisfiedBy(
         string $contentTypeSpecificationIdentifier,
         string $contentTypeIdentifier,
         bool $shouldBeSatisfied
-    ): void
-    {
+    ): void {
         $contentTypeSpecification = new ContentTypeSpecification(
             $contentTypeSpecificationIdentifier
         );
@@ -68,7 +67,7 @@ final class ContentTypeSpecificationTest extends TestCase
         );
     }
 
-    public static function isSatisfiedByProvider(): array
+    public function providerForIsSatisfiedBy(): array
     {
         return [
             [self::EXISTING_CONTENT_TYPE_IDENTIFIER, self::EXISTING_CONTENT_TYPE_IDENTIFIER, true],

@@ -10,9 +10,9 @@ namespace eZ\Publish\SPI\Specification\Tests\Content;
 
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\Search\Tests\TestCase;
 use eZ\Publish\SPI\Specification\Content\ContentContainerSpecification;
 use eZ\Publish\SPI\Specification\Content\ContentSpecification;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \eZ\Publish\SPI\Specification\Content\ContentContainerSpecification
@@ -28,13 +28,12 @@ final class ContentContainerSpecificationTest extends TestCase
 
     /**
      * @covers \eZ\Publish\SPI\Specification\Content\ContentContainerSpecification::isSatisfiedBy
-     * @dataProvider isSatisfiedByProvider
+     * @dataProvider providerForIsSatisfiedBy
      */
     public function testIsSatisfiedBy(
         bool $isContainer,
         bool $shouldBeSatisfied
-    ): void
-    {
+    ): void {
         $contentContainerSpecification = new ContentContainerSpecification();
 
         $contentTypeMock = $this->getMockBuilder(ContentType::class)
@@ -54,7 +53,7 @@ final class ContentContainerSpecificationTest extends TestCase
         );
     }
 
-    public static function isSatisfiedByProvider(): array
+    public function providerForIsSatisfiedBy(): array
     {
         return [
             [true, true],
