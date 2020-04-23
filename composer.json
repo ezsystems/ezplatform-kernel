@@ -73,7 +73,10 @@
     "autoload": {
         "psr-4": {
             "EzSystems\\PlatformInstallerBundle\\": "eZ/Bundle/PlatformInstallerBundle/src",
-            "eZ\\": "eZ"
+            "eZ\\": "eZ",
+            "Ibexa\\Platform\\API\\Repository\\": "src/lib/API/Repository",
+            "Ibexa\\Platform\\SPI\\Repository\\": "src/lib/SPI/Repository",
+            "Ibexa\\Platform\\Core\\Repository\\": "src/lib/Core/Repository"
         }
     },
     "autoload-dev": {
