@@ -24,10 +24,14 @@ final class BeforeCreateContentEvent extends BeforeEvent
     /** @var \eZ\Publish\API\Repository\Values\Content\Content|null */
     private $content;
 
-    public function __construct(ContentCreateStruct $contentCreateStruct, array $locationCreateStructs)
+    /** @var bool */
+    private $validate;
+
+    public function __construct(ContentCreateStruct $contentCreateStruct, array $locationCreateStructs, bool $validate)
     {
         $this->contentCreateStruct = $contentCreateStruct;
         $this->locationCreateStructs = $locationCreateStructs;
+        $this->validate = $validate;
     }
 
     public function getContentCreateStruct(): ContentCreateStruct
@@ -38,6 +42,11 @@ final class BeforeCreateContentEvent extends BeforeEvent
     public function getLocationCreateStructs(): array
     {
         return $this->locationCreateStructs;
+    }
+
+    public function isValidate(): bool
+    {
+        return $this->validate;
     }
 
     public function getContent(): Content

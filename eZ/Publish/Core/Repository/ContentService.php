@@ -11,6 +11,7 @@ namespace eZ\Publish\Core\Repository;
 use eZ\Publish\API\Repository\ContentService as ContentServiceInterface;
 use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
+use eZ\Publish\API\Repository\Values\ValueObject;
 use eZ\Publish\Core\FieldType\FieldTypeRegistry;
 use eZ\Publish\API\Repository\Values\Content\ContentDraftList;
 use eZ\Publish\API\Repository\Values\Content\DraftList\Item\ContentDraftListItem;
@@ -533,7 +534,7 @@ class ContentService implements ContentServiceInterface
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Content - the newly created content draft
      */
-    public function createContent(APIContentCreateStruct $contentCreateStruct, array $locationCreateStructs = []): APIContent
+    public function createContent(APIContentCreateStruct $contentCreateStruct, array $locationCreateStructs = [], bool $validate = true): APIContent
     {
         if ($contentCreateStruct->mainLanguageCode === null) {
             throw new InvalidArgumentException('$contentCreateStruct', "the 'mainLanguageCode' property must be set");
@@ -596,6 +597,14 @@ class ContentService implements ContentServiceInterface
             $contentCreateStruct->remoteId = $this->contentDomainMapper->getUniqueHash($contentCreateStruct);
         }
 
+        if ($validate) {
+            $errors = $this->validateCreateContent($contentCreateStruct);
+
+            if (!empty($errors)) {
+                throw new ContentFieldValidationException($errors);
+            }
+        }
+
         $spiLocationCreateStructs = $this->buildSPILocationCreateStructs($locationCreateStructs);
 
         $languageCodes = $this->getLanguageCodesForCreate($contentCreateStruct);
@@ -603,7 +612,6 @@ class ContentService implements ContentServiceInterface
 
         $fieldValues = [];
         $spiFields = [];
-        $allFieldErrors = [];
         $inputRelations = [];
         $locationIdToContentIdMapping = [];
 
@@ -627,26 +635,6 @@ class ContentService implements ContentServiceInterface
 
                 if ($fieldType->isEmptyValue($fieldValue)) {
                     $isEmptyValue = true;
-                    if ($fieldDefinition->isRequired) {
-                        $allFieldErrors[$fieldDefinition->id][$languageCode] = new ValidationError(
-                            "Value for required field definition '%identifier%' with language '%languageCode%' is empty",
-                            null,
-                            ['%identifier%' => $fieldDefinition->identifier, '%languageCode%' => $languageCode],
-                            'empty'
-                        );
-                    }
-                } else {
-                    $fieldErrors = $fieldType->validate(
-                        $fieldDefinition,
-                        $fieldValue
-                    );
-                    if (!empty($fieldErrors)) {
-                        $allFieldErrors[$fieldDefinition->id][$languageCode] = $fieldErrors;
-                    }
-                }
-
-                if (!empty($allFieldErrors)) {
-                    continue;
                 }
 
                 $this->relationProcessor->appendFieldRelations(
@@ -675,10 +663,6 @@ class ContentService implements ContentServiceInterface
                     );
                 }
             }
-        }
-
-        if (!empty($allFieldErrors)) {
-            throw new ContentFieldValidationException($allFieldErrors);
         }
 
         $spiContentCreateStruct = new SPIContentCreateStruct(
@@ -1286,7 +1270,7 @@ class ContentService implements ContentServiceInterface
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if a property on the struct is invalid.
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    public function updateContent(APIVersionInfo $versionInfo, APIContentUpdateStruct $contentUpdateStruct): APIContent
+    public function updateContent(APIVersionInfo $versionInfo, APIContentUpdateStruct $contentUpdateStruct, bool $validate = true): APIContent
     {
         /** @var $content \eZ\Publish\Core\Repository\Values\Content\Content */
         $content = $this->loadContent(
@@ -1311,7 +1295,7 @@ class ContentService implements ContentServiceInterface
             throw new UnauthorizedException('content', 'edit', ['contentId' => $content->id]);
         }
 
-        return $this->internalUpdateContent($versionInfo, $contentUpdateStruct);
+        return $this->internalUpdateContent($versionInfo, $contentUpdateStruct, $validate);
     }
 
     /**
@@ -1326,8 +1310,11 @@ class ContentService implements ContentServiceInterface
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if a property on the struct is invalid.
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    protected function internalUpdateContent(APIVersionInfo $versionInfo, APIContentUpdateStruct $contentUpdateStruct): Content
-    {
+    protected function internalUpdateContent(
+        APIVersionInfo $versionInfo,
+        APIContentUpdateStruct $contentUpdateStruct,
+        bool $validate = true
+    ): Content {
         $contentUpdateStruct = clone $contentUpdateStruct;
 
         /** @var $content \eZ\Publish\Core\Repository\Values\Content\Content */
@@ -1336,11 +1323,20 @@ class ContentService implements ContentServiceInterface
             null,
             $versionInfo->versionNo
         );
+
         if (!$content->versionInfo->isDraft()) {
             throw new BadStateException(
                 '$versionInfo',
                 'The version is not a draft and cannot be updated'
             );
+        }
+
+        if ($validate) {
+            $errors = $this->validateUpdateContent($content, $contentUpdateStruct);
+
+            if (!empty($errors)) {
+                throw new ContentFieldValidationException($errors);
+            }
         }
 
         $mainLanguageCode = $content->contentInfo->mainLanguageCode;
@@ -1354,7 +1350,6 @@ class ContentService implements ContentServiceInterface
             $contentLanguageHandler->loadByLanguageCode($languageCode);
         }
 
-        $updatedLanguageCodes = $this->getUpdatedLanguageCodes($contentUpdateStruct);
         $contentType = $this->repository->getContentTypeService()->loadContentType(
             $content->contentInfo->contentTypeId
         );
@@ -1366,12 +1361,10 @@ class ContentService implements ContentServiceInterface
 
         $fieldValues = [];
         $spiFields = [];
-        $allFieldErrors = [];
         $inputRelations = [];
         $locationIdToContentIdMapping = [];
 
         foreach ($contentType->getFieldDefinitions() as $fieldDefinition) {
-            /** @var $fieldType \eZ\Publish\SPI\FieldType\FieldType */
             $fieldType = $this->fieldTypeRegistry->getFieldType(
                 $fieldDefinition->fieldTypeIdentifier
             );
@@ -1379,7 +1372,6 @@ class ContentService implements ContentServiceInterface
             foreach ($allLanguageCodes as $languageCode) {
                 $isCopied = $isEmpty = $isRetained = false;
                 $isLanguageNew = !in_array($languageCode, $content->versionInfo->languageCodes);
-                $isLanguageUpdated = in_array($languageCode, $updatedLanguageCodes);
                 $valueLanguageCode = $fieldDefinition->isTranslatable ? $languageCode : $mainLanguageCode;
                 $isFieldUpdated = isset($fields[$fieldDefinition->identifier][$valueLanguageCode]);
                 $isProcessed = isset($fieldValues[$fieldDefinition->identifier][$valueLanguageCode]);
@@ -1400,26 +1392,6 @@ class ContentService implements ContentServiceInterface
 
                 if ($fieldType->isEmptyValue($fieldValue)) {
                     $isEmpty = true;
-                    if ($isLanguageUpdated && $fieldDefinition->isRequired) {
-                        $allFieldErrors[$fieldDefinition->id][$languageCode] = new ValidationError(
-                            "Value for required field definition '%identifier%' with language '%languageCode%' is empty",
-                            null,
-                            ['%identifier%' => $fieldDefinition->identifier, '%languageCode%' => $languageCode],
-                            'empty'
-                        );
-                    }
-                } elseif ($isLanguageUpdated) {
-                    $fieldErrors = $fieldType->validate(
-                        $fieldDefinition,
-                        $fieldValue
-                    );
-                    if (!empty($fieldErrors)) {
-                        $allFieldErrors[$fieldDefinition->id][$languageCode] = $fieldErrors;
-                    }
-                }
-
-                if (!empty($allFieldErrors)) {
-                    continue;
                 }
 
                 $this->relationProcessor->appendFieldRelations(
@@ -1448,10 +1420,6 @@ class ContentService implements ContentServiceInterface
                     ]
                 );
             }
-        }
-
-        if (!empty($allFieldErrors)) {
-            throw new ContentFieldValidationException($allFieldErrors);
         }
 
         $spiContentUpdateStruct = new SPIContentUpdateStruct(
@@ -2562,5 +2530,115 @@ class ContentService implements ContentServiceInterface
         }
 
         return $user;
+    }
+
+    public function validateUpdateContent(APIContent $content, APIContentUpdateStruct $contentUpdateStruct): array
+    {
+        $contentType = $content->getContentType();
+
+        $mainLanguageCode = $content->contentInfo->mainLanguageCode;
+        if ($contentUpdateStruct->initialLanguageCode === null) {
+            $contentUpdateStruct->initialLanguageCode = $mainLanguageCode;
+        }
+
+        $allLanguageCodes = $this->getLanguageCodesForUpdate($contentUpdateStruct, $content);
+        $contentLanguageHandler = $this->persistenceHandler->contentLanguageHandler();
+        foreach ($allLanguageCodes as $languageCode) {
+            $contentLanguageHandler->loadByLanguageCode($languageCode);
+        }
+
+        $updatedLanguageCodes = $this->getUpdatedLanguageCodes($contentUpdateStruct);
+        $fields = $this->mapFieldsForUpdate(
+            $contentUpdateStruct,
+            $contentType,
+            $mainLanguageCode
+        );
+
+        $allFieldErrors = [];
+
+        foreach ($contentType->getFieldDefinitions() as $fieldDefinition) {
+            $fieldType = $this->fieldTypeRegistry->getFieldType(
+                $fieldDefinition->fieldTypeIdentifier
+            );
+
+            foreach ($allLanguageCodes as $languageCode) {
+                $isLanguageUpdated = in_array($languageCode, $updatedLanguageCodes);
+                $valueLanguageCode = $fieldDefinition->isTranslatable ? $languageCode : $mainLanguageCode;
+                $isFieldUpdated = isset($fields[$fieldDefinition->identifier][$valueLanguageCode]);
+
+                $fieldValue = (!$isFieldUpdated || !$fieldDefinition->isTranslatable)
+                    ? $content->getField($fieldDefinition->identifier, $valueLanguageCode)->value
+                    : $fields[$fieldDefinition->identifier][$valueLanguageCode]->value;
+
+                $fieldValue = $fieldType->acceptValue($fieldValue);
+
+                if ($fieldType->isEmptyValue($fieldValue)) {
+                    if ($isLanguageUpdated && $fieldDefinition->isRequired) {
+                        $allFieldErrors[$fieldDefinition->id][$languageCode] = new ValidationError(
+                            "Value for required field definition '%identifier%' with language '%languageCode%' is empty",
+                            null,
+                            ['%identifier%' => $fieldDefinition->identifier, '%languageCode%' => $languageCode],
+                            'empty'
+                        );
+                    }
+                } elseif ($isLanguageUpdated) {
+                    $fieldErrors = $fieldType->validate(
+                        $fieldDefinition,
+                        $fieldValue
+                    );
+                    if (!empty($fieldErrors)) {
+                        $allFieldErrors[$fieldDefinition->id][$languageCode] = $fieldErrors;
+                    }
+                }
+            }
+        }
+
+        return $allFieldErrors;
+    }
+
+    public function validateCreateContent(
+        APIContentCreateStruct $contentCreateStruct
+    ): array {
+        $languageCodes = $this->getLanguageCodesForCreate($contentCreateStruct);
+        $fields = $this->mapFieldsForCreate($contentCreateStruct);
+
+        $allFieldErrors = [];
+
+        foreach ($contentCreateStruct->contentType->getFieldDefinitions() as $fieldDefinition) {
+            /** @var $fieldType \eZ\Publish\Core\FieldType\FieldType */
+            $fieldType = $this->fieldTypeRegistry->getFieldType(
+                $fieldDefinition->fieldTypeIdentifier
+            );
+
+            foreach ($languageCodes as $languageCode) {
+                $valueLanguageCode = $fieldDefinition->isTranslatable ? $languageCode : $contentCreateStruct->mainLanguageCode;
+                $fieldValue = isset($fields[$fieldDefinition->identifier][$valueLanguageCode])
+                    ? $fields[$fieldDefinition->identifier][$valueLanguageCode]->value
+                    : $fieldDefinition->defaultValue;
+
+                $fieldValue = $fieldType->acceptValue($fieldValue);
+
+                if ($fieldType->isEmptyValue($fieldValue)) {
+                    if ($fieldDefinition->isRequired) {
+                        $allFieldErrors[$fieldDefinition->id][$languageCode] = new ValidationError(
+                            "Value for required field definition '%identifier%' with language '%languageCode%' is empty",
+                            null,
+                            ['%identifier%' => $fieldDefinition->identifier, '%languageCode%' => $languageCode],
+                            'empty'
+                        );
+                    }
+                } else {
+                    $fieldErrors = $fieldType->validate(
+                        $fieldDefinition,
+                        $fieldValue
+                    );
+                    if (!empty($fieldErrors)) {
+                        $allFieldErrors[$fieldDefinition->id][$languageCode] = $fieldErrors;
+                    }
+                }
+            }
+        }
+
+        return $allFieldErrors;
     }
 }

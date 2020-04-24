@@ -25,10 +25,14 @@ final class BeforeUpdateContentEvent extends BeforeEvent
     /** @var \eZ\Publish\API\Repository\Values\Content\Content|null */
     private $content;
 
-    public function __construct(VersionInfo $versionInfo, ContentUpdateStruct $contentUpdateStruct)
+    /** @var bool */
+    private $validate;
+
+    public function __construct(VersionInfo $versionInfo, ContentUpdateStruct $contentUpdateStruct, bool $validate)
     {
         $this->versionInfo = $versionInfo;
         $this->contentUpdateStruct = $contentUpdateStruct;
+        $this->validate = $validate;
     }
 
     public function getVersionInfo(): VersionInfo
@@ -39,6 +43,11 @@ final class BeforeUpdateContentEvent extends BeforeEvent
     public function getContentUpdateStruct(): ContentUpdateStruct
     {
         return $this->contentUpdateStruct;
+    }
+
+    public function isValidate(): bool
+    {
+        return $this->validate;
     }
 
     public function getContent(): Content

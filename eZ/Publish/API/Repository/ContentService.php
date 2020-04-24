@@ -203,7 +203,7 @@ interface ContentService
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Content - the newly created content draft
      */
-    public function createContent(ContentCreateStruct $contentCreateStruct, array $locationCreateStructs = []): Content;
+    public function createContent(ContentCreateStruct $contentCreateStruct, array $locationCreateStructs = [], bool $validate = true): Content;
 
     /**
      * Updates the metadata.
@@ -311,7 +311,7 @@ interface ContentService
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Content the content draft with the updated fields
      */
-    public function updateContent(VersionInfo $versionInfo, ContentUpdateStruct $contentUpdateStruct): Content;
+    public function updateContent(VersionInfo $versionInfo, ContentUpdateStruct $contentUpdateStruct, bool $validate = true): Content;
 
     /**
      * Publishes a content version.
@@ -539,4 +539,8 @@ interface ContentService
      * @return \eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct
      */
     public function newContentUpdateStruct(): ContentUpdateStruct;
+
+    public function validateUpdateContent(Content $content, ContentUpdateStruct $contentUpdateStruct): array;
+
+    public function validateCreateContent(ContentCreateStruct $contentCreateStruct): array;
 }

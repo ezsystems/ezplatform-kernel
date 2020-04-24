@@ -24,14 +24,19 @@ final class UpdateContentEvent extends AfterEvent
     /** @var \eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct */
     private $contentUpdateStruct;
 
+    /** @var bool */
+    private $validate;
+
     public function __construct(
         Content $content,
         VersionInfo $versionInfo,
-        ContentUpdateStruct $contentUpdateStruct
+        ContentUpdateStruct $contentUpdateStruct,
+        bool $validate
     ) {
         $this->content = $content;
         $this->versionInfo = $versionInfo;
         $this->contentUpdateStruct = $contentUpdateStruct;
+        $this->validate = $validate;
     }
 
     public function getContent(): Content
@@ -47,5 +52,10 @@ final class UpdateContentEvent extends AfterEvent
     public function getContentUpdateStruct(): ContentUpdateStruct
     {
         return $this->contentUpdateStruct;
+    }
+
+    public function isValidate(): bool
+    {
+        return $this->validate;
     }
 }

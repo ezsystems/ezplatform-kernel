@@ -111,9 +111,10 @@ abstract class ContentServiceDecorator implements ContentService
 
     public function createContent(
         ContentCreateStruct $contentCreateStruct,
-        array $locationCreateStructs = []
+        array $locationCreateStructs = [],
+        bool $validate = true
     ): Content {
-        return $this->innerService->createContent($contentCreateStruct, $locationCreateStructs);
+        return $this->innerService->createContent($contentCreateStruct, $locationCreateStructs, $validate);
     }
 
     public function updateContentMetadata(
@@ -154,9 +155,10 @@ abstract class ContentServiceDecorator implements ContentService
 
     public function updateContent(
         VersionInfo $versionInfo,
-        ContentUpdateStruct $contentUpdateStruct
+        ContentUpdateStruct $contentUpdateStruct,
+        bool $validate = true
     ): Content {
-        return $this->innerService->updateContent($versionInfo, $contentUpdateStruct);
+        return $this->innerService->updateContent($versionInfo, $contentUpdateStruct, $validate);
     }
 
     public function publishVersion(VersionInfo $versionInfo, array $translations = Language::ALL): Content
@@ -255,5 +257,18 @@ abstract class ContentServiceDecorator implements ContentService
     public function newContentUpdateStruct(): ContentUpdateStruct
     {
         return $this->innerService->newContentUpdateStruct();
+    }
+
+    public function validateUpdateContent(
+        Content $content,
+        ContentUpdateStruct $contentUpdateStruct
+    ): array {
+        return $this->innerService->validateUpdateContent($content, $contentUpdateStruct);
+    }
+
+    public function validateCreateContent(
+        ContentCreateStruct $contentCreateStruct
+    ): array {
+        return $this->innerService->validateCreateContent($contentCreateStruct);
     }
 }

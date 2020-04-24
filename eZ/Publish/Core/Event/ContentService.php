@@ -64,11 +64,13 @@ class ContentService extends ContentServiceDecorator
 
     public function createContent(
         ContentCreateStruct $contentCreateStruct,
-        array $locationCreateStructs = []
+        array $locationCreateStructs = [],
+        bool $validate = true
     ): Content {
         $eventData = [
             $contentCreateStruct,
             $locationCreateStructs,
+            $validate
         ];
 
         $beforeEvent = new BeforeCreateContentEvent(...$eventData);
@@ -80,7 +82,7 @@ class ContentService extends ContentServiceDecorator
 
         $content = $beforeEvent->hasContent()
             ? $beforeEvent->getContent()
-            : $this->innerService->createContent($contentCreateStruct, $locationCreateStructs);
+            : $this->innerService->createContent($contentCreateStruct, $locationCreateStructs, $validate);
 
         $this->eventDispatcher->dispatch(
             new CreateContentEvent($content, ...$eventData)
@@ -171,11 +173,13 @@ class ContentService extends ContentServiceDecorator
 
     public function updateContent(
         VersionInfo $versionInfo,
-        ContentUpdateStruct $contentUpdateStruct
+        ContentUpdateStruct $contentUpdateStruct,
+        bool $validate = true
     ): Content {
         $eventData = [
             $versionInfo,
             $contentUpdateStruct,
+            $validate
         ];
 
         $beforeEvent = new BeforeUpdateContentEvent(...$eventData);
@@ -187,7 +191,7 @@ class ContentService extends ContentServiceDecorator
 
         $content = $beforeEvent->hasContent()
             ? $beforeEvent->getContent()
-            : $this->innerService->updateContent($versionInfo, $contentUpdateStruct);
+            : $this->innerService->updateContent($versionInfo, $contentUpdateStruct, $validate);
 
         $this->eventDispatcher->dispatch(
             new UpdateContentEvent($content, ...$eventData)

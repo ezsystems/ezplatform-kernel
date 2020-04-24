@@ -116,9 +116,9 @@ class ContentService implements ContentServiceInterface
         );
     }
 
-    public function createContent(ContentCreateStruct $contentCreateStruct, array $locationCreateStructs = []): Content
+    public function createContent(ContentCreateStruct $contentCreateStruct, array $locationCreateStructs = [], bool $validate = true): Content
     {
-        return $this->service->createContent($contentCreateStruct, $locationCreateStructs);
+        return $this->service->createContent($contentCreateStruct, $locationCreateStructs, $validate);
     }
 
     public function updateContentMetadata(ContentInfo $contentInfo, ContentMetadataUpdateStruct $contentMetadataUpdateStruct): Content
@@ -155,9 +155,9 @@ class ContentService implements ContentServiceInterface
         return $this->service->loadContentDraftList($user, $offset, $limit);
     }
 
-    public function updateContent(VersionInfo $versionInfo, ContentUpdateStruct $contentUpdateStruct): Content
+    public function updateContent(VersionInfo $versionInfo, ContentUpdateStruct $contentUpdateStruct, bool $validate = true): Content
     {
-        return $this->service->updateContent($versionInfo, $contentUpdateStruct);
+        return $this->service->updateContent($versionInfo, $contentUpdateStruct, $validate);
     }
 
     public function publishVersion(VersionInfo $versionInfo, array $translations = Language::ALL): Content
@@ -255,5 +255,18 @@ class ContentService implements ContentServiceInterface
     public function newContentUpdateStruct(): ContentUpdateStruct
     {
         return $this->service->newContentUpdateStruct();
+    }
+
+    public function validateUpdateContent(
+        Content $content,
+        ContentUpdateStruct $contentUpdateStruct
+    ): array {
+        return $this->service->validateUpdateContent($content, $contentUpdateStruct);
+    }
+
+    public function validateCreateContent(
+        ContentCreateStruct $contentCreateStruct
+    ): array {
+        return $this->service->validateCreateContent($contentCreateStruct);
     }
 }

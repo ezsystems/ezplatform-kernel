@@ -23,14 +23,20 @@ final class CreateContentEvent extends AfterEvent
     /** @var \eZ\Publish\API\Repository\Values\Content\Content */
     private $content;
 
+    /** @var bool */
+    private $validate;
+
     public function __construct(
         Content $content,
         ContentCreateStruct $contentCreateStruct,
-        array $locationCreateStructs
+        array $locationCreateStructs,
+        bool $validate
+
     ) {
         $this->content = $content;
         $this->contentCreateStruct = $contentCreateStruct;
         $this->locationCreateStructs = $locationCreateStructs;
+        $this->validate = $validate;
     }
 
     public function getContentCreateStruct(): ContentCreateStruct
@@ -46,5 +52,10 @@ final class CreateContentEvent extends AfterEvent
     public function getContent(): Content
     {
         return $this->content;
+    }
+
+    public function isValidate(): bool
+    {
+        return $this->validate;
     }
 }
