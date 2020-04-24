@@ -47,16 +47,25 @@ class SiteAccess extends ValueObject
      */
     public $provider;
 
+    /**
+     * Human readable the Site Factory name
+     *
+     * @var string|null
+     */
+    public $siteFactoryName;
+
     public function __construct(
         string $name,
         string $matchingType = self::DEFAULT_MATCHING_TYPE,
         $matcher = null,
-        ?string $provider = null
+        ?string $provider = null,
+        ?string $siteFactoryName = null
     ) {
         $this->name = $name;
         $this->matchingType = $matchingType;
         $this->matcher = $matcher;
         $this->provider = $provider;
+        $this->siteFactoryName = $siteFactoryName;
     }
 
     public function __toString()
