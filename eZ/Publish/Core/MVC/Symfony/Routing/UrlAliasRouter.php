@@ -7,11 +7,15 @@
 namespace eZ\Publish\Core\MVC\Symfony\Routing;
 
 use eZ\Publish\API\Repository\LocationService;
+use eZ\Publish\API\Repository\PermissionResolver;
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\URLAliasService;
 use eZ\Publish\API\Repository\ContentService;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\URLAlias;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Values\Content\Location;
+use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
 use eZ\Publish\Core\MVC\Symfony\View\Manager as ViewManager;
 use eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
 use Symfony\Cmf\Component\Routing\ChainedRouterInterface;
@@ -49,6 +53,12 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
     /** @var \eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator */
     protected $generator;
 
+    /** @var \eZ\Publish\API\Repository\Repository */
+    protected $repository;
+
+    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    protected $permissionResolver;
+
     /**
      * Holds current root Location id.
      *
@@ -64,6 +74,7 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
         URLAliasService $urlAliasService,
         ContentService $contentService,
         UrlAliasGenerator $generator,
+        Repository $repository,
         RequestContext $requestContext,
         LoggerInterface $logger = null
     ) {
@@ -71,6 +82,8 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
         $this->urlAliasService = $urlAliasService;
         $this->contentService = $contentService;
         $this->generator = $generator;
+        $this->repository = $repository;
+        $this->permissionResolver = $this->repository->getPermissionResolver();
         $this->requestContext = $requestContext !== null ? $requestContext : new RequestContext();
         $this->logger = $logger;
     }
@@ -284,11 +297,13 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
      * @param array $parameters An array of parameters
      * @param int $referenceType The type of reference to be generated (one of the constants)
      *
-     * @throws \LogicException
-     * @throws \Symfony\Component\Routing\Exception\RouteNotFoundException
-     * @throws \InvalidArgumentException
-     *
      * @return string The generated URL
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      *
      * @api
      */
@@ -321,18 +336,36 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
             }
 
             if (isset($parameters['contentId'])) {
-                $contentInfo = $this->contentService->loadContentInfo($parameters['contentId']);
-                unset($parameters['contentId'], $parameters['viewType'], $parameters['layout']);
+                $contentId = $parameters['contentId'];
+
+                $contentInfo = $this->repository->sudo(
+                    function (Repository $repository) use ($contentId) {
+                        return $repository->getContentService()->loadContentInfo($contentId);
+                    }
+                );
 
                 if (empty($contentInfo->mainLocationId)) {
                     throw new LogicException('Cannot generate a UrlAlias route for content without main Location.');
                 }
 
-                return $this->generator->generate(
-                    $this->locationService->loadLocation($contentInfo->mainLocationId),
-                    $parameters,
-                    $referenceType
+                $location = $this->repository->sudo(
+                    function (Repository $repository) use ($contentInfo) {
+                        return $repository->getLocationService()->loadLocation($contentInfo->mainLocationId);
+                    }
                 );
+
+                $isEmbed = $parameters['isEmbed'] ?? false;
+
+                if (!$this->canRead($contentInfo, $location, $isEmbed)) {
+                    throw new UnauthorizedException(
+                        'content', 'read|view_embed',
+                        ['locationId' => $location !== null ? $location->id : 'n/a']
+                    );
+                }
+
+                unset($parameters['contentId'], $parameters['viewType'], $parameters['layout'], $parameters['isEmbed']);
+
+                return $this->generator->generate($location, $parameters, $referenceType);
             }
 
             throw new InvalidArgumentException(
@@ -341,6 +374,21 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
         }
 
         throw new RouteNotFoundException('Could not match route');
+    }
+
+    /**
+     * Checks if a user can read a content, or view it as an embed.
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     */
+    private function canRead(ContentInfo $contentInfo, Location $location = null, bool $isEmbed = false): bool
+    {
+        $targets = isset($location) ? [$location] : [];
+
+        return
+            $this->permissionResolver->canUser('content', 'read', $contentInfo, $targets) ||
+            ($isEmbed && $this->permissionResolver->canUser('content', 'view_embed', $contentInfo, $targets));
     }
 
     public function setContext(RequestContext $context)
@@ -401,5 +449,17 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
         }
 
         return $name;
+    }
+
+    /**
+     * @return \eZ\Publish\API\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected function getPermissionResolverMock()
+    {
+        if (!isset($this->permissionResolverMock)) {
+            $this->permissionResolverMock = $this->createMock(PermissionResolver::class);
+        }
+
+        return $this->permissionResolverMock;
     }
 }

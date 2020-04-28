@@ -9,6 +9,7 @@ namespace eZ\Publish\Core\MVC\Symfony\Routing\Tests;
 use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\API\Repository\URLAliasService;
+use eZ\Publish\API\Repository\Repository as APIRepository;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\URLAlias;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
@@ -18,6 +19,7 @@ use eZ\Publish\Core\MVC\Symfony\Routing\UrlAliasRouter;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
 use eZ\Publish\Core\MVC\Symfony\View\Manager as ViewManager;
+use eZ\Publish\Core\Repository\Permission\PermissionResolver;
 use eZ\Publish\Core\Repository\Repository;
 use eZ\Publish\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
@@ -32,6 +34,9 @@ class UrlAliasRouterTest extends TestCase
 {
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     protected $repository;
+
+    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    protected $permissionResolver;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     protected $urlAliasService;
@@ -53,17 +58,9 @@ class UrlAliasRouterTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $repositoryClass = Repository::class;
-        $this->repository = $repository = $this
-            ->getMockBuilder($repositoryClass)
-            ->disableOriginalConstructor()
-            ->setMethods(
-                array_diff(
-                    get_class_methods($repositoryClass),
-                    ['sudo']
-                )
-            )
-            ->getMock();
+
+        $this->repository = $repository = $this->createMock(Repository::class);
+        $this->permissionResolver = $this->createMock(PermissionResolver::class);
         $this->urlAliasService = $this->createMock(URLAliasService::class);
         $this->locationService = $this->createMock(LocationService::class);
         $this->contentService = $this->createMock(ContentService::class);
@@ -79,7 +76,14 @@ class UrlAliasRouterTest extends TestCase
             ->getMock();
         $this->requestContext = new RequestContext();
 
-        $this->router = $this->getRouter($this->locationService, $this->urlAliasService, $this->contentService, $this->urlALiasGenerator, $this->requestContext);
+        $this->router = $this->getRouter(
+            $this->locationService,
+            $this->urlAliasService,
+            $this->contentService,
+            $this->urlALiasGenerator,
+            $this->repository,
+            $this->requestContext
+        );
     }
 
     /**
@@ -87,13 +91,20 @@ class UrlAliasRouterTest extends TestCase
      * @param \eZ\Publish\API\Repository\URLAliasService $urlAliasService
      * @param \eZ\Publish\API\Repository\ContentService $contentService
      * @param UrlAliasGenerator $urlAliasGenerator
+     * @param \eZ\Publish\API\Repository\Repository $repository
      * @param RequestContext $requestContext
      *
      * @return UrlAliasRouter
      */
-    protected function getRouter(LocationService $locationService, URLAliasService $urlAliasService, ContentService $contentService, UrlAliasGenerator $urlAliasGenerator, RequestContext $requestContext)
-    {
-        return new UrlAliasRouter($locationService, $urlAliasService, $contentService, $urlAliasGenerator, $requestContext);
+    protected function getRouter(
+        LocationService $locationService,
+        URLAliasService $urlAliasService,
+        ContentService $contentService,
+        UrlAliasGenerator $urlAliasGenerator,
+        APIRepository $repository,
+        RequestContext $requestContext
+    ) {
+        return new UrlAliasRouter($locationService, $urlAliasService, $contentService, $urlAliasGenerator, $repository, $requestContext);
     }
 
     public function testRequestContext()
@@ -750,21 +761,39 @@ class UrlAliasRouterTest extends TestCase
         $parameters = ['some' => 'thing'];
         $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH;
         $generatedLink = '/foo/bar';
-        $this->contentService
-            ->expects($this->once())
-            ->method('loadContentInfo')
-            ->with($contentId)
+
+        $closure = function (APIRepository $repository) use ($contentId) {
+            return $repository->getContentService()->loadContentInfo($contentId);
+        };
+        $locationClosure = function (APIRepository $repository) use ($contentInfo) {
+            return $repository->getLocationService()->loadLocation($contentInfo->mainLocationId);
+        };
+
+        $this->repository
+            ->expects($this->at(0))
+            ->method('sudo')
+            ->with($closure)
             ->will($this->returnValue($contentInfo));
-        $this->locationService
-            ->expects($this->once())
-            ->method('loadLocation')
-            ->with($contentInfo->mainLocationId)
+        $this->repository
+            ->expects($this->at(1))
+            ->method('sudo')
+            ->with($locationClosure)
             ->will($this->returnValue($location));
+        $this->permissionResolver
+            ->expects($this->any())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('read'),
+                $this->equalTo($contentInfo),
+                $this->equalTo([$location])
+            )->willReturn(true);
         $this->urlALiasGenerator
             ->expects($this->once())
             ->method('generate')
             ->with($location, $parameters, $referenceType)
             ->will($this->returnValue($generatedLink));
+
         $this->assertSame(
             $generatedLink,
             $this->router->generate(
@@ -783,10 +812,15 @@ class UrlAliasRouterTest extends TestCase
         $contentInfo = new ContentInfo(['id' => $contentId, 'mainLocationId' => null]);
         $parameters = ['some' => 'thing'];
         $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH;
-        $this->contentService
+
+        $closure = function (APIRepository $repository) use ($contentId) {
+            return $repository->getContentService()->loadContentInfo($contentId);
+        };
+
+        $this->repository
             ->expects($this->once())
-            ->method('loadContentInfo')
-            ->with($contentId)
+            ->method('sudo')
+            ->with($closure)
             ->will($this->returnValue($contentInfo));
 
         $this->router->generate(

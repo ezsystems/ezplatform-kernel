@@ -4,8 +4,7 @@
         : ''
 %}
 
-{% if location is defined %}
-    <a href="{{ ez_path(location) }}"{% if class is defined %} class="{{ class }}"{% endif %}{{ data_attributes_str|raw }}>{{ content.name }}</a>
-{% else %}
-    <a href="{{ ez_path(content) }}"{% if class is defined %} class="{{ class }}"{% endif %}{{ data_attributes_str|raw }}>{{ content.name }}</a>
-{% endif %}
+{% set parameters = {
+    "isEmbed": true
+} %}
+<a href="{{ ez_path(content, parameters) }}"{% if class is defined %} class="{{ class }}"{% endif %}{{ data_attributes_str|raw }}>{{ content.name }}</a>
