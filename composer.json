@@ -81,7 +81,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "EzSystems\\PlatformInstallerBundleTests\\": "eZ/Bundle/PlatformInstallerBundle/tests"
+            "EzSystems\\PlatformInstallerBundleTests\\": "eZ/Bundle/PlatformInstallerBundle/tests",
+            "Ibexa\\Platform\\Tests\\Integration\\": "tests/lib/integration"
         }
     },
     "config": {
