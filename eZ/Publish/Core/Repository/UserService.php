@@ -1289,7 +1289,7 @@ class UserService implements UserServiceInterface
         $expirationDate = null;
         $expirationWarningDate = null;
 
-        $passwordTTL = (int)$definition->fieldSettings[UserType::PASSWORD_TTL_SETTING];
+        $passwordTTL = (int)($definition->fieldSettings[UserType::PASSWORD_TTL_SETTING] ?? 0);
         if ($passwordTTL > 0) {
             if ($passwordUpdatedAt instanceof DateTime) {
                 $passwordUpdatedAt = DateTimeImmutable::createFromMutable($passwordUpdatedAt);
@@ -1297,7 +1297,7 @@ class UserService implements UserServiceInterface
 
             $expirationDate = $passwordUpdatedAt->add(new DateInterval(sprintf('P%dD', $passwordTTL)));
 
-            $passwordTTLWarning = (int)$definition->fieldSettings[UserType::PASSWORD_TTL_WARNING_SETTING];
+            $passwordTTLWarning = (int)($definition->fieldSettings[UserType::PASSWORD_TTL_WARNING_SETTING] ?? 0);
             if ($passwordTTLWarning > 0) {
                 $expirationWarningDate = $expirationDate->sub(new DateInterval(sprintf('P%dD', $passwordTTLWarning)));
             }
