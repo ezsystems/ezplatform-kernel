@@ -6,13 +6,13 @@
  */
 namespace eZ\Publish\API\Repository\Tests\FieldType;
 
+use eZ\Publish\API\Repository\Exceptions\ContentTypeFieldDefinitionValidationException;
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Tests;
 use eZ\Publish\API\Repository;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use Exception;
-use PHPUnit_Framework_AssertionFailedError;
 
 /**
  * Integration test for legacy storage field types.
@@ -323,7 +323,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
 
         try {
             return $contentTypeService->loadContentTypeByIdentifier($contentTypeIdentifier);
-        } catch (Repository\Exceptions\NotFoundException $e) {
+        } catch (NotFoundException $e) {
             // Move on to creating Content Type
         }
 
@@ -483,7 +483,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
      */
     public function testCreateContentTypeFailsWithInvalidFieldSettings()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\ContentTypeFieldDefinitionValidationException::class);
+        $this->expectException(ContentTypeFieldDefinitionValidationException::class);
 
         $this->createContentType(
             $this->getInvalidFieldSettings(),
@@ -508,7 +508,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
      */
     public function testCreateContentTypeFailsWithInvalidValidatorConfiguration()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\ContentTypeFieldDefinitionValidationException::class);
+        $this->expectException(ContentTypeFieldDefinitionValidationException::class);
 
         $this->createContentType(
             $this->getValidFieldSettings(),
@@ -923,7 +923,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
      */
     public function testDeleteContent($content)
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $content = $this->testPublishContent();
 
@@ -939,25 +939,13 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
      * Tests failing content creation.
      *
      * @param mixed $failingValue
-     * @param string $expectedException
      *
      * @dataProvider provideInvalidCreationFieldData
-     * @dep_ends eZ\Publish\API\Repository\Tests\ContentServiceTest::testDeleteContent
      */
-    public function testCreateContentFails($failingValue, $expectedException)
+    public function testCreateContentFails($failingValue, ?string $expectedException): void
     {
-        try {
-            $this->createContent($failingValue);
-
-            $this->fail('Expected exception not thrown.');
-        } catch (PHPUnit_Framework_AssertionFailedError $e) {
-            throw $e;
-        } catch (Exception $e) {
-            $this->assertInstanceOf(
-                $expectedException,
-                $e
-            );
-        }
+        $this->expectException($expectedException);
+        $this->createContent($failingValue);
     }
 
     /**
