@@ -7,7 +7,6 @@
 namespace eZ\Publish\SPI\FieldType\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Exception;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
 use eZ\Publish\SPI\FieldType\Value as SPIValue;
 use eZ\Publish\SPI\FieldType\ValidationError;
