@@ -273,9 +273,6 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
         return [];
     }
 
-    /**
-     * @dep_ends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentType
-     */
     public function testCreateContentType()
     {
         $contentType = $this->createContentType(
@@ -418,7 +415,6 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
     }
 
     /**
-     * @dep_ends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentType
      * @depends testCreateContentType
      */
     public function testLoadContentTypeField()
@@ -517,7 +513,6 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
     }
 
     /**
-     * @dep_ends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent;
      * @depends testLoadContentTypeField
      */
     public function testCreateContent()
@@ -614,7 +609,6 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
     }
 
     /**
-     * @dep_ends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
      * @depends testCreateContent
      */
     public function testPublishContent()
@@ -657,7 +651,6 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
     }
 
     /**
-     * @dep_ends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
      * @depends testCreateContent
      */
     public function testLoadField()
@@ -731,7 +724,6 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
     }
 
     /**
-     * @dep_ends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
      * @depends testCreateContentWithEmptyFieldValue
      * @group xx
      */
@@ -780,7 +772,6 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
     }
 
     /**
-     * @dep_ends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
      * @depends testLoadFieldType
      */
     public function testUpdateField()
@@ -839,9 +830,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
     }
 
     /**
-     * Tests creeating a new version keeps the existing value.
-     *
-     * @dep_ends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * Tests creating a new Version keeps the existing value.
      */
     public function testUpdateFieldNoNewContent()
     {
@@ -872,7 +861,6 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
 
     /**
      * @depends testCreateContent
-     * @dep_ends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCopyContent
      */
     public function testCopyField($content)
     {
@@ -919,7 +907,6 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
 
     /**
      * @depends testCopyField
-     * @dep_ends eZ\Publish\API\Repository\Tests\ContentServiceTest::deleteContent
      */
     public function testDeleteContent($content)
     {
