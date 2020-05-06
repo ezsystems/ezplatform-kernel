@@ -23,7 +23,6 @@ use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
  */
 class DeleteTranslationTest extends BaseTest
 {
-
     /**
      * @param array $languages
      *
