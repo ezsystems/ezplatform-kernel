@@ -450,16 +450,4 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
 
         return $name;
     }
-
-    /**
-     * @return \eZ\Publish\API\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected function getPermissionResolverMock()
-    {
-        if (!isset($this->permissionResolverMock)) {
-            $this->permissionResolverMock = $this->createMock(PermissionResolver::class);
-        }
-
-        return $this->permissionResolverMock;
-    }
 }
