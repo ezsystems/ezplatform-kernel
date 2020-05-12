@@ -7,6 +7,7 @@
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\Routing;
 
 use eZ\Publish\API\Repository\LocationService;
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\URLAliasService;
 use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
@@ -43,9 +44,15 @@ class UrlAliasRouterTest extends BaseUrlAliasRouterTest
         parent::setUp();
     }
 
-    protected function getRouter(LocationService $locationService, URLAliasService $urlAliasService, ContentService $contentService, UrlAliasGenerator $urlAliasGenerator, RequestContext $requestContext)
-    {
-        $router = new UrlAliasRouter($locationService, $urlAliasService, $contentService, $urlAliasGenerator, $requestContext);
+    protected function getRouter(
+        LocationService $locationService,
+        URLAliasService $urlAliasService,
+        ContentService $contentService,
+        UrlAliasGenerator $urlAliasGenerator,
+        Repository $repository,
+        RequestContext $requestContext
+    ) {
+        $router = new UrlAliasRouter($locationService, $urlAliasService, $contentService, $urlAliasGenerator, $repository, $requestContext);
         $router->setConfigResolver($this->configResolver);
 
         return $router;

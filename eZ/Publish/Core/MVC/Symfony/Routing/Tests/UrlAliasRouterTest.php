@@ -33,12 +33,6 @@ use Symfony\Component\Routing\RouterInterface;
 class UrlAliasRouterTest extends TestCase
 {
     /** @var \PHPUnit\Framework\MockObject\MockObject */
-    protected $repository;
-
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
-    protected $permissionResolver;
-
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
     protected $urlAliasService;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject */
@@ -50,6 +44,12 @@ class UrlAliasRouterTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     protected $urlALiasGenerator;
 
+    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    protected $repository;
+
+    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    protected $permissionResolver;
+
     protected $requestContext;
 
     /** @var UrlAliasRouter */
@@ -58,9 +58,18 @@ class UrlAliasRouterTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        $this->repository = $repository = $this->createMock(Repository::class);
+        $repositoryClass = Repository::class;
+        $this->repository = $repository = $this
+            ->getMockBuilder($repositoryClass)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->permissionResolver = $this->createMock(PermissionResolver::class);
+
+        $this->repository
+            ->expects($this->any())
+            ->method('getPermissionResolver')
+            ->willReturn($this->permissionResolver);
+
         $this->urlAliasService = $this->createMock(URLAliasService::class);
         $this->locationService = $this->createMock(LocationService::class);
         $this->contentService = $this->createMock(ContentService::class);
@@ -74,6 +83,7 @@ class UrlAliasRouterTest extends TestCase
                 ]
             )
             ->getMock();
+
         $this->requestContext = new RequestContext();
 
         $this->router = $this->getRouter(
@@ -780,7 +790,7 @@ class UrlAliasRouterTest extends TestCase
             ->with($locationClosure)
             ->will($this->returnValue($location));
         $this->permissionResolver
-            ->expects($this->any())
+            ->expects($this->once())
             ->method('canUser')
             ->with(
                 $this->equalTo('content'),
