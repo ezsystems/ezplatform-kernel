@@ -320,6 +320,9 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
 
         // Normal route name
         if ($name === self::URL_ALIAS_ROUTE_NAME) {
+
+            $isEmbed = $parameters['isEmbed'] ?? false;
+
             if (isset($parameters['location']) || isset($parameters['locationId'])) {
                 // Check if location is a valid Location object
                 if (isset($parameters['location']) && !$parameters['location'] instanceof Location) {
@@ -328,7 +331,23 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
                     );
                 }
 
-                $location = isset($parameters['location']) ? $parameters['location'] : $this->locationService->loadLocation($parameters['locationId']);
+                $locationId = $parameters['locationId'] ?? null;
+
+                $location = isset($parameters['location'])
+                    ? $parameters['location']
+                    : $this->repository->sudo(
+                        function (Repository $repository) use ($locationId) {
+                            return $repository->getLocationService()->loadLocation($locationId);
+                        }
+                    );
+
+                if (!$this->canRead($location->getContentInfo(), $location, $isEmbed)) {
+                    throw new UnauthorizedException(
+                        'content', 'read|view_embed',
+                        ['locationId' => $location !== null ? $location->id : 'n/a']
+                    );
+                }
+
                 unset($parameters['location'], $parameters['locationId'], $parameters['viewType'], $parameters['layout']);
 
                 return $this->generator->generate($location, $parameters, $referenceType);
@@ -352,8 +371,6 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
                         return $repository->getLocationService()->loadLocation($contentInfo->mainLocationId);
                     }
                 );
-
-                $isEmbed = $parameters['isEmbed'] ?? false;
 
                 if (!$this->canRead($contentInfo, $location, $isEmbed)) {
                     throw new UnauthorizedException(

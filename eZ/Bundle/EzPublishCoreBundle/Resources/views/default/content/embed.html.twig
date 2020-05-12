@@ -3,4 +3,8 @@
 {% set parameters = {
     "isEmbed": true
 } %}
-<h3><a href="{{ ez_path(content, parameters) }}">{{ content_name }}</a></h3>
+{% if location is defined %}
+    <h3><a href="{{ ez_path(location, parameters) }}">{{ content_name }}</a></h3>
+{% else %}
+    <h3><a href="{{ ez_path(content, parameters) }}">{{ content_name }}</a></h3>
+{% endif %}
