@@ -716,15 +716,29 @@ class UrlAliasRouterTest extends TestCase
     public function testGenerateWithLocationId()
     {
         $locationId = 123;
-        $location = new Location(['id' => $locationId]);
+        $location = new Location(['id' => $locationId, 'contentInfo' => new ContentInfo(['id' => 456])]);
         $parameters = ['some' => 'thing'];
         $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH;
         $generatedLink = '/foo/bar';
-        $this->locationService
+
+        $locationClosure = function (APIRepository $repository) use ($locationId) {
+            return $repository->getLocationService()->loadLocation($locationId);
+        };
+
+        $this->repository
             ->expects($this->once())
-            ->method('loadLocation')
-            ->with($locationId)
+            ->method('sudo')
+            ->with($locationClosure)
             ->will($this->returnValue($location));
+        $this->permissionResolver
+            ->expects($this->once())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('read'),
+                $this->equalTo($location->getContentInfo()),
+                $this->equalTo([$location])
+            )->willReturn(true);
         $this->urlALiasGenerator
             ->expects($this->once())
             ->method('generate')
@@ -743,10 +757,19 @@ class UrlAliasRouterTest extends TestCase
     public function testGenerateWithLocationAsParameter()
     {
         $locationId = 123;
-        $location = new Location(['id' => $locationId]);
+        $location = new Location(['id' => $locationId, 'contentInfo' => new ContentInfo(['id' => 456])]);
         $parameters = ['some' => 'thing'];
         $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH;
         $generatedLink = '/foo/bar';
+        $this->permissionResolver
+            ->expects($this->once())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('read'),
+                $this->equalTo($location->getContentInfo()),
+                $this->equalTo([$location])
+            )->willReturn(true);
         $this->urlALiasGenerator
             ->expects($this->once())
             ->method('generate')

@@ -320,7 +320,6 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
 
         // Normal route name
         if ($name === self::URL_ALIAS_ROUTE_NAME) {
-
             $isEmbed = $parameters['isEmbed'] ?? false;
 
             if (isset($parameters['location']) || isset($parameters['locationId'])) {
