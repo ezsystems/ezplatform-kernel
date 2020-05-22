@@ -2078,7 +2078,6 @@ class LocationServiceTest extends BaseTest
      * Test for the deleteLocation() method.
      *
      * @see \eZ\Publish\API\Repository\LocationService::deleteLocation()
-     * @depends eZ\Publish\API\Repository\Tests\LocationServiceTest::testDeleteLocation
      */
     public function testDeleteLocationDecrementsChildCountOnParent()
     {

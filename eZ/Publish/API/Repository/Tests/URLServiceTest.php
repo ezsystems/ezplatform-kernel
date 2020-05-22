@@ -852,7 +852,6 @@ class URLServiceTest extends BaseURLServiceTest
     /**
      * Test for URLService::testFindUsages() method.
      *
-     * @depends eZ\Publish\API\Repository\Tests\URLServiceTest::testLoadById
      * @dataProvider dataProviderForFindUsages
      */
     public function testFindUsages($urlId, $offset, $limit, array $expectedContentInfos, $expectedTotalCount = null)
