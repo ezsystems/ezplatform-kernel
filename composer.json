@@ -61,6 +61,7 @@
         "friends-of-behat/mink-extension": "^2.4",
         "friendsofphp/php-cs-fixer": "^2.16.2",
         "ezsystems/ezplatform-code-style": "^0.1",
+        "phpstan/phpstan": "^0.12.25",
         "phpunit/phpunit": "^8.2",
         "matthiasnoback/symfony-dependency-injection-test": "^4.1"
     },
