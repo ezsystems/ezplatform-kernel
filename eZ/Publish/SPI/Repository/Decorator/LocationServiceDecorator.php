@@ -150,8 +150,8 @@ abstract class LocationServiceDecorator implements LocationService
         return $this->innerService->loadAllLocations($offset, $limit);
     }
 
-    public function find(Filter $filter): LocationList
+    public function find(Filter $filter, ?array $languages = null): LocationList
     {
-        return $this->innerService->find($filter);
+        return $this->innerService->find($filter, $languages);
     }
 }

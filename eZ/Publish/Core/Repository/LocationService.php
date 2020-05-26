@@ -17,6 +17,7 @@ use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
 use eZ\Publish\API\Repository\Values\Content\LocationList;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LanguageCode;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use eZ\Publish\Core\Repository\Mapper\ContentDomainMapper;
 use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
@@ -37,9 +38,12 @@ use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\Base\Exceptions\BadStateException;
 use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
 use Exception;
+use eZ\Publish\API\Repository\Values\Filter\Filter;
+use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
+use function count;
 
 /**
  * Location service, used for complex subtree operations.
@@ -903,5 +907,45 @@ class LocationService implements LocationServiceInterface
         }
 
         return $locations;
+    }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     */
+    public function find(Filter $filter, ?array $languages = null): LocationList
+    {
+        $filter = clone $filter;
+        if (!empty($languages)) {
+            $filter->andWithCriterion(new LanguageCode($languages));
+        }
+
+        $permissionCriterion = $this->permissionCriterionResolver->getQueryPermissionsCriterion();
+        if ($permissionCriterion instanceof Criterion\MatchNone) {
+            return new LocationList();
+        }
+
+        if (!$permissionCriterion instanceof Criterion\MatchAll) {
+            if (!$permissionCriterion instanceof FilteringCriterion) {
+                return new LocationList();
+            }
+            $filter->andWithCriterion($permissionCriterion);
+        }
+
+        $locations = [];
+        foreach ($this->locationFilteringHandler->find($filter) as $locationWithContentInfo) {
+            $spiContentInfo = $locationWithContentInfo->getContentInfo();
+            $locations[] = $this->contentDomainMapper->buildLocationWithContent(
+                $locationWithContentInfo->getLocation(),
+                $this->contentDomainMapper->buildContentProxy($spiContentInfo),
+                $spiContentInfo,
+            );
+        }
+
+        return new LocationList(
+            [
+                'totalCount' => count($locations),
+                'locations' => $locations,
+            ]
+        );
     }
 }

@@ -266,8 +266,8 @@ abstract class ContentServiceDecorator implements ContentService
         return $this->innerService->validate($object, $context, $fieldIdentifiersToValidate);
     }
 
-    public function find(Filter $filter): ContentList
+    public function find(Filter $filter, ?array $languages = null): ContentList
     {
-        return $this->innerService->find($filter);
+        return $this->innerService->find($filter, $languages);
     }
 }

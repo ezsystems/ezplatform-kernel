@@ -356,7 +356,7 @@ class Repository implements RepositoryInterface
             $this->getRelationProcessor(),
             $this->getNameSchemaService(),
             $this->fieldTypeRegistry,
-            $this->getPermissionResolver(),
+            $this->getPermissionService(),
             $this->contentMapper,
             $this->contentValidator,
             $this->contentFilteringHandler,
@@ -705,9 +705,14 @@ class Repository implements RepositoryInterface
         return $this->fieldTypeService;
     }
 
-    public function getPermissionResolver(): PermissionResolverInterface
+    public function getPermissionService(): PermissionService
     {
         return $this->permissionService;
+    }
+
+    public function getPermissionResolver(): PermissionResolverInterface
+    {
+        return $this->getPermissionService();
     }
 
     /**
@@ -780,7 +785,7 @@ class Repository implements RepositoryInterface
 
     protected function getPermissionCriterionResolver(): PermissionCriterionResolverInterface
     {
-        return $this->permissionService;
+        return $this->getPermissionService();
     }
 
     /**
