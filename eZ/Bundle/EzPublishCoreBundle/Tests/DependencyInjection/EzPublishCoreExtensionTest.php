@@ -10,8 +10,11 @@ use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\QueryTypePass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Common;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Content;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension;
+use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\Filter\CustomCriterionQueryBuilder;
+use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\Filter\CustomSortClauseQueryBuilder;
 use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\QueryTypeBundle\QueryType\TestQueryType;
 use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\StubPolicyProvider;
+use eZ\Publish\SPI\Repository\Values\Filter;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Compiler\CheckExceptionOnInvalidReferenceBehaviorPass;
@@ -785,6 +788,49 @@ class EzPublishCoreExtensionTest extends AbstractExtensionTestCase
             TestQueryType::class,
             QueryTypePass::QUERY_TYPE_SERVICE_TAG
         );
+    }
+
+    /**
+     * Test automatic configuration of services implementing Criterion & SortClause Filtering Query
+     * Builders.
+     *
+     * @dataProvider getFilteringQueryBuilderData
+     *
+     * @see \eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder
+     * @see \eZ\Publish\SPI\Repository\Values\Filter\SortClauseQueryBuilder
+     */
+    public function testFilteringQueryBuildersAutomaticConfiguration(
+        string $classFQCN,
+        string $tagName
+    ): void {
+        $definition = new Definition($classFQCN);
+        $definition->setAutoconfigured(true);
+        $this->setDefinition($classFQCN, $definition);
+
+        $this->load();
+
+        $this->compileCoreContainer();
+
+        $this->assertContainerBuilderHasServiceDefinitionWithTag(
+            $classFQCN,
+            $tagName
+        );
+    }
+
+    /**
+     * Data provider for {@see testFilteringQueryBuildersAutomaticConfiguration}.
+     */
+    public function getFilteringQueryBuilderData(): iterable
+    {
+        yield Filter\CriterionQueryBuilder::class => [
+            CustomCriterionQueryBuilder::class,
+            Filter\CriterionQueryBuilder::SYMFONY_TAG_NAME,
+        ];
+
+        yield Filter\SortClauseQueryBuilder::class => [
+            CustomSortClauseQueryBuilder::class,
+            Filter\SortClauseQueryBuilder::SYMFONY_TAG_NAME,
+        ];
     }
 
     /**

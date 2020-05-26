@@ -9,6 +9,8 @@ namespace eZ\Publish\API\Repository\Tests\SetupFactory;
 use Doctrine\DBAL\Connection;
 use eZ\Publish\API\Repository\Tests\LegacySchemaImporter;
 use eZ\Publish\Core\Base\ServiceContainer;
+use eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder as FilteringCriterionQueryBuilder;
+use eZ\Publish\SPI\Repository\Values\Filter\SortClauseQueryBuilder as FilteringSortClauseQueryBuilder;
 use eZ\Publish\SPI\Tests\Persistence\Fixture;
 use eZ\Publish\SPI\Tests\Persistence\FixtureImporter;
 use eZ\Publish\SPI\Tests\Persistence\YamlFixture;
@@ -319,6 +321,8 @@ class Legacy extends SetupFactory
 
             $containerBuilder->addCompilerPass(new Compiler\Search\FieldRegistryPass());
 
+            $this->registerForAutoConfiguration($containerBuilder);
+
             // load overrides just before creating test Container
             $loader->load('tests/override.yml');
 
@@ -353,5 +357,23 @@ class Legacy extends SetupFactory
     public function getDB()
     {
         return self::$db;
+    }
+
+    /**
+     * Apply automatic configuration to needed Symfony Services.
+     *
+     * Note: Based on
+     * {@see \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension::registerForAutoConfiguration},
+     * but only for services needed by integration test setup.
+     *
+     * @see
+     */
+    private function registerForAutoConfiguration(ContainerBuilder $containerBuilder): void
+    {
+        $containerBuilder->registerForAutoconfiguration(FilteringCriterionQueryBuilder::class)
+            ->addTag(FilteringCriterionQueryBuilder::SYMFONY_TAG_NAME);
+
+        $containerBuilder->registerForAutoconfiguration(FilteringSortClauseQueryBuilder::class)
+            ->addTag(FilteringSortClauseQueryBuilder::SYMFONY_TAG_NAME);
     }
 }
