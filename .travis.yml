@@ -54,6 +54,10 @@ matrix:
       php: 7.4
       env: UPDATE_DEPENDENCIES=1
       script: ./bin/.travis/check_code_style.sh
+    - name: 'Static analysis by PHPStan'
+      php: 7.4
+      env: UPDATE_DEPENDENCIES=1
+      script: composer phpstan
 
 # test only master, stable branches and pull requests
 branches:
