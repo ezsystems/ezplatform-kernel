@@ -1,0 +1,567 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\Command\\\\UpdateTimestampsToUTCCommand\\:\\:execute\\(\\) should return int but return statement is missing\\.$#"
+			count: 1
+			path: eZ/Bundle/EzPublishCoreBundle/Command/UpdateTimestampsToUTCCommand.php
+
+		-
+			message: "#^Access to undefined constant eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\DependencyInjection\\\\Compiler\\\\ViewManagerPass\\:\\:VIEW_PROVIDER_IDENTIFIER\\.$#"
+			count: 2
+			path: eZ/Bundle/EzPublishCoreBundle/DependencyInjection/Compiler/ViewManagerPass.php
+
+		-
+			message: "#^Access to undefined constant eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\DependencyInjection\\\\Compiler\\\\ViewManagerPass\\:\\:VIEW_TYPE\\.$#"
+			count: 1
+			path: eZ/Bundle/EzPublishCoreBundle/DependencyInjection/Compiler/ViewManagerPass.php
+
+		-
+			message: "#^Access to undefined constant eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\DependencyInjection\\\\Configuration\\\\Parser\\\\Templates\\:\\:NODE_KEY\\.$#"
+			count: 5
+			path: eZ/Bundle/EzPublishCoreBundle/DependencyInjection/Configuration/Parser/Templates.php
+
+		-
+			message: "#^Access to undefined constant eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\DependencyInjection\\\\Configuration\\\\Parser\\\\Templates\\:\\:INFO\\.$#"
+			count: 1
+			path: eZ/Bundle/EzPublishCoreBundle/DependencyInjection/Configuration/Parser/Templates.php
+
+		-
+			message: "#^Access to undefined constant eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\DependencyInjection\\\\Configuration\\\\Parser\\\\Templates\\:\\:INFO_TEMPLATE_KEY\\.$#"
+			count: 1
+			path: eZ/Bundle/EzPublishCoreBundle/DependencyInjection/Configuration/Parser/Templates.php
+
+		-
+			message: "#^Access to undefined constant eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\DependencyInjection\\\\Configuration\\\\Parser\\\\View\\:\\:NODE_KEY\\.$#"
+			count: 2
+			path: eZ/Bundle/EzPublishCoreBundle/DependencyInjection/Configuration/Parser/View.php
+
+		-
+			message: "#^Access to undefined constant eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\DependencyInjection\\\\Configuration\\\\Parser\\\\View\\:\\:INFO\\.$#"
+			count: 1
+			path: eZ/Bundle/EzPublishCoreBundle/DependencyInjection/Configuration/Parser/View.php
+
+		-
+			message: "#^Parameter \\$content of method eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\Features\\\\Context\\\\BasicContentContext\\:\\:publishDraft\\(\\) has invalid typehint type eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\Features\\\\Context\\\\Content\\.$#"
+			count: 1
+			path: eZ/Bundle/EzPublishCoreBundle/Features/Context/BasicContentContext.php
+
+		-
+			message: "#^Call to an undefined method eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\Features\\\\Context\\\\ContentTypeContext\\:\\:processValidator\\(\\)\\.$#"
+			count: 1
+			path: eZ/Bundle/EzPublishCoreBundle/Features/Context/ContentTypeContext.php
+
+		-
+			message: "#^Call to an undefined method eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\Features\\\\Context\\\\ContentTypeContext\\:\\:processSettings\\(\\)\\.$#"
+			count: 1
+			path: eZ/Bundle/EzPublishCoreBundle/Features/Context/ContentTypeContext.php
+
+		-
+			message: "#^Access to an undefined property eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\Features\\\\Context\\\\QueryControllerContext\\:\\:\\$repository\\.$#"
+			count: 7
+			path: eZ/Bundle/EzPublishCoreBundle/Features/Context/QueryControllerContext.php
+
+		-
+			message: "#^Method eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\Features\\\\Context\\\\UserContext\\:\\:ensureUserExists\\(\\) invoked with 2 parameters, 3\\-4 required\\.$#"
+			count: 1
+			path: eZ/Bundle/EzPublishCoreBundle/Features/Context/UserContext.php
+
+		-
+			message: "#^Access to an undefined property eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\Tests\\\\DependencyInjection\\\\Configuration\\\\Parser\\\\LanguagesTest\\:\\:\\$minimalConfig\\.$#"
+			count: 1
+			path: eZ/Bundle/EzPublishCoreBundle/Tests/DependencyInjection/Configuration/Parser/LanguagesTest.php
+
+		-
+			message: "#^Access to an undefined property eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\Tests\\\\EventListener\\\\RoutingListenerTest\\:\\:\\$container\\.$#"
+			count: 1
+			path: eZ/Bundle/EzPublishCoreBundle/Tests/EventListener/RoutingListenerTest.php
+
+		-
+			message: "#^Access to an undefined property eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\Tests\\\\Fragment\\\\FragmentRendererBaseTest\\:\\:\\$innerRenderer\\.$#"
+			count: 1
+			path: eZ/Bundle/EzPublishCoreBundle/Tests/Fragment/FragmentRendererBaseTest.php
+
+		-
+			message: "#^Access to an undefined property eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\Tests\\\\Routing\\\\UrlAliasRouterTest\\:\\:\\$container\\.$#"
+			count: 1
+			path: eZ/Bundle/EzPublishCoreBundle/Tests/Routing/UrlAliasRouterTest.php
+
+		-
+			message: "#^Instantiated class eZ\\\\Bundle\\\\EzPublishIOBundle\\\\Tests\\\\DependencyInjection\\\\ConfigurationFactory\\\\MetadataHandler\\\\Flysystem not found\\.$#"
+			count: 1
+			path: eZ/Bundle/EzPublishIOBundle/Tests/DependencyInjection/ConfigurationFactory/MetadataHandler/FlysystemTest.php
+
+		-
+			message: "#^Class EzSystems\\\\EzPlatformSolrSearchEngine\\\\Tests\\\\SetupFactory\\\\LegacySetupFactory not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/BaseTest.php
+
+		-
+			message: "#^Class EzSystems\\\\EzPlatformSolrSearchEngine\\\\Tests\\\\SetupFactory\\\\LegacySetupFactory not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/Regression/EZP20018LanguageTest.php
+
+		-
+			message: "#^Instantiated class eZ\\\\Publish\\\\Core\\\\FieldType\\\\RichText\\\\Value not found\\.$#"
+			count: 3
+			path: eZ/Publish/API/Repository/Tests/SearchService/SearchServiceFullTextEmbedTest.php
+
+		-
+			message: "#^Class EzSystems\\\\EzPlatformSolrSearchEngine\\\\Tests\\\\SetupFactory\\\\LegacySetupFactory not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/SearchServiceLocationTest.php
+
+		-
+			message: "#^Class EzSystems\\\\EzPlatformSolrSearchEngine\\\\Tests\\\\SetupFactory\\\\LegacySetupFactory not found\\.$#"
+			count: 5
+			path: eZ/Publish/API/Repository/Tests/SearchServiceTest.php
+
+		-
+			message: "#^Class EzSystems\\\\EzPlatformSolrSearchEngine\\\\Tests\\\\SetupFactory\\\\LegacySetupFactory not found\\.$#"
+			count: 3
+			path: eZ/Publish/API/Repository/Tests/SearchServiceTranslationLanguageFallbackTest.php
+
+		-
+			message: "#^Undefined variable\\: \\$loader$#"
+			count: 3
+			path: eZ/Publish/API/Repository/Tests/SetupFactory/Legacy.php
+
+		-
+			message: "#^Function generateContentTypeGroupFixture not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function writeFixtureFile not found\\.$#"
+			count: 12
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function generateContentTypeFixture not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function generateSectionFixture not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function generateLanguageFixture not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function generateUserFixture not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function generateUserGroupFixture not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function generateRoleFixture not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function generateContentInfoFixture not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function generateLocationFixture not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function generateURLAliasFixture not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function generateObjectStateGroupFixture not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function generateObjectStateFixture not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\generateContentTypeGroupFixture not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function getFixtureTable not found\\.$#"
+			count: 31
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function dateCreateCall not found\\.$#"
+			count: 8
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function generateReturnArray not found\\.$#"
+			count: 12
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function generateValueObjects not found\\.$#"
+			count: 17
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\generateContentTypeFixture not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function valueToString not found\\.$#"
+			count: 7
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function getContentTypeFieldDefinition not found\\.$#"
+			count: 2
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\getContentTypeFieldDefinition not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function filterTranslatedArray not found\\.$#"
+			count: 2
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\filterTranslatedArray not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\generateSectionFixture not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function generateMapping not found\\.$#"
+			count: 8
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\getLanguageCodes not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\generateContentInfoFixture not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function getLanguageCodes not found\\.$#"
+			count: 4
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\generateLocationFixture not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function createRepoCall not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\createRepoCall not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\dateCreateCall not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\generateLanguageFixture not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\generateUserFixture not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\generateUserGroupFixture not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\generateRoleFixture not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\generateURLAliasFixture not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function getBaseUrlPath not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function resolveLanguageMask not found\\.$#"
+			count: 2
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\generateObjectStateGroupFixture not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\generateObjectStateFixture not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\resolveLanguageMask not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\getBaseUrlPath not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Instantiated class eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\RuntimeException not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\getUser2GroupMapping not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\generateReturnArray not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\generateMapping not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\generateValueObjects not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function generateValueObject not found\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\generateValueObject not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\valueToString not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\getFixtureTable not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\writeFixtureFile not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Tests/_fixtures/generate-fixtures.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: eZ/Publish/API/Repository/Values/ValueObject.php
+
+		-
+			message: "#^Access to an undefined property eZ\\\\Publish\\\\Core\\\\Base\\\\Exceptions\\\\LimitationValidationException\\:\\:\\$validationErrors\\.$#"
+			count: 1
+			path: eZ/Publish/Core/Base/Exceptions/LimitationValidationException.php
+
+		-
+			message: "#^Instantiated class Symfony\\\\Bridge\\\\ProxyManager\\\\LazyProxy\\\\PhpDumper\\\\ProxyDumper not found\\.$#"
+			count: 1
+			path: eZ/Publish/Core/Base/ServiceContainer.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 2
+			path: eZ/Publish/Core/FieldType/Date/Value.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 2
+			path: eZ/Publish/Core/FieldType/DateAndTime/Value.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: eZ/Publish/Core/FieldType/Image/Value.php
+
+		-
+			message: "#^Interface eZ\\\\Publish\\\\SPI\\\\FieldType\\\\Value referenced with incorrect case\\: eZ\\\\Publish\\\\SPI\\\\fieldType\\\\Value\\.$#"
+			count: 1
+			path: eZ/Publish/Core/FieldType/Media/Type.php
+
+		-
+			message: "#^Class eZ\\\\Publish\\\\API\\\\Repository\\\\IOServiceInterface not found\\.$#"
+			count: 1
+			path: eZ/Publish/Core/FieldType/Tests/FileSizeValidatorTest.php
+
+		-
+			message: "#^Class eZ\\\\Publish\\\\Core\\\\FieldType\\\\ISBN\\\\Type does not have a constructor and must be instantiated without any parameters\\.$#"
+			count: 1
+			path: eZ/Publish/Core/FieldType/Tests/ISBNTest.php
+
+		-
+			message: "#^Access to an undefined property eZ\\\\Publish\\\\Core\\\\FieldType\\\\Tests\\\\ImageTest\\:\\:\\$mimeTypeDetectorMock\\.$#"
+			count: 1
+			path: eZ/Publish/Core/FieldType/Tests/ImageTest.php
+
+		-
+			message: "#^Class eZ\\\\Publish\\\\SPI\\\\FieldType\\\\BinaryBase\\\\MimeTypeDetector not found\\.$#"
+			count: 1
+			path: eZ/Publish/Core/FieldType/Tests/ImageTest.php
+
+		-
+			message: "#^Method eZ\\\\Publish\\\\Core\\\\FieldType\\\\Tests\\\\Integration\\\\BaseCoreFieldTypeIntegrationTest\\:\\:getDatabaseConnection\\(\\) should return Doctrine\\\\DBAL\\\\Connection but return statement is missing\\.$#"
+			count: 1
+			path: eZ/Publish/Core/FieldType/Tests/Integration/BaseCoreFieldTypeIntegrationTest.php
+
+		-
+			message: "#^Access to an undefined property eZ\\\\Publish\\\\Core\\\\FieldType\\\\Tests\\\\Url\\\\Gateway\\\\DoctrineStorageTest\\:\\:\\$storageGateway\\.$#"
+			count: 1
+			path: eZ/Publish/Core/FieldType/Tests/Url/Gateway/DoctrineStorageTest.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: eZ/Publish/Core/FieldType/Time/Value.php
+
+		-
+			message: "#^Access to an undefined property eZ\\\\Publish\\\\Core\\\\IO\\\\IOService\\:\\:\\$settings\\.$#"
+			count: 4
+			path: eZ/Publish/Core/IO/IOService.php
+
+		-
+			message: "#^Call to an undefined method eZ\\\\Publish\\\\Core\\\\IO\\\\Tests\\\\IOServiceTest\\:\\:getFileUploadTest\\(\\)\\.$#"
+			count: 1
+			path: eZ/Publish/Core/IO/Tests/IOServiceTest.php
+
+		-
+			message: "#^Call to an undefined method eZ\\\\Publish\\\\Core\\\\IO\\\\Tests\\\\IOServiceTest\\:\\:expandFailureMessages\\(\\)\\.$#"
+			count: 3
+			path: eZ/Publish/Core/IO/Tests/IOServiceTest.php
+
+		-
+			message: "#^Access to an undefined property eZ\\\\Publish\\\\Core\\\\MVC\\\\Symfony\\\\Controller\\\\Content\\\\PreviewController\\:\\:\\$locationProvider\\.$#"
+			count: 2
+			path: eZ/Publish/Core/MVC/Symfony/Controller/Content/PreviewController.php
+
+		-
+			message: "#^Access to an undefined property eZ\\\\Publish\\\\Core\\\\MVC\\\\Symfony\\\\Matcher\\\\Tests\\\\AbstractMatcherFactoryTest\\:\\:\\$matcherFactoryClass\\.$#"
+			count: 5
+			path: eZ/Publish/Core/MVC/Symfony/Matcher/Tests/AbstractMatcherFactoryTest.php
+
+		-
+			message: "#^Class eZ\\\\Publish\\\\Core\\\\MVC\\\\Symfony\\\\View\\\\Provider\\\\Location\\\\Configured not found\\.$#"
+			count: 1
+			path: eZ/Publish/Core/MVC/Symfony/Matcher/Tests/ContentBased/BaseTest.php
+
+		-
+			message: "#^Access to an undefined property eZ\\\\Publish\\\\Core\\\\MVC\\\\Symfony\\\\Matcher\\\\Tests\\\\ContentBasedMatcherFactoryTest\\:\\:\\$matcherFactoryClass\\.$#"
+			count: 1
+			path: eZ/Publish/Core/MVC/Symfony/Matcher/Tests/ContentBasedMatcherFactoryTest.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: eZ/Publish/Core/MVC/Symfony/Routing/SimplifiedRequest.php
+
+		-
+			message: "#^Access to undefined constant eZ\\\\Publish\\\\Core\\\\MVC\\\\Symfony\\\\SiteAccess\\\\Matcher\\\\Compound\\:\\:NAME\\.$#"
+			count: 1
+			path: eZ/Publish/Core/MVC/Symfony/SiteAccess/Matcher/Compound.php
+
+		-
+			message: "#^Undefined variable\\: \\$ret$#"
+			count: 1
+			path: eZ/Publish/Core/MVC/Symfony/Templating/Tests/Twig/Extension/FileSystemTwigIntegrationTestCase.php
+
+		-
+			message: "#^Class eZ\\\\Publish\\\\Core\\\\Persistence\\\\Legacy\\\\Content\\\\FieldValue\\\\Converter\\\\SelectionConverter constructor invoked with 0 parameters, 1 required\\.$#"
+			count: 1
+			path: eZ/Publish/Core/Persistence/Legacy/Content/FieldValue/Converter/SelectionConverter.php
+
+		-
+			message: "#^Undefined variable\\: \\$loader$#"
+			count: 2
+			path: eZ/Publish/Core/Persistence/Legacy/Tests/HandlerTest.php
+
+		-
+			message: "#^Function eZ\\\\Publish\\\\Core\\\\Repository\\\\Permission\\\\time not found while trying to analyse it \\- autoloading is probably not configured properly\\.$#"
+			count: 1
+			path: eZ/Publish/Core/Repository/Tests/Permission/CachedPermissionServiceTest.php
+
+		-
+			message: "#^Parameter \\$spiUrlAlias of method eZ\\\\Publish\\\\Core\\\\Repository\\\\URLAliasService\\:\\:selectAliasLanguageCode\\(\\) has invalid typehint type eZ\\\\Publish\\\\SPI\\\\Persistence\\\\Content\\\\URLAlias\\.$#"
+			count: 1
+			path: eZ/Publish/Core/Repository/URLAliasService.php
+
+		-
+			message: "#^Parameter \\$spiUrlAlias of method eZ\\\\Publish\\\\Core\\\\Repository\\\\URLAliasService\\:\\:extractPath\\(\\) has invalid typehint type eZ\\\\Publish\\\\SPI\\\\Persistence\\\\Content\\\\URLAlias\\.$#"
+			count: 1
+			path: eZ/Publish/Core/Repository/URLAliasService.php
+
+		-
+			message: "#^Parameter \\$spiUrlAlias of method eZ\\\\Publish\\\\Core\\\\Repository\\\\URLAliasService\\:\\:matchPath\\(\\) has invalid typehint type eZ\\\\Publish\\\\SPI\\\\Persistence\\\\Content\\\\URLAlias\\.$#"
+			count: 1
+			path: eZ/Publish/Core/Repository/URLAliasService.php
+
+		-
+			message: "#^Parameter \\$spiUrlAlias of method eZ\\\\Publish\\\\Core\\\\Repository\\\\URLAliasService\\:\\:isUrlAliasLoadable\\(\\) has invalid typehint type eZ\\\\Publish\\\\SPI\\\\Persistence\\\\Content\\\\URLAlias\\.$#"
+			count: 1
+			path: eZ/Publish/Core/Repository/URLAliasService.php
+
+		-
+			message: "#^Instantiated class eZ\\\\Publish\\\\SPI\\\\Persistence\\\\Content\\\\URLAlias not found\\.$#"
+			count: 1
+			path: eZ/Publish/Core/Repository/URLAliasService.php
+
+		-
+			message: "#^Parameter \\$spiUrlAlias of method eZ\\\\Publish\\\\Core\\\\Repository\\\\URLAliasService\\:\\:buildUrlAliasDomainObject\\(\\) has invalid typehint type eZ\\\\Publish\\\\SPI\\\\Persistence\\\\Content\\\\URLAlias\\.$#"
+			count: 1
+			path: eZ/Publish/Core/Repository/URLAliasService.php
+
+		-
+			message: "#^Class Symfony\\\\Component\\\\Validator\\\\ConstraintViolation constructor invoked with 1 parameter, 6\\-10 required\\.$#"
+			count: 1
+			path: eZ/Publish/SPI/FieldType/Generic/Tests/GenericTest.php
+
