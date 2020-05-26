@@ -94,7 +94,8 @@
         "test": [
             "@unit",
             "@integration"
-        ]
+        ],
+        "phpstan": "phpstan --ansi analyse"
     },
     "scripts-descriptions": {
         "fix-cs": "Fix Coding standard issues in current checkout.",
