@@ -4920,10 +4920,6 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the copyContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::copyContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCopyContent
-     * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testNewLocationCreateStruct
-     * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocationChildren
-     * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocation
      */
     public function testCopyContentInTransactionWithRollback()
     {
