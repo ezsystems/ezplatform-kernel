@@ -21,7 +21,7 @@ use Symfony\Component\Security\Core\User\UserInterface as CoreUserInterface;
  *     - wrappedUser: containing the originally matched user.
  *     - apiUser: containing the API User (the one from the eZ Repository )
  */
-class UserWrapped implements ReferenceUserInterface, EquatableInterface
+class UserWrapped implements UserInterface, ReferenceUserInterface, EquatableInterface
 {
     /** @var \Symfony\Component\Security\Core\User\UserInterface */
     private $wrappedUser;
