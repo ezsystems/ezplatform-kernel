@@ -80,7 +80,6 @@ class UserWrapped implements ReferenceUserInterface, EquatableInterface
      *
      * @throws InvalidArgumentException If $wrappedUser is instance of self or User to avoid duplicated APIUser in
      *     session.
-     *
      */
     public function setWrappedUser(CoreUserInterface $wrappedUser)
     {
