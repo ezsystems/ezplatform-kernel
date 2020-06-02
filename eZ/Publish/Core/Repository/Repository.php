@@ -38,6 +38,7 @@ use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
 use eZ\Publish\Core\Repository\User\PasswordHashServiceInterface;
 use eZ\Publish\Core\Repository\Helper\RelationProcessor;
 use eZ\Publish\Core\Search\Common\BackgroundIndexer;
+use eZ\Publish\SPI\Persistence\Filter\Content\Handler as ContentFilteringHandler;
 use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
 use eZ\Publish\SPI\Repository\Validator\ContentValidator;
@@ -251,6 +252,9 @@ class Repository implements RepositoryInterface
     /** @var \eZ\Publish\SPI\Repository\Validator\ContentValidator */
     private $contentValidator;
 
+    /** @var \eZ\Publish\SPI\Persistence\Filter\Content\Handler */
+    private $contentFilteringHandler;
+
     public function __construct(
         PersistenceHandler $persistenceHandler,
         SearchHandler $searchHandler,
@@ -268,6 +272,7 @@ class Repository implements RepositoryInterface
         LimitationService $limitationService,
         LanguageResolver $languageResolver,
         PermissionService $permissionService,
+        ContentFilteringHandler $contentFilteringHandler,
         array $serviceSettings = [],
         ?LoggerInterface $logger = null
     ) {
@@ -284,6 +289,7 @@ class Repository implements RepositoryInterface
         $this->roleDomainMapper = $roleDomainMapper;
         $this->limitationService = $limitationService;
         $this->languageResolver = $languageResolver;
+        $this->contentFilteringHandler = $contentFilteringHandler;
         $this->permissionService = $permissionService;
 
         $this->serviceSettings = $serviceSettings + [
@@ -347,6 +353,7 @@ class Repository implements RepositoryInterface
             $this->getPermissionResolver(),
             $this->contentMapper,
             $this->contentValidator,
+            $this->contentFilteringHandler,
             $this->serviceSettings['content'],
         );
 

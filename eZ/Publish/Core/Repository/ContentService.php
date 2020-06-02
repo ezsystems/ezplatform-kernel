@@ -25,6 +25,7 @@ use eZ\Publish\Core\Repository\Mapper\ContentMapper;
 use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\Language;
+use eZ\Publish\SPI\Persistence\Filter\Content\Handler as ContentFilteringHandler;
 use eZ\Publish\SPI\Persistence\Handler;
 use eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct as APIContentUpdateStruct;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
@@ -90,6 +91,9 @@ class ContentService implements ContentServiceInterface
     /** @var \eZ\Publish\SPI\Repository\Validator\ContentValidator */
     private $contentValidator;
 
+    /** @var \eZ\Publish\SPI\Persistence\Filter\Content\Handler */
+    private $contentFilteringHandler;
+
     public function __construct(
         RepositoryInterface $repository,
         Handler $handler,
@@ -100,6 +104,7 @@ class ContentService implements ContentServiceInterface
         PermissionResolver $permissionResolver,
         ContentMapper $contentMapper,
         ContentValidator $contentValidator,
+        ContentFilteringHandler $contentFilteringHandler,
         array $settings = []
     ) {
         $this->repository = $repository;
@@ -113,6 +118,7 @@ class ContentService implements ContentServiceInterface
             // Version archive limit (0-50), only enforced on publish, not on un-publish.
             'default_version_archive_limit' => 5,
         ];
+        $this->contentFilteringHandler = $contentFilteringHandler;
         $this->permissionResolver = $permissionResolver;
         $this->contentMapper = $contentMapper;
         $this->contentValidator = $contentValidator;
