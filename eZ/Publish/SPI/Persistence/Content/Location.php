@@ -128,4 +128,9 @@ class Location extends ValueObject
      * @var mixed
      */
     public $sortOrder;
+
+    public function getPath(): array
+    {
+        return explode('/', trim($this->pathString, '/'));
+    }
 }

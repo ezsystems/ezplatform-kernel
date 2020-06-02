@@ -239,4 +239,9 @@ abstract class Location extends ValueObject
 
         return [$sortClause];
     }
+
+    public function getPath(): LocationPath
+    {
+        return LocationPath::fromString($this->pathString);
+    }
 }
