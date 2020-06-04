@@ -106,6 +106,7 @@ services:
         alias: ezpublish.templating.global_helper.core
 
     ezpublish.templating.global_helper:
+        public: true
         alias: ezpublish.templating.global_helper.core
 
     ezpublish.twig.extension.core:
