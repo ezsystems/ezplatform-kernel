@@ -141,18 +141,7 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
 
         $this->buildPolicyMap($container);
 
-        $container->registerForAutoconfiguration(QueryType::class)
-            ->addTag(QueryTypePass::QUERY_TYPE_SERVICE_TAG);
-
-        $container->registerForAutoconfiguration(ConfigScopeChangeSubscriber::class)
-                  ->addTag(
-                      'kernel.event_listener',
-                      ['method' => 'onConfigScopeChange', 'event' => MVCEvents::CONFIG_SCOPE_CHANGE]
-                  )
-                  ->addTag(
-                      'kernel.event_listener',
-                      ['method' => 'onConfigScopeChange', 'event' => MVCEvents::CONFIG_SCOPE_RESTORE]
-                  );
+        $this->registerForAutoConfiguration($container);
     }
 
     /**
@@ -578,5 +567,21 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
         if ($container->getParameter('ezpublish.url_wildcards.enabled')) {
             $loader->load('url_wildcard.yml');
         }
+    }
+
+    private function registerForAutoConfiguration(ContainerBuilder $container): void
+    {
+        $container->registerForAutoconfiguration(QueryType::class)
+            ->addTag(QueryTypePass::QUERY_TYPE_SERVICE_TAG);
+
+        $container->registerForAutoconfiguration(ConfigScopeChangeSubscriber::class)
+            ->addTag(
+                'kernel.event_listener',
+                ['method' => 'onConfigScopeChange', 'event' => MVCEvents::CONFIG_SCOPE_CHANGE]
+            )
+            ->addTag(
+                'kernel.event_listener',
+                ['method' => 'onConfigScopeChange', 'event' => MVCEvents::CONFIG_SCOPE_RESTORE]
+            );
     }
 }
