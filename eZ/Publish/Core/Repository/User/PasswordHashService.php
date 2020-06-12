@@ -40,6 +40,20 @@ final class PasswordHashService implements PasswordHashServiceInterface
             case User::PASSWORD_HASH_PHP_DEFAULT:
                 return password_hash($password, PASSWORD_DEFAULT);
 
+            case User::PASSWORD_HASH_ARGON2I:
+                if (!defined('PASSWORD_ARGON2I')) {
+                    throw new InvalidArgumentException('hashType', "Password hash algorithm 'PASSWORD_ARGON2I' is not compiled into PHP");
+                }
+
+                return password_hash($password, PASSWORD_ARGON2I);
+
+            case User::PASSWORD_HASH_ARGON2ID:
+                if (!defined('PASSWORD_ARGON2ID')) {
+                    throw new InvalidArgumentException('hashType', "Password hash algorithm 'PASSWORD_ARGON2ID' is not compiled into PHP");
+                }
+
+                return password_hash($password, PASSWORD_ARGON2ID);
+
             default:
                 throw new InvalidArgumentException('hashType', "Password hash type '$hashType' is not recognized");
         }
@@ -47,8 +61,8 @@ final class PasswordHashService implements PasswordHashServiceInterface
 
     public function isValidPassword(string $plainPassword, string $passwordHash, ?int $hashType = null): bool
     {
-        if ($hashType === User::PASSWORD_HASH_BCRYPT || $hashType === User::PASSWORD_HASH_PHP_DEFAULT) {
-            // In case of bcrypt let php's password functionality do it's magic
+        if (in_array($hashType, User::PHP_PASSWORD_HASH_ALGORITHMS, true)) {
+            // Let php's password functionality do it's magic
             return password_verify($plainPassword, $passwordHash);
         }
 

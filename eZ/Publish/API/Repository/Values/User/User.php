@@ -30,8 +30,22 @@ abstract class User extends Content implements UserReference
     /** @var int Passwords hashed by PHPs default algorithm, which may change over time */
     const PASSWORD_HASH_PHP_DEFAULT = 7;
 
+    /** @var int Passwords in Argon2i */
+    const PASSWORD_HASH_ARGON2I = 8;
+
+    /** @var int Passwords in Argon2id */
+    const PASSWORD_HASH_ARGON2ID = 9;
+
     /** @var int Default password hash, used when none is specified, may change over time */
     const DEFAULT_PASSWORD_HASH = self::PASSWORD_HASH_PHP_DEFAULT;
+
+    /** @var int[] Password hash algoritms supported by PHP's password_hash() function, may change over time */
+    const PHP_PASSWORD_HASH_ALGORITHMS = [
+        self::PASSWORD_HASH_BCRYPT,
+        self::PASSWORD_HASH_PHP_DEFAULT,
+        self::PASSWORD_HASH_ARGON2I,
+        self::PASSWORD_HASH_ARGON2ID,
+    ];
 
     /**
      * User login.
