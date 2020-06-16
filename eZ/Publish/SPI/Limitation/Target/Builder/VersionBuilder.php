@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace eZ\Publish\SPI\Limitation\Target\Builder;
 
+use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
@@ -23,9 +24,18 @@ final class VersionBuilder
     /** @var array */
     private $targetVersionProperties = [];
 
+    private $updatedFields = [];
+
     public function build(): Target\Version
     {
         return new Target\Version($this->targetVersionProperties);
+    }
+
+    public function updateFields(array $updatedFields): self
+    {
+        $this->targetVersionProperties['updatedFields'] = $updatedFields;
+
+        return $this;
     }
 
     /**
@@ -123,6 +133,11 @@ final class VersionBuilder
         $this->targetVersionProperties['forUpdateLanguageCodesList'] = array_values(
             array_unique($languageCodes)
         );
+
+        if (!empty($this->content)) {
+            dump($fields);
+            dump($this->content);
+        }
 
         return $this;
     }
