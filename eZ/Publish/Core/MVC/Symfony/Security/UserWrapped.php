@@ -7,6 +7,7 @@
 namespace eZ\Publish\Core\MVC\Symfony\Security;
 
 use eZ\Publish\API\Repository\Values\User\User as APIUser;
+use eZ\Publish\API\Repository\Values\User\UserReference as APIUserReference;
 use eZ\Publish\Core\Repository\Values\User\UserReference;
 use InvalidArgumentException;
 use Symfony\Component\Security\Core\User\EquatableInterface;
@@ -70,7 +71,7 @@ class UserWrapped implements ReferenceUserInterface, EquatableInterface
     /**
      * @return \eZ\Publish\API\Repository\Values\User\UserReference
      */
-    public function getAPIUserReference()
+    public function getAPIUserReference(): APIUserReference
     {
         return $this->apiUserReference;
     }
