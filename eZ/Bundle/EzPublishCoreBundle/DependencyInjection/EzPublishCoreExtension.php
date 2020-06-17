@@ -18,6 +18,8 @@ use eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessConfigurationFilter;
 use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 use eZ\Publish\Core\QueryType\QueryType;
 use eZ\Publish\SPI\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
+use eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder as FilteringCriterionQueryBuilder;
+use eZ\Publish\SPI\Repository\Values\Filter\SortClauseQueryBuilder as FilteringSortClauseQueryBuilder;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -583,5 +585,11 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
                 'kernel.event_listener',
                 ['method' => 'onConfigScopeChange', 'event' => MVCEvents::CONFIG_SCOPE_RESTORE]
             );
+
+        $container->registerForAutoconfiguration(FilteringCriterionQueryBuilder::class)
+            ->addTag(FilteringCriterionQueryBuilder::SYMFONY_TAG_NAME);
+
+        $container->registerForAutoconfiguration(FilteringSortClauseQueryBuilder::class)
+            ->addTag(FilteringSortClauseQueryBuilder::SYMFONY_TAG_NAME);
     }
 }
