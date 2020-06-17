@@ -23,6 +23,7 @@ use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
 use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
 use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
+use eZ\Publish\SPI\Persistence\Filter\Location\Handler as LocationFilteringHandler;
 use eZ\Publish\SPI\Persistence\Handler;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
@@ -71,6 +72,9 @@ class LocationService implements LocationServiceInterface
     /** @var \eZ\Publish\API\Repository\PermissionResolver */
     private $permissionResolver;
 
+    /** @var \eZ\Publish\SPI\Persistence\Filter\Location\Handler */
+    private $locationFilteringHandler;
+
     /**
      * Setups service with reference to repository object that created it & corresponding handler.
      *
@@ -89,6 +93,7 @@ class LocationService implements LocationServiceInterface
         Helper\NameSchemaService $nameSchemaService,
         PermissionCriterionResolver $permissionCriterionResolver,
         PermissionResolver $permissionResolver,
+        LocationFilteringHandler $locationFilteringHandler,
         array $settings = [],
         LoggerInterface $logger = null
     ) {
@@ -97,6 +102,7 @@ class LocationService implements LocationServiceInterface
         $this->contentDomainMapper = $contentDomainMapper;
         $this->nameSchemaService = $nameSchemaService;
         $this->permissionResolver = $permissionResolver;
+        $this->locationFilteringHandler = $locationFilteringHandler;
         // Union makes sure default settings are ignored if provided in argument
         $this->settings = $settings + [
             //'defaultSetting' => array(),

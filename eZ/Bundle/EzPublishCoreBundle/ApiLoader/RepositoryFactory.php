@@ -18,6 +18,7 @@ use eZ\Publish\Core\Repository\Helper\RelationProcessor;
 use eZ\Publish\Core\Repository\Mapper;
 use eZ\Publish\Core\Search\Common\BackgroundIndexer;
 use eZ\Publish\SPI\Persistence\Filter\Content\Handler as ContentFilteringHandler;
+use eZ\Publish\SPI\Persistence\Filter\Location\Handler as LocationFilteringHandler;
 use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
 use eZ\Publish\SPI\Repository\Validator\ContentValidator;
@@ -86,7 +87,8 @@ class RepositoryFactory implements ContainerAwareInterface
         ContentValidator $contentValidator,
         LimitationService $limitationService,
         PermissionService $permissionService,
-        ContentFilteringHandler $contentFilteringHandler
+        ContentFilteringHandler $contentFilteringHandler,
+        LocationFilteringHandler $locationFilteringHandler
     ): Repository {
         $config = $this->container->get('ezpublish.api.repository_configuration_provider')->getRepositoryConfig();
 
@@ -108,6 +110,7 @@ class RepositoryFactory implements ContainerAwareInterface
             $this->languageResolver,
             $permissionService,
             $contentFilteringHandler,
+            $locationFilteringHandler,
             [
                 'role' => [
                     'policyMap' => $this->policyMap,
