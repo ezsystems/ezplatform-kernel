@@ -129,7 +129,7 @@ class UserWrapped implements ReferenceUserInterface, EquatableInterface
     public function isEqualTo(CoreUserInterface $user)
     {
         if ($user instanceof self) {
-            return $this->wrappedUser instanceof EquatableInterface ? $this->wrappedUser->isEqualTo($user->wrappedUser) : true;
+            $user = $user->wrappedUser;
         }
 
         return $this->wrappedUser instanceof EquatableInterface ? $this->wrappedUser->isEqualTo($user) : true;
