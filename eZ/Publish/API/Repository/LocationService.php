@@ -14,6 +14,7 @@ use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
+use eZ\Publish\API\Repository\Values\Filter\Filter;
 
 /**
  * Location service, used for complex subtree operations.
@@ -245,4 +246,9 @@ interface LocationService
      * @return \eZ\Publish\API\Repository\Values\Content\Location[]
      */
     public function loadAllLocations(int $offset = 0, int $limit = 25): array;
+
+    /**
+     * Fetch a LocationList from the Repository filtered by the given conditions.
+     */
+    public function find(Filter $filter): LocationList;
 }
