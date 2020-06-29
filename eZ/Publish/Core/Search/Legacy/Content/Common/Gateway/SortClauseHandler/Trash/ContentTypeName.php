@@ -31,7 +31,7 @@ final class ContentTypeName extends SortClauseHandler
         $query
             ->addSelect(
                 sprintf(
-                    'ct.name AS %s',
+                    'ctn.name AS %s',
                     $column = $this->getSortColumnName($number)
                 )
             );
@@ -47,6 +47,8 @@ final class ContentTypeName extends SortClauseHandler
     ): void {
         $query->innerJoin(
             'c', ContentTypeGateway::CONTENT_TYPE_TABLE, 'ct', 'c.contentclass_id = ct.id'
+        )->innerJoin(
+            'ct', ContentTypeGateway::CONTENT_TYPE_NAME_TABLE, 'ctn', 'ctn.contentclass_id = ct.id'
         );
     }
 }

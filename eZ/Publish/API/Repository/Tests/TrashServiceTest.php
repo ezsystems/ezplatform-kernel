@@ -731,9 +731,13 @@ class TrashServiceTest extends BaseTrashServiceTest
         $repository = $this->getRepository();
         $trashService = $repository->getTrashService();
 
+        $expectedCount = 2;
+        $ascQuery = new Query();
+        $ascQuery->limit = $expectedCount;
+        $descQuery = clone $ascQuery;
+
         $this->trashDifferentContentItems();
 
-        $ascQuery = new Query();
         foreach ($sortClausesClasses as $sortClauseClass) {
             $ascQuery->sortClauses[] = new $sortClauseClass(Query::SORT_ASC);
         }
@@ -743,9 +747,8 @@ class TrashServiceTest extends BaseTrashServiceTest
             $ascResultsIds[] = $result->contentInfo->id;
         }
 
-        $this->assertGreaterThanOrEqual(2, count($ascResultsIds));
+        $this->assertGreaterThanOrEqual($expectedCount, count($ascResultsIds));
 
-        $descQuery = new Query();
         foreach ($sortClausesClasses as $sortClauseClass) {
             $descQuery->sortClauses[] = new $sortClauseClass(Query::SORT_DESC);
         }
