@@ -12,12 +12,6 @@ use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
 
 interface SortClauseQueryBuilder
 {
-    /**
-     * Tag name to be used when defining Service in Dependency Injection Container.
-     * Note that it's recommended to rely on auto-configuration instead.
-     */
-    public const SYMFONY_TAG_NAME = 'ezplatform.filter.sort_clause.query_builder';
-
     public function accepts(FilteringSortClause $sortClause): bool;
 
     public function buildQuery(

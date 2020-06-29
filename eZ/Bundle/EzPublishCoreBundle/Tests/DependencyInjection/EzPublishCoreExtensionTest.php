@@ -10,6 +10,7 @@ use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\QueryTypePass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Common;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Content;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension;
+use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\ServiceTags;
 use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\Filter\CustomCriterionQueryBuilder;
 use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\Filter\CustomSortClauseQueryBuilder;
 use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\QueryTypeBundle\QueryType\TestQueryType;
@@ -824,12 +825,12 @@ class EzPublishCoreExtensionTest extends AbstractExtensionTestCase
     {
         yield Filter\CriterionQueryBuilder::class => [
             CustomCriterionQueryBuilder::class,
-            Filter\CriterionQueryBuilder::SYMFONY_TAG_NAME,
+            ServiceTags::FILTERING_CRITERION_QUERY_BUILDER,
         ];
 
         yield Filter\SortClauseQueryBuilder::class => [
             CustomSortClauseQueryBuilder::class,
-            Filter\SortClauseQueryBuilder::SYMFONY_TAG_NAME,
+            ServiceTags::FILTERING_SORT_CLAUSE_QUERY_BUILDER,
         ];
     }
 

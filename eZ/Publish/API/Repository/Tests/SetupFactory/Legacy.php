@@ -7,6 +7,7 @@
 namespace eZ\Publish\API\Repository\Tests\SetupFactory;
 
 use Doctrine\DBAL\Connection;
+use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\ServiceTags;
 use eZ\Publish\API\Repository\Tests\LegacySchemaImporter;
 use eZ\Publish\Core\Base\ServiceContainer;
 use eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder as FilteringCriterionQueryBuilder;
@@ -371,9 +372,9 @@ class Legacy extends SetupFactory
     private function registerForAutoConfiguration(ContainerBuilder $containerBuilder): void
     {
         $containerBuilder->registerForAutoconfiguration(FilteringCriterionQueryBuilder::class)
-            ->addTag(FilteringCriterionQueryBuilder::SYMFONY_TAG_NAME);
+            ->addTag(ServiceTags::FILTERING_CRITERION_QUERY_BUILDER);
 
         $containerBuilder->registerForAutoconfiguration(FilteringSortClauseQueryBuilder::class)
-            ->addTag(FilteringSortClauseQueryBuilder::SYMFONY_TAG_NAME);
+            ->addTag(ServiceTags::FILTERING_SORT_CLAUSE_QUERY_BUILDER);
     }
 }

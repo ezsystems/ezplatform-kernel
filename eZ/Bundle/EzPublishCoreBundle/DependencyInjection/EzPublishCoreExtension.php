@@ -587,9 +587,9 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
             );
 
         $container->registerForAutoconfiguration(FilteringCriterionQueryBuilder::class)
-            ->addTag(FilteringCriterionQueryBuilder::SYMFONY_TAG_NAME);
+            ->addTag(ServiceTags::FILTERING_CRITERION_QUERY_BUILDER);
 
         $container->registerForAutoconfiguration(FilteringSortClauseQueryBuilder::class)
-            ->addTag(FilteringSortClauseQueryBuilder::SYMFONY_TAG_NAME);
+            ->addTag(ServiceTags::FILTERING_SORT_CLAUSE_QUERY_BUILDER);
     }
 }

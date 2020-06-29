@@ -17,12 +17,6 @@ use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
  */
 interface CriterionQueryBuilder
 {
-    /**
-     * Tag name to be used when defining Service in Dependency Injection Container.
-     * Note that it's recommended to rely on auto-configuration instead.
-     */
-    public const SYMFONY_TAG_NAME = 'ezplatform.filter.criterion.query_builder';
-
     public function accepts(FilteringCriterion $criterion): bool;
 
     /**
