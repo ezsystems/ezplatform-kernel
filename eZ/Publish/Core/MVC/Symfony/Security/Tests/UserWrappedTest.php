@@ -100,7 +100,7 @@ class UserWrappedTest extends TestCase
         $this->assertFalse($user->isEqualTo($otherUser));
     }
 
-    public function testNotSerializeApiUser()
+    public function testNotSerializeApiUser(): void
     {
         $originalUser = $this->createMock(UserInterface::class);
         $user = new UserWrapped($originalUser, $this->apiUser);

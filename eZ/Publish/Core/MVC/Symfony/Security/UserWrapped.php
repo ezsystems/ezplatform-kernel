@@ -142,7 +142,7 @@ class UserWrapped implements ReferenceUserInterface, EquatableInterface
     *
     * @return array
     */
-    public function __sleep()
+    public function __sleep(): array
     {
         return ['wrappedUser', 'apiUserReference'];
     }
