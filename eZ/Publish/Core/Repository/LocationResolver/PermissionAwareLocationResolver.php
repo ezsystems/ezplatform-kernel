@@ -44,7 +44,7 @@ final class PermissionAwareLocationResolver implements LocationResolver
         } catch (NotFoundException | UnauthorizedException $e) {
             // try different locations if main location is not accessible for the user
             $locations = $this->locationService->loadLocations($contentInfo);
-            if (empty($locations) or null === $contentInfo->mainLocationId) {
+            if (empty($locations) || null === $contentInfo->mainLocationId) {
                 throw $e;
             }
 
