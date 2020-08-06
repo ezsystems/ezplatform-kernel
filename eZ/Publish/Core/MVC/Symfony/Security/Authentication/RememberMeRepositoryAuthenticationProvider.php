@@ -32,7 +32,7 @@ class RememberMeRepositoryAuthenticationProvider extends RememberMeAuthenticatio
             throw new AuthenticationException('The token is not supported by this authentication provider.');
         }
 
-        if ($authenticatedToken instanceof UserInterface) {
+        if ($authenticatedToken->getUser() instanceof UserInterface) {
             $this->permissionResolver->setCurrentUserReference(
                 $authenticatedToken->getUser()->getAPIUser()
             );
