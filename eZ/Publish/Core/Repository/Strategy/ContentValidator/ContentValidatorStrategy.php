@@ -48,7 +48,7 @@ final class ContentValidatorStrategy implements ContentValidator
             if ($contentValidator->supports($object)) {
                 $validatorFound = true;
 
-                $fieldErrors = array_merge_recursive(
+                $fieldErrors = $this->mergeErrors(
                     $fieldErrors,
                     $contentValidator->validate($object, $context, $fieldIdentifiers)
                 );
@@ -62,5 +62,23 @@ final class ContentValidatorStrategy implements ContentValidator
         throw new InvalidArgumentException('$object', sprintf(
             'Validator for %s type not found.', get_class($object)
         ));
+    }
+
+    private function mergeErrors(
+        array $fieldErrors,
+        array $foundErrors
+    ): array {
+        foreach ($foundErrors as $fieldId => $errors) {
+            if (!empty($fieldErrors[$fieldId])) {
+                $fieldErrors[$fieldId] = array_merge(
+                    $fieldErrors[$fieldId],
+                    $errors
+                );
+            } else {
+                $fieldErrors[$fieldId] = $errors;
+            }
+        }
+
+        return $fieldErrors;
     }
 }
