@@ -101,7 +101,7 @@ class ContentValidatorStrategyTest extends TestCase
 
             public function supports(ValueObject $object): bool
             {
-                return is_a($object, $this->classSupport);
+                return $object instanceof $this->classSupport;
             }
 
             public function validate(
