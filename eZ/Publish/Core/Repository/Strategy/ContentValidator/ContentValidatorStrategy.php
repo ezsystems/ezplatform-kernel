@@ -69,8 +69,8 @@ final class ContentValidatorStrategy implements ContentValidator
         array $foundErrors
     ): array {
         foreach ($foundErrors as $fieldId => $errors) {
-            $fieldErrors[$fieldId] = empty($fieldErrors[$fieldId]) 
-                ? $errors 
+            $fieldErrors[$fieldId] = empty($fieldErrors[$fieldId])
+                ? $errors
                 : array_merge(
                     $fieldErrors[$fieldId],
                     $errors
