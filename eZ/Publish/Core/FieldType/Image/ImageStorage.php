@@ -10,11 +10,9 @@ use DOMDocument;
 use DOMXPath;
 use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException as APIInvalidArgumentException;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Utils\DeprecationWarnerInterface as DeprecationWarner;
 use eZ\Publish\Core\IO\UrlRedecoratorInterface;
 use eZ\Publish\SPI\FieldType\GatewayBasedStorage;
 use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\Core\IO\MetadataHandler;
 use eZ\Publish\SPI\FieldType\StorageGateway;
 use eZ\Publish\SPI\Persistence\Content\Field;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo;
@@ -32,12 +30,6 @@ class ImageStorage extends GatewayBasedStorage
     /** @var \eZ\Publish\Core\FieldType\Image\PathGenerator */
     protected $pathGenerator;
 
-    /** @var \eZ\Publish\Core\IO\MetadataHandler */
-    protected $imageSizeMetadataHandler;
-
-    /** @var \eZ\Publish\Core\Base\Utils\DeprecationWarnerInterface */
-    private $deprecationWarner;
-
     /** @var \eZ\Publish\Core\FieldType\Image\AliasCleanerInterface */
     protected $aliasCleaner;
 
@@ -54,8 +46,6 @@ class ImageStorage extends GatewayBasedStorage
         StorageGateway $gateway,
         IOServiceInterface $ioService,
         PathGenerator $pathGenerator,
-        MetadataHandler $imageSizeMetadataHandler,
-        DeprecationWarner $deprecationWarner,
         AliasCleanerInterface $aliasCleaner,
         UrlRedecoratorInterface $urlRedecorator,
         LoggerInterface $logger
@@ -63,8 +53,6 @@ class ImageStorage extends GatewayBasedStorage
         parent::__construct($gateway);
         $this->ioService = $ioService;
         $this->pathGenerator = $pathGenerator;
-        $this->imageSizeMetadataHandler = $imageSizeMetadataHandler;
-        $this->deprecationWarner = $deprecationWarner;
         $this->aliasCleaner = $aliasCleaner;
         $this->gateway = $gateway;
         $this->urlRedecorator = $urlRedecorator;
