@@ -61,6 +61,15 @@ abstract class Gateway extends StorageGateway
 
     /**
      * Returns the public uris for the images stored in $xml.
+     *
+     * @param string $xml
+     *
+     * @return array|null
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     *
+     * @deprecated since eZ Platform 3.2. Use
+     * {@see \eZ\Publish\Core\FieldType\Image\ImageStorage::extractOriginalFilePathFromXML} instead.
      */
     abstract public function extractFilesFromXml($xml);
 
