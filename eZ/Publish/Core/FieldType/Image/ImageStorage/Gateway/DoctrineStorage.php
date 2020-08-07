@@ -8,8 +8,10 @@ namespace eZ\Publish\Core\FieldType\Image\ImageStorage\Gateway;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
 use DOMDocument;
 use eZ\Publish\Core\IO\UrlRedecoratorInterface;
+use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 use eZ\Publish\Core\FieldType\Image\ImageStorage\Gateway;
 use PDO;
@@ -165,10 +167,6 @@ class DoctrineStorage extends Gateway
      */
     public function removeImageReferences($uri, $versionNo, $fieldId): void
     {
-        if (!$this->canRemoveImageReference($uri, $versionNo, $fieldId)) {
-            return;
-        }
-
         $path = $this->redecorator->redecorateFromSource($uri);
 
         $deleteQuery = $this->connection->createQueryBuilder();
@@ -222,64 +220,7 @@ class DoctrineStorage extends Gateway
         return (int) $statement->fetchColumn();
     }
 
-    /**
-     * Check if image $path can be removed when deleting $versionNo and $fieldId.
-     *
-     * @param string $path legacy image path (var/storage/images...)
-     * @param int $versionNo
-     * @param int $fieldId
-     */
-    protected function canRemoveImageReference($path, $versionNo, $fieldId): bool
-    {
-        $selectQuery = $this->connection->createQueryBuilder();
-        $expressionBuilder = $selectQuery->expr();
-        $selectQuery
-            ->select('attr.data_text')
-            ->from($this->connection->quoteIdentifier('ezcontentobject_attribute'), 'attr')
-            ->innerJoin(
-                'attr',
-                $this->connection->quoteIdentifier(self::IMAGE_FILE_TABLE),
-                'img',
-                $expressionBuilder->eq(
-                    $this->connection->quoteIdentifier('img.contentobject_attribute_id'),
-                    $this->connection->quoteIdentifier('attr.id')
-                )
-            )
-            ->where(
-                $expressionBuilder->eq(
-                    $this->connection->quoteIdentifier('contentobject_attribute_id'),
-                    ':fieldId'
-                )
-            )
-            ->andWhere(
-                $expressionBuilder->neq(
-                    $this->connection->quoteIdentifier('version'),
-                    ':versionNo'
-                )
-            )
-            ->setParameter(':fieldId', $fieldId, PDO::PARAM_INT)
-            ->setParameter(':versionNo', $versionNo, PDO::PARAM_INT)
-        ;
-
-        $imageXMLs = $selectQuery->execute()->fetchAll(FetchMode::COLUMN);
-        foreach ($imageXMLs as $imageXML) {
-            $storedFilePath = $this->extractFilesFromXml($imageXML)['original'] ?? null;
-            if ($storedFilePath === $path) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Extract, stored in DocBook XML, file paths.
-     *
-     * @param string $xml
-     *
-     * @return array|null
-     */
-    public function extractFilesFromXml($xml)
+    public function extractFilesFromXml($xml): ?array
     {
         if (empty($xml)) {
             // Empty image value
@@ -312,5 +253,41 @@ class DoctrineStorage extends Gateway
         }
 
         return null;
+    }
+
+    public function getImageXMLForOtherVersions(int $versionNo, int $fieldId): array
+    {
+        $selectQuery = $this->connection->createQueryBuilder();
+        $expressionBuilder = $selectQuery->expr();
+        $selectQuery
+            ->select('field.data_text')
+            ->from(ContentGateway::CONTENT_FIELD_TABLE, 'field')
+            // join Image relation to ensure dealing with `ezimage` Field row
+            ->innerJoin(
+                'field',
+                $this->connection->quoteIdentifier(self::IMAGE_FILE_TABLE),
+                'img',
+                $expressionBuilder->eq(
+                    $this->connection->quoteIdentifier('img.contentobject_attribute_id'),
+                    $this->connection->quoteIdentifier('field.id')
+                )
+            )
+            ->where(
+                $expressionBuilder->eq(
+                    $this->connection->quoteIdentifier('contentobject_attribute_id'),
+                    ':field_id'
+                )
+            )
+            ->andWhere(
+                $expressionBuilder->neq(
+                    $this->connection->quoteIdentifier('version'),
+                    ':version_no'
+                )
+            )
+            ->setParameter('field_id', $fieldId, ParameterType::INTEGER)
+            ->setParameter('version_no', $versionNo, ParameterType::INTEGER)
+        ;
+
+        return $selectQuery->execute()->fetchAll(FetchMode::COLUMN);
     }
 }

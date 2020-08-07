@@ -18,6 +18,8 @@ services:
             $imageSizeMetadataHandler: '@ezpublish.fieldType.metadataHandler.imagesize'
             $deprecationWarner: '@ezpublish.utils.deprecation_warner'
             $aliasCleaner: '@eZ\Publish\Core\FieldType\Image\AliasCleanerInterface'
+            $urlRedecorator: '@ezpublish.core.io.image_fieldtype.legacy_url_redecorator'
+            $logger: '@logger'
         tags:
             - {name: ezplatform.field_type.external_storage_handler, alias: ezimage}
 

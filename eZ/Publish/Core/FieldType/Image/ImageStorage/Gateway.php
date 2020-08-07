@@ -63,4 +63,11 @@ abstract class Gateway extends StorageGateway
      * Returns the public uris for the images stored in $xml.
      */
     abstract public function extractFilesFromXml($xml);
+
+    /**
+     * Get Image XML for the given path and the given field, but NOT matching the given Version no.
+     *
+     * @param int $versionNo a Version NOT to be matched
+     */
+    abstract public function getImageXMLForOtherVersions(int $versionNo, int $fieldId): array;
 }

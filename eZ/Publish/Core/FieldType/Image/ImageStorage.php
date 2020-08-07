@@ -6,14 +6,20 @@
  */
 namespace eZ\Publish\Core\FieldType\Image;
 
+use DOMDocument;
+use DOMXPath;
+use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException as APIInvalidArgumentException;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\Base\Utils\DeprecationWarnerInterface as DeprecationWarner;
+use eZ\Publish\Core\IO\UrlRedecoratorInterface;
 use eZ\Publish\SPI\FieldType\GatewayBasedStorage;
 use eZ\Publish\Core\IO\IOServiceInterface;
 use eZ\Publish\Core\IO\MetadataHandler;
 use eZ\Publish\SPI\FieldType\StorageGateway;
 use eZ\Publish\SPI\Persistence\Content\Field;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Psr\Log\LoggerInterface;
+use function sprintf;
 
 /**
  * Converter for Image field type external storage.
@@ -38,13 +44,21 @@ class ImageStorage extends GatewayBasedStorage
     /** @var \eZ\Publish\Core\FieldType\Image\ImageStorage\Gateway */
     protected $gateway;
 
+    /** @var \eZ\Publish\Core\IO\UrlRedecoratorInterface */
+    private $urlRedecorator;
+
+    /** @var \Psr\Log\LoggerInterface */
+    private $logger;
+
     public function __construct(
         StorageGateway $gateway,
         IOServiceInterface $ioService,
         PathGenerator $pathGenerator,
         MetadataHandler $imageSizeMetadataHandler,
         DeprecationWarner $deprecationWarner,
-        AliasCleanerInterface $aliasCleaner
+        AliasCleanerInterface $aliasCleaner,
+        UrlRedecoratorInterface $urlRedecorator,
+        LoggerInterface $logger
     ) {
         parent::__construct($gateway);
         $this->ioService = $ioService;
@@ -52,6 +66,9 @@ class ImageStorage extends GatewayBasedStorage
         $this->imageSizeMetadataHandler = $imageSizeMetadataHandler;
         $this->deprecationWarner = $deprecationWarner;
         $this->aliasCleaner = $aliasCleaner;
+        $this->gateway = $gateway;
+        $this->urlRedecorator = $urlRedecorator;
+        $this->logger = $logger;
     }
 
     public function storeFieldData(VersionInfo $versionInfo, Field $field, array $context)
@@ -143,23 +160,32 @@ class ImageStorage extends GatewayBasedStorage
 
     public function deleteFieldData(VersionInfo $versionInfo, array $fieldIds, array $context)
     {
-        $fieldXmls = $this->gateway->getXmlForImages($versionInfo->versionNo, $fieldIds);
+        $fieldXMLs = $this->gateway->getXmlForImages($versionInfo->versionNo, $fieldIds);
 
-        foreach ($fieldXmls as $fieldId => $xml) {
-            $storedFiles = $this->gateway->extractFilesFromXml($xml);
-            if ($storedFiles === null) {
+        foreach ($fieldXMLs as $fieldId => $xml) {
+            $storedFilePath = $this->extractOriginalFilePathFromXML($xml);
+            if (
+                $storedFilePath === null ||
+                !$this->canRemoveImageReference(
+                    $storedFilePath,
+                    $versionInfo->versionNo,
+                    $fieldId
+                )
+            ) {
                 continue;
             }
 
-            foreach ($storedFiles as $storedFilePath) {
-                $this->gateway->removeImageReferences($storedFilePath, $versionInfo->versionNo, $fieldId);
-                if ($this->gateway->countImageReferences($storedFilePath) === 0) {
-                    $binaryFile = $this->ioService->loadBinaryFileByUri($storedFilePath);
-                    // remove aliases (real path is prepended with alias prefixes)
-                    $this->aliasCleaner->removeAliases($binaryFile->id);
-                    // delete original file
-                    $this->ioService->deleteBinaryFile($binaryFile);
-                }
+            $this->gateway->removeImageReferences(
+                $storedFilePath,
+                $versionInfo->versionNo,
+                $fieldId
+            );
+            if ($this->gateway->countImageReferences($storedFilePath) === 0) {
+                $binaryFile = $this->ioService->loadBinaryFileByUri($storedFilePath);
+                // remove aliases (real path is prepended with alias prefixes)
+                $this->aliasCleaner->removeAliases($binaryFile->id);
+                // delete original file
+                $this->ioService->deleteBinaryFile($binaryFile);
             }
         }
     }
@@ -187,5 +213,58 @@ class ImageStorage extends GatewayBasedStorage
             '%s-%s-%s',
             $versionInfo->contentInfo->id, $field->id, $versionInfo->versionNo
         );
+    }
+
+    /**
+     * Check if image $path can be removed when deleting $versionNo and $fieldId.
+     *
+     * @param string $path legacy image path (var/storage/images...)
+     */
+    private function canRemoveImageReference(string $path, int $versionNo, int $fieldId): bool
+    {
+        $imageXMLs = $this->gateway->getImageXMLForOtherVersions($versionNo, $fieldId);
+        foreach ($imageXMLs as $imageXML) {
+            try {
+                $storedFilePath = $this->extractOriginalFilePathFromXML($imageXML);
+                if ($storedFilePath === $path) {
+                    return false;
+                }
+            } catch (APIInvalidArgumentException $e) {
+                $this->logger->error(
+                    sprintf(
+                        'Failed to extract Image XML: InvalidArgumentException %s (path=%s, versionNo=%d, fieldId=%d)',
+                        $e->getMessage(),
+                        $path,
+                        $versionNo,
+                        $fieldId
+                    )
+                );
+
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Extract original file path stored in XML.
+     *
+     * @throws APIInvalidArgumentException
+     */
+    public function extractOriginalFilePathFromXML(?string $xml): ?string
+    {
+        if (empty($xml)) {
+            return null;
+        }
+
+        $dom = new DOMDocument();
+        $dom->loadXml($xml);
+        $xpath = new DOMXPath($dom);
+        $domElementList = $xpath->query('/ezimage/@url');
+
+        return $domElementList->length > 0
+            ? $this->urlRedecorator->redecorateFromTarget($domElementList->item(0)->nodeValue)
+            : null;
     }
 }
