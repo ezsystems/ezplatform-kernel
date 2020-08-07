@@ -7,13 +7,13 @@
 namespace eZ\Publish\SPI\Tests\FieldType;
 
 use eZ\Publish\Core\Persistence\Legacy;
-use eZ\Publish\Core\IO;
 use eZ\Publish\Core\FieldType;
 use eZ\Publish\Core\Base\Utils\DeprecationWarnerInterface;
 use eZ\Publish\Core\FieldType\Image\AliasCleanerInterface;
 use eZ\Publish\SPI\Persistence\Content;
 use eZ\Publish\SPI\Persistence\Content\Field;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Log\NullLogger;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use FileSystemIterator;
@@ -93,9 +93,9 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
                 ),
                 $this->ioService,
                 new FieldType\Image\PathGenerator\LegacyPathGenerator(),
-                new IO\MetadataHandler\ImageSize(),
-                $this->getDeprecationWarnerMock(),
-                $this->getAliasCleanerMock()
+                $this->getAliasCleanerMock(),
+                $urlRedecorator,
+                new NullLogger()
             )
         );
     }
