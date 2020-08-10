@@ -59,6 +59,7 @@ branches:
   only:
     - master
     - /^\d.\d+$/
+    - merge-up-master/ezp-30857-image-storage-fixes
 
 # setup requirements for running unit/integration/behat tests
 before_install:
