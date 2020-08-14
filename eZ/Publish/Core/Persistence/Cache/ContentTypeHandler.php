@@ -332,8 +332,13 @@ class ContentTypeHandler extends AbstractInMemoryPersistenceHandler implements C
     public function copy($userId, $typeId, $status)
     {
         $this->logger->logCall(__METHOD__, ['user' => $userId, 'type' => $typeId, 'status' => $status]);
+        $contentType = $this->persistenceHandler->contentTypeHandler()->copy($userId, $typeId, $status);
 
-        return $this->persistenceHandler->contentTypeHandler()->copy($userId, $typeId, $status);
+        if ($status === Type::STATUS_DEFINED) {
+            $this->cache->invalidateTags(['type-' . $typeId]);
+        }
+
+        return $contentType;
     }
 
     /**
