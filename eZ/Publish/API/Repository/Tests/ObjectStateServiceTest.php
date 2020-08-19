@@ -389,8 +389,6 @@ class ObjectStateServiceTest extends BaseTest
     {
         $repository = $this->getRepository();
 
-        // $objectStateGroupIdentifier contains the identifier of the standard object state
-        // group ez_lock.
         $objectStateService = $repository->getObjectStateService();
 
         $loadedObjectStateGroup = $objectStateService->loadObjectStateGroupByIdentifier(
@@ -420,12 +418,16 @@ class ObjectStateServiceTest extends BaseTest
      */
     public function testLoadObjectStateGroupByIdentifierThrowsNotFoundException(): void
     {
-        $this->expectException(NotFoundException::class);
-
         $repository = $this->getRepository();
 
         $objectStateService = $repository->getObjectStateService();
-        // Throws a not found exception
+
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage(sprintf(
+            "Could not find 'ObjectStateGroup' with identifier '%s'",
+            self::NON_EXISTING_OBJECT_STATE_IDENTIFIER
+        ));
+
         $objectStateService->loadObjectStateGroupByIdentifier(
             self::NON_EXISTING_OBJECT_STATE_GROUP_IDENTIFIER
         );
@@ -1059,12 +1061,15 @@ class ObjectStateServiceTest extends BaseTest
             $loadedObjectState
         );
 
-        $this->assertPropertiesCorrect([
-            'id' => 2,
-            'identifier' => self::EXISTING_OBJECT_STATE_IDENTIFIER,
-            'priority' => 1,
-            'languageCodes' => ['eng-US'],
-        ], $loadedObjectState);
+        $this->assertPropertiesCorrect(
+            [
+                'id' => 2,
+                'identifier' => self::EXISTING_OBJECT_STATE_IDENTIFIER,
+                'priority' => 1,
+                'languageCodes' => ['eng-US'],
+            ],
+            $loadedObjectState
+        );
     }
 
     /**
@@ -1072,8 +1077,6 @@ class ObjectStateServiceTest extends BaseTest
      */
     public function testLoadObjectStateByIdentifierThrowsNotFoundException(): void
     {
-        $this->expectException(NotFoundException::class);
-
         $repository = $this->getRepository();
 
         $objectStateService = $repository->getObjectStateService();
@@ -1082,7 +1085,15 @@ class ObjectStateServiceTest extends BaseTest
             self::EXISTING_OBJECT_STATE_GROUP_IDENTIFIER
         );
 
-        // Throws a not found exception
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage(sprintf(
+            "Could not find 'ObjectState' with identifier '%s'",
+            var_export([
+                'identifier' => self::NON_EXISTING_OBJECT_STATE_IDENTIFIER,
+                'groupId' => $loadedObjectStateGroup->id,
+            ], true)
+        ));
+
         $objectStateService->loadObjectStateByIdentifier(
             $loadedObjectStateGroup,
             self::NON_EXISTING_OBJECT_STATE_IDENTIFIER

@@ -48,12 +48,9 @@ interface ObjectStateService
     /**
      * Loads a object state group by identifier.
      *
-     * @param string $objectStateGroupIdentifier
      * @param string[] $prioritizedLanguages Used as prioritized language code on translated properties of returned object.
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the group was not found
-     *
-     * @return \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup
      */
     public function loadObjectStateGroupByIdentifier(string $objectStateGroupIdentifier, array $prioritizedLanguages = []): ObjectStateGroup;
 
@@ -131,13 +128,9 @@ interface ObjectStateService
     /**
      * Loads an object state by identifier and group it belongs to.
      *
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
-     * @param string $objectStateIdentifier
      * @param string[] $prioritizedLanguages Used as prioritized language code on translated properties of returned object.
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the state was not found
-     *
-     * @return \eZ\Publish\API\Repository\Values\ObjectState\ObjectState
      */
     public function loadObjectStateByIdentifier(ObjectStateGroup $objectStateGroup, string $objectStateIdentifier, array $prioritizedLanguages = []): ObjectState;
 
