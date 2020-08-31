@@ -358,4 +358,11 @@ class FloatIntegrationTest extends SearchBaseIntegrationTest
         // See \eZ\Publish\Core\Search\Legacy\Content\WordIndexer\Gateway\DoctrineDatabase::index
         return !$this->isLegacySearchEngine();
     }
+
+    protected function getFullTextIndexedFieldData()
+    {
+        return [
+            ['25.519', '25.59'],
+        ];
+    }
 }
