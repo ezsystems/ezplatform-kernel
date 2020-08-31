@@ -353,16 +353,6 @@ class FloatIntegrationTest extends SearchBaseIntegrationTest
 
     public function checkFullTextSupport(): bool
     {
-        // Legacy SE is indexing float numbers as two separate terms e.g.
-        // "25.519" will be indexed as "25" and "519"
-        // See \eZ\Publish\Core\Search\Legacy\Content\WordIndexer\Gateway\DoctrineDatabase::index
-        return !$this->isLegacySearchEngine();
-    }
-
-    protected function getFullTextIndexedFieldData()
-    {
-        return [
-            ['25.519', '25.59'],
-        ];
+        return false;
     }
 }

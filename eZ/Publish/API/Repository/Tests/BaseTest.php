@@ -193,12 +193,6 @@ abstract class BaseTest extends TestCase
         return $this->setupFactory;
     }
 
-    protected function isLegacySearchEngine(): bool
-    {
-        // Check using get_class since the others extend SetupFactory\Legacy
-        return ltrim(get_class($this->getSetupFactory()), '\\') === Legacy::class;
-    }
-
     /**
      * Asserts that properties given in $expectedValues are correctly set in
      * $actualObject.
