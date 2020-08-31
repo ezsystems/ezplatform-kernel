@@ -351,10 +351,11 @@ class FloatIntegrationTest extends SearchBaseIntegrationTest
         return 25.59;
     }
 
-    protected function getFullTextIndexedFieldData()
+    public function checkFullTextSupport(): bool
     {
-        return [
-            ['25.519', '25.59'],
-        ];
+        // Legacy SE is indexing float numbers as two separate terms e.g.
+        // "25.519" will be indexed as "25" and "519"
+        // See \eZ\Publish\Core\Search\Legacy\Content\WordIndexer\Gateway\DoctrineDatabase::index
+        return !$this->isLegacySearchEngine();
     }
 }
