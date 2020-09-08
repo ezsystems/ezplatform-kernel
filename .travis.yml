@@ -52,7 +52,14 @@ matrix:
       env: TEST_CONFIG="phpunit.xml"
     - php: 7.4
       env: TEST_CONFIG="phpunit-integration-legacy.xml" DB="postgresql" DATABASE="pgsql://postgres@localhost/testdb"
-
+    - name: 'SonarCloud analysis'
+      addons:
+        sonarcloud:
+          organization: "ezsystems"
+          token:
+            secure: "a+MDkdfQOiALyFz6sy9Ag7wMWEWOf0OuObEvE/zc7R+JCXJlxVLn7lWy/vjp8NuK7bqoLYY85UYGk8GANzIdO4U13+Xovyu8pLNKjHzpDbKkaT4YeKsuYOKswAjt1363j6YU8gDHfMZ15EdXX1kRAoabSNZiRATih7puyeHZ0JT8MEM9OlKfQYSyGRRKIkVa40AeafDUe5nu6wMhsDiBZt0xEHcsd1Lukotpzz0nWwweCAgRLDC1GhzLS5Q2Hv49bNAEGEt9mVjWgSGv3leiGUid2OaZWAvgfExjfI8vsG8kK1DrpXqY1PIaYQIXIHeuHczo6abFv5DM4olAwzDILcBRFvC+7ZouMB84YvPDUjblDHAXxOIBd42RxlikISqkK2NYf9NVMAoSDcZOSqgApGfYF+FkiwkwM83OpimqDvcFBt9WI66mdRqASk52uUHvPHv9/tX37jgoU8U3y/hK7vCeJlxe7Rd3X6CByZdt6jUEQ91Rk4a7aDWM14o8DWx3ou/2pW7mqJrEkgXdeiZo6L/ZUKxYMypNsjYnxRcgGBZmXhr7wZ0kFiJSsaXmpn2brodZWqmEBY0SFoHHrTD9AKRnop3dW8N4lZUXg8xsk5/9GVp9RG2LtGJjUVzN+1MWYBGJKsWVXcsEjLKR+qMnO6V0HIvuD5WqGk+sMaufCsU="
+      script:
+        - sonar-scanner
 
 # test only master, stable branches and pull requests
 branches:
