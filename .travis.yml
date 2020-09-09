@@ -67,6 +67,10 @@ branches:
     - master
     - /^\d.\d+$/
 
+sonarqube:
+  branches:
+    - master
+
 # setup requirements for running unit/integration/behat tests
 before_install:
   # Disable memory_limit for composer
