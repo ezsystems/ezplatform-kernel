@@ -1,3 +1,10 @@
+parameters:
+    ibexa.platform.io.nfs.adapter.config:
+        directory: '$var_dir$/$storage_dir$'
+        writeFlags: ~
+        linkHandling: ~
+        permissions: [ ]
+
 services:
     ezpublish.core.io.command.migrate_files:
         class: eZ\Bundle\EzPublishIOBundle\Command\MigrateFilesCommand
@@ -102,6 +109,14 @@ services:
         arguments:
             - '@eZ\Publish\Core\IO\IOConfigProvider'
             - '@ezpublish.config.resolver'
+
+    eZ\Bundle\EzPublishIOBundle\Flysystem\Adapter\SiteAccessAwareLocalAdapter:
+        arguments:
+            $complexConfigProcessor: '@eZ\Bundle\EzPublishCoreBundle\SiteAccess\Config\ComplexConfigProcessor'
+            $config: '%ibexa.platform.io.nfs.adapter.config%'
+
+    ibexa.platform.io.nfs.adapter.site_access_aware:
+        alias: eZ\Bundle\EzPublishIOBundle\Flysystem\Adapter\SiteAccessAwareLocalAdapter
 
     ezpublish.core.io.prefix_url_decorator:
         class: eZ\Publish\Core\IO\UrlDecorator\AbsolutePrefix
