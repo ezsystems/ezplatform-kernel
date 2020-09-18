@@ -43,6 +43,7 @@ final class SiteAccessAwareLocalAdapter extends Local
     {
         $contextPath = $this->configProcessor->processSettingValue($this->path);
 
-        return sprintf('%s%s%s', $this->pathPrefix, \DIRECTORY_SEPARATOR, $contextPath);
+        // path prefix is guaranteed to have path separator suffix, see parent::setPathPrefix
+        return sprintf('%s%s', $this->pathPrefix, $contextPath);
     }
 }
