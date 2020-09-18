@@ -10,6 +10,7 @@ namespace eZ\Bundle\EzPublishIOBundle\Flysystem\Adapter;
 
 use eZ\Bundle\EzPublishCoreBundle\SiteAccess\Config\ComplexConfigProcessor;
 use League\Flysystem\Adapter\Local;
+use function sprintf;
 
 /**
  * @internal for internal use by Repository IO integration. Do not use directly.
@@ -19,22 +20,29 @@ final class SiteAccessAwareLocalAdapter extends Local
     /** @var \eZ\Bundle\EzPublishCoreBundle\SiteAccess\Config\ComplexConfigProcessor */
     private $complexConfigProcessor;
 
+    /** @var string */
+    private $path;
+
     public function __construct(
         ComplexConfigProcessor $complexConfigProcessor,
         array $config
     ) {
+        $this->complexConfigProcessor = $complexConfigProcessor;
+
         parent::__construct(
-            $config['directory'],
+            $config['root'],
             $config['writeFlags'],
             $config['linkHandling'],
             $config['permissions']
         );
 
-        $this->complexConfigProcessor = $complexConfigProcessor;
+        $this->path = $config['path'];
     }
 
     public function getPathPrefix(): string
     {
-        return $this->complexConfigProcessor->processSettingValue($this->pathPrefix);
+        $contextPath = $this->complexConfigProcessor->processSettingValue($this->path);
+
+        return sprintf('%s%s%s', $this->pathPrefix, \DIRECTORY_SEPARATOR, $contextPath);
     }
 }
