@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace eZ\Bundle\EzPublishIOBundle\Flysystem\Adapter;
 
-use eZ\Bundle\EzPublishCoreBundle\SiteAccess\Config\ComplexConfigProcessor;
+use eZ\Publish\SPI\SiteAccess\ConfigProcessor;
 use League\Flysystem\Adapter\Local;
 use function sprintf;
 
@@ -18,16 +18,16 @@ use function sprintf;
 final class SiteAccessAwareLocalAdapter extends Local
 {
     /** @var \eZ\Bundle\EzPublishCoreBundle\SiteAccess\Config\ComplexConfigProcessor */
-    private $complexConfigProcessor;
+    private $configProcessor;
 
     /** @var string */
     private $path;
 
     public function __construct(
-        ComplexConfigProcessor $complexConfigProcessor,
+        ConfigProcessor $configProcessor,
         array $config
     ) {
-        $this->complexConfigProcessor = $complexConfigProcessor;
+        $this->configProcessor = $configProcessor;
 
         parent::__construct(
             $config['root'],
@@ -41,7 +41,7 @@ final class SiteAccessAwareLocalAdapter extends Local
 
     public function getPathPrefix(): string
     {
-        $contextPath = $this->complexConfigProcessor->processSettingValue($this->path);
+        $contextPath = $this->configProcessor->processSettingValue($this->path);
 
         return sprintf('%s%s%s', $this->pathPrefix, \DIRECTORY_SEPARATOR, $contextPath);
     }

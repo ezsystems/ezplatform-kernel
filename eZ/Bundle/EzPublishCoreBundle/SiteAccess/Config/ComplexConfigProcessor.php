@@ -12,9 +12,10 @@ use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ComplexSetti
 use eZ\Publish\Core\MVC\Exception\ParameterNotFoundException;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessService;
+use eZ\Publish\SPI\SiteAccess\ConfigProcessor;
 use function str_replace;
 
-final class ComplexConfigProcessor
+final class ComplexConfigProcessor implements ConfigProcessor
 {
     private const DEFAULT_NAMESPACE = 'ezsettings';
 
