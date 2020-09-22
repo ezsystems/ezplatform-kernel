@@ -27,6 +27,8 @@ use eZ\Publish\Core\Repository\Mapper\ContentDomainMapper;
 use eZ\Publish\SPI\Search\Capable;
 use eZ\Publish\Core\Search\Common\BackgroundIndexer;
 use eZ\Publish\SPI\Search\Handler;
+use ProxyManager\Proxy\LazyLoadingInterface;
+use ProxyManager\Proxy\ValueHolderInterface;
 
 /**
  * Search service.
@@ -344,8 +346,18 @@ class SearchService implements SearchServiceInterface
 
     public function supports(int $capabilityFlag): bool
     {
-        if ($this->searchHandler instanceof Capable) {
-            return $this->searchHandler->supports($capabilityFlag);
+        $handler = $this->searchHandler;
+
+        if ($handler instanceof ValueHolderInterface) {
+            if ($handler instanceof LazyLoadingInterface && !$handler->isProxyInitialized()) {
+                $handler->initializeProxy();
+            }
+
+            $handler = $handler->getWrappedValueHolderValue();
+        }
+
+        if ($handler instanceof Capable) {
+            return $handler->supports($capabilityFlag);
         }
 
         return false;
