@@ -18,7 +18,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class EzPublishIOExtensionTest extends AbstractExtensionTestCase
 {
-    const FIXTURES_DIR = __DIR__ . '/../_fixtures';
+    private const FIXTURES_DIR = __DIR__ . '/../_fixtures';
 
     protected function getContainerExtensions(): array
     {
