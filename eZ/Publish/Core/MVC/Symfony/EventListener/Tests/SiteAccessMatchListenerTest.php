@@ -262,4 +262,65 @@ class SiteAccessMatchListenerTest extends TestCase
         $this->listener->onKernelRequest($event);
         $this->assertSame($siteAccess, $request->attributes->get('siteaccess'));
     }
+
+    public function testOnKernelRequestSerializedMatcherWithPropertiesConfiguredFromRequest(): void
+    {
+        $matcherRegistryMock = $this->createMock(SiteAccessMatcherRegistryInterface::class);
+        $listener = new SiteAccessMatchListener(
+            $this->saRouter,
+            $this->eventDispatcher,
+            $matcherRegistryMock
+        );
+
+        $requestToMatch = new SimplifiedRequest();
+        $requestToMatch->setHost('platform.ibexa.co');
+        $requestToMatch->setPathinfo('/pl/dxp');
+
+        $matcher = new SiteAccess\Tests\CustomTestSiteAccessMatcher();
+        $unconfiguredMatcher = clone $matcher;
+        /**
+         * Matcher is added to the registry at the compilation stage, so either Matcher::match() or Matcher::setRequest() methods have never been executed.
+         *
+         * @see \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\SiteAccessMatcherRegistryPass::process
+         */
+        $matcher->setRequest($requestToMatch);
+        $matcher->match();
+
+        $siteAccess = new SiteAccess(
+            'test',
+            'matching_type',
+            $matcher
+        );
+        $request = new Request();
+        $request->attributes->set('serialized_siteaccess', json_encode($siteAccess));
+        $request->attributes->set(
+            'serialized_siteaccess_matcher',
+            $this->getSerializer()->serialize(
+                $siteAccess->matcher,
+                'json',
+                [AbstractNormalizer::IGNORED_ATTRIBUTES => ['request', 'container', 'matcherBuilder']]
+            )
+        );
+
+        $matcherRegistryMock
+            ->method('hasMatcher')
+            ->with(get_class($matcher))
+            ->willReturn(true);
+
+        $matcherRegistryMock
+            ->method('getMatcher')
+            ->with(get_class($matcher))
+            ->willReturn($unconfiguredMatcher);
+
+        $event = new RequestEvent(
+            $this->createMock(HttpKernelInterface::class),
+            $request,
+            HttpKernelInterface::MASTER_REQUEST
+        );
+
+        $listener->onKernelRequest($event);
+        $request = $event->getRequest();
+
+        self::assertEquals($siteAccess, $request->attributes->get('siteaccess'));
+    }
 }
