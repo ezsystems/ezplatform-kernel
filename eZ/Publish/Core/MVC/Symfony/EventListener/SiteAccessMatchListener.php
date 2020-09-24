@@ -139,7 +139,8 @@ class SiteAccessMatchListener implements EventSubscriberInterface
             $matcher = $this->buildMatcherFromSerializedClass(
                 $serializer,
                 $matcherFQCN,
-                $serializedMatcher
+                $serializedMatcher,
+                false
             );
         } else {
             throw new InvalidArgumentException(
@@ -172,10 +173,11 @@ class SiteAccessMatchListener implements EventSubscriberInterface
     private function buildMatcherFromSerializedClass(
         SerializerInterface $serializer,
         string $matcherClass,
-        string $serializedMatcher
+        string $serializedMatcher,
+        bool $useRegistry = true
     ): SiteAccess\Matcher {
         $matcher = null;
-        if ($this->siteAccessMatcherRegistry->hasMatcher($matcherClass)) {
+        if ($useRegistry && $this->siteAccessMatcherRegistry->hasMatcher($matcherClass)) {
             $matcher = $this->siteAccessMatcherRegistry->getMatcher($matcherClass);
         } else {
             $matcher = $serializer->deserialize(

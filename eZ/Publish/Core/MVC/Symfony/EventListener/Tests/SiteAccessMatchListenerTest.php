@@ -291,6 +291,7 @@ class SiteAccessMatchListenerTest extends TestCase
             'matching_type',
             $matcher
         );
+
         $request = new Request();
         $request->attributes->set('serialized_siteaccess', json_encode($siteAccess));
         $request->attributes->set(
@@ -301,6 +302,11 @@ class SiteAccessMatchListenerTest extends TestCase
                 [AbstractNormalizer::IGNORED_ATTRIBUTES => ['request', 'container', 'matcherBuilder']]
             )
         );
+
+        // Set `request` property to `null` in original matcher as it has not been serialized
+        $reflectionProperty = new \ReflectionProperty($matcher, 'request');
+        $reflectionProperty->setAccessible(true);
+        $reflectionProperty->setValue($matcher, null);
 
         $matcherRegistryMock
             ->method('hasMatcher')
