@@ -681,7 +681,8 @@ class UserService implements UserServiceInterface
 
         $canEditContent = $this->permissionResolver->canUser('content', 'edit', $loadedUser);
 
-        if (!$canEditContent && $this->isUserProfileUpdateRequested($userUpdateStruct)) {
+        $isUserProfileUpdateRequested = $this->isUserProfileUpdateRequested($userUpdateStruct);
+        if (!$canEditContent && $isUserProfileUpdateRequested) {
             throw new UnauthorizedException('content', 'edit');
         }
 
@@ -731,40 +732,50 @@ class UserService implements UserServiceInterface
             throw new UnauthorizedException('user', 'password');
         }
 
-        $this->repository->beginTransaction();
-        try {
-            $publishedContent = $loadedUser;
-            if ($userUpdateStruct->contentUpdateStruct !== null) {
-                $contentDraft = $contentService->createContentDraft($loadedUser->getVersionInfo()->getContentInfo());
-                $contentDraft = $contentService->updateContent(
-                    $contentDraft->getVersionInfo(),
-                    $userUpdateStruct->contentUpdateStruct
+        $updateUserCallable = function() use ($loadedUser, $userUpdateStruct, $contentService): void {
+            $this->repository->beginTransaction();
+            try {
+                $publishedContent = $loadedUser;
+                if ($userUpdateStruct->contentUpdateStruct !== null) {
+                    $contentDraft = $contentService->createContentDraft($loadedUser->getVersionInfo()->getContentInfo());
+                    $contentDraft = $contentService->updateContent(
+                        $contentDraft->getVersionInfo(),
+                        $userUpdateStruct->contentUpdateStruct
+                    );
+                    $publishedContent = $contentService->publishVersion($contentDraft->getVersionInfo());
+                }
+
+                if ($userUpdateStruct->contentMetadataUpdateStruct !== null) {
+                    $contentService->updateContentMetadata(
+                        $publishedContent->getVersionInfo()->getContentInfo(),
+                        $userUpdateStruct->contentMetadataUpdateStruct
+                    );
+                }
+
+                // User\Handler::update call is currently used to clear cache only
+                $this->userHandler->update(
+                    new SPIUser(
+                        [
+                            'id' => $loadedUser->id,
+                            'login' => $loadedUser->login,
+                            'email' => $userUpdateStruct->email ?: $loadedUser->email,
+                        ]
+                    )
                 );
-                $publishedContent = $contentService->publishVersion($contentDraft->getVersionInfo());
+
+                $this->repository->commit();
+            } catch (Exception $e) {
+                $this->repository->rollback();
+                throw $e;
             }
+        };
 
-            if ($userUpdateStruct->contentMetadataUpdateStruct !== null) {
-                $contentService->updateContentMetadata(
-                    $publishedContent->getVersionInfo()->getContentInfo(),
-                    $userUpdateStruct->contentMetadataUpdateStruct
-                );
-            }
-
-            // User\Handler::update call is currently used to clear cache only
-            $this->userHandler->update(
-                new SPIUser(
-                    [
-                        'id' => $loadedUser->id,
-                        'login' => $loadedUser->login,
-                        'email' => $userUpdateStruct->email ?: $loadedUser->email,
-                    ]
-                )
-            );
-
-            $this->repository->commit();
-        } catch (Exception $e) {
-            $this->repository->rollback();
-            throw $e;
+        if ($isUserProfileUpdateRequested) {
+            // Perform update in user context
+            $updateUserCallable();
+        } else {
+            // Perform update without checking other user permissions
+            $this->repository->sudo($updateUserCallable);
         }
 
         return $this->loadUser($loadedUser->id);
