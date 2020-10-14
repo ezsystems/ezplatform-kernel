@@ -61,6 +61,9 @@ use Psr\Log\LoggerInterface;
  */
 class UserService implements UserServiceInterface
 {
+    private const MISSING_CONTENT_TYPE_EZUSER_FIELD_TYPE_ERROR_MESSAGE =
+        'The provided Content Type does not contain the ezuser Field Type';
+
     /** @var \eZ\Publish\API\Repository\Repository */
     protected $repository;
 
@@ -648,7 +651,7 @@ class UserService implements UserServiceInterface
 
         $userFieldDefinition = $this->getUserFieldDefinition($loadedUser->getContentType());
         if ($userFieldDefinition === null) {
-            throw new ContentValidationException('The provided Content Type does not contain the ezuser Field Type');
+            throw new ContentValidationException(self::MISSING_CONTENT_TYPE_EZUSER_FIELD_TYPE_ERROR_MESSAGE);
         }
 
         $userUpdateStruct->contentUpdateStruct = $userUpdateStruct->contentUpdateStruct ?? $contentService->newContentUpdateStruct();
@@ -701,7 +704,7 @@ class UserService implements UserServiceInterface
 
         $userFieldDefinition = $this->getUserFieldDefinition($loadedUser->getContentType());
         if ($userFieldDefinition === null) {
-            throw new ContentValidationException('The provided Content Type does not contain the ezuser Field Type');
+            throw new ContentValidationException(self::MISSING_CONTENT_TYPE_EZUSER_FIELD_TYPE_ERROR_MESSAGE);
         }
 
         $userUpdateStruct->contentUpdateStruct = $contentService->newContentUpdateStruct();
@@ -1191,7 +1194,7 @@ class UserService implements UserServiceInterface
         // Search for the first ezuser field type in content type
         $userFieldDefinition = $this->getUserFieldDefinition($context->contentType);
         if ($userFieldDefinition === null) {
-            throw new ContentValidationException('The provided Content Type does not contain the ezuser Field Type');
+            throw new ContentValidationException(self::MISSING_CONTENT_TYPE_EZUSER_FIELD_TYPE_ERROR_MESSAGE);
         }
 
         $configuration = $userFieldDefinition->getValidatorConfiguration();
