@@ -681,10 +681,7 @@ class UserService implements UserServiceInterface
 
         $contentService = $this->repository->getContentService();
 
-        $canEditContent = $this->permissionResolver->canUser('content', 'edit', $loadedUser);
-
-        $isUserProfileUpdateRequested = $this->isUserProfileUpdateRequested($userUpdateStruct);
-        if (!$canEditContent && $isUserProfileUpdateRequested) {
+        if (!$this->permissionResolver->canUser('content', 'edit', $loadedUser)) {
             throw new UnauthorizedException('content', 'edit');
         }
 
@@ -720,60 +717,96 @@ class UserService implements UserServiceInterface
             );
         }
 
-        if (!empty($userUpdateStruct->password) &&
-            !$canEditContent &&
-            !$this->permissionResolver->canUser('user', 'password', $loadedUser)
+        $this->executeUserUpdate($loadedUser, $userUpdateStruct);
+
+        return $this->loadUser($loadedUser->id);
+    }
+
+    public function updateUserPassword(APIUser $user, UserUpdateStruct $userUpdateStruct): APIUser
+    {
+        $loadedUser = $this->loadUser($user->id);
+
+        $contentService = $this->repository->getContentService();
+
+        if (!$this->permissionResolver->canUser('content', 'edit', $loadedUser)
+            && !$this->permissionResolver->canUser('user', 'password', $loadedUser)
         ) {
             throw new UnauthorizedException('user', 'password');
         }
 
-        $updateUserCallable = function() use ($loadedUser, $userUpdateStruct, $contentService): void {
-            $this->repository->beginTransaction();
-            try {
-                $publishedContent = $loadedUser;
-                if ($userUpdateStruct->contentUpdateStruct !== null) {
-                    $contentDraft = $contentService->createContentDraft($loadedUser->getVersionInfo()->getContentInfo());
-                    $contentDraft = $contentService->updateContent(
-                        $contentDraft->getVersionInfo(),
-                        $userUpdateStruct->contentUpdateStruct
-                    );
-                    $publishedContent = $contentService->publishVersion($contentDraft->getVersionInfo());
-                }
-
-                if ($userUpdateStruct->contentMetadataUpdateStruct !== null) {
-                    $contentService->updateContentMetadata(
-                        $publishedContent->getVersionInfo()->getContentInfo(),
-                        $userUpdateStruct->contentMetadataUpdateStruct
-                    );
-                }
-
-                // User\Handler::update call is currently used to clear cache only
-                $this->userHandler->update(
-                    new SPIUser(
-                        [
-                            'id' => $loadedUser->id,
-                            'login' => $loadedUser->login,
-                            'email' => $userUpdateStruct->email ?: $loadedUser->email,
-                        ]
-                    )
-                );
-
-                $this->repository->commit();
-            } catch (Exception $e) {
-                $this->repository->rollback();
-                throw $e;
-            }
-        };
-
-        if ($isUserProfileUpdateRequested) {
-            // Perform update in user context
-            $updateUserCallable();
-        } else {
-            // Perform update without checking other user permissions
-            $this->repository->sudo($updateUserCallable);
+        if (empty($userUpdateStruct->password)) {
+            throw new \InvalidArgumentException('User update struct does not contain password');
         }
 
+        $userFieldDefinition = $this->getUserFieldDefinition($loadedUser->getContentType());
+        if ($userFieldDefinition === null) {
+            throw new ContentValidationException('The provided Content Type does not contain the ezuser Field Type');
+        }
+
+        $userUpdateStruct->contentUpdateStruct = $contentService->newContentUpdateStruct();
+        $userUpdateStruct->contentUpdateStruct->setField(
+            $userFieldDefinition->identifier,
+            new UserValue([
+                'contentId' => $loadedUser->id,
+                'hasStoredLogin' => true,
+                'login' => $loadedUser->login,
+                'email' => $loadedUser->email,
+                'plainPassword' => $userUpdateStruct->password,
+                'enabled' => $loadedUser->enabled,
+                'maxLogin' => $loadedUser->maxLogin,
+                'passwordHashType' => $user->hashAlgorithm,
+                'passwordHash' => $user->passwordHash,
+            ])
+        );
+
+        $updateUserCallable = function() use ($loadedUser, $userUpdateStruct): void {
+            $this->executeUserUpdate($loadedUser, $userUpdateStruct);
+        };
+
+        // Perform update without checking other user permissions
+        $this->repository->sudo($updateUserCallable);
+
         return $this->loadUser($loadedUser->id);
+    }
+
+    private function executeUserUpdate(APIUser $loadedUser, $userUpdateStruct): void
+    {
+        $contentService = $this->repository->getContentService();
+        $this->repository->beginTransaction();
+        try {
+            $publishedContent = $loadedUser;
+            if ($userUpdateStruct->contentUpdateStruct !== null) {
+                $contentDraft = $contentService->createContentDraft($loadedUser->getVersionInfo()->getContentInfo());
+                $contentDraft = $contentService->updateContent(
+                    $contentDraft->getVersionInfo(),
+                    $userUpdateStruct->contentUpdateStruct
+                );
+                $publishedContent = $contentService->publishVersion($contentDraft->getVersionInfo());
+            }
+
+            if ($userUpdateStruct->contentMetadataUpdateStruct !== null) {
+                $contentService->updateContentMetadata(
+                    $publishedContent->getVersionInfo()->getContentInfo(),
+                    $userUpdateStruct->contentMetadataUpdateStruct
+                );
+            }
+
+            // User\Handler::update call is currently used to clear cache only
+            $this->userHandler->update(
+                new SPIUser(
+                    [
+                        'id' => $loadedUser->id,
+                        'login' => $loadedUser->login,
+                        'email' => $userUpdateStruct->email ?: $loadedUser->email,
+                    ]
+                )
+            );
+
+            $this->repository->commit();
+        } catch (Exception $e) {
+            $this->repository->rollback();
+            throw $e;
+        }
     }
 
     /**
@@ -1320,7 +1353,7 @@ class UserService implements UserServiceInterface
     /**
      * Verifies if the provided login and password are valid for eZ\Publish\SPI\Persistence\User.
      *
-     * @return bool return true if the login and password are sucessfully validated and false, if not.
+     * @return bool return true if the login and password are successfully validated and false, if not.
      */
     protected function comparePasswordHashForSPIUser(SPIUser $user, string $password): bool
     {
@@ -1330,7 +1363,7 @@ class UserService implements UserServiceInterface
     /**
      * Verifies if the provided login and password are valid for eZ\Publish\API\Repository\Values\User\User.
      *
-     * @return bool return true if the login and password are sucessfully validated and false, if not.
+     * @return bool return true if the login and password are successfully validated and false, if not.
      */
     protected function comparePasswordHashForAPIUser(APIUser $user, string $password): bool
     {
@@ -1344,7 +1377,7 @@ class UserService implements UserServiceInterface
      * @param string $passwordHash User password hash
      * @param int $hashAlgorithm Hash type
      *
-     * @return bool return true if the login and password are sucessfully validated and false, if not.
+     * @return bool return true if the login and password are successfully validated and false, if not.
      */
     private function comparePasswordHashes(
         string $plainPassword,
@@ -1352,23 +1385,6 @@ class UserService implements UserServiceInterface
         int $hashAlgorithm
     ): bool {
         return $this->passwordHashService->isValidPassword($plainPassword, $passwordHash, $hashAlgorithm);
-    }
-
-    /**
-     * Return true if any of the UserUpdateStruct properties refers to User Profile (Content) update.
-     *
-     * @param UserUpdateStruct $userUpdateStruct
-     *
-     * @return bool
-     */
-    private function isUserProfileUpdateRequested(UserUpdateStruct $userUpdateStruct)
-    {
-        return
-            !empty($userUpdateStruct->contentUpdateStruct) ||
-            !empty($userUpdateStruct->contentMetadataUpdateStruct) ||
-            !empty($userUpdateStruct->email) ||
-            !empty($userUpdateStruct->enabled) ||
-            !empty($userUpdateStruct->maxLogin);
     }
 
     private function getDateTime(?int $timestamp): ?DateTimeInterface

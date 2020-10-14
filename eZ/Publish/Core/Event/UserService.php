@@ -228,6 +228,33 @@ class UserService extends UserServiceDecorator
         return $updatedUser;
     }
 
+    public function updateUserPassword(
+        User $user,
+        UserUpdateStruct $userUpdateStruct
+    ): User {
+        $eventData = [
+            $user,
+            $userUpdateStruct,
+        ];
+
+        $beforeEvent = new BeforeUpdateUserEvent(...$eventData);
+
+        $this->eventDispatcher->dispatch($beforeEvent);
+        if ($beforeEvent->isPropagationStopped()) {
+            return $beforeEvent->getUpdatedUser();
+        }
+
+        $updatedUser = $beforeEvent->hasUpdatedUser()
+            ? $beforeEvent->getUpdatedUser()
+            : $this->innerService->updateUserPassword($user, $userUpdateStruct);
+
+        $this->eventDispatcher->dispatch(
+            new UpdateUserEvent($updatedUser, ...$eventData)
+        );
+
+        return $updatedUser;
+    }
+
     public function updateUserToken(
         User $user,
         UserTokenUpdateStruct $userTokenUpdateStruct
