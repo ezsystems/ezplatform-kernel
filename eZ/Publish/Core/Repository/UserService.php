@@ -686,14 +686,7 @@ class UserService implements UserServiceInterface
             throw new UnauthorizedException('content', 'edit');
         }
 
-        $userFieldDefinition = null;
-        foreach ($loadedUser->getContentType()->fieldDefinitions as $fieldDefinition) {
-            if ($fieldDefinition->fieldTypeIdentifier === 'ezuser') {
-                $userFieldDefinition = $fieldDefinition;
-                break;
-            }
-        }
-
+        $userFieldDefinition = $this->getUserFieldDefinition($loadedUser->getContentType());
         if ($userFieldDefinition === null) {
             throw new ContentValidationException('The provided Content Type does not contain the ezuser Field Type');
         }
