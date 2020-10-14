@@ -723,7 +723,7 @@ class UserService implements UserServiceInterface
             ])
         );
 
-        $updateUserCallable = function() use ($loadedUser, $userUpdateStruct): void {
+        $updateUserCallable = function () use ($loadedUser, $userUpdateStruct): void {
             $this->executeUserUpdate($loadedUser, $userUpdateStruct);
         };
 
