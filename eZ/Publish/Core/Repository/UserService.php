@@ -91,8 +91,10 @@ class UserService implements UserServiceInterface
      * Setups service with reference to repository object that created it & corresponding handler.
      *
      * @param \eZ\Publish\API\Repository\Repository $repository
+     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
      * @param \eZ\Publish\SPI\Persistence\User\Handler $userHandler
      * @param \eZ\Publish\SPI\Persistence\Content\Location\Handler $locationHandler
+     * @param \eZ\Publish\Core\Repository\User\PasswordHashServiceInterface $passwordHashGenerator
      * @param array $settings
      */
     public function __construct(
