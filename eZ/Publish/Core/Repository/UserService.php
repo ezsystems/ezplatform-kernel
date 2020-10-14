@@ -502,45 +502,6 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * Update password hash to the type configured for the service, if they differ.
-     *
-     * @param string $login User login
-     * @param string $password User password
-     * @param \eZ\Publish\SPI\Persistence\User $spiUser
-     *
-     * @throws \eZ\Publish\Core\Base\Exceptions\BadStateException if the password is not correctly saved, in which case the update is reverted
-     */
-    private function updatePasswordHash(string $login, string $password, SPIUser $spiUser)
-    {
-        $hashType = $this->passwordHashService->getDefaultHashType();
-        if ($spiUser->hashAlgorithm === $hashType) {
-            return;
-        }
-
-        $spiUser->passwordHash = $this->passwordHashService->createPasswordHash($password, $hashType);
-        $spiUser->hashAlgorithm = $hashType;
-
-        $this->repository->beginTransaction();
-        $this->userHandler->update($spiUser);
-        $reloadedSpiUser = $this->userHandler->load($spiUser->id);
-
-        if ($reloadedSpiUser->passwordHash === $spiUser->passwordHash) {
-            $this->repository->commit();
-        } else {
-            // Password hash was not correctly saved, possible cause: EZP-28692
-            $this->repository->rollback();
-            if (isset($this->logger)) {
-                $this->logger->critical('Password hash could not be updated. Please verify that your database schema is up to date.');
-            }
-
-            throw new BadStateException(
-                'user',
-                'Could not save updated password hash, reverting to previous hash. Please verify that your database schema is up to date.'
-            );
-        }
-    }
-
-    /**
      * Loads a user for the given login.
      *
      * {@inheritdoc}
