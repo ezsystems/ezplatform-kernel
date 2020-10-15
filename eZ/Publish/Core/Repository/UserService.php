@@ -419,7 +419,7 @@ class UserService implements UserServiceInterface
         // Search for the first ezuser field type in content type
         $userFieldDefinition = $this->getUserFieldDefinition($userCreateStruct->contentType);
         if ($userFieldDefinition === null) {
-            throw new ContentValidationException('the provided Content Type does not contain the ezuser Field Type');
+            throw new ContentValidationException(self::MISSING_CONTENT_TYPE_EZUSER_FIELD_TYPE_ERROR_MESSAGE);
         }
 
         $this->repository->beginTransaction();
@@ -1320,7 +1320,7 @@ class UserService implements UserServiceInterface
         return $this->passwordHashService->isValidPassword($plainPassword, $passwordHash, $hashAlgorithm);
     }
 
-    private function executeUserUpdate(APIUser $loadedUser, $userUpdateStruct): void
+    private function executeUserUpdate(APIUser $loadedUser, UserUpdateStruct $userUpdateStruct): void
     {
         $contentService = $this->repository->getContentService();
         $this->repository->beginTransaction();
