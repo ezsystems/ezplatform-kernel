@@ -30,6 +30,7 @@ use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\API\Repository\Values\User\PasswordInfo;
 use eZ\Publish\API\Repository\Values\User\PasswordValidationContext;
 use eZ\Publish\API\Repository\Values\User\UserTokenUpdateStruct;
+use eZ\Publish\Core\Base\Exceptions\MissingUserFieldTypeException;
 use eZ\Publish\Core\Repository\Validator\UserPasswordValidator;
 use eZ\Publish\Core\Repository\User\PasswordHashServiceInterface;
 use eZ\Publish\Core\Repository\Values\User\UserCreateStruct;
@@ -40,7 +41,6 @@ use eZ\Publish\API\Repository\Values\User\UserGroup as APIUserGroup;
 use eZ\Publish\API\Repository\Values\User\UserGroupCreateStruct as APIUserGroupCreateStruct;
 use eZ\Publish\API\Repository\Values\User\UserGroupUpdateStruct;
 use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\Core\Base\Exceptions\ContentValidationException;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
 use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
@@ -61,8 +61,6 @@ use Psr\Log\LoggerInterface;
  */
 class UserService implements UserServiceInterface
 {
-    private const MISSING_CONTENT_TYPE_EZUSER_FIELD_TYPE_ERROR_MESSAGE =
-        'The provided Content Type does not contain the ezuser Field Type';
 
     /** @var \eZ\Publish\API\Repository\Repository */
     protected $repository;
@@ -419,7 +417,7 @@ class UserService implements UserServiceInterface
         // Search for the first ezuser field type in content type
         $userFieldDefinition = $this->getUserFieldDefinition($userCreateStruct->contentType);
         if ($userFieldDefinition === null) {
-            throw new ContentValidationException(self::MISSING_CONTENT_TYPE_EZUSER_FIELD_TYPE_ERROR_MESSAGE);
+            throw new MissingUserFieldTypeException($userCreateStruct->contentType);
         }
 
         $this->repository->beginTransaction();
@@ -653,7 +651,7 @@ class UserService implements UserServiceInterface
 
         $userFieldDefinition = $this->getUserFieldDefinition($loadedUser->getContentType());
         if ($userFieldDefinition === null) {
-            throw new ContentValidationException(self::MISSING_CONTENT_TYPE_EZUSER_FIELD_TYPE_ERROR_MESSAGE);
+            throw new MissingUserFieldTypeException($loadedUser->getContentType());
         }
 
         $userUpdateStruct->contentUpdateStruct = $userUpdateStruct->contentUpdateStruct ?? $contentService->newContentUpdateStruct();
@@ -713,7 +711,7 @@ class UserService implements UserServiceInterface
 
         $userFieldDefinition = $this->getUserFieldDefinition($loadedUser->getContentType());
         if ($userFieldDefinition === null) {
-            throw new ContentValidationException(self::MISSING_CONTENT_TYPE_EZUSER_FIELD_TYPE_ERROR_MESSAGE);
+            throw new MissingUserFieldTypeException($loadedUser->getContentType());
         }
 
         $userUpdateStruct->contentUpdateStruct = $contentService->newContentUpdateStruct();
@@ -1163,7 +1161,7 @@ class UserService implements UserServiceInterface
         // Search for the first ezuser field type in content type
         $userFieldDefinition = $this->getUserFieldDefinition($context->contentType);
         if ($userFieldDefinition === null) {
-            throw new ContentValidationException(self::MISSING_CONTENT_TYPE_EZUSER_FIELD_TYPE_ERROR_MESSAGE);
+            throw new MissingUserFieldTypeException($context->contentType);
         }
 
         $configuration = $userFieldDefinition->getValidatorConfiguration();
