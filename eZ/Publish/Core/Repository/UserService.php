@@ -742,46 +742,6 @@ class UserService implements UserServiceInterface
         return $this->loadUser($loadedUser->id);
     }
 
-    private function executeUserUpdate(APIUser $loadedUser, $userUpdateStruct): void
-    {
-        $contentService = $this->repository->getContentService();
-        $this->repository->beginTransaction();
-        try {
-            $publishedContent = $loadedUser;
-            if ($userUpdateStruct->contentUpdateStruct !== null) {
-                $contentDraft = $contentService->createContentDraft($loadedUser->getVersionInfo()->getContentInfo());
-                $contentDraft = $contentService->updateContent(
-                    $contentDraft->getVersionInfo(),
-                    $userUpdateStruct->contentUpdateStruct
-                );
-                $publishedContent = $contentService->publishVersion($contentDraft->getVersionInfo());
-            }
-
-            if ($userUpdateStruct->contentMetadataUpdateStruct !== null) {
-                $contentService->updateContentMetadata(
-                    $publishedContent->getVersionInfo()->getContentInfo(),
-                    $userUpdateStruct->contentMetadataUpdateStruct
-                );
-            }
-
-            // User\Handler::update call is currently used to clear cache only
-            $this->userHandler->update(
-                new SPIUser(
-                    [
-                        'id' => $loadedUser->id,
-                        'login' => $loadedUser->login,
-                        'email' => $userUpdateStruct->email ?: $loadedUser->email,
-                    ]
-                )
-            );
-
-            $this->repository->commit();
-        } catch (Exception $e) {
-            $this->repository->rollback();
-            throw $e;
-        }
-    }
-
     /**
      * Update the user token information specified by the user token struct.
      *
@@ -1358,6 +1318,46 @@ class UserService implements UserServiceInterface
         int $hashAlgorithm
     ): bool {
         return $this->passwordHashService->isValidPassword($plainPassword, $passwordHash, $hashAlgorithm);
+    }
+
+    private function executeUserUpdate(APIUser $loadedUser, $userUpdateStruct): void
+    {
+        $contentService = $this->repository->getContentService();
+        $this->repository->beginTransaction();
+        try {
+            $publishedContent = $loadedUser;
+            if ($userUpdateStruct->contentUpdateStruct !== null) {
+                $contentDraft = $contentService->createContentDraft($loadedUser->getVersionInfo()->getContentInfo());
+                $contentDraft = $contentService->updateContent(
+                    $contentDraft->getVersionInfo(),
+                    $userUpdateStruct->contentUpdateStruct
+                );
+                $publishedContent = $contentService->publishVersion($contentDraft->getVersionInfo());
+            }
+
+            if ($userUpdateStruct->contentMetadataUpdateStruct !== null) {
+                $contentService->updateContentMetadata(
+                    $publishedContent->getVersionInfo()->getContentInfo(),
+                    $userUpdateStruct->contentMetadataUpdateStruct
+                );
+            }
+
+            // User\Handler::update call is currently used to clear cache only
+            $this->userHandler->update(
+                new SPIUser(
+                    [
+                        'id' => $loadedUser->id,
+                        'login' => $loadedUser->login,
+                        'email' => $userUpdateStruct->email ?: $loadedUser->email,
+                    ]
+                )
+            );
+
+            $this->repository->commit();
+        } catch (Exception $e) {
+            $this->repository->rollback();
+            throw $e;
+        }
     }
 
     /**
