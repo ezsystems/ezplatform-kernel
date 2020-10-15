@@ -645,7 +645,9 @@ class UserService implements UserServiceInterface
 
         $contentService = $this->repository->getContentService();
 
-        if (!$this->permissionResolver->canUser('content', 'edit', $loadedUser)) {
+        $canEditContent = $this->permissionResolver->canUser('content', 'edit', $loadedUser);
+
+        if (!$canEditContent && $this->isUserProfileUpdateRequested($userUpdateStruct)) {
             throw new UnauthorizedException('content', 'edit');
         }
 
@@ -679,6 +681,13 @@ class UserService implements UserServiceInterface
                     'passwordHash' => $user->passwordHash,
                 ])
             );
+        }
+
+        if (!empty($userUpdateStruct->password) &&
+            !$canEditContent &&
+            !$this->permissionResolver->canUser('user', 'password', $loadedUser)
+        ) {
+            throw new UnauthorizedException('user', 'password');
         }
 
         $this->executeUserUpdate($loadedUser, $userUpdateStruct);
@@ -1349,6 +1358,23 @@ class UserService implements UserServiceInterface
         int $hashAlgorithm
     ): bool {
         return $this->passwordHashService->isValidPassword($plainPassword, $passwordHash, $hashAlgorithm);
+    }
+
+    /**
+     * Return true if any of the UserUpdateStruct properties refers to User Profile (Content) update.
+     *
+     * @param UserUpdateStruct $userUpdateStruct
+     *
+     * @return bool
+     */
+    private function isUserProfileUpdateRequested(UserUpdateStruct $userUpdateStruct)
+    {
+        return
+            !empty($userUpdateStruct->contentUpdateStruct) ||
+            !empty($userUpdateStruct->contentMetadataUpdateStruct) ||
+            !empty($userUpdateStruct->email) ||
+            !empty($userUpdateStruct->enabled) ||
+            !empty($userUpdateStruct->maxLogin);
     }
 
     private function getDateTime(?int $timestamp): ?DateTimeInterface
