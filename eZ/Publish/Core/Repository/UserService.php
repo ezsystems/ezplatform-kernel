@@ -688,7 +688,41 @@ class UserService implements UserServiceInterface
             throw new UnauthorizedException('user', 'password');
         }
 
-        $this->executeUserUpdate($loadedUser, $userUpdateStruct);
+        $this->repository->beginTransaction();
+        try {
+            $publishedContent = $loadedUser;
+            if ($userUpdateStruct->contentUpdateStruct !== null) {
+                $contentDraft = $contentService->createContentDraft($loadedUser->getVersionInfo()->getContentInfo());
+                $contentDraft = $contentService->updateContent(
+                    $contentDraft->getVersionInfo(),
+                    $userUpdateStruct->contentUpdateStruct
+                );
+                $publishedContent = $contentService->publishVersion($contentDraft->getVersionInfo());
+            }
+
+            if ($userUpdateStruct->contentMetadataUpdateStruct !== null) {
+                $contentService->updateContentMetadata(
+                    $publishedContent->getVersionInfo()->getContentInfo(),
+                    $userUpdateStruct->contentMetadataUpdateStruct
+                );
+            }
+
+            // User\Handler::update call is currently used to clear cache only
+            $this->userHandler->update(
+                new SPIUser(
+                    [
+                        'id' => $loadedUser->id,
+                        'login' => $loadedUser->login,
+                        'email' => $userUpdateStruct->email ?: $loadedUser->email,
+                    ]
+                )
+            );
+
+            $this->repository->commit();
+        } catch (Exception $e) {
+            $this->repository->rollback();
+            throw $e;
+        }
 
         return $this->loadUser($loadedUser->id);
     }
