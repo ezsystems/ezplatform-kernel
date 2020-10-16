@@ -209,7 +209,6 @@ class Handler implements BaseUserHandler
         $this->userGateway->updateUserPassword($user);
     }
 
-
     /**
      * Update the user token information specified by the userToken struct.
      *
