@@ -65,7 +65,6 @@ use Psr\Log\LoggerInterface;
  */
 class UserService implements UserServiceInterface
 {
-
     /** @var \eZ\Publish\API\Repository\Repository */
     protected $repository;
 
