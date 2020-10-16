@@ -298,6 +298,30 @@ class UserServiceAuthorizationTest extends BaseTest
     }
 
     /**
+     * Test for the updateUserPassword() method.
+     *
+     * @see \eZ\Publish\API\Repository\UserService::updateUser()
+     */
+    public function testUpdateUserPasswordThrowsUnauthorizedException()
+    {
+        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+
+        $repository = $this->getRepository();
+        $userService = $repository->getUserService();
+        $permissionResolver = $repository->getPermissionResolver();
+
+        /* BEGIN: Use Case */
+        $user = $this->createUserVersion1();
+
+        // Now set the currently created "Editor" as current user
+        $permissionResolver->setCurrentUserReference($user);
+
+        // This call will fail with an "UnauthorizedException"
+        $userService->updateUserPassword($user, 'new password');
+        /* END: Use Case */
+    }
+
+    /**
      * Test for the assignUserToUserGroup() method.
      *
      * @see \eZ\Publish\API\Repository\UserService::assignUserToUserGroup()
