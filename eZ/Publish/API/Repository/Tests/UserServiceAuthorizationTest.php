@@ -350,10 +350,14 @@ class UserServiceAuthorizationTest extends BaseTest
             'Anons',
             'CanChangePassword'
         );
+        $previousHash = $user->passwordHash;
 
         $permissionResolver->setCurrentUserReference($user);
 
         $userService->updateUserPassword($user, 'new password');
+
+        $user = $userService->loadUserByLogin('with_role_password');
+        $this->assertNotEquals($previousHash, $user->passwordHash);
         /* END: Use Case */
     }
 
