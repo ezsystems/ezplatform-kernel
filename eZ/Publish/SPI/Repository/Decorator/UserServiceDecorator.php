@@ -140,9 +140,9 @@ abstract class UserServiceDecorator implements UserService
 
     public function updateUserPassword(
         User $user,
-        string $password
+        string $newPassword
     ): User {
-        return $this->innerService->updateUserPassword($user, $password);
+        return $this->innerService->updateUserPassword($user, $newPassword);
     }
 
     public function updateUserToken(

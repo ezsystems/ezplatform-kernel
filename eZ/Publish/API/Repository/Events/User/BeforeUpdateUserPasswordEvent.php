@@ -18,15 +18,15 @@ final class BeforeUpdateUserPasswordEvent extends BeforeEvent
     private $user;
 
     /** @var string */
-    private $password;
+    private $newPassword;
 
     /** @var \eZ\Publish\API\Repository\Values\User\User|null */
     private $updatedUser;
 
-    public function __construct(User $user, string $password)
+    public function __construct(User $user, string $newPassword)
     {
         $this->user = $user;
-        $this->password = $password;
+        $this->newPassword = $newPassword;
     }
 
     public function getUser(): User
@@ -34,9 +34,9 @@ final class BeforeUpdateUserPasswordEvent extends BeforeEvent
         return $this->user;
     }
 
-    public function getPassword(): string
+    public function getNewPassword(): string
     {
-        return $this->password;
+        return $this->newPassword;
     }
 
     public function getUpdatedUser(): User

@@ -232,12 +232,12 @@ class UserService extends UserServiceDecorator
 
     public function updateUserPassword(
         User $user,
-        string $password
+        string $newPassword
     ): User {
         $eventData = [
             $user,
             new UserUpdateStruct([
-                'password' => $password,
+                'password' => $newPassword,
             ]),
         ];
 
@@ -251,7 +251,7 @@ class UserService extends UserServiceDecorator
             return $beforeEvent->getUpdatedUser();
         }
 
-        $beforePasswordEvent = new BeforeUpdateUserPasswordEvent($user, $password);
+        $beforePasswordEvent = new BeforeUpdateUserPasswordEvent($user, $newPassword);
 
         $this->eventDispatcher->dispatch($beforePasswordEvent);
         if ($beforePasswordEvent->isPropagationStopped()) {
@@ -263,7 +263,7 @@ class UserService extends UserServiceDecorator
         } elseif ($beforePasswordEvent->hasUpdatedUser()) {
             $updatedUser = $beforePasswordEvent->getUpdatedUser();
         } else {
-            $updatedUser = $this->innerService->updateUserPassword($user, $password);
+            $updatedUser = $this->innerService->updateUserPassword($user, $newPassword);
         }
 
         /**
@@ -274,7 +274,7 @@ class UserService extends UserServiceDecorator
             $afterEvent
         );
 
-        $afterPasswordEvent = new UpdateUserPasswordEvent($updatedUser, $user, $password);
+        $afterPasswordEvent = new UpdateUserPasswordEvent($updatedUser, $user, $newPassword);
         $this->eventDispatcher->dispatch(
             $afterPasswordEvent
         );

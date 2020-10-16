@@ -752,7 +752,7 @@ class UserService implements UserServiceInterface
      * Validates and updates just the user's password.
      *
      * @param \eZ\Publish\API\Repository\Values\User\User $user
-     * @param string $password
+     * @param string $newPassword
      *
      * @throws ContentFieldValidationException
      * @throws MissingUserFieldTypeException
@@ -762,7 +762,7 @@ class UserService implements UserServiceInterface
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    public function updateUserPassword(APIUser $user, string $password): APIUser
+    public function updateUserPassword(APIUser $user, string $newPassword): APIUser
     {
         $loadedUser = $this->loadUser($user->id);
 
@@ -787,7 +787,7 @@ class UserService implements UserServiceInterface
                 'hasStoredLogin' => true,
                 'login' => $loadedUser->login,
                 'email' => $loadedUser->email,
-                'plainPassword' => $password,
+                'plainPassword' => $newPassword,
                 'enabled' => $loadedUser->enabled,
                 'maxLogin' => $loadedUser->maxLogin,
                 'passwordHashType' => $user->hashAlgorithm,
