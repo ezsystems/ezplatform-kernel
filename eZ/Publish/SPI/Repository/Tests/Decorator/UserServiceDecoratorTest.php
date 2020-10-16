@@ -254,7 +254,7 @@ class UserServiceDecoratorTest extends TestCase
 
         $parameters = [
             $this->createMock(User::class),
-            $this->createMock(UserUpdateStruct::class),
+            'H@xi0r!',
         ];
 
         $serviceMock->expects($this->once())->method('updateUserPassword')->with(...$parameters);
