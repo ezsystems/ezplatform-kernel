@@ -30,7 +30,10 @@ use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\API\Repository\Values\User\PasswordInfo;
 use eZ\Publish\API\Repository\Values\User\PasswordValidationContext;
 use eZ\Publish\API\Repository\Values\User\UserTokenUpdateStruct;
+use eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException;
 use eZ\Publish\Core\Base\Exceptions\MissingUserFieldTypeException;
+use eZ\Publish\Core\FieldType\FieldTypeRegistry;
+use eZ\Publish\Core\Repository\Mapper\ContentMapper;
 use eZ\Publish\Core\Repository\Validator\UserPasswordValidator;
 use eZ\Publish\Core\Repository\User\PasswordHashServiceInterface;
 use eZ\Publish\Core\Repository\Values\User\UserCreateStruct;
@@ -54,6 +57,7 @@ use eZ\Publish\SPI\Persistence\Content\Location\Handler as LocationHandler;
 use eZ\Publish\SPI\Persistence\User as SPIUser;
 use eZ\Publish\SPI\Persistence\User\Handler;
 use eZ\Publish\SPI\Persistence\User\UserTokenUpdateStruct as SPIUserTokenUpdateStruct;
+use eZ\Publish\SPI\Repository\Validator\ContentValidator;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -83,6 +87,15 @@ class UserService implements UserServiceInterface
     /** @var \eZ\Publish\Core\Repository\User\PasswordHashServiceInterface */
     private $passwordHashService;
 
+    /** @var \eZ\Publish\SPI\Repository\Validator\ContentValidator */
+    private $contentValidator;
+
+    /** @var \eZ\Publish\Core\FieldType\FieldTypeRegistry */
+    private $fieldTypeRegistry;
+
+    /** @var \eZ\Publish\Core\Repository\Mapper\ContentMapper */
+    private $contentMapper;
+
     public function setLogger(LoggerInterface $logger = null)
     {
         $this->logger = $logger;
@@ -96,6 +109,9 @@ class UserService implements UserServiceInterface
      * @param \eZ\Publish\SPI\Persistence\User\Handler $userHandler
      * @param \eZ\Publish\SPI\Persistence\Content\Location\Handler $locationHandler
      * @param \eZ\Publish\Core\Repository\User\PasswordHashServiceInterface $passwordHashGenerator
+     * @param \eZ\Publish\SPI\Repository\Validator\ContentValidator $contentValidator
+     * @param \eZ\Publish\Core\FieldType\FieldTypeRegistry $fieldTypeRegistry
+     * @param \eZ\Publish\Core\Repository\Mapper\ContentMapper $contentMapper
      * @param array $settings
      */
     public function __construct(
@@ -104,6 +120,9 @@ class UserService implements UserServiceInterface
         Handler $userHandler,
         LocationHandler $locationHandler,
         PasswordHashServiceInterface $passwordHashGenerator,
+        ContentValidator $contentValidator,
+        FieldTypeRegistry $fieldTypeRegistry,
+        ContentMapper $contentMapper,
         array $settings = []
     ) {
         $this->repository = $repository;
@@ -119,6 +138,9 @@ class UserService implements UserServiceInterface
             'siteName' => 'ez.no',
         ];
         $this->passwordHashService = $passwordHashGenerator;
+        $this->contentValidator = $contentValidator;
+        $this->fieldTypeRegistry = $fieldTypeRegistry;
+        $this->contentMapper = $contentMapper;
     }
 
     /**
@@ -727,7 +749,21 @@ class UserService implements UserServiceInterface
         return $this->loadUser($loadedUser->id);
     }
 
-    public function updateUserPassword(APIUser $user, UserUpdateStruct $userUpdateStruct): APIUser
+    /**
+     * Validates and updates just the user's password.
+     *
+     * @param \eZ\Publish\API\Repository\Values\User\User $user
+     * @param string $password
+     *
+     * @throws ContentFieldValidationException
+     * @throws MissingUserFieldTypeException
+     * @throws UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     */
+    public function updateUserPassword(APIUser $user, string $password): APIUser
     {
         $loadedUser = $this->loadUser($user->id);
 
@@ -739,24 +775,20 @@ class UserService implements UserServiceInterface
             throw new UnauthorizedException('user', 'password');
         }
 
-        if (empty($userUpdateStruct->password)) {
-            throw new \InvalidArgumentException('User update struct does not contain password');
-        }
-
         $userFieldDefinition = $this->getUserFieldDefinition($loadedUser->getContentType());
         if ($userFieldDefinition === null) {
             throw new MissingUserFieldTypeException($loadedUser->getContentType());
         }
 
-        $userUpdateStruct->contentUpdateStruct = $contentService->newContentUpdateStruct();
-        $userUpdateStruct->contentUpdateStruct->setField(
+        $contentUpdateStruct = $contentService->newContentUpdateStruct();
+        $contentUpdateStruct->setField(
             $userFieldDefinition->identifier,
             new UserValue([
                 'contentId' => $loadedUser->id,
                 'hasStoredLogin' => true,
                 'login' => $loadedUser->login,
                 'email' => $loadedUser->email,
-                'plainPassword' => $userUpdateStruct->password,
+                'plainPassword' => $password,
                 'enabled' => $loadedUser->enabled,
                 'maxLogin' => $loadedUser->maxLogin,
                 'passwordHashType' => $user->hashAlgorithm,
@@ -764,12 +796,57 @@ class UserService implements UserServiceInterface
             ])
         );
 
-        $updateUserCallable = function () use ($loadedUser, $userUpdateStruct): void {
-            $this->executeUserUpdate($loadedUser, $userUpdateStruct);
-        };
+        $errors = $this->contentValidator->validate(
+            $contentUpdateStruct,
+            ['content' => $loadedUser],
+        );
 
-        // Perform update without checking other user permissions
-        $this->repository->sudo($updateUserCallable);
+        if (!empty($errors)) {
+            throw new ContentFieldValidationException($errors);
+        }
+
+        $contentType = $this->repository->getContentTypeService()->loadContentType(
+            $loadedUser->contentInfo->contentTypeId
+        );
+
+        $fields = $this->contentMapper->mapFieldsForUpdate(
+            $contentUpdateStruct,
+            $contentType,
+            $userFieldDefinition->mainLanguageCode
+        );
+
+        $fieldValue = $this->contentMapper->getFieldValueForUpdate(
+            $fields[$userFieldDefinition->identifier][$userFieldDefinition->mainLanguageCode],
+            $loadedUser->getField($userFieldDefinition->identifier, $userFieldDefinition->mainLanguageCode),
+            $userFieldDefinition,
+            false
+        );
+
+        $fieldType = $this->fieldTypeRegistry->getFieldType(
+            $userFieldDefinition->fieldTypeIdentifier
+        );
+        $value = $fieldType->toPersistenceValue($fieldValue);
+
+        $this->repository->beginTransaction();
+        try {
+            $this->userHandler->updatePassword(
+                new SPIUser(
+                    [
+                        'id' => $loadedUser->id,
+                        'login' => $loadedUser->login,
+                        'email' => $loadedUser->email,
+                        'passwordHash' => $value->externalData['passwordHash'],
+                        'hashAlgorithm' => $value->externalData['passwordHashType'],
+                        'passwordUpdatedAt' => $value->externalData['passwordUpdatedAt'],
+                    ]
+                )
+            );
+
+            $this->repository->commit();
+        } catch (Exception $e) {
+            $this->repository->rollback();
+            throw $e;
+        }
 
         return $this->loadUser($loadedUser->id);
     }
@@ -1350,46 +1427,6 @@ class UserService implements UserServiceInterface
         int $hashAlgorithm
     ): bool {
         return $this->passwordHashService->isValidPassword($plainPassword, $passwordHash, $hashAlgorithm);
-    }
-
-    private function executeUserUpdate(APIUser $loadedUser, UserUpdateStruct $userUpdateStruct): void
-    {
-        $contentService = $this->repository->getContentService();
-        $this->repository->beginTransaction();
-        try {
-            $publishedContent = $loadedUser;
-            if ($userUpdateStruct->contentUpdateStruct !== null) {
-                $contentDraft = $contentService->createContentDraft($loadedUser->getVersionInfo()->getContentInfo());
-                $contentDraft = $contentService->updateContent(
-                    $contentDraft->getVersionInfo(),
-                    $userUpdateStruct->contentUpdateStruct
-                );
-                $publishedContent = $contentService->publishVersion($contentDraft->getVersionInfo());
-            }
-
-            if ($userUpdateStruct->contentMetadataUpdateStruct !== null) {
-                $contentService->updateContentMetadata(
-                    $publishedContent->getVersionInfo()->getContentInfo(),
-                    $userUpdateStruct->contentMetadataUpdateStruct
-                );
-            }
-
-            // User\Handler::update call is currently used to clear cache only
-            $this->userHandler->update(
-                new SPIUser(
-                    [
-                        'id' => $loadedUser->id,
-                        'login' => $loadedUser->login,
-                        'email' => $userUpdateStruct->email ?: $loadedUser->email,
-                    ]
-                )
-            );
-
-            $this->repository->commit();
-        } catch (Exception $e) {
-            $this->repository->rollback();
-            throw $e;
-        }
     }
 
     /**

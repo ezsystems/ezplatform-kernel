@@ -131,9 +131,9 @@ class UserService implements UserServiceInterface
         return $this->service->updateUser($user, $userUpdateStruct);
     }
 
-    public function updateUserPassword(User $user, UserUpdateStruct $userUpdateStruct): User
+    public function updateUserPassword(User $user, string $password): User
     {
-        return $this->service->updateUserPassword($user, $userUpdateStruct);
+        return $this->service->updateUserPassword($user, $password);
     }
 
     public function assignUserToUserGroup(User $user, UserGroup $userGroup): void

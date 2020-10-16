@@ -240,7 +240,7 @@ interface UserService
      * and publishes the draft. If a draft is explicitly required, the user group can be updated via the content service methods.
      *
      * @param \eZ\Publish\API\Repository\Values\User\User $user
-     * @param \eZ\Publish\API\Repository\Values\User\UserUpdateStruct $userUpdateStruct
+     * @param string $password
      *
      * @return \eZ\Publish\API\Repository\Values\User\User
      *
@@ -249,7 +249,7 @@ interface UserService
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if a field value is not accepted by the field type
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to update the user
      */
-    public function updateUserPassword(User $user, UserUpdateStruct $userUpdateStruct): User;
+    public function updateUserPassword(User $user, string $password): User;
 
     /**
      * Update the user token information specified by the user token struct.

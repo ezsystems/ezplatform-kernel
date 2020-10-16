@@ -515,6 +515,9 @@ class Repository implements RepositoryInterface
             $this->persistenceHandler->userHandler(),
             $this->persistenceHandler->locationHandler(),
             $this->passwordHashService,
+            $this->contentValidator,
+            $this->fieldTypeRegistry,
+            $this->contentMapper,
             $this->serviceSettings['user']
         );
 

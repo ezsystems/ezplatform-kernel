@@ -200,6 +200,17 @@ class Handler implements BaseUserHandler
     }
 
     /**
+     * Update the user password as specified by the user struct.
+     *
+     * @param User $user
+     */
+    public function updatePassword(User $user)
+    {
+        $this->userGateway->updateUserPassword($user);
+    }
+
+
+    /**
      * Update the user token information specified by the userToken struct.
      *
      * @param \eZ\Publish\SPI\Persistence\User\UserTokenUpdateStruct $userTokenUpdateStruct
