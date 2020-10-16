@@ -300,7 +300,7 @@ class UserServiceAuthorizationTest extends BaseTest
     /**
      * Test for the updateUserPassword() method.
      *
-     * @see \eZ\Publish\API\Repository\UserService::updateUser()
+     * @see \eZ\Publish\API\Repository\UserService::updateUserPassword()
      */
     public function testUpdateUserPasswordThrowsUnauthorizedException()
     {
@@ -311,12 +311,48 @@ class UserServiceAuthorizationTest extends BaseTest
         $permissionResolver = $repository->getPermissionResolver();
 
         /* BEGIN: Use Case */
-        $user = $this->createUserVersion1();
+        $this->createRoleWithPolicies('CannotChangePassword', []);
+
+        $user = $this->createCustomUserWithLogin(
+            'without_role_password',
+            'without_role_password@example.com',
+            'Anons',
+            'CannotChangePassword'
+        );
 
         // Now set the currently created "Editor" as current user
         $permissionResolver->setCurrentUserReference($user);
 
         // This call will fail with an "UnauthorizedException"
+        $userService->updateUserPassword($user, 'new password');
+        /* END: Use Case */
+    }
+
+    /**
+     * Test for the updateUserPassword() method.
+     *
+     * @see \eZ\Publish\API\Repository\UserService::updateUserPassword()
+     */
+    public function testUpdateUserPasswordWorksWithUserPasswordRole()
+    {
+        $repository = $this->getRepository();
+        $userService = $repository->getUserService();
+        $permissionResolver = $repository->getPermissionResolver();
+
+        /* BEGIN: Use Case */
+        $this->createRoleWithPolicies('CanChangePassword', [
+            ['module' => 'user', 'function' => 'password'],
+        ]);
+
+        $user = $this->createCustomUserWithLogin(
+            'with_role_password',
+            'with_role_password@example.com',
+            'Anons',
+            'CanChangePassword'
+        );
+
+        $permissionResolver->setCurrentUserReference($user);
+
         $userService->updateUserPassword($user, 'new password');
         /* END: Use Case */
     }
