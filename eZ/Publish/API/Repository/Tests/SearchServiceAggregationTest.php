@@ -27,6 +27,7 @@ use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Field\KeywordTerm
 use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Field\SelectionTermAggregation;
 use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Field\TimeRangeAggregation;
 use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\LanguageTermAggregation;
+use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Location\SubtreeTermAggregation;
 use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\ObjectStateTermAggregation;
 use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Range;
 use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\RawRangeAggregation;
@@ -288,6 +289,18 @@ final class SearchServiceAggregationTest extends BaseTest
             [
                 true => 18,
             ]
+        );
+
+        $locationService = $this->getRepository()->getLocationService();
+
+        yield SubtreeTermAggregation::class => $this->createTermAggregationTestCase(
+            new SubtreeTermAggregation('subtree', '/1/43/'),
+            [
+                51 => 1,
+                52 => 1,
+                53 => 1,
+            ],
+            [$locationService, 'loadLocation']
         );
 
         yield RawRangeAggregation::class => [
