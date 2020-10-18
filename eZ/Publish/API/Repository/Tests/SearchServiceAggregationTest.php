@@ -968,8 +968,4 @@ final class SearchServiceAggregationTest extends BaseTest
 
         return $contentTypeService->loadContentTypeByIdentifier($contentTypeIdentifier);
     }
-
-    private function getExampleAuthorFieldValues(): array
-    {
-    }
 }
