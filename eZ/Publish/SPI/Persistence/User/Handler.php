@@ -97,7 +97,7 @@ interface Handler
      *
      * @param \eZ\Publish\SPI\Persistence\User $user
      */
-    public function updatePassword(User $user);
+    public function updatePassword(User $user): void;
 
     /**
      * Update the user information specified by the user token struct.

@@ -199,12 +199,7 @@ class Handler implements BaseUserHandler
         throw new NotImplementedException('This method should not be called, update is done via content handler.');
     }
 
-    /**
-     * Update the user password as specified by the user struct.
-     *
-     * @param User $user
-     */
-    public function updatePassword(User $user)
+    public function updatePassword(User $user): void
     {
         $this->userGateway->updateUserPassword($user);
     }
