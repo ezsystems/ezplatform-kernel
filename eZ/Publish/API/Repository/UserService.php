@@ -236,17 +236,7 @@ interface UserService
     /**
      * Updates user's password.
      *
-     * 4.x: If the versionUpdateStruct is set in the user update structure, this method internally creates a content draft, updates it with the provided data
-     * and publishes the draft. If a draft is explicitly required, the user group can be updated via the content service methods.
-     *
-     * @param \eZ\Publish\API\Repository\Values\User\User $user
-     * @param string $newPassword
-     *
-     * @return \eZ\Publish\API\Repository\Values\User\User
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException if a field in the $userUpdateStruct is not valid
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException if a required field is set empty
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if a field value is not accepted by the field type
+     * @throws \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException if new password does not pass validation
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to update the user
      */
     public function updateUserPassword(User $user, string $newPassword): User;
