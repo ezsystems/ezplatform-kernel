@@ -6,6 +6,8 @@
  */
 namespace eZ\Publish\API\Repository\Tests;
 
+use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
+
 /**
  * Test case for operations in the UserService using in memory storage.
  *
