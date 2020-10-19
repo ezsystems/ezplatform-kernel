@@ -298,19 +298,14 @@ class UserServiceAuthorizationTest extends BaseTest
     }
 
     /**
-     * Test for the updateUserPassword() method.
-     *
-     * @see \eZ\Publish\API\Repository\UserService::updateUserPassword()
+     * @covers \eZ\Publish\API\Repository\UserService::updateUserPassword
      */
-    public function testUpdateUserPasswordThrowsUnauthorizedException()
+    public function testUpdateUserPasswordThrowsUnauthorizedException(): void
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
-
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
         $permissionResolver = $repository->getPermissionResolver();
 
-        /* BEGIN: Use Case */
         $this->createRoleWithPolicies('CannotChangePassword', []);
 
         $user = $this->createCustomUserWithLogin(
@@ -323,9 +318,8 @@ class UserServiceAuthorizationTest extends BaseTest
         // Now set the currently created "Editor" as current user
         $permissionResolver->setCurrentUserReference($user);
 
-        // This call will fail with an "UnauthorizedException"
+        $this->expectException(UnauthorizedException::class);
         $userService->updateUserPassword($user, 'new password');
-        /* END: Use Case */
     }
 
     /**
