@@ -242,7 +242,7 @@ class UserService extends UserServiceDecorator
         ];
 
         /**
-         * @deprecated listening on BeforeUpdateUserEvent when updating password has been deprecated. Use BeforeUpdateUserPasswordEvent instead.
+         * @deprecated since eZ Platform by Ibexa v3.1. listening on BeforeUpdateUserEvent when updating password has been deprecated. Use BeforeUpdateUserPasswordEvent instead.
          */
         $beforeEvent = new BeforeUpdateUserEvent(...$eventData);
 
