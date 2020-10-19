@@ -8,14 +8,18 @@ namespace eZ\Publish\Core\Base\Exceptions;
 
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 
-class MissingUserFieldTypeException extends ContentValidationException
+/**
+ * @internal
+ */
+final class MissingUserFieldTypeException extends ContentValidationException
 {
-    public function __construct(ContentType $contentType)
+    public function __construct(ContentType $contentType, string $fieldType)
     {
         parent::__construct(
-            'The provided Content Type "%contentType%" does not contain the ezuser Field Type',
+            'The provided Content Type "%contentType%" does not contain the %fieldType% Field Type',
             [
                 'contentType' => $contentType->identifier,
+                'fieldType' => $fieldType,
             ]
         );
     }

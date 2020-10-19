@@ -65,6 +65,8 @@ use Psr\Log\LoggerInterface;
  */
 class UserService implements UserServiceInterface
 {
+    private const USER_FIELD_TYPE_NAME = 'ezuser';
+
     /** @var \eZ\Publish\API\Repository\Repository */
     protected $repository;
 
@@ -438,7 +440,7 @@ class UserService implements UserServiceInterface
         // Search for the first ezuser field type in content type
         $userFieldDefinition = $this->getUserFieldDefinition($userCreateStruct->contentType);
         if ($userFieldDefinition === null) {
-            throw new MissingUserFieldTypeException($userCreateStruct->contentType);
+            throw new MissingUserFieldTypeException($userCreateStruct->contentType, self::USER_FIELD_TYPE_NAME);
         }
 
         $this->repository->beginTransaction();
@@ -672,7 +674,7 @@ class UserService implements UserServiceInterface
 
         $userFieldDefinition = $this->getUserFieldDefinition($loadedUser->getContentType());
         if ($userFieldDefinition === null) {
-            throw new MissingUserFieldTypeException($loadedUser->getContentType());
+            throw new MissingUserFieldTypeException($loadedUser->getContentType(), self::USER_FIELD_TYPE_NAME);
         }
 
         $userUpdateStruct->contentUpdateStruct = $userUpdateStruct->contentUpdateStruct ?? $contentService->newContentUpdateStruct();
@@ -776,7 +778,7 @@ class UserService implements UserServiceInterface
 
         $userFieldDefinition = $this->getUserFieldDefinition($loadedUser->getContentType());
         if ($userFieldDefinition === null) {
-            throw new MissingUserFieldTypeException($loadedUser->getContentType());
+            throw new MissingUserFieldTypeException($loadedUser->getContentType(), self::USER_FIELD_TYPE_NAME);
         }
 
         $contentUpdateStruct = $contentService->newContentUpdateStruct();
@@ -1137,7 +1139,7 @@ class UserService implements UserServiceInterface
         // For users we ultimately need to look for ezuser type as content type id could be several for users.
         // And config might be different from one SA to the next, which we don't care about here.
         foreach ($content->getFields() as $field) {
-            if ($field->fieldTypeIdentifier === 'ezuser') {
+            if ($field->fieldTypeIdentifier === self::USER_FIELD_TYPE_NAME) {
                 return true;
             }
         }
@@ -1174,7 +1176,7 @@ class UserService implements UserServiceInterface
 
         $fieldDefIdentifier = '';
         foreach ($contentType->fieldDefinitions as $fieldDefinition) {
-            if ($fieldDefinition->fieldTypeIdentifier === 'ezuser') {
+            if ($fieldDefinition->fieldTypeIdentifier === self::USER_FIELD_TYPE_NAME) {
                 $fieldDefIdentifier = $fieldDefinition->identifier;
                 break;
             }
@@ -1192,7 +1194,7 @@ class UserService implements UserServiceInterface
                     new Field([
                         'fieldDefIdentifier' => $fieldDefIdentifier,
                         'languageCode' => $mainLanguageCode,
-                        'fieldTypeIdentifier' => 'ezuser',
+                        'fieldTypeIdentifier' => self::USER_FIELD_TYPE_NAME,
                         'value' => new UserValue([
                             'login' => $login,
                             'email' => $email,
@@ -1271,7 +1273,7 @@ class UserService implements UserServiceInterface
         // Search for the first ezuser field type in content type
         $userFieldDefinition = $this->getUserFieldDefinition($context->contentType);
         if ($userFieldDefinition === null) {
-            throw new MissingUserFieldTypeException($context->contentType);
+            throw new MissingUserFieldTypeException($context->contentType, self::USER_FIELD_TYPE_NAME);
         }
 
         $configuration = $userFieldDefinition->getValidatorConfiguration();
@@ -1388,7 +1390,7 @@ class UserService implements UserServiceInterface
 
     private function getUserFieldDefinition(ContentType $contentType): ?FieldDefinition
     {
-        return $contentType->getFirstFieldDefinitionOfType('ezuser');
+        return $contentType->getFirstFieldDefinitionOfType(self::USER_FIELD_TYPE_NAME);
     }
 
     /**
