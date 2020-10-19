@@ -217,7 +217,7 @@ class UserHandler extends AbstractInMemoryPersistenceHandler implements UserHand
 
     public function updatePassword(User $user)
     {
-        $this->logger->logCall(__METHOD__, ['struct' => $user]);
+        $this->logger->logCall(__METHOD__, ['user-login' => $user->login]);
 
         $return = $this->persistenceHandler->userHandler()->updatePassword($user);
 
