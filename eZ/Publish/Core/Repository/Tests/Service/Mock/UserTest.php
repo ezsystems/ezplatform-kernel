@@ -154,7 +154,7 @@ class UserTest extends BaseServiceMockTest
                     $this->getPersistenceMock()->userHandler(),
                     $this->getPersistenceMock()->locationHandler(),
                     $this->createMock(PasswordHashServiceInterface::class),
-                    $this->createMock(PasswordValidatorInterface::class)
+                    $this->createMock(PasswordValidatorInterface::class),
                 ]
             )
             ->getMock();
