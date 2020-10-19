@@ -32,8 +32,7 @@ use eZ\Publish\API\Repository\Values\User\PasswordValidationContext;
 use eZ\Publish\API\Repository\Values\User\UserTokenUpdateStruct;
 use eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException;
 use eZ\Publish\Core\Base\Exceptions\MissingUserFieldTypeException;
-use eZ\Publish\Core\FieldType\FieldTypeRegistry;
-use eZ\Publish\Core\Repository\Mapper\ContentMapper;
+use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
 use eZ\Publish\Core\Repository\Validator\UserPasswordValidator;
 use eZ\Publish\Core\Repository\User\PasswordHashServiceInterface;
 use eZ\Publish\Core\Repository\Values\User\UserCreateStruct;
@@ -57,7 +56,6 @@ use eZ\Publish\SPI\Persistence\Content\Location\Handler as LocationHandler;
 use eZ\Publish\SPI\Persistence\User as SPIUser;
 use eZ\Publish\SPI\Persistence\User\Handler;
 use eZ\Publish\SPI\Persistence\User\UserTokenUpdateStruct as SPIUserTokenUpdateStruct;
-use eZ\Publish\SPI\Repository\Validator\ContentValidator;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -88,14 +86,8 @@ class UserService implements UserServiceInterface
     /** @var \eZ\Publish\Core\Repository\User\PasswordHashServiceInterface */
     private $passwordHashService;
 
-    /** @var \eZ\Publish\SPI\Repository\Validator\ContentValidator */
-    private $contentValidator;
-
-    /** @var \eZ\Publish\Core\FieldType\FieldTypeRegistry */
-    private $fieldTypeRegistry;
-
-    /** @var \eZ\Publish\Core\Repository\Mapper\ContentMapper */
-    private $contentMapper;
+    /** @var PasswordValidatorInterface */
+    private $passwordValidator;
 
     public function setLogger(LoggerInterface $logger = null)
     {
@@ -110,9 +102,7 @@ class UserService implements UserServiceInterface
      * @param \eZ\Publish\SPI\Persistence\User\Handler $userHandler
      * @param \eZ\Publish\SPI\Persistence\Content\Location\Handler $locationHandler
      * @param \eZ\Publish\Core\Repository\User\PasswordHashServiceInterface $passwordHashGenerator
-     * @param \eZ\Publish\SPI\Repository\Validator\ContentValidator $contentValidator
-     * @param \eZ\Publish\Core\FieldType\FieldTypeRegistry $fieldTypeRegistry
-     * @param \eZ\Publish\Core\Repository\Mapper\ContentMapper $contentMapper
+     * @param \eZ\Publish\Core\Repository\User\PasswordValidatorInterface $passwordValidator
      * @param array $settings
      */
     public function __construct(
@@ -121,9 +111,7 @@ class UserService implements UserServiceInterface
         Handler $userHandler,
         LocationHandler $locationHandler,
         PasswordHashServiceInterface $passwordHashGenerator,
-        ContentValidator $contentValidator,
-        FieldTypeRegistry $fieldTypeRegistry,
-        ContentMapper $contentMapper,
+        PasswordValidatorInterface $passwordValidator,
         array $settings = []
     ) {
         $this->repository = $repository;
@@ -139,9 +127,7 @@ class UserService implements UserServiceInterface
             'siteName' => 'ez.no',
         ];
         $this->passwordHashService = $passwordHashGenerator;
-        $this->contentValidator = $contentValidator;
-        $this->fieldTypeRegistry = $fieldTypeRegistry;
-        $this->contentMapper = $contentMapper;
+        $this->passwordValidator = $passwordValidator;
     }
 
     /**
@@ -756,19 +742,14 @@ class UserService implements UserServiceInterface
      * @param \eZ\Publish\API\Repository\Values\User\User $user
      * @param string $newPassword
      *
-     * @throws ContentFieldValidationException
-     * @throws MissingUserFieldTypeException
-     * @throws UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException
+     * @throws \eZ\Publish\Core\Base\Exceptions\MissingUserFieldTypeException
+     * @throws \eZ\Publish\Core\Base\Exceptions\UnauthorizedException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
     public function updateUserPassword(APIUser $user, string $newPassword): APIUser
     {
         $loadedUser = $this->loadUser($user->id);
-
-        $contentService = $this->repository->getContentService();
 
         if (!$this->permissionResolver->canUser('content', 'edit', $loadedUser)
             && !$this->permissionResolver->canUser('user', 'password', $loadedUser)
@@ -781,52 +762,12 @@ class UserService implements UserServiceInterface
             throw new MissingUserFieldTypeException($loadedUser->getContentType(), self::USER_FIELD_TYPE_NAME);
         }
 
-        $contentUpdateStruct = $contentService->newContentUpdateStruct();
-        $contentUpdateStruct->setField(
-            $userFieldDefinition->identifier,
-            new UserValue([
-                'contentId' => $loadedUser->id,
-                'hasStoredLogin' => true,
-                'login' => $loadedUser->login,
-                'email' => $loadedUser->email,
-                'plainPassword' => $newPassword,
-                'enabled' => $loadedUser->enabled,
-                'maxLogin' => $loadedUser->maxLogin,
-                'passwordHashType' => $user->hashAlgorithm,
-                'passwordHash' => $user->passwordHash,
-            ])
-        );
-
-        $errors = $this->contentValidator->validate(
-            $contentUpdateStruct,
-            ['content' => $loadedUser],
-        );
-
+        $errors = $this->passwordValidator->validatePassword($newPassword, $userFieldDefinition);
         if (!empty($errors)) {
             throw new ContentFieldValidationException($errors);
         }
 
-        $contentType = $this->repository->getContentTypeService()->loadContentType(
-            $loadedUser->contentInfo->contentTypeId
-        );
-
-        $fields = $this->contentMapper->mapFieldsForUpdate(
-            $contentUpdateStruct,
-            $contentType,
-            $userFieldDefinition->mainLanguageCode
-        );
-
-        $fieldValue = $this->contentMapper->getFieldValueForUpdate(
-            $fields[$userFieldDefinition->identifier][$userFieldDefinition->mainLanguageCode],
-            $loadedUser->getField($userFieldDefinition->identifier, $userFieldDefinition->mainLanguageCode),
-            $userFieldDefinition,
-            false
-        );
-
-        $fieldType = $this->fieldTypeRegistry->getFieldType(
-            $userFieldDefinition->fieldTypeIdentifier
-        );
-        $value = $fieldType->toPersistenceValue($fieldValue);
+        $passwordHash = $this->passwordHashService->createPasswordHash($newPassword, (int) $loadedUser->hashAlgorithm);
 
         $this->repository->beginTransaction();
         try {
@@ -836,9 +777,9 @@ class UserService implements UserServiceInterface
                         'id' => $loadedUser->id,
                         'login' => $loadedUser->login,
                         'email' => $loadedUser->email,
-                        'passwordHash' => $value->externalData['passwordHash'],
-                        'hashAlgorithm' => $value->externalData['passwordHashType'],
-                        'passwordUpdatedAt' => $value->externalData['passwordUpdatedAt'],
+                        'passwordHash' => $passwordHash,
+                        'hashAlgorithm' => $loadedUser->hashAlgorithm,
+                        'passwordUpdatedAt' => time(),
                     ]
                 )
             );
