@@ -22,7 +22,6 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Polyfill\Php80\Php80;
 
 class DirectFragmentRenderer extends InlineFragmentRenderer implements FragmentRendererInterface
 {
