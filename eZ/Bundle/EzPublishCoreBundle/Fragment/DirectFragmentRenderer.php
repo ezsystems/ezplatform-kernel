@@ -113,10 +113,6 @@ class DirectFragmentRenderer extends InlineFragmentRenderer implements FragmentR
         return $this->generateFragmentUri($simplifiedReference, $request, false, false);
     }
 
-    private function getSubRequest(Request $request): Request
-    {
-    }
-
     /**
      * @param string|\Symfony\Component\HttpKernel\Controller\ControllerReference $uri
      *
