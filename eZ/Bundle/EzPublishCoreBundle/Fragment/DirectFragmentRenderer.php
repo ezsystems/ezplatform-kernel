@@ -152,7 +152,7 @@ class DirectFragmentRenderer extends InlineFragmentRenderer implements FragmentR
         }
 
         throw new InvalidResponseException(
-            sprintf('Unsupported type (%s)', \get_debug_type($response))
+            sprintf('Unsupported type (%s)', is_object($response) ? get_class($response) : gettype($response));
         );
     }
 
