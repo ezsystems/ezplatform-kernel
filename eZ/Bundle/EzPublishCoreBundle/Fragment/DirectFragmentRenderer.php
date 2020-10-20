@@ -156,7 +156,7 @@ class DirectFragmentRenderer extends InlineFragmentRenderer implements FragmentR
         }
 
         throw new InvalidResponseException(
-            sprintf('Unsupported type (%s)', Php80::get_debug_type($response))
+            sprintf('Unsupported type (%s)', \get_debug_type($response))
         );
     }
 
