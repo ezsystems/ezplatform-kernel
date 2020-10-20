@@ -294,11 +294,11 @@ final class SearchServiceAggregationTest extends BaseTest
         $locationService = $this->getRepository()->getLocationService();
 
         yield SubtreeTermAggregation::class => $this->createTermAggregationTestCase(
-            new SubtreeTermAggregation('subtree', '/1/43/'),
+            new SubtreeTermAggregation('subtree', '/1/5/'),
             [
-                51 => 1,
-                52 => 1,
-                53 => 1,
+                5 => 7,
+                13 => 1,
+                44 => 1,
             ],
             [$locationService, 'loadLocation']
         );
