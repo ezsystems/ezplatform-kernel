@@ -6,6 +6,8 @@
  */
 namespace eZ\Publish\Core\FieldType\Date;
 
+use DateTimeImmutable;
+use DateTimeInterface;
 use eZ\Publish\Core\FieldType\Value as BaseValue;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
 use Exception;
@@ -78,6 +80,18 @@ class Value extends BaseValue
         } catch (Exception $e) {
             throw new InvalidArgumentValue('$timestamp', $timestamp, __CLASS__, $e);
         }
+    }
+
+    /**
+     * Creates a Value from the given DateTimeInterface instance.
+     */
+    public static function fromDateTimeInterface(?DateTimeInterface $dateTime): self
+    {
+        if ($dateTime instanceof DateTimeImmutable) {
+            $dateTime = DateTime::createFromImmutable($dateTime);
+        }
+
+        return new self($dateTime);
     }
 
     /**

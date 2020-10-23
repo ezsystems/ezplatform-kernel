@@ -6,6 +6,7 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
+use DateTimeImmutable;
 use eZ\Publish\Core\FieldType\Date\Type as Date;
 use eZ\Publish\Core\FieldType\Date\Value as DateValue;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
@@ -156,6 +157,14 @@ class DateTest extends FieldTypeTest
             [
                 ($dateTime = new DateTime()),
                 new DateValue($dateTime),
+            ],
+            [
+                ($dateTime = new DateTime()),
+                DateValue::fromDateTimeInterface($dateTime),
+            ],
+            [
+                ($dateTime = new DateTimeImmutable()),
+                DateValue::fromDateTimeInterface($dateTime),
             ],
         ];
     }

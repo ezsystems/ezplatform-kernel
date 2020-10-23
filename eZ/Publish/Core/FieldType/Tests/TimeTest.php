@@ -6,6 +6,7 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
+use DateTimeImmutable;
 use eZ\Publish\Core\FieldType\Time\Type as Time;
 use eZ\Publish\Core\FieldType\Time\Value as TimeValue;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
@@ -174,6 +175,14 @@ class TimeTest extends FieldTypeTest
                 new TimeValue(
                     $dateTime->getTimestamp() - $dateTime->setTime(0, 0, 0)->getTimestamp()
                 ),
+            ],
+            [
+                ($dateTime = new DateTime()),
+                TimeValue::fromDateTimeInterface($dateTime),
+            ],
+            [
+                ($dateTimeImmutable = new DateTimeImmutable()),
+                TimeValue::fromDateTimeInterface($dateTimeImmutable),
             ],
         ];
     }

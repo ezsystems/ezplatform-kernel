@@ -6,6 +6,7 @@
  */
 namespace eZ\Publish\Core\FieldType\DateAndTime;
 
+use DateTimeInterface;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
 use eZ\Publish\Core\FieldType\FieldType;
@@ -94,8 +95,8 @@ class Type extends FieldType
             $inputValue = Value::fromTimestamp($inputValue);
         }
 
-        if ($inputValue instanceof DateTime) {
-            $inputValue = new Value($inputValue);
+        if ($inputValue instanceof DateTimeInterface) {
+            $inputValue = Value::fromDateTimeInterface($inputValue);
         }
 
         return $inputValue;
