@@ -59,8 +59,12 @@ class Value extends BaseValue
     /**
      * Creates a Value from the given DateTimeInterface instance.
      */
-    public static function fromDateTimeInterface(DateTimeInterface $dateTime): self
+    public static function fromDateTimeInterface(?DateTimeInterface $dateTime): self
     {
+        if ($dateTime === null) {
+            return new self($dateTime);
+        }
+
         if ($dateTime instanceof DateTimeImmutable) {
             $dateTime = DateTime::createFromImmutable($dateTime);
         }
