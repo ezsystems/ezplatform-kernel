@@ -30,6 +30,10 @@ final class ScoreTest extends BaseTest
     }
 
     /**
+     * @param string[] $values
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\Exception
+     *
      * @dataProvider dataProviderForTestSortingByScore
      */
     public function testSortingByScore(iterable $inputValues, Query $query, array $expectedOrderedIds): void
@@ -119,6 +123,11 @@ final class ScoreTest extends BaseTest
         self::assertEquals($expectedOrderedIds, $actualIds);
     }
 
+    /**
+     * @param string[] $values
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\Exception
+     */
     private function createContentForScoreSortTesting(iterable $values): void
     {
         $repository = $this->getRepository();
