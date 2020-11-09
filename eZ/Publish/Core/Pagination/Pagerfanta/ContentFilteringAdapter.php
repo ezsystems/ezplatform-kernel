@@ -42,11 +42,11 @@ final class ContentFilteringAdapter implements AdapterInterface
     public function getNbResults(): int
     {
         if ($this->totalCount === null) {
-            $filter = clone $this->filter;
-            $filter->sliceBy(0, 0);
+            $countFilter = clone $this->filter;
+            $countFilter->sliceBy(0, 0);
 
             $this->totalCount = $this->contentService->find(
-                $filter,
+                $countFilter,
                 $this->languageFilter
             )->getTotalCount();
         }
@@ -56,10 +56,10 @@ final class ContentFilteringAdapter implements AdapterInterface
 
     public function getSlice($offset, $length): iterable
     {
-        $filter = clone $this->filter;
-        $filter->sliceBy($length, $offset);
+        $selectFilter = clone $this->filter;
+        $selectFilter->sliceBy($length, $offset);
 
-        $results = $this->contentService->find($filter, $this->languageFilter);
+        $results = $this->contentService->find($selectFilter, $this->languageFilter);
         if ($this->totalCount === null) {
             $this->totalCount = $results->getTotalCount();
         }

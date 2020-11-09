@@ -39,11 +39,11 @@ final class LocationFilteringAdapter implements AdapterInterface
     public function getNbResults(): int
     {
         if ($this->totalCount === null) {
-            $filter = clone $this->filter;
-            $filter->sliceBy(0, 0);
+            $countFilter = clone $this->filter;
+            $countFilter->sliceBy(0, 0);
 
             $this->totalCount = $this->locationService->find(
-                $filter,
+                $countFilter,
                 $this->languageFilter
             )->totalCount;
         }
@@ -53,10 +53,10 @@ final class LocationFilteringAdapter implements AdapterInterface
 
     public function getSlice($offset, $length): iterable
     {
-        $filter = clone $this->filter;
-        $filter->sliceBy($length, $offset);
+        $selectFilter = clone $this->filter;
+        $selectFilter->sliceBy($length, $offset);
 
-        $results = $this->locationService->find($filter, $this->languageFilter);
+        $results = $this->locationService->find($selectFilter, $this->languageFilter);
         if ($this->totalCount === null) {
             $this->totalCount = $results->totalCount;
         }
