@@ -17,8 +17,9 @@ use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Exception\SyntaxErrorException;
  *
  *    <sort-clauses-list> ::= <sort-clause> ("," <sort-clause>)?
  *    <sort-clause> ::= <id> <sort-clause-args>? <sort-direction>?
- *    <sort-clause-args> ::= <sort-clause-field-args> | <sort-clause-map-distance-args> | <sort-clause-random-args>
+ *    <sort-clause-args> ::= <sort-clause-field-args> | <sort-clause-map-distance-args> | <sort-clause-random-args> | <sort-clause-custom-field-args>
  *    <sort-clause-field-args> ::= <id> "." <id>
+ *    <sort-clause-custom-field-args> ::= <id>
  *    <sort-clause-map-distance-args> ::=  <id> "." <id> <float> <float>
  *    <sort-clause-random-args> ::= <int>?
  *    <sort-clause-sort-direction> ::= "asc" | "desc"
