@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\FieldType\Image;
 
-use eZ\Publish\Core\FieldType\Value as BaseValue;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
 use eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
+use eZ\Publish\Core\FieldType\Value as BaseValue;
 
 /**
  * Value for Image field type.
@@ -90,10 +90,11 @@ class Value extends BaseValue
      */
     public $height;
 
+    /** @var string[] */
+    public $additionalData = [];
+
     /**
      * Construct a new Value object.
-     *
-     * @param array $imageData
      */
     public function __construct(array $imageData = [])
     {

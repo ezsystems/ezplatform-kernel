@@ -66,6 +66,7 @@ class ImageConverter extends BinaryFileConverter
                     'height' => '',
                     'mime' => '',
                     'alternativeText' => '',
+                    'additionalData' => [],
                 ],
                 $contentMetaData
             ),
@@ -109,6 +110,7 @@ class ImageConverter extends BinaryFileConverter
         // <ezimage serial_number="1" is_valid="1" filename="River-Boat.jpg" suffix="jpg" basename="River-Boat" dirpath="var/ezdemo_site/storage/images/travel/peruvian-amazon/river-boat/322-1-eng-US" url="var/ezdemo_site/storage/images/travel/peruvian-amazon/river-boat/322-1-eng-US/River-Boat.jpg" original_filename="bbbbc2fe.jpg" mime_type="image/jpeg" width="770" height="512" alternative_text="Old River Boat" alias_key="1293033771" timestamp="1342530101">
         //   <original attribute_id="322" attribute_version="1" attribute_language="eng-US"/>
         //   <information Height="512" Width="770" IsColor="1"/>
+        //   <additional_data focalPointX="200" focalPointY="100" author="John Smith"/>
         // </ezimage>
         $xml = <<<EOT
 <?xml version="1.0" encoding="utf-8"?>
@@ -118,6 +120,7 @@ class ImageConverter extends BinaryFileConverter
     height="%s" alternative_text="%s" alias_key="%s" timestamp="%s">
   <original attribute_id="%s" attribute_version="%s" attribute_language="%s"/>
   <information Height="%s" Width="%s" IsColor="%s"/>
+  <additional_data %s/>
 </ezimage>
 EOT;
 
@@ -144,8 +147,19 @@ EOT;
             // <information>
             $imageData['height'], // Height
             $imageData['width'], // Width
-            1 // IsColor @todo Do we need to fix that here?
+            1,// IsColor @todo Do we need to fix that here?,
+            $this->buildAdditionalDataTag($imageData['additionalData']),
         );
+    }
+
+    private function buildAdditionalDataTag(array $imageEditorData): string
+    {
+        $attributesString = '';
+        foreach ($imageEditorData as $option => $value) {
+            $attributesString .= $option . '=' . '"' . htmlspecialchars($value) . '" ';
+        }
+
+        return trim($attributesString);
     }
 
     /**
@@ -205,6 +219,18 @@ EOT;
             throw new \RuntimeException('Missing attribute "alternative_text" in the <ezimage/> tag.');
         }
         $extractedData['alternativeText'] = $ezimageTag->getAttribute('alternative_text');
+
+        $extractedData['additionalData'] = [];
+        $additionalDataTagList = $dom->getElementsByTagName('additional_data');
+
+        if ($additionalDataTagList->length === 0) {
+            return $extractedData;
+        }
+
+        $additionalData = $additionalDataTagList[0]->attributes;
+        foreach ($additionalData as $datum) {
+            $extractedData['additionalData'][$datum->name] = $datum->value;
+        }
 
         return $extractedData;
     }
