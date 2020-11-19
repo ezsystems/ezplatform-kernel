@@ -28,6 +28,9 @@ use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\Language;
 use eZ\Publish\SPI\Persistence\Filter\Content\Handler as ContentFilteringHandler;
+use eZ\Publish\SPI\FieldType\Comparable;
+use eZ\Publish\SPI\FieldType\FieldType;
+use eZ\Publish\SPI\FieldType\Value;
 use eZ\Publish\SPI\Persistence\Handler;
 use eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct as APIContentUpdateStruct;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
@@ -1535,7 +1538,8 @@ class ContentService implements ContentServiceInterface
 
             if ($newValue !== null
                 && $field->value !== null
-                && $fieldType->toHash($newValue) === $fieldType->toHash($field->value)) {
+                && $this->fieldValuesAreEqual($fieldType, $newValue, $field->value)
+            ) {
                 continue;
             }
 
@@ -1553,6 +1557,26 @@ class ContentService implements ContentServiceInterface
         }
 
         $this->internalUpdateContent($versionInfo, $updateStruct);
+    }
+
+    protected function fieldValuesAreEqual(FieldType $fieldType, Value $value1, Value $value2): bool
+    {
+        if ($fieldType instanceof Comparable) {
+            return $fieldType->valuesEqual($value1, $value2);
+        } else {
+            @trigger_error(
+                \sprintf(
+                    'In eZ Platform 2.5 and 3.x %s should implement %s. ' .
+                    'Since the 4.0 major release FieldType\Comparable contract will be a part of %s',
+                    get_class($fieldType),
+                    Comparable::class,
+                    FieldType::class
+                ),
+                E_USER_DEPRECATED
+            );
+
+            return $fieldType->toHash($value1) === $fieldType->toHash($value2);
+        }
     }
 
     /**

@@ -8,6 +8,7 @@ namespace eZ\Publish\Core\FieldType\Tests;
 
 use eZ\Publish\SPI\FieldType\Tests\FieldTypeTest as BaseFieldTypeTest;
 use eZ\Publish\Core\Persistence\TransformationProcessor;
+use eZ\Publish\SPI\FieldType\Value as SPIValue;
 
 abstract class FieldTypeTest extends BaseFieldTypeTest
 {
@@ -24,6 +25,28 @@ abstract class FieldTypeTest extends BaseFieldTypeTest
             true,
             true,
             ['transform', 'transformByGroup']
+        );
+    }
+
+    public function provideInputForValuesEqual(): array
+    {
+        return $this->provideInputForFromHash();
+    }
+
+    /**
+     * @dataProvider provideInputForValuesEqual
+     *
+     * @param mixed $inputValue1Hash
+     */
+    public function testValuesEqual($inputValue1Hash, SPIValue $inputValue2): void
+    {
+        $fieldType = $this->getFieldTypeUnderTest();
+
+        $inputValue1 = $fieldType->fromHash($inputValue1Hash);
+
+        self::assertTrue(
+            $fieldType->valuesEqual($inputValue1, $inputValue2),
+            'valuesEqual() method did not create expected result.'
         );
     }
 }
