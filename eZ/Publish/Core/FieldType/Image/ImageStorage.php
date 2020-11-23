@@ -60,7 +60,6 @@ class ImageStorage extends GatewayBasedStorage
             'fieldId' => $field->id,
             'versionNo' => $versionInfo->versionNo,
             'languageCode' => $field->languageCode,
-            'additionalData' => $field->value->externalData['additionalData'] ?? [],
         ];
 
         // new image
