@@ -17,7 +17,7 @@ use eZ\Publish\SPI\Persistence\Content\FieldValue;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\PhpUnit\ClockMock;
 
-class ImageConverterTest extends TestCase
+final class ImageConverterTest extends TestCase
 {
     /** @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\ImageConverter */
     private $imageConverter;
