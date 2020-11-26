@@ -212,12 +212,12 @@ EOT
         } else {
             $io = new SymfonyStyle($input, $output);
             $io->warning(<<<EOT
-You might encounter possible memory leaks while running the command under following circumstances:
-- enabled xdebug extension,
-- dev environment set,
-- inadequate memory_limit for big databases (recommended value: -1 that stands for non-limited memory usage),
-- too high --iteration-count value (default: 50),
-- specifying too few child processes for parallel batch operations (default: 'auto').
+For optimal performance, before running this command, make sure that:
+- the xdebug extension is disabled,
+- you're running the command in "prod" environment,
+- memory limit for big databases is set to "-1" or an adequately high value,
+- --iteration-count is low enough (default: 50),
+- number of processes for parallel batch operations is high enough (default: 'auto' is a good choice).
 EOT
             );
 
