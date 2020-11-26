@@ -6,6 +6,7 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Command;
 
+use Symfony\Component\Console\Style\SymfonyStyle;
 use function count;
 use const DIRECTORY_SEPARATOR;
 use Doctrine\DBAL\Connection;
@@ -209,6 +210,21 @@ EOT
             );
             $this->searchIndexer->createSearchIndex($output, (int) $iterationCount, !$commit);
         } else {
+            $io = new SymfonyStyle($input, $output);
+            $io->warning(<<<EOT
+You might encounter possible memory leaks while running the command under following circumstances:
+- enabled xdebug extension,
+- dev environment set,
+- inadequate memory_limit for big databases (recommended value: -1 that stands for non-limited memory usage),
+- too high --iteration-count value (default: 50),
+- specifying too few child processes for parallel batch operations (default: 'auto').
+EOT
+            );
+
+            if (!$io->confirm('Continue?', true)) {
+                return 0;
+            }
+
             $output->writeln('Re-indexing started for search engine: ' . $this->searchIndexer->getName());
             $output->writeln('');
 
