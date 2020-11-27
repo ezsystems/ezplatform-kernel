@@ -212,14 +212,13 @@ EOT
         } else {
             $io = new SymfonyStyle($input, $output);
             $io->warning(<<<EOT
-For optimal performance, before running this command, make sure that:
-- the xdebug extension is disabled,
-- you're running the command in "prod" environment,
-- memory limit for big databases is set to "-1" or an adequately high value,
-- --iteration-count is low enough (default: 50),
-- number of processes for parallel batch operations is high enough (default: 'auto' is a good choice).
-EOT
-            );
+                For optimal performance, before running this command, make sure that:
+                - the xdebug extension is disabled,
+                - you're running the command in "prod" environment,
+                - memory limit for big databases is set to "-1" or an adequately high value,
+                - --iteration-count is low enough (default: 50),
+                - number of processes for parallel batch operations is high enough (default: 'auto' is a good choice).
+            EOT);
 
             if (!$io->confirm('Continue?', true)) {
                 return 0;
