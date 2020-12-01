@@ -74,7 +74,7 @@ class RememberMeRepositoryAuthenticationProviderTest extends TestCase
 
     public function testAuthenticateWrongSecret()
     {
-        $this->expectException(\Symfony\Component\Security\Core\Exception\BadCredentialsException::class);
+        $this->expectException(\Symfony\Component\Security\Core\Exception\AuthenticationException::class);
 
         $user = $this->createMock(UserInterface::class);
         $user
