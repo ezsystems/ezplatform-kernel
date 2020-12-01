@@ -32,12 +32,8 @@ class SiteAccessLimitationType implements SPILimitationTypeInterface
 
     /**
      * Generates the SiteAccess value as CRC32.
-     *
-     * @param string $sa
-     *
-     * @return string
      */
-    private function generateSiteAccessValue($sa)
+    public function generateSiteAccessValue(string $sa): string
     {
         return sprintf('%u', crc32($sa));
     }

@@ -297,4 +297,14 @@ class SiteAccessLimitationTypeTest extends Base
     {
         self::markTestSkipped('Method valueSchema() is not implemented');
     }
+
+    /**
+     * @depends testConstruct
+     */
+    public function testGenerateSiteAccessValue(SiteAccessLimitationType $limitationType): void
+    {
+        self::assertSame('341347141', $limitationType->generateSiteAccessValue('ger'));
+        self::assertSame('2582995467', $limitationType->generateSiteAccessValue('eng'));
+        self::assertSame('1817462202', $limitationType->generateSiteAccessValue('behat_site'));
+    }
 }
