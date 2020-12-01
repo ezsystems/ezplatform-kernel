@@ -103,7 +103,7 @@ class BinaryLoaderTest extends TestCase
             ->with($binaryFile->id)
             ->will($this->returnValue($mimeType));
 
-        $expected = new Binary($content, $mimeType, 'jpeg');
+        $expected = new Binary($content, $mimeType, 'jpg');
         $this->assertEquals($expected, $this->binaryLoader->find($path));
     }
 }
