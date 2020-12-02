@@ -34,6 +34,7 @@ use eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException;
 use eZ\Publish\Core\Base\Exceptions\MissingUserFieldTypeException;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
 use eZ\Publish\Core\Repository\Validator\UserPasswordValidator;
+use eZ\Publish\Core\Repository\User\Exception\UnsupportedPasswordHashType;
 use eZ\Publish\Core\Repository\User\PasswordHashServiceInterface;
 use eZ\Publish\Core\Repository\Values\User\UserCreateStruct;
 use eZ\Publish\API\Repository\Values\User\UserCreateStruct as APIUserCreateStruct;
@@ -767,7 +768,13 @@ class UserService implements UserServiceInterface
             throw new ContentFieldValidationException($errors);
         }
 
-        $passwordHash = $this->passwordHashService->createPasswordHash($newPassword, (int) $loadedUser->hashAlgorithm);
+        $passwordHashAlgorithm = (int) $loadedUser->hashAlgorithm;
+        try {
+            $passwordHash = $this->passwordHashService->createPasswordHash($newPassword, $passwordHashAlgorithm);
+        } catch (UnsupportedPasswordHashType $e) {
+            $passwordHashAlgorithm = $this->passwordHashService->getDefaultHashType();
+            $passwordHash = $this->passwordHashService->createPasswordHash($newPassword, $passwordHashAlgorithm);
+        }
 
         $this->repository->beginTransaction();
         try {
@@ -778,7 +785,7 @@ class UserService implements UserServiceInterface
                         'login' => $loadedUser->login,
                         'email' => $loadedUser->email,
                         'passwordHash' => $passwordHash,
-                        'hashAlgorithm' => $loadedUser->hashAlgorithm,
+                        'hashAlgorithm' => $passwordHashAlgorithm,
                         'passwordUpdatedAt' => time(),
                     ]
                 )
