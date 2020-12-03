@@ -444,6 +444,7 @@ class Repository implements RepositoryInterface
             $this->getPermissionCriterionResolver(),
             $this->getPermissionResolver(),
             $this->locationFilteringHandler,
+            $this->getContentTypeService(),
             $this->serviceSettings['location'],
             $this->logger
         );
