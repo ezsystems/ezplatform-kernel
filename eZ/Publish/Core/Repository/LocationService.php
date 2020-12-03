@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository;
 
+use eZ\Publish\API\Repository\ContentTypeService;
 use eZ\Publish\API\Repository\PermissionCriterionResolver;
 use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\API\Repository\Values\Content\Language;
@@ -79,6 +80,9 @@ class LocationService implements LocationServiceInterface
     /** @var \eZ\Publish\SPI\Persistence\Filter\Location\Handler */
     private $locationFilteringHandler;
 
+    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    protected $contentTypeService;
+
     /**
      * Setups service with reference to repository object that created it & corresponding handler.
      *
@@ -87,6 +91,7 @@ class LocationService implements LocationServiceInterface
      * @param \eZ\Publish\Core\Repository\Mapper\ContentDomainMapper $contentDomainMapper
      * @param \eZ\Publish\Core\Repository\Helper\NameSchemaService $nameSchemaService
      * @param \eZ\Publish\API\Repository\PermissionCriterionResolver $permissionCriterionResolver
+     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
      * @param array $settings
      * @param \Psr\Log\LoggerInterface|null $logger
      */
@@ -98,6 +103,7 @@ class LocationService implements LocationServiceInterface
         PermissionCriterionResolver $permissionCriterionResolver,
         PermissionResolver $permissionResolver,
         LocationFilteringHandler $locationFilteringHandler,
+        ContentTypeService $contentTypeService,
         array $settings = [],
         LoggerInterface $logger = null
     ) {
@@ -112,6 +118,7 @@ class LocationService implements LocationServiceInterface
             //'defaultSetting' => array(),
         ];
         $this->permissionCriterionResolver = $permissionCriterionResolver;
+        $this->contentTypeService = $contentTypeService;
         $this->logger = null !== $logger ? $logger : new NullLogger();
     }
 
@@ -688,7 +695,8 @@ class LocationService implements LocationServiceInterface
                 'new parent Location is a descendant of the given $location'
             );
         }
-        if (!$newParentLocation->getContent()->getContentType()->isContainer) {
+        $contentTypeId = $newParentLocation->contentInfo->contentTypeId;
+        if (!$this->contentTypeService->loadContentType($contentTypeId)->isContainer) {
             throw new InvalidArgumentException(
                 '$newParentLocation',
                 'Cannot move Location to a parent that is not a container'
