@@ -8,6 +8,7 @@ namespace eZ\Bundle\EzPublishCoreBundle;
 
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\BinaryContentDownloadPass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ConsoleCacheWarmupPass;
+use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ConsoleCommandPass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\FieldTypeParameterProviderRegistryPass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\FragmentPass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ViewMatcherRegistryPass;
@@ -74,6 +75,7 @@ class EzPublishCoreBundle extends Bundle
         $container->addCompilerPass(new ConsoleCacheWarmupPass());
         $container->addCompilerPass(new ViewMatcherRegistryPass());
         $container->addCompilerPass(new SiteAccessMatcherRegistryPass());
+        $container->addCompilerPass(new ConsoleCommandPass());
 
         // Storage passes
         $container->addCompilerPass(new ExternalStorageRegistryPass());
