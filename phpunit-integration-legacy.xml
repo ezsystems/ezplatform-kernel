@@ -14,6 +14,7 @@
         <env name="setupFactory" value="eZ\Publish\API\Repository\Tests\SetupFactory\Legacy" />
         <env name="backendVersion" value="5" />
         <env name="fixtureDir" value="Legacy" />
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
         <ini name="error_reporting" value="-1" />
     </php>
     <testsuites>

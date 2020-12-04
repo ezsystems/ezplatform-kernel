@@ -136,6 +136,10 @@ class Type extends FieldType
                 $value->alternativeText
             );
         }
+
+        if (isset($value->additionalData) && !\is_array($value->additionalData)) {
+            throw new InvalidArgumentType('$value->additionalData', 'array', $value->additionalData);
+        }
     }
 
     /**
@@ -290,6 +294,7 @@ class Type extends FieldType
             'inputUri' => $value->inputUri,
             'width' => $value->width,
             'height' => $value->height,
+            'additionalData' => $value->additionalData,
         ];
     }
 
@@ -353,6 +358,7 @@ class Type extends FieldType
                 'height' => (isset($fieldValue->data['height'])
                     ? $fieldValue->data['height']
                     : null),
+                'additionalData' => $fieldValue->data['additionalData'] ?? [],
             ]
         );
 

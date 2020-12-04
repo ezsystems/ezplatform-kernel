@@ -368,6 +368,7 @@ class ImageIntegrationTest extends FileSearchBaseIntegrationTest
                     'uri' => null,
                     'width' => null,
                     'height' => null,
+                    'additionalData' => [],
                 ],
             ],
             [
@@ -394,6 +395,7 @@ class ImageIntegrationTest extends FileSearchBaseIntegrationTest
                     'uri' => "/$path",
                     'width' => 123,
                     'height' => 456,
+                    'additionalData' => [],
                 ],
             ],
         ];

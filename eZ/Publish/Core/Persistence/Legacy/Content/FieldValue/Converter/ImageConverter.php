@@ -10,6 +10,7 @@ use eZ\Publish\Core\IO\IOServiceInterface;
 use eZ\Publish\Core\IO\UrlRedecoratorInterface;
 use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
+use SimpleXMLElement;
 
 class ImageConverter extends BinaryFileConverter
 {
@@ -66,6 +67,7 @@ class ImageConverter extends BinaryFileConverter
                     'height' => '',
                     'mime' => '',
                     'alternativeText' => '',
+                    'additionalData' => [],
                 ],
                 $contentMetaData
             ),
@@ -105,11 +107,8 @@ class ImageConverter extends BinaryFileConverter
      */
     protected function fillXml($imageData, $pathInfo, $timestamp)
     {
-        // <?xml version="1.0" encoding="utf-8"
-        // <ezimage serial_number="1" is_valid="1" filename="River-Boat.jpg" suffix="jpg" basename="River-Boat" dirpath="var/ezdemo_site/storage/images/travel/peruvian-amazon/river-boat/322-1-eng-US" url="var/ezdemo_site/storage/images/travel/peruvian-amazon/river-boat/322-1-eng-US/River-Boat.jpg" original_filename="bbbbc2fe.jpg" mime_type="image/jpeg" width="770" height="512" alternative_text="Old River Boat" alias_key="1293033771" timestamp="1342530101">
-        //   <original attribute_id="322" attribute_version="1" attribute_language="eng-US"/>
-        //   <information Height="512" Width="770" IsColor="1"/>
-        // </ezimage>
+        $additionalData = $this->buildAdditionalDataTag($imageData['additionalData'] ?? []);
+
         $xml = <<<EOT
 <?xml version="1.0" encoding="utf-8"?>
 <ezimage serial_number="1" is_valid="%s" filename="%s"
@@ -118,6 +117,7 @@ class ImageConverter extends BinaryFileConverter
     height="%s" alternative_text="%s" alias_key="%s" timestamp="%s">
   <original attribute_id="%s" attribute_version="%s" attribute_language="%s"/>
   <information Height="%s" Width="%s" IsColor="%s"/>
+  {$additionalData}
 </ezimage>
 EOT;
 
@@ -144,8 +144,21 @@ EOT;
             // <information>
             $imageData['height'], // Height
             $imageData['width'], // Width
-            1 // IsColor @todo Do we need to fix that here?
+            1// IsColor @todo Do we need to fix that here?
         );
+    }
+
+    private function buildAdditionalDataTag(array $imageEditorData): string
+    {
+        $xml = new SimpleXMLElement('<additional_data/>');
+        foreach ($imageEditorData as $option => $value) {
+            $xml->addChild('attribute', (string) $value)->addAttribute('key', $option);
+        }
+
+        // Cutout xml header
+        $dom = dom_import_simplexml($xml);
+
+        return $dom->ownerDocument->saveXML($dom->ownerDocument->documentElement);
     }
 
     /**
@@ -205,6 +218,19 @@ EOT;
             throw new \RuntimeException('Missing attribute "alternative_text" in the <ezimage/> tag.');
         }
         $extractedData['alternativeText'] = $ezimageTag->getAttribute('alternative_text');
+
+        $extractedData['additionalData'] = [];
+        $additionalDataTagList = $dom->getElementsByTagName('additional_data');
+
+        /** @var \DOMElement $additionalDataElement */
+        foreach ($additionalDataTagList as $additionalDataElement) {
+            /** @var \DOMElement $datum */
+            foreach ($additionalDataElement->getElementsByTagName('attribute') as $datum) {
+                /** @var \DOMNamedNodeMap $option */
+                $option = $datum->attributes;
+                $extractedData['additionalData'][$option->getNamedItem('key')->nodeValue] = $datum->nodeValue;
+            }
+        }
 
         return $extractedData;
     }
