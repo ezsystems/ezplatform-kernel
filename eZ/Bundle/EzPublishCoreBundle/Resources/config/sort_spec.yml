@@ -8,6 +8,10 @@ services:
         arguments:
             $parsers: !tagged_iterator ezplatform.query_type.sort_clause_parser
 
+    eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\CustomFieldSortClauseParser:
+        tags:
+            - { name: ezplatform.query_type.sort_clause_parser }
+
     eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\FieldSortClauseParser:
         tags:
             - { name: ezplatform.query_type.sort_clause_parser }
