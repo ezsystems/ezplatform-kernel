@@ -9,15 +9,12 @@ declare(strict_types=1);
 namespace eZ\Publish\API\Repository\Tests\SearchService\SortClause;
 
 use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Tests\BaseTest;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
 
-final class ScoreTest extends BaseTest
+final class ScoreTest extends AbstractSortClauseTest
 {
     protected function setUp(): void
     {
@@ -102,25 +99,6 @@ final class ScoreTest extends BaseTest
             ]),
             ['foo foo foo', 'foo foo', 'foo'],
         ];
-    }
-
-    private function assertSearchResultOrderByRemoteId(
-        array $expectedOrderedIds,
-        SearchResult $actualSearchResults
-    ): void {
-        self::assertEquals(
-            count($expectedOrderedIds),
-            $actualSearchResults->totalCount
-        );
-
-        $actualIds = array_map(
-            static function (SearchHit $searchHit): string {
-                return $searchHit->valueObject->remoteId;
-            },
-            $actualSearchResults->searchHits
-        );
-
-        self::assertEquals($expectedOrderedIds, $actualIds);
     }
 
     /**

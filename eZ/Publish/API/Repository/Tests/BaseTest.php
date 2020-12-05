@@ -822,6 +822,20 @@ abstract class BaseTest extends TestCase
         return $languageService->createLanguage($languageStruct);
     }
 
+    protected function createLanguageIfNotExists(
+        string $languageCode,
+        string $name,
+        bool $enabled = true
+    ): Language {
+        $repository = $this->getRepository(false);
+
+        try {
+            return $repository->getContentLanguageService()->loadLanguage($languageCode);
+        } catch (NotFoundException $e) {
+            return $this->createLanguage($languageCode, $name, $enabled);
+        }
+    }
+
     /**
      * @param string $identifier Content Type identifier
      * @param string $mainTranslation main translation language code
