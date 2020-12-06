@@ -18,9 +18,9 @@ class LocationSearchAdapterTest extends LocationSearchHitAdapterTest
      *
      * @return LocationSearchAdapter
      */
-    protected function getAdapter(LocationQuery $query, SearchService $searchService)
+    protected function getAdapter(LocationQuery $query, SearchService $searchService, array $languageFilter = [])
     {
-        return new LocationSearchAdapter($query, $searchService);
+        return new LocationSearchAdapter($query, $searchService, $languageFilter);
     }
 
     /**

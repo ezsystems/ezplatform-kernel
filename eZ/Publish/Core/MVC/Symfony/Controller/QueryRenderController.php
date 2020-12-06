@@ -9,10 +9,10 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\MVC\Symfony\Controller;
 
 use eZ\Publish\Core\MVC\Symfony\View\QueryView;
+use eZ\Publish\Core\Pagination\Pagerfanta\Pagerfanta;
 use eZ\Publish\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactoryInterface;
+use eZ\Publish\Core\Pagination\Pagerfanta\SearchResultAdapter;
 use eZ\Publish\Core\Query\QueryFactoryInterface;
-use Pagerfanta\Adapter\AdapterInterface;
-use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -92,7 +92,7 @@ final class QueryRenderController
         return $resolver->resolve($options);
     }
 
-    private function getAdapter(array $options): AdapterInterface
+    private function getAdapter(array $options): SearchResultAdapter
     {
         $query = $this->queryFactory->create(
             $options['query']['query_type'],
