@@ -8,6 +8,8 @@ namespace EzSystems\PlatformInstallerBundle\Command;
 
 use Doctrine\DBAL\Connection;
 use eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider;
+use EzSystems\PlatformInstallerBundle\Event\InstallerCommandConfigureEvent;
+use EzSystems\PlatformInstallerBundle\Event\InstallerCommandExecuteEvent;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -17,6 +19,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\PhpExecutableFinder;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final class InstallPlatformCommand extends Command
 {
@@ -38,6 +41,9 @@ final class InstallPlatformCommand extends Command
     /** @var \eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider */
     private $repositoryConfigurationProvider;
 
+    /** @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface */
+    private $eventDispatcher;
+
     const EXIT_GENERAL_DATABASE_ERROR = 4;
     const EXIT_PARAMETERS_NOT_FOUND = 5;
     const EXIT_UNKNOWN_INSTALL_TYPE = 6;
@@ -48,13 +54,16 @@ final class InstallPlatformCommand extends Command
         array $installers,
         CacheItemPoolInterface $cachePool,
         string $environment,
-        RepositoryConfigurationProvider $repositoryConfigurationProvider
+        RepositoryConfigurationProvider $repositoryConfigurationProvider,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->connection = $connection;
         $this->installers = $installers;
         $this->cachePool = $cachePool;
         $this->environment = $environment;
         $this->repositoryConfigurationProvider = $repositoryConfigurationProvider;
+        $this->eventDispatcher = $eventDispatcher;
+
         parent::__construct();
     }
 
@@ -72,6 +81,10 @@ final class InstallPlatformCommand extends Command
             InputOption::VALUE_NONE,
             'Skip indexing (ezplaform:reindex)'
         );
+
+        $this->eventDispatcher->dispatch(
+            new InstallerCommandConfigureEvent($this)
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -80,6 +93,10 @@ final class InstallPlatformCommand extends Command
         $this->checkPermissions();
         $this->checkParameters();
         $this->checkCreateDatabase($output);
+
+        $this->eventDispatcher->dispatch(
+            new InstallerCommandExecuteEvent($input, $output)
+        );
 
         $type = $input->getArgument('type');
         $siteaccess = $input->getOption('siteaccess');

@@ -23,6 +23,7 @@ services:
             $cachePool: '@ezpublish.cache_pool'
             $environment: "%kernel.environment%"
             $repositoryConfigurationProvider: '@ezpublish.api.repository_configuration_provider'
+            $eventDispatcher: '@event_dispatcher'
         tags:
             - { name: console.command, command: ezplatform:install }
 
