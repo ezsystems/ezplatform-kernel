@@ -8,49 +8,119 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository;
 
+use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\API\Repository\SettingService as SettingServiceInterface;
 use eZ\Publish\API\Repository\Values\Setting\Setting;
 use eZ\Publish\API\Repository\Values\Setting\SettingCreateStruct;
 use eZ\Publish\API\Repository\Values\Setting\SettingUpdateStruct;
+use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
+use eZ\Publish\SPI\Persistence\Setting\Handler as SettingHandler;
+use eZ\Publish\SPI\Persistence\Setting\Setting as SPISetting;
 
 final class SettingService implements SettingServiceInterface
 {
+    /** @var \eZ\Publish\SPI\Persistence\Setting\Handler */
+    private $settingHandler;
+
+    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    private $permissionResolver;
+
+    public function __construct(
+        SettingHandler $settingHandler,
+        PermissionResolver $permissionResolver
+    ) {
+        $this->settingHandler = $settingHandler;
+        $this->permissionResolver = $permissionResolver;
+    }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\Core\Base\Exceptions\UnauthorizedException
+     */
     public function loadSetting(string $group, string $identifier): Setting
     {
-        $setting = $this->buildDomainSettingObject(
+        if (!$this->permissionResolver->hasAccess('setting', 'read')) {
+            throw new UnauthorizedException('setting', 'edit');
+        }
+
+        return $this->buildDomainSettingObject(
             $this->settingHandler->load($group, $identifier)
         );
-
-        return $setting;
     }
 
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\Core\Base\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     */
     public function updateSetting(Setting $setting, SettingUpdateStruct $settingUpdateStruct): Setting
     {
-        // TODO: Implement updateSetting() method.
+        if (!$this->permissionResolver->canUser('setting', 'update', $setting)) {
+            throw new UnauthorizedException('setting', 'update');
+        }
+
+        return $this->buildDomainSettingObject(
+            $this->settingHandler->update(
+                $setting->group,
+                $setting->identifier,
+                json_encode($settingUpdateStruct->value)
+            )
+        );
     }
 
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\Core\Base\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     */
     public function createSetting(SettingCreateStruct $settingCreateStruct): Setting
     {
-        // TODO: Implement createSetting() method.
+        if (!$this->permissionResolver->canUser('setting', 'create', $settingCreateStruct)) {
+            throw new UnauthorizedException('setting', 'create');
+        }
+
+        return $this->buildDomainSettingObject(
+            $this->settingHandler->create(
+                $settingCreateStruct->group,
+                $settingCreateStruct->identifier,
+                json_encode($settingCreateStruct->value)
+            )
+        );
     }
 
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\Core\Base\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     */
     public function deleteSetting(Setting $setting): void
     {
-        // TODO: Implement deleteSetting() method.
+        if (!$this->permissionResolver->canUser('setting', 'remove', $setting)) {
+            throw new UnauthorizedException('setting', 'remove');
+        }
+
+        $this->settingHandler->delete(
+            $setting->group,
+            $setting->identifier
+        );
     }
 
-    public function newSettingCreateStruct(): SettingCreateStruct
+    public function newSettingCreateStruct(array $properties = []): SettingCreateStruct
     {
-        // TODO: Implement newSettingCreateStruct() method.
+        return new SettingCreateStruct($properties);
     }
 
-    public function newSettingUpdateStruct(): SettingUpdateStruct
+    public function newSettingUpdateStruct(array $properties = []): SettingUpdateStruct
     {
-        // TODO: Implement newSettingUpdateStruct() method.
+        return new SettingUpdateStruct($properties);
     }
 
-    private function buildDomainSettingObject(): Setting
+    private function buildDomainSettingObject(SPISetting $setting): Setting
     {
-
+        return new Setting([
+            'group' => $setting->group,
+            'identifier' => $setting->identifier,
+            'value' => json_decode($setting->serializedValue)
+        ]);
     }
 }

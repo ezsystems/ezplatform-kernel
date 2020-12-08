@@ -6,50 +6,29 @@
  */
 namespace eZ\Publish\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
 use eZ\Publish\SPI\Persistence\Setting\Handler as SettingHandlerInterface;
 use eZ\Publish\SPI\Persistence\Setting\Setting;
-use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 
 /**
  * @see \eZ\Publish\SPI\Persistence\Setting\Handler
  */
 final class SettingHandler extends AbstractHandler implements SettingHandlerInterface
 {
-    /** @var \eZ\Publish\SPI\Persistence\Setting\Handler */
-    private $settingHandler;
-
-    public function __construct(
-        TagAwareAdapterInterface $cache,
-        PersistenceHandler $persistenceHandler,
-        PersistenceLogger $logger,
-        SettingHandlerInterface $settingHandler
-    ) {
-        parent::__construct($cache, $persistenceHandler, $logger);
-
-        $this->settingHandler = $settingHandler;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function create(string $group, string $identifier, $value): Setting
+    public function create(string $group, string $identifier, string $serializedValue): Setting
     {
         $this->logger->logCall(__METHOD__, ['group' => $group, 'identifier' => $identifier]);
 
-        return $this->settingHandler->create($group, $identifier, $value);
+        return $this->persistenceHandler->settingHandler()->create($group, $identifier, $serializedValue);
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @throws \Psr\Cache\InvalidArgumentException
      */
-    public function update(string $group, string $identifier, $value): Setting
+    public function update(string $group, string $identifier, string $serializedValue): Setting
     {
         $this->logger->logCall(__METHOD__, ['group' => $group, 'identifier' => $identifier]);
 
-        $setting = $this->settingHandler->update($group, $identifier, $value);
+        $setting = $this->persistenceHandler->settingHandler()->update($group, $identifier, $serializedValue);
 
         $this->cache->invalidateTags([$this->getSettingTag($group, $identifier)]);
 
@@ -67,7 +46,7 @@ final class SettingHandler extends AbstractHandler implements SettingHandlerInte
         }
 
         $this->logger->logCall(__METHOD__, ['group' => $group, 'identifier' => $identifier]);
-        $setting = $this->settingHandler->load($group, $identifier);
+        $setting = $this->persistenceHandler->settingHandler()->load($group, $identifier);
 
         $cacheItem->set($setting);
         $cacheItem->tag([$this->getSettingObjectTag($setting)]);
@@ -83,7 +62,7 @@ final class SettingHandler extends AbstractHandler implements SettingHandlerInte
     {
         $this->logger->logCall(__METHOD__, ['group' => $group, 'identifier' => $identifier]);
 
-        $this->settingHandler->delete($group, $identifier);
+        $this->persistenceHandler->settingHandler()->delete($group, $identifier);
 
         $this->cache->invalidateTags([$this->getSettingTag($group, $identifier)]);
     }

@@ -58,3 +58,9 @@ parameters:
         url:
             view: ~
             update: ~
+
+        setting:
+            read: ~
+            update: ~
+            create: ~
+            remove: ~

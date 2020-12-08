@@ -10,22 +10,16 @@ namespace eZ\Publish\SPI\Persistence\Setting;
 
 interface Handler
 {
-    /**
-     * @param $value mixed Any value to be serialized and stored.
-     */
     public function create(
         string $group,
         string $identifier,
-        $value
+        string $serializedValue
     ): Setting;
 
-    /**
-     * @param $value mixed Any value to be serialized and stored.
-     */
     public function update(
         string $group,
         string $identifier,
-        $value
+        string $serializedValue
     ): Setting;
 
     public function load(

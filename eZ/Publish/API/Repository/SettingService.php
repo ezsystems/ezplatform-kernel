@@ -22,7 +22,7 @@ interface SettingService
 
     public function deleteSetting(Setting $setting): void;
 
-    public function newSettingCreateStruct(): SettingCreateStruct;
+    public function newSettingCreateStruct(array $properties = []): SettingCreateStruct;
 
-    public function newSettingUpdateStruct(): SettingUpdateStruct;
+    public function newSettingUpdateStruct(array $properties = []): SettingUpdateStruct;
 }

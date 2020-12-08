@@ -18,6 +18,7 @@ imports:
     - {resource: storage_engines/legacy/user.yml}
     - {resource: storage_engines/legacy/notification.yml}
     - {resource: storage_engines/legacy/user_preference.yml}
+    - {resource: storage_engines/legacy/setting.yml}
 
 services:
     ezpublish.spi.persistence.legacy:
@@ -38,6 +39,7 @@ services:
             - "@ezpublish.spi.persistence.legacy.bookmark.handler"
             - "@ezpublish.spi.persistence.legacy.notification.handler"
             - "@ezpublish.spi.persistence.legacy.user_preference.handler"
+            - "@ezpublish.spi.persistence.legacy.setting.handler"
         tags:
             - {name: ezpublish.storageEngine, alias: legacy}
         lazy: true

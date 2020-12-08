@@ -10,4 +10,11 @@ namespace eZ\Publish\API\Repository\Values\Setting;
 
 class SettingUpdateStruct extends Setting
 {
+    /**
+     * @param mixed $value
+     */
+    public function setValue($value): void
+    {
+        $this->value = $value;
+    }
 }

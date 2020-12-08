@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Setting;
 
-use eZ\Publish\SPI\Persistence\Setting\Handler as BaseSettingHandler;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException as NotFound;
+use eZ\Publish\SPI\Persistence\Setting\Handler as BaseSettingHandler;
 use eZ\Publish\SPI\Persistence\Setting\Setting;
 
 class Handler implements BaseSettingHandler
@@ -20,47 +20,38 @@ class Handler implements BaseSettingHandler
         $this->settingGateway = $settingGateway;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @throws \Doctrine\DBAL\Exception
-     */
-    public function create(string $group, string $identifier, $value): Setting
+    public function create(string $group, string $identifier, string $serializedValue): Setting
     {
         $setting = $this->settingGateway->loadSettingById(
             $this->settingGateway->insertSetting(
                 $group,
                 $identifier,
-                json_encode($value)
+                $serializedValue
             )
         );
 
         return new Setting([
             'group' => $setting['group'],
             'identifier' => $setting['identifier'],
-            'value' => json_decode($setting['value']),
+            'serializedValue' => $setting['value'],
         ]);
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @throws \Doctrine\DBAL\Exception
      * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
      */
-    public function update(string $group, string $identifier, $value): Setting
+    public function update(string $group, string $identifier, string $serializedValue): Setting
     {
         $this->settingGateway->updateSetting(
             $group,
             $identifier,
-            json_encode($value)
+            $serializedValue
         );
 
         return $this->load($group, $identifier);
     }
 
     /**
-     * @throws \Doctrine\DBAL\Exception
      * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
      */
     public function load(string $group, string $identifier): Setting
@@ -77,13 +68,10 @@ class Handler implements BaseSettingHandler
         return new Setting([
             'group' => $setting['group'],
             'identifier' => $setting['identifier'],
-            'value' => json_decode($setting['value']),
+            'serializedValue' => $setting['value'],
         ]);
     }
 
-    /**
-     * @throws \Doctrine\DBAL\Exception
-     */
     public function delete(string $group, string $identifier): void
     {
         $this->settingGateway->deleteSetting($group, $identifier);

@@ -24,6 +24,7 @@ use eZ\Publish\Core\Persistence\Cache\BookmarkHandler as CacheBookmarkHandler;
 use eZ\Publish\Core\Persistence\Cache\NotificationHandler as CacheNotificationHandler;
 use eZ\Publish\Core\Persistence\Cache\UserPreferenceHandler as CacheUserPreferenceHandler;
 use eZ\Publish\Core\Persistence\Cache\UrlWildcardHandler as CacheUrlWildcardHandler;
+use eZ\Publish\Core\Persistence\Cache\SettingHandler as SettingHandler;
 
 /**
  * Persistence Cache Handler class.
@@ -81,6 +82,9 @@ class Handler implements PersistenceHandlerInterface
     /** @var \eZ\Publish\Core\Persistence\Cache\PersistenceLogger */
     protected $logger;
 
+    /** @var \eZ\Publish\Core\Persistence\Cache\SettingHandler */
+    private $settingHandler;
+
     /**
      * @param \eZ\Publish\SPI\Persistence\Handler $persistenceHandler Must be factory for inner persistence, ie: legacy
      * @param \eZ\Publish\Core\Persistence\Cache\SectionHandler $sectionHandler
@@ -117,6 +121,7 @@ class Handler implements PersistenceHandlerInterface
         CacheNotificationHandler $notificationHandler,
         CacheUserPreferenceHandler $userPreferenceHandler,
         CacheUrlWildcardHandler $urlWildcardHandler,
+        SettingHandler $settingHandler,
         PersistenceLogger $logger
     ) {
         $this->persistenceHandler = $persistenceHandler;
@@ -135,6 +140,7 @@ class Handler implements PersistenceHandlerInterface
         $this->notificationHandler = $notificationHandler;
         $this->userPreferenceHandler = $userPreferenceHandler;
         $this->urlWildcardHandler = $urlWildcardHandler;
+        $this->settingHandler = $settingHandler;
         $this->logger = $logger;
     }
 
@@ -224,6 +230,14 @@ class Handler implements PersistenceHandlerInterface
     public function transactionHandler()
     {
         return $this->transactionHandler;
+    }
+
+    /**
+     * @return \eZ\Publish\SPI\Persistence\Setting\Handler
+     */
+    public function settingHandler()
+    {
+        return $this->settingHandler;
     }
 
     /**

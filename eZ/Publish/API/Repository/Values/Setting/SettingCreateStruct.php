@@ -10,4 +10,22 @@ namespace eZ\Publish\API\Repository\Values\Setting;
 
 class SettingCreateStruct extends Setting
 {
+    public function setGroup(string $group): void
+    {
+        $this->group = $group;
+    }
+
+    public function setIdentifier(string $identifier): void
+    {
+        $this->identifier = $identifier;
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function setValue($value): void
+    {
+        $this->value = $value;
+    }
+
 }

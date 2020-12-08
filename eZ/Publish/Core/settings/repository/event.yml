@@ -92,3 +92,7 @@ services:
     eZ\Publish\Core\Event\UserService:
         arguments:
             $innerService: '@ezpublish.api.service.inner_user'
+
+    eZ\Publish\Core\Event\SettingService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_setting'

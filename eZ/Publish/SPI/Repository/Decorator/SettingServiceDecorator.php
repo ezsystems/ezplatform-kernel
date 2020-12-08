@@ -44,13 +44,13 @@ abstract class SettingServiceDecorator implements SettingService
         $this->innerService->deleteSetting($setting);
     }
 
-    public function newSettingCreateStruct(): SettingCreateStruct
+    public function newSettingCreateStruct(array $properties = []): SettingCreateStruct
     {
-        return $this->innerService->newSettingCreateStruct();
+        return $this->innerService->newSettingCreateStruct($properties);
     }
 
-    public function newSettingUpdateStruct(): SettingUpdateStruct
+    public function newSettingUpdateStruct(array $properties = []): SettingUpdateStruct
     {
-        return $this->innerService->newSettingUpdateStruct();
+        return $this->innerService->newSettingUpdateStruct($properties);
     }
 }
