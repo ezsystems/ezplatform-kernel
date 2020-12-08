@@ -209,21 +209,25 @@ class ReindexCommand extends Command
             EOT);
             $this->searchIndexer->createSearchIndex($output, (int) $iterationCount, !$commit);
         } else {
-            $io = new SymfonyStyle($input, $output);
-            $xdebugState = \extension_loaded('xdebug') ? 'enabled' : 'disabled';
-            $memoryLimit = ini_get('memory_limit');
+            if (\in_array($input->getOption('processes'), ['0', '1'])) {
+                $io = new SymfonyStyle($input, $output);
+                $xdebugState = \extension_loaded('xdebug') ? 'enabled' : 'disabled';
+                $memoryLimit = ini_get('memory_limit');
 
-            $io->warning(<<<EOT
-                For optimal performance, before running this command, make sure that:
-                - the xdebug extension is disabled (you have it $xdebugState),
-                - you're running the command in "prod" environment (default: dev), 
-                - memory limit for big databases is set to "-1" or an adequately high value (your value: $memoryLimit),
-                - --iteration-count is low enough (default: 50),
-                - number of processes for parallel batch operations is high enough (default: 'auto' is a good choice).
-            EOT);
+                $io->warning(<<<EOT
+                    It's not recommended to run this command in a single process mode with a large dataset!
 
-            if (!$io->confirm('Continue?', true)) {
-                return 0;
+                    For optimal performance, before running this command, make sure that:
+                    - the xdebug extension is disabled (you have it $xdebugState),
+                    - you're running the command in "prod" environment (default: dev), 
+                    - memory limit for big databases is set to "-1" or an adequately high value (your value: $memoryLimit),
+                    - --iteration-count is low enough (default: 50),
+                    - number of processes for parallel batch operations is high enough (default: 'auto' is a good choice).
+                EOT);
+
+                if (!$io->confirm('Continue?', true)) {
+                    return 0;
+                }
             }
 
             $output->writeln('Re-indexing started for search engine: ' . $this->searchIndexer->getName());
