@@ -8,10 +8,11 @@ namespace eZ\Bundle\EzPublishCoreBundle\Tests\EventListener;
 
 use eZ\Bundle\EzPublishCoreBundle\EventListener\ConsoleCommandListener;
 use eZ\Bundle\EzPublishCoreBundle\Tests\EventListener\Stubs\TestOutput;
-use eZ\Publish\Core\MVC\Symfony\Event\ConsoleInitEvent;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\ConsoleEvents;
+use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
@@ -37,6 +38,9 @@ class ConsoleCommandListenerTest extends TestCase
     /** @var \Symfony\Component\Console\Output\Output */
     private $testOutput;
 
+    /** @var \Symfony\Component\Console\Command\Command|\PHPUnit\Framework\MockObject\MockObject */
+    private $command;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -47,13 +51,14 @@ class ConsoleCommandListenerTest extends TestCase
         $this->dispatcher->addSubscriber($this->listener);
         $this->inputDefinition = new InputDefinition([new InputOption('siteaccess', null, InputOption::VALUE_OPTIONAL)]);
         $this->testOutput = new TestOutput(Output::VERBOSITY_QUIET, true);
+        $this->command = $this->createMock(Command::class);
     }
 
     public function testGetSubscribedEvents()
     {
         $this->assertSame(
             [
-                MVCEvents::CONSOLE_INIT => [['onConsoleCommand', -1]],
+                ConsoleEvents::COMMAND => [['onConsoleCommand', 128]],
             ],
             $this->listener->getSubscribedEvents()
         );
@@ -67,7 +72,7 @@ class ConsoleCommandListenerTest extends TestCase
         $this->dispatcher->expects($this->never())
             ->method('dispatch');
         $input = new ArrayInput(['--siteaccess' => 'foo'], $this->inputDefinition);
-        $event = new ConsoleInitEvent($input, $this->testOutput);
+        $event = new ConsoleCommandEvent($this->command, $input, $this->testOutput);
         $this->listener->setDebug(true);
         $this->listener->onConsoleCommand($event);
     }
@@ -80,7 +85,7 @@ class ConsoleCommandListenerTest extends TestCase
         $this->dispatcher->expects($this->never())
             ->method('dispatch');
         $input = new ArrayInput(['--siteaccess' => 'foo'], $this->inputDefinition);
-        $event = new ConsoleInitEvent($input, $this->testOutput);
+        $event = new ConsoleCommandEvent($this->command, $input, $this->testOutput);
         $this->listener->setDebug(false);
         $this->listener->onConsoleCommand($event);
     }
@@ -90,7 +95,7 @@ class ConsoleCommandListenerTest extends TestCase
         $this->dispatcher->expects($this->once())
             ->method('dispatch');
         $input = new ArrayInput(['--siteaccess' => 'site1'], $this->inputDefinition);
-        $event = new ConsoleInitEvent($input, $this->testOutput);
+        $event = new ConsoleCommandEvent($this->command, $input, $this->testOutput);
         $this->listener->onConsoleCommand($event);
         $this->assertEquals(new SiteAccess('site1', 'cli'), $this->siteAccess);
     }
@@ -100,7 +105,7 @@ class ConsoleCommandListenerTest extends TestCase
         $this->dispatcher->expects($this->once())
             ->method('dispatch');
         $input = new ArrayInput([], $this->inputDefinition);
-        $event = new ConsoleInitEvent($input, $this->testOutput);
+        $event = new ConsoleCommandEvent($this->command, $input, $this->testOutput);
         $this->listener->onConsoleCommand($event);
         $this->assertEquals(new SiteAccess('default', 'cli'), $this->siteAccess);
     }
