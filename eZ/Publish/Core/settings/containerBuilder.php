@@ -4,6 +4,8 @@
  * @copyright Copyright (C) eZ Systems AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+
+use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ConsoleCommandPass;
 use eZ\Publish\API\Repository\Tests\Container\Compiler\SetAllServicesPublicPass;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -79,6 +81,8 @@ $containerBuilder->addCompilerPass(new Compiler\Storage\Legacy\RoleLimitationCon
 $containerBuilder->addCompilerPass(new Compiler\Search\Legacy\CriteriaConverterPass());
 $containerBuilder->addCompilerPass(new Compiler\Search\Legacy\CriterionFieldValueHandlerRegistryPass());
 $containerBuilder->addCompilerPass(new Compiler\Search\Legacy\SortClauseConverterPass());
+
+$containerBuilder->addCompilerPass(new ConsoleCommandPass());
 
 //
 // Symfony 4 makes services private by default. Test cases are not prepared for this.
