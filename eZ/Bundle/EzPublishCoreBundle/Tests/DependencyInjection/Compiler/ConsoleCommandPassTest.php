@@ -14,11 +14,6 @@ use Symfony\Component\DependencyInjection\Definition;
 
 class ConsoleCommandPassTest extends AbstractCompilerPassTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-    }
-
     protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new ConsoleCommandPass());
