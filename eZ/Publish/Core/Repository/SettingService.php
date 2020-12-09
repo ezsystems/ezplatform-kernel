@@ -35,16 +35,8 @@ final class SettingService implements SettingServiceInterface
         $this->permissionResolver = $permissionResolver;
     }
 
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\Core\Base\Exceptions\UnauthorizedException
-     */
     public function loadSetting(string $group, string $identifier): Setting
     {
-        if (!$this->permissionResolver->hasAccess('setting', 'read')) {
-            throw new UnauthorizedException('setting', 'edit');
-        }
-
         return $this->buildDomainSettingObject(
             $this->settingHandler->load($group, $identifier)
         );

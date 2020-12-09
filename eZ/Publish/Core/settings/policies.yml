@@ -60,7 +60,6 @@ parameters:
             update: ~
 
         setting:
-            read: ~
             update: ~
             create: ~
             remove: ~
