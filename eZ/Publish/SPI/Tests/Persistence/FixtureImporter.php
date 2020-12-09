@@ -55,7 +55,12 @@ final class FixtureImporter
                 ->insert($table)
                 ->values(
                     array_combine(
-                        $columns,
+                        array_map(
+                            function (string $columnName) {
+                                return $this->connection->quoteIdentifier($columnName);
+                            },
+                            $columns
+                        ),
                         array_map(
                             function (string $columnName) {
                                 return ":{$columnName}";
