@@ -24,6 +24,7 @@ use eZ\Publish\Core\Persistence\Legacy\URL\Handler as UrlHandler;
 use eZ\Publish\SPI\Persistence\Bookmark\Handler as BookmarkHandler;
 use eZ\Publish\SPI\Persistence\Notification\Handler as NotificationHandler;
 use eZ\Publish\SPI\Persistence\UserPreference\Handler as UserPreferenceHandler;
+use eZ\Publish\SPI\Persistence\Setting\Handler as SettingHandler;
 
 /**
  * The main handler for Legacy Storage Engine.
@@ -75,6 +76,9 @@ class Handler implements HandlerInterface
     /** @var \eZ\Publish\SPI\Persistence\UserPreference\Handler */
     protected $userPreferenceHandler;
 
+    /** @var \eZ\Publish\SPI\Persistence\Setting\Handler */
+    private $settingHandler;
+
     /**
      * @param \eZ\Publish\SPI\Persistence\Content\Handler $contentHandler
      * @param \eZ\Publish\SPI\Persistence\Content\Type\Handler $contentTypeHandler
@@ -107,7 +111,8 @@ class Handler implements HandlerInterface
         UrlHandler $urlHandler,
         BookmarkHandler $bookmarkHandler,
         NotificationHandler $notificationHandler,
-        UserPreferenceHandler $userPreferenceHandler
+        UserPreferenceHandler $userPreferenceHandler,
+        SettingHandler $settingHandler
     ) {
         $this->contentHandler = $contentHandler;
         $this->contentTypeHandler = $contentTypeHandler;
@@ -124,6 +129,7 @@ class Handler implements HandlerInterface
         $this->bookmarkHandler = $bookmarkHandler;
         $this->notificationHandler = $notificationHandler;
         $this->userPreferenceHandler = $userPreferenceHandler;
+        $this->settingHandler = $settingHandler;
     }
 
     public function contentHandler()
@@ -184,6 +190,11 @@ class Handler implements HandlerInterface
     public function bookmarkHandler()
     {
         return $this->bookmarkHandler;
+    }
+
+    public function settingHandler()
+    {
+        return $this->settingHandler;
     }
 
     /**

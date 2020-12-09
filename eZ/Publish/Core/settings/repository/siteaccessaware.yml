@@ -71,6 +71,10 @@ services:
         arguments:
             - '@eZ\Publish\Core\Event\NotificationService'
 
+    eZ\Publish\Core\Repository\SiteAccessAware\SettingService:
+        arguments:
+            - '@eZ\Publish\Core\Event\SettingService'
+
     ezpublish.siteaccessaware.repository: '@eZ\Publish\Core\Repository\SiteAccessAware\Repository'
     ezpublish.siteaccessaware.service.content: '@eZ\Publish\Core\Repository\SiteAccessAware\ContentService'
     ezpublish.siteaccessaware.service.content_type: '@eZ\Publish\Core\Repository\SiteAccessAware\ContentTypeService'
@@ -83,6 +87,7 @@ services:
     ezpublish.siteaccessaware.service.location: '@eZ\Publish\Core\Repository\SiteAccessAware\LocationService'
     ezpublish.siteaccessaware.service.language: '@eZ\Publish\Core\Repository\SiteAccessAware\LanguageService'
     ezpublish.siteaccessaware.service.notification: '@eZ\Publish\Core\Repository\SiteAccessAware\NotificationService'
+    ezpublish.siteaccessaware.service.setting: '@eZ\Publish\Core\Repository\SiteAccessAware\SettingService'
 
     # Helpers
     eZ\Publish\Core\Repository\SiteAccessAware\Language\AbstractLanguageResolver:
