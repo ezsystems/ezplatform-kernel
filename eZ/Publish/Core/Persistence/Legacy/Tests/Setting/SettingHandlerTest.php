@@ -44,13 +44,13 @@ class SettingHandlerTest extends TestCase
             ->will($this->returnValue([
                 'group' => 'group_a1',
                 'identifier' => 'identifier_b2',
-                'value' => 'value_c3'
+                'value' => 'value_c3',
             ]));
 
         $settingRef = new Setting([
             'group' => 'group_a1',
             'identifier' => 'identifier_b2',
-            'serializedValue' => 'value_c3'
+            'serializedValue' => 'value_c3',
         ]);
 
         $result = $handler->create(
@@ -92,7 +92,7 @@ class SettingHandlerTest extends TestCase
             ->will($this->returnValue([
                 'group' => 'group_d1',
                 'identifier' => 'identifier_e2',
-                'value' => 'value_f3'
+                'value' => 'value_f3',
             ]));
 
         $settingRef = new Setting([
@@ -154,7 +154,6 @@ class SettingHandlerTest extends TestCase
             $result
         );
     }
-
 
     /**
      * @covers \eZ\Publish\Core\Persistence\Legacy\Setting\Handler::delete

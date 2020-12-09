@@ -66,7 +66,7 @@ class SettingServiceDecoratorTest extends TestCase
 
         $parameters = [
             self::EXAMPLE_SETTING_GROUP,
-            self::EXAMPLE_SETTING_IDENTIFIER
+            self::EXAMPLE_SETTING_IDENTIFIER,
         ];
 
         $serviceMock->expects($this->once())->method('loadSetting')->with(...$parameters);
