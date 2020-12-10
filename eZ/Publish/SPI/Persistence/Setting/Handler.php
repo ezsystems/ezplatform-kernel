@@ -8,6 +8,9 @@ declare(strict_types=1);
 
 namespace eZ\Publish\SPI\Persistence\Setting;
 
+/**
+ * @internal
+ */
 interface Handler
 {
     public function create(

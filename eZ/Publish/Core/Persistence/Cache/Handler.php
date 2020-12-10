@@ -25,6 +25,7 @@ use eZ\Publish\Core\Persistence\Cache\NotificationHandler as CacheNotificationHa
 use eZ\Publish\Core\Persistence\Cache\UserPreferenceHandler as CacheUserPreferenceHandler;
 use eZ\Publish\Core\Persistence\Cache\UrlWildcardHandler as CacheUrlWildcardHandler;
 use eZ\Publish\Core\Persistence\Cache\SettingHandler as SettingHandler;
+use eZ\Publish\SPI\Persistence\Setting\Handler as SPISettingHandler;
 
 /**
  * Persistence Cache Handler class.
@@ -232,10 +233,7 @@ class Handler implements PersistenceHandlerInterface
         return $this->transactionHandler;
     }
 
-    /**
-     * @return \eZ\Publish\SPI\Persistence\Setting\Handler
-     */
-    public function settingHandler()
+    public function settingHandler(): SPISettingHandler
     {
         return $this->settingHandler;
     }

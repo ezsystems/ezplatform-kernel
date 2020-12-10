@@ -192,7 +192,7 @@ class Handler implements HandlerInterface
         return $this->bookmarkHandler;
     }
 
-    public function settingHandler()
+    public function settingHandler(): SettingHandler
     {
         return $this->settingHandler;
     }

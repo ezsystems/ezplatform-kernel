@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace eZ\Publish\SPI\Persistence;
 
-use eZ\Publish\Core\Persistence\Cache\SettingHandler;
+use eZ\Publish\SPI\Persistence\Setting\Handler as SettingHandler;
 
 /**
  * The main handler for Storage Engine.
@@ -90,10 +90,7 @@ interface Handler
      */
     public function transactionHandler();
 
-    /**
-     * @return \eZ\Publish\SPI\Persistence\Setting\Handler
-     */
-    public function settingHandler();
+    public function settingHandler(): SettingHandler;
 
     /**
      * Begin transaction.
