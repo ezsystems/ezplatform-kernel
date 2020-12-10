@@ -146,11 +146,8 @@ services:
         class: eZ\Publish\Core\Persistence\Cache\UrlWildcardHandler
         parent: ezpublish.spi.persistence.cache.abstractHandler
 
-    ezpublish.spi.persistence.cache.settingHandler:
-        class: eZ\Publish\Core\Persistence\Cache\SettingHandler
+    eZ\Publish\Core\Persistence\Cache\SettingHandler:
         parent: ezpublish.spi.persistence.cache.abstractHandler
-        arguments:
-
 
     ezpublish.spi.persistence.cache:
         class: eZ\Publish\Core\Persistence\Cache\Handler
@@ -171,5 +168,5 @@ services:
             - '@ezpublish.spi.persistence.cache.notificationHandler'
             - '@ezpublish.spi.persistence.cache.userPreferenceHandler'
             - "@ezpublish.spi.persistence.cache.urlWildcardHandler"
-            - "@ezpublish.spi.persistence.cache.settingHandler"
+            - '@eZ\Publish\Core\Persistence\Cache\SettingHandler'
             - "@ezpublish.spi.persistence.cache.persistenceLogger"

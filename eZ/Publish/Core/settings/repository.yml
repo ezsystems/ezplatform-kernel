@@ -71,7 +71,3 @@ services:
     ezpublish.api.service.user_preference:
         alias: eZ\Publish\Core\Event\UserPreferenceService
         public: true
-
-    ezpublish.api.service.setting:
-        alias: eZ\Publish\Core\Event\SettingService
-        public: true

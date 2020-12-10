@@ -124,10 +124,9 @@ services:
         factory: ["@ezpublish.api.inner_repository", getUserPreferenceService]
         lazy: true
 
-    ezpublish.api.service.inner_setting:
-        class: eZ\Publish\Core\Repository\SettingService
+    eZ\Publish\Core\Repository\SettingService:
         arguments:
-            $settingHandler: '@ezpublish.spi.persistence.cache.settingHandler'
+            $settingHandler: '@eZ\Publish\Core\Persistence\Cache\SettingHandler'
             $permissionResolver: '@eZ\Publish\API\Repository\PermissionResolver'
 
     # Factories

@@ -95,4 +95,4 @@ services:
 
     eZ\Publish\Core\Event\SettingService:
         arguments:
-            $innerService: '@ezpublish.api.service.inner_setting'
+            $innerService: '@eZ\Publish\Core\Repository\SettingService'
