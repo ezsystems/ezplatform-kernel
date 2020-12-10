@@ -37,14 +37,14 @@ final class SettingService implements SettingServiceInterface
 
     public function loadSetting(string $group, string $identifier): Setting
     {
-        return $this->buildDomainSettingObject(
+        return $this->buildSettingDomainObject(
             $this->settingHandler->load($group, $identifier)
         );
     }
 
     /**
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\Core\Base\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      */
     public function updateSetting(Setting $setting, SettingUpdateStruct $settingUpdateStruct): Setting
@@ -53,7 +53,7 @@ final class SettingService implements SettingServiceInterface
             throw new UnauthorizedException('setting', 'update');
         }
 
-        return $this->buildDomainSettingObject(
+        return $this->buildSettingDomainObject(
             $this->settingHandler->update(
                 $setting->group,
                 $setting->identifier,
@@ -64,7 +64,7 @@ final class SettingService implements SettingServiceInterface
 
     /**
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\Core\Base\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      */
     public function createSetting(SettingCreateStruct $settingCreateStruct): Setting
@@ -82,7 +82,7 @@ final class SettingService implements SettingServiceInterface
             // Do nothing
         }
 
-        return $this->buildDomainSettingObject(
+        return $this->buildSettingDomainObject(
             $this->settingHandler->create(
                 $settingCreateStruct->group,
                 $settingCreateStruct->identifier,
@@ -93,7 +93,7 @@ final class SettingService implements SettingServiceInterface
 
     /**
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\Core\Base\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      */
     public function deleteSetting(Setting $setting): void
@@ -120,7 +120,7 @@ final class SettingService implements SettingServiceInterface
         return new SettingUpdateStruct($properties);
     }
 
-    private function buildDomainSettingObject(SPISetting $setting): Setting
+    private function buildSettingDomainObject(SPISetting $setting): Setting
     {
         return new Setting([
             'group' => $setting->group,

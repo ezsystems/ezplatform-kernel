@@ -9,8 +9,11 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\Persistence\Legacy\Setting\Gateway;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
+use Doctrine\DBAL\Platforms\AbstractPlatform;
+use eZ\Publish\Core\Base\Exceptions\DatabaseException;
 use eZ\Publish\Core\Persistence\Legacy\Setting\Gateway;
 
 /**
@@ -23,16 +26,9 @@ final class DoctrineDatabase extends Gateway
     /** @var \Doctrine\DBAL\Connection */
     private $connection;
 
-    /** @var \Doctrine\DBAL\Platforms\AbstractPlatform */
-    private $dbPlatform;
-
-    /**
-     * @throws \Doctrine\DBAL\DBALException
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->dbPlatform = $this->connection->getDatabasePlatform();
     }
 
     public function insertSetting(string $group, string $identifier, string $serializedValue): int
@@ -50,9 +46,7 @@ final class DoctrineDatabase extends Gateway
 
         $query->execute();
 
-        $result = $this->connection->lastInsertId(Gateway::SETTING_SEQ);
-
-        return (int)$result;
+        return (int)$this->connection->lastInsertId(Gateway::SETTING_SEQ);
     }
 
     public function updateSetting(string $group, string $identifier, string $serializedValue): void
@@ -97,7 +91,7 @@ final class DoctrineDatabase extends Gateway
             );
 
         $statement = $query->execute();
-        $result = $statement->fetch(FetchMode::ASSOCIATIVE);
+        $result = $statement->fetchAssociative();
 
         if (false === $result) {
             return null;
@@ -124,7 +118,7 @@ final class DoctrineDatabase extends Gateway
             );
 
         $statement = $query->execute();
-        $result = $statement->fetch(FetchMode::ASSOCIATIVE);
+        $result = $statement->fetchAssociative();
 
         if (false === $result) {
             return null;

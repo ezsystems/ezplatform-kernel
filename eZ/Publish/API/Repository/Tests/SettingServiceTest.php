@@ -12,17 +12,15 @@ use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\SettingService;
 use eZ\Publish\API\Repository\Values\Setting\Setting;
-use eZ\Publish\API\Repository\Values\Setting\SettingCreateStruct;
-use eZ\Publish\API\Repository\Values\Setting\SettingUpdateStruct;
 
 /**
  * Test case for operations in the SettingService using in memory storage.
  *
- * @see \eZ\Publish\API\Repository\SettingService
+ * @covers \eZ\Publish\API\Repository\SettingService
  * @group integration
  * @group setting
  */
-class SettingServiceTest extends BaseTest
+final class SettingServiceTest extends BaseTest
 {
     /** @var \eZ\Publish\API\Repository\PermissionResolver */
     protected $permissionResolver;
@@ -34,7 +32,7 @@ class SettingServiceTest extends BaseTest
     {
         $container = $this->getSetupFactory()->getServiceContainer();
         /** @var \eZ\Publish\API\Repository\SettingService $settingService */
-        $settingService = $container->get('ezpublish.api.service.setting');
+        $settingService = $container->get(SettingService::class);
 
         return $settingService;
     }
@@ -48,22 +46,9 @@ class SettingServiceTest extends BaseTest
     }
 
     /**
-     * Test for the newSettingCreateStruct() method.
-     *
-     * @see \eZ\Publish\API\Repository\SettingService::newSettingCreateStruct()
+     * @covers \eZ\Publish\API\Repository\SettingService::createSetting()
      */
-    public function testNewSettingCreateStruct()
-    {
-        $settingService = $this->getSettingService();
-        $settingCreate = $settingService->newSettingCreateStruct();
-
-        $this->assertInstanceOf(SettingCreateStruct::class, $settingCreate);
-    }
-
-    /**
-     * @see \eZ\Publish\API\Repository\SettingService::createSetting()
-     */
-    public function testCreateSetting()
+    public function testCreateSetting(): void
     {
         $settingService = $this->getSettingService();
 
@@ -73,17 +58,18 @@ class SettingServiceTest extends BaseTest
         $settingCreate->setValue('test_value');
 
         $setting = $settingService->createSetting($settingCreate);
-
-        $this->assertInstanceOf(Setting::class, $setting);
+        self::assertEquals(new Setting([
+            'group' => 'test_group',
+            'identifier' => 'test_identifier',
+            'value' => 'test_value',
+        ]), $setting);
     }
 
     /**
-     * @see \eZ\Publish\API\Repository\SettingService::createSetting()
+     * @covers \eZ\Publish\API\Repository\SettingService::createSetting()
      */
-    public function testCreateSettingThrowsInvalidArgumentException()
+    public function testCreateSettingThrowsInvalidArgumentException(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-
         $settingService = $this->getSettingService();
 
         $settingCreateFirst = $settingService->newSettingCreateStruct();
@@ -98,13 +84,15 @@ class SettingServiceTest extends BaseTest
         $settingCreateSecond->setIdentifier('test_identifier');
         $settingCreateSecond->setValue('another_value');
 
+        $this->expectException(InvalidArgumentException::class);
+
         $settingService->createSetting($settingCreateSecond);
     }
 
     /**
-     * @see \eZ\Publish\API\Repository\SettingService::loadSetting()
+     * @covers \eZ\Publish\API\Repository\SettingService::loadSetting()
      */
-    public function testLoadSetting()
+    public function testLoadSetting(): void
     {
         $settingService = $this->getSettingService();
 
@@ -114,39 +102,27 @@ class SettingServiceTest extends BaseTest
         $settingCreate->setValue('test_value');
 
         $settingService->createSetting($settingCreate);
-
         $setting = $settingService->loadSetting('another_group', 'another_identifier');
 
-        $this->assertInstanceOf(Setting::class, $setting);
-        $this->assertEquals('test_value', $setting->value);
+        self::assertEquals('test_value', $setting->value);
     }
 
     /**
-     * @see \eZ\Publish\API\Repository\SettingService::loadSetting()
+     * @covers \eZ\Publish\API\Repository\SettingService::loadSetting()
      */
-    public function testLoadSettingThrowsNotFoundException()
+    public function testLoadSettingThrowsNotFoundException(): void
     {
+        $settingService = $this->getSettingService();
+
         $this->expectException(NotFoundException::class);
 
-        $settingService = $this->getSettingService();
         $settingService->loadSetting('unknown_group', 'unknown_identifier');
     }
 
     /**
-     * @see \eZ\Publish\API\Repository\SettingService::newSettingUpdateStruct()
+     * @covers \eZ\Publish\API\Repository\SettingService::updateSetting()
      */
-    public function testNewSettingUpdateStruct()
-    {
-        $settingService = $this->getSettingService();
-        $settingUpdate = $settingService->newSettingUpdateStruct();
-
-        $this->assertInstanceOf(SettingUpdateStruct::class, $settingUpdate);
-    }
-
-    /**
-     * @see \eZ\Publish\API\Repository\SettingService::updateSetting()
-     */
-    public function testUpdateSetting()
+    public function testUpdateSetting(): void
     {
         $settingService = $this->getSettingService();
 
@@ -160,22 +136,17 @@ class SettingServiceTest extends BaseTest
         $settingUpdate = $settingService->newSettingUpdateStruct();
         $settingUpdate->setValue('updated_value');
 
-        $updatedSetting = $settingService->updateSetting($setting, $settingUpdate);
-
-        $this->assertInstanceOf(Setting::class, $updatedSetting);
-
+        $settingService->updateSetting($setting, $settingUpdate);
         $updatedSetting = $settingService->loadSetting('update_group', 'update_identifier');
 
-        $this->assertEquals('updated_value', $updatedSetting->value);
+        self::assertEquals('updated_value', $updatedSetting->value);
     }
 
     /**
-     * @see \eZ\Publish\API\Repository\SettingService::deleteSetting()
+     * @covers \eZ\Publish\API\Repository\SettingService::deleteSetting()
      */
-    public function testDeleteSetting()
+    public function testDeleteSetting(): void
     {
-        $this->expectException(NotFoundException::class);
-
         $settingService = $this->getSettingService();
 
         $settingCreate = $settingService->newSettingCreateStruct();
@@ -184,21 +155,18 @@ class SettingServiceTest extends BaseTest
         $settingCreate->setValue('some_value');
 
         $setting = $settingService->createSetting($settingCreate);
-
-        $this->assertInstanceOf(Setting::class, $setting);
-
         $settingService->deleteSetting($setting);
+
+        $this->expectException(NotFoundException::class);
 
         $settingService->loadSetting('delete_group', 'delete_identifier');
     }
 
     /**
-     * @see \eZ\Publish\API\Repository\SettingService::deleteSetting()
+     * @covers \eZ\Publish\API\Repository\SettingService::deleteSetting()
      */
-    public function testDeleteSettingThrowsNotFoundException()
+    public function testDeleteSettingThrowsNotFoundException(): void
     {
-        $this->expectException(NotFoundException::class);
-
         $settingService = $this->getSettingService();
 
         $settingCreate = $settingService->newSettingCreateStruct();
@@ -210,6 +178,8 @@ class SettingServiceTest extends BaseTest
 
         // Delete the newly created setting
         $settingService->deleteSetting($setting);
+
+        $this->expectException(NotFoundException::class);
 
         // This call should fail with a NotFoundException
         $settingService->deleteSetting($setting);

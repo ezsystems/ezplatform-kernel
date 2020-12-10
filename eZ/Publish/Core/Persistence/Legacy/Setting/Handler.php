@@ -38,7 +38,7 @@ class Handler implements BaseSettingHandler
     }
 
     /**
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
     public function update(string $group, string $identifier, string $serializedValue): Setting
     {
@@ -58,7 +58,7 @@ class Handler implements BaseSettingHandler
     }
 
     /**
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
     public function load(string $group, string $identifier): Setting
     {
