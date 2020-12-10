@@ -41,12 +41,12 @@ class SettingServiceTest extends AbstractServiceTest
 
         $calledListeners = $this->getListenersStack($traceableEventDispatcher->getCalledListeners());
 
-        $this->assertSame($updatedSetting, $result);
-        $this->assertSame($calledListeners, [
+        self::assertSame($updatedSetting, $result);
+        self::assertSame($calledListeners, [
             [BeforeUpdateSettingEvent::class, 0],
             [UpdateSettingEvent::class, 0],
         ]);
-        $this->assertSame([], $traceableEventDispatcher->getNotCalledListeners());
+        self::assertSame([], $traceableEventDispatcher->getNotCalledListeners());
     }
 
     public function testReturnUpdateSettingResultInBeforeEvents(): void
@@ -75,13 +75,13 @@ class SettingServiceTest extends AbstractServiceTest
 
         $calledListeners = $this->getListenersStack($traceableEventDispatcher->getCalledListeners());
 
-        $this->assertSame($eventUpdatedSetting, $result);
-        $this->assertSame($calledListeners, [
+        self::assertSame($eventUpdatedSetting, $result);
+        self::assertSame($calledListeners, [
             [BeforeUpdateSettingEvent::class, 10],
             [BeforeUpdateSettingEvent::class, 0],
             [UpdateSettingEvent::class, 0],
         ]);
-        $this->assertSame([], $traceableEventDispatcher->getNotCalledListeners());
+        self::assertSame([], $traceableEventDispatcher->getNotCalledListeners());
     }
 
     public function testUpdateSettingStopPropagationInBeforeEvents(): void
@@ -112,11 +112,11 @@ class SettingServiceTest extends AbstractServiceTest
         $calledListeners = $this->getListenersStack($traceableEventDispatcher->getCalledListeners());
         $notCalledListeners = $this->getListenersStack($traceableEventDispatcher->getNotCalledListeners());
 
-        $this->assertSame($eventUpdatedSetting, $result);
-        $this->assertSame($calledListeners, [
+        self::assertSame($eventUpdatedSetting, $result);
+        self::assertSame($calledListeners, [
             [BeforeUpdateSettingEvent::class, 10],
         ]);
-        $this->assertSame($notCalledListeners, [
+        self::assertSame($notCalledListeners, [
             [BeforeUpdateSettingEvent::class, 0],
             [UpdateSettingEvent::class, 0],
         ]);
@@ -140,11 +140,11 @@ class SettingServiceTest extends AbstractServiceTest
 
         $calledListeners = $this->getListenersStack($traceableEventDispatcher->getCalledListeners());
 
-        $this->assertSame($calledListeners, [
+        self::assertSame($calledListeners, [
             [BeforeDeleteSettingEvent::class, 0],
             [DeleteSettingEvent::class, 0],
         ]);
-        $this->assertSame([], $traceableEventDispatcher->getNotCalledListeners());
+        self::assertSame([], $traceableEventDispatcher->getNotCalledListeners());
     }
 
     public function testDeleteSettingStopPropagationInBeforeEvents(): void
@@ -170,10 +170,10 @@ class SettingServiceTest extends AbstractServiceTest
         $calledListeners = $this->getListenersStack($traceableEventDispatcher->getCalledListeners());
         $notCalledListeners = $this->getListenersStack($traceableEventDispatcher->getNotCalledListeners());
 
-        $this->assertSame($calledListeners, [
+        self::assertSame($calledListeners, [
             [BeforeDeleteSettingEvent::class, 10],
         ]);
-        $this->assertSame($notCalledListeners, [
+        self::assertSame($notCalledListeners, [
             [BeforeDeleteSettingEvent::class, 0],
             [DeleteSettingEvent::class, 0],
         ]);
@@ -199,12 +199,12 @@ class SettingServiceTest extends AbstractServiceTest
 
         $calledListeners = $this->getListenersStack($traceableEventDispatcher->getCalledListeners());
 
-        $this->assertSame($setting, $result);
-        $this->assertSame($calledListeners, [
+        self::assertSame($setting, $result);
+        self::assertSame($calledListeners, [
             [BeforeCreateSettingEvent::class, 0],
             [CreateSettingEvent::class, 0],
         ]);
-        $this->assertSame([], $traceableEventDispatcher->getNotCalledListeners());
+        self::assertSame([], $traceableEventDispatcher->getNotCalledListeners());
     }
 
     public function testReturnCreateSettingResultInBeforeEvents(): void
@@ -232,13 +232,13 @@ class SettingServiceTest extends AbstractServiceTest
 
         $calledListeners = $this->getListenersStack($traceableEventDispatcher->getCalledListeners());
 
-        $this->assertSame($eventSetting, $result);
-        $this->assertSame($calledListeners, [
+        self::assertSame($eventSetting, $result);
+        self::assertSame($calledListeners, [
             [BeforeCreateSettingEvent::class, 10],
             [BeforeCreateSettingEvent::class, 0],
             [CreateSettingEvent::class, 0],
         ]);
-        $this->assertSame([], $traceableEventDispatcher->getNotCalledListeners());
+        self::assertSame([], $traceableEventDispatcher->getNotCalledListeners());
     }
 
     public function testCreateSettingStopPropagationInBeforeEvents(): void
@@ -268,11 +268,11 @@ class SettingServiceTest extends AbstractServiceTest
         $calledListeners = $this->getListenersStack($traceableEventDispatcher->getCalledListeners());
         $notCalledListeners = $this->getListenersStack($traceableEventDispatcher->getNotCalledListeners());
 
-        $this->assertSame($eventSetting, $result);
-        $this->assertSame($calledListeners, [
+        self::assertSame($eventSetting, $result);
+        self::assertSame($calledListeners, [
             [BeforeCreateSettingEvent::class, 10],
         ]);
-        $this->assertSame($notCalledListeners, [
+        self::assertSame($notCalledListeners, [
             [BeforeCreateSettingEvent::class, 0],
             [CreateSettingEvent::class, 0],
         ]);
