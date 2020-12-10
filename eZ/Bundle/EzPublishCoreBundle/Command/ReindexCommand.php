@@ -6,6 +6,7 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Command;
 
+use Symfony\Component\Console\Style\SymfonyStyle;
 use function count;
 use const DIRECTORY_SEPARATOR;
 use Doctrine\DBAL\Connection;
@@ -160,25 +161,25 @@ class ReindexCommand extends Command
                 'auto'
             )->setHelp(
                 <<<EOT
-The command <info>%command.name%</info> indexes the current configured database in the configured search engine index.
-
-
-Example usage:
-- Refresh (add/update) index changes since yesterday:
-  <comment>ezplatform:reindex --since=yesterday</comment>
-  See: http://php.net/manual/en/datetime.formats.php
-
-- Refresh (add/update/remove) index on a set of content ID's:
-  <comment>ezplatform:reindex --content-ids=2,34,68</comment>
-
-- Refresh (add/update) index of a subtree:
-  <comment>ezplatform:reindex --subtree=45</comment>
-
-- Refresh (add/update) index, disabling the use of child proccesses and initial purging,
-  and let search engine handle commits using auto commit:
-  <comment>ezplatform:reindex --no-purge --no-commit --processes=0</comment>
-
-EOT
+                    The command <info>%command.name%</info> indexes the current configured database in the configured search engine index.
+                    
+                    
+                    Example usage:
+                    - Refresh (add/update) index changes since yesterday:
+                      <comment>ezplatform:reindex --since=yesterday</comment>
+                      See: http://php.net/manual/en/datetime.formats.php
+                    
+                    - Refresh (add/update/remove) index on a set of content ID's:
+                      <comment>ezplatform:reindex --content-ids=2,34,68</comment>
+                    
+                    - Refresh (add/update) index of a subtree:
+                      <comment>ezplatform:reindex --subtree=45</comment>
+                    
+                    - Refresh (add/update) index, disabling the use of child proccesses and initial purging,
+                      and let search engine handle commits using auto commit:
+                      <comment>ezplatform:reindex --no-purge --no-commit --processes=0</comment>
+                
+                EOT
             );
     }
 
@@ -196,19 +197,39 @@ EOT
 
         if (!$this->searchIndexer instanceof IncrementalIndexer) {
             $output->writeln(<<<EOT
-DEPRECATED:
-Running indexing against an Indexer that has not been updated to use IncrementalIndexer abstract.
-
-Options that won't be taken into account:
-- since
-- content-ids
-- subtree
-- processes
-- no-purge
-EOT
-            );
+                DEPRECATED:
+                Running indexing against an Indexer that has not been updated to use IncrementalIndexer abstract.
+                
+                Options that won't be taken into account:
+                - since
+                - content-ids
+                - subtree
+                - processes
+                - no-purge
+            EOT);
             $this->searchIndexer->createSearchIndex($output, (int) $iterationCount, !$commit);
         } else {
+            if (\in_array($input->getOption('processes'), ['0', '1'])) {
+                $io = new SymfonyStyle($input, $output);
+                $xdebugState = \extension_loaded('xdebug') ? 'enabled' : 'disabled';
+                $memoryLimit = ini_get('memory_limit');
+
+                $io->warning(<<<EOT
+                    It's not recommended to run this command in a single process mode with a large dataset!
+
+                    For optimal performance, before running this command, make sure that:
+                    - the xdebug extension is disabled (you have it $xdebugState),
+                    - you're running the command in "prod" environment (default: dev), 
+                    - memory limit for big databases is set to "-1" or an adequately high value (your value: $memoryLimit),
+                    - --iteration-count is low enough (default: 50),
+                    - number of processes for parallel batch operations is high enough (default: 'auto' is a good choice).
+                EOT);
+
+                if (!$io->confirm('Continue?', true)) {
+                    return 0;
+                }
+            }
+
             $output->writeln('Re-indexing started for search engine: ' . $this->searchIndexer->getName());
             $output->writeln('');
 
