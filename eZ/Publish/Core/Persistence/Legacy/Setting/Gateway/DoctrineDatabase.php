@@ -9,11 +9,7 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\Persistence\Legacy\Setting\Gateway;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
-use Doctrine\DBAL\Platforms\AbstractPlatform;
-use eZ\Publish\Core\Base\Exceptions\DatabaseException;
 use eZ\Publish\Core\Persistence\Legacy\Setting\Gateway;
 
 /**
