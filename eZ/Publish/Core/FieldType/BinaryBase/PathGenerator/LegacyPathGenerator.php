@@ -17,7 +17,7 @@ class LegacyPathGenerator extends PathGenerator
         $extension = pathinfo($field->value->externalData['fileName'], PATHINFO_EXTENSION);
 
         return $this->getFirstPartOfMimeType($field->value->externalData['mimeType'])
-            . '/' . md5(uniqid(microtime(true), true))
+            . '/' . bin2hex(random_bytes(16))
             . (!empty($extension) ? '.' . $extension : '');
     }
 
