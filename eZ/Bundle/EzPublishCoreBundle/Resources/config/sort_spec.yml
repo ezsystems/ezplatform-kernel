@@ -29,6 +29,7 @@ services:
             $valueObjectClassMap:
                 content_id: \eZ\Publish\API\Repository\Values\Content\Query\SortClause\ContentId
                 content_name: \eZ\Publish\API\Repository\Values\Content\Query\SortClause\ContentName
+                content_translated_name: \eZ\Publish\API\Repository\Values\Content\Query\SortClause\ContentTranslatedName
                 date_modified: \eZ\Publish\API\Repository\Values\Content\Query\SortClause\DateModified
                 date_published: \eZ\Publish\API\Repository\Values\Content\Query\SortClause\DatePublished
                 section_identifier: \eZ\Publish\API\Repository\Values\Content\Query\SortClause\SectionIdentifier
