@@ -51,3 +51,6 @@ services:
         arguments:
             $databaseURL: '%legacy_dsn%'
 
+    eZ\Publish\API\Repository\SettingService:
+        public: true
+        alias: eZ\Publish\Core\Event\SettingService

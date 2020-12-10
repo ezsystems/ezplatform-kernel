@@ -124,6 +124,11 @@ services:
         factory: ["@ezpublish.api.inner_repository", getUserPreferenceService]
         lazy: true
 
+    eZ\Publish\Core\Repository\SettingService:
+        arguments:
+            $settingHandler: '@eZ\Publish\Core\Persistence\Cache\SettingHandler'
+            $permissionResolver: '@eZ\Publish\API\Repository\PermissionResolver'
+
     # Factories
     ezpublish.search.background_indexer:
         class: eZ\Publish\Core\Search\Common\BackgroundIndexer\NullIndexer

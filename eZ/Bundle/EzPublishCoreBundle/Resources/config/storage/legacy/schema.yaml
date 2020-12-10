@@ -626,3 +626,14 @@ tables:
         fields:
             is_enabled: { type: integer, nullable: false, options: { default: '0' } }
             max_login: { type: integer, nullable: true }
+    ibexa_setting:
+        indexes:
+            ibexa_setting_id: { fields: [id] }
+        uniqueConstraints:
+            ibexa_setting_group_identifier: { fields: [group, identifier] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            group: { type: string, nullable: false, length: 128 }
+            identifier: { type: string, nullable: false, length: 128 }
+            value: { type: json, nullable: false, length: 0 }
