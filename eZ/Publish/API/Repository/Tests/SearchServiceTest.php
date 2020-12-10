@@ -1711,11 +1711,11 @@ class SearchServiceTest extends BaseTest
             ],
             $fixtureDir . 'SortNone.php',
             // Result having the same sort level should be sorted between them to be system independent
-            function (&$data) {
+            static function (&$data): void {
                 usort(
                     $data->searchHits,
-                    function ($a, $b) {
-                        return ($a->valueObject['id'] < $b->valueObject['id']) ? -1 : 1;
+                    static function (SearchHit $a, SearchHit $b): int {
+                        return $a->valueObject['id'] <=> $b->valueObject['id'];
                     }
                 );
             },
@@ -5031,7 +5031,7 @@ class SearchServiceTest extends BaseTest
 
     private function skipIfSeedNotImplemented()
     {
-        /** @var LegacySetupFactory $setupFactory */
+        /** @var \eZ\Publish\API\Repository\Tests\SetupFactory\Legacy $setupFactory */
         $setupFactory = $this->getSetupFactory();
 
         $db = $setupFactory->getDB();
