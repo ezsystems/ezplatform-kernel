@@ -6,7 +6,6 @@
  */
 namespace eZ\Publish\API\Repository\Tests;
 
-use eZ\Publish\API\Repository\Tests\SetupFactory\Legacy as LegacySetupFactory;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator;
 use EzSystems\EzPlatformSolrSearchEngine\Tests\SetupFactory\LegacySetupFactory as LegacySolrSetupFactory;
 use InvalidArgumentException;
