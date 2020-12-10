@@ -20,7 +20,7 @@ use eZ\Publish\Core\Event\SettingService;
 
 class SettingServiceTest extends AbstractServiceTest
 {
-    public function testUpdateSettingEvents()
+    public function testUpdateSettingEvents(): void
     {
         $traceableEventDispatcher = $this->getEventDispatcher(
             BeforeUpdateSettingEvent::class,
@@ -49,7 +49,7 @@ class SettingServiceTest extends AbstractServiceTest
         $this->assertSame([], $traceableEventDispatcher->getNotCalledListeners());
     }
 
-    public function testReturnUpdateSettingResultInBeforeEvents()
+    public function testReturnUpdateSettingResultInBeforeEvents(): void
     {
         $traceableEventDispatcher = $this->getEventDispatcher(
             BeforeUpdateSettingEvent::class,
@@ -84,7 +84,7 @@ class SettingServiceTest extends AbstractServiceTest
         $this->assertSame([], $traceableEventDispatcher->getNotCalledListeners());
     }
 
-    public function testUpdateSettingStopPropagationInBeforeEvents()
+    public function testUpdateSettingStopPropagationInBeforeEvents(): void
     {
         $traceableEventDispatcher = $this->getEventDispatcher(
             BeforeUpdateSettingEvent::class,
@@ -122,7 +122,7 @@ class SettingServiceTest extends AbstractServiceTest
         ]);
     }
 
-    public function testDeleteSettingEvents()
+    public function testDeleteSettingEvents(): void
     {
         $traceableEventDispatcher = $this->getEventDispatcher(
             BeforeDeleteSettingEvent::class,
@@ -147,7 +147,7 @@ class SettingServiceTest extends AbstractServiceTest
         $this->assertSame([], $traceableEventDispatcher->getNotCalledListeners());
     }
 
-    public function testDeleteSettingStopPropagationInBeforeEvents()
+    public function testDeleteSettingStopPropagationInBeforeEvents(): void
     {
         $traceableEventDispatcher = $this->getEventDispatcher(
             BeforeDeleteSettingEvent::class,
@@ -179,7 +179,7 @@ class SettingServiceTest extends AbstractServiceTest
         ]);
     }
 
-    public function testCreateSettingEvents()
+    public function testCreateSettingEvents(): void
     {
         $traceableEventDispatcher = $this->getEventDispatcher(
             BeforeCreateSettingEvent::class,
@@ -207,7 +207,7 @@ class SettingServiceTest extends AbstractServiceTest
         $this->assertSame([], $traceableEventDispatcher->getNotCalledListeners());
     }
 
-    public function testReturnCreateSettingResultInBeforeEvents()
+    public function testReturnCreateSettingResultInBeforeEvents(): void
     {
         $traceableEventDispatcher = $this->getEventDispatcher(
             BeforeCreateSettingEvent::class,
@@ -241,7 +241,7 @@ class SettingServiceTest extends AbstractServiceTest
         $this->assertSame([], $traceableEventDispatcher->getNotCalledListeners());
     }
 
-    public function testCreateSettingStopPropagationInBeforeEvents()
+    public function testCreateSettingStopPropagationInBeforeEvents(): void
     {
         $traceableEventDispatcher = $this->getEventDispatcher(
             BeforeCreateSettingEvent::class,
