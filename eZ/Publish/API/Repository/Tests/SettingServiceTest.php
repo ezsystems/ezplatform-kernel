@@ -73,15 +73,15 @@ final class SettingServiceTest extends BaseTest
         $settingService = $this->getSettingService();
 
         $settingCreateFirst = $settingService->newSettingCreateStruct();
-        $settingCreateFirst->setGroup('test_group');
-        $settingCreateFirst->setIdentifier('test_identifier');
+        $settingCreateFirst->setGroup('test_group2');
+        $settingCreateFirst->setIdentifier('test_identifier2');
         $settingCreateFirst->setValue('test_value');
 
         $settingService->createSetting($settingCreateFirst);
 
         $settingCreateSecond = $settingService->newSettingCreateStruct();
-        $settingCreateSecond->setGroup('test_group');
-        $settingCreateSecond->setIdentifier('test_identifier');
+        $settingCreateSecond->setGroup('test_group2');
+        $settingCreateSecond->setIdentifier('test_identifier2');
         $settingCreateSecond->setValue('another_value');
 
         $this->expectException(InvalidArgumentException::class);
