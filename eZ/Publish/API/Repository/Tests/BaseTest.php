@@ -12,12 +12,11 @@ use eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException;
 use eZ\Publish\API\Repository\Exceptions\ForbiddenException;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\Tests\SetupFactory\Legacy;
+use eZ\Publish\API\Repository\Tests\SetupFactory\Legacy as LegacySetupFactory;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Language;
 use eZ\Publish\API\Repository\Values\User\User;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use EzSystems\EzPlatformSolrSearchEngine\Tests\SetupFactory\LegacySetupFactory as LegacySolrSetupFactory;
 use PHPUnit\Framework\TestCase;
 use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Values\ValueObject;
@@ -170,7 +169,7 @@ abstract class BaseTest extends TestCase
     {
         if (null === $this->setupFactory) {
             if (false === ($setupClass = getenv('setupFactory'))) {
-                $setupClass = Legacy::class;
+                $setupClass = LegacySetupFactory::class;
                 putenv("setupFactory=${setupClass}");
             }
 
@@ -506,15 +505,11 @@ abstract class BaseTest extends TestCase
     /**
      * Calls given Repository's aggregated SearchHandler::refresh().
      *
-     * Currently implemented only in Solr search engine.
-     *
      * @param \eZ\Publish\API\Repository\Repository $repository
      */
     protected function refreshSearch(Repository $repository)
     {
-        $setupFactory = $this->getSetupFactory();
-
-        if (!$setupFactory instanceof LegacySolrSetupFactory) {
+        if ($this->isLegacySearchEngineSetup()) {
             return;
         }
 
@@ -537,6 +532,11 @@ abstract class BaseTest extends TestCase
         $searchHandler = $searchHandlerProperty->getValue($repository);
 
         $searchHandler->commit();
+    }
+
+    protected function isLegacySearchEngineSetup(): bool
+    {
+        return get_class($this->getSetupFactory()) === LegacySetupFactory::class;
     }
 
     /**

@@ -1701,148 +1701,171 @@ class SearchServiceTest extends BaseTest
     {
         $fixtureDir = $this->getFixtureDir();
 
-        return [
-            0 => [
-                [
-                    'filter' => new Criterion\SectionId([2]),
-                    'offset' => 0,
-                    'limit' => 10,
-                    'sortClauses' => [],
-                ],
-                $fixtureDir . 'SortNone.php',
-                // Result having the same sort level should be sorted between them to be system independent
-                function (&$data) {
-                    usort(
-                        $data->searchHits,
-                        function ($a, $b) {
-                            return ($a->valueObject['id'] < $b->valueObject['id']) ? -1 : 1;
-                        }
-                    );
-                },
+        yield [
+            [
+                'filter' => new Criterion\SectionId([2]),
+                'offset' => 0,
+                'limit' => 10,
+                'sortClauses' => [],
             ],
-            1 => [
-                [
-                    'filter' => new Criterion\SectionId([2]),
-                    'offset' => 0,
-                    'limit' => 10,
-                    'sortClauses' => [
-                        new SortClause\DatePublished(),
-                        new SortClause\ContentId(),
-                    ],
+            $fixtureDir . 'SortNone.php',
+            // Result having the same sort level should be sorted between them to be system independent
+            static function (&$data): void {
+                usort(
+                    $data->searchHits,
+                    static function (SearchHit $a, SearchHit $b): int {
+                        return $a->valueObject['id'] <=> $b->valueObject['id'];
+                    }
+                );
+            },
+        ];
+
+        yield [
+            [
+                'filter' => new Criterion\SectionId([2]),
+                'offset' => 0,
+                'limit' => 10,
+                'sortClauses' => [
+                    new SortClause\DatePublished(),
+                    new SortClause\ContentId(),
                 ],
-                $fixtureDir . 'SortDatePublished.php',
             ],
-            2 => [
-                [
-                    'filter' => new Criterion\SectionId([2]),
-                    'offset' => 0,
-                    'limit' => 50,
-                    'sortClauses' => [
-                        new SortClause\DateModified(),
-                        new SortClause\ContentId(),
-                    ],
+            $fixtureDir . 'SortDatePublished.php',
+        ];
+
+        yield [
+            [
+                'filter' => new Criterion\SectionId([2]),
+                'offset' => 0,
+                'limit' => 50,
+                'sortClauses' => [
+                    new SortClause\DateModified(),
+                    new SortClause\ContentId(),
                 ],
-                $fixtureDir . 'SortDateModified.php',
             ],
-            3 => [
-                [
-                    'filter' => new Criterion\SectionId([4, 2, 6, 3]),
-                    'offset' => 0,
-                    'limit' => 50,
-                    'sortClauses' => [
-                        new SortClause\SectionIdentifier(),
-                        new SortClause\ContentId(),
-                    ],
+            $fixtureDir . 'SortDateModified.php',
+        ];
+
+        yield [
+            [
+                'filter' => new Criterion\SectionId([4, 2, 6, 3]),
+                'offset' => 0,
+                'limit' => 50,
+                'sortClauses' => [
+                    new SortClause\SectionIdentifier(),
+                    new SortClause\ContentId(),
                 ],
-                $fixtureDir . 'SortSectionIdentifier.php',
             ],
-            4 => [
-                [
-                    'filter' => new Criterion\SectionId([4, 2, 6, 3]),
-                    'offset' => 0,
-                    'limit' => 50,
-                    'sortClauses' => [
-                        new SortClause\SectionName(),
-                        new SortClause\ContentId(),
-                    ],
+            $fixtureDir . 'SortSectionIdentifier.php',
+        ];
+
+        yield [
+            [
+                'filter' => new Criterion\SectionId([4, 2, 6, 3]),
+                'offset' => 0,
+                'limit' => 50,
+                'sortClauses' => [
+                    new SortClause\SectionName(),
+                    new SortClause\ContentId(),
                 ],
-                $fixtureDir . 'SortSectionName.php',
             ],
-            5 => [
-                [
-                    'filter' => new Criterion\SectionId([2, 3]),
-                    'offset' => 0,
-                    'limit' => 50,
-                    'sortClauses' => [
-                        new SortClause\ContentName(),
-                        new SortClause\ContentId(),
-                    ],
+            $fixtureDir . 'SortSectionName.php',
+        ];
+
+        yield [
+            [
+                'filter' => new Criterion\SectionId([2, 3]),
+                'offset' => 0,
+                'limit' => 50,
+                'sortClauses' => [
+                    new SortClause\ContentName(),
+                    new SortClause\ContentId(),
                 ],
-                $fixtureDir . 'SortContentName.php',
             ],
-            6 => [
+            $fixtureDir . 'SortContentName.php',
+        ];
+
+        yield [
+            [
+                'filter' => new Criterion\ContentTypeId(1),
+                'offset' => 0,
+                'limit' => 50,
+                'sortClauses' => [
+                    new SortClause\Field('folder', 'name', Query::SORT_ASC),
+                    new SortClause\ContentId(),
+                ],
+            ],
+            $fixtureDir . 'SortFolderName.php',
+        ];
+
+        yield [
+            [
+                'filter' => new Criterion\ContentTypeId([1, 3]),
+                'offset' => 0,
+                'limit' => 50,
+                'sortClauses' => [
+                    new SortClause\Field('folder', 'name', Query::SORT_ASC),
+                    new SortClause\ContentId(),
+                ],
+            ],
+            $fixtureDir . 'SortFieldMultipleTypes.php',
+        ];
+
+        yield [
+            [
+                'filter' => new Criterion\ContentTypeId([1, 3]),
+                'offset' => 0,
+                'limit' => 50,
+                'sortClauses' => [
+                    new SortClause\Field('folder', 'name', Query::SORT_DESC),
+                    new SortClause\ContentId(),
+                ],
+            ],
+            $fixtureDir . 'SortFieldMultipleTypesReverse.php',
+        ];
+
+        yield [
+            [
+                'filter' => new Criterion\ContentTypeId([1, 3]),
+                'offset' => 3,
+                'limit' => 5,
+                'sortClauses' => [
+                    new SortClause\Field('folder', 'name', Query::SORT_ASC),
+                    new SortClause\Field('user', 'first_name', Query::SORT_ASC),
+                    new SortClause\ContentId(),
+                ],
+            ],
+            $fixtureDir . 'SortFieldMultipleTypesSlice.php',
+        ];
+
+        yield [
+            [
+                'filter' => new Criterion\ContentTypeId([1, 3]),
+                'offset' => 3,
+                'limit' => 5,
+                'sortClauses' => [
+                    new SortClause\Field('folder', 'name', Query::SORT_DESC),
+                    new SortClause\Field('user', 'first_name', Query::SORT_ASC),
+                    new SortClause\ContentId(),
+                ],
+            ],
+            $fixtureDir . 'SortFieldMultipleTypesSliceReverse.php',
+        ];
+
+        if (!$this->isLegacySearchEngineSetup()) {
+            yield [
                 [
                     'filter' => new Criterion\ContentTypeId(1),
                     'offset' => 0,
                     'limit' => 50,
                     'sortClauses' => [
-                        new SortClause\Field('folder', 'name', Query::SORT_ASC),
+                        new SortClause\CustomField('folder_name_value_s', Query::SORT_ASC),
                         new SortClause\ContentId(),
                     ],
                 ],
                 $fixtureDir . 'SortFolderName.php',
-            ],
-            7 => [
-                [
-                    'filter' => new Criterion\ContentTypeId([1, 3]),
-                    'offset' => 0,
-                    'limit' => 50,
-                    'sortClauses' => [
-                        new SortClause\Field('folder', 'name', Query::SORT_ASC),
-                        new SortClause\ContentId(),
-                    ],
-                ],
-                $fixtureDir . 'SortFieldMultipleTypes.php',
-            ],
-            8 => [
-                [
-                    'filter' => new Criterion\ContentTypeId([1, 3]),
-                    'offset' => 0,
-                    'limit' => 50,
-                    'sortClauses' => [
-                        new SortClause\Field('folder', 'name', Query::SORT_DESC),
-                        new SortClause\ContentId(),
-                    ],
-                ],
-                $fixtureDir . 'SortFieldMultipleTypesReverse.php',
-            ],
-            9 => [
-                [
-                    'filter' => new Criterion\ContentTypeId([1, 3]),
-                    'offset' => 3,
-                    'limit' => 5,
-                    'sortClauses' => [
-                        new SortClause\Field('folder', 'name', Query::SORT_ASC),
-                        new SortClause\Field('user', 'first_name', Query::SORT_ASC),
-                        new SortClause\ContentId(),
-                    ],
-                ],
-                $fixtureDir . 'SortFieldMultipleTypesSlice.php',
-            ],
-            10 => [
-                [
-                    'filter' => new Criterion\ContentTypeId([1, 3]),
-                    'offset' => 3,
-                    'limit' => 5,
-                    'sortClauses' => [
-                        new SortClause\Field('folder', 'name', Query::SORT_DESC),
-                        new SortClause\Field('user', 'first_name', Query::SORT_ASC),
-                        new SortClause\ContentId(),
-                    ],
-                ],
-                $fixtureDir . 'SortFieldMultipleTypesSliceReverse.php',
-            ],
-        ];
+            ];
+        }
     }
 
     public function getSortedLocationSearches()
