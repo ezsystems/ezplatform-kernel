@@ -637,7 +637,10 @@ class ContentService implements ContentServiceInterface
             throw new ContentFieldValidationException($errors);
         }
 
-        $spiLocationCreateStructs = $this->buildSPILocationCreateStructs($locationCreateStructs);
+        $spiLocationCreateStructs = $spiLocationCreateStructs = $this->buildSPILocationCreateStructs(
+            $locationCreateStructs,
+            $contentCreateStruct->contentType
+        );
 
         $languageCodes = $this->contentMapper->getLanguageCodesForCreate($contentCreateStruct);
         $fields = $this->contentMapper->mapFieldsForCreate($contentCreateStruct);
@@ -775,11 +778,14 @@ class ContentService implements ContentServiceInterface
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      *
      * @param \eZ\Publish\API\Repository\Values\Content\LocationCreateStruct[] $locationCreateStructs
+     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType|null $contentType
      *
      * @return \eZ\Publish\SPI\Persistence\Content\Location\CreateStruct[]
      */
-    protected function buildSPILocationCreateStructs(array $locationCreateStructs): array
-    {
+    protected function buildSPILocationCreateStructs(
+        array $locationCreateStructs,
+        ?ContentType $contentType = null
+    ): array {
         $spiLocationCreateStructs = [];
         $parentLocationIdSet = [];
         $mainLocation = true;
@@ -792,12 +798,11 @@ class ContentService implements ContentServiceInterface
                 );
             }
 
-            if (!array_key_exists($locationCreateStruct->sortField, Location::SORT_FIELD_MAP)) {
-                $locationCreateStruct->sortField = Location::SORT_FIELD_NAME;
+            if ($locationCreateStruct->sortField === null) {
+                $locationCreateStruct->sortField = $contentType->defaultSortField ?? Location::SORT_FIELD_NAME;
             }
-
-            if (!array_key_exists($locationCreateStruct->sortOrder, Location::SORT_ORDER_MAP)) {
-                $locationCreateStruct->sortOrder = Location::SORT_ORDER_ASC;
+            if ($locationCreateStruct->sortOrder === null) {
+                $locationCreateStruct->sortOrder = $contentType->defaultSortOrder ?? Location::SORT_ORDER_ASC;
             }
 
             $parentLocationIdSet[$locationCreateStruct->parentLocationId] = true;
