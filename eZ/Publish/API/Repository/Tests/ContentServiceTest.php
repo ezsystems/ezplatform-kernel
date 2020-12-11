@@ -320,6 +320,32 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
+     * Test for the createContent() method with utilizing ContentType default options.
+     *
+     * @covers \eZ\Publish\API\Repository\ContentService::createContent
+     */
+    public function testCreateContentWithContentTypeDefaultOptions(): void
+    {
+        $contentType = $this->getRepository()->getContentTypeService()
+            ->loadContentTypeByIdentifier(self::FORUM_IDENTIFIER);
+
+        $contentCreate = $this->contentService->newContentCreateStruct($contentType, self::ENG_GB);
+        $contentCreate->setField('name', 'Sorting Test');
+
+        $content = $this->contentService->createContent(
+            $contentCreate,
+            [$this->locationService->newLocationCreateStruct(2)]
+        );
+        $publishedContent = $this->contentService->publishVersion($content->getVersionInfo());
+
+        $location = $publishedContent->contentInfo->getMainLocation();
+
+        $this->assertEquals($contentType->defaultSortField, $location->sortField);
+        $this->assertEquals($contentType->defaultSortOrder, $location->sortOrder);
+        $this->assertEquals($contentType->defaultAlwaysAvailable, $publishedContent->contentInfo->alwaysAvailable);
+    }
+
+    /**
      * Test for the createContent() method.
      *
      * @see \eZ\Publish\API\Repository\ContentService::createContent()
