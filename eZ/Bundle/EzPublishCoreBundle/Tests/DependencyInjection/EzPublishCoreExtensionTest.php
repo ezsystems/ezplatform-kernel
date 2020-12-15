@@ -66,6 +66,8 @@ class EzPublishCoreExtensionTest extends AbstractExtensionTestCase
                 'empty_group' => ['var_dir' => 'foo'],
             ],
         ];
+
+        $_ENV['HTTPCACHE_PURGE_TYPE'] = $_SERVER['HTTPCACHE_PURGE_TYPE'] = 'http';
     }
 
     protected function getContainerExtensions(): array
@@ -249,6 +251,12 @@ class EzPublishCoreExtensionTest extends AbstractExtensionTestCase
             [
                 [
                     'http_cache' => ['purge_type' => 'http'],
+                ],
+                'http',
+            ],
+            [
+                [
+                    'http_cache' => ['purge_type' => '%env(HTTPCACHE_PURGE_TYPE)%'],
                 ],
                 'http',
             ],

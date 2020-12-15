@@ -376,9 +376,11 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
     {
         $loader->load('cache.yml');
 
-        $purgeService = null;
         if (isset($config['http_cache']['purge_type'])) {
-            $container->setParameter('ezpublish.http_cache.purge_type', $config['http_cache']['purge_type']);
+            // resolves ENV variable at compile time, needed by ezplatform-http-cache to setup purge driver
+            $purgeType = $container->resolveEnvPlaceholders($config['http_cache']['purge_type'], true);
+
+            $container->setParameter('ezpublish.http_cache.purge_type', $purgeType);
         }
     }
 
