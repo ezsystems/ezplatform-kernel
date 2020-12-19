@@ -52,10 +52,23 @@ interface UserService
      *
      * @return \eZ\Publish\API\Repository\Values\User\UserGroup
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to create a user group
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to load a user group
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the user group with the given id was not found
      */
     public function loadUserGroup(int $id, array $prioritizedLanguages = []): UserGroup;
+
+    /**
+     * Loads a user group for the given remote id.
+     *
+     * @param string $remoteId
+     * @param string[] $prioritizedLanguages Used as prioritized language code on translated properties of returned object.
+     *
+     * @return \eZ\Publish\API\Repository\Values\User\UserGroup
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to load a user group
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the user group with the given id was not found
+     */
+    public function loadUserGroupByRemoteId(string $remoteId, array $prioritizedLanguages = []): UserGroup;
 
     /**
      * Loads the sub groups of a user group.

@@ -199,6 +199,13 @@ class UserService implements UserServiceInterface
         return $this->buildDomainUserGroupObject($content);
     }
 
+    public function loadUserGroupByRemoteId(string $remoteId, array $prioritizedLanguages = []): APIUserGroup
+    {
+        $content = $this->repository->getContentService()->loadContentByRemoteId($remoteId, $prioritizedLanguages);
+
+        return $this->buildDomainUserGroupObject($content);
+    }
+
     /**
      * Loads the sub groups of a user group.
      *

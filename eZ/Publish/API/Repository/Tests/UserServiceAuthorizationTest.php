@@ -45,6 +45,31 @@ class UserServiceAuthorizationTest extends BaseTest
     }
 
     /**
+     * Test for the loadUserGroupByRemoteId() method.
+     *
+     * @covers \eZ\Publish\API\Repository\UserService::loadUserGroupByRemoteId()
+     * @depends eZ\Publish\API\Repository\Tests\UserServiceTest::testLoadUserGroupByRemoteId
+     */
+    public function testLoadUserGroupByRemoteIdThrowsUnauthorizedException(): void
+    {
+        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+
+        $repository = $this->getRepository();
+        $userService = $repository->getUserService();
+        $permissionResolver = $repository->getPermissionResolver();
+
+        $user = $this->createUserVersion1();
+
+        $userGroup = $this->createUserGroupVersion1();
+
+        // Now set the currently created "Editor" as current user
+        $permissionResolver->setCurrentUserReference($user);
+
+        // This call will fail with an "UnauthorizedException"
+        $userService->loadUserGroupByRemoteId($userGroup->contentInfo->remoteId);
+    }
+
+    /**
      * Test for the loadSubUserGroups() method.
      *
      * @see \eZ\Publish\API\Repository\UserService::loadSubUserGroups()

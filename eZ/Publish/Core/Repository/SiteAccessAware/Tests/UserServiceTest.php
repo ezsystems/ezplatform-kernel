@@ -91,6 +91,7 @@ class UserServiceTest extends AbstractServiceTest
         // string $method, array $arguments, bool $return, int $languageArgumentIndex
         return [
             ['loadUserGroup', [4, self::LANG_ARG], $userGroup, 1],
+            ['loadUserGroupByRemoteId', ['5f7f0bdb3381d6a461d8c29ff53d908f', self::LANG_ARG], $userGroup, 1],
             ['loadSubUserGroups', [$userGroup, 50, 50, self::LANG_ARG], [$userGroup], 3],
             ['loadUser', [14, self::LANG_ARG], $user, 1],
             ['loadUserByLogin', ['admin', self::LANG_ARG], $user, 1],

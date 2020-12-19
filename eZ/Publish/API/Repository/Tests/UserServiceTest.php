@@ -71,6 +71,25 @@ class UserServiceTest extends BaseTest
     }
 
     /**
+     * Test for the loadUserGroupByRemoteId() method.
+     *
+     * @covers \eZ\Publish\API\Repository\UserService::loadUserGroupByRemoteId()
+     */
+    public function testLoadUserGroupByRemoteId(): void
+    {
+        $existingRemoteId = 'f5c88a2209584891056f987fd965b0ba';
+
+        $userService = $this->getRepository()->getUserService();
+        $userGroup = $userService->loadUserGroupByRemoteId($existingRemoteId);
+
+        $this->assertInstanceOf(UserGroup::class, $userGroup);
+        $this->assertEquals($existingRemoteId, $userGroup->contentInfo->remoteId);
+        // User group happens to also be a Content; isUserGroup() should be true and isUser() should be false
+        $this->assertTrue($userService->isUserGroup($userGroup), 'isUserGroup() => false on a user group');
+        $this->assertFalse($userService->isUser($userGroup), 'isUser() => true on a user group');
+    }
+
+    /**
      * Test for the loadUserGroup() method to ensure that DomainUserGroupObject is created properly even if a user
      * has no access to parent of UserGroup.
      *
@@ -125,6 +144,22 @@ class UserServiceTest extends BaseTest
         // This call will fail with a NotFoundException
         $userService->loadUserGroup($nonExistingGroupId);
         /* END: Use Case */
+    }
+
+    /**
+     * Test for the loadUserGroupByRemoteId() method.
+     *
+     * @covers \eZ\Publish\API\Repository\UserService::loadUserGroupByRemoteId()
+     * @depends \eZ\Publish\API\Repository\Tests\UserServiceTest::testLoadUserGroupByRemoteId
+     */
+    public function testLoadUserGroupByRemoteIdThrowsNotFoundException(): void
+    {
+        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+
+        $nonExistingGroupRemoteId = 'non-existing';
+
+        $userService = $this->getRepository()->getUserService();
+        $userService->loadUserGroupByRemoteId($nonExistingGroupRemoteId);
     }
 
     /**

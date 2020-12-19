@@ -26,6 +26,8 @@ use eZ\Publish\SPI\Repository\Decorator\UserServiceDecorator;
 class UserServiceDecoratorTest extends TestCase
 {
     private const EXAMPLE_USER_GROUP_ID = 1;
+    private const EXAMPLE_USER_GROUP_REMOTE_ID = '5f7f0bdb3381d6a461d8c29ff53d908f';
+    private const EXAMPLE_LANGUAGE_CODE = 'eng-GB';
     private const EXAMPLE_USER_ID = 14;
     private const EXAMPLE_OFFSET = 10;
     private const EXAMPLE_LIMIT = 100;
@@ -69,6 +71,21 @@ class UserServiceDecoratorTest extends TestCase
         $serviceMock->expects($this->once())->method('loadUserGroup')->with(...$parameters);
 
         $decoratedService->loadUserGroup(...$parameters);
+    }
+
+    public function testLoadUserGroupByRemoteIdDecorator(): void
+    {
+        $serviceMock = $this->createServiceMock();
+        $decoratedService = $this->createDecorator($serviceMock);
+
+        $parameters = [
+            self::EXAMPLE_USER_GROUP_REMOTE_ID,
+            [self::EXAMPLE_LANGUAGE_CODE],
+        ];
+
+        $serviceMock->expects($this->once())->method('loadUserGroupByRemoteId')->with(...$parameters);
+
+        $decoratedService->loadUserGroupByRemoteId(...$parameters);
     }
 
     public function testLoadSubUserGroupsDecorator()
