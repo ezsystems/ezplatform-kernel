@@ -8,12 +8,13 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository\User;
 
-/**
- * @internal
- */
 interface PasswordHashServiceInterface
 {
     public function getDefaultHashType(): int;
+
+    public function getSupportedHashTypes(): array;
+
+    public function isHashTypeSupported(int $hashType): bool;
 
     public function createPasswordHash(string $password, ?int $hashType = null): string;
 

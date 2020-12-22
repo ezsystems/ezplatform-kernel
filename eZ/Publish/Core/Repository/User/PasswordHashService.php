@@ -17,16 +17,26 @@ use eZ\Publish\Core\Repository\User\Exception\UnsupportedPasswordHashType;
 final class PasswordHashService implements PasswordHashServiceInterface
 {
     /** @var int */
-    private $hashType;
+    private $defaultHashType;
 
     public function __construct(int $hashType = User::DEFAULT_PASSWORD_HASH)
     {
-        $this->hashType = $hashType;
+        $this->defaultHashType = $hashType;
+    }
+
+    public function getSupportedHashTypes(): array
+    {
+        return User::SUPPORTED_PASSWORD_HASHES;
+    }
+
+    public function isHashTypeSupported(int $hashType): bool
+    {
+        return in_array($hashType, $this->getSupportedHashTypes(), true);
     }
 
     public function getDefaultHashType(): int
     {
-        return $this->hashType;
+        return $this->defaultHashType;
     }
 
     /**
@@ -34,7 +44,7 @@ final class PasswordHashService implements PasswordHashServiceInterface
      */
     public function createPasswordHash(string $password, ?int $hashType = null): string
     {
-        $hashType = $hashType ?? $this->hashType;
+        $hashType = $hashType ?? $this->defaultHashType;
 
         switch ($hashType) {
             case User::PASSWORD_HASH_BCRYPT:
