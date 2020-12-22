@@ -7,6 +7,7 @@
 namespace EzSystems\PlatformInstallerBundle\Command;
 
 use eZ\Publish\Core\FieldType\User\UserStorage;
+use eZ\Publish\Core\Repository\User\PasswordHashServiceInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -16,10 +17,16 @@ final class ValidatePasswordHashesCommand extends Command
     /** @var \eZ\Publish\Core\FieldType\User\UserStorage */
     private $userStorage;
 
+    /** @var \eZ\Publish\Core\Repository\User\PasswordHashServiceInterface */
+    private $passwordHashService;
+
     public function __construct(
-        UserStorage $userStorage
+        UserStorage $userStorage,
+        PasswordHashServiceInterface $passwordHashService
     ) {
         $this->userStorage = $userStorage;
+        $this->passwordHashService = $passwordHashService;
+
         parent::__construct();
     }
 
@@ -30,7 +37,9 @@ final class ValidatePasswordHashesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $unsupportedHashesCounter = $this->userStorage->countUsersWithUnsupportedHashType();
+        $unsupportedHashesCounter = $this->userStorage->countUsersWithUnsupportedHashType(
+            $this->passwordHashService->getSupportedHashTypes()
+        );
 
         if ($unsupportedHashesCounter > 0) {
             $output->writeln(sprintf('<error>Found %s users with unsupported password hash types</error>', $unsupportedHashesCounter));

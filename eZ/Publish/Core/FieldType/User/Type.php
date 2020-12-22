@@ -10,7 +10,6 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use eZ\Publish\Core\FieldType\FieldType;
 use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\Repository\Values\User\User;
 use eZ\Publish\SPI\Persistence\User\Handler as SPIUserHandler;
 use eZ\Publish\Core\Repository\User\PasswordHashServiceInterface;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
@@ -276,7 +275,7 @@ class Type extends FieldType
             return $this->passwordHashService->getDefaultHashType();
         }
 
-        if (!in_array($value->passwordHashType, User::SUPPORTED_PASSWORD_HASHES, true)) {
+        if (!$this->passwordHashService->isHashTypeSupported($value->passwordHashType)) {
             return $this->passwordHashService->getDefaultHashType();
         }
 

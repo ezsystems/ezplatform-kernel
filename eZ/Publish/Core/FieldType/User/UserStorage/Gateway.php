@@ -50,5 +50,8 @@ abstract class Gateway extends StorageGateway
      */
     abstract public function deleteFieldData(VersionInfo $versionInfo, array $fieldIds): bool;
 
-    abstract public function countUsersWithUnsupportedHashType(): int;
+    /**
+     * @param int[] $supportedHashTypes
+     */
+    abstract public function countUsersWithUnsupportedHashType(array $supportedHashTypes): int;
 }
