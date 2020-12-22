@@ -62,6 +62,9 @@ services:
 
     eZ\Publish\Core\Repository\User\PasswordHashService: ~
 
+    eZ\Publish\Core\Repository\User\PasswordHashServiceInterface:
+        alias: eZ\Publish\Core\Repository\User\PasswordHashService
+
     eZ\Publish\Core\Repository\User\PasswordValidator: ~
 
     eZ\Publish\Core\Repository\User\PasswordValidatorInterface:
