@@ -133,7 +133,7 @@ class UserServiceTest extends BaseTest
      */
     public function testLoadUserGroupThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
 
@@ -154,7 +154,7 @@ class UserServiceTest extends BaseTest
      */
     public function testLoadUserGroupByRemoteIdThrowsNotFoundException(): void
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $nonExistingGroupRemoteId = 'non-existing';
 
@@ -195,7 +195,7 @@ class UserServiceTest extends BaseTest
      */
     public function testLoadSubUserGroupsThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -508,7 +508,7 @@ class UserServiceTest extends BaseTest
      */
     public function testDeleteUserGroup()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -531,7 +531,7 @@ class UserServiceTest extends BaseTest
      */
     public function testDeleteUserGroupThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -605,7 +605,7 @@ class UserServiceTest extends BaseTest
      */
     public function testMoveUserGroupThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -1258,7 +1258,7 @@ class UserServiceTest extends BaseTest
      */
     public function testCreateUserThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -1365,7 +1365,7 @@ class UserServiceTest extends BaseTest
      */
     public function testLoadUserThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
 
@@ -1463,7 +1463,7 @@ class UserServiceTest extends BaseTest
      */
     public function testLoadUserByLoginThrowsNotFoundExceptionForUnknownLogin()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
 
@@ -1524,7 +1524,7 @@ class UserServiceTest extends BaseTest
      */
     public function testLoadUserByLoginThrowsNotFoundExceptionForUnknownLoginByEmail()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
 
@@ -1592,7 +1592,7 @@ class UserServiceTest extends BaseTest
      */
     public function testDeleteUser()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
 
