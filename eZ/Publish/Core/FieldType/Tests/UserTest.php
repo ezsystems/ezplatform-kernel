@@ -8,6 +8,7 @@ namespace eZ\Publish\Core\FieldType\Tests;
 
 use DateTimeImmutable;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
+use eZ\Publish\API\Repository\PasswordHashService;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\FieldType\User\Type;
 use eZ\Publish\Core\FieldType\User\Type as UserType;
@@ -16,7 +17,6 @@ use eZ\Publish\Core\Repository\Values\User\User as RepositoryUser;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\FieldType\ValidationError;
 use eZ\Publish\Core\Persistence\Cache\UserHandler;
-use eZ\Publish\Core\Repository\User\PasswordHashServiceInterface;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
 use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition as CoreFieldDefinition;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
@@ -29,6 +29,8 @@ use PHPUnit\Framework\MockObject\Builder\InvocationMocker;
  */
 class UserTest extends FieldTypeTest
 {
+    private const UNSUPPORTED_HASH_TYPE = 0xDEADBEEF;
+
     /**
      * Returns the field type under test.
      *
@@ -44,7 +46,7 @@ class UserTest extends FieldTypeTest
     {
         $fieldType = new UserType(
             $this->createMock(UserHandler::class),
-            $this->createMock(PasswordHashServiceInterface::class),
+            $this->createMock(PasswordHashService::class),
             $this->createMock(PasswordValidatorInterface::class)
         );
         $fieldType->setTransformationProcessor($this->getTransformationProcessorMock());
@@ -415,7 +417,7 @@ class UserTest extends FieldTypeTest
 
         $userType = new UserType(
             $userHandlerMock,
-            $this->createMock(PasswordHashServiceInterface::class),
+            $this->createMock(PasswordHashService::class),
             $this->createMock(PasswordValidatorInterface::class)
         );
 
@@ -457,7 +459,7 @@ class UserTest extends FieldTypeTest
 
         $userType = new UserType(
             $userHandlerMock,
-            $this->createMock(PasswordHashServiceInterface::class),
+            $this->createMock(PasswordHashService::class),
             $this->createMock(PasswordValidatorInterface::class)
         );
 
@@ -504,7 +506,7 @@ class UserTest extends FieldTypeTest
 
         $userType = new UserType(
             $userHandlerMock,
-            $this->createMock(PasswordHashServiceInterface::class),
+            $this->createMock(PasswordHashService::class),
             $this->createMock(PasswordValidatorInterface::class)
         );
 
@@ -556,7 +558,7 @@ class UserTest extends FieldTypeTest
 
         $userType = new UserType(
             $userHandlerMock,
-            $this->createMock(PasswordHashServiceInterface::class),
+            $this->createMock(PasswordHashService::class),
             $this->createMock(PasswordValidatorInterface::class)
         );
 
@@ -588,7 +590,7 @@ class UserTest extends FieldTypeTest
      */
     public function testCreatePersistenceValue(array $userValueDate, array $expectedFieldValueExternalData): void
     {
-        $passwordHashServiceMock = $this->createMock(PasswordHashServiceInterface::class);
+        $passwordHashServiceMock = $this->createMock(PasswordHashService::class);
         $passwordHashServiceMock->method('getDefaultHashType')->willReturn(RepositoryUser::DEFAULT_PASSWORD_HASH);
         $userType = new UserType(
             $this->createMock(UserHandler::class),
@@ -643,7 +645,7 @@ class UserTest extends FieldTypeTest
         ];
         yield 'when password hash type is unsupported' => [
             $userValueData = [
-                    'passwordHashType' => '__UNSUPPORTED_HASH_TYPE__',
+                    'passwordHashType' => self::UNSUPPORTED_HASH_TYPE,
                 ] + $userData,
             $expectedFieldValueExternalData = [
                     'passwordHashType' => RepositoryUser::DEFAULT_PASSWORD_HASH,
@@ -682,7 +684,7 @@ class UserTest extends FieldTypeTest
 
         $userType = new UserType(
             $userHandlerMock,
-            $this->createMock(PasswordHashServiceInterface::class),
+            $this->createMock(PasswordHashService::class),
             $this->createMock(PasswordValidatorInterface::class)
         );
 

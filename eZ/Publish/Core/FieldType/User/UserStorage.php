@@ -113,8 +113,11 @@ class UserStorage extends GatewayBasedStorage
     {
     }
 
-    public function countUsersWithUnsupportedHashType(): int
+    /**
+     * @param int[] $supportedHashTypes
+     */
+    public function countUsersWithUnsupportedHashType(array $supportedHashTypes): int
     {
-        return $this->gateway->countUsersWithUnsupportedHashType();
+        return $this->gateway->countUsersWithUnsupportedHashType($supportedHashTypes);
     }
 }
