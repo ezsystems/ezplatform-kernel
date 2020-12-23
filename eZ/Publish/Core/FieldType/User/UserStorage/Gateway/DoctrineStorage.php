@@ -9,7 +9,6 @@ namespace eZ\Publish\Core\FieldType\User\UserStorage\Gateway;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\DBAL\ParameterType;
-use eZ\Publish\API\Repository\Values\User\User;
 use eZ\Publish\Core\Base\Exceptions\ForbiddenException;
 use eZ\Publish\Core\FieldType\User\UserStorage\Gateway;
 use eZ\Publish\SPI\Persistence\Content\Field;
@@ -26,9 +25,6 @@ class DoctrineStorage extends Gateway
 
     /** @var \Doctrine\DBAL\Connection */
     protected $connection;
-
-    /** @var Z\Publish\Core\Repository\User\PasswordHashServiceInterface */
-    private $passwordHashService;
 
     /**
      * Default values for user fields.
