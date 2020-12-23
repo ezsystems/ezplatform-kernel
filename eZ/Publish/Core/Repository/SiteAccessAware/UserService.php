@@ -61,6 +61,13 @@ class UserService implements UserServiceInterface
         return $this->service->loadUserGroup($id, $prioritizedLanguages);
     }
 
+    public function loadUserGroupByRemoteId(string $remoteId, array $prioritizedLanguages = []): UserGroup
+    {
+        $prioritizedLanguages = $this->languageResolver->getPrioritizedLanguages($prioritizedLanguages);
+
+        return $this->service->loadUserGroupByRemoteId($remoteId, $prioritizedLanguages);
+    }
+
     public function loadSubUserGroups(UserGroup $userGroup, int $offset = 0, int $limit = 25, array $prioritizedLanguages = null): iterable
     {
         $prioritizedLanguages = $this->languageResolver->getPrioritizedLanguages($prioritizedLanguages);

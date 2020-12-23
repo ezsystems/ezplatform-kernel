@@ -25,7 +25,7 @@ class UserServiceAuthorizationTest extends BaseTest
      */
     public function testLoadUserGroupThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -45,6 +45,31 @@ class UserServiceAuthorizationTest extends BaseTest
     }
 
     /**
+     * Test for the loadUserGroupByRemoteId() method.
+     *
+     * @covers \eZ\Publish\API\Repository\UserService::loadUserGroupByRemoteId()
+     * @depends eZ\Publish\API\Repository\Tests\UserServiceTest::testLoadUserGroupByRemoteId
+     */
+    public function testLoadUserGroupByRemoteIdThrowsUnauthorizedException(): void
+    {
+        $this->expectException(UnauthorizedException::class);
+
+        $repository = $this->getRepository();
+        $userService = $repository->getUserService();
+        $permissionResolver = $repository->getPermissionResolver();
+
+        $user = $this->createUserVersion1();
+
+        $userGroup = $this->createUserGroupVersion1();
+
+        // Now set the currently created "Editor" as current user
+        $permissionResolver->setCurrentUserReference($user);
+
+        // This call will fail with an "UnauthorizedException"
+        $userService->loadUserGroupByRemoteId($userGroup->contentInfo->remoteId);
+    }
+
+    /**
      * Test for the loadSubUserGroups() method.
      *
      * @see \eZ\Publish\API\Repository\UserService::loadSubUserGroups()
@@ -52,7 +77,7 @@ class UserServiceAuthorizationTest extends BaseTest
      */
     public function testLoadSubUserGroupsThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -79,7 +104,7 @@ class UserServiceAuthorizationTest extends BaseTest
      */
     public function testCreateUserGroupThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -113,7 +138,7 @@ class UserServiceAuthorizationTest extends BaseTest
      */
     public function testDeleteUserGroupThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -140,7 +165,7 @@ class UserServiceAuthorizationTest extends BaseTest
      */
     public function testMoveUserGroupThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -174,7 +199,7 @@ class UserServiceAuthorizationTest extends BaseTest
      */
     public function testUpdateUserGroupThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -211,7 +236,7 @@ class UserServiceAuthorizationTest extends BaseTest
      */
     public function testCreateUserThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -254,7 +279,7 @@ class UserServiceAuthorizationTest extends BaseTest
      */
     public function testDeleteUserThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -278,7 +303,7 @@ class UserServiceAuthorizationTest extends BaseTest
      */
     public function testUpdateUserThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -332,7 +357,7 @@ class UserServiceAuthorizationTest extends BaseTest
      */
     public function testAssignUserToUserGroupThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -364,7 +389,7 @@ class UserServiceAuthorizationTest extends BaseTest
      */
     public function testUnAssignUserFromUserGroupThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -404,7 +429,7 @@ class UserServiceAuthorizationTest extends BaseTest
      */
     public function testLoadUserGroupsOfUserThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -430,7 +455,7 @@ class UserServiceAuthorizationTest extends BaseTest
      */
     public function testLoadUsersOfUserGroupThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
