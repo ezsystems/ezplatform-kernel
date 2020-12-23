@@ -30,12 +30,12 @@ use eZ\Publish\API\Repository\URLService as URLServiceInterface;
 use eZ\Publish\API\Repository\URLWildcardService as URLWildcardServiceInterface;
 use eZ\Publish\API\Repository\UserPreferenceService as UserPreferenceServiceInterface;
 use eZ\Publish\API\Repository\UserService as UserServiceInterface;
+use eZ\Publish\API\Repository\PasswordHashService;
 use eZ\Publish\Core\FieldType\FieldTypeRegistry;
 use eZ\Publish\Core\Repository\Helper\NameSchemaService;
 use eZ\Publish\Core\Repository\Permission\LimitationService;
 use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
 use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
-use eZ\Publish\Core\Repository\User\PasswordHashServiceInterface;
 use eZ\Publish\Core\Repository\Helper\RelationProcessor;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
 use eZ\Publish\Core\Search\Common\BackgroundIndexer;
@@ -230,7 +230,7 @@ class Repository implements RepositoryInterface
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    /** @var \eZ\Publish\Core\Repository\User\PasswordHashServiceInterface */
+    /** @var \eZ\Publish\API\Repository\PasswordHashService */
     private $passwordHashService;
 
     /** @var \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy */
@@ -269,7 +269,7 @@ class Repository implements RepositoryInterface
         BackgroundIndexer $backgroundIndexer,
         RelationProcessor $relationProcessor,
         FieldTypeRegistry $fieldTypeRegistry,
-        PasswordHashServiceInterface $passwordHashGenerator,
+        PasswordHashService $passwordHashGenerator,
         ThumbnailStrategy $thumbnailStrategy,
         ProxyDomainMapperFactoryInterface $proxyDomainMapperFactory,
         Mapper\ContentDomainMapper $contentDomainMapper,

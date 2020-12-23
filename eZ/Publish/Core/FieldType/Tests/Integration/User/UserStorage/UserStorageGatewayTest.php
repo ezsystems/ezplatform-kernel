@@ -75,7 +75,7 @@ abstract class UserStorageGatewayTest extends BaseCoreFieldTypeIntegrationTest
             $importer->import(new YamlFixture($fixtureFilePath));
         }
 
-        $actualCount = $this->getGateway()->countUsersWithUnsupportedHashType();
+        $actualCount = $this->getGateway()->countUsersWithUnsupportedHashType(User::SUPPORTED_PASSWORD_HASHES);
         self::assertEquals($expectedCount, $actualCount);
     }
 

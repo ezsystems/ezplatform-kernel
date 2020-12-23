@@ -14,7 +14,7 @@ use eZ\Publish\Core\Repository\Mapper\RoleDomainMapper;
 use eZ\Publish\Core\Repository\Permission\LimitationService;
 use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
 use eZ\Publish\Core\Repository\Strategy\ContentValidator\ContentValidatorStrategy;
-use eZ\Publish\Core\Repository\User\PasswordHashServiceInterface;
+use eZ\Publish\API\Repository\PasswordHashService;
 use eZ\Publish\Core\FieldType\FieldTypeRegistry;
 use eZ\Publish\Core\Repository\Helper\RelationProcessor;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
@@ -110,7 +110,7 @@ abstract class Base extends TestCase
                 new NullIndexer(),
                 $this->getRelationProcessorMock(),
                 $this->getFieldTypeRegistryMock(),
-                $this->createMock(PasswordHashServiceInterface::class),
+                $this->createMock(PasswordHashService::class),
                 $this->getThumbnailStrategy(),
                 $this->createMock(ProxyDomainMapperFactoryInterface::class),
                 $this->getContentDomainMapperMock(),

@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\SPI\Tests\FieldType;
 
+use eZ\Publish\API\Repository\PasswordHashService;
 use eZ\Publish\Core\Persistence\Legacy;
 use eZ\Publish\Core\FieldType;
-use eZ\Publish\Core\Repository\User\PasswordHashServiceInterface;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
 use eZ\Publish\SPI\Persistence\Content;
 use eZ\Publish\SPI\Persistence\Content\Field;
@@ -55,7 +55,7 @@ class UserIntegrationTest extends BaseIntegrationTest
     public function getCustomHandler()
     {
         $userHandler = $this->createMock(User\Handler::class);
-        $passwordHashGenerator = $this->createMock(PasswordHashServiceInterface::class);
+        $passwordHashGenerator = $this->createMock(PasswordHashService::class);
         $passwordHashGenerator
             ->method('getDefaultHashType')
             ->willReturn(0);
