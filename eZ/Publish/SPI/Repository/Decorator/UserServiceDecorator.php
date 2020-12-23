@@ -49,6 +49,13 @@ abstract class UserServiceDecorator implements UserService
         return $this->innerService->loadUserGroup($id, $prioritizedLanguages);
     }
 
+    public function loadUserGroupByRemoteId(
+        string $remoteId,
+        array $prioritizedLanguages = []
+    ): UserGroup {
+        return $this->innerService->loadUserGroupByRemoteId($remoteId, $prioritizedLanguages);
+    }
+
     public function loadSubUserGroups(
         UserGroup $userGroup,
         int $offset = 0,
