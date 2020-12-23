@@ -6,8 +6,8 @@
  */
 namespace EzSystems\PlatformInstallerBundle\Command;
 
+use eZ\Publish\API\Repository\PasswordHashService;
 use eZ\Publish\Core\FieldType\User\UserStorage;
-use eZ\Publish\Core\Repository\User\PasswordHashServiceInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,12 +17,12 @@ final class ValidatePasswordHashesCommand extends Command
     /** @var \eZ\Publish\Core\FieldType\User\UserStorage */
     private $userStorage;
 
-    /** @var \eZ\Publish\Core\Repository\User\PasswordHashServiceInterface */
+    /** @var \eZ\Publish\API\Repository\PasswordHashService */
     private $passwordHashService;
 
     public function __construct(
         UserStorage $userStorage,
-        PasswordHashServiceInterface $passwordHashService
+        PasswordHashService $passwordHashService
     ) {
         $this->userStorage = $userStorage;
         $this->passwordHashService = $passwordHashService;

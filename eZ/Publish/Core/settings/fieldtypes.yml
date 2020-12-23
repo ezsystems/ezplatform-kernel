@@ -398,7 +398,7 @@ services:
         parent: ezpublish.fieldType
         arguments:
             - "@ezpublish.spi.persistence.cache.userHandler"
-            - '@eZ\Publish\Core\Repository\User\PasswordHashServiceInterface'
+            - '@eZ\Publish\API\Repository\PasswordHashService'
             - '@eZ\Publish\Core\Repository\User\PasswordValidatorInterface'
         tags:
             - {name: ezplatform.field_type, alias: ezuser}

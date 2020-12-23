@@ -7,13 +7,13 @@
 namespace eZ\Bundle\EzPublishCoreBundle\ApiLoader;
 
 use eZ\Publish\API\Repository\LanguageResolver;
+use eZ\Publish\API\Repository\PasswordHashService;
 use eZ\Publish\API\Repository\PermissionService;
 use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\Core\FieldType\FieldTypeRegistry;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\Repository\Permission\LimitationService;
 use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
-use eZ\Publish\Core\Repository\User\PasswordHashServiceInterface;
 use eZ\Publish\Core\Repository\Helper\RelationProcessor;
 use eZ\Publish\Core\Repository\Mapper;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
@@ -78,7 +78,7 @@ class RepositoryFactory implements ContainerAwareInterface
         BackgroundIndexer $backgroundIndexer,
         RelationProcessor $relationProcessor,
         FieldTypeRegistry $fieldTypeRegistry,
-        PasswordHashServiceInterface $passwordHashService,
+        PasswordHashService $passwordHashService,
         ThumbnailStrategy $thumbnailStrategy,
         ProxyDomainMapperFactoryInterface $proxyDomainMapperFactory,
         Mapper\ContentDomainMapper $contentDomainMapper,

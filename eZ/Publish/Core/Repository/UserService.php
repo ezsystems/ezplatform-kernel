@@ -13,6 +13,7 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Exception;
+use eZ\Publish\API\Repository\PasswordHashService;
 use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
 use eZ\Publish\API\Repository\UserService as UserServiceInterface;
@@ -34,7 +35,6 @@ use eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException;
 use eZ\Publish\Core\Base\Exceptions\MissingUserFieldTypeException;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
 use eZ\Publish\Core\Repository\Validator\UserPasswordValidator;
-use eZ\Publish\Core\Repository\User\PasswordHashServiceInterface;
 use eZ\Publish\Core\Repository\Values\User\UserCreateStruct;
 use eZ\Publish\API\Repository\Values\User\UserCreateStruct as APIUserCreateStruct;
 use eZ\Publish\API\Repository\Values\User\UserUpdateStruct;
@@ -83,7 +83,7 @@ class UserService implements UserServiceInterface
     /** @var \eZ\Publish\API\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\Core\Repository\User\PasswordHashServiceInterface */
+    /** @var \eZ\Publish\API\Repository\PasswordHashService */
     private $passwordHashService;
 
     /** @var PasswordValidatorInterface */
@@ -96,21 +96,13 @@ class UserService implements UserServiceInterface
 
     /**
      * Setups service with reference to repository object that created it & corresponding handler.
-     *
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
-     * @param \eZ\Publish\SPI\Persistence\User\Handler $userHandler
-     * @param \eZ\Publish\SPI\Persistence\Content\Location\Handler $locationHandler
-     * @param \eZ\Publish\Core\Repository\User\PasswordHashServiceInterface $passwordHashGenerator
-     * @param \eZ\Publish\Core\Repository\User\PasswordValidatorInterface $passwordValidator
-     * @param array $settings
      */
     public function __construct(
         RepositoryInterface $repository,
         PermissionResolver $permissionResolver,
         Handler $userHandler,
         LocationHandler $locationHandler,
-        PasswordHashServiceInterface $passwordHashGenerator,
+        PasswordHashService $passwordHashGenerator,
         PasswordValidatorInterface $passwordValidator,
         array $settings = []
     ) {

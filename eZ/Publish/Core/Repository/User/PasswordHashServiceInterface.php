@@ -8,15 +8,12 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository\User;
 
-interface PasswordHashServiceInterface
+use eZ\Publish\API\Repository\PasswordHashService;
+
+/**
+ * @deprecated since eZ Platform 3.3.0, to be removed in eZ Platform 4.0.0. Use
+ * \eZ\Publish\API\Repository\PasswordHashService directly instead.
+ */
+interface PasswordHashServiceInterface extends PasswordHashService
 {
-    public function getDefaultHashType(): int;
-
-    public function getSupportedHashTypes(): array;
-
-    public function isHashTypeSupported(int $hashType): bool;
-
-    public function createPasswordHash(string $password, ?int $hashType = null): string;
-
-    public function isValidPassword(string $plainPassword, string $passwordHash, ?int $hashType = null): bool;
 }

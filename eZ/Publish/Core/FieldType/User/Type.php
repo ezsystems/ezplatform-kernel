@@ -11,13 +11,13 @@ use DateTimeInterface;
 use eZ\Publish\Core\FieldType\FieldType;
 use eZ\Publish\Core\FieldType\ValidationError;
 use eZ\Publish\SPI\Persistence\User\Handler as SPIUserHandler;
-use eZ\Publish\Core\Repository\User\PasswordHashServiceInterface;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
 use eZ\Publish\SPI\FieldType\Value as SPIValue;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
 use eZ\Publish\Core\FieldType\Value as BaseValue;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use eZ\Publish\API\Repository\PasswordHashService;
 use LogicException;
 
 /**
@@ -85,7 +85,7 @@ class Type extends FieldType
     /** @var \eZ\Publish\SPI\Persistence\User\Handler */
     private $userHandler;
 
-    /** @var \eZ\Publish\Core\Repository\User\PasswordHashServiceInterface */
+    /** @var \eZ\Publish\API\Repository\PasswordHashService */
     private $passwordHashService;
 
     /** @var \eZ\Publish\Core\Repository\User\PasswordValidatorInterface */
@@ -93,7 +93,7 @@ class Type extends FieldType
 
     public function __construct(
         SPIUserHandler $userHandler,
-        PasswordHashServiceInterface $passwordHashGenerator,
+        PasswordHashService $passwordHashGenerator,
         PasswordValidatorInterface $passwordValidator
     ) {
         $this->userHandler = $userHandler;
