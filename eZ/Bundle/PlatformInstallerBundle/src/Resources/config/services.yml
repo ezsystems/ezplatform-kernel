@@ -29,6 +29,6 @@ services:
     EzSystems\PlatformInstallerBundle\Command\ValidatePasswordHashesCommand:
         arguments:
             $userStorage: '@ezpublish.fieldType.ezuser.externalStorage'
-            $passwordHashService: '@eZ\Publish\Core\Repository\User\PasswordHashServiceInterface'
+            $passwordHashService: '@eZ\Publish\API\Repository\PasswordHashService'
         tags:
             - { name: console.command, command: ezplatform:user:validate-password-hashes }
