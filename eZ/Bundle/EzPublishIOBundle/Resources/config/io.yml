@@ -1,11 +1,3 @@
-parameters:
-    ibexa.platform.io.nfs.adapter.config:
-        root: './'
-        path: '$var_dir$/$storage_dir$/'
-        writeFlags: ~
-        linkHandling: ~
-        permissions: [ ]
-
 services:
     ezpublish.core.io.command.migrate_files:
         class: eZ\Bundle\EzPublishIOBundle\Command\MigrateFilesCommand
