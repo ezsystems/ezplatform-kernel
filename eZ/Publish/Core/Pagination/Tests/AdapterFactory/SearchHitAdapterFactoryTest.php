@@ -15,8 +15,8 @@ use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
 use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
 use eZ\Publish\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactory;
 use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchHitAdapter;
+use eZ\Publish\Core\Pagination\Pagerfanta\FixedSearchResultHitAdapter;
 use eZ\Publish\Core\Pagination\Pagerfanta\LocationSearchHitAdapter;
-use Pagerfanta\Adapter\FixedAdapter;
 use PHPUnit\Framework\TestCase;
 
 final class SearchHitAdapterFactoryTest extends TestCase
@@ -76,19 +76,19 @@ final class SearchHitAdapterFactoryTest extends TestCase
             new SearchHit(),
         ];
 
+        $searchResult = new SearchResult([
+            'searchHits' => $hits,
+            'totalCount' => count($hits),
+        ]);
+
         $this->searchService
             ->expects($this->once())
             ->method($expectedSearchMethod)
             ->with($query, self::EXAMPLE_LANGUAGE_FILTER)
-            ->willReturn(
-                new SearchResult([
-                    'searchHits' => $hits,
-                    'totalCount' => count($hits),
-                ])
-            );
+            ->willReturn($searchResult);
 
         $this->assertEquals(
-            new FixedAdapter(count($hits), $hits),
+            new FixedSearchResultHitAdapter($searchResult),
             $this->searchHitAdapterFactory->createFixedAdapter($query, self::EXAMPLE_LANGUAGE_FILTER)
         );
     }

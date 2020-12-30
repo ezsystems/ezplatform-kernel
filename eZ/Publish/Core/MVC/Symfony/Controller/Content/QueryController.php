@@ -10,11 +10,11 @@ use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\Core\MVC\Symfony\View\ContentView;
+use eZ\Publish\Core\Pagination\Pagerfanta\Pagerfanta;
 use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchHitAdapter;
 use eZ\Publish\Core\Pagination\Pagerfanta\LocationSearchHitAdapter;
 use eZ\Publish\Core\QueryType\ContentViewQueryTypeMapper;
 use Pagerfanta\Adapter\AdapterInterface;
-use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

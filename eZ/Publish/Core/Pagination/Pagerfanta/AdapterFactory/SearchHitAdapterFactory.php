@@ -12,9 +12,9 @@ use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchHitAdapter;
+use eZ\Publish\Core\Pagination\Pagerfanta\FixedSearchResultHitAdapter;
 use eZ\Publish\Core\Pagination\Pagerfanta\LocationSearchHitAdapter;
 use Pagerfanta\Adapter\AdapterInterface;
-use Pagerfanta\Adapter\FixedAdapter;
 
 /**
  * @internal
@@ -46,9 +46,6 @@ final class SearchHitAdapterFactory implements SearchHitAdapterFactoryInterface
             $searchResults = $this->searchService->findContent($query, $languageFilter);
         }
 
-        return new FixedAdapter(
-            $searchResults->totalCount,
-            $searchResults->searchHits
-        );
+        return new FixedSearchResultHitAdapter($searchResults);
     }
 }
