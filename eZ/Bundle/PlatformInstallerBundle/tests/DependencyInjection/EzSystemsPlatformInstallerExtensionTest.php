@@ -45,8 +45,7 @@ class EzSystemsPlatformInstallerExtensionTest extends AbstractExtensionTestCase
         $this->load();
         $this->assertContainerBuilderHasServiceDefinitionWithTag(
             InstallPlatformCommand::class,
-            'console.command',
-            ['command' => 'ezplatform:install']
+            'console.command'
         );
     }
 
