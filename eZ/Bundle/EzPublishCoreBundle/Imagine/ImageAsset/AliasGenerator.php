@@ -53,7 +53,7 @@ class AliasGenerator implements VariationHandler
     {
         if ($this->supportsValue($field->value)) {
             $destinationContent = $this->contentService->loadContent(
-                $field->value->destinationContentId
+                (int)$field->value->destinationContentId
             );
 
             return $this->innerAliasGenerator->getVariation(
