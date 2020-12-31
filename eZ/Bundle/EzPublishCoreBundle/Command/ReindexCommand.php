@@ -28,10 +28,10 @@ use RuntimeException;
 use DateTime;
 use PDO;
 
-class ReindexCommand extends Command
+class ReindexCommand extends Command implements BackwardCompatibleCommand
 {
     /** @var string string */
-    protected static $defaultName = 'ezplatform:reindex';
+    protected static $defaultName = 'ibexa:reindex';
 
     /** @var \eZ\Publish\Core\Search\Common\Indexer|\eZ\Publish\Core\Search\Common\IncrementalIndexer */
     private $searchIndexer;
@@ -120,7 +120,8 @@ class ReindexCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('ezplatform:reindex')
+            ->setName('ibexa:reindex')
+            ->setAliases(['ezplatform:reindex'])
             ->setDescription('Recreates or refreshes the search engine index')
             ->addOption(
                 'iteration-count',
@@ -471,7 +472,7 @@ class ReindexCommand extends Command
         $subProcessArgs = [
             $this->getPhpPath(),
             $consolePath,
-            'ezplatform:reindex',
+            'ibexa:reindex',
             '--content-ids=' . implode(',', $contentIds),
             '--env=' . $this->env,
         ];
@@ -539,5 +540,10 @@ class ReindexCommand extends Command
         }
 
         return $cores;
+    }
+
+    public function getDeprecatedAliases(): array
+    {
+        return ['ezplatform:reindex'];
     }
 }

@@ -299,7 +299,7 @@ services:
         arguments:
             - '@ezpublish.api.repository'
         tags:
-            - { name: console.command, command: ezplatform:delete-content-translation }
+            - { name: console.command }
 
     ezplatform.core.command.cleanup_versions:
         class: eZ\Bundle\EzPublishCoreBundle\Command\CleanupVersionsCommand
@@ -308,7 +308,7 @@ services:
             - "@ezpublish.api.repository_configuration_provider"
             - "@ezpublish.persistence.connection"
         tags:
-            - { name: console.command, command: ezplatform:content:cleanup-versions }
+            - { name: console.command }
 
     ezplatform.core.session.handler.native_redis:
         class: eZ\Bundle\EzPublishCoreBundle\Session\Handler\NativeSessionHandler
@@ -327,7 +327,7 @@ services:
             $contentTypeService: '@ezpublish.api.service.content_type'
             $searchService: '@ezpublish.api.service.search'
         tags:
-            - { name: console.command, command: ezplatform:copy-subtree }
+            - { name: console.command }
 
     ezplatform.core.command.resize_original_images:
         class: eZ\Bundle\EzPublishCoreBundle\Command\ResizeOriginalImagesCommand
@@ -341,7 +341,7 @@ services:
             $userService: '@ezpublish.api.service.user'
             $mimeTypes: '@mime_types'
         tags:
-            - { name: console.command, command: ezplatform:images:resize-original }
+            - { name: console.command }
 
     ezplatform.core.command.reindex:
         class: eZ\Bundle\EzPublishCoreBundle\Command\ReindexCommand
@@ -355,4 +355,4 @@ services:
             $projectDir: '%kernel.project_dir%'
             $isDebug: '%kernel.debug%'
         tags:
-            - { name: console.command, command: ezplatform:reindex }
+            - { name: console.command }

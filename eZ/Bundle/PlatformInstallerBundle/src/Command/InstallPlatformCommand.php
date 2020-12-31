@@ -8,6 +8,7 @@ namespace EzSystems\PlatformInstallerBundle\Command;
 
 use Doctrine\DBAL\Connection;
 use eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider;
+use eZ\Bundle\EzPublishCoreBundle\Command\BackwardCompatibleCommand;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -18,7 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\PhpExecutableFinder;
 
-final class InstallPlatformCommand extends Command
+final class InstallPlatformCommand extends Command implements BackwardCompatibleCommand
 {
     /** @var \Doctrine\DBAL\Connection */
     private $connection;
@@ -60,7 +61,8 @@ final class InstallPlatformCommand extends Command
 
     protected function configure()
     {
-        $this->setName('ezplatform:install');
+        $this->setName('ibexa:install');
+        $this->setAliases(['ezplatform:install']);
         $this->addArgument(
             'type',
             InputArgument::REQUIRED,
@@ -181,7 +183,7 @@ final class InstallPlatformCommand extends Command
             sprintf('Search engine re-indexing, executing command ezplatform:reindex')
         );
 
-        $command = 'ezplatform:reindex';
+        $command = 'ibexa:reindex';
         if ($siteaccess) {
             $command .= sprintf(' --siteaccess=%s', $siteaccess);
         }
@@ -260,5 +262,10 @@ final class InstallPlatformCommand extends Command
         if (!$process->getExitCode() === 1) {
             throw new \RuntimeException(sprintf('An error occurred when executing the "%s" command.', escapeshellarg($cmd)));
         }
+    }
+
+    public function getDeprecatedAliases(): array
+    {
+        return ['ezplatform:install'];
     }
 }

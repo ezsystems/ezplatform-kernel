@@ -6,13 +6,14 @@
  */
 namespace EzSystems\PlatformInstallerBundle\Command;
 
+use eZ\Bundle\EzPublishCoreBundle\Command\BackwardCompatibleCommand;
 use eZ\Publish\API\Repository\PasswordHashService;
 use eZ\Publish\Core\FieldType\User\UserStorage;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-final class ValidatePasswordHashesCommand extends Command
+final class ValidatePasswordHashesCommand extends Command implements BackwardCompatibleCommand
 {
     /** @var \eZ\Publish\Core\FieldType\User\UserStorage */
     private $userStorage;
@@ -32,7 +33,8 @@ final class ValidatePasswordHashesCommand extends Command
 
     protected function configure()
     {
-        $this->setName('ezplatform:user:validate-password-hashes');
+        $this->setName('ibexa:user:validate-password-hashes');
+        $this->setAliases(['ezplatform:user:validate-password-hashes']);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -49,5 +51,10 @@ final class ValidatePasswordHashesCommand extends Command
         }
 
         return Command::SUCCESS;
+    }
+
+    public function getDeprecatedAliases(): array
+    {
+        return ['ezplatform:user:validate-password-hashes'];
     }
 }

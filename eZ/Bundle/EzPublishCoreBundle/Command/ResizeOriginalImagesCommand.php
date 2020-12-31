@@ -36,7 +36,7 @@ use Exception;
 /**
  * This command resizes original images stored in ezimage FieldType in given ContentType using the selected filter.
  */
-class ResizeOriginalImagesCommand extends Command
+class ResizeOriginalImagesCommand extends Command implements BackwardCompatibleCommand
 {
     const DEFAULT_ITERATION_COUNT = 25;
     const DEFAULT_REPOSITORY_USER = 'admin';
@@ -103,34 +103,39 @@ class ResizeOriginalImagesCommand extends Command
 
     protected function configure()
     {
-        $this->setName('ezplatform:images:resize-original')->setDefinition(
-            [
-                new InputArgument('contentTypeIdentifier', InputArgument::REQUIRED,
-                    'Identifier of a Content Type which has an ezimage Field Type.'),
-                new InputArgument('imageFieldIdentifier', InputArgument::REQUIRED,
-                    'Identifier of a Field of ezimage type.'),
-            ]
-        )
-        ->addOption(
+        $this
+            ->setName('ibexa:images:resize-original')
+            ->setAliases(['ezplatform:images:resize-original'])
+            ->addArgument(
+                'imageFieldIdentifier',
+                InputArgument::REQUIRED,
+                'Identifier of a Field of ezimage type.'
+            )
+            ->addArgument(
+                'contentTypeIdentifier',
+                InputArgument::REQUIRED,
+                'Identifier of a Content Type which has an ezimage Field Type.'
+            )
+            ->addOption(
                 'filter',
                 'f',
                 InputOption::VALUE_REQUIRED,
                 'Filter which will be used for original images.'
-        )
-        ->addOption(
-            'iteration-count',
-            'i',
-            InputOption::VALUE_OPTIONAL,
-            'Iteration count. Number of images to be recreated in a single iteration set to avoid using too much memory.',
-            self::DEFAULT_ITERATION_COUNT
-        )
-        ->addOption(
-            'user',
-            'u',
-            InputOption::VALUE_OPTIONAL,
-            'eZ Platform username (with Role containing at least content Policies: read, versionread, edit, publish)',
-            self::DEFAULT_REPOSITORY_USER
-        );
+            )
+            ->addOption(
+                'iteration-count',
+                'i',
+                InputOption::VALUE_OPTIONAL,
+                'Iteration count. Number of images to be recreated in a single iteration set to avoid using too much memory.',
+                self::DEFAULT_ITERATION_COUNT
+            )
+            ->addOption(
+                'user',
+                'u',
+                InputOption::VALUE_OPTIONAL,
+                'eZ Platform username (with Role containing at least content Policies: read, versionread, edit, publish)',
+                self::DEFAULT_REPOSITORY_USER
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -303,5 +308,10 @@ class ResizeOriginalImagesCommand extends Command
         fclose($tmpFile);
 
         return $newBinaryFile;
+    }
+
+    public function getDeprecatedAliases(): array
+    {
+        return ['ezplatform:images:resize-original'];
     }
 }

@@ -21,7 +21,7 @@ use Exception;
 /**
  * Console Command which deletes a given Translation from all the Versions of a given Content Item.
  */
-class DeleteContentTranslationCommand extends Command
+class DeleteContentTranslationCommand extends Command implements BackwardCompatibleCommand
 {
     /** @var \eZ\Publish\API\Repository\Repository */
     private $repository;
@@ -50,7 +50,8 @@ class DeleteContentTranslationCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('ezplatform:delete-content-translation')
+            ->setName('ibexa:delete-content-translation')
+            ->setAliases(['ezplatform:delete-content-translation'])
             ->addArgument('content-id', InputArgument::REQUIRED, 'Content Object Id')
             ->addArgument(
                 'language-code',
@@ -193,5 +194,10 @@ class DeleteContentTranslationCommand extends Command
             $contentInfo,
             $contentMetadataUpdateStruct
         )->contentInfo;
+    }
+
+    public function getDeprecatedAliases(): array
+    {
+        return ['ezplatform:delete-content-translation'];
     }
 }
