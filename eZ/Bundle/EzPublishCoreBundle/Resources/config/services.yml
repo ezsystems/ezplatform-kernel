@@ -81,6 +81,10 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    eZ\Bundle\EzPublishCoreBundle\EventListener\BackwardCompatibleCommandListener:
+        tags:
+            - { name: kernel.event_subscriber }
+
     ezpublish.controller.base:
         class: eZ\Publish\Core\MVC\Symfony\Controller\Controller
         abstract: true
