@@ -52,7 +52,7 @@ class ConsoleContext implements Context
      */
     public function iRunAConsoleScript()
     {
-        $this->iRunTheCommand('ez:behat:siteaccess');
+        $this->iRunTheCommand('ibexa:behat:test-siteaccess');
     }
 
     /**
@@ -60,7 +60,7 @@ class ConsoleContext implements Context
      */
     public function iRunAConsoleScriptWithSiteaccess($siteaccessOption)
     {
-        $this->iRunTheCommand('ez:behat:siteaccess', $siteaccessOption);
+        $this->iRunTheCommand('ibexa:behat:test-siteaccess', $siteaccessOption);
     }
 
     /**
@@ -124,7 +124,7 @@ class ConsoleContext implements Context
     public function iRunAConsoleScriptWithIt()
     {
         $this->iRunTheCommand(
-            'ez:behat:siteaccess',
+            'ibexa:behat:test-siteaccess',
             $this->it['siteaccess']
         );
         $this->it['siteaccess'] = $this->scriptOutput;
