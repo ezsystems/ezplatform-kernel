@@ -21,8 +21,9 @@ use Symfony\Component\Console\Output\BufferedOutput;
 
 final class BackwardCompatibleCommandListenerTest extends TestCase
 {
-    private const EXAMPLE_NAME = 'ibexa:command';
+    private const MORE_THEN_2_WHITESPACES_AND_NEW_LINES = '/\s{2,}|\\n/';
 
+    private const EXAMPLE_NAME = 'ibexa:command';
     private const EXAMPLE_DEPRECATED_ALIASES = [
         'ezplatform:command',
         'ezplatform-ee:command',
@@ -99,9 +100,11 @@ final class BackwardCompatibleCommandListenerTest extends TestCase
 
     private function assertOutputContainsDeprecationWarning(BufferedOutput $output): void
     {
-        $this->assertStringContainsString(
-            '[WARNING] Command alias "ezplatform:command" is deprecated since 3.3 and will be removed in 4.0. Use "ibexa:command"',
-            $output->fetch()
+        $outputString = trim(preg_replace(self::MORE_THEN_2_WHITESPACES_AND_NEW_LINES, ' ', $output->fetch()));
+
+        $this->assertEquals(
+            '[WARNING] Command alias "ezplatform:command" is deprecated since 3.3 and will be removed in in 4.0. Use "ibexa:command" instead.',
+            $outputString
         );
     }
 
