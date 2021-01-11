@@ -9,6 +9,12 @@ services:
             $variationHandler: '@eZ\Publish\SPI\Variation\VariationHandler'
             $variationName: 'medium'
 
+    eZ\Publish\Core\FieldType\Image\ImageThumbnailProxyStrategy:
+        decorates: eZ\Publish\Core\FieldType\Image\ImageThumbnailStrategy
+        arguments:
+            $imageThumbnailStrategy: '@.inner'
+            $proxyGenerator: '@eZ\Publish\Core\Repository\ProxyFactory\ProxyGeneratorInterface'
+
     eZ\Publish\Core\FieldType\ImageAsset\ImageAssetThumbnailStrategy:
         lazy: true
         arguments:
