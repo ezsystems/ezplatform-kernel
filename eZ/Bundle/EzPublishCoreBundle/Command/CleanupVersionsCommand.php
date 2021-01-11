@@ -69,7 +69,7 @@ EOT;
         $beforeRunningHints = self::BEFORE_RUNNING_HINTS;
         $this
             ->setName('ibexa:content:cleanup-versions')
-            ->setAliases(['ezplatform:content:cleanup-versions'])
+            ->setAliases($this->getDeprecatedAliases())
             ->setDescription('Removes unwanted content versions. Keeps the published version untouched. By default, also keeps the last archived/draft version.')
             ->addOption(
                 'status',

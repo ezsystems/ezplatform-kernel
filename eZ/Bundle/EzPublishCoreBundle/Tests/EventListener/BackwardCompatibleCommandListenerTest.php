@@ -21,7 +21,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 
 final class BackwardCompatibleCommandListenerTest extends TestCase
 {
-    private const MORE_THEN_2_WHITESPACES_AND_NEW_LINES = '/\s{2,}|\\n/';
+    private const MORE_THAN_2_WHITESPACES_AND_NEW_LINES = '/\s{2,}|\\n/';
 
     private const EXAMPLE_NAME = 'ibexa:command';
     private const EXAMPLE_DEPRECATED_ALIASES = [

@@ -121,7 +121,7 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
     {
         $this
             ->setName('ibexa:reindex')
-            ->setAliases(['ezplatform:reindex'])
+            ->setAliases($this->getDeprecatedAliases())
             ->setDescription('Recreates or refreshes the search engine index')
             ->addOption(
                 'iteration-count',

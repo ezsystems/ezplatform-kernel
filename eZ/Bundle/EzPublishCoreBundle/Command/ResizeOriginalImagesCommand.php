@@ -105,7 +105,7 @@ class ResizeOriginalImagesCommand extends Command implements BackwardCompatibleC
     {
         $this
             ->setName('ibexa:images:resize-original')
-            ->setAliases(['ezplatform:images:resize-original'])
+            ->setAliases($this->getDeprecatedAliases())
             ->addArgument(
                 'imageFieldIdentifier',
                 InputArgument::REQUIRED,

@@ -62,7 +62,7 @@ final class InstallPlatformCommand extends Command implements BackwardCompatible
     protected function configure()
     {
         $this->setName('ibexa:install');
-        $this->setAliases(['ezplatform:install']);
+        $this->setAliases($this->getDeprecatedAliases());
         $this->addArgument(
             'type',
             InputArgument::REQUIRED,

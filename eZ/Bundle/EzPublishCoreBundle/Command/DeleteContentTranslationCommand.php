@@ -51,7 +51,7 @@ class DeleteContentTranslationCommand extends Command implements BackwardCompati
     {
         $this
             ->setName('ibexa:delete-content-translation')
-            ->setAliases(['ezplatform:delete-content-translation'])
+            ->setAliases($this->getDeprecatedAliases())
             ->addArgument('content-id', InputArgument::REQUIRED, 'Content Object Id')
             ->addArgument(
                 'language-code',

@@ -68,7 +68,7 @@ class CopySubtreeCommand extends Command implements BackwardCompatibleCommand
     {
         $this
             ->setName('ibexa:copy-subtree')
-            ->setAliases(['ezplatform:copy-subtree'])
+            ->setAliases($this->getDeprecatedAliases())
             ->addArgument(
                 'source-location-id',
                 InputArgument::REQUIRED,

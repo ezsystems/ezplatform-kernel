@@ -55,7 +55,7 @@ class CheckURLsCommand extends Command implements BackwardCompatibleCommand
 
     public function configure(): void
     {
-        $this->setAliases(['ezplatform:check-urls']);
+        $this->setAliases($this->getDeprecatedAliases());
         $this->setDescription('Checks validity of external URLs');
         $this->addOption(
             'iteration-count',

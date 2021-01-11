@@ -6,6 +6,7 @@
  */
 namespace eZ\Bundle\EzPublishIOBundle\Command;
 
+use eZ\Bundle\EzPublishCoreBundle\Command\BackwardCompatibleCommand;
 use eZ\Bundle\EzPublishIOBundle\Migration\FileListerRegistry;
 use eZ\Bundle\EzPublishIOBundle\Migration\FileMigratorInterface;
 use Symfony\Component\Console\Command\Command;
@@ -15,7 +16,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
-final class MigrateFilesCommand extends Command
+final class MigrateFilesCommand extends Command implements BackwardCompatibleCommand
 {
     /** @var mixed Configuration for metadata handlers */
     private $configuredMetadataHandlers;
@@ -60,7 +61,8 @@ final class MigrateFilesCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('ezplatform:io:migrate-files')
+            ->setName('ibexa:io:migrate-files')
+            ->setAliases($this->getDeprecatedAliases())
             ->setDescription('Migrates files from one IO repository to another')
             ->addOption('from', null, InputOption::VALUE_REQUIRED, 'Migrate from <from_metadata_handler>,<from_binarydata_handler>')
             ->addOption('to', null, InputOption::VALUE_REQUIRED, 'Migrate to <to_metadata_handler>,<to_binarydata_handler>')
@@ -315,5 +317,10 @@ EOT
                 '',
             ]);
         }
+    }
+
+    public function getDeprecatedAliases(): array
+    {
+        return ['ezplatform:io:migrate-files'];
     }
 }

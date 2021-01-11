@@ -29,18 +29,20 @@ final class BackwardCompatibleCommandListener implements EventSubscriberInterfac
     {
         $command = $event->getCommand();
 
-        if ($command instanceof BackwardCompatibleCommand) {
-            $input = $event->getInput();
+        if (!$command instanceof BackwardCompatibleCommand) {
+            return;
+        }
 
-            $alias = $input->hasArgument('command') ? $input->getArgument('command') : null;
-            if (in_array($alias, $command->getDeprecatedAliases(), true)) {
-                $io = new SymfonyStyle($event->getInput(), $event->getOutput());
-                $io->warning(sprintf(
-                    'Command alias "%s" is deprecated since 3.3 and will be removed in in 4.0. Use "%s" instead.',
-                    $alias,
-                    $event->getCommand()->getName()
-                ));
-            }
+        $input = $event->getInput();
+
+        $alias = $input->hasArgument('command') ? $input->getArgument('command') : null;
+        if (in_array($alias, $command->getDeprecatedAliases(), true)) {
+            $io = new SymfonyStyle($event->getInput(), $event->getOutput());
+            $io->warning(sprintf(
+                'Command alias "%s" is deprecated since 3.3 and will be removed in in 4.0. Use "%s" instead.',
+                $alias,
+                $event->getCommand()->getName()
+            ));
         }
     }
 }
