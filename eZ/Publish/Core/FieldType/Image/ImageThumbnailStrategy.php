@@ -11,6 +11,7 @@ namespace eZ\Publish\Core\FieldType\Image;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\API\Repository\Values\Content\Thumbnail;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
+use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
 use eZ\Publish\SPI\Variation\VariationHandler;
 
@@ -40,10 +41,14 @@ class ImageThumbnailStrategy implements FieldTypeBasedThumbnailStrategy
         return $this->fieldTypeIdentifier;
     }
 
-    public function getThumbnail(Field $field): ?Thumbnail
+    public function getThumbnail(Field $field, ?APIVersionInfo $versionInfo = null): ?Thumbnail
     {
         /** @var \eZ\Publish\SPI\Variation\Values\ImageVariation $variation */
-        $variation = $this->variationHandler->getVariation($field, new VersionInfo(), $this->variationName);
+        $variation = $this->variationHandler->getVariation(
+            $field,
+            $versionInfo ?? new VersionInfo(),
+            $this->variationName
+        );
 
         return new Thumbnail([
             'resource' => $variation->uri,

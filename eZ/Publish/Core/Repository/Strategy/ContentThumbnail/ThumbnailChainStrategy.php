@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\Repository\Strategy\ContentThumbnail;
 
 use eZ\Publish\API\Repository\Values\Content\Thumbnail;
+use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
 
@@ -25,10 +26,10 @@ final class ThumbnailChainStrategy implements ThumbnailStrategy
         $this->strategies = $strategies;
     }
 
-    public function getThumbnail(ContentType $contentType, array $fields): ?Thumbnail
+    public function getThumbnail(ContentType $contentType, array $fields, ?VersionInfo $versionInfo = null): ?Thumbnail
     {
         foreach ($this->strategies as $strategy) {
-            $thumbnail = $strategy->getThumbnail($contentType, $fields);
+            $thumbnail = $strategy->getThumbnail($contentType, $fields, $versionInfo);
 
             if ($thumbnail !== null) {
                 return $thumbnail;

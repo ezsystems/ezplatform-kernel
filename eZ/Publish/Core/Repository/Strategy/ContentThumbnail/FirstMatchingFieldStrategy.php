@@ -11,6 +11,7 @@ namespace eZ\Publish\Core\Repository\Strategy\ContentThumbnail;
 use eZ\Publish\API\Repository\FieldTypeService;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\API\Repository\Values\Content\Thumbnail;
+use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy as ContentFieldThumbnailStrategy;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
@@ -31,7 +32,7 @@ final class FirstMatchingFieldStrategy implements ThumbnailStrategy
         $this->fieldTypeService = $fieldTypeService;
     }
 
-    public function getThumbnail(ContentType $contentType, array $fields): ?Thumbnail
+    public function getThumbnail(ContentType $contentType, array $fields, ?VersionInfo $versionInfo = null): ?Thumbnail
     {
         $fieldDefinitions = $contentType->getFieldDefinitions();
 
@@ -49,7 +50,7 @@ final class FirstMatchingFieldStrategy implements ThumbnailStrategy
                 && $this->contentFieldStrategy->hasStrategy($field->fieldTypeIdentifier)
                 && !$fieldType->isEmptyValue($field->value)
             ) {
-                return $this->contentFieldStrategy->getThumbnail($field);
+                return $this->contentFieldStrategy->getThumbnail($field, $versionInfo);
             }
         }
 
