@@ -30,9 +30,6 @@ use PDO;
 
 class ReindexCommand extends Command implements BackwardCompatibleCommand
 {
-    /** @var string string */
-    protected static $defaultName = 'ibexa:reindex';
-
     /** @var \eZ\Publish\Core\Search\Common\Indexer|\eZ\Publish\Core\Search\Common\IncrementalIndexer */
     private $searchIndexer;
 
