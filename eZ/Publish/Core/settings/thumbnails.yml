@@ -7,7 +7,7 @@ services:
     eZ\Publish\Core\FieldType\Image\ImageThumbnailStrategy:
         arguments:
             $fieldTypeIdentifier: 'ezimage'
-            $variationHandler: '@eZ\Publish\SPI\Variation\VariationHandler'
+            $variationHandler: '@ezpublish.image_alias.imagine.cache.alias_generator_decorator'
             $variationName: 'medium'
         tags:
             - { name: ezplatform.spi.field.thumbnail_strategy, priority: 0 }

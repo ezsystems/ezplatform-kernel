@@ -12,6 +12,7 @@ use ArrayIterator;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\API\Repository\Values\Content\Thumbnail;
+use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use eZ\Publish\Core\Repository\Strategy\ContentThumbnail\Field\ContentFieldStrategy;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
 use PHPUnit\Framework\TestCase;
@@ -34,7 +35,7 @@ class ContentFieldStrategyTest extends TestCase
                 return $this->fieldTypeIdentifier;
             }
 
-            public function getThumbnail(Field $field): ?Thumbnail
+            public function getThumbnail(Field $field, ?VersionInfo $versionInfo = null): ?Thumbnail
             {
                 return new Thumbnail([
                     'resource' => $field->value,

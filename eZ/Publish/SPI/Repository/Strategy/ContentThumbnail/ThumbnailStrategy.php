@@ -9,9 +9,10 @@ declare(strict_types=1);
 namespace eZ\Publish\SPI\Repository\Strategy\ContentThumbnail;
 
 use eZ\Publish\API\Repository\Values\Content\Thumbnail;
+use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 
 interface ThumbnailStrategy
 {
-    public function getThumbnail(ContentType $contentType, array $fields): ?Thumbnail;
+    public function getThumbnail(ContentType $contentType, array $fields, ?VersionInfo $versionInfo = null): ?Thumbnail;
 }

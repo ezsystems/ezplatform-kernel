@@ -54,3 +54,5 @@ services:
     eZ\Publish\API\Repository\SettingService:
         public: true
         alias: eZ\Publish\Core\Event\SettingService
+
+    ezpublish.image_alias.imagine.cache.alias_generator_decorator: '@eZ\Publish\SPI\Tests\Variation\InMemoryVariationHandler'

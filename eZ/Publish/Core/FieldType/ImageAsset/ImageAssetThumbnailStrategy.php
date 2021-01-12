@@ -12,6 +12,7 @@ use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\API\Repository\Values\Content\Thumbnail;
+use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy as ContentThumbnailStrategy;
 
@@ -41,17 +42,22 @@ class ImageAssetThumbnailStrategy implements FieldTypeBasedThumbnailStrategy
         return $this->fieldTypeIdentifier;
     }
 
-    public function getThumbnail(Field $field): ?Thumbnail
+    public function getThumbnail(Field $field, ?VersionInfo $versionInfo = null): ?Thumbnail
     {
         try {
-            $content = $this->contentService->loadContent((int) $field->value->destinationContentId);
+            $content = $this->contentService->loadContent(
+                (int) $field->value->destinationContentId,
+                null,
+                $versionInfo ? $versionInfo->versionNo : null
+            );
         } catch (NotFoundException $e) {
             return null;
         }
 
         return $this->thumbnailStrategy->getThumbnail(
             $content->getContentType(),
-            $content->getFields()
+            $content->getFields(),
+            $content->versionInfo
         );
     }
 }
