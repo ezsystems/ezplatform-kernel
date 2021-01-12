@@ -28,11 +28,8 @@ use RuntimeException;
 use DateTime;
 use PDO;
 
-class ReindexCommand extends Command
+class ReindexCommand extends Command implements BackwardCompatibleCommand
 {
-    /** @var string string */
-    protected static $defaultName = 'ezplatform:reindex';
-
     /** @var \eZ\Publish\Core\Search\Common\Indexer|\eZ\Publish\Core\Search\Common\IncrementalIndexer */
     private $searchIndexer;
 
@@ -120,7 +117,8 @@ class ReindexCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('ezplatform:reindex')
+            ->setName('ibexa:reindex')
+            ->setAliases($this->getDeprecatedAliases())
             ->setDescription('Recreates or refreshes the search engine index')
             ->addOption(
                 'iteration-count',
@@ -166,18 +164,18 @@ class ReindexCommand extends Command
                     
                     Example usage:
                     - Refresh (add/update) index changes since yesterday:
-                      <comment>ezplatform:reindex --since=yesterday</comment>
+                      <comment>ibexa:reindex --since=yesterday</comment>
                       See: http://php.net/manual/en/datetime.formats.php
                     
                     - Refresh (add/update/remove) index on a set of content ID's:
-                      <comment>ezplatform:reindex --content-ids=2,34,68</comment>
+                      <comment>ibexa:reindex --content-ids=2,34,68</comment>
                     
                     - Refresh (add/update) index of a subtree:
-                      <comment>ezplatform:reindex --subtree=45</comment>
+                      <comment>ibexa:reindex --subtree=45</comment>
                     
                     - Refresh (add/update) index, disabling the use of child proccesses and initial purging,
                       and let search engine handle commits using auto commit:
-                      <comment>ezplatform:reindex --no-purge --no-commit --processes=0</comment>
+                      <comment>ibexa:reindex --no-purge --no-commit --processes=0</comment>
                 
                 EOT
             );
@@ -471,7 +469,7 @@ class ReindexCommand extends Command
         $subProcessArgs = [
             $this->getPhpPath(),
             $consolePath,
-            'ezplatform:reindex',
+            'ibexa:reindex',
             '--content-ids=' . implode(',', $contentIds),
             '--env=' . $this->env,
         ];
@@ -539,5 +537,10 @@ class ReindexCommand extends Command
         }
 
         return $cores;
+    }
+
+    public function getDeprecatedAliases(): array
+    {
+        return ['ezplatform:reindex'];
     }
 }

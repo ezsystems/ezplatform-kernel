@@ -19,7 +19,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CleanupVersionsCommand extends Command
+class CleanupVersionsCommand extends Command implements BackwardCompatibleCommand
 {
     const DEFAULT_REPOSITORY_USER = 'admin';
     const DEFAULT_EXCLUDED_CONTENT_TYPES = 'user';
@@ -68,7 +68,8 @@ EOT;
     {
         $beforeRunningHints = self::BEFORE_RUNNING_HINTS;
         $this
-            ->setName('ezplatform:content:cleanup-versions')
+            ->setName('ibexa:content:cleanup-versions')
+            ->setAliases($this->getDeprecatedAliases())
             ->setDescription('Removes unwanted content versions. Keeps the published version untouched. By default, also keeps the last archived/draft version.')
             ->addOption(
                 'status',
@@ -298,5 +299,10 @@ EOT
                 $status
             )
         );
+    }
+
+    public function getDeprecatedAliases(): array
+    {
+        return ['ezplatform:content:cleanup-versions'];
     }
 }

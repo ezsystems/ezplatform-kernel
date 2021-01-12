@@ -25,7 +25,7 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 /**
  * Console command for deep copying subtree from one location to another.
  */
-class CopySubtreeCommand extends Command
+class CopySubtreeCommand extends Command implements BackwardCompatibleCommand
 {
     /** @var \eZ\Publish\API\Repository\LocationService */
     private $locationService;
@@ -67,7 +67,8 @@ class CopySubtreeCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('ezplatform:copy-subtree')
+            ->setName('ibexa:copy-subtree')
+            ->setAliases($this->getDeprecatedAliases())
             ->addArgument(
                 'source-location-id',
                 InputArgument::REQUIRED,
@@ -180,5 +181,10 @@ class CopySubtreeCommand extends Command
         $searchResults = $this->searchService->findLocations($query);
 
         return $searchResults->totalCount;
+    }
+
+    public function getDeprecatedAliases(): array
+    {
+        return ['ezplatform:copy-subtree'];
     }
 }

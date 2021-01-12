@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Symfony\Component\VarDumper\Dumper\CliDumper;
 
-class DebugConfigResolverCommand extends Command
+class DebugConfigResolverCommand extends Command implements BackwardCompatibleCommand
 {
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
@@ -39,8 +39,8 @@ class DebugConfigResolverCommand extends Command
      */
     public function configure()
     {
-        $this->setName('ezplatform:debug:config-resolver');
-        $this->setAliases(['ezplatform:debug:config']);
+        $this->setName('ibexa:debug:config-resolver');
+        $this->setAliases(array_merge(['ibexa:debug:config'], $this->getDeprecatedAliases()));
         $this->setDescription('Debugs / Retrieves a parameter from the Config Resolver');
         $this->addArgument(
             'parameter',
@@ -110,5 +110,10 @@ EOM
         );
 
         return 0;
+    }
+
+    public function getDeprecatedAliases(): array
+    {
+        return ['ezplatform:debug:config-resolver', 'ezplatform:debug:config'];
     }
 }
