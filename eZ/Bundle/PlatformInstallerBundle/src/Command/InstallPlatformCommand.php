@@ -180,7 +180,7 @@ final class InstallPlatformCommand extends Command implements BackwardCompatible
     private function indexData(OutputInterface $output, $siteaccess = null)
     {
         $output->writeln(
-            sprintf('Search engine re-indexing, executing command ezplatform:reindex')
+            sprintf('Search engine re-indexing, executing command ibexa:reindex')
         );
 
         $command = 'ibexa:reindex';
