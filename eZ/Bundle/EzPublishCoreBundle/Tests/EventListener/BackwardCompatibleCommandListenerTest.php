@@ -100,7 +100,7 @@ final class BackwardCompatibleCommandListenerTest extends TestCase
 
     private function assertOutputContainsDeprecationWarning(BufferedOutput $output): void
     {
-        $outputString = trim(preg_replace(self::MORE_THEN_2_WHITESPACES_AND_NEW_LINES, ' ', $output->fetch()));
+        $outputString = trim(preg_replace(self::MORE_THAN_2_WHITESPACES_AND_NEW_LINES, ' ', $output->fetch()));
 
         $this->assertEquals(
             '[WARNING] Command alias "ezplatform:command" is deprecated since 3.3 and will be removed in in 4.0. Use "ibexa:command" instead.',
