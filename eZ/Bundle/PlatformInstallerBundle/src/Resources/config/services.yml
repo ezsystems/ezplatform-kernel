@@ -14,7 +14,8 @@ services:
         autowire: true
         parent: EzSystems\PlatformInstallerBundle\Installer\DbBasedInstaller
         tags:
-            - {name: ezplatform.installer, type: clean}
+            - { name: ezplatform.installer, type: clean } # left for BC, should be removed in Ibexa 4.0
+            - { name: ezplatform.installer, type: ibexa-oss }
 
     EzSystems\PlatformInstallerBundle\Command\InstallPlatformCommand:
         arguments:
