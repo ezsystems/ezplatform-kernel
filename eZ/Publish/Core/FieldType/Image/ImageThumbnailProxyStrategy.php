@@ -14,7 +14,7 @@ use eZ\Publish\Core\Repository\ProxyFactory\ProxyGeneratorInterface;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
 use ProxyManager\Proxy\LazyLoadingInterface;
 
-class ImageThumbnailProxyStrategy implements FieldTypeBasedThumbnailStrategy
+final class ImageThumbnailProxyStrategy implements FieldTypeBasedThumbnailStrategy
 {
     /** @var \eZ\Publish\Core\FieldType\Image\ImageThumbnailStrategy */
     private $imageThumbnailStrategy;
