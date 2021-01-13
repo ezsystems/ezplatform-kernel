@@ -13,6 +13,7 @@ use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Language;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\Section;
+use eZ\Publish\API\Repository\Values\Content\Thumbnail;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
 use eZ\Publish\API\Repository\Values\User\User;
@@ -30,6 +31,7 @@ final class ProxyCacheWarmer implements CacheWarmerInterface
         Location::class,
         Section::class,
         User::class,
+        Thumbnail::class,
     ];
 
     /** @var \eZ\Publish\Core\Repository\ProxyFactory\ProxyGeneratorInterface */
