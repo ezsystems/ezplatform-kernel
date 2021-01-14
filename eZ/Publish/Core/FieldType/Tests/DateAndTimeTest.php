@@ -6,6 +6,8 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
+use DateTime;
+use DateTimeImmutable;
 use eZ\Publish\Core\FieldType\DateAndTime\Type as DateAndTime;
 use eZ\Publish\Core\FieldType\DateAndTime\Value as DateAndTimeValue;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
@@ -156,8 +158,16 @@ class DateAndTimeTest extends FieldTypeTest
                 DateAndTimeValue::fromTimestamp(1346149200),
             ],
             [
-                ($dateTime = new \DateTime()),
+                ($dateTime = new DateTime()),
                 new DateAndTimeValue($dateTime),
+            ],
+            [
+                ($dateTime = new DateTime()),
+                DateAndTimeValue::fromDateTimeInterface($dateTime),
+            ],
+            [
+                ($dateTime = new DateTimeImmutable()),
+                DateAndTimeValue::fromDateTimeInterface($dateTime),
             ],
         ];
     }
@@ -205,9 +215,9 @@ class DateAndTimeTest extends FieldTypeTest
                 null,
             ],
             [
-                new DateAndTimeValue($date = new \DateTime('Tue, 28 Aug 2012 12:20:00 +0200')),
+                new DateAndTimeValue($date = new DateTime('Tue, 28 Aug 2012 12:20:00 +0200')),
                 [
-                    'rfc850' => $date->format(\DateTime::RFC850),
+                    'rfc850' => $date->format(DateTime::RFC850),
                     'timestamp' => $date->getTimeStamp(),
                 ],
             ],
@@ -253,7 +263,7 @@ class DateAndTimeTest extends FieldTypeTest
      */
     public function provideInputForFromHash()
     {
-        $date = new \DateTime('Tue, 28 Aug 2012 12:20:00 +0200');
+        $date = new DateTime('Tue, 28 Aug 2012 12:20:00 +0200');
 
         return [
             [
@@ -262,7 +272,7 @@ class DateAndTimeTest extends FieldTypeTest
             ],
             [
                 [
-                    'rfc850' => $date->format(\DateTime::RFC850),
+                    'rfc850' => $date->format(DateTime::RFC850),
                     'timestamp' => $date->getTimeStamp(),
                 ],
                 new DateAndTimeValue($date),
@@ -288,7 +298,7 @@ class DateAndTimeTest extends FieldTypeTest
 
         $fieldType = $this->getFieldTypeUnderTest();
 
-        $expectedResult = new DateAndTimeValue(new \DateTime());
+        $expectedResult = new DateAndTimeValue(new DateTime());
         $expectedResult->value->add(new DateInterval($intervalSpec));
 
         $actualResult = $fieldType->fromHash($inputHash);
