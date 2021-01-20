@@ -49,7 +49,7 @@ class IndexRequestListener implements EventSubscriberInterface
             if ($indexPage !== null) {
                 $indexPage = '/' . ltrim($indexPage, '/');
                 $request->attributes->set('semanticPathinfo', $indexPage);
-                $request->attributes->set('needsForward', true);
+                $request->attributes->set('needsRedirect', true);
             }
         }
     }

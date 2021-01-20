@@ -77,7 +77,7 @@ class IndexRequestListenerTest extends TestCase
         $this->request->attributes->set('semanticPathinfo', $requestPath);
         $this->indexRequestEventListener->onKernelRequestIndex($this->event);
         $this->assertEquals($expectedIndexPath, $this->request->attributes->get('semanticPathinfo'));
-        $this->assertTrue($this->request->attributes->get('needsForward'));
+        $this->assertTrue($this->request->attributes->get('needsRedirect'));
     }
 
     public function indexPageProvider()
@@ -97,6 +97,6 @@ class IndexRequestListenerTest extends TestCase
     {
         $this->request->attributes->set('semanticPathinfo', '/anyContent');
         $this->indexRequestEventListener->onKernelRequestIndex($this->event);
-        $this->assertFalse($this->request->attributes->has('needsForward'));
+        $this->assertFalse($this->request->attributes->has('needsRedirect'));
     }
 }
