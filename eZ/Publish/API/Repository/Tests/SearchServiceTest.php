@@ -753,7 +753,7 @@ class SearchServiceTest extends BaseTest
             ],
             [
                 [
-                    'query' => new Criterion\UserEmail('*nospam*', Operator::LIKE),
+                    'query' => new Criterion\UserEmail('*admin*', Operator::LIKE),
                     'sortClauses' => [new SortClause\ContentId()],
                     'limit' => 50,
                 ],
@@ -761,7 +761,7 @@ class SearchServiceTest extends BaseTest
             ],
             [
                 [
-                    'query' => new Criterion\UserEmail('nospam@ez.no', Operator::EQ),
+                    'query' => new Criterion\UserEmail('admin@link.invalid', Operator::EQ),
                     'sortClauses' => [new SortClause\ContentId()],
                     'limit' => 50,
                 ],
@@ -769,7 +769,23 @@ class SearchServiceTest extends BaseTest
             ],
             [
                 [
-                    'query' => new Criterion\UserEmail(['nospam@ez.no'], Operator::IN),
+                    'query' => new Criterion\UserEmail('anonymous@link.invalid', Operator::EQ),
+                    'sortClauses' => [new SortClause\ContentId()],
+                    'limit' => 50,
+                ],
+                $fixtureDir . 'UserEmail.php',
+            ],
+            [
+                [
+                    'query' => new Criterion\UserEmail(['admin@link.invalid'], Operator::IN),
+                    'sortClauses' => [new SortClause\ContentId()],
+                    'limit' => 50,
+                ],
+                $fixtureDir . 'UserEmail.php',
+            ],
+            [
+                [
+                    'query' => new Criterion\UserEmail(['anonymous@link.invalid'], Operator::IN),
                     'sortClauses' => [new SortClause\ContentId()],
                     'limit' => 50,
                 ],

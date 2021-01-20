@@ -82,8 +82,8 @@ class UserHandlerTest extends AbstractInMemoryCacheHandlerTest
         return [
             ['load', [14], 'ez-user-14', $user],
             ['loadByLogin', ['admin'], 'ez-user-admin-by-login', $user],
-            ['loadByEmail', ['nospam@ez.no'], 'ez-user-nospam_Aez.no-by-email', $user],
-            ['loadUsersByEmail', ['nospam@ez.no'], 'ez-users-nospam_Aez.no-by-email', [$user]],
+            ['loadByEmail', ['admin@link.invalid'], 'ez-user-admin_Alink.invalid-by-email', $user],
+            ['loadUsersByEmail', ['admin@link.invalid'], 'ez-users-admin_Alink.invalid-by-email', [$user]],
             ['loadUserByToken', ['hash'], 'ez-user-hash-by-account-key', $user],
             ['loadRole', [9], 'ez-role-9', $role],
             ['loadRoleByIdentifier', ['member'], 'ez-role-member-by-identifier', $role],

@@ -228,8 +228,8 @@ abstract class BaseRepositoryFilteringTestCase extends BaseTest
         yield 'SectionIdentifier=standard' => new Criterion\SectionIdentifier('standard');
         yield 'Sibling IN 2, 1]' => new Criterion\Sibling(2, 1);
         yield 'Subtree=/1/2/' => new Criterion\Subtree('/1/2/');
-        yield 'UserEmail=nospam@ez.no' => new Criterion\UserEmail('nospam@ez.no');
-        yield 'UserEmail=nospam@*' => new Criterion\UserEmail('*@ez.no', Criterion\Operator::LIKE);
+        yield 'UserEmail=admin@link.invalid' => new Criterion\UserEmail('admin@link.invalid');
+        yield 'UserEmail=admin@*' => new Criterion\UserEmail('*@link.invalid', Criterion\Operator::LIKE);
         yield 'UserId=14' => new Criterion\UserId(14);
         yield 'UserLogin=admin' => new Criterion\UserLogin('admin');
         yield 'UserLogin=a*' => new Criterion\UserLogin('a*', Criterion\Operator::LIKE);
