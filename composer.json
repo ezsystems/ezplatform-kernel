@@ -60,8 +60,7 @@
         "brianium/paratest": "^4.0",
         "jenner/simple_fork": "^1.2",
         "friends-of-behat/mink-extension": "^2.4",
-        "friendsofphp/php-cs-fixer": "^2.16.2",
-        "ezsystems/ezplatform-code-style": "^0.1",
+        "ezsystems/ezplatform-code-style": "^0.2",
         "phpunit/phpunit": "^8.2",
         "matthiasnoback/symfony-dependency-injection-test": "^4.1",
         "symfony/phpunit-bridge": "^5.1"
