@@ -2660,7 +2660,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '333',
@@ -2784,7 +2784,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '345',
@@ -2908,7 +2908,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '357',
@@ -3107,7 +3107,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '376',
@@ -3231,7 +3231,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '388',
@@ -3355,7 +3355,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '400',
@@ -3674,7 +3674,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '433',
@@ -3798,7 +3798,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '445',
@@ -3922,7 +3922,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '457',
@@ -4706,7 +4706,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '531',
@@ -8614,7 +8614,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '893',
@@ -8738,7 +8738,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '905',
@@ -8937,7 +8937,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '924',
@@ -9061,7 +9061,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '936',
@@ -9185,7 +9185,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '948',
@@ -9459,7 +9459,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '974',
@@ -10904,7 +10904,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '1103',
@@ -11075,7 +11075,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '1119',
@@ -11575,7 +11575,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '1163',
@@ -12075,7 +12075,7 @@ keywords=cms, publish, e-commerce, content management, development framework',
       'data_float' => '0',
       'data_int' => null,
       'data_text' => '<?xml version="1.0" encoding="utf-8"?>
-<ezauthor><authors><author id="0" name="Administrator User" email="nospam@ez.no"/></authors></ezauthor>
+<ezauthor><authors><author id="0" name="Administrator User" email="admin@link.invalid"/></authors></ezauthor>
 ',
       'data_type_string' => 'ezauthor',
       'id' => '1207',

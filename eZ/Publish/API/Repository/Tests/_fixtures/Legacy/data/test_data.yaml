@@ -824,8 +824,8 @@ ezurlalias_ml_incr:
   - { id: 41 }
 ezurlwildcard: {  }
 ezuser:
-  - { contentobject_id: 10, email: nospam@ez.no, login: anonymous, password_hash: $2y$10$35gOSQs6JK4u4whyERaeUuVeQBi2TUBIZIfP7HEj7sfz.MxvTuOeC, password_hash_type: 7 }
-  - { contentobject_id: 14, email: spam@ez.no, login: admin, password_hash: $2y$10$FDn9NPwzhq85cLLxfD5Wu.L3SL3Z/LNCvhkltJUV0wcJj7ciJg2oy, password_hash_type: 7 }
+  - { contentobject_id: 10, email: anonymous@link.invalid, login: anonymous, password_hash: $2y$10$35gOSQs6JK4u4whyERaeUuVeQBi2TUBIZIfP7HEj7sfz.MxvTuOeC, password_hash_type: 7 }
+  - { contentobject_id: 14, email: admin@link.invalid, login: admin, password_hash: $2y$10$FDn9NPwzhq85cLLxfD5Wu.L3SL3Z/LNCvhkltJUV0wcJj7ciJg2oy, password_hash_type: 7 }
 ezuser_accountkey: {  }
 ezuser_role:
   - { contentobject_id: 12, id: 25, limit_identifier: '', limit_value: '', role_id: 2 }
