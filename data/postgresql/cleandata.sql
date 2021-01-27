@@ -285,8 +285,8 @@ VALUES (1), (2), (3), (4), (5), (6), (7), (8), (9), (10), (11), (12), (13), (14)
        (34), (35), (36), (37);
 
 INSERT INTO "ezuser" ("contentobject_id", "email", "login", "password_hash", "password_hash_type")
-VALUES (10,'nospam@ez.no','anonymous','$2y$10$35gOSQs6JK4u4whyERaeUuVeQBi2TUBIZIfP7HEj7sfz.MxvTuOeC',7),
-       (14,'nospam@ez.no','admin','$2y$10$FDn9NPwzhq85cLLxfD5Wu.L3SL3Z/LNCvhkltJUV0wcJj7ciJg2oy',7);
+VALUES (10,'anonymous@link.invalid','anonymous','$2y$10$35gOSQs6JK4u4whyERaeUuVeQBi2TUBIZIfP7HEj7sfz.MxvTuOeC',7),
+       (14,'admin@link.invalid','admin','$2y$10$FDn9NPwzhq85cLLxfD5Wu.L3SL3Z/LNCvhkltJUV0wcJj7ciJg2oy',7);
 
 INSERT INTO "ezuser_role" ("contentobject_id", "id", "limit_identifier", "limit_value", "role_id")
 VALUES (11,28,'','',1),

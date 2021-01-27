@@ -106,9 +106,9 @@ class EmailAddressIntegrationTest extends BaseIntegrationTest
     {
         return new Content\FieldValue(
             [
-                'data' => 'nospam@ez.no',
+                'data' => 'admin@link.invalid',
                 'externalData' => null,
-                'sortKey' => 'nospam@ez.no',
+                'sortKey' => 'admin@link.invalid',
             ]
         );
     }
