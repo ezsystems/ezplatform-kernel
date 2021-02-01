@@ -31,19 +31,15 @@ class BinaryBaseStorageTest extends TestCase
     /** @var \eZ\Publish\Core\IO\IOServiceInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $ioServiceMock;
 
+    /** @var \eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage|\PHPUnit\Framework\MockObject\MockObject */
+    protected $storage;
+
     protected function setUp(): void
     {
         $this->gatewayMock = $this->getStorageGateway();
         $this->pathGeneratorMock = $this->createMock(PathGenerator::class);
         $this->ioServiceMock = $this->createMock(IOServiceInterface::class);
-    }
-
-    /**
-     * @return \eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected function getPartlyMockedStorage(): BinaryBaseStorage
-    {
-        return $this->getMockBuilder(BinaryBaseStorage::class)
+        $this->storage = $this->getMockBuilder(BinaryBaseStorage::class)
             ->setMethods(null)
             ->setConstructorArgs(
                 [
@@ -63,9 +59,7 @@ class BinaryBaseStorageTest extends TestCase
 
     public function testHasFieldData(): void
     {
-        $storage = $this->getPartlyMockedStorage();
-
-        $this->assertTrue($storage->hasFieldData());
+        $this->assertTrue($this->storage->hasFieldData());
     }
 
     /**
@@ -73,8 +67,6 @@ class BinaryBaseStorageTest extends TestCase
      */
     public function testStoreFieldData(VersionInfo $versionInfo, Field $field): void
     {
-        $storage = $this->getPartlyMockedStorage();
-
         $binaryFileCreateStruct = new BinaryFileCreateStruct([
             'id' => 'qwerty12345',
             'size' => '372949',
@@ -98,54 +90,49 @@ class BinaryBaseStorageTest extends TestCase
             ->with($binaryFileCreateStruct)
             ->willReturn(new BinaryFile());
 
-        $this->ioServiceMock
-            ->expects($this->any())
-            ->method('loadBinaryFile')
-            ->with($field->value->externalData['id'])
-            ->willReturn(new BinaryFile());
+        $this->storage->storeFieldData($versionInfo, $field, $this->getContext());
 
-        $storage->storeFieldData($versionInfo, $field, $this->getContext());
-
-        $this->doesNotPerformAssertions();
+        $this->expectNotToPerformAssertions();
     }
 
     /**
+     * @depends testStoreFieldData
+     *
      * @dataProvider providerOfFieldData
      */
     public function testCopyLegacyField(VersionInfo $versionInfo, Field $originalField): void
     {
-        $storage = $this->getPartlyMockedStorage();
-
         $field = clone $originalField;
         $field->id = 124;
+        $field->versionNo = 2;
         $field->value = new FieldValue([
             'externalData' => [
-                'fileName' => '1.jpg',
+                'fileName' => '123.jpg',
                 'downloadCount' => 0,
                 'mimeType' => null,
                 'uri' => null,
             ],
         ]);
 
-        $storage->copyLegacyField($versionInfo, $field, $originalField, $this->getContext());
+        $flag = $this->storage->copyLegacyField($versionInfo, $field, $originalField, $this->getContext());
 
-        $this->doesNotPerformAssertions();
+        $this->assertFalse($flag);
     }
 
     public function providerOfFieldData(): array
     {
         $field = new Field();
-        $field->id = 123;
+        $field->id = 124;
         $field->fieldDefinitionId = 231;
         $field->type = 'ezbinaryfile';
         $field->versionNo = 1;
         $field->value = new FieldValue([
             'externalData' => [
-                'id' => 'image/809c753a26e11f363cd8c14d824d162a.jpg',
-                'path' => '/tmp/phpR4tNSI',
-                'inputUri' => '/tmp/phpR4tNSI',
-                'fileName' => '1.jpg',
-                'fileSize' => '372949',
+                'id' => 'image/aaac753a26e11f363cd8c14d824d162a.jpg',
+                'path' => '/tmp/phpR4tNSV',
+                'inputUri' => '/tmp/phpR4tNSV',
+                'fileName' => '123.jpg',
+                'fileSize' => '12345',
                 'mimeType' => 'image/jpeg',
                 'uri' => '/admin/content/download/75/320?version=1',
                 'downloadCount' => 0,
@@ -154,7 +141,8 @@ class BinaryBaseStorageTest extends TestCase
 
         $versionInfo = new VersionInfo([
             'contentInfo' => new ContentInfo([
-                'id' => 1,
+                'id' => 235,
+                'contentTypeId' => 24,
             ]),
             'versionNo' => 1,
         ]);
