@@ -33,8 +33,6 @@ class BinaryBaseStorageTest extends TestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         $this->gatewayMock = $this->getStorageGateway();
         $this->pathGeneratorMock = $this->createMock(PathGenerator::class);
         $this->ioServiceMock = $this->createMock(IOServiceInterface::class);
@@ -78,7 +76,7 @@ class BinaryBaseStorageTest extends TestCase
         $storage = $this->getPartlyMockedStorage();
 
         $binaryFileCreateStruct = new BinaryFileCreateStruct([
-            'id' => 'qwerty123',
+            'id' => 'qwerty12345',
             'size' => '372949',
             'mimeType' => 'image/jpeg',
         ]);
@@ -92,7 +90,7 @@ class BinaryBaseStorageTest extends TestCase
             ->expects($this->once())
             ->method('getStoragePathForField')
             ->with($field, $versionInfo)
-            ->willReturn('image/qwerty123.jpg');
+            ->willReturn('image/qwerty12345.jpg');
 
         $this->ioServiceMock
             ->expects($this->once())
@@ -100,7 +98,15 @@ class BinaryBaseStorageTest extends TestCase
             ->with($binaryFileCreateStruct)
             ->willReturn(new BinaryFile());
 
+        $this->ioServiceMock
+            ->expects($this->any())
+            ->method('loadBinaryFile')
+            ->with($field->value->externalData['id'])
+            ->willReturn(new BinaryFile());
+
         $storage->storeFieldData($versionInfo, $field, $this->getContext());
+
+        $this->doesNotPerformAssertions();
     }
 
     /**
@@ -122,6 +128,8 @@ class BinaryBaseStorageTest extends TestCase
         ]);
 
         $storage->copyLegacyField($versionInfo, $field, $originalField, $this->getContext());
+
+        $this->doesNotPerformAssertions();
     }
 
     public function providerOfFieldData(): array
