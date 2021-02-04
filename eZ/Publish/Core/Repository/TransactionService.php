@@ -8,16 +8,15 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository;
 
+use Exception;
 use eZ\Publish\API\Repository\TransactionService as TransactionServiceInterface;
 use eZ\Publish\SPI\Persistence\TransactionHandler;
-use Exception;
 use RuntimeException;
+use Throwable;
 
 class TransactionService implements TransactionServiceInterface
 {
-    /**
-     * @var \eZ\Publish\SPI\Persistence\TransactionHandler
-     */
+    /** @var \eZ\Publish\SPI\Persistence\TransactionHandler */
     private $transactionHandler;
 
     public function __construct(TransactionHandler $transactionHandler)
@@ -59,7 +58,7 @@ class TransactionService implements TransactionServiceInterface
             $this->commit();
 
             return $result;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->rollback();
             throw $e;
         }
