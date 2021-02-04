@@ -183,8 +183,10 @@ interface Repository
     /**
      * Begin transaction.
      *
-     * Begins an transaction, make sure you'll call commit or rollback when done,
+     * Begins a transaction. Make sure to call commit or rollback when done,
      * otherwise work will be lost.
+     *
+     * @deprecated since Ibexa DXP 3.3.0, to be removed in Ibexa DXP 4.0.0. Use \eZ\Publish\API\Repository\TransactionService::beginTransaction instead.
      */
     public function beginTransaction(): void;
 
@@ -194,6 +196,8 @@ interface Repository
      * Commit transaction, or throw exceptions if no transactions has been started.
      *
      * @throws \RuntimeException If no transaction has been started
+     *
+     * @deprecated since Ibexa DXP 3.3.0, to be removed in Ibexa DXP 4.0.0. Use \eZ\Publish\API\Repository\TransactionService::commit instead.
      */
     public function commit(): void;
 
@@ -203,6 +207,8 @@ interface Repository
      * Rollback transaction, or throw exceptions if no transactions has been started.
      *
      * @throws \RuntimeException If no transaction has been started
+     *
+     * @deprecated since Ibexa DXP 3.3.0, to be removed in Ibexa DXP 4.0.0. Use \eZ\Publish\API\Repository\TransactionService::rollback instead.
      */
     public function rollback(): void;
 }
