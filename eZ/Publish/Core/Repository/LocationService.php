@@ -21,6 +21,7 @@ use eZ\Publish\API\Repository\Values\Content\LocationList;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LanguageCode;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use eZ\Publish\Core\Repository\Mapper\ContentDomainMapper;
+use eZ\Publish\SPI\Limitation\Target;
 use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
 use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
 use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
@@ -770,11 +771,18 @@ class LocationService implements LocationServiceInterface
     public function deleteLocation(APILocation $location): void
     {
         $location = $this->loadLocation($location->id);
+        $contentInfo = $location->contentInfo;
+        $versionInfo = $this->persistenceHandler->contentHandler()->loadVersionInfo(
+            $contentInfo->id,
+            $contentInfo->currentVersionNo
+        );
+        $translations = $versionInfo->languageCodes;
+        $target = (new Target\Version())->deleteTranslations($translations);
 
         if (!$this->permissionResolver->canUser('content', 'manage_locations', $location->getContentInfo())) {
             throw new UnauthorizedException('content', 'manage_locations', ['locationId' => $location->id]);
         }
-        if (!$this->permissionResolver->canUser('content', 'remove', $location->getContentInfo(), [$location])) {
+        if (!$this->permissionResolver->canUser('content', 'remove', $location->getContentInfo(), [$location, $target])) {
             throw new UnauthorizedException('content', 'remove', ['locationId' => $location->id]);
         }
 

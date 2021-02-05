@@ -14,6 +14,7 @@ use eZ\Publish\API\Repository\Repository as RepositoryInterface;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Exceptions\UnauthorizedException as APIUnauthorizedException;
 use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
+use eZ\Publish\SPI\Limitation\Target;
 use eZ\Publish\SPI\Persistence\Handler;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\Core\Repository\Values\Content\TrashItem;
@@ -406,7 +407,13 @@ class TrashService implements TrashServiceInterface
      */
     private function userHasPermissionsToRemove(ContentInfo $contentInfo, Location $location)
     {
-        if (!$this->permissionResolver->canUser('content', 'remove', $contentInfo, [$location])) {
+        $versionInfo = $this->persistenceHandler->contentHandler()->loadVersionInfo(
+            $contentInfo->id,
+            $contentInfo->currentVersionNo
+        );
+        $target = (new Target\Version())->deleteTranslations($versionInfo->languageCodes);
+
+        if (!$this->permissionResolver->canUser('content', 'remove', $contentInfo, [$location, $target])) {
             return false;
         }
         $contentRemoveCriterion = $this->permissionCriterionResolver->getPermissionsCriterion('content', 'remove');
