@@ -974,8 +974,14 @@ class ContentService implements ContentServiceInterface
     public function deleteContent(ContentInfo $contentInfo): iterable
     {
         $contentInfo = $this->internalLoadContentInfoById($contentInfo->id);
+        $versionInfo = $this->persistenceHandler->contentHandler()->loadVersionInfo(
+            $contentInfo->id,
+            $contentInfo->currentVersionNo
+        );
+        $translations = $versionInfo->languageCodes;
+        $target = (new Target\Version())->deleteTranslations($translations);
 
-        if (!$this->permissionResolver->canUser('content', 'remove', $contentInfo)) {
+        if (!$this->permissionResolver->canUser('content', 'remove', $contentInfo, [$target])) {
             throw new UnauthorizedException('content', 'remove', ['contentId' => $contentInfo->id]);
         }
 
