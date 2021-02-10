@@ -740,13 +740,13 @@ class UserService implements UserServiceInterface
     /**
      * Validates and updates just the user's password.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\User $user
-     * @param string $newPassword
+     * @return \eZ\Publish\API\Repository\Values\User\User
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException
-     * @throws \eZ\Publish\Core\Base\Exceptions\MissingUserFieldTypeException
-     * @throws \eZ\Publish\Core\Base\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\Core\Repository\User\Exception\UnsupportedPasswordHashType
      */
     public function updateUserPassword(APIUser $user, string $newPassword): APIUser
     {
