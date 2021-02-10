@@ -53,6 +53,7 @@
         "twig/extra-bundle": "^3.0",
         "friendsofsymfony/jsrouting-bundle": "^2.5",
         "psr/event-dispatcher": "^1.0",
+        "symfony/templating": "^5.1",
         "composer/package-versions-deprecated": "^1.11"
     },
     "require-dev": {
