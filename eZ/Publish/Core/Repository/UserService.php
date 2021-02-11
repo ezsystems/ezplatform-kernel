@@ -740,8 +740,6 @@ class UserService implements UserServiceInterface
     /**
      * Validates and updates just the user's password.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
