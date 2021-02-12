@@ -68,19 +68,14 @@ class RepositoryConfigurationProviderTest extends TestCase
         );
     }
 
-    public function testGetRepositoryConfigUndefinedRepository()
+    /**
+     * @dataProvider providerForRepositories
+     */
+    public function testGetRepositoryConfigUndefinedRepository(array $repositories): void
     {
         $this->expectException(\eZ\Bundle\EzPublishCoreBundle\ApiLoader\Exception\InvalidRepositoryException::class);
 
         $configResolver = $this->getConfigResolverMock();
-        $repositories = [
-            'main' => [
-                'engine' => 'foo',
-            ],
-            'another' => [
-                'engine' => 'bar',
-            ],
-        ];
 
         $configResolver
             ->expects($this->once())
@@ -90,6 +85,48 @@ class RepositoryConfigurationProviderTest extends TestCase
 
         $provider = new RepositoryConfigurationProvider($configResolver, $repositories);
         $provider->getRepositoryConfig();
+    }
+
+    /**
+     * @dataProvider providerForRepositories
+     */
+    public function testGetDefaultRepositoryAlias(array $repositories): void
+    {
+        $configResolver = $this->getConfigResolverMock();
+
+        $provider = new RepositoryConfigurationProvider($configResolver, $repositories);
+        $provider->getRepositoryConfig();
+
+        self::assertSame('first', $provider->getDefaultRepositoryAlias());
+    }
+
+    /**
+     * @dataProvider providerForRepositories
+     */
+    public function testGetCurrentRepositoryAlias(array $repositories): void
+    {
+        $configResolver = $this->getConfigResolverMock();
+
+        $provider = new RepositoryConfigurationProvider($configResolver, $repositories);
+        $provider->getRepositoryConfig();
+
+        self::assertSame('first', $provider->getCurrentRepositoryAlias());
+    }
+
+    public function providerForRepositories(): array
+    {
+        return [
+            [
+                [
+                    'first' => [
+                        'engine' => 'foo',
+                    ],
+                    'second' => [
+                        'engine' => 'bar',
+                    ],
+                ],
+            ],
+        ];
     }
 
     /**
