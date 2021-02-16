@@ -9,6 +9,7 @@ namespace eZ\Publish\API\Repository\Tests;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
+use Doctrine\DBAL\ParameterType;
 use eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
@@ -24,6 +25,7 @@ use eZ\Publish\API\Repository\Values\User\UserUpdateStruct;
 use eZ\Publish\API\Repository\Values\User\User;
 use eZ\Publish\Core\FieldType\User\Type;
 use eZ\Publish\Core\FieldType\ValidationError;
+use eZ\Publish\Core\Persistence\Legacy\User\Gateway;
 use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use eZ\Publish\Core\Repository\Values\User\UserGroup;
@@ -2082,6 +2084,30 @@ class UserServiceTest extends BaseTest
     }
 
     /**
+     * @throws \Doctrine\DBAL\Exception
+     * @throws \ErrorException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     */
+    public function testUpdateUserPasswordWithUnsupportedHashType(): void
+    {
+        $repository = $this->getRepository();
+        $userService = $repository->getUserService();
+
+        $user = $this->createUser('john.doe', 'John', 'Doe');
+        $oldPasswordHash = $user->passwordHash;
+
+        $wrongHashType = 1;
+        $this->updateRawPasswordHash($user->getUserId(), $wrongHashType);
+        $newPassword = 'new_secret123';
+        // no need to invalidate cache since there was no load between create & raw database update
+        $user = $userService->updateUserPassword($user, $newPassword);
+
+        self::assertTrue($userService->checkUserCredentials($user, $newPassword));
+        self::assertNotEquals($oldPasswordHash, $user->passwordHash);
+    }
+
+    /**
      * Test for the loadUserGroupsOfUser() method.
      *
      * @covers \eZ\Publish\API\Repository\UserService::loadUserGroupsOfUser
@@ -3226,5 +3252,23 @@ class UserServiceTest extends BaseTest
         $contentTypeService->publishContentTypeDraft($contentTypeDraft);
 
         return $contentTypeService->loadContentTypeByIdentifier($identifier);
+    }
+
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     * @throws \ErrorException
+     */
+    protected function updateRawPasswordHash(int $userId, int $newHashType): void
+    {
+        $connection = $this->getRawDatabaseConnection();
+        $queryBuilder = $connection->createQueryBuilder();
+        $queryBuilder
+            ->update(Gateway::USER_TABLE)
+            ->set('password_hash_type', ':wrong_hash_type')
+            ->where('contentobject_id = :user_id')
+            ->setParameter('wrong_hash_type', $newHashType, ParameterType::INTEGER)
+            ->setParameter('user_id', $userId);
+
+        $queryBuilder->execute();
     }
 }
