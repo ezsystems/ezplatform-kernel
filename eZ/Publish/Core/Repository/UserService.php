@@ -34,6 +34,7 @@ use eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException;
 use eZ\Publish\Core\Base\Exceptions\MissingUserFieldTypeException;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
 use eZ\Publish\Core\Repository\Validator\UserPasswordValidator;
+use eZ\Publish\Core\Repository\User\Exception\UnsupportedPasswordHashType;
 use eZ\Publish\Core\Repository\User\PasswordHashServiceInterface;
 use eZ\Publish\Core\Repository\Values\User\UserCreateStruct;
 use eZ\Publish\API\Repository\Values\User\UserCreateStruct as APIUserCreateStruct;
@@ -739,13 +740,11 @@ class UserService implements UserServiceInterface
     /**
      * Validates and updates just the user's password.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\User $user
-     * @param string $newPassword
-     *
-     * @throws \eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException
-     * @throws \eZ\Publish\Core\Base\Exceptions\MissingUserFieldTypeException
-     * @throws \eZ\Publish\Core\Base\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\Core\Repository\User\Exception\UnsupportedPasswordHashType
      */
     public function updateUserPassword(APIUser $user, string $newPassword): APIUser
     {
@@ -767,7 +766,13 @@ class UserService implements UserServiceInterface
             throw new ContentFieldValidationException($errors);
         }
 
-        $passwordHash = $this->passwordHashService->createPasswordHash($newPassword, (int) $loadedUser->hashAlgorithm);
+        $passwordHashAlgorithm = (int) $loadedUser->hashAlgorithm;
+        try {
+            $passwordHash = $this->passwordHashService->createPasswordHash($newPassword, $passwordHashAlgorithm);
+        } catch (UnsupportedPasswordHashType $e) {
+            $passwordHashAlgorithm = $this->passwordHashService->getDefaultHashType();
+            $passwordHash = $this->passwordHashService->createPasswordHash($newPassword, $passwordHashAlgorithm);
+        }
 
         $this->repository->beginTransaction();
         try {
@@ -778,7 +783,7 @@ class UserService implements UserServiceInterface
                         'login' => $loadedUser->login,
                         'email' => $loadedUser->email,
                         'passwordHash' => $passwordHash,
-                        'hashAlgorithm' => $loadedUser->hashAlgorithm,
+                        'hashAlgorithm' => $passwordHashAlgorithm,
                         'passwordUpdatedAt' => time(),
                     ]
                 )

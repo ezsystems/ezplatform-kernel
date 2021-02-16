@@ -15,6 +15,9 @@ interface PasswordHashServiceInterface
 {
     public function getDefaultHashType(): int;
 
+    /**
+     * @throws \eZ\Publish\Core\Repository\User\Exception\UnsupportedPasswordHashType
+     */
     public function createPasswordHash(string $password, ?int $hashType = null): string;
 
     public function isValidPassword(string $plainPassword, string $passwordHash, ?int $hashType = null): bool;
