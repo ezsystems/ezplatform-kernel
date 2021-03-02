@@ -4,26 +4,28 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
+
 namespace Integration\BinaryBase\BinaryBaseStorage;
 
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage;
 use eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway;
 use eZ\Publish\Core\FieldType\BinaryFile\BinaryFileStorage\Gateway\DoctrineStorage;
+use eZ\Publish\Core\FieldType\Tests\Integration\BaseCoreFieldTypeIntegrationTest;
 use eZ\Publish\Core\IO\IOServiceInterface;
 use eZ\Publish\Core\IO\Values\BinaryFile;
 use eZ\Publish\Core\IO\Values\BinaryFileCreateStruct;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\SPI\FieldType\BinaryBase\PathGenerator;
 use eZ\Publish\SPI\IO\MimeTypeDetector;
 use eZ\Publish\SPI\Persistence\Content\Field;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
-class BinaryBaseStorageTest extends TestCase
+class BinaryBaseStorageTest extends BaseCoreFieldTypeIntegrationTest
 {
     /** @var \eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway|\PHPUnit\Framework\MockObject\MockObject */
-    protected $gatewayMock;
+    protected $gateway;
 
     /** @var \eZ\Publish\SPI\FieldType\BinaryBase\PathGenerator|\PHPUnit\Framework\MockObject\MockObject */
     protected $pathGeneratorMock;
@@ -36,14 +38,16 @@ class BinaryBaseStorageTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->gatewayMock = $this->getStorageGateway();
+        parent::setUp();
+
+        $this->gateway = $this->getStorageGateway();
         $this->pathGeneratorMock = $this->createMock(PathGenerator::class);
         $this->ioServiceMock = $this->createMock(IOServiceInterface::class);
         $this->storage = $this->getMockBuilder(BinaryBaseStorage::class)
-            ->setMethods(null)
+            ->onlyMethods([])
             ->setConstructorArgs(
                 [
-                    $this->gatewayMock,
+                    $this->gateway,
                     $this->ioServiceMock,
                     $this->pathGeneratorMock,
                     $this->createMock(MimeTypeDetector::class),
@@ -59,7 +63,7 @@ class BinaryBaseStorageTest extends TestCase
 
     public function testHasFieldData(): void
     {
-        $this->assertTrue($this->storage->hasFieldData());
+        self::assertTrue($this->storage->hasFieldData());
     }
 
     /**
@@ -74,18 +78,18 @@ class BinaryBaseStorageTest extends TestCase
         ]);
 
         $this->ioServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('newBinaryCreateStructFromLocalFile')
             ->will($this->returnValue($binaryFileCreateStruct));
 
         $this->pathGeneratorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getStoragePathForField')
             ->with($field, $versionInfo)
             ->willReturn('image/qwerty12345.jpg');
 
         $this->ioServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('createBinaryFile')
             ->with($binaryFileCreateStruct)
             ->willReturn(new BinaryFile());
@@ -116,7 +120,7 @@ class BinaryBaseStorageTest extends TestCase
 
         $flag = $this->storage->copyLegacyField($versionInfo, $field, $originalField, $this->getContext());
 
-        $this->assertFalse($flag);
+        self::assertFalse($flag);
     }
 
     public function providerOfFieldData(): array
