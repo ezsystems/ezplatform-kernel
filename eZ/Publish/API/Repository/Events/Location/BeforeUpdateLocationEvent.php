@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace eZ\Publish\API\Repository\Events\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\LocationUpdateStruct;
+use eZ\Publish\API\Repository\Values\Location\Location;
+use eZ\Publish\API\Repository\Values\Location\LocationUpdateStruct;
 use eZ\Publish\SPI\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 

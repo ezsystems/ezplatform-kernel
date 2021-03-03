@@ -8,9 +8,11 @@ declare(strict_types=1);
 
 namespace eZ\Publish\API\Repository\Values\Content;
 
+use eZ\Publish\API\Repository\Values\Location\LocationQuery as BaseLocationQuery;
+
 /**
- * This class is used to perform a Location query.
+ * @deprecated since Ibexa DXP v4.0 and will be removed in Ibexa DXP v5.0
  */
-class LocationQuery extends Query
+class LocationQuery extends BaseLocationQuery
 {
 }

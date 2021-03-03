@@ -8,7 +8,7 @@ namespace eZ\Publish\Core\Search\Legacy\Tests\Content;
 
 use eZ\Publish\Core\Search\Legacy\Content;
 use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
+use eZ\Publish\API\Repository\Values\Location\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;

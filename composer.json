@@ -54,7 +54,8 @@
         "friendsofsymfony/jsrouting-bundle": "^2.5",
         "psr/event-dispatcher": "^1.0",
         "symfony/templating": "^5.1",
-        "composer/package-versions-deprecated": "^1.11"
+        "composer/package-versions-deprecated": "^1.11",
+        "adamwojs/php-cs-fixer-phpdoc-force-fqcn": "^1.0"
     },
     "require-dev": {
         "behat/behat": "^3.6.1",

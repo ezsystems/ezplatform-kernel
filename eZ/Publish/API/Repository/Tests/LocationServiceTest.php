@@ -16,9 +16,9 @@ use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Language;
 use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\LocationList;
-use eZ\Publish\API\Repository\Values\Content\LocationUpdateStruct;
+use eZ\Publish\API\Repository\Values\Location\LocationCreateStruct;
+use eZ\Publish\API\Repository\Values\Location\LocationList;
+use eZ\Publish\API\Repository\Values\Location\LocationUpdateStruct;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
 use eZ\Publish\API\Repository\Values\Content\URLAlias;
@@ -53,7 +53,7 @@ class LocationServiceTest extends BaseTest
         /* END: Use Case */
 
         $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\Values\\Content\\LocationCreateStruct',
+            LocationCreateStruct::class,
             $locationCreate
         );
 
@@ -1169,7 +1169,7 @@ class LocationServiceTest extends BaseTest
         $childLocations = $locationService->loadLocationChildren($location, 2);
         /* END: Use Case */
 
-        $this->assertInstanceOf('\\eZ\\Publish\\API\\Repository\\Values\\Content\\LocationList', $childLocations);
+        $this->assertInstanceOf(LocationList::class, $childLocations);
         $this->assertIsArray($childLocations->locations);
         $this->assertIsInt($childLocations->totalCount);
 
@@ -1233,7 +1233,7 @@ class LocationServiceTest extends BaseTest
         $childLocations = $locationService->loadLocationChildren($location, 2, 2);
         /* END: Use Case */
 
-        $this->assertInstanceOf('\\eZ\\Publish\\API\\Repository\\Values\\Content\\LocationList', $childLocations);
+        $this->assertInstanceOf(LocationList::class, $childLocations);
         $this->assertIsArray($childLocations->locations);
         $this->assertIsInt($childLocations->totalCount);
 

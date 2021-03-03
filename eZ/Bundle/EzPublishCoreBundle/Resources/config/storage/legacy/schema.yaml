@@ -419,6 +419,8 @@ tables:
             sort_order: { type: integer, nullable: true, options: { default: '1' } }
             priority: { type: integer, nullable: false, options: { default: '0' } }
             is_hidden: { type: integer, nullable: false, options: { default: '0' } }
+            type: { type: string, nullable: false, length: 100, options: { default: 'content' } }
+            target_key: { type: string, nullable: false, length: 100, options: { default: '' } }
     eznotification:
         indexes:
             eznotification_owner_is_pending: { fields: [owner_id, is_pending] }

@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace eZ\Publish\API\Repository;
 
-use eZ\Publish\API\Repository\Values\Content\LocationList;
-use eZ\Publish\API\Repository\Values\Content\LocationUpdateStruct;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use eZ\Publish\API\Repository\Values\Filter\Filter;
+use eZ\Publish\API\Repository\Values\Location\LocationList;
+use eZ\Publish\API\Repository\Values\Location\LocationUpdateStruct;
+use eZ\Publish\API\Repository\Values\Location\LocationCreateStruct;
+use eZ\Publish\API\Repository\Values\Location\Location;
 
 /**
  * Location service, used for complex subtree operations.

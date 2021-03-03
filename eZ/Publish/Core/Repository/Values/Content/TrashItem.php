@@ -9,8 +9,10 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\Repository\Values\Content;
 
 use eZ\Publish\API\Repository\Values\Content\ContentInfo as APIContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\TrashItem as APITrashItem;
+use eZ\Publish\API\Repository\Values\Location\Location;
+use eZ\Publish\Core\Repository\Values\Content\Location as ContentLocation;
+
 
 /**
  * this class represents a trash item, which is actually a trashed location.
@@ -103,5 +105,10 @@ class TrashItem extends APITrashItem
         }
 
         return parent::__isset($property);
+    }
+
+    public function getType(): string
+    {
+        return TrashItem::class;
     }
 }

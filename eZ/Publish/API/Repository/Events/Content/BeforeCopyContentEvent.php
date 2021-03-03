@@ -10,7 +10,7 @@ namespace eZ\Publish\API\Repository\Events\Content;
 
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
+use eZ\Publish\API\Repository\Values\Location\LocationCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use eZ\Publish\SPI\Repository\Event\BeforeEvent;
 use UnexpectedValueException;

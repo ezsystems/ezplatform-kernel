@@ -8,67 +8,11 @@ declare(strict_types=1);
 
 namespace eZ\Publish\API\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use eZ\Publish\API\Repository\Values\Location\LocationCreateStruct as BaseLocationCreateStruct;
 
 /**
- * This class is used to create a new Location for a content object.
+ * @deprecated since Ibexa DXP v4.0 and will be removed in Ibexa DXP v5.0
  */
-class LocationCreateStruct extends ValueObject
+class LocationCreateStruct extends BaseLocationCreateStruct
 {
-    /**
-     * Location priority.
-     *
-     * Position of the Location among its siblings when sorted using priority
-     * sort order.
-     *
-     * @var int
-     */
-    public $priority = 0;
-
-    /**
-     * Indicates that the Location entity has been explicitly marked as hidden.
-     *
-     * @var bool
-     */
-    public $hidden = false;
-
-    /**
-     * An universally unique string identifier.
-     *
-     * Needs to be a unique Location->remoteId string value.
-     *
-     * @var mixed
-     */
-    public $remoteId;
-
-    /**
-     * Specifies which property the child locations should be sorted on.
-     *
-     * Valid values are found at {@link Location::SORT_FIELD_*}
-     *
-     * If not set, will be taken out of ContentType's default sort field
-     *
-     * @var mixed
-     */
-    public $sortField = null;
-
-    /**
-     * Specifies whether the sort order should be ascending or descending.
-     *
-     * Valid values are {@link Location::SORT_ORDER_*}
-     *
-     * If not set, will be taken out of ContentType's default sort order
-     *
-     * @var mixed
-     */
-    public $sortOrder = null;
-
-    /**
-     * The id of the parent location under which the new location should be created.
-     *
-     * Required.
-     *
-     * @var mixed
-     */
-    public $parentLocationId;
 }

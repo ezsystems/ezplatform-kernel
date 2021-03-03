@@ -13,12 +13,14 @@ use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
+use eZ\Publish\API\Repository\Values\Content\Location as ContentLocation;
+use eZ\Publish\API\Repository\Values\Location\Location;
+use eZ\Publish\API\Repository\Values\Location\LocationCreateStruct;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
 use eZ\Publish\API\Repository\Values\User\Limitation\ParentContentTypeLimitation as APIParentContentTypeLimitation;
 use eZ\Publish\API\Repository\Values\User\Limitation as APILimitationValue;
+use eZ\Publish\Core\Pagination\Pagerfanta\Pagerfanta;
 use eZ\Publish\SPI\Limitation\Type as SPILimitationTypeInterface;
 use eZ\Publish\Core\FieldType\ValidationError;
 use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
@@ -194,8 +196,12 @@ class ParentContentTypeLimitationType extends AbstractPersistenceLimitationType 
             if ($target instanceof LocationCreateStruct) {
                 $hasMandatoryTarget = true;
                 $location = $this->persistence->locationHandler()->load($target->parentLocationId);
-                $contentTypeId = $this->persistence->contentHandler()->loadContentInfo($location->contentId)->contentTypeId;
 
+                if (!($location instanceof ContentLocation)) {
+                    return false;
+                }
+
+                $contentTypeId = $this->persistence->contentHandler()->loadContentInfo($location->contentId)->contentTypeId;
                 if (!in_array($contentTypeId, $value->limitationValues)) {
                     return false;
                 }

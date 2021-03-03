@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace eZ\Publish\API\Repository\Tests\Filtering;
 
-use eZ\Publish\API\Repository\Values\Content\LocationList;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
+use eZ\Publish\API\Repository\Values\Location\LocationList;
+use eZ\Publish\API\Repository\Values\Location\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;

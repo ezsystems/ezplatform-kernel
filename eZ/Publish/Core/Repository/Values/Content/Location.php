@@ -9,14 +9,16 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\Repository\Values\Content;
 
 use eZ\Publish\API\Repository\Values\Content\ContentInfo as APIContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
+use eZ\Publish\API\Repository\Values\Content\Location as ContentLocation;
+use eZ\Publish\API\Repository\Values\Location\Location as BaseLocation;
+use eZ\Publish\API\Repository\Values\ValueObject;
 
 /**
  * This class represents a location in the repository.
  *
  * @internal Meant for internal use by Repository, type hint against API object instead.
  */
-class Location extends APILocation
+class Location extends ContentLocation
 {
     /**
      * Content info of the content object of this location.
@@ -41,7 +43,7 @@ class Location extends APILocation
         return $this->contentInfo;
     }
 
-    public function getParentLocation(): ?APILocation
+    public function getParentLocation(): ?BaseLocation
     {
         return $this->parentLocation;
     }
@@ -102,5 +104,10 @@ class Location extends APILocation
         }
 
         return parent::__isset($property);
+    }
+
+    public function getType(): string
+    {
+        return self::class;
     }
 }

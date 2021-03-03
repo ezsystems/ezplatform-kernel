@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace eZ\Publish\API\Repository\Events\Location;
 
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
+use eZ\Publish\API\Repository\Values\Location\Location;
+use eZ\Publish\API\Repository\Values\Location\LocationCreateStruct;
 use eZ\Publish\SPI\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 

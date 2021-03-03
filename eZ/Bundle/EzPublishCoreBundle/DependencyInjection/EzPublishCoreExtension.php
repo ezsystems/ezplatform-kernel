@@ -157,6 +157,8 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
         $configuration = new Configuration($this->getMainConfigParser(), $this->suggestionCollector);
         $configuration->setSiteAccessConfigurationFilters($this->siteaccessConfigurationFilters);
 
+//        dump($configuration->getConfigTreeBuilder()->buildTree());
+
         return $configuration;
     }
 
