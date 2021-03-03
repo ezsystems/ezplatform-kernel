@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Integration\BinaryBase\BinaryBaseStorage;
+namespace eZ\Publish\Core\FieldType\Tests\Integration\BinaryBase\BinaryBaseStorage;
 
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage;
