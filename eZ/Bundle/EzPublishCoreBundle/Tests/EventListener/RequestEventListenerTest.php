@@ -10,6 +10,7 @@ use eZ\Bundle\EzPublishCoreBundle\EventListener\RequestEventListener;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use Psr\Log\LoggerInterface;
+use Symfony\Bridge\PhpUnit\ClockMock;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -90,6 +91,9 @@ class RequestEventListenerTest extends TestCase
 
     public function testOnKernelRequestForward()
     {
+        ClockMock::register(Request::class);
+        ClockMock::withClockMock(true);
+
         $queryParameters = ['some' => 'thing'];
         $cookieParameters = ['cookie' => 'value'];
         $request = Request::create('/test_sa/foo/bar', 'GET', $queryParameters, $cookieParameters);
@@ -113,6 +117,8 @@ class RequestEventListenerTest extends TestCase
         $this->requestEventListener->onKernelRequestForward($event);
         $this->assertSame($response, $event->getResponse());
         $this->assertTrue($event->isPropagationStopped());
+
+        ClockMock::withClockMock(false);
     }
 
     public function testOnKernelRequestRedirectSubRequest()
