@@ -56,7 +56,6 @@ class OriginalRequestListenerTest extends TestCase
 
     public function testOnKernelRequestWithOriginalRequest()
     {
-        ClockMock::register(Request::class);
         ClockMock::withClockMock(true);
 
         $scheme = 'http';

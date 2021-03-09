@@ -91,7 +91,6 @@ class RequestEventListenerTest extends TestCase
 
     public function testOnKernelRequestForward()
     {
-        ClockMock::register(Request::class);
         ClockMock::withClockMock(true);
 
         $queryParameters = ['some' => 'thing'];
