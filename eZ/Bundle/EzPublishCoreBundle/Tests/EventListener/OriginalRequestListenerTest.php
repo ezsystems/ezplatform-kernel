@@ -8,6 +8,7 @@ namespace eZ\Bundle\EzPublishCoreBundle\Tests\EventListener;
 
 use eZ\Bundle\EzPublishCoreBundle\EventListener\OriginalRequestListener;
 use PHPUnit\Framework\TestCase;
+use Symfony\Bridge\PhpUnit\ClockMock;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -55,6 +56,8 @@ class OriginalRequestListenerTest extends TestCase
 
     public function testOnKernelRequestWithOriginalRequest()
     {
+        ClockMock::withClockMock(true);
+
         $scheme = 'http';
         $host = 'phoenix-rises.fm';
         $port = 1234;
@@ -77,5 +80,7 @@ class OriginalRequestListenerTest extends TestCase
         $listener = new OriginalRequestListener();
         $listener->onKernelRequest($event);
         $this->assertEquals($expectedOriginalRequest, $request->attributes->get('_ez_original_request'));
+
+        ClockMock::withClockMock(false);
     }
 }
