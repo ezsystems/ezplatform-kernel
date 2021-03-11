@@ -107,7 +107,9 @@ class BinaryBaseStorage extends GatewayBasedStorage
         }
 
         // field translations have their own file reference, but to the original file
-        $originalField->value->externalData['id'];
+        $field->value->externalData['id'] = $originalField->value->externalData['id'];
+        $field->value->externalData['mimeType'] = $originalField->value->externalData['mimeType'];
+        $field->value->externalData['uri'] = $originalField->value->externalData['uri'];
 
         return $this->gateway->storeFileReference($versionInfo, $field);
     }
