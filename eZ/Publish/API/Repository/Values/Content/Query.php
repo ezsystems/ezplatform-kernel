@@ -57,16 +57,6 @@ class Query extends ValueObject
     public $sortClauses = [];
 
     /**
-     * An array of facet builders.
-     *
-     * Search engines may ignore any, or given facet builders they don't support and will just return search result
-     * facets supported by the engine. API consumer should dynamically iterate over returned facets for further use.
-     *
-     * @var \eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder[]
-     */
-    public $facetBuilders = [];
-
-    /**
      * @var \eZ\Publish\API\Repository\Values\Content\Query\Aggregation[]
      */
     public $aggregations = [];

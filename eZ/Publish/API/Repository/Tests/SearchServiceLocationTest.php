@@ -28,20 +28,6 @@ class SearchServiceLocationTest extends BaseTest
 {
     const QUERY_CLASS = LocationQuery::class;
 
-    use Common\FacetedSearchProvider;
-
-    /**
-     * Test for the findLocation() method.
-     *
-     * @dataProvider getFacetedSearches
-     *
-     * @see \eZ\Publish\API\Repository\SearchService::findLoctions()
-     */
-    public function testFindFacetedLocation(LocationQuery $query, $fixture)
-    {
-        $this->assertQueryFixture($query, $fixture);
-    }
-
     /**
      * Create movie Content with subtitle field set to null.
      *

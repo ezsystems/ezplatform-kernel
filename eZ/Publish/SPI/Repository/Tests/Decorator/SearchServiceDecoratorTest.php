@@ -136,7 +136,6 @@ class SearchServiceDecoratorTest extends TestCase
     {
         return [
             [SearchService::CAPABILITY_SCORING],
-            [SearchService::CAPABILITY_FACETS],
             [SearchService::CAPABILITY_CUSTOM_FIELDS],
             [SearchService::CAPABILITY_SPELLCHECK],
             [SearchService::CAPABILITY_HIGHLIGHT],
