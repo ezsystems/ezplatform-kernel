@@ -40,8 +40,6 @@ class SearchServiceTest extends BaseTest
         self::FIND_LOCATION_METHOD,
     ];
 
-    use Common\FacetedSearchProvider;
-
     public function getFilterContentSearches()
     {
         $fixtureDir = $this->getFixtureDir();
@@ -2819,30 +2817,6 @@ class SearchServiceTest extends BaseTest
     {
         $query = new LocationQuery($queryData);
         $this->assertQueryFixture($query, $fixture, $closure);
-    }
-
-    /**
-     * Test for the findContent() method.
-     *
-     * @dataProvider getFacetedSearches
-     *
-     * @see \eZ\Publish\API\Repository\SearchService::findContent()
-     */
-    public function testFindFacetedContent(Query $query, $fixture)
-    {
-        $this->assertQueryFixture($query, $fixture);
-    }
-
-    /**
-     * Test for the findContentInfo() method.
-     *
-     * @dataProvider getFacetedSearches
-     *
-     * @see \eZ\Publish\API\Repository\SearchService::findContentInfo()
-     */
-    public function testFindFacetedContentInfo(Query $query, $fixture)
-    {
-        $this->assertQueryFixture($query, $fixture, $this->getContentInfoFixtureClosure(), true);
     }
 
     /**

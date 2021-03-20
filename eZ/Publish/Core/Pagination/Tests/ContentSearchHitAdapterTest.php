@@ -59,7 +59,7 @@ class ContentSearchHitAdapterTest extends TestCase
 
         $query = $this->createTestQuery();
 
-        // Count query will necessarily have a 0 limit and empty aggregations/facet builders.
+        // Count query will necessarily have a 0 limit and empty aggregations.
         $countQuery = clone $query;
         $countQuery->limit = 0;
         $countQuery->aggregations = [];

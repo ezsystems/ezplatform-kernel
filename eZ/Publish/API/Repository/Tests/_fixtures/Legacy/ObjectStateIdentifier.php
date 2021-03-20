@@ -1,7 +1,6 @@
 <?php
 
 return eZ\Publish\API\Repository\Values\Content\Search\SearchResult::__set_state([
-    'facets' => [],
     'searchHits' =>
         [
             0 =>
