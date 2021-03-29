@@ -571,7 +571,10 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
             return;
         }
 
-        $kernelConfigs = $container->getExtensionConfig('ezpublish');
+        $kernelConfigs = array_merge(
+            $container->getExtensionConfig('ezpublish'),
+            $container->getExtensionConfig('ezplatform')
+        );
         $entityMappings = [];
 
         $repositoryConnections = [];
