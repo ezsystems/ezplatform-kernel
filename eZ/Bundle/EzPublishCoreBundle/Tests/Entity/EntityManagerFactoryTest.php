@@ -34,7 +34,7 @@ class EntityManagerFactoryTest extends TestCase
     /** @var \Symfony\Component\DependencyInjection\ServiceLocator */
     private $serviceLocator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->repositoryConfigurationProvider = $this->getRepositoryConfigurationProvider();
         $this->entityManager = $this->getEntityManager();
