@@ -14,7 +14,7 @@ use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\SPI\Persistence\Content\ContentInfo;
 use eZ\Publish\Core\Search\Common\Indexer;
 use eZ\Publish\Core\Search\Common\IncrementalIndexer;
-use Doctrine\DBAL\Driver\Statement;
+use Doctrine\DBAL\Driver\ResultStatement;
 use eZ\Publish\SPI\Persistence\Content\Location\Handler;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -259,16 +259,16 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
         }
 
         if ($since = $input->getOption('since')) {
-            $stmt = $this->getStatementContentSince(new DateTime($since));
-            $count = (int)$this->getStatementContentSince(new DateTime($since), true)->fetchColumn();
+            $stmt = $this->getResultStatementContentSince(new DateTime($since));
+            $count = (int)$this->getResultStatementContentSince(new DateTime($since), true)->fetchColumn();
             $purge = false;
         } elseif ($locationId = (int) $input->getOption('subtree')) {
-            $stmt = $this->getStatementSubtree($locationId);
-            $count = (int) $this->getStatementSubtree($locationId, true)->fetchColumn();
+            $stmt = $this->getResultStatementSubtree($locationId);
+            $count = (int) $this->getResultStatementSubtree($locationId, true)->fetchColumn();
             $purge = false;
         } else {
-            $stmt = $this->getStatementContentAll();
-            $count = (int) $this->getStatementContentAll(true)->fetchColumn();
+            $stmt = $this->getResultStatementContentAll();
+            $count = (int) $this->getResultStatementContentAll(true)->fetchColumn();
             $purge = !$input->getOption('no-purge');
         }
 
@@ -376,9 +376,9 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
      * @param DateTime $since
      * @param bool $count
      *
-     * @return \Doctrine\DBAL\Driver\Statement
+     * @return \Doctrine\DBAL\Driver\ResultStatement
      */
-    private function getStatementContentSince(DateTime $since, $count = false)
+    private function getResultStatementContentSince(DateTime $since, $count = false)
     {
         $q = $this->connection->createQueryBuilder()
             ->select($count ? 'count(c.id)' : 'c.id')
@@ -395,11 +395,11 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
      * @param mixed $locationId
      * @param bool $count
      *
-     * @return \Doctrine\DBAL\Driver\Statement
+     * @return \Doctrine\DBAL\Driver\ResultStatement
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    private function getStatementSubtree($locationId, $count = false)
+    private function getResultStatementSubtree($locationId, $count = false)
     {
         $location = $this->locationHandler->load($locationId);
         $q = $this->connection->createQueryBuilder()
@@ -417,9 +417,9 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
     /**
      * @param bool $count
      *
-     * @return \Doctrine\DBAL\Driver\Statement
+     * @return \Doctrine\DBAL\Driver\ResultStatement
      */
-    private function getStatementContentAll($count = false)
+    private function getResultStatementContentAll($count = false)
     {
         $q = $this->connection->createQueryBuilder()
             ->select($count ? 'count(c.id)' : 'c.id')
@@ -431,12 +431,12 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
     }
 
     /**
-     * @param \Doctrine\DBAL\Driver\Statement $stmt
+     * @param \Doctrine\DBAL\Driver\ResultStatement $stmt
      * @param int $iterationCount
      *
      * @return \Generator Return an array of arrays, each array contains content id's of $iterationCount.
      */
-    private function fetchIteration(Statement $stmt, $iterationCount)
+    private function fetchIteration(ResultStatement $stmt, $iterationCount)
     {
         do {
             $contentIds = [];
