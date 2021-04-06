@@ -10,6 +10,12 @@ namespace eZ\Publish\API\Repository\Values\Content;
 
 use eZ\Publish\API\Repository\Values\ValueObject;
 
+/**
+ * @property-read string $resource
+ * @property-read int|null $width
+ * @property-read int|null $height
+ * @property-read string|null $mimeType
+ */
 class Thumbnail extends ValueObject
 {
     /**
