@@ -33,6 +33,11 @@ use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterf
 
 class EzPublishCoreExtension extends Extension implements PrependExtensionInterface
 {
+    private const ENTITY_MANAGER_TEMPLATE = [
+        'connection' => null,
+        'mappings' => [],
+    ];
+
     /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollector */
     private $suggestionCollector;
 
@@ -113,6 +118,7 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
         $this->registerImageMagickConfiguration($config, $container);
         $this->registerUrlAliasConfiguration($config, $container);
         $this->registerUrlWildcardsConfiguration($config, $container);
+        $this->registerOrmConfiguration($config, $container);
 
         // Routing
         $this->handleRouting($config, $container, $loader);
@@ -166,6 +172,7 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
     public function prepend(ContainerBuilder $container)
     {
         $this->prependTranslatorConfiguration($container);
+        $this->prependDoctrineConfiguration($container);
     }
 
     /**
@@ -266,6 +273,16 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
         $filters = isset($config['imagemagick']['filters']) ? $config['imagemagick']['filters'] : [];
         $filters = $filters + $container->getParameter('ezpublish.image.imagemagick.filters');
         $container->setParameter('ezpublish.image.imagemagick.filters', $filters);
+    }
+
+    private function registerOrmConfiguration(array $config, ContainerBuilder $container): void
+    {
+        if (!isset($config['orm']['entity_mappings'])) {
+            return;
+        }
+
+        $entityMappings = $config['orm']['entity_mappings'];
+        $container->setParameter('ibexa.orm.entity_mappings', $entityMappings);
     }
 
     /**
@@ -546,6 +563,58 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
         if ($fileSystem->exists($translationsPath)) {
             $container->prependExtensionConfig('framework', ['translator' => ['paths' => [$translationsPath]]]);
         }
+    }
+
+    private function prependDoctrineConfiguration(ContainerBuilder $container): void
+    {
+        if (!$container->hasExtension('doctrine')) {
+            return;
+        }
+
+        $kernelConfigs = $container->getExtensionConfig('ezpublish');
+        $entityMappings = [];
+
+        $repositoryConnections = [];
+        foreach ($kernelConfigs as $config) {
+            if (isset($config['orm']['entity_mappings'])) {
+                $entityMappings[] = $config['orm']['entity_mappings'];
+            }
+
+            if (isset($config['repositories'])) {
+                $repositoryConnections[] = array_map(
+                    static function (array $repository): ?string {
+                        return $repository['storage']['connection']
+                            ?? 'default';
+                    },
+                    $config['repositories']
+                );
+            }
+        }
+
+        // compose clean array with all connection identifiers
+        $connections = array_values(
+            array_filter(
+                array_unique(
+                    array_merge(...$repositoryConnections) ?? [])
+            )
+        );
+
+        $doctrineConfig = [
+            'orm' => [
+                'entity_managers' => [],
+            ],
+        ];
+
+        $entityMappingConfig = !empty($entityMappings) ? array_merge_recursive(...$entityMappings) : [];
+
+        foreach ($connections as $connection) {
+            $doctrineConfig['orm']['entity_managers'][sprintf('ibexa_%s', $connection)] = array_merge(
+                self::ENTITY_MANAGER_TEMPLATE,
+                ['connection' => $connection, 'mappings' => $entityMappingConfig]
+            );
+        }
+
+        $container->prependExtensionConfig('doctrine', $doctrineConfig);
     }
 
     /**
