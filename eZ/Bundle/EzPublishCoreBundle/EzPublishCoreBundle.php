@@ -9,9 +9,12 @@ namespace eZ\Bundle\EzPublishCoreBundle;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\BinaryContentDownloadPass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ConsoleCacheWarmupPass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ConsoleCommandPass;
+use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\EntityManagerFactoryServiceLocatorPass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\FieldTypeParameterProviderRegistryPass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\FragmentPass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ViewMatcherRegistryPass;
+use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\InjectEntityManagerMappingsPass;
+use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\LazyDoctrineRepositoriesPass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\NotificationRendererPass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\PlaceholderProviderPass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ImaginePass;
@@ -76,6 +79,9 @@ class EzPublishCoreBundle extends Bundle
         $container->addCompilerPass(new ViewMatcherRegistryPass());
         $container->addCompilerPass(new SiteAccessMatcherRegistryPass());
         $container->addCompilerPass(new ConsoleCommandPass());
+        $container->addCompilerPass(new LazyDoctrineRepositoriesPass(), PassConfig::TYPE_BEFORE_REMOVING);
+        $container->addCompilerPass(new EntityManagerFactoryServiceLocatorPass());
+        $container->addCompilerPass(new InjectEntityManagerMappingsPass());
 
         // Storage passes
         $container->addCompilerPass(new ExternalStorageRegistryPass());

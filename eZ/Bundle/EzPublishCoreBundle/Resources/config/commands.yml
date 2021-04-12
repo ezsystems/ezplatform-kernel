@@ -31,3 +31,16 @@ services:
             - '@ezpublish.api.search_engine.legacy.connection'
         tags:
             - { name: console.command }
+
+    eZ\Bundle\EzPublishCoreBundle\Command\ReindexCommand:
+        autowire: true
+        autoconfigure: true
+        arguments:
+            $searchIndexer: '@ezpublish.spi.search.indexer'
+            $locationHandler: '@ezpublish.spi.persistence.location_handler'
+            $siteaccess: '@ezpublish.siteaccess'
+            $env: '%kernel.environment%'
+            $projectDir: '%kernel.project_dir%'
+            $isDebug: '%kernel.debug%'
+        tags:
+            - { name: console.command, command: ezplatform:reindex }
