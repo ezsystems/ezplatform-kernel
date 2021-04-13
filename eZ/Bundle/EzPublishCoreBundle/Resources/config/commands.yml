@@ -43,4 +43,4 @@ services:
             $projectDir: '%kernel.project_dir%'
             $isDebug: '%kernel.debug%'
         tags:
-            - { name: console.command, command: ezplatform:reindex }
+            - { name: console.command }

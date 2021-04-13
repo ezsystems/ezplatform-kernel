@@ -9,7 +9,6 @@ namespace eZ\Bundle\EzPublishCoreBundle\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use function count;
 use const DIRECTORY_SEPARATOR;
-use Doctrine\DBAL\Connection;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\Search\Common\Indexer;
 use eZ\Publish\Core\Search\Common\IncrementalIndexer;
@@ -58,7 +57,6 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
 
     public function __construct(
         $searchIndexer,
-        Connection $connection,
         Handler $locationHandler,
         IndexerGateway $gateway,
         LoggerInterface $logger,
