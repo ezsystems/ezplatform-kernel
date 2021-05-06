@@ -88,7 +88,7 @@ class DoctrineDatabase extends Gateway
 
         return [
             'count' => $count,
-            'rows' => $statement->fetchAll(FetchMode::ASSOCIATIVE),
+            'rows' => $statement->fetchAllAssociative(),
         ];
     }
 
