@@ -30,7 +30,7 @@ abstract class Gateway
      *
      * @return array{
      *     "rows": mixed,
-     *     "count: int|null,
+     *     "count": int|null,
      * }
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
