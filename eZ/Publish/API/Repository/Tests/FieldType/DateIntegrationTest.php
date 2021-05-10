@@ -147,8 +147,11 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
             $field->value
         );
 
+        $dateTime = new DateTime();
+        $dateTime->setTimestamp(86400)->setTime(0, 0, 0);
+
         $expectedData = [
-            'date' => new DateTime('@86400'),
+            'date' => $dateTime,
         ];
 
         $this->assertPropertiesCorrect(
@@ -213,8 +216,11 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
             $field->value
         );
 
+        $dateTime = new DateTime();
+        $dateTime->setTimestamp(86400)->setTime(0, 0, 0);
+
         $expectedData = [
-            'date' => new DateTime('@86400'),
+            'date' => $dateTime,
         ];
         $this->assertPropertiesCorrect(
             $expectedData,
@@ -283,8 +289,9 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
      */
     public function provideToHashData()
     {
-        $timestamp = 186401;
-        $dateTime = new DateTime("@{$timestamp}");
+        $timestamp = 186400;
+        $dateTime = new DateTime();
+        $dateTime->setTimestamp($timestamp);
 
         return [
             [
@@ -327,17 +334,17 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
         return [
             [
                 [
-                    'timestamp' => $timestamp,
+                    'timestamp' => $dateTime->getTimestamp(),
                     'rfc850' => ($rfc850 = $dateTime->format(DateTime::RFC850)),
                 ],
                 DateValue::fromString($rfc850),
             ],
             [
                 [
-                    'timestamp' => $timestamp,
+                    'timestamp' => $dateTime->getTimestamp(),
                     'rfc850' => null,
                 ],
-                DateValue::fromTimestamp($timestamp),
+                DateValue::fromTimestamp($dateTime->getTimestamp()),
             ],
         ];
     }
@@ -360,12 +367,18 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
 
     protected function getValidSearchValueOne()
     {
-        return 86400;
+        $dateTime = new DateTime();
+        $dateTime->setTimestamp(86400)->setTime(0, 0, 0);
+
+        return $dateTime->getTimestamp();
     }
 
     protected function getValidSearchValueTwo()
     {
-        return 172800;
+        $dateTime = new DateTime();
+        $dateTime->setTimestamp(172800)->setTime(0, 0, 0);
+
+        return $dateTime->getTimestamp();
     }
 
     protected function getSearchTargetValueOne()
