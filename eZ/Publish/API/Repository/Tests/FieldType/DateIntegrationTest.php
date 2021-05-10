@@ -117,9 +117,9 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
      */
     public function getValidCreationFieldData()
     {
-        // We may only create times from timestamps here, since storing will
-        // loose information about the timezone.
-        return DateValue::fromTimestamp(86400);
+        $dateTime = $this->getValueOneDate();
+
+        return DateValue::fromTimestamp($dateTime->getTimestamp());
     }
 
     /**
@@ -147,8 +147,7 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
             $field->value
         );
 
-        $dateTime = new DateTime();
-        $dateTime->setTimestamp(86400)->setTime(0, 0, 0);
+        $dateTime = $this->getValueOneDate();
 
         $expectedData = [
             'date' => $dateTime,
@@ -198,7 +197,9 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
      */
     public function getValidUpdateFieldData()
     {
-        return DateValue::fromTimestamp(86400);
+        $dateTime = $this->getValueOneDate();
+
+        return DateValue::fromTimestamp($dateTime->getTimestamp());
     }
 
     /**
@@ -216,8 +217,7 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
             $field->value
         );
 
-        $dateTime = new DateTime();
-        $dateTime->setTimestamp(86400)->setTime(0, 0, 0);
+        $dateTime = $this->getValueOneDate();
 
         $expectedData = [
             'date' => $dateTime,
@@ -367,16 +367,15 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
 
     protected function getValidSearchValueOne()
     {
-        $dateTime = new DateTime();
-        $dateTime->setTimestamp(86400)->setTime(0, 0, 0);
+        $dateTime = $this->getValueOneDate();
 
         return $dateTime->getTimestamp();
     }
 
     protected function getValidSearchValueTwo()
     {
-        $dateTime = new DateTime();
-        $dateTime->setTimestamp(172800)->setTime(0, 0, 0);
+        $dateTime = new DateTime('1970-01-03');
+        $dateTime->setTime(0, 0, 0);
 
         return $dateTime->getTimestamp();
     }
@@ -399,5 +398,13 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
         }
 
         return '1970-01-03T00:00:00Z';
+    }
+
+    protected function getValueOneDate(): DateTime
+    {
+        $dateTime = new DateTime('1970-01-02');
+        $dateTime->setTime(0, 0, 0);
+
+        return $dateTime;
     }
 }
