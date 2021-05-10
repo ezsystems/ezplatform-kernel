@@ -22,7 +22,7 @@ abstract class BaseURLServiceTest extends BaseTest
 {
     private const URL_CONTENT_TYPE_IDENTIFIER = 'link_ct';
 
-    protected function doTestFindUrls(URLQuery $query, array $expectedUrls, $expectedTotalCount = null, $ignoreOrder = true)
+    protected function doTestFindUrls(URLQuery $query, array $expectedUrls, ?int $expectedTotalCount, bool $ignoreOrder = true)
     {
         $repository = $this->getRepository();
 
@@ -30,12 +30,8 @@ abstract class BaseURLServiceTest extends BaseTest
         $searchResult = $repository->getURLService()->findUrls($query);
         /* END: Use Case */
 
-        if ($expectedTotalCount === null) {
-            $expectedTotalCount = count($expectedUrls);
-        }
-
         $this->assertInstanceOf(SearchResult::class, $searchResult);
-        $this->assertEquals($expectedTotalCount, $searchResult->totalCount);
+        $this->assertSame($expectedTotalCount, $searchResult->totalCount);
         $this->assertSearchResultItems($searchResult, $expectedUrls, $ignoreOrder);
     }
 

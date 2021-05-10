@@ -23,6 +23,8 @@ use eZ\Publish\API\Repository\Values\URL\UsageSearchResult;
  */
 class URLServiceTest extends BaseURLServiceTest
 {
+    private const TOTAL_URLS_COUNT = 20;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -194,7 +196,44 @@ class URLServiceTest extends BaseURLServiceTest
         $query = new URLQuery();
         $query->filter = new Criterion\MatchAll();
 
-        $this->doTestFindUrls($query, $expectedUrls);
+        $this->doTestFindUrls($query, $expectedUrls, count($expectedUrls));
+    }
+
+    /**
+     * Test for URLService::findUrls() method.
+     *
+     * @see \eZ\Publish\Core\Repository\URLService::findUrls()
+     */
+    public function testFindUrlsWithoutCounting()
+    {
+        $expectedUrls = [
+            'http://www.apache.org/',
+            'http://calendar.google.com/calendar/render',
+            'http://www.dropbox.com/',
+            '/content/view/sitemap/2',
+            'http://support.google.com/chrome/answer/95647?hl=es',
+            'http://www.nazwa.pl/',
+            'http://www.facebook.com/sharer.php',
+            'http://www.wikipedia.org/',
+            'http://www.google.de/',
+            'http://www.google.com/',
+            'http://www.nginx.com/',
+            '/content/view/tagcloud/2',
+            'http://www.youtube.com/',
+            'http://vimeo.com/',
+            'http://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
+            'http://twitter.com/',
+            'http://www.google.com/analytics/',
+            'http://www.facebook.com/',
+            'http://www.discuz.net/forum.php',
+            'http://instagram.com/',
+        ];
+
+        $query = new URLQuery();
+        $query->filter = new Criterion\MatchAll();
+        $query->performCount = false;
+
+        $this->doTestFindUrls($query, $expectedUrls, null);
     }
 
     /**
@@ -208,7 +247,7 @@ class URLServiceTest extends BaseURLServiceTest
         $query = new URLQuery();
         $query->filter = new Criterion\MatchNone();
 
-        $this->doTestFindUrls($query, []);
+        $this->doTestFindUrls($query, [], 0);
     }
 
     /**
@@ -230,7 +269,7 @@ class URLServiceTest extends BaseURLServiceTest
         $query = new URLQuery();
         $query->filter = new Criterion\Pattern('google');
 
-        $this->doTestFindUrls($query, $expectedUrls);
+        $this->doTestFindUrls($query, $expectedUrls, count($expectedUrls));
     }
 
     /**
@@ -266,7 +305,7 @@ class URLServiceTest extends BaseURLServiceTest
         $query = new URLQuery();
         $query->filter = new Criterion\Validity(true);
 
-        $this->doTestFindUrls($query, $expectedUrls);
+        $this->doTestFindUrls($query, $expectedUrls, count($expectedUrls));
     }
 
     /**
@@ -286,7 +325,7 @@ class URLServiceTest extends BaseURLServiceTest
         $query = new URLQuery();
         $query->filter = new Criterion\SectionId([3]);
 
-        $this->doTestFindUrls($query, $expectedUrls);
+        $this->doTestFindUrls($query, $expectedUrls, count($expectedUrls));
     }
 
     /**
@@ -309,7 +348,7 @@ class URLServiceTest extends BaseURLServiceTest
             new Criterion\Validity(true),
         ]);
 
-        $this->doTestFindUrls($query, $expectedUrls);
+        $this->doTestFindUrls($query, $expectedUrls, count($expectedUrls));
     }
 
     /**
@@ -329,7 +368,7 @@ class URLServiceTest extends BaseURLServiceTest
         $query = new URLQuery();
         $query->filter = new Criterion\SectionIdentifier(['media']);
 
-        $this->doTestFindUrls($query, $expectedUrls);
+        $this->doTestFindUrls($query, $expectedUrls, count($expectedUrls));
     }
 
     /**
@@ -354,7 +393,7 @@ class URLServiceTest extends BaseURLServiceTest
             new Criterion\Validity(true),
         ]);
 
-        $this->doTestFindUrls($query, $expectedUrls);
+        $this->doTestFindUrls($query, $expectedUrls, count($expectedUrls));
     }
 
     /**
@@ -379,7 +418,7 @@ class URLServiceTest extends BaseURLServiceTest
             new Criterion\SectionId([2]),
         ]);
 
-        $this->doTestFindUrls($query, $expectedUrls);
+        $this->doTestFindUrls($query, $expectedUrls, count($expectedUrls));
     }
 
     /**
@@ -397,7 +436,7 @@ class URLServiceTest extends BaseURLServiceTest
         $query = new URLQuery();
         $query->filter = new Criterion\Validity(false);
 
-        $this->doTestFindUrls($query, $expectedUrls);
+        $this->doTestFindUrls($query, $expectedUrls, count($expectedUrls));
     }
 
     /**
@@ -433,7 +472,7 @@ class URLServiceTest extends BaseURLServiceTest
         $query = new URLQuery();
         $query->filter = new Criterion\VisibleOnly();
 
-        $this->doTestFindUrls($query, $expectedUrls);
+        $this->doTestFindUrls($query, $expectedUrls, count($expectedUrls));
     }
 
     /**
@@ -464,8 +503,6 @@ class URLServiceTest extends BaseURLServiceTest
      */
     public function testFindUrlsWithInvalidOffsetThrowsInvalidArgumentException()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue::class);
-
         $query = new URLQuery();
         $query->filter = new Criterion\MatchAll();
         $query->offset = 'invalid!';
@@ -474,7 +511,8 @@ class URLServiceTest extends BaseURLServiceTest
 
         /* BEGIN: Use Case */
         $urlService = $repository->getURLService();
-        // This call will fail with a InvalidArgumentException
+
+        $this->expectException(\eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue::class);
         $urlService->findUrls($query);
         /* END: Use Case */
     }
@@ -486,8 +524,6 @@ class URLServiceTest extends BaseURLServiceTest
      */
     public function testFindUrlsWithInvalidLimitThrowsInvalidArgumentException()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue::class);
-
         $query = new URLQuery();
         $query->filter = new Criterion\MatchAll();
         $query->limit = 'invalid!';
@@ -496,7 +532,8 @@ class URLServiceTest extends BaseURLServiceTest
 
         /* BEGIN: Use Case */
         $urlService = $repository->getURLService();
-        // This call will fail with a InvalidArgumentException
+
+        $this->expectException(\eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue::class);
         $urlService->findUrls($query);
         /* END: Use Case */
     }
@@ -527,7 +564,7 @@ class URLServiceTest extends BaseURLServiceTest
         $query->offset = 10;
         $query->sortClauses = [new SortClause\Id()];
 
-        $this->doTestFindUrls($query, $expectedUrls, 20);
+        $this->doTestFindUrls($query, $expectedUrls, self::TOTAL_URLS_COUNT);
     }
 
     /**
@@ -550,7 +587,7 @@ class URLServiceTest extends BaseURLServiceTest
         $query->limit = 3;
         $query->sortClauses = [new SortClause\Id()];
 
-        $this->doTestFindUrls($query, $expectedUrls, 20);
+        $this->doTestFindUrls($query, $expectedUrls, self::TOTAL_URLS_COUNT);
     }
 
     /**
@@ -565,7 +602,7 @@ class URLServiceTest extends BaseURLServiceTest
         $query->filter = new Criterion\MatchAll();
         $query->limit = 0;
 
-        $this->doTestFindUrls($query, [], 20);
+        $this->doTestFindUrls($query, [], self::TOTAL_URLS_COUNT);
     }
 
     /**
@@ -581,7 +618,7 @@ class URLServiceTest extends BaseURLServiceTest
         $query->filter = new Criterion\MatchAll();
         $query->sortClauses = [$sortClause];
 
-        $this->doTestFindUrls($query, $expectedUrls, null, false);
+        $this->doTestFindUrls($query, $expectedUrls, count($expectedUrls), false);
     }
 
     public function dataProviderForFindUrlsWithSorting()
@@ -751,16 +788,14 @@ class URLServiceTest extends BaseURLServiceTest
      */
     public function testLoadByIdThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
-
         $repository = $this->getRepository();
 
         $nonExistentUrlId = $this->generateId('url', self::DB_INT_MAX);
         /* BEGIN: Use Case */
         $urlService = $repository->getURLService();
 
-        // This call will fail with a NotFoundException
-        $url = $urlService->loadById($nonExistentUrlId);
+        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $urlService->loadById($nonExistentUrlId);
         /* END: Use Case */
     }
 
@@ -800,16 +835,14 @@ class URLServiceTest extends BaseURLServiceTest
      */
     public function testLoadByUrlThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
-
         $repository = $this->getRepository();
 
         $nonExistentUrl = 'https://laravel.com/';
         /* BEGIN: Use Case */
         $urlService = $repository->getURLService();
 
-        // This call will fail with a NotFoundException
-        $url = $urlService->loadByUrl($nonExistentUrl);
+        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $urlService->loadByUrl($nonExistentUrl);
         /* END: Use Case */
     }
 
