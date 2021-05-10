@@ -32,109 +32,109 @@ class URLServiceTest extends BaseURLServiceTest
         $urls = [
             [
                 'name' => 'Twitter',
-                'url' => 'http://twitter.com/',
+                'url' => 'https://twitter.com/',
                 'published' => true,
                 'sectionId' => 1,
             ],
             [
                 'name' => 'Facebook',
-                'url' => 'http://www.facebook.com/',
+                'url' => 'https://www.facebook.com/',
                 'published' => true,
                 'sectionId' => 1,
             ],
             [
                 'name' => 'Google',
-                'url' => 'http://www.google.com/',
+                'url' => 'https://www.google.com/',
                 'published' => true,
                 'sectionId' => 1,
             ],
             [
                 'name' => 'Vimeo',
-                'url' => 'http://vimeo.com/',
+                'url' => 'https://vimeo.com/',
                 'published' => true,
                 'sectionId' => 1,
             ],
             [
                 'name' => 'Facebook Sharer',
-                'url' => 'http://www.facebook.com/sharer.php',
+                'url' => 'https://www.facebook.com/sharer.php',
                 'published' => true,
                 'sectionId' => 1,
             ],
             [
                 'name' => 'Youtube',
-                'url' => 'http://www.youtube.com/',
+                'url' => 'https://www.youtube.com/',
                 'published' => true,
                 'sectionId' => 1,
             ],
             [
                 'name' => 'Googel support',
-                'url' => 'http://support.google.com/chrome/answer/95647?hl=es',
+                'url' => 'https://support.google.com/chrome/answer/95647?hl=es',
                 'published' => true,
                 'sectionId' => 1,
             ],
             [
                 'name' => 'Instagram',
-                'url' => 'http://instagram.com/',
+                'url' => 'https://instagram.com/',
                 'published' => true,
                 'sectionId' => 1,
             ],
             [
                 'name' => 'Discuz',
-                'url' => 'http://www.discuz.net/forum.php',
+                'url' => 'https://www.discuz.net/forum.php',
                 'published' => true,
                 'sectionId' => 1,
             ],
             [
                 'name' => 'Google calendar',
-                'url' => 'http://calendar.google.com/calendar/render',
+                'url' => 'https://calendar.google.com/calendar/render',
                 'published' => true,
                 'sectionId' => 1,
             ],
             [
                 'name' => 'Wikipedia',
-                'url' => 'http://www.wikipedia.org/',
+                'url' => 'https://www.wikipedia.org/',
                 'published' => true,
                 'sectionId' => 1,
             ],
             [
                 'name' => 'Google Analytics',
-                'url' => 'http://www.google.com/analytics/',
+                'url' => 'https://www.google.com/analytics/',
                 'published' => true,
                 'sectionId' => 1,
             ],
             [
                 'name' => 'nazwa.pl',
-                'url' => 'http://www.nazwa.pl/',
+                'url' => 'https://www.nazwa.pl/',
                 'published' => true,
                 'sectionId' => 1,
             ],
             [
                 'name' => 'Apache',
-                'url' => 'http://www.apache.org/',
+                'url' => 'https://www.apache.org/',
                 'published' => true,
                 'sectionId' => 2,
             ],
             [
                 'name' => 'Nginx',
-                'url' => 'http://www.nginx.com/',
+                'url' => 'https://www.nginx.com/',
                 'published' => true,
                 'sectionId' => 2,
             ],
             [
                 'name' => 'Microsoft.com',
-                'url' => 'http://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
+                'url' => 'https://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
                 'published' => true,
                 'sectionId' => 3,
             ],
             [
                 'name' => 'Dropbox',
-                'url' => 'http://www.dropbox.com/',
+                'url' => 'https://www.dropbox.com/',
                 'published' => false,
                 'sectionId' => 3,
             ],
             [
                 'name' => 'Google [DE]',
-                'url' => 'http://www.google.de/',
+                'url' => 'https://www.google.de/',
                 'published' => true,
                 'sectionId' => 3,
             ],
@@ -171,26 +171,26 @@ class URLServiceTest extends BaseURLServiceTest
     public function testFindUrls()
     {
         $expectedUrls = [
-            'http://www.apache.org/',
-            'http://calendar.google.com/calendar/render',
-            'http://www.dropbox.com/',
+            'https://www.apache.org/',
+            'https://calendar.google.com/calendar/render',
+            'https://www.dropbox.com/',
             '/content/view/sitemap/2',
-            'http://support.google.com/chrome/answer/95647?hl=es',
-            'http://www.nazwa.pl/',
-            'http://www.facebook.com/sharer.php',
-            'http://www.wikipedia.org/',
-            'http://www.google.de/',
-            'http://www.google.com/',
-            'http://www.nginx.com/',
+            'https://support.google.com/chrome/answer/95647?hl=es',
+            'https://www.nazwa.pl/',
+            'https://www.facebook.com/sharer.php',
+            'https://www.wikipedia.org/',
+            'https://www.google.de/',
+            'https://www.google.com/',
+            'https://www.nginx.com/',
             '/content/view/tagcloud/2',
-            'http://www.youtube.com/',
-            'http://vimeo.com/',
-            'http://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
-            'http://twitter.com/',
-            'http://www.google.com/analytics/',
-            'http://www.facebook.com/',
-            'http://www.discuz.net/forum.php',
-            'http://instagram.com/',
+            'https://www.youtube.com/',
+            'https://vimeo.com/',
+            'https://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
+            'https://twitter.com/',
+            'https://www.google.com/analytics/',
+            'https://www.facebook.com/',
+            'https://www.discuz.net/forum.php',
+            'https://instagram.com/',
         ];
 
         $query = new URLQuery();
@@ -207,26 +207,26 @@ class URLServiceTest extends BaseURLServiceTest
     public function testFindUrlsWithoutCounting()
     {
         $expectedUrls = [
-            'http://www.apache.org/',
-            'http://calendar.google.com/calendar/render',
-            'http://www.dropbox.com/',
+            'https://www.apache.org/',
+            'https://calendar.google.com/calendar/render',
+            'https://www.dropbox.com/',
             '/content/view/sitemap/2',
-            'http://support.google.com/chrome/answer/95647?hl=es',
-            'http://www.nazwa.pl/',
-            'http://www.facebook.com/sharer.php',
-            'http://www.wikipedia.org/',
-            'http://www.google.de/',
-            'http://www.google.com/',
-            'http://www.nginx.com/',
+            'https://support.google.com/chrome/answer/95647?hl=es',
+            'https://www.nazwa.pl/',
+            'https://www.facebook.com/sharer.php',
+            'https://www.wikipedia.org/',
+            'https://www.google.de/',
+            'https://www.google.com/',
+            'https://www.nginx.com/',
             '/content/view/tagcloud/2',
-            'http://www.youtube.com/',
-            'http://vimeo.com/',
-            'http://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
-            'http://twitter.com/',
-            'http://www.google.com/analytics/',
-            'http://www.facebook.com/',
-            'http://www.discuz.net/forum.php',
-            'http://instagram.com/',
+            'https://www.youtube.com/',
+            'https://vimeo.com/',
+            'https://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
+            'https://twitter.com/',
+            'https://www.google.com/analytics/',
+            'https://www.facebook.com/',
+            'https://www.discuz.net/forum.php',
+            'https://instagram.com/',
         ];
 
         $query = new URLQuery();
@@ -259,11 +259,11 @@ class URLServiceTest extends BaseURLServiceTest
     public function testFindUrlsUsingPatternCriterion()
     {
         $expectedUrls = [
-            'http://www.google.de/',
-            'http://www.google.com/',
-            'http://support.google.com/chrome/answer/95647?hl=es',
-            'http://calendar.google.com/calendar/render',
-            'http://www.google.com/analytics/',
+            'https://www.google.de/',
+            'https://www.google.com/',
+            'https://support.google.com/chrome/answer/95647?hl=es',
+            'https://calendar.google.com/calendar/render',
+            'https://www.google.com/analytics/',
         ];
 
         $query = new URLQuery();
@@ -281,25 +281,25 @@ class URLServiceTest extends BaseURLServiceTest
     public function testFindUrlsUsingValidityCriterionValid()
     {
         $expectedUrls = [
-            'http://www.google.com/',
+            'https://www.google.com/',
             '/content/view/sitemap/2',
-            'http://support.google.com/chrome/answer/95647?hl=es',
-            'http://www.google.de/',
-            'http://www.nginx.com/',
-            'http://www.google.com/analytics/',
-            'http://www.discuz.net/forum.php',
-            'http://www.wikipedia.org/',
-            'http://www.facebook.com/sharer.php',
-            'http://twitter.com/',
-            'http://www.nazwa.pl/',
-            'http://instagram.com/',
-            'http://www.apache.org/',
-            'http://www.dropbox.com/',
-            'http://www.facebook.com/',
-            'http://www.youtube.com/',
-            'http://calendar.google.com/calendar/render',
-            'http://vimeo.com/',
-            'http://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
+            'https://support.google.com/chrome/answer/95647?hl=es',
+            'https://www.google.de/',
+            'https://www.nginx.com/',
+            'https://www.google.com/analytics/',
+            'https://www.discuz.net/forum.php',
+            'https://www.wikipedia.org/',
+            'https://www.facebook.com/sharer.php',
+            'https://twitter.com/',
+            'https://www.nazwa.pl/',
+            'https://instagram.com/',
+            'https://www.apache.org/',
+            'https://www.dropbox.com/',
+            'https://www.facebook.com/',
+            'https://www.youtube.com/',
+            'https://calendar.google.com/calendar/render',
+            'https://vimeo.com/',
+            'https://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
         ];
 
         $query = new URLQuery();
@@ -317,9 +317,9 @@ class URLServiceTest extends BaseURLServiceTest
     public function testFindUrlsUsingSectionIdCriterion(): void
     {
         $expectedUrls = [
-            'http://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
-            'http://www.dropbox.com/',
-            'http://www.google.de/',
+            'https://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
+            'https://www.dropbox.com/',
+            'https://www.google.de/',
         ];
 
         $query = new URLQuery();
@@ -337,9 +337,9 @@ class URLServiceTest extends BaseURLServiceTest
     public function testFindUrlsUsingSectionIdAndValidityCriterionValid(): void
     {
         $expectedUrls = [
-            'http://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
-            'http://www.dropbox.com/',
-            'http://www.google.de/',
+            'https://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
+            'https://www.dropbox.com/',
+            'https://www.google.de/',
         ];
 
         $query = new URLQuery();
@@ -360,9 +360,9 @@ class URLServiceTest extends BaseURLServiceTest
     public function testFindUrlsUsingSectionIdentifierCriterion(): void
     {
         $expectedUrls = [
-            'http://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
-            'http://www.dropbox.com/',
-            'http://www.google.de/',
+            'https://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
+            'https://www.dropbox.com/',
+            'https://www.google.de/',
         ];
 
         $query = new URLQuery();
@@ -380,11 +380,11 @@ class URLServiceTest extends BaseURLServiceTest
     public function testFindUrlsUsingSectionIdentifierAndValidityCriterionValid(): void
     {
         $expectedUrls = [
-            'http://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
-            'http://www.dropbox.com/',
-            'http://www.google.de/',
-            'http://www.apache.org/',
-            'http://www.nginx.com/',
+            'https://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
+            'https://www.dropbox.com/',
+            'https://www.google.de/',
+            'https://www.apache.org/',
+            'https://www.nginx.com/',
         ];
 
         $query = new URLQuery();
@@ -405,11 +405,11 @@ class URLServiceTest extends BaseURLServiceTest
     public function testFindUrlsUsingSectionIdentifierOrSectionIdCriterion(): void
     {
         $expectedUrls = [
-            'http://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
-            'http://www.dropbox.com/',
-            'http://www.google.de/',
-            'http://www.apache.org/',
-            'http://www.nginx.com/',
+            'https://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
+            'https://www.dropbox.com/',
+            'https://www.google.de/',
+            'https://www.apache.org/',
+            'https://www.nginx.com/',
         ];
 
         $query = new URLQuery();
@@ -448,24 +448,24 @@ class URLServiceTest extends BaseURLServiceTest
     public function testFindUrlsUsingVisibleOnlyCriterion()
     {
         $expectedUrls = [
-            'http://vimeo.com/',
-            'http://calendar.google.com/calendar/render',
-            'http://www.facebook.com/',
-            'http://www.google.com/',
-            'http://www.google.com/analytics/',
-            'http://www.facebook.com/sharer.php',
-            'http://www.apache.org/',
-            'http://www.nginx.com/',
-            'http://www.wikipedia.org/',
-            'http://www.youtube.com/',
-            'http://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
-            'http://www.google.de/',
-            'http://instagram.com/',
-            'http://www.nazwa.pl/',
+            'https://vimeo.com/',
+            'https://calendar.google.com/calendar/render',
+            'https://www.facebook.com/',
+            'https://www.google.com/',
+            'https://www.google.com/analytics/',
+            'https://www.facebook.com/sharer.php',
+            'https://www.apache.org/',
+            'https://www.nginx.com/',
+            'https://www.wikipedia.org/',
+            'https://www.youtube.com/',
+            'https://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
+            'https://www.google.de/',
+            'https://instagram.com/',
+            'https://www.nazwa.pl/',
             '/content/view/tagcloud/2',
-            'http://www.discuz.net/forum.php',
-            'http://support.google.com/chrome/answer/95647?hl=es',
-            'http://twitter.com/',
+            'https://www.discuz.net/forum.php',
+            'https://support.google.com/chrome/answer/95647?hl=es',
+            'https://twitter.com/',
             '/content/view/sitemap/2',
         ];
 
@@ -480,7 +480,7 @@ class URLServiceTest extends BaseURLServiceTest
      */
     public function testFindUrlsUsingVisibleOnlyCriterionReturnsUniqueItems(): void
     {
-        $exampleUrl = 'http://ezplatform.com';
+        $exampleUrl = 'https://ezplatform.com';
 
         $this->createContentWithLink('A', $exampleUrl);
         $this->createContentWithLink('B', $exampleUrl);
@@ -547,16 +547,16 @@ class URLServiceTest extends BaseURLServiceTest
     public function testFindUrlsWithOffset()
     {
         $expectedUrls = [
-            'http://www.discuz.net/forum.php',
-            'http://calendar.google.com/calendar/render',
-            'http://www.wikipedia.org/',
-            'http://www.google.com/analytics/',
-            'http://www.nazwa.pl/',
-            'http://www.apache.org/',
-            'http://www.nginx.com/',
-            'http://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
-            'http://www.dropbox.com/',
-            'http://www.google.de/',
+            'https://www.discuz.net/forum.php',
+            'https://calendar.google.com/calendar/render',
+            'https://www.wikipedia.org/',
+            'https://www.google.com/analytics/',
+            'https://www.nazwa.pl/',
+            'https://www.apache.org/',
+            'https://www.nginx.com/',
+            'https://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
+            'https://www.dropbox.com/',
+            'https://www.google.de/',
         ];
 
         $query = new URLQuery();
@@ -576,9 +576,9 @@ class URLServiceTest extends BaseURLServiceTest
     public function testFindUrlsWithOffsetAndLimit()
     {
         $expectedUrls = [
-            'http://www.discuz.net/forum.php',
-            'http://calendar.google.com/calendar/render',
-            'http://www.wikipedia.org/',
+            'https://www.discuz.net/forum.php',
+            'https://calendar.google.com/calendar/render',
+            'https://www.wikipedia.org/',
         ];
 
         $query = new URLQuery();
@@ -626,24 +626,24 @@ class URLServiceTest extends BaseURLServiceTest
         $urlsSortedById = [
             '/content/view/sitemap/2',
             '/content/view/tagcloud/2',
-            'http://twitter.com/',
-            'http://www.facebook.com/',
-            'http://www.google.com/',
-            'http://vimeo.com/',
-            'http://www.facebook.com/sharer.php',
-            'http://www.youtube.com/',
-            'http://support.google.com/chrome/answer/95647?hl=es',
-            'http://instagram.com/',
-            'http://www.discuz.net/forum.php',
-            'http://calendar.google.com/calendar/render',
-            'http://www.wikipedia.org/',
-            'http://www.google.com/analytics/',
-            'http://www.nazwa.pl/',
-            'http://www.apache.org/',
-            'http://www.nginx.com/',
-            'http://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
-            'http://www.dropbox.com/',
-            'http://www.google.de/',
+            'https://twitter.com/',
+            'https://www.facebook.com/',
+            'https://www.google.com/',
+            'https://vimeo.com/',
+            'https://www.facebook.com/sharer.php',
+            'https://www.youtube.com/',
+            'https://support.google.com/chrome/answer/95647?hl=es',
+            'https://instagram.com/',
+            'https://www.discuz.net/forum.php',
+            'https://calendar.google.com/calendar/render',
+            'https://www.wikipedia.org/',
+            'https://www.google.com/analytics/',
+            'https://www.nazwa.pl/',
+            'https://www.apache.org/',
+            'https://www.nginx.com/',
+            'https://windows.microsoft.com/en-US/internet-explorer/products/ie/home',
+            'https://www.dropbox.com/',
+            'https://www.google.de/',
         ];
 
         $urlsSortedByURL = $urlsSortedById;
@@ -745,7 +745,7 @@ class URLServiceTest extends BaseURLServiceTest
 
         $urlBeforeUpdate = $urlService->loadById($id);
         $updateStruct = $urlService->createUpdateStruct();
-        $updateStruct->url = 'http://www.youtube.com/';
+        $updateStruct->url = 'https://www.youtube.com/';
 
         // This call will fail with a InvalidArgumentException
         $urlService->updateUrl($urlBeforeUpdate, $updateStruct);
@@ -928,7 +928,7 @@ class URLServiceTest extends BaseURLServiceTest
         /* BEGIN: Use Case */
         $urlService = $repository->getURLService();
 
-        $loadedUrl = $urlService->loadByUrl('http://www.dropbox.com/');
+        $loadedUrl = $urlService->loadByUrl('https://www.dropbox.com/');
 
         $usagesSearchResults = $urlService->findUsages($loadedUrl);
         /* END: Use Case */
