@@ -205,7 +205,7 @@ class DateTest extends FieldTypeTest
             [
                 new DateValue($dateTime = new DateTime()),
                 [
-                    'timestamp' => $dateTime->setTime(0, 0, 0)->getTimestamp() + $dateTime->getOffset(),
+                    'timestamp' => $dateTime->setTime(0, 0, 0)->getTimestamp(),
                     'rfc850' => $dateTime->format(DateTime::RFC850),
                 ],
             ],

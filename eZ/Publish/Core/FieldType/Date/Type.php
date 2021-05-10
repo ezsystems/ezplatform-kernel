@@ -167,7 +167,7 @@ class Type extends FieldType
 
         if ($value->date instanceof DateTime) {
             return [
-                'timestamp' => $value->date->getTimestamp() + $value->date->getOffset(),
+                'timestamp' => $value->date->getTimestamp(),
                 'rfc850' => $value->date->format(DateTime::RFC850),
             ];
         }
