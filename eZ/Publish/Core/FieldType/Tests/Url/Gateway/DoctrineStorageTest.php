@@ -177,7 +177,7 @@ class DoctrineStorageTest extends TestCase
 
         $statement = $query->execute();
 
-        $result = $statement->fetchAssociative();
+        $result = $statement->fetchAllAssociative();
 
         $expected = [
             [
