@@ -11,10 +11,13 @@ use eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage;
 use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 
 /**
- * Url DoctrineStorage gateway tests.
+ * @covers \eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage
  */
 class DoctrineStorageTest extends TestCase
 {
+    /**
+     * @covers \eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage::getIdUrlMap
+     */
     public function testGetIdUrlMap()
     {
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/urls.php');
@@ -32,6 +35,9 @@ class DoctrineStorageTest extends TestCase
         );
     }
 
+    /**
+     * @covers \eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage::getUrlIdMap
+     */
     public function testGetUrlIdMap()
     {
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/urls.php');
@@ -53,6 +59,9 @@ class DoctrineStorageTest extends TestCase
         );
     }
 
+    /**
+     * @covers \eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage::insertUrl
+     */
     public function testInsertUrl()
     {
         $gateway = $this->getStorageGateway();
@@ -75,7 +84,7 @@ class DoctrineStorageTest extends TestCase
         ;
 
         $statement = $query->execute();
-        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $statement->fetchAllAssociative();
 
         $expected = [
             [
@@ -96,6 +105,9 @@ class DoctrineStorageTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
+    /**
+     * @covers \eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage::linkUrl
+     */
     public function testLinkUrl()
     {
         $gateway = $this->getStorageGateway();
@@ -117,7 +129,7 @@ class DoctrineStorageTest extends TestCase
 
         $statement = $query->execute();
 
-        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $statement->fetchAssociative();
 
         $expected = [
             [
@@ -130,6 +142,9 @@ class DoctrineStorageTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
+    /**
+     * @covers \eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage::unlinkUrl
+     */
     public function testUnlinkUrl()
     {
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/urls.php');
@@ -144,7 +159,7 @@ class DoctrineStorageTest extends TestCase
         $query->select('*')->from('ezurl_object_link');
 
         $statement = $query->execute();
-        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $statement->fetchAssociative();
 
         $expected = [
             [
@@ -162,7 +177,7 @@ class DoctrineStorageTest extends TestCase
 
         $statement = $query->execute();
 
-        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $statement->fetchAssociative();
 
         $expected = [
             [
@@ -179,9 +194,6 @@ class DoctrineStorageTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    /**
-     * @throws \Doctrine\DBAL\DBALException
-     */
     protected function getStorageGateway(): Gateway
     {
         if (!isset($this->storageGateway)) {
