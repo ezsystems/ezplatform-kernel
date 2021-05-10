@@ -43,7 +43,7 @@ class DoctrineDatabaseTest extends TestCase
     /**
      * @covers \eZ\Publish\Core\Persistence\Legacy\URL\Gateway\DoctrineDatabase::loadUrlData
      */
-    public function testLoadUrlData()
+    public function testLoadUrlData(): void
     {
         $row = $this->gateway->loadUrlData(23);
 
@@ -56,7 +56,7 @@ class DoctrineDatabaseTest extends TestCase
     /**
      * @covers \eZ\Publish\Core\Persistence\Legacy\URL\Gateway\DoctrineDatabase::loadUrlDataByUrl
      */
-    public function testLoadUrlDataByUrl()
+    public function testLoadUrlDataByUrl(): void
     {
         $rows = $this->gateway->loadUrlDataByUrl('https://doc.ez.no/display/USER/');
 
@@ -69,7 +69,7 @@ class DoctrineDatabaseTest extends TestCase
     /**
      * @covers \eZ\Publish\Core\Persistence\Legacy\URL\Gateway\DoctrineDatabase::find
      */
-    public function testFind()
+    public function testFind(): void
     {
         $criterion = new \eZ\Publish\API\Repository\Values\URL\Query\Criterion\MatchAll();
         $results = $this->gateway->find($criterion, 0, 10);
@@ -86,7 +86,7 @@ class DoctrineDatabaseTest extends TestCase
     /**
      * @covers \eZ\Publish\Core\Persistence\Legacy\URL\Gateway\DoctrineDatabase::find
      */
-    public function testFindWithDisabledCounting()
+    public function testFindWithDisabledCounting(): void
     {
         $criterion = new \eZ\Publish\API\Repository\Values\URL\Query\Criterion\MatchAll();
         $results = $this->gateway->find($criterion, 0, 10, [], false);
