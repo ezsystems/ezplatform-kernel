@@ -23,12 +23,10 @@ class DoctrineDatabaseTest extends TestCase
      *
      * @var \eZ\Publish\Core\Persistence\Legacy\URL\Gateway\DoctrineDatabase
      */
-    protected $gateway;
+    private $gateway;
 
-    /**
-     * @var array[]
-     */
-    protected $fixtureData;
+    /** @var array[] */
+    private $fixtureData;
 
     protected function setUp(): void
     {
