@@ -375,7 +375,6 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
     protected function getValidSearchValueTwo()
     {
         $dateTime = new DateTime('1970-01-03');
-        $dateTime->setTime(0, 0, 0);
 
         return $dateTime->getTimestamp();
     }
@@ -402,9 +401,6 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
 
     protected function getValueOneDate(): DateTime
     {
-        $dateTime = new DateTime('1970-01-02');
-        $dateTime->setTime(0, 0, 0);
-
-        return $dateTime;
+        return new DateTime('1970-01-02');
     }
 }
