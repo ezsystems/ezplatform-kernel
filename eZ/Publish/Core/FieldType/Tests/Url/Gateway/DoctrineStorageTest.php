@@ -129,7 +129,7 @@ class DoctrineStorageTest extends TestCase
 
         $statement = $query->execute();
 
-        $result = $statement->fetchAssociative();
+        $result = $statement->fetchAllAssociative();
 
         $expected = [
             [
@@ -159,7 +159,7 @@ class DoctrineStorageTest extends TestCase
         $query->select('*')->from('ezurl_object_link');
 
         $statement = $query->execute();
-        $result = $statement->fetchAssociative();
+        $result = $statement->fetchAllAssociative();
 
         $expected = [
             [
