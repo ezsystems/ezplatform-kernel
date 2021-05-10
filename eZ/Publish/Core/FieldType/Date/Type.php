@@ -122,7 +122,7 @@ class Type extends FieldType
             return null;
         }
 
-        return $value->date->getTimestamp() + $value->date->getOffset();
+        return $value->date->getTimestamp();
     }
 
     /**
