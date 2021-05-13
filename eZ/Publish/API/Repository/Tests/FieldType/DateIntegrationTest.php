@@ -386,7 +386,7 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
             return $this->getValidSearchValueOne();
         }
 
-        return '1970-01-02T00:00:00Z';
+        return '1970-01-02T00:00:00';
     }
 
     protected function getSearchTargetValueTwo()
@@ -396,7 +396,7 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
             return $this->getValidSearchValueTwo();
         }
 
-        return '1970-01-03T00:00:00Z';
+        return '1970-01-03T00:00:00';
     }
 
     protected function getValueOneDate(): DateTime
