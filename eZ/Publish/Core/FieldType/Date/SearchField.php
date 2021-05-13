@@ -28,7 +28,7 @@ class SearchField implements Indexable
     public function getIndexData(Field $field, FieldDefinition $fieldDefinition)
     {
         if ($field->value->data !== null) {
-            $dateTime = new \DateTime();
+            $dateTime = new DateTime();
             $dateTime->setTimestamp($field->value->data['timestamp']);
             $value = $dateTime->format('Y-m-d\\Z');
         } else {

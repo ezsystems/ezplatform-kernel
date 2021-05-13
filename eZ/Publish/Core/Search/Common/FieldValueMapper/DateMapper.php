@@ -40,7 +40,7 @@ class DateMapper extends FieldValueMapper
     public function map(Field $field)
     {
         if (is_numeric($field->value)) {
-            $date = new \DateTime();
+            $date = new DateTime();
             $date->setTimestamp($field->value);
         } else {
             try {
