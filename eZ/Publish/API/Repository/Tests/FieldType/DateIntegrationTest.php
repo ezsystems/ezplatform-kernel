@@ -117,9 +117,9 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
      */
     public function getValidCreationFieldData()
     {
-        // We may only create times from timestamps here, since storing will
-        // loose information about the timezone.
-        return DateValue::fromTimestamp(86400);
+        $dateTime = $this->getValueOneDate();
+
+        return DateValue::fromTimestamp($dateTime->getTimestamp());
     }
 
     /**
@@ -147,8 +147,10 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
             $field->value
         );
 
+        $dateTime = $this->getValueOneDate();
+
         $expectedData = [
-            'date' => new DateTime('@86400'),
+            'date' => $dateTime,
         ];
 
         $this->assertPropertiesCorrect(
@@ -195,7 +197,9 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
      */
     public function getValidUpdateFieldData()
     {
-        return DateValue::fromTimestamp(86400);
+        $dateTime = $this->getValueOneDate();
+
+        return DateValue::fromTimestamp($dateTime->getTimestamp());
     }
 
     /**
@@ -213,8 +217,10 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
             $field->value
         );
 
+        $dateTime = $this->getValueOneDate();
+
         $expectedData = [
-            'date' => new DateTime('@86400'),
+            'date' => $dateTime,
         ];
         $this->assertPropertiesCorrect(
             $expectedData,
@@ -283,8 +289,9 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
      */
     public function provideToHashData()
     {
-        $timestamp = 186401;
-        $dateTime = new DateTime("@{$timestamp}");
+        $timestamp = 186400;
+        $dateTime = new DateTime();
+        $dateTime->setTimestamp($timestamp);
 
         return [
             [
@@ -327,17 +334,17 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
         return [
             [
                 [
-                    'timestamp' => $timestamp,
+                    'timestamp' => $dateTime->getTimestamp(),
                     'rfc850' => ($rfc850 = $dateTime->format(DateTime::RFC850)),
                 ],
                 DateValue::fromString($rfc850),
             ],
             [
                 [
-                    'timestamp' => $timestamp,
+                    'timestamp' => $dateTime->getTimestamp(),
                     'rfc850' => null,
                 ],
-                DateValue::fromTimestamp($timestamp),
+                DateValue::fromTimestamp($dateTime->getTimestamp()),
             ],
         ];
     }
@@ -360,12 +367,16 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
 
     protected function getValidSearchValueOne()
     {
-        return 86400;
+        $dateTime = $this->getValueOneDate();
+
+        return $dateTime->getTimestamp();
     }
 
     protected function getValidSearchValueTwo()
     {
-        return 172800;
+        $dateTime = new DateTime('1970-01-03');
+
+        return $dateTime->getTimestamp();
     }
 
     protected function getSearchTargetValueOne()
@@ -386,5 +397,10 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
         }
 
         return '1970-01-03T00:00:00Z';
+    }
+
+    protected function getValueOneDate(): DateTime
+    {
+        return new DateTime('1970-01-02');
     }
 }
