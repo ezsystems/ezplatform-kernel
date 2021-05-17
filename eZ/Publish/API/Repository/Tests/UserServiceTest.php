@@ -2055,6 +2055,38 @@ class UserServiceTest extends BaseTest
     }
 
     /**
+     * @covers \eZ\Publish\API\Repository\UserService::updateUser
+     */
+    public function testUpdateUserByUserWithLimitations(): void
+    {
+        $repository = $this->getRepository();
+        $userService = $repository->getUserService();
+
+        $user = $this->createTestUserWithPassword('H@xxxiR!_1', $this->createUserContentTypeWithStrongPassword());
+
+        $currentUser = $this->createUserWithPolicies(
+            'user',
+            [
+                ['module' => 'content', 'function' => 'edit'],
+                ['module' => 'content', 'function' => 'read'],
+                ['module' => 'content', 'function' => 'versionread'],
+                ['module' => 'content', 'function' => 'publish'],
+                ['module' => 'user', 'function' => 'password'],
+            ],
+            new SubtreeLimitation(['limitationValues' => ['/1/5']])
+        );
+        $repository->getPermissionResolver()->setCurrentUserReference($currentUser);
+
+        // Create a new update struct instance
+        $userUpdate = $userService->newUserUpdateStruct();
+        $userUpdate->password = 'H@xxxiR!_2';
+
+        $user = $userService->updateUser($user, $userUpdate);
+
+        self::assertInstanceOf(User::class, $user);
+    }
+
+    /**
      * @covers \eZ\Publish\API\Repository\UserService::updateUserPassword
      */
     public function testUpdateUserPasswordWorksWithUserPasswordRole(): void
