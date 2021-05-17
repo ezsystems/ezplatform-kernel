@@ -266,6 +266,7 @@ services:
         class: eZ\Publish\Core\FieldType\BinaryFile\Type
         arguments:
             - ['@ezpublish.fieldType.validator.black_list']
+            - "@?ezpublish.fieldType.ezbinarybase.download_url_generator"
         parent: ezpublish.fieldType
         tags:
             - {name: ezplatform.field_type, alias: ezbinaryfile}
@@ -345,6 +346,7 @@ services:
         class: eZ\Publish\Core\FieldType\Media\Type
         arguments:
             - ['@ezpublish.fieldType.validator.black_list']
+            - "@?ezpublish.fieldType.ezbinarybase.download_url_generator"
         parent: ezpublish.fieldType
         tags:
             - {name: ezplatform.field_type, alias: ezmedia}
