@@ -1153,6 +1153,16 @@ final class DoctrineDatabase extends Gateway
         }
     }
 
+    public function removeRelationsByFieldDefinitionId(int $fieldDefinitionId): void
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->delete(self::CONTENT_RELATION_TABLE)
+            ->where('contentclassattribute_id = :field_definition_id')
+            ->setParameter('field_definition_id', $fieldDefinitionId, ParameterType::INTEGER);
+
+        $query->execute();
+    }
+
     /**
      * Update field value of RelationList field type identified by given $row data,
      * removing relations toward given $contentId.

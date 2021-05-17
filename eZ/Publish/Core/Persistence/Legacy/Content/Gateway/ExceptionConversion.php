@@ -317,6 +317,15 @@ final class ExceptionConversion extends Gateway
         }
     }
 
+    public function removeRelationsByFieldDefinitionId(int $fieldDefinitionId): void
+    {
+        try {
+            $this->innerGateway->removeRelationsByFieldDefinitionId($fieldDefinitionId);
+        } catch (DBALException | PDOException $e) {
+            throw DatabaseException::wrap($e);
+        }
+    }
+
     public function deleteField(int $fieldId): void
     {
         try {
