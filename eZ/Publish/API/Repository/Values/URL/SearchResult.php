@@ -17,7 +17,7 @@ class SearchResult extends ValueObject implements \IteratorAggregate
     /**
      * The total number of URLs.
      *
-     * @var int
+     * @var int|null
      */
     public $totalCount = 0;
 

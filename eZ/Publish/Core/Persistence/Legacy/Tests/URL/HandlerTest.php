@@ -84,7 +84,7 @@ class HandlerTest extends TestCase
         $this->gateway
             ->expects($this->once())
             ->method('find')
-            ->with($query->filter, $query->offset, $query->limit, $query->sortClauses)
+            ->with($query->filter, $query->offset, $query->limit, $query->sortClauses, $query->performCount)
             ->willReturn($results);
 
         $this->mapper
