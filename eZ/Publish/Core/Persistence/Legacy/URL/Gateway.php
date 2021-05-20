@@ -28,7 +28,10 @@ abstract class Gateway
      * @param SortClause[] $sortClauses
      * @param bool $doCount
      *
-     * @return array
+     * @return array{
+     *     "rows": mixed,
+     *     "count": int|null,
+     * }
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException if Criterion is not applicable to its target
