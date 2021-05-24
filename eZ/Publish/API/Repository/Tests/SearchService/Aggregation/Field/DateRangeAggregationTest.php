@@ -75,7 +75,6 @@ final class DateRangeAggregationTest extends AbstractAggregationTest
 
     protected function createFixturesForAggregation(Aggregation $aggregation): void
     {
-
         $generator = new FieldAggregationFixtureGenerator($this->getRepository());
         $generator->setContentTypeIdentifier('content_type');
         $generator->setFieldDefinitionIdentifier('date_field');
