@@ -159,7 +159,7 @@ class ContentViewBuilder implements ViewBuilder
             && $this->permissionResolver->canUser('content', 'view_embed', $content->contentInfo)
             && !$this->permissionResolver->canUser('content', 'read', $content->contentInfo)
         ) {
-            $parameters['params']['objectParameters'] = ['doNotGenerateEmbedUrl' => true];
+            $parameters['params']['objectParameters']['doNotGenerateEmbedUrl'] = true;
         }
 
         $this->viewParametersInjector->injectViewParameters($view, $parameters);
