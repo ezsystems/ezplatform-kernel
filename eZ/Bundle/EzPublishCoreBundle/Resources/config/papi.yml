@@ -25,6 +25,7 @@ services:
         class: eZ\Bundle\EzPublishCoreBundle\ApiLoader\StorageEngineFactory
         arguments:
             - "@ezpublish.api.repository_configuration_provider"
+            - !tagged_iterator { tag: 'ezpublish.storageEngine', index_by: 'alias' }
 
     ezpublish.api.persistence_handler:
         #To disable cache, switch alias to ezpublish.api.storage_engine
@@ -39,6 +40,7 @@ services:
         class: eZ\Bundle\EzPublishCoreBundle\ApiLoader\SearchEngineFactory
         arguments:
             - "@ezpublish.api.repository_configuration_provider"
+            - !tagged_iterator { tag: 'ezplatform.search_engine', index_by: 'alias' }
 
     ezpublish.api.search_engine.indexer.factory:
             class: eZ\Bundle\EzPublishCoreBundle\ApiLoader\SearchEngineIndexerFactory

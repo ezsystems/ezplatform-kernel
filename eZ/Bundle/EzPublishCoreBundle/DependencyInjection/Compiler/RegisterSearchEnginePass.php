@@ -14,6 +14,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * This compiler pass will register eZ Publish search engines.
+ *
+ * @deprecated will be removed in 4.0 in favor of injecting via tagged iterator in service configuration
  */
 class RegisterSearchEnginePass implements CompilerPassInterface
 {

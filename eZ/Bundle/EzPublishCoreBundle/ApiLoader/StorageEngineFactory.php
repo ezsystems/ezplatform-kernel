@@ -25,9 +25,15 @@ class StorageEngineFactory
      */
     protected $storageEngines = [];
 
-    public function __construct(RepositoryConfigurationProvider $repositoryConfigurationProvider)
+    /**
+     * @param iterable<string, \eZ\Publish\SPI\Persistence\Handler> $storageEngines
+     */
+    public function __construct(RepositoryConfigurationProvider $repositoryConfigurationProvider, iterable $storageEngines = [])
     {
         $this->repositoryConfigurationProvider = $repositoryConfigurationProvider;
+        foreach ($storageEngines as $alias => $storageEngine) {
+            $this->registerStorageEngine($storageEngine, $alias);
+        }
     }
 
     /**
