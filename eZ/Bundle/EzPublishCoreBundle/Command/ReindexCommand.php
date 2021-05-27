@@ -9,12 +9,11 @@ namespace eZ\Bundle\EzPublishCoreBundle\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use function count;
 use const DIRECTORY_SEPARATOR;
-use Doctrine\DBAL\Connection;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
 use eZ\Publish\Core\Search\Common\Indexer;
 use eZ\Publish\Core\Search\Common\IncrementalIndexer;
-use Doctrine\DBAL\Driver\Statement;
+use eZ\Publish\SPI\Search\Content\IndexerGateway;
+use Generator;
 use eZ\Publish\SPI\Persistence\Content\Location\Handler;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -26,18 +25,11 @@ use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 use RuntimeException;
 use DateTime;
-use PDO;
 
 class ReindexCommand extends Command implements BackwardCompatibleCommand
 {
     /** @var \eZ\Publish\Core\Search\Common\Indexer|\eZ\Publish\Core\Search\Common\IncrementalIndexer */
     private $searchIndexer;
-
-    /** @var \Doctrine\DBAL\Connection */
-    private $connection;
-
-    /** @var \eZ\Publish\SPI\Persistence\Content\Location\Handler */
-    private $locationHandler;
 
     /** @var string */
     private $phpPath;
@@ -57,20 +49,16 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
     /** @var string */
     private $projectDir;
 
-    /**
-     * @param \eZ\Publish\Core\Search\Common\IncrementalIndexer|\eZ\Publish\Core\Search\Common\Indexer $searchIndexer
-     * @param \Doctrine\DBAL\Connection $connection
-     * @param \eZ\Publish\SPI\Persistence\Content\Location\Handler $locationHandler
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param string $siteaccess
-     * @param string $env
-     * @param bool $isDebug
-     * @param string|null $phpPath
-     */
+    /** @var \eZ\Publish\SPI\Search\Content\IndexerGateway */
+    private $gateway;
+
+    /** @var \eZ\Publish\SPI\Persistence\Content\Location\Handler */
+    private $locationHandler;
+
     public function __construct(
         $searchIndexer,
-        Connection $connection,
         Handler $locationHandler,
+        IndexerGateway $gateway,
         LoggerInterface $logger,
         string $siteaccess,
         string $env,
@@ -78,8 +66,8 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
         string $projectDir,
         string $phpPath = null
     ) {
+        $this->gateway = $gateway;
         $this->searchIndexer = $searchIndexer;
-        $this->connection = $connection;
         $this->locationHandler = $locationHandler;
         $this->phpPath = $phpPath;
         $this->logger = $logger;
@@ -259,16 +247,18 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
         }
 
         if ($since = $input->getOption('since')) {
-            $stmt = $this->getStatementContentSince(new DateTime($since));
-            $count = (int)$this->getStatementContentSince(new DateTime($since), true)->fetchColumn();
+            $count = $this->gateway->countContentSince(new DateTime($since));
+            $generator = $this->gateway->getContentSince(new DateTime($since), $iterationCount);
             $purge = false;
         } elseif ($locationId = (int) $input->getOption('subtree')) {
-            $stmt = $this->getStatementSubtree($locationId);
-            $count = (int) $this->getStatementSubtree($locationId, true)->fetchColumn();
+            /** @var \eZ\Publish\SPI\Persistence\Content\Location\Handler */
+            $location = $this->locationHandler->load($locationId);
+            $count = $this->gateway->countContentInSubtree($location->pathString);
+            $generator = $this->gateway->getContentInSubtree($location->pathString, $iterationCount);
             $purge = false;
         } else {
-            $stmt = $this->getStatementContentAll();
-            $count = (int) $this->getStatementContentAll(true)->fetchColumn();
+            $count = $this->gateway->countAllContent();
+            $generator = $this->gateway->getAllContent($iterationCount);
             $purge = !$input->getOption('no-purge');
         }
 
@@ -302,10 +292,15 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
         $progress->start($iterations);
 
         if ($processCount > 1) {
-            $this->runParallelProcess($progress, $stmt, (int) $processCount, (int) $iterationCount, $commit);
+            $this->runParallelProcess(
+                $progress,
+                $generator,
+                (int)$processCount,
+                $commit
+            );
         } else {
             // if we only have one process, or less iterations to warrant running several, we index it all inline
-            foreach ($this->fetchIteration($stmt, $iterationCount) as $contentIds) {
+            foreach ($generator as $contentIds) {
                 $this->searchIndexer->updateSearchIndex($contentIds, $commit);
                 $progress->advance(1);
             }
@@ -326,14 +321,12 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
      */
     private function runParallelProcess(
         ProgressBar $progress,
-        Statement $stmt,
+        Generator $generator,
         int $processCount,
-        int $iterationCount,
         bool $commit
     ): void {
         /** @var \Symfony\Component\Process\Process[]|null[] */
         $processes = array_fill(0, $processCount, null);
-        $generator = $this->fetchIteration($stmt, $iterationCount);
         do {
             /** @var \Symfony\Component\Process\Process $process */
             foreach ($processes as $key => $process) {
@@ -370,88 +363,6 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
                 sleep(1);
             }
         } while (!empty($processes));
-    }
-
-    /**
-     * @param DateTime $since
-     * @param bool $count
-     *
-     * @return \Doctrine\DBAL\Driver\Statement
-     */
-    private function getStatementContentSince(DateTime $since, $count = false)
-    {
-        $q = $this->connection->createQueryBuilder()
-            ->select($count ? 'count(c.id)' : 'c.id')
-            ->from('ezcontentobject', 'c')
-            ->where('c.status = :status')->andWhere('c.modified >= :since')
-            ->orderBy('c.modified')
-            ->setParameter('status', ContentInfo::STATUS_PUBLISHED, PDO::PARAM_INT)
-            ->setParameter('since', $since->getTimestamp(), PDO::PARAM_INT);
-
-        return $q->execute();
-    }
-
-    /**
-     * @param mixed $locationId
-     * @param bool $count
-     *
-     * @return \Doctrine\DBAL\Driver\Statement
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     */
-    private function getStatementSubtree($locationId, $count = false)
-    {
-        $location = $this->locationHandler->load($locationId);
-        $q = $this->connection->createQueryBuilder()
-            ->select($count ? 'count(DISTINCT c.id)' : 'DISTINCT c.id')
-            ->from('ezcontentobject', 'c')
-            ->innerJoin('c', 'ezcontentobject_tree', 't', 't.contentobject_id = c.id')
-            ->where('c.status = :status')
-            ->andWhere('t.path_string LIKE :path')
-            ->setParameter('status', ContentInfo::STATUS_PUBLISHED, PDO::PARAM_INT)
-            ->setParameter('path', $location->pathString . '%', PDO::PARAM_STR);
-
-        return $q->execute();
-    }
-
-    /**
-     * @param bool $count
-     *
-     * @return \Doctrine\DBAL\Driver\Statement
-     */
-    private function getStatementContentAll($count = false)
-    {
-        $q = $this->connection->createQueryBuilder()
-            ->select($count ? 'count(c.id)' : 'c.id')
-            ->from('ezcontentobject', 'c')
-            ->where('c.status = :status')
-            ->setParameter('status', ContentInfo::STATUS_PUBLISHED, PDO::PARAM_INT);
-
-        return $q->execute();
-    }
-
-    /**
-     * @param \Doctrine\DBAL\Driver\Statement $stmt
-     * @param int $iterationCount
-     *
-     * @return \Generator Return an array of arrays, each array contains content id's of $iterationCount.
-     */
-    private function fetchIteration(Statement $stmt, $iterationCount)
-    {
-        do {
-            $contentIds = [];
-            for ($i = 0; $i < $iterationCount; ++$i) {
-                if ($contentId = $stmt->fetch(PDO::FETCH_COLUMN)) {
-                    $contentIds[] = $contentId;
-                } elseif (empty($contentIds)) {
-                    return;
-                } else {
-                    break;
-                }
-            }
-
-            yield $contentIds;
-        } while (!empty($contentId));
     }
 
     /**

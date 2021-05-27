@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Yaml\Yaml;
+use RuntimeException;
 
 /**
  * Adds extra YAML configuration through ezplatform_behat.yml.
@@ -38,15 +39,24 @@ class YamlConfigurationContext implements Context
         $destinationFileName = 'ezplatform_behat_' . sha1($yamlString) . '.yaml';
         $destinationFilePath = "config/packages/{$env}/{$destinationFileName}";
 
+        $configurationDir = dirname($destinationFilePath);
+        if (!is_dir($configurationDir)) {
+            if (false === @mkdir($configurationDir)) {
+                $error = error_get_last();
+                throw new RuntimeException(sprintf(
+                        'Unable to create the configuration directory "%s": %s',
+                        $configurationDir,
+                        $error['message']
+                    ));
+            }
+        }
+
         if (!file_exists($destinationFilePath)) {
             file_put_contents($destinationFilePath, $yamlString);
         }
 
         $this->addImportToPlatformYaml($destinationFileName, $env);
-
-        if ($this->isSymfonyCacheClearRequired()) {
-            $this->clearSymfonyCache();
-        }
+        $this->clearSymfonyCache();
     }
 
     public function getEnvironment(): string
@@ -62,6 +72,11 @@ class YamlConfigurationContext implements Context
     private function addImportToPlatformYaml(string $importedFileName, string $env): void
     {
         $filePath = str_replace('%env%', $env, self::$platformConfigurationFilePath);
+
+        if (!file_exists($filePath)) {
+            file_put_contents($filePath, Yaml::dump([]));
+        }
+
         $platformConfig = Yaml::parse(file_get_contents($filePath));
 
         if (!array_key_exists('imports', $platformConfig)) {
@@ -92,6 +107,8 @@ class YamlConfigurationContext implements Context
         $input = new ArrayInput(
             [
                 'command' => 'cache:clear',
+                '--no-warmup' => true,
+                '--no-optional-warmers' => true,
             ]
         );
 

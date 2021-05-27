@@ -145,13 +145,11 @@ class DateTest extends FieldTypeTest
             ],
             [
                 ($timestamp = 1346149200),
-                new DateValue(
-                    new DateTime("@{$timestamp}")
-                ),
+                new DateValue((new DateTime())->setTimestamp($timestamp)),
             ],
             [
                 DateValue::fromTimestamp($timestamp = 1372895999),
-                new DateValue(new DateTime("@{$timestamp}")),
+                new DateValue((new DateTime())->setTimestamp($timestamp)),
             ],
             [
                 ($dateTime = new DateTime()),
@@ -260,7 +258,7 @@ class DateTest extends FieldTypeTest
                 [
                     'timestamp' => ($timestamp = 1362614400),
                 ],
-                new DateValue(new DateTime("@{$timestamp}")),
+                new DateValue($dateTime->setTimestamp($timestamp)),
             ],
             [
                 [

@@ -58,7 +58,8 @@ class Handler implements HandlerInterface
             $query->filter,
             $query->offset,
             $query->limit,
-            $query->sortClauses
+            $query->sortClauses,
+            $query->performCount
         );
 
         return [

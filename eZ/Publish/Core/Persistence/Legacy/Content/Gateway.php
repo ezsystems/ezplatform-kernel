@@ -301,6 +301,11 @@ abstract class Gateway
     abstract public function removeReverseFieldRelations(int $contentId): void;
 
     /**
+     * Removes orphaned relations resulting from deleted relation fieldtype.
+     */
+    abstract public function removeRelationsByFieldDefinitionId(int $fieldDefinitionId): void;
+
+    /**
      * Delete the field with the given $fieldId.
      */
     abstract public function deleteField(int $fieldId): void;

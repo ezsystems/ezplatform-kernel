@@ -62,7 +62,7 @@ class QueryControllerContext extends RawMinkContext implements Context
         $configurationBlockName = 'behat_query_controller_' . $this->matchedContent->id;
 
         $configuration = [
-            'ezpublish' => [
+            'ezplatform' => [
                 'system' => [
                     'default' => [
                         'content_view' => [
@@ -96,7 +96,7 @@ class QueryControllerContext extends RawMinkContext implements Context
         $configurationBlockName = 'behat_paging_query_controller_' . $this->matchedContent->id;
 
         $configuration = [
-            'ezpublish' => [
+            'ezplatform' => [
                 'system' => [
                     'default' => [
                         'content_view' => [
@@ -282,7 +282,7 @@ class QueryControllerContext extends RawMinkContext implements Context
         $configurationBlockName = 'behat_paging_query_controller_' . $this->matchedContent->id;
 
         $configuration = [
-            'ezpublish' => [
+            'ezplatform' => [
                 'system' => [
                     'default' => [
                         'content_view' => [

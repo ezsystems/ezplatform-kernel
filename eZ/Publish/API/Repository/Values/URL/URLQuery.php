@@ -47,4 +47,11 @@ class URLQuery extends ValueObject
      * @var int
      */
     public $limit = 25;
+
+    /**
+     * If true, search engine should perform count even if that means extra lookup.
+     *
+     * @var bool
+     */
+    public $performCount = true;
 }

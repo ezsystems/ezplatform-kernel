@@ -24,8 +24,11 @@ use RuntimeException;
  */
 class DoctrineDatabase extends Gateway
 {
-    const URL_TABLE = 'ezurl';
-    const URL_LINK_TABLE = 'ezurl_object_link';
+    /** @internal */
+    public const URL_TABLE = 'ezurl';
+
+    /** @internal */
+    public const URL_LINK_TABLE = 'ezurl_object_link';
 
     const COLUMN_ID = 'id';
     const COLUMN_URL = 'url';
@@ -88,7 +91,7 @@ class DoctrineDatabase extends Gateway
 
         return [
             'count' => $count,
-            'rows' => $statement->fetchAll(FetchMode::ASSOCIATIVE),
+            'rows' => $statement->fetchAllAssociative(),
         ];
     }
 
