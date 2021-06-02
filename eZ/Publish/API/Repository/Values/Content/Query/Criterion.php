@@ -50,8 +50,8 @@ abstract class Criterion implements CriterionInterface
      * @param string|null $operator
      *        The operator the Criterion uses. If null is given, will default to Operator::IN if $value is an array,
      *        Operator::EQ if it is not.
-     * @param string[]|int[]|int|string $value
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion\Value $valueData
+     * @param string[]|int[]|int|string|bool $value
+     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion\Value|null $valueData
      *
      * @todo Add a dedicated exception
      *
