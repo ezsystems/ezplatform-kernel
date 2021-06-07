@@ -69,6 +69,9 @@ services:
         calls:
             - [setSiteAccess, ['@ezpublish.siteaccess']]
 
+    eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface:
+        alias: 'ezpublish.siteaccess_service'
+
     ezpublish.siteaccess.provider.chain:
         class: eZ\Publish\Core\MVC\Symfony\SiteAccess\Provider\ChainSiteAccessProvider
         arguments:
