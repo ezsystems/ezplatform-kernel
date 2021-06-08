@@ -111,6 +111,11 @@ class Value extends BaseValue
         }
     }
 
+    public function isAlternativeTextEmpty(): bool
+    {
+        return $this->alternativeText === null || trim($this->alternativeText) === '';
+    }
+
     /**
      * Creates a value only from a file path.
      *

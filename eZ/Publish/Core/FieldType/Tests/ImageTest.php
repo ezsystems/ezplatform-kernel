@@ -116,6 +116,12 @@ class ImageTest extends FieldTypeTest
                     'default' => null,
                 ],
             ],
+            'AlternativeTextValidator' => [
+                'required' => [
+                    'type' => 'bool',
+                    'default' => false,
+                ],
+            ],
         ];
     }
 
@@ -814,6 +820,56 @@ class ImageTest extends FieldTypeTest
                     ),
                     new ValidationError(
                         'A valid image file is required.', null, [], 'id'
+                    ),
+                ],
+            ],
+
+            // alternative text is null
+            [
+                [
+                    'validatorConfiguration' => [
+                        'AlternativeTextValidator' => [
+                            'required' => true,
+                        ],
+                    ],
+                ],
+                new ImageValue(
+                    [
+                        'id' => $this->getImageInputPath(),
+                        'fileName' => basename($this->getImageInputPath()),
+                        'fileSize' => filesize($this->getImageInputPath()),
+                        'alternativeText' => null,
+                        'uri' => '',
+                    ]
+                ),
+                [
+                    new ValidationError(
+                        'Alternative text is required.', null, [], 'alternativeText'
+                    ),
+                ],
+            ],
+
+            // alternative text is empty string
+            [
+                [
+                    'validatorConfiguration' => [
+                        'AlternativeTextValidator' => [
+                            'required' => true,
+                        ],
+                    ],
+                ],
+                new ImageValue(
+                    [
+                        'id' => $this->getImageInputPath(),
+                        'fileName' => basename($this->getImageInputPath()),
+                        'fileSize' => filesize($this->getImageInputPath()),
+                        'alternativeText' => '',
+                        'uri' => '',
+                    ]
+                ),
+                [
+                    new ValidationError(
+                        'Alternative text is required.', null, [], 'alternativeText'
                     ),
                 ],
             ],

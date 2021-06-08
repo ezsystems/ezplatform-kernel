@@ -12,8 +12,11 @@ use eZ\Publish\Core\IO\IOServiceInterface;
 use eZ\Publish\Core\IO\UrlRedecoratorInterface;
 use eZ\Publish\Core\IO\Values\BinaryFile;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\ImageConverter;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
+use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
+use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\PhpUnit\ClockMock;
 
@@ -223,6 +226,144 @@ XML,
                     ],
                 ]),
             ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataProviderForTestToStorageFieldDefinition
+     */
+    public function testToStorageFieldDefinition(
+        FieldDefinition $fieldDefinition,
+        StorageFieldDefinition $expectedStorageDef
+    ): void {
+        $storageFieldDefinition = new StorageFieldDefinition();
+
+        $this->imageConverter->toStorageFieldDefinition($fieldDefinition, $storageFieldDefinition);
+
+        $this->assertEquals(
+            $expectedStorageDef,
+            $storageFieldDefinition
+        );
+    }
+
+    public function dataProviderForTestToStorageFieldDefinition(): iterable
+    {
+        yield [
+            new FieldDefinition([
+                'fieldTypeConstraints' => new FieldTypeConstraints([
+                    'validators' => [],
+                ]),
+            ]),
+            new StorageFieldDefinition([
+                'dataInt1' => 0,
+                'dataInt2' => 0,
+            ]),
+        ];
+
+        yield [
+            new FieldDefinition([
+                'fieldTypeConstraints' => new FieldTypeConstraints([
+                    'validators' => [
+                        'FileSizeValidator' => [
+                            'maxFileSize' => 1024,
+                        ],
+                    ],
+                ]),
+            ]),
+            new StorageFieldDefinition([
+                'dataInt1' => 1024,
+                'dataInt2' => 0,
+            ]),
+        ];
+
+        yield [
+            new FieldDefinition([
+                'fieldTypeConstraints' => new FieldTypeConstraints([
+                    'validators' => [
+                        'AlternativeTextValidator' => [
+                            'required' => true,
+                        ],
+                    ],
+                ]),
+            ]),
+            new StorageFieldDefinition([
+                'dataInt1' => 0,
+                'dataInt2' => 1,
+            ]),
+        ];
+
+        yield [
+            new FieldDefinition([
+                'fieldTypeConstraints' => new FieldTypeConstraints([
+                    'validators' => [
+                        'AlternativeTextValidator' => [
+                            'required' => false,
+                        ],
+                    ],
+                ]),
+            ]),
+            new StorageFieldDefinition([
+                'dataInt1' => 0,
+                'dataInt2' => 0,
+            ]),
+        ];
+    }
+
+    /**
+     * @dataProvider dataProviderForTestToFieldDefinition
+     */
+    public function testToFieldDefinition(
+        StorageFieldDefinition $storageDef,
+        FieldDefinition $expectedFieldDefinition
+    ): void {
+        $fieldDefinition = new FieldDefinition();
+
+        $this->imageConverter->toFieldDefinition($storageDef, $fieldDefinition);
+
+        $this->assertEquals(
+            $expectedFieldDefinition,
+            $fieldDefinition
+        );
+    }
+
+    public function dataProviderForTestToFieldDefinition(): iterable
+    {
+        yield [
+            new StorageFieldDefinition([
+                'dataInt1' => 0,
+                'dataInt2' => 0,
+            ]),
+            new FieldDefinition([
+                'fieldTypeConstraints' => new FieldTypeConstraints([
+                    'validators' => [
+                        'FileSizeValidator' => [
+                            'maxFileSize' => null,
+                        ],
+                        'AlternativeTextValidator' => [
+                            'required' => false,
+                        ],
+                    ],
+                ]),
+            ]),
+        ];
+
+        yield [
+            new StorageFieldDefinition([
+                'dataInt1' => 1024,
+                'dataInt2' => 1,
+            ]),
+            new FieldDefinition([
+                'fieldTypeConstraints' => new FieldTypeConstraints([
+                    'validators' => [
+                        'FileSizeValidator' => [
+                            'maxFileSize' => 1024,
+                        ],
+                        'AlternativeTextValidator' => [
+                            'required' => true,
+                        ],
+                    ],
+                ]),
+            ]),
         ];
     }
 }
