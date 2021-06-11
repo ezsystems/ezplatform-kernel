@@ -61,3 +61,10 @@ services:
     ezpublish.persistence.connection:
         public: true # @todo should be private
         alias: ezpublish.api.storage_engine.legacy.connection
+
+    ibexa.repository.transaction_handler:
+        alias: ezpublish.spi.persistence.cache.transactionhandler
+
+    eZ\Publish\SPI\Persistence\TransactionHandler:
+        alias: ibexa.repository.transaction_handler
+
