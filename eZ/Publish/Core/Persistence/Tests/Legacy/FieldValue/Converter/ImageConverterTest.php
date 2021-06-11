@@ -240,7 +240,7 @@ XML,
 
         $this->imageConverter->toStorageFieldDefinition($fieldDefinition, $storageFieldDefinition);
 
-        $this->assertEquals(
+        self::assertEquals(
             $expectedStorageDef,
             $storageFieldDefinition
         );
@@ -320,7 +320,7 @@ XML,
 
         $this->imageConverter->toFieldDefinition($storageDef, $fieldDefinition);
 
-        $this->assertEquals(
+        self::assertEquals(
             $expectedFieldDefinition,
             $fieldDefinition
         );

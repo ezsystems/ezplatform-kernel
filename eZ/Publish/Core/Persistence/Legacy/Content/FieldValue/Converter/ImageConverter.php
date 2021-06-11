@@ -193,9 +193,7 @@ EOT;
             [
                 'validators' => [
                     'FileSizeValidator' => [
-                        'maxFileSize' => ($storageDef->dataInt1 != 0
-                            ? $storageDef->dataInt1
-                            : null),
+                        'maxFileSize' => $storageDef->dataInt1 !== 0 ? $storageDef->dataInt1 : null,
                     ],
                     'AlternativeTextValidator' => [
                         'required' => (bool)$storageDef->dataInt2,

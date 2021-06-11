@@ -664,8 +664,7 @@ class ImageTest extends FieldTypeTest
     public function provideInvalidDataForValidate()
     {
         return [
-            // File is too large
-            [
+            'file is too large' => [
                 [
                     'validatorConfiguration' => [
                         'FileSizeValidator' => [
@@ -693,9 +692,7 @@ class ImageTest extends FieldTypeTest
                     ),
                 ],
             ],
-
-            // file is not an image file
-            [
+            'file is not an image file' => [
                 [
                     'validatorConfiguration' => [
                         'FileSizeValidator' => [
@@ -724,9 +721,7 @@ class ImageTest extends FieldTypeTest
                     ),
                 ],
             ],
-
-            // file is too large and invalid
-            [
+            'file is too large and invalid' => [
                 [
                     'validatorConfiguration' => [
                         'FileSizeValidator' => [
@@ -761,9 +756,7 @@ class ImageTest extends FieldTypeTest
                     ),
                 ],
             ],
-
-            // file is an image file but filename ends with .php
-            [
+            'file is an image file but filename ends with .php' => [
                 [
                     'validatorConfiguration' => [
                         'FileSizeValidator' => [
@@ -792,9 +785,7 @@ class ImageTest extends FieldTypeTest
                     ),
                 ],
             ],
-
-            // file is an image file but filename ends with .PHP (upper case)
-            [
+            'file is an image file but filename ends with .PHP (upper case)' => [
                 [
                     'validatorConfiguration' => [
                         'FileSizeValidator' => [
@@ -823,9 +814,7 @@ class ImageTest extends FieldTypeTest
                     ),
                 ],
             ],
-
-            // alternative text is null
-            [
+            'alternative text is null' => [
                 [
                     'validatorConfiguration' => [
                         'AlternativeTextValidator' => [
@@ -848,9 +837,7 @@ class ImageTest extends FieldTypeTest
                     ),
                 ],
             ],
-
-            // alternative text is empty string
-            [
+            'alternative text is empty string' => [
                 [
                     'validatorConfiguration' => [
                         'AlternativeTextValidator' => [
