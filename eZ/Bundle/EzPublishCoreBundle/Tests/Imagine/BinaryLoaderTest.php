@@ -79,31 +79,28 @@ class BinaryLoaderTest extends TestCase
         }
     }
 
-    public function testFind()
+    public function testFind(): void
     {
         $path = 'something.jpg';
         $mimeType = 'image/jpeg';
         $content = 'some content';
         $binaryFile = new BinaryFile(['id' => $path]);
         $this->ioService
-            ->expects($this->once())
             ->method('loadBinaryFile')
             ->with($path)
-            ->will($this->returnValue($binaryFile));
+            ->willReturn($binaryFile);
 
         $this->ioService
-            ->expects($this->once())
             ->method('getFileContents')
             ->with($binaryFile)
-            ->will($this->returnValue($content));
+            ->willReturn($content);
 
         $this->ioService
-            ->expects($this->once())
             ->method('getMimeType')
             ->with($binaryFile->id)
-            ->will($this->returnValue($mimeType));
+            ->willReturn($mimeType);
 
-        $expected = new Binary($content, $mimeType, 'jpg');
-        $this->assertEquals($expected, $this->binaryLoader->find($path));
+        $expected = new Binary($content, $mimeType, 'jpeg');
+        self::assertEquals($expected, $this->binaryLoader->find($path));
     }
 }
