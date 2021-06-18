@@ -25,7 +25,7 @@ abstract class RepositoryParamConverter implements ParamConverterInterface
     abstract protected function getPropertyName();
 
     /**
-     * @return string classes with its namespace
+     * @return \eZ\Publish\API\Repository\Values\ValueObject
      */
     abstract protected function loadValueObject($id);
 
