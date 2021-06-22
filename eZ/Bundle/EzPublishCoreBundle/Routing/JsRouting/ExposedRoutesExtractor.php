@@ -15,6 +15,8 @@ use Symfony\Component\Routing\RouteCollection;
 /**
  * Decorator of FOSJsRouting routes extractor.
  * Ensures that base URL contains the SiteAccess part when applicable.
+ *
+ * @internal
  */
 class ExposedRoutesExtractor implements ExposedRoutesExtractorInterface
 {
@@ -44,9 +46,13 @@ class ExposedRoutesExtractor implements ExposedRoutesExtractorInterface
      */
     public function getBaseUrl(): string
     {
-        $masterRequest = $this->requestStack->getMasterRequest();
         $baseUrl = $this->innerExtractor->getBaseUrl();
-        $siteAccess = $masterRequest->attributes->get('siteaccess');
+        $request = $this->requestStack->getMasterRequest();
+        if ($request === null) {
+            return $baseUrl;
+        }
+
+        $siteAccess = $request->attributes->get('siteaccess');
         if ($siteAccess instanceof SiteAccess && $siteAccess->matcher instanceof SiteAccess\URILexer) {
             $baseUrl .= $siteAccess->matcher->analyseLink('');
         }

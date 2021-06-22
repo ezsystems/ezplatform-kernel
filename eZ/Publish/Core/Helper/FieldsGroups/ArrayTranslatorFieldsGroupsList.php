@@ -26,20 +26,26 @@ final class ArrayTranslatorFieldsGroupsList implements FieldsGroupsList
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
 
-    public function __construct(TranslatorInterface $translator, $defaultGroup, array $groups)
+    public function __construct(TranslatorInterface $translator, string $defaultGroup, array $groups)
     {
-        $translatedGroups = [];
-        foreach ($groups as $groupIdentifier) {
-            $translatedGroups[$groupIdentifier] = $translator->trans($groupIdentifier, [], 'ezplatform_fields_groups');
-        }
-        $this->groups = $translatedGroups;
+        $this->groups = $groups;
         $this->defaultGroup = $defaultGroup;
         $this->translator = $translator;
     }
 
     public function getGroups()
     {
-        return $this->groups;
+        $translatedGroups = [];
+
+        foreach ($this->groups as $groupIdentifier) {
+            $translatedGroups[$groupIdentifier] = $this->translator->trans(
+                $groupIdentifier,
+                [],
+                'ezplatform_fields_groups'
+            );
+        }
+
+        return $translatedGroups;
     }
 
     public function getDefaultGroup()
