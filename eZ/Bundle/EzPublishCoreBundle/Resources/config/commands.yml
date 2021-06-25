@@ -44,3 +44,12 @@ services:
             $isDebug: '%kernel.debug%'
         tags:
             - { name: console.command }
+
+    eZ\Bundle\EzPublishCoreBundle\Command\NormalizeImagesPathsCommand:
+        autowire: true
+        autoconfigure: true
+        arguments:
+            $connection: '@ezpublish.persistence.connection'
+            $imageGateway: '@ezpublish.fieldType.ezimage.storage_gateway'
+        tags:
+            - { name: console.command }
