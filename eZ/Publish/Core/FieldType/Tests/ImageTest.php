@@ -116,6 +116,12 @@ class ImageTest extends FieldTypeTest
                     'default' => null,
                 ],
             ],
+            'AlternativeTextValidator' => [
+                'required' => [
+                    'type' => 'bool',
+                    'default' => false,
+                ],
+            ],
         ];
     }
 
@@ -658,8 +664,7 @@ class ImageTest extends FieldTypeTest
     public function provideInvalidDataForValidate()
     {
         return [
-            // File is too large
-            [
+            'file is too large' => [
                 [
                     'validatorConfiguration' => [
                         'FileSizeValidator' => [
@@ -687,9 +692,7 @@ class ImageTest extends FieldTypeTest
                     ),
                 ],
             ],
-
-            // file is not an image file
-            [
+            'file is not an image file' => [
                 [
                     'validatorConfiguration' => [
                         'FileSizeValidator' => [
@@ -718,9 +721,7 @@ class ImageTest extends FieldTypeTest
                     ),
                 ],
             ],
-
-            // file is too large and invalid
-            [
+            'file is too large and invalid' => [
                 [
                     'validatorConfiguration' => [
                         'FileSizeValidator' => [
@@ -755,9 +756,7 @@ class ImageTest extends FieldTypeTest
                     ),
                 ],
             ],
-
-            // file is an image file but filename ends with .php
-            [
+            'file is an image file but filename ends with .php' => [
                 [
                     'validatorConfiguration' => [
                         'FileSizeValidator' => [
@@ -786,9 +785,7 @@ class ImageTest extends FieldTypeTest
                     ),
                 ],
             ],
-
-            // file is an image file but filename ends with .PHP (upper case)
-            [
+            'file is an image file but filename ends with .PHP (upper case)' => [
                 [
                     'validatorConfiguration' => [
                         'FileSizeValidator' => [
@@ -814,6 +811,52 @@ class ImageTest extends FieldTypeTest
                     ),
                     new ValidationError(
                         'A valid image file is required.', null, [], 'id'
+                    ),
+                ],
+            ],
+            'alternative text is null' => [
+                [
+                    'validatorConfiguration' => [
+                        'AlternativeTextValidator' => [
+                            'required' => true,
+                        ],
+                    ],
+                ],
+                new ImageValue(
+                    [
+                        'id' => $this->getImageInputPath(),
+                        'fileName' => basename($this->getImageInputPath()),
+                        'fileSize' => filesize($this->getImageInputPath()),
+                        'alternativeText' => null,
+                        'uri' => '',
+                    ]
+                ),
+                [
+                    new ValidationError(
+                        'Alternative text is required.', null, [], 'alternativeText'
+                    ),
+                ],
+            ],
+            'alternative text is empty string' => [
+                [
+                    'validatorConfiguration' => [
+                        'AlternativeTextValidator' => [
+                            'required' => true,
+                        ],
+                    ],
+                ],
+                new ImageValue(
+                    [
+                        'id' => $this->getImageInputPath(),
+                        'fileName' => basename($this->getImageInputPath()),
+                        'fileSize' => filesize($this->getImageInputPath()),
+                        'alternativeText' => '',
+                        'uri' => '',
+                    ]
+                ),
+                [
+                    new ValidationError(
+                        'Alternative text is required.', null, [], 'alternativeText'
                     ),
                 ],
             ],
