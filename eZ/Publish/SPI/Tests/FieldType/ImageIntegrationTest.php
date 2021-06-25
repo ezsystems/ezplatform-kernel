@@ -152,6 +152,9 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
                     'FileSizeValidator' => [
                         'maxFileSize' => 2 * 1024 * 1024, // 2 MB
                     ],
+                    'AlternativeTextValidator' => [
+                        'required' => true,
+                    ],
                 ],
             ]
         );
@@ -177,6 +180,9 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
                         'validators' => [
                             'FileSizeValidator' => [
                                 'maxFileSize' => 2 * 1024 * 1024, // 2 MB
+                            ],
+                            'AlternativeTextValidator' => [
+                                'required' => true,
                             ],
                         ],
                     ]
