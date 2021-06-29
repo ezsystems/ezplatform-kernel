@@ -49,7 +49,7 @@
         "liip/imagine-bundle": "^2.3",
         "oneup/flysystem-bundle": "^3.4",
         "friendsofsymfony/http-cache-bundle": "^2.8",
-        "sensio/framework-extra-bundle": "^5.5",
+        "sensio/framework-extra-bundle": "^6.1",
         "jms/translation-bundle": "^1.5",
         "twig/twig": "^3.0",
         "twig/extra-bundle": "^3.0",
