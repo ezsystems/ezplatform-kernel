@@ -186,9 +186,9 @@ class DoctrineStorage extends Gateway
             ->setParameter(':contentobject_attribute_version', $versionNo, ParameterType::INTEGER);
 
         $statement = $selectQuery->execute();
-        $idsToDelete = $statement->fetchAll(PDO::FETCH_COLUMN);
+        $potentiallyOrphanedUrls = $statement->fetchAll(PDO::FETCH_COLUMN);
 
-        if (empty($idsToDelete)) {
+        if (empty($potentiallyOrphanedUrls)) {
             return;
         }
 
@@ -196,12 +196,19 @@ class DoctrineStorage extends Gateway
         $deleteQuery
             ->delete($this->connection->quoteIdentifier(self::URL_LINK_TABLE))
             ->where(
-                $deleteQuery->expr()->in(
-                    'url_id',
-                    ':url_ids'
+                $selectQuery->expr()->andX(
+                    $selectQuery->expr()->in(
+                        'contentobject_attribute_id',
+                        ':contentobject_attribute_id'
+                    ),
+                    $selectQuery->expr()->in(
+                        'contentobject_attribute_version',
+                        ':contentobject_attribute_version'
+                    )
                 )
             )
-            ->setParameter('url_ids', $idsToDelete, Connection::PARAM_INT_ARRAY);
+            ->setParameter(':contentobject_attribute_id', $fieldId, ParameterType::INTEGER)
+            ->setParameter(':contentobject_attribute_version', $versionNo, ParameterType::INTEGER);
 
         if (empty($excludeUrlIds) === false) {
             $deleteQuery
@@ -216,7 +223,7 @@ class DoctrineStorage extends Gateway
 
         $deleteQuery->execute();
 
-        $this->deleteOrphanedUrls($idsToDelete);
+        $this->deleteOrphanedUrls($potentiallyOrphanedUrls);
     }
 
     /**
@@ -226,7 +233,7 @@ class DoctrineStorage extends Gateway
      *
      * URL is orphaned if it is not linked to a content attribute through ezurl_object_link table.
      */
-    private function deleteOrphanedUrls(array $potentiallyOrphanedIds): void
+    private function deleteOrphanedUrls(array $potentiallyOrphanedUrls): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -245,7 +252,7 @@ class DoctrineStorage extends Gateway
                 )
             )
             ->andWhere($query->expr()->isNull('link.url_id'))
-            ->setParameter('url_ids', $potentiallyOrphanedIds, Connection::PARAM_INT_ARRAY)
+            ->setParameter('url_ids', $potentiallyOrphanedUrls, Connection::PARAM_INT_ARRAY)
         ;
 
         $statement = $query->execute();
