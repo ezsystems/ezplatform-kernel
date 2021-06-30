@@ -25,9 +25,15 @@ class SearchEngineFactory
      */
     protected $searchEngines = [];
 
-    public function __construct(RepositoryConfigurationProvider $repositoryConfigurationProvider)
+    /**
+     * @param iterable<string, \eZ\Publish\SPI\Search\Handler> $searchEngines
+     */
+    public function __construct(RepositoryConfigurationProvider $repositoryConfigurationProvider, iterable $searchEngines = [])
     {
         $this->repositoryConfigurationProvider = $repositoryConfigurationProvider;
+        foreach ($searchEngines as $alias => $searchEngine) {
+            $this->registerSearchEngine($searchEngine, $alias);
+        }
     }
 
     /**
