@@ -11,6 +11,8 @@ use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
 /**
  * Field Type External Storage gateway base class.
+ *
+ * @template T of \eZ\Publish\SPI\FieldType\StorageGateway
  */
 abstract class GatewayBasedStorage implements FieldStorage
 {
@@ -18,11 +20,13 @@ abstract class GatewayBasedStorage implements FieldStorage
      * Field Type External Storage Gateway.
      *
      * @var \eZ\Publish\SPI\FieldType\StorageGateway
+     * @phpstan-var T
      */
     protected $gateway;
 
     /**
      * @param \eZ\Publish\SPI\FieldType\StorageGateway $gateway
+     * @phpstan-param T $gateway
      */
     public function __construct(StorageGateway $gateway)
     {
