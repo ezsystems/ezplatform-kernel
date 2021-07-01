@@ -15,25 +15,26 @@ use eZ\Publish\API\Repository\Values\Setting\SettingUpdateStruct;
 interface SettingService
 {
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If setting with the given group and identifier could not be found
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If a setting with the given group and identifier could not be found
      */
     public function loadSetting(string $group, string $identifier): Setting;
 
     /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to update a setting
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user is not allowed to update a setting
      */
     public function updateSetting(Setting $setting, SettingUpdateStruct $settingUpdateStruct): Setting;
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If setting with the given group and identifier already exists
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to create a setting
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If a setting with the given group and identifier already exists
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user is not allowed to create a setting
      */
     public function createSetting(SettingCreateStruct $settingCreateStruct): Setting;
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If setting has already been removed
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to remove a setting
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If the setting has already been removed
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user is not allowed to remove a setting
      */
     public function deleteSetting(Setting $setting): void;
 
