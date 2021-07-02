@@ -125,7 +125,7 @@ final class SettingService implements SettingServiceInterface
         return new Setting([
             'group' => $setting->group,
             'identifier' => $setting->identifier,
-            'value' => json_decode($setting->serializedValue),
+            'value' => json_decode($setting->serializedValue, true),
         ]);
     }
 }
