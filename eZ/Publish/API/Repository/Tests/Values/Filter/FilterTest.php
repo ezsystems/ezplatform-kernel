@@ -331,6 +331,22 @@ final class FilterTest extends TestCase
             0,
             1,
         ];
+
+        yield 'withLimit(limit=10)' => [
+            (new Filter())->withLimit(10),
+            null,
+            [],
+            10,
+            0,
+        ];
+
+        yield 'withOffset(offset=10)' => [
+            (new Filter())->withOffset(10),
+            null,
+            [],
+            0,
+            10,
+        ];
     }
 
     /**

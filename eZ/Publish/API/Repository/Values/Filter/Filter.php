@@ -62,7 +62,7 @@ final class Filter
     /**
      * Reset Filter so it can be built from scratch.
      */
-    public function reset(): Filter
+    public function reset(): self
     {
         $this->criterion = null;
         $this->sortClauses = [];
@@ -86,7 +86,7 @@ final class Filter
      * @see \eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalOr
      * @see \eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd
      */
-    public function withCriterion(FilteringCriterion $criterion): Filter
+    public function withCriterion(FilteringCriterion $criterion): self
     {
         if (null !== $this->criterion) {
             throw new BadStateException(
@@ -105,7 +105,7 @@ final class Filter
     /**
      * @see withCriterion
      */
-    public function andWithCriterion(FilteringCriterion $criterion): Filter
+    public function andWithCriterion(FilteringCriterion $criterion): self
     {
         if (null === $this->criterion) {
             // for better DX allow operation on uninitialized Criterion by setting it as-is
@@ -122,7 +122,7 @@ final class Filter
     /**
      * @see withCriterion
      */
-    public function orWithCriterion(FilteringCriterion $criterion): Filter
+    public function orWithCriterion(FilteringCriterion $criterion): self
     {
         if (null === $this->criterion) {
             // for better DX allow operation on uninitialized Criterion by setting it as-is
@@ -136,9 +136,23 @@ final class Filter
         return $this;
     }
 
-    public function withSortClause(FilteringSortClause $sortClause): Filter
+    public function withSortClause(FilteringSortClause $sortClause): self
     {
         $this->sortClauses[] = $sortClause;
+
+        return $this;
+    }
+
+    public function withOffset(int $offset): self
+    {
+        $this->offset = $offset;
+
+        return $this;
+    }
+
+    public function withLimit(int $limit): self
+    {
+        $this->limit = $limit;
 
         return $this;
     }
@@ -151,7 +165,7 @@ final class Filter
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      */
-    public function sliceBy(int $limit, int $offset): Filter
+    public function sliceBy(int $limit, int $offset): self
     {
         if ($limit < 0) {
             throw new InvalidArgumentException(
