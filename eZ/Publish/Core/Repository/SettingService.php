@@ -42,11 +42,6 @@ final class SettingService implements SettingServiceInterface
         );
     }
 
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     */
     public function updateSetting(Setting $setting, SettingUpdateStruct $settingUpdateStruct): Setting
     {
         if (!$this->permissionResolver->canUser('setting', 'update', $setting)) {
@@ -62,11 +57,6 @@ final class SettingService implements SettingServiceInterface
         );
     }
 
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     */
     public function createSetting(SettingCreateStruct $settingCreateStruct): Setting
     {
         if (!$this->permissionResolver->canUser('setting', 'create', $settingCreateStruct)) {
@@ -91,11 +81,6 @@ final class SettingService implements SettingServiceInterface
         );
     }
 
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     */
     public function deleteSetting(Setting $setting): void
     {
         if (!$this->permissionResolver->canUser('setting', 'remove', $setting)) {
