@@ -143,6 +143,20 @@ final class Filter
         return $this;
     }
 
+    public function withOffset(int $offset): Filter
+    {
+        $this->offset = $offset;
+
+        return $this;
+    }
+
+    public function withLimit(int $limit): Filter
+    {
+        $this->limit = $limit;
+
+        return $this;
+    }
+
     /**
      * Request result dataset slice by setting page limit and offset.
      * Both values MUST be `>=0`.
