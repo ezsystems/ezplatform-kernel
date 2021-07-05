@@ -53,7 +53,7 @@ class SessionSetDynamicNameListener implements EventSubscriberInterface
     public function onSiteAccessMatch(PostSiteAccessMatchEvent $event)
     {
         $request = $event->getRequest();
-        $session = $event->getRequest()->getSession();
+        $session = $request->hasSession() ? $request->getSession() : null;
         $sessionStorage = $this->sessionStorageFactory->createStorage($request);
 
         if (
@@ -68,7 +68,7 @@ class SessionSetDynamicNameListener implements EventSubscriberInterface
         }
 
         $sessionOptions = (array)$this->configResolver->getParameter('session');
-        $sessionName = isset($sessionOptions['name']) ? $sessionOptions['name'] : $this->session->getName();
+        $sessionName = isset($sessionOptions['name']) ? $sessionOptions['name'] : $session->getName();
         $sessionOptions['name'] = $this->getSessionName($sessionName, $event->getSiteAccess());
         $sessionStorage->setOptions($sessionOptions);
     }

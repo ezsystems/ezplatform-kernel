@@ -13,8 +13,10 @@ use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface as SymfonySessionInterface;
-use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
+use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
+use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageFactoryInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
@@ -24,7 +26,7 @@ class SessionSetDynamicNameListenerTest extends TestCase
     private $configResolver;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject */
-    private $session;
+    private $sessionStorageFactory;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $sessionStorage;
@@ -41,11 +43,15 @@ class SessionSetDynamicNameListenerTest extends TestCase
         $this->sessionStorage = $this->getMockBuilder(NativeSessionStorage::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->sessionStorageFactory = $this->getMockBuilder(SessionStorageFactoryInterface::class)
+            ->getMock();
+        $this->sessionStorageFactory->method('createStorage')
+            ->willReturn($this->sessionStorage);
     }
 
     public function testGetSubscribedEvents()
     {
-        $listener = new SessionSetDynamicNameListener($this->configResolver, $this->session, $this->sessionStorage);
+        $listener = new SessionSetDynamicNameListener($this->configResolver, $this->sessionStorageFactory);
         $this->assertSame(
             [
                 MVCEvents::SITEACCESS => ['onSiteAccessMatch', 250],
@@ -56,11 +62,13 @@ class SessionSetDynamicNameListenerTest extends TestCase
 
     public function testOnSiteAccessMatchNoSession()
     {
+        $request = new Request();
+
         $this->sessionStorage
             ->expects($this->never())
             ->method('setOptions');
-        $listener = new SessionSetDynamicNameListener($this->configResolver, null, $this->sessionStorage);
-        $listener->onSiteAccessMatch(new PostSiteAccessMatchEvent(new SiteAccess('test'), new Request(), HttpKernelInterface::MASTER_REQUEST));
+        $listener = new SessionSetDynamicNameListener($this->configResolver, $this->sessionStorageFactory);
+        $listener->onSiteAccessMatch(new PostSiteAccessMatchEvent(new SiteAccess('test'), $request, HttpKernelInterface::MASTER_REQUEST));
     }
 
     public function testOnSiteAccessMatchSubRequest()
@@ -68,7 +76,7 @@ class SessionSetDynamicNameListenerTest extends TestCase
         $this->sessionStorage
             ->expects($this->never())
             ->method('setOptions');
-        $listener = new SessionSetDynamicNameListener($this->configResolver, $this->session, $this->sessionStorage);
+        $listener = new SessionSetDynamicNameListener($this->configResolver, $this->sessionStorageFactory);
         $listener->onSiteAccessMatch(new PostSiteAccessMatchEvent(new SiteAccess('test'), new Request(), HttpKernelInterface::SUB_REQUEST));
     }
 
@@ -79,8 +87,7 @@ class SessionSetDynamicNameListenerTest extends TestCase
             ->method('getParameter');
         $listener = new SessionSetDynamicNameListener(
             $this->configResolver,
-            $this->session,
-            $this->createMock(SessionStorageInterface::class)
+            $this->createMock(SessionStorageFactoryInterface::class)
         );
         $listener->onSiteAccessMatch(new PostSiteAccessMatchEvent(new SiteAccess('test'), new Request(), HttpKernelInterface::SUB_REQUEST));
     }
@@ -90,10 +97,9 @@ class SessionSetDynamicNameListenerTest extends TestCase
      */
     public function testOnSiteAccessMatch(SiteAccess $siteAccess, $configuredSessionStorageOptions, array $expectedSessionStorageOptions)
     {
-        $this->session
-            ->expects($this->once())
-            ->method('isStarted')
-            ->will($this->returnValue(false));
+        $request = new Request();
+        $request->setSession(new Session(new MockArraySessionStorage()));
+
         $this->sessionStorage
             ->expects($this->once())
             ->method('setOptions')
@@ -104,8 +110,8 @@ class SessionSetDynamicNameListenerTest extends TestCase
             ->with('session')
             ->will($this->returnValue($configuredSessionStorageOptions));
 
-        $listener = new SessionSetDynamicNameListener($this->configResolver, $this->session, $this->sessionStorage);
-        $listener->onSiteAccessMatch(new PostSiteAccessMatchEvent($siteAccess, new Request(), HttpKernelInterface::MASTER_REQUEST));
+        $listener = new SessionSetDynamicNameListener($this->configResolver, $this->sessionStorageFactory);
+        $listener->onSiteAccessMatch(new PostSiteAccessMatchEvent($siteAccess, $request, HttpKernelInterface::MAIN_REQUEST));
     }
 
     public function onSiteAccessMatchProvider()
@@ -140,18 +146,13 @@ class SessionSetDynamicNameListenerTest extends TestCase
 
     public function testOnSiteAccessMatchNoConfiguredSessionName()
     {
+        $request = new Request();
+        $request->setSession(new Session(new MockArraySessionStorage('some_default_name')));
+
         $configuredSessionStorageOptions = ['cookie_path' => '/bar'];
         $sessionName = 'some_default_name';
         $sessionOptions = $configuredSessionStorageOptions + ['name' => "eZSESSID_$sessionName"];
 
-        $this->session
-            ->expects($this->once())
-            ->method('isStarted')
-            ->will($this->returnValue(false));
-        $this->session
-            ->expects($this->once())
-            ->method('getName')
-            ->will($this->returnValue('some_default_name'));
         $this->sessionStorage
             ->expects($this->once())
             ->method('setOptions')
@@ -162,7 +163,7 @@ class SessionSetDynamicNameListenerTest extends TestCase
             ->with('session')
             ->will($this->returnValue($configuredSessionStorageOptions));
 
-        $listener = new SessionSetDynamicNameListener($this->configResolver, $this->session, $this->sessionStorage);
-        $listener->onSiteAccessMatch(new PostSiteAccessMatchEvent(new SiteAccess('test'), new Request(), HttpKernelInterface::MASTER_REQUEST));
+        $listener = new SessionSetDynamicNameListener($this->configResolver, $this->sessionStorageFactory);
+        $listener->onSiteAccessMatch(new PostSiteAccessMatchEvent(new SiteAccess('test'), $request, HttpKernelInterface::MAIN_REQUEST));
     }
 }
