@@ -11,9 +11,8 @@ use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 use eZ\Publish\Core\MVC\Symfony\Event\PostSiteAccessMatchEvent;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
-use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
+use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageFactoryInterface;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
@@ -33,22 +32,15 @@ class SessionSetDynamicNameListener implements EventSubscriberInterface
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \Symfony\Component\HttpFoundation\Session\SessionInterface|null */
-    private $session;
+    /** @var \Symfony\Component\HttpFoundation\Session\Storage\SessionStorageFactoryInterface */
+    private $sessionStorageFactory;
 
-    /** @var \Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface|NativeSessionStorage */
-    private $sessionStorage;
-
-    /**
-     * @param ConfigResolverInterface $configResolver
-     * @param SessionInterface $session
-     * @param \Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface $sessionStorage
-     */
-    public function __construct(ConfigResolverInterface $configResolver, SessionInterface $session = null, SessionStorageInterface $sessionStorage = null)
-    {
+    public function __construct(
+        ConfigResolverInterface $configResolver,
+        SessionStorageFactoryInterface $sessionStorageFactory
+    ) {
         $this->configResolver = $configResolver;
-        $this->session = $session;
-        $this->sessionStorage = $sessionStorage;
+        $this->sessionStorageFactory = $sessionStorageFactory;
     }
 
     public static function getSubscribedEvents()
@@ -60,12 +52,16 @@ class SessionSetDynamicNameListener implements EventSubscriberInterface
 
     public function onSiteAccessMatch(PostSiteAccessMatchEvent $event)
     {
+        $request = $event->getRequest();
+        $session = $event->getRequest()->getSession();
+        $sessionStorage = $this->sessionStorageFactory->createStorage($request);
+
         if (
             !(
-                $event->getRequestType() === HttpKernelInterface::MASTER_REQUEST
-                && isset($this->session)
-                && !$this->session->isStarted()
-                && $this->sessionStorage instanceof NativeSessionStorage
+                $event->getRequestType() === HttpKernelInterface::MAIN_REQUEST
+                && $session
+                && !$session->isStarted()
+                && $sessionStorage instanceof NativeSessionStorage
             )
         ) {
             return;
@@ -74,7 +70,7 @@ class SessionSetDynamicNameListener implements EventSubscriberInterface
         $sessionOptions = (array)$this->configResolver->getParameter('session');
         $sessionName = isset($sessionOptions['name']) ? $sessionOptions['name'] : $this->session->getName();
         $sessionOptions['name'] = $this->getSessionName($sessionName, $event->getSiteAccess());
-        $this->sessionStorage->setOptions($sessionOptions);
+        $sessionStorage->setOptions($sessionOptions);
     }
 
     /**
