@@ -4,13 +4,12 @@ parameters:
 services:
     ezpublish.session_set_dynamic_name_listener:
         class: eZ\Bundle\EzPublishCoreBundle\EventListener\SessionSetDynamicNameListener
-        arguments: ["@ezpublish.config.resolver", "@?session", "@?session.storage"]
+        arguments: ["@ezpublish.config.resolver", "@session.storage.factory"]
         tags:
             - { name: kernel.event_subscriber }
 
     ezpublish.session_init_by_post_listener:
         class: eZ\Bundle\EzPublishCoreBundle\EventListener\SessionInitByPostListener
-        arguments: ["@?session"]
         tags:
             - { name: kernel.event_subscriber }
 
