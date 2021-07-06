@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Ibexa\Contracts\Core\Test;
+namespace Ibexa\Tests\Integration\Core;
 
-use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\Repository;
+use Ibexa\Contracts\Core\Test\IbexaKernelTestCase;
 
 /**
  * @coversNothing
@@ -18,6 +18,7 @@ final class BasicKernelTest extends IbexaKernelTestCase
 
     public function testBasicKernelCompiles(): void
     {
-        $repository = self::getServiceByClassName(ContentService::class);
+        self::getServiceByClassName(Repository::class);
+        self::expectNotToPerformAssertions();
     }
 }
