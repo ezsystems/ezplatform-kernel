@@ -67,7 +67,8 @@
         "ezsystems/ezplatform-code-style": "^0.2",
         "phpunit/phpunit": "^8.2",
         "matthiasnoback/symfony-dependency-injection-test": "^4.1",
-        "symfony/phpunit-bridge": "^5.1"
+        "symfony/phpunit-bridge": "^5.1",
+        "ezsystems/ezplatform-core": "^2.3@dev"
     },
     "conflict": {
         "symfony/security-core": "5.3.0",
@@ -81,7 +82,8 @@
     "autoload": {
         "psr-4": {
             "EzSystems\\PlatformInstallerBundle\\": "eZ/Bundle/PlatformInstallerBundle/src",
-            "eZ\\": "eZ"
+            "eZ\\": "eZ",
+            "Ibexa\\Contracts\\Core\\": "src/contracts"
         }
     },
     "autoload-dev": {
