@@ -8,12 +8,13 @@ declare(strict_types=1);
 
 namespace eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter;
 
+use eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter;
 use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
 use Iterator;
 
-abstract class AbstractSearchAdapter
+abstract class AbstractSearchAdapter implements BatchIteratorAdapter
 {
     /** @var \eZ\Publish\API\Repository\SearchService */
     protected $searchService;
