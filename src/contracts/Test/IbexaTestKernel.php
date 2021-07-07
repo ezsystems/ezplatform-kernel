@@ -72,7 +72,7 @@ final class IbexaTestKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(static function (ContainerBuilder $container): void {
-            self::prepareEzPlatformFramework($container);
+            self::prepareIbexaFramework($container);
             self::prepareDatabaseConnection($container);
             self::createPublicAliasesForServicesUnderTest($container);
             self::setUpTestLogger($container);
@@ -112,7 +112,7 @@ final class IbexaTestKernel extends Kernel
         $container->setDefinition(SqliteDbPlatform::class, $definition);
     }
 
-    private static function prepareEzPlatformFramework(ContainerBuilder $container): void
+    private static function prepareIbexaFramework(ContainerBuilder $container): void
     {
         $container->setParameter('io_root_dir', '');
         $container->setParameter('kernel.secret', 'foobar');
