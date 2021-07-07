@@ -38,7 +38,7 @@ abstract class IbexaKernelTestCase extends KernelTestCase
         $serviceId = IbexaTestKernel::SERVICE_ID_TO_TEST_SERVICE_MAP[$id ?? $className] ?? $id;
         assert(is_string($serviceId));
 
-        $service = self::$container->get($serviceId);
+        $service = self::getContainer()->get($serviceId);
         assert(is_object($service) && is_a($service, $className));
 
         return $service;
