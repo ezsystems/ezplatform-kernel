@@ -116,7 +116,7 @@ final class IbexaTestKernel extends Kernel
     {
         $container->setParameter('io_root_dir', '');
         $container->setParameter('kernel.secret', 'foobar');
-        $container->loadFromExtension('ezplatform', [
+        $container->loadFromExtension('ezpublish', [
             'siteaccess' => [
                 'default_siteaccess' => '__default_site_access__',
                 'list' => [
