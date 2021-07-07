@@ -19,6 +19,6 @@ final class BasicKernelTest extends IbexaKernelTestCase
     public function testBasicKernelCompiles(): void
     {
         self::getServiceByClassName(Repository::class);
-        self::expectNotToPerformAssertions();
+        $this->expectNotToPerformAssertions();
     }
 }
