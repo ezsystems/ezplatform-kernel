@@ -10,13 +10,14 @@ namespace Ibexa\Contracts\Core\Test;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\DBAL\Connection;
+use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver;
 use eZ\Bundle\EzPublishCoreBundle\EzPublishCoreBundle;
 use eZ\Bundle\EzPublishLegacySearchEngineBundle\EzPublishLegacySearchEngineBundle;
 use eZ\Publish\API\Repository;
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\SPI\Persistence\TransactionHandler;
 use eZ\Publish\SPI\Tests\Persistence\FixtureImporter;
 use EzSystems\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform;
-use EzSystems\EzPlatformCoreBundle\EzPlatformCoreBundle;
 use FOS\JsRoutingBundle\FOSJsRoutingBundle;
 use JMS\TranslationBundle\JMSTranslationBundle;
 use Liip\ImagineBundle\LiipImagineBundle;
@@ -166,8 +167,8 @@ final class IbexaTestKernel extends Kernel
         ]);
 
         $container->setAlias(
-            'eZ\Publish\Core\MVC\ConfigResolverInterface',
-            'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver'
+            ConfigResolverInterface::class,
+            ChainConfigResolver::class
         );
     }
 
