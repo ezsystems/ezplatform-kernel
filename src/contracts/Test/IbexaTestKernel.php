@@ -51,12 +51,11 @@ final class IbexaTestKernel extends Kernel
         Repository\UserService::class => 'test.ibexa.user_service',
     ];
 
-    public function registerBundles()
+    public function registerBundles(): iterable
     {
         return [
             new SecurityBundle(),
             new EzPublishCoreBundle(),
-            new EzPlatformCoreBundle(),
             new EzPublishLegacySearchEngineBundle(),
             new JMSTranslationBundle(),
             new FOSJsRoutingBundle(),
@@ -67,6 +66,9 @@ final class IbexaTestKernel extends Kernel
         ];
     }
 
+    /**
+     * @throws \Exception
+     */
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(static function (ContainerBuilder $container): void {
