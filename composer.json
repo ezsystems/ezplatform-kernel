@@ -68,7 +68,6 @@
         "phpunit/phpunit": "^8.2",
         "matthiasnoback/symfony-dependency-injection-test": "^4.1",
         "symfony/phpunit-bridge": "^5.1",
-        "ezsystems/ezplatform-core": "^2.3@dev",
         "symfony/proxy-manager-bridge": "^5.3"
     },
     "conflict": {
