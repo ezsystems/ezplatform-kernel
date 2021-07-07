@@ -29,11 +29,11 @@ abstract class IbexaKernelTestCase extends KernelTestCase
     }
 
     /**
-     * @template T
+     * @template T of object
      * @phpstan-param class-string<T> $className
      * @phpstan-return T
      */
-    protected static function getServiceByClassName(string $className, ?string $id = null)
+    protected static function getServiceByClassName(string $className, ?string $id = null): object
     {
         $serviceId = IbexaTestKernel::SERVICE_ID_TO_TEST_SERVICE_MAP[$id ?? $className] ?? $id;
         assert(is_string($serviceId));
