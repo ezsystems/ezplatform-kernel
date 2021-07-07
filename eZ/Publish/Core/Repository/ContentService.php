@@ -127,6 +127,7 @@ class ContentService implements ContentServiceInterface
         $this->settings = $settings + [
             // Version archive limit (0-50), only enforced on publish, not on un-publish.
             'default_version_archive_limit' => 5,
+            'remove_archived_versions_on_publish' => true,
         ];
         $this->contentFilteringHandler = $contentFilteringHandler;
         $this->permissionResolver = $permissionService;
@@ -1650,6 +1651,15 @@ class ContentService implements ContentServiceInterface
 
         $this->publishUrlAliasesForContent($content);
 
+        if ($this->settings['remove_archived_versions_on_publish']) {
+            $this->deleteArchivedVersionsOverLimit($contentId);
+        }
+
+        return $content;
+    }
+
+    protected function deleteArchivedVersionsOverLimit(int $contentId): void
+    {
         // Delete version archive overflow if any, limit is 0-50 (however 0 will mean 1 if content is unpublished)
         $archiveList = $this->persistenceHandler->contentHandler()->listVersions(
             $contentId,
@@ -1666,8 +1676,6 @@ class ContentService implements ContentServiceInterface
                 $archiveVersion->versionNo
             );
         }
-
-        return $content;
     }
 
     /**

@@ -119,7 +119,10 @@ class RepositoryFactory implements ContainerAwareInterface
                     'policyMap' => $this->policyMap,
                 ],
                 'languages' => $this->configResolver->getParameter('languages'),
-                'content' => ['default_version_archive_limit' => $config['options']['default_version_archive_limit']],
+                'content' => [
+                    'default_version_archive_limit' => $config['options']['default_version_archive_limit'],
+                    'remove_archived_versions_on_publish' => $config['options']['remove_archived_versions_on_publish'],
+                ],
             ],
             $this->logger
         );
