@@ -80,7 +80,10 @@ class ContentTest extends BaseServiceMockTest
         $contentMapper = $this->getContentMapper();
         $contentValidatorStrategy = $this->getContentValidatorStrategy();
         $contentFilteringHandlerMock = $this->getContentFilteringHandlerMock();
-        $settings = ['default_version_archive_limit' => 10];
+        $settings = [
+            'default_version_archive_limit' => 10,
+            'remove_archived_versions_on_publish' => true,
+        ];
 
         new ContentService(
             $repositoryMock,
