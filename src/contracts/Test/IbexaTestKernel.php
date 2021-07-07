@@ -16,7 +16,6 @@ use eZ\Bundle\EzPublishLegacySearchEngineBundle\EzPublishLegacySearchEngineBundl
 use eZ\Publish\API\Repository;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\SPI\Persistence\TransactionHandler;
-use eZ\Publish\SPI\Tests\Persistence\FixtureImporter;
 use EzSystems\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform;
 use FOS\JsRoutingBundle\FOSJsRoutingBundle;
 use JMS\TranslationBundle\JMSTranslationBundle;
@@ -72,6 +71,13 @@ final class IbexaTestKernel extends Kernel
      */
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
+        $loader->load(__DIR__ . '/config/doctrine.yaml');
+        $loader->load(__DIR__ . '/config/ezpublish.yaml');
+        $loader->load(__DIR__ . '/config/framework.yaml');
+        $loader->load(__DIR__ . '/config/security.yaml');
+
+        $loader->load(__DIR__ . '/services/fixture-services.yaml');
+
         $loader->load(static function (ContainerBuilder $container): void {
             self::prepareIbexaFramework($container);
             self::prepareDatabaseConnection($container);
@@ -80,32 +86,18 @@ final class IbexaTestKernel extends Kernel
         });
     }
 
-    public function getCacheDir()
+    public function getCacheDir(): string
     {
         return sys_get_temp_dir() . '/ibexa-test-kernel/' . md5(get_class($this));
     }
 
+    public function getBuildDir(): string
+    {
+        return sys_get_temp_dir() . '/ibexa-test-kernel-build/' . md5(get_class($this));
+    }
+
     private static function prepareDatabaseConnection(ContainerBuilder $container): void
     {
-        $container->loadFromExtension('doctrine', [
-            'dbal' => [
-                'memory' => true,
-                'driver' => 'pdo_sqlite',
-                'platform_service' => SqliteDbPlatform::class,
-                'logging' => false,
-            ],
-        ]);
-
-        $definition = new Definition(Repository\Tests\LegacySchemaImporter::class);
-        $definition->setPublic(true);
-        $definition->setArgument(0, new Reference('doctrine.dbal.default_connection'));
-        $container->setDefinition('test.ibexa.migrations.schema_importer', $definition);
-
-        $definition = new Definition(FixtureImporter::class);
-        $definition->setPublic(true);
-        $definition->setArgument(0, new Reference('doctrine.dbal.default_connection'));
-        $container->setDefinition('test.ibexa.migrations.fixture_importer', $definition);
-
         $definition = new Definition(SqliteDbPlatform::class);
         $definition->addMethodCall('setEventManager', [
             new Reference('doctrine.dbal.default_connection.event_manager'),
@@ -115,57 +107,6 @@ final class IbexaTestKernel extends Kernel
 
     private static function prepareIbexaFramework(ContainerBuilder $container): void
     {
-        $container->setParameter('io_root_dir', '');
-        $container->setParameter('kernel.secret', 'foobar');
-        $container->loadFromExtension('ezpublish', [
-            'siteaccess' => [
-                'default_siteaccess' => '__default_site_access__',
-                'list' => [
-                    'default' => '__default_site_access__',
-                    'second' => '__second_site_access__',
-                    'ger' => 'ger',
-                    'eng' => 'eng',
-                    'ku6"H' => 'ku6"H',
-                ],
-                'match' => null,
-            ],
-            'repositories' => [
-                'default' => [
-                    'storage' => null,
-                    'search' => [
-                        'engine' => 'legacy',
-                        'connection' => 'default',
-                    ],
-                ],
-            ],
-        ]);
-
-        $container->loadFromExtension('security', [
-            'providers' => [
-                'default' => [
-                    'id' => 'ezpublish.security.user_provider',
-                ],
-            ],
-            'firewalls' => [
-                'main' => [
-                    'anonymous' => null,
-                ],
-            ],
-        ]);
-
-        $container->loadFromExtension('framework', [
-            'test' => true,
-            'session' => [
-                'storage_id' => 'session.storage.mock_file',
-            ],
-            'cache' => [
-                'app' => 'cache.adapter.array',
-            ],
-            'router' => [
-                'resource' => 'foo',
-            ],
-        ]);
-
         $container->setAlias(
             ConfigResolverInterface::class,
             ChainConfigResolver::class
