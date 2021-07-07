@@ -52,7 +52,7 @@ final class BatchIterator implements Iterator
 
         ++$this->position;
         $this->innerIterator->next();
-        if (!$this->innerIterator->valid()) {
+        if (!$this->innerIterator->valid() && ($this->position % $this->batchSize) === 0) {
             $this->innerIterator = $this->adapter->fetch($this->position, $this->batchSize);
         }
     }

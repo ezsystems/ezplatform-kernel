@@ -23,6 +23,16 @@ final class BatchIteratorTest extends TestCase
         $this->assertEquals($expectedData, iterator_to_array($iterator));
     }
 
+    public function testIterateOverResultSetSmallerThenBatchSize(): void
+    {
+        $expectedData = range(1, 10);
+
+        $iterator = new BatchIterator(new BatchIteratorTestAdapter($expectedData));
+        $iterator->setBatchSize(100);
+
+        $this->assertEquals($expectedData, iterator_to_array($iterator));
+    }
+
     public function testIterateOverEmptyResultSet(): void
     {
         $iterator = new BatchIterator(new BatchIteratorTestAdapter([]));
