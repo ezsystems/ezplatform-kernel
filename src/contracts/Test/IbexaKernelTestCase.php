@@ -23,7 +23,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 abstract class IbexaKernelTestCase extends KernelTestCase
 {
-    protected static function getKernelClass()
+    protected static function getKernelClass(): string
     {
         return IbexaTestKernel::class;
     }
