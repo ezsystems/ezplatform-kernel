@@ -50,7 +50,7 @@ abstract class AbstractSearchAdapterTest extends TestCase
 
         $adapter = $this->createAdapterUnderTest($searchService, $originalQuery, self::EXAMPLE_LANGUAGE_FILTER, true);
 
-        $this->assertEquals(
+        $this->assertSame(
             $expectedIterator,
             $adapter->fetch(self::EXAMPLE_OFFSET, self::EXAMPLE_LIMIT),
         );
