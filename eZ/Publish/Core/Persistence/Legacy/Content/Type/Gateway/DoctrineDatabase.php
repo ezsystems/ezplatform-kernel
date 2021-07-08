@@ -1091,25 +1091,6 @@ final class DoctrineDatabase extends Gateway
 
     public function deleteFieldDefinitionsForType(int $typeId, int $status): void
     {
-        $query = $this->connection->createQueryBuilder();
-        $expr = $query->expr();
-        $query
-            ->delete(self::FIELD_DEFINITION_TABLE)
-            ->where(
-                $query->expr()->eq(
-                    'contentclass_id',
-                    $query->createPositionalParameter($typeId, ParameterType::INTEGER)
-                )
-            )
-            ->andWhere(
-                $expr->eq(
-                    'version',
-                    $query->createPositionalParameter($status, ParameterType::INTEGER)
-                )
-            );
-
-        $query->execute();
-
         $subQuery = $this->connection->createQueryBuilder();
         $subQuery
             ->select('f_def.id as ezcontentclass_attribute_id')
@@ -1129,6 +1110,25 @@ final class DoctrineDatabase extends Gateway
             ->setParameter('status', $status, ParameterType::INTEGER);
 
         $deleteQuery->execute();
+
+        $query = $this->connection->createQueryBuilder();
+        $expr = $query->expr();
+        $query
+            ->delete(self::FIELD_DEFINITION_TABLE)
+            ->where(
+                $query->expr()->eq(
+                    'contentclass_id',
+                    $query->createPositionalParameter($typeId, ParameterType::INTEGER)
+                )
+            )
+            ->andWhere(
+                $expr->eq(
+                    'version',
+                    $query->createPositionalParameter($status, ParameterType::INTEGER)
+                )
+            );
+
+        $query->execute();
     }
 
     public function delete(int $typeId, int $status): void
