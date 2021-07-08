@@ -22,7 +22,7 @@ abstract class AbstractSearchAdapter implements BatchIteratorAdapter
     /** @var \eZ\Publish\API\Repository\Values\Content\Query */
     protected $query;
 
-    /** @var array */
+    /** @var string[] */
     protected $languageFilter;
 
     /** @var bool */

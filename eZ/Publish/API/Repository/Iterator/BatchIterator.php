@@ -89,6 +89,6 @@ final class BatchIterator implements Iterator
 
     private function isInitialized(): bool
     {
-        return $this->innerIterator !== null;
+        return isset($this->innerIterator);
     }
 }

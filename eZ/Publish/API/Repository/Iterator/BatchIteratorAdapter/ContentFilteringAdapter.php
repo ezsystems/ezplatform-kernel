@@ -21,7 +21,7 @@ final class ContentFilteringAdapter implements BatchIteratorAdapter
     /** @var \eZ\Publish\API\Repository\Values\Filter\Filter */
     private $filter;
 
-    /** @var array|null */
+    /** @var string[]|null */
     private $languages;
 
     public function __construct(ContentService $contentService, Filter $filter, ?array $languages = null)
