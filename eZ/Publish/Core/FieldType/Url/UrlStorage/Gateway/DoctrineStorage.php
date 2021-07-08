@@ -186,7 +186,7 @@ class DoctrineStorage extends Gateway
             ->setParameter(':contentobject_attribute_version', $versionNo, ParameterType::INTEGER);
 
         $statement = $selectQuery->execute();
-        $potentiallyOrphanedUrls = $statement->fetchAll(PDO::FETCH_COLUMN);
+        $potentiallyOrphanedUrls = $statement->fetchFirstColumn();
 
         if (empty($potentiallyOrphanedUrls)) {
             return;
@@ -196,12 +196,12 @@ class DoctrineStorage extends Gateway
         $deleteQuery
             ->delete($this->connection->quoteIdentifier(self::URL_LINK_TABLE))
             ->where(
-                $selectQuery->expr()->andX(
-                    $selectQuery->expr()->in(
+                $deleteQuery->expr()->and(
+                    $deleteQuery->expr()->in(
                         'contentobject_attribute_id',
                         ':contentobject_attribute_id'
                     ),
-                    $selectQuery->expr()->in(
+                    $deleteQuery->expr()->in(
                         'contentobject_attribute_version',
                         ':contentobject_attribute_version'
                     )
