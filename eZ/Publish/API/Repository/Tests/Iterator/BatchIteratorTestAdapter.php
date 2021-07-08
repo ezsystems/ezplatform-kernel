@@ -17,13 +17,24 @@ final class BatchIteratorTestAdapter implements BatchIteratorAdapter
     /** @var array */
     private $data;
 
+    /** @var int */
+    private $fetchCounter;
+
     public function __construct(array $data)
     {
         $this->data = $data;
+        $this->fetchCounter = 0;
     }
 
     public function fetch(int $offset, int $limit): Iterator
     {
+        ++$this->fetchCounter;
+
         return new ArrayIterator(array_slice($this->data, $offset, $limit));
+    }
+
+    public function getFetchCounter(): int
+    {
+        return $this->fetchCounter;
     }
 }
