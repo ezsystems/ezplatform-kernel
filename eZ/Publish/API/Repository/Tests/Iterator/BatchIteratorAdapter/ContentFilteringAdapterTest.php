@@ -46,7 +46,7 @@ final class ContentFilteringAdapterTest extends TestCase
 
         $adapter = new ContentFilteringAdapter($contentService, $originalFilter, self::EXAMPLE_LANGUAGE_FILTER);
 
-        $this->assertEquals(
+        $this->assertSame(
             $contentList->getIterator(),
             $adapter->fetch(self::EXAMPLE_OFFSET, self::EXAMPLE_LIMIT)
         );
