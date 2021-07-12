@@ -53,7 +53,7 @@ final class BatchIterator implements Iterator
         ++$this->position;
         $this->innerIterator->next();
         if (!$this->innerIterator->valid() && ($this->position % $this->batchSize) === 0) {
-            $this->innerIterator = $this->adapter->fetch($this->position, $this->batchSize);
+            $this->innerIterator = $this->fetch();
         }
     }
 
@@ -83,12 +83,17 @@ final class BatchIterator implements Iterator
 
     private function initialize(): void
     {
-        $this->innerIterator = $this->adapter->fetch(0, $this->batchSize);
         $this->position = 0;
+        $this->innerIterator = $this->fetch();
     }
 
     private function isInitialized(): bool
     {
         return isset($this->innerIterator);
+    }
+
+    private function fetch(): Iterator
+    {
+        return $this->adapter->fetch($this->position, $this->batchSize);
     }
 }
