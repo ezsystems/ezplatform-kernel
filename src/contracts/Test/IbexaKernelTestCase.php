@@ -19,6 +19,7 @@ use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\SectionService;
 use eZ\Publish\API\Repository\UserService;
 use eZ\Publish\SPI\Persistence\TransactionHandler;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 abstract class IbexaKernelTestCase extends KernelTestCase
@@ -35,8 +36,17 @@ abstract class IbexaKernelTestCase extends KernelTestCase
      */
     protected static function getServiceByClassName(string $className, ?string $id = null): object
     {
-        $serviceId = IbexaTestKernel::SERVICE_ID_TO_TEST_SERVICE_MAP[$id ?? $className] ?? $id;
-        assert(is_string($serviceId));
+        $kernelClass = static::getKernelClass();
+        if (!is_a($kernelClass, IbexaTestKernel::class, true)) {
+            throw new RuntimeException(sprintf(
+                'Expected %s to be an instance of %s.',
+                $kernelClass,
+                IbexaTestKernel::class,
+            ));
+        }
+
+        $id = $id ?? $className;
+        $serviceId = $kernelClass::getAliasServiceId($id);
 
         $service = self::getContainer()->get($serviceId);
         assert(is_object($service) && is_a($service, $className));

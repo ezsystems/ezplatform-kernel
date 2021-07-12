@@ -30,60 +30,73 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\Kernel;
 
-final class IbexaTestKernel extends Kernel
+/**
+ * Baseline test kernel that dependent packages can extend for their integration tests.
+ *
+ * ## Configuring the kernel
+ *
+ * It automatically exposes all Repository-based services for consumption in tests (marking them as public prevents
+ * them from being removed from test container). A minimal configuration Symfony framework configuration is provided,
+ * along with Doctrine connection.
+ *
+ * To supply a different configuration, extend IbexaTestKernel::loadConfiguration() method.
+ *
+ * You can supply your own services (which is something you probably want) by extending IbexaTestKernel::loadServices().
+ *
+ * If you need even more control over how the container is built you can do that by extending the
+ * IbexaTestKernel::registerContainerConfiguration().
+ *
+ * ## Adding bundles
+ *
+ * Bundles can be added by extending IbexaTestKernel::registerBundles() method (just like in any Kernel).
+ *
+ * ## Exposing your services
+ *
+ * To add services to the test Kernel and make them available in tests via IbexaKernelTestCase::getServiceByClassName(),
+ * you'll need to extend IbexaTestKernel::getExposedServicesByClass() and / or IbexaTestKernel::getExposedServicesById()
+ * method.
+ *
+ * IbexaTestKernel::getExposedServicesByClass() is a simpler variant provided for services that are registered in
+ * service container using their FQCN.
+ *
+ * IbexaTestKernel::getExposedServicesById() is useful if your service is not registered as it's FQCN (for example,
+ * if you have multiple services for the same class / interface).
+ *
+ * If don't need the repository services (or not all), you can replace the IbexaTestKernel::EXPOSED_SERVICES_BY_CLASS and
+ * IbexaTestKernel::EXPOSED_SERVICES_BY_ID consts in extending class, without changing the methods above.
+ */
+class IbexaTestKernel extends Kernel
 {
     /**
-     * @var array<string, string>
+     * @var iterable<class-string>
      */
-    public const SERVICE_ID_TO_TEST_SERVICE_MAP = [
-        TransactionHandler::class => 'test.' . TransactionHandler::class,
-        Connection::class => 'test.doctrine.connection',
-        Repository\Repository::class => 'test.ibexa.repository',
-        Repository\ContentService::class => 'test.ibexa.content_service',
-        Repository\ContentTypeService::class => 'test.ibexa.content_type_service',
-        Repository\LanguageService::class => 'test.ibexa.language_service',
-        Repository\LocationService::class => 'test.ibexa.location_service',
-        Repository\ObjectStateService::class => 'test.ibexa.object_state_service',
-        Repository\PermissionResolver::class => 'test.ibexa.permission_resolver',
-        Repository\RoleService::class => 'test.ibexa.role_service',
-        Repository\SearchService::class => 'test.ibexa.search_service',
-        Repository\SectionService::class => 'test.ibexa.section_service',
-        Repository\UserService::class => 'test.ibexa.user_service',
+    protected const EXPOSED_SERVICES_BY_CLASS = [
+        TransactionHandler::class,
+        Connection::class,
+        Repository\Repository::class,
+        Repository\ContentService::class,
+        Repository\ContentTypeService::class,
+        Repository\LanguageService::class,
+        Repository\LocationService::class,
+        Repository\ObjectStateService::class,
+        Repository\PermissionResolver::class,
+        Repository\RoleService::class,
+        Repository\SearchService::class,
+        Repository\SectionService::class,
+        Repository\UserService::class,
     ];
 
-    public function registerBundles(): iterable
-    {
-        return [
-            new SecurityBundle(),
-            new EzPublishCoreBundle(),
-            new EzPublishLegacySearchEngineBundle(),
-            new JMSTranslationBundle(),
-            new FOSJsRoutingBundle(),
-            new FrameworkBundle(),
-            new LiipImagineBundle(),
-            new TwigBundle(),
-            new DoctrineBundle(),
-        ];
-    }
+    /**
+     * @var iterable<string, class-string>
+     */
+    protected const EXPOSED_SERVICES_BY_ID = [];
 
     /**
-     * @throws \Exception
+     * @return string a service ID that service aliases will be registered as
      */
-    public function registerContainerConfiguration(LoaderInterface $loader): void
+    public static function getAliasServiceId(string $id): string
     {
-        $loader->load(__DIR__ . '/config/doctrine.yaml');
-        $loader->load(__DIR__ . '/config/ezpublish.yaml');
-        $loader->load(__DIR__ . '/config/framework.yaml');
-        $loader->load(__DIR__ . '/config/security.yaml');
-
-        $loader->load(__DIR__ . '/services/fixture-services.yaml');
-
-        $loader->load(static function (ContainerBuilder $container): void {
-            self::prepareIbexaFramework($container);
-            self::prepareDatabaseConnection($container);
-            self::createPublicAliasesForServicesUnderTest($container);
-            self::setUpTestLogger($container);
-        });
+        return 'test.' . $id;
     }
 
     public function getCacheDir(): string
@@ -94,6 +107,75 @@ final class IbexaTestKernel extends Kernel
     public function getBuildDir(): string
     {
         return sys_get_temp_dir() . '/ibexa-test-kernel-build/' . md5(get_class($this));
+    }
+
+    public function registerBundles(): iterable
+    {
+        yield new SecurityBundle();
+        yield new EzPublishCoreBundle();
+        yield new EzPublishLegacySearchEngineBundle();
+        yield new JMSTranslationBundle();
+        yield new FOSJsRoutingBundle();
+        yield new FrameworkBundle();
+        yield new LiipImagineBundle();
+        yield new TwigBundle();
+        yield new DoctrineBundle();
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function registerContainerConfiguration(LoaderInterface $loader): void
+    {
+        $this->loadConfiguration($loader);
+        $this->loadServices($loader);
+
+        $loader->load(static function (ContainerBuilder $container): void {
+            self::prepareIbexaFramework($container);
+            self::prepareDatabaseConnection($container);
+            self::createPublicAliasesForServicesUnderTest($container);
+            self::setUpTestLogger($container);
+        });
+    }
+
+    /**
+     * @throws \Exception
+     */
+    protected function loadConfiguration(LoaderInterface $loader): void
+    {
+        $loader->load(self::getResourcesPath() . '/config/doctrine.yaml');
+        $loader->load(self::getResourcesPath() . '/config/ezpublish.yaml');
+        $loader->load(self::getResourcesPath() . '/config/framework.yaml');
+        $loader->load(self::getResourcesPath() . '/config/security.yaml');
+    }
+
+    /**
+     * @throws \Exception
+     */
+    protected function loadServices(LoaderInterface $loader): void
+    {
+        $loader->load(self::getResourcesPath() . '/services/fixture-services.yaml');
+    }
+
+    /**
+     * @return iterable<class-string>
+     */
+    protected static function getExposedServicesByClass(): iterable
+    {
+        return self::EXPOSED_SERVICES_BY_CLASS;
+    }
+
+    /**
+     * @return iterable<string, class-string>
+     */
+    protected static function getExposedServicesById(): iterable
+    {
+        return self::EXPOSED_SERVICES_BY_ID;
+    }
+
+    private static function getResourcesPath(): string
+    {
+        return dirname(__DIR__, 3) . '/eZ/Bundle/EzPublishCoreBundle/Tests/Resources';
     }
 
     private static function prepareDatabaseConnection(ContainerBuilder $container): void
@@ -115,8 +197,13 @@ final class IbexaTestKernel extends Kernel
 
     private static function createPublicAliasesForServicesUnderTest(ContainerBuilder $container): void
     {
-        foreach (self::SERVICE_ID_TO_TEST_SERVICE_MAP as $className => $serviceName) {
-            $container->setAlias($serviceName, $className)
+        foreach (static::getExposedServicesByClass() as $className) {
+            $container->setAlias(static::getAliasServiceId($className), $className)
+                ->setPublic(true);
+        }
+
+        foreach (static::getExposedServicesById() as $id => $className) {
+            $container->setAlias(static::getAliasServiceId($id), $id)
                 ->setPublic(true);
         }
     }
