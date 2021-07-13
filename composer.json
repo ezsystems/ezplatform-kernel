@@ -96,7 +96,8 @@
         "process-timeout": 3000
     },
     "scripts": {
-        "fix-cs": "php-cs-fixer fix -v --show-progress=estimating",
+        "check-cs": "@fix-cs --dry-run",
+        "fix-cs": "php-cs-fixer fix -v --show-progress=dots",
         "unit": "paratest -p half -c phpunit.xml --runner=WrapperRunner",
         "integration": "paratest -p half -c phpunit-integration-legacy.xml --runner=WrapperRunner",
         "test": [
@@ -105,6 +106,7 @@
         ]
     },
     "scripts-descriptions": {
+        "check-cs": "Run code style checker for all files",
         "fix-cs": "Fix Coding standard issues in current checkout.",
         "test": "Run all tests (unit & integration, not functional), might not work on Windows."
     },
