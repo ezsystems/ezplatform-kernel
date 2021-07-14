@@ -68,7 +68,11 @@
         "phpunit/phpunit": "^8.2",
         "matthiasnoback/symfony-dependency-injection-test": "^4.1",
         "symfony/phpunit-bridge": "^5.1",
-        "symfony/proxy-manager-bridge": "^5.3"
+        "symfony/proxy-manager-bridge": "^5.3",
+        "phpstan/phpstan": "^0.12.92",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-symfony": "^0.12.38",
+        "phpstan/phpstan-phpunit": "^0.12.20"
     },
     "conflict": {
         "symfony/security-core": "5.3.0",
@@ -97,7 +101,7 @@
     },
     "scripts": {
         "check-cs": "@fix-cs --dry-run",
-        "fix-cs": "php-cs-fixer fix -v --show-progress=dots",
+        "fix-cs": "php-cs-fixer fix -v --show-progress=estimated",
         "unit": "paratest -p half -c phpunit.xml --runner=WrapperRunner",
         "integration": "paratest -p half -c phpunit-integration-legacy.xml --runner=WrapperRunner",
         "test": [
