@@ -10,8 +10,8 @@ namespace eZ\Publish\API\Repository\Values\Content\Search;
 
 use ArrayIterator;
 use eZ\Publish\API\Repository\Values\ValueObject;
+use Iterator;
 use IteratorAggregate;
-use Traversable;
 
 /**
  * This class represents a search result.
@@ -86,7 +86,7 @@ class SearchResult extends ValueObject implements IteratorAggregate
         parent::__construct($properties);
     }
 
-    public function getIterator(): Traversable
+    public function getIterator(): Iterator
     {
         return new ArrayIterator($this->searchHits);
     }
