@@ -1,0 +1,12 @@
+parameters:
+    io_root_dir: ''
+    kernel.secret: 'foobar'
+
+framework:
+    test: true
+    session:
+        storage_id: session.storage.mock_file
+    cache:
+        app: cache.adapter.array
+    router:
+        resource: foo

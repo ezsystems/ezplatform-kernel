@@ -1,0 +1,6 @@
+doctrine:
+    dbal:
+        memory: true
+        driver: pdo_sqlite
+        platform_service: EzSystems\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform
+        logging: false

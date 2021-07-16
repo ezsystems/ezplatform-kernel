@@ -1,0 +1,12 @@
+services:
+    test.ibexa.migrations.schema_importer:
+        class: eZ\Publish\API\Repository\Tests\LegacySchemaImporter
+        public: true
+        arguments:
+            - '@doctrine.dbal.default_connection'
+
+    test.ibexa.migrations.fixture_importer:
+        class: eZ\Publish\SPI\Tests\Persistence\FixtureImporter
+        public: true
+        arguments:
+            - '@doctrine.dbal.default_connection'
