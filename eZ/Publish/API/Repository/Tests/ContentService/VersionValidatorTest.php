@@ -106,6 +106,7 @@ class VersionValidatorTest extends BaseTest
 
     /**
      * @param Content $content
+     *
      * @throws ContentFieldValidationException
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException
