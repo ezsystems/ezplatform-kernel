@@ -45,6 +45,9 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $aliasCleanerMock;
 
+    /** @var \eZ\Publish\Core\IO\FilePathNormalizer\Flysystem */
+    private $filePathNormalizer;
+
     /**
      * Returns the storage identifier prefix used by the file service.
      *
@@ -95,7 +98,8 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
                 new FieldType\Image\PathGenerator\LegacyPathGenerator(),
                 new IO\MetadataHandler\ImageSize(),
                 $this->getDeprecationWarnerMock(),
-                $this->getAliasCleanerMock()
+                $this->getAliasCleanerMock(),
+                $this->getFilePathNormalizerMock()
             )
         );
     }
@@ -124,6 +128,16 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
         return $this->aliasCleanerMock;
     }
 
+    private function getFilePathNormalizerMock(): IO\FilePathNormalizerInterface
+    {
+        if (!isset($this->filePathNormalizer)) {
+            $this->filePathNormalizer = $this->createMock(IO\FilePathNormalizerInterface::class);
+            $this->filePathNormalizer->method('normalizePath')->willReturnArgument(0);
+        }
+
+        return $this->filePathNormalizer;
+    }
+
     /**
      * Returns the FieldTypeConstraints to be used to create a field definition
      * of the FieldType under test.
@@ -137,6 +151,9 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
                 'validators' => [
                     'FileSizeValidator' => [
                         'maxFileSize' => 2 * 1024 * 1024, // 2 MB
+                    ],
+                    'AlternativeTextValidator' => [
+                        'required' => true,
                     ],
                 ],
             ]
@@ -163,6 +180,9 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
                         'validators' => [
                             'FileSizeValidator' => [
                                 'maxFileSize' => 2 * 1024 * 1024, // 2 MB
+                            ],
+                            'AlternativeTextValidator' => [
+                                'required' => true,
                             ],
                         ],
                     ]

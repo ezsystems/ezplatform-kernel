@@ -47,22 +47,63 @@ final class SettingServiceTest extends BaseTest
 
     /**
      * @covers \eZ\Publish\API\Repository\SettingService::createSetting()
+     *
+     * @dataProvider dataProviderForCreateSetting
      */
-    public function testCreateSetting(): void
+    public function testCreateSetting(string $identifier, $value): void
     {
         $settingService = $this->getSettingService();
 
         $settingCreate = $settingService->newSettingCreateStruct();
         $settingCreate->setGroup('test_group');
-        $settingCreate->setIdentifier('test_identifier');
-        $settingCreate->setValue('test_value');
+        $settingCreate->setIdentifier($identifier);
+        $settingCreate->setValue($value);
 
         $setting = $settingService->createSetting($settingCreate);
+
         self::assertEquals(new Setting([
             'group' => 'test_group',
-            'identifier' => 'test_identifier',
-            'value' => 'test_value',
+            'identifier' => $identifier,
+            'value' => $value,
         ]), $setting);
+    }
+
+    public function dataProviderForCreateSetting(): iterable
+    {
+        yield 'null' => [
+            'example_null',
+            null,
+        ];
+
+        yield 'boolean' => [
+            'example_boolean',
+            true,
+        ];
+
+        yield 'string' => [
+            'example_string',
+            'string',
+        ];
+
+        yield 'int' => [
+            'example_int',
+            2,
+        ];
+
+        yield 'float' => [
+            'example_number',
+            3.14,
+        ];
+
+        yield 'array' => [
+            'example_hash',
+            [
+                'foo' => 'foo',
+                'bar' => 2,
+                'baz' => 3.14,
+                'foobar' => range(1, 10),
+            ],
+        ];
     }
 
     /**

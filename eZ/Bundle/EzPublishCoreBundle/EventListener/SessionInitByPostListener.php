@@ -6,7 +6,6 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\EventListener;
 
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 use eZ\Publish\Core\MVC\Symfony\Event\PostSiteAccessMatchEvent;
@@ -18,14 +17,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class SessionInitByPostListener implements EventSubscriberInterface
 {
-    /** @var \Symfony\Component\HttpFoundation\Session\SessionInterface */
-    private $session;
-
-    public function __construct(SessionInterface $session = null)
-    {
-        $this->session = $session;
-    }
-
     public static function getSubscribedEvents()
     {
         return [
@@ -35,20 +26,23 @@ class SessionInitByPostListener implements EventSubscriberInterface
 
     public function onSiteAccessMatch(PostSiteAccessMatchEvent $event)
     {
-        if (!$this->session || $event->getRequestType() !== HttpKernelInterface::MASTER_REQUEST) {
+        $request = $event->getRequest();
+        $session = $request->getSession();
+
+        if (!$session || $event->getRequestType() !== HttpKernelInterface::MAIN_REQUEST) {
             return;
         }
 
-        $sessionName = $this->session->getName();
+        $sessionName = $session->getName();
         $request = $event->getRequest();
 
         if (
-            !$this->session->isStarted()
+            !$session->isStarted()
             && !$request->hasPreviousSession()
             && $request->request->has($sessionName)
         ) {
-            $this->session->setId($request->request->get($sessionName));
-            $this->session->start();
+            $session->setId($request->request->get($sessionName));
+            $session->start();
         }
     }
 }

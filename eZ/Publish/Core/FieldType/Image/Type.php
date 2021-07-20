@@ -29,6 +29,12 @@ class Type extends FieldType
                 'default' => null,
             ],
         ],
+        'AlternativeTextValidator' => [
+            'required' => [
+                'type' => 'bool',
+                'default' => false,
+            ],
+        ],
     ];
 
     /** @var \eZ\Publish\Core\FieldType\Validator[] */
@@ -186,6 +192,16 @@ class Type extends FieldType
                         );
                     }
                     break;
+                case 'AlternativeTextValidator':
+                    if ($parameters['required'] && $fieldValue->isAlternativeTextEmpty()) {
+                        $errors[] = new ValidationError(
+                            'Alternative text is required.',
+                            null,
+                            [],
+                            'alternativeText'
+                        );
+                    }
+                    break;
             }
         }
 
@@ -228,6 +244,19 @@ class Type extends FieldType
                                 '%type%' => 'integer',
                             ],
                             "[$validatorIdentifier][maxFileSize]"
+                        );
+                    }
+                    break;
+                case 'AlternativeTextValidator':
+                    if (!array_key_exists('required', $parameters)) {
+                        $validationErrors[] = new ValidationError(
+                            'Validator %validator% expects parameter %parameter% to be set.',
+                            null,
+                            [
+                                '%validator%' => $validatorIdentifier,
+                                '%parameter%' => 'required',
+                            ],
+                            "[$validatorIdentifier]"
                         );
                     }
                     break;
