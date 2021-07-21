@@ -66,7 +66,10 @@ class Value extends BaseValue
     public static function fromTimestamp($timestamp)
     {
         try {
-            return new static(new DateTime("@{$timestamp}"));
+            $dateTime = new DateTime();
+            $dateTime->setTimestamp($timestamp);
+
+            return new static($dateTime);
         } catch (Exception $e) {
             throw new InvalidArgumentValue('$timestamp', $timestamp, __CLASS__, $e);
         }
