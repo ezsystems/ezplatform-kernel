@@ -4,6 +4,8 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
+
 namespace eZ\Publish\API\Repository\Tests\ContentService;
 
 use eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException;
@@ -15,7 +17,10 @@ use eZ\Publish\Core\Repository\Validator\VersionValidator;
 use eZ\Publish\Core\Repository\Values\Content\TrashItem;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 
-class VersionValidatorTest extends BaseTest
+/**
+ * @internal
+ */
+final class VersionValidatorTest extends BaseTest
 {
     private const CONTENT_TYPE_IDENTIFIER = 'single-text';
     private const FIELD_IDENTIFIER = 'name';
@@ -47,12 +52,12 @@ class VersionValidatorTest extends BaseTest
 
     public function testSupportsKnownValidationObject(): void
     {
-        $this->assertTrue($this->validator->supports(new VersionInfo()));
+        self::assertTrue($this->validator->supports(new VersionInfo()));
     }
 
     public function testSupportsUnknownValidationObject(): void
     {
-        $this->assertFalse($this->validator->supports(new TrashItem()));
+        self::assertFalse($this->validator->supports(new TrashItem()));
     }
 
     public function testValidateMultilingualContent(): void
@@ -72,7 +77,7 @@ class VersionValidatorTest extends BaseTest
             $this->updateContentTranslation($content);
         } catch (ContentFieldValidationException $e) {
             // since we updated only one translation, we expect one field error to be thrown (related to null value for eng-GB version)
-            $this->assertCount(1, $e->getFieldErrors());
+            self::assertCount(1, $e->getFieldErrors());
         }
     }
 
@@ -105,9 +110,7 @@ class VersionValidatorTest extends BaseTest
     }
 
     /**
-     * @param Content $content
-     *
-     * @throws ContentFieldValidationException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
