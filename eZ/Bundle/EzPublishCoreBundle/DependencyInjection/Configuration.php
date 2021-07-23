@@ -7,6 +7,7 @@
 namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection;
 
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface;
+use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\RepositoryConfigParserInterface;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\Configuration as SiteAccessConfiguration;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollectorInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -17,7 +18,10 @@ class Configuration extends SiteAccessConfiguration
     const CUSTOM_TAG_ATTRIBUTE_TYPES = ['number', 'string', 'boolean', 'choice'];
 
     /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface */
-    private $mainConfigParser;
+    private $mainSiteAccessConfigParser;
+
+    /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\RepositoryConfigParserInterface */
+    private $mainRepositoryConfigParser;
 
     /** @var Configuration\Suggestion\Collector\SuggestionCollectorInterface */
     private $suggestionCollector;
@@ -25,10 +29,14 @@ class Configuration extends SiteAccessConfiguration
     /** @var \eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessConfigurationFilter[] */
     private $siteAccessConfigurationFilters;
 
-    public function __construct(ParserInterface $mainConfigParser, SuggestionCollectorInterface $suggestionCollector)
-    {
+    public function __construct(
+        ParserInterface $mainConfigParser,
+        RepositoryConfigParserInterface $mainRepositoryConfigParser,
+        SuggestionCollectorInterface $suggestionCollector
+    ) {
+        $this->mainSiteAccessConfigParser = $mainConfigParser;
+        $this->mainRepositoryConfigParser = $mainRepositoryConfigParser;
         $this->suggestionCollector = $suggestionCollector;
-        $this->mainConfigParser = $mainConfigParser;
     }
 
     public function setSiteAccessConfigurationFilters(array $filters)
@@ -58,14 +66,14 @@ class Configuration extends SiteAccessConfiguration
         $this->addOrmSection($rootNode);
 
         // Delegate SiteAccess config to configuration parsers
-        $this->mainConfigParser->addSemanticConfig($this->generateScopeBaseNode($rootNode));
+        $this->mainSiteAccessConfigParser->addSemanticConfig($this->generateScopeBaseNode($rootNode));
 
         return $treeBuilder;
     }
 
     public function addRepositoriesSection(ArrayNodeDefinition $rootNode)
     {
-        $rootNode
+        $repositoriesNode = $rootNode
             ->children()
                 ->arrayNode('repositories')
                     ->info('Content repositories configuration')
@@ -136,65 +144,11 @@ class Configuration extends SiteAccessConfiguration
                                 }
                             )
                         ->end()
-                        ->children()
-                            ->arrayNode('storage')
-                                ->children()
-                                    ->scalarNode('engine')
-                                        ->defaultValue('%ezpublish.api.storage_engine.default%')
-                                        ->info('The storage engine to use')
-                                    ->end()
-                                    ->scalarNode('connection')
-                                        ->defaultNull()
-                                        ->info('The connection name, if applicable (e.g. Doctrine connection name). If not set, the default connection will be used.')
-                                    ->end()
-                                    ->arrayNode('config')
-                                        ->info('Arbitrary configuration options, supported by your storage engine')
-                                        ->useAttributeAsKey('key')
-                                        ->prototype('variable')->end()
-                                    ->end()
-                                ->end()
-                            ->end()
-                            ->arrayNode('search')
-                                ->children()
-                                    ->scalarNode('engine')
-                                        ->defaultValue('%ezpublish.api.search_engine.default%')
-                                        ->info('The search engine to use')
-                                    ->end()
-                                    ->scalarNode('connection')
-                                        ->defaultNull()
-                                        ->info('The connection name, if applicable (e.g. Doctrine connection name). If not set, the default connection will be used.')
-                                    ->end()
-                                    ->arrayNode('config')
-                                        ->info('Arbitrary configuration options, supported by your search engine')
-                                        ->useAttributeAsKey('key')
-                                        ->prototype('variable')->end()
-                                    ->end()
-                                ->end()
-                            ->end()
-                            ->arrayNode('fields_groups')
-                                ->info('Definitions of fields groups.')
-                                ->children()
-                                    ->arrayNode('list')->prototype('scalar')->end()->end()
-                                    ->scalarNode('default')->defaultValue('%ezsettings.default.content.field_groups.default%')->end()
-                                ->end()
-                            ->end()
-                            ->arrayNode('options')
-                                ->info('Options for repository.')
-                                ->children()
-                                    ->scalarNode('default_version_archive_limit')
-                                        ->defaultValue(5)
-                                        ->info('Default version archive limit (0-50), only enforced on publish, not on un-publish.')
-                                    ->end()
-                                    ->booleanNode('remove_archived_versions_on_publish')
-                                        ->defaultTrue()
-                                        ->info('Enables automatic removal of archived versions when publishing, at the cost of performance. "ezplatform:content:cleanup-versions" command should be used to perform this task instead if this option is set to false.')
-                                    ->end()
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end();
+                        ->children();
+
+        $this->mainRepositoryConfigParser->addSemanticConfig(
+            $repositoriesNode
+        );
     }
 
     public function addSiteaccessSection(ArrayNodeDefinition $rootNode)

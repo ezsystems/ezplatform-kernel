@@ -9,6 +9,10 @@ namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\QueryTypePass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Common;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Content;
+use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Repository\FieldGroups;
+use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Repository\Options;
+use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Repository\Search;
+use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Repository\Storage;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\ServiceTags;
 use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\Filter\CustomCriterionQueryBuilder;
@@ -885,7 +889,18 @@ class EzPublishCoreExtensionTest extends AbstractExtensionTestCase
             return $this->extension;
         }
 
-        $this->extension = new EzPublishCoreExtension([new Common(), new Content()]);
+        $this->extension = new EzPublishCoreExtension(
+            [
+                new Common(),
+                new Content(),
+            ],
+            [
+                new Storage(),
+                new Search(),
+                new FieldGroups(),
+                new Options(),
+            ],
+        );
 
         return $this->extension;
     }

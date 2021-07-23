@@ -101,26 +101,34 @@ class EzPublishCoreBundle extends Bundle
     public function getContainerExtension()
     {
         if (!isset($this->extension)) {
-            $this->extension = new EzPublishCoreExtension([
-                // LocationView config parser needs to be specified AFTER ContentView config
-                // parser since it is used to convert location view override rules to content
-                // view override rules. If it were specified before, ContentView provider would
-                // just undo the conversion LocationView did.
-                new ConfigParser\ContentView(),
-                new ConfigParser\LocationView(),
-                new ConfigParser\Common(),
-                new ConfigParser\Content(),
-                new ConfigParser\FieldType\ImageAsset(),
-                new ConfigParser\FieldTemplates(),
-                new ConfigParser\FieldEditTemplates(),
-                new ConfigParser\FieldDefinitionSettingsTemplates(),
-                new ConfigParser\FieldDefinitionEditTemplates(),
-                new ConfigParser\Image(),
-                new ConfigParser\Languages(),
-                new ConfigParser\IO(new ComplexSettingParser()),
-                new ConfigParser\UrlChecker(),
-                new ConfigParser\TwigVariablesParser(),
-            ]);
+            $this->extension = new EzPublishCoreExtension(
+                [
+                    // LocationView config parser needs to be specified AFTER ContentView config
+                    // parser since it is used to convert location view override rules to content
+                    // view override rules. If it were specified before, ContentView provider would
+                    // just undo the conversion LocationView did.
+                    new ConfigParser\ContentView(),
+                    new ConfigParser\LocationView(),
+                    new ConfigParser\Common(),
+                    new ConfigParser\Content(),
+                    new ConfigParser\FieldType\ImageAsset(),
+                    new ConfigParser\FieldTemplates(),
+                    new ConfigParser\FieldEditTemplates(),
+                    new ConfigParser\FieldDefinitionSettingsTemplates(),
+                    new ConfigParser\FieldDefinitionEditTemplates(),
+                    new ConfigParser\Image(),
+                    new ConfigParser\Languages(),
+                    new ConfigParser\IO(new ComplexSettingParser()),
+                    new ConfigParser\UrlChecker(),
+                    new ConfigParser\TwigVariablesParser(),
+                ],
+                [
+                    new ConfigParser\Repository\Storage(),
+                    new ConfigParser\Repository\Search(),
+                    new ConfigParser\Repository\FieldGroups(),
+                    new ConfigParser\Repository\Options(),
+                ]
+            );
         }
 
         return $this->extension;
