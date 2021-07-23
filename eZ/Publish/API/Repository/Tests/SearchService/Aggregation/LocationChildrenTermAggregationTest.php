@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace eZ\Publish\API\Repository\Tests\SearchService\Aggregation;
 
 use eZ\Publish\API\Repository\Tests\SearchService\Aggregation\DataSetBuilder\TermAggregationDataSetBuilder;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\LocationChildrenTermAggregation;
+use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Location\LocationChildrenTermAggregation;
 
 final class LocationChildrenTermAggregationTest extends AbstractAggregationTest
 {
