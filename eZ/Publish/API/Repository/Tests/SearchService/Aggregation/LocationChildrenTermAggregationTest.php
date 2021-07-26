@@ -21,7 +21,12 @@ final class LocationChildrenTermAggregationTest extends AbstractAggregationTest
         $builder->setExpectedEntries([
             1 => 5,
             5 => 5,
-            41 => 3,
+            43 => 3,
+            13 => 1,
+            2 => 1,
+            44 => 1,
+            48 => 1,
+            58 => 1,
         ]);
 
         $builder->setEntryMapper([

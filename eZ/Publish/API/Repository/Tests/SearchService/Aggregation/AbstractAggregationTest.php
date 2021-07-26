@@ -40,6 +40,10 @@ abstract class AbstractAggregationTest extends BaseTest
         Aggregation $aggregation,
         AggregationResult $expectedResult
     ): void {
+        if ($aggregation instanceof Aggregation\LocationAggregation) {
+            self::markTestSkipped("Aggregation only available for Location search");
+        }
+
         $this->createFixturesForAggregation($aggregation);
 
         $searchService = $this->getRepository()->getSearchService();
