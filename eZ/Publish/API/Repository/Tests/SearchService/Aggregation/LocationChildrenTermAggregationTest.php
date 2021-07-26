@@ -9,10 +9,22 @@ declare(strict_types=1);
 namespace eZ\Publish\API\Repository\Tests\SearchService\Aggregation;
 
 use eZ\Publish\API\Repository\Tests\SearchService\Aggregation\DataSetBuilder\TermAggregationDataSetBuilder;
+use eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
 use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Location\LocationChildrenTermAggregation;
+use eZ\Publish\API\Repository\Values\Content\Search\AggregationResult;
 
 final class LocationChildrenTermAggregationTest extends AbstractAggregationTest
 {
+    /**
+     * @dataProvider dataProviderForTestFindContentWithAggregation
+     */
+    public function testFindContentWithAggregation(
+        Aggregation $aggregation,
+        AggregationResult $expectedResult
+    ): void {
+        self::markTestSkipped("LocationChildrenTermAggregation is only available for Location search");
+    }
+
     public function dataProviderForTestFindContentWithAggregation(): iterable
     {
         $aggregation = new LocationChildrenTermAggregation('children');
