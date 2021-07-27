@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Repository;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Repository;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\RepositoryConfigParserInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParserInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 final class Search implements RepositoryConfigParserInterface

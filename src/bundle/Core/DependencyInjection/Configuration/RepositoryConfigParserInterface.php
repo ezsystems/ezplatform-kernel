@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration;
 
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 

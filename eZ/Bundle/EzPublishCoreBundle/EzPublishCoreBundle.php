@@ -42,6 +42,7 @@ use eZ\Publish\Core\Base\Container\Compiler\Storage\Legacy\FieldValueConverterRe
 use eZ\Publish\Core\Base\Container\Compiler\Storage\Legacy\RoleLimitationConverterPass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser as ConfigParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Repository as RepositoryConfigParser;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Security\HttpBasicFactory;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\URLHandlerPass;
 use eZ\Publish\SPI\MVC\View\VariableProvider;
@@ -123,10 +124,10 @@ class EzPublishCoreBundle extends Bundle
                     new ConfigParser\TwigVariablesParser(),
                 ],
                 [
-                    new ConfigParser\Repository\Storage(),
-                    new ConfigParser\Repository\Search(),
-                    new ConfigParser\Repository\FieldGroups(),
-                    new ConfigParser\Repository\Options(),
+                    new RepositoryConfigParser\Storage(),
+                    new RepositoryConfigParser\Search(),
+                    new RepositoryConfigParser\FieldGroups(),
+                    new RepositoryConfigParser\Options(),
                 ]
             );
         }

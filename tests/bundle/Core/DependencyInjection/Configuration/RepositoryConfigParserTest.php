@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\RepositoryConfigParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\RepositoryConfigParserInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParserInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 

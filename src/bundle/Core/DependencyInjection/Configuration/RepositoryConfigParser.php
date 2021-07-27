@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration;
 
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 final class RepositoryConfigParser implements RepositoryConfigParserInterface
 {
-    /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\RepositoryConfigParserInterface[] */
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParserInterface[] */
     private $configParsers;
 
     /**
-     * @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\RepositoryConfigParserInterface[]
+     * @param \Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParserInterface[] $configParsers
      */
     public function __construct(array $configParsers = [])
     {

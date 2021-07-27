@@ -8,8 +8,6 @@ namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection;
 
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\QueryTypePass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\RepositoryConfigParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\RepositoryConfigParserInterface;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ConfigurationProcessor;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollector;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollectorAwareInterface;
@@ -22,6 +20,8 @@ use eZ\Publish\Core\QueryType\QueryType;
 use eZ\Publish\SPI\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
 use eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder as FilteringCriterionQueryBuilder;
 use eZ\Publish\SPI\Repository\Values\Filter\SortClauseQueryBuilder as FilteringSortClauseQueryBuilder;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParserInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -46,13 +46,13 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
     /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface */
     private $mainConfigParser;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\RepositoryConfigParserInterface */
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParser */
     private $mainRepositoryConfigParser;
 
     /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface[] */
     private $siteAccessConfigParsers;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\RepositoryConfigParserInterface[] */
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParserInterface[] */
     private $repositoryConfigParsers = [];
 
     /** @var PolicyProviderInterface[] */
