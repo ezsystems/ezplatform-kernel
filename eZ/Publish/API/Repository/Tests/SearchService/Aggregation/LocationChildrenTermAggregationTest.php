@@ -22,7 +22,7 @@ final class LocationChildrenTermAggregationTest extends AbstractAggregationTest
         Aggregation $aggregation,
         AggregationResult $expectedResult
     ): void {
-        self::markTestSkipped("LocationChildrenTermAggregation is only available for Location search");
+        self::markTestSkipped('LocationChildrenTermAggregation is only available for Location search');
     }
 
     public function dataProviderForTestFindContentWithAggregation(): iterable
