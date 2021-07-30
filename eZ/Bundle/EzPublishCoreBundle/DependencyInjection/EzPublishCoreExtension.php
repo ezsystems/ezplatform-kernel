@@ -209,7 +209,7 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
 
     private function getMainRepositoryConfigParser(): RepositoryConfigParserInterface
     {
-        if ($this->mainRepositoryConfigParser === null) {
+        if (!isset($this->mainRepositoryConfigParser)) {
             foreach ($this->repositoryConfigParsers as $parser) {
                 if ($parser instanceof SuggestionCollectorAwareInterface) {
                     $parser->setSuggestionCollector($this->suggestionCollector);
