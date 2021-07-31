@@ -89,22 +89,31 @@ abstract class IbexaKernelTestCase extends KernelTestCase
      */
     final protected static function getServiceByClassName(string $className, ?string $id = null): object
     {
-        $kernelClass = static::getKernelClass();
-        if (!is_a($kernelClass, IbexaTestKernel::class, true)) {
+        if (!self::$booted) {
+            static::bootKernel();
+        }
+
+        $serviceId = self::getTestServiceId($id, $className);
+        $service = self::getContainer()->get($serviceId);
+        assert(is_object($service) && is_a($service, $className));
+
+        return $service;
+    }
+
+    protected static function getTestServiceId(?string $id, string $className): string
+    {
+        $kernel = self::$kernel;
+        if (!$kernel instanceof IbexaTestKernel) {
             throw new RuntimeException(sprintf(
                 'Expected %s to be an instance of %s.',
-                $kernelClass,
+                get_class($kernel),
                 IbexaTestKernel::class,
             ));
         }
 
         $id = $id ?? $className;
-        $serviceId = $kernelClass::getAliasServiceId($id);
 
-        $service = self::getContainer()->get($serviceId);
-        assert(is_object($service) && is_a($service, $className));
-
-        return $service;
+        return $kernel->getAliasServiceId($id);
     }
 
     protected static function getDoctrineConnection(): Connection
