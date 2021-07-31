@@ -35,10 +35,6 @@ abstract class IbexaKernelTestCase extends KernelTestCase
 
     final protected static function loadSchema(): void
     {
-        if (!self::$booted) {
-            self::bootKernel();
-        }
-
         /** @var \eZ\Publish\API\Repository\Tests\LegacySchemaImporter $schemaImporter */
         $schemaImporter = self::getContainer()->get(LegacySchemaImporter::class);
         foreach (static::getSchemaFiles() as $schemaFile) {
@@ -56,10 +52,6 @@ abstract class IbexaKernelTestCase extends KernelTestCase
 
     final protected static function loadFixtures(): void
     {
-        if (!self::$booted) {
-            self::bootKernel();
-        }
-
         /** @var \eZ\Publish\SPI\Tests\Persistence\FixtureImporter $fixtureImporter */
         $fixtureImporter = self::getContainer()->get(FixtureImporter::class);
         foreach (static::getFixtures() as $fixture) {
