@@ -52,13 +52,6 @@ class FileSizeExtensionTest extends IntegrationTestCase
         $this->locale = $locale;
     }
 
-    protected function setUp(): void
-    {
-        $this->markTestSkipped('Skipped since NumberFormatter is behaving differently on PHP 7.3. Needs investigation.');
-
-        parent::setUp();
-    }
-
     /**
      * @return string $locale
      */
