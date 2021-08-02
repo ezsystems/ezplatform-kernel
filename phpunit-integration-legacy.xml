@@ -16,7 +16,7 @@
         <env name="fixtureDir" value="Legacy" />
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
         <ini name="error_reporting" value="-1" />
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
+        <env name="DATABASE_URL" value="sqlite:///:memory:" />
     </php>
     <testsuites>
         <testsuite name="eZ\Publish\API\Repository">

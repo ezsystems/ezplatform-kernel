@@ -60,7 +60,6 @@
     },
     "require-dev": {
         "behat/behat": "^3.6.1",
-        "brianium/paratest": "^4.0",
         "jenner/simple_fork": "^1.2",
         "friends-of-behat/mink-extension": "^2.4",
         "ibexa/ci-scripts": "^0.2@dev",
@@ -111,15 +110,20 @@
         "process-timeout": 3000
     },
     "scripts": {
+        "check-cs": "@fix-cs --dry-run",
         "fix-cs": "php-cs-fixer fix -v --show-progress=estimating",
-        "unit": "paratest -p half -c phpunit.xml --runner=WrapperRunner",
-        "integration": "paratest -p half -c phpunit-integration-legacy.xml --runner=WrapperRunner",
+        "unit": "phpunit -c phpunit.xml",
+        "integration": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpunit -c phpunit-integration-legacy.xml"
+        ],
         "test": [
             "@unit",
             "@integration"
         ]
     },
     "scripts-descriptions": {
+        "check-cs": "Run code style checker for all files",
         "fix-cs": "Fix Coding standard issues in current checkout.",
         "test": "Run all tests (unit & integration, not functional), might not work on Windows."
     },
