@@ -26,6 +26,9 @@ use eZ\Publish\SPI\Tests\Persistence\YamlFixture;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
+/**
+ * @experimental
+ */
 abstract class IbexaKernelTestCase extends KernelTestCase
 {
     protected static function getKernelClass(): string

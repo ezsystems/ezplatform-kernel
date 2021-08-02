@@ -29,6 +29,8 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\Kernel;
 
 /**
+ * @experimental
+ *
  * Baseline test kernel that dependent packages can extend for their integration tests.
  *
  * ## Configuring the kernel
