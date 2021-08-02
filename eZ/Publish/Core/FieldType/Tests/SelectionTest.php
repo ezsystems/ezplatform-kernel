@@ -480,6 +480,32 @@ class SelectionTest extends FieldTypeTest
                 ],
                 new SelectionValue(),
             ],
+            [
+                [
+                    'fieldSettings' => [
+                        'isMultiple' => false,
+                        'options' => [0 => 1, 1 => 2],
+                        'multilingualOptions' => [
+                            'en_GB' => [0 => 1, 1 => 2],
+                            'de_DE' => [0 => 1, 1 => 2],
+                        ],
+                    ],
+                ],
+                new SelectionValue([1]),
+            ],
+            [
+                [
+                    'fieldSettings' => [
+                        'isMultiple' => false,
+                        'options' => [0 => 1, 1 => 2],
+                        'multilingualOptions' => [
+                            'en_GB' => [0 => 1, 1 => 2],
+                            'de_DE' => [0 => 1],
+                        ],
+                    ],
+                ],
+                new SelectionValue([1]),
+            ],
         ];
     }
 
@@ -572,6 +598,29 @@ class SelectionTest extends FieldTypeTest
                     'fieldSettings' => [
                         'isMultiple' => false,
                         'options' => [0 => 1, 1 => 2],
+                    ],
+                ],
+                new SelectionValue([3]),
+                [
+                    new ValidationError(
+                        'Option with index %index% does not exist in the field definition.',
+                        null,
+                        [
+                            '%index%' => 3,
+                        ],
+                        'selection'
+                    ),
+                ],
+            ],
+            [
+                [
+                    'fieldSettings' => [
+                        'isMultiple' => false,
+                        'options' => [0 => 1, 1 => 2],
+                        'multilingualOptions' => [
+                            'en_GB' => [0 => 1, 1 => 2],
+                            'de_DE' => [0 => 1],
+                        ],
                     ],
                 ],
                 new SelectionValue([3]),
