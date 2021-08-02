@@ -23,7 +23,7 @@ class LimitationValidationException extends APILimitationValidationException imp
      *
      * @var \eZ\Publish\Core\FieldType\ValidationError[]
      */
-    protected $errors;
+    public $validationErrors;
 
     /**
      * Generates: Limitations did not validate.
@@ -46,6 +46,6 @@ class LimitationValidationException extends APILimitationValidationException imp
      */
     public function getLimitationErrors()
     {
-        return $this->errors;
+        return $this->validationErrors;
     }
 }
