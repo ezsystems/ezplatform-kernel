@@ -1338,13 +1338,16 @@ class ContentService implements ContentServiceInterface
                     $isEmpty = true;
                 }
 
-                $this->relationProcessor->appendFieldRelations(
-                    $inputRelations,
-                    $locationIdToContentIdMapping,
-                    $fieldType,
-                    $fieldValue,
-                    $fieldDefinition->id
-                );
+                if ($contentUpdateStruct->initialLanguageCode === $languageCode) {
+                    $this->relationProcessor->appendFieldRelations(
+                        $inputRelations,
+                        $locationIdToContentIdMapping,
+                        $fieldType,
+                        $fieldValue,
+                        $fieldDefinition->id
+                    );
+                }
+
                 $fieldValues[$fieldDefinition->identifier][$languageCode] = $fieldValue;
 
                 if ($isRetained || $isCopied || ($isLanguageNew && $isEmpty) || $isProcessed) {
