@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Filter\CriterionQueryBuilder\Content\Type;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\Type;
 
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\Type\IdentifierQueryBuilder;
@@ -19,7 +19,7 @@ use eZ\Publish\Core\Persistence\Legacy\Tests\Filter\BaseCriterionVisitorQueryBui
  * @covers \eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\Type\IdQueryBuilder::buildQueryConstraint
  * @covers \eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\Type\IdQueryBuilder::accepts
  */
-final class ContentTypeQueryBuildersQueryBuilderTest extends BaseCriterionVisitorQueryBuilderTestCase
+final class ContentTypeQueryBuildersTest extends BaseCriterionVisitorQueryBuilderTestCase
 {
     public function getFilteringCriteriaQueryData(): iterable
     {
