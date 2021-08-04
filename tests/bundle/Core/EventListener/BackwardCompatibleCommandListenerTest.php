@@ -46,7 +46,7 @@ final class BackwardCompatibleCommandListenerTest extends TestCase
             [
                 ConsoleEvents::COMMAND => [['onConsoleCommand', 128]],
             ],
-            $this->listener->getSubscribedEvents()
+            $this->listener::getSubscribedEvents()
         );
     }
 
