@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Filter\CriterionQueryBuilder\Content\Type;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\Type;
 
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ContentTypeGroupId;
 use eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\Type\GroupIdQueryBuilder;
