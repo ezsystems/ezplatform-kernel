@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzPublishCoreBundle\Tests\EventListener;
+namespace Ibexa\Tests\Bundle\Core\EventListener;
 
 use eZ\Bundle\EzPublishCoreBundle\Command\BackwardCompatibleCommand;
 use eZ\Bundle\EzPublishCoreBundle\EventListener\BackwardCompatibleCommandListener;
@@ -46,7 +46,7 @@ final class BackwardCompatibleCommandListenerTest extends TestCase
             [
                 ConsoleEvents::COMMAND => [['onConsoleCommand', 128]],
             ],
-            $this->listener->getSubscribedEvents()
+            $this->listener::getSubscribedEvents()
         );
     }
 

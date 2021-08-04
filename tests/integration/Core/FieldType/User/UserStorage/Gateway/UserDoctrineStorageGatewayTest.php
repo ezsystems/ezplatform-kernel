@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Integration\User\UserStorage;
+namespace Ibexa\Tests\Integration\Core\FieldType\User\UserStorage\Gateway;
 
 use eZ\Publish\Core\FieldType\Tests\Integration\User\UserStorage\UserStorageGatewayTest;
 use eZ\Publish\Core\FieldType\User\UserStorage\Gateway as UserStorageGateway;

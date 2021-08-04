@@ -1,0 +1,16 @@
+ezpublish:
+    siteaccess:
+          default_siteaccess: '__default_site_access__'
+          list:
+              default: '__default_site_access__'
+              second: '__second_site_access__'
+              ger: 'ger'
+              'eng': 'eng'
+              'ku6"H': 'ku6"H'
+          match: ~
+    repositories:
+        default:
+            storage: ~
+            search:
+                engine: legacy
+                connection: default
