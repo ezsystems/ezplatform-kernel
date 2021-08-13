@@ -81,8 +81,6 @@
     },
     "autoload": {
         "psr-4": {
-            "EzSystems\\PlatformInstallerBundle\\": "eZ/Bundle/PlatformInstallerBundle/src",
-            "eZ\\": "eZ",
             "Ibexa\\Bundle\\Core\\": "src/bundle/Core",
             "Ibexa\\Bundle\\Debug\\": "src/bundle/Debug",
             "Ibexa\\Bundle\\IO\\": "src/bundle/IO",
@@ -94,7 +92,6 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "EzSystems\\PlatformInstallerBundleTests\\": "eZ/Bundle/PlatformInstallerBundle/tests",
             "Ibexa\\Tests\\Bundle\\Core\\": "tests/bundle/Core",
             "Ibexa\\Tests\\Bundle\\Debug\\": "tests/bundle/Debug",
             "Ibexa\\Tests\\Bundle\\IO\\": "tests/bundle/IO",
