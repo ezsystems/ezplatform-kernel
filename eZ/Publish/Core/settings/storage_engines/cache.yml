@@ -203,7 +203,7 @@ services:
         arguments: ["@ezpublish.cache_pool.driver"]
 
     # Note for tests: Default changed to in-memory Array cache in tests/common.yml by default, and opt in for redis
-    # testing is defined in containerBuilder.php
+    # testing is defined in \Ibexa\Tests\Integration\Core\LegacyTestContainerBuilder
     ezpublish.cache_pool.driver:
         public: false
         class: Symfony\Component\Cache\Adapter\FilesystemAdapter

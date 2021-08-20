@@ -12,6 +12,7 @@ use Doctrine\DBAL\ConnectionException;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
 use Ibexa\Tests\Core\Repository\LegacySchemaImporter;
 use Ibexa\Core\Persistence\Legacy\SharedGateway;
 use Ibexa\Tests\Core\Persistence\DatabaseConnectionFactory;
@@ -303,17 +304,13 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
+     * @deprecated since Ibexa 4.0, rewrite test case to use {@see \Ibexa\Contracts\Core\Test\IbexaKernelTestCase} instead.
+     *
      * @return string
      */
-    protected static function getInstallationDir()
+    protected static function getInstallationDir(): string
     {
-        static $installDir = null;
-        if ($installDir === null) {
-            $config = require 'config.php';
-            $installDir = $config['install_dir'];
-        }
-
-        return $installDir;
+        return Legacy::getInstallationDir();
     }
 
     protected function getTrashCriteriaConverterDependency(): CriteriaConverter

@@ -7,6 +7,7 @@
 namespace Ibexa\Tests\Integration\Core\FieldType;
 
 use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Tests\Integration\Core\LegacyTestContainerBuilder;
 use Ibexa\Tests\Integration\Core\Persistence\FieldType\BaseIntegrationTest;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
@@ -125,51 +126,13 @@ abstract class FileBaseIntegrationTest extends BaseIntegrationTest
         rmdir($dir);
     }
 
-    protected function getContainer()
+    protected function getContainer(): LegacyTestContainerBuilder
     {
-        $config = include __DIR__ . '/../../../../../config.php';
-        $installDir = $config['install_dir'];
-
-        $containerBuilder = new ContainerBuilder();
-        $settingsPath = $installDir . '/eZ/Publish/Core/settings/';
-        $loader = new YamlFileLoader($containerBuilder, new FileLocator($settingsPath));
-
-        $loader->load('fieldtypes.yml');
-        $loader->load('io.yml');
-        $loader->load('repository.yml');
-        $loader->load('repository/inner.yml');
-        $loader->load('repository/event.yml');
-        $loader->load('repository/siteaccessaware.yml');
-        $loader->load('repository/autowire.yml');
-        $loader->load('fieldtype_external_storages.yml');
-        $loader->load('storage_engines/common.yml');
-        $loader->load('storage_engines/shortcuts.yml');
-        $loader->load('storage_engines/legacy.yml');
-        $loader->load('search_engines/legacy.yml');
-        $loader->load('storage_engines/cache.yml');
-        $loader->load('settings.yml');
-        $loader->load('fieldtype_services.yml');
-        $loader->load('utils.yml');
-        $loader->load('tests/common.yml');
-        $loader->load('tests/integration_legacy.yml');
-        $loader->load('policies.yml');
-        $loader->load('events.yml');
-        $loader->load('thumbnails.yml');
-
-        $containerBuilder->setParameter('ezpublish.kernel.root_dir', $installDir);
-
-        $containerBuilder->setParameter(
-            'legacy_dsn',
-            $this->getDsn()
-        );
+        $containerBuilder = parent::getContainer();
         $containerBuilder->setParameter(
             'io_root_dir',
             self::$tmpDir . '/var/ezdemo_site/storage'
         );
-
-        $containerBuilder->addCompilerPass(new SetAllServicesPublicPass());
-
-        $containerBuilder->compile();
 
         return $containerBuilder;
     }

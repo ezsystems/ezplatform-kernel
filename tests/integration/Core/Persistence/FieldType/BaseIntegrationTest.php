@@ -18,9 +18,7 @@ use Ibexa\Contracts\Core\Persistence\Content\Type;
 use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
 use Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter;
 use Ibexa\Contracts\Core\Test\Persistence\Fixture\YamlFixture;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Ibexa\Tests\Integration\Core\LegacyTestContainerBuilder;
 
 /**
  * Integration test for the legacy storage.
@@ -59,20 +57,6 @@ abstract class BaseIntegrationTest extends TestCase
 
     /** @var \Symfony\Component\DependencyInjection\ContainerBuilder */
     protected static $container;
-
-    /**
-     * @return string
-     */
-    protected static function getInstallationDir()
-    {
-        static $installDir = null;
-        if ($installDir === null) {
-            $config = require __DIR__ . '/../../../../../config.php';
-            $installDir = $config['install_dir'];
-        }
-
-        return $installDir;
-    }
 
     /** @var \Ibexa\Core\Persistence\TransformationProcessor */
     protected $transformationProcessor;
@@ -212,6 +196,8 @@ abstract class BaseIntegrationTest extends TestCase
     {
         if (!self::$setUp) {
             self::$container = $this->getContainer();
+            self::$container->compile();
+
             parent::setUp();
             $fixtureImporter = new FixtureImporter($this->getDatabaseConnection());
             $fixtureImporter->import(
@@ -556,47 +542,28 @@ abstract class BaseIntegrationTest extends TestCase
         );
     }
 
-    protected function getContainer()
+    /**
+     * Creates not compiled test container.
+     *
+     * @throws \Exception
+     */
+    protected function getContainer(): LegacyTestContainerBuilder
     {
-        $config = include __DIR__ . '/../../../../../config.php';
-        $installDir = $config['install_dir'];
+        $installDir = self::getInstallationDir();
 
-        $containerBuilder = new ContainerBuilder();
-        $settingsPath = $installDir . '/eZ/Publish/Core/settings/';
-        $loader = new YamlFileLoader($containerBuilder, new FileLocator($settingsPath));
-
-        $loader->load('fieldtypes.yml');
-        $loader->load('io.yml');
-        $loader->load('repository.yml');
-        $loader->load('repository/inner.yml');
-        $loader->load('repository/event.yml');
-        $loader->load('repository/siteaccessaware.yml');
-        $loader->load('repository/autowire.yml');
-        $loader->load('fieldtype_external_storages.yml');
-        $loader->load('storage_engines/common.yml');
-        $loader->load('storage_engines/shortcuts.yml');
-        $loader->load('storage_engines/legacy.yml');
-        $loader->load('search_engines/legacy.yml');
-        $loader->load('storage_engines/cache.yml');
-        $loader->load('settings.yml');
-        $loader->load('fieldtype_services.yml');
-        $loader->load('utils.yml');
-        $loader->load('tests/common.yml');
-        $loader->load('policies.yml');
-        $loader->load('events.yml');
-        $loader->load('tests/integration_legacy.yml');
-        $loader->load('thumbnails.yml');
-
+        $containerBuilder = new LegacyTestContainerBuilder();
         $containerBuilder->setParameter('ezpublish.kernel.root_dir', $installDir);
+
+        $loader = $containerBuilder->getCoreLoader();
+        // tests/integration/Core/Resources/settings/integration_legacy.yml
+        $loader->load('integration_legacy.yml');
+        // former SPI Field Type tests run only on LSE
+        $loader->load('search_engines/legacy.yml');
 
         $containerBuilder->setParameter(
             'legacy_dsn',
             $this->getDsn()
         );
-
-        $containerBuilder->addCompilerPass(new SetAllServicesPublicPass());
-
-        $containerBuilder->compile();
 
         return $containerBuilder;
     }

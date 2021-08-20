@@ -64,7 +64,7 @@ class ServiceContainer implements Container
 
     /**
      * @param string|ContainerInterface $container Path to the container file or container instance
-     * @param string $installDir Installation directory, required by default 'containerBuilder.php' file
+     * @param string $installDir Installation directory
      * @param string $cacheDir Directory where PHP container cache will be stored
      * @param bool $debug Default false should be used for production, if true resources will be checked
      *                    and cache will be regenerated if necessary
@@ -162,25 +162,13 @@ class ServiceContainer implements Container
     }
 
     /**
-     * Returns ContainerBuilder by including the default file 'containerBuilder.php' from settings directory.
-     *
      * @throws \RuntimeException
      */
     protected function getContainer()
     {
-        if ($this->innerContainer instanceof ContainerInterface) {
+        if (!$this->innerContainer instanceof ContainerInterface) {
+            throw new RuntimeException('Inner Container is not initialized');
             // Do nothing
-        } elseif (!is_readable($this->innerContainer)) {
-            throw new RuntimeException(
-                sprintf(
-                    "Unable to read file %s\n",
-                    $this->innerContainer
-                )
-            );
-        } else {
-            // 'containerBuilder.php' file expects $installDir variable to be set by caller
-            $installDir = $this->installDir;
-            $this->innerContainer = require_once $this->innerContainer;
         }
 
         // Compile container if necessary

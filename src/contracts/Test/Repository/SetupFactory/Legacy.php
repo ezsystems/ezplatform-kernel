@@ -15,6 +15,7 @@ use Ibexa\Contracts\Core\Repository\Values\Filter\SortClauseQueryBuilder as Filt
 use Ibexa\Contracts\Core\Test\Persistence\Fixture;
 use Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter;
 use Ibexa\Contracts\Core\Test\Persistence\Fixture\YamlFixture;
+use Ibexa\Tests\Integration\Core\LegacyTestContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ibexa\Contracts\Core\Test\Repository\SetupFactory;
 use Ibexa\Tests\Core\Repository\IdManager;
@@ -23,7 +24,7 @@ use Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler as CachingLang
 use Exception;
 use Ibexa\Core\Repository\Values\User\UserReference;
 use Symfony\Component\Filesystem\Filesystem;
-use Ibexa\Core\Core\Base\Container\Compiler;
+use Ibexa\Core\Base\Container\Compiler;
 
 /**
  * A Test Factory is used to setup the infrastructure for a tests, based on a
@@ -293,15 +294,15 @@ class Legacy extends SetupFactory
     public function getServiceContainer()
     {
         if (!isset(self::$serviceContainer)) {
-            $config = include __DIR__ . '/../../../../../../config.php';
-            $installDir = $config['install_dir'];
+            $installDir = self::getInstallationDir();
 
-            /** @var \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder */
-            $containerBuilder = include $config['container_builder_path'];
-
+            $containerBuilder = new LegacyTestContainerBuilder();
+            $loader = $containerBuilder->getCoreLoader();
             /* @var \Symfony\Component\DependencyInjection\Loader\YamlFileLoader $loader */
             $loader->load('search_engines/legacy.yml');
-            $loader->load('tests/integration_legacy.yml');
+
+            // tests/integration/Core/Resources/settings/integration_legacy.yml
+            $loader->load('integration_legacy.yml');
 
             $this->externalBuildContainer($containerBuilder);
 
@@ -320,12 +321,13 @@ class Legacy extends SetupFactory
             $this->registerForAutoConfiguration($containerBuilder);
 
             // load overrides just before creating test Container
-            $loader->load('tests/override.yml');
+            // tests/integration/Core/Resources/settings/override.yml
+            $loader->load('override.yml');
 
             self::$serviceContainer = new ServiceContainer(
                 $containerBuilder,
                 $installDir,
-                $config['cache_dir'],
+                $this->getCacheDir(),
                 true,
                 true
             );
@@ -371,6 +373,23 @@ class Legacy extends SetupFactory
 
         $containerBuilder->registerForAutoconfiguration(FilteringSortClauseQueryBuilder::class)
             ->addTag(ServiceTags::FILTERING_SORT_CLAUSE_QUERY_BUILDER);
+    }
+
+    /**
+     * @deprecated since Ibexa 4.0, rewrite test case to use {@see \Ibexa\Contracts\Core\Test\IbexaKernelTestCase} instead.
+     */
+    public static function getInstallationDir(): string
+    {
+        // package root directory:
+        return realpath(__DIR__ . '/../../../../../');
+    }
+
+    /**
+     * @deprecated since Ibexa 4.0, rewrite test case to use {@see \Ibexa\Contracts\Core\Test\IbexaKernelTestCase} instead.
+     */
+    public static function getCacheDir(): string
+    {
+        return self::getInstallationDir() . '/var/cache';
     }
 }
 
