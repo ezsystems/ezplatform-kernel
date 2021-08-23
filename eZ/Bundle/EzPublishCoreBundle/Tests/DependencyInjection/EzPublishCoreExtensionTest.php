@@ -16,6 +16,10 @@ use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\Filter\CustomSo
 use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\QueryTypeBundle\QueryType\TestQueryType;
 use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\StubPolicyProvider;
 use eZ\Publish\SPI\Repository\Values\Filter;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Repository\FieldGroups;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Repository\Options;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Repository\Search;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Repository\Storage;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Compiler\CheckExceptionOnInvalidReferenceBehaviorPass;
@@ -885,7 +889,18 @@ class EzPublishCoreExtensionTest extends AbstractExtensionTestCase
             return $this->extension;
         }
 
-        $this->extension = new EzPublishCoreExtension([new Common(), new Content()]);
+        $this->extension = new EzPublishCoreExtension(
+            [
+                new Common(),
+                new Content(),
+            ],
+            [
+                new Storage(),
+                new Search(),
+                new FieldGroups(),
+                new Options(),
+            ],
+        );
 
         return $this->extension;
     }
