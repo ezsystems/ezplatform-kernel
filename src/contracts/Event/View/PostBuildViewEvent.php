@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\View\Event;
+namespace Ibexa\Contracts\Core\Event\View;
 
 use eZ\Publish\Core\MVC\Symfony\View\View;
 use Symfony\Contracts\EventDispatcher\Event;
 
-final class BuildViewEvent extends Event
+final class PostBuildViewEvent extends Event
 {
     /** @var \eZ\Publish\Core\MVC\Symfony\View\View */
     private $view;
