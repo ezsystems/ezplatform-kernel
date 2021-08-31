@@ -12,7 +12,7 @@ use eZ\Publish\Core\MVC\Symfony\View\BaseView;
 use Ibexa\Contracts\Core\Event\View\PostBuildViewEvent;
 use PHPUnit\Framework\TestCase;
 
-class PostBuildViewEventTest extends TestCase
+final class PostBuildViewEventTest extends TestCase
 {
     public function testEventConstruction(): void
     {
