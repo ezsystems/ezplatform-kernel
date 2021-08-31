@@ -14,18 +14,17 @@ use eZ\Publish\Core\MVC\Symfony\View\ContentView;
 use eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
 use eZ\Publish\Core\MVC\Symfony\View\ViewEvents;
 use Ibexa\Contracts\Core\Event\View\PostBuildViewEvent;
+use PHPUnit\Framework\Constraint\IsIdentical;
+use PHPUnit\Framework\Constraint\IsInstanceOf;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Stopwatch\Stopwatch;
 
 class ViewControllerListenerTest extends TestCase
 {
@@ -175,15 +174,14 @@ class ViewControllerListenerTest extends TestCase
 
         $eventDispatcher = $this->createMock(EventDispatcherInterface::class);
         $eventDispatcher
-            ->expect($this->exactly(2))
+            ->expects($this->exactly(2))
             ->method('dispatch')
             ->withConsecutive(
                 [
-                    $this->assertInstanceOf(ViewEvent::class),
-                    $this->assertSame(ViewEvents::FILTER_BUILDER_PARAMETERS),
+                    new IsInstanceOf(FilterViewBuilderParametersEvent::class),
+                    new IsIdentical(ViewEvents::FILTER_BUILDER_PARAMETERS),
                 ], [
-                    $this->assertInstanceOf(PostBuildViewEvent::class),
-                    $this->assertSame(PostBuildViewEvent::class),
+                    new IsInstanceOf(PostBuildViewEvent::class),
                 ])
             ->willReturnArgument(0);
 
@@ -195,17 +193,6 @@ class ViewControllerListenerTest extends TestCase
         );
 
         $viewControllerListener->getController($this->event);
-
-        $eventsEmitted = array_map(static function (array $calledListener): string {
-            return $calledListener['event'];
-        }, $eventDispatcher->getCalledListeners());
-
-        self::assertSame([
-            ViewEvents::FILTER_BUILDER_PARAMETERS,
-            PostBuildViewEvent::class,
-        ], $eventsEmitted);
-
-        self::assertEmpty($eventDispatcher->getOrphanedEvents());
     }
 
     /**
