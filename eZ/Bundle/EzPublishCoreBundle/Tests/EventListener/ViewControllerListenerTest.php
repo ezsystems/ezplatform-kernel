@@ -171,7 +171,7 @@ class ViewControllerListenerTest extends TestCase
         $this->viewBuilderMock
             ->expects($this->once())
             ->method('buildView')
-            ->will($this->returnValue($viewObject));
+            ->willReturn($viewObject);
 
         $eventDispatcher = $this->createMock(EventDispatcherInterface::class);
         $eventDispatcher
