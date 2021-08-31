@@ -7,10 +7,16 @@
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\EventListener;
 
 use eZ\Bundle\EzPublishCoreBundle\EventListener\ViewControllerListener;
+use eZ\Publish\Core\MVC\Symfony\View\BaseView;
 use eZ\Publish\Core\MVC\Symfony\View\Builder\ViewBuilder;
 use eZ\Publish\Core\MVC\Symfony\View\Builder\ViewBuilderRegistry;
 use eZ\Publish\Core\MVC\Symfony\View\ContentView;
+use eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
+use eZ\Publish\Core\MVC\Symfony\View\ViewEvents;
+use Ibexa\Contracts\Core\Event\View\PostBuildViewEvent;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
@@ -19,6 +25,7 @@ use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 class ViewControllerListenerTest extends TestCase
 {
@@ -149,6 +156,63 @@ class ViewControllerListenerTest extends TestCase
         $expectedView->setControllerReference(new ControllerReference($customController));
 
         $this->assertEquals($expectedView, $this->request->attributes->get('view'));
+    }
+
+    public function testGetControllerEmitsProperEvents(): void
+    {
+        $viewObject = new class() extends BaseView {
+        };
+
+        $this->viewBuilderRegistry
+            ->expects($this->once())
+            ->method('getFromRegistry')
+            ->will($this->returnValue($this->viewBuilderMock));
+
+        $this->viewBuilderMock
+            ->expects($this->once())
+            ->method('buildView')
+            ->will($this->returnValue($viewObject));
+
+        $eventDispatcher = new TraceableEventDispatcher(
+            new EventDispatcher(),
+            new Stopwatch()
+        );
+
+        // FilterViewBuilderParametersEvent
+        $eventDispatcher->addListener(
+            ViewEvents::FILTER_BUILDER_PARAMETERS,
+            static function (FilterViewBuilderParametersEvent $event): void {
+                self::assertTrue(true);
+            }
+        );
+
+        // PostBuildViewEvent
+        $eventDispatcher->addListener(
+            PostBuildViewEvent::class,
+            static function (PostBuildViewEvent $event): void {
+                self::assertTrue(true);
+            }
+        );
+
+        $viewControllerListener = new ViewControllerListener(
+            $this->controllerResolver,
+            $this->viewBuilderRegistry,
+            $eventDispatcher,
+            $this->logger
+        );
+
+        $viewControllerListener->getController($this->event);
+
+        $eventsEmitted = array_map(static function (array $calledListener): string {
+            return $calledListener['event'];
+        }, $eventDispatcher->getCalledListeners());
+
+        self::assertSame([
+            ViewEvents::FILTER_BUILDER_PARAMETERS,
+            PostBuildViewEvent::class,
+        ], $eventsEmitted);
+
+        self::assertEmpty($eventDispatcher->getOrphanedEvents());
     }
 
     /**
