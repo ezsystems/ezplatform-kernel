@@ -173,26 +173,19 @@ class ViewControllerListenerTest extends TestCase
             ->method('buildView')
             ->will($this->returnValue($viewObject));
 
-        $eventDispatcher = new TraceableEventDispatcher(
-            new EventDispatcher(),
-            new Stopwatch()
-        );
-
-        // FilterViewBuilderParametersEvent
-        $eventDispatcher->addListener(
-            ViewEvents::FILTER_BUILDER_PARAMETERS,
-            static function (FilterViewBuilderParametersEvent $event): void {
-                self::assertTrue(true);
-            }
-        );
-
-        // PostBuildViewEvent
-        $eventDispatcher->addListener(
-            PostBuildViewEvent::class,
-            static function (PostBuildViewEvent $event): void {
-                self::assertTrue(true);
-            }
-        );
+        $eventDispatcher = $this->createMock(EventDispatcherInterface::class);
+        $eventDispatcher
+            ->expect($this->exactly(2))
+            ->method('dispatch')
+            ->withConsecutive(
+                [
+                    $this->assertInstanceOf(ViewEvent::class),
+                    $this->assertSame(ViewEvents::FILTER_BUILDER_PARAMETERS),
+                ], [
+                    $this->assertInstanceOf(PostBuildViewEvent::class),
+                    $this->assertSame(PostBuildViewEvent::class),
+                ])
+            ->willReturnArgument(0);
 
         $viewControllerListener = new ViewControllerListener(
             $this->controllerResolver,
