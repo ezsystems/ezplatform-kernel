@@ -170,8 +170,7 @@ class ViewControllerListenerTest extends TestCase
             ->method('buildView')
             ->willReturn($viewObject);
 
-        $eventDispatcher = $this->createMock(EventDispatcherInterface::class);
-        $eventDispatcher
+        $this->eventDispatcher
             ->expects($this->exactly(2))
             ->method('dispatch')
             ->withConsecutive(
@@ -184,14 +183,7 @@ class ViewControllerListenerTest extends TestCase
                 ])
             ->willReturnArgument(0);
 
-        $viewControllerListener = new ViewControllerListener(
-            $this->controllerResolver,
-            $this->viewBuilderRegistry,
-            $eventDispatcher,
-            $this->logger
-        );
-
-        $viewControllerListener->getController($this->event);
+        $this->controllerListener->getController($this->event);
     }
 
     /**
