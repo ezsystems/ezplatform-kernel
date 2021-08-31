@@ -166,7 +166,7 @@ class ViewControllerListenerTest extends TestCase
         $this->viewBuilderRegistry
             ->expects($this->once())
             ->method('getFromRegistry')
-            ->will($this->returnValue($this->viewBuilderMock));
+            ->willReturn($this->viewBuilderMock);
 
         $this->viewBuilderMock
             ->expects($this->once())
