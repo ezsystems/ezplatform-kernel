@@ -16,6 +16,7 @@ use eZ\Publish\Core\MVC\Symfony\View\ViewEvents;
 use Ibexa\Contracts\Core\Event\View\PostBuildViewEvent;
 use PHPUnit\Framework\Constraint\IsIdentical;
 use PHPUnit\Framework\Constraint\IsInstanceOf;
+use PHPUnit\Framework\Constraint\IsNull;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -182,6 +183,7 @@ class ViewControllerListenerTest extends TestCase
                     new IsIdentical(ViewEvents::FILTER_BUILDER_PARAMETERS),
                 ], [
                     new IsInstanceOf(PostBuildViewEvent::class),
+                    new IsNull(),
                 ])
             ->willReturnArgument(0);
 
