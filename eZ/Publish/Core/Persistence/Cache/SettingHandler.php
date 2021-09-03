@@ -14,6 +14,8 @@ use eZ\Publish\SPI\Persistence\Setting\Setting;
  */
 final class SettingHandler extends AbstractHandler implements SettingHandlerInterface
 {
+    private const SETTING_IDENTIFIER = 'setting';
+
     public function create(string $group, string $identifier, string $serializedValue): Setting
     {
         $this->logger->logCall(__METHOD__, ['group' => $group, 'identifier' => $identifier]);
@@ -49,7 +51,9 @@ final class SettingHandler extends AbstractHandler implements SettingHandlerInte
         $setting = $this->persistenceHandler->settingHandler()->load($group, $identifier);
 
         $cacheItem->set($setting);
-        $cacheItem->tag([$this->getSettingObjectTag($setting)]);
+        $cacheItem->tag([
+            $this->getSettingTag($setting->group, $setting->identifier),
+        ]);
         $this->cache->save($cacheItem);
 
         return $setting;
@@ -69,14 +73,10 @@ final class SettingHandler extends AbstractHandler implements SettingHandlerInte
 
     private function getSettingTag(string $group, string $identifier): string
     {
-        return sprintf('ibexa-setting-%s-%s', $group, $identifier);
-    }
-
-    private function getSettingObjectTag(Setting $setting): string
-    {
-        return $this->getSettingTag(
-            $setting->group,
-            $setting->identifier
+        return $this->cacheIdentifierGenerator->generateTag(
+            self::SETTING_IDENTIFIER,
+            [$group, $identifier],
+            true
         );
     }
 }

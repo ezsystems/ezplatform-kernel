@@ -25,10 +25,10 @@ _This ensures the cache layer is far less complex to maintain and evolve than wh
 ### Tags
 
 List of content tags that can be somewhat safely "semi-officially" used to clear related entities in cache:
-- `content-<id>`: Cache tag which refers to Content/ContentInfo entity.
-- `location-<id>`: Cache tag which refers to Locations and/or their assigned Content/ContentInfo entities.
-- `location-path-<id>`: Like the tag above but applied to all Content/Locations in the subtree of this ID, so it can be used by tree operations.
-- `content-fields-type-<type-id>`: Cache tag which refers to entries containing Field data. It's used on Content Type changes that affect all Content items of the type.
+- `c-<id>`: Cache tag which refers to Content/ContentInfo entity.
+- `l-<id>`: Cache tag which refers to Locations and/or their assigned Content/ContentInfo entities.
+- `lp-<id>`: Like the tag above but applied to all Content/Locations in the subtree of this ID, so it can be used by tree operations.
+- `cft-<type-id>`: Cache tag which refers to entries containing Field data. It's used on Content Type changes that affect all Content items of the type.
 
 _For further tags used for other internal use cases, see the *Handlers for how they are used._
 
@@ -57,7 +57,7 @@ Like cache, tags also comes at a cost:
   - _E.g.: ATM on RedisTagAwareAdapter tag relation data is even non-expiring as it needs to guarantee surviving cache._
 
 For those reasons, only introduce use a tag:
-- Mainly to represent an entity _(e.g. `content-<id>`)_
+- Mainly to represent an entity _(e.g. `c-<id>`)_
 - Only if it's represented on many different cache keys or if a key can have a lot of different variants.
     - _Tip: Otherwise prefer to delete by cache key(s) when cache clear is needed, it will be faster and consume less memory._
 
