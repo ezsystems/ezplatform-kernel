@@ -5,110 +5,110 @@ parameters:
     url_prefix: var/ezdemo_site/storage
 
 services:
-    eZ\Publish\Core\Repository\SiteAccessAware\Repository:
+    Ibexa\Core\Repository\SiteAccessAware\Repository:
         arguments:
-            - '@eZ\Publish\Core\Event\Repository'
-            - '@eZ\Publish\Core\Repository\SiteAccessAware\ContentService'
-            - '@eZ\Publish\Core\Repository\SiteAccessAware\ContentTypeService'
-            - '@eZ\Publish\Core\Repository\SiteAccessAware\ObjectStateService'
-            - '@eZ\Publish\Core\Repository\SiteAccessAware\URLAliasService'
-            - '@eZ\Publish\Core\Repository\SiteAccessAware\UserService'
-            - '@eZ\Publish\Core\Repository\SiteAccessAware\SearchService'
-            - '@eZ\Publish\Core\Repository\SiteAccessAware\SectionService'
-            - '@eZ\Publish\Core\Repository\SiteAccessAware\TrashService'
-            - '@eZ\Publish\Core\Repository\SiteAccessAware\LocationService'
-            - '@eZ\Publish\Core\Repository\SiteAccessAware\LanguageService'
-            - '@eZ\Publish\Core\Repository\SiteAccessAware\NotificationService'
+            - '@Ibexa\Core\Event\Repository'
+            - '@Ibexa\Core\Repository\SiteAccessAware\ContentService'
+            - '@Ibexa\Core\Repository\SiteAccessAware\ContentTypeService'
+            - '@Ibexa\Core\Repository\SiteAccessAware\ObjectStateService'
+            - '@Ibexa\Core\Repository\SiteAccessAware\URLAliasService'
+            - '@Ibexa\Core\Repository\SiteAccessAware\UserService'
+            - '@Ibexa\Core\Repository\SiteAccessAware\SearchService'
+            - '@Ibexa\Core\Repository\SiteAccessAware\SectionService'
+            - '@Ibexa\Core\Repository\SiteAccessAware\TrashService'
+            - '@Ibexa\Core\Repository\SiteAccessAware\LocationService'
+            - '@Ibexa\Core\Repository\SiteAccessAware\LanguageService'
+            - '@Ibexa\Core\Repository\SiteAccessAware\NotificationService'
 
-    eZ\Publish\Core\Repository\SiteAccessAware\ContentService:
+    Ibexa\Core\Repository\SiteAccessAware\ContentService:
         arguments:
-            - '@eZ\Publish\Core\Event\ContentService'
+            - '@Ibexa\Core\Event\ContentService'
             - '@ezpublish.helper.language_resolver'
 
-    eZ\Publish\Core\Repository\SiteAccessAware\ContentTypeService:
+    Ibexa\Core\Repository\SiteAccessAware\ContentTypeService:
         arguments:
-            - '@eZ\Publish\Core\Event\ContentTypeService'
+            - '@Ibexa\Core\Event\ContentTypeService'
             - '@ezpublish.helper.language_resolver'
 
-    eZ\Publish\Core\Repository\SiteAccessAware\ObjectStateService:
+    Ibexa\Core\Repository\SiteAccessAware\ObjectStateService:
         arguments:
-            - '@eZ\Publish\Core\Event\ObjectStateService'
+            - '@Ibexa\Core\Event\ObjectStateService'
             - '@ezpublish.helper.language_resolver'
 
-    eZ\Publish\Core\Repository\SiteAccessAware\URLAliasService:
+    Ibexa\Core\Repository\SiteAccessAware\URLAliasService:
         arguments:
-            - '@eZ\Publish\Core\Event\URLAliasService'
+            - '@Ibexa\Core\Event\URLAliasService'
             - '@ezpublish.helper.language_resolver'
 
-    eZ\Publish\Core\Repository\SiteAccessAware\UserService:
+    Ibexa\Core\Repository\SiteAccessAware\UserService:
         arguments:
-            - '@eZ\Publish\Core\Event\UserService'
+            - '@Ibexa\Core\Event\UserService'
             - '@ezpublish.helper.language_resolver'
 
-    eZ\Publish\Core\Repository\SiteAccessAware\SearchService:
+    Ibexa\Core\Repository\SiteAccessAware\SearchService:
         arguments:
-            - '@eZ\Publish\Core\Event\SearchService'
+            - '@Ibexa\Core\Event\SearchService'
             - '@ezpublish.helper.language_resolver'
 
-    eZ\Publish\Core\Repository\SiteAccessAware\SectionService:
+    Ibexa\Core\Repository\SiteAccessAware\SectionService:
         arguments:
-            - '@eZ\Publish\Core\Event\SectionService'
+            - '@Ibexa\Core\Event\SectionService'
 
-    eZ\Publish\Core\Repository\SiteAccessAware\TrashService:
+    Ibexa\Core\Repository\SiteAccessAware\TrashService:
         arguments:
-            - '@eZ\Publish\Core\Event\TrashService'
+            - '@Ibexa\Core\Event\TrashService'
 
-    eZ\Publish\Core\Repository\SiteAccessAware\LocationService:
+    Ibexa\Core\Repository\SiteAccessAware\LocationService:
         arguments:
-            - '@eZ\Publish\Core\Event\LocationService'
+            - '@Ibexa\Core\Event\LocationService'
             - '@ezpublish.helper.language_resolver'
 
-    eZ\Publish\Core\Repository\SiteAccessAware\LanguageService:
+    Ibexa\Core\Repository\SiteAccessAware\LanguageService:
         arguments:
-            - '@eZ\Publish\Core\Event\LanguageService'
+            - '@Ibexa\Core\Event\LanguageService'
 
-    eZ\Publish\Core\Repository\SiteAccessAware\NotificationService:
+    Ibexa\Core\Repository\SiteAccessAware\NotificationService:
         arguments:
-            - '@eZ\Publish\Core\Event\NotificationService'
+            - '@Ibexa\Core\Event\NotificationService'
 
-    eZ\Publish\Core\Repository\SiteAccessAware\SettingService:
+    Ibexa\Core\Repository\SiteAccessAware\SettingService:
         arguments:
-            - '@eZ\Publish\Core\Event\SettingService'
+            - '@Ibexa\Core\Event\SettingService'
 
-    ezpublish.siteaccessaware.repository: '@eZ\Publish\Core\Repository\SiteAccessAware\Repository'
-    ezpublish.siteaccessaware.service.content: '@eZ\Publish\Core\Repository\SiteAccessAware\ContentService'
-    ezpublish.siteaccessaware.service.content_type: '@eZ\Publish\Core\Repository\SiteAccessAware\ContentTypeService'
-    ezpublish.siteaccessaware.service.object_state: '@eZ\Publish\Core\Repository\SiteAccessAware\ObjectStateService'
-    ezpublish.siteaccessaware.service.url_alias: '@eZ\Publish\Core\Repository\SiteAccessAware\URLAliasService'
-    ezpublish.siteaccessaware.service.user: '@eZ\Publish\Core\Repository\SiteAccessAware\UserService'
-    ezpublish.siteaccessaware.service.search: '@eZ\Publish\Core\Repository\SiteAccessAware\SearchService'
-    ezpublish.siteaccessaware.service.section: '@eZ\Publish\Core\Repository\SiteAccessAware\SectionService'
-    ezpublish.siteaccessaware.service.trash: '@eZ\Publish\Core\Repository\SiteAccessAware\TrashService'
-    ezpublish.siteaccessaware.service.location: '@eZ\Publish\Core\Repository\SiteAccessAware\LocationService'
-    ezpublish.siteaccessaware.service.language: '@eZ\Publish\Core\Repository\SiteAccessAware\LanguageService'
-    ezpublish.siteaccessaware.service.notification: '@eZ\Publish\Core\Repository\SiteAccessAware\NotificationService'
-    ezpublish.siteaccessaware.service.setting: '@eZ\Publish\Core\Repository\SiteAccessAware\SettingService'
+    ezpublish.siteaccessaware.repository: '@Ibexa\Core\Repository\SiteAccessAware\Repository'
+    ezpublish.siteaccessaware.service.content: '@Ibexa\Core\Repository\SiteAccessAware\ContentService'
+    ezpublish.siteaccessaware.service.content_type: '@Ibexa\Core\Repository\SiteAccessAware\ContentTypeService'
+    ezpublish.siteaccessaware.service.object_state: '@Ibexa\Core\Repository\SiteAccessAware\ObjectStateService'
+    ezpublish.siteaccessaware.service.url_alias: '@Ibexa\Core\Repository\SiteAccessAware\URLAliasService'
+    ezpublish.siteaccessaware.service.user: '@Ibexa\Core\Repository\SiteAccessAware\UserService'
+    ezpublish.siteaccessaware.service.search: '@Ibexa\Core\Repository\SiteAccessAware\SearchService'
+    ezpublish.siteaccessaware.service.section: '@Ibexa\Core\Repository\SiteAccessAware\SectionService'
+    ezpublish.siteaccessaware.service.trash: '@Ibexa\Core\Repository\SiteAccessAware\TrashService'
+    ezpublish.siteaccessaware.service.location: '@Ibexa\Core\Repository\SiteAccessAware\LocationService'
+    ezpublish.siteaccessaware.service.language: '@Ibexa\Core\Repository\SiteAccessAware\LanguageService'
+    ezpublish.siteaccessaware.service.notification: '@Ibexa\Core\Repository\SiteAccessAware\NotificationService'
+    ezpublish.siteaccessaware.service.setting: '@Ibexa\Core\Repository\SiteAccessAware\SettingService'
 
     # Helpers
-    eZ\Publish\Core\Repository\SiteAccessAware\Language\AbstractLanguageResolver:
+    Ibexa\Core\Repository\SiteAccessAware\Language\AbstractLanguageResolver:
         arguments:
             $defaultUseAlwaysAvailable: true
             $defaultShowAllTranslations: false
 
-    eZ\Publish\Core\Repository\SiteAccessAware\Language\LanguageResolver:
-        parent: eZ\Publish\Core\Repository\SiteAccessAware\Language\AbstractLanguageResolver
+    Ibexa\Core\Repository\SiteAccessAware\Language\LanguageResolver:
+        parent: Ibexa\Core\Repository\SiteAccessAware\Language\AbstractLanguageResolver
         arguments: ['%languages%']
 
-    eZ\Publish\API\Repository\LanguageResolver:
-        alias: eZ\Publish\Core\Repository\SiteAccessAware\Language\LanguageResolver
+    Ibexa\Contracts\Core\Repository\LanguageResolver:
+        alias: Ibexa\Core\Repository\SiteAccessAware\Language\LanguageResolver
 
     ezpublish.helper.language_resolver:
-        alias: eZ\Publish\API\Repository\LanguageResolver
+        alias: Ibexa\Contracts\Core\Repository\LanguageResolver
 
-    eZ\Publish\Core\IO\IOConfigProvider:
-        alias: eZ\Publish\Core\Repository\SiteAccessAware\Config\IOConfigResolver
+    Ibexa\Core\IO\IOConfigProvider:
+        alias: Ibexa\Core\Repository\SiteAccessAware\Config\IOConfigResolver
 
-    eZ\Publish\Core\Repository\SiteAccessAware\Config\IOConfigResolver:
+    Ibexa\Core\Repository\SiteAccessAware\Config\IOConfigResolver:
         arguments:
             - '%storage_dir%'
             - '%legacy_url_prefix%'

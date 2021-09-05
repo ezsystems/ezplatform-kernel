@@ -1,18 +1,18 @@
 services:
-    eZ\Publish\API\Repository\Tests\LegacySchemaImporter:
+    Ibexa\Tests\Core\Repository\LegacySchemaImporter:
         alias: 'test.ibexa.schema_importer'
 
     test.ibexa.schema_importer:
-        class: eZ\Publish\API\Repository\Tests\LegacySchemaImporter
+        class: Ibexa\Tests\Core\Repository\LegacySchemaImporter
         public: true
         arguments:
             - '@doctrine.dbal.default_connection'
 
-    eZ\Publish\SPI\Tests\Persistence\FixtureImporter:
+    Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter:
         alias: 'test.ibexa.fixture_importer'
 
     test.ibexa.fixture_importer:
-        class: eZ\Publish\SPI\Tests\Persistence\FixtureImporter
+        class: Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter
         public: true
         arguments:
             - '@doctrine.dbal.default_connection'

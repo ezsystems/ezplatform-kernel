@@ -9,26 +9,26 @@ parameters:
 
 services:
     ezpublish.chain_router:
-        class: eZ\Publish\Core\MVC\Symfony\Routing\ChainRouter
+        class: Ibexa\Core\MVC\Symfony\Routing\ChainRouter
         arguments: ["@?logger"]
         calls:
             - [setContext, ["@router.request_context"]]
 
     ezpublish.siteaccess_match_listener:
-        class: eZ\Publish\Core\MVC\Symfony\EventListener\SiteAccessMatchListener
+        class: Ibexa\Core\MVC\Symfony\EventListener\SiteAccessMatchListener
         arguments:
             $siteAccessRouter: '@ezpublish.siteaccess_router'
             $eventDispatcher: '@event_dispatcher'
-            $siteAccessMatcherRegistry: '@eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessMatcherRegistryInterface'
+            $siteAccessMatcherRegistry: '@Ibexa\Bundle\Core\SiteAccess\SiteAccessMatcherRegistryInterface'
         tags:
             - { name: kernel.event_subscriber }
 
-    eZ\Publish\Core\MVC\Symfony\Component\Serializer\CompoundMatcherNormalizer:
+    Ibexa\Core\MVC\Symfony\Component\Serializer\CompoundMatcherNormalizer:
         tags:
             - { name: serializer.normalizer }
 
     ezpublish.url_generator.base:
-        class: eZ\Publish\Core\MVC\Symfony\Routing\Generator
+        class: Ibexa\Core\MVC\Symfony\Routing\Generator
         abstract: true
         calls:
             - [setRequestContext, ["@router.request_context"]]
@@ -37,7 +37,7 @@ services:
             - [setLogger, ["@?logger"]]
 
     ezpublish.urlalias_router:
-        class: eZ\Bundle\EzPublishCoreBundle\Routing\UrlAliasRouter
+        class: Ibexa\Bundle\Core\Routing\UrlAliasRouter
         arguments:
             - "@ezpublish.api.service.location"
             - "@ezpublish.api.service.url_alias"
@@ -51,7 +51,7 @@ services:
             - {name: router, priority: 200}
 
     ezpublish.urlalias_generator:
-        class: eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator
+        class: Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator
         arguments:
             - "@ezpublish.api.repository"
             - "@router.default"
@@ -59,17 +59,17 @@ services:
             - "%ezpublish.urlalias_generator.charmap%"
         parent: ezpublish.url_generator.base
 
-    eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessMatcherRegistry: ~
-    eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessMatcherRegistryInterface:
-        alias: 'eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessMatcherRegistry'
+    Ibexa\Bundle\Core\SiteAccess\SiteAccessMatcherRegistry: ~
+    Ibexa\Bundle\Core\SiteAccess\SiteAccessMatcherRegistryInterface:
+        alias: 'Ibexa\Bundle\Core\SiteAccess\SiteAccessMatcherRegistry'
 
     ezpublish.siteaccess.matcher_builder:
-        class: eZ\Bundle\EzPublishCoreBundle\SiteAccess\MatcherBuilder
+        class: Ibexa\Bundle\Core\SiteAccess\MatcherBuilder
         arguments:
-            - '@eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessMatcherRegistry'
+            - '@Ibexa\Bundle\Core\SiteAccess\SiteAccessMatcherRegistry'
 
     ezpublish.siteaccess.provider.static:
-        class: eZ\Publish\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider
+        class: Ibexa\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider
         arguments:
             - "%ezpublish.siteaccess.list%"
             - "%ezpublish.siteaccess.groups_by_siteaccess%"
@@ -77,7 +77,7 @@ services:
             - { name: ezplatform.siteaccess.provider, priority: 10 }
 
     ezpublish.siteaccess.provider.chain:
-        class: eZ\Publish\Core\MVC\Symfony\SiteAccess\Provider\ChainSiteAccessProvider
+        class: Ibexa\Core\MVC\Symfony\SiteAccess\Provider\ChainSiteAccessProvider
         arguments:
             $providers: !tagged ezplatform.siteaccess.provider
 
@@ -85,42 +85,42 @@ services:
         alias: ezpublish.siteaccess.provider.chain
 
     ezpublish.siteaccess_service:
-        class: eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessService
+        class: Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService
         arguments:
             - "@ezpublish.siteaccess.provider"
             - "@ezpublish.config.resolver"
         calls:
             - [setSiteAccess, ['@ezpublish.siteaccess']]
 
-    eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface:
+    Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface:
         alias: 'ezpublish.siteaccess_service'
 
     ezpublish.siteaccess_router:
-        class: eZ\Publish\Core\MVC\Symfony\SiteAccess\Router
+        class: Ibexa\Core\MVC\Symfony\SiteAccess\Router
         arguments:
             - "@ezpublish.siteaccess.matcher_builder"
             - "@logger"
             - "%ezpublish.siteaccess.default%"
             - "%ezpublish.siteaccess.match_config%"
             - "@ezpublish.siteaccess.provider"
-            - 'eZ\Publish\Core\MVC\Symfony\SiteAccess'
+            - 'Ibexa\Core\MVC\Symfony\SiteAccess'
             - "%kernel.debug%"
 
     ezpublish.siteaccess_listener:
-        class: eZ\Bundle\EzPublishCoreBundle\EventListener\SiteAccessListener
+        class: Ibexa\Bundle\Core\EventListener\SiteAccessListener
         arguments:
             - "@ezpublish.siteaccess"
         tags:
             - { name: kernel.event_subscriber }
 
     ezpublish.siteaccess_listener.routing:
-        class: eZ\Bundle\EzPublishCoreBundle\EventListener\RoutingListener
+        class: Ibexa\Bundle\Core\EventListener\RoutingListener
         arguments: ["@ezpublish.config.resolver", "@ezpublish.urlalias_router", "@ezpublish.urlalias_generator"]
         tags:
             - { name: kernel.event_subscriber }
 
     ezpublish.request_redirect_listener:
-        class: eZ\Bundle\EzPublishCoreBundle\EventListener\RequestEventListener
+        class: Ibexa\Bundle\Core\EventListener\RequestEventListener
         arguments:
             - "@ezpublish.config.resolver"
             - "@router"
@@ -130,37 +130,37 @@ services:
             - { name: kernel.event_subscriber }
 
     ezpublish.request_index_listener:
-        class: eZ\Bundle\EzPublishCoreBundle\EventListener\IndexRequestListener
+        class: Ibexa\Bundle\Core\EventListener\IndexRequestListener
         arguments:
             - "@ezpublish.config.resolver"
         tags:
             - { name: kernel.event_subscriber }
 
     ezpublish.route_reference.generator:
-      class: eZ\Publish\Core\MVC\Symfony\Routing\Generator\RouteReferenceGenerator
+      class: Ibexa\Core\MVC\Symfony\Routing\Generator\RouteReferenceGenerator
       arguments: ["@event_dispatcher"]
       calls:
         - [setRequestStack, ["@request_stack"]]
 
     ezpublish.route_reference.listener.language_switch:
-        class: eZ\Publish\Core\MVC\Symfony\EventListener\LanguageSwitchListener
+        class: Ibexa\Core\MVC\Symfony\EventListener\LanguageSwitchListener
         arguments: ["@ezpublish.translation_helper"]
         tags:
             - { name: kernel.event_subscriber }
 
     ezpublish.original_request_listener:
-        class: eZ\Bundle\EzPublishCoreBundle\EventListener\OriginalRequestListener
+        class: Ibexa\Bundle\Core\EventListener\OriginalRequestListener
         tags:
             - { name: kernel.event_subscriber }
 
     ezpublish.preview_request_listener:
-        class: eZ\Bundle\EzPublishCoreBundle\EventListener\PreviewRequestListener
+        class: Ibexa\Bundle\Core\EventListener\PreviewRequestListener
         arguments: ["@request_stack"]
         tags:
             - { name: kernel.event_subscriber }
 
     ezpublish.route_reference.listener.content_download:
-        class: eZ\Bundle\EzPublishCoreBundle\EventListener\ContentDownloadRouteReferenceListener
+        class: Ibexa\Bundle\Core\EventListener\ContentDownloadRouteReferenceListener
         tags:
             - { name: kernel.event_subscriber }
         arguments: ["@ezpublish.translation_helper"]

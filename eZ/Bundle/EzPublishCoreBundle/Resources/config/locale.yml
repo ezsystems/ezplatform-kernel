@@ -100,27 +100,27 @@ parameters:
 
 services:
     ezpublish.locale.converter:
-        class: eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverter
+        class: Ibexa\Core\MVC\Symfony\Locale\LocaleConverter
         arguments: ["%ezpublish.locale.conversion_map%", "@logger"]
         public: true
 
-    eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface:
+    Ibexa\Core\MVC\Symfony\Locale\LocaleConverterInterface:
         alias: ezpublish.locale.converter
 
     # Overriding the original locale listener to trigger the internal locale conversion correctly.
-    eZ\Bundle\EzPublishCoreBundle\EventListener\LocaleListener:
+    Ibexa\Bundle\Core\EventListener\LocaleListener:
         decorates: locale_listener
         arguments:
-            - '@eZ\Bundle\EzPublishCoreBundle\EventListener\LocaleListener.inner'
+            - '@Ibexa\Bundle\Core\EventListener\LocaleListener.inner'
             - '@ezpublish.config.resolver'
             - '@ezpublish.locale.converter'
         tags:
             - { name: kernel.event_subscriber }
 
-    eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProvider:
+    Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProvider:
         autowire: true
         arguments:
             $languageCodesMap: '%ezpublish.locale.browser_map%'
             $localeFallback: '%locale_fallback%'
 
-    eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface: '@eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProvider'
+    Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface: '@Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProvider'

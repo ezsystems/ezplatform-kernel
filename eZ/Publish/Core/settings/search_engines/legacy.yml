@@ -15,7 +15,7 @@ services:
         alias: ezpublish.api.storage_engine.legacy.connection
 
     ezpublish.search.legacy.gateway.content.inner:
-        class: eZ\Publish\Core\Search\Legacy\Content\Gateway\DoctrineDatabase
+        class: Ibexa\Core\Search\Legacy\Content\Gateway\DoctrineDatabase
         arguments:
             $connection: '@ezpublish.persistence.connection'
             $criteriaConverter: '@ezpublish.search.legacy.gateway.criteria_converter.content'
@@ -23,7 +23,7 @@ services:
             $languageHandler: '@ezpublish.spi.persistence.language_handler'
 
     ezpublish.search.legacy.gateway.content.exception_conversion:
-        class: eZ\Publish\Core\Search\Legacy\Content\Gateway\ExceptionConversion
+        class: Ibexa\Core\Search\Legacy\Content\Gateway\ExceptionConversion
         arguments:
             - "@ezpublish.search.legacy.gateway.content.inner"
 
@@ -32,7 +32,7 @@ services:
         alias: ezpublish.search.legacy.gateway.content.exception_conversion
 
     ezpublish.search.legacy.gateway.location.inner:
-        class: eZ\Publish\Core\Search\Legacy\Content\Location\Gateway\DoctrineDatabase
+        class: Ibexa\Core\Search\Legacy\Content\Location\Gateway\DoctrineDatabase
         arguments:
             $connection: "@ezpublish.persistence.connection"
             $criteriaConverter: "@ezpublish.search.legacy.gateway.criteria_converter.location"
@@ -40,7 +40,7 @@ services:
             $languageHandler: "@ezpublish.spi.persistence.language_handler"
 
     ezpublish.search.legacy.gateway.location.exception_conversion:
-        class: eZ\Publish\Core\Search\Legacy\Content\Location\Gateway\ExceptionConversion
+        class: Ibexa\Core\Search\Legacy\Content\Location\Gateway\ExceptionConversion
         arguments:
             - "@ezpublish.search.legacy.gateway.location.inner"
 
@@ -49,7 +49,7 @@ services:
         alias: ezpublish.search.legacy.gateway.location.exception_conversion
 
     ezpublish.search.legacy.mapper.fulltext:
-        class: eZ\Publish\Core\Search\Legacy\Content\Mapper\FullTextMapper
+        class: Ibexa\Core\Search\Legacy\Content\Mapper\FullTextMapper
         arguments:
             - "@ezpublish.search.common.field_registry"
             - "@ezpublish.spi.persistence.content_type_handler"
@@ -58,11 +58,11 @@ services:
         alias: ezpublish.search.legacy.mapper.fulltext
 
     ezpublish.spi.search.legacy:
-        class: eZ\Publish\Core\Search\Legacy\Content\Handler
+        class: Ibexa\Core\Search\Legacy\Content\Handler
         arguments:
             $gateway: '@ezpublish.search.legacy.gateway.content'
             $locationGateway: '@ezpublish.search.legacy.gateway.location'
-            $indexerGateway: '@eZ\Publish\Core\Search\Legacy\Content\WordIndexer\Gateway\DoctrineDatabase'
+            $indexerGateway: '@Ibexa\Core\Search\Legacy\Content\WordIndexer\Gateway\DoctrineDatabase'
             $contentMapper: '@ezpublish.persistence.legacy.content.mapper'
             $locationMapper: '@ezpublish.persistence.legacy.location.mapper'
             $languageHandler: '@ezpublish.spi.persistence.language_handler'
@@ -72,7 +72,7 @@ services:
         lazy: true
 
     ezpublish.spi.search.legacy.indexer:
-        class: eZ\Publish\Core\Search\Legacy\Content\Indexer
+        class: Ibexa\Core\Search\Legacy\Content\Indexer
         arguments:
             $logger: '@logger'
             $persistenceHandler: '@ezpublish.api.storage_engine'
@@ -82,6 +82,6 @@ services:
             - {name: ezplatform.search_engine.indexer, alias: legacy}
         lazy: true
 
-    eZ\Publish\Core\Search\Legacy\Content\IndexerGateway:
+    Ibexa\Core\Search\Legacy\Content\IndexerGateway:
         arguments:
             $connection: '@ezpublish.persistence.connection'

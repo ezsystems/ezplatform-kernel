@@ -1,11 +1,11 @@
 services:
     ezpublish.persistence.legacy.url_wildcard.gateway.inner:
-        class: eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase
+        class: Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase
         arguments:
             - '@ezpublish.api.storage_engine.legacy.connection'
 
     ezpublish.persistence.legacy.url_wildcard.gateway.exception_conversion:
-        class: eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\ExceptionConversion
+        class: Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\ExceptionConversion
         arguments:
             - "@ezpublish.persistence.legacy.url_wildcard.gateway.inner"
 
@@ -14,10 +14,10 @@ services:
         alias: ezpublish.persistence.legacy.url_wildcard.gateway.exception_conversion
 
     ezpublish.persistence.legacy.url_wildcard.mapper:
-        class: eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Mapper
+        class: Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Mapper
 
     ezpublish.spi.persistence.legacy.url_wildcard.handler:
-        class: eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Handler
+        class: Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Handler
         arguments:
             - "@ezpublish.persistence.legacy.url_wildcard.gateway"
             - "@ezpublish.persistence.legacy.url_wildcard.mapper"

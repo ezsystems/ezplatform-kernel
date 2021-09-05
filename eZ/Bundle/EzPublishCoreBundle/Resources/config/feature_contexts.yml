@@ -1,51 +1,51 @@
 services:
-    eZ\Bundle\EzPublishCoreBundle\Features\Context\ContentContext:
+    Ibexa\Bundle\Core\Features\Context\ContentContext:
         public: true
         arguments:
             $repository: '@ezpublish.api.repository'
 
-    eZ\Bundle\EzPublishCoreBundle\Features\Context\ConsoleContext:
+    Ibexa\Bundle\Core\Features\Context\ConsoleContext:
         public: true
         arguments:
             $configResolver: '@ezpublish.config.resolver'
             $siteaccessList: '%ezpublish.siteaccess.list%'
             $defaultSiteaccess: '%ezpublish.siteaccess.default%'
 
-    eZ\Bundle\EzPublishCoreBundle\Features\Context\YamlConfigurationContext:
+    Ibexa\Bundle\Core\Features\Context\YamlConfigurationContext:
         public: true
         arguments:
             $kernel: '@kernel'
 
-    eZ\Bundle\EzPublishCoreBundle\Features\Context\QueryControllerContext:
+    Ibexa\Bundle\Core\Features\Context\QueryControllerContext:
         public: true
         arguments:
             $repository: '@ezpublish.api.repository'
 
-    eZ\Bundle\EzPublishCoreBundle\Features\Context\ContentTypeContext:
+    Ibexa\Bundle\Core\Features\Context\ContentTypeContext:
         public: true
         arguments:
             $contentTypeService: '@ezpublish.api.service.content_type'
 
-    eZ\Bundle\EzPublishCoreBundle\Features\Context\BasicContentContext:
+    Ibexa\Bundle\Core\Features\Context\BasicContentContext:
         public: true
         arguments:
             $repository: '@ezpublish.api.repository'
             $contentTypeService: '@ezpublish.api.service.content_type'
             $contentService: '@ezpublish.api.service.content'
 
-    eZ\Bundle\EzPublishCoreBundle\Features\Context\FieldTypeContext:
+    Ibexa\Bundle\Core\Features\Context\FieldTypeContext:
         public: true
         arguments:
             $contentTypeService: '@ezpublish.api.service.content_type'
             $contentService: '@ezpublish.api.service.content'
             $locationService: '@ezpublish.api.service.location'
 
-    eZ\Bundle\EzPublishCoreBundle\Features\Context\RoleContext:
+    Ibexa\Bundle\Core\Features\Context\RoleContext:
         public: true
         arguments:
             $roleService: '@ezpublish.api.service.role'
 
-    eZ\Bundle\EzPublishCoreBundle\Features\Context\UserContext:
+    Ibexa\Bundle\Core\Features\Context\UserContext:
         public: true
         arguments:
             $userService: '@ezpublish.api.service.user'

@@ -1,6 +1,6 @@
 services:
     ezpublish.core.io.service:
-        class: eZ\Publish\Core\IO\TolerantIOService
+        class: Ibexa\Core\IO\TolerantIOService
         lazy: true
         arguments:
             - "@ezpublish.core.io.metadata_handler"
@@ -10,7 +10,7 @@ services:
             - [ setLogger, ["@?logger" ] ]
 
     ezpublish.core.io.mimeTypeDetector.fileinfo:
-        class: eZ\Publish\Core\IO\MimeTypeDetector\FileInfo
+        class: Ibexa\Core\IO\MimeTypeDetector\FileInfo
 
     ezpublish.core.io.mimeTypeDetector:
         alias: ezpublish.core.io.mimeTypeDetector.fileinfo
@@ -20,7 +20,7 @@ services:
         alias: ezpublish.core.io.metadata_handler.flysystem
 
     ezpublish.core.io.metadata_handler.flysystem:
-        class: eZ\Publish\Core\IO\IOMetadataHandler\Flysystem
+        class: Ibexa\Core\IO\IOMetadataHandler\Flysystem
         arguments:
             - "@ezpublish.core.io.flysystem.default_filesystem"
 
@@ -29,7 +29,7 @@ services:
         alias: ezpublish.core.io.binarydata_handler.flysystem
 
     ezpublish.core.io.binarydata_handler.flysystem:
-        class: eZ\Publish\Core\IO\IOBinarydataHandler\Flysystem
+        class: Ibexa\Core\IO\IOBinarydataHandler\Flysystem
         arguments:
             - "@ezpublish.core.io.flysystem.default_filesystem"
             - "@ezpublish.core.io.default_url_decorator"
@@ -52,28 +52,28 @@ services:
         alias: ezpublish.core.io.prefix_url_decorator
 
     ezpublish.core.io.prefix_url_decorator:
-        class: eZ\Publish\Core\IO\UrlDecorator\AbsolutePrefix
+        class: Ibexa\Core\IO\UrlDecorator\AbsolutePrefix
         arguments:
-            - '@eZ\Publish\Core\IO\IOConfigProvider'
+            - '@Ibexa\Core\IO\IOConfigProvider'
 
     # used by legacy in Image Converter to decorate its own url
     ezpublish.core.io.image_fieldtype.legacy_url_decorator:
-        class: eZ\Publish\Core\IO\UrlDecorator\Prefix
+        class: Ibexa\Core\IO\UrlDecorator\Prefix
         arguments:
-            - '@eZ\Publish\Core\IO\IOConfigProvider'
+            - '@Ibexa\Core\IO\IOConfigProvider'
 
     ezpublish.core.io.image_fieldtype.legacy_url_redecorator:
-        class: eZ\Publish\Core\IO\UrlRedecorator
+        class: Ibexa\Core\IO\UrlRedecorator
         arguments:
             - "@ezpublish.core.io.default_url_decorator"
             - "@ezpublish.core.io.image_fieldtype.legacy_url_decorator"
 
     ezpublish.core.io.metadata_handler.legacy_dfs_cluster:
         abstract: true
-        class: eZ\Publish\Core\IO\IOMetadataHandler\LegacyDFSCluster
+        class: Ibexa\Core\IO\IOMetadataHandler\LegacyDFSCluster
         arguments:
             - ~
             - "@ezpublish.core.io.image_fieldtype.legacy_url_decorator"
 
-    eZ\Publish\Core\IO\FilePathNormalizer\Flysystem: ~
-    eZ\Publish\Core\IO\FilePathNormalizerInterface: '@eZ\Publish\Core\IO\FilePathNormalizer\Flysystem'
+    Ibexa\Core\IO\FilePathNormalizer\Flysystem: ~
+    Ibexa\Core\IO\FilePathNormalizerInterface: '@Ibexa\Core\IO\FilePathNormalizer\Flysystem'

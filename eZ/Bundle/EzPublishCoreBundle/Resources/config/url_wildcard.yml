@@ -1,6 +1,6 @@
 services:
     ezpublish.urlwildcard_router:
-        class: eZ\Publish\Core\MVC\Symfony\Routing\UrlWildcardRouter
+        class: Ibexa\Core\MVC\Symfony\Routing\UrlWildcardRouter
         public: true
         arguments:
           - '@ezpublish.api.service.url_wildcard'

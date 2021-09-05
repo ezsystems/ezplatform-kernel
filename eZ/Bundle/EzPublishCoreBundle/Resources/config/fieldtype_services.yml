@@ -1,10 +1,10 @@
 services:
     # Parameter providers
     ezpublish.fieldType.parameterProviderRegistry:
-        class: eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistry
+        class: Ibexa\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistry
 
     ezpublish.fieldType.ezdatetime.parameterProvider:
-        class: eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProvider\LocaleParameterProvider
+        class: Ibexa\Core\MVC\Symfony\FieldType\View\ParameterProvider\LocaleParameterProvider
         arguments: ["@ezpublish.locale.converter"]
         calls:
             - [setRequestStack, ["@request_stack"]]
@@ -14,28 +14,28 @@ services:
             - {name: ezplatform.field_type.parameter_provider, alias: eztime}
 
     ezpublish.fieldType.ezobjectrelation.parameterProvider:
-        class: eZ\Publish\Core\MVC\Symfony\FieldType\Relation\ParameterProvider
+        class: Ibexa\Core\MVC\Symfony\FieldType\Relation\ParameterProvider
         arguments:
             - "@ezpublish.api.service.content"
         tags:
             - {name: ezplatform.field_type.parameter_provider, alias: ezobjectrelation}
 
     ezpublish.fieldType.ezobjectrelationlist.parameterProvider:
-        class: eZ\Publish\Core\MVC\Symfony\FieldType\RelationList\ParameterProvider
+        class: Ibexa\Core\MVC\Symfony\FieldType\RelationList\ParameterProvider
         arguments:
             - "@ezpublish.api.service.content"
         tags:
             - {name: ezplatform.field_type.parameter_provider, alias: ezobjectrelationlist}
 
     ezpublish.fieldType.ezimageasset.parameterProvider:
-        class: eZ\Publish\Core\MVC\Symfony\FieldType\ImageAsset\ParameterProvider
+        class: Ibexa\Core\MVC\Symfony\FieldType\ImageAsset\ParameterProvider
         lazy: true
         arguments:
             - "@ezpublish.siteaccessaware.repository"
         tags:
             - {name: ezplatform.field_type.parameter_provider, alias: ezimageasset}
 
-    eZ\Publish\Core\MVC\Symfony\FieldType\User\ParameterProvider:
+    Ibexa\Core\MVC\Symfony\FieldType\User\ParameterProvider:
         lazy: true
         arguments:
             - "@ezpublish.api.service.user"
@@ -44,7 +44,7 @@ services:
 
     # Image
     ezpublish.fieldType.ezimage.io_service:
-        class: eZ\Publish\Core\FieldType\Image\IO\Legacy
+        class: Ibexa\Core\FieldType\Image\IO\Legacy
         arguments:
             - "@ezpublish.fieldType.ezimage.io_service.published"
             - "@ezpublish.fieldType.ezimage.io_service.draft"
@@ -53,7 +53,7 @@ services:
         lazy: true
 
     ezpublish.fieldType.ezimage.io_service.options_provider:
-        class: eZ\Publish\Core\FieldType\Image\IO\OptionsProvider
+        class: Ibexa\Core\FieldType\Image\IO\OptionsProvider
         arguments:
             $configResolver: '@ezpublish.config.resolver'
 
@@ -68,7 +68,7 @@ services:
         parent: ezpublish.core.io.service
 
     ezpublish.fieldType.ezimage.io_service.published.config_scope_change_aware:
-        class: eZ\Publish\Core\IO\ConfigScopeChangeAwareIOService
+        class: Ibexa\Core\IO\ConfigScopeChangeAwareIOService
         decorates: ezpublish.fieldType.ezimage.io_service.published
         lazy: true
         arguments:
@@ -77,7 +77,7 @@ services:
             $prefixParameterName: 'image.published_images_dir'
 
     ezpublish.fieldType.ezimage.io_service.draft.config_scope_change_aware:
-        class: eZ\Publish\Core\IO\ConfigScopeChangeAwareIOService
+        class: Ibexa\Core\IO\ConfigScopeChangeAwareIOService
         decorates: ezpublish.fieldType.ezimage.io_service.draft
         lazy: true
         arguments:
@@ -86,22 +86,22 @@ services:
             $prefixParameterName: 'image.versioned_images_dir'
 
     ezpublish.fieldType.ezimage.pathGenerator:
-        class: eZ\Publish\Core\FieldType\Image\PathGenerator\LegacyPathGenerator
+        class: Ibexa\Core\FieldType\Image\PathGenerator\LegacyPathGenerator
 
     ezpublish.fieldType.validator.black_list:
-        class: eZ\Publish\Core\FieldType\Validator\FileExtensionBlackListValidator
+        class: Ibexa\Core\FieldType\Validator\FileExtensionBlackListValidator
         arguments:
             - '@ezpublish.config.resolver'
 
     ezpublish.fieldType.validator.image:
-        class: eZ\Publish\Core\FieldType\Validator\ImageValidator
+        class: Ibexa\Core\FieldType\Validator\ImageValidator
 
     # BinaryFile
     ezpublish.fieldType.ezbinaryfile.io_service:
         parent: ezpublish.core.io.service
 
     ezpublish.fieldType.ezbinaryfile.io_service.config_scope_change_aware:
-        class: eZ\Publish\Core\IO\ConfigScopeChangeAwareIOService
+        class: Ibexa\Core\IO\ConfigScopeChangeAwareIOService
         decorates: ezpublish.fieldType.ezbinaryfile.io_service
         lazy: true
         arguments:
@@ -110,16 +110,16 @@ services:
             $prefixParameterName: 'binary_dir'
 
     ezpublish.fieldType.ezbinaryfile.pathGenerator:
-        class: eZ\Publish\Core\FieldType\BinaryBase\PathGenerator\LegacyPathGenerator
+        class: Ibexa\Core\FieldType\BinaryBase\PathGenerator\LegacyPathGenerator
 
     # Will be added to binaryfile & mediafile external storage handlers by a compiler pass
     ezpublish.fieldType.ezbinarybase.download_url_generator:
         public: true # @todo should be private
-        class: eZ\Publish\Core\MVC\Symfony\FieldType\BinaryBase\ContentDownloadUrlGenerator
+        class: Ibexa\Core\MVC\Symfony\FieldType\BinaryBase\ContentDownloadUrlGenerator
         arguments: ["@router"]
 
     # Symfony 3.4+ service definitions:
-    eZ\Publish\Core\FieldType\ImageAsset\AssetMapper:
+    Ibexa\Core\FieldType\ImageAsset\AssetMapper:
         lazy: true
         arguments:
             $contentService: '@ezpublish.api.service.content'

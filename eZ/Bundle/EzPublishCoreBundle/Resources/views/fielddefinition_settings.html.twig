@@ -1,7 +1,7 @@
 {# Template blocks used to render the settings of each field definition #}
 {# Block naming convention is <fieldTypeIdentifier>_settings> #}
 {# The following variables are available in each block:
- #  - \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition fielddefinition the field definition
+ #  - \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition fielddefinition the field definition
  #  - array settings settings of the field definition
  #}
 
@@ -75,9 +75,9 @@
 
 {% block ezdatetime_settings %}
 <ul class="ez-fielddefinition-settings ez-fielddefinition-{{ fielddefinition.fieldTypeIdentifier }}-settings">
-    {% if settings.defaultType == constant( 'eZ\\Publish\\Core\\FieldType\\DateAndTime\\Type::DEFAULT_EMPTY' ) %}
+    {% if settings.defaultType == constant( 'Ibexa\\Core\\Core\\FieldType\\DateAndTime\\Type::DEFAULT_EMPTY' ) %}
         {% set defaultValue = 'fielddefinition.default-value.empty'|trans|desc("Empty") %}
-    {% elseif settings.defaultType == constant( 'eZ\\Publish\\Core\\FieldType\\DateAndTime\\Type::DEFAULT_CURRENT_DATE' ) %}
+    {% elseif settings.defaultType == constant( 'Ibexa\\Core\\Core\\FieldType\\DateAndTime\\Type::DEFAULT_CURRENT_DATE' ) %}
         {% set defaultValue = 'fielddefinition.default-value.current_datetime'|trans|desc("Current datetime") %}
     {% else %}
         {% set interval = settings.dateInterval %}
@@ -99,7 +99,7 @@
 
 {% block ezdate_settings %}
 <ul class="ez-fielddefinition-settings ez-fielddefinition-{{ fielddefinition.fieldTypeIdentifier }}-settings">
-    {% if settings.defaultType == constant( 'eZ\\Publish\\Core\\FieldType\\Date\\Type::DEFAULT_EMPTY' ) %}
+    {% if settings.defaultType == constant( 'Ibexa\\Core\\Core\\FieldType\\Date\\Type::DEFAULT_EMPTY' ) %}
         {% set defaultValue = 'fielddefinition.default-value.empty'|trans|desc("Empty") %}
     {% else %}
         {% set defaultValue = 'fielddefinition.default-value.current_date'|trans|desc("Current date") %}
@@ -110,7 +110,7 @@
 
 {% block eztime_settings %}
 <ul class="ez-fielddefinition-settings ez-fielddefinition-{{ fielddefinition.fieldTypeIdentifier }}-settings">
-    {% if settings.defaultType == constant( 'eZ\\Publish\\Core\\FieldType\\Time\\Type::DEFAULT_EMPTY' ) %}
+    {% if settings.defaultType == constant( 'Ibexa\\Core\\Core\\FieldType\\Time\\Type::DEFAULT_EMPTY' ) %}
         {% set defaultValue = 'fielddefinition.default-value.empty'|trans|desc("Empty") %}
     {% else %}
         {% set defaultValue = 'fielddefinition.default-value.current_time'|trans|desc("Current time") %}
@@ -257,7 +257,7 @@
 
 {% block ezauthor_settings %}
 <ul class="ez-fielddefinition-settings ez-fielddefinition-{{ fielddefinition.fieldTypeIdentifier }}-settings">
-    {% if settings.defaultType == constant( 'eZ\\Publish\\Core\\FieldType\\Author\\Type::DEFAULT_EMPTY' ) %}
+    {% if settings.defaultType == constant( 'Ibexa\\Core\\Core\\FieldType\\Author\\Type::DEFAULT_EMPTY' ) %}
         {% set defaultValue = 'fielddefinition.default-value.empty'|trans|desc("Empty") %}
     {% else %}
         {% set defaultValue = 'fielddefinition.default-value.current_author'|trans|desc("Current User") %}

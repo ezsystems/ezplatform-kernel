@@ -1,13 +1,13 @@
 services:
     ezpublish.api.repository_configuration_provider:
         public: true # @todo should be private
-        class: eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider
+        class: Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider
         arguments:
             - "@ezpublish.config.resolver"
             - "%ezpublish.repositories%"
 
     ezpublish.persistence.connection.factory:
-        class: eZ\Bundle\EzPublishCoreBundle\ApiLoader\StorageConnectionFactory
+        class: Ibexa\Bundle\Core\ApiLoader\StorageConnectionFactory
         arguments:
             - "@ezpublish.api.repository_configuration_provider"
         calls:

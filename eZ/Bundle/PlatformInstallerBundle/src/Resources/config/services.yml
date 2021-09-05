@@ -1,23 +1,23 @@
 services:
-    EzSystems\PlatformInstallerBundle\Event\Subscriber\BuildSchemaSubscriber:
+    Ibexa\Bundle\Installer\Event\Subscriber\BuildSchemaSubscriber:
         autoconfigure: true
         public: false
         arguments:
             - '@=service("kernel").locateResource("@EzPublishCoreBundle/Resources/config/storage/legacy/schema.yaml")'
 
-    EzSystems\PlatformInstallerBundle\Installer\DbBasedInstaller:
+    Ibexa\Bundle\Installer\Installer\DbBasedInstaller:
         abstract: true
         arguments: ["@ezpublish.persistence.connection"]
         lazy: true
 
-    EzSystems\PlatformInstallerBundle\Installer\CoreInstaller:
+    Ibexa\Bundle\Installer\Installer\CoreInstaller:
         autowire: true
-        parent: EzSystems\PlatformInstallerBundle\Installer\DbBasedInstaller
+        parent: Ibexa\Bundle\Installer\Installer\DbBasedInstaller
         tags:
             - { name: ezplatform.installer, type: clean } # left for BC, should be removed in Ibexa 4.0
             - { name: ezplatform.installer, type: ibexa-oss }
 
-    EzSystems\PlatformInstallerBundle\Command\InstallPlatformCommand:
+    Ibexa\Bundle\Installer\Command\InstallPlatformCommand:
         arguments:
             $connection: "@ezpublish.persistence.connection"
             $installers: []
@@ -27,9 +27,9 @@ services:
         tags:
             - { name: console.command }
 
-    EzSystems\PlatformInstallerBundle\Command\ValidatePasswordHashesCommand:
+    Ibexa\Bundle\Installer\Command\ValidatePasswordHashesCommand:
         arguments:
             $userStorage: '@ezpublish.fieldType.ezuser.externalStorage'
-            $passwordHashService: '@eZ\Publish\API\Repository\PasswordHashService'
+            $passwordHashService: '@Ibexa\Contracts\Core\Repository\PasswordHashService'
         tags:
             - { name: console.command }

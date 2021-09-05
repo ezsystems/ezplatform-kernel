@@ -22,7 +22,7 @@ services:
 
     # Override Slug Converter service to expose mutating Service configuration
     ezpublish.persistence.slug_converter:
-        class: eZ\Publish\API\Repository\Tests\Common\SlugConverter
+        class: Ibexa\Tests\Integration\Core\Repository\Common\SlugConverter
         arguments:
             - '@ezpublish.api.storage_engine.transformation_processor'
             - []
@@ -43,11 +43,11 @@ services:
     serializer:
         alias: ezpublish.field_type.ezgeneric.value_serializer.symfony.serializer
 
-    eZ\Publish\SPI\Tests\Variation\InMemoryVariationHandler: ~
-    eZ\Publish\SPI\Variation\VariationHandler: '@eZ\Publish\SPI\Tests\Variation\InMemoryVariationHandler'
+    Ibexa\Tests\Integration\Core\Persistence\Variation\InMemoryVariationHandler: ~
+    Ibexa\Contracts\Core\Variation\VariationHandler: '@Ibexa\Tests\Integration\Core\Persistence\Variation\InMemoryVariationHandler'
 
     ezpublish.config.resolver:
-        class: eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver
+        class: Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver
         arguments:
             - '@logger'
             - []
@@ -58,22 +58,22 @@ services:
             - [setDefaultScope, ['default']]
 
     ezpublish.siteaccess:
-        class: eZ\Publish\Core\MVC\Symfony\SiteAccess
+        class: Ibexa\Core\MVC\Symfony\SiteAccess
         arguments: ['default', 'uninitialized']
 
     ezpublish.siteaccess_service:
-        class: eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessService
+        class: Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService
         arguments:
             - '@ezpublish.siteaccess.provider'
             - '@ezpublish.config.resolver'
         calls:
             - [setSiteAccess, ['@ezpublish.siteaccess']]
 
-    eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface:
+    Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface:
         alias: 'ezpublish.siteaccess_service'
 
     ezpublish.siteaccess.provider.chain:
-        class: eZ\Publish\Core\MVC\Symfony\SiteAccess\Provider\ChainSiteAccessProvider
+        class: Ibexa\Core\MVC\Symfony\SiteAccess\Provider\ChainSiteAccessProvider
         arguments:
             $providers: !tagged ezplatform.siteaccess.provider
 

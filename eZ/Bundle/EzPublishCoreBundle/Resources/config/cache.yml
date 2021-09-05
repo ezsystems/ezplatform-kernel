@@ -6,12 +6,12 @@ services:
         arguments: ["@ezpublish.config.resolver"]
 
     ezpublish.cache_pool.factory:
-        class: eZ\Bundle\EzPublishCoreBundle\ApiLoader\CacheFactory
+        class: Ibexa\Bundle\Core\ApiLoader\CacheFactory
         calls:
             - [setContainer, ["@service_container"]]
 
-    eZ\Bundle\EzPublishCoreBundle\Cache\Warmer\ProxyCacheWarmer:
+    Ibexa\Bundle\Core\Cache\Warmer\ProxyCacheWarmer:
         arguments:
-            - '@eZ\Publish\Core\Repository\ProxyFactory\ProxyGeneratorInterface'
+            - '@Ibexa\Core\Repository\ProxyFactory\ProxyGeneratorInterface'
         tags:
             - { name: kernel.cache_warmer }

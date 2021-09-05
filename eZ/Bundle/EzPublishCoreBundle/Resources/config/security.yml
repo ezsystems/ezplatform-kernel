@@ -1,44 +1,44 @@
 services:
     ezpublish.security.user_provider.username:
-        class: eZ\Publish\Core\MVC\Symfony\Security\User\UsernameProvider
+        class: Ibexa\Core\MVC\Symfony\Security\User\UsernameProvider
         arguments:
-            - '@eZ\Publish\API\Repository\UserService'
-            - '@eZ\Publish\API\Repository\PermissionResolver'
+            - '@Ibexa\Contracts\Core\Repository\UserService'
+            - '@Ibexa\Contracts\Core\Repository\PermissionResolver'
 
     ezpublish.security.user_provider.email:
-        class: eZ\Publish\Core\MVC\Symfony\Security\User\EmailProvider
+        class: Ibexa\Core\MVC\Symfony\Security\User\EmailProvider
         arguments:
-            - '@eZ\Publish\API\Repository\UserService'
-            - '@eZ\Publish\API\Repository\PermissionResolver'
+            - '@Ibexa\Contracts\Core\Repository\UserService'
+            - '@Ibexa\Contracts\Core\Repository\PermissionResolver'
 
-    eZ\Publish\Core\MVC\Symfony\Security\UserChecker:
+    Ibexa\Core\MVC\Symfony\Security\UserChecker:
         arguments:
-            - '@eZ\Publish\API\Repository\UserService'
+            - '@Ibexa\Contracts\Core\Repository\UserService'
 
     ezpublish.security.voter.core:
-        class: eZ\Publish\Core\MVC\Symfony\Security\Authorization\Voter\CoreVoter
-        arguments: ['@eZ\Publish\API\Repository\PermissionResolver']
+        class: Ibexa\Core\MVC\Symfony\Security\Authorization\Voter\CoreVoter
+        arguments: ['@Ibexa\Contracts\Core\Repository\PermissionResolver']
         public: false
         tags:
             - { name: security.voter }
 
     ezpublish.security.voter.value_object:
-        class: eZ\Publish\Core\MVC\Symfony\Security\Authorization\Voter\ValueObjectVoter
-        arguments: ['@eZ\Publish\API\Repository\PermissionResolver']
+        class: Ibexa\Core\MVC\Symfony\Security\Authorization\Voter\ValueObjectVoter
+        arguments: ['@Ibexa\Contracts\Core\Repository\PermissionResolver']
         public: false
         tags:
             - { name: security.voter }
 
     ezpublish.security.controller:
         public: true
-        class: eZ\Publish\Core\MVC\Symfony\Controller\SecurityController
+        class: Ibexa\Core\MVC\Symfony\Controller\SecurityController
         arguments: ["@twig", "@ezpublish.config.resolver", "@security.authentication_utils"]
 
     ezpublish.security.login_listener:
-        class: eZ\Publish\Core\MVC\Symfony\Security\EventListener\SecurityListener
+        class: Ibexa\Core\MVC\Symfony\Security\EventListener\SecurityListener
         arguments:
-            - '@eZ\Publish\API\Repository\PermissionResolver'
-            - '@eZ\Publish\API\Repository\UserService'
+            - '@Ibexa\Contracts\Core\Repository\PermissionResolver'
+            - '@Ibexa\Contracts\Core\Repository\UserService'
             - "@ezpublish.config.resolver"
             - "@event_dispatcher"
             - "@security.token_storage"

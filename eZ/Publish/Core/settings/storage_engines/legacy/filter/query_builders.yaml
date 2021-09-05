@@ -6,9 +6,9 @@ services:
         bind:
             $transformationProcessor: '@ezpublish.api.storage_engine.transformation_processor'
 
-    eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\:
-        resource: '../../../../Persistence/Legacy/Filter/CriterionQueryBuilder/*'
+    Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\:
+        resource: '../../../../../Persistence/Legacy/Filter/CriterionQueryBuilder/*'
 
-    eZ\Publish\Core\Persistence\Legacy\Filter\SortClauseQueryBuilder\:
-        resource: '../../../../Persistence/Legacy/Filter/SortClauseQueryBuilder/*'
+    Ibexa\Core\Persistence\Legacy\Filter\SortClauseQueryBuilder\:
+        resource: '../../../../../Persistence/Legacy/Filter/SortClauseQueryBuilder/*'
 

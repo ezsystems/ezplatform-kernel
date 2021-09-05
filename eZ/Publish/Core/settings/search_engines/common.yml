@@ -27,16 +27,16 @@ services:
     # Note: services tagged with 'ezplatform.field_type.indexable'
     # are registered to this one using compilation pass
     ezpublish.search.common.field_registry:
-        class: eZ\Publish\Core\Search\Common\FieldRegistry
+        class: Ibexa\Core\Search\Common\FieldRegistry
 
     # Mapping for our internal search field types
     ezpublish.search.common.field_name_generator:
-        class: eZ\Publish\Core\Search\Common\FieldNameGenerator
+        class: Ibexa\Core\Search\Common\FieldNameGenerator
         arguments:
             - "%ezpublish.search.common.field_name_generator.map%"
 
     ezpublish.search.common.field_name_resolver:
-        class: eZ\Publish\Core\Search\Common\FieldNameResolver
+        class: Ibexa\Core\Search\Common\FieldNameResolver
         arguments:
             - "@ezpublish.search.common.field_registry"
             - "@ezpublish.spi.persistence.content_type_handler"
@@ -45,9 +45,9 @@ services:
     # Note: services tagged with 'ezpublish.search.common.field_value_mapper'
     # are registered to this one using compilation pass
     ezpublish.search.common.field_value_mapper.aggregate:
-        class: eZ\Publish\Core\Search\Common\FieldValueMapper\Aggregate
+        class: Ibexa\Core\Search\Common\FieldValueMapper\Aggregate
 
-    eZ\Publish\Core\Search\Common\EventSubscriber\:
+    Ibexa\Core\Core\Search\Common\EventSubscriber\:
         resource: '../../Search/Common/EventSubscriber/*'
         exclude: '../../Search/Common/EventSubscriber/{AbstractSearchEventSubscriber.php}'
         autoconfigure: true

@@ -22,7 +22,7 @@ imports:
 
 services:
     ezpublish.spi.persistence.legacy:
-        class: eZ\Publish\Core\Persistence\Legacy\Handler
+        class: Ibexa\Core\Persistence\Legacy\Handler
         arguments:
             - "@ezpublish.spi.persistence.legacy.content.handler"
             - "@ezpublish.spi.persistence.legacy.content_type.handler"
@@ -48,7 +48,7 @@ services:
     ezpublish.api.storage_engine.legacy.connection: '@ezpublish.persistence.connection'
 
     ezpublish.spi.persistence.legacy.transactionhandler:
-        class: eZ\Publish\Core\Persistence\Legacy\TransactionHandler
+        class: Ibexa\Core\Persistence\Legacy\TransactionHandler
         arguments:
             $connection: '@ezpublish.api.storage_engine.legacy.connection'
             $contentTypeHandler: '@ezpublish.spi.persistence.legacy.content_type.handler.caching'

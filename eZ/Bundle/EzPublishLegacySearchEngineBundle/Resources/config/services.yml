@@ -1,6 +1,6 @@
 services:
     ezpublish.search.legacy.connection.factory:
-        class: eZ\Bundle\EzPublishLegacySearchEngineBundle\ApiLoader\ConnectionFactory
+        class: Ibexa\Bundle\LegacySearchEngine\ApiLoader\ConnectionFactory
         arguments:
             - "@ezpublish.api.repository_configuration_provider"
         calls:

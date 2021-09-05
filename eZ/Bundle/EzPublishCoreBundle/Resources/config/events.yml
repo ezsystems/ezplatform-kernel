@@ -4,5 +4,5 @@ services:
         autoconfigure: true
         public: false
 
-    eZ\Publish\Core\Repository\EventSubscriber\:
+    Ibexa\Core\Core\Repository\EventSubscriber\:
         resource: '../../../eZ/Publish/Core/Repository/EventSubscriber/*'

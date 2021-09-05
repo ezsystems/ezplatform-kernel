@@ -24,29 +24,29 @@ parameters:
 
 services:
     ezpublish.persistence.field_type_registry:
-        class: eZ\Publish\Core\Persistence\FieldTypeRegistry
+        class: Ibexa\Core\Persistence\FieldTypeRegistry
 
     ezpublish.persistence.external_storage_registry:
-        class: eZ\Publish\Core\Persistence\Legacy\Content\StorageRegistry
+        class: Ibexa\Core\Persistence\Legacy\Content\StorageRegistry
 
     ezpublish.persistence.slug_converter:
-        class: eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter
+        class: Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter
         arguments:
             - '@ezpublish.api.storage_engine.transformation_processor'
             - []
 
     ezpublish.api.storage_engine.transformation_parser:
-        class: eZ\Publish\Core\Persistence\TransformationProcessor\DefinitionBased\Parser
+        class: Ibexa\Core\Persistence\TransformationProcessor\DefinitionBased\Parser
 
     ezpublish.api.storage_engine.pcre_compiler:
-        class: eZ\Publish\Core\Persistence\TransformationProcessor\PcreCompiler
+        class: Ibexa\Core\Persistence\TransformationProcessor\PcreCompiler
         arguments: ["@ezpublish.api.storage_engine.transformation_converter"]
 
     ezpublish.api.storage_engine.transformation_converter:
-        class: eZ\Publish\Core\Persistence\Utf8Converter
+        class: Ibexa\Core\Persistence\Utf8Converter
 
     ezpublish.api.storage_engine.transformation_processor:
-        class: eZ\Publish\Core\Persistence\TransformationProcessor\PreprocessedBased
+        class: Ibexa\Core\Persistence\TransformationProcessor\PreprocessedBased
         arguments:
             # Using definition files:
             #
@@ -65,6 +65,6 @@ services:
     ibexa.repository.transaction_handler:
         alias: ezpublish.spi.persistence.cache.transactionhandler
 
-    eZ\Publish\SPI\Persistence\TransactionHandler:
+    Ibexa\Contracts\Core\Persistence\TransactionHandler:
         alias: ibexa.repository.transaction_handler
 
