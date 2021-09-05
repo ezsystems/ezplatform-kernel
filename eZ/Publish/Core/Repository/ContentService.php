@@ -1717,8 +1717,9 @@ class ContentService implements ContentServiceInterface
             null,
             2
         );
+        $versionsCount = count($versionList);
 
-        if (count($versionList) === 1 && !$versionInfo->isDraft()) {
+        if ($versionsCount === 1 && !$versionInfo->isDraft()) {
             throw new BadStateException(
                 '$versionInfo',
                 'The Version is the last version of the Content item and cannot be removed'
@@ -1727,10 +1728,12 @@ class ContentService implements ContentServiceInterface
 
         $this->repository->beginTransaction();
         try {
-            $this->persistenceHandler->contentHandler()->deleteVersion(
+            $versionsCount === 1 && $versionInfo->isDraft()
+            ? $this->persistenceHandler->contentHandler()->deleteContent($versionInfo->contentInfo->id)
+            : $this->persistenceHandler->contentHandler()->deleteVersion(
                 $versionInfo->getContentInfo()->id,
                 $versionInfo->versionNo
-            );
+              );
             $this->repository->commit();
         } catch (Exception $e) {
             $this->repository->rollback();
