@@ -60,13 +60,13 @@ final class ContentFilteringAdapterTest extends TestCase
 
         $adapter = new ContentFilteringAdapter($contentService, $originalFilter, self::EXAMPLE_LANGUAGE_FILTER);
 
-        self::assertEqualsCanonicalizing(
+        self::assertSame(
             $expectedResults,
             iterator_to_array($adapter->fetch(self::EXAMPLE_OFFSET, self::EXAMPLE_LIMIT))
         );
 
         // Input $filter remains untouched
-        self::assertEquals(0, $originalFilter->getOffset());
-        self::assertEquals(0, $originalFilter->getLimit());
+        self::assertSame(0, $originalFilter->getOffset());
+        self::assertSame(0, $originalFilter->getLimit());
     }
 }

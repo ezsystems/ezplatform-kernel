@@ -28,14 +28,24 @@ final class LocationFilteringAdapterTest extends TestCase
      */
     public function testFetch(): void
     {
+        $location1 = $this->createMock(Location::class);
+        $location2 = $this->createMock(Location::class);
+        $location3 = $this->createMock(Location::class);
+
         $locationList = new LocationList([
             'locations' => [
-                $this->createMock(Location::class),
-                $this->createMock(Location::class),
-                $this->createMock(Location::class),
+                $location1,
+                $location2,
+                $location3,
             ],
             'totalCount' => 3,
         ]);
+
+        $expectedResults = [
+            $location1,
+            $location2,
+            $location3,
+        ];
 
         $originalFilter = new Filter();
         $originalFilter->withCriterion(new MatchAll());
@@ -53,13 +63,13 @@ final class LocationFilteringAdapterTest extends TestCase
 
         $adapter = new LocationFilteringAdapter($locationService, $originalFilter, self::EXAMPLE_LANGUAGE_FILTER);
 
-        self::assertEqualsCanonicalizing(
-            $locationList->getIterator(),
-            $adapter->fetch(self::EXAMPLE_OFFSET, self::EXAMPLE_LIMIT)
+        self::assertSame(
+            $expectedResults,
+            iterator_to_array($adapter->fetch(self::EXAMPLE_OFFSET, self::EXAMPLE_LIMIT))
         );
 
         // Input $filter remains untouched
-        self::assertEquals(0, $originalFilter->getOffset());
-        self::assertEquals(0, $originalFilter->getLimit());
+        self::assertSame(0, $originalFilter->getOffset());
+        self::assertSame(0, $originalFilter->getLimit());
     }
 }
