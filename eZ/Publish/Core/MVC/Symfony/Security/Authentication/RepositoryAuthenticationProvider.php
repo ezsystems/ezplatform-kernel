@@ -39,6 +39,8 @@ class RepositoryAuthenticationProvider extends DaoAuthenticationProvider
     {
         if (!$user instanceof EzUserInterface) {
             parent::checkAuthentication($user, $token);
+            
+            return;
         }
 
         $apiUser = $user->getAPIUser();
