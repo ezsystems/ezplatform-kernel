@@ -1728,7 +1728,7 @@ class ContentService implements ContentServiceInterface
 
         $this->repository->beginTransaction();
         try {
-            $versionsCount === 1 && $versionInfo->isDraft()
+            $versionsCount === 1
             ? $this->persistenceHandler->contentHandler()->deleteContent($versionInfo->contentInfo->id)
             : $this->persistenceHandler->contentHandler()->deleteVersion(
                 $versionInfo->getContentInfo()->id,
