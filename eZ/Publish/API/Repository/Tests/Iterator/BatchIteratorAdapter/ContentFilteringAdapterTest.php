@@ -22,6 +22,10 @@ final class ContentFilteringAdapterTest extends TestCase
     private const EXAMPLE_OFFSET = 10;
     private const EXAMPLE_LIMIT = 25;
 
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     */
     public function testFetch(): void
     {
         $contentList = new ContentList(3, [
@@ -46,13 +50,13 @@ final class ContentFilteringAdapterTest extends TestCase
 
         $adapter = new ContentFilteringAdapter($contentService, $originalFilter, self::EXAMPLE_LANGUAGE_FILTER);
 
-        $this->assertSame(
+        self::assertEqualsCanonicalizing(
             $contentList->getIterator(),
             $adapter->fetch(self::EXAMPLE_OFFSET, self::EXAMPLE_LIMIT)
         );
 
-        // Input $filter reminds untouched
-        $this->assertEquals(0, $originalFilter->getOffset());
-        $this->assertEquals(0, $originalFilter->getLimit());
+        // Input $filter remains untouched
+        self::assertEquals(0, $originalFilter->getOffset());
+        self::assertEquals(0, $originalFilter->getLimit());
     }
 }
