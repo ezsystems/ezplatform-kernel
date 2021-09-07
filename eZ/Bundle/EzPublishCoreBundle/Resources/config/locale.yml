@@ -58,7 +58,7 @@ parameters:
 
     ezpublish.locale.browser_map:
         au: ['eng-AU']
-        be: ['fre-BE', 'dut-BE']
+        be: ['fre-BE', 'dut-BE', 'ger-BE']
         br: ['por-BR']
         ca: ['eng-CA']
         cn: ['chi-CN']
