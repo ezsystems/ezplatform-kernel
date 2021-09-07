@@ -22,16 +22,30 @@ final class LocationFilteringAdapterTest extends TestCase
     private const EXAMPLE_OFFSET = 10;
     private const EXAMPLE_LIMIT = 25;
 
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     */
     public function testFetch(): void
     {
+        $location1 = $this->createMock(Location::class);
+        $location2 = $this->createMock(Location::class);
+        $location3 = $this->createMock(Location::class);
+
         $locationList = new LocationList([
             'locations' => [
-                $this->createMock(Location::class),
-                $this->createMock(Location::class),
-                $this->createMock(Location::class),
+                $location1,
+                $location2,
+                $location3,
             ],
             'totalCount' => 3,
         ]);
+
+        $expectedResults = [
+            $location1,
+            $location2,
+            $location3,
+        ];
 
         $originalFilter = new Filter();
         $originalFilter->withCriterion(new MatchAll());
@@ -49,13 +63,13 @@ final class LocationFilteringAdapterTest extends TestCase
 
         $adapter = new LocationFilteringAdapter($locationService, $originalFilter, self::EXAMPLE_LANGUAGE_FILTER);
 
-        $this->assertSame(
-            $locationList->getIterator(),
-            $adapter->fetch(self::EXAMPLE_OFFSET, self::EXAMPLE_LIMIT)
+        self::assertSame(
+            $expectedResults,
+            iterator_to_array($adapter->fetch(self::EXAMPLE_OFFSET, self::EXAMPLE_LIMIT))
         );
 
-        // Input $filter reminds untouched
-        $this->assertEquals(0, $originalFilter->getOffset());
-        $this->assertEquals(0, $originalFilter->getLimit());
+        // Input $filter remains untouched
+        self::assertSame(0, $originalFilter->getOffset());
+        self::assertSame(0, $originalFilter->getLimit());
     }
 }
