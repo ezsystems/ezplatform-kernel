@@ -10,6 +10,7 @@ parameters:
         cro-HR: hr_HR
         cze-CZ: cs_CZ
         dan-DK: da_DK
+        dut-BE: nl_BE
         dut-NL: nl_NL
         ell-GR: el_GR
         eng-AU: en_AU
@@ -26,6 +27,7 @@ parameters:
         fre-CA: fr_CA
         fre-CH: fr_CH
         fre-FR: fr_FR
+        ger-BE: de_BE
         ger-CH: de_CH
         ger-DE: de_DE
         heb-IL: he_IL
@@ -56,7 +58,7 @@ parameters:
 
     ezpublish.locale.browser_map:
         au: ['eng-AU']
-        be: ['fre-BE']
+        be: ['fre-BE', 'dut-BE', 'ger-BE']
         br: ['por-BR']
         ca: ['eng-CA']
         cn: ['chi-CN']
