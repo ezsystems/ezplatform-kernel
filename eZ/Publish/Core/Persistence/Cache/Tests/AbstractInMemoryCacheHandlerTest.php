@@ -52,11 +52,14 @@ abstract class AbstractInMemoryCacheHandlerTest extends AbstractBaseHandlerTest
             ->method($handlerMethodName)
             ->willReturn($innerHandler);
 
-        $innerHandler
+        $invocationMocker = $innerHandler
             ->expects($callInnerHandler ? $this->once() : $this->never())
             ->method($method)
-            ->with(...$arguments)
-            ->willReturn($returnValue);
+            ->with(...$arguments);
+        // workaround for mocking void-returning methods, null in this case denotes that, not null value
+        if (null !== $returnValue) {
+            $invocationMocker->willReturn($returnValue);
+        }
 
         if ($tags || $key) {
             if ($tagGeneratingArguments) {
