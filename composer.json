@@ -36,7 +36,7 @@
         "symfony/expression-language": "^5.3.0",
         "symfony/validator": "^5.3.0",
         "symfony/var-dumper": "^5.3.0",
-        "ezsystems/doctrine-dbal-schema": "^2.0@dev",
+        "ezsystems/doctrine-dbal-schema": "^4.0@dev",
         "symfony-cmf/routing": "^2.3",
         "guzzlehttp/guzzle": "^6.5",
         "php-http/guzzle6-adapter": "^2.0",
