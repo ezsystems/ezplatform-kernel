@@ -7,6 +7,7 @@
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Language;
 
 use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface;
 use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\SPI\Persistence\Content\Language;
 use eZ\Publish\SPI\Persistence\Content\Language\CreateStruct as SPILanguageCreateStruct;
@@ -41,6 +42,9 @@ class CachingLanguageHandlerTest extends TestCase
      */
     protected $languageCacheMock;
 
+    /** @var \Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface */
+    protected $cacheIdentifierGeneratorMock;
+
     /**
      * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler::create
      */
@@ -58,7 +62,7 @@ class CachingLanguageHandlerTest extends TestCase
                 $this->isInstanceOf(
                     SPILanguageCreateStruct::class
                 )
-            )->will($this->returnValue($languageFixture));
+            )->willReturn($languageFixture);
 
         $cacheMock->expects($this->once())
             ->method('setMulti')
@@ -127,10 +131,16 @@ class CachingLanguageHandlerTest extends TestCase
     {
         $handler = $this->getLanguageHandler();
         $cacheMock = $this->getLanguageCacheMock();
+        $cacheIdentifierGeneratorMock = $this->getCacheIdentifierGeneratorMock();
+
+        $cacheIdentifierGeneratorMock->expects($this->once())
+            ->method('generateKey')
+            ->with('language', [2], true)
+            ->willReturn('ibx-la-2');
 
         $cacheMock->expects($this->once())
             ->method('get')
-            ->with($this->equalTo('ez-language-2'))
+            ->with($this->equalTo('ibx-la-2'))
             ->willReturn($this->getLanguageFixture());
 
         $result = $handler->load(2);
@@ -149,10 +159,16 @@ class CachingLanguageHandlerTest extends TestCase
         $handler = $this->getLanguageHandler();
         $cacheMock = $this->getLanguageCacheMock();
         $innerHandlerMock = $this->getInnerLanguageHandlerMock();
+        $cacheIdentifierGeneratorMock = $this->getCacheIdentifierGeneratorMock();
+
+        $cacheIdentifierGeneratorMock->expects($this->once())
+            ->method('generateKey')
+            ->with('language', [2], true)
+            ->willReturn('ibx-la-2');
 
         $cacheMock->expects($this->once())
             ->method('get')
-            ->with($this->equalTo('ez-language-2'))
+            ->with($this->equalTo('ibx-la-2'))
             ->willReturn(null);
 
         $innerHandlerMock->expects($this->once())
@@ -175,10 +191,16 @@ class CachingLanguageHandlerTest extends TestCase
     {
         $handler = $this->getLanguageHandler();
         $cacheMock = $this->getLanguageCacheMock();
+        $cacheIdentifierGeneratorMock = $this->getCacheIdentifierGeneratorMock();
+
+        $cacheIdentifierGeneratorMock->expects($this->once())
+            ->method('generateKey')
+            ->with('language_code', ['eng-US'], true)
+            ->willReturn('ibx-lac-eng-US');
 
         $cacheMock->expects($this->once())
             ->method('get')
-            ->with($this->equalTo('ez-language-code-eng-US'))
+            ->with($this->equalTo('ibx-lac-eng-US'))
             ->willReturn($this->getLanguageFixture());
 
         $result = $handler->loadByLanguageCode('eng-US');
@@ -197,10 +219,16 @@ class CachingLanguageHandlerTest extends TestCase
         $handler = $this->getLanguageHandler();
         $cacheMock = $this->getLanguageCacheMock();
         $innerHandlerMock = $this->getInnerLanguageHandlerMock();
+        $cacheIdentifierGeneratorMock = $this->getCacheIdentifierGeneratorMock();
+
+        $cacheIdentifierGeneratorMock->expects($this->once())
+            ->method('generateKey')
+            ->with('language_code', ['eng-US'], true)
+            ->willReturn('ibx-lac-eng-US');
 
         $cacheMock->expects($this->once())
             ->method('get')
-            ->with($this->equalTo('ez-language-code-eng-US'))
+            ->with($this->equalTo('ibx-lac-eng-US'))
             ->willReturn(null);
 
         $innerHandlerMock->expects($this->once())
@@ -223,16 +251,21 @@ class CachingLanguageHandlerTest extends TestCase
     {
         $handler = $this->getLanguageHandler();
         $cacheMock = $this->getLanguageCacheMock();
+        $cacheIdentifierGeneratorMock = $this->getCacheIdentifierGeneratorMock();
+
+        $cacheIdentifierGeneratorMock->expects($this->once())
+            ->method('generateKey')
+            ->with('language_list', [], true)
+            ->willReturn('ibx-lal');
 
         $cacheMock->expects($this->once())
             ->method('get')
-            ->with($this->equalTo('ez-language-list'))
+            ->with($this->equalTo('ibx-lal'))
             ->willReturn([]);
 
         $result = $handler->loadAll();
 
-        $this->assertIsArray($result
-        );
+        $this->assertIsArray($result);
     }
 
     /**
@@ -243,6 +276,18 @@ class CachingLanguageHandlerTest extends TestCase
         $handler = $this->getLanguageHandler();
         $cacheMock = $this->getLanguageCacheMock();
         $innerHandlerMock = $this->getInnerLanguageHandlerMock();
+        $cacheIdentifierGeneratorMock = $this->getCacheIdentifierGeneratorMock();
+
+        $cacheIdentifierGeneratorMock->expects($this->exactly(2))
+            ->method('generateKey')
+            ->withConsecutive(
+                ['language', [2], true],
+                ['language_list', [], true]
+            )
+            ->willReturnOnConsecutiveCalls(
+                'ibx-la-2',
+                'ibx-lal'
+            );
 
         $innerHandlerMock->expects($this->once())
             ->method('delete')
@@ -250,9 +295,9 @@ class CachingLanguageHandlerTest extends TestCase
 
         $cacheMock->expects($this->once())
             ->method('deleteMulti')
-            ->with($this->equalTo(['ez-language-2', 'ez-language-list']));
+            ->with($this->equalTo(['ibx-la-2', 'ibx-lal']));
 
-        $result = $handler->delete(2);
+        $handler->delete(2);
     }
 
     /**
@@ -265,7 +310,8 @@ class CachingLanguageHandlerTest extends TestCase
         if (!isset($this->languageHandler)) {
             $this->languageHandler = new CachingHandler(
                 $this->getInnerLanguageHandlerMock(),
-                $this->getLanguageCacheMock()
+                $this->getLanguageCacheMock(),
+                $this->getCacheIdentifierGeneratorMock()
             );
         }
 
@@ -298,6 +344,18 @@ class CachingLanguageHandlerTest extends TestCase
         }
 
         return $this->languageCacheMock;
+    }
+
+    /**
+     * @return \Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected function getCacheIdentifierGeneratorMock()
+    {
+        if (!isset($this->cacheIdentifierGeneratorMock)) {
+            $this->cacheIdentifierGeneratorMock = $this->createMock(CacheIdentifierGeneratorInterface::class);
+        }
+
+        return $this->cacheIdentifierGeneratorMock;
     }
 
     /**

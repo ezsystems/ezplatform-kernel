@@ -42,6 +42,7 @@ use eZ\Publish\Core\Base\Container\Compiler\Storage\Legacy\FieldValueConverterRe
 use eZ\Publish\Core\Base\Container\Compiler\Storage\Legacy\RoleLimitationConverterPass;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser as ConfigParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Repository as RepositoryConfigParser;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Security\HttpBasicFactory;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\URLHandlerPass;
 use eZ\Publish\SPI\MVC\View\VariableProvider;
@@ -101,26 +102,34 @@ class EzPublishCoreBundle extends Bundle
     public function getContainerExtension()
     {
         if (!isset($this->extension)) {
-            $this->extension = new EzPublishCoreExtension([
-                // LocationView config parser needs to be specified AFTER ContentView config
-                // parser since it is used to convert location view override rules to content
-                // view override rules. If it were specified before, ContentView provider would
-                // just undo the conversion LocationView did.
-                new ConfigParser\ContentView(),
-                new ConfigParser\LocationView(),
-                new ConfigParser\Common(),
-                new ConfigParser\Content(),
-                new ConfigParser\FieldType\ImageAsset(),
-                new ConfigParser\FieldTemplates(),
-                new ConfigParser\FieldEditTemplates(),
-                new ConfigParser\FieldDefinitionSettingsTemplates(),
-                new ConfigParser\FieldDefinitionEditTemplates(),
-                new ConfigParser\Image(),
-                new ConfigParser\Languages(),
-                new ConfigParser\IO(new ComplexSettingParser()),
-                new ConfigParser\UrlChecker(),
-                new ConfigParser\TwigVariablesParser(),
-            ]);
+            $this->extension = new EzPublishCoreExtension(
+                [
+                    // LocationView config parser needs to be specified AFTER ContentView config
+                    // parser since it is used to convert location view override rules to content
+                    // view override rules. If it were specified before, ContentView provider would
+                    // just undo the conversion LocationView did.
+                    new ConfigParser\ContentView(),
+                    new ConfigParser\LocationView(),
+                    new ConfigParser\Common(),
+                    new ConfigParser\Content(),
+                    new ConfigParser\FieldType\ImageAsset(),
+                    new ConfigParser\FieldTemplates(),
+                    new ConfigParser\FieldEditTemplates(),
+                    new ConfigParser\FieldDefinitionSettingsTemplates(),
+                    new ConfigParser\FieldDefinitionEditTemplates(),
+                    new ConfigParser\Image(),
+                    new ConfigParser\Languages(),
+                    new ConfigParser\IO(new ComplexSettingParser()),
+                    new ConfigParser\UrlChecker(),
+                    new ConfigParser\TwigVariablesParser(),
+                ],
+                [
+                    new RepositoryConfigParser\Storage(),
+                    new RepositoryConfigParser\Search(),
+                    new RepositoryConfigParser\FieldGroups(),
+                    new RepositoryConfigParser\Options(),
+                ]
+            );
         }
 
         return $this->extension;

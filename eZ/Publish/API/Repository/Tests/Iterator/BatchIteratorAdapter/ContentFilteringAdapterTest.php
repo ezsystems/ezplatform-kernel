@@ -22,13 +22,27 @@ final class ContentFilteringAdapterTest extends TestCase
     private const EXAMPLE_OFFSET = 10;
     private const EXAMPLE_LIMIT = 25;
 
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     */
     public function testFetch(): void
     {
+        $content1 = $this->createMock(Content::class);
+        $content2 = $this->createMock(Content::class);
+        $content3 = $this->createMock(Content::class);
+
         $contentList = new ContentList(3, [
-            $this->createMock(Content::class),
-            $this->createMock(Content::class),
-            $this->createMock(Content::class),
+            $content1,
+            $content2,
+            $content3,
         ]);
+
+        $expectedResults = [
+            $content1,
+            $content2,
+            $content3,
+        ];
 
         $originalFilter = new Filter();
         $originalFilter->withCriterion(new MatchAll());
@@ -46,13 +60,13 @@ final class ContentFilteringAdapterTest extends TestCase
 
         $adapter = new ContentFilteringAdapter($contentService, $originalFilter, self::EXAMPLE_LANGUAGE_FILTER);
 
-        $this->assertSame(
-            $contentList->getIterator(),
-            $adapter->fetch(self::EXAMPLE_OFFSET, self::EXAMPLE_LIMIT)
+        self::assertSame(
+            $expectedResults,
+            iterator_to_array($adapter->fetch(self::EXAMPLE_OFFSET, self::EXAMPLE_LIMIT))
         );
 
-        // Input $filter reminds untouched
-        $this->assertEquals(0, $originalFilter->getOffset());
-        $this->assertEquals(0, $originalFilter->getLimit());
+        // Input $filter remains untouched
+        self::assertSame(0, $originalFilter->getOffset());
+        self::assertSame(0, $originalFilter->getLimit());
     }
 }

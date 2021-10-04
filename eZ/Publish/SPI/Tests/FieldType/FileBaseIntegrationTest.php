@@ -172,7 +172,7 @@ abstract class FileBaseIntegrationTest extends BaseIntegrationTest
 
         $containerBuilder->addCompilerPass(new SetAllServicesPublicPass());
 
-        $containerBuilder->compile(true);
+        $containerBuilder->compile();
 
         return $containerBuilder;
     }

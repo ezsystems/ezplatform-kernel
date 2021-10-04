@@ -20,6 +20,8 @@ use eZ\Publish\Core\QueryType\QueryType;
 use eZ\Publish\SPI\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
 use eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder as FilteringCriterionQueryBuilder;
 use eZ\Publish\SPI\Repository\Values\Filter\SortClauseQueryBuilder as FilteringSortClauseQueryBuilder;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParserInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -44,8 +46,14 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
     /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface */
     private $mainConfigParser;
 
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParser */
+    private $mainRepositoryConfigParser;
+
     /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface[] */
-    private $configParsers;
+    private $siteAccessConfigParsers;
+
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParserInterface[] */
+    private $repositoryConfigParsers = [];
 
     /** @var PolicyProviderInterface[] */
     private $policyProviders = [];
@@ -61,9 +69,10 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
     /** @var \eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessConfigurationFilter[] */
     private $siteaccessConfigurationFilters = [];
 
-    public function __construct(array $configParsers = [])
+    public function __construct(array $siteAccessConfigParsers = [], array $repositoryConfigParsers = [])
     {
-        $this->configParsers = $configParsers;
+        $this->siteAccessConfigParsers = $siteAccessConfigParsers;
+        $this->repositoryConfigParsers = $repositoryConfigParsers;
         $this->suggestionCollector = new SuggestionCollector();
     }
 
@@ -160,7 +169,12 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
      */
     public function getConfiguration(array $config, ContainerBuilder $container)
     {
-        $configuration = new Configuration($this->getMainConfigParser(), $this->suggestionCollector);
+        $configuration = new Configuration(
+            $this->getMainConfigParser(),
+            $this->getMainRepositoryConfigParser(),
+            $this->suggestionCollector
+        );
+
         $configuration->setSiteAccessConfigurationFilters($this->siteaccessConfigurationFilters);
 
         return $configuration;
@@ -181,16 +195,31 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
     private function getMainConfigParser()
     {
         if ($this->mainConfigParser === null) {
-            foreach ($this->configParsers as $parser) {
+            foreach ($this->siteAccessConfigParsers as $parser) {
                 if ($parser instanceof SuggestionCollectorAwareInterface) {
                     $parser->setSuggestionCollector($this->suggestionCollector);
                 }
             }
 
-            $this->mainConfigParser = new ConfigParser($this->configParsers);
+            $this->mainConfigParser = new ConfigParser($this->siteAccessConfigParsers);
         }
 
         return $this->mainConfigParser;
+    }
+
+    private function getMainRepositoryConfigParser(): RepositoryConfigParserInterface
+    {
+        if (!isset($this->mainRepositoryConfigParser)) {
+            foreach ($this->repositoryConfigParsers as $parser) {
+                if ($parser instanceof SuggestionCollectorAwareInterface) {
+                    $parser->setSuggestionCollector($this->suggestionCollector);
+                }
+            }
+
+            $this->mainRepositoryConfigParser = new RepositoryConfigParser($this->repositoryConfigParsers);
+        }
+
+        return $this->mainRepositoryConfigParser;
     }
 
     /**
@@ -504,7 +533,12 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
      */
     public function addConfigParser(ParserInterface $configParser)
     {
-        $this->configParsers[] = $configParser;
+        $this->siteAccessConfigParsers[] = $configParser;
+    }
+
+    public function addRepositoryConfigParser(RepositoryConfigParserInterface $configParser): void
+    {
+        $this->repositoryConfigParsers[] = $configParser;
     }
 
     /**
