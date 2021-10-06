@@ -1,3 +1,6 @@
+parameters:
+    env(SEARCH_ENGINE): 'legacy'
+
 ezpublish:
     siteaccess:
           default_siteaccess: '__default_site_access__'
@@ -12,5 +15,5 @@ ezpublish:
         default:
             storage: ~
             search:
-                engine: legacy
+                engine: '%env(SEARCH_ENGINE)%'
                 connection: default
