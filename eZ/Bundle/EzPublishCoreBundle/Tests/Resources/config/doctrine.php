@@ -11,8 +11,12 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 use EzSystems\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform;
 
 return static function (ContainerConfigurator $container): void {
+    if (!isset($_ENV['DATABASE_URL'])) {
+        $_ENV['DATABASE_URL'] = 'sqlite://:memory:';
+    }
+
     $platform = null;
-    if (substr(getenv('DATABASE_URL'), 0, strlen('sqlite://')) === 'sqlite://') {
+    if (substr($_ENV['DATABASE_URL'], 0, strlen('sqlite://')) === 'sqlite://') {
         $platform = SqliteDbPlatform::class;
     }
 
