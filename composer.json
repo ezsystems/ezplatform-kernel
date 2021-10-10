@@ -67,7 +67,8 @@
         "phpunit/phpunit": "^8.2",
         "matthiasnoback/symfony-dependency-injection-test": "^4.1",
         "symfony/phpunit-bridge": "^5.1",
-        "symfony/proxy-manager-bridge": "^5.3"
+        "symfony/proxy-manager-bridge": "^5.3",
+        "dama/doctrine-test-bundle": "^6.6"
     },
     "conflict": {
         "symfony/dependency-injection": "5.3.7",

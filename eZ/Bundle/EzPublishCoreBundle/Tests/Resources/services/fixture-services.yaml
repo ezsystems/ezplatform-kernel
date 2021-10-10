@@ -1,6 +1,7 @@
 services:
     eZ\Publish\API\Repository\Tests\LegacySchemaImporter:
         alias: 'test.ibexa.schema_importer'
+        public: true
 
     test.ibexa.schema_importer:
         class: eZ\Publish\API\Repository\Tests\LegacySchemaImporter
@@ -10,6 +11,7 @@ services:
 
     eZ\Publish\SPI\Tests\Persistence\FixtureImporter:
         alias: 'test.ibexa.fixture_importer'
+        public: true
 
     test.ibexa.fixture_importer:
         class: eZ\Publish\SPI\Tests\Persistence\FixtureImporter

@@ -16,6 +16,7 @@ use eZ\Bundle\EzPublishLegacySearchEngineBundle\EzPublishLegacySearchEngineBundl
 use eZ\Publish\API\Repository;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\SPI\Persistence\TransactionHandler;
+use eZ\Publish\SPI\Tests\Persistence\YamlFixture;
 use FOS\JsRoutingBundle\FOSJsRoutingBundle;
 use JMS\TranslationBundle\JMSTranslationBundle;
 use Liip\ImagineBundle\LiipImagineBundle;
@@ -97,6 +98,22 @@ class IbexaTestKernel extends Kernel
     public static function getAliasServiceId(string $id): string
     {
         return 'test.' . $id;
+    }
+
+    /**
+     * @return iterable<string>
+     */
+    public function getSchemaFiles(): iterable
+    {
+        yield $this->locateResource('@EzPublishCoreBundle/Resources/config/storage/legacy/schema.yaml');
+    }
+
+    /**
+     * @return iterable<\eZ\Publish\SPI\Tests\Persistence\Fixture>
+     */
+    public function getFixtures(): iterable
+    {
+        yield new YamlFixture(dirname(__DIR__, 3) . '/eZ/Publish/API/Repository/Tests/_fixtures/Legacy/data/test_data.yaml');
     }
 
     public function getCacheDir(): string
