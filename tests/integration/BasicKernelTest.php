@@ -29,4 +29,11 @@ final class BasicKernelTest extends IbexaKernelTestCase
         self::getServiceByClassName(Repository::class);
         $this->expectNotToPerformAssertions();
     }
+
+    public function testRouterIsAvailable(): void
+    {
+        $router = self::getContainer()->get('router');
+        $router->match('/');
+        $this->expectNotToPerformAssertions();
+    }
 }
