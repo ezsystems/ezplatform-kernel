@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use EzSystems\DoctrineSchema\Database\DbPlatform\PostgreSqlDbPlatform;
 use EzSystems\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform;
 
 return static function (ContainerConfigurator $container): void {
@@ -16,8 +17,13 @@ return static function (ContainerConfigurator $container): void {
     }
 
     $platform = null;
-    if (substr($_ENV['DATABASE_URL'], 0, strlen('sqlite://')) === 'sqlite://') {
-        $platform = SqliteDbPlatform::class;
+    $scheme = parse_url($_ENV['DATABASE_URL'], PHP_URL_SCHEME);
+    if (is_string($scheme)) {
+        if ($scheme === 'sqlite') {
+            $platform = SqliteDbPlatform::class;
+        } elseif (in_array($scheme, ['postgres', 'postgresql', 'pgsql'], true)) {
+            $platform = PostgreSqlDbPlatform::class;
+        }
     }
 
     $container->extension('doctrine', [
