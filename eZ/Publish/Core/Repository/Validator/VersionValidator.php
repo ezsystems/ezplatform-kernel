@@ -86,7 +86,7 @@ final class VersionValidator implements ContentValidator
                         $fieldValue
                     );
                     if (!empty($fieldErrors)) {
-                        $allFieldErrors[$fieldDefinition->id][$languageCode] = $fieldErrors;
+                        $allFieldErrors[$fieldDefinition->identifier][$languageCode] = $fieldErrors;
                     }
                 }
             }
