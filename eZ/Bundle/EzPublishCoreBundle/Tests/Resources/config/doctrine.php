@@ -16,14 +16,17 @@ return static function (ContainerConfigurator $container): void {
         $_ENV['DATABASE_URL'] = 'sqlite://:memory:';
     }
 
+    $platformsMap = [
+        'sqlite' => SqliteDbPlatform::class,
+        'postgres' => PostgreSqlDbPlatform::class,
+        'postgresql' => PostgreSqlDbPlatform::class,
+        'pgsql' => PostgreSqlDbPlatform::class,
+    ];
+
     $platform = null;
     $scheme = parse_url($_ENV['DATABASE_URL'], PHP_URL_SCHEME);
     if (is_string($scheme)) {
-        if ($scheme === 'sqlite') {
-            $platform = SqliteDbPlatform::class;
-        } elseif (in_array($scheme, ['postgres', 'postgresql', 'pgsql'], true)) {
-            $platform = PostgreSqlDbPlatform::class;
-        }
+        $platform = $platformsMap[$scheme] ?? null;
     }
 
     $container->extension('doctrine', [
