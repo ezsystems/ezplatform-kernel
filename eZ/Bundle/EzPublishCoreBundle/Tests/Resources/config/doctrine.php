@@ -8,17 +8,31 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use EzSystems\DoctrineSchema\Database\DbPlatform\PostgreSqlDbPlatform;
 use EzSystems\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform;
+use RuntimeException;
 
 return static function (ContainerConfigurator $container): void {
     if (!isset($_ENV['DATABASE_URL'])) {
         $_ENV['DATABASE_URL'] = 'sqlite://:memory:';
     }
 
-    $platform = null;
-    if (substr($_ENV['DATABASE_URL'], 0, strlen('sqlite://')) === 'sqlite://') {
-        $platform = SqliteDbPlatform::class;
+    $platformsMap = [
+        'sqlite' => SqliteDbPlatform::class,
+        'postgres' => PostgreSqlDbPlatform::class,
+        'postgresql' => PostgreSqlDbPlatform::class,
+        'pgsql' => PostgreSqlDbPlatform::class,
+    ];
+
+    $scheme = parse_url($_ENV['DATABASE_URL'], PHP_URL_SCHEME);
+    if (!is_string($scheme)) {
+        throw new RuntimeException(sprintf(
+            'Failed parsing "%s". Unable to determine scheme.',
+            $_ENV['DATABASE_URL'],
+        ));
     }
+
+    $platform = $platformsMap[$scheme] ?? null;
 
     $container->extension('doctrine', [
         'dbal' => [
