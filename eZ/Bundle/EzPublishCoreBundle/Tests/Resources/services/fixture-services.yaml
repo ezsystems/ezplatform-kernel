@@ -20,3 +20,7 @@ services:
     EzSystems\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform:
         calls:
             - [setEventManager, ['@doctrine.dbal.default_connection.event_manager']]
+
+    EzSystems\DoctrineSchema\Database\DbPlatform\PostgreSqlDbPlatform:
+        calls:
+            - [ setEventManager, [ '@doctrine.dbal.default_connection.event_manager' ] ]
