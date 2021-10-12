@@ -126,7 +126,6 @@ class AliasGeneratorDecorator implements VariationHandler, SiteAccessAware
             $this->cacheIdentifierGenerator->generateTag(self::IMAGE_VARIATION_CONTENT_IDENTIFIER, [$contentId]),
             $this->cacheIdentifierGenerator->generateTag(self::IMAGE_VARIATION_FIELD_IDENTIFIER, [$field->id]),
             $this->cacheIdentifierGenerator->generateTag(self::CONTENT_IDENTIFIER, [$contentId]),
-            $this->cacheIdentifierGenerator->generateTag(self::CONTENT_IDENTIFIER, [$contentId]),
             $this->cacheIdentifierGenerator->generateTag(self::CONTENT_VERSION_IDENTIFIER, [$contentId, $versionInfo->versionNo]),
         ];
     }
