@@ -15,7 +15,7 @@ use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\HttpBasic
  */
 class HttpBasicFactory extends BaseHttpBasicFactory
 {
-    public function getKey()
+    public function getKey(): string
     {
         return 'ezpublish_http_basic';
     }
