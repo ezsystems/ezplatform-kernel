@@ -11,6 +11,7 @@ namespace eZ\Publish\SPI\Tests\Persistence;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Driver\PDOException;
+use Doctrine\DBAL\Schema\Column;
 
 /**
  * Database fixture importer.
@@ -22,7 +23,7 @@ final class FixtureImporter
     /** @var \Doctrine\DBAL\Connection */
     private $connection;
 
-    /** @var array<string, string> */
+    /** @var array<string, string|null> */
     private static $resetSequenceStatements = [];
 
     public function __construct(Connection $connection)
@@ -129,37 +130,51 @@ final class FixtureImporter
      */
     private function getSequenceResetStatements(array $affectedTables): iterable
     {
-        $unvisitedTables = array_diff($affectedTables, array_keys(self::$resetSequenceStatements));
-        if (empty($unvisitedTables)) {
-            // Return sequence change commands for affected tables
-            return array_intersect_key(self::$resetSequenceStatements, array_fill_keys($affectedTables, true));
-        }
-
         // note: prepared statements don't work for table names
         $queryTemplate = 'SELECT setval(\'%s\', %s) FROM %s';
 
+        $unvisitedTables = array_diff($affectedTables, array_keys(self::$resetSequenceStatements));
         $schemaManager = $this->connection->getSchemaManager();
         $databasePlatform = $this->connection->getDatabasePlatform();
+
         foreach ($unvisitedTables as $tableName) {
             $columns = $schemaManager->listTableColumns($tableName);
-            foreach ($columns as $column) {
-                if (!$column->getAutoincrement()) {
-                    continue;
-                }
+            $column = $this->findAutoincrementColumn($columns);
 
-                $columnName = $column->getName();
-                $sequenceName = "{$tableName}_{$columnName}_seq";
+            if ($column === null) {
+                self::$resetSequenceStatements[$tableName] = null;
 
-                self::$resetSequenceStatements[$tableName] = sprintf(
-                    $queryTemplate,
-                    $sequenceName,
-                    $databasePlatform->getMaxExpression($this->connection->quoteIdentifier($columnName)),
-                    $this->connection->quoteIdentifier($tableName)
-                );
+                continue;
             }
+
+            $columnName = $column->getName();
+            $sequenceName = "{$tableName}_{$columnName}_seq";
+
+            self::$resetSequenceStatements[$tableName] = sprintf(
+                $queryTemplate,
+                $sequenceName,
+                $databasePlatform->getMaxExpression($this->connection->quoteIdentifier($columnName)),
+                $this->connection->quoteIdentifier($tableName)
+            );
         }
 
         // Return sequence change commands for affected tables
-        return array_intersect_key(self::$resetSequenceStatements, array_fill_keys($affectedTables, true));
+        $result = array_intersect_key(self::$resetSequenceStatements, array_fill_keys($affectedTables, true));
+
+        return array_filter($result);
+    }
+
+    /**
+     * @param array<\Doctrine\DBAL\Schema\Column> $columns
+     */
+    private function findAutoincrementColumn(array $columns): ?Column
+    {
+        foreach ($columns as $column) {
+            if ($column->getAutoincrement()) {
+                return $column;
+            }
+        }
+
+        return null;
     }
 }
