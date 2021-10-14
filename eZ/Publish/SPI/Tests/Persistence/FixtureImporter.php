@@ -129,8 +129,8 @@ final class FixtureImporter
      */
     private function getSequenceResetStatements(array $affectedTables): iterable
     {
-        $diff = array_diff($affectedTables, array_keys(self::$resetSequenceStatements));
-        if (empty($diff)) {
+        $unvisitedTables = array_diff($affectedTables, array_keys(self::$resetSequenceStatements));
+        if (empty($unvisitedTables)) {
             // Return sequence change commands for affected tables
             return array_intersect_key(self::$resetSequenceStatements, array_fill_keys($affectedTables, true));
         }
@@ -139,7 +139,8 @@ final class FixtureImporter
         $queryTemplate = 'SELECT setval(\'%s\', %s) FROM %s';
 
         $schemaManager = $this->connection->getSchemaManager();
-        foreach ($diff as $tableName) {
+        $databasePlatform = $this->connection->getDatabasePlatform();
+        foreach ($unvisitedTables as $tableName) {
             $columns = $schemaManager->listTableColumns($tableName);
             foreach ($columns as $column) {
                 if (!$column->getAutoincrement()) {
@@ -152,9 +153,7 @@ final class FixtureImporter
                 self::$resetSequenceStatements[$tableName] = sprintf(
                     $queryTemplate,
                     $sequenceName,
-                    $this->connection->getDatabasePlatform()->getMaxExpression(
-                        $this->connection->quoteIdentifier($columnName)
-                    ),
+                    $databasePlatform->getMaxExpression($this->connection->quoteIdentifier($columnName)),
                     $this->connection->quoteIdentifier($tableName)
                 );
             }
