@@ -11,6 +11,7 @@ namespace eZ\Publish\SPI\Tests\Persistence;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Driver\PDOException;
+use Doctrine\DBAL\Schema\Column;
 
 /**
  * Database fixture importer.
@@ -22,8 +23,8 @@ final class FixtureImporter
     /** @var \Doctrine\DBAL\Connection */
     private $connection;
 
-    /** @var string[] */
-    private static $resetSequenceStatements;
+    /** @var array<string, string|null> */
+    private static $resetSequenceStatements = [];
 
     public function __construct(Connection $connection)
     {
@@ -123,43 +124,57 @@ final class FixtureImporter
      * Note: current implementation is probably not the best way to do it.
      *       It should be DBMS-specific, but let's avoid over-engineering it (more) until needed.
      *
-     * @param array $affectedTables the list of tables which need their sequences reset
+     * @param string[] $affectedTables the list of tables which need their sequences reset
      *
-     * @return string[] the list of SQL statement
+     * @return iterable<string, string> list of SQL statements
      */
-    private function getSequenceResetStatements(array $affectedTables): array
+    private function getSequenceResetStatements(array $affectedTables): iterable
     {
-        // return in-memory cache for performance reasons
-        if (null !== self::$resetSequenceStatements) {
-            return self::$resetSequenceStatements;
+        // note: prepared statements don't work for table names
+        $queryTemplate = 'SELECT setval(\'%s\', %s) FROM %s';
+
+        $unvisitedTables = array_diff($affectedTables, array_keys(self::$resetSequenceStatements));
+        $schemaManager = $this->connection->getSchemaManager();
+        $databasePlatform = $this->connection->getDatabasePlatform();
+
+        foreach ($unvisitedTables as $tableName) {
+            $columns = $schemaManager->listTableColumns($tableName);
+            $column = $this->findAutoincrementColumn($columns);
+
+            if ($column === null) {
+                self::$resetSequenceStatements[$tableName] = null;
+
+                continue;
+            }
+
+            $columnName = $column->getName();
+            $sequenceName = "{$tableName}_{$columnName}_seq";
+
+            self::$resetSequenceStatements[$tableName] = sprintf(
+                $queryTemplate,
+                $sequenceName,
+                $databasePlatform->getMaxExpression($this->connection->quoteIdentifier($columnName)),
+                $this->connection->quoteIdentifier($tableName)
+            );
         }
 
-        // generate & cache statements
-        self::$resetSequenceStatements = [];
+        // Return sequence change commands for affected tables
+        $result = array_intersect_key(self::$resetSequenceStatements, array_fill_keys($affectedTables, true));
 
-        // note: prepared statements don't work for table names
-        $queryTemplate = 'SELECT setval(\'%s\', MAX(%s)) FROM %s';
+        return array_filter($result);
+    }
 
-        $schemaManager = $this->connection->getSchemaManager();
-        foreach ($affectedTables as $tableName) {
-            $columns = $schemaManager->listTableColumns($tableName);
-            foreach ($columns as $column) {
-                if (!$column->getAutoincrement()) {
-                    continue;
-                }
-
-                $columnName = $column->getName();
-                $sequenceName = "{$tableName}_{$columnName}_seq";
-
-                self::$resetSequenceStatements[] = sprintf(
-                    $queryTemplate,
-                    $sequenceName,
-                    $this->connection->quoteIdentifier($columnName),
-                    $this->connection->quoteIdentifier($tableName)
-                );
+    /**
+     * @param array<\Doctrine\DBAL\Schema\Column> $columns
+     */
+    private function findAutoincrementColumn(array $columns): ?Column
+    {
+        foreach ($columns as $column) {
+            if ($column->getAutoincrement()) {
+                return $column;
             }
         }
 
-        return self::$resetSequenceStatements;
+        return null;
     }
 }
