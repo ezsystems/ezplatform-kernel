@@ -7,12 +7,54 @@ To use this package, [install Ibexa DXP](https://doc.ibexa.co/en/latest/install/
 This package contains an advanced Content Model, allowing to structure any kind of content or content-like data in a future-proof Content Repository. 
 Ibexa Kernel also aims to provide additional features for the MVC layer (Symfony) to increase your productivity [Ibexa DXP](https://ibexa.co).
 
-## Installation
+## Current Organization
 
-There are several options to get a full installation of this Kernel:
+MVC layer:
+- [eZ/Bundle](eZ/Bundle) - the bundles that are important to expose the functionality of the Backend and MVC layer to Symfony.
+- [eZ/Publish/Core/MVC](eZ/Publish/Core/MVC) - the parts that make up the different components extending Symfony.
+- [eZ/Publish/Core/Pagination](eZ/Publish/Core/Pagination) - a component extending PagerFanta for pagination of eZ Platform search queries.
 
-- [Ibexa Platform](https://github.com/ezsystems/ezplatform): For a clean install of Ibexa Platform, a modern Symfony CMS.
-- [Ibexa Experience](https://github.com/ezsystems/ezplatform-ee): A commercial distribution of Ibexa Platform that provides additional features and services aimed at editors, editorial teams, and larger organizations.
+Backend:
+- [eZ/Publish/API](eZ/Publish/API) - the definition of stable interfaces for the PHP *Public* API, mainly Content *Repository API*.
+- [eZ/Publish/SPI/Persistence](eZ/Publish/SPI/Persistence) - a layer which is not frozen yet, meaning it might change in between releases. Those are persistence interfaces for Storage Engine.
+- [eZ/Publish/SPI](eZ/Publish/SPI) - (anything other than Persistence) is frozen and has a Backward Compatibility promise of Service Provider Interface, meaning no breaking changes both from consumption and implementation POV.
+- [eZ/Publish/Core](eZ/Publish/Core) - implementations of both APIs and SPIs; the naming aims to map to name of the interface they implement. For example, `Core\Persistence\Legacy` being implementation of `SPI\Persistence`.
+
+## Testing Locally
+
+This kernel contains a comprehensive set of unit, functional, and integration tests. At the time of writing, 9k unit tests, 8k integration tests, and several functional tests.
+
+**Dependencies**
+* **PHP 7 Modules**: php7\_intl php7\_xsl php7\_gd php7\_sqlite *(aka `pdo\_sqlite`)*
+* **Database**: sqlite3, optionally: mysql/postgres *if so make sure to have relevant pdo modules installed*
+
+For Contributing to this Bundle, you should make sure to run both unit and integration tests.
+
+1. Set up this repository locally:
+
+    ```bash
+    # Note: Change the line below to the ssh format of your fork to create topic branches to propose as pull requests
+    git clone https://github.com/ezsystems/ezplatform-kernel.git
+    cd ezplatform-kernel
+    composer install
+    ```
+2. Run unit tests:
+
+    At this point you should be able to run unit tests:
+    ```bash
+    php -d memory_limit=-1 vendor/bin/phpunit
+    ```
+
+3. Run integration tests:
+
+    ```bash
+    # If you want to test against mysql or postgres instead of sqlite, define one of these with reference to an empty test db:
+    # export DATABASE="mysql://root@localhost/$DB_NAME"
+    # export DATABASE="pgsql://postgres@localhost/$DB_NAME"
+    php -d memory_limit=-1 vendor/bin/phpunit -c phpunit-integration-legacy.xml
+    ```
+
+    To run integration tests against Solr, see [Solr Search Engine Bundle for Ibexa DXP](https://github.com/ezsystems/ezplatform-solr-search-engine).
 
 ## COPYRIGHT
 
