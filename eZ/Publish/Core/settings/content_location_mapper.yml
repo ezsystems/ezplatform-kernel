@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autoconfigure: true
+        autowire: true
+        public: true
+
+    eZ\Publish\Core\Repository\ContentLocationMapper\InMemoryContentLocationMapper: ~
+
+    eZ\Publish\Core\Repository\ContentLocationMapper\ContentLocationMapper: '@eZ\Publish\Core\Repository\ContentLocationMapper\InMemoryContentLocationMapper'
+
+    eZ\Publish\Core\Repository\ContentLocationMapper\Service\LocationService:
+        decorates: ezpublish.api.service.inner_location
+        arguments:
+            $innerService: '@eZ\Publish\Core\Repository\ContentLocationMapper\Service\LocationService.inner'

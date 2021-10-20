@@ -47,6 +47,7 @@ $loader->load('tests/common.yml');
 $loader->load('policies.yml');
 $loader->load('events.yml');
 $loader->load('thumbnails.yml');
+$loader->load('content_location_mapper.yml');
 
 // Cache settings (takes same env variables as ezplatform does, only supports "singleredis" setup)
 if (getenv('CUSTOM_CACHE_POOL') === 'singleredis') {
