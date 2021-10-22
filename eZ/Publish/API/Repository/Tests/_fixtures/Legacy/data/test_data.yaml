@@ -235,10 +235,11 @@ ezcontentclass_name:
   - { contentclass_id: 34, contentclass_version: 0, language_id: 9, language_locale: eng-GB, name: Forums }
   - { contentclass_id: 35, contentclass_version: 0, language_id: 9, language_locale: eng-GB, name: Video }
 ezcontentclassgroup:
-  - { created: 1031216928, creator_id: 14, id: 1, modified: 1033922106, modifier_id: 14, name: Content }
-  - { created: 1031216941, creator_id: 14, id: 2, modified: 1033922113, modifier_id: 14, name: Users }
-  - { created: 1032009743, creator_id: 14, id: 3, modified: 1033922120, modifier_id: 14, name: Media }
-  - { created: 1081858024, creator_id: 14, id: 4, modified: 1081858024, modifier_id: 14, name: Setup }
+  - { created: 1031216928, creator_id: 14, id: 1, modified: 1033922106, modifier_id: 14, name: Content, is_system: 0 }
+  - { created: 1031216941, creator_id: 14, id: 2, modified: 1033922113, modifier_id: 14, name: Users, is_system: 0 }
+  - { created: 1032009743, creator_id: 14, id: 3, modified: 1033922120, modifier_id: 14, name: Media, is_system: 0 }
+  - { created: 1081858024, creator_id: 14, id: 4, modified: 1081858024, modifier_id: 14, name: Setup, is_system: 0 }
+  - { created: 1634729305, creator_id: 14, id: 5, modified: 1634729305, modifier_id: 14, name: System, is_system: 1 }
 ezcontentobject:
   - { contentclass_id: 3, current_version: 1, id: 4, initial_language_id: 2, language_mask: 3, modified: 1033917596, name: Users, owner_id: 14, published: 1033917596, remote_id: f5c88a2209584891056f987fd965b0ba, section_id: 2, status: 1 }
   - { contentclass_id: 4, current_version: 2, id: 10, initial_language_id: 2, language_mask: 3, modified: 1072180405, name: 'Anonymous User', owner_id: 14, published: 1033920665, remote_id: faaeb9be3bd98ed09f606fc16d144eca, section_id: 2, status: 1 }

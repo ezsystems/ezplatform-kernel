@@ -83,6 +83,7 @@
         "psr-4": {
             "EzSystems\\PlatformInstallerBundle\\": "eZ/Bundle/PlatformInstallerBundle/src",
             "eZ\\": "eZ",
+            "Ibexa\\Bundle\\Command\\": "src/bundle/Command",
             "Ibexa\\Bundle\\Core\\": "src/bundle/Core",
             "Ibexa\\Bundle\\Debug\\": "src/bundle/Debug",
             "Ibexa\\Bundle\\IO\\": "src/bundle/IO",

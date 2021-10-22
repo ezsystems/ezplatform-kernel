@@ -6,6 +6,7 @@
  */
 namespace eZ\Publish\API\Repository\Tests;
 
+use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
 use eZ\Publish\API\Repository\Values\Content\Language;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
@@ -101,6 +102,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         $groupCreate->descriptions = array( 'eng-GB' => 'A description.' );
         */
 
+        $groupCreate->isSystem = true;
         $group = $contentTypeService->createContentTypeGroup($groupCreate);
         /* END: Use Case */
 
@@ -131,11 +133,13 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
                 'identifier' => $group->identifier,
                 'creatorId' => $group->creatorId,
                 'creationDate' => $group->creationDate->getTimestamp(),
+                'isSystem' => $group->isSystem,
             ],
             [
                 'identifier' => $createStruct->identifier,
                 'creatorId' => $createStruct->creatorId,
                 'creationDate' => $createStruct->creationDate->getTimestamp(),
+                'isSystem' => $createStruct->isSystem,
             ]
         );
         $this->assertNotNull(
@@ -158,7 +162,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
 
         $this->assertStructPropertiesCorrect(
             $createStruct,
-            $group
+            $group,
             /* @todo uncomment when support for multilingual names and descriptions is added
             array( 'names', 'descriptions', 'mainLanguageCode' )
             */
@@ -216,6 +220,19 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         );
 
         return $loadedGroup;
+    }
+
+    public function testLoadSystemContentTypeGroup(): void
+    {
+        $contentTypeService = $this->getRepository()->getContentTypeService();
+
+        // Loads the "System" group
+        $systemGroup = $contentTypeService->loadContentTypeGroup($this->generateId('typegroup', 5));
+
+        $this->assertSame(
+            'System',
+            $systemGroup->identifier
+        );
     }
 
     /**
@@ -351,6 +368,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
                     'modificationDate',
                     'creatorId',
                     'modifierId',
+                    'isSystem',
                 ]
             );
         }
@@ -432,6 +450,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         $groupUpdate->identifier = 'Teardown';
         $groupUpdate->modifierId = $modifierId;
         $groupUpdate->modificationDate = $this->createDateTime();
+        $groupUpdate->isSystem = true;
         /* @todo uncomment when support for multilingual names and descriptions is added
         $groupUpdate->mainLanguageCode = 'eng-GB';
 
@@ -476,6 +495,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
             'modificationDate' => $data['updateStruct']->modificationDate,
             'creatorId' => $data['originalGroup']->creatorId,
             'modifierId' => $data['updateStruct']->modifierId,
+            'isSystem' => $data['updateStruct']->isSystem,
         ];
 
         $this->assertPropertiesCorrect($expectedValues, $data['updatedGroup']);

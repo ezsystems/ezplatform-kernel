@@ -18,4 +18,9 @@ abstract class ContentTypeGroupStruct extends ValueObject
      * @var string
      */
     public $identifier;
+
+    /**
+     * @var bool
+     */
+    public $isSystem = false;
 }

@@ -209,6 +209,7 @@ tables:
             modified: { type: integer, nullable: false, options: { default: '0' } }
             modifier_id: { type: integer, nullable: false, options: { default: '0' } }
             name: { type: string, nullable: true, length: 255 }
+            is_system: { type: boolean, nullable: false, options: { default: '0' } }
     ezcontentobject:
         indexes:
             ezcontentobject_classid: { fields: [contentclass_id] }

@@ -65,4 +65,9 @@ abstract class ContentTypeGroup extends ValueObject implements MultiLanguageName
      * @var mixed
      */
     protected $modifierId;
+
+    /**
+     * @var bool
+     */
+    public $isSystem = false;
 }

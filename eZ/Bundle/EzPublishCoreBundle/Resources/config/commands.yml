@@ -53,3 +53,9 @@ services:
             $imageGateway: '@ezpublish.fieldType.ezimage.storage_gateway'
         tags:
             - { name: console.command }
+
+    Ibexa\Bundle\Command\SetSystemContentTypeGroupCommand:
+        autowire: true
+        autoconfigure: true
+        tags:
+            - { name: console.command }

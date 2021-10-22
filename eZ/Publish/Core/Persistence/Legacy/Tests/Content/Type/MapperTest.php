@@ -263,16 +263,26 @@ class MapperTest extends TestCase
         $mapper = new Mapper($this->getConverterRegistryMock(), $this->getMaskGeneratorMock());
         $groups = $mapper->extractGroupsFromRows($rows);
 
-        $groupFixture = new Group();
-        $groupFixture->created = 1032009743;
-        $groupFixture->creatorId = 14;
-        $groupFixture->id = 3;
-        $groupFixture->modified = 1033922120;
-        $groupFixture->modifierId = 14;
-        $groupFixture->identifier = 'Media';
+        $groupFixtureMedia = new Group();
+        $groupFixtureMedia->created = 1032009743;
+        $groupFixtureMedia->creatorId = 14;
+        $groupFixtureMedia->id = 3;
+        $groupFixtureMedia->modified = 1033922120;
+        $groupFixtureMedia->modifierId = 14;
+        $groupFixtureMedia->identifier = 'Media';
+        $groupFixtureMedia->isSystem = false;
+
+        $groupFixtureSystem = new Group();
+        $groupFixtureSystem->created = 1634895910;
+        $groupFixtureSystem->creatorId = 14;
+        $groupFixtureSystem->id = 4;
+        $groupFixtureSystem->modified = 1634895910;
+        $groupFixtureSystem->modifierId = 14;
+        $groupFixtureSystem->identifier = 'System';
+        $groupFixtureSystem->isSystem = true;
 
         $this->assertEquals(
-            [$groupFixture],
+            [$groupFixtureMedia, $groupFixtureSystem],
             $groups
         );
     }
