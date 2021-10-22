@@ -18,7 +18,6 @@ if (false === isset($argv[1]) || false === isset($argv[2])) {
 $fixture = include $argv[1];
 
 writeFixtureFile(generateContentTypeGroupFixture($fixture), 'ContentTypeGroup', $argv[2]);
-// echo generateContentTypeFixture( $fixture );
 writeFixtureFile(generateContentTypeFixture($fixture), 'ContentType', $argv[2]);
 writeFixtureFile(generateSectionFixture($fixture), 'Section', $argv[2]);
 writeFixtureFile(generateLanguageFixture($fixture), 'Language', $argv[2]);
