@@ -134,7 +134,7 @@
         "_ezplatform_branch_for_behat_tests_comment_": "Ibexa branch to use to run Behat tests",
         "_ezplatform_branch_for_behat_tests": "main",
         "branch-alias": {
-            "dev-master": "4.0.x-dev"
+            "dev-main": "4.0.x-dev"
         },
         "thanks": {
             "name": "ezsystems/ezplatform",
