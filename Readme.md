@@ -10,15 +10,14 @@ Ibexa Kernel also aims to provide additional features for the MVC layer (Symfony
 ## Current Organization
 
 MVC layer:
-- [eZ/Bundle](eZ/Bundle) - the bundles that are important to expose the functionality of the Backend and MVC layer to Symfony.
-- [eZ/Publish/Core/MVC](eZ/Publish/Core/MVC) - the parts that make up the different components extending Symfony.
-- [eZ/Publish/Core/Pagination](eZ/Publish/Core/Pagination) - a component extending PagerFanta for pagination of eZ Platform search queries.
+- [src/bundle](src/bundle) - the bundles that are important to expose the functionality of the Backend and MVC layer to Symfony.
+- [src/lib/MVC](src/lib/MVC) - the parts that make up the different components extending Symfony.
+- [src/lib/Pagination](src/lib/Pagination) - a component extending PagerFanta for pagination of Ibexa search queries.
 
 Backend:
-- [eZ/Publish/API](eZ/Publish/API) - the definition of stable interfaces for the PHP *Public* API, mainly Content *Repository API*.
-- [eZ/Publish/SPI/Persistence](eZ/Publish/SPI/Persistence) - a layer which is not frozen yet, meaning it might change in between releases. Those are persistence interfaces for Storage Engine.
-- [eZ/Publish/SPI](eZ/Publish/SPI) - (anything other than Persistence) is frozen and has a Backward Compatibility promise of Service Provider Interface, meaning no breaking changes both from consumption and implementation POV.
-- [eZ/Publish/Core](eZ/Publish/Core) - implementations of both APIs and SPIs; the naming aims to map to name of the interface they implement. For example, `Core\Persistence\Legacy` being implementation of `SPI\Persistence`.
+- [src/contracts](src/contracts) - the definition of stable interfaces for the PHP *Public* API, mainly Content *Repository API*.
+- [src/contracts/Persistence](src/contracts/Persistence) - a layer which is not frozen yet, meaning it might change in between releases. Those are persistence interfaces for Storage Engine.
+- [src/lib](src/lib) - implementations of API Contracts; the naming aims to map to name of the interface they implement. For example, `Ibexa\Core\Persistence\Legacy` being implementation of `Ibexa\Contracts\Core\Persistence`.
 
 ## Testing Locally
 
@@ -34,15 +33,15 @@ For Contributing to this Bundle, you should make sure to run both unit and integ
 
     ```bash
     # Note: Change the line below to the ssh format of your fork to create topic branches to propose as pull requests
-    git clone https://github.com/ezsystems/ezplatform-kernel.git
-    cd ezplatform-kernel
+    git clone https://github.com/ibexa/core.git
+    cd core
     composer install
     ```
 2. Run unit tests:
 
     At this point you should be able to run unit tests:
     ```bash
-    php -d memory_limit=-1 vendor/bin/phpunit
+    composer unit
     ```
 
 3. Run integration tests:
@@ -51,10 +50,10 @@ For Contributing to this Bundle, you should make sure to run both unit and integ
     # If you want to test against mysql or postgres instead of sqlite, define one of these with reference to an empty test db:
     # export DATABASE="mysql://root@localhost/$DB_NAME"
     # export DATABASE="pgsql://postgres@localhost/$DB_NAME"
-    php -d memory_limit=-1 vendor/bin/phpunit -c phpunit-integration-legacy.xml
+    composer integration
     ```
 
-    To run integration tests against Solr, see [Solr Search Engine Bundle for Ibexa DXP](https://github.com/ezsystems/ezplatform-solr-search-engine).
+    To run integration tests against Solr, see [Solr Search Engine Bundle for Ibexa DXP](https://github.com/ibexa/solr-search-engine).
 
 ## COPYRIGHT
 
