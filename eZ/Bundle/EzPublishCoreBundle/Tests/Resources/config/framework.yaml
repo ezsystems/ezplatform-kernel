@@ -9,4 +9,4 @@ framework:
     cache:
         app: cache.adapter.array
     router:
-        resource: foo
+        resource: '@EzPublishCoreBundle/Tests/Resources/config/routes.yaml'
