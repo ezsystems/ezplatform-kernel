@@ -127,6 +127,10 @@ class IbexaTestKernel extends Kernel
      */
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
+        $loader->load(static function (ContainerBuilder $container): void {
+            $container->setParameter('ibexa.core.test.resource_dir', self::getResourcesPath());
+        });
+
         $this->loadConfiguration($loader);
         $this->loadServices($loader);
 
