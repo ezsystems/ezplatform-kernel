@@ -10,11 +10,9 @@ namespace Ibexa\Contracts\Core\Test;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\DBAL\Connection;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver;
 use eZ\Bundle\EzPublishCoreBundle\EzPublishCoreBundle;
 use eZ\Bundle\EzPublishLegacySearchEngineBundle\EzPublishLegacySearchEngineBundle;
 use eZ\Publish\API\Repository;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\SPI\Persistence\TransactionHandler;
 use FOS\JsRoutingBundle\FOSJsRoutingBundle;
 use JMS\TranslationBundle\JMSTranslationBundle;
@@ -135,7 +133,6 @@ class IbexaTestKernel extends Kernel
         $this->loadServices($loader);
 
         $loader->load(static function (ContainerBuilder $container): void {
-            self::prepareIbexaFramework($container);
             self::createPublicAliasesForServicesUnderTest($container);
             self::setUpTestLogger($container);
         });
@@ -179,18 +176,6 @@ class IbexaTestKernel extends Kernel
     private static function getResourcesPath(): string
     {
         return dirname(__DIR__, 3) . '/eZ/Bundle/EzPublishCoreBundle/Tests/Resources';
-    }
-
-    private static function prepareIbexaFramework(ContainerBuilder $container): void
-    {
-        if ($container->has(ConfigResolverInterface::class)) {
-            return;
-        }
-
-        $container->setAlias(
-            ConfigResolverInterface::class,
-            ChainConfigResolver::class
-        );
     }
 
     private static function createPublicAliasesForServicesUnderTest(ContainerBuilder $container): void
