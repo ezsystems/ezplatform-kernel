@@ -86,34 +86,37 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        if ($input->getOption('system') === null) {
-            $output->error('Please provide `system` option to determine if ContentTypeGroup should be system group or not.');
+        $io = new SymfonyStyle($input, $output);
 
-            return 0;
+        if ($input->getOption('system') === null) {
+            $io->error('Please provide `system` option to determine if ContentTypeGroup should be system group or not.');
+
+            return self::SUCCESS;
         }
 
         $this->permissionResolver->setCurrentUserReference(
             $this->userService->loadUserByLogin($input->getOption('user'))
         );
 
-        $io = new SymfonyStyle($input, $output);
         $io->title('Sets ContentTypeGroup as a system group or not.');
         $io->writeln([
             'This setting determines if ContentTypeGroup is visible on the list of ContentTypeGroups.',
         ]);
 
-        $identifier = ($input->getArgument('content-type-group-identifier'));
+        $identifier = $input->getArgument('content-type-group-identifier');
         try {
             $contentTypeGroup = $this->contentTypeService->loadContentTypeGroupByIdentifier($identifier);
         } catch (NotFoundException $e) {
             $io->warning(sprintf('Can\'t find ContentTypeGroup with identifier: %s', $identifier));
+
+            return self::INVALID;
         }
         $isSystem = $input->getOption('system');
         $isSystemText = $isSystem ? 'system' : 'no system';
         $io->note(sprintf('ContentTypeGroup with identifier `%s` will be set as a %s group.', $identifier, $isSystemText));
 
         if (!$io->confirm('Do you want to continue?')) {
-            return 0;
+            return self::SUCCESS;
         }
 
         $updateStruct = $this->contentTypeService->newContentTypeGroupUpdateStruct();
@@ -122,8 +125,7 @@ EOT
         $this->contentTypeService->updateContentTypeGroup($contentTypeGroup, $updateStruct);
 
         $io->success(sprintf('Done! ContentTypeGroup is set as a %s group.', $isSystemText));
-        $io->info('Please, remember to manually clear SPI/HTTP cache after running this command.');
 
-        return 0;
+        return self::SUCCESS;
     }
 }
