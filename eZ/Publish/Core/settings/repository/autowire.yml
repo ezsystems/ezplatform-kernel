@@ -1,6 +1,9 @@
 services:
     eZ\Publish\API\Repository\Repository: '@ezpublish.api.repository'
 
+    eZ\Publish\Core\MVC\ConfigResolverInterface: '@ezpublish.config.resolver'
+    eZ\Publish\Core\MVC\Symfony\SiteAccess: '@ezpublish.siteaccess'
+
     eZ\Publish\API\Repository\BookmarkService: '@ezpublish.api.service.bookmark'
     eZ\Publish\API\Repository\ContentService: '@ezpublish.api.service.content'
     eZ\Publish\API\Repository\ContentTypeService: '@ezpublish.api.service.content_type'
@@ -23,3 +26,5 @@ services:
     eZ\Publish\API\Repository\PermissionService: '@eZ\Publish\Core\Repository\Permission\CachedPermissionService'
     eZ\Publish\API\Repository\PermissionResolver: '@eZ\Publish\API\Repository\PermissionService'
     eZ\Publish\API\Repository\PermissionCriterionResolver: '@eZ\Publish\Core\Repository\Permission\PermissionCriterionResolver'
+
+    eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList: '@ezpublish.fields_groups.list'
