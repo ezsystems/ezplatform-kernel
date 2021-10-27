@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Security;
 
-use eZ\Publish\Core\MVC\Symfony\Security\InteractiveLoginToken;
-use eZ\Publish\Core\MVC\Symfony\Security\UserInterface;
+use Ibexa\Core\MVC\Symfony\Security\InteractiveLoginToken;
+use Ibexa\Core\MVC\Symfony\Security\UserInterface;
 use PHPUnit\Framework\TestCase;
 
 class InteractiveLoginTokenTest extends TestCase
@@ -51,3 +51,5 @@ class InteractiveLoginTokenTest extends TestCase
         $this->assertEquals($token, $unserializedToken);
     }
 }
+
+class_alias(InteractiveLoginTokenTest::class, 'eZ\Publish\Core\MVC\Symfony\Security\Tests\InteractiveLoginTokenTest');

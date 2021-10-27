@@ -4,46 +4,44 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\ObjectState;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\ObjectState;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler;
-use eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Mapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway;
-use eZ\Publish\SPI\Persistence\Content\ObjectState;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\Group;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct;
-use eZ\Publish\API\Repository\Tests\BaseTest as APIBaseTest;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
+use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Handler;
+use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Mapper;
+use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Gateway;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest as APIBaseTest;
 
 /**
- * Test case for Object state Handler.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Handler
  */
 class ObjectStateHandlerTest extends LanguageAwareTestCase
 {
     /**
      * Object state handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Handler
      */
     protected $objectStateHandler;
 
     /**
      * Object state gateway mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Gateway
      */
     protected $gatewayMock;
 
     /**
      * Object state mapper mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Mapper
+     * @var \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Mapper
      */
     protected $mapperMock;
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::createGroup
-     */
     public function testCreateGroup()
     {
         $handler = $this->getObjectStateHandler();
@@ -63,14 +61,11 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         $result = $handler->createGroup($this->getInputStructFixture());
 
         $this->assertInstanceOf(
-            'eZ\\Publish\\SPI\\Persistence\\Content\\ObjectState\\Group',
+            Group::class,
             $result
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::loadGroup
-     */
     public function testLoadGroup()
     {
         $handler = $this->getObjectStateHandler();
@@ -95,12 +90,9 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::loadGroup
-     */
     public function testLoadGroupThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $handler = $this->getObjectStateHandler();
         $gatewayMock = $this->getGatewayMock();
@@ -113,9 +105,6 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         $handler->loadGroup(APIBaseTest::DB_INT_MAX);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::loadGroupByIdentifier
-     */
     public function testLoadGroupByIdentifier()
     {
         $handler = $this->getObjectStateHandler();
@@ -140,12 +129,9 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::loadGroupByIdentifier
-     */
     public function testLoadGroupByIdentifierThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $handler = $this->getObjectStateHandler();
         $gatewayMock = $this->getGatewayMock();
@@ -158,9 +144,6 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         $handler->loadGroupByIdentifier('unknown');
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::loadAllGroups
-     */
     public function testLoadAllGroups()
     {
         $handler = $this->getObjectStateHandler();
@@ -187,9 +170,6 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         }
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::loadObjectStates
-     */
     public function testLoadObjectStates()
     {
         $handler = $this->getObjectStateHandler();
@@ -216,9 +196,6 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         }
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::updateGroup
-     */
     public function testUpdateGroup()
     {
         $handler = $this->getObjectStateHandler();
@@ -252,9 +229,6 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::deleteGroup
-     */
     public function testDeleteGroup()
     {
         $handler = $this->getObjectStateHandler();
@@ -307,9 +281,6 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         $handler->deleteGroup(2);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::create
-     */
     public function testCreate()
     {
         $handler = $this->getObjectStateHandler();
@@ -334,9 +305,6 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::load
-     */
     public function testLoad()
     {
         $handler = $this->getObjectStateHandler();
@@ -361,12 +329,9 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::load
-     */
     public function testLoadThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $handler = $this->getObjectStateHandler();
         $gatewayMock = $this->getGatewayMock();
@@ -379,9 +344,6 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         $handler->load(APIBaseTest::DB_INT_MAX);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::loadByIdentifier
-     */
     public function testLoadByIdentifier()
     {
         $handler = $this->getObjectStateHandler();
@@ -406,12 +368,9 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::loadByIdentifier
-     */
     public function testLoadByIdentifierThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $handler = $this->getObjectStateHandler();
         $gatewayMock = $this->getGatewayMock();
@@ -424,9 +383,6 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         $handler->loadByIdentifier('unknown', 2);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::update
-     */
     public function testUpdate()
     {
         $handler = $this->getObjectStateHandler();
@@ -460,9 +416,6 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::setPriority
-     */
     public function testSetPriority()
     {
         $handler = $this->getObjectStateHandler();
@@ -515,9 +468,6 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         $handler->setPriority(2, 0);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::delete
-     */
     public function testDelete()
     {
         $handler = $this->getObjectStateHandler();
@@ -559,12 +509,9 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         $handler->delete(1);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::delete
-     */
     public function testDeleteThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $handler = $this->getObjectStateHandler();
         $gatewayMock = $this->getGatewayMock();
@@ -577,9 +524,6 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         $handler->delete(APIBaseTest::DB_INT_MAX);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::setContentState
-     */
     public function testSetContentState()
     {
         $handler = $this->getObjectStateHandler();
@@ -594,9 +538,6 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         $this->assertTrue($result);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::getContentState
-     */
     public function testGetContentState()
     {
         $handler = $this->getObjectStateHandler();
@@ -621,9 +562,6 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler::getContentCount
-     */
     public function testGetContentCount()
     {
         $handler = $this->getObjectStateHandler();
@@ -642,7 +580,7 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
     /**
      * Returns an object state.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState
      */
     protected function getObjectStateFixture()
     {
@@ -652,7 +590,7 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
     /**
      * Returns an object state group.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group
      */
     protected function getObjectStateGroupFixture()
     {
@@ -662,7 +600,7 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
     /**
      * Returns the InputStruct.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct
      */
     protected function getInputStructFixture()
     {
@@ -672,7 +610,7 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
     /**
      * Returns the object state handler to test.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Handler
      */
     protected function getObjectStateHandler()
     {
@@ -689,7 +627,7 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
     /**
      * Returns an object state mapper mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Mapper
+     * @return \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Mapper
      */
     protected function getMapperMock()
     {
@@ -706,7 +644,7 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
     /**
      * Returns a mock for the object state gateway.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway
+     * @return \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Gateway
      */
     protected function getGatewayMock()
     {
@@ -717,3 +655,5 @@ class ObjectStateHandlerTest extends LanguageAwareTestCase
         return $this->gatewayMock;
     }
 }
+
+class_alias(ObjectStateHandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\ObjectState\ObjectStateHandlerTest');

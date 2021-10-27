@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Tests\Decorator;
+namespace Ibexa\Tests\Core\Repository\Decorator;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\API\Repository\FieldTypeService;
-use eZ\Publish\SPI\Repository\Decorator\FieldTypeServiceDecorator;
+use Ibexa\Contracts\Core\Repository\FieldTypeService;
+use Ibexa\Contracts\Core\Repository\Decorator\FieldTypeServiceDecorator;
 
 class FieldTypeServiceDecoratorTest extends TestCase
 {
@@ -62,3 +62,5 @@ class FieldTypeServiceDecoratorTest extends TestCase
         $decoratedService->hasFieldType(...$parameters);
     }
 }
+
+class_alias(FieldTypeServiceDecoratorTest::class, 'eZ\Publish\SPI\Repository\Tests\Decorator\FieldTypeServiceDecoratorTest');

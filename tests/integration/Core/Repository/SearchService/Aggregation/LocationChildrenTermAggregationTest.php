@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\SearchService\Aggregation;
+namespace Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation;
 
-use eZ\Publish\API\Repository\Tests\SearchService\Aggregation\DataSetBuilder\TermAggregationDataSetBuilder;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Location\LocationChildrenTermAggregation;
-use eZ\Publish\API\Repository\Values\Content\Search\AggregationResult;
+use Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation\DataSetBuilder\TermAggregationDataSetBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\Location\LocationChildrenTermAggregation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult;
 
 final class LocationChildrenTermAggregationTest extends AbstractAggregationTest
 {
@@ -49,3 +49,5 @@ final class LocationChildrenTermAggregationTest extends AbstractAggregationTest
         yield $builder->build();
     }
 }
+
+class_alias(LocationChildrenTermAggregationTest::class, 'eZ\Publish\API\Repository\Tests\SearchService\Aggregation\LocationChildrenTermAggregationTest');

@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\SiteAccessAware\Tests;
+namespace Ibexa\Tests\Core\Repository\SiteAccessAware;
 
-use eZ\Publish\API\Repository\ObjectStateService as APIService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateCreateStruct;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateUpdateStruct;
-use eZ\Publish\Core\Repository\SiteAccessAware\ObjectStateService;
-use eZ\Publish\Core\Repository\Values\ObjectState\ObjectState;
-use eZ\Publish\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\ObjectStateService as APIService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateUpdateStruct;
+use Ibexa\Core\Repository\SiteAccessAware\ObjectStateService;
+use Ibexa\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
 class ObjectStateServiceTest extends AbstractServiceTest
 {
@@ -78,3 +78,5 @@ class ObjectStateServiceTest extends AbstractServiceTest
         ];
     }
 }
+
+class_alias(ObjectStateServiceTest::class, 'eZ\Publish\Core\Repository\SiteAccessAware\Tests\ObjectStateServiceTest');

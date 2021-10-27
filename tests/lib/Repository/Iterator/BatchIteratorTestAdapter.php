@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\Iterator;
+namespace Ibexa\Tests\Core\Repository\Iterator;
 
 use ArrayIterator;
-use eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter;
+use Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter;
 use Iterator;
 
 final class BatchIteratorTestAdapter implements BatchIteratorAdapter
@@ -38,3 +38,5 @@ final class BatchIteratorTestAdapter implements BatchIteratorAdapter
         return $this->fetchCounter;
     }
 }
+
+class_alias(BatchIteratorTestAdapter::class, 'eZ\Publish\API\Repository\Tests\Iterator\BatchIteratorTestAdapter');

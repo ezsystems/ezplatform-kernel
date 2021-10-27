@@ -6,17 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\Filtering;
+namespace Ibexa\Tests\Integration\Core\Repository\Filtering;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentList;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use eZ\Publish\API\Repository\Values\Filter\Filter;
-use eZ\Publish\Core\FieldType\Keyword;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentList;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
+use Ibexa\Core\FieldType\Keyword;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Tests\Core\Repository\Filtering\TestContentProvider;
 use IteratorAggregate;
 use function array_map;
 use function count;
@@ -33,9 +34,9 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
      * Content can have multiple Locations, so we need to check if the list of results
      * doesn't contain duplicates.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testFindWithLocationSortClauses(): void
     {
@@ -79,7 +80,7 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Exception
      */
     protected function compareWithSearchResults(Filter $filter, IteratorAggregate $filteredContentList): void
@@ -98,7 +99,7 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     protected function findUsingContentSearch(Query $query): ContentList
     {
@@ -146,9 +147,9 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
      *
      * @return int parent Folder Location ID
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     private function createMultiplePagesOfContentItems(int $pageSize, int $noOfPages): int
     {
@@ -164,9 +165,9 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testPagination(): void
     {
@@ -199,9 +200,9 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testFindContentWithExternalStorageFields(): void
     {
@@ -233,9 +234,9 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
      *
      * @param string[] $expectedContentRemoteIds
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testFindContentUsingLocationCriterion(
         callable $filterFactory,
@@ -293,7 +294,7 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
     ): void {
         self::assertCount(count($expectedContentRemoteIds), $list);
         foreach ($list as $content) {
-            /** @var \eZ\Publish\API\Repository\Values\Content\Content $content */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
             self::assertContainsEquals(
                 $content->contentInfo->remoteId,
                 $expectedContentRemoteIds,
@@ -309,7 +310,7 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
     /**
      * @dataProvider getListOfSupportedSortClauses
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function testFindWithSortClauses(string $sortClauseFQCN): void
     {
@@ -322,7 +323,7 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
      *
      * Note: It should be expanded in the future to check validity of the sorting logic itself
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     private function performAndAssertSimpleSortClauseQuery(FilteringSortClause $sortClause): void
     {
@@ -348,7 +349,7 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentList
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentList
      */
     protected function find(Filter $filter, ?array $contextLanguages = null): iterable
     {
@@ -372,3 +373,5 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
         );
     }
 }
+
+class_alias(ContentFilteringTest::class, 'eZ\Publish\API\Repository\Tests\Filtering\ContentFilteringTest');

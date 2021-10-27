@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\Iterator\BatchIteratorAdapter;
+namespace Ibexa\Tests\Core\Repository\Iterator\BatchIteratorAdapter;
 
-use eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter\AbstractSearchAdapter;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\MatchAll;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter\AbstractSearchAdapter;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\MatchAll;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Iterator;
 use PHPUnit\Framework\TestCase;
 
@@ -73,3 +73,5 @@ abstract class AbstractSearchAdapterTest extends TestCase
         return new Query();
     }
 }
+
+class_alias(AbstractSearchAdapterTest::class, 'eZ\Publish\API\Repository\Tests\Iterator\BatchIteratorAdapter\AbstractSearchAdapterTest');

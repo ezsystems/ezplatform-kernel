@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Type\ContentUpdater\Action;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
 
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action\AddField;
-use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\SPI\Persistence\Content;
+use Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action\AddField;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Contracts\Core\Persistence\Content;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 
@@ -25,36 +25,36 @@ class AddFieldTest extends TestCase
     /**
      * Content gateway mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Gateway
      */
     protected $contentGatewayMock;
 
     /**
      * Content gateway mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\StorageHandler
      */
     protected $contentStorageHandlerMock;
 
     /**
      * FieldValue converter mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter
+     * @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter
      */
     protected $fieldValueConverterMock;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Mapper */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Mapper */
     protected $contentMapperMock;
 
     /**
      * AddField action to test.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action\AddField
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action\AddField
      */
     protected $addFieldAction;
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater::__construct
+     * @covers \Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater::__construct
      */
     public function testConstructor()
     {
@@ -497,7 +497,7 @@ class AddFieldTest extends TestCase
      * @param int $versionNo
      * @param array $languageCodes
      *
-     * @return \eZ\Publish\SPI\Persistence\Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content
      */
     protected function getContentFixture($versionNo, array $languageCodes)
     {
@@ -523,7 +523,7 @@ class AddFieldTest extends TestCase
     /**
      * Returns a Content Gateway mock.
      *
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Persistence\Legacy\Content\Gateway
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Persistence\Legacy\Content\Gateway
      */
     protected function getContentGatewayMock()
     {
@@ -537,7 +537,7 @@ class AddFieldTest extends TestCase
     /**
      * Returns a FieldValue converter mock.
      *
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter
      */
     protected function getFieldValueConverterMock()
     {
@@ -551,7 +551,7 @@ class AddFieldTest extends TestCase
     /**
      * Returns a Content StorageHandler mock.
      *
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Persistence\Legacy\Content\StorageHandler
      */
     protected function getContentStorageHandlerMock()
     {
@@ -565,7 +565,7 @@ class AddFieldTest extends TestCase
     /**
      * Returns a Content mapper mock.
      *
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Persistence\Legacy\Content\Mapper
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Persistence\Legacy\Content\Mapper
      */
     protected function getContentMapperMock()
     {
@@ -579,7 +579,7 @@ class AddFieldTest extends TestCase
     /**
      * Returns a FieldDefinition fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition
      */
     protected function getFieldDefinitionFixture()
     {
@@ -599,7 +599,7 @@ class AddFieldTest extends TestCase
      * @param int $versionNo
      * @param string $languageCode
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Field
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Field
      */
     public function getFieldReference($id, $versionNo, $languageCode)
     {
@@ -618,7 +618,7 @@ class AddFieldTest extends TestCase
     /**
      * @param $methods
      *
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action\AddField
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action\AddField
      */
     protected function getMockedAction($methods = [])
     {
@@ -637,3 +637,5 @@ class AddFieldTest extends TestCase
             ->getMock();
     }
 }
+
+class_alias(AddFieldTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\Type\ContentUpdater\Action\AddFieldTest');

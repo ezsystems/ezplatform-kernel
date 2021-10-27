@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\EventListener;
+namespace Ibexa\Tests\Bundle\Core\EventListener;
 
-use eZ\Bundle\EzPublishCoreBundle\EventListener\IndexRequestListener;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Bundle\Core\EventListener\IndexRequestListener;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -100,3 +100,5 @@ class IndexRequestListenerTest extends TestCase
         $this->assertFalse($this->request->attributes->has('needsRedirect'));
     }
 }
+
+class_alias(IndexRequestListenerTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\EventListener\IndexRequestListenerTest');

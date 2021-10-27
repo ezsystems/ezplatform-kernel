@@ -4,16 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Location\Gateway;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Location\Gateway;
 
 use Doctrine\DBAL\ParameterType;
-use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 
 /**
- * Test case for eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase
  */
 class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
 {
@@ -28,8 +29,6 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::trashLocation
-     *
      * @todo test updated content status
      */
     public function testTrashLocation()
@@ -53,9 +52,6 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::trashLocation
-     */
     public function testTrashLocationUpdateTrashTable()
     {
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
@@ -94,7 +90,6 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::untrashLocation
      * @dataProvider getUntrashedLocationValues
      */
     public function testUntrashLocationDefault($property, $value)
@@ -115,9 +110,6 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::untrashLocation
-     */
     public function testUntrashLocationNewParent()
     {
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
@@ -136,12 +128,9 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::untrashLocation
-     */
     public function testUntrashInvalidLocation()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
         $handler = $this->getLocationGateway();
@@ -149,12 +138,9 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
         $handler->untrashLocation(23);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::untrashLocation
-     */
     public function testUntrashLocationInvalidParent()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
         $handler = $this->getLocationGateway();
@@ -163,12 +149,9 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
         $handler->untrashLocation(71, 1337);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::untrashLocation
-     */
     public function testUntrashLocationInvalidOldParent()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
         $handler = $this->getLocationGateway();
@@ -200,7 +183,6 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::loadTrashByLocation
      * @dataProvider getLoadTrashValues
      */
     public function testLoadTrashByLocationId($field, $value)
@@ -218,9 +200,6 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::countTrashed
-     */
     public function testCountTrashed()
     {
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
@@ -239,9 +218,6 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::listTrashed
-     */
     public function testListEmptyTrash()
     {
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
@@ -266,9 +242,6 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
         $handler->trashLocation(76);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::listTrashed
-     */
     public function testListFullTrash()
     {
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
@@ -281,9 +254,6 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::listTrashed
-     */
     public function testListTrashLimited()
     {
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
@@ -318,7 +288,6 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::listTrashed
      * @dataProvider getTrashValues
      */
     public function testListTrashItem($key, $value)
@@ -331,9 +300,6 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
         $this->assertEquals($value, $trashList[0][$key]);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::listTrashed
-     */
     public function testListTrashSortedPathStringDesc()
     {
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
@@ -366,9 +332,6 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::listTrashed
-     */
     public function testListTrashSortedDepth()
     {
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
@@ -402,9 +365,6 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::cleanupTrash
-     */
     public function testCleanupTrash()
     {
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
@@ -421,9 +381,6 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::removeElementFromTrash
-     */
     public function testRemoveElementFromTrash()
     {
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
@@ -441,9 +398,6 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::countLocationsByContentId
-     */
     public function testCountLocationsByContentId()
     {
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
@@ -484,3 +438,5 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
         self::assertSame(2, $handler->countLocationsByContentId(67));
     }
 }
+
+class_alias(DoctrineDatabaseTrashTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\Location\Gateway\DoctrineDatabaseTrashTest');

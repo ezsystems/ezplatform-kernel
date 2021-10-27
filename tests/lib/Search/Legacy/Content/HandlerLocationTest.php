@@ -4,23 +4,24 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Tests\Content;
+namespace Ibexa\Tests\Core\Search\Legacy\Content;
 
-use eZ\Publish\Core\Persistence;
-use eZ\Publish\Core\Search\Legacy\Content;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
-use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway\CriterionHandler as LocationCriterionHandler;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler as CommonCriterionHandler;
-use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway\SortClauseHandler as LocationSortClauseHandler;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler as CommonSortClauseHandler;
-use eZ\Publish\Core\Search\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Persistence;
+use Ibexa\Core\Search\Legacy\Content;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
+use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Core\Search\Legacy\Content\Location\Gateway\CriterionHandler as LocationCriterionHandler;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler as CommonCriterionHandler;
+use Ibexa\Core\Search\Legacy\Content\Location\Gateway\SortClauseHandler as LocationSortClauseHandler;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler as CommonSortClauseHandler;
+use Ibexa\Core\Search\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
 
 /**
  * Location Search test case for ContentSearchHandler.
@@ -34,7 +35,7 @@ class HandlerLocationTest extends AbstractTestCase
      *
      * @param array $fullTextSearchConfiguration
      *
-     * @return \eZ\Publish\Core\Search\Legacy\Content\Handler
+     * @return \Ibexa\Core\Search\Legacy\Content\Handler
      */
     protected function getContentSearchHandler(array $fullTextSearchConfiguration = [])
     {
@@ -167,7 +168,7 @@ class HandlerLocationTest extends AbstractTestCase
     /**
      * Returns a location mapper mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Location\Mapper
      */
     protected function getLocationMapperMock()
     {
@@ -1162,7 +1163,7 @@ class HandlerLocationTest extends AbstractTestCase
 
     public function testFullTextFilterInvalidStopwordThreshold()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $this->getContentSearchHandler(
             [
@@ -1465,3 +1466,5 @@ class HandlerLocationTest extends AbstractTestCase
         );
     }
 }
+
+class_alias(HandlerLocationTest::class, 'eZ\Publish\Core\Search\Legacy\Tests\Content\HandlerLocationTest');

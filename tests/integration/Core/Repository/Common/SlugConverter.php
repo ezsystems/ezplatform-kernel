@@ -4,14 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Common;
+namespace Ibexa\Tests\Integration\Core\Repository\Common;
 
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter as LegacySlugConverter;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter as LegacySlugConverter;
 
 /**
  * Overridden Slug Converter for test purposes (to make Service configuration mutable).
- *
- * @see \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter
  */
 class SlugConverter extends LegacySlugConverter
 {
@@ -26,3 +24,5 @@ class SlugConverter extends LegacySlugConverter
         $this->configuration[$key] = $value;
     }
 }
+
+class_alias(SlugConverter::class, 'eZ\Publish\API\Repository\Tests\Common\SlugConverter');

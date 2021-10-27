@@ -6,9 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\Parallel;
+namespace Ibexa\Tests\Integration\Core\Repository\Parallel;
 
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Tests\Core\Repository\Parallel\ParallelProcessList;
 
 final class ContentServiceTest extends BaseParallelTestCase
 {
@@ -52,3 +53,5 @@ final class ContentServiceTest extends BaseParallelTestCase
             'One of the versions should be published and the other should be draft');
     }
 }
+
+class_alias(ContentServiceTest::class, 'eZ\Publish\API\Repository\Tests\Parallel\ContentServiceTest');

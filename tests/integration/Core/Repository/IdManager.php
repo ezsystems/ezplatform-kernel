@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
 /**
  * Base class for ID manager used in the tests suite.
@@ -37,3 +37,5 @@ abstract class IdManager
      */
     abstract public function parseId($type, $id);
 }
+
+class_alias(IdManager::class, 'eZ\Publish\API\Repository\Tests\IdManager');

@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\SiteAccessAware\Tests;
+namespace Ibexa\Tests\Core\Repository\SiteAccessAware;
 
-use eZ\Publish\API\Repository\URLAliasService as APIService;
-use eZ\Publish\API\Repository\Values\Content\URLAlias;
-use eZ\Publish\Core\Repository\SiteAccessAware\URLAliasService;
-use eZ\Publish\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\URLAliasService as APIService;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
+use Ibexa\Core\Repository\SiteAccessAware\URLAliasService;
+use Ibexa\Core\Repository\Values\Content\Location;
 
 class UrlAliasServiceTest extends AbstractServiceTest
 {
@@ -74,3 +74,5 @@ class UrlAliasServiceTest extends AbstractServiceTest
         return $this->setLanguagesLookupExpectedArguments($arguments, $languageArgumentIndex, $languages);
     }
 }
+
+class_alias(UrlAliasServiceTest::class, 'eZ\Publish\Core\Repository\SiteAccessAware\Tests\UrlAliasServiceTest');

@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Stub;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigBuilderInterface;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Security\PolicyProvider\PolicyProviderInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigBuilderInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Security\PolicyProvider\PolicyProviderInterface;
 
 /**
  * For tests only!!!
@@ -28,3 +28,5 @@ class StubPolicyProvider implements PolicyProviderInterface
         $configBuilder->addConfig($this->policies);
     }
 }
+
+class_alias(StubPolicyProvider::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\StubPolicyProvider');

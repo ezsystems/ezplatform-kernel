@@ -4,12 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Values\Content;
+namespace Ibexa\Tests\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Tests\Values\ValueObjectTestTrait;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Tests\Core\Repository\Values\ValueObjectTestTrait;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Ibexa\Contracts\Core\Repository\Values\Content\Language
+ */
 class LanguageTest extends TestCase
 {
     use ValueObjectTestTrait;
@@ -34,12 +39,10 @@ class LanguageTest extends TestCase
 
     /**
      * Test retrieving missing property.
-     *
-     * @covers \eZ\Publish\API\Repository\Values\Content\Language::__get
      */
     public function testMissingProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException::class);
+        $this->expectException(PropertyNotFoundException::class);
         $this->expectExceptionMessage('Property \'notDefined\' not found on class');
 
         $language = new Language();
@@ -49,12 +52,10 @@ class LanguageTest extends TestCase
 
     /**
      * Test setting read only property.
-     *
-     * @covers \eZ\Publish\API\Repository\Values\Content\Language::__set
      */
     public function testReadOnlyProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException::class);
+        $this->expectException(PropertyReadOnlyException::class);
         $this->expectExceptionMessage('Property \'id\' is readonly on class');
 
         $language = new Language();
@@ -64,8 +65,6 @@ class LanguageTest extends TestCase
 
     /**
      * Test if property exists.
-     *
-     * @covers \eZ\Publish\API\Repository\Values\Content\Language::__isset
      */
     public function testIsPropertySet()
     {
@@ -79,12 +78,10 @@ class LanguageTest extends TestCase
 
     /**
      * Test unsetting a property.
-     *
-     * @covers \eZ\Publish\API\Repository\Values\Content\Language::__unset
      */
     public function testUnsetProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException::class);
+        $this->expectException(PropertyReadOnlyException::class);
         $this->expectExceptionMessage('Property \'id\' is readonly on class');
 
         $language = new Language(['id' => 2]);
@@ -92,3 +89,5 @@ class LanguageTest extends TestCase
         self::fail('Unsetting read-only property succeeded');
     }
 }
+
+class_alias(LanguageTest::class, 'eZ\Publish\API\Repository\Tests\Values\Content\LanguageTest');

@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\Notification\CreateStruct;
-use eZ\Publish\SPI\Persistence\Notification\Handler as SPINotificationHandler;
-use eZ\Publish\API\Repository\Values\Notification\Notification;
-use eZ\Publish\SPI\Persistence\Notification\Notification as SPINotification;
-use eZ\Publish\SPI\Persistence\Notification\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Notification\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Notification\Handler as SPINotificationHandler;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification;
+use Ibexa\Contracts\Core\Persistence\Notification\Notification as SPINotification;
+use Ibexa\Contracts\Core\Persistence\Notification\UpdateStruct;
 
 /**
  * Test case for Persistence\Cache\NotificationHandler.
@@ -207,3 +207,5 @@ class NotificationHandlerTest extends AbstractCacheHandlerTest
         ];
     }
 }
+
+class_alias(NotificationHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\NotificationHandlerTest');

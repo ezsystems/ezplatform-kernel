@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Compiler;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\PlaceholderProviderPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\PlaceholderProviderPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -55,3 +55,5 @@ class PlaceholderProviderPassTest extends AbstractCompilerPassTestCase
         $this->compile();
     }
 }
+
+class_alias(PlaceholderProviderPassTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler\PlaceholderProviderPassTest');

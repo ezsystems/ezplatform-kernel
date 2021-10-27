@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\SiteAccess;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Router;
-use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use Psr\Log\LoggerInterface;
 
 class RouterPortHostURITest extends RouterBaseTest
@@ -110,7 +110,7 @@ class RouterPortHostURITest extends RouterBaseTest
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests\SiteAccessSetting[]
+     * @return \Ibexa\Tests\Core\MVC\Symfony\SiteAccess\SiteAccessSetting[]
      */
     public function getSiteAccessProviderSettings(): array
     {
@@ -123,3 +123,5 @@ class RouterPortHostURITest extends RouterBaseTest
         ];
     }
 }
+
+class_alias(RouterPortHostURITest::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests\RouterPortHostURITest');

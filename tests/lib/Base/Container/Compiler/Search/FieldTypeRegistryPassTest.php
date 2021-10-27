@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Tests\Container\Compiler\Search;
+namespace Ibexa\Tests\Core\Base\Container\Compiler\Search;
 
-use eZ\Publish\Core\Base\Container\Compiler\Search\FieldRegistryPass;
+use Ibexa\Core\Base\Container\Compiler\Search\FieldRegistryPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -67,3 +67,5 @@ class FieldTypeRegistryPassTest extends AbstractCompilerPassTestCase
         );
     }
 }
+
+class_alias(FieldTypeRegistryPassTest::class, 'eZ\Publish\Core\Base\Tests\Container\Compiler\Search\FieldTypeRegistryPassTest');

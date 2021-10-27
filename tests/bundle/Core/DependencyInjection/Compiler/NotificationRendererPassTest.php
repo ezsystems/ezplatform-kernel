@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Compiler;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\NotificationRendererPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\NotificationRendererPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -59,3 +59,5 @@ class NotificationRendererPassTest extends AbstractCompilerPassTestCase
         $this->compile();
     }
 }
+
+class_alias(NotificationRendererPassTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler\NotificationRendererPassTest');

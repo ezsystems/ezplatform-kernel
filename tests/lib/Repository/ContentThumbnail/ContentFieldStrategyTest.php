@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Tests\ContentThumbnail;
+namespace Ibexa\Tests\Core\Repository\ContentThumbnail;
 
 use ArrayIterator;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\Thumbnail;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Repository\Strategy\ContentThumbnail\Field\ContentFieldStrategy;
-use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Repository\Strategy\ContentThumbnail\Field\ContentFieldStrategy;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
 use PHPUnit\Framework\TestCase;
 
 class ContentFieldStrategyTest extends TestCase
@@ -116,3 +116,5 @@ class ContentFieldStrategyTest extends TestCase
         $contentFieldStrategy->getThumbnail($field);
     }
 }
+
+class_alias(ContentFieldStrategyTest::class, 'eZ\Publish\Core\Repository\Tests\ContentThumbnail\ContentFieldStrategyTest');

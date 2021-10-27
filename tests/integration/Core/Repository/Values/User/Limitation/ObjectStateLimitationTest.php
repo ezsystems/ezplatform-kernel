@@ -4,35 +4,28 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Values\User\Limitation;
+namespace Ibexa\Tests\Integration\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
-use eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation;
-use eZ\Publish\API\Repository\Values\User\RoleCreateStruct;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ObjectStateLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleCreateStruct;
 
 /**
- * Test case for the {@link \eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation}
- * class.
- *
- * @see eZ\Publish\API\Repository\Values\User\Limitation
- * @see eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation
+ * @covers \Ibexa\Contracts\Core\Repository\Values\User\Limitation\ObjectStateLimitation
  * @group integration
  * @group limitation
  */
 class ObjectStateLimitationTest extends BaseLimitationTest
 {
     /**
-     * Tests a ObjectStateLimitation.
-     *
      * @throws \ErrorException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testObjectStateLimitationAllow()
     {
@@ -50,7 +43,7 @@ class ObjectStateLimitationTest extends BaseLimitationTest
         $role = $roleService->loadRoleByIdentifier('Editor');
         $roleDraft = $roleService->createRoleDraft($role);
         // Search for the new policy instance
-        /** @var \eZ\Publish\API\Repository\Values\User\PolicyDraft $policy */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft $policy */
         $removePolicy = null;
         foreach ($roleDraft->getPolicies() as $policy) {
             if ('content' != $policy->module || 'remove' != $policy->function) {
@@ -107,13 +100,13 @@ class ObjectStateLimitationTest extends BaseLimitationTest
     /**
      * Tests a ObjectStateLimitation.
      *
-     * @see eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation
+     * @covers \Ibexa\Contracts\Core\Repository\Values\User\Limitation\ObjectStateLimitation
      *
      * @throws \ErrorException
      */
     public function testObjectStateLimitationForbid()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -129,7 +122,7 @@ class ObjectStateLimitationTest extends BaseLimitationTest
         $role = $roleService->loadRoleByIdentifier('Editor');
         $roleDraft = $roleService->createRoleDraft($role);
         // Search for the new policy instance
-        /** @var \eZ\Publish\API\Repository\Values\User\PolicyDraft $policy */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft $policy */
         $removePolicy = null;
         foreach ($roleDraft->getPolicies() as $policy) {
             if ('content' != $policy->module || 'remove' != $policy->function) {
@@ -185,13 +178,11 @@ class ObjectStateLimitationTest extends BaseLimitationTest
      * Checks if the action is correctly forbidden when using ObjectStateLimitation
      * with limitation values from two different StateGroups.
      *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation
-     *
      * @throws \ErrorException
      */
     public function testObjectStateLimitationForbidVariant()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
         $this->expectExceptionMessage('\'remove\' \'content\'');
 
         $repository = $this->getRepository();
@@ -210,7 +201,7 @@ class ObjectStateLimitationTest extends BaseLimitationTest
         $role = $roleService->loadRoleByIdentifier('Editor');
         $roleDraft = $roleService->createRoleDraft($role);
         // Search for the new policy instance
-        /** @var \eZ\Publish\API\Repository\Values\User\PolicyDraft $policy */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft $policy */
         $removePolicy = null;
         foreach ($roleDraft->getPolicies() as $policy) {
             if ('content' !== $policy->module || 'remove' !== $policy->function) {
@@ -262,7 +253,7 @@ class ObjectStateLimitationTest extends BaseLimitationTest
     /**
      * Create new State Group.
      *
-     * @return \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup
+     * @return \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup
      */
     private function createObjectStateGroup()
     {
@@ -278,9 +269,9 @@ class ObjectStateLimitationTest extends BaseLimitationTest
     /**
      * Create new State and assign it to the $objectStateGroup.
      *
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
      *
-     * @return \eZ\Publish\API\Repository\Values\ObjectState\ObjectState
+     * @return \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState
      */
     private function createObjectState(ObjectStateGroup $objectStateGroup)
     {
@@ -298,8 +289,6 @@ class ObjectStateLimitationTest extends BaseLimitationTest
      *
      * Checks if the search results are correctly filtered when using ObjectStateLimitation
      * with limitation values from two different StateGroups.
-     *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation
      */
     public function testObjectStateLimitationSearch()
     {
@@ -358,10 +347,10 @@ class ObjectStateLimitationTest extends BaseLimitationTest
     /**
      * Add policy to a new role.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\RoleCreateStruct $roleCreateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleCreateStruct $roleCreateStruct
      * @param string $module
      * @param string $function
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation[] $limitations
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] $limitations
      */
     private function addPolicyToNewRole(RoleCreateStruct $roleCreateStruct, $module, $function, array $limitations)
     {
@@ -373,3 +362,5 @@ class ObjectStateLimitationTest extends BaseLimitationTest
         $roleCreateStruct->addPolicy($policyCreateStruct);
     }
 }
+
+class_alias(ObjectStateLimitationTest::class, 'eZ\Publish\API\Repository\Tests\Values\User\Limitation\ObjectStateLimitationTest');

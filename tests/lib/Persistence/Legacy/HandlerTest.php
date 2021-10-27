@@ -4,33 +4,30 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests;
+namespace Ibexa\Tests\Core\Persistence\Legacy;
 
-use eZ\Publish\Core\Base\ServiceContainer;
-use eZ\Publish\Core\Persistence\Legacy\Handler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Handler as ContentHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Handler as LocationHandler;
-use eZ\Publish\Core\Persistence\Legacy\User\Handler as UserHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Section\Handler as SectionHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler as UrlAliasHandler;
-use eZ\Publish\Core\Persistence\Legacy\TransactionHandler;
-use eZ\Publish\SPI\Persistence\Content\Handler as SPIContentHandler;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as SPIContentTypeHandler;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as SPILanguageHandler;
-use eZ\Publish\SPI\Persistence\Content\Location\Handler as SPILocationHandler;
-use eZ\Publish\SPI\Persistence\User\Handler as SPIUserHandler;
-use eZ\Publish\SPI\Persistence\Content\Section\Handler as SPISectionHandler;
-use eZ\Publish\SPI\Persistence\Content\UrlAlias\Handler as SPIUrlAliasHandler;
-use eZ\Publish\SPI\Persistence\TransactionHandler as SPITransactionHandler;
+use Ibexa\Core\Base\ServiceContainer;
+use Ibexa\Core\Persistence\Legacy\Handler;
+use Ibexa\Core\Persistence\Legacy\Content\Handler as ContentHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Handler as LocationHandler;
+use Ibexa\Core\Persistence\Legacy\User\Handler as UserHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Section\Handler as SectionHandler;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Handler as UrlAliasHandler;
+use Ibexa\Core\Persistence\Legacy\TransactionHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Handler as SPIContentHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as SPIContentTypeHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as SPILanguageHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as SPILocationHandler;
+use Ibexa\Contracts\Core\Persistence\User\Handler as SPIUserHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Section\Handler as SPISectionHandler;
+use Ibexa\Contracts\Core\Persistence\Content\UrlAlias\Handler as SPIUrlAliasHandler;
+use Ibexa\Contracts\Core\Persistence\TransactionHandler as SPITransactionHandler;
 
 /**
- * Test case for Repository Handler.
+ * @covers \Ibexa\Core\Persistence\Legacy\Handler::contentHandler
  */
 class HandlerTest extends TestCase
 {
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Handler::contentHandler
-     */
     public function testContentHandler()
     {
         $handler = $this->getHandlerFixture();
@@ -46,9 +43,6 @@ class HandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Handler::contentHandler
-     */
     public function testContentHandlerTwice()
     {
         $handler = $this->getHandlerFixture();
@@ -59,9 +53,6 @@ class HandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Handler::contentTypeHandler
-     */
     public function testContentTypeHandler()
     {
         $handler = $this->getHandlerFixture();
@@ -73,9 +64,6 @@ class HandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Handler::contentLanguageHandler
-     */
     public function testContentLanguageHandler()
     {
         $handler = $this->getHandlerFixture();
@@ -87,9 +75,6 @@ class HandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Handler::contentTypeHandler
-     */
     public function testContentTypeHandlerTwice()
     {
         $handler = $this->getHandlerFixture();
@@ -100,9 +85,6 @@ class HandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Handler::locationHandler
-     */
     public function testLocationHandler()
     {
         $handler = $this->getHandlerFixture();
@@ -118,9 +100,6 @@ class HandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Handler::locationHandler
-     */
     public function testLocationHandlerTwice()
     {
         $handler = $this->getHandlerFixture();
@@ -131,9 +110,6 @@ class HandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Handler::userHandler
-     */
     public function testUserHandler()
     {
         $handler = $this->getHandlerFixture();
@@ -149,9 +125,6 @@ class HandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Handler::userHandler
-     */
     public function testUserHandlerTwice()
     {
         $handler = $this->getHandlerFixture();
@@ -162,9 +135,6 @@ class HandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Handler::sectionHandler
-     */
     public function testSectionHandler()
     {
         $handler = $this->getHandlerFixture();
@@ -180,9 +150,6 @@ class HandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Handler::sectionHandler
-     */
     public function testSectionHandlerTwice()
     {
         $handler = $this->getHandlerFixture();
@@ -193,9 +160,6 @@ class HandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Handler::urlAliasHandler
-     */
     public function testUrlAliasHandler()
     {
         $handler = $this->getHandlerFixture();
@@ -211,9 +175,6 @@ class HandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Handler::urlAliasHandler
-     */
     public function testUrlAliasHandlerTwice()
     {
         $handler = $this->getHandlerFixture();
@@ -224,9 +185,6 @@ class HandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Handler::notificationHandler()
-     */
     public function testNotificationHandlerTwice()
     {
         $handler = $this->getHandlerFixture();
@@ -237,9 +195,6 @@ class HandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Handler::transactionHandler
-     */
     public function testTransactionHandler()
     {
         $handler = $this->getHandlerFixture();
@@ -255,9 +210,6 @@ class HandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Handler::transactionHandler
-     */
     public function testTransactionHandlerTwice()
     {
         $handler = $this->getHandlerFixture();
@@ -273,7 +225,7 @@ class HandlerTest extends TestCase
     /**
      * Returns the Handler.
      *
-     * @return Handler
+     * @return \Ibexa\Contracts\Core\Persistence\Handler
      */
     protected function getHandlerFixture()
     {
@@ -322,3 +274,5 @@ class HandlerTest extends TestCase
         return self::$container;
     }
 }
+
+class_alias(HandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\HandlerTest');

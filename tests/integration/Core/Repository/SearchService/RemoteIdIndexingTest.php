@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\SearchService;
+namespace Ibexa\Tests\Integration\Core\Repository\SearchService;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
 final class RemoteIdIndexingTest extends BaseTest
 {
@@ -19,9 +19,9 @@ final class RemoteIdIndexingTest extends BaseTest
     private static $contentIdByRemoteIdIndex = [];
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     protected function setUp(): void
     {
@@ -41,7 +41,7 @@ final class RemoteIdIndexingTest extends BaseTest
     /**
      * @dataProvider providerForTestIndexingRemoteId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
      */
     public function testIndexingRemoteId(Criterion $criterion): void
     {
@@ -104,9 +104,9 @@ final class RemoteIdIndexingTest extends BaseTest
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     private function createTestFolder(string $remoteId): int
     {
@@ -130,3 +130,5 @@ final class RemoteIdIndexingTest extends BaseTest
         return $folder->id;
     }
 }
+
+class_alias(RemoteIdIndexingTest::class, 'eZ\Publish\API\Repository\Tests\SearchService\RemoteIdIndexingTest');

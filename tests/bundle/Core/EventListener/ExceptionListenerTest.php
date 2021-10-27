@@ -4,25 +4,25 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\EventListener;
+namespace Ibexa\Tests\Bundle\Core\EventListener;
 
 use Exception;
-use eZ\Bundle\EzPublishCoreBundle\EventListener\ExceptionListener;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException;
-use eZ\Publish\Core\Base\Exceptions\ContentTypeFieldDefinitionValidationException;
-use eZ\Publish\Core\Base\Exceptions\ContentTypeValidationException;
-use eZ\Publish\Core\Base\Exceptions\ContentValidationException;
-use eZ\Publish\Core\Base\Exceptions\ForbiddenException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
-use eZ\Publish\Core\Base\Exceptions\LimitationValidationException;
-use eZ\Publish\Core\Base\Exceptions\MissingClass;
-use eZ\Publish\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
-use eZ\Publish\Core\Base\Exceptions\NotFound\LimitationNotFoundException;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
+use Ibexa\Bundle\Core\EventListener\ExceptionListener;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\ContentFieldValidationException;
+use Ibexa\Core\Base\Exceptions\ContentTypeFieldDefinitionValidationException;
+use Ibexa\Core\Base\Exceptions\ContentTypeValidationException;
+use Ibexa\Core\Base\Exceptions\ContentValidationException;
+use Ibexa\Core\Base\Exceptions\ForbiddenException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\Base\Exceptions\LimitationValidationException;
+use Ibexa\Core\Base\Exceptions\MissingClass;
+use Ibexa\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
+use Ibexa\Core\Base\Exceptions\NotFound\LimitationNotFoundException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -122,7 +122,7 @@ class ExceptionListenerTest extends TestCase
     /**
      * @dataProvider badRequestExceptionProvider
      *
-     * @param Exception|\eZ\Publish\Core\Base\Translatable $exception
+     * @param Exception|\Ibexa\Core\Base\Translatable $exception
      */
     public function testBadRequestException(Exception $exception)
     {
@@ -159,7 +159,7 @@ class ExceptionListenerTest extends TestCase
     /**
      * @dataProvider otherExceptionProvider
      *
-     * @param Exception|\eZ\Publish\Core\Base\Translatable $exception
+     * @param Exception|\Ibexa\Core\Base\Translatable $exception
      */
     public function testOtherRepositoryException(Exception $exception)
     {
@@ -211,3 +211,5 @@ class ExceptionListenerTest extends TestCase
         self::assertSame($exception, $event->getThrowable());
     }
 }
+
+class_alias(ExceptionListenerTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\EventListener\ExceptionListenerTest');

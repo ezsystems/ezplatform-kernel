@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Cache\Tests\InMemory;
+namespace Ibexa\Tests\Core\Persistence\Cache\InMemory;
 
-use eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache;
+use Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
  */
 class InMemoryCacheTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache */
+    /** @var \Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache */
     protected $cache;
 
     /**
@@ -193,8 +193,9 @@ class InMemoryCacheTest extends TestCase
         $this->assertSame($obj, $this->cache->get('eight'));
     }
 }
+class_alias(InMemoryCacheTest::class, 'eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCacheTest');
 
-namespace eZ\Publish\Core\Persistence\Cache\InMemory;
+namespace Ibexa\Core\Persistence\Cache\InMemory;
 
 /**
  * Overloads microtime(true) calls in InMemoryCache in order to be able to test expiry.

@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\PHPUnitConstraint;
+namespace Ibexa\Tests\Core\Repository\PHPUnitConstraint;
 
 /**
  * PHPUnit constraint checking that the given ValidationError message occurs in asserted ContentFieldValidationException.
  *
- * @see \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException
- * @see \eZ\Publish\SPI\FieldType\ValidationError
+ * @see \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException
+ * @see \Ibexa\Contracts\Core\FieldType\ValidationError
  */
 class ValidationErrorOccurs extends AllValidationErrorsOccur
 {
@@ -39,3 +39,5 @@ class ValidationErrorOccurs extends AllValidationErrorsOccur
         return "contain the message '{$this->expectedValidationErrorMessage}'";
     }
 }
+
+class_alias(ValidationErrorOccurs::class, 'eZ\Publish\API\Repository\Tests\PHPUnitConstraint\ValidationErrorOccurs');

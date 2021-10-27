@@ -4,38 +4,35 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Gateway;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Gateway;
 
 use Doctrine\DBAL\ParameterType;
-use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\Content\Relation as RelationValue;
-use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation as RelationValue;
+use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
 
 /**
- * Test case for eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::insertContentObject
  */
 class DoctrineDatabaseTest extends LanguageAwareTestCase
 {
     /**
      * Database gateway to test.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase
      */
     protected $databaseGateway;
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::insertContentObject
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::generateLanguageMask
-     *
      * @todo Fix not available fields
      */
     public function testInsertContentObject()
@@ -84,7 +81,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a Content fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\CreateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\CreateStruct
      */
     protected function getCreateStructFixture()
     {
@@ -111,7 +108,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a Content fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content
      */
     protected function getContentFixture()
     {
@@ -142,7 +139,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a Version fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\VersionInfo
+     * @return \Ibexa\Contracts\Core\Persistence\Content\VersionInfo
      */
     protected function getVersionFixture()
     {
@@ -165,10 +162,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         return $version;
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::insertVersion
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::generateLanguage
-     */
     public function testInsertVersion()
     {
         $version = $this->getVersionFixture();
@@ -210,9 +203,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::setStatus
-     */
     public function testSetStatus()
     {
         $gateway = $this->getDatabaseGateway();
@@ -248,9 +238,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::setStatus
-     */
     public function testSetStatusPublished()
     {
         $gateway = $this->getDatabaseGateway();
@@ -286,9 +273,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::setStatus
-     */
     public function testSetStatusUnknownVersion()
     {
         $gateway = $this->getDatabaseGateway();
@@ -298,9 +282,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::updateContent
-     */
     public function testUpdateContent()
     {
         $gateway = $this->getDatabaseGateway();
@@ -340,7 +321,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns an UpdateStruct fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UpdateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UpdateStruct
      */
     protected function getUpdateStructFixture()
     {
@@ -356,7 +337,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a MetadataUpdateStruct fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct
      */
     protected function getMetadataUpdateStructFixture()
     {
@@ -371,9 +352,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         return $struct;
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::updateVersion
-     */
     public function testUpdateVersion()
     {
         $gateway = $this->getDatabaseGateway();
@@ -411,9 +389,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::insertNewField
-     */
     public function testInsertNewField()
     {
         $content = $this->getContentFixture();
@@ -461,9 +436,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::insertNewField
-     */
     public function testInsertNewAlwaysAvailableField()
     {
         $content = $this->getContentFixture();
@@ -513,10 +485,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::updateField
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::setFieldUpdateValues
-     */
     public function testUpdateField()
     {
         $content = $this->getContentFixture();
@@ -564,10 +532,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::updateNonTranslatableField
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::setFieldUpdateValues
-     */
     public function testUpdateNonTranslatableField()
     {
         $content = $this->getContentFixture();
@@ -627,9 +591,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::listVersions
-     */
     public function testListVersions(): void
     {
         $this->insertDatabaseFixture(
@@ -661,9 +622,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::listVersionNumbers
-     */
     public function testListVersionNumbers()
     {
         $this->insertDatabaseFixture(
@@ -676,9 +634,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         $this->assertEquals([1, 2], $res);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::listVersionsForUser
-     */
     public function testListVersionsForUser()
     {
         $this->insertDatabaseFixture(
@@ -718,10 +673,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::load
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase\QueryBuilder
-     */
     public function testLoadWithAllTranslations()
     {
         $this->insertDatabaseFixture(
@@ -744,10 +695,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::load
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase\QueryBuilder
-     */
     public function testCreateFixtureForMapperExtractContentFromRowsMultipleVersions()
     {
         $this->insertDatabaseFixture(
@@ -771,10 +718,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         $this->assertEquals($orig, $res, 'Fixtures differ between what was previously stored(expected) and what it now generates(actual), this hints either some mistake in impl or that the fixture (../_fixtures/extract_content_from_rows_multiple_versions.php) and tests needs to be adapted.');
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::load
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase\QueryBuilder
-     */
     public function testCreateFixtureForMapperExtractContentFromRows()
     {
         $this->insertDatabaseFixture(
@@ -795,10 +738,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         $this->assertEquals($orig, $res, 'Fixtures differ between what was previously stored(expected) and what it now generates(actual), this hints either some mistake in impl or that the fixture (../_fixtures/extract_content_from_rows.php) and tests needs to be adapted.');
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::load
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase\QueryBuilder
-     */
     public function testLoadWithSingleTranslation()
     {
         $this->insertDatabaseFixture(
@@ -824,10 +763,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::load
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase\QueryBuilder
-     */
     public function testLoadNonExistentTranslation()
     {
         $this->insertDatabaseFixture(
@@ -871,9 +806,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::getAllLocationIds
-     */
     public function testGetAllLocationIds()
     {
         $this->insertDatabaseFixture(
@@ -888,9 +820,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::getFieldIdsByType
-     */
     public function testGetFieldIdsByType()
     {
         $this->insertDatabaseFixture(
@@ -909,9 +838,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::getFieldIdsByType
-     */
     public function testGetFieldIdsByTypeWithSecondArgument()
     {
         $this->insertDatabaseFixture(
@@ -928,9 +854,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::deleteRelations
-     */
     public function testDeleteRelationsTo()
     {
         $this->insertDatabaseFixture(
@@ -961,9 +884,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::deleteRelations
-     */
     public function testDeleteRelationsFrom()
     {
         $this->insertDatabaseFixture(
@@ -993,9 +913,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::deleteRelations
-     */
     public function testDeleteRelationsWithSecondArgument()
     {
         $this->insertDatabaseFixture(
@@ -1026,8 +943,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::deleteField
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function testDeleteField(): void
@@ -1055,9 +970,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::deleteFields
-     */
     public function testDeleteFields()
     {
         $this->insertDatabaseFixture(
@@ -1084,9 +996,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::deleteFields
-     */
     public function testDeleteFieldsWithSecondArgument()
     {
         $this->insertDatabaseFixture(
@@ -1113,9 +1022,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::deleteVersions
-     */
     public function testDeleteVersions()
     {
         $this->insertDatabaseFixture(
@@ -1142,9 +1048,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::deleteVersions
-     */
     public function testDeleteVersionsWithSecondArgument()
     {
         $this->insertDatabaseFixture(
@@ -1172,8 +1075,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::setName
-     *
      * @throws \Exception
      */
     public function testSetName()
@@ -1210,9 +1111,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::deleteNames
-     */
     public function testDeleteNames()
     {
         $this->insertDatabaseFixture(
@@ -1239,9 +1137,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::deleteNames
-     */
     public function testDeleteNamesWithSecondArgument()
     {
         $this->insertDatabaseFixture(
@@ -1268,9 +1163,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::deleteContent
-     */
     public function testDeleteContent()
     {
         $this->insertDatabaseFixture(
@@ -1295,8 +1187,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::loadRelations
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function testLoadRelations(): void
@@ -1327,22 +1217,19 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::loadRelations
-     */
     public function testLoadRelationsByType()
     {
         $this->insertRelationFixture();
 
         $gateway = $this->getDatabaseGateway();
 
-        $relations = $gateway->loadRelations(57, null, \eZ\Publish\API\Repository\Values\Content\Relation::COMMON);
+        $relations = $gateway->loadRelations(57, null, RelationValue::COMMON);
 
         $this->assertCount(1, $relations, 'Expecting one relation to be loaded');
 
         $this->assertValuesInRows(
             'ezcontentobject_link_relation_type',
-            [\eZ\Publish\API\Repository\Values\Content\Relation::COMMON],
+            [RelationValue::COMMON],
             $relations
         );
 
@@ -1353,9 +1240,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::loadRelations
-     */
     public function testLoadRelationsByVersion()
     {
         $this->insertRelationFixture();
@@ -1373,23 +1257,17 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::loadRelations
-     */
     public function testLoadRelationsNoResult()
     {
         $this->insertRelationFixture();
 
         $gateway = $this->getDatabaseGateway();
 
-        $relations = $gateway->loadRelations(57, 1, \eZ\Publish\API\Repository\Values\Content\Relation::EMBED);
+        $relations = $gateway->loadRelations(57, 1, RelationValue::EMBED);
 
         $this->assertCount(0, $relations, 'Expecting no relation to be loaded');
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::loadReverseRelations
-     */
     public function testLoadReverseRelations()
     {
         $this->insertRelationFixture();
@@ -1407,16 +1285,13 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::loadReverseRelations
-     */
     public function testLoadReverseRelationsWithType()
     {
         $this->insertRelationFixture();
 
         $gateway = $this->getDatabaseGateway();
 
-        $relations = $gateway->loadReverseRelations(58, \eZ\Publish\API\Repository\Values\Content\Relation::COMMON);
+        $relations = $gateway->loadReverseRelations(58, RelationValue::COMMON);
 
         self::assertCount(1, $relations);
 
@@ -1428,7 +1303,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
         $this->assertValuesInRows(
             'ezcontentobject_link_relation_type',
-            [\eZ\Publish\API\Repository\Values\Content\Relation::COMMON],
+            [RelationValue::COMMON],
             $relations
         );
     }
@@ -1443,11 +1318,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /*
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::getLastVersionNumber
-     *
-     * @return void
-     */
     public function testGetLastVersionNumber()
     {
         $this->insertDatabaseFixture(
@@ -1462,9 +1332,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::insertRelation
-     */
     public function testInsertRelation()
     {
         $struct = $this->getRelationCreateStructFixture();
@@ -1498,9 +1365,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::deleteRelation
-     */
     public function testDeleteRelation()
     {
         $this->insertRelationFixture();
@@ -1514,8 +1378,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::deleteRelation
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function testDeleteRelationWithCompositeBitmask(): void
@@ -1541,10 +1403,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     }
 
     /**
-     * Test for the updateAlwaysAvailableFlag() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::updateAlwaysAvailableFlag
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function testUpdateAlwaysAvailableFlagRemove(): void
@@ -1611,10 +1469,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     }
 
     /**
-     * Test for the updateAlwaysAvailableFlag() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::updateAlwaysAvailableFlag
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function testUpdateAlwaysAvailableFlagAdd(): void
@@ -1684,12 +1538,8 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     }
 
     /**
-     * Test for the updateAlwaysAvailableFlag() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::updateAlwaysAvailableFlag
-     *
      * @throws \Doctrine\DBAL\DBALException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function testUpdateContentAddAlwaysAvailableFlagMultilingual(): void
     {
@@ -1737,12 +1587,8 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     }
 
     /**
-     * Test for the updateAlwaysAvailableFlag() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::updateAlwaysAvailableFlag
-     *
      * @throws \Doctrine\DBAL\DBALException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function testUpdateContentRemoveAlwaysAvailableFlagMultilingual(): void
     {
@@ -2068,7 +1914,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * DoctrineDatabaseTest::getRelationCreateStructFixture().
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct
      */
     protected function getRelationCreateStructFixture()
     {
@@ -2117,3 +1963,5 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 }
+
+class_alias(DoctrineDatabaseTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\Gateway\DoctrineDatabaseTest');

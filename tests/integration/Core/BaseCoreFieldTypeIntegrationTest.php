@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests\Integration;
+namespace Ibexa\Tests\Integration\Core;
 
 use Doctrine\DBAL\Connection;
 use ErrorException;
-use eZ\Publish\API\Repository\Tests\BaseTest as APIBaseTest;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest as APIBaseTest;
 
 /**
  * Base class for non-API Field Type integration tests (like Gateway w/ DBMS integration).
@@ -51,3 +51,5 @@ abstract class BaseCoreFieldTypeIntegrationTest extends APIBaseTest
         }
     }
 }
+
+class_alias(BaseCoreFieldTypeIntegrationTest::class, 'eZ\Publish\Core\FieldType\Tests\Integration\BaseCoreFieldTypeIntegrationTest');

@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\URL\Query\CriterionHandler;
+namespace Ibexa\Tests\Core\Persistence\Legacy\URL\Query\CriterionHandler;
 
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion\Validity;
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
-use eZ\Publish\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
-use eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler\Validity as ValidityHandler;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion\Validity;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
+use Ibexa\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
+use Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler\Validity as ValidityHandler;
 
 class ValidityTest extends CriterionHandlerTest
 {
@@ -61,3 +61,5 @@ class ValidityTest extends CriterionHandlerTest
         $this->assertEquals($expected, $actual);
     }
 }
+
+class_alias(ValidityTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\URL\Query\CriterionHandler\ValidityTest');

@@ -4,10 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use eZ\Publish\Core\FieldType\Checkbox\Value as CheckboxValue;
-use eZ\Publish\API\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\Checkbox\Value as CheckboxValue;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 
 /**
  * Integration test for use field type.
@@ -122,7 +124,7 @@ class CheckboxIntegrationTest extends SearchBaseIntegrationTest
     public function assertFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Checkbox\\Value',
+            CheckboxValue::class,
             $field->value
         );
 
@@ -135,33 +137,12 @@ class CheckboxIntegrationTest extends SearchBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during creation.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidCreationFieldData()
     {
         return [
             [
                 new CheckboxValue(new \stdClass()),
-                'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentType',
+                InvalidArgumentType::class,
             ],
         ];
     }
@@ -186,7 +167,7 @@ class CheckboxIntegrationTest extends SearchBaseIntegrationTest
     public function assertUpdatedFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Checkbox\\Value',
+            CheckboxValue::class,
             $field->value
         );
 
@@ -199,27 +180,6 @@ class CheckboxIntegrationTest extends SearchBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during update.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidUpdateFieldData()
     {
         return $this->provideInvalidCreationFieldData();
@@ -236,7 +196,7 @@ class CheckboxIntegrationTest extends SearchBaseIntegrationTest
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Checkbox\\Value',
+            CheckboxValue::class,
             $field->value
         );
 
@@ -330,7 +290,7 @@ class CheckboxIntegrationTest extends SearchBaseIntegrationTest
     protected function getSearchTargetValueOne()
     {
         // Handling Legacy Search Engine, which stores Checkbox value as integer
-        if (ltrim(get_class($this->getSetupFactory()), '\\') === 'eZ\Publish\API\Repository\Tests\SetupFactory\Legacy') {
+        if ($this->getSetupFactory() instanceof Legacy) {
             return (int)$this->getValidSearchValueOne();
         }
 
@@ -340,10 +300,12 @@ class CheckboxIntegrationTest extends SearchBaseIntegrationTest
     protected function getSearchTargetValueTwo()
     {
         // Handling Legacy Search Engine, which stores Checkbox value as integer
-        if (ltrim(get_class($this->getSetupFactory()), '\\') === 'eZ\Publish\API\Repository\Tests\SetupFactory\Legacy') {
+        if ($this->getSetupFactory() instanceof Legacy) {
             return (int)$this->getValidSearchValueTwo();
         }
 
         return parent::getSearchTargetValueTwo();
     }
 }
+
+class_alias(CheckboxIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\FieldType\CheckboxIntegrationTest');

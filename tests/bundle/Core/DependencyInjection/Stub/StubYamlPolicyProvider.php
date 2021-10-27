@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Stub;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Security\PolicyProvider\YamlPolicyProvider;
+use Ibexa\Bundle\Core\DependencyInjection\Security\PolicyProvider\YamlPolicyProvider;
 
 class StubYamlPolicyProvider extends YamlPolicyProvider
 {
@@ -23,3 +23,5 @@ class StubYamlPolicyProvider extends YamlPolicyProvider
         return $this->files;
     }
 }
+
+class_alias(StubYamlPolicyProvider::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\StubYamlPolicyProvider');

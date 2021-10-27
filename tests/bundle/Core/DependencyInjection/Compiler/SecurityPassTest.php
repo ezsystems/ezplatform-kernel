@@ -4,9 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Compiler;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\SecurityPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\SecurityPass;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\UserService;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -24,8 +26,8 @@ class SecurityPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('security.authentication.success_handler', new Definition());
         $this->setDefinition('ezpublish.config.resolver', new Definition());
         $this->setDefinition('ezpublish.siteaccess', new Definition());
-        $this->setDefinition('eZ\Publish\API\Repository\PermissionResolver', new Definition());
-        $this->setDefinition('eZ\Publish\API\Repository\UserService', new Definition());
+        $this->setDefinition(PermissionResolver::class, new Definition());
+        $this->setDefinition(UserService::class, new Definition());
     }
 
     protected function registerCompilerPass(ContainerBuilder $container): void
@@ -39,22 +41,22 @@ class SecurityPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'security.authentication.provider.dao',
             'setPermissionResolver',
-            [new Reference('eZ\Publish\API\Repository\PermissionResolver')]
+            [new Reference(PermissionResolver::class)]
         );
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'security.authentication.provider.dao',
             'setUserService',
-            [new Reference('eZ\Publish\API\Repository\UserService')]
+            [new Reference(UserService::class)]
         );
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'security.authentication.provider.rememberme',
             'setPermissionResolver',
-            [new Reference('eZ\Publish\API\Repository\PermissionResolver')]
+            [new Reference(PermissionResolver::class)]
         );
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'security.authentication.provider.anonymous',
             'setPermissionResolver',
-            [new Reference('eZ\Publish\API\Repository\PermissionResolver')]
+            [new Reference(PermissionResolver::class)]
         );
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'security.authentication.provider.anonymous',
@@ -73,3 +75,5 @@ class SecurityPassTest extends AbstractCompilerPassTestCase
         );
     }
 }
+
+class_alias(SecurityPassTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler\SecurityPassTest');

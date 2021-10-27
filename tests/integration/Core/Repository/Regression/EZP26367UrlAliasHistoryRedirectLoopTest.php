@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Regression;
+namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 /**
  * Issue https://jira.ez.no/browse/EZP-26367.
@@ -160,3 +160,5 @@ class EZP26367UrlAliasHistoryRedirectLoopTest extends BaseTest
         $this->assertTrue($urlAliasHistorized->isHistory);
     }
 }
+
+class_alias(EZP26367UrlAliasHistoryRedirectLoopTest::class, 'eZ\Publish\API\Repository\Tests\Regression\EZP26367UrlAliasHistoryRedirectLoopTest');

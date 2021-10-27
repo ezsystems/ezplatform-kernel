@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Compiler;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\QueryTypePass;
-use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\QueryTypeBundle\QueryType\TestQueryType;
-use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\QueryTypeBundle\QueryTypeBundle;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\QueryTypePass;
+use Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\QueryTypeBundle\QueryType\TestQueryType;
+use Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\QueryTypeBundle\QueryTypeBundle;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -114,3 +114,5 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
         ];
     }
 }
+
+class_alias(QueryTypePassTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler\QueryTypePassTest');

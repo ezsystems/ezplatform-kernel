@@ -4,28 +4,28 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use eZ\Publish\Core\FieldType\Time\Type as TimeType;
-use eZ\Publish\Core\FieldType\FieldSettings;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TimeConverter;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Core\FieldType\Time\Type as TimeType;
+use Ibexa\Core\FieldType\FieldSettings;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\TimeConverter;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
 use PHPUnit\Framework\TestCase;
 use DateTime;
 
 /**
- * Test case for Time converter in Legacy storage.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\DateAndTimeConverter
  *
  * @group fieldType
  * @group time
  */
 class TimeTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TimeConverter */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\TimeConverter */
     protected $converter;
 
     /** @var int */
@@ -38,9 +38,6 @@ class TimeTest extends TestCase
         $this->time = 3661;
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TimeConverter::toStorageValue
-     */
     public function testToStorageValue()
     {
         $value = new FieldValue();
@@ -54,9 +51,6 @@ class TimeTest extends TestCase
         self::assertSame('', $storageFieldValue->sortKeyString);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TimeConverter::toFieldValue
-     */
     public function testToFieldValue()
     {
         $storageFieldValue = new StorageFieldValue();
@@ -71,9 +65,6 @@ class TimeTest extends TestCase
         self::assertSame($storageFieldValue->sortKeyInt, $fieldValue->sortKey);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TimeConverter::toStorageFieldDefinition
-     */
     public function testToStorageFieldDefinitionDefaultEmpty()
     {
         $storageFieldDef = new StorageFieldDefinition();
@@ -95,9 +86,6 @@ class TimeTest extends TestCase
         self::assertSame(1, $storageFieldDef->dataInt2);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TimeConverter::toStorageFieldDefinition
-     */
     public function testToStorageFieldDefinitionDefaultCurrentTime()
     {
         $storageFieldDef = new StorageFieldDefinition();
@@ -119,9 +107,6 @@ class TimeTest extends TestCase
         self::assertSame(0, $storageFieldDef->dataInt2);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TimeConverter::toFieldDefinition
-     */
     public function testToFieldDefinitionDefaultEmpty()
     {
         $fieldDef = new PersistenceFieldDefinition();
@@ -145,9 +130,6 @@ class TimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TimeConverter::toFieldDefinition
-     */
     public function testToFieldDefinitionDefaultCurrentTime()
     {
         $fieldDef = new PersistenceFieldDefinition();
@@ -173,3 +155,5 @@ class TimeTest extends TestCase
         );
     }
 }
+
+class_alias(TimeTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter\TimeTest');

@@ -4,19 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests\Url\Gateway;
+namespace Ibexa\Tests\Core\FieldType\Url\Gateway;
 
-use eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway;
-use eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
+use Ibexa\Core\FieldType\Url\UrlStorage\Gateway;
+use Ibexa\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
- * @covers \eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage
+ * @covers \Ibexa\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage
  */
 class DoctrineStorageTest extends TestCase
 {
     /**
-     * @covers \eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage::getIdUrlMap
+     * @covers \Ibexa\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage::getIdUrlMap
      */
     public function testGetIdUrlMap()
     {
@@ -36,7 +36,7 @@ class DoctrineStorageTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage::getUrlIdMap
+     * @covers \Ibexa\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage::getUrlIdMap
      */
     public function testGetUrlIdMap()
     {
@@ -60,7 +60,7 @@ class DoctrineStorageTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage::insertUrl
+     * @covers \Ibexa\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage::insertUrl
      */
     public function testInsertUrl()
     {
@@ -106,7 +106,7 @@ class DoctrineStorageTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage::linkUrl
+     * @covers \Ibexa\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage::linkUrl
      */
     public function testLinkUrl()
     {
@@ -143,7 +143,7 @@ class DoctrineStorageTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage::unlinkUrl
+     * @covers \Ibexa\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage::unlinkUrl
      */
     public function testUnlinkUrl()
     {
@@ -203,3 +203,5 @@ class DoctrineStorageTest extends TestCase
         return $this->storageGateway;
     }
 }
+
+class_alias(DoctrineStorageTest::class, 'eZ\Publish\Core\FieldType\Tests\Url\Gateway\DoctrineStorageTest');

@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Tests;
+namespace Ibexa\Tests\Core\QueryType\BuiltIn\SortSpec;
 
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecLexer;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Token;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortSpecLexer;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\Token;
 use PHPUnit\Framework\TestCase;
 
 final class SortSpecLexerTest extends TestCase
@@ -185,3 +185,5 @@ final class SortSpecLexerTest extends TestCase
         ], $output);
     }
 }
+
+class_alias(SortSpecLexerTest::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Tests\SortSpecLexerTest');

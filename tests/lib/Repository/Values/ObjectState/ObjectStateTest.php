@@ -4,15 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Values\ObjectState;
+namespace Ibexa\Tests\Core\Repository\Values\ObjectState;
 
-use eZ\Publish\API\Repository\Tests\Values\ValueObjectTestTrait;
-use eZ\Publish\Core\Repository\Tests\Values\MultiLanguageTestTrait;
-use eZ\Publish\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException;
+use Ibexa\Tests\Core\Repository\Values\ValueObjectTestTrait;
+use Ibexa\Tests\Core\Repository\Values\MultiLanguageTestTrait;
+use Ibexa\Core\Repository\Values\ObjectState\ObjectState;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test internal integrity of @see \eZ\Publish\Core\Repository\Values\ObjectState\ObjectState ValueObject.
+ * @covers \Ibexa\Core\Repository\Values\ObjectState\ObjectState
  */
 class ObjectStateTest extends TestCase
 {
@@ -21,8 +23,6 @@ class ObjectStateTest extends TestCase
 
     /**
      * Test a new class and default values on properties.
-     *
-     * @covers \eZ\Publish\API\Repository\Values\ObjectState\ObjectState::__construct
      */
     public function testNewClass()
     {
@@ -45,7 +45,7 @@ class ObjectStateTest extends TestCase
     /**
      * Test a new class with unified multi language logic properties.
      *
-     * @return \eZ\Publish\Core\Repository\Values\ObjectState\ObjectState
+     * @return \Ibexa\Core\Repository\Values\ObjectState\ObjectState
      */
     public function testNewClassWithMultiLanguageProperties()
     {
@@ -75,12 +75,12 @@ class ObjectStateTest extends TestCase
     /**
      * Test retrieving missing property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\ObjectState\ObjectState::__get
-     * @covers \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup::__get
+     * @covers \Ibexa\Core\Repository\Values\ObjectState\ObjectState::__get
+     * @covers \Ibexa\Core\Repository\Values\ObjectState\ObjectStateGroup::__get
      */
     public function testMissingProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException::class);
+        $this->expectException(PropertyNotFoundException::class);
 
         $objectState = new ObjectState();
         $value = $objectState->notDefined;
@@ -90,12 +90,12 @@ class ObjectStateTest extends TestCase
     /**
      * Test setting read only property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\ObjectState\ObjectState::__set
-     * @covers \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup::__set
+     * @covers \Ibexa\Core\Repository\Values\ObjectState\ObjectState::__set
+     * @covers \Ibexa\Core\Repository\Values\ObjectState\ObjectStateGroup::__set
      */
     public function testReadOnlyProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException::class);
+        $this->expectException(PropertyReadOnlyException::class);
 
         $objectState = new ObjectState();
         $objectState->id = 42;
@@ -104,9 +104,6 @@ class ObjectStateTest extends TestCase
 
     /**
      * Test if property exists.
-     *
-     * @covers \eZ\Publish\API\Repository\Values\ObjectState\ObjectState::__isset
-     * @covers \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup::__isset
      */
     public function testIsPropertySet()
     {
@@ -121,15 +118,17 @@ class ObjectStateTest extends TestCase
     /**
      * Test unsetting a property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\ObjectState\ObjectState::__unset
-     * @covers \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup::__unset
+     * @covers \Ibexa\Core\Repository\Values\ObjectState\ObjectState::__unset
+     * @covers \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup::__unset
      */
     public function testUnsetProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException::class);
+        $this->expectException(PropertyReadOnlyException::class);
 
         $objectState = new ObjectState(['id' => 2]);
         unset($objectState->id);
         $this->fail('Unsetting read-only property succeeded');
     }
 }
+
+class_alias(ObjectStateTest::class, 'eZ\Publish\Core\Repository\Tests\Values\ObjectState\ObjectStateTest');

@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\Identifier;
+namespace Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased\Identifier;
 
-use eZ\Publish\API\Repository\SectionService;
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Identifier\Section as SectionIdentifierMatcher;
-use eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\BaseTest;
-use eZ\Publish\API\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Identifier\Section as SectionIdentifierMatcher;
+use Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased\BaseTest;
+use Ibexa\Contracts\Core\Repository\Repository;
 
 class SectionTest extends BaseTest
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Identifier\Section */
+    /** @var \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Identifier\Section */
     private $matcher;
 
     protected function setUp(): void
@@ -65,12 +65,12 @@ class SectionTest extends BaseTest
 
     /**
      * @dataProvider matchSectionProvider
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Identifier\Section::matchLocation
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
-     * @covers \eZ\Publish\Core\MVC\RepositoryAware::setRepository
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Identifier\Section::matchLocation
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
+     * @covers \Ibexa\Core\MVC\RepositoryAware::setRepository
      *
      * @param string|string[] $matchingConfig
-     * @param \eZ\Publish\API\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
      * @param bool $expectedResult
      */
     public function testMatchLocation($matchingConfig, Repository $repository, $expectedResult)
@@ -122,12 +122,12 @@ class SectionTest extends BaseTest
 
     /**
      * @dataProvider matchSectionProvider
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Identifier\Section::matchContentInfo
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
-     * @covers \eZ\Publish\Core\MVC\RepositoryAware::setRepository
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Identifier\Section::matchLocation
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
+     * @covers \Ibexa\Core\MVC\RepositoryAware::setRepository
      *
      * @param string|string[] $matchingConfig
-     * @param \eZ\Publish\API\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
      * @param bool $expectedResult
      */
     public function testMatchContentInfo($matchingConfig, Repository $repository, $expectedResult)
@@ -140,3 +140,5 @@ class SectionTest extends BaseTest
         );
     }
 }
+
+class_alias(SectionTest::class, 'eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\Identifier\SectionTest');

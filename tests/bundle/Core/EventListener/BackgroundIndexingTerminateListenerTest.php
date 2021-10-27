@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\EventListener;
+namespace Ibexa\Tests\Bundle\Core\EventListener;
 
-use eZ\Bundle\EzPublishCoreBundle\EventListener\BackgroundIndexingTerminateListener;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content\Location;
-use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
-use eZ\Publish\SPI\Search\Handler as SearchHandler;
+use Ibexa\Bundle\Core\EventListener\BackgroundIndexingTerminateListener;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
+use Ibexa\Contracts\Core\Search\Handler as SearchHandler;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\ConsoleEvents;
@@ -20,13 +20,13 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class BackgroundIndexingTerminateListenerTest extends TestCase
 {
-    /** @var \eZ\Bundle\EzPublishCoreBundle\EventListener\BackgroundIndexingTerminateListener */
+    /** @var \Ibexa\Bundle\Core\EventListener\BackgroundIndexingTerminateListener */
     protected $listener;
 
-    /** @var \eZ\Publish\SPI\Persistence\Handler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Persistence\Handler|\PHPUnit\Framework\MockObject\MockObject */
     protected $persistenceMock;
 
-    /** @var \eZ\Publish\SPI\Search\Handler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Search\Handler|\PHPUnit\Framework\MockObject\MockObject */
     protected $searchMock;
 
     protected function setUp(): void
@@ -162,7 +162,7 @@ class BackgroundIndexingTerminateListenerTest extends TestCase
     /**
      * @dataProvider indexDeleteProvider
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\ContentInfo|\eZ\Publish\SPI\Persistence\Content\Location $value
+     * @param \Ibexa\Contracts\Core\Persistence\Content\ContentInfo|\Ibexa\Contracts\Core\Persistence\Content\Location $value
      * @param \PHPUnit\Framework\MockObject\Stub $infoReturn
      * @param \PHPUnit\Framework\MockObject\Stub|null $contentReturn
      */
@@ -222,3 +222,5 @@ class BackgroundIndexingTerminateListenerTest extends TestCase
         $this->listener->reindex();
     }
 }
+
+class_alias(BackgroundIndexingTerminateListenerTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\EventListener\BackgroundIndexingTerminateListenerTest');

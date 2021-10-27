@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\ConfigResolver;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\ConfigResolver;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver\SiteAccessGroupConfigResolver;
-use eZ\Bundle\EzPublishCoreBundle\SiteAccess\Matcher;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver\SiteAccessGroupConfigResolver;
+use Ibexa\Bundle\Core\SiteAccess\Matcher;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider;
 
 class SiteAccessGroupConfigResolverTest extends ConfigResolverTest
 {
@@ -43,3 +43,5 @@ class SiteAccessGroupConfigResolverTest extends ConfigResolverTest
         return self::SA_GROUP;
     }
 }
+
+class_alias(SiteAccessGroupConfigResolverTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\ConfigResolver\SiteAccessGroupConfigResolverTest');

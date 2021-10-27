@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests\Compound;
+namespace Ibexa\Tests\Core\MVC\Symfony\SiteAccess\Compound;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Compound\LogicalOr;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\MatcherBuilderInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Compound;
-use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\VersatileMatcher;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\MatcherBuilder;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Compound\LogicalOr;
+use Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilderInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Compound;
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess\VersatileMatcher;
+use Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilder;
 use PHPUnit\Framework\TestCase;
 
 class CompoundOrTest extends TestCase
@@ -27,18 +27,12 @@ class CompoundOrTest extends TestCase
         $this->matcherBuilder = $this->createMock(MatcherBuilderInterface::class);
     }
 
-    /**
-     * @return \eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Compound\LogicalAnd
-     */
-    public function testConstruct()
+    public function testConstruct(): LogicalOr
     {
         return $this->buildMatcher();
     }
 
-    /**
-     * @return \eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Compound\LogicalOr
-     */
-    private function buildMatcher()
+    private function buildMatcher(): LogicalOr
     {
         return new LogicalOr(
             [
@@ -82,7 +76,7 @@ class CompoundOrTest extends TestCase
     /**
      * @dataProvider matchProvider
      *
-     * @param \eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest $request
+     * @param \Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest $request
      * @param string $expectedMatch
      */
     public function testMatch(SimplifiedRequest $request, $expectedMatch)
@@ -337,3 +331,5 @@ class CompoundOrTest extends TestCase
         $this->assertSame($serializedSA1, $serializedSA2);
     }
 }
+
+class_alias(CompoundOrTest::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests\Compound\CompoundOrTest');

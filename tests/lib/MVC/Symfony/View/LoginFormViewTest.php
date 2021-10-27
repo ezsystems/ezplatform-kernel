@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\View\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\View;
 
-use eZ\Publish\Core\MVC\Symfony\View\LoginFormView;
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Symfony\View\LoginFormView;
+use Ibexa\Core\MVC\Symfony\View\View;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 /**
@@ -19,7 +19,7 @@ final class LoginFormViewTest extends AbstractViewTest
 {
     public function testSetLastUsername(): void
     {
-        /** @var \eZ\Publish\Core\MVC\Symfony\View\LoginFormView $view */
+        /** @var \Ibexa\Core\MVC\Symfony\View\LoginFormView $view */
         $view = $this->createViewUnderTest();
         $view->setLastUsername('johndoe');
 
@@ -30,7 +30,7 @@ final class LoginFormViewTest extends AbstractViewTest
     {
         $exception = $this->createMock(AuthenticationException::class);
 
-        /** @var \eZ\Publish\Core\MVC\Symfony\View\LoginFormView $view */
+        /** @var \Ibexa\Core\MVC\Symfony\View\LoginFormView $view */
         $view = $this->createViewUnderTest();
         $view->setLastAuthenticationError($exception);
 
@@ -50,3 +50,5 @@ final class LoginFormViewTest extends AbstractViewTest
         ];
     }
 }
+
+class_alias(LoginFormViewTest::class, 'eZ\Publish\Core\MVC\Symfony\View\Tests\LoginFormViewTest');

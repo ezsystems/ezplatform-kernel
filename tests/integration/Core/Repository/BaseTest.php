@@ -4,25 +4,27 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
 use Doctrine\DBAL\Connection;
 use ErrorException;
-use eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException;
-use eZ\Publish\API\Repository\Exceptions\ForbiddenException;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\Tests\SetupFactory\Legacy as LegacySetupFactory;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException;
+use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Test\Repository\SetupFactory;
+use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy as LegacySetupFactory;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\SubtreeLimitation;
-use eZ\Publish\API\Repository\Values\User\UserGroup;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
+use Ibexa\Tests\Core\Repository\PHPUnitConstraint;
 use DateTime;
 use ArrayObject;
 use Exception;
@@ -38,10 +40,10 @@ abstract class BaseTest extends TestCase
      */
     const DB_INT_MAX = 2147483647;
 
-    /** @var \eZ\Publish\API\Repository\Tests\SetupFactory */
+    /** @var \Ibexa\Contracts\Core\Test\Repository\SetupFactory */
     private $setupFactory;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
     protected function setUp(): void
@@ -79,7 +81,7 @@ abstract class BaseTest extends TestCase
     /**
      * Returns the ID generator, fitting to the repository implementation.
      *
-     * @return \eZ\Publish\API\Repository\Tests\IdManager
+     * @return \Ibexa\Tests\Integration\Core\Repository\IdManager
      */
     protected function getIdManager()
     {
@@ -197,7 +199,7 @@ abstract class BaseTest extends TestCase
      * $actualObject.
      *
      * @param mixed[] $expectedValues
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $actualObject
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $actualObject
      */
     protected function assertPropertiesCorrect(array $expectedValues, ValueObject $actualObject)
     {
@@ -227,7 +229,7 @@ abstract class BaseTest extends TestCase
      * @TODO: introduced because of randomly failing tests, ref: https://jira.ez.no/browse/EZP-21734
      *
      * @param mixed[] $expectedValues
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $actualObject
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $actualObject
      */
     protected function assertPropertiesCorrectUnsorted(array $expectedValues, ValueObject $actualObject)
     {
@@ -245,8 +247,8 @@ abstract class BaseTest extends TestCase
      * $actualObject. Additional (virtual) properties can be asserted using
      * $additionalProperties.
      *
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $expectedValues
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $actualObject
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $expectedValues
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $actualObject
      * @param array $propertyNames
      */
     protected function assertStructPropertiesCorrect(ValueObject $expectedValues, ValueObject $actualObject, array $additionalProperties = [])
@@ -265,7 +267,7 @@ abstract class BaseTest extends TestCase
     }
 
     /**
-     * @see \eZ\Publish\API\Repository\Tests\BaseTest::assertPropertiesCorrectUnsorted()
+     * @see \Ibexa\Tests\Integration\Core\Repository\BaseTest::assertPropertiesCorrectUnsorted
      *
      * @param array $items An array of scalar values
      */
@@ -352,7 +354,7 @@ abstract class BaseTest extends TestCase
      *
      * @uses ::createCustomUserVersion1()
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     protected function createMediaUserVersion1()
     {
@@ -370,7 +372,7 @@ abstract class BaseTest extends TestCase
      * @param string $roleIdentifier Role identifier to assign to the new group
      * @param RoleLimitation|null $roleLimitation
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     protected function createCustomUserVersion1($userGroupName, $roleIdentifier, RoleLimitation $roleLimitation = null)
     {
@@ -392,7 +394,7 @@ abstract class BaseTest extends TestCase
      * @param string $roleIdentifier Role identifier to assign to the new group
      * @param RoleLimitation|null $roleLimitation
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     protected function createCustomUserWithLogin(
         $login,
@@ -451,9 +453,9 @@ abstract class BaseTest extends TestCase
      * @param string $login
      * @param string $firstName
      * @param string $lastName
-     * @param \eZ\Publish\API\Repository\Values\User\UserGroup|null $userGroup optional user group, Editor by default
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup|null $userGroup optional user group, Editor by default
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     protected function createUser($login, $firstName, $lastName, UserGroup $userGroup = null)
     {
@@ -505,7 +507,7 @@ abstract class BaseTest extends TestCase
     /**
      * Calls given Repository's aggregated SearchHandler::refresh().
      *
-     * @param \eZ\Publish\API\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
      */
     protected function refreshSearch(Repository $repository)
     {
@@ -545,12 +547,12 @@ abstract class BaseTest extends TestCase
      * @param $roleName
      * @param array $policiesData [['module' => 'content', 'function' => 'read', 'limitations' => []]
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Role
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\LimitationValidationException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\LimitationValidationException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function createRoleWithPolicies($roleName, array $policiesData)
     {
@@ -585,13 +587,13 @@ abstract class BaseTest extends TestCase
      *
      * @param string $login
      * @param array $policiesData list of policies in the form of <code>[ [ 'module' => 'name', 'function' => 'name'] ]</code>
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation|null $roleLimitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation|null $roleLimitation
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function createUserWithPolicies($login, array $policiesData, RoleLimitation $roleLimitation = null)
     {
@@ -678,7 +680,7 @@ abstract class BaseTest extends TestCase
     /**
      * Traverse all errors for all fields in all Translations to find expected one.
      *
-     * @param \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException $exception
+     * @param \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException $exception
      * @param string $expectedValidationErrorMessage
      */
     protected function assertValidationErrorOccurs(
@@ -693,7 +695,7 @@ abstract class BaseTest extends TestCase
     /**
      * Traverse all errors for all fields in all Translations to find if all expected ones occurred.
      *
-     * @param \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException $exception
+     * @param \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException $exception
      * @param string[] $expectedValidationErrorMessages
      */
     protected function assertAllValidationErrorsOccur(
@@ -723,11 +725,11 @@ abstract class BaseTest extends TestCase
      * @param array $names Folder names in the form of <code>['&lt;language_code&gt;' => '&lt;name&gt;']</code>
      * @param int|null $parentLocationId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content published Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content published Content
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function createFolder(
         array $names,
@@ -773,16 +775,16 @@ abstract class BaseTest extends TestCase
     /**
      * Update 'folder' Content.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param array $names Folder names in the form of <code>['&lt;language_code&gt;' => '&lt;name&gt;']</code>
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     protected function updateFolder(Content $content, array $names)
     {
@@ -807,7 +809,7 @@ abstract class BaseTest extends TestCase
      * @param string $name
      * @param bool $enabled
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      */
     protected function createLanguage(string $languageCode, string $name, bool $enabled = true): Language
     {
@@ -842,11 +844,11 @@ abstract class BaseTest extends TestCase
      * @param array $fieldsToDefine a map of field definition identifiers to their field type identifiers
      * @param bool $alwaysAvailable default always available
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     protected function createSimpleContentType(
         string $identifier,
@@ -876,3 +878,5 @@ abstract class BaseTest extends TestCase
         return $contentTypeService->loadContentTypeByIdentifier($identifier);
     }
 }
+
+class_alias(BaseTest::class, 'eZ\Publish\API\Repository\Tests\BaseTest');

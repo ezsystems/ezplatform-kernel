@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Tests\Decorator;
+namespace Ibexa\Tests\Core\Repository\Decorator;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\API\Repository\URLAliasService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\SPI\Repository\Decorator\URLAliasServiceDecorator;
+use Ibexa\Contracts\Core\Repository\URLAliasService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Decorator\URLAliasServiceDecorator;
 
 class URLAliasServiceDecoratorTest extends TestCase
 {
@@ -176,3 +176,5 @@ class URLAliasServiceDecoratorTest extends TestCase
         $decoratedService->deleteCorruptedUrlAliases(...$parameters);
     }
 }
+
+class_alias(URLAliasServiceDecoratorTest::class, 'eZ\Publish\SPI\Repository\Tests\Decorator\URLAliasServiceDecoratorTest');

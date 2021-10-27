@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\Loader;
+namespace Ibexa\Tests\Bundle\Core\Imagine\Filter\Loader;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader\BorderFilterLoader;
+use Ibexa\Bundle\Core\Imagine\Filter\Loader\BorderFilterLoader;
 use Imagine\Draw\DrawerInterface;
 use Imagine\Image\BoxInterface;
 use Imagine\Image\ImageInterface;
@@ -136,3 +136,5 @@ class BorderFilterLoaderTest extends TestCase
         ];
     }
 }
+
+class_alias(BorderFilterLoaderTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\Loader\BorderFilterLoaderTest');

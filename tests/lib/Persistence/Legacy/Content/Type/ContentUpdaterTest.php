@@ -4,65 +4,61 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Type;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Type;
 
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Mapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
-use eZ\Publish\SPI\Persistence\Content\Type;
+use Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
+use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test case for Content Type Updater.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater
  */
 class ContentUpdaterTest extends TestCase
 {
     /**
      * Content gateway mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Gateway
      */
     protected $contentGatewayMock;
 
     /**
      * FieldValue converter registry mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
+     * @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
      */
     protected $converterRegistryMock;
 
     /**
      * Search handler mock.
      *
-     * @var \eZ\Publish\Core\Search\Legacy\Content\Handler
+     * @var \Ibexa\Core\Search\Legacy\Content\Handler
      */
     protected $searchHandlerMock;
 
     /**
      * Content StorageHandler mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\StorageHandler
      */
     protected $contentStorageHandlerMock;
 
     /**
      * Content Updater to test.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater
      */
     protected $contentUpdater;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Mapper */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Mapper */
     protected $contentMapperMock;
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater::determineActions
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater::hasFieldDefinition
-     */
     public function testDetermineActions()
     {
         $fromType = $this->getFromTypeFixture();
@@ -147,7 +143,7 @@ class ContentUpdaterTest extends TestCase
     /**
      * Returns a fixture for the from Type.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     protected function getFromTypeFixture()
     {
@@ -171,7 +167,7 @@ class ContentUpdaterTest extends TestCase
     /**
      * Returns a fixture for the to Type.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     protected function getToTypeFixture()
     {
@@ -191,7 +187,7 @@ class ContentUpdaterTest extends TestCase
     /**
      * Returns a Content Gateway mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Gateway
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Gateway
      */
     protected function getContentGatewayMock()
     {
@@ -205,7 +201,7 @@ class ContentUpdaterTest extends TestCase
     /**
      * Returns a FieldValue Converter registry mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
+     * @return \Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
      */
     protected function getConverterRegistryMock()
     {
@@ -219,7 +215,7 @@ class ContentUpdaterTest extends TestCase
     /**
      * Returns a Content StorageHandler mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\StorageHandler
      */
     protected function getContentStorageHandlerMock()
     {
@@ -233,7 +229,7 @@ class ContentUpdaterTest extends TestCase
     /**
      * Returns a Content mapper mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Mapper
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Mapper
      */
     protected function getContentMapperMock()
     {
@@ -247,7 +243,7 @@ class ContentUpdaterTest extends TestCase
     /**
      * Returns the content updater to test.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater
      */
     protected function getContentUpdater()
     {
@@ -263,3 +259,5 @@ class ContentUpdaterTest extends TestCase
         return $this->contentUpdater;
     }
 }
+
+class_alias(ContentUpdaterTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\Type\ContentUpdaterTest');

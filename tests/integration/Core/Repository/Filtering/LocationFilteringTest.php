@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\Filtering;
+namespace Ibexa\Tests\Integration\Core\Repository\Filtering;
 
-use eZ\Publish\API\Repository\Values\Content\LocationList;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use eZ\Publish\API\Repository\Values\Filter\Filter;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
 use IteratorAggregate;
 
 /**
@@ -23,7 +23,7 @@ use IteratorAggregate;
 final class LocationFilteringTest extends BaseRepositoryFilteringTestCase
 {
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     protected function compareWithSearchResults(
         Filter $filter,
@@ -35,7 +35,7 @@ final class LocationFilteringTest extends BaseRepositoryFilteringTestCase
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function findUsingLocationSearch(LocationQuery $query): LocationList
     {
@@ -73,7 +73,7 @@ final class LocationFilteringTest extends BaseRepositoryFilteringTestCase
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\LocationList
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\LocationList
      */
     protected function find(Filter $filter, ?array $contextLanguages = null): iterable
     {
@@ -88,7 +88,7 @@ final class LocationFilteringTest extends BaseRepositoryFilteringTestCase
         array $expectedContentRemoteIds
     ): void {
         foreach ($list as $location) {
-            /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
             $contentInfo = $location->getContentInfo();
             self::assertContainsEquals(
                 $contentInfo->remoteId,
@@ -117,3 +117,5 @@ final class LocationFilteringTest extends BaseRepositoryFilteringTestCase
         );
     }
 }
+
+class_alias(LocationFilteringTest::class, 'eZ\Publish\API\Repository\Tests\Filtering\LocationFilteringTest');

@@ -4,23 +4,23 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use eZ\Publish\Core\FieldType\FieldSettings;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\CountryConverter;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Core\FieldType\FieldSettings;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\CountryConverter;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test case for Country converter in Legacy storage.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\CountryConverter
  */
 class CountryTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\CountryConverter */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\CountryConverter */
     protected $converter;
 
     protected function setUp(): void
@@ -41,7 +41,6 @@ class CountryTest extends TestCase
      * @group fieldType
      * @group country
      * @dataProvider providerForTestToStorageValue
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\CountryConverter::toStorageValue
      */
     public function testToStorageValue($data, $sortKey, $dataText, $sortKeyString)
     {
@@ -67,7 +66,6 @@ class CountryTest extends TestCase
      * @group fieldType
      * @group country
      * @dataProvider providerForTestToFieldValue
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\CountryConverter::toFieldValue
      */
     public function testToFieldValue($dataText, $sortKeyString, $data)
     {
@@ -83,7 +81,6 @@ class CountryTest extends TestCase
     /**
      * @group fieldType
      * @group country
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\CountryConverter::toStorageFieldDefinition
      */
     public function testToStorageFieldDefinitionMultiple()
     {
@@ -119,7 +116,6 @@ class CountryTest extends TestCase
     /**
      * @group fieldType
      * @group country
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\CountryConverter::toStorageFieldDefinition
      */
     public function testToStorageFieldDefinitionSingle()
     {
@@ -151,7 +147,6 @@ class CountryTest extends TestCase
     /**
      * @group fieldType
      * @group country
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\CountryConverter::toFieldDefinition
      */
     public function testToFieldDefinitionMultiple()
     {
@@ -166,7 +161,7 @@ class CountryTest extends TestCase
             ),
             $fieldDef
         );
-        self::assertInstanceOf('eZ\\Publish\\Core\\FieldType\\FieldSettings', $fieldDef->fieldTypeConstraints->fieldSettings);
+        self::assertInstanceOf(FieldSettings::class, $fieldDef->fieldTypeConstraints->fieldSettings);
         self::assertTrue(
             $fieldDef->fieldTypeConstraints->fieldSettings['isMultiple']
         );
@@ -179,7 +174,6 @@ class CountryTest extends TestCase
     /**
      * @group fieldType
      * @group country
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\CountryConverter::toFieldDefinition
      */
     public function testToFieldDefinitionSingle()
     {
@@ -194,7 +188,7 @@ class CountryTest extends TestCase
             ),
             $fieldDef
         );
-        self::assertInstanceOf('eZ\\Publish\\Core\\FieldType\\FieldSettings', $fieldDef->fieldTypeConstraints->fieldSettings);
+        self::assertInstanceOf(FieldSettings::class, $fieldDef->fieldTypeConstraints->fieldSettings);
         self::assertFalse(
             $fieldDef->fieldTypeConstraints->fieldSettings['isMultiple']
         );
@@ -203,3 +197,5 @@ class CountryTest extends TestCase
         );
     }
 }
+
+class_alias(CountryTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter\CountryTest');

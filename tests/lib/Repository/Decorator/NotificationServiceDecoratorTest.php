@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Tests\Decorator;
+namespace Ibexa\Tests\Core\Repository\Decorator;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\API\Repository\NotificationService;
-use eZ\Publish\API\Repository\Values\Notification\CreateStruct;
-use eZ\Publish\API\Repository\Values\Notification\Notification;
-use eZ\Publish\SPI\Repository\Decorator\NotificationServiceDecorator;
+use Ibexa\Contracts\Core\Repository\NotificationService;
+use Ibexa\Contracts\Core\Repository\Values\Notification\CreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification;
+use Ibexa\Contracts\Core\Repository\Decorator\NotificationServiceDecorator;
 
 class NotificationServiceDecoratorTest extends TestCase
 {
@@ -115,3 +115,5 @@ class NotificationServiceDecoratorTest extends TestCase
         $decoratedService->deleteNotification(...$parameters);
     }
 }
+
+class_alias(NotificationServiceDecoratorTest::class, 'eZ\Publish\SPI\Repository\Tests\Decorator\NotificationServiceDecoratorTest');

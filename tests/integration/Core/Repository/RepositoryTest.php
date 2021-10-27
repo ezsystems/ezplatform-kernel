@@ -4,16 +4,30 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
 use Exception;
-use eZ\Publish\API\Repository\NotificationService;
-use eZ\Publish\API\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\FieldTypeService;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\NotificationService;
+use Ibexa\Contracts\Core\Repository\ObjectStateService;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\TrashService;
+use Ibexa\Contracts\Core\Repository\URLAliasService;
+use Ibexa\Contracts\Core\Repository\URLWildcardService;
+use Ibexa\Contracts\Core\Repository\UserService;
 
 /**
  * Test case for operations in the Repository using in memory storage.
  *
- * @see eZ\Publish\API\Repository\Repository
+ * @covers \Ibexa\Contracts\Core\Repository\Repository
  * @group integration
  */
 class RepositoryTest extends BaseTest
@@ -31,14 +45,12 @@ class RepositoryTest extends BaseTest
      *
      * @group content
      * @group user
-     *
-     * @see \eZ\Publish\API\Repository\Repository::getContentService()
      */
     public function testGetContentService()
     {
         $repository = $this->getRepository();
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\ContentService',
+        self::assertInstanceOf(
+            ContentService::class,
             $repository->getContentService()
         );
     }
@@ -48,13 +60,13 @@ class RepositoryTest extends BaseTest
      *
      * @group language
      *
-     * @see \eZ\Publish\API\Repository\Repository::getContentLanguageService()
+     * @covers \Ibexa\Contracts\Core\Repository\Repository::getContentLanguageService()
      */
     public function testGetContentLanguageService()
     {
         $repository = $this->getRepository();
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\LanguageService',
+        self::assertInstanceOf(
+            LanguageService::class,
             $repository->getContentLanguageService()
         );
     }
@@ -65,14 +77,12 @@ class RepositoryTest extends BaseTest
      * @group content-type
      * @group field-type
      * @group user
-     *
-     * @see \eZ\Publish\API\Repository\Repository::getContentTypeService()
      */
     public function testGetContentTypeService()
     {
         $repository = $this->getRepository();
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\ContentTypeService',
+        self::assertInstanceOf(
+            ContentTypeService::class,
             $repository->getContentTypeService()
         );
     }
@@ -81,14 +91,12 @@ class RepositoryTest extends BaseTest
      * Test for the getLocationService() method.
      *
      * @group location
-     *
-     * @see \eZ\Publish\API\Repository\Repository::getLocationService()
      */
     public function testGetLocationService()
     {
         $repository = $this->getRepository();
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\LocationService',
+        self::assertInstanceOf(
+            LocationService::class,
             $repository->getLocationService()
         );
     }
@@ -97,14 +105,12 @@ class RepositoryTest extends BaseTest
      * Test for the getSectionService() method.
      *
      * @group section
-     *
-     * @see \eZ\Publish\API\Repository\Repository::getSectionService()
      */
     public function testGetSectionService()
     {
         $repository = $this->getRepository();
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\SectionService',
+        self::assertInstanceOf(
+            SectionService::class,
             $repository->getSectionService()
         );
     }
@@ -113,14 +119,12 @@ class RepositoryTest extends BaseTest
      * Test for the getUserService() method.
      *
      * @group user
-     *
-     * @see \eZ\Publish\API\Repository\Repository::getUserService()
      */
     public function testGetUserService()
     {
         $repository = $this->getRepository();
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\UserService',
+        self::assertInstanceOf(
+            UserService::class,
             $repository->getUserService()
         );
     }
@@ -129,8 +133,6 @@ class RepositoryTest extends BaseTest
      * Test for the getNotificationService() method.
      *
      * @group user
-     *
-     * @see \eZ\Publish\API\Repository\Repository::getNotificationService()
      */
     public function testGetNotificationService()
     {
@@ -145,14 +147,12 @@ class RepositoryTest extends BaseTest
      * Test for the getTrashService() method.
      *
      * @group trash
-     *
-     * @see \eZ\Publish\API\Repository\Repository::getTrashService()
      */
     public function testGetTrashService()
     {
         $repository = $this->getRepository();
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\TrashService',
+        self::assertInstanceOf(
+            TrashService::class,
             $repository->getTrashService()
         );
     }
@@ -161,14 +161,12 @@ class RepositoryTest extends BaseTest
      * Test for the getRoleService() method.
      *
      * @group role
-     *
-     * @see \eZ\Publish\API\Repository\Repository::getRoleService()
      */
     public function testGetRoleService()
     {
         $repository = $this->getRepository();
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\RoleService',
+        self::assertInstanceOf(
+            RoleService::class,
             $repository->getRoleService()
         );
     }
@@ -177,14 +175,12 @@ class RepositoryTest extends BaseTest
      * Test for the getURLAliasService() method.
      *
      * @group url-alias
-     *
-     * @see \eZ\Publish\API\Repository\Repository::getURLAliasService()
      */
     public function testGetURLAliasService()
     {
         $repository = $this->getRepository();
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\URLAliasService',
+        self::assertInstanceOf(
+            URLAliasService::class,
             $repository->getURLAliasService()
         );
     }
@@ -193,14 +189,12 @@ class RepositoryTest extends BaseTest
      * Test for the getUrlWildcardService() method.
      *
      * @group url-wildcard
-     *
-     * @see \eZ\Publish\API\Repository\Repository::getUrlWildcardService()
      */
     public function testGetURLWildcardService()
     {
         $repository = $this->getRepository();
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\URLWildcardService',
+        self::assertInstanceOf(
+            URLWildcardService::class,
             $repository->getURLWildcardService()
         );
     }
@@ -209,14 +203,12 @@ class RepositoryTest extends BaseTest
      * Test for the getObjectStateService().
      *
      * @group object-state
-     *
-     * @see \eZ\Publish\API\Repository\Repository::getObjectStateService()
      */
     public function testGetObjectStateService()
     {
         $repository = $this->getRepository();
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\ObjectStateService',
+        self::assertInstanceOf(
+            ObjectStateService::class,
             $repository->getObjectStateService()
         );
     }
@@ -225,14 +217,12 @@ class RepositoryTest extends BaseTest
      * Test for the getFieldTypeService().
      *
      * @group object-state
-     *
-     * @see \eZ\Publish\API\Repository\Repository::getFieldTypeService()
      */
     public function testGetFieldTypeService()
     {
         $repository = $this->getRepository();
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\FieldTypeService',
+        self::assertInstanceOf(
+            FieldTypeService::class,
             $repository->getFieldTypeService()
         );
     }
@@ -241,15 +231,13 @@ class RepositoryTest extends BaseTest
      * Test for the getSearchService() method.
      *
      * @group search
-     *
-     * @see \eZ\Publish\API\Repository\Repository::getSearchService()
      */
     public function testGetSearchService()
     {
         $repository = $this->getRepository();
 
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\SearchService',
+        self::assertInstanceOf(
+            SearchService::class,
             $repository->getSearchService()
         );
     }
@@ -258,23 +246,19 @@ class RepositoryTest extends BaseTest
      * Test for the getSearchService() method.
      *
      * @group permission
-     *
-     * @see \eZ\Publish\API\Repository\Repository::getPermissionResolver()
      */
     public function testGetPermissionResolver()
     {
         $repository = $this->getRepository();
 
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\PermissionResolver',
+        self::assertInstanceOf(
+            PermissionResolver::class,
             $repository->getPermissionResolver()
         );
     }
 
     /**
      * Test for the commit() method.
-     *
-     * @see \eZ\Publish\API\Repository\Repository::commit()
      */
     public function testCommit()
     {
@@ -292,8 +276,6 @@ class RepositoryTest extends BaseTest
 
     /**
      * Test for the commit() method.
-     *
-     * @see \eZ\Publish\API\Repository\Repository::commit()
      */
     public function testCommitThrowsRuntimeException()
     {
@@ -305,8 +287,6 @@ class RepositoryTest extends BaseTest
 
     /**
      * Test for the rollback() method.
-     *
-     * @see \eZ\Publish\API\Repository\Repository::rollback()
      */
     public function testRollback()
     {
@@ -317,8 +297,6 @@ class RepositoryTest extends BaseTest
 
     /**
      * Test for the rollback() method.
-     *
-     * @see \eZ\Publish\API\Repository\Repository::rollback()
      */
     public function testRollbackThrowsRuntimeException()
     {
@@ -328,3 +306,5 @@ class RepositoryTest extends BaseTest
         $repository->rollback();
     }
 }
+
+class_alias(RepositoryTest::class, 'eZ\Publish\API\Repository\Tests\RepositoryTest');

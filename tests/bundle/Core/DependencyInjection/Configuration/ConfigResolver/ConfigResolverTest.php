@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\ConfigResolver;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\ConfigResolver;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Exception\ParameterNotFoundException;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Exception\ParameterNotFoundException;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -22,7 +22,7 @@ abstract class ConfigResolverTest extends TestCase
 
     protected const DEFAULT_NAMESPACE = 'ezsettings';
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess */
     protected $siteAccess;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\DependencyInjection\ContainerInterface */
@@ -114,3 +114,5 @@ abstract class ConfigResolverTest extends TestCase
         $this->assertSame($newDefaultNamespace, $configResolver->getDefaultNamespace());
     }
 }
+
+class_alias(ConfigResolverTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\ConfigResolver\ConfigResolverTest');

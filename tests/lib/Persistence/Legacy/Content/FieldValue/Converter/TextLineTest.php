@@ -4,23 +4,23 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use eZ\Publish\Core\FieldType\FieldSettings;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TextLineConverter;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Core\FieldType\FieldSettings;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\TextLineConverter;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test case for TextLine converter in Legacy storage.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\TextLineConverter
  */
 class TextLineTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TextLineConverter */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\TextLineConverter */
     protected $converter;
 
     protected function setUp(): void
@@ -32,7 +32,6 @@ class TextLineTest extends TestCase
     /**
      * @group fieldType
      * @group textLine
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TextLineConverter::toStorageValue
      */
     public function testToStorageValue()
     {
@@ -50,7 +49,6 @@ class TextLineTest extends TestCase
     /**
      * @group fieldType
      * @group textLine
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TextLineConverter::toFieldValue
      */
     public function testToFieldValue()
     {
@@ -68,7 +66,6 @@ class TextLineTest extends TestCase
     /**
      * @group fieldType
      * @group textLine
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TextLineConverter::toStorageFieldDefinition
      */
     public function testToStorageFieldDefinitionWithValidator()
     {
@@ -106,7 +103,6 @@ class TextLineTest extends TestCase
     /**
      * @group fieldType
      * @group textLine
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TextLineConverter::toStorageFieldDefinition
      */
     public function testToStorageFieldDefinitionNoValidator()
     {
@@ -136,7 +132,6 @@ class TextLineTest extends TestCase
     /**
      * @group fieldType
      * @group textLine
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TextLineConverter::toFieldDefinition
      */
     public function testToFieldDefinition()
     {
@@ -160,3 +155,5 @@ class TextLineTest extends TestCase
         self::assertSame($defaultText, $fieldDef->defaultValue->sortKey);
     }
 }
+
+class_alias(TextLineTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter\TextLineTest');

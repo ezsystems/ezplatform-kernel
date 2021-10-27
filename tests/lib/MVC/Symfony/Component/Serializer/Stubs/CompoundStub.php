@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer\Stubs;
+namespace Ibexa\Tests\Core\MVC\Symfony\Component\Serializer\Stubs;
 
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Compound;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Compound;
 
 final class CompoundStub extends Compound
 {
@@ -29,3 +29,5 @@ final class CompoundStub extends Compound
         throw new NotImplementedException(__METHOD__);
     }
 }
+
+class_alias(CompoundStub::class, 'eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer\Stubs\CompoundStub');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\EventSubscriber;
+namespace Ibexa\Tests\Bundle\Core\EventSubscriber;
 
-use eZ\Bundle\EzPublishCoreBundle\EventSubscriber\CrowdinRequestLocaleSubscriber;
+use Ibexa\Bundle\Core\EventSubscriber\CrowdinRequestLocaleSubscriber;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -49,3 +49,5 @@ class CrowdinRequestLocaleSubscriberTest extends TestCase
         ];
     }
 }
+
+class_alias(CrowdinRequestLocaleSubscriberTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\EventSubscriber\CrowdinRequestLocaleSubscriberTest');

@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Pagination\Tests;
+namespace Ibexa\Tests\Core\Pagination;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentList;
-use eZ\Publish\API\Repository\Values\Filter\Filter;
-use eZ\Publish\Core\Pagination\Pagerfanta\ContentFilteringAdapter;
-use eZ\Publish\Core\Search\Tests\TestCase;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentList;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
+use Ibexa\Core\Pagination\Pagerfanta\ContentFilteringAdapter;
+use Ibexa\Tests\Core\Search\TestCase;
 
 final class ContentFilteringAdapterTest extends TestCase
 {
@@ -22,7 +22,7 @@ final class ContentFilteringAdapterTest extends TestCase
         'useAlwaysAvailable' => true,
     ];
 
-    /** @var \eZ\Publish\API\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject */
     private $contentService;
 
     protected function setUp(): void
@@ -88,3 +88,5 @@ final class ContentFilteringAdapterTest extends TestCase
         return new ContentList($numberOfItems, $items);
     }
 }
+
+class_alias(ContentFilteringAdapterTest::class, 'eZ\Publish\Core\Pagination\Tests\ContentFilteringAdapterTest');

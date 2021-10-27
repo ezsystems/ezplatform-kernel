@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig;
+namespace Ibexa\Tests\Core\MVC\Symfony\Templating\Twig;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Templating\Twig\ResourceProvider;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Templating\Twig\ResourceProvider;
 use PHPUnit\Framework\TestCase;
 
 class ResourceProviderTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     protected $configResolver;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Templating\Twig\ResourceProvider */
+    /** @var \Ibexa\Core\MVC\Symfony\Templating\Twig\ResourceProvider */
     protected $resourceProvider;
 
     protected function setUp(): void
@@ -93,7 +93,7 @@ class ResourceProviderTest extends TestCase
      *
      * Make sure returned resource lists are not sorted as ResourceProvider is sorting them
      *
-     * @return \eZ\Publish\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getConfigResolverMock(): ConfigResolverInterface
     {
@@ -183,3 +183,5 @@ class ResourceProviderTest extends TestCase
         return $mock;
     }
 }
+
+class_alias(ResourceProviderTest::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\ResourceProviderTest');

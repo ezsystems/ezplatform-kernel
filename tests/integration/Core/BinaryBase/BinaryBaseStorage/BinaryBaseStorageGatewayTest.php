@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\FieldType\Tests\Integration\BinaryBase\BinaryBaseStorage;
+namespace Ibexa\Tests\Integration\Core\BinaryBase\BinaryBaseStorage;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway as BinaryBaseStorageGateway;
-use eZ\Publish\Core\FieldType\BinaryFile\BinaryFileStorage\Gateway\DoctrineStorage;
-use eZ\Publish\Core\FieldType\Tests\Integration\BaseCoreFieldTypeIntegrationTest;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Tests\Persistence\FixtureImporter;
-use eZ\Publish\SPI\Tests\Persistence\YamlFixture;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway as BinaryBaseStorageGateway;
+use Ibexa\Core\FieldType\BinaryFile\BinaryFileStorage\Gateway\DoctrineStorage;
+use Ibexa\Tests\Integration\Core\BaseCoreFieldTypeIntegrationTest;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter;
+use Ibexa\Contracts\Core\Test\Persistence\Fixture\YamlFixture;
 
 /**
  * BinaryBase Field Type external storage gateway tests.
@@ -91,3 +91,5 @@ class BinaryBaseStorageGatewayTest extends BaseCoreFieldTypeIntegrationTest
         self::assertEquals($expected, $data);
     }
 }
+
+class_alias(BinaryBaseStorageGatewayTest::class, 'eZ\Publish\Core\FieldType\Tests\Integration\BinaryBase\BinaryBaseStorage\BinaryBaseStorageGatewayTest');

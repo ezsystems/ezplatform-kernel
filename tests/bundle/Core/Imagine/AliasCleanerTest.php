@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine;
+namespace Ibexa\Tests\Bundle\Core\Imagine;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\AliasCleaner;
+use Ibexa\Bundle\Core\Imagine\AliasCleaner;
 use Liip\ImagineBundle\Imagine\Cache\Resolver\ResolverInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -36,3 +36,5 @@ class AliasCleanerTest extends TestCase
         $this->aliasCleaner->removeAliases($originalPath);
     }
 }
+
+class_alias(AliasCleanerTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\AliasCleanerTest');

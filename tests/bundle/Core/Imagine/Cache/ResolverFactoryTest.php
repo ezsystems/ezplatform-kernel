@@ -4,24 +4,24 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Cache;
+namespace Ibexa\Tests\Bundle\Core\Imagine\Cache;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Cache\Resolver\RelativeResolver;
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Cache\ResolverFactory;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Bundle\Core\Imagine\Cache\Resolver\RelativeResolver;
+use Ibexa\Bundle\Core\Imagine\Cache\ResolverFactory;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Liip\ImagineBundle\Imagine\Cache\Resolver\ProxyResolver;
 use Liip\ImagineBundle\Imagine\Cache\Resolver\ResolverInterface;
 use PHPUnit\Framework\TestCase;
 
 class ResolverFactoryTest extends TestCase
 {
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Liip\ImagineBundle\Imagine\Cache\Resolver\ResolverInterface */
     private $resolver;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\Cache\ResolverFactory */
+    /** @var \Ibexa\Bundle\Core\Imagine\Cache\ResolverFactory */
     private $factory;
 
     protected function setUp(): void
@@ -79,3 +79,5 @@ class ResolverFactoryTest extends TestCase
         $this->assertEquals($expected, $this->factory->createCacheResolver());
     }
 }
+
+class_alias(ResolverFactoryTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Cache\ResolverFactoryTest');

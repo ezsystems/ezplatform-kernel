@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\Loader;
+namespace Ibexa\Tests\Bundle\Core\Imagine\Filter\Loader;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\FilterInterface;
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader\SwirlFilterLoader;
+use Ibexa\Bundle\Core\Imagine\Filter\FilterInterface;
+use Ibexa\Bundle\Core\Imagine\Filter\Loader\SwirlFilterLoader;
 use Imagine\Image\ImageInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -72,3 +72,5 @@ class SwirlFilterLoaderTest extends TestCase
         ];
     }
 }
+
+class_alias(SwirlFilterLoaderTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\Loader\SwirlFilterLoaderTest');

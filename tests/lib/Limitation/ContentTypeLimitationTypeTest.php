@@ -4,30 +4,32 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Limitation\Tests;
+namespace Ibexa\Tests\Core\Limitation;
 
-use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ContentTypeId;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Limitation\ContentTypeLimitationType;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\Core\Repository\Values\Content\ContentCreateStruct;
-use eZ\Publish\SPI\Limitation\Target\Builder\VersionBuilder;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as SPIHandler;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeId;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ObjectStateLimitation;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Limitation\ContentTypeLimitationType;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as SPIHandler;
 
 /**
  * Test Case for LimitationType.
  */
 class ContentTypeLimitationTypeTest extends Base
 {
-    /** @var \eZ\Publish\SPI\Persistence\Content\Type\Handler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Type\Handler|\PHPUnit\Framework\MockObject\MockObject */
     private $contentTypeHandlerMock;
 
     /**
@@ -49,7 +51,7 @@ class ContentTypeLimitationTypeTest extends Base
     }
 
     /**
-     * @return \eZ\Publish\Core\Limitation\ContentTypeLimitationType
+     * @return \Ibexa\Core\Limitation\ContentTypeLimitationType
      */
     public function testConstruct()
     {
@@ -72,8 +74,8 @@ class ContentTypeLimitationTypeTest extends Base
      * @dataProvider providerForTestAcceptValue
      * @depends testConstruct
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation $limitation
-     * @param \eZ\Publish\Core\Limitation\ContentTypeLimitationType $limitationType
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation $limitation
+     * @param \Ibexa\Core\Limitation\ContentTypeLimitationType $limitationType
      */
     public function testAcceptValue(ContentTypeLimitation $limitation, ContentTypeLimitationType $limitationType)
     {
@@ -95,12 +97,12 @@ class ContentTypeLimitationTypeTest extends Base
      * @dataProvider providerForTestAcceptValueException
      * @depends testConstruct
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitation
-     * @param \eZ\Publish\Core\Limitation\ContentTypeLimitationType $limitationType
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
+     * @param \Ibexa\Core\Limitation\ContentTypeLimitationType $limitationType
      */
     public function testAcceptValueException(Limitation $limitation, ContentTypeLimitationType $limitationType)
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $limitationType->acceptValue($limitation);
     }
@@ -120,7 +122,7 @@ class ContentTypeLimitationTypeTest extends Base
     /**
      * @dataProvider providerForTestValidatePass
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation $limitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation $limitation
      */
     public function testValidatePass(ContentTypeLimitation $limitation)
     {
@@ -160,7 +162,7 @@ class ContentTypeLimitationTypeTest extends Base
     /**
      * @dataProvider providerForTestValidateError
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation $limitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation $limitation
      * @param int $errorCount
      */
     public function testValidateError(ContentTypeLimitation $limitation, $errorCount)
@@ -194,7 +196,7 @@ class ContentTypeLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\ContentTypeLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\ContentTypeLimitationType $limitationType
      */
     public function testBuildValue(ContentTypeLimitationType $limitationType)
     {
@@ -361,7 +363,7 @@ class ContentTypeLimitationTypeTest extends Base
         ValueObject $object,
         array $targets
     ) {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         // Need to create inline instead of depending on testConstruct() to get correct mock instance
         $limitationType = $this->testConstruct();
@@ -388,7 +390,7 @@ class ContentTypeLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\ContentTypeLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\ContentTypeLimitationType $limitationType
      */
     public function testGetCriterionInvalidValue(ContentTypeLimitationType $limitationType)
     {
@@ -403,7 +405,7 @@ class ContentTypeLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\ContentTypeLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\ContentTypeLimitationType $limitationType
      */
     public function testGetCriterionSingleValue(ContentTypeLimitationType $limitationType)
     {
@@ -422,7 +424,7 @@ class ContentTypeLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\ContentTypeLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\ContentTypeLimitationType $limitationType
      */
     public function testGetCriterionMultipleValues(ContentTypeLimitationType $limitationType)
     {
@@ -441,11 +443,11 @@ class ContentTypeLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\ContentTypeLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\ContentTypeLimitationType $limitationType
      */
     public function testValueSchema(ContentTypeLimitationType $limitationType)
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotImplementedException::class);
+        $this->expectException(NotImplementedException::class);
 
         self::assertEquals(
             [],
@@ -453,3 +455,5 @@ class ContentTypeLimitationTypeTest extends Base
         );
     }
 }
+
+class_alias(ContentTypeLimitationTypeTest::class, 'eZ\Publish\Core\Limitation\Tests\ContentTypeLimitationTypeTest');

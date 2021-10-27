@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine;
+namespace Ibexa\Tests\Bundle\Core\Imagine;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderProvider;
-use eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderProviderRegistry;
+use Ibexa\Bundle\Core\Imagine\PlaceholderProvider;
+use Ibexa\Bundle\Core\Imagine\PlaceholderProviderRegistry;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Ibexa\Bundle\Core\Imagine\PlaceholderProviderRegistry
+ */
 class PlaceholderProviderRegistryTest extends TestCase
 {
     private const FOO = 'foo';
     private const BAR = 'bar';
 
     /**
-     * @covers       \eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderProviderRegistry::__construct
-     *
-     * @uses         \eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderProviderRegistry::getProvider
      * @depends      testGetProviderKnown
      */
     public function testConstructor()
@@ -35,9 +35,6 @@ class PlaceholderProviderRegistryTest extends TestCase
     }
 
     /**
-     * @covers       \eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderProviderRegistry::addProvider
-     *
-     * @uses         \eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderProviderRegistry::getProvider
      * @depends      testGetProviderKnown
      */
     public function testAddProvider(): void
@@ -87,3 +84,5 @@ class PlaceholderProviderRegistryTest extends TestCase
         return $this->createMock(PlaceholderProvider::class);
     }
 }
+
+class_alias(PlaceholderProviderRegistryTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\PlaceholderProviderRegistryTest');

@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Tests\Decorator;
+namespace Ibexa\Tests\Core\Repository\Decorator;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\API\Repository\SettingService;
-use eZ\Publish\API\Repository\Values\Setting\Setting;
-use eZ\Publish\API\Repository\Values\Setting\SettingCreateStruct;
-use eZ\Publish\API\Repository\Values\Setting\SettingUpdateStruct;
-use eZ\Publish\SPI\Repository\Decorator\SettingServiceDecorator;
+use Ibexa\Contracts\Core\Repository\SettingService;
+use Ibexa\Contracts\Core\Repository\Values\Setting\Setting;
+use Ibexa\Contracts\Core\Repository\Values\Setting\SettingCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Setting\SettingUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Decorator\SettingServiceDecorator;
 
 class SettingServiceDecoratorTest extends TestCase
 {
@@ -110,3 +110,5 @@ class SettingServiceDecoratorTest extends TestCase
         $decoratedService->newSettingUpdateStruct(...$parameters);
     }
 }
+
+class_alias(SettingServiceDecoratorTest::class, 'eZ\Publish\SPI\Repository\Tests\Decorator\SettingServiceDecoratorTest');

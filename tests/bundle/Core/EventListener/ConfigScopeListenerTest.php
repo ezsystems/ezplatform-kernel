@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\EventListener;
+namespace Ibexa\Tests\Bundle\Core\EventListener;
 
-use eZ\Bundle\EzPublishCoreBundle\EventListener\ConfigScopeListener;
-use eZ\Bundle\EzPublishCoreBundle\Tests\EventListener\Stubs\ViewManager;
-use eZ\Bundle\EzPublishCoreBundle\Tests\EventListener\Stubs\ViewProvider;
-use eZ\Publish\Core\MVC\Symfony\Configuration\VersatileScopeInterface;
-use eZ\Publish\Core\MVC\Symfony\Event\ScopeChangeEvent;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Bundle\Core\EventListener\ConfigScopeListener;
+use Ibexa\Tests\Bundle\Core\EventListener\Stubs\ViewManager;
+use Ibexa\Tests\Bundle\Core\EventListener\Stubs\ViewProvider;
+use Ibexa\Core\MVC\Symfony\Configuration\VersatileScopeInterface;
+use Ibexa\Core\MVC\Symfony\Event\ScopeChangeEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\TestCase;
 
 class ConfigScopeListenerTest extends TestCase
@@ -74,3 +74,5 @@ class ConfigScopeListenerTest extends TestCase
         $this->assertSame($siteAccess, $event->getSiteAccess());
     }
 }
+
+class_alias(ConfigScopeListenerTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\EventListener\ConfigScopeListenerTest');

@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Regression;
+namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
-use eZ\Publish\API\Repository\Values\User\Limitation\NewObjectStateLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\NewObjectStateLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 
 /**
  * Issue EZP-22840.
@@ -87,3 +87,5 @@ class EZP22840RoleLimitations extends BaseTest
         );
     }
 }
+
+class_alias(EZP22840RoleLimitations::class, 'eZ\Publish\API\Repository\Tests\Regression\EZP22840RoleLimitations');

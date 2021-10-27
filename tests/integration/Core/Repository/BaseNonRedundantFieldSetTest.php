@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\Core\FieldType\TextLine\Value as TextLineValue;
+use Ibexa\Core\FieldType\TextLine\Value as TextLineValue;
 
 /**
  * Base class for for create and update Content operations in the ContentService with regard to
@@ -17,7 +17,7 @@ abstract class BaseNonRedundantFieldSetTest extends BaseTest
     /**
      * Creates a fully functional ContentType and returns it.
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
      */
     protected function createContentType()
     {
@@ -119,7 +119,7 @@ abstract class BaseNonRedundantFieldSetTest extends BaseTest
      * @param string $mainLanguageCode
      * @param array $fieldValues
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createTestContent($mainLanguageCode, array $fieldValues)
     {
@@ -199,3 +199,5 @@ abstract class BaseNonRedundantFieldSetTest extends BaseTest
         return $contentService->loadContent($content->id, null, $content->versionInfo->versionNo);
     }
 }
+
+class_alias(BaseNonRedundantFieldSetTest::class, 'eZ\Publish\API\Repository\Tests\BaseNonRedundantFieldSetTest');

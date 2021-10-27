@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\Parser\FieldType;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Parser\FieldType;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\FieldType\ImageAsset as ImageAssetConfigParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension;
-use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\Parser\AbstractParserTestCase;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\FieldType\ImageAsset as ImageAssetConfigParser;
+use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Parser\AbstractParserTestCase;
 
 class ImageAssetTest extends AbstractParserTestCase
 {
@@ -84,3 +84,5 @@ class ImageAssetTest extends AbstractParserTestCase
         ];
     }
 }
+
+class_alias(ImageAssetTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\Parser\FieldType\ImageAssetTest');

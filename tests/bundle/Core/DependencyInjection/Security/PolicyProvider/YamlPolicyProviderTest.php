@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Security\PolicyProvider;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Security\PolicyProvider;
 
-use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\StubYamlPolicyProvider;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigBuilderInterface;
+use Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\StubYamlPolicyProvider;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigBuilderInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Resource\FileResource;
 
@@ -81,3 +81,5 @@ class YamlPolicyProviderTest extends TestCase
         $provider->addPolicies($configBuilder);
     }
 }
+
+class_alias(YamlPolicyProviderTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Security\PolicyProvider\YamlPolicyProviderTest');

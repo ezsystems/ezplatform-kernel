@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Tests\Collector;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Suggestion\Collector;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollector;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\ConfigSuggestion;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollector;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\ConfigSuggestion;
 use PHPUnit\Framework\TestCase;
 
 class SuggestionCollectorTest extends TestCase
@@ -24,3 +24,5 @@ class SuggestionCollectorTest extends TestCase
         $this->assertSame($suggestions, $collector->getSuggestions());
     }
 }
+
+class_alias(SuggestionCollectorTest::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Tests\Collector\SuggestionCollectorTest');

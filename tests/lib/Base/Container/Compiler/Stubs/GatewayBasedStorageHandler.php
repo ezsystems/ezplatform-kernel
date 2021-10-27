@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Tests\Container\Compiler\Stubs;
+namespace Ibexa\Tests\Core\Base\Container\Compiler\Stubs;
 
-use eZ\Publish\Core\FieldType\GatewayBasedStorage;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Ibexa\Core\FieldType\GatewayBasedStorage;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 
 /**
  * Stub implementation of GatewayBasedStorage.
@@ -35,3 +35,5 @@ class GatewayBasedStorageHandler extends GatewayBasedStorage
     {
     }
 }
+
+class_alias(GatewayBasedStorageHandler::class, 'eZ\Publish\Core\Base\Tests\Container\Compiler\Stubs\GatewayBasedStorageHandler');

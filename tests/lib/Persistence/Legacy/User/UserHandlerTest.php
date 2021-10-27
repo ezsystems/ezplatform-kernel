@@ -4,20 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\User;
+namespace Ibexa\Tests\Core\Persistence\Legacy\User;
 
 use DateInterval;
 use DateTime;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
-use eZ\Publish\API\Repository\Values\User\Role as APIRole;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\User;
-use eZ\Publish\Core\Persistence\Legacy\User\Role\LimitationConverter;
-use eZ\Publish\Core\Persistence\Legacy\User\Role\LimitationHandler\ObjectStateHandler as ObjectStateLimitationHandler;
-use eZ\Publish\SPI\Persistence;
-use eZ\Publish\SPI\Persistence\User\Handler;
-use eZ\Publish\SPI\Persistence\User\Role;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Values\User\Role as APIRole;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence\Legacy\User;
+use Ibexa\Core\Persistence\Legacy\User\Role\LimitationConverter;
+use Ibexa\Core\Persistence\Legacy\User\Role\LimitationHandler\ObjectStateHandler as ObjectStateLimitationHandler;
+use Ibexa\Contracts\Core\Persistence;
+use Ibexa\Contracts\Core\Persistence\User\Handler;
+use Ibexa\Contracts\Core\Persistence\User\Role;
 use LogicException;
 
 /**
@@ -1151,7 +1151,7 @@ class UserHandlerTest extends TestCase
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function createTestRole(User\Handler $handler): Role
     {
@@ -1165,7 +1165,7 @@ class UserHandlerTest extends TestCase
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function createTestRoleWithTestPolicy(): void
     {
@@ -1184,3 +1184,5 @@ class UserHandlerTest extends TestCase
         $handler->addPolicy($role->id, $policy);
     }
 }
+
+class_alias(UserHandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\User\UserHandlerTest');

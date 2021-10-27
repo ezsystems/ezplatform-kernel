@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\KeywordConverter;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\KeywordConverter;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test case for Keyword converter in Legacy storage.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\KeywordConverter
  */
 class KeywordTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\KeywordConverter */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\KeywordConverter */
     protected $converter;
 
     protected function setUp(): void
@@ -30,7 +30,6 @@ class KeywordTest extends TestCase
     /**
      * @group fieldType
      * @group keyword
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\KeywordConverter::toStorageValue
      */
     public function testToStorageValue()
     {
@@ -50,7 +49,6 @@ class KeywordTest extends TestCase
     /**
      * @group fieldType
      * @group keyword
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\KeywordConverter::toFieldValue
      */
     public function testToFieldValue()
     {
@@ -65,7 +63,6 @@ class KeywordTest extends TestCase
     /**
      * @group fieldType
      * @group keyword
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\KeywordConverter::toStorageFieldDefinition
      */
     public function testToStorageFieldDefinition()
     {
@@ -75,10 +72,11 @@ class KeywordTest extends TestCase
     /**
      * @group fieldType
      * @group keyword
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\KeywordConverter::toFieldDefinition
      */
     public function testToFieldDefinition()
     {
         $this->converter->toFieldDefinition(new StorageFieldDefinition(), new PersistenceFieldDefinition());
     }
 }
+
+class_alias(KeywordTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter\KeywordTest');

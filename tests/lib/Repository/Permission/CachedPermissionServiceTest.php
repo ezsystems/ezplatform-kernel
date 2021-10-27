@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Permission;
+namespace Ibexa\Core\Repository\Permission;
 
 /**
  * Avoid test failure caused by time passing between generating expected & actual object.
@@ -20,15 +20,15 @@ function time()
     return ++$time;
 }
 
-namespace eZ\Publish\Core\Repository\Tests\Permission;
+namespace Ibexa\Tests\Core\Repository\Permission;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\PermissionCriterionResolver;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\User\UserReference;
-use eZ\Publish\Core\Repository\Permission\CachedPermissionService;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\PermissionCriterionResolver;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference;
+use Ibexa\Core\Repository\Permission\CachedPermissionService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -69,7 +69,7 @@ class CachedPermissionServiceTest extends TestCase
      *
      * @param $method
      * @param array $arguments
-     * @param $return
+     * @param $expectedReturn
      */
     public function testPermissionResolverPassTrough($method, array $arguments, $expectedReturn)
     {
@@ -167,7 +167,7 @@ class CachedPermissionServiceTest extends TestCase
      *
      * @param int $ttl
      *
-     * @return \eZ\Publish\Core\Repository\Permission\CachedPermissionService
+     * @return \Ibexa\Core\Repository\Permission\CachedPermissionService
      */
     protected function getCachedPermissionService($ttl = 5)
     {
@@ -210,3 +210,5 @@ class CachedPermissionServiceTest extends TestCase
             ->getMockForAbstractClass();
     }
 }
+
+class_alias(CachedPermissionServiceTest::class, 'eZ\Publish\Core\Repository\Tests\Permission\CachedPermissionServiceTest');

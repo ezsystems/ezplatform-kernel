@@ -4,12 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
+
+use Ibexa\Contracts\Core\Repository\FieldType;
 
 /**
  * Test case for operations in the FieldTypeService using in memory storage.
  *
- * @see eZ\Publish\API\Repository\FieldTypeService
+ * @covers \Ibexa\Contracts\Core\Repository\FieldTypeService
  * @group field-type
  */
 class FieldTypeServiceTest extends BaseTest
@@ -17,7 +19,7 @@ class FieldTypeServiceTest extends BaseTest
     /**
      * Test for the getFieldTypes() method.
      *
-     * @see \eZ\Publish\API\Repository\FieldTypeService::getFieldTypes()
+     * @covers \Ibexa\Contracts\Core\Repository\FieldTypeService::getFieldTypes()
      */
     public function testGetFieldTypes()
     {
@@ -35,7 +37,7 @@ class FieldTypeServiceTest extends BaseTest
 
         foreach ($fieldTypes as $fieldType) {
             $this->assertInstanceOf(
-                'eZ\\Publish\\API\\Repository\\FieldType',
+                FieldType::class,
                 $fieldType
             );
         }
@@ -46,7 +48,7 @@ class FieldTypeServiceTest extends BaseTest
      *
      * Expects FieldType "ezurl" to be available!
      *
-     * @see \eZ\Publish\API\Repository\FieldTypeService::getFieldType()
+     * @covers \Ibexa\Contracts\Core\Repository\FieldTypeService::getFieldType()
      */
     public function testGetFieldType()
     {
@@ -60,7 +62,7 @@ class FieldTypeServiceTest extends BaseTest
         /* END: Use Case */
 
         $this->assertInstanceof(
-            'eZ\\Publish\\API\\Repository\\FieldType',
+            FieldType::class,
             $fieldType
         );
         $this->assertEquals(
@@ -72,7 +74,7 @@ class FieldTypeServiceTest extends BaseTest
     /**
      * Test for the getFieldType() method.
      *
-     * @see \eZ\Publish\API\Repository\FieldTypeService::getFieldType()
+     * @covers \Ibexa\Contracts\Core\Repository\FieldTypeService::getFieldType()
      */
     public function testGetFieldTypeThrowsNotFoundException()
     {
@@ -91,7 +93,7 @@ class FieldTypeServiceTest extends BaseTest
     /**
      * Test for the hasFieldType() method.
      *
-     * @see \eZ\Publish\API\Repository\FieldTypeService::hasFieldType()
+     * @covers \Ibexa\Contracts\Core\Repository\FieldTypeService::hasFieldType()
      */
     public function testHasFieldTypeReturnsTrue()
     {
@@ -110,7 +112,7 @@ class FieldTypeServiceTest extends BaseTest
     /**
      * Test for the hasFieldType() method.
      *
-     * @see \eZ\Publish\API\Repository\FieldTypeService::hasFieldType()
+     * @covers \Ibexa\Contracts\Core\Repository\FieldTypeService::hasFieldType()
      */
     public function testHasFieldTypeReturnsFalse()
     {
@@ -126,3 +128,5 @@ class FieldTypeServiceTest extends BaseTest
         $this->assertFalse($typeExists);
     }
 }
+
+class_alias(FieldTypeServiceTest::class, 'eZ\Publish\API\Repository\Tests\FieldTypeServiceTest');

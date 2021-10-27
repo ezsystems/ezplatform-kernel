@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Tests\Formatter;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Suggestion\Formatter;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\ConfigSuggestion;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Formatter\YamlSuggestionFormatter;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\ConfigSuggestion;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\Formatter\YamlSuggestionFormatter;
 use PHPUnit\Framework\TestCase;
 
 class YamlSuggestionFormatterTest extends TestCase
@@ -94,3 +94,5 @@ EOT;
         $this->assertSame($message, $formatter->format($suggestion));
     }
 }
+
+class_alias(YamlSuggestionFormatterTest::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Tests\Formatter\YamlSuggestionFormatterTest');

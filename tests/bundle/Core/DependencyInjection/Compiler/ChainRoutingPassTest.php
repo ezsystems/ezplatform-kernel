@@ -4,14 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Compiler;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ChainRoutingPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\ChainRoutingPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * @covers \Ibexa\Bundle\Core\DependencyInjection\Compiler\ChainRoutingPass
+ */
 class ChainRoutingPassTest extends AbstractCompilerPassTestCase
 {
     protected function setUp(): void
@@ -35,7 +38,6 @@ class ChainRoutingPassTest extends AbstractCompilerPassTestCase
      * @param int|null $declaredPriority
      * @param int $expectedPriority
      *
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ChainRoutingPass::process
      * @dataProvider addRouterProvider
      */
     public function testAddRouter($declaredPriority, $expectedPriority)
@@ -62,7 +64,6 @@ class ChainRoutingPassTest extends AbstractCompilerPassTestCase
      * @param int|null $declaredPriority
      * @param int $expectedPriority
      *
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ChainRoutingPass::process
      * @dataProvider addRouterProvider
      */
     public function testAddRouterWithDefaultRouter($declaredPriority, $expectedPriority)
@@ -135,3 +136,5 @@ class ChainRoutingPassTest extends AbstractCompilerPassTestCase
         ];
     }
 }
+
+class_alias(ChainRoutingPassTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler\ChainRoutingPassTest');

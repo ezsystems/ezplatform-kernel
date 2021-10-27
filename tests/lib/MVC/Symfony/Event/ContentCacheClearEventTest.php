@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Event\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Event;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\MVC\Symfony\Event\ContentCacheClearEvent;
-use eZ\Publish\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\MVC\Symfony\Event\ContentCacheClearEvent;
+use Ibexa\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
 
 class ContentCacheClearEventTest extends TestCase
@@ -45,3 +45,5 @@ class ContentCacheClearEventTest extends TestCase
         $this->assertSame($otherLocations, $event->getLocationsToClear());
     }
 }
+
+class_alias(ContentCacheClearEventTest::class, 'eZ\Publish\Core\MVC\Symfony\Event\Tests\ContentCacheClearEventTest');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter;
+namespace Ibexa\Tests\Bundle\Core\Imagine\Filter;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\UnsupportedFilter;
+use Ibexa\Bundle\Core\Imagine\Filter\UnsupportedFilter;
 use Imagine\Image\ImageInterface;
 
 class UnsupportedFilterTest extends AbstractFilterTest
@@ -19,3 +19,5 @@ class UnsupportedFilterTest extends AbstractFilterTest
         $filter->apply($this->createMock(ImageInterface::class));
     }
 }
+
+class_alias(UnsupportedFilterTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\UnsupportedFilterTest');

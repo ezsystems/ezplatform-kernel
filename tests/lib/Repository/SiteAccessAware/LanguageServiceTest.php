@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\SiteAccessAware\Tests;
+namespace Ibexa\Tests\Core\Repository\SiteAccessAware;
 
-use eZ\Publish\API\Repository\LanguageService as APIService;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct;
-use eZ\Publish\Core\Repository\SiteAccessAware\LanguageService;
+use Ibexa\Contracts\Core\Repository\LanguageService as APIService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
+use Ibexa\Core\Repository\SiteAccessAware\LanguageService;
 
 class LanguageServiceTest extends AbstractServiceTest
 {
@@ -60,3 +60,5 @@ class LanguageServiceTest extends AbstractServiceTest
         return [];
     }
 }
+
+class_alias(LanguageServiceTest::class, 'eZ\Publish\Core\Repository\SiteAccessAware\Tests\LanguageServiceTest');

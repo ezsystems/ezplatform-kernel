@@ -4,10 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Values\User;
+namespace Ibexa\Tests\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Tests\Values\ValueObjectTestTrait;
-use eZ\Publish\Core\Repository\Values\User\Policy;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException;
+use Ibexa\Tests\Core\Repository\Values\ValueObjectTestTrait;
+use Ibexa\Core\Repository\Values\User\Policy;
 use PHPUnit\Framework\TestCase;
 
 class PolicyTest extends TestCase
@@ -17,7 +19,7 @@ class PolicyTest extends TestCase
     /**
      * Test a new class and default values on properties.
      *
-     * @covers \eZ\Publish\API\Repository\Values\User\Policy::__construct
+     * @covers \Ibexa\Core\Repository\Values\User\Policy::__construct
      */
     public function testNewClass()
     {
@@ -36,11 +38,11 @@ class PolicyTest extends TestCase
     /**
      * Test retrieving missing property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\User\Policy::__get
+     * @covers \Ibexa\Core\Repository\Values\User\Policy::__get
      */
     public function testMissingProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException::class);
+        $this->expectException(PropertyNotFoundException::class);
 
         $policy = new Policy();
         $value = $policy->notDefined;
@@ -50,11 +52,11 @@ class PolicyTest extends TestCase
     /**
      * Test setting read only property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\User\Policy::__set
+     * @covers \Ibexa\Core\Repository\Values\User\Policy::__set
      */
     public function testReadOnlyProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException::class);
+        $this->expectException(PropertyReadOnlyException::class);
 
         $policy = new Policy();
         $policy->id = 42;
@@ -64,7 +66,7 @@ class PolicyTest extends TestCase
     /**
      * Test if property exists.
      *
-     * @covers \eZ\Publish\API\Repository\Values\User\Policy::__isset
+     * @covers \Ibexa\Core\Repository\Values\User\Policy::__isset
      */
     public function testIsPropertySet()
     {
@@ -79,14 +81,16 @@ class PolicyTest extends TestCase
     /**
      * Test unsetting a property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\User\Policy::__unset
+     * @covers \Ibexa\Core\Repository\Values\User\Policy::__unset
      */
     public function testUnsetProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException::class);
+        $this->expectException(PropertyReadOnlyException::class);
 
         $policy = new Policy(['id' => 1]);
         unset($policy->id);
         self::fail('Unsetting read-only property succeeded');
     }
 }
+
+class_alias(PolicyTest::class, 'eZ\Publish\Core\Repository\Tests\Values\User\PolicyTest');

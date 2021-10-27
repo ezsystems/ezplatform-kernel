@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\SiteAccessAware\Tests;
+namespace Ibexa\Tests\Core\Repository\SiteAccessAware;
 
-use eZ\Publish\API\Repository\TrashService as APIService;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Trash\SearchResult;
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult;
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResultList;
-use eZ\Publish\Core\Repository\SiteAccessAware\TrashService;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\Core\Repository\Values\Content\TrashItem;
+use Ibexa\Contracts\Core\Repository\TrashService as APIService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList;
+use Ibexa\Core\Repository\SiteAccessAware\TrashService;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Repository\Values\Content\TrashItem;
 
 class TrashServiceTest extends AbstractServiceTest
 {
@@ -54,3 +54,5 @@ class TrashServiceTest extends AbstractServiceTest
         return [];
     }
 }
+
+class_alias(TrashServiceTest::class, 'eZ\Publish\Core\Repository\SiteAccessAware\Tests\TrashServiceTest');

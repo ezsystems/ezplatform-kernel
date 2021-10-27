@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\IO\Tests;
+namespace Ibexa\Tests\Core\IO;
 
-use eZ\Publish\Core\IO\ConfigScopeChangeAwareIOService;
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\Core\IO\Values\BinaryFile;
-use eZ\Publish\Core\IO\Values\BinaryFileCreateStruct;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\IO\ConfigScopeChangeAwareIOService;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\Values\BinaryFile;
+use Ibexa\Core\IO\Values\BinaryFileCreateStruct;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigScopeChangeAwareIOServiceTest extends TestCase
@@ -21,13 +21,13 @@ final class ConfigScopeChangeAwareIOServiceTest extends TestCase
     protected const PREFIX = 'test-prefix';
     protected const PREFIX_PARAMETER_NAME = 'param';
 
-    /** @var \eZ\Publish\Core\IO\ConfigScopeChangeAwareIOService */
+    /** @var \Ibexa\Core\IO\ConfigScopeChangeAwareIOService */
     protected $ioService;
 
-    /** @var \eZ\Publish\Core\IO\ConfigScopeChangeAwareIOService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\IO\ConfigScopeChangeAwareIOService|\PHPUnit\Framework\MockObject\MockObject */
     protected $innerIOService;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $configResolver;
 
     protected function setUp(): void
@@ -318,3 +318,5 @@ final class ConfigScopeChangeAwareIOServiceTest extends TestCase
         $this->ioService->onConfigScopeChange($siteAccess);
     }
 }
+
+class_alias(ConfigScopeChangeAwareIOServiceTest::class, 'eZ\Publish\Core\IO\Tests\ConfigScopeChangeAwareIOServiceTest');

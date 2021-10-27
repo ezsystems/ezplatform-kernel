@@ -4,25 +4,36 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Exceptions\ContentTypeFieldDefinitionValidationException;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCollection as APIFieldDefinitionCollection;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct;
-use eZ\Publish\API\Repository\Values\Translation\Message;
+use Ibexa\Contracts\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\ContentTypeValidationException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\ContentTypeFieldDefinitionValidationException;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection as APIFieldDefinitionCollection;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Translation\Message;
 use Exception;
-use eZ\Publish\Core\FieldType\TextLine\Value as TextLineValue;
+use Ibexa\Core\FieldType\TextLine\Value as TextLineValue;
 
 /**
  * Test case for operations in the ContentTypeService using in memory storage.
  *
- * @see eZ\Publish\API\Repository\ContentTypeService
+ * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService
  * @group integration
  * @group content-type
  */
@@ -31,7 +42,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the newContentTypeGroupCreateStruct() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::newContentTypeGroupCreateStruct()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::newContentTypeGroupCreateStruct()
      * @group user
      */
     public function testNewContentTypeGroupCreateStruct()
@@ -47,7 +58,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         /* END: Use Case */
 
         $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentTypeGroupCreateStruct',
+            ContentTypeGroupCreateStruct::class,
             $groupCreate
         );
 
@@ -57,8 +68,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the newContentTypeGroupCreateStruct() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::newContentTypeGroupCreateStruct()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testNewContentTypeGroupCreateStruct
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::newContentTypeGroupCreateStruct()
+     * @depends testNewContentTypeGroupCreateStruct
      */
     public function testNewContentTypeGroupCreateStructValues($createStruct)
     {
@@ -78,8 +89,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testNewContentTypeGroupCreateStruct
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentTypeGroup()
+     * @depends testNewContentTypeGroupCreateStruct
      * @group user
      */
     public function testCreateContentTypeGroup()
@@ -105,7 +116,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         /* END: Use Case */
 
         $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentTypeGroup',
+            ContentTypeGroup::class,
             $group
         );
 
@@ -118,8 +129,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentTypeGroup()
+     * @depends testCreateContentTypeGroup
      */
     public function testCreateContentTypeGroupStructValues(array $data)
     {
@@ -148,8 +159,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentTypeGroupStructValues
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentTypeGroup()
+     * @depends testCreateContentTypeGroupStructValues
      */
     public function testCreateContentTypeGroupStructLanguageDependentValues(array $data)
     {
@@ -168,12 +179,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentTypeGroup() method.
      *
-     * @covers \eZ\Publish\API\Repository\ContentTypeService::createContentTypeGroup
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentTypeGroup
+     * @depends testCreateContentTypeGroup
      */
     public function testCreateContentTypeGroupThrowsInvalidArgumentException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'$contentTypeGroupCreateStruct\' is invalid: A group with the identifier \'Content\' already exists');
 
         $repository = $this->getRepository();
@@ -193,8 +204,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeGroup()
+     * @depends testCreateContentTypeGroup
      * @group user
      */
     public function testLoadContentTypeGroup()
@@ -211,7 +222,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         /* END: Use Case */
 
         $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentTypeGroup',
+            ContentTypeGroup::class,
             $loadedGroup
         );
 
@@ -221,8 +232,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeGroup()
+     * @depends testLoadContentTypeGroup
      */
     public function testLoadContentTypeGroupStructValues(ContentTypeGroup $group)
     {
@@ -242,11 +253,11 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeGroup()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeGroup()
      */
     public function testLoadContentTypeGroupThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
 
@@ -257,7 +268,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeGroupByIdentifier() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeGroupByIdentifier()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeGroupByIdentifier()
      * @group user
      * @group field-type
      */
@@ -274,7 +285,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         /* END: Use Case */
 
         $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentTypeGroup',
+            ContentTypeGroup::class,
             $loadedGroup
         );
 
@@ -284,8 +295,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeGroupByIdentifier() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeGroupByIdentifier()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeGroupByIdentifier
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeGroupByIdentifier()
+     * @depends testLoadContentTypeGroupByIdentifier
      */
     public function testLoadContentTypeGroupByIdentifierStructValues(ContentTypeGroup $group)
     {
@@ -301,12 +312,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeGroupByIdentifier() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeGroupByIdentifier()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeGroupByIdentifier
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeGroupByIdentifier()
+     * @depends testLoadContentTypeGroupByIdentifier
      */
     public function testLoadContentTypeGroupByIdentifierThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
 
@@ -323,8 +334,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeGroups() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeGroups()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeGroups()
+     * @depends testCreateContentTypeGroup
      */
     public function testLoadContentTypeGroups()
     {
@@ -361,8 +372,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeGroups() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeGroups()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeGroups
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeGroups()
+     * @depends testLoadContentTypeGroups
      */
     public function testLoadContentTypeGroupsIdentifiers($groups)
     {
@@ -393,7 +404,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the newContentTypeGroupUpdateStruct() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::newContentTypeGroupUpdateStruct()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::newContentTypeGroupUpdateStruct()
      */
     public function testNewContentTypeGroupUpdateStruct()
     {
@@ -405,8 +416,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         $groupUpdate = $contentTypeService->newContentTypeGroupUpdateStruct();
         /* END: Use Case */
 
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentTypeGroupUpdateStruct',
+        self::assertInstanceOf(
+            ContentTypeGroupUpdateStruct::class,
             $groupUpdate
         );
     }
@@ -414,8 +425,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the updateContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::updateContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateContentTypeGroup()
+     * @depends testCreateContentTypeGroup
      */
     public function testUpdateContentTypeGroup()
     {
@@ -450,8 +461,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
 
         $updatedGroup = $contentTypeService->loadContentTypeGroup($group->id);
 
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentTypeGroupUpdateStruct',
+        self::assertInstanceOf(
+            ContentTypeGroupUpdateStruct::class,
             $groupUpdate
         );
 
@@ -465,8 +476,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the updateContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::updateContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUpdateContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateContentTypeGroup()
+     * @depends testUpdateContentTypeGroup
      */
     public function testUpdateContentTypeGroupStructValues(array $data)
     {
@@ -486,8 +497,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the updateContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::updateContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUpdateContentTypeGroupStructValues
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateContentTypeGroup()
+     * @depends testUpdateContentTypeGroupStructValues
      */
     public function testUpdateContentTypeGroupStructLanguageDependentValues(array $data)
     {
@@ -510,12 +521,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the updateContentTypeGroup() method.
      *
-     * @covers \eZ\Publish\API\Repository\ContentTypeService::updateContentTypeGroup
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUpdateContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateContentTypeGroup
+     * @depends testUpdateContentTypeGroup
      */
     public function testUpdateContentTypeGroupThrowsInvalidArgumentException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'$contentTypeGroupUpdateStruct->identifier\' is invalid: given identifier already exists');
 
         $repository = $this->getRepository();
@@ -538,12 +549,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the deleteContentTypeGroup() method.
      *
-     * @covers \eZ\Publish\API\Repository\ContentTypeService::deleteContentTypeGroup
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::deleteContentTypeGroup
+     * @depends testLoadContentTypeGroup
      */
     public function testDeleteContentTypeGroup()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
 
@@ -569,7 +580,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the newContentTypeCreateStruct() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::newContentTypeCreateStruct()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::newContentTypeCreateStruct()
      * @group user
      * @group field-type
      */
@@ -585,8 +596,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         );
         /* END: Use Case */
 
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentTypeCreateStruct',
+        self::assertInstanceOf(
+            ContentTypeCreateStruct::class,
             $typeCreate
         );
 
@@ -596,8 +607,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the newContentTypeCreateStruct() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::newContentTypeCreateStruct()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testNewContentTypeCreateStruct
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::newContentTypeCreateStruct()
+     * @depends testNewContentTypeCreateStruct
      */
     public function testNewContentTypeCreateStructValues($createStruct)
     {
@@ -624,7 +635,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the newFieldDefinitionCreateStruct() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::newFieldDefinitionCreateStruct()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::newFieldDefinitionCreateStruct()
      * @group user
      * @group field-type
      */
@@ -639,7 +650,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         /* END: Use Case */
 
         $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\Values\\ContentType\\FieldDefinitionCreateStruct',
+            FieldDefinitionCreateStruct::class,
             $fieldDefinitionCreate
         );
 
@@ -649,8 +660,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the newFieldDefinitionCreateStruct() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::newFieldDefinitionCreateStruct()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testNewFieldDefinitionCreateStruct
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::newFieldDefinitionCreateStruct()
+     * @depends testNewFieldDefinitionCreateStruct
      */
     public function testNewFieldDefinitionCreateStructValues($createStruct)
     {
@@ -677,12 +688,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the deleteContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::deleteContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testDeleteContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::deleteContentTypeGroup()
+     * @depends testDeleteContentTypeGroup
      */
     public function testDeleteContentTypeGroupThrowsInvalidArgumentException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $repository = $this->getRepository();
 
@@ -699,10 +710,10 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testNewContentTypeCreateStruct
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testNewFieldDefinitionCreateStruct
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeGroupByIdentifier
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentType()
+     * @depends testNewContentTypeCreateStruct
+     * @depends testNewFieldDefinitionCreateStruct
+     * @depends testLoadContentTypeGroupByIdentifier
      * @group user
      * @group field-type
      */
@@ -794,7 +805,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         /* END: Use Case */
 
         $this->assertInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentType',
+            ContentType::class,
             $contentTypeDraft
         );
 
@@ -808,8 +819,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentType() method struct values.
      *
-     * @covers \eZ\Publish\API\Repository\ContentTypeService::createContentType
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentType
+     * @depends testCreateContentType
      *
      * @param array $data
      */
@@ -863,18 +874,20 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      * $expectedDefinitionCreates have been correctly created in
      * $actualDefinitions.
      *
-     * @param \eZ\Publish\API\Repository\Values\FieldDefinitionCreateStruct[] $expectedDefinitionCreates
-     * @param \eZ\Publish\API\Repository\Values\FieldDefinition[] $actualDefinitions
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct[] $expectedDefinitionCreates
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[] $actualDefinitions
      */
-    protected function assertFieldDefinitionsCorrect(array $expectedDefinitionCreates, array $actualDefinitions)
-    {
-        $this->assertEquals(
-            count($expectedDefinitionCreates),
-            count($actualDefinitions),
+    protected function assertFieldDefinitionsCorrect(
+        array $expectedDefinitionCreates,
+        array $actualDefinitions
+    ): void {
+        $this->assertSameSize(
+            $expectedDefinitionCreates,
+            $actualDefinitions,
             'Count of field definition creates did not match count of field definitions.'
         );
 
-        $sorter = function ($a, $b) {
+        $sorter = static function ($a, $b) {
             return strcmp($a->identifier, $b->identifier);
         };
 
@@ -894,12 +907,11 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      *
      * Asserts that the given $actualDefinition is correctly created from the
      * create struct in $expectedCreate.
-     *
-     * @param \eZ\Publish\API\Repository\Values\FieldDefinitionCreateStruct $expectedDefinitionCreate
-     * @param \eZ\Publish\API\Repository\Values\FieldDefinition $actualDefinition
      */
-    protected function assertFieldDefinitionsEqual($expectedCreate, $actualDefinition)
-    {
+    protected function assertFieldDefinitionsEqual(
+        FieldDefinitionCreateStruct $expectedCreate,
+        FieldDefinition $actualDefinition
+    ): void {
         foreach ($expectedCreate as $propertyName => $propertyValue) {
             $this->assertEquals(
                 $expectedCreate->$propertyName,
@@ -911,8 +923,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Asserts that two sets of ContentTypeGroups are equal.
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup[] $expectedGroups
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup[] $actualGroups
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $expectedGroups
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $actualGroups
      */
     protected function assertContentTypeGroupsCorrect($expectedGroups, $actualGroups)
     {
@@ -942,12 +954,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentType()
+     * @depends testCreateContentType
      */
     public function testCreateContentTypeThrowsInvalidArgumentExceptionDuplicateIdentifier()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'$contentTypeCreateStruct\' is invalid: Another Content Type with identifier \'folder\' exists');
 
         $repository = $this->getRepository();
@@ -976,12 +988,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      * Test for the createContentType() method trying to create Content Type with already existing
      * remoteId.
      *
-     * @covers \eZ\Publish\API\Repository\ContentTypeService::createContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentType()
+     * @depends testCreateContentType
      */
     public function testCreateContentTypeThrowsInvalidArgumentExceptionDuplicateRemoteId()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Another Content Type with remoteId \'a3d405b81be900468eb153d774f4f0d2\' exists');
 
         $repository = $this->getRepository();
@@ -1010,12 +1022,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentType() method creating content with duplicate field identifiers.
      *
-     * @covers \eZ\Publish\API\Repository\ContentTypeService::createContentType
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentType
+     * @depends testCreateContentType
      */
     public function testCreateContentTypeThrowsInvalidArgumentExceptionDuplicateFieldIdentifier()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'$contentTypeCreateStruct\' is invalid: The argument contains duplicate Field definition identifier \'title\'');
 
         $repository = $this->getRepository();
@@ -1047,12 +1059,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      * Test for the createContentTypeGroup() method trying to create a content type with already
      * existing identifier.
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentType
-     * @covers \eZ\Publish\Core\Repository\ContentTypeService::createContentType
+     * @depends testCreateContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentType
      */
     public function testCreateContentTypeThrowsInvalidArgumentExceptionDuplicateContentTypeIdentifier()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Another Content Type with identifier \'blog-post\' exists');
 
         $repository = $this->getRepository();
@@ -1085,8 +1097,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentType()
+     * @depends testCreateContentType
      */
     public function testCreateContentTypeThrowsContentTypeFieldDefinitionValidationException()
     {
@@ -1129,7 +1141,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         $this->assertArrayHasKey('temperature', $validationErrors);
         $this->assertIsArray($validationErrors['temperature']);
         $this->assertCount(1, $validationErrors['temperature']);
-        $this->assertInstanceOf('eZ\\Publish\\Core\\FieldType\\ValidationError', $validationErrors['temperature'][0]);
+        $this->assertInstanceOf(ValidationError::class, $validationErrors['temperature'][0]);
 
         $this->assertEquals(
             new Message(
@@ -1144,11 +1156,11 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      * Test for the createContentTypeGroup() method called with no groups.
      *
      * @depends testCreateContentType
-     * @covers \eZ\Publish\Core\Repository\ContentTypeService::createContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentTypeGroup
      */
     public function testCreateContentTypeThrowsInvalidArgumentExceptionGroupsEmpty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'$contentTypeGroups\' is invalid: The argument must contain at least one Content Type group');
 
         $repository = $this->getRepository();
@@ -1168,7 +1180,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the newContentTypeUpdateStruct() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::newContentTypeUpdateStruct()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::newContentTypeUpdateStruct()
      */
     public function testNewContentTypeUpdateStruct()
     {
@@ -1181,7 +1193,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         /* END: Use Case */
 
         $this->assertInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentTypeUpdateStruct',
+            ContentTypeUpdateStruct::class,
             $typeUpdate
         );
 
@@ -1191,8 +1203,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the newContentTypeUpdateStruct() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::newContentTypeUpdateStruct()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testNewContentTypeUpdateStruct
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::newContentTypeUpdateStruct()
+     * @depends testNewContentTypeUpdateStruct
      */
     public function testNewContentTypeUpdateStructValues($typeUpdate)
     {
@@ -1207,8 +1219,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeDraft()
+     * @depends testCreateContentType
      */
     public function testLoadContentTypeDraft()
     {
@@ -1232,12 +1244,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeDraft()
+     * @depends testLoadContentTypeDraft
      */
     public function testLoadContentTypeDraftThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
 
@@ -1253,11 +1265,11 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeDraft()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeDraft()
      */
     public function testLoadContentTypeDraftThrowsNotFoundExceptionIfDiffrentOwner()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -1274,7 +1286,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeDraft()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeDraft()
      */
     public function testCanLoadContentTypeDraftEvenIfDiffrentOwner()
     {
@@ -1296,7 +1308,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the updateContentTypeDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::updateContentTypeDraft()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateContentTypeDraft()
      */
     public function testUpdateContentTypeDraft()
     {
@@ -1334,7 +1346,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         );
 
         $this->assertInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentTypeDraft',
+            ContentTypeDraft::class,
             $updatedType
         );
 
@@ -1348,8 +1360,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the updateContentTypeDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::updateContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUpdateContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateContentTypeDraft()
+     * @depends testUpdateContentTypeDraft
      */
     public function testUpdateContentTypeDraftStructValues($data)
     {
@@ -1390,11 +1402,11 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\ContentTypeService::updateContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateContentTypeDraft
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testUpdateContentTypeDraftWithNewTranslation()
     {
@@ -1432,12 +1444,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the updateContentTypeDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::updateContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUpdateContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateContentTypeDraft()
+     * @depends testUpdateContentTypeDraft
      */
     public function testUpdateContentTypeDraftThrowsInvalidArgumentExceptionDuplicateIdentifier()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $repository = $this->getRepository();
         $contentTypeService = $repository->getContentTypeService();
@@ -1456,12 +1468,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the updateContentTypeDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::updateContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUpdateContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateContentTypeDraft()
+     * @depends testUpdateContentTypeDraft
      */
     public function testUpdateContentTypeDraftThrowsInvalidArgumentExceptionDuplicateRemoteId()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $repository = $this->getRepository();
         $contentTypeService = $repository->getContentTypeService();
@@ -1480,12 +1492,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the updateContentTypeDraft() method.
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUpdateContentTypeDraft
-     * @covers \eZ\Publish\Core\Repository\ContentTypeService::updateContentTypeDraft
+     * @depends testUpdateContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateContentTypeDraft
      */
     public function testUpdateContentTypeDraftThrowsInvalidArgumentExceptionNoDraftForAuthenticatedUser()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'$contentTypeDraft\' is invalid: There is no Content Type draft assigned to the authenticated user');
 
         $repository = $this->getRepository();
@@ -1518,8 +1530,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      *
      * @return array
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::addFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::addFieldDefinition()
+     * @depends testCreateContentType
      */
     public function testAddFieldDefinition()
     {
@@ -1559,7 +1571,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         $loadedType = $contentTypeService->loadContentTypeDraft($contentTypeDraft->id);
 
         $this->assertInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentTypeDraft',
+            ContentTypeDraft::class,
             $loadedType
         );
 
@@ -1572,8 +1584,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the addFieldDefinition() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::addFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testAddFieldDefinition
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::addFieldDefinition()
+     * @depends testAddFieldDefinition
      */
     public function testAddFieldDefinitionStructValues(array $data)
     {
@@ -1599,12 +1611,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the addFieldDefinition() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::addFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testAddFieldDefinition
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::addFieldDefinition()
+     * @depends testAddFieldDefinition
      */
     public function testAddFieldDefinitionThrowsInvalidArgumentExceptionDuplicateFieldIdentifier()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $repository = $this->getRepository();
         $contentTypeService = $repository->getContentTypeService();
@@ -1625,8 +1637,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      * Testing that field definition of non-repeatable field type can not be added multiple
      * times to the same ContentType.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::addFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testAddFieldDefinition
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::addFieldDefinition()
+     * @depends testAddFieldDefinition
      */
     public function testAddFieldDefinitionThrowsContentTypeFieldDefinitionValidationException()
     {
@@ -1667,7 +1679,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         $this->assertArrayHasKey('temperature', $validationErrors);
         $this->assertIsArray($validationErrors['temperature']);
         $this->assertCount(1, $validationErrors['temperature']);
-        $this->assertInstanceOf('eZ\\Publish\\Core\\FieldType\\ValidationError', $validationErrors['temperature'][0]);
+        $this->assertInstanceOf(ValidationError::class, $validationErrors['temperature'][0]);
 
         $this->assertEquals(
             new Message(
@@ -1684,12 +1696,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      * Testing that field definition of non-repeatable field type can not be added multiple
      * times to the same ContentType.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::addFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testAddFieldDefinition
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::addFieldDefinition()
+     * @depends testAddFieldDefinition
      */
     public function testAddFieldDefinitionThrowsBadStateExceptionNonRepeatableField()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\BadStateException::class);
+        $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('The Content Type already contains a Field definition of the singular Field Type \'ezuser\'');
 
         $repository = $this->getRepository();
@@ -1726,11 +1738,11 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      * Testing that field definition of non-repeatable field type can not be added multiple
      * times to the same ContentTypeCreateStruct.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentType()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentType()
      */
     public function testCreateContentThrowsContentTypeValidationException()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\ContentTypeValidationException::class);
+        $this->expectException(ContentTypeValidationException::class);
         $this->expectExceptionMessage('Field Type \'ezuser\' is singular and cannot be used more than once in a Content Type');
 
         $repository = $this->getRepository();
@@ -1779,12 +1791,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      * Testing adding field definition of the field type that can not be added to the ContentType that
      * already has Content instances.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::addFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testAddFieldDefinition
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::addFieldDefinition()
+     * @depends testAddFieldDefinition
      */
     public function testAddFieldDefinitionThrowsBadStateExceptionContentInstances()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\BadStateException::class);
+        $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('A Field definition of the \'ezuser\' Field Type cannot be added because the Content Type already has Content items');
 
         $repository = $this->getRepository();
@@ -1820,8 +1832,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      *
      * @return array
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::removeFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::removeFieldDefinition()
+     * @depends testCreateContentType
      */
     public function testRemoveFieldDefinition()
     {
@@ -1839,7 +1851,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         $loadedType = $contentTypeService->loadContentTypeDraft($contentTypeDraft->id);
 
         $this->assertInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentTypeDraft',
+            ContentTypeDraft::class,
             $loadedType
         );
 
@@ -1854,8 +1866,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      *
      * @param array $data
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::removeFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testRemoveFieldDefinition
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::removeFieldDefinition()
+     * @depends testRemoveFieldDefinition
      */
     public function testRemoveFieldDefinitionRemoved(array $data)
     {
@@ -1877,12 +1889,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the removeFieldDefinition() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::removeFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testRemoveFieldDefinition
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::removeFieldDefinition()
+     * @depends testRemoveFieldDefinition
      */
     public function testRemoveFieldDefinitionThrowsInvalidArgumentException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $repository = $this->getRepository();
         $contentTypeService = $repository->getContentTypeService();
@@ -1903,12 +1915,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test removeFieldDefinition() method for field in a different draft throws an exception.
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testRemoveFieldDefinition
-     * @covers \eZ\Publish\Core\Repository\ContentTypeService::removeFieldDefinition
+     * @depends testRemoveFieldDefinition
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::removeFieldDefinition
      */
     public function testRemoveFieldDefinitionThrowsInvalidArgumentExceptionOnWrongDraft()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $repository = $this->getRepository();
         $contentTypeService = $repository->getContentTypeService();
@@ -1925,8 +1937,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the removeFieldDefinition() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::removeFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testRemoveFieldDefinition
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::removeFieldDefinition()
+     * @depends testRemoveFieldDefinition
      */
     public function testRemoveFieldDefinitionRemovesFieldFromContent()
     {
@@ -1971,15 +1983,15 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         );
 
         $this->assertInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\Content\\Content',
+            Content::class,
             $contentVersion1Archived
         );
         $this->assertInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\Content\\Content',
+            Content::class,
             $contentVersion2Published
         );
         $this->assertInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\Content\\Content',
+            Content::class,
             $contentVersion3Draft
         );
 
@@ -1993,10 +2005,10 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the removeFieldDefinition() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content[] $data
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content[] $data
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::removeFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testRemoveFieldDefinitionRemovesFieldFromContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::removeFieldDefinition
+     * @depends testRemoveFieldDefinitionRemovesFieldFromContent
      */
     public function testRemoveFieldDefinitionRemovesFieldFromContentRemoved($data)
     {
@@ -2021,7 +2033,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\ContentTypeService::removeFieldDefinition()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::removeFieldDefinition()
      */
     public function testRemoveFieldDefinitionRemovesOrphanedRelations(): void
     {
@@ -2083,8 +2095,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the addFieldDefinition() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::addFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testAddFieldDefinition
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::addFieldDefinition()
+     * @depends testAddFieldDefinition
      */
     public function testAddFieldDefinitionAddsFieldToContent()
     {
@@ -2150,15 +2162,15 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         );
 
         $this->assertInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\Content\\Content',
+            Content::class,
             $contentVersion1Archived
         );
         $this->assertInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\Content\\Content',
+            Content::class,
             $contentVersion2Published
         );
         $this->assertInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\Content\\Content',
+            Content::class,
             $contentVersion3Draft
         );
 
@@ -2172,10 +2184,10 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the addFieldDefinition() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content[] $data
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content[] $data
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::addFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testAddFieldDefinitionAddsFieldToContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::addFieldDefinition()
+     * @depends testAddFieldDefinitionAddsFieldToContent
      */
     public function testAddFieldDefinitionAddsFieldToContentAdded(array $data)
     {
@@ -2211,7 +2223,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the newFieldDefinitionUpdateStruct() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::newFieldDefinitionUpdateStruct()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::newFieldDefinitionUpdateStruct()
      */
     public function testNewFieldDefinitionUpdateStruct()
     {
@@ -2223,8 +2235,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         $updateStruct = $contentTypeService->newFieldDefinitionUpdateStruct();
         /* END: Use Case */
 
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\Values\\ContentType\\FieldDefinitionUpdateStruct',
+        self::assertInstanceOf(
+            FieldDefinitionUpdateStruct::class,
             $updateStruct
         );
 
@@ -2234,10 +2246,10 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the newFieldDefinitionUpdateStruct() method.
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testNewFieldDefinitionUpdateStruct
-     * @covers \eZ\Publish\Core\Repository\ContentTypeService::newContentTypeUpdateStruct
+     * @depends testNewFieldDefinitionUpdateStruct
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::newContentTypeUpdateStruct
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionUpdateStruct $fieldDefinitionUpdateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStruct $fieldDefinitionUpdateStruct
      */
     public function testNewFieldDefinitionUpdateStructValues($fieldDefinitionUpdateStruct)
     {
@@ -2254,8 +2266,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      *
      * @return array
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::updateFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateFieldDefinition()
+     * @depends testLoadContentTypeDraft
      */
     public function testUpdateFieldDefinition()
     {
@@ -2297,7 +2309,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
 
         $loadedDraft = $contentTypeService->loadContentTypeDraft($contentTypeDraft->id);
         $this->assertInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\ContentType\\FieldDefinition',
+            FieldDefinition::class,
             ($loadedField = $loadedDraft->getFieldDefinition('blog-body'))
         );
 
@@ -2309,7 +2321,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\ContentTypeService::updateFieldDefinition
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateFieldDefinition
      */
     public function testUpdateFieldDefinitionWithNewTranslation()
     {
@@ -2377,8 +2389,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      *
      * @param array $data
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::updateFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUpdateFieldDefinition
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateFieldDefinition()
+     * @depends testUpdateFieldDefinition
      */
     public function testUpdateFieldDefinitionStructValues(array $data)
     {
@@ -2409,9 +2421,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the updateFieldDefinition() method using an empty FieldDefinitionUpdateStruct.
      *
-     * @see \eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionUpdateStruct
-     *
-     * @covers \eZ\Publish\Core\Repository\ContentTypeService::updateFieldDefinition
+     * @covers \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStruct
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateFieldDefinition
      */
     public function testUpdateFieldDefinitionWithEmptyStruct()
     {
@@ -2439,12 +2450,11 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the updateFieldDefinition() method with already defined field identifier.
      *
-     * @covers \eZ\Publish\API\Repository\ContentTypeService::updateFieldDefinition
-     * depends \eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateFieldDefinition
      */
     public function testUpdateFieldDefinitionThrowsInvalidArgumentExceptionFieldIdentifierExists()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'$fieldDefinitionUpdateStruct\' is invalid: Another Field definition with identifier \'title\' exists in the Content Type');
 
         $repository = $this->getRepository();
@@ -2471,12 +2481,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the updateFieldDefinition() method trying to update non-existent field.
      *
-     * @covers \eZ\Publish\API\Repository\ContentTypeService::updateFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateFieldDefinition()
+     * @depends testLoadContentTypeDraft
      */
     public function testUpdateFieldDefinitionThrowsInvalidArgumentExceptionForUndefinedField()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'$fieldDefinition\' is invalid: The given Field definition does not belong to the Content Type');
 
         $repository = $this->getRepository();
@@ -2504,8 +2514,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the publishContentTypeDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::publishContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::publishContentTypeDraft()
+     * @depends testLoadContentTypeDraft
      */
     public function testPublishContentTypeDraft()
     {
@@ -2521,11 +2531,11 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         $publishedType = $contentTypeService->loadContentType($contentTypeDraft->id);
 
         $this->assertInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentType',
+            ContentType::class,
             $publishedType
         );
         $this->assertNotInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentTypeDraft',
+            ContentTypeDraft::class,
             $publishedType
         );
     }
@@ -2533,8 +2543,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the publishContentTypeDraft() method setting proper ContentType nameSchema.
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testPublishContentTypeDraft
-     * @covers \eZ\Publish\Core\Repository\ContentTypeService::publishContentTypeDraft
+     * @depends testPublishContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::publishContentTypeDraft
      */
     public function testPublishContentTypeDraftSetsNameSchema()
     {
@@ -2570,7 +2580,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test that publishing Content Type Draft refreshes list of Content Types in Content Type Groups.
      *
-     * @covers \eZ\Publish\API\Repository\ContentTypeService::publishContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::publishContentTypeDraft
      */
     public function testPublishContentTypeDraftRefreshesContentTypesList()
     {
@@ -2624,12 +2634,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the publishContentTypeDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::publishContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testPublishContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::publishContentTypeDraft()
+     * @depends testPublishContentTypeDraft
      */
     public function testPublishContentTypeDraftThrowsBadStateException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\BadStateException::class);
+        $this->expectException(BadStateException::class);
 
         $repository = $this->getRepository();
         $contentTypeService = $repository->getContentTypeService();
@@ -2647,12 +2657,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentTypeGroup() method trying to create Content Type without any fields.
      *
-     * @covers \eZ\Publish\API\Repository\ContentTypeService::publishContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testPublishContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::publishContentTypeDraft()
+     * @depends testPublishContentTypeDraft
      */
     public function testPublishContentTypeDraftThrowsInvalidArgumentExceptionWithoutFields()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'$contentTypeDraft\' is invalid: The Content Type draft should have at least one Field definition');
 
         $repository = $this->getRepository();
@@ -2681,8 +2691,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentType()
+     * @depends testCreateContentType
      * @group user
      * @group field-type
      */
@@ -2699,7 +2709,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         /* END: Use Case */
 
         $this->assertInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentType',
+            ContentType::class,
             $userGroupType
         );
 
@@ -2723,7 +2733,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         $contentType = $contentTypeService->loadContentType($contentType->id, $languageCodes);
 
         $language = isset($languageCodes[0]) ? $languageCodes[0] : 'eng-US';
-        /** @var \eZ\Publish\Core\FieldType\TextLine\Value $nameValue */
+        /** @var \Ibexa\Core\FieldType\TextLine\Value $nameValue */
         self::assertEquals(
             $contentType->getName($language),
             $contentType->getName()
@@ -2762,8 +2772,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentType()
+     * @depends testLoadContentType
      */
     public function testLoadContentTypeStructValues($userGroupType)
     {
@@ -2803,8 +2813,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeStructValues
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentType()
+     * @depends testLoadContentTypeStructValues
      */
     public function testLoadContentTypeFieldDefinitions(APIFieldDefinitionCollection $fieldDefinitions)
     {
@@ -2844,7 +2854,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         $fieldDefinitions = $fieldDefinitions->toArray();
         foreach ($fieldDefinitions as $index => $fieldDefinition) {
             $this->assertInstanceOf(
-                'eZ\\Publish\\API\\Repository\\Values\\ContentType\\FieldDefinition',
+                FieldDefinition::class,
                 $fieldDefinition
             );
 
@@ -2898,12 +2908,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentType()
+     * @depends testLoadContentType
      */
     public function testLoadContentTypeThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
 
@@ -2919,10 +2929,10 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeByIdentifier() method.
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeByIdentifier()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeByIdentifier()
+     * @depends testLoadContentType
      * @group user
      */
     public function testLoadContentTypeByIdentifier()
@@ -2936,7 +2946,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         /* END: Use Case */
 
         $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentType',
+            ContentType::class,
             $articleType
         );
 
@@ -2946,10 +2956,10 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeByIdentifier() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeByIdentifier()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeByIdentifier
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeByIdentifier()
+     * @depends testLoadContentTypeByIdentifier
      */
     public function testLoadContentTypeByIdentifierReturnsCorrectInstance($contentType)
     {
@@ -2965,12 +2975,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeByIdentifier() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeByIdentifier()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeByIdentifier
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeByIdentifier()
+     * @depends testLoadContentTypeByIdentifier
      */
     public function testLoadContentTypeByIdentifierThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
 
@@ -2985,8 +2995,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeByRemoteId() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeByRemoteId()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeByRemoteId()
+     * @depends testLoadContentType
      */
     public function testLoadContentTypeByRemoteId()
     {
@@ -3002,7 +3012,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         /* END: Use Case */
 
         $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentType',
+            ContentType::class,
             $userGroupType
         );
 
@@ -3012,8 +3022,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeByRemoteId() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeByRemoteId()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeByRemoteId
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeByRemoteId()
+     * @depends testLoadContentTypeByRemoteId
      */
     public function testLoadContentTypeByRemoteIdReturnsCorrectInstance($contentType)
     {
@@ -3029,12 +3039,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeByRemoteId() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeByRemoteId()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeByRemoteId()
+     * @depends testLoadContentType
      */
     public function testLoadContentTypeByRemoteIdThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
 
@@ -3049,7 +3059,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypeList() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypeList()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypeList()
      * @depends testLoadContentType
      */
     public function testLoadContentTypeList()
@@ -3073,8 +3083,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypes() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypes()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypes()
+     * @depends testLoadContentType
      */
     public function testLoadContentTypes()
     {
@@ -3099,8 +3109,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the loadContentTypes() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::loadContentTypes()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypes
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::loadContentTypes()
+     * @depends testLoadContentTypes
      */
     public function testLoadContentTypesContent(array $types)
     {
@@ -3129,8 +3139,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentTypeDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentTypeDraft()
+     * @depends testLoadContentType
      */
     public function testCreateContentTypeDraft()
     {
@@ -3145,7 +3155,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         /* END: Use Case */
 
         $this->assertInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentTypeDraft',
+            ContentTypeDraft::class,
             $commentTypeDraft
         );
 
@@ -3158,8 +3168,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentTypeDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentTypeDraft()
+     * @depends testCreateContentTypeDraft
      */
     public function testCreateContentTypeDraftStructValues(array $data)
     {
@@ -3210,8 +3220,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentTypeDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentTypeDraftStructValues
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentTypeDraft()
+     * @depends testCreateContentTypeDraftStructValues
      */
     public function testCreateContentTypeDraftStructLanguageDependentValues(array $data)
     {
@@ -3233,12 +3243,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentTypeDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentTypeDraft()
+     * @depends testCreateContentTypeDraft
      */
     public function testCreateContentTypeDraftThrowsBadStateException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\BadStateException::class);
+        $this->expectException(BadStateException::class);
 
         $repository = $this->getRepository();
 
@@ -3257,12 +3267,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the deleteContentType() method.
      *
-     * @covers \eZ\Publish\API\Repository\ContentTypeService::deleteContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeByIdentifier
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::deleteContentType()
+     * @depends testLoadContentTypeByIdentifier
      */
     public function testDeleteContentType()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
 
@@ -3281,12 +3291,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the deleteContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::deleteContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testDeleteContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::deleteContentType()
+     * @depends testDeleteContentType
      */
     public function testDeleteContentTypeThrowsBadStateException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\BadStateException::class);
+        $this->expectException(BadStateException::class);
 
         $repository = $this->getRepository();
 
@@ -3306,8 +3316,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      *
      * @return array
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::copyContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeByIdentifier
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::copyContentType()
+     * @depends testLoadContentTypeByIdentifier
      */
     public function testCopyContentType()
     {
@@ -3331,7 +3341,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         /* END: Use Case */
 
         $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\Values\\ContentType\\ContentType',
+            ContentType::class,
             $copiedType
         );
 
@@ -3352,8 +3362,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      *
      * @param array $data
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::copyContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCopyContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::copyContentType()
+     * @depends testCopyContentType
      */
     public function testCopyContentTypeStructValues(array $data)
     {
@@ -3364,8 +3374,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $originalType
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $copiedType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $originalType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $copiedType
      * @param array $excludedProperties
      */
     private function assertCopyContentTypeValues($originalType, $copiedType, $excludedProperties = [])
@@ -3442,8 +3452,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the copyContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::copyContentType($contentType, $user)
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCopyContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::copyContentType($contentType, $user)
+     * @depends testCopyContentType
      */
     public function testCopyContentTypeWithSecondParameter()
     {
@@ -3473,10 +3483,10 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the assignContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::assignContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeGroupByIdentifier
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeByIdentifier
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::assignContentTypeGroup()
+     * @depends testLoadContentTypeGroupByIdentifier
+     * @depends testLoadContentTypeByIdentifier
+     * @depends testLoadContentType
      */
     public function testAssignContentTypeGroup()
     {
@@ -3509,12 +3519,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the assignContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::assignContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testAssignContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::assignContentTypeGroup()
+     * @depends testAssignContentTypeGroup
      */
     public function testAssignContentTypeGroupThrowsInvalidArgumentException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $repository = $this->getRepository();
 
@@ -3534,8 +3544,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the unassignContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::unassignContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testAssignContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::unassignContentTypeGroup()
+     * @depends testAssignContentTypeGroup
      */
     public function testUnassignContentTypeGroup()
     {
@@ -3572,12 +3582,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the unassignContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::unassignContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUnassignContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::unassignContentTypeGroup()
+     * @depends testUnassignContentTypeGroup
      */
     public function testUnassignContentTypeGroupThrowsInvalidArgumentException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $repository = $this->getRepository();
 
@@ -3595,12 +3605,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the unassignContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::unassignContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUnassignContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::unassignContentTypeGroup()
+     * @depends testUnassignContentTypeGroup
      */
     public function testUnassignContentTypeGroupThrowsBadStateException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\BadStateException::class);
+        $this->expectException(BadStateException::class);
 
         $repository = $this->getRepository();
 
@@ -3620,9 +3630,9 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeGroup
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentTypeGroup()
+     * @depends testLoadContentTypeGroup
+     * @depends testCreateContentTypeGroup
      */
     public function testCreateContentTypeGroupInTransactionWithRollback()
     {
@@ -3666,9 +3676,9 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeGroup
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentTypeGroup()
+     * @depends testLoadContentTypeGroup
+     * @depends testCreateContentTypeGroup
      */
     public function testCreateContentTypeGroupInTransactionWithCommit()
     {
@@ -3708,9 +3718,9 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the updateContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::updateContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUpdateContentTypeGroup
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeGroupByIdentifier
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateContentTypeGroup()
+     * @depends testUpdateContentTypeGroup
+     * @depends testLoadContentTypeGroupByIdentifier
      */
     public function testUpdateContentTypeGroupInTransactionWithRollback()
     {
@@ -3751,9 +3761,9 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the updateContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::updateContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUpdateContentTypeGroup
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeGroupByIdentifier
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateContentTypeGroup()
+     * @depends testUpdateContentTypeGroup
+     * @depends testLoadContentTypeGroupByIdentifier
      */
     public function testUpdateContentTypeGroupInTransactionWithCommit()
     {
@@ -3796,9 +3806,9 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the deleteContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::deleteContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testDeleteContentTypeGroup
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeGroupByIdentifierThrowsNotFoundException
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::deleteContentTypeGroup()
+     * @depends testDeleteContentTypeGroup
+     * @depends testLoadContentTypeGroupByIdentifierThrowsNotFoundException
      */
     public function testDeleteContentTypeGroupWithRollback()
     {
@@ -3844,9 +3854,9 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the deleteContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::deleteContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testDeleteContentTypeGroup
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeGroupByIdentifierThrowsNotFoundException
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::deleteContentTypeGroup()
+     * @depends testDeleteContentTypeGroup
+     * @depends testLoadContentTypeGroupByIdentifierThrowsNotFoundException
      */
     public function testDeleteContentTypeGroupWithCommit()
     {
@@ -3892,9 +3902,9 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentType
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeByIdentifierThrowsNotFoundException
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentType()
+     * @depends testCreateContentType
+     * @depends testLoadContentTypeByIdentifierThrowsNotFoundException
      */
     public function testCreateContentTypeInTransactionWithRollback()
     {
@@ -3952,9 +3962,9 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentType
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeByIdentifierThrowsNotFoundException
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentType()
+     * @depends testCreateContentType
+     * @depends testLoadContentTypeByIdentifierThrowsNotFoundException
      */
     public function testCreateContentTypeInTransactionWithCommit()
     {
@@ -4008,10 +4018,10 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the copyContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::copyContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCopyContentType
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeByIdentifier
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeThrowsNotFoundException
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::copyContentType()
+     * @depends testCopyContentType
+     * @depends testLoadContentTypeByIdentifier
+     * @depends testLoadContentTypeThrowsNotFoundException
      */
     public function testCopyContentTypeInTransactionWithRollback()
     {
@@ -4052,10 +4062,10 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the copyContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::copyContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCopyContentType
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeByIdentifier
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeThrowsNotFoundException
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::copyContentType()
+     * @depends testCopyContentType
+     * @depends testLoadContentTypeByIdentifier
+     * @depends testLoadContentTypeThrowsNotFoundException
      */
     public function testCopyContentTypeInTransactionWithCommit()
     {
@@ -4092,9 +4102,9 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the deleteContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::deleteContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCopyContentType
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeByIdentifierThrowsNotFoundException
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::deleteContentType()
+     * @depends testCopyContentType
+     * @depends testLoadContentTypeByIdentifierThrowsNotFoundException
      */
     public function testDeleteContentTypeInTransactionWithRollback()
     {
@@ -4131,9 +4141,9 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the deleteContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::deleteContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCopyContentType
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeByIdentifierThrowsNotFoundException
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::deleteContentType()
+     * @depends testCopyContentType
+     * @depends testLoadContentTypeByIdentifierThrowsNotFoundException
      */
     public function testDeleteContentTypeInTransactionWithCommit()
     {
@@ -4174,8 +4184,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the assignContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::assignContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testAssignContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::assignContentTypeGroup()
+     * @depends testAssignContentTypeGroup
      */
     public function testAssignContentTypeGroupInTransactionWithRollback()
     {
@@ -4220,8 +4230,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the assignContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::assignContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testAssignContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::assignContentTypeGroup()
+     * @depends testAssignContentTypeGroup
      */
     public function testAssignContentTypeGroupInTransactionWithCommit()
     {
@@ -4266,7 +4276,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the isContentTypeUsed() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::isContentTypeUsed()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::isContentTypeUsed()
      */
     public function testIsContentTypeUsed()
     {
@@ -4287,12 +4297,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\ContentTypeService::removeContentTypeTranslation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::removeContentTypeTranslation
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testRemoveContentTypeTranslation()
     {
@@ -4329,12 +4339,12 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\ContentTypeService::removeContentTypeTranslation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::removeContentTypeTranslation
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testRemoveContentTypeTranslationWithMultilingualData()
     {
@@ -4392,11 +4402,11 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\ContentTypeService::updateContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateContentTypeDraft
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testUpdateContentTypeDraftWithNewTranslationWithMultilingualData()
     {
@@ -4525,11 +4535,11 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
     /**
      * Test for the deleteUserDrafts() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::deleteUserDrafts()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::deleteUserDrafts()
      */
     public function testDeleteUserDrafts()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -4543,3 +4553,5 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         $contentTypeDraft = $contentTypeService->loadContentTypeDraft($draft->id);
     }
 }
+
+class_alias(ContentTypeServiceTest::class, 'eZ\Publish\API\Repository\Tests\ContentTypeServiceTest');

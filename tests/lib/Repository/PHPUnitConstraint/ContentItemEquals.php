@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\PHPUnitConstraint;
+namespace Ibexa\Tests\Core\Repository\PHPUnitConstraint;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use PHPUnit\Framework\Constraint\Constraint as AbstractPHPUnitConstraint;
 use PHPUnit\Framework\ExpectationFailedException;
 use SebastianBergmann\Comparator\ComparisonFailure;
@@ -19,7 +19,7 @@ use function trim;
 
 class ContentItemEquals extends AbstractPHPUnitConstraint
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Content */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */
     private $expectedContent;
 
     public function __construct(Content $expectedContent)
@@ -134,3 +134,5 @@ class ContentItemEquals extends AbstractPHPUnitConstraint
         );
     }
 }
+
+class_alias(ContentItemEquals::class, 'eZ\Publish\API\Repository\Tests\PHPUnitConstraint\ContentItemEquals');

@@ -4,18 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Limitation\Tests;
+namespace Ibexa\Tests\Core\Limitation;
 
-use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\StatusLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation;
-use eZ\Publish\Core\Limitation\StatusLimitationType;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Repository\Values\User\User;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo as SPIVersionInfo;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\StatusLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ObjectStateLimitation;
+use Ibexa\Core\Limitation\StatusLimitationType;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo as SPIVersionInfo;
 
 /**
  * Test Case for LimitationType.
@@ -23,7 +25,7 @@ use eZ\Publish\SPI\Persistence\Content\VersionInfo as SPIVersionInfo;
 class StatusLimitationTypeTest extends Base
 {
     /**
-     * @return \eZ\Publish\Core\Limitation\StatusLimitationType
+     * @return \Ibexa\Core\Limitation\StatusLimitationType
      */
     public function testConstruct()
     {
@@ -56,8 +58,8 @@ class StatusLimitationTypeTest extends Base
      * @depends testConstruct
      * @dataProvider providerForTestAcceptValue
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation\StatusLimitation $limitation
-     * @param \eZ\Publish\Core\Limitation\StatusLimitationType $limitationType
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation\StatusLimitation $limitation
+     * @param \Ibexa\Core\Limitation\StatusLimitationType $limitationType
      */
     public function testAcceptValue(StatusLimitation $limitation, StatusLimitationType $limitationType)
     {
@@ -79,12 +81,12 @@ class StatusLimitationTypeTest extends Base
      * @depends testConstruct
      * @dataProvider providerForTestAcceptValueException
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitation
-     * @param \eZ\Publish\Core\Limitation\StatusLimitationType $limitationType
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
+     * @param \Ibexa\Core\Limitation\StatusLimitationType $limitationType
      */
     public function testAcceptValueException(Limitation $limitation, StatusLimitationType $limitationType)
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $limitationType->acceptValue($limitation);
     }
@@ -147,9 +149,9 @@ class StatusLimitationTypeTest extends Base
      * @dataProvider providerForTestValidateError
      * @depends testConstruct
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation\StatusLimitation $limitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation\StatusLimitation $limitation
      * @param int $errorCount
-     * @param \eZ\Publish\Core\Limitation\StatusLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\StatusLimitationType $limitationType
      */
     public function testValidateError(StatusLimitation $limitation, $errorCount, StatusLimitationType $limitationType)
     {
@@ -160,7 +162,7 @@ class StatusLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\StatusLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\StatusLimitationType $limitationType
      */
     public function testBuildValue(StatusLimitationType $limitationType)
     {
@@ -313,7 +315,7 @@ class StatusLimitationTypeTest extends Base
         ValueObject $object,
         StatusLimitationType $limitationType
     ) {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $userMock = $this->getUserMock();
         $userMock->expects($this->never())->method($this->anything());
@@ -329,11 +331,11 @@ class StatusLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\StatusLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\StatusLimitationType $limitationType
      */
     public function testGetCriterion(StatusLimitationType $limitationType)
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotImplementedException::class);
+        $this->expectException(NotImplementedException::class);
 
         $limitationType->getCriterion(new StatusLimitation(), $this->getUserMock());
     }
@@ -341,10 +343,12 @@ class StatusLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\StatusLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\StatusLimitationType $limitationType
      */
     public function testValueSchema(StatusLimitationType $limitationType)
     {
         self::markTestSkipped('Method valueSchema() is not implemented');
     }
 }
+
+class_alias(StatusLimitationTypeTest::class, 'eZ\Publish\Core\Limitation\Tests\StatusLimitationTypeTest');

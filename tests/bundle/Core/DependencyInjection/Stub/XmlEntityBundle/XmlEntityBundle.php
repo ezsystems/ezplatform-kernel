@@ -6,10 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\XmlEntityBundle;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\XmlEntityBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class XmlEntityBundle extends Bundle
 {
 }
+
+class_alias(XmlEntityBundle::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\XmlEntityBundle\XmlEntityBundle');

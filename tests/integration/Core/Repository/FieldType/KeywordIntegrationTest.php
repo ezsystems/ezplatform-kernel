@@ -4,13 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use eZ\Publish\Core\FieldType\Keyword\Value as KeywordValue;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\Keyword\Value as KeywordValue;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 
 /**
  * Integration test for use field type.
@@ -144,7 +145,7 @@ class KeywordIntegrationTest extends SearchMultivaluedBaseIntegrationTest
     public function assertFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Keyword\\Value',
+            KeywordValue::class,
             $field->value
         );
 
@@ -154,37 +155,16 @@ class KeywordIntegrationTest extends SearchMultivaluedBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during creation.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidCreationFieldData()
     {
         return [
             [
                 new \stdClass(),
-                'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentType',
+                InvalidArgumentType::class,
             ],
             [
                 23,
-                'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentType',
+                InvalidArgumentType::class,
             ],
         ];
     }
@@ -209,7 +189,7 @@ class KeywordIntegrationTest extends SearchMultivaluedBaseIntegrationTest
     public function assertUpdatedFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Keyword\\Value',
+            KeywordValue::class,
             $field->value
         );
 
@@ -219,27 +199,6 @@ class KeywordIntegrationTest extends SearchMultivaluedBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during update.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidUpdateFieldData()
     {
         return $this->provideInvalidCreationFieldData();
@@ -256,7 +215,7 @@ class KeywordIntegrationTest extends SearchMultivaluedBaseIntegrationTest
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Keyword\\Value',
+            KeywordValue::class,
             $field->value
         );
 
@@ -399,7 +358,7 @@ class KeywordIntegrationTest extends SearchMultivaluedBaseIntegrationTest
      * Check that the given Content Object contains proper Keywords.
      *
      * @param int $contentId
-     * @param \eZ\Publish\Core\FieldType\Keyword\Value $value
+     * @param \Ibexa\Core\FieldType\Keyword\Value $value
      */
     private function assertContentFieldHasCorrectData($contentId, KeywordValue $value)
     {
@@ -456,10 +415,10 @@ class KeywordIntegrationTest extends SearchMultivaluedBaseIntegrationTest
      * Create and publish content of $contentType with $fieldData.
      *
      * @param mixed $fieldData
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      * @param string $remoteId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createAndPublishContent($fieldData, ContentType $contentType, $remoteId)
     {
@@ -560,7 +519,7 @@ class KeywordIntegrationTest extends SearchMultivaluedBaseIntegrationTest
     /**
      * Create test Content with ezkeyword type.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content[]
      */
     protected function createKeywordContent()
     {
@@ -616,7 +575,7 @@ class KeywordIntegrationTest extends SearchMultivaluedBaseIntegrationTest
     /**
      * Test for the findContent() method.
      *
-     * @see \eZ\Publish\API\Repository\SearchService::findContent()
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findContent()
      */
     public function testFindContentFieldCriterion()
     {
@@ -632,3 +591,5 @@ class KeywordIntegrationTest extends SearchMultivaluedBaseIntegrationTest
         $this->assertEquals(1, $searchResult->totalCount);
     }
 }
+
+class_alias(KeywordIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\FieldType\KeywordIntegrationTest');

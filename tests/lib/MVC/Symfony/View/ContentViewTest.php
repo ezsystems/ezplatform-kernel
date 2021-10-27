@@ -6,13 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\View\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\View;
 
-use eZ\Publish\Core\MVC\Symfony\View\ContentView;
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\MVC\Symfony\View\ContentView;
+use Ibexa\Core\MVC\Symfony\View\View;
 
 /**
  * @group mvc
+ *
+ * @covers \Ibexa\Core\MVC\Symfony\View\ContentView
  */
 class ContentViewTest extends AbstractViewTest
 {
@@ -25,9 +28,6 @@ class ContentViewTest extends AbstractViewTest
 
     /**
      * @dataProvider constructProvider
-     * @covers \eZ\Publish\Core\MVC\Symfony\View\ContentView::__construct
-     * @covers \eZ\Publish\Core\MVC\Symfony\View\ContentView::getTemplateIdentifier
-     * @covers \eZ\Publish\Core\MVC\Symfony\View\ContentView::getParameters
      */
     public function testConstruct($templateIdentifier, array $params)
     {
@@ -59,11 +59,10 @@ class ContentViewTest extends AbstractViewTest
 
     /**
      * @dataProvider constructFailProvider
-     * @covers \eZ\Publish\Core\MVC\Symfony\View\ContentView::__construct
      */
     public function testConstructFail($templateIdentifier)
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\InvalidArgumentType::class);
+        $this->expectException(InvalidArgumentType::class);
 
         new ContentView($templateIdentifier);
     }
@@ -87,3 +86,5 @@ class ContentViewTest extends AbstractViewTest
         return $this->valueParams;
     }
 }
+
+class_alias(ContentViewTest::class, 'eZ\Publish\Core\MVC\Symfony\View\Tests\ContentViewTest');

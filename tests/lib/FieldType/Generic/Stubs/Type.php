@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\FieldType\Generic\Tests\Stubs;
+namespace Ibexa\Tests\Core\FieldType\Generic\Stubs;
 
-use eZ\Publish\SPI\FieldType\Generic\Type as BaseType;
+use Ibexa\Contracts\Core\FieldType\Generic\Type as BaseType;
 
 final class Type extends BaseType
 {
@@ -17,3 +17,5 @@ final class Type extends BaseType
         return 'generic';
     }
 }
+
+class_alias(Type::class, 'eZ\Publish\SPI\FieldType\Generic\Tests\Stubs\Type');

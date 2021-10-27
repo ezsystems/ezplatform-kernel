@@ -4,15 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Persistence\FieldType;
 
-use eZ\Publish\Core\Persistence\Legacy;
-use eZ\Publish\Core\IO;
-use eZ\Publish\Core\FieldType;
-use eZ\Publish\Core\Base\Utils\DeprecationWarnerInterface;
-use eZ\Publish\Core\FieldType\Image\AliasCleanerInterface;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\Field;
+use Ibexa\Core\Persistence\Legacy;
+use Ibexa\Core\IO;
+use Ibexa\Core\FieldType;
+use Ibexa\Core\Base\Utils\DeprecationWarnerInterface;
+use Ibexa\Core\FieldType\Image\AliasCleanerInterface;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Tests\Integration\Core\FieldType\FileBaseIntegrationTest;
 use PHPUnit\Framework\MockObject\MockObject;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
@@ -45,7 +46,7 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $aliasCleanerMock;
 
-    /** @var \eZ\Publish\Core\IO\FilePathNormalizer\Flysystem */
+    /** @var \Ibexa\Core\IO\FilePathNormalizer\Flysystem */
     private $filePathNormalizer;
 
     /**
@@ -71,7 +72,7 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
     /**
      * Get handler with required custom field types registered.
      *
-     * @return \eZ\Publish\SPI\Persistence\Handler
+     * @return \Ibexa\Contracts\Core\Persistence\Handler
      */
     public function getCustomHandler()
     {
@@ -82,7 +83,7 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
         $fieldType->setTransformationProcessor($this->getTransformationProcessor());
 
         $this->ioService = self::$container->get('ezpublish.fieldType.ezimage.io_service');
-        /** @var \eZ\Publish\Core\IO\UrlRedecoratorInterface $urlRedecorator */
+        /** @var \Ibexa\Core\IO\UrlRedecoratorInterface $urlRedecorator */
         $urlRedecorator = self::$container->get('ezpublish.core.io.image_fieldtype.legacy_url_redecorator');
 
         return $this->getHandler(
@@ -105,7 +106,7 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
     }
 
     /**
-     * @return \eZ\Publish\Core\Base\Utils\DeprecationWarnerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Base\Utils\DeprecationWarnerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     public function getDeprecationWarnerMock(): MockObject
     {
@@ -117,7 +118,7 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
     }
 
     /**
-     * @return \eZ\Publish\Core\FieldType\Image\AliasCleanerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\FieldType\Image\AliasCleanerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     public function getAliasCleanerMock(): MockObject
     {
@@ -142,7 +143,7 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
      * Returns the FieldTypeConstraints to be used to create a field definition
      * of the FieldType under test.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints
+     * @return \Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints
      */
     public function getTypeConstraints()
     {
@@ -194,7 +195,7 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
     /**
      * Get initial field value.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldValue
+     * @return \Ibexa\Contracts\Core\Persistence\Content\FieldValue
      */
     public function getInitialValue()
     {
@@ -235,7 +236,7 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
      *
      * Use to update the field
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldValue
+     * @return \Ibexa\Contracts\Core\Persistence\Content\FieldValue
      */
     public function getUpdatedValue()
     {
@@ -308,7 +309,7 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
 
     public function testCreateContentUsingIdPropertyThrowsWarning()
     {
-        $this->expectException(\eZ\Publish\Core\IO\Exception\InvalidBinaryFileIdException::class);
+        $this->expectException(IO\Exception\InvalidBinaryFileIdException::class);
 
         $this->testCreateContentType();
         $contentType = $this->testLoadContentTypeField();
@@ -322,7 +323,7 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
     /**
      * Get initial field value.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldValue
+     * @return \Ibexa\Contracts\Core\Persistence\Content\FieldValue
      */
     public function getDeprecatedIdPropertyValue()
     {
@@ -353,3 +354,5 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
         );
     }
 }
+
+class_alias(ImageIntegrationTest::class, 'eZ\Publish\SPI\Tests\FieldType\ImageIntegrationTest');

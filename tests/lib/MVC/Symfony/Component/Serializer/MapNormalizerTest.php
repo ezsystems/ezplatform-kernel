@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer;
+namespace Ibexa\Tests\Core\MVC\Symfony\Component\Serializer;
 
-use eZ\Publish\Core\MVC\Symfony\Component\Serializer\MapNormalizer;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Map as MapMatcher;
+use Ibexa\Core\MVC\Symfony\Component\Serializer\MapNormalizer;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Map as MapMatcher;
 use PHPUnit\Framework\TestCase;
 
 final class MapNormalizerTest extends TestCase
@@ -40,3 +40,5 @@ final class MapNormalizerTest extends TestCase
         $this->assertFalse($normalizer->supportsNormalization($this->createMock(Matcher::class)));
     }
 }
+
+class_alias(MapNormalizerTest::class, 'eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer\MapNormalizerTest');

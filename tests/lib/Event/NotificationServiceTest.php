@@ -4,18 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Event\Tests;
+namespace Ibexa\Tests\Core\Event;
 
-use eZ\Publish\API\Repository\Events\Notification\BeforeCreateNotificationEvent;
-use eZ\Publish\API\Repository\Events\Notification\BeforeDeleteNotificationEvent;
-use eZ\Publish\API\Repository\Events\Notification\BeforeMarkNotificationAsReadEvent;
-use eZ\Publish\API\Repository\Events\Notification\CreateNotificationEvent;
-use eZ\Publish\API\Repository\Events\Notification\DeleteNotificationEvent;
-use eZ\Publish\API\Repository\Events\Notification\MarkNotificationAsReadEvent;
-use eZ\Publish\API\Repository\NotificationService as NotificationServiceInterface;
-use eZ\Publish\API\Repository\Values\Notification\CreateStruct;
-use eZ\Publish\API\Repository\Values\Notification\Notification;
-use eZ\Publish\Core\Event\NotificationService;
+use Ibexa\Contracts\Core\Repository\Events\Notification\BeforeCreateNotificationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Notification\BeforeDeleteNotificationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Notification\BeforeMarkNotificationAsReadEvent;
+use Ibexa\Contracts\Core\Repository\Events\Notification\CreateNotificationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Notification\DeleteNotificationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Notification\MarkNotificationAsReadEvent;
+use Ibexa\Contracts\Core\Repository\NotificationService as NotificationServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Notification\CreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification;
+use Ibexa\Core\Event\NotificationService;
 
 class NotificationServiceTest extends AbstractServiceTest
 {
@@ -232,3 +232,5 @@ class NotificationServiceTest extends AbstractServiceTest
         ]);
     }
 }
+
+class_alias(NotificationServiceTest::class, 'eZ\Publish\Core\Event\Tests\NotificationServiceTest');

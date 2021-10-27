@@ -4,31 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Values\User\Limitation;
+namespace Ibexa\Tests\Integration\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\ParentDepthLimitation;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentDepthLimitation;
 
 /**
- * Test case for the {@link \eZ\Publish\API\Repository\Values\User\Limitation\ParentDepthLimitation}
- * class.
- *
- * @see eZ\Publish\API\Repository\Values\User\Limitation
- * @see eZ\Publish\API\Repository\Values\User\Limitation\ParentDepthLimitation
+ * @covers \Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentDepthLimitation
  * @group integration
  * @group limitation
  */
 class ParentDepthLimitationTest extends BaseLimitationTest
 {
-    /**
-     * Tests a combination of ParentDepthLimitation and ContentTypeLimitation.
-     *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ParentDepthLimitation
-     */
     public function testParentDepthLimitationForbid()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -66,12 +57,6 @@ class ParentDepthLimitationTest extends BaseLimitationTest
         );
     }
 
-    /**
-     * Tests a combination of ParentDepthLimitation and ContentTypeLimitation.
-     *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ParentDepthLimitation
-     */
     public function testParentDepthLimitationAllow()
     {
         $repository = $this->getRepository();
@@ -116,9 +101,6 @@ class ParentDepthLimitationTest extends BaseLimitationTest
      * Tests a combination of ParentDepthLimitation and ContentTypeLimitation.
      *
      * @depends testParentDepthLimitationAllow
-     *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ParentDepthLimitation
      */
     public function testParentDepthLimitationAllowPublish()
     {
@@ -164,3 +146,5 @@ class ParentDepthLimitationTest extends BaseLimitationTest
         /* END: Use Case */
     }
 }
+
+class_alias(ParentDepthLimitationTest::class, 'eZ\Publish\API\Repository\Tests\Values\User\Limitation\ParentDepthLimitationTest');

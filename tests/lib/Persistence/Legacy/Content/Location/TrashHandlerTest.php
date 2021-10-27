@@ -4,39 +4,39 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Location;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult;
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResultList;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Trash\Handler;
-use eZ\Publish\SPI\Persistence\Content\Location\Trash\TrashResult;
-use eZ\Publish\SPI\Persistence\Content\Location\Trashed;
-use eZ\Publish\Core\Persistence\Legacy\Content as CoreContent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Trash\Handler;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Trash\TrashResult;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Trashed;
+use Ibexa\Core\Persistence\Legacy\Content as CoreContent;
 
 /**
- * Test case for TrashHandlerTest.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\Location\Trash\Handler
  */
 class TrashHandlerTest extends TestCase
 {
     /**
      * Mocked location handler instance.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Handler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Location\Handler
      */
     protected $locationHandler;
 
     /**
      * Mocked location gateway instance.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway
      */
     protected $locationGateway;
 
     /**
      * Mocked location mapper instance.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Location\Mapper
      */
     protected $locationMapper;
 
@@ -57,9 +57,6 @@ class TrashHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Trash\Handler::trashSubtree
-     */
     public function testTrashSubtree()
     {
         $handler = $this->getTrashHandler();
@@ -131,9 +128,6 @@ class TrashHandlerTest extends TestCase
         self::assertSame(20, $trashedObject->id);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Trash\Handler::trashSubtree
-     */
     public function testTrashSubtreeReturnsNull()
     {
         $handler = $this->getTrashHandler();
@@ -192,9 +186,6 @@ class TrashHandlerTest extends TestCase
         self::assertNull($returnValue);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Trash\Handler::trashSubtree
-     */
     public function testTrashSubtreeUpdatesMainLocation()
     {
         $handler = $this->getTrashHandler();
@@ -285,9 +276,6 @@ class TrashHandlerTest extends TestCase
         self::assertSame(20, $trashedObject->id);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Trash\Handler::recover
-     */
     public function testRecover()
     {
         $handler = $this->getTrashHandler();
@@ -305,9 +293,6 @@ class TrashHandlerTest extends TestCase
         self::assertSame(70, $handler->recover(69, 23));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Trash\Handler::loadTrashItem
-     */
     public function testLoadTrashItem()
     {
         $handler = $this->getTrashHandler();
@@ -326,9 +311,6 @@ class TrashHandlerTest extends TestCase
         $handler->loadTrashItem(69);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Trash\Handler::emptyTrash
-     */
     public function testEmptyTrash()
     {
         $handler = $this->getTrashHandler();
@@ -414,9 +396,6 @@ class TrashHandlerTest extends TestCase
         }
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Trash\Handler::deleteTrashItem
-     */
     public function testDeleteTrashItemNoMoreLocations()
     {
         $handler = $this->getTrashHandler();
@@ -476,9 +455,6 @@ class TrashHandlerTest extends TestCase
         $this->assertTrue($trashItemDeleteResult->contentRemoved);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Trash\Handler::deleteTrashItem
-     */
     public function testDeleteTrashItemStillHaveLocations()
     {
         $handler = $this->getTrashHandler();
@@ -537,9 +513,6 @@ class TrashHandlerTest extends TestCase
         $this->assertFalse($trashItemDeleteResult->contentRemoved);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Trash\Handler::findTrashItems
-     */
     public function testFindTrashItemsWhenEmpty()
     {
         $handler = $this->getTrashHandler();
@@ -567,9 +540,6 @@ class TrashHandlerTest extends TestCase
         $this->assertCount(0, $trashResult);// Can't assert as empty, however we can count it.
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Trash\Handler::findTrashItems
-     */
     public function testFindTrashItemsWithLimits()
     {
         $handler = $this->getTrashHandler();
@@ -601,3 +571,5 @@ class TrashHandlerTest extends TestCase
         $this->assertCount(1, $trashResult);
     }
 }
+
+class_alias(TrashHandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\Location\TrashHandlerTest');

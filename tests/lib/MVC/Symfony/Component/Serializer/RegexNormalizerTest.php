@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer;
+namespace Ibexa\Tests\Core\MVC\Symfony\Component\Serializer;
 
-use eZ\Publish\Core\MVC\Symfony\Component\Serializer\RegexNormalizer;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Regex as RegexMatcher;
-use eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer\Stubs\RegexMatcher as RegexMatcherStub;
+use Ibexa\Core\MVC\Symfony\Component\Serializer\RegexNormalizer;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Regex as RegexMatcher;
+use Ibexa\Tests\Core\MVC\Symfony\Component\Serializer\Stubs\RegexMatcher as RegexMatcherStub;
 use PHPUnit\Framework\TestCase;
 
 final class RegexNormalizerTest extends TestCase
@@ -39,3 +39,5 @@ final class RegexNormalizerTest extends TestCase
         $this->assertFalse($normalizer->supportsNormalization($this->createMock(Matcher::class)));
     }
 }
+
+class_alias(RegexNormalizerTest::class, 'eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer\RegexNormalizerTest');

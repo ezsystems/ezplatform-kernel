@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Tests\DependencyInjection\ConfigurationFactory;
+namespace Ibexa\Tests\Bundle\IO\DependencyInjection\ConfigurationFactory;
 
-use eZ\Bundle\EzPublishIOBundle\Tests\DependencyInjection\ConfigurationFactoryTest;
+use Ibexa\Tests\Bundle\IO\DependencyInjection\ConfigurationFactoryTest;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
@@ -51,3 +51,5 @@ abstract class BaseFlysystemTest extends ConfigurationFactoryTest
         );
     }
 }
+
+class_alias(BaseFlysystemTest::class, 'eZ\Bundle\EzPublishIOBundle\Tests\DependencyInjection\ConfigurationFactory\BaseFlysystemTest');

@@ -6,31 +6,31 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\FieldType\Tests\ImageAsset;
+namespace Ibexa\Tests\Core\MVC\Symfony\FieldType\ImageAsset;
 
-use eZ\Publish\API\Repository\FieldType;
-use eZ\Publish\API\Repository\FieldTypeService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\Core\FieldType\ImageAsset\Value as ImageAssetValue;
-use eZ\Publish\Core\MVC\Symfony\FieldType\ImageAsset\ParameterProvider;
-use eZ\Publish\Core\Repository\SiteAccessAware\Repository;
+use Ibexa\Contracts\Core\Repository\FieldType;
+use Ibexa\Contracts\Core\Repository\FieldTypeService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Core\FieldType\ImageAsset\Value as ImageAssetValue;
+use Ibexa\Core\MVC\Symfony\FieldType\ImageAsset\ParameterProvider;
+use Ibexa\Core\Repository\SiteAccessAware\Repository;
 use PHPUnit\Framework\TestCase;
 
 class ParameterProviderTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Repository\SiteAccessAware\Repository|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Repository\SiteAccessAware\Repository|\PHPUnit\Framework\MockObject\MockObject */
     private $repository;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
     private $permissionsResolver;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\FieldType\ImageAsset\ParameterProvider */
+    /** @var \Ibexa\Core\MVC\Symfony\FieldType\ImageAsset\ParameterProvider */
     private $parameterProvider;
 
-    /** @var \eZ\Publish\API\Repository\FieldType||\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\FieldType|\PHPUnit\Framework\MockObject\MockObject */
     private $fieldType;
 
     protected function setUp(): void
@@ -188,7 +188,7 @@ class ParameterProviderTest extends TestCase
     /**
      * @param int $destinationContentId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Field
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field
      */
     private function createField(int $destinationContentId): Field
     {
@@ -198,3 +198,5 @@ class ParameterProviderTest extends TestCase
         ]);
     }
 }
+
+class_alias(ParameterProviderTest::class, 'eZ\Publish\Core\MVC\Symfony\FieldType\Tests\ImageAsset\ParameterProviderTest');

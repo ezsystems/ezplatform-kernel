@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\SearchService\Aggregation;
+namespace Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Range;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\RawRangeAggregation;
-use eZ\Publish\API\Repository\Values\Content\Search\AggregationResult\RangeAggregationResult;
-use eZ\Publish\API\Repository\Values\Content\Search\AggregationResult\RangeAggregationResultEntry;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\Range;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\RawRangeAggregation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\RangeAggregationResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\RangeAggregationResultEntry;
 
 final class RawRangeAggregationTest extends AbstractAggregationTest
 {
@@ -38,3 +38,5 @@ final class RawRangeAggregationTest extends AbstractAggregationTest
         ];
     }
 }
+
+class_alias(RawRangeAggregationTest::class, 'eZ\Publish\API\Repository\Tests\SearchService\Aggregation\RawRangeAggregationTest');

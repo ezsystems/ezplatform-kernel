@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\Content\ObjectState as SPIObjectState;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\Handler as SPIObjectStateHandler;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\Group as SPIObjectStateGroup;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct as SPIInputStruct;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState as SPIObjectState;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Handler as SPIObjectStateHandler;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group as SPIObjectStateGroup;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct as SPIInputStruct;
 
 /**
  * Test case for Persistence\Cache\ObjectStateHandler.
@@ -212,3 +212,5 @@ class ObjectStateHandlerTest extends AbstractCacheHandlerTest
         ];
     }
 }
+
+class_alias(ObjectStateHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\ObjectStateHandlerTest');

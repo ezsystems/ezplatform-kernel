@@ -6,32 +6,32 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Security\Tests\User;
+namespace Ibexa\Tests\Core\MVC\Symfony\Security\User;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\User\User as APIUser;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\MVC\Symfony\Security\User\EmailProvider;
-use eZ\Publish\Core\MVC\Symfony\Security\UserInterface;
-use eZ\Publish\Core\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Repository\Values\User\User;
-use eZ\Publish\Core\MVC\Symfony\Security\User as MVCUser;
-use eZ\Publish\Core\Repository\Values\User\UserReference;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\MVC\Symfony\Security\User\EmailProvider;
+use Ibexa\Core\MVC\Symfony\Security\UserInterface;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Repository\Values\User\User;
+use Ibexa\Core\MVC\Symfony\Security\User as MVCUser;
+use Ibexa\Core\Repository\Values\User\UserReference;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
 class EmailProviderTest extends TestCase
 {
-    /** @var \eZ\Publish\API\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject */
     private $userService;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Security\User\EmailProvider */
+    /** @var \Ibexa\Core\MVC\Symfony\Security\User\EmailProvider */
     private $userProvider;
 
     protected function setUp(): void
@@ -184,3 +184,5 @@ class EmailProviderTest extends TestCase
         $this->assertSame(['ROLE_USER'], $user->getRoles());
     }
 }
+
+class_alias(EmailProviderTest::class, 'eZ\Publish\Core\MVC\Symfony\Security\Tests\User\EmailProviderTest');

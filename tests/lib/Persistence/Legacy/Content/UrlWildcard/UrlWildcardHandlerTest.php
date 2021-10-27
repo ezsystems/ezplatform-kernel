@@ -6,24 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\UrlWildcard;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\UrlWildcard;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Handler;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Mapper;
-use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Handler;
+use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase;
+use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Mapper;
+use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard;
 
 /**
- * Test case for UrlWildcard Handler.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Handler
  */
 class UrlWildcardHandlerTest extends TestCase
 {
-    /**
-     * Test for the load() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Handler::load
-     */
     public function testLoad()
     {
         $this->insertDatabaseFixture(__DIR__ . '/Gateway/_fixtures/urlwildcards.php');
@@ -46,12 +42,10 @@ class UrlWildcardHandlerTest extends TestCase
 
     /**
      * Test for the load() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Handler::load
      */
     public function testLoadThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $this->insertDatabaseFixture(__DIR__ . '/Gateway/_fixtures/urlwildcards.php');
         $handler = $this->getHandler();
@@ -62,7 +56,7 @@ class UrlWildcardHandlerTest extends TestCase
     /**
      * Test for the create() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Handler::create
+     *
      * @depends testLoad
      */
     public function testCreate()
@@ -95,7 +89,6 @@ class UrlWildcardHandlerTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Handler::update
      * @depends testLoad
      */
     public function testUpdate(): void
@@ -130,12 +123,11 @@ class UrlWildcardHandlerTest extends TestCase
     /**
      * Test for the remove() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Handler::remove
      * @depends testLoad
      */
     public function testRemove()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $this->insertDatabaseFixture(__DIR__ . '/Gateway/_fixtures/urlwildcards.php');
         $handler = $this->getHandler();
@@ -146,8 +138,6 @@ class UrlWildcardHandlerTest extends TestCase
 
     /**
      * Test for the loadAll() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Handler::loadAll
      */
     public function testLoadAll()
     {
@@ -168,8 +158,6 @@ class UrlWildcardHandlerTest extends TestCase
 
     /**
      * Test for the loadAll() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Handler::loadAll
      */
     public function testLoadAllWithOffset()
     {
@@ -188,8 +176,6 @@ class UrlWildcardHandlerTest extends TestCase
 
     /**
      * Test for the loadAll() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Handler::loadAll
      */
     public function testLoadAllWithOffsetAndLimit()
     {
@@ -227,13 +213,13 @@ class UrlWildcardHandlerTest extends TestCase
         ],
     ];
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase */
     protected $gateway;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Mapper */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Mapper */
     protected $mapper;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\UrlWildcard\Handler */
     protected $urlWildcardHandler;
 
     /**
@@ -254,3 +240,5 @@ class UrlWildcardHandlerTest extends TestCase
         return $this->urlWildcardHandler;
     }
 }
+
+class_alias(UrlWildcardHandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\UrlWildcard\UrlWildcardHandlerTest');

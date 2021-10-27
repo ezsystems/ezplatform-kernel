@@ -4,41 +4,39 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content;
 
 use function count;
-use eZ\Publish\Core\Persistence\Legacy\Content\Mapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry as Registry;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\API\Repository\Values\Content\Relation as RelationValue;
-use eZ\Publish\SPI\Persistence\Content\Relation as SPIRelation;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\SPI\Persistence\Content\Language;
-use eZ\Publish\SPI\Persistence\Content\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct as LocationCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry as Registry;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation as RelationValue;
+use Ibexa\Contracts\Core\Persistence\Content\Relation as SPIRelation;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Persistence\Content\Language;
+use Ibexa\Contracts\Core\Persistence\Content\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct as LocationCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
 
 /**
- * Test case for Mapper.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\Mapper
  */
 class MapperTest extends LanguageAwareTestCase
 {
     /**
      * Value converter registry mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
+     * @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
      */
     protected $valueConverterRegistryMock;
 
     /**
-     * Returns a eZ\Publish\SPI\Persistence\Content\CreateStruct fixture.
-     *
-     * @return \eZ\Publish\SPI\Persistence\Content\CreateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\CreateStruct
      */
     protected function getCreateStructFixture()
     {
@@ -65,9 +63,6 @@ class MapperTest extends LanguageAwareTestCase
         return $struct;
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Mapper::createVersionInfoForContent
-     */
     public function testCreateVersionInfoForContent()
     {
         $content = $this->getFullContentFixture();
@@ -125,10 +120,6 @@ class MapperTest extends LanguageAwareTestCase
         return $content;
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Mapper::convertToStorageValue
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue
-     */
     public function testConvertToStorageValue()
     {
         $convMock = $this->createMock(Converter::class);
@@ -158,12 +149,6 @@ class MapperTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Mapper::extractContentFromRows
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Mapper::extractFieldFromRow
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Mapper::extractFieldValueFromRow
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue
-     */
     public function testExtractContentFromRows()
     {
         $rowsFixture = $this->getContentExtractFixture();
@@ -204,9 +189,6 @@ class MapperTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Mapper::extractContentFromRows
-     */
     public function testExtractContentFromRowsMultipleVersions()
     {
         $convMock = $this->createMock(Converter::class);
@@ -251,9 +233,6 @@ class MapperTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Mapper::createCreateStructFromContent
-     */
     public function testCreateCreateStructFromContent()
     {
         $time = time();
@@ -276,7 +255,6 @@ class MapperTest extends LanguageAwareTestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Mapper::createCreateStructFromContent
      * @depends testCreateCreateStructFromContent
      */
     public function testCreateCreateStructFromContentBasicProperties($data)
@@ -297,7 +275,6 @@ class MapperTest extends LanguageAwareTestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Mapper::createCreateStructFromContent
      * @depends testCreateCreateStructFromContent
      */
     public function testCreateCreateStructFromContentParentLocationsEmpty($data)
@@ -309,7 +286,6 @@ class MapperTest extends LanguageAwareTestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Mapper::createCreateStructFromContent
      * @depends testCreateCreateStructFromContent
      */
     public function testCreateCreateStructFromContentFieldCount($data)
@@ -321,7 +297,6 @@ class MapperTest extends LanguageAwareTestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Mapper::createCreateStructFromContent
      * @depends testCreateCreateStructFromContent
      */
     public function testCreateCreateStructFromContentFieldsNoId($data)
@@ -345,9 +320,6 @@ class MapperTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Mapper::createCreateStructFromContent
-     */
     public function testCreateCreateStructFromContentWithPreserveOriginalLanguage()
     {
         $time = time();
@@ -369,7 +341,6 @@ class MapperTest extends LanguageAwareTestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Mapper::extractContentInfoFromRow
      * @dataProvider extractContentInfoFromRowProvider
      *
      * @param array $fixtures
@@ -407,9 +378,6 @@ class MapperTest extends LanguageAwareTestCase
         ];
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Mapper::createRelationFromCreateStruct
-     */
     public function testCreateRelationFromCreateStruct()
     {
         $struct = $this->getRelationCreateStructFixture();
@@ -534,7 +502,7 @@ class MapperTest extends LanguageAwareTestCase
     /**
      * Returns a Mapper.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Mapper
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Mapper
      */
     protected function getMapper($valueConverter = null)
     {
@@ -547,7 +515,7 @@ class MapperTest extends LanguageAwareTestCase
     /**
      * Returns a FieldValue converter registry mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
+     * @return \Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
      */
     protected function getValueConverterRegistryMock()
     {
@@ -561,11 +529,9 @@ class MapperTest extends LanguageAwareTestCase
     }
 
     /**
-     * Returns a eZ\Publish\SPI\Persistence\Content\CreateStruct fixture.
-     *
-     * @return \eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct
+     * Returns a {@see \Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct} fixture.
      */
-    protected function getRelationCreateStructFixture()
+    protected function getRelationCreateStructFixture(): RelationCreateStruct
     {
         $struct = new RelationCreateStruct();
 
@@ -581,7 +547,7 @@ class MapperTest extends LanguageAwareTestCase
     /**
      * Returns a language handler mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Language\Handler
      */
     protected function getLanguageHandler()
     {
@@ -638,3 +604,5 @@ class MapperTest extends LanguageAwareTestCase
         return $this->languageHandler;
     }
 }
+
+class_alias(MapperTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\MapperTest');

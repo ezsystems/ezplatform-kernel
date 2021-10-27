@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\SiteAccess;
+namespace Ibexa\Tests\Bundle\Core\SiteAccess;
 
-use eZ\Bundle\EzPublishCoreBundle\SiteAccess\Matcher;
-use eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessMatcherRegistry;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use Ibexa\Bundle\Core\SiteAccess\Matcher;
+use Ibexa\Bundle\Core\SiteAccess\SiteAccessMatcherRegistry;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use PHPUnit\Framework\TestCase;
 
 class SiteAccessMatcherRegistryTest extends TestCase
@@ -59,3 +59,5 @@ class SiteAccessMatcherRegistryTest extends TestCase
         return $this->createMock(Matcher::class);
     }
 }
+
+class_alias(SiteAccessMatcherRegistryTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\SiteAccess\SiteAccessMatcherRegistryTest');

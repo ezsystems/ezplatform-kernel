@@ -4,18 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Tests\Content;
+namespace Ibexa\Tests\Core\Search\Legacy\Content;
 
-use eZ\Publish\Core\Search\Legacy\Content;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
-use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway as LocationGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler;
+use Ibexa\Core\Search\Legacy\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
+use Ibexa\Core\Search\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use Ibexa\Core\Persistence\Legacy\Content\FieldHandler;
 
 /**
  * Content Search test case for ContentSearchHandler.
@@ -25,7 +25,7 @@ class HandlerContentSortTest extends AbstractTestCase
     /**
      * Field registry mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
+     * @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
      */
     protected $fieldRegistry;
 
@@ -37,7 +37,7 @@ class HandlerContentSortTest extends AbstractTestCase
      *
      * @param array $fullTextSearchConfiguration
      *
-     * @return \eZ\Publish\Core\Search\Legacy\Content\Handler
+     * @return \Ibexa\Core\Search\Legacy\Content\Handler
      */
     protected function getContentSearchHandler(array $fullTextSearchConfiguration = [])
     {
@@ -92,7 +92,7 @@ class HandlerContentSortTest extends AbstractTestCase
     /**
      * Returns a content mapper mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Mapper
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Mapper
      */
     protected function getContentMapperMock()
     {
@@ -131,7 +131,7 @@ class HandlerContentSortTest extends AbstractTestCase
     /**
      * Returns a field registry mock object.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
+     * @return \Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
      */
     protected function getFieldRegistry()
     {
@@ -148,7 +148,7 @@ class HandlerContentSortTest extends AbstractTestCase
     /**
      * Returns a content field handler mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\FieldHandler
      */
     protected function getContentFieldHandlerMock()
     {
@@ -469,3 +469,5 @@ class HandlerContentSortTest extends AbstractTestCase
         );
     }
 }
+
+class_alias(HandlerContentSortTest::class, 'eZ\Publish\Core\Search\Legacy\Tests\Content\HandlerContentSortTest');

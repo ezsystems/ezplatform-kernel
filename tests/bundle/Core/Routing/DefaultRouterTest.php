@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Routing;
+namespace Ibexa\Tests\Bundle\Core\Routing;
 
-use eZ\Bundle\EzPublishCoreBundle\Routing\DefaultRouter;
-use eZ\Bundle\EzPublishCoreBundle\SiteAccess\Matcher;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Bundle\Core\Routing\DefaultRouter;
+use Ibexa\Bundle\Core\SiteAccess\Matcher;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RequestContext;
@@ -23,7 +23,7 @@ class DefaultRouterTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\DependencyInjection\ContainerInterface */
     protected $container;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\MVC\ConfigResolverInterface */
     protected $configResolver;
 
     /** @var \Symfony\Component\Routing\RequestContext */
@@ -330,3 +330,5 @@ class DefaultRouterTest extends TestCase
         return $requestContext;
     }
 }
+
+class_alias(DefaultRouterTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Routing\DefaultRouterTest');

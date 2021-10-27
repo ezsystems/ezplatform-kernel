@@ -4,36 +4,33 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Type\Update\Handler;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Type\Update\Handler;
 
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler\DoctrineDatabase;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Update\Handler\DoctrineDatabase;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Gateway;
+use Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test case for Content Type Handler.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\Type\Update\Handler\DoctrineDatabase
  */
 class DoctrineDatabaseTest extends TestCase
 {
     /**
      * Gateway mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Type\Gateway
      */
     protected $gatewayMock;
 
     /**
      * Content Updater mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater
      */
     protected $contentUpdaterMock;
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler\DoctrineDatabase::updateContentObjects
-     */
     public function testUpdateContentObjects()
     {
         $handler = $this->getUpdateHandler();
@@ -63,9 +60,6 @@ class DoctrineDatabaseTest extends TestCase
         $handler->updateContentObjects($types['from'], $types['to']);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler\DoctrineDatabase::deleteOldType
-     */
     public function testDeleteOldType()
     {
         $handler = $this->getUpdateHandler();
@@ -84,9 +78,6 @@ class DoctrineDatabaseTest extends TestCase
         $handler->deleteOldType($types['from'], $types['to']);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler\DoctrineDatabase::publishNewType
-     */
     public function testPublishNewType()
     {
         $handler = $this->getUpdateHandler();
@@ -106,7 +97,7 @@ class DoctrineDatabaseTest extends TestCase
     /**
      * Returns an array with 'from' and 'to' types.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type[]
      */
     protected function getTypeFixtures()
     {
@@ -126,7 +117,7 @@ class DoctrineDatabaseTest extends TestCase
     /**
      * Returns the Update Handler to test.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler\DoctrineDatabase
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Type\Update\Handler\DoctrineDatabase
      */
     protected function getUpdateHandler()
     {
@@ -139,7 +130,7 @@ class DoctrineDatabaseTest extends TestCase
     /**
      * Returns a gateway mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Type\Gateway
      */
     protected function getGatewayMock()
     {
@@ -153,7 +144,7 @@ class DoctrineDatabaseTest extends TestCase
     /**
      * Returns a Content Updater mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater
      */
     protected function getContentUpdaterMock()
     {
@@ -164,3 +155,5 @@ class DoctrineDatabaseTest extends TestCase
         return $this->contentUpdaterMock;
     }
 }
+
+class_alias(DoctrineDatabaseTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\Type\Update\Handler\DoctrineDatabaseTest');

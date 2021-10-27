@@ -4,27 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Values\User\Limitation;
+namespace Ibexa\Tests\Integration\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\StatusLimitation;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\StatusLimitation;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 
 /**
- * Test case for the {@link \eZ\Publish\API\Repository\Values\User\Limitation\StatusLimitation}
- * class.
- *
- * @see eZ\Publish\API\Repository\Values\User\Limitation
- * @see eZ\Publish\API\Repository\Values\User\Limitation\StatusLimitation
+ * @covers \Ibexa\Contracts\Core\Repository\Values\User\Limitation\StatusLimitation
  * @group integration
  * @group limitation
  */
 class StatusLimitationTest extends BaseLimitationTest
 {
-    /**
-     * Tests a StatusLimitation.
-     *
-     * @see eZ\Publish\API\Repository\Values\User\Limitation\StatusLimitation
-     */
     public function testStatusLimitationAllow()
     {
         $repository = $this->getRepository();
@@ -86,14 +78,9 @@ class StatusLimitationTest extends BaseLimitationTest
         );
     }
 
-    /**
-     * Tests a StatusLimitation.
-     *
-     * @see eZ\Publish\API\Repository\Values\User\Limitation\StatusLimitation
-     */
     public function testStatusLimitationForbid()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -157,3 +144,5 @@ class StatusLimitationTest extends BaseLimitationTest
         /* END: Use Case */
     }
 }
+
+class_alias(StatusLimitationTest::class, 'eZ\Publish\API\Repository\Tests\Values\User\Limitation\StatusLimitationTest');

@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Security;
 
-use eZ\Publish\API\Repository\Values\User\User as APIUser;
-use eZ\Publish\Core\MVC\Symfony\Security\UserInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\UserWrapped;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
+use Ibexa\Core\MVC\Symfony\Security\UserInterface;
+use Ibexa\Core\MVC\Symfony\Security\UserWrapped;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
@@ -117,3 +117,5 @@ class UserWrappedTest extends TestCase
 interface UserEquatableInterface extends UserInterface, EquatableInterface
 {
 }
+
+class_alias(UserWrappedTest::class, 'eZ\Publish\Core\MVC\Symfony\Security\Tests\UserWrappedTest');

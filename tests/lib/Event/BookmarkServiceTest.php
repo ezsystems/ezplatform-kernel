@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Event\Tests;
+namespace Ibexa\Tests\Core\Event;
 
-use eZ\Publish\API\Repository\BookmarkService as BookmarkServiceInterface;
-use eZ\Publish\API\Repository\Events\Bookmark\BeforeCreateBookmarkEvent;
-use eZ\Publish\API\Repository\Events\Bookmark\BeforeDeleteBookmarkEvent;
-use eZ\Publish\API\Repository\Events\Bookmark\CreateBookmarkEvent;
-use eZ\Publish\API\Repository\Events\Bookmark\DeleteBookmarkEvent;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\Event\BookmarkService;
+use Ibexa\Contracts\Core\Repository\BookmarkService as BookmarkServiceInterface;
+use Ibexa\Contracts\Core\Repository\Events\Bookmark\BeforeCreateBookmarkEvent;
+use Ibexa\Contracts\Core\Repository\Events\Bookmark\BeforeDeleteBookmarkEvent;
+use Ibexa\Contracts\Core\Repository\Events\Bookmark\CreateBookmarkEvent;
+use Ibexa\Contracts\Core\Repository\Events\Bookmark\DeleteBookmarkEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Event\BookmarkService;
 
 class BookmarkServiceTest extends AbstractServiceTest
 {
@@ -130,3 +130,5 @@ class BookmarkServiceTest extends AbstractServiceTest
         ]);
     }
 }
+
+class_alias(BookmarkServiceTest::class, 'eZ\Publish\Core\Event\Tests\BookmarkServiceTest');

@@ -4,16 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests;
+namespace Ibexa\Tests\Bundle\Core;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Exception\ParameterNotFoundException;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ChainConfigResolver;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Exception\ParameterNotFoundException;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Ibexa\Bundle\Core\DependencyInjection\Configuration\ChainConfigResolver
+ */
 class ChainConfigResolverTest extends TestCase
 {
-    /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver */
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\ChainConfigResolver */
     private $chainResolver;
 
     protected function setUp(): void
@@ -21,11 +24,6 @@ class ChainConfigResolverTest extends TestCase
         $this->chainResolver = new ChainConfigResolver();
     }
 
-    /**
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver::addResolver
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver::sortResolvers
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver::getAllResolvers
-     */
     public function testPriority()
     {
         $this->assertEquals([], $this->chainResolver->getAllResolvers());
@@ -47,10 +45,6 @@ class ChainConfigResolverTest extends TestCase
     /**
      * Resolvers are supposed to be sorted only once.
      * This test will check that by trying to get all resolvers several times.
-     *
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver::addResolver
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver::sortResolvers
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver::getAllResolvers
      */
     public function testSortResolvers()
     {
@@ -81,10 +75,6 @@ class ChainConfigResolverTest extends TestCase
 
     /**
      * This test ensures that if a resolver is being added on the fly, the sorting is reset.
-     *
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver::sortResolvers
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver::getAllResolvers
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver::addResolver
      */
     public function testReSortResolvers()
     {
@@ -129,9 +119,6 @@ class ChainConfigResolverTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver::getDefaultNamespace
-     */
     public function testGetDefaultNamespace()
     {
         $this->expectException(\LogicException::class);
@@ -139,9 +126,6 @@ class ChainConfigResolverTest extends TestCase
         $this->chainResolver->getDefaultNamespace();
     }
 
-    /**
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver::setDefaultNamespace
-     */
     public function testSetDefaultNamespace()
     {
         $namespace = 'foo';
@@ -156,12 +140,9 @@ class ChainConfigResolverTest extends TestCase
         $this->chainResolver->setDefaultNamespace($namespace);
     }
 
-    /**
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver::getParameter
-     */
     public function testGetParameterInvalid()
     {
-        $this->expectException(\eZ\Publish\Core\MVC\Exception\ParameterNotFoundException::class);
+        $this->expectException(ParameterNotFoundException::class);
 
         $paramName = 'foo';
         $namespace = 'namespace';
@@ -180,8 +161,6 @@ class ChainConfigResolverTest extends TestCase
 
     /**
      * @dataProvider getParameterProvider
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver::addResolver
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver::getParameter
      *
      * @param string $paramName
      * @param string $namespace
@@ -211,10 +190,6 @@ class ChainConfigResolverTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver::addResolver
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver::hasParameter
-     */
     public function testHasParameterTrue()
     {
         $paramName = 'foo';
@@ -284,3 +259,5 @@ class ChainConfigResolverTest extends TestCase
             ->getMock();
     }
 }
+
+class_alias(ChainConfigResolverTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\ChainConfigResolverTest');

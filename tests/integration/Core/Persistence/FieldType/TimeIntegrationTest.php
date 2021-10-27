@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Persistence\FieldType;
 
-use eZ\Publish\Core\Persistence\Legacy;
-use eZ\Publish\Core\FieldType;
-use eZ\Publish\SPI\Persistence\Content;
+use Ibexa\Core\Persistence\Legacy;
+use Ibexa\Core\FieldType;
+use Ibexa\Contracts\Core\Persistence\Content;
 
 /**
  * Integration test for legacy storage field types.
@@ -45,7 +45,7 @@ class TimeIntegrationTest extends BaseIntegrationTest
     /**
      * Get handler with required custom field types registered.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Handler
+     * @return \Ibexa\Contracts\Core\Persistence\Handler
      */
     public function getCustomHandler()
     {
@@ -64,7 +64,7 @@ class TimeIntegrationTest extends BaseIntegrationTest
      * Returns the FieldTypeConstraints to be used to create a field definition
      * of the FieldType under test.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints
+     * @return \Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints
      */
     public function getTypeConstraints()
     {
@@ -103,7 +103,7 @@ class TimeIntegrationTest extends BaseIntegrationTest
     /**
      * Get initial field value.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldValue
+     * @return \Ibexa\Contracts\Core\Persistence\Content\FieldValue
      */
     public function getInitialValue()
     {
@@ -121,7 +121,7 @@ class TimeIntegrationTest extends BaseIntegrationTest
      *
      * Use to update the field
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldValue
+     * @return \Ibexa\Contracts\Core\Persistence\Content\FieldValue
      */
     public function getUpdatedValue()
     {
@@ -134,3 +134,5 @@ class TimeIntegrationTest extends BaseIntegrationTest
         );
     }
 }
+
+class_alias(TimeIntegrationTest::class, 'eZ\Publish\SPI\Tests\FieldType\TimeIntegrationTest');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Values;
+namespace Ibexa\Tests\Core\Repository\Values;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 trait ValueObjectTestTrait
 {
@@ -15,7 +15,7 @@ trait ValueObjectTestTrait
      * $mockedValueObject.
      *
      * @param mixed[] $expectedValues
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $actualValueObject
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $actualValueObject
      */
     public function assertPropertiesCorrect(array $expectedValues, ValueObject $actualValueObject)
     {
@@ -28,3 +28,5 @@ trait ValueObjectTestTrait
         }
     }
 }
+
+class_alias(ValueObjectTestTrait::class, 'eZ\Publish\API\Repository\Tests\Values\ValueObjectTestTrait');

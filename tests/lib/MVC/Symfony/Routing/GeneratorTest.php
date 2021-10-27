@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Routing\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Routing;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\URILexer;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\Core\MVC\Symfony\Routing\Generator;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess\URILexer;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\Symfony\Routing\Generator;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\Routing\RequestContext;
 
 class GeneratorTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Routing\Generator|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\MVC\Symfony\Routing\Generator|\PHPUnit\Framework\MockObject\MockObject */
     private $generator;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject */
@@ -127,3 +127,5 @@ class GeneratorTest extends TestCase
         $this->assertSame($fullUri, $this->generator->generate($urlResource, $parameters + ['siteaccess' => $siteAccessName], $referenceType));
     }
 }
+
+class_alias(GeneratorTest::class, 'eZ\Publish\Core\MVC\Symfony\Routing\Tests\GeneratorTest');

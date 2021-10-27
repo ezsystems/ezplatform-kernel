@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\URL;
+namespace Ibexa\Tests\Core\Persistence\Legacy\URL;
 
-use eZ\Publish\Core\Persistence\Legacy\URL\Mapper;
-use eZ\Publish\SPI\Persistence\URL\URL;
-use eZ\Publish\SPI\Persistence\URL\URLUpdateStruct;
+use Ibexa\Core\Persistence\Legacy\URL\Mapper;
+use Ibexa\Contracts\Core\Persistence\URL\URL;
+use Ibexa\Contracts\Core\Persistence\URL\URLUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
 class MapperTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\URL\Mapper */
+    /** @var \Ibexa\Core\Persistence\Legacy\URL\Mapper */
     private $mapper;
 
     protected function setUp(): void
@@ -85,3 +85,5 @@ class MapperTest extends TestCase
         $this->assertEquals([$urlEzNo, $urlEzplatformCom], $this->mapper->extractURLsFromRows($rows));
     }
 }
+
+class_alias(MapperTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\URL\MapperTest');

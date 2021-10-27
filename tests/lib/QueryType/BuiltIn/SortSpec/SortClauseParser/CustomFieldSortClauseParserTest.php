@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Tests\SortClauseParser;
+namespace Ibexa\Tests\Core\QueryType\BuiltIn\SortSpec\SortClauseParser;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\CustomField;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\CustomFieldSortClauseParser;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecParserInterface;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Token;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\CustomField;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\CustomFieldSortClauseParser;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortSpecParserInterface;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\Token;
 use PHPUnit\Framework\TestCase;
 
 final class CustomFieldSortClauseParserTest extends TestCase
 {
     private const EXAMPLE_SEARCH_INDEX_FIELD = 'custom_field_s';
 
-    /** @var \eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\CustomFieldSortClauseParser */
+    /** @var \Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\CustomFieldSortClauseParser */
     private $parser;
 
     protected function setUp(): void
@@ -56,3 +56,5 @@ final class CustomFieldSortClauseParserTest extends TestCase
         $this->assertTrue($this->parser->supports('custom_field'));
     }
 }
+
+class_alias(CustomFieldSortClauseParserTest::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Tests\SortClauseParser\CustomFieldSortClauseParserTest');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\Loader;
+namespace Ibexa\Tests\Bundle\Core\Imagine\Filter\Loader;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader\CropFilterLoader;
+use Ibexa\Bundle\Core\Imagine\Filter\Loader\CropFilterLoader;
 use Imagine\Image\ImageInterface;
 use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
 use PHPUnit\Framework\TestCase;
@@ -65,3 +65,5 @@ class CropFilterLoaderTest extends TestCase
         $this->assertSame($image, $this->loader->load($image, [$width, $height, $offsetX, $offsetY]));
     }
 }
+
+class_alias(CropFilterLoaderTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\Loader\CropFilterLoaderTest');

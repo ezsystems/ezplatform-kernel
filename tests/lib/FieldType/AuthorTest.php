@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests;
+namespace Ibexa\Tests\Core\FieldType;
 
-use eZ\Publish\Core\FieldType\Author\Type as AuthorType;
-use eZ\Publish\Core\FieldType\Author\Value as AuthorValue;
-use eZ\Publish\Core\FieldType\Author\AuthorCollection;
-use eZ\Publish\Core\FieldType\Author\Author;
-use eZ\Publish\Core\FieldType\Value;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\FieldType\Author\Type as AuthorType;
+use Ibexa\Core\FieldType\Author\Value as AuthorValue;
+use Ibexa\Core\FieldType\Author\AuthorCollection;
+use Ibexa\Core\FieldType\Author\Author;
+use Ibexa\Core\FieldType\Value;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * @group fieldType
@@ -19,7 +19,7 @@ use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
  */
 class AuthorTest extends FieldTypeTest
 {
-    /** @var \eZ\Publish\Core\FieldType\Author\Author[] */
+    /** @var \Ibexa\Core\FieldType\Author\Author[] */
     private $authors;
 
     protected function setUp(): void
@@ -41,7 +41,7 @@ class AuthorTest extends FieldTypeTest
      * NOT take care for test case wide caching of the field type, just return
      * a new instance from this method!
      *
-     * @return \eZ\Publish\SPI\FieldType\FieldType
+     * @return \Ibexa\Contracts\Core\FieldType\FieldType
      */
     protected function createFieldTypeUnderTest()
     {
@@ -79,36 +79,13 @@ class AuthorTest extends FieldTypeTest
     /**
      * Returns the empty value expected from the field type.
      *
-     * @return \eZ\Publish\Core\FieldType\Author\Value
+     * @return \Ibexa\Core\FieldType\Author\Value
      */
     protected function getEmptyValueExpectation()
     {
         return new AuthorValue();
     }
 
-    /**
-     * Data provider for invalid input to acceptValue().
-     *
-     * Returns an array of data provider sets with 2 arguments: 1. The invalid
-     * input to acceptValue(), 2. The expected exception type as a string. For
-     * example:
-     *
-     * <code>
-     *  return array(
-     *      array(
-     *          new \stdClass(),
-     *          'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
-     *      ),
-     *      array(
-     *          array(),
-     *          'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
-     *      ),
-     *      // ...
-     *  );
-     * </code>
-     *
-     * @return array
-     */
     public function provideInvalidInputForAcceptValue()
     {
         return [
@@ -411,7 +388,7 @@ class AuthorTest extends FieldTypeTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\FieldType::getValidatorConfigurationSchema
+     * @covers \Ibexa\Core\FieldType\FieldType::getValidatorConfigurationSchema
      */
     public function testValidatorConfigurationSchema()
     {
@@ -423,22 +400,22 @@ class AuthorTest extends FieldTypeTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\Author\Type::acceptValue
+     * @covers \Ibexa\Core\FieldType\Author\Type::acceptValue
      */
     public function testAcceptValueInvalidType()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $ft = $this->createFieldTypeUnderTest();
         $ft->acceptValue($this->createMock(Value::class));
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\Author\Type::acceptValue
+     * @covers \Ibexa\Core\FieldType\Author\Type::acceptValue
      */
     public function testAcceptValueInvalidFormat()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $ft = $this->createFieldTypeUnderTest();
         $value = new AuthorValue();
@@ -447,7 +424,7 @@ class AuthorTest extends FieldTypeTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\Author\Type::acceptValue
+     * @covers \Ibexa\Core\FieldType\Author\Type::acceptValue
      */
     public function testAcceptValueValidFormat()
     {
@@ -461,7 +438,7 @@ class AuthorTest extends FieldTypeTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\Author\Value::__construct
+     * @covers \Ibexa\Core\FieldType\Author\Value::__construct
      */
     public function testBuildFieldValueWithoutParam()
     {
@@ -471,7 +448,7 @@ class AuthorTest extends FieldTypeTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\Author\Value::__construct
+     * @covers \Ibexa\Core\FieldType\Author\Value::__construct
      */
     public function testBuildFieldValueWithParam()
     {
@@ -481,7 +458,7 @@ class AuthorTest extends FieldTypeTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\Author\Value::__toString
+     * @covers \Ibexa\Core\FieldType\Author\Value::__toString
      */
     public function testFieldValueToString()
     {
@@ -496,7 +473,7 @@ class AuthorTest extends FieldTypeTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\Author\AuthorCollection::offsetSet
+     * @covers \Ibexa\Core\FieldType\Author\AuthorCollection::offsetSet
      */
     public function testAddAuthor()
     {
@@ -516,7 +493,7 @@ class AuthorTest extends FieldTypeTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\Author\AuthorCollection::removeAuthorsById
+     * @covers \Ibexa\Core\FieldType\Author\AuthorCollection::removeAuthorsById
      */
     public function testRemoveAuthors()
     {
@@ -566,3 +543,5 @@ class AuthorTest extends FieldTypeTest
         ];
     }
 }
+
+class_alias(AuthorTest::class, 'eZ\Publish\Core\FieldType\Tests\AuthorTest');

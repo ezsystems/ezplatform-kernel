@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\EventListener;
+namespace Ibexa\Tests\Bundle\Core\EventListener;
 
-use eZ\Bundle\EzPublishCoreBundle\EventListener\OriginalRequestListener;
+use Ibexa\Bundle\Core\EventListener\OriginalRequestListener;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\PhpUnit\ClockMock;
 use Symfony\Component\HttpFoundation\Request;
@@ -84,3 +84,5 @@ class OriginalRequestListenerTest extends TestCase
         ClockMock::withClockMock(false);
     }
 }
+
+class_alias(OriginalRequestListenerTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\EventListener\OriginalRequestListenerTest');

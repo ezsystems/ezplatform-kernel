@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Section\Gateway;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Section\Gateway;
 
-use eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase;
+use Ibexa\Core\Persistence\Legacy\Content\Section\Gateway;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase;
 
 /**
- * Test case for eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase::insertSection
  */
 class DoctrineDatabaseTest extends TestCase
 {
     /**
      * Database gateway to test.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase
      */
     protected $databaseGateway;
 
@@ -34,9 +34,6 @@ class DoctrineDatabaseTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase::insertSection
-     */
     public function testInsertSection()
     {
         $gateway = $this->getDatabaseGateway();
@@ -65,9 +62,6 @@ class DoctrineDatabaseTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase::updateSection
-     */
     public function testUpdateSection()
     {
         $gateway = $this->getDatabaseGateway();
@@ -90,9 +84,6 @@ class DoctrineDatabaseTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase::loadSectionData
-     */
     public function testLoadSectionData()
     {
         $gateway = $this->getDatabaseGateway();
@@ -111,9 +102,6 @@ class DoctrineDatabaseTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase::loadAllSectionData
-     */
     public function testLoadAllSectionData()
     {
         $gateway = $this->getDatabaseGateway();
@@ -163,9 +151,6 @@ class DoctrineDatabaseTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase::loadSectionDataByIdentifier
-     */
     public function testLoadSectionDataByIdentifier()
     {
         $gateway = $this->getDatabaseGateway();
@@ -184,9 +169,6 @@ class DoctrineDatabaseTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase::countContentObjectsInSection
-     */
     public function testCountContentObjectsInSection()
     {
         $this->insertDatabaseFixture(
@@ -203,9 +185,6 @@ class DoctrineDatabaseTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase::countRoleAssignmentsUsingSection
-     */
     public function testCountRoleAssignmentsUsingSection()
     {
         $this->insertDatabaseFixture(
@@ -222,9 +201,6 @@ class DoctrineDatabaseTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase::deleteSection
-     */
     public function testDeleteSection()
     {
         $gateway = $this->getDatabaseGateway();
@@ -256,7 +232,6 @@ class DoctrineDatabaseTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase::assignSectionToContent
      * @depends testCountContentObjectsInSection
      */
     public function testAssignSectionToContent()
@@ -280,7 +255,7 @@ class DoctrineDatabaseTest extends TestCase
     /**
      * Returns a ready to test DoctrineDatabase gateway.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase
      *
      * @throws \Doctrine\DBAL\DBALException
      */
@@ -293,3 +268,5 @@ class DoctrineDatabaseTest extends TestCase
         return $this->databaseGateway;
     }
 }
+
+class_alias(DoctrineDatabaseTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\Section\Gateway\DoctrineDatabaseTest');

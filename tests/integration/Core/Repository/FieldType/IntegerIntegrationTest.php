@@ -4,10 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use eZ\Publish\Core\FieldType\Integer\Value as IntegerValue;
-use eZ\Publish\API\Repository\Values\Content\Field;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException;
+use Ibexa\Core\FieldType\Integer\Value as IntegerValue;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 
 /**
  * Integration test for use field type.
@@ -140,7 +142,7 @@ class IntegerIntegrationTest extends SearchBaseIntegrationTest
     public function assertFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Integer\\Value',
+            IntegerValue::class,
             $field->value
         );
 
@@ -153,41 +155,20 @@ class IntegerIntegrationTest extends SearchBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during creation.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidCreationFieldData()
     {
         return [
             [
                 new \stdClass(),
-                'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentType',
+                InvalidArgumentType::class,
             ],
             [
                 new IntegerValue(5),
-                'eZ\\Publish\\Core\\Base\\Exceptions\\ContentFieldValidationException',
+                ContentFieldValidationException::class,
             ],
             [
                 new IntegerValue(127),
-                'eZ\\Publish\\Core\\Base\\Exceptions\\ContentFieldValidationException',
+                ContentFieldValidationException::class,
             ],
         ];
     }
@@ -212,7 +193,7 @@ class IntegerIntegrationTest extends SearchBaseIntegrationTest
     public function assertUpdatedFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Integer\\Value',
+            IntegerValue::class,
             $field->value
         );
 
@@ -225,27 +206,6 @@ class IntegerIntegrationTest extends SearchBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during update.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidUpdateFieldData()
     {
         return $this->provideInvalidCreationFieldData();
@@ -262,7 +222,7 @@ class IntegerIntegrationTest extends SearchBaseIntegrationTest
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Integer\\Value',
+            IntegerValue::class,
             $field->value
         );
 
@@ -357,3 +317,5 @@ class IntegerIntegrationTest extends SearchBaseIntegrationTest
         ];
     }
 }
+
+class_alias(IntegerIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\FieldType\IntegerIntegrationTest');

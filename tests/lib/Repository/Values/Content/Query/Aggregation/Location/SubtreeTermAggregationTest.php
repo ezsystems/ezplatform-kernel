@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\Values\Content\Query\Aggregation\Location;
+namespace Ibexa\Tests\Core\Repository\Values\Content\Query\Aggregation\Location;
 
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Location\SubtreeTermAggregation;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\Location\SubtreeTermAggregation;
 use PHPUnit\Framework\TestCase;
 
 final class SubtreeTermAggregationTest extends TestCase
@@ -48,3 +48,5 @@ final class SubtreeTermAggregationTest extends TestCase
         $this->assertEquals(self::EXAMPLE_PATH_STRING, $aggregation->getPathString());
     }
 }
+
+class_alias(SubtreeTermAggregationTest::class, 'eZ\Publish\API\Repository\Tests\Values\Content\Query\Aggregation\Location\SubtreeTermAggregationTest');

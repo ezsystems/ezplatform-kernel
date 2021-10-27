@@ -4,21 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
+namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\Repository\Permission\PermissionResolver;
-use eZ\Publish\Core\Repository\Values\User\UserReference;
-use eZ\Publish\Core\Repository\Repository as CoreRepository;
-use eZ\Publish\Core\Base\Exceptions\NotFound\LimitationNotFoundException;
-use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
-use eZ\Publish\SPI\Limitation\Type;
-use eZ\Publish\SPI\Persistence\User\RoleAssignment;
-use eZ\Publish\SPI\Persistence\User\Role;
-use eZ\Publish\SPI\Persistence\User\Policy;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\Repository\Permission\PermissionResolver;
+use Ibexa\Core\Repository\Values\User\UserReference;
+use Ibexa\Core\Repository\Repository as CoreRepository;
+use Ibexa\Core\Base\Exceptions\NotFound\LimitationNotFoundException;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
+use Ibexa\Contracts\Core\Limitation\Type;
+use Ibexa\Contracts\Core\Persistence\User\RoleAssignment;
+use Ibexa\Contracts\Core\Persistence\User\Role;
+use Ibexa\Contracts\Core\Persistence\User\Policy;
 
 /**
  * Mock test case for PermissionResolver.
@@ -312,7 +313,7 @@ class PermissionTest extends BaseServiceMockTest
 
         $permissionSets = [];
         $count = 0;
-        /* @var $roleAssignments \eZ\Publish\SPI\Persistence\User\RoleAssignment[] */
+        /* @var $roleAssignments \Ibexa\Contracts\Core\Persistence\User\RoleAssignment[] */
         foreach ($roleAssignments as $i => $roleAssignment) {
             $permissionSet = ['limitation' => null];
             foreach ($roles[$roleAssignment->roleId]->policies as $k => $policy) {
@@ -332,7 +333,7 @@ class PermissionTest extends BaseServiceMockTest
             }
         }
 
-        /* @var $repositoryMock \eZ\Publish\Core\Repository\Repository */
+        /* @var $repositoryMock \Ibexa\Core\Repository\Repository */
         self::assertEquals(
             $permissionSets,
             $permissionResolverMock->hasAccess('dummy-module', 'dummy-function')
@@ -400,7 +401,7 @@ class PermissionTest extends BaseServiceMockTest
      */
     public function testHasAccessReturnsLimitationNotFoundException(array $roles, array $roleAssignments)
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\NotFound\LimitationNotFoundException::class);
+        $this->expectException(LimitationNotFoundException::class);
 
         /** @var $userHandlerMock \PHPUnit\Framework\MockObject\MockObject */
         $userHandlerMock = $this->getPersistenceMock()->userHandler();
@@ -427,7 +428,7 @@ class PermissionTest extends BaseServiceMockTest
         }
 
         $count = 0;
-        /* @var $roleAssignments \eZ\Publish\SPI\Persistence\User\RoleAssignment[] */
+        /* @var $roleAssignments \Ibexa\Contracts\Core\Persistence\User\RoleAssignment[] */
         foreach ($roleAssignments as $i => $roleAssignment) {
             $permissionSet = ['limitation' => null];
             foreach ($roles[$roleAssignment->roleId]->policies as $k => $policy) {
@@ -515,13 +516,13 @@ class PermissionTest extends BaseServiceMockTest
      */
     public function testHasAccessReturnsInvalidArgumentValueException(array $roles, array $roleAssignments)
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue::class);
+        $this->expectException(InvalidArgumentValue::class);
 
         $permissionResolverMock = $this->getPermissionResolverMock(['getCurrentUserReference']);
 
-        /** @var $role \eZ\Publish\SPI\Persistence\User\Role */
+        /** @var $role \Ibexa\Contracts\Core\Persistence\User\Role */
         foreach ($roles as $role) {
-            /** @var $policy \eZ\Publish\SPI\Persistence\User\Policy */
+            /** @var $policy \Ibexa\Contracts\Core\Persistence\User\Policy */
             foreach ($role->policies as $policy) {
                 $permissionResolverMock->hasAccess($policy->module, $policy->function);
             }
@@ -607,7 +608,7 @@ class PermissionTest extends BaseServiceMockTest
         }
 
         $permissionSets = [];
-        /** @var $roleAssignments \eZ\Publish\SPI\Persistence\User\RoleAssignment[] */
+        /** @var $roleAssignments \Ibexa\Contracts\Core\Persistence\User\RoleAssignment[] */
         foreach ($roleAssignments as $i => $roleAssignment) {
             $permissionSet = [];
             foreach ($roles[$roleAssignment->roleId]->policies as $k => $policy) {
@@ -647,7 +648,7 @@ class PermissionTest extends BaseServiceMockTest
      * @param array $policiesData
      * @param mixed $roleId
      *
-     * @return \eZ\Publish\SPI\Persistence\User\Role
+     * @return \Ibexa\Contracts\Core\Persistence\User\Role
      */
     private function createRole(array $policiesData, $roleId = null)
     {
@@ -696,7 +697,7 @@ class PermissionTest extends BaseServiceMockTest
             ->with($this->equalTo('test-module'), $this->equalTo('test-function'))
             ->will($this->returnValue($permissionSets));
 
-        /** @var $valueObject \eZ\Publish\API\Repository\Values\ValueObject */
+        /** @var $valueObject \Ibexa\Contracts\Core\Repository\Values\ValueObject */
         $valueObject = $this->getMockForAbstractClass(ValueObject::class);
 
         self::assertEquals(
@@ -746,7 +747,7 @@ class PermissionTest extends BaseServiceMockTest
             ->method('getCurrentUserReference')
             ->will($this->returnValue(new UserReference(14)));
 
-        /** @var $valueObject \eZ\Publish\API\Repository\Values\ValueObject */
+        /** @var $valueObject \Ibexa\Contracts\Core\Repository\Values\ValueObject */
         $valueObject = $this->getMockForAbstractClass(ValueObject::class);
 
         self::assertTrue(
@@ -886,7 +887,7 @@ class PermissionTest extends BaseServiceMockTest
      */
     public function testCanUserComplex(array $roleLimitationEvaluations, array $policyLimitationEvaluations, $userCan)
     {
-        /** @var $valueObject \eZ\Publish\API\Repository\Values\ValueObject */
+        /** @var $valueObject \Ibexa\Contracts\Core\Repository\Values\ValueObject */
         $valueObject = $this->createMock(ValueObject::class);
         $limitationServiceMock = $this->getLimitationServiceMock();
         $permissionResolverMock = $this->getPermissionResolverMock(
@@ -928,7 +929,7 @@ class PermissionTest extends BaseServiceMockTest
             }
 
             for ($j = 0; $j < count($permissionSets[$i]['policies']); ++$j) {
-                /** @var $policy \eZ\Publish\API\Repository\Values\User\Policy */
+                /** @var $policy \Ibexa\Contracts\Core\Repository\Values\User\Policy */
                 $policy = $permissionSets[$i]['policies'][$j];
                 $limitations = $policy->getLimitations();
                 for ($k = 0; $k < count($limitations); ++$k) {
@@ -1003,7 +1004,7 @@ class PermissionTest extends BaseServiceMockTest
     protected $permissionResolverMock;
 
     /**
-     * @return \eZ\Publish\API\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getPermissionResolverMock($methods = [])
     {
@@ -1063,7 +1064,7 @@ class PermissionTest extends BaseServiceMockTest
     protected $repositoryMock;
 
     /**
-     * @return \eZ\Publish\API\Repository\Repository|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Repository\Repository|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getRepositoryMock(): Repository
     {
@@ -1078,3 +1079,5 @@ class PermissionTest extends BaseServiceMockTest
         return $this->repositoryMock;
     }
 }
+
+class_alias(PermissionTest::class, 'eZ\Publish\Core\Repository\Tests\Service\Mock\PermissionTest');

@@ -6,29 +6,29 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\FieldType\Tests\User;
+namespace Ibexa\Tests\Core\MVC\Symfony\FieldType\User;
 
 use DateInterval;
 use DateTimeImmutable;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\User\PasswordInfo;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\Core\FieldType\User\Value;
-use eZ\Publish\Core\MVC\Symfony\FieldType\User\ParameterProvider;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\User\PasswordInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Core\FieldType\User\Value;
+use Ibexa\Core\MVC\Symfony\FieldType\User\ParameterProvider;
 use PHPUnit\Framework\TestCase;
 
 class ParameterProviderTest extends TestCase
 {
     private const EXAMPLE_USER_ID = 1;
 
-    /** @var \eZ\Publish\API\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject */
     private $userService;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\User|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User|\PHPUnit\Framework\MockObject\MockObject */
     private $user;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\FieldType\User\ParameterProvider */
+    /** @var \Ibexa\Core\MVC\Symfony\FieldType\User\ParameterProvider */
     private $parameterProvider;
 
     protected function setUp(): void
@@ -89,3 +89,5 @@ class ParameterProviderTest extends TestCase
         return $field;
     }
 }
+
+class_alias(ParameterProviderTest::class, 'eZ\Publish\Core\MVC\Symfony\FieldType\Tests\User\ParameterProviderTest');

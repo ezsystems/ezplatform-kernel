@@ -4,26 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Values\User\Limitation;
+namespace Ibexa\Tests\Integration\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\ParentOwnerLimitation;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentOwnerLimitation;
 
 /**
- * Test case for the {@link \eZ\Publish\API\Repository\Values\User\Limitation\ParentOwnerLimitation}
- * class.
- *
- * @see eZ\Publish\API\Repository\Values\User\Limitation
- * @see eZ\Publish\API\Repository\Values\User\Limitation\ParentOwnerLimitation
+ * @covers \Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentOwnerLimitation
  * @group integration
  * @group limitation
  */
 class ParentOwnerLimitationTest extends BaseLimitationTest
 {
-    /**
-     * Tests the ParentOwnerLimitation.
-     *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ParentOwnerLimitation
-     */
     public function testParentOwnerLimitationAllow()
     {
         $repository = $this->getRepository();
@@ -67,14 +59,9 @@ class ParentOwnerLimitationTest extends BaseLimitationTest
         );
     }
 
-    /**
-     * Tests the ParentOwnerLimitation.
-     *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ParentOwnerLimitation
-     */
     public function testParentOwnerLimitationForbid()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -108,3 +95,5 @@ class ParentOwnerLimitationTest extends BaseLimitationTest
         /* END: Use Case */
     }
 }
+
+class_alias(ParentOwnerLimitationTest::class, 'eZ\Publish\API\Repository\Tests\Values\User\Limitation\ParentOwnerLimitationTest');

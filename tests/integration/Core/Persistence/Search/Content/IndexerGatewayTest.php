@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Tests\Search\Content;
+namespace Ibexa\Tests\Integration\Core\Persistence\Search\Content;
 
 use DateTimeImmutable;
-use eZ\Publish\Core\Search\Legacy\Content\IndexerGateway;
-use eZ\Publish\SPI\Tests\BaseGatewayTest;
+use Ibexa\Core\Search\Legacy\Content\IndexerGateway;
+use Ibexa\Tests\Integration\Core\BaseGatewayTest;
 
 /**
  * @internal
  *
- * @covers \eZ\Publish\Core\Search\Legacy\Content\IndexerGateway
+ * @covers \Ibexa\Core\Search\Legacy\Content\IndexerGateway
  */
 final class IndexerGatewayTest extends BaseGatewayTest
 {
-    /** @var \eZ\Publish\Core\Search\Legacy\Content\IndexerGateway */
+    /** @var \Ibexa\Core\Search\Legacy\Content\IndexerGateway */
     private $gateway;
 
     /**
@@ -133,3 +133,5 @@ final class IndexerGatewayTest extends BaseGatewayTest
         self::assertSame(18, $this->gateway->countAllContent());
     }
 }
+
+class_alias(IndexerGatewayTest::class, 'eZ\Publish\SPI\Tests\Search\Content\IndexerGatewayTest');

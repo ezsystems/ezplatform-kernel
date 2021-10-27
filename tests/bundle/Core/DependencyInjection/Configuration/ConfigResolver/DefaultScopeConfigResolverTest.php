@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\ConfigResolver;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\ConfigResolver;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver\DefaultScopeConfigResolver;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver\DefaultScopeConfigResolver;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 
 class DefaultScopeConfigResolverTest extends ConfigResolverTest
 {
@@ -28,3 +28,5 @@ class DefaultScopeConfigResolverTest extends ConfigResolverTest
         return 'default';
     }
 }
+
+class_alias(DefaultScopeConfigResolverTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\ConfigResolver\DefaultScopeConfigResolverTest');

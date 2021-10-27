@@ -6,17 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
+namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
 use Exception;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
-use eZ\Publish\Core\Repository\UserPreferenceService;
-use eZ\Publish\Core\Repository\Values\User\UserReference;
-use eZ\Publish\SPI\Persistence\UserPreference\UserPreference;
-use eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct;
-use eZ\Publish\API\Repository\Values\UserPreference\UserPreferenceSetStruct as APIUserPreferenceSetStruct;
-use eZ\Publish\API\Repository\Values\UserPreference\UserPreference as APIUserPreference;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
+use Ibexa\Core\Repository\UserPreferenceService;
+use Ibexa\Core\Repository\Values\User\UserReference;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
+use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreferenceSetStruct as APIUserPreferenceSetStruct;
+use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreference as APIUserPreference;
 
 class UserPreferenceTest extends BaseServiceMockTest
 {
@@ -24,7 +25,7 @@ class UserPreferenceTest extends BaseServiceMockTest
     const USER_PREFERENCE_NAME = 'setting';
     const USER_PREFERENCE_VALUE = 'value';
 
-    /** @var \eZ\Publish\SPI\Persistence\UserPreference\Handler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Persistence\UserPreference\Handler|\PHPUnit\Framework\MockObject\MockObject */
     private $userSPIPreferenceHandler;
 
     protected function setUp(): void
@@ -42,7 +43,7 @@ class UserPreferenceTest extends BaseServiceMockTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\Repository\UserPreferenceService::setUserPreference()
+     * @covers \Ibexa\Contracts\Core\Repository\UserPreferenceService::setUserPreference()
      */
     public function testSetUserPreference()
     {
@@ -68,11 +69,11 @@ class UserPreferenceTest extends BaseServiceMockTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\Repository\UserPreferenceService::setUserPreference
+     * @covers \Ibexa\Contracts\Core\Repository\UserPreferenceService::setUserPreference
      */
     public function testSetUserPreferenceThrowsInvalidArgumentException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $apiUserPreferenceSetStruct = new APIUserPreferenceSetStruct([
             'value' => 'value',
@@ -86,7 +87,7 @@ class UserPreferenceTest extends BaseServiceMockTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\Repository\UserPreferenceService::setUserPreference
+     * @covers \Ibexa\Contracts\Core\Repository\UserPreferenceService::setUserPreference
      */
     public function testSetUserPreferenceWithRollback()
     {
@@ -108,7 +109,7 @@ class UserPreferenceTest extends BaseServiceMockTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\Repository\UserPreferenceService::getUserPreference()
+     * @covers \Ibexa\Contracts\Core\Repository\UserPreferenceService::getUserPreference()
      */
     public function testGetUserPreference()
     {
@@ -134,7 +135,7 @@ class UserPreferenceTest extends BaseServiceMockTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\Repository\UserPreferenceService::loadUserPreferences
+     * @covers \Ibexa\Contracts\Core\Repository\UserPreferenceService::loadUserPreferences
      */
     public function testLoadUserPreferences()
     {
@@ -170,7 +171,7 @@ class UserPreferenceTest extends BaseServiceMockTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\Repository\UserPreferenceService::getUserPreferenceCount()
+     * @covers \Ibexa\Contracts\Core\Repository\UserPreferenceService::getUserPreferenceCount()
      */
     public function testGetUserPreferenceCount()
     {
@@ -188,7 +189,7 @@ class UserPreferenceTest extends BaseServiceMockTest
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\UserPreferenceService|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Repository\UserPreferenceService|\PHPUnit\Framework\MockObject\MockObject
      */
     private function createAPIUserPreferenceService(array $methods = null)
     {
@@ -234,3 +235,5 @@ class UserPreferenceTest extends BaseServiceMockTest
         ]);
     }
 }
+
+class_alias(UserPreferenceTest::class, 'eZ\Publish\Core\Repository\Tests\Service\Mock\UserPreferenceTest');

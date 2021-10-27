@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
 use EzSystems\EzPlatformSolrSearchEngine\Tests\SetupFactory\LegacySetupFactory as LegacySolrSetupFactory;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 use DateTime;
 use RuntimeException;
 
 /**
  * Test case for field filtering operations in the SearchService.
  *
- * @see eZ\Publish\API\Repository\SearchService
+ * @covers \Ibexa\Contracts\Core\Repository\SearchService
  * @group integration
  * @group search
  * @group language_fallback
@@ -31,7 +31,7 @@ class SearchServiceTranslationLanguageFallbackTest extends BaseTest
     const SETUP_CLOUD = 'cloud';
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
      */
     protected function createTestContentType()
     {
@@ -71,7 +71,7 @@ class SearchServiceTranslationLanguageFallbackTest extends BaseTest
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      * @param array $searchValuesMap
      * @param string $mainLanguageCode
      * @param bool $alwaysAvailable
@@ -1718,7 +1718,7 @@ class SearchServiceTranslationLanguageFallbackTest extends BaseTest
         array $contentDataList,
         array $context
     ) {
-        /** @var \eZ\Publish\Api\Repository\Repository $repository */
+        /** @var \Ibexa\Contracts\Core\Repository\Repository $repository */
         list($repository, $data) = $context;
 
         $queryProperties = [
@@ -1739,7 +1739,7 @@ class SearchServiceTranslationLanguageFallbackTest extends BaseTest
             list($contentNo, $translationLanguageCode, $indexMap) = $contentData;
             list($index, $contentNo) = $this->getIndexesToMatchData($contentData, $index, $contentNo);
 
-            /** @var \eZ\Publish\Api\Repository\Values\Content\Content $content */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
             $content = $searchResult->searchHits[$index]->valueObject;
 
             $this->assertEquals(
@@ -1767,7 +1767,7 @@ class SearchServiceTranslationLanguageFallbackTest extends BaseTest
         array $contentDataList,
         array $context
     ) {
-        /** @var \eZ\Publish\Api\Repository\Repository $repository */
+        /** @var \Ibexa\Contracts\Core\Repository\Repository $repository */
         list($repository, $data) = $context;
 
         $queryProperties = [
@@ -1793,7 +1793,7 @@ class SearchServiceTranslationLanguageFallbackTest extends BaseTest
             list($contentNo, $translationLanguageCode, $indexMap) = $contentData;
             list($index, $contentNo) = $this->getIndexesToMatchData($contentData, $index, $contentNo);
 
-            /** @var \eZ\Publish\Api\Repository\Values\Content\Location $location */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
             $location = $searchResult->searchHits[$index]->valueObject;
 
             $this->assertEquals(
@@ -1821,7 +1821,7 @@ class SearchServiceTranslationLanguageFallbackTest extends BaseTest
         array $contentDataList,
         array $context
     ) {
-        /** @var \eZ\Publish\Api\Repository\Repository $repository */
+        /** @var \Ibexa\Contracts\Core\Repository\Repository $repository */
         list($repository, $data) = $context;
 
         $queryProperties = [
@@ -1843,7 +1843,7 @@ class SearchServiceTranslationLanguageFallbackTest extends BaseTest
             list($contentNo, $translationLanguageCode, $indexMap) = $contentData;
             list($index, $contentNo) = $this->getIndexesToMatchData($contentData, $index, $contentNo);
 
-            /** @var \eZ\Publish\Api\Repository\Values\Content\Location $location */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
             $location = $searchResult->searchHits[$index]->valueObject;
 
             $this->assertEquals(
@@ -1862,7 +1862,7 @@ class SearchServiceTranslationLanguageFallbackTest extends BaseTest
             list($index, $contentNo) = $this->getIndexesToMatchData($contentData, $index, $contentNo);
 
             $realIndex = $index + count($contentDataList);
-            /** @var \eZ\Publish\Api\Repository\Values\Content\Location $location */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
             $location = $searchResult->searchHits[$realIndex]->valueObject;
 
             $this->assertEquals(
@@ -1913,3 +1913,5 @@ class SearchServiceTranslationLanguageFallbackTest extends BaseTest
         return $indexesToMatchData;
     }
 }
+
+class_alias(SearchServiceTranslationLanguageFallbackTest::class, 'eZ\Publish\API\Repository\Tests\SearchServiceTranslationLanguageFallbackTest');

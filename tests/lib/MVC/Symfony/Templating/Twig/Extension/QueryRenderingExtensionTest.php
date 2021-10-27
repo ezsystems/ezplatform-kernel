@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension;
+namespace Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension;
 
-use eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\QueryRenderingExtension;
+use Ibexa\Core\MVC\Symfony\Templating\Twig\Extension\QueryRenderingExtension;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 
 final class QueryRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
@@ -32,3 +32,5 @@ final class QueryRenderingExtensionTest extends FileSystemTwigIntegrationTestCas
         return __DIR__ . '/_fixtures/query_rendering_functions/';
     }
 }
+
+class_alias(QueryRenderingExtensionTest::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension\QueryRenderingExtensionTest');

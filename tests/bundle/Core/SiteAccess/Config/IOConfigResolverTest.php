@@ -6,23 +6,26 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\SiteAccess\Config;
+namespace Ibexa\Tests\Bundle\Core\SiteAccess\Config;
 
-use eZ\Bundle\EzPublishCoreBundle\SiteAccess\Config\ComplexConfigProcessor;
-use eZ\Bundle\EzPublishCoreBundle\SiteAccess\Config\IOConfigResolver;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessService;
+use Ibexa\Bundle\Core\SiteAccess\Config\ComplexConfigProcessor;
+use Ibexa\Bundle\Core\SiteAccess\Config\IOConfigResolver;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Ibexa\Bundle\Core\SiteAccess\Config\IOConfigResolver
+ */
 class IOConfigResolverTest extends TestCase
 {
     private const DEFAULT_NAMESPACE = 'ezsettings';
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $configResolver;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService|\PHPUnit\Framework\MockObject\MockObject */
     private $siteAccessService;
 
     protected function setUp(): void
@@ -32,9 +35,6 @@ class IOConfigResolverTest extends TestCase
         $this->siteAccessService = $this->createMock(SiteAccessService::class);
     }
 
-    /**
-     * @covers \eZ\Bundle\EzPublishCoreBundle\SiteAccess\Config\IOConfigResolver::getUrlPrefix
-     */
     public function testGetUrlPrefix(): void
     {
         $this->siteAccessService
@@ -65,9 +65,6 @@ class IOConfigResolverTest extends TestCase
         $this->assertEquals('var/ezdemo_site/storage', $ioConfigResolver->getUrlPrefix());
     }
 
-    /**
-     * @covers \eZ\Bundle\EzPublishCoreBundle\SiteAccess\Config\IOConfigResolver::getUrlPrefix
-     */
     public function testGetLegacyUrlPrefix(): void
     {
         $this->siteAccessService
@@ -98,9 +95,6 @@ class IOConfigResolverTest extends TestCase
         $this->assertEquals('var/ezdemo_site/legacy_storage', $ioConfigResolver->getLegacyUrlPrefix());
     }
 
-    /**
-     * @covers \eZ\Bundle\EzPublishCoreBundle\SiteAccess\Config\IOConfigResolver::getUrlPrefix
-     */
     public function testGetRootDir(): void
     {
         $this->siteAccessService
@@ -131,3 +125,5 @@ class IOConfigResolverTest extends TestCase
         $this->assertEquals('/path/to/ezpublish/web/var/ezdemo_site/legacy_storage', $ioConfigResolver->getRootDir());
     }
 }
+
+class_alias(IOConfigResolverTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\SiteAccess\Config\IOConfigResolverTest');

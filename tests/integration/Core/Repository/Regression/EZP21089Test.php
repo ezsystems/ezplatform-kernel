@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Regression;
+namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use DateTime;
 
 /**
@@ -21,7 +21,7 @@ use DateTime;
  */
 class EZP21089Test extends BaseTest
 {
-    /** @var \eZ\Publish\Core\Repository\Values\ContentType\ContentType */
+    /** @var \Ibexa\Core\Repository\Values\ContentType\ContentType */
     private $contentType;
 
     protected function setUp(): void
@@ -123,3 +123,5 @@ class EZP21089Test extends BaseTest
         );
     }
 }
+
+class_alias(EZP21089Test::class, 'eZ\Publish\API\Repository\Tests\Regression\EZP21089Test');

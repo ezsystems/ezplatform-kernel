@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Values\ContentType;
+namespace Ibexa\Tests\Core\Repository\Values\ContentType;
 
-use eZ\Publish\Core\Repository\Values\ContentType\ContentTypeDraft;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft
+ */
 class ContentTypeDraftTest extends TestCase
 {
-    /**
-     * @covers \eZ\Publish\Core\Repository\Values\ContentType\ContentTypeDraft::getProperties
-     */
     public function testObjectProperties()
     {
         $object = new ContentTypeDraft(
@@ -54,3 +54,5 @@ class ContentTypeDraftTest extends TestCase
         }
     }
 }
+
+class_alias(ContentTypeDraftTest::class, 'eZ\Publish\Core\Repository\Tests\Values\ContentType\ContentTypeDraftTest');

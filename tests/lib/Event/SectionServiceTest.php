@@ -4,25 +4,25 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Event\Tests;
+namespace Ibexa\Tests\Core\Event;
 
-use eZ\Publish\API\Repository\Events\Section\AssignSectionEvent;
-use eZ\Publish\API\Repository\Events\Section\AssignSectionToSubtreeEvent;
-use eZ\Publish\API\Repository\Events\Section\BeforeAssignSectionEvent;
-use eZ\Publish\API\Repository\Events\Section\BeforeAssignSectionToSubtreeEvent;
-use eZ\Publish\API\Repository\Events\Section\BeforeCreateSectionEvent;
-use eZ\Publish\API\Repository\Events\Section\BeforeDeleteSectionEvent;
-use eZ\Publish\API\Repository\Events\Section\BeforeUpdateSectionEvent;
-use eZ\Publish\API\Repository\Events\Section\CreateSectionEvent;
-use eZ\Publish\API\Repository\Events\Section\DeleteSectionEvent;
-use eZ\Publish\API\Repository\Events\Section\UpdateSectionEvent;
-use eZ\Publish\API\Repository\SectionService as SectionServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\API\Repository\Values\Content\SectionCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\SectionUpdateStruct;
-use eZ\Publish\Core\Event\SectionService;
+use Ibexa\Contracts\Core\Repository\Events\Section\AssignSectionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\AssignSectionToSubtreeEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\BeforeAssignSectionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\BeforeAssignSectionToSubtreeEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\BeforeCreateSectionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\BeforeDeleteSectionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\BeforeUpdateSectionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\CreateSectionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\DeleteSectionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\UpdateSectionEvent;
+use Ibexa\Contracts\Core\Repository\SectionService as SectionServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct;
+use Ibexa\Core\Event\SectionService;
 
 class SectionServiceTest extends AbstractServiceTest
 {
@@ -402,3 +402,5 @@ class SectionServiceTest extends AbstractServiceTest
         ]);
     }
 }
+
+class_alias(SectionServiceTest::class, 'eZ\Publish\Core\Event\Tests\SectionServiceTest');

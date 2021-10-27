@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\ComplexSettings;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\ComplexSettings;
 
 use PHPUnit\Framework\TestCase;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser;
 
 class ComplexSettingParserTest extends TestCase
 {
@@ -78,3 +78,5 @@ class ComplexSettingParserTest extends TestCase
         ];
     }
 }
+
+class_alias(ComplexSettingParserTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParserTest');

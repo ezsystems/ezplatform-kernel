@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\Loader;
+namespace Ibexa\Tests\Bundle\Core\Imagine\Filter\Loader;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader\ScaleDownOnlyFilterLoader;
+use Ibexa\Bundle\Core\Imagine\Filter\Loader\ScaleDownOnlyFilterLoader;
 use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
 use Imagine\Image\ImageInterface;
 use PHPUnit\Framework\TestCase;
@@ -59,3 +59,5 @@ class ScaleDownOnlyFilterLoaderTest extends TestCase
         $this->assertSame($image, $this->loader->load($image, $options));
     }
 }
+
+class_alias(ScaleDownOnlyFilterLoaderTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\Loader\ScaleDownOnlyFilterLoaderTest');

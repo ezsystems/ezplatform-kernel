@@ -4,28 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Values\User\Limitation;
+namespace Ibexa\Tests\Integration\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
 
 /**
- * Test case for the {@link \eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation}
- * class.
- *
- * @see eZ\Publish\API\Repository\Values\User\Limitation
- * @see eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation
+ * @covers \Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation
  * @group integration
  * @group limitation
  */
 class SectionLimitationTest extends BaseLimitationTest
 {
-    /**
-     * Test for the SectionLimitation.
-     *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation
-     *
-     * @throws \ErrorException
-     */
     public function testSectionLimitationAllow()
     {
         $repository = $this->getRepository();
@@ -39,7 +29,7 @@ class SectionLimitationTest extends BaseLimitationTest
         $role = $roleService->loadRoleByIdentifier('Editor');
         $roleDraft = $roleService->createRoleDraft($role);
         // Search for the new policy instance
-        /** @var \eZ\Publish\API\Repository\Values\User\PolicyDraft $policy */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft $policy */
         $readPolicy = null;
         foreach ($roleDraft->getPolicies() as $policy) {
             if ('content' != $policy->module || 'read' != $policy->function) {
@@ -84,16 +74,9 @@ class SectionLimitationTest extends BaseLimitationTest
         );
     }
 
-    /**
-     * Test for the SectionLimitation.
-     *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation
-     *
-     * @throws \ErrorException
-     */
     public function testSectionLimitationForbid()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
 
@@ -106,7 +89,7 @@ class SectionLimitationTest extends BaseLimitationTest
         $role = $roleService->loadRoleByIdentifier('Editor');
         $roleDraft = $roleService->createRoleDraft($role);
         // Search for the new policy instance
-        /** @var \eZ\Publish\API\Repository\Values\User\PolicyDraft $policy */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft $policy */
         $readPolicy = null;
         foreach ($roleDraft->getPolicies() as $policy) {
             if ('content' != $policy->module || 'read' != $policy->function) {
@@ -147,3 +130,5 @@ class SectionLimitationTest extends BaseLimitationTest
         /* END: Use Case */
     }
 }
+
+class_alias(SectionLimitationTest::class, 'eZ\Publish\API\Repository\Tests\Values\User\Limitation\SectionLimitationTest');

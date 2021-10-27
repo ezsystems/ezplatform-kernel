@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\UrlConverter;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\UrlConverter;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test case for Url converter in Legacy storage.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\UrlConverter
  */
 class UrlTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\UrlConverter */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\UrlConverter */
     protected $converter;
 
     protected function setUp(): void
@@ -30,7 +30,6 @@ class UrlTest extends TestCase
     /**
      * @group fieldType
      * @group url
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\UrlConverter::toStorageValue
      */
     public function testToStorageValue()
     {
@@ -48,7 +47,6 @@ class UrlTest extends TestCase
     /**
      * @group fieldType
      * @group url
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\UrlConverter::toFieldValue
      */
     public function testToFieldValue()
     {
@@ -71,7 +69,6 @@ class UrlTest extends TestCase
     /**
      * @group fieldType
      * @group url
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\UrlConverter::toStorageFieldDefinition
      */
     public function testToStorageFieldDefinition()
     {
@@ -81,10 +78,11 @@ class UrlTest extends TestCase
     /**
      * @group fieldType
      * @group url
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\UrlConverter::toFieldDefinition
      */
     public function testToFieldDefinition()
     {
         $this->converter->toFieldDefinition(new StorageFieldDefinition(), new PersistenceFieldDefinition());
     }
 }
+
+class_alias(UrlTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter\UrlTest');

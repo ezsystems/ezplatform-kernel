@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\Tests;
+namespace Ibexa\Tests\Core\QueryType\BuiltIn;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\MapLocationDistance;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Subtree;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Visibility;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\ContentName;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\QueryType\BuiltIn\GeoLocationQueryType;
-use eZ\Publish\Core\QueryType\BuiltIn\SortClausesFactoryInterface;
-use eZ\Publish\Core\QueryType\QueryType;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\MapLocationDistance;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Subtree;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Visibility;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\ContentName;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\QueryType\BuiltIn\GeoLocationQueryType;
+use Ibexa\Core\QueryType\BuiltIn\SortClausesFactoryInterface;
+use Ibexa\Core\QueryType\QueryType;
 
 final class GeoLocationQueryTypeTest extends AbstractQueryTypeTest
 {
@@ -160,3 +160,5 @@ final class GeoLocationQueryTypeTest extends AbstractQueryTypeTest
         return ['filter', 'offset', 'limit', 'sort', 'field', 'distance', 'latitude', 'longitude', 'operator'];
     }
 }
+
+class_alias(GeoLocationQueryTypeTest::class, 'eZ\Publish\Core\QueryType\BuiltIn\Tests\GeoLocationQueryTypeTest');

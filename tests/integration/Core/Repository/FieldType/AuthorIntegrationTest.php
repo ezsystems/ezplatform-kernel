@@ -4,13 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use eZ\Publish\Core\FieldType\Author\Author;
-use eZ\Publish\Core\FieldType\Author\AuthorCollection;
-use eZ\Publish\Core\FieldType\Author\Type;
-use eZ\Publish\Core\FieldType\Author\Value as AuthorValue;
-use eZ\Publish\API\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Core\FieldType\Author\Author;
+use Ibexa\Core\FieldType\Author\AuthorCollection;
+use Ibexa\Core\FieldType\Author\Type;
+use Ibexa\Core\FieldType\Author\Value as AuthorValue;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 
 /**
  * Integration test for use field type.
@@ -104,7 +105,7 @@ class AuthorIntegrationTest extends SearchMultivaluedBaseIntegrationTest
     /**
      * Get initial field data for valid object creation.
      *
-     * @return \eZ\Publish\Core\FieldType\Author\Value
+     * @return \Ibexa\Core\FieldType\Author\Value
      */
     public function getValidCreationFieldData()
     {
@@ -175,13 +176,13 @@ class AuthorIntegrationTest extends SearchMultivaluedBaseIntegrationTest
      * specific!) as the second element. For example:
      *
      * <code>
-     * array(
-     *      array(
+     * [
+     *      [
      *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
+     *          ContentValidationException::class
+     *      ],
      *      // ...
-     * );
+     * ];
      * </code>
      *
      * @return array[]
@@ -189,14 +190,14 @@ class AuthorIntegrationTest extends SearchMultivaluedBaseIntegrationTest
     public function provideInvalidCreationFieldData()
     {
         return [
-            ['Sindelfingen', 'eZ\\Publish\\API\\Repository\\Exceptions\\InvalidArgumentException'],
+            ['Sindelfingen', InvalidArgumentException::class],
         ];
     }
 
     /**
      * Get update field externals data.
      *
-     * @return \eZ\Publish\Core\FieldType\Author\Value
+     * @return \Ibexa\Core\FieldType\Author\Value
      */
     public function getValidUpdateFieldData()
     {
@@ -246,27 +247,6 @@ class AuthorIntegrationTest extends SearchMultivaluedBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during update.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidUpdateFieldData()
     {
         return $this->provideInvalidCreationFieldData();
@@ -552,3 +532,5 @@ class AuthorIntegrationTest extends SearchMultivaluedBaseIntegrationTest
         ];
     }
 }
+
+class_alias(AuthorIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\FieldType\AuthorIntegrationTest');

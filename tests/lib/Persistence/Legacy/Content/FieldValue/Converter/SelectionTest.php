@@ -4,24 +4,24 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\Core\FieldType\FieldSettings;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\SelectionConverter;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Core\FieldType\FieldSettings;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\SelectionConverter;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test case for Selection converter in Legacy storage.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\SelectionConverter
  */
 class SelectionTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\SelectionConverter */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\SelectionConverter */
     protected $converter;
 
     protected function setUp(): void
@@ -35,7 +35,6 @@ class SelectionTest extends TestCase
     /**
      * @group fieldType
      * @group selection
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\SelectionConverter::toStorageValue
      */
     public function testToStorageValue()
     {
@@ -60,7 +59,6 @@ class SelectionTest extends TestCase
     /**
      * @group fieldType
      * @group selection
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\SelectionConverter::toStorageValue
      */
     public function testToStorageValueEmpty()
     {
@@ -85,7 +83,6 @@ class SelectionTest extends TestCase
     /**
      * @group fieldType
      * @group selection
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\SelectionConverter::toFieldValue
      */
     public function testToFieldValue()
     {
@@ -110,7 +107,6 @@ class SelectionTest extends TestCase
     /**
      * @group fieldType
      * @group selection
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\SelectionConverter::toFieldValue
      */
     public function testToFieldValueEmpty()
     {
@@ -135,7 +131,6 @@ class SelectionTest extends TestCase
     /**
      * @group fieldType
      * @group selection
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\SelectionConverter::toStorageFieldDefinition
      */
     public function testToStorageFieldDefinitionMultiple()
     {
@@ -176,7 +171,6 @@ EOT;
     /**
      * @group fieldType
      * @group selection
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\SelectionConverter::toStorageFieldDefinition
      */
     public function testToStorageFieldDefinitionSingle()
     {
@@ -215,7 +209,6 @@ EOT;
     /**
      * @group fieldType
      * @group selection
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\SelectionConverter::toFieldDefinition
      */
     public function testToFieldDefinitionMultiple()
     {
@@ -285,7 +278,6 @@ EOT;
     /**
      * @group fieldType
      * @group selection
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\SelectionConverter::toFieldDefinition
      */
     public function testToFieldDefinitionSingleEmpty()
     {
@@ -336,3 +328,5 @@ EOT;
         $this->assertEquals($expectedFieldDefinition, $actualFieldDefinition);
     }
 }
+
+class_alias(SelectionTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter\SelectionTest');

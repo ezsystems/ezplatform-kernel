@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Translation;
+namespace Ibexa\Tests\Bundle\Core\Translation;
 
-use eZ\Bundle\EzPublishCoreBundle\Translation\GlobCollector;
+use Ibexa\Bundle\Core\Translation\GlobCollector;
 use PHPUnit\Framework\TestCase;
 
 class GlobCollectorTest extends TestCase
@@ -29,3 +29,5 @@ class GlobCollectorTest extends TestCase
         }
     }
 }
+
+class_alias(GlobCollectorTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Translation\GlobCollectorTest');

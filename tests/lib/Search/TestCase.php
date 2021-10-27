@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Tests;
+namespace Ibexa\Tests\Core\Search;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
@@ -14,3 +14,5 @@ use PHPUnit\Framework\TestCase as BaseTestCase;
 abstract class TestCase extends BaseTestCase
 {
 }
+
+class_alias(TestCase::class, 'eZ\Publish\Core\Search\Tests\TestCase');

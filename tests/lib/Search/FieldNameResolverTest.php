@@ -4,23 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Tests;
+namespace Ibexa\Tests\Core\Search;
 
 use ArrayObject;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion as APICriterion;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause as APISortClause;
-use eZ\Publish\API\Repository\Values\Content\Query\CustomFieldInterface;
-use eZ\Publish\SPI\Search\FieldType as SPIFieldType;
-use eZ\Publish\Core\Search\Common\FieldNameResolver;
-use eZ\Publish\Core\Search\Common\FieldRegistry;
-use eZ\Publish\SPI\FieldType\Indexable;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as SPIContentTypeHandler;
-use eZ\Publish\Core\Search\Common\FieldNameGenerator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion as APICriterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause as APISortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\CustomFieldInterface;
+use Ibexa\Contracts\Core\Search\FieldType as SPIFieldType;
+use Ibexa\Core\Search\Common\FieldNameResolver;
+use Ibexa\Core\Search\Common\FieldRegistry;
+use Ibexa\Contracts\Core\FieldType\Indexable;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as SPIContentTypeHandler;
+use Ibexa\Core\Search\Common\FieldNameGenerator;
 
 /**
- * Test case for FieldNameResolver.
- *
- * @covers \eZ\Publish\Core\Search\Common\FieldNameResolver
+ * @covers \Ibexa\Core\Search\Common\FieldNameResolver
  */
 class FieldNameResolverTest extends TestCase
 {
@@ -766,7 +764,7 @@ class FieldNameResolverTest extends TestCase
     /**
      * @param array $methods
      *
-     * @return \eZ\Publish\Core\Search\Common\FieldNameResolver|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Search\Common\FieldNameResolver|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getMockedFieldNameResolver(array $methods = [])
     {
@@ -785,11 +783,11 @@ class FieldNameResolverTest extends TestCase
         return $fieldNameResolver;
     }
 
-    /** @var \eZ\Publish\Core\Search\Common\FieldRegistry|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Search\Common\FieldRegistry|\PHPUnit\Framework\MockObject\MockObject */
     protected $fieldRegistryMock;
 
     /**
-     * @return \eZ\Publish\Core\Search\Common\FieldRegistry|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Search\Common\FieldRegistry|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getFieldRegistryMock()
     {
@@ -801,7 +799,7 @@ class FieldNameResolverTest extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\SPI\FieldType\Indexable|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\FieldType\Indexable|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getIndexFieldTypeMock()
     {
@@ -809,18 +807,18 @@ class FieldNameResolverTest extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\SPI\Search\FieldType|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Search\FieldType|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getSearchFieldTypeMock()
     {
         return $this->createMock(SPIFieldType::class);
     }
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Type\Handler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Type\Handler|\PHPUnit\Framework\MockObject\MockObject */
     protected $contentTypeHandlerMock;
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\Content\Type\Handler|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\Handler|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getContentTypeHandlerMock()
     {
@@ -831,11 +829,11 @@ class FieldNameResolverTest extends TestCase
         return $this->contentTypeHandlerMock;
     }
 
-    /** @var \eZ\Publish\Core\Search\Common\FieldNameGenerator|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Search\Common\FieldNameGenerator|\PHPUnit\Framework\MockObject\MockObject */
     protected $fieldNameGeneratorMock;
 
     /**
-     * @return \eZ\Publish\Core\Search\Common\FieldNameGenerator|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Search\Common\FieldNameGenerator|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getFieldNameGeneratorMock()
     {
@@ -847,7 +845,7 @@ class FieldNameResolverTest extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Query\Criterion|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getCriterionMock()
     {
@@ -855,10 +853,12 @@ class FieldNameResolverTest extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Query\SortClause|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getSortClauseMock()
     {
         return $this->createMock(APISortClause::class);
     }
 }
+
+class_alias(FieldNameResolverTest::class, 'eZ\Publish\Core\Search\Tests\FieldNameResolverTest');

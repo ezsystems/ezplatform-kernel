@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
 /**
  * Test case for operations in the SectionService using in memory storage.
  *
- * @see eZ\Publish\API\Repository\SectionService
+ * @covers \Ibexa\Contracts\Core\Repository\SectionService
  * @group integration
  * @group authorization
  */
@@ -21,7 +21,7 @@ class SectionServiceAuthorizationTest extends BaseTest
     /**
      * Test for the createSection() method.
      *
-     * @see \eZ\Publish\API\Repository\SectionService::createSection()
+     * @covers \Ibexa\Contracts\Core\Repository\SectionService::createSection()
      */
     public function testCreateSectionThrowsUnauthorizedException()
     {
@@ -51,7 +51,7 @@ class SectionServiceAuthorizationTest extends BaseTest
     /**
      * Test for the loadSection() method.
      *
-     * @see \eZ\Publish\API\Repository\SectionService::loadSection()
+     * @covers \Ibexa\Contracts\Core\Repository\SectionService::loadSection()
      */
     public function testLoadSectionThrowsUnauthorizedException()
     {
@@ -83,7 +83,7 @@ class SectionServiceAuthorizationTest extends BaseTest
     /**
      * Test for the updateSection() method.
      *
-     * @see \eZ\Publish\API\Repository\SectionService::updateSection()
+     * @covers \Ibexa\Contracts\Core\Repository\SectionService::updateSection()
      */
     public function testUpdateSectionThrowsUnauthorizedException()
     {
@@ -119,7 +119,7 @@ class SectionServiceAuthorizationTest extends BaseTest
     /**
      * Test for the loadSections() method.
      *
-     * @see \eZ\Publish\API\Repository\SectionService::loadSections()
+     * @covers \Ibexa\Contracts\Core\Repository\SectionService::loadSections()
      */
     public function testLoadSectionsLoadsEmptyListForAnonymousUser()
     {
@@ -156,7 +156,7 @@ class SectionServiceAuthorizationTest extends BaseTest
     /**
      * Test for the loadSections() method.
      *
-     * @see \eZ\Publish\API\Repository\SectionService::loadSections()
+     * @covers \Ibexa\Contracts\Core\Repository\SectionService::loadSections()
      */
     public function testLoadSectionFiltersSections()
     {
@@ -201,7 +201,7 @@ class SectionServiceAuthorizationTest extends BaseTest
     /**
      * Test for the loadSectionByIdentifier() method.
      *
-     * @see \eZ\Publish\API\Repository\SectionService::loadSectionByIdentifier()
+     * @covers \Ibexa\Contracts\Core\Repository\SectionService::loadSectionByIdentifier()
      */
     public function testLoadSectionByIdentifierThrowsUnauthorizedException()
     {
@@ -233,11 +233,11 @@ class SectionServiceAuthorizationTest extends BaseTest
     /**
      * Test for the assignSection() method.
      *
-     * @see \eZ\Publish\API\Repository\SectionService::assignSection()
+     * @covers \Ibexa\Contracts\Core\Repository\SectionService::assignSection()
      */
     public function testAssignSectionThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
 
@@ -275,11 +275,11 @@ class SectionServiceAuthorizationTest extends BaseTest
     /**
      * Test for the deleteSection() method.
      *
-     * @see \eZ\Publish\API\Repository\SectionService::deleteSection()
+     * @covers \Ibexa\Contracts\Core\Repository\SectionService::deleteSection()
      */
     public function testDeleteSectionThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
 
@@ -304,3 +304,5 @@ class SectionServiceAuthorizationTest extends BaseTest
         /* END: Use Case */
     }
 }
+
+class_alias(SectionServiceAuthorizationTest::class, 'eZ\Publish\API\Repository\Tests\SectionServiceAuthorizationTest');

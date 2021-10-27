@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\UrlWildcard\Gateway;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\UrlWildcard\Gateway;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase;
-use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase;
+use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard;
 
 /**
- * Test case for eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase
  */
 class DoctrineDatabaseTest extends TestCase
 {
     /**
      * Database gateway to test.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase
+     * @var \Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase
      */
     protected $gateway;
 
@@ -47,8 +47,6 @@ class DoctrineDatabaseTest extends TestCase
 
     /**
      * Test for the loadUrlWildcardData() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase::loadUrlWildcardData
      */
     public function testLoadUrlWildcardData()
     {
@@ -65,8 +63,6 @@ class DoctrineDatabaseTest extends TestCase
 
     /**
      * Test for the loadUrlWildcardsData() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase::loadUrlWildcardsData
      */
     public function testLoadUrlWildcardsData()
     {
@@ -83,8 +79,6 @@ class DoctrineDatabaseTest extends TestCase
 
     /**
      * Test for the loadUrlWildcardsData() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase::loadUrlWildcardsData
      */
     public function testLoadUrlWildcardsDataWithOffset()
     {
@@ -104,8 +98,6 @@ class DoctrineDatabaseTest extends TestCase
 
     /**
      * Test for the loadUrlWildcardsData() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase::loadUrlWildcardsData
      */
     public function testLoadUrlWildcardsDataWithOffsetAndLimit()
     {
@@ -125,7 +117,6 @@ class DoctrineDatabaseTest extends TestCase
     /**
      * Test for the insertUrlWildcard() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase::insertUrlWildcard
      * @depends testLoadUrlWildcardData
      */
     public function testInsertUrlWildcard()
@@ -157,7 +148,6 @@ class DoctrineDatabaseTest extends TestCase
     /**
      * Test for the deleteUrlWildcard() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase::deleteUrlWildcard
      * @depends testLoadUrlWildcardData
      */
     public function testDeleteUrlWildcard()
@@ -184,3 +174,5 @@ class DoctrineDatabaseTest extends TestCase
         return $this->gateway;
     }
 }
+
+class_alias(DoctrineDatabaseTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\UrlWildcard\Gateway\DoctrineDatabaseTest');

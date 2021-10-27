@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\TransactionHandler;
+use Ibexa\Contracts\Core\Persistence\TransactionHandler;
 
 /**
- * Test case for Persistence\Cache\TransactionHandler.
+ * @covers \Ibexa\Core\Persistence\Cache\TransactionHandler
  */
 class TransactionHandlerTest extends AbstractCacheHandlerTest
 {
@@ -46,9 +46,6 @@ class TransactionHandlerTest extends AbstractCacheHandlerTest
         ];
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Cache\TransactionHandler::rollback
-     */
     public function testRollback()
     {
         $this->loggerMock
@@ -77,9 +74,6 @@ class TransactionHandlerTest extends AbstractCacheHandlerTest
         $handler->rollback();
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Cache\TransactionHandler::commit
-     */
     public function testCommitStopsCacheTransaction()
     {
         $this->loggerMock
@@ -104,9 +98,6 @@ class TransactionHandlerTest extends AbstractCacheHandlerTest
         $handler->commit();
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Cache\TransactionHandler::beginTransaction
-     */
     public function testBeginTransactionStartsCacheTransaction()
     {
         $this->loggerMock
@@ -131,3 +122,5 @@ class TransactionHandlerTest extends AbstractCacheHandlerTest
         $handler->beginTransaction();
     }
 }
+
+class_alias(TransactionHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\TransactionHandlerTest');

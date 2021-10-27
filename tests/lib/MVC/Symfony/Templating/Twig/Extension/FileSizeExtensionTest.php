@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension;
+namespace Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension;
 
-use eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\FileSizeExtension;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface;
+use Ibexa\Core\MVC\Symfony\Templating\Twig\Extension\FileSizeExtension;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Test\IntegrationTestCase;
 
@@ -139,3 +139,5 @@ class FileSizeExtensionTest extends IntegrationTestCase
         return $this->translatorMock;
     }
 }
+
+class_alias(FileSizeExtensionTest::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension\FileSizeExtensionTest');

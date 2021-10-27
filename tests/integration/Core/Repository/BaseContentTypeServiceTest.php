@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 /**
  * Base class for content type specific tests.
@@ -16,14 +16,14 @@ abstract class BaseContentTypeServiceTest extends BaseTest
     /**
      * Creates a fully functional ContentTypeDraft and returns it.
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct[] $additionalFieldDefinitionsCreateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct[] $additionalFieldDefinitionsCreateStruct
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentTypeFieldDefinitionValidationException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentTypeFieldDefinitionValidationException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     protected function createContentTypeDraft(array $additionalFieldDefinitionsCreateStruct = [])
     {
@@ -118,7 +118,7 @@ abstract class BaseContentTypeServiceTest extends BaseTest
     /**
      * Creates a fresh clean content draft.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createContentDraft()
     {
@@ -164,3 +164,5 @@ abstract class BaseContentTypeServiceTest extends BaseTest
         return $draft;
     }
 }
+
+class_alias(BaseContentTypeServiceTest::class, 'eZ\Publish\API\Repository\Tests\BaseContentTypeServiceTest');

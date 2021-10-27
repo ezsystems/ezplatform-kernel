@@ -4,31 +4,31 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use eZ\Publish\Core\FieldType\Author\Type as AuthorType;
-use eZ\Publish\Core\FieldType\FieldSettings;
-use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\AuthorConverter;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as SPIFieldDefinition;
+use Ibexa\Core\FieldType\Author\Type as AuthorType;
+use Ibexa\Core\FieldType\FieldSettings;
+use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\AuthorConverter;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as SPIFieldDefinition;
 use PHPUnit\Framework\TestCase;
 use DOMDocument;
 
 /**
- * Test case for Author converter in Legacy storage.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\AuthorConverter
  *
  * @group fieldType
  * @group ezauthor
  */
 class AuthorTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\AuthorConverter */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\AuthorConverter */
     protected $converter;
 
-    /** @var \eZ\Publish\Core\FieldType\Author\Author[] */
+    /** @var \Ibexa\Core\FieldType\Author\Author[] */
     private $authors;
 
     protected function setUp(): void
@@ -48,9 +48,6 @@ class AuthorTest extends TestCase
         parent::tearDown();
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\AuthorConverter::toStorageValue
-     */
     public function testToStorageValue()
     {
         $value = new FieldValue();
@@ -81,9 +78,6 @@ class AuthorTest extends TestCase
         self::assertEmpty($this->authors, 'All authors have not been converted as expected');
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\AuthorConverter::toFieldValue
-     */
     public function testToFieldValue()
     {
         $storageFieldValue = new StorageFieldValue();
@@ -122,9 +116,6 @@ EOT;
         self::assertEmpty($aAuthors, 'All authors have not been converted as expected from storage');
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\AuthorConverter::toStorageFieldDefinition
-     */
     public function testToStorageFieldDefinitionDefaultCurrentUser()
     {
         $storageFieldDef = new StorageFieldDefinition();
@@ -147,9 +138,6 @@ EOT;
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\AuthorConverter::toStorageFieldDefinition
-     */
     public function testToStorageFieldDefinitionDefaultEmpty()
     {
         $storageFieldDef = new StorageFieldDefinition();
@@ -172,3 +160,5 @@ EOT;
         );
     }
 }
+
+class_alias(AuthorTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter\AuthorTest');

@@ -4,44 +4,42 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Language;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Language;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\SPI\Persistence\Content\Language;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler;
-use eZ\Publish\SPI\Persistence\Content\Language\CreateStruct as SPILanguageCreateStruct;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\Mapper as LanguageMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway as LanguageGateway;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Contracts\Core\Persistence\Content\Language;
+use Ibexa\Core\Persistence\Legacy\Content\Language\Handler;
+use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct as SPILanguageCreateStruct;
+use Ibexa\Core\Persistence\Legacy\Content\Language\Mapper as LanguageMapper;
+use Ibexa\Core\Persistence\Legacy\Content\Language\Gateway as LanguageGateway;
 
 /**
- * Test case for Language Handler.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\Language\Handler
  */
 class LanguageHandlerTest extends TestCase
 {
     /**
      * Language handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Language\Handler
      */
     protected $languageHandler;
 
     /**
      * Language gateway mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Language\Gateway
      */
     protected $gatewayMock;
 
     /**
      * Language mapper mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\Mapper
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Language\Mapper
      */
     protected $mapperMock;
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler::create
-     */
     public function testCreate()
     {
         $handler = $this->getLanguageHandler();
@@ -81,16 +79,13 @@ class LanguageHandlerTest extends TestCase
     /**
      * Returns a Language CreateStruct.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language\CreateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct
      */
     protected function getCreateStructFixture()
     {
         return new Language\CreateStruct();
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler::update
-     */
     public function testUpdate()
     {
         $handler = $this->getLanguageHandler();
@@ -106,16 +101,13 @@ class LanguageHandlerTest extends TestCase
     /**
      * Returns a Language.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language
      */
     protected function getLanguageFixture()
     {
         return new Language();
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler::load
-     */
     public function testLoad()
     {
         $handler = $this->getLanguageHandler();
@@ -140,12 +132,9 @@ class LanguageHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler::load
-     */
     public function testLoadFailure()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $handler = $this->getLanguageHandler();
         $mapperMock = $this->getMapperMock();
@@ -165,9 +154,6 @@ class LanguageHandlerTest extends TestCase
         $result = $handler->load(2);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler::loadByLanguageCode
-     */
     public function testLoadByLanguageCode()
     {
         $handler = $this->getLanguageHandler();
@@ -192,12 +178,9 @@ class LanguageHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler::loadByLanguageCode
-     */
     public function testLoadByLanguageCodeFailure()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $handler = $this->getLanguageHandler();
         $mapperMock = $this->getMapperMock();
@@ -217,9 +200,6 @@ class LanguageHandlerTest extends TestCase
         $result = $handler->loadByLanguageCode('eng-US');
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler::loadAll
-     */
     public function testLoadAll()
     {
         $handler = $this->getLanguageHandler();
@@ -241,9 +221,6 @@ class LanguageHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler::delete
-     */
     public function testDeleteSuccess()
     {
         $handler = $this->getLanguageHandler();
@@ -260,9 +237,6 @@ class LanguageHandlerTest extends TestCase
         $result = $handler->delete(2);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler::delete
-     */
     public function testDeleteFail()
     {
         $this->expectException(\LogicException::class);
@@ -283,7 +257,7 @@ class LanguageHandlerTest extends TestCase
     /**
      * Returns the language handler to test.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Language\Handler
      */
     protected function getLanguageHandler()
     {
@@ -300,7 +274,7 @@ class LanguageHandlerTest extends TestCase
     /**
      * Returns a language mapper mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Language\Mapper
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Language\Mapper
      */
     protected function getMapperMock()
     {
@@ -314,7 +288,7 @@ class LanguageHandlerTest extends TestCase
     /**
      * Returns a mock for the language gateway.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Language\Gateway
      */
     protected function getGatewayMock()
     {
@@ -325,3 +299,5 @@ class LanguageHandlerTest extends TestCase
         return $this->gatewayMock;
     }
 }
+
+class_alias(LanguageHandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\Language\LanguageHandlerTest');

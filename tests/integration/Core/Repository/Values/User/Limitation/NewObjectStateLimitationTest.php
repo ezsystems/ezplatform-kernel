@@ -4,28 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Values\User\Limitation;
+namespace Ibexa\Tests\Integration\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\NewObjectStateLimitation;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\NewObjectStateLimitation;
 
 /**
- * Test case for the {@link \eZ\Publish\API\Repository\Values\User\Limitation\NewObjectStateLimitation}
- * class.
- *
- * @see eZ\Publish\API\Repository\Values\User\Limitation
- * @see eZ\Publish\API\Repository\Values\User\Limitation\NewObjectStateLimitation
+ * @covers \Ibexa\Contracts\Core\Repository\Values\User\Limitation\NewObjectStateLimitation
  * @group integration
  * @group limitation
  */
 class NewObjectStateLimitationTest extends BaseLimitationTest
 {
-    /**
-     * Tests a NewObjectStateLimitation.
-     *
-     * @see eZ\Publish\API\Repository\Values\User\Limitation\NewObjectStateLimitation
-     *
-     * @throws \ErrorException if a mandatory test fixture not exists.
-     */
     public function testNewObjectStateLimitationAllow()
     {
         $repository = $this->getRepository();
@@ -66,13 +56,13 @@ class NewObjectStateLimitationTest extends BaseLimitationTest
     /**
      * Tests a NewObjectStateLimitation.
      *
-     * @see eZ\Publish\API\Repository\Values\User\Limitation\NewObjectStateLimitation
+     * @covers \Ibexa\Contracts\Core\Repository\Values\User\Limitation\NewObjectStateLimitation
      *
      * @throws \ErrorException if a mandatory test fixture not exists.
      */
     public function testNewObjectStateLimitationForbid()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $lockedState = $this->generateId('objectstate', 1);
@@ -113,3 +103,5 @@ class NewObjectStateLimitationTest extends BaseLimitationTest
         /* END: Use Case */
     }
 }
+
+class_alias(NewObjectStateLimitationTest::class, 'eZ\Publish\API\Repository\Tests\Values\User\Limitation\NewObjectStateLimitationTest');

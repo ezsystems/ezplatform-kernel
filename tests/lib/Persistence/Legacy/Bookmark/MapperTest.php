@@ -6,16 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Bookmark;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Bookmark;
 
-use eZ\Publish\Core\Persistence\Legacy\Bookmark\Mapper;
-use eZ\Publish\SPI\Persistence\Bookmark\Bookmark;
-use eZ\Publish\SPI\Persistence\Bookmark\CreateStruct;
+use Ibexa\Core\Persistence\Legacy\Bookmark\Mapper;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
+use Ibexa\Contracts\Core\Persistence\Bookmark\CreateStruct;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Ibexa\Core\Persistence\Legacy\Bookmark\Mapper
+ */
 class MapperTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Bookmark\Mapper */
+    /** @var \Ibexa\Core\Persistence\Legacy\Bookmark\Mapper */
     private $mapper;
 
     protected function setUp(): void
@@ -23,9 +26,6 @@ class MapperTest extends TestCase
         $this->mapper = new Mapper();
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Bookmark\Mapper::createBookmarkFromCreateStruct
-     */
     public function testCreateBookmarkFromCreateStruct()
     {
         $createStruct = new CreateStruct([
@@ -41,9 +41,6 @@ class MapperTest extends TestCase
         ]), $this->mapper->createBookmarkFromCreateStruct($createStruct));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Bookmark\Mapper::extractBookmarksFromRows
-     */
     public function testExtractBookmarksFromRows()
     {
         $rows = [
@@ -79,3 +76,5 @@ class MapperTest extends TestCase
         $this->assertEquals($objects, $this->mapper->extractBookmarksFromRows($rows));
     }
 }
+
+class_alias(MapperTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Bookmark\MapperTest');

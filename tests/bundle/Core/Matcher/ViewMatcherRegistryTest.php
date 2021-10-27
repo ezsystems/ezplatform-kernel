@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Matcher;
+namespace Ibexa\Tests\Bundle\Core\Matcher;
 
-use eZ\Bundle\EzPublishCoreBundle\Matcher\ViewMatcherRegistry;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MatcherInterface;
+use Ibexa\Bundle\Core\Matcher\ViewMatcherRegistry;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Core\MVC\Symfony\Matcher\ContentBased\MatcherInterface;
 use PHPUnit\Framework\TestCase;
 
 class ViewMatcherRegistryTest extends TestCase
@@ -57,3 +57,5 @@ class ViewMatcherRegistryTest extends TestCase
         return $this->createMock(MatcherInterface::class);
     }
 }
+
+class_alias(ViewMatcherRegistryTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Matcher\ViewMatcherRegistryTest');

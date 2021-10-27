@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests;
+namespace Ibexa\Tests\Core\FieldType;
 
-use eZ\Publish\Core\FieldType\EmailAddress\Value as EmailAddressValue;
-use eZ\Publish\Core\FieldType\Validator\EmailAddressValidator;
-use eZ\Publish\Core\FieldType\Validator;
+use Ibexa\Core\FieldType\EmailAddress\Value as EmailAddressValue;
+use Ibexa\Core\FieldType\Validator\EmailAddressValidator;
+use Ibexa\Core\FieldType\Validator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -32,8 +32,8 @@ class EmailAddressValidatorTest extends TestCase
     /**
      * Tests setting and getting constraints.
      *
-     * @covers \eZ\Publish\Core\FieldType\Validator::initializeWithConstraints
-     * @covers \eZ\Publish\Core\FieldType\Validator::__get
+     * @covers \Ibexa\Core\FieldType\Validator::initializeWithConstraints
+     * @covers \Ibexa\Core\FieldType\Validator::__get
      */
     public function testConstraintsInitializeGet()
     {
@@ -50,7 +50,7 @@ class EmailAddressValidatorTest extends TestCase
     /**
      * Test getting constraints schema.
      *
-     * @covers \eZ\Publish\Core\FieldType\Validator::getConstraintsSchema
+     * @covers \Ibexa\Core\FieldType\Validator::getConstraintsSchema
      */
     public function testGetConstraintsSchema()
     {
@@ -67,8 +67,8 @@ class EmailAddressValidatorTest extends TestCase
     /**
      * Tests setting and getting constraints.
      *
-     * @covers \eZ\Publish\Core\FieldType\Validator::__set
-     * @covers \eZ\Publish\Core\FieldType\Validator::__get
+     * @covers \Ibexa\Core\FieldType\Validator::__set
+     * @covers \Ibexa\Core\FieldType\Validator::__get
      */
     public function testConstraintsSetGet()
     {
@@ -94,7 +94,7 @@ class EmailAddressValidatorTest extends TestCase
     /**
      * Tests validating a wrong value.
      *
-     * @covers \eZ\Publish\Core\FieldType\Validator\EmailAddressValidator::validate
+     * @covers \Ibexa\Core\FieldType\Validator\EmailAddressValidator::validate
      */
     public function testValidateWrongEmailAddresses()
     {
@@ -106,3 +106,5 @@ class EmailAddressValidatorTest extends TestCase
         }
     }
 }
+
+class_alias(EmailAddressValidatorTest::class, 'eZ\Publish\Core\FieldType\Tests\EmailAddressValidatorTest');

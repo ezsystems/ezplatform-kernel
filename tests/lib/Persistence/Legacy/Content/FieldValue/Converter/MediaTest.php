@@ -4,18 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use eZ\Publish\Core\FieldType\Media\Type as MediaType;
-use eZ\Publish\Core\FieldType\FieldSettings;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\MediaConverter;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Core\FieldType\Media\Type as MediaType;
+use Ibexa\Core\FieldType\FieldSettings;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\MediaConverter;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test case for MediaType converter in Legacy storage.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\MediaConverter
  */
 class MediaTest extends TestCase
 {
@@ -29,7 +29,6 @@ class MediaTest extends TestCase
     /**
      * @group fieldType
      * @group ezmedia
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\MediaConverter::toStorageFieldDefinition
      */
     public function testToStorageFieldDefinition()
     {
@@ -68,7 +67,6 @@ class MediaTest extends TestCase
     /**
      * @group fieldType
      * @group ezmedia
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\MediaConverter::toFieldDefinition
      */
     public function testToFieldDefinition()
     {
@@ -87,10 +85,12 @@ class MediaTest extends TestCase
             ],
             $fieldDef->fieldTypeConstraints->validators
         );
-        self::assertInstanceOf('eZ\\Publish\\Core\\FieldType\\FieldSettings', $fieldDef->fieldTypeConstraints->fieldSettings);
+        self::assertInstanceOf(FieldSettings::class, $fieldDef->fieldTypeConstraints->fieldSettings);
         self::assertSame(
             ['mediaType' => MediaType::TYPE_HTML5_VIDEO],
             $fieldDef->fieldTypeConstraints->fieldSettings->getArrayCopy()
         );
     }
 }
+
+class_alias(MediaTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter\MediaTest');

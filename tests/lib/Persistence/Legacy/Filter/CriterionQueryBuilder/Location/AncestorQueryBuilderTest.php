@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Filter\CriterionQueryBuilder\Location;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Ancestor;
-use eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location\AncestorQueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\Tests\Filter\BaseCriterionVisitorQueryBuilderTestCase;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Ancestor;
+use Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location\AncestorQueryBuilder;
+use Ibexa\Tests\Core\Persistence\Legacy\Filter\BaseCriterionVisitorQueryBuilderTestCase;
 
 class AncestorQueryBuilderTest extends BaseCriterionVisitorQueryBuilderTestCase
 {
@@ -34,3 +34,5 @@ class AncestorQueryBuilderTest extends BaseCriterionVisitorQueryBuilderTestCase
         ];
     }
 }
+
+class_alias(AncestorQueryBuilderTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Filter\CriterionQueryBuilder\Location\AncestorQueryBuilderTest');

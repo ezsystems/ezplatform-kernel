@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Tests;
+namespace Ibexa\Tests\Core\QueryType\BuiltIn\SortSpec;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecLexerInterface;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecParser;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Token;
-use eZ\Publish\Core\Search\Tests\TestCase;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortSpecLexerInterface;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortSpecParser;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\Token;
+use Ibexa\Tests\Core\Search\TestCase;
 
 final class SortSpecParserTest extends TestCase
 {
@@ -135,3 +135,5 @@ final class SortSpecParserTest extends TestCase
         $this->assertEquals($token, $parser->matchAnyOf(Token::TYPE_ASC, Token::TYPE_DESC));
     }
 }
+
+class_alias(SortSpecParserTest::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Tests\SortSpecParserTest');

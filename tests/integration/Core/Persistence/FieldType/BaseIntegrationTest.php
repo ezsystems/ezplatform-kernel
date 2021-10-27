@@ -4,19 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Persistence\FieldType;
 
-use eZ\Publish\API\Repository\Tests\Container\Compiler\SetAllServicesPublicPass;
-use eZ\Publish\Core\Persistence;
-use eZ\Publish\Core\Persistence\TransformationProcessor\DefinitionBased;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
-use eZ\Publish\SPI\Tests\Persistence\FixtureImporter;
-use eZ\Publish\SPI\Tests\Persistence\YamlFixture;
+use Ibexa\Core\FieldType\TextLine\Type as TextLineType;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Core\Persistence;
+use Ibexa\Core\Persistence\TransformationProcessor\DefinitionBased;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence\Legacy;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
+use Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter;
+use Ibexa\Contracts\Core\Test\Persistence\Fixture\YamlFixture;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -73,11 +74,11 @@ abstract class BaseIntegrationTest extends TestCase
         return $installDir;
     }
 
-    /** @var \eZ\Publish\Core\Persistence\TransformationProcessor */
+    /** @var \Ibexa\Core\Persistence\TransformationProcessor */
     protected $transformationProcessor;
 
     /**
-     * @return \eZ\Publish\Core\Persistence\TransformationProcessor
+     * @return \Ibexa\Core\Persistence\TransformationProcessor
      */
     public function getTransformationProcessor()
     {
@@ -105,7 +106,7 @@ abstract class BaseIntegrationTest extends TestCase
      * Returns an instance of the Persistence Handler where the
      * FieldType\Storage has been registered.
      *
-     * @return \eZ\Publish\SPI\Persistence\Handler
+     * @return \Ibexa\Contracts\Core\Persistence\Handler
      */
     abstract public function getCustomHandler();
 
@@ -113,7 +114,7 @@ abstract class BaseIntegrationTest extends TestCase
      * Returns the FieldTypeConstraints to be used to create a field definition
      * of the FieldType under test.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints
+     * @return \Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints
      */
     abstract public function getTypeConstraints();
 
@@ -130,7 +131,7 @@ abstract class BaseIntegrationTest extends TestCase
     /**
      * Get initial field value.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldValue
+     * @return \Ibexa\Contracts\Core\Persistence\Content\FieldValue
      */
     abstract public function getInitialValue();
 
@@ -156,7 +157,7 @@ abstract class BaseIntegrationTest extends TestCase
      *
      * Use to update the field
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldValue
+     * @return \Ibexa\Contracts\Core\Persistence\Content\FieldValue
      */
     abstract public function getUpdatedValue();
 
@@ -234,7 +235,7 @@ abstract class BaseIntegrationTest extends TestCase
      * Performs the creation of the content type with a field of the field type
      * under test.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     protected function createContentType()
     {
@@ -525,7 +526,7 @@ abstract class BaseIntegrationTest extends TestCase
      */
     public function testDeleteField($content)
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $handler = $this->getCustomHandler();
         $contentHandler = $handler->contentHandler();
@@ -604,22 +605,22 @@ abstract class BaseIntegrationTest extends TestCase
      * Returns the Handler.
      *
      * @param string $identifier
-     * @param \eZ\Publish\SPI\FieldType\FieldType $fieldType
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter $fieldValueConverter
-     * @param \eZ\Publish\SPI\FieldType\FieldStorage $externalStorage
+     * @param \Ibexa\Contracts\Core\FieldType\FieldType $fieldType
+     * @param \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter $fieldValueConverter
+     * @param \Ibexa\Contracts\Core\FieldType\FieldStorage $externalStorage
      *
-     * @return \eZ\Publish\SPI\Persistence\Handler
+     * @return \Ibexa\Contracts\Core\Persistence\Handler
      */
     protected function getHandler($identifier, $fieldType, $fieldValueConverter, $externalStorage)
     {
-        /** @var \eZ\Publish\Core\Persistence\FieldTypeRegistry $fieldTypeRegistry */
+        /** @var \Ibexa\Core\Persistence\FieldTypeRegistry $fieldTypeRegistry */
         $fieldTypeRegistry = self::$container->get('ezpublish.persistence.field_type_registry');
-        /** @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry $converterRegistry */
+        /** @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry $converterRegistry */
         $converterRegistry = self::$container->get('ezpublish.persistence.legacy.field_value_converter.registry');
-        /** @var \eZ\Publish\Core\Persistence\Legacy\Content\StorageRegistry $storageRegistry */
+        /** @var \Ibexa\Core\Persistence\Legacy\Content\StorageRegistry $storageRegistry */
         $storageRegistry = self::$container->get('ezpublish.persistence.external_storage_registry');
 
-        $textLineFieldType = new \eZ\Publish\Core\FieldType\TextLine\Type();
+        $textLineFieldType = new TextLineType();
         $textLineFieldType->setTransformationProcessor($this->getTransformationProcessor());
         $textLineFieldValueConverter = new Legacy\Content\FieldValue\Converter\TextLineConverter();
 
@@ -633,3 +634,5 @@ abstract class BaseIntegrationTest extends TestCase
         return self::$container->get('ezpublish.spi.persistence.legacy');
     }
 }
+
+class_alias(BaseIntegrationTest::class, 'eZ\Publish\SPI\Tests\FieldType\BaseIntegrationTest');

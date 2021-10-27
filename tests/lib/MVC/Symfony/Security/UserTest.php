@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Security;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\User\User as APIUser;
-use eZ\Publish\Core\MVC\Symfony\Security\ReferenceUserInterface;
-use eZ\Publish\Core\Repository\Values\User\UserReference;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
+use Ibexa\Core\MVC\Symfony\Security\ReferenceUserInterface;
+use Ibexa\Core\Repository\Values\User\UserReference;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\Core\MVC\Symfony\Security\User;
+use Ibexa\Core\MVC\Symfony\Security\User;
 
 class UserTest extends TestCase
 {
@@ -129,3 +129,5 @@ class UserTest extends TestCase
         $this->assertSame($fullName, (string)$user);
     }
 }
+
+class_alias(UserTest::class, 'eZ\Publish\Core\MVC\Symfony\Security\Tests\UserTest');

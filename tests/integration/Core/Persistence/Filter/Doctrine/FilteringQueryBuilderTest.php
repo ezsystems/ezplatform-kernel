@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Tests\Persistence\Filter\Doctrine;
+namespace Ibexa\Tests\Integration\Core\Persistence\Filter\Doctrine;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
-use eZ\Publish\Core\Base\Exceptions\DatabaseException;
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Core\Base\Exceptions\DatabaseException;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
 use PHPUnit\Framework\TestCase;
 
 class FilteringQueryBuilderTest extends TestCase
 {
-    /** @var \eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder */
+    /** @var \Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder */
     private $queryBuilder;
 
     protected function setUp(): void
@@ -29,7 +29,7 @@ class FilteringQueryBuilderTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder::joinOnce
+     * @covers \Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder::joinOnce
      */
     public function testJoinOnce(): void
     {
@@ -65,3 +65,5 @@ class FilteringQueryBuilderTest extends TestCase
         $this->queryBuilder->joinOnce('f', 'bar', 'b', 'f.bar_id = b.id');
     }
 }
+
+class_alias(FilteringQueryBuilderTest::class, 'eZ\Publish\SPI\Tests\Persistence\Filter\Doctrine\FilteringQueryBuilderTest');

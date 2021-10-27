@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Fragment;
+namespace Ibexa\Tests\Bundle\Core\Fragment;
 
-use eZ\Bundle\EzPublishCoreBundle\EventListener\ViewControllerListener;
-use eZ\Bundle\EzPublishCoreBundle\Fragment\DirectFragmentRenderer;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\Templating\Exception\InvalidResponseException;
-use eZ\Publish\Core\MVC\Symfony\View\ContentView;
-use eZ\Publish\Core\MVC\Symfony\View\Renderer\TemplateRenderer;
+use Ibexa\Bundle\Core\EventListener\ViewControllerListener;
+use Ibexa\Bundle\Core\Fragment\DirectFragmentRenderer;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\Templating\Exception\InvalidResponseException;
+use Ibexa\Core\MVC\Symfony\View\ContentView;
+use Ibexa\Core\MVC\Symfony\View\Renderer\TemplateRenderer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -160,7 +160,7 @@ final class DirectFragmentRendererTest extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\View\Renderer\TemplateRenderer|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\MVC\Symfony\View\Renderer\TemplateRenderer|\PHPUnit\Framework\MockObject\MockObject
      */
     private function getTemplateRendererMock(): TemplateRenderer
     {
@@ -181,3 +181,5 @@ final class DirectFragmentRendererTest extends TestCase
         );
     }
 }
+
+class_alias(DirectFragmentRendererTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Fragment\DirectFragmentRendererTest');

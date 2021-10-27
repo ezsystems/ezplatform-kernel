@@ -4,9 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Regression;
+namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 class EZP22612URLAliasTranslations extends BaseTest
 {
@@ -54,8 +55,10 @@ class EZP22612URLAliasTranslations extends BaseTest
         $alias = $aliasService->lookup('common/alias');
 
         $this->assertInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\Content\\URLAlias',
+            URLAlias::class,
             $alias
         );
     }
 }
+
+class_alias(EZP22612URLAliasTranslations::class, 'eZ\Publish\API\Repository\Tests\Regression\EZP22612URLAliasTranslations');

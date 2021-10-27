@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\User\Role\Gateway;
+namespace Ibexa\Tests\Core\Persistence\Legacy\User\Role\Gateway;
 
 use Doctrine\DBAL\ParameterType;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway\DoctrineDatabase;
-use eZ\Publish\SPI\Persistence\User\Role;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence\Legacy\User\Role\Gateway\DoctrineDatabase;
+use Ibexa\Contracts\Core\Persistence\User\Role;
 
 /**
- * Test case for eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway\DoctrineDatabase.
+ * @covers \Ibexa\Core\Persistence\Legacy\User\Role\Gateway\DoctrineDatabase
  */
 class DoctrineDatabaseTest extends TestCase
 {
     /**
      * Database gateway to test.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway\DoctrineDatabase
+     * @var \Ibexa\Core\Persistence\Legacy\User\Role\Gateway\DoctrineDatabase
      */
     protected $databaseGateway;
 
@@ -40,8 +40,6 @@ class DoctrineDatabaseTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway\DoctrineDatabase::createRole
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function testCreateRole(): void
@@ -76,8 +74,6 @@ class DoctrineDatabaseTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway\DoctrineDatabase::loadRoleAssignment
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function testLoadRoleAssignment(): void
@@ -99,8 +95,6 @@ class DoctrineDatabaseTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway\DoctrineDatabase::loadRoleAssignmentsByGroupId
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function testLoadRoleAssignmentsByGroupId(): void
@@ -136,8 +130,6 @@ class DoctrineDatabaseTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway\DoctrineDatabase::loadRoleAssignmentsByRoleId
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function testLoadRoleAssignmentsByRoleId(): void
@@ -175,7 +167,7 @@ class DoctrineDatabaseTest extends TestCase
     /**
      * Returns a ready to test DoctrineDatabase gateway.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway\DoctrineDatabase
+     * @return \Ibexa\Core\Persistence\Legacy\User\Role\Gateway\DoctrineDatabase
      *
      * @throws \Doctrine\DBAL\DBALException
      */
@@ -190,3 +182,5 @@ class DoctrineDatabaseTest extends TestCase
         return $this->databaseGateway;
     }
 }
+
+class_alias(DoctrineDatabaseTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\User\Role\Gateway\DoctrineDatabaseTest');

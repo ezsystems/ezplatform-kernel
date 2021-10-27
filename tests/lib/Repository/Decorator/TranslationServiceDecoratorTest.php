@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Tests\Decorator;
+namespace Ibexa\Tests\Core\Repository\Decorator;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\API\Repository\TranslationService;
-use eZ\Publish\API\Repository\Values\Translation;
-use eZ\Publish\SPI\Repository\Decorator\TranslationServiceDecorator;
+use Ibexa\Contracts\Core\Repository\TranslationService;
+use Ibexa\Contracts\Core\Repository\Values\Translation;
+use Ibexa\Contracts\Core\Repository\Decorator\TranslationServiceDecorator;
 
 class TranslationServiceDecoratorTest extends TestCase
 {
@@ -57,3 +57,5 @@ class TranslationServiceDecoratorTest extends TestCase
         $decoratedService->translateString(...$parameters);
     }
 }
+
+class_alias(TranslationServiceDecoratorTest::class, 'eZ\Publish\SPI\Repository\Tests\Decorator\TranslationServiceDecoratorTest');

@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\URL\Query\CriterionHandler;
+namespace Ibexa\Tests\Core\Persistence\Legacy\URL\Query\CriterionHandler;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion\MatchAll;
-use eZ\Publish\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
-use eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler\MatchAll as MatchAllHandler;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion\MatchAll;
+use Ibexa\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
+use Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler\MatchAll as MatchAllHandler;
 
 class MatchAllTest extends CriterionHandlerTest
 {
@@ -42,3 +42,5 @@ class MatchAllTest extends CriterionHandlerTest
         $this->assertEquals($expected, $actual);
     }
 }
+
+class_alias(MatchAllTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\URL\Query\CriterionHandler\MatchAllTest');

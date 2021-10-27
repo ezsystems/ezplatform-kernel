@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Compiler;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\LazyDoctrineRepositoriesPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\LazyDoctrineRepositoriesPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use RuntimeException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -53,3 +53,5 @@ class LazyDoctrineRepositoriesPassTest extends AbstractCompilerPassTestCase
         $this->compile();
     }
 }
+
+class_alias(LazyDoctrineRepositoriesPassTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler\LazyDoctrineRepositoriesPassTest');

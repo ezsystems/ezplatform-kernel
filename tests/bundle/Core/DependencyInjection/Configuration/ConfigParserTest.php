@@ -4,11 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
@@ -17,7 +18,7 @@ class ConfigParserTest extends TestCase
 {
     public function testConstructWrongInnerParser()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\InvalidArgumentType::class);
+        $this->expectException(InvalidArgumentType::class);
 
         new ConfigParser(
             [
@@ -134,3 +135,5 @@ class ConfigParserTest extends TestCase
         return $this->createMock(ParserInterface::class);
     }
 }
+
+class_alias(ConfigParserTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\ConfigParserTest');

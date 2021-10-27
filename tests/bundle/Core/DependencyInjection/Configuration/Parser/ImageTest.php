@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\Parser;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Parser;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Image;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Image;
+use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
 use Symfony\Component\Yaml\Yaml;
 
 class ImageTest extends AbstractParserTestCase
@@ -89,3 +89,5 @@ class ImageTest extends AbstractParserTestCase
         );
     }
 }
+
+class_alias(ImageTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\Parser\ImageTest');

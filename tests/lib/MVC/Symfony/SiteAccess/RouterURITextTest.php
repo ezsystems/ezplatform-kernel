@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\SiteAccess;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\URIText;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Router;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\URIText as URITextMatcher;
-use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\URIText;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\URIText as URITextMatcher;
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use Psr\Log\LoggerInterface;
 
 class RouterURITextTest extends RouterBaseTest
@@ -151,7 +151,7 @@ class RouterURITextTest extends RouterBaseTest
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests\SiteAccessSetting[]
+     * @return \Ibexa\Tests\Core\MVC\Symfony\SiteAccess\SiteAccessSetting[]
      */
     public function getSiteAccessProviderSettings(): array
     {
@@ -165,3 +165,5 @@ class RouterURITextTest extends RouterBaseTest
         ];
     }
 }
+
+class_alias(RouterURITextTest::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests\RouterURITextTest');

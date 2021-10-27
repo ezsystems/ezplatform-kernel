@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests\Integration\User\UserStorage;
+namespace Ibexa\Tests\Integration\Core\User\UserStorage;
 
-use eZ\Publish\Core\FieldType\Tests\Integration\BaseCoreFieldTypeIntegrationTest;
-use eZ\Publish\Core\FieldType\User\UserStorage\Gateway;
-use eZ\Publish\Core\Repository\Values\User\User;
-use eZ\Publish\SPI\Tests\Persistence\FixtureImporter;
-use eZ\Publish\SPI\Tests\Persistence\YamlFixture;
+use Ibexa\Tests\Integration\Core\BaseCoreFieldTypeIntegrationTest;
+use Ibexa\Core\FieldType\User\UserStorage\Gateway;
+use Ibexa\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter;
+use Ibexa\Contracts\Core\Test\Persistence\Fixture\YamlFixture;
 
 /**
  * User Field Type external storage gateway tests.
@@ -92,3 +92,5 @@ abstract class UserStorageGatewayTest extends BaseCoreFieldTypeIntegrationTest
         ];
     }
 }
+
+class_alias(UserStorageGatewayTest::class, 'eZ\Publish\Core\FieldType\Tests\Integration\User\UserStorage\UserStorageGatewayTest');

@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
 use Doctrine\DBAL\ParameterType;
 
@@ -17,7 +17,7 @@ abstract class BaseTrashServiceTest extends BaseTest
      * Creates a trashed item from the <b>Community</b> page location and stores
      * this item in a location variable named <b>$trashItem</b>.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\TrashItem
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem
      */
     protected function createTrashItem()
     {
@@ -58,3 +58,5 @@ abstract class BaseTrashServiceTest extends BaseTest
         $query->execute();
     }
 }
+
+class_alias(BaseTrashServiceTest::class, 'eZ\Publish\API\Repository\Tests\BaseTrashServiceTest');

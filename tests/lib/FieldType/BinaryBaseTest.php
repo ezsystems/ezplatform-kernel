@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests;
+namespace Ibexa\Tests\Core\FieldType;
 
-use eZ\Publish\Core\FieldType\Value;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\FieldType\Validator\FileExtensionBlackListValidator;
+use Ibexa\Core\FieldType\Value;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\FieldType\Validator\FileExtensionBlackListValidator;
 
 /**
  * Base class for binary field types.
@@ -201,3 +201,5 @@ abstract class BinaryBaseTest extends FieldTypeTest
         ];
     }
 }
+
+class_alias(BinaryBaseTest::class, 'eZ\Publish\Core\FieldType\Tests\BinaryBaseTest');

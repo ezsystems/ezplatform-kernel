@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\PlatformInstallerBundleTests\DependencyInjection;
+namespace Ibexa\Tests\Bundle\Installer\DependencyInjection;
 
-use EzSystems\PlatformInstallerBundle\Command\InstallPlatformCommand;
-use EzSystems\PlatformInstallerBundle\DependencyInjection\Compiler\InstallerTagPass;
-use EzSystems\PlatformInstallerBundle\DependencyInjection\EzSystemsPlatformInstallerExtension;
-use EzSystems\PlatformInstallerBundle\Installer\CoreInstaller;
-use EzSystems\PlatformInstallerBundle\Installer\DbBasedInstaller;
+use Ibexa\Bundle\Installer\Command\InstallPlatformCommand;
+use Ibexa\Bundle\Installer\DependencyInjection\Compiler\InstallerTagPass;
+use Ibexa\Bundle\Installer\DependencyInjection\EzSystemsPlatformInstallerExtension;
+use Ibexa\Bundle\Installer\Installer\CoreInstaller;
+use Ibexa\Bundle\Installer\Installer\DbBasedInstaller;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
 /**
- * @covers \EzSystems\PlatformInstallerBundle\DependencyInjection\EzSystemsPlatformInstallerExtension
+ * @covers \Ibexa\Bundle\Installer\DependencyInjection\EzSystemsPlatformInstallerExtension
  */
 class EzSystemsPlatformInstallerExtensionTest extends AbstractExtensionTestCase
 {
     /**
-     * @covers \EzSystems\PlatformInstallerBundle\DependencyInjection\EzSystemsPlatformInstallerExtension::load
+     * @covers \Ibexa\Bundle\Installer\DependencyInjection\EzSystemsPlatformInstallerExtension::load
      */
     public function testLoadLoadsTaggedCoreInstaller(): void
     {
@@ -38,7 +38,7 @@ class EzSystemsPlatformInstallerExtensionTest extends AbstractExtensionTestCase
     }
 
     /**
-     * @covers \EzSystems\PlatformInstallerBundle\DependencyInjection\EzSystemsPlatformInstallerExtension::load
+     * @covers \Ibexa\Bundle\Installer\DependencyInjection\EzSystemsPlatformInstallerExtension::load
      */
     public function testLoadLoadsTaggedInstallerCommand(): void
     {
@@ -56,3 +56,5 @@ class EzSystemsPlatformInstallerExtensionTest extends AbstractExtensionTestCase
         ];
     }
 }
+
+class_alias(EzSystemsPlatformInstallerExtensionTest::class, 'EzSystems\PlatformInstallerBundleTests\DependencyInjection\EzSystemsPlatformInstallerExtensionTest');

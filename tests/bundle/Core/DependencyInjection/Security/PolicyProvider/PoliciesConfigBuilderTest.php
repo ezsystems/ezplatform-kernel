@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Security\PolicyProvider;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Security\PolicyProvider;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Security\PolicyProvider\PoliciesConfigBuilder;
+use Ibexa\Bundle\Core\DependencyInjection\Security\PolicyProvider\PoliciesConfigBuilder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Resource\DirectoryResource;
 use Symfony\Component\Config\Resource\FileResource;
@@ -42,3 +42,5 @@ class PoliciesConfigBuilderTest extends TestCase
         self::assertSame([$resource1, $resource2], $containerBuilder->getResources());
     }
 }
+
+class_alias(PoliciesConfigBuilderTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Security\PolicyProvider\PoliciesConfigBuilderTest');

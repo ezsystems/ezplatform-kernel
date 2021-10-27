@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Locale\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Locale;
 
-use eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProvider;
+use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Yaml\Yaml;
-use eZ\Publish\API\Repository\UserPreferenceService;
-use eZ\Publish\API\Repository\Values\UserPreference\UserPreference;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\UserPreferenceService;
+use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreference;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 
 class UserLanguagePreferenceProviderTest extends TestCase
 {
@@ -24,13 +24,13 @@ class UserLanguagePreferenceProviderTest extends TestCase
     private const LANGUAGE_PREFERENCE_NAME = 'language';
     private const LANGUAGE_PREFERENCE_VALUE = 'no';
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
     private $userLanguagePreferenceProvider;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\RequestStack */
     private $requestStackMock;
 
-    /** @var \eZ\Publish\API\Repository\UserPreferenceService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserPreferenceService */
     private $userPreferenceServiceMock;
 
     protected function setUp(): void
@@ -169,3 +169,5 @@ class UserLanguagePreferenceProviderTest extends TestCase
         return $config['parameters']['ezpublish.locale.browser_map'];
     }
 }
+
+class_alias(UserLanguagePreferenceProviderTest::class, 'eZ\Publish\Core\MVC\Symfony\Locale\Tests\UserLanguagePreferenceProviderTest');

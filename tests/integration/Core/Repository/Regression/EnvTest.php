@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Regression;
+namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
-use eZ\Publish\Core\Persistence\Cache\Adapter\TransactionalInMemoryCacheAdapter;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Core\Persistence\Cache\Adapter\TransactionalInMemoryCacheAdapter;
 use Symfony\Component\Cache\Adapter\TagAwareAdapter;
 use Symfony\Component\Cache\Adapter\RedisAdapter;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
@@ -43,3 +43,5 @@ class EnvTest extends BaseTest
         }
     }
 }
+
+class_alias(EnvTest::class, 'eZ\Publish\API\Repository\Tests\Regression\EnvTest');

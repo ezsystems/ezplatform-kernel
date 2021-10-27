@@ -6,7 +6,7 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Cache\Tag;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGenerator;
 use PHPUnit\Framework\TestCase;
 

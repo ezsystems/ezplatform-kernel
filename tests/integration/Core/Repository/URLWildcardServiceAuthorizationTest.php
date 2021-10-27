@@ -4,30 +4,26 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 
 /**
  * Test case for operations in the URLWildcardService.
  *
- * @see eZ\Publish\API\Repository\URLWildcardService
+ * @covers \Ibexa\Contracts\Core\Repository\URLWildcardService
  * @group integration
  * @group authorization
  */
 class URLWildcardServiceAuthorizationTest extends BaseTest
 {
     /**
-     * Test for the create() method.
-     *
-     * @return \eZ\Publish\API\Repository\Values\Content\URLWildcard
-     *
-     * @see \eZ\Publish\API\Repository\URLWildcardService::create()
-     * @depends eZ\Publish\API\Repository\Tests\URLWildcardServiceTest::testCreate
+     * @covers \Ibexa\Contracts\Core\Repository\URLWildcardService::create
+     * @depends Ibexa\Tests\Integration\Core\Repository\URLWildcardServiceTest::testCreate
      */
-    public function testCreateThrowsUnauthorizedException()
+    public function testCreateThrowsUnauthorizedException(): void
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
 
@@ -49,12 +45,12 @@ class URLWildcardServiceAuthorizationTest extends BaseTest
     /**
      * Test for the remove() method.
      *
-     * @see \eZ\Publish\API\Repository\URLWildcardService::remove()
-     * @depends eZ\Publish\API\Repository\Tests\URLWildcardServiceTest::testRemove
+     * @covers \Ibexa\Contracts\Core\Repository\URLWildcardService::remove()
+     * @depends Ibexa\Tests\Integration\Core\Repository\URLWildcardServiceTest::testRemove
      */
     public function testRemoveThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
 
@@ -78,3 +74,5 @@ class URLWildcardServiceAuthorizationTest extends BaseTest
         /* END: Use Case */
     }
 }
+
+class_alias(URLWildcardServiceAuthorizationTest::class, 'eZ\Publish\API\Repository\Tests\URLWildcardServiceAuthorizationTest');

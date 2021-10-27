@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Matcher\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Matcher;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\MVC\Symfony\View\ContentView;
-use eZ\Publish\Core\Repository\Repository;
-use eZ\Publish\Core\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\MVC\Symfony\View\ContentView;
+use Ibexa\Core\Repository\Repository;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractMatcherFactoryTest extends TestCase
@@ -20,7 +20,7 @@ abstract class AbstractMatcherFactoryTest extends TestCase
      * Returns a valid ValueObject (supported by current MatcherFactory), that will match the test rules.
      * i.e. Should return eZ\Publish\API\Repository\Values\Content\Location for LocationMatcherFactory.
      *
-     * @return \eZ\Publish\API\Repository\Values\ValueObject
+     * @return \Ibexa\Contracts\Core\Repository\Values\ValueObject
      */
     abstract protected function getMatchableValueObject();
 
@@ -28,7 +28,7 @@ abstract class AbstractMatcherFactoryTest extends TestCase
      * Returns a valid ValueObject (supported by current MatcherFactory), that won't match the test rules.
      * i.e. Should return eZ\Publish\API\Repository\Values\Content\Location for LocationMatcherFactory.
      *
-     * @return \eZ\Publish\API\Repository\Values\ValueObject
+     * @return \Ibexa\Contracts\Core\Repository\Values\ValueObject
      */
     abstract protected function getNonMatchableValueObject();
 
@@ -164,13 +164,10 @@ abstract class AbstractMatcherFactoryTest extends TestCase
         return $this->createMock(Repository::class);
     }
 
-    /**
-     * @param array $properties
-     *
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\MVC\Symfony\View\ContentView
-     */
-    protected function getContentView(array $contentInfoProperties = [], array $locationProperties = [])
-    {
+    protected function getContentView(
+        array $contentInfoProperties = [],
+        array $locationProperties = []
+    ): ContentView {
         $view = new ContentView();
         $view->setContent(
             new Content(
@@ -188,3 +185,5 @@ abstract class AbstractMatcherFactoryTest extends TestCase
         return $view;
     }
 }
+
+class_alias(AbstractMatcherFactoryTest::class, 'eZ\Publish\Core\MVC\Symfony\Matcher\Tests\AbstractMatcherFactoryTest');

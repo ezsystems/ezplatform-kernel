@@ -4,20 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\FieldType\Tests;
+namespace Ibexa\Tests\Core\FieldType;
 
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
-use eZ\Publish\SPI\FieldType\ValidationError;
-use eZ\Publish\SPI\FieldType\FieldType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Contracts\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\FieldType\FieldType;
 
-abstract class FieldTypeTest extends TestCase
+abstract class BaseFieldTypeTest extends TestCase
 {
     /**
      * Generic cache for the getFieldTypeUnderTest() method.
      *
-     * @var \eZ\Publish\SPI\FieldType\FieldType
+     * @var \Ibexa\Contracts\Core\FieldType\FieldType
      */
     private $fieldTypeUnderTest;
 
@@ -37,7 +37,7 @@ abstract class FieldTypeTest extends TestCase
      * NOT take care for test case wide caching of the field type, just return
      * a new instance from this method!
      *
-     * @return FieldType
+     * @return \Ibexa\Core\FieldType\FieldType
      */
     abstract protected function createFieldTypeUnderTest();
 
@@ -73,11 +73,11 @@ abstract class FieldTypeTest extends TestCase
      *  return array(
      *      array(
      *          new \stdClass(),
-     *          'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
+     *          InvalidArgumentException::class,
      *      ),
      *      array(
      *          array(),
-     *          'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
+     *          InvalidArgumentException::class,
      *      ),
      *      // ...
      *  );
@@ -500,7 +500,7 @@ abstract class FieldTypeTest extends TestCase
      * Uses {@link createFieldTypeUnderTest()} to create the instance
      * initially.
      *
-     * @return \eZ\Publish\SPI\FieldType\FieldType
+     * @return \Ibexa\Contracts\Core\FieldType\FieldType
      */
     protected function getFieldTypeUnderTest()
     {
@@ -605,7 +605,7 @@ abstract class FieldTypeTest extends TestCase
      *
      * @dataProvider provideInvalidInputForAcceptValue
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function testAcceptValueFailsOnInvalidValues(
         $inputValue,
@@ -909,7 +909,7 @@ abstract class FieldTypeTest extends TestCase
     {
         $fieldType = $this->getFieldTypeUnderTest();
 
-        /** @var \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition|\PHPUnit\Framework\MockObject\MockObject $fieldDefinitionMock */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition|\PHPUnit\Framework\MockObject\MockObject $fieldDefinitionMock */
         $fieldDefinitionMock = $this->createMock(APIFieldDefinition::class);
 
         foreach ($fieldDefinitionData as $method => $data) {
@@ -934,7 +934,7 @@ abstract class FieldTypeTest extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getFieldDefinitionMock(array $fieldSettings)
     {
@@ -949,3 +949,5 @@ abstract class FieldTypeTest extends TestCase
 
     // @todo: More test methods …
 }
+
+class_alias(BaseFieldTypeTest::class, 'eZ\Publish\SPI\FieldType\Tests\FieldTypeTest');

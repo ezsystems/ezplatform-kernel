@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\Core\Repository\Values\Content\Relation;
-use eZ\Publish\API\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 
 /**
  * Base integration test for field types handling content relations.
@@ -22,16 +22,16 @@ use eZ\Publish\API\Repository\Values\Content\Content;
 trait RelationSearchBaseIntegrationTestTrait
 {
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Relation[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Relation[]
      */
     abstract public function getCreateExpectedRelations(Content $content);
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Relation[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Relation[]
      */
     abstract public function getUpdateExpectedRelations(Content $content);
 
@@ -72,9 +72,9 @@ trait RelationSearchBaseIntegrationTestTrait
     /**
      * Normalizes given $relations for easier comparison.
      *
-     * @param \eZ\Publish\Core\Repository\Values\Content\Relation[] $relations
+     * @param \Ibexa\Core\Repository\Values\Content\Relation[] $relations
      *
-     * @return \eZ\Publish\Core\Repository\Values\Content\Relation[]
+     * @return \Ibexa\Core\Repository\Values\Content\Relation[]
      */
     protected function normalizeRelations(array $relations)
     {
@@ -166,3 +166,5 @@ trait RelationSearchBaseIntegrationTestTrait
         );
     }
 }
+
+class_alias(RelationSearchBaseIntegrationTestTrait::class, 'eZ\Publish\API\Repository\Tests\FieldType\RelationSearchBaseIntegrationTestTrait');

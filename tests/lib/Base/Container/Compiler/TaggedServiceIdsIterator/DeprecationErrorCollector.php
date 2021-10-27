@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Base\Tests\Container\Compiler\TaggedServiceIdsIterator;
+namespace Ibexa\Tests\Core\Base\Container\Compiler\TaggedServiceIdsIterator;
 
 /**
  * Captures user deprecation warnings emitted using trigger_error function.
@@ -48,3 +48,5 @@ final class DeprecationErrorCollector
         return true;
     }
 }
+
+class_alias(DeprecationErrorCollector::class, 'eZ\Publish\Core\Base\Tests\Container\Compiler\TaggedServiceIdsIterator\DeprecationErrorCollector');

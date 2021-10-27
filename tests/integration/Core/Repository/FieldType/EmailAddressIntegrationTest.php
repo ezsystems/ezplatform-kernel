@@ -4,10 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use eZ\Publish\Core\FieldType\EmailAddress\Value as EmailAddressValue;
-use eZ\Publish\API\Repository\Values\Content\Field;
+use Ibexa\Core\Base\Exceptions\ContentFieldValidationException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\FieldType\EmailAddress\Value as EmailAddressValue;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 
 /**
  * Integration test for use field type.
@@ -128,7 +130,7 @@ class EmailAddressIntegrationTest extends SearchBaseIntegrationTest
     public function assertFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\EmailAddress\\Value',
+            EmailAddressValue::class,
             $field->value
         );
 
@@ -141,53 +143,32 @@ class EmailAddressIntegrationTest extends SearchBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during creation.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidCreationFieldData()
     {
         return [
             [
                 new \stdClass(),
-                'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentType',
+                InvalidArgumentException::class,
             ],
             [
                 42,
-                'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentType',
+                InvalidArgumentException::class,
             ],
             [
                 new EmailAddressValue(str_repeat('.', 64)),
-                'eZ\\Publish\\Core\\Base\\Exceptions\\ContentFieldValidationException',
+                ContentFieldValidationException::class,
             ],
             [
                 new EmailAddressValue('spam@'),
-                'eZ\\Publish\\Core\\Base\\Exceptions\\ContentFieldValidationException',
+                ContentFieldValidationException::class,
             ],
             [
                 new EmailAddressValue('@ez.no'),
-                'eZ\\Publish\\Core\\Base\\Exceptions\\ContentFieldValidationException',
+                ContentFieldValidationException::class,
             ],
             [
                 new EmailAddressValue('spam@ez-no'),
-                'eZ\\Publish\\Core\\Base\\Exceptions\\ContentFieldValidationException',
+                ContentFieldValidationException::class,
             ],
         ];
     }
@@ -212,7 +193,7 @@ class EmailAddressIntegrationTest extends SearchBaseIntegrationTest
     public function assertUpdatedFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\EmailAddress\\Value',
+            EmailAddressValue::class,
             $field->value
         );
 
@@ -225,27 +206,6 @@ class EmailAddressIntegrationTest extends SearchBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during update.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidUpdateFieldData()
     {
         return $this->provideInvalidCreationFieldData();
@@ -262,7 +222,7 @@ class EmailAddressIntegrationTest extends SearchBaseIntegrationTest
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\EmailAddress\\Value',
+            EmailAddressValue::class,
             $field->value
         );
 
@@ -369,3 +329,5 @@ class EmailAddressIntegrationTest extends SearchBaseIntegrationTest
         ];
     }
 }
+
+class_alias(EmailAddressIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\FieldType\EmailAddressIntegrationTest');

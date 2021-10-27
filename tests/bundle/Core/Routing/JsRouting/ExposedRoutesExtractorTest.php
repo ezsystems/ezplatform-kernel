@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Routing\JsRouting;
+namespace Ibexa\Tests\Bundle\Core\Routing\JsRouting;
 
-use eZ\Bundle\EzPublishCoreBundle\Routing\JsRouting\ExposedRoutesExtractor;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Bundle\Core\Routing\JsRouting\ExposedRoutesExtractor;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use FOS\JsRoutingBundle\Extractor\ExposedRoutesExtractorInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * @covers \eZ\Bundle\EzPublishCoreBundle\Routing\JsRouting\ExposedRoutesExtractor
+ * @covers \Ibexa\Bundle\Core\Routing\JsRouting\ExposedRoutesExtractor
  *
  * @internal
  */
@@ -74,3 +74,5 @@ final class ExposedRoutesExtractorTest extends TestCase
         self::assertSame($expectedBaseUrl, $extractor->getBaseUrl());
     }
 }
+
+class_alias(ExposedRoutesExtractorTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Routing\JsRouting\ExposedRoutesExtractorTest');

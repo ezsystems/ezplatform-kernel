@@ -6,15 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\Filter;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\Filter;
 
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause;
-use eZ\Publish\SPI\Repository\Values\Filter\SortClauseQueryBuilder;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Filter\SortClauseQueryBuilder;
 
 /**
- * Stub for EzPublishCoreExtensionTest::testFilteringQueryBuildersAutomaticConfiguration
- * ({@see \eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\EzPublishCoreExtensionTest::testFilteringQueryBuildersAutomaticConfiguration}).
+ * Stub for {@see \Ibexa\Tests\Bundle\Core\DependencyInjection\EzPublishCoreExtensionTest::testFilteringQueryBuildersAutomaticConfiguration}.
  */
 class CustomSortClauseQueryBuilder implements SortClauseQueryBuilder
 {
@@ -30,3 +29,5 @@ class CustomSortClauseQueryBuilder implements SortClauseQueryBuilder
         // Do nothing
     }
 }
+
+class_alias(CustomSortClauseQueryBuilder::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\Filter\CustomSortClauseQueryBuilder');

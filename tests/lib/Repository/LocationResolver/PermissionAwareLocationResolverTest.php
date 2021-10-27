@@ -6,23 +6,26 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Tests\LocationResolver;
+namespace Ibexa\Tests\Core\Repository\LocationResolver;
 
-use eZ\Publish\API\Repository\Exceptions\BadStateException;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\Repository\LocationResolver\PermissionAwareLocationResolver;
-use eZ\Publish\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\Repository\LocationResolver\PermissionAwareLocationResolver;
+use Ibexa\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Ibexa\Core\Repository\LocationResolver\PermissionAwareLocationResolver
+ */
 final class PermissionAwareLocationResolverTest extends TestCase
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\Core\Repository\LocationResolver\LocationResolver */
+    /** @var \Ibexa\Core\Repository\LocationResolver\LocationResolver */
     private $locationResolver;
 
     public function setUp(): void
@@ -32,11 +35,6 @@ final class PermissionAwareLocationResolverTest extends TestCase
         $this->locationResolver = new PermissionAwareLocationResolver($this->locationService);
     }
 
-    /**
-     * Test for the resolveLocation() method.
-     *
-     * @covers \eZ\Publish\Core\Repository\LocationResolver\PermissionAwareLocationResolver::resolveLocation
-     */
     public function testResolveMainLocation(): void
     {
         $contentInfo = new ContentInfo(['mainLocationId' => 42]);
@@ -52,8 +50,6 @@ final class PermissionAwareLocationResolverTest extends TestCase
 
     /**
      * Test for the resolveLocation() method.
-     *
-     * @covers \eZ\Publish\Core\Repository\LocationResolver\PermissionAwareLocationResolver::resolveLocation
      */
     public function testResolveSecondaryLocation(): void
     {
@@ -75,8 +71,6 @@ final class PermissionAwareLocationResolverTest extends TestCase
 
     /**
      * Test for the resolveLocation() method when Locations don't exist.
-     *
-     * @covers \eZ\Publish\Core\Repository\LocationResolver\PermissionAwareLocationResolver::resolveLocation
      */
     public function testExpectNotFoundExceptionWhenLocationDoesNotExist(): void
     {
@@ -97,8 +91,6 @@ final class PermissionAwareLocationResolverTest extends TestCase
 
     /**
      * Test for the resolveLocation() method when ContentInfo's mainLocationId is null.
-     *
-     * @covers \eZ\Publish\Core\Repository\LocationResolver\PermissionAwareLocationResolver::resolveLocation
      */
     public function testExpectNotFoundExceptionWhenMainLocationIdIsNull(): void
     {
@@ -111,8 +103,6 @@ final class PermissionAwareLocationResolverTest extends TestCase
 
     /**
      * Test for the resolveLocation() method when Location is not yet published.
-     *
-     * @covers \eZ\Publish\Core\Repository\LocationResolver\PermissionAwareLocationResolver::resolveLocation
      */
     public function testExpectBadStateExceptionWhenContentNotYetPublished(): void
     {
@@ -131,3 +121,5 @@ final class PermissionAwareLocationResolverTest extends TestCase
         $this->locationResolver->resolveLocation($contentInfo);
     }
 }
+
+class_alias(PermissionAwareLocationResolverTest::class, 'eZ\Publish\Core\Repository\Tests\LocationResolver\PermissionAwareLocationResolverTest');

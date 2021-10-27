@@ -4,22 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Regression;
+namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Visibility;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Visibility;
 
 /**
  * Test case for Visibility issues in EZP-20018.
+ *
+ * @covers \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Visibility
  *
  * Issue EZP-20018
  */
 class EZP20018VisibilityTest extends BaseTest
 {
-    /**
-     * @see \eZ\Publish\API\Repository\Values\Content\Query\Criterion\Visibility
-     */
     public function testSearchForHiddenContent()
     {
         $repository = $this->getRepository();
@@ -44,9 +43,6 @@ class EZP20018VisibilityTest extends BaseTest
         $this->assertCount(1, $results2->searchHits);
     }
 
-    /**
-     * @see \eZ\Publish\API\Repository\Values\Content\Query\Criterion\Visibility
-     */
     public function testSearchForVisibleContent()
     {
         $repository = $this->getRepository();
@@ -72,3 +68,5 @@ class EZP20018VisibilityTest extends BaseTest
         $this->assertEquals($results2->totalCount, count($results2->searchHits));
     }
 }
+
+class_alias(EZP20018VisibilityTest::class, 'eZ\Publish\API\Repository\Tests\Regression\EZP20018VisibilityTest');

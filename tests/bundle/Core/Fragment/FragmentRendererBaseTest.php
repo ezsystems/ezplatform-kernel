@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Fragment;
+namespace Ibexa\Tests\Bundle\Core\Fragment;
 
-use eZ\Publish\Core\MVC\Symfony\Component\Serializer\SerializerTrait;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\Component\Serializer\SerializerTrait;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
@@ -75,3 +75,5 @@ abstract class FragmentRendererBaseTest extends TestCase
 
     abstract public function getRenderer(): FragmentRendererInterface;
 }
+
+class_alias(FragmentRendererBaseTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Fragment\FragmentRendererBaseTest');

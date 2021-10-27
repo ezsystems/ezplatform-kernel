@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\ConfigResolver;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\ConfigResolver;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver\DefaultScopeConfigResolver;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver\GlobalScopeConfigResolver;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver\SiteAccessGroupConfigResolver;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver\StaticSiteAccessConfigResolver;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider;
-use eZ\Publish\Core\MVC\Symfony\SiteAccessGroup;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ChainConfigResolver;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver\DefaultScopeConfigResolver;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver\GlobalScopeConfigResolver;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver\SiteAccessGroupConfigResolver;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver\StaticSiteAccessConfigResolver;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider;
+use Ibexa\Core\MVC\Symfony\SiteAccessGroup;
 use PHPUnit\Framework\TestCase;
 use function sprintf;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -32,7 +32,7 @@ class ChainConfigResolverTest extends TestCase
     private const SCOPE_DEFAULT = 'default';
     private const SCOPE_GLOBAL = 'global';
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess|\PHPUnit\Framework\MockObject\MockObject */
     private $siteAccess;
 
     /** @var \Symfony\Component\DependencyInjection\ContainerInterface|\PHPUnit\Framework\MockObject\MockObject */
@@ -338,3 +338,5 @@ class ChainConfigResolverTest extends TestCase
         return sprintf('%s.%s.%s', $namespace, $scope, $paramName);
     }
 }
+
+class_alias(ChainConfigResolverTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\ConfigResolver\ChainConfigResolverTest');

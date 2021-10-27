@@ -4,32 +4,34 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Limitation\Tests;
+namespace Ibexa\Tests\Core\Limitation;
 
-use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\SectionId;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Limitation\SectionLimitationType;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\Core\Repository\Values\Content\ContentCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Section as SPISection;
-use eZ\Publish\SPI\Limitation\Type as LimitationType;
-use eZ\Publish\SPI\Persistence\Content\Section\Handler as SPISectionHandler;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\SectionId;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ObjectStateLimitation;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Limitation\SectionLimitationType;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Section as SPISection;
+use Ibexa\Contracts\Core\Limitation\Type as LimitationType;
+use Ibexa\Contracts\Core\Persistence\Content\Section\Handler as SPISectionHandler;
 
 /**
  * Test Case for LimitationType.
  */
 class SectionLimitationTypeTest extends Base
 {
-    /** @var \eZ\Publish\SPI\Persistence\Content\Section\Handler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Section\Handler|\PHPUnit\Framework\MockObject\MockObject */
     private $sectionHandlerMock;
 
     /**
@@ -51,7 +53,7 @@ class SectionLimitationTypeTest extends Base
     }
 
     /**
-     * @return \eZ\Publish\Core\Limitation\SectionLimitationType
+     * @return \Ibexa\Core\Limitation\SectionLimitationType
      */
     public function testConstruct()
     {
@@ -74,8 +76,8 @@ class SectionLimitationTypeTest extends Base
      * @dataProvider providerForTestAcceptValue
      * @depends testConstruct
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation $limitation
-     * @param \eZ\Publish\Core\Limitation\SectionLimitationType $limitationType
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation $limitation
+     * @param \Ibexa\Core\Limitation\SectionLimitationType $limitationType
      */
     public function testAcceptValue(SectionLimitation $limitation, SectionLimitationType $limitationType)
     {
@@ -100,12 +102,12 @@ class SectionLimitationTypeTest extends Base
      * @dataProvider providerForTestAcceptValueException
      * @depends testConstruct
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitation
-     * @param \eZ\Publish\Core\Limitation\SectionLimitationType $limitationType
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
+     * @param \Ibexa\Core\Limitation\SectionLimitationType $limitationType
      */
     public function testAcceptValueException(Limitation $limitation, SectionLimitationType $limitationType)
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $limitationType->acceptValue($limitation);
     }
@@ -125,7 +127,7 @@ class SectionLimitationTypeTest extends Base
     /**
      * @dataProvider providerForTestValidatePass
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation $limitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation $limitation
      */
     public function testValidatePass(SectionLimitation $limitation)
     {
@@ -170,7 +172,7 @@ class SectionLimitationTypeTest extends Base
     /**
      * @dataProvider providerForTestValidateError
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation $limitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation $limitation
      * @param int $errorCount
      */
     public function testValidateError(SectionLimitation $limitation, $errorCount)
@@ -204,7 +206,7 @@ class SectionLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\SectionLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\SectionLimitationType $limitationType
      */
     public function testBuildValue(SectionLimitationType $limitationType)
     {
@@ -398,7 +400,7 @@ class SectionLimitationTypeTest extends Base
         ValueObject $object,
         $targets
     ) {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         // Need to create inline instead of depending on testConstruct() to get correct mock instance
         $limitationType = $this->testConstruct();
@@ -424,7 +426,7 @@ class SectionLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\SectionLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\SectionLimitationType $limitationType
      */
     public function testGetCriterionInvalidValue(SectionLimitationType $limitationType)
     {
@@ -439,7 +441,7 @@ class SectionLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\SectionLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\SectionLimitationType $limitationType
      */
     public function testGetCriterionSingleValue(SectionLimitationType $limitationType)
     {
@@ -458,7 +460,7 @@ class SectionLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\SectionLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\SectionLimitationType $limitationType
      */
     public function testGetCriterionMultipleValues(SectionLimitationType $limitationType)
     {
@@ -477,12 +479,14 @@ class SectionLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\SectionLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\SectionLimitationType $limitationType
      */
     public function testValueSchema(SectionLimitationType $limitationType)
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotImplementedException::class);
+        $this->expectException(NotImplementedException::class);
 
         $limitationType->valueSchema();
     }
 }
+
+class_alias(SectionLimitationTypeTest::class, 'eZ\Publish\Core\Limitation\Tests\SectionLimitationTypeTest');

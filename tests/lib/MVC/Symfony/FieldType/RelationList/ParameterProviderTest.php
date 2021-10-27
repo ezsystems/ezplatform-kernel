@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\FieldType\Tests\RelationList;
+namespace Ibexa\Tests\Core\MVC\Symfony\FieldType\RelationList;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\FieldType\RelationList\Value;
-use eZ\Publish\Core\MVC\Symfony\FieldType\RelationList\ParameterProvider;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Core\FieldType\RelationList\Value;
+use Ibexa\Core\MVC\Symfony\FieldType\RelationList\ParameterProvider;
 use PHPUnit\Framework\TestCase;
 
 class ParameterProviderTest extends TestCase
@@ -95,3 +95,5 @@ class ParameterProviderTest extends TestCase
         TestCase::assertSame($parameters, ['available' => [$contentId => false]]);
     }
 }
+
+class_alias(ParameterProviderTest::class, 'eZ\Publish\Core\MVC\Symfony\FieldType\Tests\RelationList\ParameterProviderTest');

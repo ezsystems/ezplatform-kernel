@@ -6,10 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\Limitation\PermissionResolver;
+namespace Ibexa\Tests\Integration\Core\Limitation\PermissionResolver;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\LanguageLimitation;
-use eZ\Publish\SPI\Limitation\Target;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation;
+use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Tests\Integration\Core\Repository\Limitation\PermissionResolver\BaseLimitationIntegrationTest;
 
 /**
  * Integration test for chosen use cases of calls to PermissionResolver::canUser.
@@ -53,9 +54,9 @@ class LanguageLimitationIntegrationTest extends BaseLimitationIntegrationTest
      * @param array $limitations
      * @param bool $expectedResult
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testCanUserCreateContent(array $limitations, bool $expectedResult): void
     {
@@ -118,9 +119,9 @@ class LanguageLimitationIntegrationTest extends BaseLimitationIntegrationTest
      * @param array $limitations
      * @param bool $expectedResult
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testCanUserEditContent(array $limitations, bool $expectedResult): void
     {
@@ -149,9 +150,9 @@ class LanguageLimitationIntegrationTest extends BaseLimitationIntegrationTest
      * @param array $limitations
      * @param bool $expectedResult
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testCanUserPublishContent(array $limitations, bool $expectedResult): void
     {
@@ -189,12 +190,12 @@ class LanguageLimitationIntegrationTest extends BaseLimitationIntegrationTest
     /**
      * @dataProvider providerForCanUserDeleteContent
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation[] $limitations
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] $limitations
      * @param bool $expectedResult
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testCanUserDeleteContent(array $limitations, bool $expectedResult): void
     {
@@ -250,13 +251,13 @@ class LanguageLimitationIntegrationTest extends BaseLimitationIntegrationTest
     /**
      * @dataProvider providerForCanUserDeleteContentTranslation
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation[] $limitations
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] $limitations
      * @param string $translation
      * @param bool $expectedResult
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testCanUserDeleteContentTranslation(array $limitations, string $translation, bool $expectedResult): void
     {
@@ -275,3 +276,5 @@ class LanguageLimitationIntegrationTest extends BaseLimitationIntegrationTest
         $this->assertCanUser($expectedResult, 'content', 'remove', $limitations, $content, [$target]);
     }
 }
+
+class_alias(LanguageLimitationIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\Limitation\PermissionResolver\LanguageLimitationIntegrationTest');

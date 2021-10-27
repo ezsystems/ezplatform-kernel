@@ -4,52 +4,49 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageRegistry;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\SPI\FieldType\FieldStorage;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\StorageRegistry;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\FieldType\FieldStorage;
 
 /**
- * Test case for Content Handler.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\StorageHandler
  */
 class StorageHandlerTest extends TestCase
 {
     /**
      * StorageRegistry mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\StorageRegistry
+     * @var \Ibexa\Core\Persistence\Legacy\Content\StorageRegistry
      */
     protected $storageRegistryMock;
 
     /**
      * StorageHandler to test.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\StorageHandler
      */
     protected $storageHandler;
 
     /**
      * Mock for external storage.
      *
-     * @var \eZ\Publish\SPI\FieldType\FieldStorage
+     * @var \Ibexa\Contracts\Core\FieldType\FieldStorage
      */
     protected $storageMock;
 
     /**
      * Mock for versionInfo.
      *
-     * @var \eZ\Publish\Core\Repository\Values\Content\VersionInfo
+     * @var \Ibexa\Core\Repository\Values\Content\VersionInfo
      */
     protected $versionInfoMock;
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler::storeFieldData
-     */
     public function testStoreFieldData()
     {
         $storageMock = $this->getStorageMock();
@@ -76,9 +73,6 @@ class StorageHandlerTest extends TestCase
         $handler->storeFieldData($this->getVersionInfoMock(), $field);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler::getFieldData
-     */
     public function testGetFieldDataAvailable()
     {
         $storageMock = $this->getStorageMock();
@@ -108,9 +102,6 @@ class StorageHandlerTest extends TestCase
         $handler->getFieldData($this->getVersionInfoMock(), $field);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler::getFieldData
-     */
     public function testGetFieldDataNotAvailable()
     {
         $storageMock = $this->getStorageMock();
@@ -135,9 +126,6 @@ class StorageHandlerTest extends TestCase
         $handler->getFieldData($this->getVersionInfoMock(), $field);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler::deleteFieldData
-     */
     public function testDeleteFieldData()
     {
         $storageMock = $this->getStorageMock();
@@ -163,7 +151,7 @@ class StorageHandlerTest extends TestCase
     /**
      * Returns the StorageHandler to test.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\StorageHandler
      */
     protected function getStorageHandler()
     {
@@ -190,7 +178,7 @@ class StorageHandlerTest extends TestCase
     /**
      * Returns a StorageRegistry mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\StorageRegistry
+     * @return \Ibexa\Core\Persistence\Legacy\Content\StorageRegistry
      */
     protected function getStorageRegistryMock()
     {
@@ -207,7 +195,7 @@ class StorageHandlerTest extends TestCase
     /**
      * Returns a Storage mock.
      *
-     * @return \eZ\Publish\SPI\FieldType\FieldStorage
+     * @return \Ibexa\Contracts\Core\FieldType\FieldStorage
      */
     protected function getStorageMock()
     {
@@ -227,3 +215,5 @@ class StorageHandlerTest extends TestCase
         return $this->versionInfoMock;
     }
 }
+
+class_alias(StorageHandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\StorageHandlerTest');

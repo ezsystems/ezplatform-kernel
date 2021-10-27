@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Templating;
 
-use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Search\Tests\TestCase;
-use eZ\Publish\SPI\MVC\Templating\RenderStrategy;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Tests\Core\Search\TestCase;
+use Ibexa\Contracts\Core\MVC\Templating\RenderStrategy;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -98,3 +98,5 @@ abstract class BaseRenderStrategyTest extends TestCase
         ]);
     }
 }
+
+class_alias(BaseRenderStrategyTest::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Tests\BaseRenderStrategyTest');

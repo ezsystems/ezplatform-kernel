@@ -4,13 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests;
+namespace Ibexa\Tests\Core\FieldType;
 
-use eZ\Publish\Core\FieldType\Float\Value as FloatValue;
-use eZ\Publish\Core\FieldType\Validator\FloatValueValidator;
-use eZ\Publish\Core\FieldType\Validator;
-use eZ\Publish\SPI\FieldType\ValidationError;
-use eZ\Publish\API\Repository\Values\Translation\Message;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
+use Ibexa\Core\FieldType\Float\Value as FloatValue;
+use Ibexa\Core\FieldType\Validator\FloatValueValidator;
+use Ibexa\Core\FieldType\Validator;
+use Ibexa\Contracts\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\Repository\Values\Translation\Message;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -49,8 +50,8 @@ class FloatValueValidatorTest extends TestCase
     /**
      * Tests setting and getting constraints.
      *
-     * @covers \eZ\Publish\Core\FieldType\Validator::initializeWithConstraints
-     * @covers \eZ\Publish\Core\FieldType\Validator::__get
+     * @covers \Ibexa\Core\FieldType\Validator::initializeWithConstraints
+     * @covers \Ibexa\Core\FieldType\Validator::__get
      */
     public function testConstraintsInitializeGet()
     {
@@ -69,7 +70,7 @@ class FloatValueValidatorTest extends TestCase
     /**
      * Test getting constraints schema.
      *
-     * @covers \eZ\Publish\Core\FieldType\Validator::getConstraintsSchema
+     * @covers \Ibexa\Core\FieldType\Validator::getConstraintsSchema
      */
     public function testGetConstraintsSchema()
     {
@@ -90,8 +91,8 @@ class FloatValueValidatorTest extends TestCase
     /**
      * Tests setting and getting constraints.
      *
-     * @covers \eZ\Publish\Core\FieldType\Validator::__set
-     * @covers \eZ\Publish\Core\FieldType\Validator::__get
+     * @covers \Ibexa\Core\FieldType\Validator::__set
+     * @covers \Ibexa\Core\FieldType\Validator::__get
      */
     public function testConstraintsSetGet()
     {
@@ -109,11 +110,11 @@ class FloatValueValidatorTest extends TestCase
     /**
      * Tests initializing with a wrong constraint.
      *
-     * @covers \eZ\Publish\Core\FieldType\Validator::initializeWithConstraints
+     * @covers \Ibexa\Core\FieldType\Validator::initializeWithConstraints
      */
     public function testInitializeBadConstraint()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException::class);
+        $this->expectException(PropertyNotFoundException::class);
 
         $constraints = [
             'unexisting' => 0,
@@ -127,11 +128,11 @@ class FloatValueValidatorTest extends TestCase
     /**
      * Tests setting a wrong constraint.
      *
-     * @covers \eZ\Publish\Core\FieldType\Validator::__set
+     * @covers \Ibexa\Core\FieldType\Validator::__set
      */
     public function testSetBadConstraint()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException::class);
+        $this->expectException(PropertyNotFoundException::class);
 
         $validator = new FloatValueValidator();
         $validator->unexisting = 0;
@@ -140,11 +141,11 @@ class FloatValueValidatorTest extends TestCase
     /**
      * Tests getting a wrong constraint.
      *
-     * @covers \eZ\Publish\Core\FieldType\Validator::__get
+     * @covers \Ibexa\Core\FieldType\Validator::__get
      */
     public function testGetBadConstraint()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException::class);
+        $this->expectException(PropertyNotFoundException::class);
 
         $validator = new FloatValueValidator();
         $null = $validator->unexisting;
@@ -154,8 +155,8 @@ class FloatValueValidatorTest extends TestCase
      * Tests validating a correct value.
      *
      * @dataProvider providerForValidateOK
-     * @covers \eZ\Publish\Core\FieldType\Validator\FloatValueValidator::validate
-     * @covers \eZ\Publish\Core\FieldType\Validator::getMessage
+     * @covers \Ibexa\Core\FieldType\Validator\FloatValueValidator::validate
+     * @covers \Ibexa\Core\FieldType\Validator::getMessage
      */
     public function testValidateCorrectValues($value)
     {
@@ -181,7 +182,7 @@ class FloatValueValidatorTest extends TestCase
      * Tests validating a wrong value.
      *
      * @dataProvider providerForValidateKO
-     * @covers \eZ\Publish\Core\FieldType\Validator\FloatValueValidator::validate
+     * @covers \Ibexa\Core\FieldType\Validator\FloatValueValidator::validate
      */
     public function testValidateWrongValues($value, $message, $values)
     {
@@ -223,7 +224,7 @@ class FloatValueValidatorTest extends TestCase
      * Tests validation of constraints.
      *
      * @dataProvider providerForValidateConstraintsOK
-     * @covers \eZ\Publish\Core\FieldType\Validator\FileSizeValidator::validateConstraints
+     * @covers \Ibexa\Core\FieldType\Validator\FileSizeValidator::validateConstraints
      */
     public function testValidateConstraintsCorrectValues($constraints)
     {
@@ -269,7 +270,7 @@ class FloatValueValidatorTest extends TestCase
      * Tests validation of constraints.
      *
      * @dataProvider providerForValidateConstraintsKO
-     * @covers \eZ\Publish\Core\FieldType\Validator\FileSizeValidator::validateConstraints
+     * @covers \Ibexa\Core\FieldType\Validator\FileSizeValidator::validateConstraints
      */
     public function testValidateConstraintsWrongValues($constraints, $expectedMessages, $values)
     {
@@ -379,3 +380,5 @@ class FloatValueValidatorTest extends TestCase
         ];
     }
 }
+
+class_alias(FloatValueValidatorTest::class, 'eZ\Publish\Core\FieldType\Tests\FloatValueValidatorTest');

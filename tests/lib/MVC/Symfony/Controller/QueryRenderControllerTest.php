@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Controller\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Controller;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\Core\MVC\Symfony\Controller\QueryRenderController;
-use eZ\Publish\Core\MVC\Symfony\View\QueryView;
-use eZ\Publish\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactoryInterface;
-use eZ\Publish\Core\Pagination\Pagerfanta\Pagerfanta;
-use eZ\Publish\Core\Pagination\Pagerfanta\SearchResultAdapter;
-use eZ\Publish\Core\Query\QueryFactoryInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Core\MVC\Symfony\Controller\QueryRenderController;
+use Ibexa\Core\MVC\Symfony\View\QueryView;
+use Ibexa\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactoryInterface;
+use Ibexa\Core\Pagination\Pagerfanta\Pagerfanta;
+use Ibexa\Core\Pagination\Pagerfanta\SearchResultAdapter;
+use Ibexa\Core\Query\QueryFactoryInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,13 +49,13 @@ final class QueryRenderControllerTest extends TestCase
         ],
     ];
 
-    /** @var \eZ\Publish\Core\Query\QueryFactoryInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Query\QueryFactoryInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $queryFactory;
 
-    /** @var \eZ\Publish\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactoryInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactoryInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $searchHitAdapterFactory;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Controller\QueryRenderController */
+    /** @var \Ibexa\Core\MVC\Symfony\Controller\QueryRenderController */
     private $controller;
 
     protected function setUp(): void
@@ -138,3 +138,5 @@ final class QueryRenderControllerTest extends TestCase
         );
     }
 }
+
+class_alias(QueryRenderControllerTest::class, 'eZ\Publish\Core\MVC\Symfony\Controller\Tests\QueryRenderControllerTest');

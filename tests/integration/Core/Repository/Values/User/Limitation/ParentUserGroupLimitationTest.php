@@ -4,26 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Values\User\Limitation;
+namespace Ibexa\Tests\Integration\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\ParentUserGroupLimitation;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentUserGroupLimitation;
 
 /**
- * Test case for the {@link \eZ\Publish\API\Repository\Values\User\Limitation\ParentUserGroupLimitation}
- * class.
- *
- * @see eZ\Publish\API\Repository\Values\User\Limitation
- * @see eZ\Publish\API\Repository\Values\User\Limitation\ParentUserGroupLimitation
+ * @covers \Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentUserGroupLimitation
  * @group integration
  * @group limitation
  */
 class ParentUserGroupLimitationTest extends BaseLimitationTest
 {
-    /**
-     * Tests a ParentUserGroupLimitation.
-     *
-     * @see eZ\Publish\API\Repository\Values\User\Limitation\ParentUserGroupLimitation
-     */
     public function testParentUserGroupLimitationAllow()
     {
         $repository = $this->getRepository();
@@ -86,14 +78,9 @@ class ParentUserGroupLimitationTest extends BaseLimitationTest
         );
     }
 
-    /**
-     * Tests a ParentUserGroupLimitation.
-     *
-     * @see eZ\Publish\API\Repository\Values\User\Limitation\ParentUserGroupLimitation
-     */
     public function testParentUserGroupLimitationForbid()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
@@ -147,3 +134,5 @@ class ParentUserGroupLimitationTest extends BaseLimitationTest
         /* END: Use Case */
     }
 }
+
+class_alias(ParentUserGroupLimitationTest::class, 'eZ\Publish\API\Repository\Tests\Values\User\Limitation\ParentUserGroupLimitationTest');

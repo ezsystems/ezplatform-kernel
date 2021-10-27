@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\ContentValidator;
+namespace Ibexa\Tests\Core\Repository\ContentValidator;
 
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\Repository\Strategy\ContentValidator\ContentValidatorStrategy;
-use eZ\Publish\Core\Repository\Values\ObjectState\ObjectState;
-use eZ\Publish\SPI\Repository\Validator\ContentValidator;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Repository\Strategy\ContentValidator\ContentValidatorStrategy;
+use Ibexa\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
 use PHPUnit\Framework\TestCase;
 
 class ContentValidatorStrategyTest extends TestCase
@@ -18,7 +18,7 @@ class ContentValidatorStrategyTest extends TestCase
     public function testUnknownValidationObject(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Argument \'$object\' is invalid: Validator for eZ\Publish\Core\Repository\Values\ObjectState\ObjectState type not found.');
+        $this->expectExceptionMessage('Argument \'$object\' is invalid: Validator for Ibexa\Core\Repository\Values\ObjectState\ObjectState type not found.');
 
         $contentValidatorStrategy = new ContentValidatorStrategy([]);
         $contentValidatorStrategy->validate(new ObjectState());
@@ -114,3 +114,5 @@ class ContentValidatorStrategyTest extends TestCase
         };
     }
 }
+
+class_alias(ContentValidatorStrategyTest::class, 'eZ\Publish\Core\Repository\Tests\ContentValidator\ContentValidatorStrategyTest');

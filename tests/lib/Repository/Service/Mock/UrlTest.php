@@ -4,24 +4,26 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
+namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
 use DateTime;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use eZ\Publish\API\Repository\Values\URL\UsageSearchResult;
-use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
-use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion as ContentCriterion;
-use eZ\Publish\API\Repository\Values\Content\Query as ContentQuery;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult as ContentSearchResults;
-use eZ\Publish\API\Repository\Values\URL\SearchResult;
-use eZ\Publish\API\Repository\Values\URL\URL;
-use eZ\Publish\API\Repository\Values\URL\URLQuery;
-use eZ\Publish\API\Repository\Values\URL\URLUpdateStruct;
-use eZ\Publish\Core\Repository\URLService;
-use eZ\Publish\SPI\Persistence\URL\URL as SpiUrl;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Contracts\Core\Repository\Values\URL\UsageSearchResult;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion as ContentCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query as ContentQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult as ContentSearchResults;
+use Ibexa\Contracts\Core\Repository\Values\URL\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\URL\URL;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLUpdateStruct;
+use Ibexa\Core\Repository\URLService;
+use Ibexa\Contracts\Core\Persistence\URL\URL as SpiUrl;
 
 class UrlTest extends BaseServiceMockTest
 {
@@ -29,10 +31,10 @@ class UrlTest extends BaseServiceMockTest
     private const URL_EZ_NO = 'http://ez.no';
     private const URL_EZ_COM = 'http://ez.com';
 
-    /** @var \eZ\Publish\API\Repository\URLService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\URLService|\PHPUnit\Framework\MockObject\MockObject */
     private $urlHandler;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
     private $permissionResolver;
 
     protected function setUp(): void
@@ -52,7 +54,7 @@ class UrlTest extends BaseServiceMockTest
 
     public function testFindUrlsNonNumericOffset()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue::class);
+        $this->expectException(InvalidArgumentValue::class);
 
         $query = new URLQuery();
         $query->offset = 'foo';
@@ -62,7 +64,7 @@ class UrlTest extends BaseServiceMockTest
 
     public function testFindUrlsNonNumericLimit()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue::class);
+        $this->expectException(InvalidArgumentValue::class);
 
         $query = new URLQuery();
         $query->limit = 'foo';
@@ -101,7 +103,7 @@ class UrlTest extends BaseServiceMockTest
 
     public function testUpdateUrlUnauthorized()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $url = $this->getApiUrl();
 
@@ -112,7 +114,7 @@ class UrlTest extends BaseServiceMockTest
 
     public function testUpdateUrlNonUnique()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $url = $this->getApiUrl(self::URL_ID, self::URL_EZ_NO);
 
@@ -253,7 +255,7 @@ class UrlTest extends BaseServiceMockTest
 
     public function testLoadByIdUnauthorized()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $this->configureUrlViewPermission(
             new URL([
@@ -294,7 +296,7 @@ class UrlTest extends BaseServiceMockTest
 
     public function testLoadByUrlUnauthorized()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $url = self::URL_EZ_NO;
 
@@ -466,7 +468,7 @@ class UrlTest extends BaseServiceMockTest
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\URLService|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Repository\URLService|\PHPUnit\Framework\MockObject\MockObject
      */
     private function createUrlService(array $methods = null)
     {
@@ -482,3 +484,5 @@ class UrlTest extends BaseServiceMockTest
         return new URL(['id' => $id, 'url' => $url]);
     }
 }
+
+class_alias(UrlTest::class, 'eZ\Publish\Core\Repository\Tests\Service\Mock\UrlTest');

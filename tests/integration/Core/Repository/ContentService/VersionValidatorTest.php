@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\ContentService;
+namespace Ibexa\Tests\Integration\Core\Repository\ContentService;
 
-use eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException;
-use eZ\Publish\API\Repository\Tests\BaseTest;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\FieldType\FieldTypeRegistry;
-use eZ\Publish\Core\Repository\Validator\VersionValidator;
-use eZ\Publish\Core\Repository\Values\Content\TrashItem;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Core\Repository\Validator\VersionValidator;
+use Ibexa\Core\Repository\Values\Content\TrashItem;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
 
 /**
  * @internal
@@ -27,13 +27,13 @@ final class VersionValidatorTest extends BaseTest
     private const ENG_GB = 'eng-GB';
     private const GER_DE = 'ger-DE';
 
-    /** @var \eZ\Publish\Core\Repository\Validator\VersionValidator */
+    /** @var \Ibexa\Core\Repository\Validator\VersionValidator */
     private $validator;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
     protected function setUp(): void
@@ -110,11 +110,11 @@ final class VersionValidatorTest extends BaseTest
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     private function updateContentTranslation(Content $content): void
     {
@@ -126,3 +126,5 @@ final class VersionValidatorTest extends BaseTest
         $this->contentService->publishVersion($contentDraft->versionInfo);
     }
 }
+
+class_alias(VersionValidatorTest::class, 'eZ\Publish\API\Repository\Tests\ContentService\VersionValidatorTest');

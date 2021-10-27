@@ -6,32 +6,32 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\SettingService;
-use eZ\Publish\API\Repository\Values\Setting\Setting;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\SettingService;
+use Ibexa\Contracts\Core\Repository\Values\Setting\Setting;
 
 /**
  * Test case for operations in the SettingService using in memory storage.
  *
- * @covers \eZ\Publish\API\Repository\SettingService
+ * @covers \Ibexa\Contracts\Core\Repository\SettingService
  * @group integration
  * @group setting
  */
 final class SettingServiceTest extends BaseTest
 {
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     protected $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\SettingService */
+    /** @var \Ibexa\Contracts\Core\Repository\SettingService */
     protected $settingService;
 
     protected function getSettingService(): SettingService
     {
         $container = $this->getSetupFactory()->getServiceContainer();
-        /** @var \eZ\Publish\API\Repository\SettingService $settingService */
+        /** @var \Ibexa\Contracts\Core\Repository\SettingService $settingService */
         $settingService = $container->get(SettingService::class);
 
         return $settingService;
@@ -46,7 +46,7 @@ final class SettingServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\SettingService::createSetting()
+     * @covers \Ibexa\Contracts\Core\Repository\SettingService::createSetting()
      *
      * @dataProvider dataProviderForCreateSetting
      */
@@ -107,7 +107,7 @@ final class SettingServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\SettingService::createSetting()
+     * @covers \Ibexa\Contracts\Core\Repository\SettingService::createSetting()
      */
     public function testCreateSettingThrowsInvalidArgumentException(): void
     {
@@ -131,7 +131,7 @@ final class SettingServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\SettingService::loadSetting()
+     * @covers \Ibexa\Contracts\Core\Repository\SettingService::loadSetting()
      */
     public function testLoadSetting(): void
     {
@@ -149,7 +149,7 @@ final class SettingServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\SettingService::loadSetting()
+     * @covers \Ibexa\Contracts\Core\Repository\SettingService::loadSetting()
      */
     public function testLoadSettingThrowsNotFoundException(): void
     {
@@ -161,7 +161,7 @@ final class SettingServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\SettingService::updateSetting()
+     * @covers \Ibexa\Contracts\Core\Repository\SettingService::updateSetting()
      */
     public function testUpdateSetting(): void
     {
@@ -184,7 +184,7 @@ final class SettingServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\SettingService::deleteSetting()
+     * @covers \Ibexa\Contracts\Core\Repository\SettingService::deleteSetting()
      */
     public function testDeleteSetting(): void
     {
@@ -204,7 +204,7 @@ final class SettingServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\SettingService::deleteSetting()
+     * @covers \Ibexa\Contracts\Core\Repository\SettingService::deleteSetting()
      */
     public function testDeleteSettingThrowsNotFoundException(): void
     {
@@ -226,3 +226,5 @@ final class SettingServiceTest extends BaseTest
         $settingService->deleteSetting($setting);
     }
 }
+
+class_alias(SettingServiceTest::class, 'eZ\Publish\API\Repository\Tests\SettingServiceTest');

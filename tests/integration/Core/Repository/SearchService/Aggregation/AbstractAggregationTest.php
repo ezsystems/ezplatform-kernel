@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\SearchService\Aggregation;
+namespace Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation;
 
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Tests\BaseTest;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\MatchAll;
-use eZ\Publish\API\Repository\Values\Content\Search\AggregationResult;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\MatchAll;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult;
 
 abstract class AbstractAggregationTest extends BaseTest
 {
@@ -107,3 +107,5 @@ abstract class AbstractAggregationTest extends BaseTest
         return $query;
     }
 }
+
+class_alias(AbstractAggregationTest::class, 'eZ\Publish\API\Repository\Tests\SearchService\Aggregation\AbstractAggregationTest');

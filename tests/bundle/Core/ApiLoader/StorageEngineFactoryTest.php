@@ -4,19 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\ApiLoader;
+namespace Ibexa\Tests\Bundle\Core\ApiLoader;
 
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\StorageEngineFactory;
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider;
-use eZ\Publish\SPI\Persistence\Handler;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Bundle\Core\ApiLoader\Exception\InvalidStorageEngine;
+use Ibexa\Bundle\Core\ApiLoader\StorageEngineFactory;
+use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
+use Ibexa\Contracts\Core\Persistence\Handler;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use PHPUnit\Framework\TestCase;
 
 class StorageEngineFactoryTest extends TestCase
 {
     public function testRegisterStorageEngine()
     {
-        /** @var \eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider $repositoryConfigurationProvider */
+        /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider $repositoryConfigurationProvider */
         $repositoryConfigurationProvider = $this->createMock(RepositoryConfigurationProvider::class);
         $factory = new StorageEngineFactory($repositoryConfigurationProvider);
 
@@ -72,7 +73,7 @@ class StorageEngineFactoryTest extends TestCase
 
     public function testBuildInvalidStorageEngine()
     {
-        $this->expectException(\eZ\Bundle\EzPublishCoreBundle\ApiLoader\Exception\InvalidStorageEngine::class);
+        $this->expectException(InvalidStorageEngine::class);
 
         $configResolver = $this->getConfigResolverMock();
         $repositoryAlias = 'main';
@@ -111,7 +112,7 @@ class StorageEngineFactoryTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\MVC\ConfigResolverInterface
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\MVC\ConfigResolverInterface
      */
     protected function getConfigResolverMock()
     {
@@ -123,3 +124,5 @@ class StorageEngineFactoryTest extends TestCase
         return $this->createMock(Handler::class);
     }
 }
+
+class_alias(StorageEngineFactoryTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\ApiLoader\StorageEngineFactoryTest');

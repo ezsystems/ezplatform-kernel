@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Permission;
+namespace Ibexa\Tests\Core\Repository\Permission;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\Core\Limitation\TargetOnlyLimitationType;
-use eZ\Publish\Core\Repository\Permission\PermissionCriterionResolver;
-use eZ\Publish\Core\Repository\Values\User\Policy;
-use eZ\Publish\Core\Repository\Permission\LimitationService;
-use eZ\Publish\SPI\Limitation\Type;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Core\Limitation\TargetOnlyLimitationType;
+use Ibexa\Core\Repository\Permission\PermissionCriterionResolver;
+use Ibexa\Core\Repository\Values\User\Policy;
+use Ibexa\Core\Repository\Permission\LimitationService;
+use Ibexa\Contracts\Core\Limitation\Type;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -337,7 +337,7 @@ class PermissionCriterionResolverTest extends TestCase
      *
      * @param string[]|null $methods
      *
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Repository\Permission\PermissionCriterionResolver
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Repository\Permission\PermissionCriterionResolver
      */
     protected function getPermissionCriterionResolverMock($methods = [])
     {
@@ -385,3 +385,5 @@ class PermissionCriterionResolverTest extends TestCase
             ->getMock();
     }
 }
+
+class_alias(PermissionCriterionResolverTest::class, 'eZ\Publish\Core\Repository\Tests\Permission\PermissionCriterionResolverTest');

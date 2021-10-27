@@ -4,26 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Values\User\Limitation;
+namespace Ibexa\Tests\Integration\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\NewSectionLimitation;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\NewSectionLimitation;
 
 /**
- * Test case for the {@link \eZ\Publish\API\Repository\Values\User\Limitation\NewSectionLimitation}
- * class.
- *
- * @see eZ\Publish\API\Repository\Values\User\Limitation
- * @see eZ\Publish\API\Repository\Values\User\Limitation\NewSectionLimitation
+ * @covers \Ibexa\Contracts\Core\Repository\Values\User\Limitation\NewSectionLimitation
  * @group integration
  * @group limitation
  */
 class NewSectionLimitationTest extends BaseLimitationTest
 {
-    /**
-     * Tests the NewSectionLimitation.
-     *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\NewSectionLimitation
-     */
     public function testNewSectionLimitationAllow()
     {
         $repository = $this->getRepository();
@@ -75,14 +67,9 @@ class NewSectionLimitationTest extends BaseLimitationTest
         );
     }
 
-    /**
-     * Tests the NewSectionLimitation.
-     *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\NewSectionLimitation
-     */
     public function testNewSectionLimitationForbid()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -129,3 +116,5 @@ class NewSectionLimitationTest extends BaseLimitationTest
         /* END: Use Case */
     }
 }
+
+class_alias(NewSectionLimitationTest::class, 'eZ\Publish\API\Repository\Tests\Values\User\Limitation\NewSectionLimitationTest');

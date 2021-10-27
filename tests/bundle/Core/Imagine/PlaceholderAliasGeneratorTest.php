@@ -4,42 +4,42 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine;
+namespace Ibexa\Tests\Bundle\Core\Imagine;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\IORepositoryResolver;
-use eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderAliasGenerator;
-use eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderProvider;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use eZ\Publish\Core\FieldType\Image\Value as ImageValue;
-use eZ\Publish\Core\FieldType\Null\Value as NullValue;
-use eZ\Publish\Core\FieldType\Value as FieldTypeValue;
-use eZ\Publish\Core\FieldType\Value;
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\Core\IO\Values\BinaryFile;
-use eZ\Publish\Core\IO\Values\BinaryFileCreateStruct;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\SPI\Variation\Values\ImageVariation;
-use eZ\Publish\SPI\Variation\VariationHandler;
+use Ibexa\Bundle\Core\Imagine\IORepositoryResolver;
+use Ibexa\Bundle\Core\Imagine\PlaceholderAliasGenerator;
+use Ibexa\Bundle\Core\Imagine\PlaceholderProvider;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Core\FieldType\Image\Value as ImageValue;
+use Ibexa\Core\FieldType\Null\Value as NullValue;
+use Ibexa\Core\FieldType\Value as FieldTypeValue;
+use Ibexa\Core\FieldType\Value;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\Values\BinaryFile;
+use Ibexa\Core\IO\Values\BinaryFileCreateStruct;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Variation\Values\ImageVariation;
+use Ibexa\Contracts\Core\Variation\VariationHandler;
 use Liip\ImagineBundle\Exception\Imagine\Cache\Resolver\NotResolvableException;
 use PHPUnit\Framework\TestCase;
 
 class PlaceholderAliasGeneratorTest extends TestCase
 {
-    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderAliasGenerator */
+    /** @var \Ibexa\Bundle\Core\Imagine\PlaceholderAliasGenerator */
     private $aliasGenerator;
 
-    /** @var \eZ\Publish\SPI\Variation\VariationHandler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Variation\VariationHandler|\PHPUnit\Framework\MockObject\MockObject */
     private $innerAliasGenerator;
 
-    /** @var \eZ\Publish\Core\IO\IOServiceInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\IO\IOServiceInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $ioService;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\IORepositoryResolver|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Bundle\Core\Imagine\IORepositoryResolver|\PHPUnit\Framework\MockObject\MockObject */
     private $ioResolver;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderProvider|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Bundle\Core\Imagine\PlaceholderProvider|\PHPUnit\Framework\MockObject\MockObject */
     private $placeholderProvider;
 
     /** @var array */
@@ -286,3 +286,5 @@ class PlaceholderAliasGeneratorTest extends TestCase
         ];
     }
 }
+
+class_alias(PlaceholderAliasGeneratorTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\PlaceholderAliasGeneratorTest');

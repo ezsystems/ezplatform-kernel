@@ -6,21 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Values\UserPreference\UserPreferenceSetStruct;
-use eZ\Publish\API\Repository\Values\UserPreference\UserPreference;
-use eZ\Publish\API\Repository\Values\UserPreference\UserPreferenceList;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreferenceSetStruct;
+use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreference;
+use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreferenceList;
 
 /**
  * Test case for the UserPreferenceService.
  *
- * @see \eZ\Publish\API\Repository\UserPreferenceService
+ * @covers \Ibexa\Contracts\Core\Repository\UserPreferenceService
  */
 class UserPreferenceServiceTest extends BaseTest
 {
     /**
-     * @covers \eZ\Publish\API\Repository\UserPreferenceService::loadUserPreferences()
+     * @covers \Ibexa\Contracts\Core\Repository\UserPreferenceService::loadUserPreferences()
      */
     public function testLoadUserPreferences()
     {
@@ -38,7 +39,7 @@ class UserPreferenceServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\UserPreferenceService::getUserPreference()
+     * @covers \Ibexa\Contracts\Core\Repository\UserPreferenceService::getUserPreference()
      */
     public function testGetUserPreference()
     {
@@ -57,7 +58,7 @@ class UserPreferenceServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\UserPreferenceService::setUserPreference()
+     * @covers \Ibexa\Contracts\Core\Repository\UserPreferenceService::setUserPreference()
      * @depends testGetUserPreference
      */
     public function testSetUserPreference()
@@ -83,12 +84,12 @@ class UserPreferenceServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\UserPreferenceService::setUserPreference()
+     * @covers \Ibexa\Contracts\Core\Repository\UserPreferenceService::setUserPreference()
      * @depends testSetUserPreference
      */
     public function testSetUserPreferenceThrowsInvalidArgumentExceptionOnInvalidValue()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $repository = $this->getRepository();
 
@@ -106,12 +107,12 @@ class UserPreferenceServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\UserPreferenceService::setUserPreference()
+     * @covers \Ibexa\Contracts\Core\Repository\UserPreferenceService::setUserPreference()
      * @depends testSetUserPreference
      */
     public function testSetUserPreferenceThrowsInvalidArgumentExceptionOnEmptyName()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $repository = $this->getRepository();
 
@@ -128,7 +129,7 @@ class UserPreferenceServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\UserPreferenceService::getUserPreferenceCount()
+     * @covers \Ibexa\Contracts\Core\Repository\UserPreferenceService::getUserPreferenceCount()
      */
     public function testGetUserPreferenceCount()
     {
@@ -142,3 +143,5 @@ class UserPreferenceServiceTest extends BaseTest
         $this->assertEquals(5, $userPreferenceCount);
     }
 }
+
+class_alias(UserPreferenceServiceTest::class, 'eZ\Publish\API\Repository\Tests\UserPreferenceServiceTest');

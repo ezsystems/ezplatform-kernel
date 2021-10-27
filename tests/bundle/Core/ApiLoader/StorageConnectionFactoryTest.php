@@ -4,11 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\ApiLoader;
+namespace Ibexa\Tests\Bundle\Core\ApiLoader;
 
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\StorageConnectionFactory;
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Bundle\Core\ApiLoader\Exception\InvalidRepositoryException;
+use Ibexa\Bundle\Core\ApiLoader\StorageConnectionFactory;
+use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -68,7 +69,7 @@ class StorageConnectionFactoryTest extends TestCase
 
     public function testGetConnectionInvalidRepository()
     {
-        $this->expectException(\eZ\Bundle\EzPublishCoreBundle\ApiLoader\Exception\InvalidRepositoryException::class);
+        $this->expectException(InvalidRepositoryException::class);
 
         $repositories = [
             'foo' => [
@@ -135,3 +136,5 @@ class StorageConnectionFactoryTest extends TestCase
         return $this->createMock(ContainerInterface::class);
     }
 }
+
+class_alias(StorageConnectionFactoryTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\ApiLoader\StorageConnectionFactoryTest');

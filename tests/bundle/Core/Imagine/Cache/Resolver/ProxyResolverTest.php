@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Cache\Resolver;
+namespace Ibexa\Tests\Bundle\Core\Imagine\Cache\Resolver;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Cache\Resolver\ProxyResolver;
+use Ibexa\Bundle\Core\Imagine\Cache\Resolver\ProxyResolver;
 use Liip\ImagineBundle\Imagine\Cache\Resolver\ResolverInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -83,3 +83,5 @@ class ProxyResolverTest extends TestCase
         $this->assertEquals($expected, $proxyResolver->resolve($this->path, $this->filter));
     }
 }
+
+class_alias(ProxyResolverTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Cache\Resolver\ProxyResolverTest');

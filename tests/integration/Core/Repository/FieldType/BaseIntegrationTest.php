@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use eZ\Publish\API\Repository\Exceptions\ContentTypeFieldDefinitionValidationException;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Tests;
-use eZ\Publish\API\Repository;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Exceptions\ContentTypeFieldDefinitionValidationException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Contracts\Core\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 
 /**
  * Integration test for legacy storage field types.
@@ -41,7 +41,7 @@ use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
  *
  * @todo Finalize dependencies to other tests (including groups!)
  */
-abstract class BaseIntegrationTest extends Tests\BaseTest
+abstract class BaseIntegrationTest extends BaseTest
 {
     /**
      * Content version archive limit (default).
@@ -139,13 +139,13 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
      * specific!) as the second element. For example:
      *
      * <code>
-     * array(
-     *      array(
+     * [
+     *      [
      *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
+     *          ContentValidationException::class
+     *      ],
      *      // ...
-     * );
+     * ];
      * </code>
      *
      * @return array[]
@@ -179,13 +179,13 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
      * specific!) as the second element. For example:
      *
      * <code>
-     * array(
-     *      array(
+     * [
+     *      [
      *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
+     *          ContentValidationException::class
+     *      ],
      *      // ...
-     * );
+     * ];
      * </code>
      *
      * @return array[]
@@ -309,7 +309,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
      * @param array $typeCreateOverride
      * @param array $fieldCreateOverride
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
      */
     protected function createContentType($fieldSettings, $validatorConfiguration, array $typeCreateOverride = [], array $fieldCreateOverride = [])
     {
@@ -382,7 +382,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\FieldType::isEmptyValue
+     * @covers \Ibexa\Core\FieldType\FieldType::isEmptyValue
      * @dataProvider providerForTestIsEmptyValue
      */
     public function testIsEmptyValue($value)
@@ -393,7 +393,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
     abstract public function providerForTestIsEmptyValue();
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\FieldType::isEmptyValue
+     * @covers \Ibexa\Core\FieldType\FieldType::isEmptyValue
      * @dataProvider providerForTestIsNotEmptyValue
      */
     public function testIsNotEmptyValue($value)
@@ -525,7 +525,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
      *
      * @param mixed $fieldData
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createContent($fieldData, $contentType = null)
     {
@@ -554,14 +554,14 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
      *
      * @param array $names Content names in the form of <code>[languageCode => name]</code>
      * @param array $fieldData FT-specific data in the form of <code>[languageCode => data]</code>
-     * @param \eZ\Publish\API\Repository\Values\Content\LocationCreateStruct[] $locationCreateStructs
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct[] $locationCreateStructs
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     protected function createMultilingualContent(array $names, array $fieldData, array $locationCreateStructs = [])
     {
@@ -689,7 +689,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
 
     public function testCreateContentWithEmptyFieldValue()
     {
-        /** @var \eZ\Publish\Core\FieldType\FieldType $fieldType */
+        /** @var \Ibexa\Core\FieldType\FieldType $fieldType */
         $fieldType = $this->getRepository()->getFieldTypeService()->getFieldType($this->getTypeName());
 
         return $this->createContent($fieldType->getEmptyValue());
@@ -700,7 +700,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
      *
      * @depends testCreateContentWithEmptyFieldValue
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $contentDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $contentDraft
      */
     public function testPublishContentWithEmptyFieldValue(Content $contentDraft)
     {
@@ -756,7 +756,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
      */
     public function testLoadEmptyFieldValueData($field)
     {
-        /** @var \eZ\Publish\Core\FieldType\FieldType $fieldType */
+        /** @var \Ibexa\Core\FieldType\FieldType $fieldType */
         $fieldType = $this->getRepository()->getFieldTypeService()->getFieldType($this->getTypeName());
 
         // @todo either test this not using acceptValue, or add to API (but is not meant for high level API, so..)
@@ -785,7 +785,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
      * @param mixed $fieldData
      * @param bool $setField If false the update struct will be empty (field value will not be set)
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     public function updateContent($fieldData, $setField = true)
     {
@@ -1144,7 +1144,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
     /**
      * Test that removing Translation from all Versions works for data from a Field Type.
      *
-     * @covers \eZ\Publish\API\Repository\ContentService::deleteTranslation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteTranslation
      */
     public function testDeleteTranslation()
     {
@@ -1216,3 +1216,5 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
         }
     }
 }
+
+class_alias(BaseIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\FieldType\BaseIntegrationTest');

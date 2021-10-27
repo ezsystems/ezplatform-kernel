@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Converter;
+namespace Ibexa\Tests\Bundle\Core\Converter;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use PHPUnit\Framework\TestCase;
@@ -33,3 +33,5 @@ abstract class AbstractParamConverterTest extends TestCase
         return $config;
     }
 }
+
+class_alias(AbstractParamConverterTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Converter\AbstractParamConverterTest');

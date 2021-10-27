@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content;
 
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
-use eZ\Publish\SPI\Persistence\Content\Language;
-use eZ\Publish\SPI\Persistence\Content\Language\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Language;
+use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct;
 
 /**
  * Simple mock for a Language\Handler.
@@ -45,9 +45,9 @@ class LanguageHandlerMock implements LanguageHandler
     /**
      * Create a new language.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Language\CreateStruct $struct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct $struct
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language
      */
     public function create(CreateStruct $struct)
     {
@@ -57,7 +57,7 @@ class LanguageHandlerMock implements LanguageHandler
     /**
      * Update language.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Language $struct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Language $struct
      */
     public function update(Language $struct)
     {
@@ -69,9 +69,9 @@ class LanguageHandlerMock implements LanguageHandler
      *
      * @param mixed $id
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If language could not be found by $id
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If language could not be found by $id
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language
      */
     public function load($id)
     {
@@ -88,9 +88,9 @@ class LanguageHandlerMock implements LanguageHandler
      *
      * @param string $languageCode
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If language could not be found by $languageCode
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If language could not be found by $languageCode
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language
      */
     public function loadByLanguageCode($languageCode)
     {
@@ -107,7 +107,7 @@ class LanguageHandlerMock implements LanguageHandler
      *
      * Return list of languages where key of hash is language code.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language[]
      */
     public function loadAll()
     {
@@ -156,3 +156,5 @@ class LanguageHandlerMock implements LanguageHandler
         return $languages;
     }
 }
+
+class_alias(LanguageHandlerMock::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageHandlerMock');

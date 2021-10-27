@@ -4,28 +4,28 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use eZ\Publish\Core\FieldType\Date\Type as DateType;
-use eZ\Publish\Core\FieldType\FieldSettings;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\DateConverter;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Core\FieldType\Date\Type as DateType;
+use Ibexa\Core\FieldType\FieldSettings;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\DateConverter;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
 use PHPUnit\Framework\TestCase;
 use DateTime;
 
 /**
- * Test case for Date converter in Legacy storage.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\DateConverter
  *
  * @group fieldType
  * @group date
  */
 class DateTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\DateConverter */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\DateConverter */
     protected $converter;
 
     /** @var \DateTime */
@@ -38,9 +38,6 @@ class DateTest extends TestCase
         $this->date = new DateTime('@1362614400');
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\DateConverter::toStorageValue
-     */
     public function testToStorageValue()
     {
         $value = new FieldValue();
@@ -57,9 +54,6 @@ class DateTest extends TestCase
         self::assertSame('', $storageFieldValue->sortKeyString);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\DateConverter::toFieldValue
-     */
     public function testToFieldValue()
     {
         $storageFieldValue = new StorageFieldValue();
@@ -80,9 +74,6 @@ class DateTest extends TestCase
         self::assertSame($storageFieldValue->sortKeyInt, $fieldValue->sortKey);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\DateConverter::toStorageFieldDefinition
-     */
     public function testToStorageFieldDefinitionDefaultEmpty()
     {
         $storageFieldDef = new StorageFieldDefinition();
@@ -105,9 +96,6 @@ class DateTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\DateConverter::toStorageFieldDefinition
-     */
     public function testToStorageFieldDefinitionDefaultCurrentDate()
     {
         $storageFieldDef = new StorageFieldDefinition();
@@ -130,9 +118,6 @@ class DateTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\DateConverter::toFieldDefinition
-     */
     public function testToFieldDefinitionDefaultEmpty()
     {
         $fieldDef = new PersistenceFieldDefinition();
@@ -146,9 +131,6 @@ class DateTest extends TestCase
         self::assertNull($fieldDef->defaultValue->data);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\DateConverter::toFieldDefinition
-     */
     public function testToFieldDefinitionDefaultCurrentDate()
     {
         $timestamp = time();
@@ -167,3 +149,5 @@ class DateTest extends TestCase
         self::assertSame('now', $fieldDef->defaultValue->data['timestring']);
     }
 }
+
+class_alias(DateTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter\DateTest');

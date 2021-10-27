@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Language\Gateway;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Language\Gateway;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase;
-use eZ\Publish\SPI\Persistence\Content\Language;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase;
+use Ibexa\Contracts\Core\Persistence\Content\Language;
 
 /**
- * Test case for eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase
  */
 class DoctrineDatabaseTest extends TestCase
 {
     /**
      * Database gateway to test.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase
      */
     protected $databaseGateway;
 
@@ -34,9 +34,6 @@ class DoctrineDatabaseTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase::insertLanguage
-     */
     public function testInsertLanguage()
     {
         $gateway = $this->getDatabaseGateway();
@@ -62,7 +59,7 @@ class DoctrineDatabaseTest extends TestCase
     /**
      * Returns a Language fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language
      */
     protected function getLanguageFixture()
     {
@@ -75,10 +72,6 @@ class DoctrineDatabaseTest extends TestCase
         return $language;
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase::updateLanguage
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase::setLanguageQueryParameters
-     */
     public function testUpdateLanguage()
     {
         $gateway = $this->getDatabaseGateway();
@@ -104,10 +97,6 @@ class DoctrineDatabaseTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase::loadLanguageListData
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase::createFindQuery
-     */
     public function testLoadLanguageListData()
     {
         $gateway = $this->getDatabaseGateway();
@@ -127,10 +116,6 @@ class DoctrineDatabaseTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase::loadAllLanguagesData
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase::createFindQuery
-     */
     public function testLoadAllLanguagesData()
     {
         $gateway = $this->getDatabaseGateway();
@@ -156,9 +141,6 @@ class DoctrineDatabaseTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase::deleteLanguage
-     */
     public function testDeleteLanguage()
     {
         $gateway = $this->getDatabaseGateway();
@@ -205,3 +187,5 @@ class DoctrineDatabaseTest extends TestCase
         return $this->databaseGateway;
     }
 }
+
+class_alias(DoctrineDatabaseTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\Language\Gateway\DoctrineDatabaseTest');

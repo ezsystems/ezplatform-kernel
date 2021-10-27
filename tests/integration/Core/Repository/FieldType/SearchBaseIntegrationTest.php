@@ -4,23 +4,23 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Tests\SetupFactory\Legacy;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Field;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalNot;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalOperator;
-use eZ\Publish\API\Repository\Values\Content\Query\CustomFieldInterface;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Field as FieldSortClause;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalNot;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalOperator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\CustomFieldInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Field as FieldSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 
 /**
  * Integration test for searching and sorting with Field criterion and Field sort clause.
@@ -255,10 +255,10 @@ abstract class SearchBaseIntegrationTest extends BaseIntegrationTest
      * Creates and returns content with given $fieldData.
      *
      * @param mixed $fieldData
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createTestSearchContent($fieldData, Repository $repository, $contentType)
     {
@@ -288,10 +288,8 @@ abstract class SearchBaseIntegrationTest extends BaseIntegrationTest
      * Creates test Content and Locations and returns the context for subsequent testing.
      *
      * Context consists of repository instance and created Content IDs.
-     *
-     * @return \eZ\Publish\API\Repository\Repository
      */
-    public function testCreateTestContent()
+    public function testCreateTestContent(): array
     {
         $repository = $this->getRepository();
         $fieldTypeService = $repository->getFieldTypeService();
@@ -1138,7 +1136,7 @@ abstract class SearchBaseIntegrationTest extends BaseIntegrationTest
      * $fieldName refers to additional field (to the default field) defined in Indexable definition,
      * and is resolved using FieldNameResolver.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterion
      * @param string $fieldName
      */
     protected function modifyFieldCriterion(Criterion $criterion, $fieldName)
@@ -1147,7 +1145,7 @@ abstract class SearchBaseIntegrationTest extends BaseIntegrationTest
         /** @var \Symfony\Component\DependencyInjection\ContainerBuilder $container */
         $container = $setupFactory->getServiceContainer()->getInnerContainer();
 
-        /** @var \eZ\Publish\Core\Search\Common\FieldNameResolver $fieldNameResolver */
+        /** @var \Ibexa\Core\Search\Common\FieldNameResolver $fieldNameResolver */
         $fieldNameResolver = $container->get('ezpublish.search.common.field_name_resolver');
         $resolvedFieldNames = $fieldNameResolver->getFieldNames(
             $criterion,
@@ -1167,7 +1165,7 @@ abstract class SearchBaseIntegrationTest extends BaseIntegrationTest
      * $fieldName refers to additional field (to the default field) defined in Indexable definition,
      * and is resolved using FieldNameResolver.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\SortClause $sortClause
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause $sortClause
      * @param string $fieldName
      */
     protected function modifyFieldSortClause(SortClause $sortClause, $fieldName)
@@ -1176,7 +1174,7 @@ abstract class SearchBaseIntegrationTest extends BaseIntegrationTest
         /** @var \Symfony\Component\DependencyInjection\ContainerBuilder $container */
         $container = $setupFactory->getServiceContainer()->getInnerContainer();
 
-        /** @var \eZ\Publish\Core\Search\Common\FieldNameResolver $fieldNameResolver */
+        /** @var \Ibexa\Core\Search\Common\FieldNameResolver $fieldNameResolver */
         $fieldNameResolver = $container->get('ezpublish.search.common.field_name_resolver');
         $resolvedFieldName = $fieldNameResolver->getSortFieldName(
             $sortClause,
@@ -1194,7 +1192,7 @@ abstract class SearchBaseIntegrationTest extends BaseIntegrationTest
      *
      * Implemented separately to utilize recursion.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion[]|\eZ\Publish\API\Repository\Values\Content\Query\SortClause[] $criteriaOrSortClauses
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion[]|\Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause[] $criteriaOrSortClauses
      * @param string $fieldName
      */
     protected function doModifyField(array $criteriaOrSortClauses, $fieldName)
@@ -1316,11 +1314,11 @@ abstract class SearchBaseIntegrationTest extends BaseIntegrationTest
     /**
      * Returns SearchResult of the tested Content for the given $criterion.
      *
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterion
      * @param bool $filter Denotes search by filtering if true, search by querying if false
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Search\SearchResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult
      */
     protected function findContent(Repository $repository, Criterion $criterion, $filter)
     {
@@ -1349,10 +1347,10 @@ abstract class SearchBaseIntegrationTest extends BaseIntegrationTest
     /**
      * Returns SearchResult of the tested Content for the given $sortClause.
      *
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\SortClause $sortClause
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause $sortClause
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Search\SearchResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult
      */
     protected function sortContent(Repository $repository, SortClause $sortClause)
     {
@@ -1373,11 +1371,11 @@ abstract class SearchBaseIntegrationTest extends BaseIntegrationTest
     /**
      * Returns SearchResult of the tested Locations for the given $criterion.
      *
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterion
      * @param bool $filter Denotes search by filtering if true, search by querying if false
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Search\SearchResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult
      */
     protected function findLocations(Repository $repository, Criterion $criterion, $filter)
     {
@@ -1406,10 +1404,10 @@ abstract class SearchBaseIntegrationTest extends BaseIntegrationTest
     /**
      * Returns SearchResult of the tested Locations for the given $sortClause.
      *
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\SortClause $sortClause
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause $sortClause
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Search\SearchResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult
      */
     protected function sortLocations(Repository $repository, SortClause $sortClause)
     {
@@ -1430,7 +1428,7 @@ abstract class SearchBaseIntegrationTest extends BaseIntegrationTest
     /**
      * Returns a list of Content IDs from given $searchResult, with order preserved.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Search\SearchResult $searchResult
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult $searchResult
      *
      * @return array
      */
@@ -1466,7 +1464,7 @@ abstract class SearchBaseIntegrationTest extends BaseIntegrationTest
      * Search result can be empty, contain both Content One and Content Two or only one of them.
      *
      * @param array $context
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterion
      * @param bool $includesOne
      * @param bool $includesTwo
      * @param bool $filter
@@ -1528,7 +1526,7 @@ abstract class SearchBaseIntegrationTest extends BaseIntegrationTest
     /**
      * Asserts order of the given $searchResult, both Content One and Two are always expected.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Search\SearchResult $searchResult
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult $searchResult
      * @param bool $ascending Denotes ascending order if true, descending order if false
      * @param string|int $contentOneId
      * @param string|int $contentTwoId
@@ -1554,3 +1552,5 @@ abstract class SearchBaseIntegrationTest extends BaseIntegrationTest
         $this->assertEquals($contentTwoId, $contentIdList[$indexTwo]);
     }
 }
+
+class_alias(SearchBaseIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\FieldType\SearchBaseIntegrationTest');

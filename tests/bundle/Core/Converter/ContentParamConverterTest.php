@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Converter;
+namespace Ibexa\Tests\Bundle\Core\Converter;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Bundle\EzPublishCoreBundle\Converter\ContentParamConverter;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Bundle\Core\Converter\ContentParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 
 class ContentParamConverterTest extends AbstractParamConverterTest
@@ -17,7 +17,7 @@ class ContentParamConverterTest extends AbstractParamConverterTest
 
     const CONTENT_CLASS = Content::class;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\Converter\ContentParamConverter */
+    /** @var \Ibexa\Bundle\Core\Converter\ContentParamConverter */
     private $converter;
 
     private $contentServiceMock;
@@ -72,3 +72,5 @@ class ContentParamConverterTest extends AbstractParamConverterTest
         $this->assertNull($request->attributes->get('content'));
     }
 }
+
+class_alias(ContentParamConverterTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Converter\ContentParamConverterTest');

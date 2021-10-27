@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Tests\SortClauseParser;
+namespace Ibexa\Tests\Core\QueryType\BuiltIn\SortSpec\SortClauseParser;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Field;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\FieldSortClauseParser;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecParserInterface;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Token;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Field;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\FieldSortClauseParser;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortSpecParserInterface;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\Token;
 use PHPUnit\Framework\TestCase;
 
 final class FieldSortClauseParserTest extends TestCase
@@ -20,7 +20,7 @@ final class FieldSortClauseParserTest extends TestCase
     private const EXAMPLE_CONTENT_TYPE_ID = 'article';
     private const EXAMPLE_FIELD_ID = 'title';
 
-    /** @var \eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\FieldSortClauseParser */
+    /** @var \Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\FieldSortClauseParser */
     private $fieldSortClauseParser;
 
     protected function setUp(): void
@@ -57,3 +57,5 @@ final class FieldSortClauseParserTest extends TestCase
         $this->assertTrue($this->fieldSortClauseParser->supports('field'));
     }
 }
+
+class_alias(FieldSortClauseParserTest::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Tests\SortClauseParser\FieldSortClauseParserTest');

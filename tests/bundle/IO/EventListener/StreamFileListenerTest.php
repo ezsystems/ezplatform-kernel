@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Tests\EventListener;
+namespace Ibexa\Tests\Bundle\IO\EventListener;
 
 use DateTime;
-use eZ\Bundle\EzPublishIOBundle\BinaryStreamResponse;
-use eZ\Bundle\EzPublishIOBundle\EventListener\StreamFileListener;
-use eZ\Publish\Core\IO\IOConfigProvider;
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\Core\IO\Values\BinaryFile;
+use Ibexa\Bundle\IO\BinaryStreamResponse;
+use Ibexa\Bundle\IO\EventListener\StreamFileListener;
+use Ibexa\Core\IO\IOConfigProvider;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\Values\BinaryFile;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -22,10 +22,10 @@ class StreamFileListenerTest extends TestCase
     /** @var StreamFileListener */
     private $eventListener;
 
-    /** @var \eZ\Publish\Core\IO\IOServiceInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\IO\IOServiceInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $ioServiceMock;
 
-    /** @var \eZ\Publish\Core\IO\IOConfigProvider|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\IO\IOConfigProvider|\PHPUnit\Framework\MockObject\MockObject */
     private $ioConfigResolverMock;
 
     protected function setUp(): void
@@ -163,3 +163,5 @@ class StreamFileListenerTest extends TestCase
         return $event;
     }
 }
+
+class_alias(StreamFileListenerTest::class, 'eZ\Bundle\EzPublishIOBundle\Tests\EventListener\StreamFileListenerTest');

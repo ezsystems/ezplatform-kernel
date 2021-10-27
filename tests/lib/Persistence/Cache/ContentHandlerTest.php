@@ -4,22 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use eZ\Publish\API\Repository\Values\Content\Relation as APIRelation;
-use eZ\Publish\SPI\Persistence\Content\Relation as SPIRelation;
-use eZ\Publish\Core\Persistence\Cache\ContentHandler;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Handler as SPIContentHandler;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation as APIRelation;
+use Ibexa\Contracts\Core\Persistence\Content\Relation as SPIRelation;
+use Ibexa\Core\Persistence\Cache\ContentHandler;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Handler as SPIContentHandler;
 
 /**
- * Test case for Persistence\Cache\ContentHandler.
+ * @covers \Ibexa\Core\Persistence\Cache\ContentHandler
  */
 class ContentHandlerTest extends AbstractInMemoryCacheHandlerTest
 {
@@ -303,9 +303,6 @@ class ContentHandlerTest extends AbstractInMemoryCacheHandlerTest
         ];
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Cache\ContentHandler::deleteContent
-     */
     public function testDeleteContent()
     {
         $this->loggerMock->expects($this->once())->method('logCall');
@@ -354,3 +351,5 @@ class ContentHandlerTest extends AbstractInMemoryCacheHandlerTest
         $handler->deleteContent(2);
     }
 }
+
+class_alias(ContentHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\ContentHandlerTest');

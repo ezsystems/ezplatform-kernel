@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct;
-use eZ\Publish\SPI\Persistence\UserPreference\Handler as SPIUserPreferenceHandler;
-use eZ\Publish\SPI\Persistence\UserPreference\UserPreference as SPIUserPreference;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
+use Ibexa\Contracts\Core\Persistence\UserPreference\Handler as SPIUserPreferenceHandler;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference as SPIUserPreference;
 
 /**
  * Test case for Persistence\Cache\UserPreferenceHandler.
@@ -128,3 +128,5 @@ class UserPreferenceHandlerTest extends AbstractInMemoryCacheHandlerTest
         ];
     }
 }
+
+class_alias(UserPreferenceHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\UserPreferenceHandlerTest');

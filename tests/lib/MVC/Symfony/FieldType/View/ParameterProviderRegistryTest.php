@@ -4,18 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\FieldType\Tests\View;
+namespace Ibexa\Tests\Core\MVC\Symfony\FieldType\View;
 
-use eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderInterface;
-use eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistry;
+use Ibexa\Core\MVC\Symfony\FieldType\View\ParameterProviderInterface;
+use Ibexa\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistry;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Ibexa\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistry::setParameterProvider
+ */
 class ParameterProviderRegistryTest extends TestCase
 {
-    /**
-     * @covers \eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistry::setParameterProvider
-     * @covers \eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistry::hasParameterProvider
-     */
     public function testSetHasParameterProvider()
     {
         $registry = new ParameterProviderRegistry();
@@ -27,9 +26,6 @@ class ParameterProviderRegistryTest extends TestCase
         $this->assertTrue($registry->hasParameterProvider('foo'));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistry::getParameterProvider
-     */
     public function testGetParameterProviderFail()
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -38,10 +34,6 @@ class ParameterProviderRegistryTest extends TestCase
         $registry->getParameterProvider('foo');
     }
 
-    /**
-     * @covers \eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistry::setParameterProvider
-     * @covers \eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistry::getParameterProvider
-     */
     public function testGetParameterProvider()
     {
         $provider = $this->createMock(ParameterProviderInterface::class);
@@ -50,3 +42,5 @@ class ParameterProviderRegistryTest extends TestCase
         $this->assertSame($provider, $registry->getParameterProvider('foo'));
     }
 }
+
+class_alias(ParameterProviderRegistryTest::class, 'eZ\Publish\Core\MVC\Symfony\FieldType\Tests\View\ParameterProviderRegistryTest');

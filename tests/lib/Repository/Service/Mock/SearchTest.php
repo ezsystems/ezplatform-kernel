@@ -4,25 +4,26 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
+namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
-use eZ\Publish\Core\Repository\ContentService;
-use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
-use eZ\Publish\Core\Repository\SearchService;
-use eZ\Publish\Core\Repository\Permission\PermissionCriterionResolver;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use eZ\Publish\Core\Search\Common\BackgroundIndexer;
-use eZ\Publish\Core\Search\Common\BackgroundIndexer\NullIndexer;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo as SPIContentInfo;
-use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Core\Repository\ContentService;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
+use Ibexa\Core\Repository\SearchService;
+use Ibexa\Core\Repository\Permission\PermissionCriterionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Core\Search\Common\BackgroundIndexer;
+use Ibexa\Core\Search\Common\BackgroundIndexer\NullIndexer;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo as SPIContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Exception;
 
 /**
@@ -39,12 +40,12 @@ class SearchTest extends BaseServiceMockTest
     /**
      * Test for the __construct() method.
      *
-     * @covers \eZ\Publish\Core\Repository\SearchService::__construct
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::__construct
      */
     public function testConstructor()
     {
         $repositoryMock = $this->getRepositoryMock();
-        /** @var \eZ\Publish\SPI\Search\Handler $searchHandlerMock */
+        /** @var \Ibexa\Contracts\Core\Search\Handler $searchHandlerMock */
         $searchHandlerMock = $this->getSPIMockHandler('Search\\Handler');
         $contentDomainMapperMock = $this->getContentDomainMapperMock();
         $permissionsCriterionResolverMock = $this->getPermissionCriterionResolverMock();
@@ -95,10 +96,10 @@ class SearchTest extends BaseServiceMockTest
      */
     public function testFindContentValidatesLocationCriteriaAndSortClauses($query, $exceptionMessage)
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $repositoryMock = $this->getRepositoryMock();
-        /** @var \eZ\Publish\SPI\Search\Handler $searchHandlerMock */
+        /** @var \Ibexa\Contracts\Core\Search\Handler $searchHandlerMock */
         $searchHandlerMock = $this->getSPIMockHandler('Search\\Handler');
         $permissionsCriterionResolverMock = $this->getPermissionCriterionResolverMock();
 
@@ -144,10 +145,10 @@ class SearchTest extends BaseServiceMockTest
      */
     public function testFindSingleValidatesLocationCriteria($criterion, $exceptionMessage)
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $repositoryMock = $this->getRepositoryMock();
-        /** @var \eZ\Publish\SPI\Search\Handler $searchHandlerMock */
+        /** @var \Ibexa\Contracts\Core\Search\Handler $searchHandlerMock */
         $searchHandlerMock = $this->getSPIMockHandler('Search\\Handler');
         $permissionsCriterionResolverMock = $this->getPermissionCriterionResolverMock();
         $service = new SearchService(
@@ -172,8 +173,8 @@ class SearchTest extends BaseServiceMockTest
     /**
      * Test for the findContent() method.
      *
-     * @covers \eZ\Publish\Core\Repository\SearchService::addPermissionsCriterion
-     * @covers \eZ\Publish\Core\Repository\SearchService::findContent
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::addPermissionsCriterion
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findContent
      */
     public function testFindContentThrowsHandlerException()
     {
@@ -181,7 +182,7 @@ class SearchTest extends BaseServiceMockTest
         $this->expectExceptionMessage('Handler threw an exception');
 
         $repositoryMock = $this->getRepositoryMock();
-        /** @var \eZ\Publish\SPI\Search\Handler $searchHandlerMock */
+        /** @var \Ibexa\Contracts\Core\Search\Handler $searchHandlerMock */
         $searchHandlerMock = $this->getSPIMockHandler('Search\\Handler');
         $permissionsCriterionResolverMock = $this->getPermissionCriterionResolverMock();
 
@@ -194,7 +195,7 @@ class SearchTest extends BaseServiceMockTest
             []
         );
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterionMock */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterionMock */
         $criterionMock = $this
             ->getMockBuilder(Criterion::class)
             ->disableOriginalConstructor()
@@ -212,7 +213,7 @@ class SearchTest extends BaseServiceMockTest
     /**
      * Test for the findContent() method when search is out of sync with persistence.
      *
-     * @covers \eZ\Publish\Core\Repository\SearchService::findContent
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findContent
      */
     public function testFindContentWhenDomainMapperThrowsException()
     {
@@ -257,12 +258,12 @@ class SearchTest extends BaseServiceMockTest
     /**
      * Test for the findContent() method.
      *
-     * @covers \eZ\Publish\Core\Repository\SearchService::addPermissionsCriterion
-     * @covers \eZ\Publish\Core\Repository\SearchService::findContent
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::addPermissionsCriterion
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findContent
      */
     public function testFindContentNoPermissionsFilter()
     {
-        /** @var \eZ\Publish\SPI\Search\Handler $searchHandlerMock */
+        /** @var \Ibexa\Contracts\Core\Search\Handler $searchHandlerMock */
         $searchHandlerMock = $this->getSPIMockHandler('Search\\Handler');
         $repositoryMock = $this->getRepositoryMock();
         $service = new SearchService(
@@ -322,12 +323,12 @@ class SearchTest extends BaseServiceMockTest
     /**
      * Test for the findContent() method.
      *
-     * @covers \eZ\Publish\Core\Repository\SearchService::addPermissionsCriterion
-     * @covers \eZ\Publish\Core\Repository\SearchService::findContent
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::addPermissionsCriterion
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findContent
      */
     public function testFindContentWithPermission()
     {
-        /** @var \eZ\Publish\SPI\Search\Handler $searchHandlerMock */
+        /** @var \Ibexa\Contracts\Core\Search\Handler $searchHandlerMock */
         $searchHandlerMock = $this->getSPIMockHandler('Search\\Handler');
         $domainMapperMock = $this->getContentDomainMapperMock();
         $permissionsCriterionResolverMock = $this->getPermissionCriterionResolverMock();
@@ -395,12 +396,12 @@ class SearchTest extends BaseServiceMockTest
     /**
      * Test for the findContent() method.
      *
-     * @covers \eZ\Publish\Core\Repository\SearchService::addPermissionsCriterion
-     * @covers \eZ\Publish\Core\Repository\SearchService::findContent
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::addPermissionsCriterion
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findContent
      */
     public function testFindContentWithNoPermission()
     {
-        /** @var \eZ\Publish\SPI\Search\Handler $searchHandlerMock */
+        /** @var \Ibexa\Contracts\Core\Search\Handler $searchHandlerMock */
         $searchHandlerMock = $this->getSPIMockHandler('Search\\Handler');
         $permissionsCriterionResolverMock = $this->getPermissionCriterionResolverMock();
         $service = new SearchService(
@@ -444,7 +445,7 @@ class SearchTest extends BaseServiceMockTest
      */
     public function testFindContentWithDefaultQueryValues()
     {
-        /** @var \eZ\Publish\SPI\Search\Handler $searchHandlerMock */
+        /** @var \Ibexa\Contracts\Core\Search\Handler $searchHandlerMock */
         $searchHandlerMock = $this->getSPIMockHandler('Search\\Handler');
         $domainMapperMock = $this->getContentDomainMapperMock();
         $service = new SearchService(
@@ -510,15 +511,15 @@ class SearchTest extends BaseServiceMockTest
     /**
      * Test for the findSingle() method.
      *
-     * @covers \eZ\Publish\Core\Repository\SearchService::addPermissionsCriterion
-     * @covers \eZ\Publish\Core\Repository\SearchService::findSingle
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::addPermissionsCriterion
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findSingle
      */
     public function testFindSingleThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repositoryMock = $this->getRepositoryMock();
-        /** @var \eZ\Publish\SPI\Search\Handler $searchHandlerMock */
+        /** @var \Ibexa\Contracts\Core\Search\Handler $searchHandlerMock */
         $searchHandlerMock = $this->getSPIMockHandler('Search\\Handler');
         $service = new SearchService(
             $repositoryMock,
@@ -529,7 +530,7 @@ class SearchTest extends BaseServiceMockTest
             []
         );
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterionMock */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterionMock */
         $criterionMock = $this
             ->getMockBuilder(Criterion::class)
             ->disableOriginalConstructor()
@@ -546,8 +547,8 @@ class SearchTest extends BaseServiceMockTest
     /**
      * Test for the findSingle() method.
      *
-     * @covers \eZ\Publish\Core\Repository\SearchService::addPermissionsCriterion
-     * @covers \eZ\Publish\Core\Repository\SearchService::findSingle
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::addPermissionsCriterion
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findSingle
      */
     public function testFindSingleThrowsHandlerException()
     {
@@ -555,7 +556,7 @@ class SearchTest extends BaseServiceMockTest
         $this->expectExceptionMessage('Handler threw an exception');
 
         $repositoryMock = $this->getRepositoryMock();
-        /** @var \eZ\Publish\SPI\Search\Handler $searchHandlerMock */
+        /** @var \Ibexa\Contracts\Core\Search\Handler $searchHandlerMock */
         $searchHandlerMock = $this->getSPIMockHandler('Search\\Handler');
         $permissionsCriterionResolverMock = $this->getPermissionCriterionResolverMock();
         $service = new SearchService(
@@ -567,7 +568,7 @@ class SearchTest extends BaseServiceMockTest
             []
         );
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterionMock */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterionMock */
         $criterionMock = $this
             ->getMockBuilder(Criterion::class)
             ->disableOriginalConstructor()
@@ -584,13 +585,13 @@ class SearchTest extends BaseServiceMockTest
     /**
      * Test for the findSingle() method.
      *
-     * @covers \eZ\Publish\Core\Repository\SearchService::addPermissionsCriterion
-     * @covers \eZ\Publish\Core\Repository\SearchService::findSingle
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::addPermissionsCriterion
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findSingle
      */
     public function testFindSingle()
     {
         $repositoryMock = $this->getRepositoryMock();
-        /** @var \eZ\Publish\SPI\Search\Handler $searchHandlerMock */
+        /** @var \Ibexa\Contracts\Core\Search\Handler $searchHandlerMock */
         $searchHandlerMock = $this->getSPIMockHandler('Search\\Handler');
         $domainMapperMock = $this->getContentDomainMapperMock();
         $permissionsCriterionResolverMock = $this->getPermissionCriterionResolverMock();
@@ -615,7 +616,7 @@ class SearchTest extends BaseServiceMockTest
                 )
             );
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterionMock */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterionMock */
         $criterionMock = $this
             ->getMockBuilder(Criterion::class)
             ->disableOriginalConstructor()
@@ -656,7 +657,7 @@ class SearchTest extends BaseServiceMockTest
     public function testFindLocationsWithPermission()
     {
         $repositoryMock = $this->getRepositoryMock();
-        /** @var \eZ\Publish\SPI\Search\Handler $searchHandlerMock */
+        /** @var \Ibexa\Contracts\Core\Search\Handler $searchHandlerMock */
         $searchHandlerMock = $this->getSPIMockHandler('Search\\Handler');
         $domainMapperMock = $this->getContentDomainMapperMock();
         $permissionsCriterionResolverMock = $this->getPermissionCriterionResolverMock();
@@ -727,7 +728,7 @@ class SearchTest extends BaseServiceMockTest
     public function testFindLocationsWithNoPermissionsFilter()
     {
         $repositoryMock = $this->getRepositoryMock();
-        /** @var \eZ\Publish\SPI\Search\Handler $searchHandlerMock */
+        /** @var \Ibexa\Contracts\Core\Search\Handler $searchHandlerMock */
         $searchHandlerMock = $this->getSPIMockHandler('Search\\Handler');
         $domainMapperMock = $this->getContentDomainMapperMock();
         $permissionsCriterionResolverMock = $this->getPermissionCriterionResolverMock();
@@ -791,7 +792,7 @@ class SearchTest extends BaseServiceMockTest
     /**
      * Test for the findLocations() method when search is out of sync with persistence.
      *
-     * @covers \eZ\Publish\Core\Repository\SearchService::findLocations
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations
      */
     public function testFindLocationsBackgroundIndexerWhenDomainMapperThrowsException()
     {
@@ -847,7 +848,7 @@ class SearchTest extends BaseServiceMockTest
         $this->expectExceptionMessage('Handler threw an exception');
 
         $repositoryMock = $this->getRepositoryMock();
-        /** @var \eZ\Publish\SPI\Search\Handler $searchHandlerMock */
+        /** @var \Ibexa\Contracts\Core\Search\Handler $searchHandlerMock */
         $searchHandlerMock = $this->getSPIMockHandler('Search\\Handler');
         $permissionsCriterionResolverMock = $this->getPermissionCriterionResolverMock();
 
@@ -860,7 +861,7 @@ class SearchTest extends BaseServiceMockTest
             []
         );
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterionMock */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterionMock */
         $criterionMock = $this
             ->getMockBuilder(Criterion::class)
             ->disableOriginalConstructor()
@@ -881,7 +882,7 @@ class SearchTest extends BaseServiceMockTest
     public function testFindLocationsWithDefaultQueryValues()
     {
         $repositoryMock = $this->getRepositoryMock();
-        /** @var \eZ\Publish\SPI\Search\Handler $searchHandlerMock */
+        /** @var \Ibexa\Contracts\Core\Search\Handler $searchHandlerMock */
         $searchHandlerMock = $this->getSPIMockHandler('Search\\Handler');
         $domainMapperMock = $this->getContentDomainMapperMock();
         $service = new SearchService(
@@ -944,7 +945,7 @@ class SearchTest extends BaseServiceMockTest
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\API\Repository\PermissionCriterionResolver
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Contracts\Core\Repository\PermissionCriterionResolver
      */
     protected function getPermissionCriterionResolverMock()
     {
@@ -958,3 +959,5 @@ class SearchTest extends BaseServiceMockTest
         return $this->permissionsCriterionResolverMock;
     }
 }
+
+class_alias(SearchTest::class, 'eZ\Publish\Core\Repository\Tests\Service\Mock\SearchTest');

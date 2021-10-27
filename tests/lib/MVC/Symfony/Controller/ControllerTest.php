@@ -4,20 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Controller\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Controller;
 
-use eZ\Publish\Core\MVC\Symfony\Controller\Controller;
+use Ibexa\Core\MVC\Symfony\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
+ * @covers \Ibexa\Core\MVC\Symfony\Controller\Controller::render
+ *
  * @mvc
  */
 class ControllerTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Controller\Controller */
+    /** @var \Ibexa\Core\MVC\Symfony\Controller\Controller */
     protected $controller;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject */
@@ -39,9 +41,6 @@ class ControllerTest extends TestCase
             ->will($this->returnValue($this->templateEngineMock));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\MVC\Symfony\Controller\Controller::render
-     */
     public function testRender()
     {
         $view = 'some:valid:view.html.twig';
@@ -73,3 +72,5 @@ class ControllerTest extends TestCase
         self::assertSame($tplResult, $response->getContent());
     }
 }
+
+class_alias(ControllerTest::class, 'eZ\Publish\Core\MVC\Symfony\Controller\Tests\ControllerTest');

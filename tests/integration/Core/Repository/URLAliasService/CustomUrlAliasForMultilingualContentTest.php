@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\URLAliasService;
+namespace Ibexa\Tests\Integration\Core\Repository\URLAliasService;
 
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
-use eZ\Publish\API\Repository\Tests\BaseTest;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 final class CustomUrlAliasForMultilingualContentTest extends BaseTest
 {
     /**
-     * @covers \eZ\Publish\API\Repository\ContentService::publishVersion
-     * @covers \eZ\Publish\API\Repository\URLAliasService::createUrlAlias
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::publishVersion
+     * @covers \Ibexa\Contracts\Core\Repository\URLAliasService::createUrlAlias
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testCreateCustomUrlAliasWithTheSamePathThrowsException(): void
     {
@@ -57,3 +57,5 @@ final class CustomUrlAliasForMultilingualContentTest extends BaseTest
         );
     }
 }
+
+class_alias(CustomUrlAliasForMultilingualContentTest::class, 'eZ\Publish\API\Repository\Tests\URLAliasService\CustomUrlAliasForMultilingualContentTest');

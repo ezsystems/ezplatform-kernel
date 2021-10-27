@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\Values\Content\Query\Aggregation;
+namespace Ibexa\Tests\Core\Repository\Values\Content\Query\Aggregation;
 
 use DateTimeImmutable;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Range;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\Range;
 use PHPUnit\Framework\TestCase;
 
 final class RangeTest extends TestCase
@@ -72,3 +72,5 @@ final class RangeTest extends TestCase
         $this->assertEquals(new Range($a, null), Range::ofDateTime($a, null));
     }
 }
+
+class_alias(RangeTest::class, 'eZ\Publish\API\Repository\Tests\Values\Content\Query\Aggregation\RangeTest');

@@ -4,22 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension;
+namespace Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\ContentExtension;
-use eZ\Publish\Core\Helper\TranslationHelper;
-use eZ\Publish\Core\Helper\FieldHelper;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinitionCollection;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Core\MVC\Symfony\Templating\Twig\Extension\ContentExtension;
+use Ibexa\Core\Helper\TranslationHelper;
+use Ibexa\Core\Helper\FieldHelper;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -29,10 +29,10 @@ use Psr\Log\LoggerInterface;
  */
 class ContentExtensionTest extends FileSystemTwigIntegrationTestCase
 {
-    /** @var \eZ\Publish\API\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
     private $fieldHelperMock;
 
-    /** @var \eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition[] */
+    /** @var \Ibexa\Core\Repository\Values\ContentType\FieldDefinition[] */
     private $fieldDefinitions = [];
 
     /** @var int[] */
@@ -197,3 +197,5 @@ class ContentExtensionTest extends FileSystemTwigIntegrationTestCase
         return $mock;
     }
 }
+
+class_alias(ContentExtensionTest::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension\ContentExtensionTest');

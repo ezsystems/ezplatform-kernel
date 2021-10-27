@@ -4,29 +4,29 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Limitation\Tests;
+namespace Ibexa\Tests\Core\Limitation;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ObjectStateId;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator;
-use eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\Limitation\ObjectStateLimitationType;
-use eZ\Publish\Core\Repository\Values\Content\ContentCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\ObjectState;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\Group;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\Handler as SPIHandler;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ObjectStateId;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ObjectStateLimitation;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Limitation\ObjectStateLimitationType;
+use Ibexa\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Handler as SPIHandler;
 
 /**
  * Test Case for LimitationType.
  */
 class ObjectStateLimitationTypeTest extends Base
 {
-    /** @var \eZ\Publish\SPI\Persistence\Content\ObjectState\Handler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Handler|\PHPUnit\Framework\MockObject\MockObject */
     private $objectStateHandlerMock;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\ObjectState\Group[] */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group[] */
     private $allObjectStateGroups;
 
     /** @var array */
@@ -75,7 +75,7 @@ class ObjectStateLimitationTypeTest extends Base
     }
 
     /**
-     * @return \eZ\Publish\Core\Limitation\ObjectStateLimitationType
+     * @return \Ibexa\Core\Limitation\ObjectStateLimitationType
      */
     public function testConstruct()
     {
@@ -215,7 +215,7 @@ class ObjectStateLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\ObjectStateLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\ObjectStateLimitationType $limitationType
      */
     public function testGetCriterionInvalidValue(ObjectStateLimitationType $limitationType)
     {
@@ -230,7 +230,7 @@ class ObjectStateLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\ObjectStateLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\ObjectStateLimitationType $limitationType
      */
     public function testGetCriterionSingleValue(ObjectStateLimitationType $limitationType)
     {
@@ -311,3 +311,5 @@ class ObjectStateLimitationTypeTest extends Base
         self::assertEquals([3], $criterion->criteria[1]->value);
     }
 }
+
+class_alias(ObjectStateLimitationTypeTest::class, 'eZ\Publish\Core\Limitation\Tests\ObjectStateLimitationTypeTest');

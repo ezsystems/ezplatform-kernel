@@ -4,20 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Controller\Tests\Controller\Content;
+namespace Ibexa\Tests\Core\MVC\Symfony\Controller\Controller\Content;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
-use eZ\Publish\Core\Helper\PreviewLocationProvider;
-use eZ\Publish\Core\Helper\ContentPreviewHelper;
-use eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\View\CustomLocationControllerChecker;
-use eZ\Publish\Core\MVC\Symfony\View\ViewManagerInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute as AuthorizationAttribute;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
+use Ibexa\Core\Helper\PreviewLocationProvider;
+use Ibexa\Core\Helper\ContentPreviewHelper;
+use Ibexa\Core\MVC\Symfony\Controller\Content\PreviewController;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\View\CustomLocationControllerChecker;
+use Ibexa\Core\MVC\Symfony\View\ViewManagerInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute as AuthorizationAttribute;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,7 +38,7 @@ class PreviewControllerTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     protected $authorizationChecker;
 
-    /** @var PreviewLocationProvider|\PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\MVC\Symfony\View\CustomLocationControllerChecker */
+    /** @var PreviewLocationProvider|\PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\MVC\Symfony\View\CustomLocationControllerChecker */
     protected $locationProvider;
 
     protected $controllerChecker;
@@ -305,3 +305,5 @@ class PreviewControllerTest extends TestCase
         return $duplicatedRequest;
     }
 }
+
+class_alias(PreviewControllerTest::class, 'eZ\Publish\Core\MVC\Symfony\Controller\Tests\Controller\Content\PreviewControllerTest');

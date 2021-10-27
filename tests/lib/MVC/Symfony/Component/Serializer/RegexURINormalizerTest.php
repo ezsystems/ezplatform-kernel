@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer;
+namespace Ibexa\Tests\Core\MVC\Symfony\Component\Serializer;
 
-use eZ\Publish\Core\MVC\Symfony\Component\Serializer\RegexURINormalizer;
-use eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer\Stubs\SerializerStub;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Regex\URI;
-use eZ\Publish\Core\Search\Tests\TestCase;
+use Ibexa\Core\MVC\Symfony\Component\Serializer\RegexURINormalizer;
+use Ibexa\Tests\Core\MVC\Symfony\Component\Serializer\Stubs\SerializerStub;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Regex\URI;
+use Ibexa\Tests\Core\Search\TestCase;
 
 final class RegexURINormalizerTest extends TestCase
 {
@@ -45,3 +45,5 @@ final class RegexURINormalizerTest extends TestCase
         $this->assertFalse($normalizer->supportsNormalization($this->createMock(Matcher::class)));
     }
 }
+
+class_alias(RegexURINormalizerTest::class, 'eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer\RegexURINormalizerTest');

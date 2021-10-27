@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Tests\DependencyInjection;
+namespace Ibexa\Tests\Bundle\IO\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\Definition;
  */
 abstract class ConfigurationFactoryTest extends AbstractContainerBuilderTestCase
 {
-    /** @var \eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory */
+    /** @var \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory */
     protected $factory;
 
     protected function setUp(): void
@@ -83,7 +83,7 @@ abstract class ConfigurationFactoryTest extends AbstractContainerBuilderTestCase
     /**
      * Returns an instance of the tested factory.
      *
-     * @return \eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory
+     * @return \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory
      */
     abstract public function provideTestedFactory();
 
@@ -126,3 +126,5 @@ abstract class ConfigurationFactoryTest extends AbstractContainerBuilderTestCase
     {
     }
 }
+
+class_alias(ConfigurationFactoryTest::class, 'eZ\Bundle\EzPublishIOBundle\Tests\DependencyInjection\ConfigurationFactoryTest');

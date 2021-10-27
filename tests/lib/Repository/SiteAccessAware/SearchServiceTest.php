@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\SiteAccessAware\Tests;
+namespace Ibexa\Tests\Core\Repository\SiteAccessAware;
 
-use eZ\Publish\API\Repository\SearchService as APIService;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
-use eZ\Publish\Core\Repository\SiteAccessAware\SearchService;
-use eZ\Publish\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\SearchService as APIService;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Core\Repository\SiteAccessAware\SearchService;
+use Ibexa\Core\Repository\Values\Content\Content;
 
 class SearchServiceTest extends AbstractServiceTest
 {
@@ -89,3 +89,5 @@ class SearchServiceTest extends AbstractServiceTest
         return $arguments;
     }
 }
+
+class_alias(SearchServiceTest::class, 'eZ\Publish\Core\Repository\SiteAccessAware\Tests\SearchServiceTest');

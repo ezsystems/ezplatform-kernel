@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use DateTime;
 
 /**
@@ -54,7 +54,7 @@ class SearchEngineIndexingTest extends BaseTest
      *
      * @depends testFindContentInfoFullTextIsSearchable
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      */
     public function testFindLocationsFullTextIsSearchable(ContentInfo $contentInfo)
     {
@@ -136,7 +136,7 @@ class SearchEngineIndexingTest extends BaseTest
      * @param string $searchText
      * @param bool $isSearchable
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createFullTextIsSearchableContent($searchText, $isSearchable)
     {
@@ -916,7 +916,7 @@ class SearchEngineIndexingTest extends BaseTest
     /**
      * Check if children locations are/are not ivisible.
      *
-     * @param \eZ\Publish\API\Repository\SearchService $searchService
+     * @param \Ibexa\Contracts\Core\Repository\SearchService $searchService
      * @param int $parentLocationId parent location Id
      * @param bool $expected expected value of {invisible} property in subtree
      */
@@ -1002,7 +1002,7 @@ class SearchEngineIndexingTest extends BaseTest
         $results = $searchService->findContent($query);
         $this->assertEquals(1, $results->totalCount);
         $foundContentInfo = $results->searchHits[0]->valueObject->contentInfo;
-        /** @var \eZ\Publish\Core\Repository\Values\Content\Content $foundContentInfo */
+        /** @var \Ibexa\Core\Repository\Values\Content\Content $foundContentInfo */
         $this->assertEquals($publishedContent->id, $foundContentInfo->id);
         $this->assertEquals($newContentMetadataUpdateStruct->publishedDate->getTimestamp(), $foundContentInfo->publishedDate->getTimestamp());
         $this->assertEquals($newLocation->id, $foundContentInfo->mainLocationId);
@@ -1112,7 +1112,7 @@ class SearchEngineIndexingTest extends BaseTest
     /**
      * Will create if not exists a simple content type for test purposes with just one required field name.
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
      */
     protected function createTestContentType()
     {
@@ -1154,7 +1154,7 @@ class SearchEngineIndexingTest extends BaseTest
      * @param string $contentName
      * @param array $parentLocationIdList
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createContentWithName($contentName, array $parentLocationIdList = [])
     {
@@ -1185,7 +1185,7 @@ class SearchEngineIndexingTest extends BaseTest
      * @param $contentDescription
      * @param array $parentLocationIdList
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createContentWithNameAndDescription($contentName, $contentDescription, array $parentLocationIdList = [])
     {
@@ -1218,7 +1218,7 @@ class SearchEngineIndexingTest extends BaseTest
      * @param int $parentLocationId
      * @param bool $alwaysAvailable
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createMultiLanguageContent(array $names, $parentLocationId, $alwaysAvailable)
     {
@@ -1278,7 +1278,7 @@ class SearchEngineIndexingTest extends BaseTest
     /**
      * Create & get new Location for tests.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
      */
     protected function createNewTestLocation()
     {
@@ -1295,3 +1295,5 @@ class SearchEngineIndexingTest extends BaseTest
         return $locationService->createLocation($membersContentInfo, $locationCreateStruct);
     }
 }
+
+class_alias(SearchEngineIndexingTest::class, 'eZ\Publish\API\Repository\Tests\SearchEngineIndexingTest');

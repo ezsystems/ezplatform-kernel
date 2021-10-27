@@ -4,23 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Language;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Language;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
-use eZ\Publish\SPI\Persistence\Content\Language;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
+use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use Ibexa\Contracts\Core\Persistence\Content\Language;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
 
-/**
- * Test case for Language MaskGenerator.
- */
 class MaskGeneratorTest extends LanguageAwareTestCase
 {
     /**
      * @param array $languages
      * @param int $expectedMask
      *
-     * @covers       \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator::generateLanguageMask
      * @dataProvider getLanguageMaskData
      */
     public function testGenerateLanguageMask(array $languages, $expectedMask)
@@ -37,7 +33,7 @@ class MaskGeneratorTest extends LanguageAwareTestCase
      * @param array $languages
      * @param int $expectedMask
      *
-     * @covers       \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator::generateLanguageMaskFromLanguageCodes
+     *
      * @dataProvider getLanguageMaskData
      */
     public function testGenerateLanguageMaskFromLanguagesCodes(array $languages, $expectedMask)
@@ -93,7 +89,6 @@ class MaskGeneratorTest extends LanguageAwareTestCase
      * @param bool $alwaysAvailable
      * @param int $expectedIndicator
      *
-     * @covers       \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator::generateLanguageIndicator
      * @dataProvider getLanguageIndicatorData
      */
     public function testGenerateLanguageIndicator(
@@ -130,9 +125,6 @@ class MaskGeneratorTest extends LanguageAwareTestCase
         ];
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator::isLanguageAlwaysAvailable
-     */
     public function testIsLanguageAlwaysAvailable()
     {
         $generator = $this->getMaskGenerator();
@@ -148,9 +140,6 @@ class MaskGeneratorTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator::isLanguageAlwaysAvailable
-     */
     public function testIsLanguageAlwaysAvailableOtherLanguage()
     {
         $generator = $this->getMaskGenerator();
@@ -166,9 +155,6 @@ class MaskGeneratorTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator::isLanguageAlwaysAvailable
-     */
     public function testIsLanguageAlwaysAvailableNoDefault()
     {
         $generator = $this->getMaskGenerator();
@@ -184,10 +170,9 @@ class MaskGeneratorTest extends LanguageAwareTestCase
     }
 
     /**
-     * @param int $languageMask
+     * @param int $langMask
      * @param bool $expectedResult
      *
-     * @covers       \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator::isAlwaysAvailable
      * @dataProvider isAlwaysAvailableProvider
      */
     public function testIsAlwaysAvailable($langMask, $expectedResult)
@@ -213,7 +198,6 @@ class MaskGeneratorTest extends LanguageAwareTestCase
     }
 
     /**
-     * @covers       \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator::removeAlwaysAvailableFlag
      * @dataProvider removeAlwaysAvailableFlagProvider
      */
     public function testRemoveAlwaysAvailableFlag($langMask, $expectedResult)
@@ -241,7 +225,6 @@ class MaskGeneratorTest extends LanguageAwareTestCase
      * @param int $langMask
      * @param array $expectedResult
      *
-     * @covers       \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator::extractLanguageIdsFromMask
      * @dataProvider languageIdsFromMaskProvider
      */
     public function testExtractLanguageIdsFromMask($langMask, array $expectedResult)
@@ -276,7 +259,7 @@ class MaskGeneratorTest extends LanguageAwareTestCase
     /**
      * Returns the mask generator to test.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator
      */
     protected function getMaskGenerator()
     {
@@ -286,7 +269,7 @@ class MaskGeneratorTest extends LanguageAwareTestCase
     /**
      * Returns a language handler mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Language\Handler
      */
     protected function getLanguageHandler()
     {
@@ -332,3 +315,5 @@ class MaskGeneratorTest extends LanguageAwareTestCase
         return $this->languageHandler;
     }
 }
+
+class_alias(MaskGeneratorTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\Language\MaskGeneratorTest');

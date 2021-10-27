@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\Content\UrlAlias;
-use eZ\Publish\SPI\Persistence\Content\UrlAlias\Handler as SPIUrlAliasHandler;
+use Ibexa\Contracts\Core\Persistence\Content\UrlAlias;
+use Ibexa\Contracts\Core\Persistence\Content\UrlAlias\Handler as SPIUrlAliasHandler;
 
 /**
  * Test case for Persistence\Cache\UrlAliasHandler.
@@ -217,3 +217,5 @@ class UrlAliasHandlerTest extends AbstractInMemoryCacheHandlerTest
         ];
     }
 }
+
+class_alias(UrlAliasHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\UrlAliasHandlerTest');

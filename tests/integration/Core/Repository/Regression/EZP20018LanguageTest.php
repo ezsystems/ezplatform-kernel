@@ -4,12 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Regression;
+namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use EzSystems\EzPlatformSolrSearchEngine\Tests\SetupFactory\LegacySetupFactory;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LanguageCode;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LanguageCode;
 
 /**
  * Test case for language issues in EZP-20018.
@@ -57,11 +58,11 @@ class EZP20018LanguageTest extends BaseTest
     }
 
     /**
-     * @see \eZ\Publish\API\Repository\Values\Content\Query\Criterion\LanguageCode
+     * @covers \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LanguageCode
      */
     public function testSearchOnNotExistingLanguageGivesException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $setupFactory = $this->getSetupFactory();
         if ($setupFactory instanceof LegacySetupFactory) {
@@ -74,7 +75,7 @@ class EZP20018LanguageTest extends BaseTest
     }
 
     /**
-     * @see \eZ\Publish\API\Repository\Values\Content\Query\Criterion\LanguageCode
+     * @covers \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LanguageCode
      */
     public function testSearchOnUsedLanguageGivesOneResult()
     {
@@ -87,7 +88,7 @@ class EZP20018LanguageTest extends BaseTest
     }
 
     /**
-     * @see \eZ\Publish\API\Repository\Values\Content\Query\Criterion\LanguageCode
+     * @covers \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LanguageCode
      */
     public function testSearchOnStandardLanguageGivesManyResult()
     {
@@ -101,7 +102,7 @@ class EZP20018LanguageTest extends BaseTest
     }
 
     /**
-     * @see \eZ\Publish\API\Repository\Values\Content\Query\Criterion\LanguageCode
+     * @covers \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LanguageCode
      */
     public function testSearchOnNotUsedInstalledLanguageGivesNoResult()
     {
@@ -113,3 +114,5 @@ class EZP20018LanguageTest extends BaseTest
         $this->assertEquals($results->totalCount, count($results->searchHits));
     }
 }
+
+class_alias(EZP20018LanguageTest::class, 'eZ\Publish\API\Repository\Tests\Regression\EZP20018LanguageTest');

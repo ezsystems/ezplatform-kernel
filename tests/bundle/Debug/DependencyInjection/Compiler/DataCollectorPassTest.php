@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishDebugBundle\Tests\DependencyInjection\Compiler;
+namespace Ibexa\Tests\Bundle\Debug\DependencyInjection\Compiler;
 
-use eZ\Bundle\EzPublishDebugBundle\DependencyInjection\Compiler\DataCollectorPass;
+use Ibexa\Bundle\Debug\DependencyInjection\Compiler\DataCollectorPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -46,3 +46,5 @@ class DataCollectorPassTest extends AbstractCompilerPassTestCase
         );
     }
 }
+
+class_alias(DataCollectorPassTest::class, 'eZ\Bundle\EzPublishDebugBundle\Tests\DependencyInjection\Compiler\DataCollectorPassTest');

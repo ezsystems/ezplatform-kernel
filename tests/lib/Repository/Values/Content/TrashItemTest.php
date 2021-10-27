@@ -4,20 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Values\Content;
+namespace Ibexa\Tests\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Tests\Values\ValueObjectTestTrait;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\Repository\Values\Content\TrashItem;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException;
+use Ibexa\Tests\Core\Repository\Values\ValueObjectTestTrait;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\Repository\Values\Content\TrashItem;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Ibexa\Core\Repository\Values\Content\TrashItem
+ */
 class TrashItemTest extends TestCase
 {
     use ValueObjectTestTrait;
 
-    /**
-     * @covers \eZ\Publish\Core\Repository\Values\Content\TrashItem::__construct
-     */
     public function testNewClass()
     {
         // create ContentInfo to be able to retrieve the contentId property via magic method
@@ -46,12 +48,10 @@ class TrashItemTest extends TestCase
 
     /**
      * Test retrieving missing property.
-     *
-     * @covers \eZ\Publish\API\Repository\Values\Content\TrashItem::__get
      */
     public function testMissingProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException::class);
+        $this->expectException(PropertyNotFoundException::class);
 
         $trashItem = new TrashItem();
         $value = $trashItem->notDefined;
@@ -60,12 +60,10 @@ class TrashItemTest extends TestCase
 
     /**
      * Test setting read only property.
-     *
-     * @covers \eZ\Publish\API\Repository\Values\Content\TrashItem::__set
      */
     public function testReadOnlyProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException::class);
+        $this->expectException(PropertyReadOnlyException::class);
 
         $trashItem = new TrashItem();
         $trashItem->id = 42;
@@ -74,8 +72,6 @@ class TrashItemTest extends TestCase
 
     /**
      * Test if property exists.
-     *
-     * @covers \eZ\Publish\API\Repository\Values\Content\TrashItem::__isset
      */
     public function testIsPropertySet()
     {
@@ -90,14 +86,16 @@ class TrashItemTest extends TestCase
     /**
      * Test unsetting a property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\Content\TrashItem::__unset
+     * @covers \Ibexa\Core\Repository\Values\Content\TrashItem::__unset
      */
     public function testUnsetProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException::class);
+        $this->expectException(PropertyReadOnlyException::class);
 
         $trashItem = new TrashItem(['id' => 2]);
         unset($trashItem->id);
         self::fail('Unsetting read-only property succeeded');
     }
 }
+
+class_alias(TrashItemTest::class, 'eZ\Publish\Core\Repository\Tests\Values\Content\TrashItemTest');

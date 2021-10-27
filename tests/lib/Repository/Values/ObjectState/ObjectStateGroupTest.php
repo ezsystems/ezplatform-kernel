@@ -4,15 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Values\ObjectState;
+namespace Ibexa\Tests\Core\Repository\Values\ObjectState;
 
-use eZ\Publish\API\Repository\Tests\Values\ValueObjectTestTrait;
-use eZ\Publish\Core\Repository\Tests\Values\MultiLanguageTestTrait;
-use eZ\Publish\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException;
+use Ibexa\Tests\Core\Repository\Values\ValueObjectTestTrait;
+use Ibexa\Tests\Core\Repository\Values\MultiLanguageTestTrait;
+use Ibexa\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test internal integrity of @see \eZ\Publish\Core\Repository\Values\ObjectState\ObjectStateGroup ValueObject.
+ * @covers \Ibexa\Core\Repository\Values\ObjectState\ObjectStateGroup
  */
 class ObjectStateGroupTest extends TestCase
 {
@@ -21,8 +23,6 @@ class ObjectStateGroupTest extends TestCase
 
     /**
      * Test a new class and default values on properties.
-     *
-     * @covers \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup::__construct
      */
     public function testNewClass()
     {
@@ -44,7 +44,7 @@ class ObjectStateGroupTest extends TestCase
     /**
      * Test a new class with unified multi language logic properties.
      *
-     * @return \eZ\Publish\Core\Repository\Values\ObjectState\ObjectStateGroup
+     * @return \Ibexa\Core\Repository\Values\ObjectState\ObjectStateGroup
      */
     public function testNewClassWithMultiLanguageProperties()
     {
@@ -74,11 +74,11 @@ class ObjectStateGroupTest extends TestCase
     /**
      * Test retrieving missing property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup::__get
+     * @covers \Ibexa\Core\Repository\Values\ObjectState\ObjectStateGroup::__get
      */
     public function testMissingProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException::class);
+        $this->expectException(PropertyNotFoundException::class);
 
         $objectStateGroup = new ObjectStateGroup();
         $value = $objectStateGroup->notDefined;
@@ -88,11 +88,11 @@ class ObjectStateGroupTest extends TestCase
     /**
      * Test setting read only property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup::__set
+     * @covers \Ibexa\Core\Repository\Values\ObjectState\ObjectStateGroup::__set
      */
     public function testReadOnlyProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException::class);
+        $this->expectException(PropertyReadOnlyException::class);
 
         $objectStateGroup = new ObjectStateGroup();
         $objectStateGroup->id = 42;
@@ -101,8 +101,6 @@ class ObjectStateGroupTest extends TestCase
 
     /**
      * Test if property exists.
-     *
-     * @covers \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup::__isset
      */
     public function testIsPropertySet()
     {
@@ -117,14 +115,16 @@ class ObjectStateGroupTest extends TestCase
     /**
      * Test unsetting a property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup::__unset
+     * @covers \Ibexa\Core\Repository\Values\ObjectState\ObjectStateGroup::__unset
      */
     public function testUnsetProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException::class);
+        $this->expectException(PropertyReadOnlyException::class);
 
         $objectStateGroup = new ObjectStateGroup(['id' => 2]);
         unset($objectStateGroup->id);
         $this->fail('Unsetting read-only property succeeded');
     }
 }
+
+class_alias(ObjectStateGroupTest::class, 'eZ\Publish\Core\Repository\Tests\Values\ObjectState\ObjectStateGroupTest');

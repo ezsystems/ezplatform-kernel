@@ -6,10 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\AnnotationEntityBundle;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\AnnotationEntityBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class AnnotationEntityBundle extends Bundle
 {
 }
+
+class_alias(AnnotationEntityBundle::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\AnnotationEntityBundle\AnnotationEntityBundle');

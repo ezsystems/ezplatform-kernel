@@ -4,10 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter;
+namespace Ibexa\Tests\Bundle\Core\Imagine\Filter;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\FilterConfiguration;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Bundle\Core\Imagine\Filter\FilterConfiguration;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidVariationException;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use PHPUnit\Framework\TestCase;
 
 class FilterConfigurationTest extends TestCase
@@ -63,7 +64,7 @@ class FilterConfigurationTest extends TestCase
 
     public function testGetWithEzVariationInvalidFilters()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidVariationException::class);
+        $this->expectException(InvalidVariationException::class);
 
         $fooConfig = ['fooconfig'];
         $barConfig = ['barconfig'];
@@ -230,3 +231,5 @@ class FilterConfigurationTest extends TestCase
         );
     }
 }
+
+class_alias(FilterConfigurationTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\FilterConfigurationTest');

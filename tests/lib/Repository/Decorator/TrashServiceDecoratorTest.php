@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Tests\Decorator;
+namespace Ibexa\Tests\Core\Repository\Decorator;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\API\Repository\TrashService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\TrashItem;
-use eZ\Publish\SPI\Repository\Decorator\TrashServiceDecorator;
+use Ibexa\Contracts\Core\Repository\TrashService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
+use Ibexa\Contracts\Core\Repository\Decorator\TrashServiceDecorator;
 
 class TrashServiceDecoratorTest extends TestCase
 {
@@ -104,3 +104,5 @@ class TrashServiceDecoratorTest extends TestCase
         $decoratedService->findTrashItems(...$parameters);
     }
 }
+
+class_alias(TrashServiceDecoratorTest::class, 'eZ\Publish\SPI\Repository\Tests\Decorator\TrashServiceDecoratorTest');

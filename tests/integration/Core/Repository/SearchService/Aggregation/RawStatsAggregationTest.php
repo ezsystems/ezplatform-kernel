@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\SearchService\Aggregation;
+namespace Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\RawStatsAggregation;
-use eZ\Publish\API\Repository\Values\Content\Search\AggregationResult\StatsAggregationResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\RawStatsAggregation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\StatsAggregationResult;
 
 final class RawStatsAggregationTest extends AbstractAggregationTest
 {
@@ -31,3 +31,5 @@ final class RawStatsAggregationTest extends AbstractAggregationTest
         ];
     }
 }
+
+class_alias(RawStatsAggregationTest::class, 'eZ\Publish\API\Repository\Tests\SearchService\Aggregation\RawStatsAggregationTest');

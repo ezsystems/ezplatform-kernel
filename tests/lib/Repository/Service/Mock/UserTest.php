@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
+namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
-use eZ\Publish\API\Repository\Values\User\User as APIUser;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo as APIContentInfo;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use eZ\Publish\API\Repository\ContentService as APIContentService;
-use eZ\Publish\API\Repository\PasswordHashService;
-use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
-use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
-use eZ\Publish\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo as APIContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Contracts\Core\Repository\ContentService as APIContentService;
+use Ibexa\Contracts\Core\Repository\PasswordHashService;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
+use Ibexa\Core\Repository\User\PasswordValidatorInterface;
+use Ibexa\Core\Repository\UserService;
 
 /**
  * Mock test case for User Service.
@@ -23,7 +23,7 @@ class UserTest extends BaseServiceMockTest
     /**
      * Test for the deleteUser() method.
      *
-     * @covers \eZ\Publish\Core\Repository\UserService::deleteUser
+     * @covers \Ibexa\Contracts\Core\Repository\UserService::deleteUser
      */
     public function testDeleteUser()
     {
@@ -77,14 +77,14 @@ class UserTest extends BaseServiceMockTest
 
         $repository->expects($this->once())->method('commit');
 
-        /* @var \eZ\Publish\API\Repository\Values\User\User $user */
+        /* @var \Ibexa\Contracts\Core\Repository\Values\User\User $user */
         $userService->deleteUser($user);
     }
 
     /**
      * Test for the deleteUser() method.
      *
-     * @covers \eZ\Publish\Core\Repository\UserService::deleteUser
+     * @covers \Ibexa\Contracts\Core\Repository\UserService::deleteUser
      */
     public function testDeleteUserWithRollback()
     {
@@ -130,7 +130,7 @@ class UserTest extends BaseServiceMockTest
 
         $repository->expects($this->once())->method('rollback');
 
-        /* @var \eZ\Publish\API\Repository\Values\User\User $user */
+        /* @var \Ibexa\Contracts\Core\Repository\Values\User\User $user */
         $userService->deleteUser($user);
     }
 
@@ -141,7 +141,7 @@ class UserTest extends BaseServiceMockTest
      *
      * @param string[] $methods
      *
-     * @return \eZ\Publish\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getPartlyMockedUserService(array $methods = null)
     {
@@ -160,3 +160,5 @@ class UserTest extends BaseServiceMockTest
             ->getMock();
     }
 }
+
+class_alias(UserTest::class, 'eZ\Publish\Core\Repository\Tests\Service\Mock\UserTest');

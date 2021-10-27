@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Tests\Content;
+namespace Ibexa\Tests\Core\Search\Legacy\Content;
 
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Persistence;
-use eZ\Publish\Core\Search\Legacy\Content;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway as LocationGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler;
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Persistence;
+use Ibexa\Core\Search\Legacy\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Core\Search\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use Ibexa\Core\Persistence\Legacy\Content\FieldHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 
 /**
  * Content Search test case for ContentSearchHandler.
@@ -33,7 +33,7 @@ class HandlerContentTest extends AbstractTestCase
      *
      * @param array $fullTextSearchConfiguration
      *
-     * @return \eZ\Publish\Core\Search\Legacy\Content\Handler
+     * @return \Ibexa\Core\Search\Legacy\Content\Handler
      */
     protected function getContentSearchHandler(array $fullTextSearchConfiguration = [])
     {
@@ -191,7 +191,7 @@ class HandlerContentTest extends AbstractTestCase
     /**
      * Returns a content mapper mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Mapper
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Mapper
      */
     protected function getContentMapperMock()
     {
@@ -230,7 +230,7 @@ class HandlerContentTest extends AbstractTestCase
     /**
      * Returns a content field handler mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\FieldHandler
      */
     protected function getContentFieldHandlerMock()
     {
@@ -1446,3 +1446,5 @@ class HandlerContentTest extends AbstractTestCase
         $this->getContentTypeHandler()->getFieldDefinition(0, Type::STATUS_DEFINED);
     }
 }
+
+class_alias(HandlerContentTest::class, 'eZ\Publish\Core\Search\Legacy\Tests\Content\HandlerContentTest');

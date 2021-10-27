@@ -4,30 +4,30 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Event\Tests;
+namespace Ibexa\Tests\Core\Event;
 
-use eZ\Publish\API\Repository\Events\Location\BeforeCopySubtreeEvent;
-use eZ\Publish\API\Repository\Events\Location\BeforeCreateLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\BeforeDeleteLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\BeforeHideLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\BeforeMoveSubtreeEvent;
-use eZ\Publish\API\Repository\Events\Location\BeforeSwapLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\BeforeUnhideLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\BeforeUpdateLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\CopySubtreeEvent;
-use eZ\Publish\API\Repository\Events\Location\CreateLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\DeleteLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\HideLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\MoveSubtreeEvent;
-use eZ\Publish\API\Repository\Events\Location\SwapLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\UnhideLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\UpdateLocationEvent;
-use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\LocationUpdateStruct;
-use eZ\Publish\Core\Event\LocationService;
+use Ibexa\Contracts\Core\Repository\Events\Location\BeforeCopySubtreeEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\BeforeCreateLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\BeforeDeleteLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\BeforeHideLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\BeforeMoveSubtreeEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\BeforeSwapLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\BeforeUnhideLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\BeforeUpdateLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\CopySubtreeEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\CreateLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\DeleteLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\HideLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\MoveSubtreeEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\SwapLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\UnhideLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\UpdateLocationEvent;
+use Ibexa\Contracts\Core\Repository\LocationService as LocationServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct;
+use Ibexa\Core\Event\LocationService;
 
 class LocationServiceTest extends AbstractServiceTest
 {
@@ -710,3 +710,5 @@ class LocationServiceTest extends AbstractServiceTest
         ]);
     }
 }
+
+class_alias(LocationServiceTest::class, 'eZ\Publish\Core\Event\Tests\LocationServiceTest');

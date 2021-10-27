@@ -4,13 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
+
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 
 /**
  * Test case for operations in the LanguageService using in memory storage.
  *
- * @see \eZ\Publish\API\Repository\LanguageService
- * @depends eZ\Publish\API\Repository\Tests\UserServiceTest::testLoadUser
+ * @covers \Ibexa\Contracts\Core\Repository\LanguageService
+ * @depends Ibexa\Tests\Integration\Core\Repository\UserServiceTest::testLoadUser
  * @group integration
  * @group authorization
  */
@@ -19,12 +21,12 @@ class LanguageServiceAuthorizationTest extends BaseTest
     /**
      * Test for the createLanguage() method.
      *
-     * @see \eZ\Publish\API\Repository\LanguageService::createLanguage()
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testCreateLanguage
+     * @covers \Ibexa\Contracts\Core\Repository\LanguageService::createLanguage()
+     * @depends testCreateLanguage
      */
     public function testCreateLanguageThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -52,12 +54,12 @@ class LanguageServiceAuthorizationTest extends BaseTest
     /**
      * Test for the updateLanguageName() method.
      *
-     * @see \eZ\Publish\API\Repository\LanguageService::updateLanguageName()
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testUpdateLanguageName
+     * @covers \Ibexa\Contracts\Core\Repository\LanguageService::updateLanguageName()
+     * @depends testUpdateLanguageName
      */
     public function testUpdateLanguageNameThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -89,12 +91,12 @@ class LanguageServiceAuthorizationTest extends BaseTest
     /**
      * Test for the enableLanguage() method.
      *
-     * @see \eZ\Publish\API\Repository\LanguageService::enableLanguage()
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testEnableLanguage
+     * @covers \Ibexa\Contracts\Core\Repository\LanguageService::enableLanguage()
+     * @depends testEnableLanguage
      */
     public function testEnableLanguageThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -124,12 +126,12 @@ class LanguageServiceAuthorizationTest extends BaseTest
     /**
      * Test for the disableLanguage() method.
      *
-     * @see \eZ\Publish\API\Repository\LanguageService::disableLanguage()
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testDisableLanguage
+     * @covers \Ibexa\Contracts\Core\Repository\LanguageService::disableLanguage()
+     * @depends testDisableLanguage
      */
     public function testDisableLanguageThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -159,12 +161,12 @@ class LanguageServiceAuthorizationTest extends BaseTest
     /**
      * Test for the deleteLanguage() method.
      *
-     * @see \eZ\Publish\API\Repository\LanguageService::deleteLanguage()
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testDeleteLanguage
+     * @covers \Ibexa\Contracts\Core\Repository\LanguageService::deleteLanguage()
+     * @depends testDeleteLanguage
      */
     public function testDeleteLanguageThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -191,3 +193,5 @@ class LanguageServiceAuthorizationTest extends BaseTest
         /* END: Use Case */
     }
 }
+
+class_alias(LanguageServiceAuthorizationTest::class, 'eZ\Publish\API\Repository\Tests\LanguageServiceAuthorizationTest');

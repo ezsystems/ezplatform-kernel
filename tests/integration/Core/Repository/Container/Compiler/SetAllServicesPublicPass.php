@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Container\Compiler;
+namespace Ibexa\Tests\Integration\Core\Repository\Container\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -54,3 +54,5 @@ class SetAllServicesPublicPass implements CompilerPassInterface
         }
     }
 }
+
+class_alias(SetAllServicesPublicPass::class, 'eZ\Publish\API\Repository\Tests\Container\Compiler\SetAllServicesPublicPass');

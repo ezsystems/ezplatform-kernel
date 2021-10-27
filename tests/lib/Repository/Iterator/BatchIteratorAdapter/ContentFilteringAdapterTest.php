@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\Iterator\BatchIteratorAdapter;
+namespace Ibexa\Tests\Core\Repository\Iterator\BatchIteratorAdapter;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter\ContentFilteringAdapter;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentList;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\MatchAll;
-use eZ\Publish\API\Repository\Values\Filter\Filter;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter\ContentFilteringAdapter;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentList;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\MatchAll;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 use PHPUnit\Framework\TestCase;
 
 final class ContentFilteringAdapterTest extends TestCase
@@ -23,8 +23,8 @@ final class ContentFilteringAdapterTest extends TestCase
     private const EXAMPLE_LIMIT = 25;
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function testFetch(): void
     {
@@ -70,3 +70,5 @@ final class ContentFilteringAdapterTest extends TestCase
         self::assertSame(0, $originalFilter->getLimit());
     }
 }
+
+class_alias(ContentFilteringAdapterTest::class, 'eZ\Publish\API\Repository\Tests\Iterator\BatchIteratorAdapter\ContentFilteringAdapterTest');

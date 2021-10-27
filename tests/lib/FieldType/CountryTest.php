@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests;
+namespace Ibexa\Tests\Core\FieldType;
 
-use eZ\Publish\Core\FieldType\Country\Type as Country;
-use eZ\Publish\Core\FieldType\Country\Value as CountryValue;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\FieldType\Country\Exception\InvalidValue;
+use Ibexa\Core\FieldType\Country\Type as Country;
+use Ibexa\Core\FieldType\Country\Value as CountryValue;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\FieldType\Country\Exception\InvalidValue;
 
 /**
  * @group fieldType
@@ -32,7 +32,7 @@ class CountryTest extends FieldTypeTest
      * NOT take care for test case wide caching of the field type, just return
      * a new instance from this method!
      *
-     * @return FieldType
+     * @return \Ibexa\Core\FieldType\FieldType
      */
     protected function createFieldTypeUnderTest()
     {
@@ -109,36 +109,13 @@ class CountryTest extends FieldTypeTest
     /**
      * Returns the empty value expected from the field type.
      *
-     * @return \eZ\Publish\Core\FieldType\Checkbox\Value
+     * @return \Ibexa\Core\FieldType\Country\Value
      */
     protected function getEmptyValueExpectation()
     {
         return new CountryValue();
     }
 
-    /**
-     * Data provider for invalid input to acceptValue().
-     *
-     * Returns an array of data provider sets with 2 arguments: 1. The invalid
-     * input to acceptValue(), 2. The expected exception type as a string. For
-     * example:
-     *
-     * <code>
-     *  return array(
-     *      array(
-     *          new \stdClass(),
-     *          'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
-     *      ),
-     *      array(
-     *          array(),
-     *          'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
-     *      ),
-     *      // ...
-     *  );
-     * </code>
-     *
-     * @return array
-     */
     public function provideInvalidInputForAcceptValue()
     {
         return [
@@ -641,3 +618,5 @@ class CountryTest extends FieldTypeTest
         ];
     }
 }
+
+class_alias(CountryTest::class, 'eZ\Publish\Core\FieldType\Tests\CountryTest');

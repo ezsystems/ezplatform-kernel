@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Pagination\Tests;
+namespace Ibexa\Tests\Core\Pagination;
 
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
-use eZ\Publish\Core\Pagination\Pagerfanta\FixedSearchResultHitAdapter;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Core\Pagination\Pagerfanta\FixedSearchResultHitAdapter;
 use PHPUnit\Framework\TestCase;
 
 final class FixedSearchResultHitAdapterTest extends TestCase
@@ -45,3 +45,5 @@ final class FixedSearchResultHitAdapterTest extends TestCase
         return $searchResult;
     }
 }
+
+class_alias(FixedSearchResultHitAdapterTest::class, 'eZ\Publish\Core\Pagination\Tests\FixedSearchResultHitAdapterTest');

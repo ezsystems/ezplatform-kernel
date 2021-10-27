@@ -4,22 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension;
+namespace Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\Helper\TranslationHelper;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\FieldRenderingExtension;
-use eZ\Publish\Core\MVC\Symfony\Templating\Twig\FieldBlockRenderer;
-use eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistryInterface;
-use eZ\Publish\Core\MVC\Symfony\Templating\Twig\ResourceProviderInterface;
-use eZ\Publish\Core\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinitionCollection;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Core\Helper\TranslationHelper;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Templating\Twig\Extension\FieldRenderingExtension;
+use Ibexa\Core\MVC\Symfony\Templating\Twig\FieldBlockRenderer;
+use Ibexa\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistryInterface;
+use Ibexa\Core\MVC\Symfony\Templating\Twig\ResourceProviderInterface;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
 use Psr\Log\LoggerInterface;
 use Twig\Environment;
 
@@ -158,7 +158,7 @@ class FieldRenderingExtensionIntegrationTest extends FileSystemTwigIntegrationTe
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\Templating\Twig\ResourceProviderInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\MVC\Symfony\Templating\Twig\ResourceProviderInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     private function getResourceProviderMock(): ResourceProviderInterface
     {
@@ -203,3 +203,5 @@ class FieldRenderingExtensionIntegrationTest extends FileSystemTwigIntegrationTe
         return $mock;
     }
 }
+
+class_alias(FieldRenderingExtensionIntegrationTest::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension\FieldRenderingExtensionIntegrationTest');

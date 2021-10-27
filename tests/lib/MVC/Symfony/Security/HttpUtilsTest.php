@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Security;
 
-use eZ\Publish\Core\MVC\Symfony\Security\HttpUtils;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\Security\HttpUtils;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\HttpFoundation\Request;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -138,3 +138,5 @@ class HttpUtilsTest extends TestCase
         ];
     }
 }
+
+class_alias(HttpUtilsTest::class, 'eZ\Publish\Core\MVC\Symfony\Security\Tests\HttpUtilsTest');

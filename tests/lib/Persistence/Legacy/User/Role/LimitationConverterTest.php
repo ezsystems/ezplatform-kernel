@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\User\Role;
+namespace Ibexa\Tests\Core\Persistence\Legacy\User\Role;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\User\Role\LimitationConverter;
-use eZ\Publish\Core\Persistence\Legacy\User\Role\LimitationHandler\ObjectStateHandler as ObjectStateLimitationHandler;
-use eZ\Publish\SPI\Persistence\User\Policy;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence\Legacy\User\Role\LimitationConverter;
+use Ibexa\Core\Persistence\Legacy\User\Role\LimitationHandler\ObjectStateHandler as ObjectStateLimitationHandler;
+use Ibexa\Contracts\Core\Persistence\User\Policy;
 
 /**
  * Test case for LimitationConverter.
@@ -148,3 +148,5 @@ class LimitationConverterTest extends TestCase
         );
     }
 }
+
+class_alias(LimitationConverterTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\User\Role\LimitationConverterTest');

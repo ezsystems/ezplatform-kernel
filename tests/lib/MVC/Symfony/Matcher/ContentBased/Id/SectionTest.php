@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\Id;
+namespace Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased\Id;
 
-use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Id\Section as SectionIdMatcher;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\BaseTest;
+use Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Id\Section as SectionIdMatcher;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased\BaseTest;
 
 class SectionTest extends BaseTest
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Id\Section */
+    /** @var \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Id\Section */
     private $matcher;
 
     protected function setUp(): void
@@ -24,11 +24,11 @@ class SectionTest extends BaseTest
 
     /**
      * @dataProvider matchLocationProvider
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Id\Section::matchLocation
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
      *
      * @param int|int[] $matchingConfig
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param bool $expectedResult
      */
     public function testMatchLocation($matchingConfig, Location $location, $expectedResult)
@@ -87,11 +87,11 @@ class SectionTest extends BaseTest
 
     /**
      * @dataProvider matchContentInfoProvider
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Id\Section::matchContentInfo
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Id\Section::matchContentInfo
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
      *
      * @param int|int[] $matchingConfig
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      * @param bool $expectedResult
      */
     public function testMatchContentInfo($matchingConfig, ContentInfo $contentInfo, $expectedResult)
@@ -126,3 +126,5 @@ class SectionTest extends BaseTest
         ];
     }
 }
+
+class_alias(SectionTest::class, 'eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\Id\SectionTest');

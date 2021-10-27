@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Tests\Decorator;
+namespace Ibexa\Tests\Core\Repository\Decorator;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\API\Repository\URLWildcardService;
-use eZ\Publish\API\Repository\Values\Content\URLWildcard;
-use eZ\Publish\SPI\Repository\Decorator\URLWildcardServiceDecorator;
+use Ibexa\Contracts\Core\Repository\URLWildcardService;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
+use Ibexa\Contracts\Core\Repository\Decorator\URLWildcardServiceDecorator;
 
 class URLWildcardServiceDecoratorTest extends TestCase
 {
@@ -94,3 +94,5 @@ class URLWildcardServiceDecoratorTest extends TestCase
         $decoratedService->translate(...$parameters);
     }
 }
+
+class_alias(URLWildcardServiceDecoratorTest::class, 'eZ\Publish\SPI\Repository\Tests\Decorator\URLWildcardServiceDecoratorTest');

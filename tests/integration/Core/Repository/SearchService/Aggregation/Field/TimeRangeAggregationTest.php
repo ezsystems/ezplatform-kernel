@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\SearchService\Aggregation\Field;
+namespace Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation\Field;
 
-use eZ\Publish\API\Repository\Tests\SearchService\Aggregation\AbstractAggregationTest;
-use eZ\Publish\API\Repository\Tests\SearchService\Aggregation\FixtureGenerator\FieldAggregationFixtureGenerator;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Field\TimeRangeAggregation;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Range;
-use eZ\Publish\API\Repository\Values\Content\Search\AggregationResult\RangeAggregationResult;
-use eZ\Publish\API\Repository\Values\Content\Search\AggregationResult\RangeAggregationResultEntry;
-use eZ\Publish\Core\FieldType\Time\Value as TimeValue;
+use Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation\AbstractAggregationTest;
+use Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation\FixtureGenerator\FieldAggregationFixtureGenerator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\Field\TimeRangeAggregation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\Range;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\RangeAggregationResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\RangeAggregationResultEntry;
+use Ibexa\Core\FieldType\Time\Value as TimeValue;
 
 final class TimeRangeAggregationTest extends AbstractAggregationTest
 {
@@ -79,3 +79,5 @@ final class TimeRangeAggregationTest extends AbstractAggregationTest
         $this->refreshSearch($this->getRepository());
     }
 }
+
+class_alias(TimeRangeAggregationTest::class, 'eZ\Publish\API\Repository\Tests\SearchService\Aggregation\Field\TimeRangeAggregationTest');

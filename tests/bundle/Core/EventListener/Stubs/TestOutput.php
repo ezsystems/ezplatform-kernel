@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\EventListener\Stubs;
+namespace Ibexa\Tests\Bundle\Core\EventListener\Stubs;
 
 use Symfony\Component\Console\Output\Output;
 
@@ -25,3 +25,5 @@ class TestOutput extends Output
         $this->output .= $message . ($newline ? "\n" : '');
     }
 }
+
+class_alias(TestOutput::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\EventListener\Stubs\TestOutput');

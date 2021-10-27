@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security\Tests\Authentication;
+namespace Ibexa\Tests\Core\MVC\Symfony\Security\Authentication;
 
-use eZ\Publish\Core\MVC\Symfony\Security\Authentication\DefaultAuthenticationSuccessHandler;
-use eZ\Publish\Core\MVC\Symfony\Security\HttpUtils;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authentication\DefaultAuthenticationSuccessHandler;
+use Ibexa\Core\MVC\Symfony\Security\HttpUtils;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 
@@ -35,3 +35,5 @@ class DefaultAuthenticationSuccessHandlerTest extends TestCase
         $this->assertSame($defaultPage, $options['default_target_path']);
     }
 }
+
+class_alias(DefaultAuthenticationSuccessHandlerTest::class, 'eZ\Publish\Core\MVC\Symfony\Security\Tests\Authentication\DefaultAuthenticationSuccessHandlerTest');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Tests\Container\Compiler\Search\Legacy;
+namespace Ibexa\Tests\Core\Base\Container\Compiler\Search\Legacy;
 
-use eZ\Publish\Core\Base\Container\Compiler\Search\Legacy\CriterionFieldValueHandlerRegistryPass;
+use Ibexa\Core\Base\Container\Compiler\Search\Legacy\CriterionFieldValueHandlerRegistryPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -73,3 +73,5 @@ class CriterionFieldValueHandlerRegistryPassTest extends AbstractCompilerPassTes
         );
     }
 }
+
+class_alias(CriterionFieldValueHandlerRegistryPassTest::class, 'eZ\Publish\Core\Base\Tests\Container\Compiler\Search\Legacy\CriterionFieldValueHandlerRegistryPassTest');

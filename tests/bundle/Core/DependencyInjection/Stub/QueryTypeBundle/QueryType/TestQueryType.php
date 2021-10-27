@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\QueryTypeBundle\QueryType;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\QueryTypeBundle\QueryType;
 
-use eZ\Publish\Core\QueryType\QueryType;
+use Ibexa\Core\QueryType\QueryType;
 
 class TestQueryType implements QueryType
 {
@@ -23,3 +23,5 @@ class TestQueryType implements QueryType
         return 'Test:Test';
     }
 }
+
+class_alias(TestQueryType::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\QueryTypeBundle\QueryType\TestQueryType');

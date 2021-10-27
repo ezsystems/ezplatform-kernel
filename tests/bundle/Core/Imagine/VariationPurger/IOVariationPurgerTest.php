@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\VariationPurger;
+namespace Ibexa\Tests\Bundle\Core\Imagine\VariationPurger;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPurger\IOVariationPurger;
-use eZ\Publish\Core\IO\IOServiceInterface;
+use Ibexa\Bundle\Core\Imagine\VariationPurger\IOVariationPurger;
+use Ibexa\Core\IO\IOServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 class IOVariationPurgerTest extends TestCase
@@ -26,3 +26,5 @@ class IOVariationPurgerTest extends TestCase
         $purger->purge(['medium', 'large']);
     }
 }
+
+class_alias(IOVariationPurgerTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\VariationPurger\IOVariationPurgerTest');

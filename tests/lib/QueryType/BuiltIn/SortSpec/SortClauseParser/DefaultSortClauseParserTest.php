@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Tests\SortClauseParser;
+namespace Ibexa\Tests\Core\QueryType\BuiltIn\SortSpec\SortClauseParser;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Exception\UnsupportedSortClauseException;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\DefaultSortClauseParser;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecParserInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\Exception\UnsupportedSortClauseException;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\DefaultSortClauseParser;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortSpecParserInterface;
 use PHPUnit\Framework\TestCase;
 
 final class DefaultSortClauseParserTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\DefaultSortClauseParser */
+    /** @var \Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\DefaultSortClauseParser */
     private $defaultSortClauseParser;
 
     protected function setUp(): void
@@ -69,3 +69,5 @@ final class DefaultSortClauseParserTest extends TestCase
         $this->assertFalse($this->defaultSortClauseParser->supports('unsupported'));
     }
 }
+
+class_alias(DefaultSortClauseParserTest::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Tests\SortClauseParser\DefaultSortClauseParserTest');

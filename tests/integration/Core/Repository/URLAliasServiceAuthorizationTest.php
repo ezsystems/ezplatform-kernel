@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 
 class URLAliasServiceAuthorizationTest extends BaseTest
 {
     /**
      * Test for the createUrlAlias() method.
      *
-     * @covers \eZ\Publish\API\Repository\URLAliasService::createUrlAlias()
-     * @depends \eZ\Publish\API\Repository\Tests\URLAliasServiceTest::testCreateUrlAlias
+     * @covers \Ibexa\Contracts\Core\Repository\URLAliasService::createUrlAlias()
+     * @depends Ibexa\Tests\Integration\Core\Repository\URLAliasServiceTest::testCreateUrlAlias
      */
     public function testCreateUrlAliasThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
 
@@ -46,12 +46,12 @@ class URLAliasServiceAuthorizationTest extends BaseTest
     /**
      * Test for the createGlobalUrlAlias() method.
      *
-     * @covers \eZ\Publish\API\Repository\URLAliasService::createGlobalUrlAlias()
-     * @depends \eZ\Publish\API\Repository\Tests\URLAliasServiceTest::testCreateGlobalUrlAlias
+     * @covers \Ibexa\Contracts\Core\Repository\URLAliasService::createGlobalUrlAlias()
+     * @depends Ibexa\Tests\Integration\Core\Repository\URLAliasServiceTest::testCreateGlobalUrlAlias
      */
     public function testCreateGlobalUrlAliasThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
 
@@ -73,12 +73,12 @@ class URLAliasServiceAuthorizationTest extends BaseTest
     /**
      * Test for the removeAliases() method.
      *
-     * @covers \eZ\Publish\API\Repository\URLAliasService::removeAliases()
-     * @depends \eZ\Publish\API\Repository\Tests\URLAliasServiceTest::testRemoveAliases
+     * @covers \Ibexa\Contracts\Core\Repository\URLAliasService::removeAliases()
+     * @depends Ibexa\Tests\Integration\Core\Repository\URLAliasServiceTest::testRemoveAliases
      */
     public function testRemoveAliasesThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $anonymousUserId = $this->generateId('user', 10);
@@ -105,3 +105,5 @@ class URLAliasServiceAuthorizationTest extends BaseTest
         /* END: Use Case */
     }
 }
+
+class_alias(URLAliasServiceAuthorizationTest::class, 'eZ\Publish\API\Repository\Tests\URLAliasServiceAuthorizationTest');

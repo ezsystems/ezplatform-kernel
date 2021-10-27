@@ -6,25 +6,25 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Tests\FieldValue\Converter;
+namespace Ibexa\Tests\Core\Persistence\FieldValue\Converter;
 
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\Core\IO\UrlRedecoratorInterface;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\ImageConverter;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\UrlRedecoratorInterface;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\ImageConverter;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class ImageConverterTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\ImageConverter */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\ImageConverter */
     private $imageConverter;
 
-    /** @var \eZ\Publish\Core\IO\UrlRedecoratorInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\IO\UrlRedecoratorInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $urlRedecorator;
 
-    /** @var \eZ\Publish\Core\IO\IOServiceInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\IO\IOServiceInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $ioService;
 
     protected function setUp(): void
@@ -176,3 +176,5 @@ final class ImageConverterTest extends TestCase
         ];
     }
 }
+
+class_alias(ImageConverterTest::class, 'eZ\Publish\Core\Persistence\Tests\FieldValue\Converter\ImageConverterTest');

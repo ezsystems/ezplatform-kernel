@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\CheckboxConverter;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\CheckboxConverter;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test case for Checkbox converter in Legacy storage.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\CheckboxConverter
  */
 class CheckboxTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\CheckboxConverter */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\CheckboxConverter */
     protected $converter;
 
     protected function setUp(): void
@@ -30,7 +30,6 @@ class CheckboxTest extends TestCase
     /**
      * @group fieldType
      * @group ezboolean
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\CheckboxConverter::toStorageValue
      */
     public function testToStorageValue()
     {
@@ -48,7 +47,6 @@ class CheckboxTest extends TestCase
     /**
      * @group fieldType
      * @group ezboolean
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\CheckboxConverter::toFieldValue
      */
     public function testToFieldValue()
     {
@@ -66,7 +64,6 @@ class CheckboxTest extends TestCase
     /**
      * @group fieldType
      * @group ezboolean
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\CheckboxConverter::toStorageFieldDefinition
      */
     public function testToStorageFieldDefinition()
     {
@@ -90,7 +87,6 @@ class CheckboxTest extends TestCase
     /**
      * @group fieldType
      * @group ezboolean
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\CheckboxConverter::toFieldDefinition
      */
     public function testToFieldDefinition()
     {
@@ -107,3 +103,5 @@ class CheckboxTest extends TestCase
         self::assertNull($fieldDef->fieldTypeConstraints->fieldSettings);
     }
 }
+
+class_alias(CheckboxTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter\CheckboxTest');

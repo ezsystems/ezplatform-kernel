@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Event\Tests;
+namespace Ibexa\Tests\Core\Event;
 
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -38,3 +38,5 @@ abstract class AbstractServiceTest extends TestCase
         return $stack;
     }
 }
+
+class_alias(AbstractServiceTest::class, 'eZ\Publish\Core\Event\Tests\AbstractServiceTest');

@@ -6,14 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Values\Bookmark\BookmarkList;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Values\Bookmark\BookmarkList;
 
 /**
  * Test case for the BookmarkService.
  *
- * @see \eZ\Publish\API\Repository\BookmarkService
+ * @covers \Ibexa\Contracts\Core\Repository\BookmarkService
  */
 class BookmarkServiceTest extends BaseTest
 {
@@ -21,7 +22,7 @@ class BookmarkServiceTest extends BaseTest
     const LOCATION_ID_NOT_BOOKMARKED = 44;
 
     /**
-     * @covers \eZ\Publish\API\Repository\BookmarkService::isBookmarked
+     * @covers \Ibexa\Contracts\Core\Repository\BookmarkService::isBookmarked
      */
     public function testIsBookmarked()
     {
@@ -36,7 +37,7 @@ class BookmarkServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\BookmarkService::isBookmarked
+     * @covers \Ibexa\Contracts\Core\Repository\BookmarkService::isBookmarked
      */
     public function testIsNotBookmarked()
     {
@@ -51,7 +52,7 @@ class BookmarkServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\Repository\BookmarkService::createBookmark
+     * @covers \Ibexa\Contracts\Core\Repository\BookmarkService::createBookmark
      */
     public function testCreateBookmark()
     {
@@ -72,12 +73,12 @@ class BookmarkServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\Repository\BookmarkService::createBookmark
+     * @covers \Ibexa\Contracts\Core\Repository\BookmarkService::createBookmark
      * @depends testCreateBookmark
      */
     public function testCreateBookmarkThrowsInvalidArgumentException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $repository = $this->getRepository();
 
@@ -91,7 +92,7 @@ class BookmarkServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\Repository\BookmarkService::deleteBookmark
+     * @covers \Ibexa\Contracts\Core\Repository\BookmarkService::deleteBookmark
      */
     public function testDeleteBookmark()
     {
@@ -113,12 +114,12 @@ class BookmarkServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\Repository\BookmarkService::deleteBookmark
+     * @covers \Ibexa\Contracts\Core\Repository\BookmarkService::deleteBookmark
      * @depends testDeleteBookmark
      */
     public function testDeleteBookmarkThrowsInvalidArgumentException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $repository = $this->getRepository();
 
@@ -132,7 +133,7 @@ class BookmarkServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\Repository\BookmarkService::loadBookmarks
+     * @covers \Ibexa\Contracts\Core\Repository\BookmarkService::loadBookmarks
      */
     public function testLoadBookmarks()
     {
@@ -150,3 +151,5 @@ class BookmarkServiceTest extends BaseTest
         }, $bookmarks->items));
     }
 }
+
+class_alias(BookmarkServiceTest::class, 'eZ\Publish\API\Repository\Tests\BookmarkServiceTest');

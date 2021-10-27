@@ -6,14 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Specification\Tests\Content;
+namespace Ibexa\Tests\Core\Specification\Content;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\SPI\Specification\Content\ContentSpecification;
-use eZ\Publish\SPI\Specification\Content\ContentTypeSpecification;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Specification\Content\ContentSpecification;
+use Ibexa\Contracts\Core\Specification\Content\ContentTypeSpecification;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Ibexa\Contracts\Core\Specification\Content\ContentTypeSpecification
+ */
 final class ContentTypeSpecificationTest extends TestCase
 {
     private const EXISTING_CONTENT_TYPE_IDENTIFIER = 'article';
@@ -38,7 +41,6 @@ final class ContentTypeSpecificationTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\SPI\Specification\Content\ContentTypeSpecification::isSatisfiedBy
      * @dataProvider providerForIsSatisfiedBy
      */
     public function testIsSatisfiedBy(
@@ -75,3 +77,5 @@ final class ContentTypeSpecificationTest extends TestCase
         ];
     }
 }
+
+class_alias(ContentTypeSpecificationTest::class, 'eZ\Publish\SPI\Specification\Tests\Content\ContentTypeSpecificationTest');

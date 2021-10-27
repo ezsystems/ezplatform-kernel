@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Location;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Location;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper;
-use eZ\Publish\SPI\Persistence\Content\Location\Trashed;
-use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Trashed;
+use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
 
 /**
- * Test case for Location\Mapper.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\Location\Mapper
  */
 class MapperTest extends TestCase
 {
@@ -76,9 +76,6 @@ class MapperTest extends TestCase
         'sortOrder' => 1,
     ];
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper::createLocationFromRow
-     */
     public function testCreateLocationFromRow()
     {
         $mapper = new Mapper();
@@ -93,9 +90,6 @@ class MapperTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper::createLocationsFromRows
-     */
     public function testCreateLocationsFromRows()
     {
         $inputRows = [];
@@ -118,9 +112,6 @@ class MapperTest extends TestCase
         }
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper::createLocationFromRow
-     */
     public function testCreateTrashedFromRow()
     {
         $mapper = new Mapper();
@@ -138,9 +129,6 @@ class MapperTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper::createLocationFromRow
-     */
     public function testCreateLocationFromRowWithPrefix()
     {
         $prefix = 'some_prefix_';
@@ -160,9 +148,6 @@ class MapperTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper::getLocationCreateStruct
-     */
     public function testGetLocationCreateStruct()
     {
         $mapper = new Mapper();
@@ -178,3 +163,5 @@ class MapperTest extends TestCase
         );
     }
 }
+
+class_alias(MapperTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\Location\MapperTest');

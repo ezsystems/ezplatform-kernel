@@ -6,25 +6,26 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\Values\Filter;
+namespace Ibexa\Tests\Core\Repository\Values\Filter;
 
-use eZ\Publish\API\Repository\Exceptions\BadStateException;
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\URL\Query\SortClause as URLQuerySortClause;
-use eZ\Publish\API\Repository\Values\Filter\Filter;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause as URLQuerySortClause;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 use PHPUnit\Framework\TestCase;
 use function md5;
 use function sprintf;
 
+/**
+ * @covers \Ibexa\Contracts\Core\Repository\Values\Filter\Filter
+ */
 final class FilterTest extends TestCase
 {
     /**
-     * @covers \eZ\Publish\API\Repository\Values\Filter\Filter::__construct
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function testConstructor(): void
     {
@@ -43,9 +44,7 @@ final class FilterTest extends TestCase
     /**
      * @dataProvider getInvalidSortClausesData
      *
-     * @covers \eZ\Publish\API\Repository\Values\Filter\Filter::__construct
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function testConstructorThrowsBadStateException(
         array $sortClauses,
@@ -64,7 +63,7 @@ final class FilterTest extends TestCase
                 new SortClause\Location\Priority(),
                 1,
             ],
-            'Expected an instance of "eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause", ' .
+            'Expected an instance of "Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause", ' .
             'got "integer" at position 1',
         ];
 
@@ -74,8 +73,8 @@ final class FilterTest extends TestCase
                 new URLQuerySortClause\URL(Query::SORT_DESC),
                 Query::SORT_ASC,
             ],
-            'Expected an instance of "eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause", ' .
-            'got "eZ\Publish\API\Repository\Values\URL\Query\SortClause\URL" at position 1',
+            'Expected an instance of "Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause", ' .
+            'got "Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause\URL" at position 1',
         ];
 
         yield [
@@ -86,16 +85,13 @@ final class FilterTest extends TestCase
                 new class('', Query::SORT_DESC) extends URLQuerySortClause {
                 },
             ],
-            'Expected an instance of "eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause", ' .
+            'Expected an instance of "Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause", ' .
             'got "string" at position 2',
         ];
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\Values\Filter\Filter::withCriterion
-     * @covers \eZ\Publish\API\Repository\Values\Filter\Filter::getCriterion
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function testWithCriterion(): Filter
     {
@@ -109,7 +105,7 @@ final class FilterTest extends TestCase
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function testWithCriterionThrowsBadStateException(): void
     {
@@ -121,10 +117,7 @@ final class FilterTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\Values\Filter\Filter::andWithCriterion
-     * @covers \eZ\Publish\API\Repository\Values\Filter\Filter::getCriterion
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function testAndWithCriterion(): Filter
     {
@@ -147,10 +140,7 @@ final class FilterTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\Values\Filter\Filter::orWithCriterion
-     * @covers \eZ\Publish\API\Repository\Values\Filter\Filter::getCriterion
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function testOrWithCriterion(): Filter
     {
@@ -173,10 +163,6 @@ final class FilterTest extends TestCase
         return $filter;
     }
 
-    /**
-     * @covers \eZ\Publish\API\Repository\Values\Filter\Filter::withSortClause
-     * @covers \eZ\Publish\API\Repository\Values\Filter\Filter::getSortClauses
-     */
     public function testWithSortClause(): Filter
     {
         $filter = new Filter();
@@ -196,14 +182,9 @@ final class FilterTest extends TestCase
     }
 
     /**
-     * @covers       \eZ\Publish\API\Repository\Values\Filter\Filter::getCriterion
-     * @covers       \eZ\Publish\API\Repository\Values\Filter\Filter::getSortClauses
-     * @covers       \eZ\Publish\API\Repository\Values\Filter\Filter::getOffset
-     * @covers       \eZ\Publish\API\Repository\Values\Filter\Filter::getLimit
-     *
      * @dataProvider getComplexFilterTestData
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\SortClause[] $expectedSortClauses
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause[] $expectedSortClauses
      */
     public function testBuildingComplexFilter(
         Filter $filter,
@@ -219,8 +200,8 @@ final class FilterTest extends TestCase
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function getComplexFilterTestData(): iterable
     {
@@ -350,8 +331,6 @@ final class FilterTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\Values\Filter\Filter::sliceBy
-     *
      * @dataProvider getFiltersWithInvalidSliceData
      */
     public function testSliceByThrowsInvalidArgumentException(
@@ -382,12 +361,6 @@ final class FilterTest extends TestCase
     }
 
     /**
-     * @covers       \eZ\Publish\API\Repository\Values\Filter\Filter::reset
-     * @covers       \eZ\Publish\API\Repository\Values\Filter\Filter::getCriterion
-     * @covers       \eZ\Publish\API\Repository\Values\Filter\Filter::getSortClauses
-     * @covers       \eZ\Publish\API\Repository\Values\Filter\Filter::getOffset
-     * @covers       \eZ\Publish\API\Repository\Values\Filter\Filter::getLimit
-     *
      * @dataProvider getFilters
      */
     public function testReset(Filter $filter): void
@@ -400,8 +373,6 @@ final class FilterTest extends TestCase
     }
 
     /**
-     * @covers       \eZ\Publish\API\Repository\Values\Filter\Filter::__clone
-     *
      * @dataProvider getFilters
      */
     public function testClone(Filter $filter): void
@@ -420,7 +391,7 @@ final class FilterTest extends TestCase
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function getFilters(): iterable
     {
@@ -447,3 +418,5 @@ final class FilterTest extends TestCase
         yield 'Empty Filter' => [new Filter()];
     }
 }
+
+class_alias(FilterTest::class, 'eZ\Publish\API\Repository\Tests\Values\Filter\FilterTest');

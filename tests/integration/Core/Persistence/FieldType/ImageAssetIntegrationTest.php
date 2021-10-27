@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Persistence\FieldType;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\Core\FieldType;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\ImageAssetConverter;
-use eZ\Publish\SPI\Persistence\Content;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Core\FieldType;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\ImageAssetConverter;
+use Ibexa\Contracts\Core\Persistence\Content;
 
 class ImageAssetIntegrationTest extends BaseIntegrationTest
 {
@@ -130,3 +130,5 @@ class ImageAssetIntegrationTest extends BaseIntegrationTest
         );
     }
 }
+
+class_alias(ImageAssetIntegrationTest::class, 'eZ\Publish\SPI\Tests\FieldType\ImageAssetIntegrationTest');

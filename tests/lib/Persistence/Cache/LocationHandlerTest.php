@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\Content\Location;
-use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Location\Handler as SPILocationHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as SPILocationHandler;
 
 /**
  * Test case for Persistence\Cache\LocationHandler.
@@ -327,3 +327,5 @@ class LocationHandlerTest extends AbstractInMemoryCacheHandlerTest
         ];
     }
 }
+
+class_alias(LocationHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\LocationHandlerTest');

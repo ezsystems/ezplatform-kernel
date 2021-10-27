@@ -6,17 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
+namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\Repository\Validator\UserPasswordValidator;
-use eZ\Publish\Core\Search\Tests\TestCase;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Core\Repository\Validator\UserPasswordValidator;
+use Ibexa\Tests\Core\Search\TestCase;
 
+/**
+ * @covers \Ibexa\Core\Repository\Validator\UserPasswordValidator
+ */
 class UserPasswordValidatorTest extends TestCase
 {
     /**
-     * @covers \eZ\Publish\Core\Repository\Validator\UserPasswordValidator::validate
-     *
      * @dataProvider dateProviderForValidate
      */
     public function testValidate(array $constraints, string $password, array $expectedErrors)
@@ -194,3 +195,5 @@ class UserPasswordValidatorTest extends TestCase
         ];
     }
 }
+
+class_alias(UserPasswordValidatorTest::class, 'eZ\Publish\Core\Repository\Tests\Service\Mock\UserPasswordValidatorTest');

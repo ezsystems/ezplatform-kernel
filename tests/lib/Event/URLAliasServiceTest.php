@@ -4,20 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Event\Tests;
+namespace Ibexa\Tests\Core\Event;
 
-use eZ\Publish\API\Repository\Events\URLAlias\BeforeCreateGlobalUrlAliasEvent;
-use eZ\Publish\API\Repository\Events\URLAlias\BeforeCreateUrlAliasEvent;
-use eZ\Publish\API\Repository\Events\URLAlias\BeforeRefreshSystemUrlAliasesForLocationEvent;
-use eZ\Publish\API\Repository\Events\URLAlias\BeforeRemoveAliasesEvent;
-use eZ\Publish\API\Repository\Events\URLAlias\CreateGlobalUrlAliasEvent;
-use eZ\Publish\API\Repository\Events\URLAlias\CreateUrlAliasEvent;
-use eZ\Publish\API\Repository\Events\URLAlias\RefreshSystemUrlAliasesForLocationEvent;
-use eZ\Publish\API\Repository\Events\URLAlias\RemoveAliasesEvent;
-use eZ\Publish\API\Repository\URLAliasService as URLAliasServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\URLAlias;
-use eZ\Publish\Core\Event\URLAliasService;
+use Ibexa\Contracts\Core\Repository\Events\URLAlias\BeforeCreateGlobalUrlAliasEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLAlias\BeforeCreateUrlAliasEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLAlias\BeforeRefreshSystemUrlAliasesForLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLAlias\BeforeRemoveAliasesEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLAlias\CreateGlobalUrlAliasEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLAlias\CreateUrlAliasEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLAlias\RefreshSystemUrlAliasesForLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLAlias\RemoveAliasesEvent;
+use Ibexa\Contracts\Core\Repository\URLAliasService as URLAliasServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
+use Ibexa\Core\Event\URLAliasService;
 
 class URLAliasServiceTest extends AbstractServiceTest
 {
@@ -357,3 +357,5 @@ class URLAliasServiceTest extends AbstractServiceTest
         ]);
     }
 }
+
+class_alias(URLAliasServiceTest::class, 'eZ\Publish\Core\Event\Tests\URLAliasServiceTest');

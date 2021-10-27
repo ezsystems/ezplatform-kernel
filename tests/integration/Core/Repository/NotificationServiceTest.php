@@ -6,22 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\Notification\CreateStruct;
-use eZ\Publish\API\Repository\Values\Notification\Notification;
-use eZ\Publish\API\Repository\Values\Notification\NotificationList;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Notification\CreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification;
+use Ibexa\Contracts\Core\Repository\Values\Notification\NotificationList;
 
 /**
  * Test case for the NotificationService.
  *
- * @see \eZ\Publish\API\Repository\NotificationService
+ * @covers \Ibexa\Contracts\Core\Repository\NotificationService
  */
 class NotificationServiceTest extends BaseTest
 {
     /**
-     * @covers \eZ\Publish\API\Repository\NotificationService::loadNotifications()
+     * @covers \Ibexa\Contracts\Core\Repository\NotificationService::loadNotifications()
      */
     public function testLoadNotifications()
     {
@@ -39,7 +40,7 @@ class NotificationServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\NotificationService::getNotification()
+     * @covers \Ibexa\Contracts\Core\Repository\NotificationService::getNotification()
      */
     public function testGetNotification()
     {
@@ -58,7 +59,7 @@ class NotificationServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\NotificationService::markNotificationAsRead()
+     * @covers \Ibexa\Contracts\Core\Repository\NotificationService::markNotificationAsRead()
      */
     public function testMarkNotificationAsRead()
     {
@@ -77,7 +78,7 @@ class NotificationServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\NotificationService::getPendingNotificationCount()
+     * @covers \Ibexa\Contracts\Core\Repository\NotificationService::getPendingNotificationCount()
      */
     public function testGetPendingNotificationCount()
     {
@@ -92,7 +93,7 @@ class NotificationServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\NotificationService::getNotificationCount()
+     * @covers \Ibexa\Contracts\Core\Repository\NotificationService::getNotificationCount()
      */
     public function testGetNotificationCount()
     {
@@ -107,7 +108,7 @@ class NotificationServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\NotificationService::deleteNotification()
+     * @covers \Ibexa\Contracts\Core\Repository\NotificationService::deleteNotification()
      */
     public function testDeleteNotification()
     {
@@ -128,7 +129,7 @@ class NotificationServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\NotificationService::createNotification()
+     * @covers \Ibexa\Contracts\Core\Repository\NotificationService::createNotification()
      */
     public function testCreateNotification()
     {
@@ -156,12 +157,12 @@ class NotificationServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\NotificationService::createNotification()
+     * @covers \Ibexa\Contracts\Core\Repository\NotificationService::createNotification()
      * @depends testCreateNotification
      */
     public function testCreateNotificationThrowsInvalidArgumentExceptionOnMissingOwner()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $repository = $this->getRepository();
 
@@ -178,12 +179,12 @@ class NotificationServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\NotificationService::createNotification()
+     * @covers \Ibexa\Contracts\Core\Repository\NotificationService::createNotification()
      * @depends testCreateNotification
      */
     public function testCreateNotificationThrowsInvalidArgumentExceptionOnMissingType()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $repository = $this->getRepository();
 
@@ -199,3 +200,5 @@ class NotificationServiceTest extends BaseTest
         /* END: Use Case */
     }
 }
+
+class_alias(NotificationServiceTest::class, 'eZ\Publish\API\Repository\Tests\NotificationServiceTest');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
+namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
-use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
 
 /**
  * Mock test case for Repository.
@@ -16,7 +16,7 @@ class RepositoryTest extends BaseServiceMockTest
     /**
      * Test for the beginTransaction() method.
      *
-     * @covers \eZ\Publish\API\Repository\Repository::beginTransaction
+     * @covers \Ibexa\Contracts\Core\Repository\Repository::beginTransaction
      */
     public function testBeginTransaction()
     {
@@ -35,7 +35,7 @@ class RepositoryTest extends BaseServiceMockTest
     /**
      * Test for the commit() method.
      *
-     * @covers \eZ\Publish\API\Repository\Repository::commit
+     * @covers \Ibexa\Contracts\Core\Repository\Repository::commit
      */
     public function testCommit()
     {
@@ -54,7 +54,7 @@ class RepositoryTest extends BaseServiceMockTest
     /**
      * Test for the commit() method.
      *
-     * @covers \eZ\Publish\API\Repository\Repository::commit
+     * @covers \Ibexa\Contracts\Core\Repository\Repository::commit
      */
     public function testCommitThrowsRuntimeException()
     {
@@ -77,7 +77,7 @@ class RepositoryTest extends BaseServiceMockTest
     /**
      * Test for the rollback() method.
      *
-     * @covers \eZ\Publish\API\Repository\Repository::rollback
+     * @covers \Ibexa\Contracts\Core\Repository\Repository::rollback
      */
     public function testRollback()
     {
@@ -96,7 +96,7 @@ class RepositoryTest extends BaseServiceMockTest
     /**
      * Test for the rollback() method.
      *
-     * @covers \eZ\Publish\API\Repository\Repository::rollback
+     * @covers \Ibexa\Contracts\Core\Repository\Repository::rollback
      */
     public function testRollbackThrowsRuntimeException()
     {
@@ -116,3 +116,5 @@ class RepositoryTest extends BaseServiceMockTest
         $mockedRepository->rollback();
     }
 }
+
+class_alias(RepositoryTest::class, 'eZ\Publish\Core\Repository\Tests\Service\Mock\RepositoryTest');

@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Tests\Content;
+namespace Ibexa\Tests\Core\Search\Legacy\Content;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway\DoctrineDatabase as ContentTypeGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler as ContentTypeHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper as ContentTypeMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler as ContentTypeUpdateHandler;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as SPIContentTypeHandler;
+use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Gateway\DoctrineDatabase as ContentTypeGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Handler as ContentTypeHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Mapper as ContentTypeMapper;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Update\Handler as ContentTypeUpdateHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as SPIContentTypeHandler;
 
 /**
  * Abstract test suite for legacy search.
@@ -26,11 +26,11 @@ class AbstractTestCase extends LanguageAwareTestCase
     /**
      * Field registry mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
+     * @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
      */
     private $converterRegistry;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Type\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Type\Handler */
     private $contentTypeHandler;
 
     /**
@@ -114,3 +114,5 @@ class AbstractTestCase extends LanguageAwareTestCase
         return $this->converterRegistry;
     }
 }
+
+class_alias(AbstractTestCase::class, 'eZ\Publish\Core\Search\Legacy\Tests\Content\AbstractTestCase');

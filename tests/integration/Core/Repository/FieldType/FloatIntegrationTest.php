@@ -4,11 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use eZ\Publish\Core\FieldType\Float\Type;
-use eZ\Publish\Core\FieldType\Float\Value as FloatValue;
-use eZ\Publish\API\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException;
+use Ibexa\Core\FieldType\Float\Value as FloatValue;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 
 /**
  * Integration test for use field type.
@@ -141,7 +142,7 @@ class FloatIntegrationTest extends SearchBaseIntegrationTest
     public function assertFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Float\\Value',
+            FloatValue::class,
             $field->value
         );
 
@@ -154,49 +155,26 @@ class FloatIntegrationTest extends SearchBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during creation.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidCreationFieldData()
     {
         return [
             [
                 new \stdClass(),
-                'eZ\\Publish\\API\\Repository\\Exceptions\\InvalidArgumentException',
+                InvalidArgumentException::class,
             ],
             [
                 new FloatValue(5.5),
-                'eZ\\Publish\\API\\Repository\\Exceptions\\ContentFieldValidationException',
+                ContentFieldValidationException::class,
             ],
             [
                 new FloatValue(127.5),
-                'eZ\\Publish\\API\\Repository\\Exceptions\\ContentFieldValidationException',
+                ContentFieldValidationException::class,
             ],
         ];
     }
 
     /**
      * Get update field externals data.
-     *
-     * @return array
      */
     public function getValidUpdateFieldData()
     {
@@ -213,7 +191,7 @@ class FloatIntegrationTest extends SearchBaseIntegrationTest
     public function assertUpdatedFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Float\\Value',
+            FloatValue::class,
             $field->value
         );
 
@@ -226,27 +204,6 @@ class FloatIntegrationTest extends SearchBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during update.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidUpdateFieldData()
     {
         return $this->provideInvalidCreationFieldData();
@@ -263,7 +220,7 @@ class FloatIntegrationTest extends SearchBaseIntegrationTest
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Float\\Value',
+            FloatValue::class,
             $field->value
         );
 
@@ -356,3 +313,5 @@ class FloatIntegrationTest extends SearchBaseIntegrationTest
         return false;
     }
 }
+
+class_alias(FloatIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\FieldType\FloatIntegrationTest');

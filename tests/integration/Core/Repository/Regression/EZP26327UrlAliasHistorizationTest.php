@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Regression;
+namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 /**
  * Issue https://jira.ez.no/browse/EZP-26327.
@@ -52,3 +52,5 @@ class EZP26327UrlAliasHistorizationTest extends BaseTest
         $this->assertTrue($historyAlias->isHistory);
     }
 }
+
+class_alias(EZP26327UrlAliasHistorizationTest::class, 'eZ\Publish\API\Repository\Tests\Regression\EZP26327UrlAliasHistorizationTest');

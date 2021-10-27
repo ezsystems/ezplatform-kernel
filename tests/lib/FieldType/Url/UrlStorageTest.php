@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests\Url;
+namespace Ibexa\Tests\Core\FieldType\Url;
 
-use eZ\Publish\Core\FieldType\Url\UrlStorage;
-use eZ\Publish\SPI\FieldType\StorageGateway;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
+use Ibexa\Core\FieldType\Url\UrlStorage;
+use Ibexa\Contracts\Core\FieldType\StorageGateway;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -211,9 +211,9 @@ class UrlStorageTest extends TestCase
     }
 
     /**
-     * @param \eZ\Publish\SPI\FieldType\StorageGateway $gateway
+     * @param \Ibexa\Contracts\Core\FieldType\StorageGateway $gateway
      *
-     * @return \eZ\Publish\Core\FieldType\Url\UrlStorage|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\FieldType\Url\UrlStorage|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getPartlyMockedStorage(StorageGateway $gateway)
     {
@@ -253,11 +253,11 @@ class UrlStorageTest extends TestCase
         return $this->loggerMock;
     }
 
-    /** @var \eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\FieldType\Url\UrlStorage\Gateway|\PHPUnit\Framework\MockObject\MockObject */
     protected $gatewayMock;
 
     /**
-     * @return \eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\FieldType\Url\UrlStorage\Gateway|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getGatewayMock()
     {
@@ -268,3 +268,5 @@ class UrlStorageTest extends TestCase
         return $this->gatewayMock;
     }
 }
+
+class_alias(UrlStorageTest::class, 'eZ\Publish\Core\FieldType\Tests\Url\UrlStorageTest');

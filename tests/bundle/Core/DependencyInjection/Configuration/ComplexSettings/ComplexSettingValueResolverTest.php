@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\ComplexSettings;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\ComplexSettings;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ComplexSettings\ComplexSettingValueResolver;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ComplexSettings\ComplexSettingValueResolver;
 use PHPUnit\Framework\TestCase;
 
 class ComplexSettingValueResolverTest extends TestCase
@@ -26,3 +26,5 @@ class ComplexSettingValueResolverTest extends TestCase
         );
     }
 }
+
+class_alias(ComplexSettingValueResolverTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\ComplexSettings\ComplexSettingValueResolverTest');

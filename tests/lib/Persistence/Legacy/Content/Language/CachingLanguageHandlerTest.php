@@ -4,50 +4,47 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Language;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Language;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Contracts\Core\Persistence\Content\Language;
+use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct as SPILanguageCreateStruct;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as SPILanguageHandler;
 use Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\SPI\Persistence\Content\Language;
-use eZ\Publish\SPI\Persistence\Content\Language\CreateStruct as SPILanguageCreateStruct;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as SPILanguageHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler;
-use eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache;
+use Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler;
+use Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache;
 
 /**
- * Test case for caching Language Handler.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler
  */
 class CachingLanguageHandlerTest extends TestCase
 {
     /**
      * Language handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Language\Handler
      */
     protected $languageHandler;
 
     /**
      * Inner language handler mock.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\Language\Handler
+     * @var \Ibexa\Contracts\Core\Persistence\Content\Language\Handler
      */
     protected $innerHandlerMock;
 
     /**
      * Language cache mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache
+     * @var \Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache
      */
     protected $languageCacheMock;
 
     /** @var \Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface */
     protected $cacheIdentifierGeneratorMock;
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler::create
-     */
     public function testCreate()
     {
         $handler = $this->getLanguageHandler();
@@ -81,7 +78,7 @@ class CachingLanguageHandlerTest extends TestCase
     /**
      * Returns a Language CreateStruct.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language\CreateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct
      */
     protected function getCreateStructFixture()
     {
@@ -91,7 +88,7 @@ class CachingLanguageHandlerTest extends TestCase
     /**
      * Returns a Language.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language
      */
     protected function getLanguageFixture()
     {
@@ -102,9 +99,6 @@ class CachingLanguageHandlerTest extends TestCase
         return $language;
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler::update
-     */
     public function testUpdate()
     {
         $handler = $this->getLanguageHandler();
@@ -124,9 +118,6 @@ class CachingLanguageHandlerTest extends TestCase
         $handler->update($languageFixture);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler::load
-     */
     public function testLoad()
     {
         $handler = $this->getLanguageHandler();
@@ -151,9 +142,6 @@ class CachingLanguageHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler::load
-     */
     public function testLoadFailure()
     {
         $handler = $this->getLanguageHandler();
@@ -184,9 +172,6 @@ class CachingLanguageHandlerTest extends TestCase
         $handler->load(2);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler::loadByLanguageCode
-     */
     public function testLoadByLanguageCode()
     {
         $handler = $this->getLanguageHandler();
@@ -211,9 +196,6 @@ class CachingLanguageHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler::loadByLanguageCode
-     */
     public function testLoadByLanguageCodeFailure()
     {
         $handler = $this->getLanguageHandler();
@@ -244,9 +226,6 @@ class CachingLanguageHandlerTest extends TestCase
         $handler->loadByLanguageCode('eng-US');
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler::loadAll
-     */
     public function testLoadAll()
     {
         $handler = $this->getLanguageHandler();
@@ -268,9 +247,6 @@ class CachingLanguageHandlerTest extends TestCase
         $this->assertIsArray($result);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler::delete
-     */
     public function testDelete()
     {
         $handler = $this->getLanguageHandler();
@@ -303,7 +279,7 @@ class CachingLanguageHandlerTest extends TestCase
     /**
      * Returns the language handler to test.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler
      */
     protected function getLanguageHandler()
     {
@@ -321,7 +297,7 @@ class CachingLanguageHandlerTest extends TestCase
     /**
      * Returns a mock for the inner language handler.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language\Handler|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language\Handler|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getInnerLanguageHandlerMock()
     {
@@ -335,7 +311,7 @@ class CachingLanguageHandlerTest extends TestCase
     /**
      * Returns a mock for the in-memory cache.
      *
-     * @return \eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getLanguageCacheMock()
     {
@@ -361,7 +337,7 @@ class CachingLanguageHandlerTest extends TestCase
     /**
      * Returns an array with 2 languages.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language[]
      */
     protected function getLanguagesFixture()
     {
@@ -380,3 +356,5 @@ class CachingLanguageHandlerTest extends TestCase
         return [$langUs, $langGb];
     }
 }
+
+class_alias(CachingLanguageHandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\Language\CachingLanguageHandlerTest');

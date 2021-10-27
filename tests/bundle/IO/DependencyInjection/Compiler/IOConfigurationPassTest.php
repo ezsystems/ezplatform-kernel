@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Tests\DependencyInjection\Compiler;
+namespace Ibexa\Tests\Bundle\IO\DependencyInjection\Compiler;
 
 use ArrayObject;
-use eZ\Bundle\EzPublishIOBundle\DependencyInjection\Compiler\IOConfigurationPass;
-use eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory;
+use Ibexa\Bundle\IO\DependencyInjection\Compiler\IOConfigurationPass;
+use Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -137,3 +137,5 @@ class IOConfigurationPassTest extends AbstractCompilerPassTestCase
         $this->compile();
     }
 }
+
+class_alias(IOConfigurationPassTest::class, 'eZ\Bundle\EzPublishIOBundle\Tests\DependencyInjection\Compiler\IOConfigurationPassTest');

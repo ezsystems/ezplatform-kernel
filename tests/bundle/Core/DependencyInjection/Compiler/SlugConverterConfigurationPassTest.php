@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Compiler;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\SlugConverterConfigurationPass;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
-use eZ\Publish\Core\Persistence\TransformationProcessor;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\SlugConverterConfigurationPass;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
+use Ibexa\Core\Persistence\TransformationProcessor;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -57,7 +57,7 @@ class SlugConverterConfigurationPassTest extends AbstractCompilerPassTestCase
         ]);
         $this->compile();
 
-        /** @var \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter $slugConverter */
+        /** @var \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter $slugConverter */
         $slugConverterRef = new ReflectionClass(SlugConverter::class);
         $configurationPropertyRef = $slugConverterRef->getProperty('configuration');
         $configurationPropertyRef->setAccessible(true);
@@ -109,3 +109,5 @@ class SlugConverterConfigurationPassTest extends AbstractCompilerPassTestCase
         ];
     }
 }
+
+class_alias(SlugConverterConfigurationPassTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler\SlugConverterConfigurationPassTest');

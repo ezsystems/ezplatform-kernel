@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Regression;
+namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 /**
  * Test case for 11+ string issue in EZP-21771.
@@ -54,3 +54,5 @@ class EZP21771EzStringTest extends BaseTest
         );
     }
 }
+
+class_alias(EZP21771EzStringTest::class, 'eZ\Publish\API\Repository\Tests\Regression\EZP21771EzStringTest');

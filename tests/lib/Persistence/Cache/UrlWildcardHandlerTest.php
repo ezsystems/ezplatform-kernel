@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler as SpiUrlWildcardHandler;
-use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
+use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard\Handler as SpiUrlWildcardHandler;
+use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard;
 
 class UrlWildcardHandlerTest extends AbstractCacheHandlerTest
 {
@@ -82,3 +82,5 @@ class UrlWildcardHandlerTest extends AbstractCacheHandlerTest
         ];
     }
 }
+
+class_alias(UrlWildcardHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\UrlWildcardHandlerTest');

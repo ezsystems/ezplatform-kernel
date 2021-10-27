@@ -4,15 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Compiler;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ChainConfigResolverPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\ChainConfigResolverPass;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ChainConfigResolver;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * @covers \Ibexa\Bundle\Core\DependencyInjection\Compiler\ChainConfigResolverPass
+ */
 class ChainConfigResolverPassTest extends AbstractCompilerPassTestCase
 {
     protected function setUp(): void
@@ -36,7 +39,6 @@ class ChainConfigResolverPassTest extends AbstractCompilerPassTestCase
      * @param int|null $declaredPriority
      * @param int $expectedPriority
      *
-     * @covers \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ChainConfigResolverPass::process
      * @dataProvider addResolverProvider
      */
     public function testAddResolver($declaredPriority, $expectedPriority)
@@ -75,3 +77,5 @@ class ChainConfigResolverPassTest extends AbstractCompilerPassTestCase
         ];
     }
 }
+
+class_alias(ChainConfigResolverPassTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler\ChainConfigResolverPassTest');

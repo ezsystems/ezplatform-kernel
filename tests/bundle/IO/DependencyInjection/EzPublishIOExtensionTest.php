@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Tests\DependencyInjection;
+namespace Ibexa\Tests\Bundle\IO\DependencyInjection;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ChainConfigResolverPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension;
-use eZ\Bundle\EzPublishIOBundle\DependencyInjection\EzPublishIOExtension;
-use eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory;
-use eZ\Publish\API\Repository\Tests\Container\Compiler\SetAllServicesPublicPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\ChainConfigResolverPass;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser;
+use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Bundle\IO\DependencyInjection\EzPublishIOExtension;
+use Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory;
+use Ibexa\Tests\Integration\Core\Repository\Container\Compiler\SetAllServicesPublicPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Symfony\Component\Yaml\Yaml;
 
@@ -106,3 +106,5 @@ class EzPublishIOExtensionTest extends AbstractExtensionTestCase
         $this->container->compile();
     }
 }
+
+class_alias(EzPublishIOExtensionTest::class, 'eZ\Bundle\EzPublishIOBundle\Tests\DependencyInjection\EzPublishIOExtensionTest');

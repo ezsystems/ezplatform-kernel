@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Regression;
+namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
 /**
  * Issue EZP-21906.
@@ -84,3 +84,5 @@ class EZP22958SearchSubtreePathstringFormatTest extends BaseTest
         ];
     }
 }
+
+class_alias(EZP22958SearchSubtreePathstringFormatTest::class, 'eZ\Publish\API\Repository\Tests\Regression\EZP22958SearchSubtreePathstringFormatTest');

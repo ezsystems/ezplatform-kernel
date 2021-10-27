@@ -4,12 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use eZ\Publish\Core\FieldType\Relation\Value as RelationValue;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\Repository\Values\Content\Relation;
-use eZ\Publish\API\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\Relation\Value as RelationValue;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 
 /**
  * Integration test for use field type.
@@ -42,9 +44,9 @@ class RelationIntegrationTest extends SearchBaseIntegrationTest
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @return array|\eZ\Publish\API\Repository\Values\Content\Relation[]
+     * @return array|\Ibexa\Contracts\Core\Repository\Values\Content\Relation[]
      */
     public function getCreateExpectedRelations(Content $content)
     {
@@ -63,9 +65,9 @@ class RelationIntegrationTest extends SearchBaseIntegrationTest
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @return array|\eZ\Publish\API\Repository\Values\Content\Relation[]
+     * @return array|\Ibexa\Contracts\Core\Repository\Values\Content\Relation[]
      */
     public function getUpdateExpectedRelations(Content $content)
     {
@@ -83,9 +85,6 @@ class RelationIntegrationTest extends SearchBaseIntegrationTest
         ];
     }
 
-    /**
-     * @see eZ\Publish\API\Repository\Tests\FieldType\BaseIntegrationTest::getSettingsSchema()
-     */
     public function getSettingsSchema()
     {
         return [
@@ -105,7 +104,7 @@ class RelationIntegrationTest extends SearchBaseIntegrationTest
     }
 
     /**
-     * @see eZ\Publish\API\Repository\Tests\FieldType\BaseIntegrationTest::getValidatorSchema()
+     * @covers \Ibexa\Contracts\Core\Repository\Tests\FieldType\BaseIntegrationTest::getValidatorSchema()
      */
     public function getValidatorSchema()
     {
@@ -200,7 +199,7 @@ class RelationIntegrationTest extends SearchBaseIntegrationTest
     public function assertFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Relation\\Value',
+            RelationValue::class,
             $field->value
         );
 
@@ -213,33 +212,12 @@ class RelationIntegrationTest extends SearchBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during creation.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidCreationFieldData()
     {
         return [
             [
                 new RelationValue([]),
-                'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentType',
+                InvalidArgumentType::class,
             ],
         ];
     }
@@ -263,10 +241,7 @@ class RelationIntegrationTest extends SearchBaseIntegrationTest
      */
     public function assertUpdatedFieldDataLoadedCorrect(Field $field)
     {
-        $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Relation\\Value',
-            $field->value
-        );
+        self::assertInstanceOf(RelationValue::class, $field->value);
 
         $expectedData = [
             'destinationContentId' => 49,
@@ -277,27 +252,6 @@ class RelationIntegrationTest extends SearchBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during update.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidUpdateFieldData()
     {
         return $this->provideInvalidCreationFieldData();
@@ -314,7 +268,7 @@ class RelationIntegrationTest extends SearchBaseIntegrationTest
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Relation\\Value',
+            RelationValue::class,
             $field->value
         );
 
@@ -398,7 +352,7 @@ class RelationIntegrationTest extends SearchBaseIntegrationTest
         // Using different values for Legacy Search Engine, in order to demonstrate that sort will
         // depend on how search engine stores field type's value. Legacy stores it as integer, while
         // other engines store it as string.
-        if (ltrim(get_class($this->getSetupFactory()), '\\') === 'eZ\Publish\API\Repository\Tests\SetupFactory\Legacy') {
+        if ($this->getSetupFactory() instanceof Legacy) {
             return 4;
         }
 
@@ -410,10 +364,12 @@ class RelationIntegrationTest extends SearchBaseIntegrationTest
         // Using different values for Legacy Search Engine, in order to demonstrate that sort will
         // depend on how search engine stores field type's value. Legacy stores it as integer, while
         // other engines store it as string.
-        if (ltrim(get_class($this->getSetupFactory()), '\\') === 'eZ\Publish\API\Repository\Tests\SetupFactory\Legacy') {
+        if ($this->getSetupFactory() instanceof Legacy) {
             return 49;
         }
 
         return 4;
     }
 }
+
+class_alias(RelationIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\FieldType\RelationIntegrationTest');

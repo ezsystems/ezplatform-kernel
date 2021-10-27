@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\SearchService\SortClause;
+namespace Ibexa\Tests\Integration\Core\Repository\SearchService\SortClause;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 
 abstract class AbstractSortClauseTest extends BaseTest
 {
@@ -33,3 +33,5 @@ abstract class AbstractSortClauseTest extends BaseTest
         self::assertEquals($expectedOrderedIds, $actualIds);
     }
 }
+
+class_alias(AbstractSortClauseTest::class, 'eZ\Publish\API\Repository\Tests\SearchService\SortClause\AbstractSortClauseTest');

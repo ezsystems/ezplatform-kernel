@@ -4,27 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
+namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
-use eZ\Publish\Core\Repository\Helper\NameSchemaService;
-use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
-use eZ\Publish\Core\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\FieldType\TextLine\Value as TextLineValue;
+use Ibexa\Core\Repository\Helper\NameSchemaService;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Core\FieldType\TextLine\Value as TextLineValue;
 
 /**
- * Mock Test case for NameSchema service.
+ * @covers \Ibexa\Core\Repository\Helper\NameSchemaService
  */
 class NameSchemaTest extends BaseServiceMockTest
 {
-    /**
-     * Test eZ\Publish\Core\Repository\Helper\NameSchemaService method.
-     *
-     * @covers \eZ\Publish\Core\Repository\Helper\NameSchemaService::resolveUrlAliasSchema
-     */
     public function testResolveUrlAliasSchema()
     {
         $serviceMock = $this->getPartlyMockedNameSchemaService(['resolve']);
@@ -50,11 +45,6 @@ class NameSchemaTest extends BaseServiceMockTest
         self::assertEquals(42, $result);
     }
 
-    /**
-     * Test eZ\Publish\Core\Repository\Helper\NameSchemaService method.
-     *
-     * @covers \eZ\Publish\Core\Repository\Helper\NameSchemaService::resolveUrlAliasSchema
-     */
     public function testResolveUrlAliasSchemaFallbackToNameSchema()
     {
         $serviceMock = $this->getPartlyMockedNameSchemaService(['resolve']);
@@ -80,11 +70,6 @@ class NameSchemaTest extends BaseServiceMockTest
         self::assertEquals(42, $result);
     }
 
-    /**
-     * Test eZ\Publish\Core\Repository\Helper\NameSchemaService method.
-     *
-     * @covers \eZ\Publish\Core\Repository\Helper\NameSchemaService::resolveNameSchema
-     */
     public function testResolveNameSchema()
     {
         $serviceMock = $this->getPartlyMockedNameSchemaService(['resolve']);
@@ -110,11 +95,6 @@ class NameSchemaTest extends BaseServiceMockTest
         self::assertEquals(42, $result);
     }
 
-    /**
-     * Test eZ\Publish\Core\Repository\Helper\NameSchemaService method.
-     *
-     * @covers \eZ\Publish\Core\Repository\Helper\NameSchemaService::resolveNameSchema
-     */
     public function testResolveNameSchemaWithFields()
     {
         $serviceMock = $this->getPartlyMockedNameSchemaService(['resolve']);
@@ -154,10 +134,7 @@ class NameSchemaTest extends BaseServiceMockTest
     }
 
     /**
-     * Test eZ\Publish\Core\Repository\Helper\NameSchemaService::resolve method.
-     *
-     * @covers \eZ\Publish\Core\Repository\Helper\NameSchemaService::resolve
-     * @dataProvider \eZ\Publish\Core\Repository\Tests\Service\Mock\NameSchemaTest::resolveDataProvider
+     * @dataProvider resolveDataProvider
      *
      * @param string[] $schemaIdentifiers
      * @param string $nameSchema
@@ -250,7 +227,7 @@ class NameSchemaTest extends BaseServiceMockTest
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Field[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field[]
      */
     protected function getFields()
     {
@@ -301,7 +278,7 @@ class NameSchemaTest extends BaseServiceMockTest
     }
 
     /**
-     * @return \eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition[]
+     * @return \Ibexa\Core\Repository\Values\ContentType\FieldDefinition[]
      */
     protected function getFieldDefinitions()
     {
@@ -333,7 +310,7 @@ class NameSchemaTest extends BaseServiceMockTest
     /**
      * Build Content Object stub for testing purpose.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function buildTestContentObject()
     {
@@ -355,7 +332,7 @@ class NameSchemaTest extends BaseServiceMockTest
      * @param string $nameSchema
      * @param string $urlAliasSchema
      *
-     * @return \eZ\Publish\Core\Repository\Values\ContentType\ContentType
+     * @return \Ibexa\Core\Repository\Values\ContentType\ContentType
      */
     protected function buildTestContentType($nameSchema = '<name_schema>', $urlAliasSchema = '<urlalias_schema>')
     {
@@ -376,7 +353,7 @@ class NameSchemaTest extends BaseServiceMockTest
      * @param string[] $methods
      * @param array $settings
      *
-     * @return \eZ\Publish\Core\Repository\Helper\NameSchemaService|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Repository\Helper\NameSchemaService|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getPartlyMockedNameSchemaService(array $methods = null, array $settings = [])
     {
@@ -393,3 +370,5 @@ class NameSchemaTest extends BaseServiceMockTest
             ->getMock();
     }
 }
+
+class_alias(NameSchemaTest::class, 'eZ\Publish\Core\Repository\Tests\Service\Mock\NameSchemaTest');

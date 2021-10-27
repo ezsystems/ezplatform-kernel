@@ -4,30 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Values\User\Limitation;
+namespace Ibexa\Tests\Integration\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\UserGroupLimitation;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Values\User\UserGroup;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\UserGroupLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
 
 /**
- * Test case for the {@link \eZ\Publish\API\Repository\Values\User\Limitation\UserGroupLimitation}
- * class.
- *
- * @see eZ\Publish\API\Repository\Values\User\Limitation
- * @see eZ\Publish\API\Repository\Values\User\Limitation\UserGroupLimitation
+ * @covers \Ibexa\Contracts\Core\Repository\Values\User\Limitation\UserGroupLimitation
  * @group integration
  * @group limitation
  */
 class UserGroupLimitationTest extends BaseLimitationTest
 {
-    /**
-     * Tests a UserGroupLimitation.
-     *
-     * @see eZ\Publish\API\Repository\Values\User\Limitation\UserGroupLimitation
-     *
-     * @throws \ErrorException if a mandatory test fixture not exists.
-     */
     public function testUserGroupLimitationAllow()
     {
         $repository = $this->getRepository();
@@ -52,16 +42,9 @@ class UserGroupLimitationTest extends BaseLimitationTest
         );
     }
 
-    /**
-     * Tests a UserGroupLimitation.
-     *
-     * @see eZ\Publish\API\Repository\Values\User\Limitation\UserGroupLimitation
-     *
-     * @throws \ErrorException if a mandatory test fixture not exists.
-     */
     public function testUserGroupLimitationForbid()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
 
@@ -82,7 +65,7 @@ class UserGroupLimitationTest extends BaseLimitationTest
     /**
      * Prepares the UserGroup fixture.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\UserGroup
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\UserGroup
      */
     protected function prepareUserGroup()
     {
@@ -108,10 +91,10 @@ class UserGroupLimitationTest extends BaseLimitationTest
     /**
      * Prepares the limitation fixture.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\User $user
-     * @param \eZ\Publish\API\Repository\Values\User\UserGroup $userGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $user
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup $userGroup
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
      * @throws \ErrorException
      */
@@ -128,7 +111,7 @@ class UserGroupLimitationTest extends BaseLimitationTest
         $role = $roleService->loadRoleByIdentifier('Editor');
         $roleDraft = $roleService->createRoleDraft($role);
         // Search for the new policy instance
-        /** @var \eZ\Publish\API\Repository\Values\User\PolicyDraft $policy */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft $policy */
         $editPolicy = null;
         foreach ($roleDraft->getPolicies() as $policy) {
             if ('content' != $policy->module || 'edit' != $policy->function) {
@@ -175,3 +158,5 @@ class UserGroupLimitationTest extends BaseLimitationTest
         return $draft;
     }
 }
+
+class_alias(UserGroupLimitationTest::class, 'eZ\Publish\API\Repository\Tests\Values\User\Limitation\UserGroupLimitationTest');

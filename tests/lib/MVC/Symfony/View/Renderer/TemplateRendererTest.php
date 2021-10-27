@@ -4,19 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View\Tests\Renderer;
+namespace Ibexa\Tests\Core\MVC\Symfony\View\Renderer;
 
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\View\ContentView;
+use Ibexa\Core\MVC\Exception\NoViewTemplateException;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\MVC\Symfony\View\ContentView;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use eZ\Publish\Core\MVC\Symfony\View\Renderer\TemplateRenderer;
-use eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent;
+use Ibexa\Core\MVC\Symfony\View\Renderer\TemplateRenderer;
+use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 
 class TemplateRendererTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\Renderer\TemplateRenderer */
+    /** @var \Ibexa\Core\MVC\Symfony\View\Renderer\TemplateRenderer */
     private $renderer;
 
     /** @var \Twig\Environment|\PHPUnit\Framework\MockObject\MockObject */
@@ -61,13 +62,13 @@ class TemplateRendererTest extends TestCase
 
     public function testRenderNoViewTemplate()
     {
-        $this->expectException(\eZ\Publish\Core\MVC\Exception\NoViewTemplateException::class);
+        $this->expectException(NoViewTemplateException::class);
 
         $this->renderer->render($this->createView());
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\View\View
+     * @return \Ibexa\Core\MVC\Symfony\View\View
      */
     protected function createView()
     {
@@ -76,3 +77,5 @@ class TemplateRendererTest extends TestCase
         return $view;
     }
 }
+
+class_alias(TemplateRendererTest::class, 'eZ\Publish\Core\MVC\Symfony\View\Tests\Renderer\TemplateRendererTest');

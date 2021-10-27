@@ -6,9 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\Parallel;
+namespace Ibexa\Tests\Integration\Core\Repository\Parallel;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
+use Ibexa\Tests\Core\Repository\Parallel\ParallelProcessList;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use Jenner\SimpleFork\Process;
 
 abstract class BaseParallelTestCase extends BaseTest
@@ -55,3 +56,5 @@ abstract class BaseParallelTestCase extends BaseTest
         $connection->connect();
     }
 }
+
+class_alias(BaseParallelTestCase::class, 'eZ\Publish\API\Repository\Tests\Parallel\BaseParallelTestCase');

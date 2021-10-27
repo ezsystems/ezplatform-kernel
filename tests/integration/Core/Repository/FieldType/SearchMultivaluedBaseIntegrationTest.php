@@ -4,11 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Field;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalNot;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalNot;
+use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
 
 /**
  * Integration test for searching and sorting with Field criterion and Field sort clause.
@@ -105,15 +106,19 @@ abstract class SearchMultivaluedBaseIntegrationTest extends SearchBaseIntegratio
         Operator::BETWEEN => 'BETWEEN',
     ];
 
-    protected function checkOperatorSupport($operator)
+    /**
+     * @throws \ErrorException
+     */
+    protected function checkOperatorSupport($operator): void
     {
-        if (ltrim(get_class($this->getSetupFactory()), '\\') === 'eZ\\Publish\\API\\Repository\\Tests\\SetupFactory\\Legacy') {
-            if (isset($this->legacyUnsupportedOperators[$operator])) {
-                $this->markTestSkipped(
-                    'Legacy Search Engine does not properly support multivalued fields ' .
-                    "with '{$this->legacyUnsupportedOperators[$operator]}' operator"
-                );
-            }
+        if (
+            isset($this->legacyUnsupportedOperators[$operator])
+            && $this->getSetupFactory() instanceof Legacy
+        ) {
+            $this->markTestSkipped(
+                'Legacy Search Engine does not properly support multivalued fields ' .
+                "with '{$this->legacyUnsupportedOperators[$operator]}' operator"
+            );
         }
     }
 
@@ -123,7 +128,7 @@ abstract class SearchMultivaluedBaseIntegrationTest extends SearchBaseIntegratio
      * Defaults to the testCreateContentType() in the base field type test,
      * override in the concrete test as needed.
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
      */
     protected function createTestContentType()
     {
@@ -134,10 +139,8 @@ abstract class SearchMultivaluedBaseIntegrationTest extends SearchBaseIntegratio
      * Creates test Content and Locations and returns the context for subsequent testing.
      *
      * Context consists of repository instance and created Content IDs.
-     *
-     * @return \eZ\Publish\API\Repository\Repository
      */
-    public function testCreateMultivaluedTestContent()
+    public function testCreateMultivaluedTestContent(): array
     {
         $repository = $this->getRepository();
         $fieldTypeService = $repository->getFieldTypeService();
@@ -779,3 +782,5 @@ abstract class SearchMultivaluedBaseIntegrationTest extends SearchBaseIntegratio
         }
     }
 }
+
+class_alias(SearchMultivaluedBaseIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\FieldType\SearchMultivaluedBaseIntegrationTest');

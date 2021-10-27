@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Core\Repository;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -94,3 +94,5 @@ final class LegacySchemaImporter
         return $statements;
     }
 }
+
+class_alias(LegacySchemaImporter::class, 'eZ\Publish\API\Repository\Tests\LegacySchemaImporter');

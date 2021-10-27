@@ -6,34 +6,34 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\FieldType\Tests\Integration\BinaryBase\BinaryBaseStorage;
+namespace Ibexa\Tests\Integration\Core\BinaryBase\BinaryBaseStorage;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage;
-use eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway;
-use eZ\Publish\Core\FieldType\BinaryFile\BinaryFileStorage\Gateway\DoctrineStorage;
-use eZ\Publish\Core\FieldType\Tests\Integration\BaseCoreFieldTypeIntegrationTest;
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\Core\IO\Values\BinaryFile;
-use eZ\Publish\Core\IO\Values\BinaryFileCreateStruct;
-use eZ\Publish\SPI\FieldType\BinaryBase\PathGenerator;
-use eZ\Publish\SPI\IO\MimeTypeDetector;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage;
+use Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway;
+use Ibexa\Core\FieldType\BinaryFile\BinaryFileStorage\Gateway\DoctrineStorage;
+use Ibexa\Tests\Integration\Core\BaseCoreFieldTypeIntegrationTest;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\Values\BinaryFile;
+use Ibexa\Core\IO\Values\BinaryFileCreateStruct;
+use Ibexa\Contracts\Core\FieldType\BinaryBase\PathGenerator;
+use Ibexa\Contracts\Core\IO\MimeTypeDetector;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 
 class BinaryBaseStorageTest extends BaseCoreFieldTypeIntegrationTest
 {
-    /** @var \eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway|\PHPUnit\Framework\MockObject\MockObject */
     protected $gateway;
 
-    /** @var \eZ\Publish\SPI\FieldType\BinaryBase\PathGenerator|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\FieldType\BinaryBase\PathGenerator|\PHPUnit\Framework\MockObject\MockObject */
     protected $pathGeneratorMock;
 
-    /** @var \eZ\Publish\Core\IO\IOServiceInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\IO\IOServiceInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $ioServiceMock;
 
-    /** @var \eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage|\PHPUnit\Framework\MockObject\MockObject */
     protected $storage;
 
     protected function setUp(): void
@@ -161,3 +161,5 @@ class BinaryBaseStorageTest extends BaseCoreFieldTypeIntegrationTest
         return new DoctrineStorage($this->getDatabaseConnection());
     }
 }
+
+class_alias(BinaryBaseStorageTest::class, 'eZ\Publish\Core\FieldType\Tests\Integration\BinaryBase\BinaryBaseStorage\BinaryBaseStorageTest');

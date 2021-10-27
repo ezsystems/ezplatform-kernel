@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Tests;
+namespace Ibexa\Tests\Core\Persistence;
 
 use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Connection;
@@ -85,3 +85,5 @@ class DatabaseConnectionFactory
         return self::$connectionPool[$databaseURL];
     }
 }
+
+class_alias(DatabaseConnectionFactory::class, 'eZ\Publish\Core\Persistence\Tests\DatabaseConnectionFactory');

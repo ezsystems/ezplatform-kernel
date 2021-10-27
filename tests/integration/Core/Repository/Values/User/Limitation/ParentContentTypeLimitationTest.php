@@ -4,28 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Values\User\Limitation;
+namespace Ibexa\Tests\Integration\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\ParentContentTypeLimitation;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentContentTypeLimitation;
 
 /**
- * Test case for the {@link \eZ\Publish\API\Repository\Values\User\Limitation\ParentContentTypeLimitation}
- * class.
- *
- * @see eZ\Publish\API\Repository\Values\User\Limitation
- * @see eZ\Publish\API\Repository\Values\User\Limitation\ParentContentTypeLimitation
+ * @covers \Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentContentTypeLimitation
  * @group integration
  * @group limitation
  */
 class ParentContentTypeLimitationTest extends BaseLimitationTest
 {
-    /**
-     * Test for ParentContentTypeLimitation and ContentTypeLimitation.
-     *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ParentContentTypeLimitation
-     */
     public function testParentContentTypeLimitationAllow()
     {
         $repository = $this->getRepository();
@@ -74,15 +65,9 @@ class ParentContentTypeLimitationTest extends BaseLimitationTest
         );
     }
 
-    /**
-     * Test for ParentContentTypeLimitation and ContentTypeLimitation.
-     *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ParentContentTypeLimitation
-     */
     public function testParentContentTypeLimitationForbid()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -122,3 +107,5 @@ class ParentContentTypeLimitationTest extends BaseLimitationTest
         /* END: Use Case */
     }
 }
+
+class_alias(ParentContentTypeLimitationTest::class, 'eZ\Publish\API\Repository\Tests\Values\User\Limitation\ParentContentTypeLimitationTest');

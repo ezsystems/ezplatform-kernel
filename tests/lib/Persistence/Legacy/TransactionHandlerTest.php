@@ -4,38 +4,36 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests;
+namespace Ibexa\Tests\Core\Persistence\Legacy;
 
 use Doctrine\DBAL\Connection;
 use Exception;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\MemoryCachingHandler;
-use eZ\Publish\Core\Persistence\Legacy\TransactionHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Type\MemoryCachingHandler;
+use Ibexa\Core\Persistence\Legacy\TransactionHandler;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Test case for TransactionHandler.
+ * @covers \Ibexa\Core\Persistence\Legacy\TransactionHandler
  */
-class TransactionHandlerTest extends \PHPUnit\Framework\TestCase
+class TransactionHandlerTest extends TestCase
 {
     /**
      * Transaction handler to test.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\TransactionHandler
+     * @var \Ibexa\Core\Persistence\Legacy\TransactionHandler
      */
     protected $transactionHandler;
 
     /** @var \Doctrine\DBAL\Connection|\PHPUnit\Framework\MockObject\MockObject */
     protected $connectionMock;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Type\Handler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Type\Handler|\PHPUnit\Framework\MockObject\MockObject */
     protected $contentTypeHandlerMock;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Language\Handler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Language\Handler|\PHPUnit\Framework\MockObject\MockObject */
     protected $languageHandlerMock;
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\TransactionHandler::beginTransaction
-     */
     public function testBeginTransaction()
     {
         $handler = $this->getTransactionHandler();
@@ -52,9 +50,6 @@ class TransactionHandlerTest extends \PHPUnit\Framework\TestCase
         $handler->beginTransaction();
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\TransactionHandler::commit
-     */
     public function testCommit()
     {
         $handler = $this->getTransactionHandler();
@@ -71,9 +66,6 @@ class TransactionHandlerTest extends \PHPUnit\Framework\TestCase
         $handler->commit();
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\TransactionHandler::commit
-     */
     public function testCommitException()
     {
         $this->expectException(\RuntimeException::class);
@@ -94,9 +86,6 @@ class TransactionHandlerTest extends \PHPUnit\Framework\TestCase
         $handler->commit();
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\TransactionHandler::rollback
-     */
     public function testRollback()
     {
         $handler = $this->getTransactionHandler();
@@ -113,9 +102,6 @@ class TransactionHandlerTest extends \PHPUnit\Framework\TestCase
         $handler->rollback();
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\TransactionHandler::rollback
-     */
     public function testRollbackException()
     {
         $this->expectException(\RuntimeException::class);
@@ -139,7 +125,7 @@ class TransactionHandlerTest extends \PHPUnit\Framework\TestCase
     /**
      * Returns a mock object for the Content Gateway.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\TransactionHandler
+     * @return \Ibexa\Core\Persistence\Legacy\TransactionHandler
      */
     protected function getTransactionHandler()
     {
@@ -169,7 +155,7 @@ class TransactionHandlerTest extends \PHPUnit\Framework\TestCase
     /**
      * Returns a mock object for the Content Type Handler.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Type\MemoryCachingHandler|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Type\MemoryCachingHandler|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getContentTypeHandlerMock()
     {
@@ -183,7 +169,7 @@ class TransactionHandlerTest extends \PHPUnit\Framework\TestCase
     /**
      * Returns a mock object for the Content Language Gateway.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getLanguageHandlerMock()
     {
@@ -194,3 +180,5 @@ class TransactionHandlerTest extends \PHPUnit\Framework\TestCase
         return $this->languageHandlerMock;
     }
 }
+
+class_alias(TransactionHandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\TransactionHandlerTest');

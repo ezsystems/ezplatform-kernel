@@ -4,14 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
+namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
-use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
-use eZ\Publish\Core\Repository\PermissionsCriterionHandler;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\User\Limitation as APILimitation;
-use eZ\Publish\Core\Repository\Values\User\Policy;
+use Ibexa\Contracts\Core\Limitation\Type;
+use Ibexa\Core\Repository\Values\User\User;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
+use Ibexa\Core\Repository\PermissionsCriterionHandler;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitation;
+use Ibexa\Core\Repository\Values\User\Policy;
 
 /**
  * Mock test case for PermissionCriterionHandler.
@@ -43,7 +45,7 @@ class PermissionsCriterionHandlerTest extends BaseServiceMockTest
             ->method('getPermissionsCriterion')
             ->will($this->returnValue($permissionsCriterion));
 
-        /* @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterionMock */
+        /* @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterionMock */
         $result = $handler->addPermissionsCriterion($criterionMock);
 
         $this->assertSame($permissionsCriterion, $result);
@@ -80,7 +82,7 @@ class PermissionsCriterionHandlerTest extends BaseServiceMockTest
             ->method('getPermissionsCriterion')
             ->will($this->returnValue($permissionsCriterionMock));
 
-        /* @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterionMock */
+        /* @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterionMock */
         $result = $handler->addPermissionsCriterion($givenCriterion);
 
         $this->assertTrue($result);
@@ -274,8 +276,8 @@ class PermissionsCriterionHandlerTest extends BaseServiceMockTest
 
     protected function mockServices($criterionMock, $limitationCount, $permissionSets)
     {
-        $userMock = $this->createMock('eZ\\Publish\\API\\Repository\\Values\\User\\User');
-        $limitationTypeMock = $this->createMock('eZ\\Publish\\SPI\\Limitation\\Type');
+        $userMock = $this->createMock(User::class);
+        $limitationTypeMock = $this->createMock(Type::class);
         $limitationServiceMock = $this->getLimitationServiceMock();
         $permissionResolverMock = $this->getPermissionResolverMock(
             [
@@ -363,7 +365,7 @@ class PermissionsCriterionHandlerTest extends BaseServiceMockTest
      *
      * @param string[]|null $methods
      *
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Repository\PermissionsCriterionHandler
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Repository\PermissionsCriterionHandler
      */
     protected function getPermissionsCriterionHandlerMock($methods = [])
     {
@@ -394,3 +396,5 @@ class PermissionsCriterionHandlerTest extends BaseServiceMockTest
         return $this->permissionResolverMock;
     }
 }
+
+class_alias(PermissionsCriterionHandlerTest::class, 'eZ\Publish\Core\Repository\Tests\Service\Mock\PermissionsCriterionHandlerTest');

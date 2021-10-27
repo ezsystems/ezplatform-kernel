@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\Id;
+namespace Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased\Id;
 
-use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Id\Location as LocationIdMatcher;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\BaseTest;
+use Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Id\Location as LocationIdMatcher;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased\BaseTest;
 
 class LocationTest extends BaseTest
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Id\Location */
+    /** @var \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Id\Location */
     private $matcher;
 
     protected function setUp(): void
@@ -24,11 +24,11 @@ class LocationTest extends BaseTest
 
     /**
      * @dataProvider matchLocationProvider
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Id\Location::matchLocation
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Id\Location::matchLocation
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
      *
      * @param int|int[] $matchingConfig
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param bool $expectedResult
      */
     public function testMatchLocation($matchingConfig, Location $location, $expectedResult)
@@ -65,11 +65,11 @@ class LocationTest extends BaseTest
 
     /**
      * @dataProvider matchContentInfoProvider
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Id\Location::matchContentInfo
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Id\Location::matchContentInfo
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
      *
      * @param int|int[] $matchingConfig
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      * @param bool $expectedResult
      */
     public function testMatchContentInfo($matchingConfig, ContentInfo $contentInfo, $expectedResult)
@@ -104,3 +104,5 @@ class LocationTest extends BaseTest
         ];
     }
 }
+
+class_alias(LocationTest::class, 'eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\Id\LocationTest');

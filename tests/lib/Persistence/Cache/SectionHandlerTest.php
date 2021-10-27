@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\Content\Section as SPISection;
-use eZ\Publish\SPI\Persistence\Content\Section\Handler as SPISectionHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Section as SPISection;
+use Ibexa\Contracts\Core\Persistence\Content\Section\Handler as SPISectionHandler;
 
 /**
  * Test case for Persistence\Cache\SectionHandler.
@@ -87,3 +87,5 @@ class SectionHandlerTest extends AbstractCacheHandlerTest
         ];
     }
 }
+
+class_alias(SectionHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\SectionHandlerTest');

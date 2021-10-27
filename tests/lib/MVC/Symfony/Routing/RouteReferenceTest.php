@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Routing\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Routing;
 
-use eZ\Publish\Core\MVC\Symfony\Routing\RouteReference;
+use Ibexa\Core\MVC\Symfony\Routing\RouteReference;
 use PHPUnit\Framework\TestCase;
 
 class RouteReferenceTest extends TestCase
@@ -63,3 +63,5 @@ class RouteReferenceTest extends TestCase
         $this->assertFalse($reference->has('foo'));
     }
 }
+
+class_alias(RouteReferenceTest::class, 'eZ\Publish\Core\MVC\Symfony\Routing\Tests\RouteReferenceTest');

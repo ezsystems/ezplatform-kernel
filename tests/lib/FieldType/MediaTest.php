@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests;
+namespace Ibexa\Tests\Core\FieldType;
 
-use eZ\Publish\Core\FieldType\BinaryFile\Value as BinaryFileValue;
-use eZ\Publish\Core\FieldType\Media\Type as MediaType;
-use eZ\Publish\Core\FieldType\Media\Value as MediaValue;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\FieldType\ValidationError;
+use Ibexa\Core\FieldType\BinaryFile\Value as BinaryFileValue;
+use Ibexa\Core\FieldType\Media\Type as MediaType;
+use Ibexa\Core\FieldType\Media\Value as MediaValue;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\FieldType\ValidationError;
 
 /**
  * @group fieldType
@@ -27,7 +27,7 @@ class MediaTest extends BinaryBaseTest
      * NOT take care for test case wide caching of the field type, just return
      * a new instance from this method!
      *
-     * @return FieldType
+     * @return \Ibexa\Core\FieldType\FieldType
      */
     protected function createFieldTypeUnderTest()
     {
@@ -771,3 +771,5 @@ class MediaTest extends BinaryBaseTest
         ];
     }
 }
+
+class_alias(MediaTest::class, 'eZ\Publish\Core\FieldType\Tests\MediaTest');

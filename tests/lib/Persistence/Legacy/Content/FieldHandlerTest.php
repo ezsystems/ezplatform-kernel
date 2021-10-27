@@ -4,61 +4,61 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content;
 
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Mapper;
-use eZ\Publish\Core\Persistence\FieldTypeRegistry;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
-use eZ\Publish\SPI\Persistence\FieldType as SPIFieldType;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\FieldHandler;
+use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper;
+use Ibexa\Core\Persistence\FieldTypeRegistry;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway;
+use Ibexa\Contracts\Core\Persistence\FieldType as SPIFieldType;
 
 /**
- * Test case for Content Handler.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\FieldHandler
  */
 class FieldHandlerTest extends LanguageAwareTestCase
 {
     /**
      * Gateway mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Gateway
      */
     protected $contentGatewayMock;
 
     /**
      * Mapper mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Mapper
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Mapper
      */
     protected $mapperMock;
 
     /**
      * Storage handler mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\StorageHandler
      */
     protected $storageHandlerMock;
 
     /**
      * Field type registry mock.
      *
-     * @var \eZ\Publish\Core\Persistence\FieldTypeRegistry
+     * @var \Ibexa\Core\Persistence\FieldTypeRegistry
      */
     protected $fieldTypeRegistryMock;
 
     /**
      * Field type mock.
      *
-     * @var \eZ\Publish\SPI\FieldType\FieldType
+     * @var \Ibexa\Contracts\Core\FieldType\FieldType
      */
     protected $fieldTypeMock;
 
@@ -124,9 +124,6 @@ class FieldHandlerTest extends LanguageAwareTestCase
             )->will($this->returnValue($storageHandlerUpdatesFields));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler::createNewFields
-     */
     public function testCreateNewFields()
     {
         $fieldHandler = $this->getFieldHandler();
@@ -145,9 +142,6 @@ class FieldHandlerTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler::createNewFields
-     */
     public function testCreateNewFieldsUpdatingStorageHandler()
     {
         $fieldHandler = $this->getFieldHandler();
@@ -217,9 +211,6 @@ class FieldHandlerTest extends LanguageAwareTestCase
         }
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler::createNewFields
-     */
     public function testCreateNewFieldsForMainLanguage()
     {
         $fieldHandler = $this->getFieldHandler();
@@ -238,9 +229,6 @@ class FieldHandlerTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler::createNewFields
-     */
     public function testCreateNewFieldsForMainLanguageUpdatingStorageHandler()
     {
         $fieldHandler = $this->getFieldHandler();
@@ -309,9 +297,6 @@ class FieldHandlerTest extends LanguageAwareTestCase
         }
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler::createExistingFieldsInNewVersion
-     */
     public function testCreateExistingFieldsInNewVersion()
     {
         $fieldHandler = $this->getFieldHandler();
@@ -327,9 +312,6 @@ class FieldHandlerTest extends LanguageAwareTestCase
         $fieldHandler->createExistingFieldsInNewVersion($this->getContentFixture());
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler::createExistingFieldsInNewVersion
-     */
     public function testCreateExistingFieldsInNewVersionUpdatingStorageHandler()
     {
         $fieldHandler = $this->getFieldHandler();
@@ -353,9 +335,6 @@ class FieldHandlerTest extends LanguageAwareTestCase
         $fieldHandler->createExistingFieldsInNewVersion($this->getContentFixture());
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler::loadExternalFieldData
-     */
     public function testLoadExternalFieldData()
     {
         $fieldHandler = $this->getFieldHandler();
@@ -432,9 +411,6 @@ class FieldHandlerTest extends LanguageAwareTestCase
             )->will($this->returnValue($storageHandlerUpdatesFields));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler::updateFields
-     */
     public function testUpdateFieldsWithNewLanguage()
     {
         $mapperMock = $this->getMapperMock();
@@ -467,9 +443,6 @@ class FieldHandlerTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler::updateFields
-     */
     public function testUpdateFieldsWithNewLanguageUpdatingStorageHandler()
     {
         $fieldHandler = $this->getFieldHandler();
@@ -563,9 +536,6 @@ class FieldHandlerTest extends LanguageAwareTestCase
         }
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler::updateFields
-     */
     public function testUpdateFieldsExistingLanguages()
     {
         $fieldHandler = $this->getFieldHandler();
@@ -593,9 +563,6 @@ class FieldHandlerTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler::updateFields
-     */
     public function testUpdateFieldsExistingLanguagesUpdatingStorageHandler()
     {
         $fieldHandler = $this->getFieldHandler();
@@ -674,9 +641,6 @@ class FieldHandlerTest extends LanguageAwareTestCase
         }
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler::updateFields
-     */
     public function testUpdateFieldsForInitialLanguage()
     {
         $fieldHandler = $this->getFieldHandler();
@@ -699,9 +663,6 @@ class FieldHandlerTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler::updateFields
-     */
     public function testUpdateFieldsForInitialLanguageUpdatingStorageHandler()
     {
         $fieldHandler = $this->getFieldHandler();
@@ -732,9 +693,6 @@ class FieldHandlerTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler::deleteFields
-     */
     public function testDeleteFields()
     {
         $fieldHandler = $this->getFieldHandler();
@@ -769,7 +727,7 @@ class FieldHandlerTest extends LanguageAwareTestCase
     /**
      * Returns a Content fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content
      */
     protected function getContentPartialFieldsFixture()
     {
@@ -807,7 +765,7 @@ class FieldHandlerTest extends LanguageAwareTestCase
     /**
      * Returns a Content fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content
      */
     protected function getContentNoFieldsFixture()
     {
@@ -827,7 +785,7 @@ class FieldHandlerTest extends LanguageAwareTestCase
     /**
      * Returns a Content fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content
      */
     protected function getContentSingleLanguageFixture()
     {
@@ -866,7 +824,7 @@ class FieldHandlerTest extends LanguageAwareTestCase
     /**
      * Returns a Content fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content
      */
     protected function getContentFixture()
     {
@@ -911,7 +869,7 @@ class FieldHandlerTest extends LanguageAwareTestCase
     /**
      * Returns a ContentType fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     protected function getContentTypeFixture()
     {
@@ -949,7 +907,7 @@ class FieldHandlerTest extends LanguageAwareTestCase
     /**
      * Returns an UpdateStruct fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UpdateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UpdateStruct
      */
     protected function getUpdateStructFixture()
     {
@@ -974,7 +932,7 @@ class FieldHandlerTest extends LanguageAwareTestCase
     /**
      * Returns a FieldHandler to test.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\FieldHandler
      */
     protected function getFieldHandler()
     {
@@ -992,7 +950,7 @@ class FieldHandlerTest extends LanguageAwareTestCase
     /**
      * Returns a StorageHandler mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Persistence\Legacy\Content\StorageHandler|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getStorageHandlerMock()
     {
@@ -1006,7 +964,7 @@ class FieldHandlerTest extends LanguageAwareTestCase
     /**
      * Returns a Mapper mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Mapper|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Mapper|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getMapperMock()
     {
@@ -1020,7 +978,7 @@ class FieldHandlerTest extends LanguageAwareTestCase
     /**
      * Returns a mock object for the Content Gateway.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Gateway|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Gateway|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getContentGatewayMock()
     {
@@ -1032,7 +990,7 @@ class FieldHandlerTest extends LanguageAwareTestCase
     }
 
     /**
-     * @return \eZ\Publish\Core\Persistence\FieldTypeRegistry|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Persistence\FieldTypeRegistry|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getFieldTypeRegistryMock()
     {
@@ -1054,7 +1012,7 @@ class FieldHandlerTest extends LanguageAwareTestCase
     }
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\FieldType|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Persistence\FieldType|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getFieldTypeMock()
     {
@@ -1065,3 +1023,5 @@ class FieldHandlerTest extends LanguageAwareTestCase
         return $this->fieldTypeMock;
     }
 }
+
+class_alias(FieldHandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldHandlerTest');

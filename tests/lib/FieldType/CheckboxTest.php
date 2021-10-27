@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests;
+namespace Ibexa\Tests\Core\FieldType;
 
-use eZ\Publish\Core\FieldType\Checkbox\Type as Checkbox;
-use eZ\Publish\Core\FieldType\Checkbox\Value as CheckboxValue;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\FieldType\Checkbox\Type as Checkbox;
+use Ibexa\Core\FieldType\Checkbox\Value as CheckboxValue;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * @group fieldType
@@ -25,7 +25,7 @@ class CheckboxTest extends FieldTypeTest
      * NOT take care for test case wide caching of the field type, just return
      * a new instance from this method!
      *
-     * @return \eZ\Publish\SPI\FieldType\FieldType
+     * @return \Ibexa\Contracts\Core\FieldType\FieldType
      */
     protected function createFieldTypeUnderTest()
     {
@@ -58,36 +58,13 @@ class CheckboxTest extends FieldTypeTest
     /**
      * Returns the empty value expected from the field type.
      *
-     * @return \eZ\Publish\Core\FieldType\Checkbox\Value
+     * @return \Ibexa\Core\FieldType\Checkbox\Value
      */
     protected function getEmptyValueExpectation()
     {
         return new CheckboxValue(false);
     }
 
-    /**
-     * Data provider for invalid input to acceptValue().
-     *
-     * Returns an array of data provider sets with 2 arguments: 1. The invalid
-     * input to acceptValue(), 2. The expected exception type as a string. For
-     * example:
-     *
-     * <code>
-     *  return array(
-     *      array(
-     *          new \stdClass(),
-     *          'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
-     *      ),
-     *      array(
-     *          array(),
-     *          'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
-     *      ),
-     *      // ...
-     *  );
-     * </code>
-     *
-     * @return array
-     */
     public function provideInvalidInputForAcceptValue()
     {
         return [
@@ -244,7 +221,7 @@ class CheckboxTest extends FieldTypeTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\Checkbox\Type::toPersistenceValue
+     * @covers \Ibexa\Core\FieldType\Checkbox\Type::toPersistenceValue
      */
     public function testToPersistenceValue()
     {
@@ -256,7 +233,7 @@ class CheckboxTest extends FieldTypeTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\Checkbox\Value::__construct
+     * @covers \Ibexa\Core\FieldType\Checkbox\Value::__construct
      */
     public function testBuildFieldValueWithParam()
     {
@@ -266,7 +243,7 @@ class CheckboxTest extends FieldTypeTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\Checkbox\Value::__construct
+     * @covers \Ibexa\Core\FieldType\Checkbox\Value::__construct
      */
     public function testBuildFieldValueWithoutParam()
     {
@@ -275,7 +252,7 @@ class CheckboxTest extends FieldTypeTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\Checkbox\Value::__toString
+     * @covers \Ibexa\Core\FieldType\Checkbox\Value::__toString
      */
     public function testFieldValueToString()
     {
@@ -298,3 +275,5 @@ class CheckboxTest extends FieldTypeTest
         ];
     }
 }
+
+class_alias(CheckboxTest::class, 'eZ\Publish\Core\FieldType\Tests\CheckboxTest');

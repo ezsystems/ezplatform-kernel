@@ -4,10 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Values\Content;
+namespace Ibexa\Tests\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Tests\Values\ValueObjectTestTrait;
-use eZ\Publish\API\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException;
+use Ibexa\Tests\Core\Repository\Values\ValueObjectTestTrait;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use PHPUnit\Framework\TestCase;
 
 class SectionTest extends TestCase
@@ -17,7 +19,7 @@ class SectionTest extends TestCase
     /**
      * Test a new class and default values on properties.
      *
-     * @covers \eZ\Publish\API\Repository\Values\Content\Section::__construct
+     * @covers \Ibexa\Contracts\Core\Repository\Values\Content\Section::__construct
      */
     public function testNewClass()
     {
@@ -36,11 +38,11 @@ class SectionTest extends TestCase
     /**
      * Test retrieving missing property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\Content\Section::__get
+     * @covers \Ibexa\Contracts\Core\Repository\Values\Content\Section::__get
      */
     public function testMissingProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException::class);
+        $this->expectException(PropertyNotFoundException::class);
 
         $section = new Section();
         $value = $section->notDefined;
@@ -50,11 +52,11 @@ class SectionTest extends TestCase
     /**
      * Test setting read only property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\Content\Section::__set
+     * @covers \Ibexa\Contracts\Core\Repository\Values\Content\Section::__set
      */
     public function testReadOnlyProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException::class);
+        $this->expectException(PropertyReadOnlyException::class);
 
         $section = new Section();
         $section->id = 22;
@@ -64,7 +66,7 @@ class SectionTest extends TestCase
     /**
      * Test if property exists.
      *
-     * @covers \eZ\Publish\API\Repository\Values\Content\Section::__isset
+     * @covers \Ibexa\Contracts\Core\Repository\Values\Content\Section::__isset
      */
     public function testIsPropertySet()
     {
@@ -79,14 +81,16 @@ class SectionTest extends TestCase
     /**
      * Test unsetting a property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\Content\Section::__unset
+     * @covers \Ibexa\Contracts\Core\Repository\Values\Content\Section::__unset
      */
     public function testUnsetProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException::class);
+        $this->expectException(PropertyReadOnlyException::class);
 
         $section = new Section(['id' => 1]);
         unset($section->id);
         self::fail('Unsetting read-only property succeeded');
     }
 }
+
+class_alias(SectionTest::class, 'eZ\Publish\API\Repository\Tests\Values\Content\SectionTest');

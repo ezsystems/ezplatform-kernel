@@ -4,22 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Event\Tests;
+namespace Ibexa\Tests\Core\Event;
 
-use eZ\Publish\API\Repository\Events\Trash\BeforeDeleteTrashItemEvent;
-use eZ\Publish\API\Repository\Events\Trash\BeforeEmptyTrashEvent;
-use eZ\Publish\API\Repository\Events\Trash\BeforeRecoverEvent;
-use eZ\Publish\API\Repository\Events\Trash\BeforeTrashEvent;
-use eZ\Publish\API\Repository\Events\Trash\DeleteTrashItemEvent;
-use eZ\Publish\API\Repository\Events\Trash\EmptyTrashEvent;
-use eZ\Publish\API\Repository\Events\Trash\RecoverEvent;
-use eZ\Publish\API\Repository\Events\Trash\TrashEvent;
-use eZ\Publish\API\Repository\TrashService as TrashServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult;
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResultList;
-use eZ\Publish\API\Repository\Values\Content\TrashItem;
-use eZ\Publish\Core\Event\TrashService;
+use Ibexa\Contracts\Core\Repository\Events\Trash\BeforeDeleteTrashItemEvent;
+use Ibexa\Contracts\Core\Repository\Events\Trash\BeforeEmptyTrashEvent;
+use Ibexa\Contracts\Core\Repository\Events\Trash\BeforeRecoverEvent;
+use Ibexa\Contracts\Core\Repository\Events\Trash\BeforeTrashEvent;
+use Ibexa\Contracts\Core\Repository\Events\Trash\DeleteTrashItemEvent;
+use Ibexa\Contracts\Core\Repository\Events\Trash\EmptyTrashEvent;
+use Ibexa\Contracts\Core\Repository\Events\Trash\RecoverEvent;
+use Ibexa\Contracts\Core\Repository\Events\Trash\TrashEvent;
+use Ibexa\Contracts\Core\Repository\TrashService as TrashServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
+use Ibexa\Core\Event\TrashService;
 
 class TrashServiceTest extends AbstractServiceTest
 {
@@ -419,3 +419,5 @@ class TrashServiceTest extends AbstractServiceTest
         ]);
     }
 }
+
+class_alias(TrashServiceTest::class, 'eZ\Publish\Core\Event\Tests\TrashServiceTest');

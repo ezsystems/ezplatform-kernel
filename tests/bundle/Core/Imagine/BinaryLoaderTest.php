@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine;
+namespace Ibexa\Tests\Bundle\Core\Imagine;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\BinaryLoader;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\IO\Exception\InvalidBinaryFileIdException;
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\Core\IO\Values\BinaryFile;
-use eZ\Publish\Core\IO\Values\MissingBinaryFile;
+use Ibexa\Bundle\Core\Imagine\BinaryLoader;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\IO\Exception\InvalidBinaryFileIdException;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\Values\BinaryFile;
+use Ibexa\Core\IO\Values\MissingBinaryFile;
 use Liip\ImagineBundle\Exception\Binary\Loader\NotLoadableException;
 use Liip\ImagineBundle\Model\Binary;
 use PHPUnit\Framework\TestCase;
@@ -104,3 +104,5 @@ class BinaryLoaderTest extends TestCase
         self::assertEquals($expected, $this->binaryLoader->find($path));
     }
 }
+
+class_alias(BinaryLoaderTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\BinaryLoaderTest');

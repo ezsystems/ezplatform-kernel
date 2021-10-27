@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Pagination\Tests;
+namespace Ibexa\Tests\Core\Pagination;
 
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\Core\Pagination\Pagerfanta\LocationSearchAdapter;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter;
 
 class LocationSearchAdapterTest extends LocationSearchHitAdapterTest
 {
@@ -34,7 +34,7 @@ class LocationSearchAdapterTest extends LocationSearchHitAdapterTest
     {
         $expectedResult = [];
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Search\SearchHit[] $hits */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit[] $hits */
         foreach ($hits as $hit) {
             $expectedResult[] = $hit->valueObject;
         }
@@ -42,3 +42,5 @@ class LocationSearchAdapterTest extends LocationSearchHitAdapterTest
         return $expectedResult;
     }
 }
+
+class_alias(LocationSearchAdapterTest::class, 'eZ\Publish\Core\Pagination\Tests\LocationSearchAdapterTest');

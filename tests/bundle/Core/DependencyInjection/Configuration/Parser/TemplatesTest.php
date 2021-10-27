@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\Parser;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Parser;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\FieldDefinitionSettingsTemplates;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\FieldTemplates;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\FieldDefinitionSettingsTemplates;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\FieldTemplates;
+use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface;
 use Symfony\Component\Yaml\Yaml;
 
 class TemplatesTest extends AbstractParserTestCase
@@ -159,3 +159,5 @@ class TemplatesTest extends AbstractParserTestCase
         return $config;
     }
 }
+
+class_alias(TemplatesTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\Parser\TemplatesTest');

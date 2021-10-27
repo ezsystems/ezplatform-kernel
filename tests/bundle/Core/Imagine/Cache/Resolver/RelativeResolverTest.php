@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Cache\Resolver;
+namespace Ibexa\Tests\Bundle\Core\Imagine\Cache\Resolver;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Cache\Resolver\RelativeResolver;
+use Ibexa\Bundle\Core\Imagine\Cache\Resolver\RelativeResolver;
 use Liip\ImagineBundle\Imagine\Cache\Resolver\ResolverInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -40,3 +40,5 @@ class RelativeResolverTest extends TestCase
         $this->assertSame($expected, $resolver->resolve($path, $filter));
     }
 }
+
+class_alias(RelativeResolverTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Cache\Resolver\RelativeResolverTest');

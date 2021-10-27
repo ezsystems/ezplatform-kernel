@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Limitation\Tests\LanguageLimitation;
+namespace Ibexa\Tests\Core\Limitation\LanguageLimitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\Core\Limitation\LanguageLimitation\ContentDeleteEvaluator;
-use eZ\Publish\SPI\Limitation\Target;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LanguageLimitation\ContentDeleteEvaluator;
+use Ibexa\Contracts\Core\Limitation\Target;
 use PHPUnit\Framework\TestCase;
 
 final class ContentDeleteEvaluatorTest extends TestCase
@@ -92,3 +92,5 @@ final class ContentDeleteEvaluatorTest extends TestCase
         return new Limitation\LanguageLimitation(['limitationValues' => $languageCodes]);
     }
 }
+
+class_alias(ContentDeleteEvaluatorTest::class, 'eZ\Publish\Core\Limitation\Tests\LanguageLimitation\ContentDeleteEvaluatorTest');

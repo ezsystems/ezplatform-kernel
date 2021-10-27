@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased;
+namespace Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased;
 
-use eZ\Publish\API\Repository\URLAliasService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\URLAlias;
-use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\UrlAlias as UrlAliasMatcher;
-use eZ\Publish\API\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\URLAliasService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
+use Ibexa\Core\MVC\Symfony\Matcher\ContentBased\UrlAlias as UrlAliasMatcher;
+use Ibexa\Contracts\Core\Repository\Repository;
 
 class UrlAliasTest extends BaseTest
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\UrlAlias */
+    /** @var \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\UrlAlias */
     private $matcher;
 
     protected function setUp(): void
@@ -25,8 +25,8 @@ class UrlAliasTest extends BaseTest
 
     /**
      * @dataProvider setMatchingConfigProvider
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\UrlAlias::setMatchingConfig
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\UrlAlias::setMatchingConfig
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
      *
      * @param string $matchingConfig
      * @param string[] $expectedValues
@@ -97,12 +97,12 @@ class UrlAliasTest extends BaseTest
 
     /**
      * @dataProvider matchLocationProvider
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\UrlAlias::matchLocation
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\UrlAlias::setMatchingConfig
-     * @covers \eZ\Publish\Core\MVC\RepositoryAware::setRepository
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\UrlAlias::matchLocation
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\UrlAlias::setMatchingConfig
+     * @covers \Ibexa\Core\MVC\RepositoryAware::setRepository
      *
      * @param string|string[] $matchingConfig
-     * @param \eZ\Publish\API\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
      * @param bool $expectedResult
      */
     public function testMatchLocation($matchingConfig, Repository $repository, $expectedResult)
@@ -147,8 +147,8 @@ class UrlAliasTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\UrlAlias::matchContentInfo
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\UrlAlias::setMatchingConfig
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\UrlAlias::matchContentInfo
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\UrlAlias::setMatchingConfig
      */
     public function testMatchContentInfo()
     {
@@ -158,3 +158,5 @@ class UrlAliasTest extends BaseTest
         $this->matcher->matchContentInfo($this->getContentInfoMock());
     }
 }
+
+class_alias(UrlAliasTest::class, 'eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\UrlAliasTest');

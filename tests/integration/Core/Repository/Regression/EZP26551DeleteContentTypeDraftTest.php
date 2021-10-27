@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Regression;
+namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 
 /**
  * @issue https://jira.ez.no/browse/EZP-26551
@@ -49,3 +49,5 @@ class EZP26551DeleteContentTypeDraftTest extends BaseTest
         }
     }
 }
+
+class_alias(EZP26551DeleteContentTypeDraftTest::class, 'eZ\Publish\API\Repository\Tests\Regression\EZP26551DeleteContentTypeDraftTest');

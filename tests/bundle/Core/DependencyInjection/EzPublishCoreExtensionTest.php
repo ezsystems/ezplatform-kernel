@@ -4,18 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\QueryTypePass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Common;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Content;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\ServiceTags;
-use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\Filter\CustomCriterionQueryBuilder;
-use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\Filter\CustomSortClauseQueryBuilder;
-use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\QueryTypeBundle\QueryType\TestQueryType;
-use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\StubPolicyProvider;
-use eZ\Publish\SPI\Repository\Values\Filter;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\QueryTypePass;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Common;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Content;
+use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Bundle\Core\DependencyInjection\ServiceTags;
+use Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\Filter\CustomCriterionQueryBuilder;
+use Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\Filter\CustomSortClauseQueryBuilder;
+use Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\QueryTypeBundle\QueryType\TestQueryType;
+use Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\StubPolicyProvider;
+use Ibexa\Contracts\Core\Repository\Values\Filter;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Repository\FieldGroups;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Repository\Options;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Repository\Search;
@@ -34,7 +34,7 @@ class EzPublishCoreExtensionTest extends AbstractExtensionTestCase
 
     private $siteaccessConfig = [];
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension */
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension */
     private $extension;
 
     protected function setUp(): void
@@ -710,7 +710,7 @@ class EzPublishCoreExtensionTest extends AbstractExtensionTestCase
     public function testRegisteredPolicies()
     {
         $this->load();
-        self::assertContainerBuilderHasParameter('ezpublish.api.role.policy_map');
+        $this->assertContainerBuilderHasParameter('ezpublish.api.role.policy_map');
         $previousPolicyMap = $this->container->getParameter('ezpublish.api.role.policy_map');
 
         $policies1 = [
@@ -754,7 +754,7 @@ class EzPublishCoreExtensionTest extends AbstractExtensionTestCase
         ];
 
         $this->load();
-        self::assertContainerBuilderHasParameter('ezpublish.api.role.policy_map');
+        $this->assertContainerBuilderHasParameter('ezpublish.api.role.policy_map');
         $expectedPolicies = array_merge_recursive($expectedPolicies, $previousPolicyMap);
         self::assertEquals($expectedPolicies, $this->container->getParameter('ezpublish.api.role.policy_map'));
     }
@@ -796,7 +796,7 @@ class EzPublishCoreExtensionTest extends AbstractExtensionTestCase
     /**
      * Test automatic configuration of services implementing QueryType interface.
      *
-     * @see \eZ\Publish\Core\QueryType\QueryType
+     * @see \Ibexa\Core\QueryType\QueryType
      */
     public function testQueryTypeAutomaticConfiguration(): void
     {
@@ -820,8 +820,8 @@ class EzPublishCoreExtensionTest extends AbstractExtensionTestCase
      *
      * @dataProvider getFilteringQueryBuilderData
      *
-     * @see \eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder
-     * @see \eZ\Publish\SPI\Repository\Values\Filter\SortClauseQueryBuilder
+     * @see \Ibexa\Contracts\Core\Repository\Values\Filter\CriterionQueryBuilder
+     * @see \Ibexa\Contracts\Core\Repository\Values\Filter\SortClauseQueryBuilder
      */
     public function testFilteringQueryBuildersAutomaticConfiguration(
         string $classFQCN,
@@ -905,3 +905,5 @@ class EzPublishCoreExtensionTest extends AbstractExtensionTestCase
         return $this->extension;
     }
 }
+
+class_alias(EzPublishCoreExtensionTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\EzPublishCoreExtensionTest');

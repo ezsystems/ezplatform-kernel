@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Regression;
+namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
-use eZ\Publish\API\Repository\Values\Content\Query;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 
 /**
  * @see https://jira.ez.no/browse/EZP-28799
@@ -15,7 +15,7 @@ use eZ\Publish\API\Repository\Values\Content\Query;
 class EZP28799SubtreeSearchTest extends BaseTest
 {
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Content[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content[]
      */
     public function createTestContent()
     {
@@ -103,3 +103,5 @@ class EZP28799SubtreeSearchTest extends BaseTest
         $this->assertSame(0, $result->totalCount);
     }
 }
+
+class_alias(EZP28799SubtreeSearchTest::class, 'eZ\Publish\API\Repository\Tests\Regression\EZP28799SubtreeSearchTest');

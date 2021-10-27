@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Event\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Event;
 
-use eZ\Publish\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent;
-use eZ\Publish\Core\MVC\Symfony\Routing\RouteReference;
+use Ibexa\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent;
+use Ibexa\Core\MVC\Symfony\Routing\RouteReference;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -36,3 +36,5 @@ class RouteReferenceGenerationEventTest extends TestCase
         $this->assertSame($newRouteReference, $event->getRouteReference());
     }
 }
+
+class_alias(RouteReferenceGenerationEventTest::class, 'eZ\Publish\Core\MVC\Symfony\Event\Tests\RouteReferenceGenerationEventTest');

@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Templating;
 
-use eZ\Publish\Core\MVC\Symfony\Templating\RenderOptions;
+use Ibexa\Core\MVC\Symfony\Templating\RenderOptions;
 use PHPUnit\Framework\TestCase;
 
 class RenderOptionsTest extends TestCase
@@ -80,3 +80,5 @@ class RenderOptionsTest extends TestCase
         $this->assertTrue($renderOptions->has('c'));
     }
 }
+
+class_alias(RenderOptionsTest::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Tests\RenderOptionsTest');

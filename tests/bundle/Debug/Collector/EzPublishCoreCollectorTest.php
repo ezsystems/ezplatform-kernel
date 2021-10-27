@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishDebugBundle\Tests\Collector;
+namespace Ibexa\Tests\Bundle\Debug\Collector;
 
-use eZ\Bundle\EzPublishDebugBundle\Collector\EzPublishCoreCollector;
+use Ibexa\Bundle\Debug\Collector\EzPublishCoreCollector;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -166,3 +166,5 @@ class EzPublishCoreCollectorTest extends TestCase
         return $this->createMock(DataCollectorInterface::class);
     }
 }
+
+class_alias(EzPublishCoreCollectorTest::class, 'eZ\Bundle\EzPublishDebugBundle\Tests\Collector\EzPublishCoreCollectorTest');

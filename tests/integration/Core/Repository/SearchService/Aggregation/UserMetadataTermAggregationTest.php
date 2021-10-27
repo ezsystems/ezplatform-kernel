@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\SearchService\Aggregation;
+namespace Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation;
 
-use eZ\Publish\API\Repository\Tests\SearchService\Aggregation\DataSetBuilder\TermAggregationDataSetBuilder;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\UserMetadataTermAggregation;
+use Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation\DataSetBuilder\TermAggregationDataSetBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\UserMetadataTermAggregation;
 
 final class UserMetadataTermAggregationTest extends AbstractAggregationTest
 {
@@ -62,3 +62,5 @@ final class UserMetadataTermAggregationTest extends AbstractAggregationTest
         return $builder->build();
     }
 }
+
+class_alias(UserMetadataTermAggregationTest::class, 'eZ\Publish\API\Repository\Tests\SearchService\Aggregation\UserMetadataTermAggregationTest');

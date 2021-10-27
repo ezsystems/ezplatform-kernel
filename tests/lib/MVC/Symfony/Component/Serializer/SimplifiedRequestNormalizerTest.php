@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer;
+namespace Ibexa\Tests\Core\MVC\Symfony\Component\Serializer;
 
-use eZ\Publish\Core\MVC\Symfony\Component\Serializer\SimplifiedRequestNormalizer;
-use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\Component\Serializer\SimplifiedRequestNormalizer;
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -53,3 +53,5 @@ final class SimplifiedRequestNormalizerTest extends TestCase
         $this->assertFalse($normalizer->supportsNormalization(new stdClass()));
     }
 }
+
+class_alias(SimplifiedRequestNormalizerTest::class, 'eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer\SimplifiedRequestNormalizerTest');

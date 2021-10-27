@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\Limitation\PermissionResolver;
+namespace Ibexa\Tests\Integration\Core\Repository\Limitation\PermissionResolver;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\User\Limitation\LocationLimitation;
-use eZ\Publish\SPI\Limitation\Target\Version;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LocationLimitation;
+use Ibexa\Contracts\Core\Limitation\Target\Version;
 
 class LocationLimitationIntegrationTest extends BaseLimitationIntegrationTest
 {
@@ -32,9 +32,9 @@ class LocationLimitationIntegrationTest extends BaseLimitationIntegrationTest
      * @param array $limitations
      * @param bool $expectedResult
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testCanUserEditContent(array $limitations, bool $expectedResult): void
     {
@@ -67,9 +67,9 @@ class LocationLimitationIntegrationTest extends BaseLimitationIntegrationTest
     /**
      * @dataProvider providerForCanUserEditOrPublishContent
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testCanUserReadTrashedContent(array $limitations, bool $expectedResult): void
     {
@@ -95,3 +95,5 @@ class LocationLimitationIntegrationTest extends BaseLimitationIntegrationTest
         );
     }
 }
+
+class_alias(LocationLimitationIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\Limitation\PermissionResolver\LocationLimitationIntegrationTest');

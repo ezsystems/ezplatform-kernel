@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Tests\TransformationProcessor;
+namespace Ibexa\Tests\Core\Persistence\TransformationProcessor;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence;
-use eZ\Publish\Core\Persistence\TransformationProcessor\PreprocessedBased;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence;
+use Ibexa\Core\Persistence\TransformationProcessor\PreprocessedBased;
 
 /**
  * Test case for LocationHandlerTest.
@@ -58,3 +58,5 @@ class TransformationProcessorPreprocessedBasedTest extends TestCase
         );
     }
 }
+
+class_alias(TransformationProcessorPreprocessedBasedTest::class, 'eZ\Publish\Core\Persistence\Tests\TransformationProcessor\TransformationProcessorPreprocessedBasedTest');

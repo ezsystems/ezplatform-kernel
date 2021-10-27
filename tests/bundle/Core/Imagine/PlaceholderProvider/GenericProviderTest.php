@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\PlaceholderProvider;
+namespace Ibexa\Tests\Bundle\Core\Imagine\PlaceholderProvider;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderProvider\GenericProvider;
-use eZ\Publish\Core\FieldType\Image\Value as ImageValue;
+use Ibexa\Bundle\Core\Imagine\PlaceholderProvider\GenericProvider;
+use Ibexa\Core\FieldType\Image\Value as ImageValue;
 use Imagine\Draw\DrawerInterface;
 use Imagine\Image\AbstractFont;
 use Imagine\Image\BoxInterface;
@@ -101,3 +101,5 @@ class GenericProviderTest extends TestCase
         $this->assertEquals(strtolower($expected), strtolower((string)$actual));
     }
 }
+
+class_alias(GenericProviderTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\PlaceholderProvider\GenericProviderTest');

@@ -4,27 +4,28 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\URL;
+namespace Ibexa\Tests\Core\Persistence\Legacy\URL;
 
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
-use eZ\Publish\API\Repository\Values\URL\Query\SortClause;
-use eZ\Publish\API\Repository\Values\URL\URLQuery;
-use eZ\Publish\Core\Persistence\Legacy\URL\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\URL\Handler;
-use eZ\Publish\Core\Persistence\Legacy\URL\Mapper;
-use eZ\Publish\SPI\Persistence\URL\URL;
-use eZ\Publish\SPI\Persistence\URL\URLUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
+use Ibexa\Core\Persistence\Legacy\URL\Gateway;
+use Ibexa\Core\Persistence\Legacy\URL\Handler;
+use Ibexa\Core\Persistence\Legacy\URL\Mapper;
+use Ibexa\Contracts\Core\Persistence\URL\URL;
+use Ibexa\Contracts\Core\Persistence\URL\URLUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
 class HandlerTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\URL\Gateway|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Persistence\Legacy\URL\Gateway|\PHPUnit\Framework\MockObject\MockObject */
     private $gateway;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\URL\Mapper|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Persistence\Legacy\URL\Mapper|\PHPUnit\Framework\MockObject\MockObject */
     private $mapper;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\URL\Handler */
+    /** @var \Ibexa\Core\Persistence\Legacy\URL\Handler */
     private $handler;
 
     protected function setUp(): void
@@ -98,7 +99,7 @@ class HandlerTest extends TestCase
 
     public function testLoadByIdWithoutUrlData()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $id = 1;
 
@@ -138,7 +139,7 @@ class HandlerTest extends TestCase
 
     public function testLoadByUrlWithoutUrlData()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $url = 'http://ez.no';
 
@@ -199,3 +200,5 @@ class HandlerTest extends TestCase
         return $url;
     }
 }
+
+class_alias(HandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\URL\HandlerTest');

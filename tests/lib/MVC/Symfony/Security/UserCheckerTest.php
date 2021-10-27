@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Security\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Security;
 
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\User\PasswordInfo;
-use eZ\Publish\Core\MVC\Symfony\Security\User;
-use eZ\Publish\Core\MVC\Symfony\Security\UserChecker;
-use eZ\Publish\Core\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\PasswordInfo;
+use Ibexa\Core\MVC\Symfony\Security\User;
+use Ibexa\Core\MVC\Symfony\Security\UserChecker;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Exception\CredentialsExpiredException;
 use Symfony\Component\Security\Core\Exception\DisabledException;
-use eZ\Publish\Core\Repository\Values\User\User as APIUser;
+use Ibexa\Core\Repository\Values\User\User as APIUser;
 use Throwable;
 use DateTimeImmutable;
 
@@ -29,7 +29,7 @@ final class UserCheckerTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $userServiceMock;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Security\UserChecker */
+    /** @var \Ibexa\Core\MVC\Symfony\Security\UserChecker */
     private $userChecker;
 
     protected function setUp(): void
@@ -162,3 +162,5 @@ final class UserCheckerTest extends TestCase
         $this->userChecker->checkPostAuth(new User($apiUser));
     }
 }
+
+class_alias(UserCheckerTest::class, 'eZ\Publish\Core\MVC\Symfony\Security\Tests\UserCheckerTest');

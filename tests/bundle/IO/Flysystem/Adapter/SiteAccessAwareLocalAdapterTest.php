@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Tests\Flysystem\Adapter;
+namespace Ibexa\Tests\Bundle\IO\Flysystem\Adapter;
 
-use eZ\Bundle\EzPublishIOBundle\Flysystem\Adapter\SiteAccessAwareLocalAdapter;
-use eZ\Publish\SPI\SiteAccess\ConfigProcessor;
+use Ibexa\Bundle\IO\Flysystem\Adapter\SiteAccessAwareLocalAdapter;
+use Ibexa\Contracts\Core\SiteAccess\ConfigProcessor;
 use PHPUnit\Framework\TestCase;
 
 class SiteAccessAwareLocalAdapterTest extends TestCase
@@ -15,7 +15,7 @@ class SiteAccessAwareLocalAdapterTest extends TestCase
     private const DYNAMIC_PATH = '__DYNAMIC_PATH__';
     private const STATIC_PATH = '__STATIC_PATH__';
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\SiteAccess\Config\ComplexConfigProcessor|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Bundle\Core\SiteAccess\Config\ComplexConfigProcessor|\PHPUnit\Framework\MockObject\MockObject */
     private $complexConfigProcessor;
 
     protected function setUp(): void
@@ -63,3 +63,5 @@ class SiteAccessAwareLocalAdapterTest extends TestCase
         return sys_get_temp_dir() . '/ezplatform-kernel-tests';
     }
 }
+
+class_alias(SiteAccessAwareLocalAdapterTest::class, 'eZ\Bundle\EzPublishIOBundle\Tests\Flysystem\Adapter\SiteAccessAwareLocalAdapterTest');

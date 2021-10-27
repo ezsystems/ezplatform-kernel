@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Templating;
 
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\Helper\TranslationHelper;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\Templating\GlobalHelper;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Helper\TranslationHelper;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\Templating\GlobalHelper;
 use Symfony\Component\HttpFoundation\Request;
-use eZ\Publish\Core\MVC\Symfony\Routing\UrlAliasRouter;
+use Ibexa\Core\MVC\Symfony\Routing\UrlAliasRouter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -21,7 +21,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 class GlobalHelperTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Templating\GlobalHelper */
+    /** @var \Ibexa\Core\MVC\Symfony\Templating\GlobalHelper */
     protected $helper;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject */
@@ -196,3 +196,5 @@ class GlobalHelperTest extends TestCase
         $this->assertSame($languages, $this->helper->getAvailableLanguages());
     }
 }
+
+class_alias(GlobalHelperTest::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Tests\GlobalHelperTest');

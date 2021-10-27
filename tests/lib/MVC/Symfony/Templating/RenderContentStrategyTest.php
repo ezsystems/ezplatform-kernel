@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Templating;
 
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\Templating\RenderContentStrategy;
-use eZ\Publish\Core\MVC\Symfony\Templating\RenderOptions;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\Templating\RenderContentStrategy;
+use Ibexa\Core\MVC\Symfony\Templating\RenderOptions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
@@ -150,3 +150,5 @@ class RenderContentStrategyTest extends BaseRenderStrategyTest
         ));
     }
 }
+
+class_alias(RenderContentStrategyTest::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Tests\RenderContentStrategyTest');

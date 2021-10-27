@@ -4,39 +4,39 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Exceptions\BadStateException;
-use eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException;
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException as APIInvalidArgumentException;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\ContentMetadataUpdateStruct;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem;
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\API\Repository\Values\Content\URLAlias;
-use eZ\Publish\API\Repository\Values\Content\Relation;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\LocationLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException as APIInvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LocationLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Exception;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\Core\Base\Exceptions\UnauthorizedException as CoreUnauthorizedException;
-use eZ\Publish\Core\Repository\Values\Content\ContentUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException as CoreUnauthorizedException;
+use Ibexa\Core\Repository\Values\Content\ContentUpdateStruct;
 use InvalidArgumentException;
 
 /**
  * Test case for operations in the ContentService using in memory storage.
  *
- * @see \eZ\Publish\API\Repository\ContentService
+ * @see \Ibexa\Contracts\Core\Repository\ContentService
  * @group content
  */
 class ContentServiceTest extends BaseContentServiceTest
@@ -60,13 +60,13 @@ class ContentServiceTest extends BaseContentServiceTest
     private const GER_DE = 'ger-DE';
     private const ENG_GB = 'eng-GB';
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
     public function setUp(): void
@@ -82,8 +82,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the newContentCreateStruct() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::newContentCreateStruct()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeByIdentifier
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::newContentCreateStruct()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ContentTypeServiceTest::testLoadContentTypeByIdentifier
      * @group user
      * @group field-type
      */
@@ -100,10 +100,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContent() method.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testNewContentCreateStruct
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent()
+     * @depends testNewContentCreateStruct
      * @group user
      * @group field-type
      */
@@ -132,14 +132,11 @@ class ContentServiceTest extends BaseContentServiceTest
      * Tests made for issue #EZP-20955 where Anonymous user is granted access to create content
      * and should have access to do that.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
-     *
-     * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testNewContentCreateStruct
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
      * @group user
      * @group field-type
      */
-    public function testCreateContentAndPublishWithPrivilegedAnonymousUser()
+    public function testCreateContentAndPublishWithPrivilegedAnonymousUser(): void
     {
         $anonymousUserId = $this->generateId('user', 10);
 
@@ -187,12 +184,12 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContent() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent()
+     * @depends testCreateContent
      */
     public function testCreateContentSetsContentInfo($content)
     {
@@ -204,10 +201,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContent() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentSetsContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent()
+     * @depends testCreateContentSetsContentInfo
      */
     public function testCreateContentSetsExpectedContentInfo($content)
     {
@@ -245,12 +242,12 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContent() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent()
+     * @depends testCreateContent
      */
     public function testCreateContentSetsVersionInfo($content)
     {
@@ -262,10 +259,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContent() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentSetsVersionInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent()
+     * @depends testCreateContentSetsVersionInfo
      */
     public function testCreateContentSetsExpectedVersionInfo($content)
     {
@@ -293,9 +290,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContent() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContent()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent()
      * @depends testCreateContent
      */
     public function testCreateContentSetsExpectedContentType($content)
@@ -322,7 +319,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContent() method with utilizing ContentType default options.
      *
-     * @covers \eZ\Publish\API\Repository\ContentService::createContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
      */
     public function testCreateContentWithContentTypeDefaultOptions(): void
     {
@@ -348,8 +345,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent()
+     * @depends testCreateContent
      */
     public function testCreateContentThrowsInvalidArgumentException()
     {
@@ -379,8 +376,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent()
+     * @depends testCreateContent
      */
     public function testCreateContentThrowsInvalidArgumentExceptionOnFieldTypeNotAccept()
     {
@@ -399,8 +396,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent()
+     * @depends testCreateContent
      */
     public function testCreateContentThrowsContentFieldValidationException()
     {
@@ -422,8 +419,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent()
+     * @depends testCreateContent
      */
     public function testCreateContentRequiredFieldMissing()
     {
@@ -446,10 +443,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * the LocationService, so that we cannot use PHPUnit's test dependencies
      * here.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContent($contentCreateStruct, $locationCreateStructs)
-     * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testCreateLocation
-     * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocationByRemoteId
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
+     * @depends testCreateContent
      * @group user
      */
     public function testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately()
@@ -465,8 +460,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContent($contentCreateStruct, $locationCreateStructs)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent($contentCreateStruct, $locationCreateStructs)
+     * @depends testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
      */
     public function testCreateContentThrowsInvalidArgumentExceptionWithLocationCreateParameter()
     {
@@ -519,7 +514,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentInfo() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentInfo()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentInfo()
      * @group user
      */
     public function testLoadContentInfo()
@@ -537,10 +532,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the returned value of the loadContentInfo() method.
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
-     * @covers \eZ\Publish\API\Repository\ContentService::loadContentInfo
+     * @depends testLoadContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentInfo
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      */
     public function testLoadContentInfoSetsExpectedContentInfo(ContentInfo $contentInfo)
     {
@@ -551,10 +546,10 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
-     * @covers \eZ\Publish\API\Repository\ContentService::loadContentInfo
+     * @depends testLoadContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentInfo
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      */
     public function testLoadContentInfoGetContentType(ContentInfo $contentInfo): void
     {
@@ -565,10 +560,10 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
-     * @covers \eZ\Publish\API\Repository\ContentService::loadContentInfo
+     * @depends testLoadContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentInfo
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      */
     public function testLoadContentInfoGetSection(ContentInfo $contentInfo): void
     {
@@ -579,10 +574,10 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
-     * @covers \eZ\Publish\API\Repository\ContentService::loadContentInfo
+     * @depends testLoadContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentInfo
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      */
     public function testLoadContentInfoGetMainLanguage(ContentInfo $contentInfo): void
     {
@@ -593,10 +588,10 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
-     * @covers \eZ\Publish\API\Repository\ContentService::loadContentInfo
+     * @depends testLoadContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentInfo
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      */
     public function testLoadContentInfoGetMainLocation(ContentInfo $contentInfo): void
     {
@@ -607,10 +602,10 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
-     * @covers \eZ\Publish\API\Repository\ContentService::loadContentInfo
+     * @depends testLoadContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentInfo
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      */
     public function testLoadContentInfoSetsExpectedOwnerProxy(ContentInfo $contentInfo): void
     {
@@ -623,8 +618,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentInfo() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentInfo()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentInfo()
+     * @depends testLoadContentInfo
      */
     public function testLoadContentInfoThrowsNotFoundException()
     {
@@ -638,7 +633,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentInfoList() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentInfoList()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentInfoList()
      */
     public function testLoadContentInfoList()
     {
@@ -656,7 +651,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentInfoList() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentInfoList()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentInfoList()
      * @depends testLoadContentInfoList
      */
     public function testLoadContentInfoListSkipsNotFoundItems()
@@ -670,7 +665,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentInfoByRemoteId() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentInfoByRemoteId()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentInfoByRemoteId()
      */
     public function testLoadContentInfoByRemoteId()
     {
@@ -685,10 +680,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the returned value of the loadContentInfoByRemoteId() method.
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfoByRemoteId
-     * @covers \eZ\Publish\API\Repository\ContentService::loadContentInfoByRemoteId
+     * @depends testLoadContentInfoByRemoteId
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentInfoByRemoteId
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      */
     public function testLoadContentInfoByRemoteIdSetsExpectedContentInfo(ContentInfo $contentInfo)
     {
@@ -715,8 +710,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentInfoByRemoteId() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentInfoByRemoteId()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfoByRemoteId
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentInfoByRemoteId()
+     * @depends testLoadContentInfoByRemoteId
      */
     public function testLoadContentInfoByRemoteIdThrowsNotFoundException()
     {
@@ -728,8 +723,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadVersionInfo() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadVersionInfo()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersionInfo()
+     * @depends testLoadContentInfo
      * @group user
      */
     public function testLoadVersionInfo()
@@ -752,7 +747,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadVersionInfoById() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadVersionInfoById()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersionInfoById()
      */
     public function testLoadVersionInfoById()
     {
@@ -773,10 +768,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the returned value of the loadVersionInfoById() method.
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfoById
-     * @covers \eZ\Publish\Core\Repository\ContentService::loadVersionInfoById
+     * @depends testLoadVersionInfoById
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersionInfoById
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      */
     public function testLoadVersionInfoByIdSetsExpectedVersionInfo(VersionInfo $versionInfo)
     {
@@ -805,10 +800,9 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfoById
-     * @covers \eZ\Publish\Core\Repository\ContentService::loadVersionInfoById
+     * @depends testLoadVersionInfoById
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      */
     public function testLoadVersionInfoByIdGetCreator(VersionInfo $versionInfo): void
     {
@@ -819,10 +813,10 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfoById
-     * @covers \eZ\Publish\Core\Repository\ContentService::loadVersionInfoById
+     * @depends testLoadVersionInfoById
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersionInfoById
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      */
     public function testLoadVersionInfoByIdGetInitialLanguage(VersionInfo $versionInfo): void
     {
@@ -833,10 +827,9 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfoById
-     * @covers \eZ\Publish\Core\Repository\ContentService::loadVersionInfoById
+     * @depends testLoadVersionInfoById
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      */
     public function testLoadVersionInfoByIdGetLanguages(VersionInfo $versionInfo): void
     {
@@ -851,8 +844,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadVersionInfoById() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadVersionInfoById()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfoById
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersionInfoById()
+     * @depends testLoadVersionInfoById
      */
     public function testLoadVersionInfoByIdThrowsNotFoundException()
     {
@@ -866,8 +859,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentByContentInfo() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentByContentInfo()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentByContentInfo()
+     * @depends testLoadContentInfo
      */
     public function testLoadContentByContentInfo()
     {
@@ -889,8 +882,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentByVersionInfo() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentByVersionInfo()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentByVersionInfo()
+     * @depends testLoadVersionInfo
      */
     public function testLoadContentByVersionInfo()
     {
@@ -915,7 +908,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContent()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContent()
      * @group user
      * @group field-type
      */
@@ -936,8 +929,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContent()
+     * @depends testLoadContent
      */
     public function testLoadContentThrowsNotFoundException()
     {
@@ -970,7 +963,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentByRemoteId() method.
      *
-     * @covers \eZ\Publish\API\Repository\ContentService::loadContentByRemoteId
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentByRemoteId
      * @dataProvider contentRemoteIdVersionLanguageProvider
      *
      * @param string $remoteId
@@ -996,8 +989,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentByRemoteId() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentByRemoteId()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentByRemoteId
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentByRemoteId()
+     * @depends testLoadContentByRemoteId
      */
     public function testLoadContentByRemoteIdThrowsNotFoundException()
     {
@@ -1010,13 +1003,13 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the publishVersion() method.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
-     * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfo
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::publishVersion()
+     * @depends testLoadContent
+     * @depends testLoadContentInfo
+     * @depends testLoadVersionInfo
+     * @depends testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
      * @group user
      * @group field-type
      */
@@ -1040,10 +1033,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the publishVersion() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::publishVersion()
+     * @depends testPublishVersion
      */
     public function testPublishVersionSetsExpectedContentInfo($content)
     {
@@ -1081,10 +1074,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the publishVersion() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::publishVersion()
+     * @depends testPublishVersion
      */
     public function testPublishVersionSetsExpectedVersionInfo($content)
     {
@@ -1120,9 +1113,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the publishVersion() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::publishVersion()
      * @depends testPublishVersion
      */
     public function testPublishVersionSetsExpectedContentType($content)
@@ -1149,13 +1142,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the publishVersion() method.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
-     *
-     * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::publishVersion
      */
-    public function testPublishVersionCreatesLocationsDefinedOnCreate()
+    public function testPublishVersionCreatesLocationsDefinedOnCreate(): array
     {
         $content = $this->createContentVersion1();
 
@@ -1174,13 +1163,13 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the publishVersion() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionCreatesLocationsDefinedOnCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::publishVersion()
+     * @depends testPublishVersionCreatesLocationsDefinedOnCreate
      */
     public function testCreateContentWithLocationCreateParameterCreatesExpectedLocation(array $testData)
     {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Content $content */
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
         list($content, $location) = $testData;
 
         $parentLocationId = $this->generateId('location', 56);
@@ -1207,8 +1196,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the publishVersion() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::publishVersion()
+     * @depends testPublishVersion
      */
     public function testPublishVersionThrowsBadStateException()
     {
@@ -1226,7 +1215,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test that publishVersion() does not affect publishedDate (assuming previous version exists).
      *
-     * @covers \eZ\Publish\API\Repository\ContentService::publishVersion
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::publishVersion
      */
     public function testPublishVersionDoesNotChangePublishedDate()
     {
@@ -1254,10 +1243,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContentDraft() method.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContentDraft()
+     * @depends testPublishVersion
      * @group user
      */
     public function testCreateContentDraft()
@@ -1278,7 +1267,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContentDraft() method with given language for new draft.
      *
-     * @covers \eZ\Publish\API\Repository\ContentService::createContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContentDraft
      */
     public function testCreateContentDraftInOtherLanguage()
     {
@@ -1304,8 +1293,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test that editor has access to edit own draft.
      * Note: Editors have access to version_read, which is needed to load content drafts.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContentDraft()
+     * @depends testPublishVersion
      * @group user
      */
     public function testCreateContentDraftAndLoadAccess()
@@ -1327,10 +1316,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContentDraft() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $draft
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $draft
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContentDraft()
+     * @depends testCreateContentDraft
      */
     public function testCreateContentDraftSetsExpectedProperties($draft)
     {
@@ -1349,10 +1338,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContentDraft() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $draft
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $draft
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContentDraft()
+     * @depends testCreateContentDraft
      */
     public function testCreateContentDraftSetsContentInfo($draft)
     {
@@ -1384,10 +1373,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContentDraft() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $draft
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $draft
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContentDraft()
+     * @depends testCreateContentDraft
      */
     public function testCreateContentDraftSetsVersionInfo($draft)
     {
@@ -1418,11 +1407,11 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContentDraft() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $draft
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $draft
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContentDraft()
+     * @depends testCreateContentDraft
+     * @depends testLoadVersionInfo
      */
     public function testCreateContentDraftLoadVersionInfoStillLoadsPublishedVersion($draft)
     {
@@ -1440,9 +1429,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContentDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContentDraft()
+     * @depends testLoadContent
+     * @depends testCreateContentDraft
      */
     public function testCreateContentDraftLoadContentStillLoadsPublishedVersion()
     {
@@ -1460,9 +1449,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContentDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentByRemoteId
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContentDraft()
+     * @depends testLoadContentByRemoteId
+     * @depends testCreateContentDraft
      */
     public function testCreateContentDraftLoadContentByRemoteIdStillLoadsPublishedVersion()
     {
@@ -1480,9 +1469,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContentDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentByContentInfo
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContentDraft()
+     * @depends testLoadContentByContentInfo
+     * @depends testCreateContentDraft
      */
     public function testCreateContentDraftLoadContentByContentInfoStillLoadsPublishedVersion()
     {
@@ -1500,7 +1489,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the newContentUpdateStruct() method.
      *
-     * @covers \eZ\Publish\API\Repository\ContentService::newContentUpdateStruct
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::newContentUpdateStruct
      * @group user
      */
     public function testNewContentUpdateStruct()
@@ -1524,11 +1513,11 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContent() method.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
-     * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testNewContentUpdateStruct
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent()
+     * @depends testNewContentUpdateStruct
+     * @depends testCreateContentDraft
      * @group user
      * @group field-type
      */
@@ -1553,11 +1542,11 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContent_WithDifferentUser() method.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
-     * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testNewContentUpdateStruct
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent()
+     * @depends testNewContentUpdateStruct
+     * @depends testCreateContentDraft
      * @group user
      * @group field-type
      */
@@ -1582,10 +1571,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContent() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent()
+     * @depends testUpdateContent
      */
     public function testUpdateContentSetsExpectedFields($content)
     {
@@ -1618,8 +1607,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent()
+     * @depends testUpdateContent
      */
     public function testUpdateContentThrowsBadStateException()
     {
@@ -1644,8 +1633,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent()
+     * @depends testUpdateContent
      */
     public function testUpdateContentThrowsInvalidArgumentExceptionWhenFieldTypeDoesNotAccept()
     {
@@ -1667,8 +1656,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent()
+     * @depends testUpdateContent
      */
     public function testUpdateContentWhenMandatoryFieldIsEmpty()
     {
@@ -1693,8 +1682,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent()
+     * @depends testUpdateContent
      */
     public function testUpdateContentThrowsContentFieldValidationException()
     {
@@ -1719,8 +1708,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContent() method.
      *
-     * @covers \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent()
+     * @depends testUpdateContent
      */
     public function testUpdateContentValidatorIgnoresRequiredFieldsOfNotUpdatedLanguages()
     {
@@ -1760,8 +1749,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent()
+     * @depends testUpdateContent
      */
     public function testUpdateContentWithNotUpdatingMandatoryField()
     {
@@ -1794,8 +1783,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContentDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContentDraft($contentInfo, $versionInfo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContentDraft($contentInfo, $versionInfo)
+     * @depends testUpdateContent
      */
     public function testCreateContentDraftWithSecondParameter()
     {
@@ -1813,7 +1802,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContentDraft() method with third parameter.
      *
-     * @covers \eZ\Publish\Core\Repository\ContentService::createContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContentDraft
      */
     public function testCreateContentDraftWithThirdParameter()
     {
@@ -1835,9 +1824,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the publishVersion() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::publishVersion()
+     * @depends testPublishVersion
+     * @depends testUpdateContent
      */
     public function testPublishVersionFromContentDraft()
     {
@@ -1863,8 +1852,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the publishVersion() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::publishVersion()
+     * @depends testPublishVersionFromContentDraft
      */
     public function testPublishVersionFromContentDraftArchivesOldVersion()
     {
@@ -1890,8 +1879,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the publishVersion() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::publishVersion()
+     * @depends testPublishVersionFromContentDraft
      */
     public function testPublishVersionFromContentDraftUpdatesContentInfoCurrentVersion()
     {
@@ -1903,8 +1892,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the publishVersion() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::publishVersion()
+     * @depends testPublishVersionFromContentDraft
      */
     public function testPublishVersionFromOldContentDraftArchivesNewerVersionNo()
     {
@@ -1931,8 +1920,8 @@ class ContentServiceTest extends BaseContentServiceTest
      *
      * @todo Adapt this when per content type archive limited is added on repository Content Type model.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::publishVersion()
+     * @depends testPublishVersionFromContentDraft
      */
     public function testPublishVersionNotCreatingUnlimitedArchives()
     {
@@ -1996,7 +1985,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the newContentMetadataUpdateStruct() method.
      *
-     * @covers \eZ\Publish\API\Repository\ContentService::newContentMetadataUpdateStruct
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::newContentMetadataUpdateStruct
      * @group user
      */
     public function testNewContentMetadataUpdateStruct()
@@ -2021,11 +2010,11 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContentMetadata() method.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
-     * @see \eZ\Publish\API\Repository\ContentService::updateContentMetadata()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testNewContentMetadataUpdateStruct
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContentMetadata()
+     * @depends testPublishVersion
+     * @depends testNewContentMetadataUpdateStruct
      * @group user
      */
     public function testUpdateContentMetadata()
@@ -2058,10 +2047,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContentMetadata() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @see \eZ\Publish\API\Repository\ContentService::updateContentMetadata()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContentMetadata
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContentMetadata()
+     * @depends testUpdateContentMetadata
      */
     public function testUpdateContentMetadataSetsExpectedProperties($content)
     {
@@ -2097,10 +2086,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContentMetadata() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @see \eZ\Publish\API\Repository\ContentService::updateContentMetadata()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContentMetadata
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContentMetadata()
+     * @depends testUpdateContentMetadata
      */
     public function testUpdateContentMetadataNotUpdatesContentVersion($content)
     {
@@ -2110,8 +2099,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContentMetadata() method.
      *
-     * @covers \eZ\Publish\API\Repository\ContentService::updateContentMetadata()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContentMetadata
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContentMetadata()
+     * @depends testUpdateContentMetadata
      */
     public function testUpdateContentMetadataThrowsInvalidArgumentExceptionOnDuplicateRemoteId()
     {
@@ -2132,7 +2121,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContentMetadata() method.
      *
-     * @covers \eZ\Publish\Core\Repository\ContentService::updateContentMetadata
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContentMetadata
      */
     public function testUpdateContentMetadataThrowsInvalidArgumentExceptionOnNoMetadataPropertiesSet()
     {
@@ -2144,11 +2133,11 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\ContentService::updateContentMetadata
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContentMetadata
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testUpdateContentAlwaysAvailable(): void
     {
@@ -2169,11 +2158,11 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\ContentService::updateContentMetadata
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContentMetadata
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function testUpdateContentMainTranslation(): void
     {
@@ -2236,8 +2225,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the deleteContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::deleteContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteContent()
+     * @depends testPublishVersionFromContentDraft
      */
     public function testDeleteContent()
     {
@@ -2262,8 +2251,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for issue EZP-21057:
      * "contentService: Unable to delete a content with an empty file attribute"
      *
-     * @see \eZ\Publish\API\Repository\ContentService::deleteContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteContent()
+     * @depends testPublishVersionFromContentDraft
      */
     public function testDeleteContentWithEmptyBinaryField()
     {
@@ -2330,7 +2319,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentDrafts() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentDrafts()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentDrafts()
      */
     public function testLoadContentDraftsReturnsEmptyArrayByDefault()
     {
@@ -2342,8 +2331,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentDrafts() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentDrafts()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentDrafts()
+     * @depends testCreateContentDraft
      */
     public function testLoadContentDrafts()
     {
@@ -2382,7 +2371,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentDrafts() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentDrafts($user)
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentDrafts($user)
      */
     public function testLoadContentDraftsWithFirstParameter()
     {
@@ -2427,7 +2416,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentDraftList() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentDrafts()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentDrafts()
      */
     public function testLoadContentDraftListWithPaginationParameters()
     {
@@ -2453,7 +2442,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentDraftList() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentDrafts($user)
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentDrafts($user)
      */
     public function testLoadContentDraftListWithForUserWithLimitation()
     {
@@ -2492,7 +2481,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentDraftList() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentDrafts()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentDrafts()
      */
     public function testLoadAllContentDrafts()
     {
@@ -2505,8 +2494,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadVersionInfo() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadVersionInfo($contentInfo, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersionInfo($contentInfo, $versionNo)
+     * @depends testPublishVersionFromContentDraft
      */
     public function testLoadVersionInfoWithSecondParameter()
     {
@@ -2529,8 +2518,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadVersionInfo() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadVersionInfo($contentInfo, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfoWithSecondParameter
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersionInfo($contentInfo, $versionNo)
+     * @depends testLoadVersionInfoWithSecondParameter
      */
     public function testLoadVersionInfoThrowsNotFoundExceptionWithSecondParameter()
     {
@@ -2545,8 +2534,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadVersionInfoById() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadVersionInfoById($contentId, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfoWithSecondParameter
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersionInfoById($contentId, $versionNo)
+     * @depends testLoadVersionInfoWithSecondParameter
      */
     public function testLoadVersionInfoByIdWithSecondParameter()
     {
@@ -2574,8 +2563,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the returned value of the loadVersionInfoById() method.
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfoByIdWithSecondParameter
-     * @covers \eZ\Publish\API\Repository\ContentService::loadVersionInfoById
+     * @depends testLoadVersionInfoByIdWithSecondParameter
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersionInfoById
      *
      * @param array $data
      */
@@ -2583,7 +2572,7 @@ class ContentServiceTest extends BaseContentServiceTest
     {
         /** @var VersionInfo $versionInfo */
         $versionInfo = $data['versionInfo'];
-        /** @var \eZ\Publish\API\Repository\Values\Content\Content $draftContent */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $draftContent */
         $draftContent = $data['draftContent'];
 
         $this->assertPropertiesCorrect(
@@ -2624,7 +2613,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadVersionInfoById() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadVersionInfoById($contentId, $versionNo)
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersionInfoById($contentId, $versionNo)
      */
     public function testLoadVersionInfoByIdThrowsNotFoundExceptionWithSecondParameter()
     {
@@ -2639,9 +2628,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentByVersionInfo() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentByVersionInfo($versionInfo, $languages)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentByVersionInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentByVersionInfo($versionInfo, $languages)
+     * @depends testCreateContent
+     * @depends testLoadContentByVersionInfo
      */
     public function testLoadContentByVersionInfoWithSecondParameter()
     {
@@ -2715,8 +2704,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentByContentInfo() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentByContentInfo($contentInfo, $languages)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentByContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentByContentInfo($contentInfo, $languages)
+     * @depends testLoadContentByContentInfo
      */
     public function testLoadContentByContentInfoWithLanguageParameters()
     {
@@ -2824,8 +2813,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentByContentInfo() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentByContentInfo($contentInfo, $languages, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentByContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentByContentInfo($contentInfo, $languages, $versionNo)
+     * @depends testLoadContentByContentInfo
      */
     public function testLoadContentByContentInfoWithVersionNumberParameter()
     {
@@ -2855,8 +2844,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentByContentInfo() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentByContentInfo($contentInfo, $languages, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentByContentInfoWithVersionNumberParameter
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentByContentInfo($contentInfo, $languages, $versionNo)
+     * @depends testLoadContentByContentInfoWithVersionNumberParameter
      */
     public function testLoadContentByContentInfoThrowsNotFoundExceptionWithVersionNumberParameter()
     {
@@ -2871,8 +2860,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContent($contentId, $languages)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContent($contentId, $languages)
+     * @depends testPublishVersionFromContentDraft
      */
     public function testLoadContentWithPrioritizedLanguages()
     {
@@ -2889,9 +2878,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContent() method using undefined translation.
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentWithPrioritizedLanguages
+     * @depends testLoadContentWithPrioritizedLanguages
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $contentDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $contentDraft
      */
     public function testLoadContentWithPrioritizedLanguagesThrowsNotFoundException(Content $contentDraft)
     {
@@ -2903,8 +2892,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentWithPrioritizedLanguages
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContent
+     * @depends testLoadContentWithPrioritizedLanguages
      */
     public function testLoadContentPassTroughPrioritizedLanguagesToContentType(Content $content): void
     {
@@ -2921,8 +2910,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContent($contentId, $languages, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContent($contentId, $languages, $versionNo)
+     * @depends testPublishVersionFromContentDraft
      */
     public function testLoadContentWithThirdParameter()
     {
@@ -2945,8 +2934,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContent($contentId, $languages, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentWithThirdParameter
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContent($contentId, $languages, $versionNo)
+     * @depends testLoadContentWithThirdParameter
      */
     public function testLoadContentThrowsNotFoundExceptionWithThirdParameter()
     {
@@ -2961,8 +2950,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentByRemoteId() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentByRemoteId($remoteId, $languages)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentByRemoteId($remoteId, $languages)
+     * @depends testPublishVersionFromContentDraft
      */
     public function testLoadContentByRemoteIdWithSecondParameter()
     {
@@ -2984,8 +2973,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentByRemoteId() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentByRemoteId($remoteId, $languages, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentByRemoteId($remoteId, $languages, $versionNo)
+     * @depends testPublishVersionFromContentDraft
      */
     public function testLoadContentByRemoteIdWithThirdParameter()
     {
@@ -3012,8 +3001,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadContentByRemoteId() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadContentByRemoteId($remoteId, $languages, $versionNo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentByRemoteIdWithThirdParameter
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentByRemoteId($remoteId, $languages, $versionNo)
+     * @depends testLoadContentByRemoteIdWithThirdParameter
      */
     public function testLoadContentByRemoteIdThrowsNotFoundExceptionWithThirdParameter()
     {
@@ -3046,7 +3035,7 @@ class ContentServiceTest extends BaseContentServiceTest
             isset($languageCodes[0]) ? $languageCodes[0] : null
         );
         $nameValue = $content->getFieldValue('name');
-        /** @var \eZ\Publish\Core\FieldType\TextLine\Value $nameValue */
+        /** @var \Ibexa\Core\FieldType\TextLine\Value $nameValue */
         self::assertEquals($expectedName, $nameValue->text);
         self::assertEquals($expectedName, $content->getVersionInfo()->getName());
         // Also check value on shortcut method on content
@@ -3069,11 +3058,11 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the deleteVersion() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::deleteVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteVersion()
+     * @depends testLoadContent
+     * @depends testCreateContent
+     * @depends testPublishVersion
+     * @depends testCreateContentDraft
      */
     public function testDeleteVersion()
     {
@@ -3099,10 +3088,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the deleteVersion() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::deleteVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteVersion()
+     * @depends testLoadContent
+     * @depends testCreateContent
+     * @depends testPublishVersion
      */
     public function testDeleteVersionThrowsBadStateExceptionOnPublishedVersion()
     {
@@ -3117,10 +3106,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the deleteVersion() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::deleteVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteVersion()
+     * @depends testLoadContent
+     * @depends testCreateContent
+     * @depends testPublishVersion
      */
     public function testDeleteVersionWorksIfOnlyVersionIsDraft()
     {
@@ -3138,8 +3127,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadVersions() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadVersions()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersions()
+     * @depends testPublishVersion
      *
      * @return VersionInfo[]
      */
@@ -3163,10 +3152,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadVersions() method.
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersions
-     * @covers \eZ\Publish\Core\Repository\ContentService::loadVersions
+     * @depends testLoadVersions
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersions
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo[] $versions
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[] $versions
      */
     public function testLoadVersionsSetsExpectedVersionInfo(array $versions)
     {
@@ -3215,8 +3204,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the copyContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::copyContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::copyContent()
+     * @depends testPublishVersionFromContentDraft
      * @group field-type
      */
     public function testCopyContent()
@@ -3276,8 +3265,8 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test for the copyContent() method with ezsettings.default.content.retain_owner_on_copy set to false
      * See settings/test/integration_legacy.yml for service override.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::copyContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::copyContent()
+     * @depends testPublishVersionFromContentDraft
      * @group field-type
      */
     public function testCopyContentWithNewOwner()
@@ -3287,7 +3276,7 @@ class ContentServiceTest extends BaseContentServiceTest
         $userService = $this->getRepository()->getUserService();
 
         $owner = $this->createUser('new_owner', 'foo', 'bar');
-        /** @var \eZ\Publish\API\Repository\Values\Content\Content $contentVersion2 */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $contentVersion2 */
         $contentVersion2 = $this->createContentDraftVersion1(
             $parentLocationId,
             self::FORUM_IDENTIFIER,
@@ -3336,8 +3325,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the copyContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::copyContent($contentInfo, $destinationLocationCreateStruct, $versionInfo)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCopyContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::copyContent($contentInfo, $destinationLocationCreateStruct, $versionInfo)
+     * @depends testCopyContent
      */
     public function testCopyContentWithGivenVersion()
     {
@@ -3390,14 +3379,17 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * Test for the addRelation() method.
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Relation[]
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @covers  \Ibexa\Contracts\Core\Repository\ContentService::addRelation
      *
-     * @see \eZ\Publish\API\Repository\ContentService::addRelation()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersionFromContentDraft
+     * @depends testPublishVersionFromContentDraft
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
-    public function testAddRelation()
+    public function testAddRelation(): array
     {
         $draft = $this->createContentDraftVersion1();
 
@@ -3409,10 +3401,7 @@ class ContentServiceTest extends BaseContentServiceTest
             $media
         );
 
-        $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\Values\\Content\\Relation',
-            $relation
-        );
+        self::assertInstanceOf(Relation::class, $relation);
 
         return $this->contentService->loadRelations($draft->getVersionInfo());
     }
@@ -3420,10 +3409,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the addRelation() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Relation[] $relations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Relation[] $relations
      *
-     * @see \eZ\Publish\API\Repository\ContentService::addRelation()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::addRelation()
+     * @depends testAddRelation
      */
     public function testAddRelationAddsRelationToContent($relations)
     {
@@ -3434,7 +3423,7 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Relation[] $relations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Relation[] $relations
      */
     protected function assertExpectedRelations($relations)
     {
@@ -3457,10 +3446,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the addRelation() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Relation[] $relations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Relation[] $relations
      *
-     * @see \eZ\Publish\API\Repository\ContentService::addRelation()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::addRelation()
+     * @depends testAddRelation
      */
     public function testAddRelationSetsExpectedRelations($relations)
     {
@@ -3470,10 +3459,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContentDraft() method.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Relation[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Relation[]
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelationSetsExpectedRelations
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContentDraft
+     * @depends testAddRelationSetsExpectedRelations
      */
     public function testCreateContentDraftWithRelations()
     {
@@ -3495,12 +3484,12 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContentDraft() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Relation[] $relations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Relation[] $relations
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Relation[]
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraftWithRelations
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Relation[]
+     * @depends testCreateContentDraftWithRelations
      */
-    public function testCreateContentDraftWithRelationsCreatesRelations($relations)
+    public function testCreateContentDraftWithRelationsCreatesRelations(array $relations): array
     {
         $this->assertCount(
             1,
@@ -3513,9 +3502,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContentDraft() method.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Relation[] $relations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Relation[] $relations
      *
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraftWithRelationsCreatesRelations
+     * @depends testCreateContentDraftWithRelationsCreatesRelations
      */
     public function testCreateContentDraftWithRelationsCreatesExpectedRelations($relations)
     {
@@ -3525,8 +3514,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the addRelation() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::addRelation()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::addRelation()
+     * @depends testAddRelation
      */
     public function testAddRelationThrowsBadStateException()
     {
@@ -3546,8 +3535,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadRelations() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadRelations()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadRelations()
+     * @depends testAddRelation
      */
     public function testLoadRelations()
     {
@@ -3607,9 +3596,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadRelations() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadRelations()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadRelations
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadRelations()
+     * @depends testAddRelation
+     * @depends testLoadRelations
      */
     public function testLoadRelationsSkipsArchivedContent()
     {
@@ -3662,9 +3651,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadRelations() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadRelations()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadRelations
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadRelations()
+     * @depends testAddRelation
+     * @depends testLoadRelations
      */
     public function testLoadRelationsSkipsDraftContent()
     {
@@ -3712,7 +3701,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the countReverseRelations() method.
      *
-     * @covers \eZ\Publish\API\Repository\ContentService::countReverseRelations
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::countReverseRelations
      */
     public function testCountReverseRelations(): void
     {
@@ -3733,7 +3722,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the countReverseRelations() method.
      *
-     * @covers \eZ\Publish\API\Repository\ContentService::countReverseRelations
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::countReverseRelations
      */
     public function testCountReverseRelationsReturnsZeroByDefault(): void
     {
@@ -3745,7 +3734,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the countReverseRelations() method.
      *
-     * @covers \eZ\Publish\API\Repository\ContentService::countReverseRelations
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::countReverseRelations
      */
     public function testCountReverseRelationsForUnauthorizedUser(): void
     {
@@ -3765,8 +3754,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadReverseRelations() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadReverseRelations()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadReverseRelations()
+     * @depends testAddRelation
      */
     public function testLoadReverseRelations()
     {
@@ -3846,9 +3835,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadReverseRelations() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadReverseRelations()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadReverseRelations
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadReverseRelations()
+     * @depends testAddRelation
+     * @depends testLoadReverseRelations
      */
     public function testLoadReverseRelationsSkipsArchivedContent()
     {
@@ -3919,9 +3908,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the loadReverseRelations() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::loadReverseRelations()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testAddRelation
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadReverseRelations
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadReverseRelations()
+     * @depends testAddRelation
+     * @depends testLoadReverseRelations
      */
     public function testLoadReverseRelationsSkipsDraftContent()
     {
@@ -3980,7 +3969,7 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\ContentService::loadReverseRelationList
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadReverseRelationList
      */
     public function testLoadReverseRelationList(): void
     {
@@ -4020,7 +4009,7 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\ContentService::loadReverseRelationList
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadReverseRelationList
      */
     public function testLoadReverseRelationListWithPagination(): void
     {
@@ -4061,7 +4050,7 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\ContentService::loadReverseRelationList
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadReverseRelationList
      */
     public function testLoadReverseRelationListSkipsArchivedContent(): void
     {
@@ -4103,7 +4092,7 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\ContentService::loadReverseRelationList
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadReverseRelationList
      */
     public function testLoadReverseRelationListSkipsDraftContent()
     {
@@ -4136,8 +4125,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the deleteRelation() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::deleteRelation()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadRelations
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteRelation()
+     * @depends testLoadRelations
      */
     public function testDeleteRelation()
     {
@@ -4162,8 +4151,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the deleteRelation() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::deleteRelation()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testDeleteRelation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteRelation()
+     * @depends testDeleteRelation
      */
     public function testDeleteRelationThrowsBadStateException()
     {
@@ -4195,8 +4184,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the deleteRelation() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::deleteRelation()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testDeleteRelation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteRelation()
+     * @depends testDeleteRelation
      */
     public function testDeleteRelationThrowsInvalidArgumentException()
     {
@@ -4216,9 +4205,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent()
+     * @depends testCreateContent
+     * @depends testLoadContent
      */
     public function testCreateContentInTransactionWithRollback()
     {
@@ -4264,9 +4253,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent()
+     * @depends testCreateContent
+     * @depends testLoadContent
      */
     public function testCreateContentInTransactionWithCommit()
     {
@@ -4307,9 +4296,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContent($contentCreateStruct, $locationCreateStructs)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentThrowsNotFoundException
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent($contentCreateStruct, $locationCreateStructs)
+     * @depends testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
+     * @depends testLoadContentThrowsNotFoundException
      */
     public function testCreateContentWithLocationCreateParameterInTransactionWithRollback()
     {
@@ -4344,9 +4333,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContent($contentCreateStruct, $locationCreateStructs)
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentThrowsNotFoundException
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent($contentCreateStruct, $locationCreateStructs)
+     * @depends testCreateContentWithLocationCreateParameterDoesNotCreateLocationImmediately
+     * @depends testLoadContentThrowsNotFoundException
      */
     public function testCreateContentWithLocationCreateParameterInTransactionWithCommit()
     {
@@ -4377,9 +4366,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContentDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContentDraft()
+     * @depends testCreateContentDraft
+     * @depends testLoadContent
      */
     public function testCreateContentDraftInTransactionWithRollback()
     {
@@ -4421,9 +4410,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the createContentDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::createContentDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContentDraft
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContentDraft()
+     * @depends testCreateContentDraft
+     * @depends testLoadContent
      */
     public function testCreateContentDraftInTransactionWithCommit()
     {
@@ -4463,9 +4452,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the publishVersion() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::publishVersion()
+     * @depends testPublishVersion
+     * @depends testLoadContent
      */
     public function testPublishVersionInTransactionWithRollback()
     {
@@ -4509,9 +4498,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the publishVersion() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::publishVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadVersionInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::publishVersion()
+     * @depends testPublishVersion
+     * @depends testLoadVersionInfo
      */
     public function testPublishVersionInTransactionWithCommit()
     {
@@ -4549,10 +4538,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent()
+     * @depends testUpdateContent
+     * @depends testLoadContent
+     * @depends testLoadContentInfo
      */
     public function testUpdateContentInTransactionWithRollback()
     {
@@ -4599,10 +4588,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::updateContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent()
+     * @depends testUpdateContent
+     * @depends testLoadContent
+     * @depends testLoadContentInfo
      */
     public function testUpdateContentInTransactionWithCommit()
     {
@@ -4649,9 +4638,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContentMetadata() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::updateContentMetadata()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContentMetadata
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContentMetadata()
+     * @depends testUpdateContentMetadata
+     * @depends testLoadContentInfo
      */
     public function testUpdateContentMetadataInTransactionWithRollback()
     {
@@ -4696,9 +4685,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContentMetadata() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::updateContentMetadata()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testUpdateContentMetadata
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContentMetadata()
+     * @depends testUpdateContentMetadata
+     * @depends testLoadContentInfo
      */
     public function testUpdateContentMetadataInTransactionWithCommit()
     {
@@ -4743,7 +4732,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the updateContentMetadata() method, and how cache + transactions play together.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::updateContentMetadata()
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContentMetadata()
      * @depends testUpdateContentMetadata
      * @depends testLoadContentInfo
      */
@@ -4789,10 +4778,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the deleteVersion() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::deleteVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentDrafts
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteVersion()
+     * @depends testCreateContent
+     * @depends testLoadContentInfo
+     * @depends testLoadContentDrafts
      */
     public function testDeleteVersionInTransactionWithRollback()
     {
@@ -4828,10 +4817,10 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the deleteVersion() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::deleteVersion()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCreateContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentDrafts
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteVersion()
+     * @depends testCreateContent
+     * @depends testLoadContentInfo
+     * @depends testLoadContentDrafts
      */
     public function testDeleteVersionInTransactionWithCommit()
     {
@@ -4867,9 +4856,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the deleteContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::deleteContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testDeleteContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteContent()
+     * @depends testDeleteContent
+     * @depends testLoadContentInfo
      */
     public function testDeleteContentInTransactionWithRollback()
     {
@@ -4904,9 +4893,9 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the deleteContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::deleteContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testDeleteContent
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testLoadContentInfo
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteContent()
+     * @depends testDeleteContent
+     * @depends testLoadContentInfo
      */
     public function testDeleteContentInTransactionWithCommit()
     {
@@ -4945,11 +4934,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the copyContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::copyContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCopyContent
-     * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testNewLocationCreateStruct
-     * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocationChildren
-     * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::copyContent()
+     * @depends testCopyContent
      */
     public function testCopyContentInTransactionWithRollback()
     {
@@ -4995,11 +4981,8 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test for the copyContent() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentService::copyContent()
-     * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testCopyContent
-     * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testNewLocationCreateStruct
-     * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocationChildren
-     * @depend(s) eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::copyContent()
+     * @depends testCopyContent
      */
     public function testCopyContentInTransactionWithCommit()
     {
@@ -5277,7 +5260,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test removal of the specific translation from all the Versions of a Content Object.
      *
-     * @covers \eZ\Publish\Core\Repository\ContentService::deleteTranslation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteTranslation
      */
     public function testDeleteTranslation()
     {
@@ -5335,7 +5318,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test removal of the specific translation properly updates languages of the URL alias.
      *
-     * @covers \eZ\Publish\Core\Repository\ContentService::deleteTranslation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteTranslation
      */
     public function testDeleteTranslationUpdatesUrlAlias()
     {
@@ -5375,7 +5358,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test removal of a main translation throws BadStateException.
      *
-     * @covers \eZ\Publish\Core\Repository\ContentService::deleteTranslation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteTranslation
      */
     public function testDeleteTranslationMainLanguageThrowsBadStateException()
     {
@@ -5394,7 +5377,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test removal of a Translation is possible when some archived Versions have only this Translation.
      *
-     * @covers \eZ\Publish\Core\Repository\ContentService::deleteTranslation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteTranslation
      */
     public function testDeleteTranslationDeletesSingleTranslationVersions()
     {
@@ -5423,7 +5406,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Test removal of the translation by the user who is not allowed to delete a content
      * throws UnauthorizedException.
      *
-     * @covers \eZ\Publish\Core\Repository\ContentService::deleteTranslation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteTranslation
      */
     public function testDeleteTranslationThrowsUnauthorizedException()
     {
@@ -5453,7 +5436,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test removal of a non-existent translation throws InvalidArgumentException.
      *
-     * @covers \eZ\Publish\Core\Repository\ContentService::deleteTranslation
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteTranslation
      */
     public function testDeleteTranslationThrowsInvalidArgumentException()
     {
@@ -5469,7 +5452,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test deleting a Translation from Draft.
      *
-     * @covers \eZ\Publish\Core\Repository\ContentService::deleteTranslationFromDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteTranslationFromDraft
      */
     public function testDeleteTranslationFromDraft()
     {
@@ -5504,16 +5487,16 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test deleting a Translation from Draft removes previously stored URL aliases for published Content.
      *
-     * @covers \eZ\Publish\Core\Repository\ContentService::deleteTranslationFromDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteTranslationFromDraft
      *
      * @dataProvider providerForDeleteTranslationFromDraftRemovesUrlAliasOnPublishing
      *
      * @param string[] $fieldValues translated field values
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testDeleteTranslationFromDraftRemovesUrlAliasOnPublishing(array $fieldValues)
     {
@@ -5633,7 +5616,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test deleting a Translation from Draft which has single Translation throws BadStateException.
      *
-     * @covers \eZ\Publish\Core\Repository\ContentService::deleteTranslationFromDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteTranslationFromDraft
      */
     public function testDeleteTranslationFromDraftThrowsBadStateExceptionOnSingleTranslation()
     {
@@ -5670,7 +5653,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test deleting the Main Translation from Draft throws BadStateException.
      *
-     * @covers \eZ\Publish\Core\Repository\ContentService::deleteTranslationFromDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteTranslationFromDraft
      */
     public function testDeleteTranslationFromDraftThrowsBadStateExceptionOnMainTranslation()
     {
@@ -5696,7 +5679,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test deleting the Translation from Published Version throws BadStateException.
      *
-     * @covers \eZ\Publish\Core\Repository\ContentService::deleteTranslationFromDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteTranslationFromDraft
      */
     public function testDeleteTranslationFromDraftThrowsBadStateExceptionOnPublishedVersion()
     {
@@ -5714,7 +5697,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test deleting a Translation from Draft throws UnauthorizedException if user cannot edit Content.
      *
-     * @covers \eZ\Publish\Core\Repository\ContentService::deleteTranslationFromDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteTranslationFromDraft
      */
     public function testDeleteTranslationFromDraftThrowsUnauthorizedException()
     {
@@ -5746,7 +5729,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Test deleting a non-existent Translation from Draft throws InvalidArgumentException.
      *
-     * @covers \eZ\Publish\Core\Repository\ContentService::deleteTranslationFromDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteTranslationFromDraft
      */
     public function testDeleteTranslationFromDraftThrowsInvalidArgumentException()
     {
@@ -5790,7 +5773,7 @@ class ContentServiceTest extends BaseContentServiceTest
      *
      * @see https://jira.ez.no/browse/EZP-30271
      *
-     * @covers \eZ\Publish\Core\Repository\ContentService::deleteVersion
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteVersion
      */
     public function testLoadVersionsAfterDeletingTwoDrafts()
     {
@@ -5903,7 +5886,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Asserts that the given fields are equal to the default fields fixture.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Field[] $fields
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $fields
      */
     private function assertAllFieldsEquals(array $fields)
     {
@@ -5917,7 +5900,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * Asserts that the given fields are equal to a language filtered set of the
      * default fields fixture.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Field[] $fields
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $fields
      * @param string $languageCode
      */
     private function assertLocaleFieldsEquals(array $fields, $languageCode)
@@ -5943,9 +5926,9 @@ class ContentServiceTest extends BaseContentServiceTest
      * addition, the field value is removed, since this one depends on the
      * specific FieldType, which is tested in a dedicated integration test.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Field[] $fields
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $fields
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Field[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field[]
      */
     private function normalizeFields(array $fields)
     {
@@ -5978,7 +5961,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Asserts that given Content has default ContentStates.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      */
     private function assertDefaultContentStates(ContentInfo $contentInfo)
     {
@@ -6028,7 +6011,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Returns the default fixture of fields used in most tests.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Field[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field[]
      */
     private function createFieldsFixture()
     {
@@ -6080,15 +6063,15 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\ContentService::hideContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::hideContent
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testHideContent(): void
     {
@@ -6126,11 +6109,11 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\ContentService::revealContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::revealContent
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testRevealContent()
     {
@@ -6529,11 +6512,11 @@ class ContentServiceTest extends BaseContentServiceTest
      *
      * @param int $parentLocationId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location[] A list of Locations aimed to be parents
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[] A list of Locations aimed to be parents
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     private function createParentLocationsForHideReveal(int $parentLocationId): array
     {
@@ -6549,7 +6532,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * Filter Locations list by hidden only.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location[] $locations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
      *
      * @return array
      */
@@ -6610,7 +6593,7 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * @param int $amountOfDrafts
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     private function createContentDrafts(int $amountOfDrafts): void
     {
@@ -6628,11 +6611,11 @@ class ContentServiceTest extends BaseContentServiceTest
     /**
      * @param array $limitationValues
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     private function createUserWithVersionReadLimitations(array $limitationValues = []): User
     {
@@ -6652,20 +6635,20 @@ class ContentServiceTest extends BaseContentServiceTest
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content[] $drafts
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content[] $drafts
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      *
      * @return object
      */
     private function createContentWithReverseRelations(array $drafts)
     {
         $contentWithReverseRelations = new class() {
-            /** @var \eZ\Publish\API\Repository\Values\Content\Content */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */
             public $content;
 
-            /** @var \eZ\Publish\API\Repository\Values\Content\Content[] */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content[] */
             public $reverseRelations;
         };
         $content = $this->createContentVersion1();
@@ -6673,7 +6656,7 @@ class ContentServiceTest extends BaseContentServiceTest
         $contentInfo = $versionInfo->getContentInfo();
         $contentWithReverseRelations->content = $content;
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Content $draft */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $draft */
         foreach ($drafts as $draft) {
             $this->contentService->addRelation(
                 $draft->getVersionInfo(),
@@ -6686,3 +6669,5 @@ class ContentServiceTest extends BaseContentServiceTest
         return $contentWithReverseRelations;
     }
 }
+
+class_alias(ContentServiceTest::class, 'eZ\Publish\API\Repository\Tests\ContentServiceTest');

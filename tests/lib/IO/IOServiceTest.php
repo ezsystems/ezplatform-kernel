@@ -4,35 +4,36 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\IO\Tests;
+namespace Ibexa\Tests\Core\IO;
 
-use eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException;
-use eZ\Publish\Core\IO\IOService;
-use eZ\Publish\Core\IO\IOBinarydataHandler;
-use eZ\Publish\Core\IO\IOMetadataHandler;
-use eZ\Publish\Core\IO\Values\BinaryFile;
-use eZ\Publish\Core\IO\Values\BinaryFileCreateStruct;
-use eZ\Publish\SPI\IO\BinaryFile as SPIBinaryFile;
-use eZ\Publish\SPI\IO\MimeTypeDetector;
+use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
+use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
+use Ibexa\Core\IO\IOService;
+use Ibexa\Core\IO\IOBinarydataHandler;
+use Ibexa\Core\IO\IOMetadataHandler;
+use Ibexa\Core\IO\Values\BinaryFile;
+use Ibexa\Core\IO\Values\BinaryFileCreateStruct;
+use Ibexa\Contracts\Core\IO\BinaryFile as SPIBinaryFile;
+use Ibexa\Contracts\Core\IO\MimeTypeDetector;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test case for IO Service.
+ * @covers \Ibexa\Core\IO\IOService
  */
 class IOServiceTest extends TestCase
 {
     const PREFIX = 'test-prefix';
 
-    /** @var IOService */
+    /** @var \Ibexa\Core\IO\IOService */
     protected $IOService;
 
-    /** @var \eZ\Publish\Core\IO\IOMetadataHandler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\IO\IOMetadataHandler|\PHPUnit\Framework\MockObject\MockObject */
     protected $metadataHandlerMock;
 
-    /** @var \eZ\Publish\Core\IO\IOBinarydataHandler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\IO\IOBinarydataHandler|\PHPUnit\Framework\MockObject\MockObject */
     protected $binarydataHandlerMock;
 
-    /** @var MimeTypeDetector|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\IO\MimeTypeDetector|\PHPUnit\Framework\MockObject\MockObject */
     protected $mimeTypeDetectorMock;
 
     protected function setUp(): void
@@ -53,8 +54,6 @@ class IOServiceTest extends TestCase
 
     /**
      * Test creating new BinaryCreateStruct from uploaded file.
-     *
-     * @covers \eZ\Publish\Core\IO\IOService::newBinaryCreateStructFromUploadedFile
      */
     public function testNewBinaryCreateStructFromUploadedFile()
     {
@@ -86,9 +85,6 @@ class IOServiceTest extends TestCase
         }
     }
 
-    /**
-     * @covers \eZ\Publish\Core\IO\IOService::newBinaryCreateStructFromUploadedFile
-     */
     public function testNewBinaryCreateStructFromLocalFile()
     {
         $file = __FILE__;
@@ -113,9 +109,6 @@ class IOServiceTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\IO\IOService::createBinaryFile
-     * @covers \eZ\Publish\Core\IO\IOService::buildSPIBinaryFileCreateStructObject
-     * @covers \eZ\Publish\Core\IO\IOService::buildDomainBinaryFileObject
      * @depends testNewBinaryCreateStructFromLocalFile
      */
     public function testCreateBinaryFile(BinaryFileCreateStruct $createStruct)
@@ -135,7 +128,7 @@ class IOServiceTest extends TestCase
             ->with(
                 $this->callback(
                     function ($subject) use ($id) {
-                        if (!$subject instanceof \eZ\Publish\SPI\IO\BinaryFileCreateStruct) {
+                        if (!$subject instanceof SPIBinaryFileCreateStruct) {
                             return false;
                         }
 
@@ -158,9 +151,6 @@ class IOServiceTest extends TestCase
         return $binaryFile;
     }
 
-    /**
-     * @covers \eZ\Publish\Core\IO\IOService::loadBinaryFile
-     */
     public function testLoadBinaryFile()
     {
         $id = 'my/path.png';
@@ -183,9 +173,6 @@ class IOServiceTest extends TestCase
         return $binaryFile;
     }
 
-    /**
-     * @covers \eZ\Publish\Core\IO\IOService::loadBinaryFile
-     */
     public function testLoadBinaryFileNoMetadataUri()
     {
         $id = 'my/path.png';
@@ -216,8 +203,6 @@ class IOServiceTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\IO\IOService::loadBinaryFile
-     *
      * @return mixed Whatever loadBinaryFile returns
      */
     public function testLoadBinaryFileNotFound()
@@ -266,7 +251,6 @@ class IOServiceTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\IO\IOService::getFileInputStream
      * @depends testCreateBinaryFile
      */
     public function testGetFileInputStream(BinaryFile $binaryFile)
@@ -276,7 +260,6 @@ class IOServiceTest extends TestCase
 
     /**
      * @depends testLoadBinaryFile
-     * @covers \eZ\Publish\Core\IO\IOService::getFileContents
      */
     public function testGetFileContents(BinaryFile $binaryFile)
     {
@@ -296,7 +279,6 @@ class IOServiceTest extends TestCase
 
     /**
      * @depends testCreateBinaryFile
-     * @covers \eZ\Publish\Core\IO\IOService::exists()
      */
     public function testExists(BinaryFile $binaryFile)
     {
@@ -313,9 +295,6 @@ class IOServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\IO\IOService::exists()
-     */
     public function testExistsNot()
     {
         $this->metadataHandlerMock
@@ -333,7 +312,6 @@ class IOServiceTest extends TestCase
 
     /**
      * @depends testCreateBinaryFile
-     * @covers \eZ\Publish\Core\IO\IOService::getMimeType()
      */
     public function testGetMimeType(BinaryFile $binaryFile)
     {
@@ -352,7 +330,6 @@ class IOServiceTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\IO\IOService::deleteBinaryFile
      * @depends testCreateBinaryFile
      */
     public function testDeleteBinaryFile(BinaryFile $binaryFile)
@@ -370,9 +347,6 @@ class IOServiceTest extends TestCase
         $this->getIOService()->deleteBinaryFile($binaryFile);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\IO\IOService::deleteDirectory()
-     */
     public function testDeleteDirectory()
     {
         $id = 'some/directory';
@@ -392,8 +366,6 @@ class IOServiceTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\IO\IOService::deleteBinaryFile
-     *
      * @return mixed Whatever deleteBinaryFile returned
      */
     public function testDeleteBinaryFileNotFound()
@@ -409,7 +381,7 @@ class IOServiceTest extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\Core\IO\IOService
+     * @return \Ibexa\Core\IO\IOService
      */
     protected function getIOService()
     {
@@ -419,14 +391,12 @@ class IOServiceTest extends TestCase
     /**
      * Asserts that the given $ioCreateStruct is of the right type and that id matches the expected value.
      *
-     * @param $ioCreateStruct
-     *
-     * @return bool
+     * @param int $spiId
      */
-    private function getSPIBinaryFileCreateStructCallback($spiId)
+    private function getSPIBinaryFileCreateStructCallback($spiId): \Closure
     {
-        return function ($subject) use ($spiId) {
-            if (!$subject instanceof \eZ\Publish\SPI\IO\BinaryFileCreateStruct) {
+        return static function ($subject) use ($spiId) {
+            if (!$subject instanceof SPIBinaryFileCreateStruct) {
                 return false;
             }
 
@@ -435,10 +405,10 @@ class IOServiceTest extends TestCase
     }
 
     /**
-     * @return bool|\eZ\Publish\Core\IO\Values\BinaryFile
+     * @return bool|\Ibexa\Core\IO\Values\BinaryFile
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException
      */
     protected function loadBinaryFileNotFound()
     {
@@ -470,10 +440,10 @@ class IOServiceTest extends TestCase
     }
 
     /**
-     * @return bool|\eZ\Publish\Core\IO\Values\BinaryFile
+     * @return bool|\Ibexa\Core\IO\Values\BinaryFile
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException
      */
     protected function loadBinaryFileByUriNotFound()
     {
@@ -495,3 +465,5 @@ class IOServiceTest extends TestCase
         return $this->getIOService()->loadBinaryFileByUri($spiId);
     }
 }
+
+class_alias(IOServiceTest::class, 'eZ\Publish\Core\IO\Tests\IOServiceTest');

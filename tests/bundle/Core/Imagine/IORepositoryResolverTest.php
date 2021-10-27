@@ -4,18 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine;
+namespace Ibexa\Tests\Bundle\Core\Imagine;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\FilterConfiguration;
-use eZ\Bundle\EzPublishCoreBundle\Imagine\IORepositoryResolver;
-use eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\Core\IO\Values\BinaryFile;
-use eZ\Publish\Core\IO\Values\BinaryFileCreateStruct;
-use eZ\Publish\Core\IO\Values\MissingBinaryFile;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\SPI\Variation\VariationPurger;
+use Ibexa\Bundle\Core\Imagine\Filter\FilterConfiguration;
+use Ibexa\Bundle\Core\Imagine\IORepositoryResolver;
+use Ibexa\Bundle\Core\Imagine\VariationPathGenerator;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\Values\BinaryFile;
+use Ibexa\Core\IO\Values\BinaryFileCreateStruct;
+use Ibexa\Core\IO\Values\MissingBinaryFile;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\Variation\VariationPurger;
 use Liip\ImagineBundle\Model\Binary;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,13 +35,13 @@ class IORepositoryResolverTest extends TestCase
     /** @var IORepositoryResolver */
     private $imageResolver;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\FilterConfiguration */
+    /** @var \Ibexa\Bundle\Core\Imagine\Filter\FilterConfiguration */
     private $filterConfiguration;
 
-    /** @var \eZ\Publish\SPI\Variation\VariationPurger|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Variation\VariationPurger|\PHPUnit\Framework\MockObject\MockObject */
     protected $variationPurger;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Bundle\Core\Imagine\VariationPathGenerator|\PHPUnit\Framework\MockObject\MockObject */
     protected $variationPathGenerator;
 
     protected function setUp(): void
@@ -360,3 +360,5 @@ class IORepositoryResolverTest extends TestCase
         $this->imageResolver->remove([$originalPath], $filters);
     }
 }
+
+class_alias(IORepositoryResolverTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\IORepositoryResolverTest');

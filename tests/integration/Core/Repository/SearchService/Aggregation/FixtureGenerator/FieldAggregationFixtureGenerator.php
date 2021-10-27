@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\SearchService\Aggregation\FixtureGenerator;
+namespace Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation\FixtureGenerator;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
 
 /**
  * @internal
  */
 final class FieldAggregationFixtureGenerator
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
     /** @var string|null */
@@ -174,3 +174,5 @@ final class FieldAggregationFixtureGenerator
         return $fieldDefinitionCreateStruct;
     }
 }
+
+class_alias(FieldAggregationFixtureGenerator::class, 'eZ\Publish\API\Repository\Tests\SearchService\Aggregation\FixtureGenerator\FieldAggregationFixtureGenerator');

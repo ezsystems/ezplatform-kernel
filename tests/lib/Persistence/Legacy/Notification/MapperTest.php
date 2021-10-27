@@ -6,16 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Notification;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Notification;
 
-use eZ\Publish\Core\Persistence\Legacy\Notification\Mapper;
-use eZ\Publish\SPI\Persistence\Notification\Notification;
-use eZ\Publish\SPI\Persistence\Notification\UpdateStruct;
+use Ibexa\Core\Persistence\Legacy\Notification\Mapper;
+use Ibexa\Contracts\Core\Persistence\Notification\Notification;
+use Ibexa\Contracts\Core\Persistence\Notification\UpdateStruct;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Ibexa\Core\Persistence\Legacy\Notification\Mapper
+ */
 class MapperTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Notification\Mapper */
+    /** @var \Ibexa\Core\Persistence\Legacy\Notification\Mapper */
     private $mapper;
 
     protected function setUp(): void
@@ -23,9 +26,6 @@ class MapperTest extends TestCase
         $this->mapper = new Mapper();
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Notification\Mapper::extractNotificationsFromRows
-     */
     public function testExtractNotificationsFromRows()
     {
         $rows = [
@@ -77,9 +77,6 @@ class MapperTest extends TestCase
         $this->assertEquals($objects, $this->mapper->extractNotificationsFromRows($rows));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Notification\Mapper::extractNotificationsFromRows
-     */
     public function testExtractNotificationsFromRowsThrowsRuntimeException()
     {
         $this->expectException(\RuntimeException::class);
@@ -98,9 +95,6 @@ class MapperTest extends TestCase
         $this->mapper->extractNotificationsFromRows($rows);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Notification\Mapper::createNotificationFromUpdateStruct
-     */
     public function testCreateNotificationFromUpdateStruct()
     {
         $updateStruct = new UpdateStruct([
@@ -112,3 +106,5 @@ class MapperTest extends TestCase
         ]), $this->mapper->createNotificationFromUpdateStruct($updateStruct));
     }
 }
+
+class_alias(MapperTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Notification\MapperTest');

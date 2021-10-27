@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\IO\Tests\MetadataHandler;
+namespace Ibexa\Tests\Core\IO\MetadataHandler;
 
-use eZ\Publish\Core\IO\MetadataHandler\ImageSize as ImageSizeMetadataHandler;
+use Ibexa\Core\IO\MetadataHandler\ImageSize as ImageSizeMetadataHandler;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -25,3 +25,5 @@ class ImageSizeTest extends TestCase
         );
     }
 }
+
+class_alias(ImageSizeTest::class, 'eZ\Publish\Core\IO\Tests\MetadataHandler\ImageSizeTest');

@@ -6,14 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Notification\Gateway;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Notification\Gateway;
 
 use Doctrine\DBAL\FetchMode;
-use eZ\Publish\Core\Persistence\Legacy\Notification\Gateway\DoctrineDatabase;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\SPI\Persistence\Notification\CreateStruct;
-use eZ\Publish\SPI\Persistence\Notification\Notification;
+use Ibexa\Core\Persistence\Legacy\Notification\Gateway\DoctrineDatabase;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Contracts\Core\Persistence\Notification\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Notification\Notification;
 
+/**
+ * @covers \Ibexa\Core\Persistence\Legacy\Notification\Gateway\DoctrineDatabase::insert
+ */
 class DoctrineDatabaseTest extends TestCase
 {
     const EXISTING_NOTIFICATION_ID = 1;
@@ -35,9 +38,6 @@ class DoctrineDatabaseTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Notification\Gateway\DoctrineDatabase::insert()
-     */
     public function testInsert()
     {
         $id = $this->getGateway()->insert(new CreateStruct([
@@ -60,9 +60,6 @@ class DoctrineDatabaseTest extends TestCase
         ], $data);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Notification\Gateway\DoctrineDatabase::getNotificationById()
-     */
     public function testGetNotificationById()
     {
         $data = $this->getGateway()->getNotificationById(self::EXISTING_NOTIFICATION_ID);
@@ -72,9 +69,6 @@ class DoctrineDatabaseTest extends TestCase
         ], $data);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Notification\Gateway\DoctrineDatabase::updateNotification()
-     */
     public function testUpdateNotification()
     {
         $notification = new Notification([
@@ -98,9 +92,6 @@ class DoctrineDatabaseTest extends TestCase
         ], $this->loadNotification(self::EXISTING_NOTIFICATION_ID));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Notification\Gateway\DoctrineDatabase::countUserNotifications()
-     */
     public function testCountUserNotifications()
     {
         $this->assertEquals(5, $this->getGateway()->countUserNotifications(
@@ -108,9 +99,6 @@ class DoctrineDatabaseTest extends TestCase
         ));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Notification\Gateway\DoctrineDatabase::countUserPendingNotifications()
-     */
     public function testCountUserPendingNotifications()
     {
         $this->assertEquals(3, $this->getGateway()->countUserPendingNotifications(
@@ -118,9 +106,6 @@ class DoctrineDatabaseTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Notification\Gateway\DoctrineDatabase::loadUserNotifications()
-     */
     public function testLoadUserNotifications()
     {
         $userId = 14;
@@ -157,9 +142,6 @@ class DoctrineDatabaseTest extends TestCase
         ], $results);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Notification\Gateway\DoctrineDatabase::delete()
-     */
     public function testDelete()
     {
         $this->getGateway()->delete(self::EXISTING_NOTIFICATION_ID);
@@ -170,7 +152,7 @@ class DoctrineDatabaseTest extends TestCase
     /**
      * Return a ready to test DoctrineStorage gateway.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Notification\Gateway\DoctrineDatabase
+     * @return \Ibexa\Core\Persistence\Legacy\Notification\Gateway\DoctrineDatabase
      */
     protected function getGateway(): DoctrineDatabase
     {
@@ -188,3 +170,5 @@ class DoctrineDatabaseTest extends TestCase
         return is_array($data) ? $data : [];
     }
 }
+
+class_alias(DoctrineDatabaseTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Notification\Gateway\DoctrineDatabaseTest');

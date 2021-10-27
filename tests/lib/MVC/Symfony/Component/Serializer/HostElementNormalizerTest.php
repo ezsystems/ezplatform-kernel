@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer;
+namespace Ibexa\Tests\Core\MVC\Symfony\Component\Serializer;
 
-use eZ\Publish\Core\MVC\Symfony\Component\Serializer\HostElementNormalizer;
-use eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer\Stubs\SerializerStub;
-use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\HostElement;
+use Ibexa\Core\MVC\Symfony\Component\Serializer\HostElementNormalizer;
+use Ibexa\Tests\Core\MVC\Symfony\Component\Serializer\Stubs\SerializerStub;
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\HostElement;
 use PHPUnit\Framework\TestCase;
 
 final class HostElementNormalizerTest extends TestCase
@@ -47,3 +47,5 @@ final class HostElementNormalizerTest extends TestCase
         $this->assertFalse($normalizer->supportsNormalization($this->createMock(Matcher::class)));
     }
 }
+
+class_alias(HostElementNormalizerTest::class, 'eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer\HostElementNormalizerTest');

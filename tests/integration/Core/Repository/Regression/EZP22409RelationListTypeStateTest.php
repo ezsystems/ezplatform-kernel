@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Regression;
+namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
-use eZ\Publish\Core\FieldType\RelationList;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Core\FieldType\RelationList;
 use DateTime;
 
 /**
@@ -155,3 +155,5 @@ class EZP22409RelationListTypeStateTest extends BaseTest
         $content2 = $contentService->publishVersion($draft2->versionInfo);
     }
 }
+
+class_alias(EZP22409RelationListTypeStateTest::class, 'eZ\Publish\API\Repository\Tests\Regression\EZP22409RelationListTypeStateTest');

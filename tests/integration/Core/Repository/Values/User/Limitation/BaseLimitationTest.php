@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Values\User\Limitation;
+namespace Ibexa\Tests\Integration\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\User\PolicyCreateStruct;
-use eZ\Publish\API\Repository\Values\User\Role;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\User\PolicyCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
 
 /**
  * Abstract base class for limitation tests.
@@ -22,7 +22,7 @@ abstract class BaseLimitationTest extends BaseTest
     /**
      * Creates a published wiki page.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createWikiPage()
     {
@@ -41,7 +41,7 @@ abstract class BaseLimitationTest extends BaseTest
     /**
      * Creates a fresh clean content draft.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createWikiPageDraft()
     {
@@ -98,3 +98,5 @@ abstract class BaseLimitationTest extends BaseTest
         return $roleService->loadRoleByIdentifier($roleIdentifier);
     }
 }
+
+class_alias(BaseLimitationTest::class, 'eZ\Publish\API\Repository\Tests\Values\User\Limitation\BaseLimitationTest');

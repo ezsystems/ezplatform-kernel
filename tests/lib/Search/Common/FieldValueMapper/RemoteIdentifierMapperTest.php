@@ -6,19 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Search\Tests\Common\FieldValueMapper;
+namespace Ibexa\Tests\Core\Search\Common\FieldValueMapper;
 
-use eZ\Publish\Core\Search\Common\FieldValueMapper\RemoteIdentifierMapper;
-use eZ\Publish\Core\Search\Tests\TestCase;
-use eZ\Publish\SPI\Search\Field;
-use eZ\Publish\SPI\Search\FieldType\IdentifierField;
-use eZ\Publish\SPI\Search\FieldType\IntegerField;
-use eZ\Publish\SPI\Search\FieldType\RemoteIdentifierField;
-use eZ\Publish\SPI\Search\FieldType\StringField;
+use Ibexa\Core\Search\Common\FieldValueMapper\RemoteIdentifierMapper;
+use Ibexa\Tests\Core\Search\TestCase;
+use Ibexa\Contracts\Core\Search\Field;
+use Ibexa\Contracts\Core\Search\FieldType\IdentifierField;
+use Ibexa\Contracts\Core\Search\FieldType\IntegerField;
+use Ibexa\Contracts\Core\Search\FieldType\RemoteIdentifierField;
+use Ibexa\Contracts\Core\Search\FieldType\StringField;
 
+/**
+ * @covers \Ibexa\Core\Search\Common\FieldValueMapper\RemoteIdentifierMapper
+ */
 final class RemoteIdentifierMapperTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Search\Common\FieldValueMapper\RemoteIdentifierMapper */
+    /** @var \Ibexa\Core\Search\Common\FieldValueMapper\RemoteIdentifierMapper */
     private $mapper;
 
     protected function setUp(): void
@@ -27,8 +30,6 @@ final class RemoteIdentifierMapperTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Search\Common\FieldValueMapper\RemoteIdentifierMapper::canMap
-     *
      * @dataProvider getDataForTestCanMap
      */
     public function testCanMap(Field $field, bool $canMap): void
@@ -60,8 +61,6 @@ final class RemoteIdentifierMapperTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Search\Common\FieldValueMapper\IdentifierMapper::map
-     *
      * @dataProvider getDataForTestMap
      */
     public function testMap(Field $field, string $expectedMappedValue): void
@@ -141,3 +140,5 @@ final class RemoteIdentifierMapperTest extends TestCase
         ];
     }
 }
+
+class_alias(RemoteIdentifierMapperTest::class, 'eZ\Publish\Core\Search\Tests\Common\FieldValueMapper\RemoteIdentifierMapperTest');

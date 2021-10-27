@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests;
+namespace Ibexa\Tests\Core\FieldType;
 
-use eZ\Publish\SPI\FieldType\Tests\FieldTypeTest as BaseFieldTypeTest;
-use eZ\Publish\Core\Persistence\TransformationProcessor;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
+use Ibexa\Tests\Core\FieldType\BaseFieldTypeTest as BaseFieldTypeTest;
+use Ibexa\Core\Persistence\TransformationProcessor;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
 
 abstract class FieldTypeTest extends BaseFieldTypeTest
 {
     /**
-     * @return \eZ\Publish\Core\Persistence\TransformationProcessor|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Persistence\TransformationProcessor|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getTransformationProcessorMock()
     {
@@ -50,3 +50,5 @@ abstract class FieldTypeTest extends BaseFieldTypeTest
         );
     }
 }
+
+class_alias(FieldTypeTest::class, 'eZ\Publish\Core\FieldType\Tests\FieldTypeTest');

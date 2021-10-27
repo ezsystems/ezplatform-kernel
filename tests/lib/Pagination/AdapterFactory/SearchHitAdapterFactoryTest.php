@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Pagination\Tests\AdapterFactory;
+namespace Ibexa\Tests\Core\Pagination\AdapterFactory;
 
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
-use eZ\Publish\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactory;
-use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchHitAdapter;
-use eZ\Publish\Core\Pagination\Pagerfanta\FixedSearchResultHitAdapter;
-use eZ\Publish\Core\Pagination\Pagerfanta\LocationSearchHitAdapter;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactory;
+use Ibexa\Core\Pagination\Pagerfanta\ContentSearchHitAdapter;
+use Ibexa\Core\Pagination\Pagerfanta\FixedSearchResultHitAdapter;
+use Ibexa\Core\Pagination\Pagerfanta\LocationSearchHitAdapter;
 use PHPUnit\Framework\TestCase;
 
 final class SearchHitAdapterFactoryTest extends TestCase
@@ -25,10 +25,10 @@ final class SearchHitAdapterFactoryTest extends TestCase
         'language' => 'eng-GB',
     ];
 
-    /** @var \eZ\Publish\API\Repository\SearchService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService|\PHPUnit\Framework\MockObject\MockObject */
     private $searchService;
 
-    /** @var \eZ\Publish\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactory */
+    /** @var \Ibexa\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactory */
     private $searchHitAdapterFactory;
 
     protected function setUp(): void
@@ -106,3 +106,5 @@ final class SearchHitAdapterFactoryTest extends TestCase
         ];
     }
 }
+
+class_alias(SearchHitAdapterFactoryTest::class, 'eZ\Publish\Core\Pagination\Tests\AdapterFactory\SearchHitAdapterFactoryTest');

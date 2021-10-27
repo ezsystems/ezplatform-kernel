@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Tests\Decorator;
+namespace Ibexa\Tests\Core\Repository\Decorator;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\API\Repository\UserPreferenceService;
-use eZ\Publish\SPI\Repository\Decorator\UserPreferenceServiceDecorator;
+use Ibexa\Contracts\Core\Repository\UserPreferenceService;
+use Ibexa\Contracts\Core\Repository\Decorator\UserPreferenceServiceDecorator;
 
 class UserPreferenceServiceDecoratorTest extends TestCase
 {
@@ -77,3 +77,5 @@ class UserPreferenceServiceDecoratorTest extends TestCase
         $decoratedService->getUserPreferenceCount(...$parameters);
     }
 }
+
+class_alias(UserPreferenceServiceDecoratorTest::class, 'eZ\Publish\SPI\Repository\Tests\Decorator\UserPreferenceServiceDecoratorTest');

@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Helper\Tests;
+namespace Ibexa\Tests\Core\Helper;
 
-use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
-use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
-use eZ\Publish\Core\Helper\ContentPreviewHelper;
-use eZ\Publish\Core\MVC\Symfony\Event\ScopeChangeEvent;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
+use Ibexa\Core\Helper\ContentPreviewHelper;
+use Ibexa\Core\MVC\Symfony\Event\ScopeChangeEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -24,7 +24,7 @@ class ContentPreviewHelperTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $siteAccessRouter;
 
-    /** @var \eZ\Publish\Core\Helper\ContentPreviewHelper */
+    /** @var \Ibexa\Core\Helper\ContentPreviewHelper */
     private $previewHelper;
 
     protected function setUp(): void
@@ -101,3 +101,5 @@ class ContentPreviewHelperTest extends TestCase
         $this->assertSame($location, $this->previewHelper->getPreviewedLocation());
     }
 }
+
+class_alias(ContentPreviewHelperTest::class, 'eZ\Publish\Core\Helper\Tests\ContentPreviewHelperTest');

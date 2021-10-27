@@ -4,17 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Persistence\FieldType;
 
-use eZ\Publish\Core\Persistence\Legacy;
-use eZ\Publish\Core\FieldType;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Core\Persistence\Legacy;
+use Ibexa\Core\FieldType;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Tests\Integration\Core\FieldType\FileBaseIntegrationTest;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use FileSystemIterator;
-use eZ\Publish\Core\IO\MimeTypeDetector\FileInfo;
+use Ibexa\Core\IO\MimeTypeDetector\FileInfo;
 
 /**
  * Integration test for legacy storage field types.
@@ -61,7 +62,7 @@ class MediaIntegrationTest extends FileBaseIntegrationTest
     /**
      * Get handler with required custom field types registered.
      *
-     * @return \eZ\Publish\SPI\Persistence\Handler
+     * @return \Ibexa\Contracts\Core\Persistence\Handler
      */
     public function getCustomHandler()
     {
@@ -87,7 +88,7 @@ class MediaIntegrationTest extends FileBaseIntegrationTest
      * Returns the FieldTypeConstraints to be used to create a field definition
      * of the FieldType under test.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints
+     * @return \Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints
      */
     public function getTypeConstraints()
     {
@@ -141,7 +142,7 @@ class MediaIntegrationTest extends FileBaseIntegrationTest
     /**
      * Get initial field value.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldValue
+     * @return \Ibexa\Contracts\Core\Persistence\Content\FieldValue
      */
     public function getInitialValue()
     {
@@ -201,7 +202,7 @@ class MediaIntegrationTest extends FileBaseIntegrationTest
      *
      * Use to update the field
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldValue
+     * @return \Ibexa\Contracts\Core\Persistence\Content\FieldValue
      */
     public function getUpdatedValue()
     {
@@ -290,3 +291,5 @@ class MediaIntegrationTest extends FileBaseIntegrationTest
         }
     }
 }
+
+class_alias(MediaIntegrationTest::class, 'eZ\Publish\SPI\Tests\FieldType\MediaIntegrationTest');

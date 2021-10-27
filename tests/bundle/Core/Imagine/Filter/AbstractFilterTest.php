@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter;
+namespace Ibexa\Tests\Bundle\Core\Imagine\Filter;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\AbstractFilter;
+use Ibexa\Bundle\Core\Imagine\Filter\AbstractFilter;
 use PHPUnit\Framework\TestCase;
 
 class AbstractFilterTest extends TestCase
 {
-    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\AbstractFilter */
+    /** @var \Ibexa\Bundle\Core\Imagine\Filter\AbstractFilter */
     protected $filter;
 
     protected function setUp(): void
@@ -81,3 +81,5 @@ class AbstractFilterTest extends TestCase
         ];
     }
 }
+
+class_alias(AbstractFilterTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\AbstractFilterTest');

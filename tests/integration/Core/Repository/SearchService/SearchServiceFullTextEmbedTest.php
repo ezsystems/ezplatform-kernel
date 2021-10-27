@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\SearchService;
+namespace Ibexa\Tests\Integration\Core\Repository\SearchService;
 
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Tests\BaseTest;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\Core\FieldType\RichText\Value as RichTextValue;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Core\FieldType\RichText\Value as RichTextValue;
 
 /**
  * Test case for full text search in the SearchService (for embed).
@@ -198,3 +198,5 @@ EOT
         self::assertCount(2, array_intersect($resultIds, self::$createdIds));
     }
 }
+
+class_alias(SearchServiceFullTextEmbedTest::class, 'eZ\Publish\API\Repository\Tests\SearchService\SearchServiceFullTextEmbedTest');

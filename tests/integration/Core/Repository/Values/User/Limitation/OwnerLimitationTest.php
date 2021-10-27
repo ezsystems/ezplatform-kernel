@@ -4,31 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Values\User\Limitation;
+namespace Ibexa\Tests\Integration\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\OwnerLimitation;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\OwnerLimitation;
 
 /**
- * Test case for the {@link \eZ\Publish\API\Repository\Values\User\Limitation\OwnerLimitation}
- * class.
- *
- * @see eZ\Publish\API\Repository\Values\User\Limitation
- * @see eZ\Publish\API\Repository\Values\User\Limitation\OwnerLimitation
+ * @covers \Ibexa\Contracts\Core\Repository\Values\User\Limitation\OwnerLimitation
  * @group integration
  * @group limitation
  */
 class OwnerLimitationTest extends BaseLimitationTest
 {
-    /**
-     * Test for the OwnerLimitation.
-     *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\OwnerLimitation
-     *
-     * @throws \ErrorException
-     */
     public function testOwnerLimitationAllow()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -43,7 +34,7 @@ class OwnerLimitationTest extends BaseLimitationTest
         $role = $roleService->loadRoleByIdentifier('Editor');
         $roleDraft = $roleService->createRoleDraft($role);
         // Search for the new policy instance
-        /** @var \eZ\Publish\API\Repository\Values\User\PolicyDraft $policy */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft $policy */
         $removePolicy = null;
         foreach ($roleDraft->getPolicies() as $policy) {
             if ('content' != $policy->module || 'remove' != $policy->function) {
@@ -93,16 +84,9 @@ class OwnerLimitationTest extends BaseLimitationTest
         $contentService->loadContent($content->id);
     }
 
-    /**
-     * Test for the OwnerLimitation.
-     *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\OwnerLimitation
-     *
-     * @throws \ErrorException
-     */
     public function testOwnerLimitationForbid()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -117,7 +101,7 @@ class OwnerLimitationTest extends BaseLimitationTest
         $role = $roleService->loadRoleByIdentifier('Editor');
         $roleDraft = $roleService->createRoleDraft($role);
         // Search for the new policy instance
-        /** @var \eZ\Publish\API\Repository\Values\User\PolicyDraft $policy */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft $policy */
         $removePolicy = null;
         foreach ($roleDraft->getPolicies() as $policy) {
             if ('content' != $policy->module || 'remove' != $policy->function) {
@@ -159,3 +143,5 @@ class OwnerLimitationTest extends BaseLimitationTest
         /* END: Use Case */
     }
 }
+
+class_alias(OwnerLimitationTest::class, 'eZ\Publish\API\Repository\Tests\Values\User\Limitation\OwnerLimitationTest');

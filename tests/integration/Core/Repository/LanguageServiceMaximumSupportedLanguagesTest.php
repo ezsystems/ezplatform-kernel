@@ -4,20 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Tests\SetupFactory\Legacy as LegacySetupFactory;
+use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy as LegacySetupFactory;
 
 /**
  * Test case for maximum number of languages supported in the LanguageService.
  *
- * @see eZ\Publish\API\Repository\LanguageService
+ * @see \Ibexa\Contracts\Core\Repository\LanguageService
  * @group integration
  * @group language
  */
 class LanguageServiceMaximumSupportedLanguagesTest extends BaseTest
 {
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
 
     /** @var array */
@@ -72,9 +72,9 @@ class LanguageServiceMaximumSupportedLanguagesTest extends BaseTest
     /**
      * Test for the number of maximum language that can be created.
      *
-     * @see \eZ\Publish\API\Repository\LanguageService::createLanguage()
+     * @covers \Ibexa\Contracts\Core\Repository\LanguageService::createLanguage()
      *
-     * @depends eZ\Publish\API\Repository\Tests\LanguageServiceTest::testNewLanguageCreateStruct
+     * @depends Ibexa\Tests\Integration\Core\Repository\LanguageServiceTest::testNewLanguageCreateStruct
      */
     public function testCreateMaximumLanguageLimit()
     {
@@ -90,3 +90,5 @@ class LanguageServiceMaximumSupportedLanguagesTest extends BaseTest
         $this->languageService->createLanguage($languageCreate);
     }
 }
+
+class_alias(LanguageServiceMaximumSupportedLanguagesTest::class, 'eZ\Publish\API\Repository\Tests\LanguageServiceMaximumSupportedLanguagesTest');

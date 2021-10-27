@@ -4,20 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests;
+namespace Ibexa\Tests\Core\FieldType;
 
-use eZ\Publish\Core\FieldType\BinaryFile\Type as BinaryFileType;
-use eZ\Publish\Core\FieldType\BinaryFile\Value as BinaryFileValue;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
-use eZ\Publish\Core\FieldType\FieldType;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\SPI\FieldType\BinaryBase\RouteAwarePathGenerator;
+use Ibexa\Core\FieldType\BinaryFile\Type as BinaryFileType;
+use Ibexa\Core\FieldType\BinaryFile\Value as BinaryFileValue;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\FieldType\FieldType;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\FieldType\BinaryBase\RouteAwarePathGenerator;
 
 /**
  * @group fieldType
  * @group ezbinaryfile
  *
- * @covers \eZ\Publish\Core\FieldType\BinaryFile\Type
+ * @covers \Ibexa\Core\FieldType\BinaryFile\Type
  */
 class BinaryFileTest extends BinaryBaseTest
 {
@@ -30,7 +30,7 @@ class BinaryFileTest extends BinaryBaseTest
      * NOT take care for test case wide caching of the field type, just return
      * a new instance from this method!
      *
-     * @return \eZ\Publish\Core\FieldType\FieldType
+     * @return \Ibexa\Core\FieldType\FieldType
      */
     protected function createFieldTypeUnderTest(): FieldType
     {
@@ -648,3 +648,5 @@ class BinaryFileTest extends BinaryBaseTest
         return $mock;
     }
 }
+
+class_alias(BinaryFileTest::class, 'eZ\Publish\Core\FieldType\Tests\BinaryFileTest');

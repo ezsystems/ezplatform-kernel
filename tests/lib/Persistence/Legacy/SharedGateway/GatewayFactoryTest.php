@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\SharedGateway;
+namespace Ibexa\Tests\Core\Persistence\Legacy\SharedGateway;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms;
-use eZ\Publish\Core\Persistence\Legacy\SharedGateway\DatabasePlatform\FallbackGateway;
-use eZ\Publish\Core\Persistence\Legacy\SharedGateway\DatabasePlatform\SqliteGateway;
-use eZ\Publish\Core\Persistence\Legacy\SharedGateway\GatewayFactory;
+use Ibexa\Core\Persistence\Legacy\SharedGateway\DatabasePlatform\FallbackGateway;
+use Ibexa\Core\Persistence\Legacy\SharedGateway\DatabasePlatform\SqliteGateway;
+use Ibexa\Core\Persistence\Legacy\SharedGateway\GatewayFactory;
 use PHPUnit\Framework\TestCase;
 use Traversable;
 
 /**
- * @covers \eZ\Publish\Core\Persistence\Legacy\SharedGateway\GatewayFactory
+ * @covers \Ibexa\Core\Persistence\Legacy\SharedGateway\GatewayFactory
  */
 final class GatewayFactoryTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\SharedGateway\GatewayFactory */
+    /** @var \Ibexa\Core\Persistence\Legacy\SharedGateway\GatewayFactory */
     private $factory;
 
     /**
@@ -40,8 +40,6 @@ final class GatewayFactoryTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\SharedGateway\GatewayFactory::buildSharedGateway
-     *
      * @dataProvider getTestBuildSharedGatewayData
      *
      * @param \Doctrine\DBAL\Connection $connectionMock
@@ -88,3 +86,5 @@ final class GatewayFactoryTest extends TestCase
         }
     }
 }
+
+class_alias(GatewayFactoryTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\SharedGateway\GatewayFactoryTest');

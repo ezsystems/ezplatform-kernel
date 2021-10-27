@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 
 /**
  * Base class for content specific tests.
@@ -17,7 +17,7 @@ abstract class BaseContentServiceTest extends BaseTest
     /**
      * Creates a fresh clean content draft.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createContentVersion1EmptyBinaryField()
     {
@@ -65,7 +65,7 @@ abstract class BaseContentServiceTest extends BaseTest
     /**
      * Creates a fresh clean content draft.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createContentDraftVersion1(
         $locationId = 56,
@@ -119,7 +119,7 @@ abstract class BaseContentServiceTest extends BaseTest
     /**
      * Creates a fresh clean published content instance.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createContentVersion1()
     {
@@ -141,7 +141,7 @@ abstract class BaseContentServiceTest extends BaseTest
      * Creates a new content draft named <b>$draftVersion2</b> from a currently
      * published content object.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createContentDraftVersion2()
     {
@@ -163,7 +163,7 @@ abstract class BaseContentServiceTest extends BaseTest
      * Creates an updated content draft named <b>$draftVersion2</b> from
      * a currently published content object.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createUpdatedDraftVersion2()
     {
@@ -196,7 +196,7 @@ abstract class BaseContentServiceTest extends BaseTest
      * a currently published content object with a user different from the
      * creator.
      *
-     * @return array \eZ\Publish\API\Repository\Values\Content\Content, id
+     * @return array [Ibexa\Contracts\Core\Repository\Values\Content\Content, id]
      */
     protected function createUpdatedDraftVersion2NotAdmin()
     {
@@ -240,7 +240,7 @@ abstract class BaseContentServiceTest extends BaseTest
      * Creates an updated content object named <b>$contentVersion2</b> from
      * a currently published content object.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createContentVersion2()
     {
@@ -261,7 +261,7 @@ abstract class BaseContentServiceTest extends BaseTest
     /**
      * Creates an updated content draft named <b>$draft</b>.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createMultipleLanguageDraftVersion1()
     {
@@ -293,7 +293,7 @@ abstract class BaseContentServiceTest extends BaseTest
      * Creates a published content object with versionNo=2 named
      * <b>$contentVersion2</b>.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createMultipleLanguageContentVersion2()
     {
@@ -341,7 +341,7 @@ abstract class BaseContentServiceTest extends BaseTest
      * @param string $mainLanguageCode
      * @param array $multilingualFieldValues map of <code>['fieldIdentifier' => ['languageCode' => 'field value']]</code>
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content Content Draft
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content Content Draft
      */
     protected function createMultilingualContentDraft(
         $contentTypeIdentifier,
@@ -393,7 +393,7 @@ abstract class BaseContentServiceTest extends BaseTest
      * @param int $parentLocationId
      * @param array $fieldValues map of <code>['fieldIdentifier' => 'field value']</code>
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content Content Draft
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content Content Draft
      */
     protected function createContentDraft(
         $contentTypeIdentifier,
@@ -431,3 +431,5 @@ abstract class BaseContentServiceTest extends BaseTest
         return $contentDraft;
     }
 }
+
+class_alias(BaseContentServiceTest::class, 'eZ\Publish\API\Repository\Tests\BaseContentServiceTest');

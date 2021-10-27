@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\Bookmark\Bookmark;
-use eZ\Publish\SPI\Persistence\Bookmark\CreateStruct;
-use eZ\Publish\SPI\Persistence\Bookmark\Handler as SPIBookmarkHandler;
-use eZ\Publish\SPI\Persistence\Content\Location;
-use eZ\Publish\SPI\Persistence\Content\Location\Handler as SPILocationHandler;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
+use Ibexa\Contracts\Core\Persistence\Bookmark\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Handler as SPIBookmarkHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as SPILocationHandler;
 
 /**
  * Test case for Persistence\Cache\BookmarkHandler.
@@ -104,3 +104,5 @@ class BookmarkHandlerTest extends AbstractCacheHandlerTest
         ];
     }
 }
+
+class_alias(BookmarkHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\BookmarkHandlerTest');

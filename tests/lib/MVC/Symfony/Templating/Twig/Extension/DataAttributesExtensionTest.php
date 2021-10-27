@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension;
+namespace Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension;
 
-use eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\DataAttributesExtension;
+use Ibexa\Core\MVC\Symfony\Templating\Twig\Extension\DataAttributesExtension;
 use Twig\Test\IntegrationTestCase;
 
 class DataAttributesExtensionTest extends IntegrationTestCase
@@ -25,3 +25,5 @@ class DataAttributesExtensionTest extends IntegrationTestCase
         return __DIR__ . '/_fixtures/filters';
     }
 }
+
+class_alias(DataAttributesExtensionTest::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension\DataAttributesExtensionTest');

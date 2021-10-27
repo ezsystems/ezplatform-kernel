@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer\Stubs;
+namespace Ibexa\Tests\Core\MVC\Symfony\Component\Serializer\Stubs;
 
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -47,3 +47,5 @@ final class SerializerStub implements SerializerInterface, NormalizerInterface
         return true;
     }
 }
+
+class_alias(SerializerStub::class, 'eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer\Stubs\SerializerStub');

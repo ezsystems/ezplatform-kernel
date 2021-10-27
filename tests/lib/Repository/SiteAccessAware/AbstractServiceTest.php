@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\SiteAccessAware\Tests;
+namespace Ibexa\Tests\Core\Repository\SiteAccessAware;
 
-use eZ\Publish\API\Repository\LanguageResolver;
+use Ibexa\Contracts\Core\Repository\LanguageResolver;
 use PHPUnit\Framework\TestCase;
 use Closure;
 use ReflectionClass;
@@ -36,7 +36,7 @@ abstract class AbstractServiceTest extends TestCase
     /** @var object */
     protected $service;
 
-    /** @var \eZ\Publish\API\Repository\LanguageResolver|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageResolver|\PHPUnit\Framework\MockObject\MockObject */
     protected $languageResolverMock;
 
     abstract public function getAPIServiceClassName();
@@ -278,3 +278,5 @@ abstract class AbstractServiceTest extends TestCase
         }
     }
 }
+
+class_alias(AbstractServiceTest::class, 'eZ\Publish\Core\Repository\SiteAccessAware\Tests\AbstractServiceTest');

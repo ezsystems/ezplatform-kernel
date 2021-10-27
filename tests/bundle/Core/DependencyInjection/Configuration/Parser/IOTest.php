@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\Parser;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Parser;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\IO;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\IO;
+use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
 use Symfony\Component\Yaml\Yaml;
 
 class IOTest extends AbstractParserTestCase
@@ -62,3 +62,5 @@ class IOTest extends AbstractParserTestCase
         $this->assertConfigResolverParameterValue('io.binarydata_handler', 'group_cluster', self::EMPTY_SA_GROUP);
     }
 }
+
+class_alias(IOTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\Parser\IOTest');

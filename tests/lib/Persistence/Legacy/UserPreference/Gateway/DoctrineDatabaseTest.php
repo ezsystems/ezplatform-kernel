@@ -6,15 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\UserPreference\Gateway;
+namespace Ibexa\Tests\Core\Persistence\Legacy\UserPreference\Gateway;
 
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
-use eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway\DoctrineDatabase;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct;
+use Ibexa\Core\Persistence\Legacy\UserPreference\Gateway;
+use Ibexa\Core\Persistence\Legacy\UserPreference\Gateway\DoctrineDatabase;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
 
+/**
+ * @covers \Ibexa\Core\Persistence\Legacy\UserPreference\Gateway
+ */
 class DoctrineDatabaseTest extends TestCase
 {
     const EXISTING_USER_PREFERENCE_ID = 1;
@@ -34,9 +37,6 @@ class DoctrineDatabaseTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway::setUserPreference()
-     */
     public function testInsert()
     {
         $id = $this->getGateway()->setUserPreference(new UserPreferenceSetStruct([
@@ -55,9 +55,6 @@ class DoctrineDatabaseTest extends TestCase
         ], $data);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway::setUserPreference()
-     */
     public function testUpdateUserPreference()
     {
         $userPreference = new UserPreferenceSetStruct([
@@ -76,9 +73,6 @@ class DoctrineDatabaseTest extends TestCase
         ], $this->loadUserPreference(self::EXISTING_USER_PREFERENCE_ID));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway::countUserPreferences()
-     */
     public function testCountUserPreferences()
     {
         $this->assertEquals(3, $this->getGateway()->countUserPreferences(
@@ -86,9 +80,6 @@ class DoctrineDatabaseTest extends TestCase
         ));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway::loadUserPreferences()
-     */
     public function testLoadUserPreferences()
     {
         $userId = 14;
@@ -116,7 +107,7 @@ class DoctrineDatabaseTest extends TestCase
     /**
      * Return a ready to test DoctrineStorage gateway.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway
+     * @return \Ibexa\Core\Persistence\Legacy\UserPreference\Gateway
      */
     protected function getGateway(): Gateway
     {
@@ -147,3 +138,5 @@ class DoctrineDatabaseTest extends TestCase
         return reset($result);
     }
 }
+
+class_alias(DoctrineDatabaseTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\UserPreference\Gateway\DoctrineDatabaseTest');

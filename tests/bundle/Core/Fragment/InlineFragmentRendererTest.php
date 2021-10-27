@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Fragment;
+namespace Ibexa\Tests\Bundle\Core\Fragment;
 
-use eZ\Bundle\EzPublishCoreBundle\Fragment\InlineFragmentRenderer;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Bundle\Core\Fragment\InlineFragmentRenderer;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface;
@@ -83,3 +83,5 @@ class InlineFragmentRendererTest extends DecoratedFragmentRendererTest
         return new InlineFragmentRenderer($this->innerRenderer);
     }
 }
+
+class_alias(InlineFragmentRendererTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Fragment\InlineFragmentRendererTest');

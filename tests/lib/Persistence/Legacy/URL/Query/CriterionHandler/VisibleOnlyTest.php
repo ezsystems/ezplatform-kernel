@@ -6,15 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\URL\Query\CriterionHandler;
+namespace Ibexa\Tests\Core\Persistence\Legacy\URL\Query\CriterionHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
-use eZ\Publish\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
-use eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler\VisibleOnly as VisibleOnlyHandler;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
+use Ibexa\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
+use Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler\VisibleOnly as VisibleOnlyHandler;
 
+/**
+ * @covers \Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler\VisibleOnly
+ */
 class VisibleOnlyTest extends CriterionHandlerTest
 {
     /**
@@ -29,8 +32,6 @@ class VisibleOnlyTest extends CriterionHandlerTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler\VisibleOnly::handle
-     *
      * Note: more complex case with multiple Criteria trying to join the same table multiple times
      * has been covered by integration tests.
      */
@@ -68,3 +69,5 @@ class VisibleOnlyTest extends CriterionHandlerTest
         return new QueryBuilder($connection);
     }
 }
+
+class_alias(VisibleOnlyTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\URL\Query\CriterionHandler\VisibleOnlyTest');

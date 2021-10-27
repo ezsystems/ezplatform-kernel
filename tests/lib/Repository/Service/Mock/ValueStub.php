@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
+namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * Value for TextLine field type.
@@ -26,11 +26,10 @@ class ValueStub extends BaseValue
         $this->value = $value;
     }
 
-    /**
-     * @see \eZ\Publish\Core\FieldType\Value
-     */
     public function __toString()
     {
         return (string)$this->value;
     }
 }
+
+class_alias(ValueStub::class, 'eZ\Publish\Core\Repository\Tests\Service\Mock\ValueStub');

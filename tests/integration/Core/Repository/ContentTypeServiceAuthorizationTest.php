@@ -4,13 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
+
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 
 /**
  * Test case for operations in the ContentTypeServiceAuthorization using in memory storage.
  *
- * @see eZ\Publish\API\Repository\ContentTypeService
- * @depends eZ\Publish\API\Repository\Tests\UserServiceTest::testLoadUser
+ * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService
+ * @depends Ibexa\Tests\Integration\Core\Repository\UserServiceTest::testLoadUser
  * @group integration
  * @group authorization
  */
@@ -19,12 +21,12 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentTypeGroup()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ContentTypeServiceTest::testCreateContentTypeGroup
      */
     public function testCreateContentTypeGroupThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -60,12 +62,12 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
     /**
      * Test for the updateContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::updateContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUpdateContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateContentTypeGroup()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ContentTypeServiceTest::testUpdateContentTypeGroup
      */
     public function testUpdateContentTypeGroupThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -110,12 +112,12 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
     /**
      * Test for the deleteContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::deleteContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testDeleteContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::deleteContentTypeGroup()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ContentTypeServiceTest::testDeleteContentTypeGroup
      */
     public function testDeleteContentTypeGroupThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -147,12 +149,12 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentType()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ContentTypeServiceTest::testCreateContentType
      */
     public function testCreateContentTypeThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -204,12 +206,12 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
     /**
      * Test for the updateContentTypeDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::updateContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUpdateContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateContentTypeDraft()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ContentTypeServiceTest::testUpdateContentTypeDraft
      */
     public function testUpdateContentTypeDraftThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $contentTypeService = $repository->getContentTypeService();
@@ -256,12 +258,12 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
     /**
      * Test for the addFieldDefinition() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::addFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testAddFieldDefinition
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::addFieldDefinition()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ContentTypeServiceTest::testAddFieldDefinition
      */
     public function testAddFieldDefinitionThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $contentTypeService = $repository->getContentTypeService();
@@ -312,12 +314,12 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
     /**
      * Test for the removeFieldDefinition() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::removeFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testRemoveFieldDefinition
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::removeFieldDefinition()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ContentTypeServiceTest::testRemoveFieldDefinition
      */
     public function testRemoveFieldDefinitionThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $contentTypeService = $repository->getContentTypeService();
@@ -345,12 +347,12 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
     /**
      * Test for the updateFieldDefinition() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::updateFieldDefinition()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUpdateFieldDefinition
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::updateFieldDefinition()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ContentTypeServiceTest::testUpdateFieldDefinition
      */
     public function testUpdateFieldDefinitionThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $contentTypeService = $repository->getContentTypeService();
@@ -403,12 +405,12 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
     /**
      * Test for the publishContentTypeDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::publishContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testPublishContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::publishContentTypeDraft()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ContentTypeServiceTest::testPublishContentTypeDraft
      */
     public function testPublishContentTypeDraftThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $contentTypeService = $repository->getContentTypeService();
@@ -434,12 +436,12 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
     /**
      * Test for the createContentTypeDraft() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::createContentTypeDraft()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentTypeDraft
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::createContentTypeDraft()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ContentTypeServiceTest::testCreateContentTypeDraft
      */
     public function testCreateContentTypeDraftThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -466,12 +468,12 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
     /**
      * Test for the deleteContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::deleteContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testDeleteContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::deleteContentType()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ContentTypeServiceTest::testDeleteContentType
      */
     public function testDeleteContentTypeThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -498,12 +500,12 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
     /**
      * Test for the copyContentType() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::copyContentType()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCopyContentType
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::copyContentType()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ContentTypeServiceTest::testCopyContentType
      */
     public function testCopyContentTypeThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -530,12 +532,12 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
     /**
      * Test for the assignContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::assignContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testAssignContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::assignContentTypeGroup()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ContentTypeServiceTest::testAssignContentTypeGroup
      */
     public function testAssignContentTypeGroupThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -563,12 +565,12 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
     /**
      * Test for the unassignContentTypeGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ContentTypeService::unassignContentTypeGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testUnassignContentTypeGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ContentTypeService::unassignContentTypeGroup()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ContentTypeServiceTest::testUnassignContentTypeGroup
      */
     public function testUnassignContentTypeGroupThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -598,3 +600,5 @@ class ContentTypeServiceAuthorizationTest extends BaseContentTypeServiceTest
         /* END: Use Case */
     }
 }
+
+class_alias(ContentTypeServiceAuthorizationTest::class, 'eZ\Publish\API\Repository\Tests\ContentTypeServiceAuthorizationTest');

@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\IO\Tests\UrlDecorator;
+namespace Ibexa\Tests\Core\IO\UrlDecorator;
 
-use eZ\Publish\Core\IO\IOConfigProvider;
-use eZ\Publish\Core\IO\UrlDecorator;
-use eZ\Publish\Core\IO\UrlDecorator\Prefix;
+use Ibexa\Core\IO\IOConfigProvider;
+use Ibexa\Core\IO\UrlDecorator;
+use Ibexa\Core\IO\UrlDecorator\Prefix;
 use PHPUnit\Framework\TestCase;
 
 class PrefixTest extends TestCase
@@ -72,3 +72,5 @@ class PrefixTest extends TestCase
         ];
     }
 }
+
+class_alias(PrefixTest::class, 'eZ\Publish\Core\IO\Tests\UrlDecorator\PrefixTest');

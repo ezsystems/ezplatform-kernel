@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\IO\Tests;
+namespace Ibexa\Tests\Core\IO;
 
-use eZ\Publish\Core\IO\TolerantIOService;
-use eZ\Publish\Core\IO\Values\MissingBinaryFile;
+use Ibexa\Core\IO\TolerantIOService;
+use Ibexa\Core\IO\Values\MissingBinaryFile;
 
 /**
- * Test case for the TolerantIOService.
+ * @covers \Ibexa\Core\IO\IOService
  */
 class TolerantIOServiceTest extends IOServiceTest
 {
@@ -26,9 +26,6 @@ class TolerantIOServiceTest extends IOServiceTest
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\IO\IOService::loadBinaryFile
-     */
     public function testLoadBinaryFileNotFound()
     {
         $binaryFile = parent::loadBinaryFileNotFound();
@@ -39,9 +36,6 @@ class TolerantIOServiceTest extends IOServiceTest
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\IO\TolerantIOService::createMissingBinaryFile
-     */
     public function testCreateMissingBinaryFile()
     {
         $id = 'id.ext';
@@ -62,19 +56,19 @@ class TolerantIOServiceTest extends IOServiceTest
 
     /**
      * Overridden to change the expected exception (none).
-     *
-     * @covers \eZ\Publish\Core\IO\IOService::deleteBinaryFile
      */
     public function testDeleteBinaryFileNotFound()
     {
-        parent::deleteBinaryFileNotFound();
+        $this->deleteBinaryFileNotFound();
     }
 
     public function testLoadBinaryFileByUriNotFound()
     {
         self::assertEquals(
             new MissingBinaryFile(['id' => 'my/path.png']),
-            parent::loadBinaryFileByUriNotFound()
+            $this->loadBinaryFileByUriNotFound()
         );
     }
 }
+
+class_alias(TolerantIOServiceTest::class, 'eZ\Publish\Core\IO\Tests\TolerantIOServiceTest');

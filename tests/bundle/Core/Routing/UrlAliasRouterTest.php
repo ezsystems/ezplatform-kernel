@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Routing;
+namespace Ibexa\Tests\Bundle\Core\Routing;
 
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\URLAliasService;
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\URLAliasService;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\Repository\Values\Content\Location;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\RequestContext;
-use eZ\Bundle\EzPublishCoreBundle\Routing\UrlAliasRouter;
-use eZ\Publish\API\Repository\Values\Content\URLAlias;
-use eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
-use eZ\Publish\Core\MVC\Symfony\Routing\Tests\UrlAliasRouterTest as BaseUrlAliasRouterTest;
-use eZ\Publish\Core\MVC\Symfony\View\Manager as ViewManager;
+use Ibexa\Bundle\Core\Routing\UrlAliasRouter;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
+use Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
+use Ibexa\Tests\Core\MVC\Symfony\Routing\UrlAliasRouterTest as BaseUrlAliasRouterTest;
+use Ibexa\Core\MVC\Symfony\View\Manager as ViewManager;
 
 class UrlAliasRouterTest extends BaseUrlAliasRouterTest
 {
@@ -400,3 +400,5 @@ class UrlAliasRouterTest extends BaseUrlAliasRouterTest
         $this->assertEquals($expected, $this->router->matchRequest($request));
     }
 }
+
+class_alias(UrlAliasRouterTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Routing\UrlAliasRouterTest');

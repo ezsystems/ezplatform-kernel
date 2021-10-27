@@ -4,19 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\User\Limitation\LanguageLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation;
-use eZ\Publish\Core\Repository\Repository;
-use eZ\Publish\Core\Repository\TrashService;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ObjectStateLimitation;
+use Ibexa\Core\Repository\Repository;
+use Ibexa\Core\Repository\TrashService;
 
 /**
  * Test case for operations in the TrashService using in memory storage.
  *
- * @see eZ\Publish\API\Repository\TrashService
+ * @covers \Ibexa\Contracts\Core\Repository\TrashService
  * @group integration
  * @group authorization
  */
@@ -25,13 +25,13 @@ class TrashServiceAuthorizationTest extends BaseTrashServiceTest
     /**
      * Test for the loadTrashItem() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::loadTrashItem()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testLoadTrashItem
-     * @depends eZ\Publish\API\Repository\Tests\UserServiceTest::testLoadUser
+     * @covers \Ibexa\Contracts\Core\Repository\TrashService::loadTrashItem()
+     * @depends Ibexa\Tests\Integration\Core\Repository\TrashServiceTest::testLoadTrashItem
+     * @depends Ibexa\Tests\Integration\Core\Repository\UserServiceTest::testLoadUser
      */
     public function testLoadTrashItemThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $trashService = $repository->getTrashService();
@@ -56,11 +56,11 @@ class TrashServiceAuthorizationTest extends BaseTrashServiceTest
     /**
      * Test for the trash() method without proper permissions.
      *
-     * @covers \eZ\Publish\API\Repository\TrashService::trash
+     * @covers \Ibexa\Contracts\Core\Repository\TrashService::trash
      */
     public function testTrashThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
         $this->expectExceptionMessage('The User does not have the \'remove\' \'content\' permission');
 
         $repository = $this->getRepository();
@@ -82,7 +82,7 @@ class TrashServiceAuthorizationTest extends BaseTrashServiceTest
     /**
      * Test for the trash() method without proper permissions.
      *
-     * @covers \eZ\Publish\API\Repository\TrashService::trash
+     * @covers \Ibexa\Contracts\Core\Repository\TrashService::trash
      */
     public function testTrashThrowsUnauthorizedExceptionWithLanguageLimitation(): void
     {
@@ -119,7 +119,7 @@ class TrashServiceAuthorizationTest extends BaseTrashServiceTest
      *
      * @depends testTrashThrowsUnauthorizedException
      *
-     * @covers \eZ\Publish\API\Repository\TrashService::trash
+     * @covers \Ibexa\Contracts\Core\Repository\TrashService::trash
      */
     public function testTrashRequiresContentRemovePolicy()
     {
@@ -146,13 +146,13 @@ class TrashServiceAuthorizationTest extends BaseTrashServiceTest
     /**
      * Test for the recover() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::recover()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testRecover
-     * @depends eZ\Publish\API\Repository\Tests\UserServiceTest::testLoadUser
+     * @covers \Ibexa\Contracts\Core\Repository\TrashService::recover()
+     * @depends Ibexa\Tests\Integration\Core\Repository\TrashServiceTest::testRecover
+     * @depends Ibexa\Tests\Integration\Core\Repository\UserServiceTest::testLoadUser
      */
     public function testRecoverThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $trashService = $repository->getTrashService();
@@ -177,13 +177,13 @@ class TrashServiceAuthorizationTest extends BaseTrashServiceTest
     /**
      * Test for the recover() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::recover($trashItem, $newParentLocation)
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testRecover
-     * @depends eZ\Publish\API\Repository\Tests\UserServiceTest::testLoadUser
+     * @covers \Ibexa\Contracts\Core\Repository\TrashService::recover($trashItem, $newParentLocation)
+     * @depends Ibexa\Tests\Integration\Core\Repository\TrashServiceTest::testRecover
+     * @depends Ibexa\Tests\Integration\Core\Repository\UserServiceTest::testLoadUser
      */
     public function testRecoverThrowsUnauthorizedExceptionWithNewParentLocationParameter()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $trashService = $repository->getTrashService();
@@ -216,13 +216,13 @@ class TrashServiceAuthorizationTest extends BaseTrashServiceTest
     /**
      * Test for the emptyTrash() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::emptyTrash()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testEmptyTrash
-     * @depends eZ\Publish\API\Repository\Tests\UserServiceTest::testLoadUser
+     * @covers \Ibexa\Contracts\Core\Repository\TrashService::emptyTrash()
+     * @depends Ibexa\Tests\Integration\Core\Repository\TrashServiceTest::testEmptyTrash
+     * @depends Ibexa\Tests\Integration\Core\Repository\UserServiceTest::testLoadUser
      */
     public function testEmptyTrashThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $trashService = $repository->getTrashService();
@@ -247,13 +247,13 @@ class TrashServiceAuthorizationTest extends BaseTrashServiceTest
     /**
      * Test for the deleteTrashItem() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::deleteTrashItem()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testDeleteTrashItem
-     * @depends eZ\Publish\API\Repository\Tests\UserServiceTest::testLoadUser
+     * @covers \Ibexa\Contracts\Core\Repository\TrashService::deleteTrashItem()
+     * @depends Ibexa\Tests\Integration\Core\Repository\TrashServiceTest::testDeleteTrashItem
+     * @depends Ibexa\Tests\Integration\Core\Repository\UserServiceTest::testLoadUser
      */
     public function testDeleteTrashItemThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $trashService = $repository->getTrashService();
@@ -310,7 +310,9 @@ class TrashServiceAuthorizationTest extends BaseTrashServiceTest
         $childContent = $this->createFolder(['eng-US' => 'Child Folder'], $parentLocation->id);
 
         $this->refreshSearch($repository);
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
         $trashService->trash($parentLocation);
     }
 }
+
+class_alias(TrashServiceAuthorizationTest::class, 'eZ\Publish\API\Repository\Tests\TrashServiceAuthorizationTest');

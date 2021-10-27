@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\Parser;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Parser;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Languages;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Languages;
+use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
 use Symfony\Component\Yaml\Yaml;
 
 class LanguagesTest extends AbstractParserTestCase
@@ -118,3 +118,5 @@ class LanguagesTest extends AbstractParserTestCase
         $this->assertConfigResolverParameterValue('translation_siteaccesses', [], self::EMPTY_SA_GROUP);
     }
 }
+
+class_alias(LanguagesTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\Parser\LanguagesTest');

@@ -4,52 +4,50 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Type;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Type;
 
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Persistence\Content\Type\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\Type\Group;
-use eZ\Publish\SPI\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
-use eZ\Publish\Core\Persistence\Legacy\Exception;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler as UpdateHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Core\Persistence\Legacy\Exception;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Handler;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Gateway;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Mapper;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Update\Handler as UpdateHandler;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test case for Content Type Handler.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\Type\Handler
  */
 class ContentTypeHandlerTest extends TestCase
 {
     /**
      * Gateway mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Type\Gateway
      */
     protected $gatewayMock;
 
     /**
      * Mapper mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Type\Mapper
      */
     protected $mapperMock;
 
     /**
      * Update\Handler mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Type\Update\Handler
      */
     protected $updateHandlerMock;
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::createGroup
-     */
     public function testCreateGroup()
     {
         $createStruct = new GroupCreateStruct();
@@ -91,9 +89,6 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::updateGroup
-     */
     public function testUpdateGroup()
     {
         $updateStruct = new GroupUpdateStruct();
@@ -133,9 +128,6 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::deleteGroup
-     */
     public function testDeleteGroupSuccess()
     {
         $gatewayMock = $this->getGatewayMock();
@@ -151,13 +143,9 @@ class ContentTypeHandlerTest extends TestCase
         $handler->deleteGroup(23);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::deleteGroup
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Exception\GroupNotEmpty
-     */
     public function testDeleteGroupFailure()
     {
-        $this->expectException(\eZ\Publish\Core\Persistence\Legacy\Exception\GroupNotEmpty::class);
+        $this->expectException(Exception\GroupNotEmpty::class);
         $this->expectExceptionMessage('Group with ID "23" is not empty.');
 
         $gatewayMock = $this->getGatewayMock();
@@ -172,9 +160,6 @@ class ContentTypeHandlerTest extends TestCase
         $handler->deleteGroup(23);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::loadGroup
-     */
     public function testLoadGroup()
     {
         $gatewayMock = $this->getGatewayMock();
@@ -198,9 +183,6 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::loadGroupByIdentifier
-     */
     public function testLoadGroupByIdentifier()
     {
         $gatewayMock = $this->getGatewayMock();
@@ -224,9 +206,6 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::loadAllGroups
-     */
     public function testLoadAllGroups()
     {
         $gatewayMock = $this->getGatewayMock();
@@ -249,9 +228,6 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::loadContentTypes
-     */
     public function testLoadContentTypes()
     {
         $gatewayMock = $this->getGatewayMock();
@@ -275,9 +251,6 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::loadContentTypeList
-     */
     public function testLoadContentTypeList(): void
     {
         $gatewayMock = $this->getGatewayMock();
@@ -302,10 +275,6 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::load
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::loadFromRows
-     */
     public function testLoad()
     {
         $gatewayMock = $this->getGatewayMock();
@@ -337,13 +306,9 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::load
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::loadFromRows
-     */
     public function testLoadNotFound()
     {
-        $this->expectException(\eZ\Publish\Core\Persistence\Legacy\Exception\TypeNotFound::class);
+        $this->expectException(Exception\TypeNotFound::class);
 
         $gatewayMock = $this->getGatewayMock();
         $gatewayMock->expects($this->once())
@@ -368,10 +333,6 @@ class ContentTypeHandlerTest extends TestCase
         $type = $handler->load(23, 1);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::load
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::loadFromRows
-     */
     public function testLoadDefaultVersion()
     {
         $gatewayMock = $this->getGatewayMock();
@@ -402,10 +363,6 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::loadByIdentifier
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::loadFromRows
-     */
     public function testLoadByIdentifier()
     {
         $gatewayMock = $this->getGatewayMock();
@@ -436,10 +393,6 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::loadByRemoteId
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::loadFromRows
-     */
     public function testLoadByRemoteId()
     {
         $gatewayMock = $this->getGatewayMock();
@@ -470,9 +423,6 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::create
-     */
     public function testCreate()
     {
         $createStructFix = $this->getContentTypeCreateStructFixture();
@@ -550,9 +500,6 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::update
-     */
     public function testUpdate()
     {
         $gatewayMock = $this->getGatewayMock();
@@ -587,9 +534,6 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::delete
-     */
     public function testDeleteSuccess()
     {
         $gatewayMock = $this->getGatewayMock();
@@ -619,12 +563,9 @@ class ContentTypeHandlerTest extends TestCase
         $this->assertTrue($res);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::delete
-     */
     public function testDeleteThrowsBadStateException()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\BadStateException::class);
+        $this->expectException(BadStateException::class);
 
         $gatewayMock = $this->getGatewayMock();
 
@@ -644,9 +585,6 @@ class ContentTypeHandlerTest extends TestCase
         $res = $handler->delete(23, 0);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::createDraft
-     */
     public function testCreateVersion()
     {
         $userId = 42;
@@ -697,9 +635,6 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::copy
-     */
     public function testCopy()
     {
         $gatewayMock = $this->getGatewayMock();
@@ -765,9 +700,6 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::link
-     */
     public function testLink()
     {
         $gatewayMock = $this->getGatewayMock();
@@ -787,9 +719,6 @@ class ContentTypeHandlerTest extends TestCase
         $this->assertTrue($res);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::unlink
-     */
     public function testUnlinkSuccess()
     {
         $gatewayMock = $this->getGatewayMock();
@@ -816,13 +745,9 @@ class ContentTypeHandlerTest extends TestCase
         $this->assertTrue($res);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::unlink
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Exception\RemoveLastGroupFromType
-     */
     public function testUnlinkFailure()
     {
-        $this->expectException(\eZ\Publish\Core\Persistence\Legacy\Exception\RemoveLastGroupFromType::class);
+        $this->expectException(Exception\RemoveLastGroupFromType::class);
         $this->expectExceptionMessage('Type with ID "23" in status "1" cannot be unlinked from its last group.');
 
         $gatewayMock = $this->getGatewayMock();
@@ -841,9 +766,6 @@ class ContentTypeHandlerTest extends TestCase
         $res = $handler->unlink(3, 23, 1);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::getFieldDefinition
-     */
     public function testGetFieldDefinition()
     {
         $mapperMock = $this->getMapperMock(
@@ -891,9 +813,6 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::addFieldDefinition
-     */
     public function testAddFieldDefinition()
     {
         $mapperMock = $this->getMapperMock(
@@ -937,9 +856,6 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::getContentCount
-     */
     public function testGetContentCount()
     {
         $gatewayMock = $this->getGatewayMock();
@@ -959,9 +875,6 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::removeFieldDefinition
-     */
     public function testRemoveFieldDefinition()
     {
         $gatewayMock = $this->getGatewayMock();
@@ -979,9 +892,6 @@ class ContentTypeHandlerTest extends TestCase
         $this->assertTrue($res);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::updateFieldDefinition
-     */
     public function testUpdateFieldDefinition()
     {
         $mapperMock = $this->getMapperMock(
@@ -1017,9 +927,6 @@ class ContentTypeHandlerTest extends TestCase
         $this->assertNull($res);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::publish
-     */
     public function testPublish()
     {
         $handler = $this->getPartlyMockedHandler(['load']);
@@ -1058,9 +965,6 @@ class ContentTypeHandlerTest extends TestCase
         $handler->publish(23);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::publish
-     */
     public function testPublishNoOldType()
     {
         $handler = $this->getPartlyMockedHandler(['load']);
@@ -1101,7 +1005,7 @@ class ContentTypeHandlerTest extends TestCase
     /**
      * Returns a handler to test, based on mock objects.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Type\Handler
      */
     protected function getHandler()
     {
@@ -1117,7 +1021,7 @@ class ContentTypeHandlerTest extends TestCase
      *
      * @param array $methods
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Type\Handler
      */
     protected function getPartlyMockedHandler(array $methods)
     {
@@ -1136,7 +1040,7 @@ class ContentTypeHandlerTest extends TestCase
     /**
      * Returns a gateway mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Type\Gateway
      */
     protected function getGatewayMock()
     {
@@ -1154,7 +1058,7 @@ class ContentTypeHandlerTest extends TestCase
      *
      * @param array $methods
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Type\Mapper
      */
     protected function getMapperMock($methods = [])
     {
@@ -1171,7 +1075,7 @@ class ContentTypeHandlerTest extends TestCase
     /**
      * Returns a Update\Handler mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Type\Update\Handler
      */
     public function getUpdateHandlerMock()
     {
@@ -1188,7 +1092,7 @@ class ContentTypeHandlerTest extends TestCase
     /**
      * Returns a CreateStruct fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type\CreateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct
      */
     protected function getContentTypeCreateStructFixture()
     {
@@ -1212,9 +1116,6 @@ class ContentTypeHandlerTest extends TestCase
         return $struct;
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler::removeContentTypeTranslation
-     */
     public function testRemoveContentTypeTranslation()
     {
         $mapperMock = $this->getMapperMock();
@@ -1261,3 +1162,5 @@ class ContentTypeHandlerTest extends TestCase
         );
     }
 }
+
+class_alias(ContentTypeHandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\Type\ContentTypeHandlerTest');

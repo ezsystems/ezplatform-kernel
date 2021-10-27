@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased;
+namespace Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\Repository\Permission\PermissionResolver;
-use eZ\Publish\Core\Repository\Mapper\RoleDomainMapper;
-use eZ\Publish\SPI\Persistence\User\Handler as SPIUserHandler;
-use eZ\Publish\Core\Repository\Permission\LimitationService;
-use eZ\Publish\Core\MVC\Symfony\View\Provider\Location\Configured;
-use eZ\Publish\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\Repository\Permission\PermissionResolver;
+use Ibexa\Core\Repository\Mapper\RoleDomainMapper;
+use Ibexa\Contracts\Core\Persistence\User\Handler as SPIUserHandler;
+use Ibexa\Core\Repository\Permission\LimitationService;
+use Ibexa\Core\MVC\Symfony\View\Provider\Configured;
+use Ibexa\Core\Repository\Repository;
 use PHPUnit\Framework\TestCase;
 
 abstract class BaseTest extends TestCase
@@ -115,3 +115,5 @@ abstract class BaseTest extends TestCase
             ->getMock();
     }
 }
+
+class_alias(BaseTest::class, 'eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\BaseTest');

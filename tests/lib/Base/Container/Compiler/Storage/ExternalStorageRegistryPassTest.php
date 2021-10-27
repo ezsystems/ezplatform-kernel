@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Tests\Container\Compiler\Storage;
+namespace Ibexa\Tests\Core\Base\Container\Compiler\Storage;
 
-use eZ\Publish\Core\Base\Container\Compiler\Storage\ExternalStorageRegistryPass;
+use Ibexa\Core\Base\Container\Compiler\Storage\ExternalStorageRegistryPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
-use eZ\Publish\Core\Base\Tests\Container\Compiler\Stubs\GatewayBasedStorageHandler;
+use Ibexa\Tests\Core\Base\Container\Compiler\Stubs\GatewayBasedStorageHandler;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -209,3 +209,5 @@ class ExternalStorageRegistryPassTest extends AbstractCompilerPassTestCase
         ];
     }
 }
+
+class_alias(ExternalStorageRegistryPassTest::class, 'eZ\Publish\Core\Base\Tests\Container\Compiler\Storage\ExternalStorageRegistryPassTest');

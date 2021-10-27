@@ -4,25 +4,25 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Setting;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Setting;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Setting\Handler;
-use eZ\Publish\Core\Persistence\Legacy\Setting\Gateway;
-use eZ\Publish\SPI\Persistence\Setting\Setting;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence\Legacy\Setting\Handler;
+use Ibexa\Core\Persistence\Legacy\Setting\Gateway;
+use Ibexa\Contracts\Core\Persistence\Setting\Setting;
 use PHPUnit\Framework\MockObject\MockObject;
 
+/**
+ * @covers \Ibexa\Core\Persistence\Legacy\Setting\Handler::create
+ */
 class SettingHandlerTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Setting\Handler */
+    /** @var \Ibexa\Core\Persistence\Legacy\Setting\Handler */
     protected $settingHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Setting\Gateway */
+    /** @var \Ibexa\Core\Persistence\Legacy\Setting\Gateway */
     protected $gatewayMock;
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Setting\Handler::create
-     */
     public function testCreate()
     {
         $handler = $this->getSettingHandler();
@@ -66,9 +66,7 @@ class SettingHandlerTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Setting\Handler::update
-     *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException
      */
     public function testUpdate()
     {
@@ -114,10 +112,7 @@ class SettingHandlerTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Setting\Handler::load
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Setting\Handler::createSettingFromArray
-     *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException
      */
     public function testLoad()
     {
@@ -155,9 +150,6 @@ class SettingHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Setting\Handler::delete
-     */
     public function testDelete()
     {
         $handler = $this->getSettingHandler();
@@ -188,7 +180,7 @@ class SettingHandlerTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Persistence\Legacy\Setting\Gateway
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Persistence\Legacy\Setting\Gateway
      */
     protected function getGatewayMock(): MockObject
     {
@@ -199,3 +191,5 @@ class SettingHandlerTest extends TestCase
         return $this->gatewayMock;
     }
 }
+
+class_alias(SettingHandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Setting\SettingHandlerTest');

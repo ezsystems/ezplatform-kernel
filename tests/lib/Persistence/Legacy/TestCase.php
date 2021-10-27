@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests;
+namespace Ibexa\Tests\Core\Persistence\Legacy;
 
 use Doctrine\Common\EventManager as DoctrineEventManager;
 use Doctrine\DBAL\Connection;
@@ -12,16 +12,16 @@ use Doctrine\DBAL\ConnectionException;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Tests\LegacySchemaImporter;
-use eZ\Publish\Core\Persistence\Legacy\SharedGateway;
-use eZ\Publish\Core\Persistence\Tests\DatabaseConnectionFactory;
-use eZ\Publish\Core\Search\Legacy\Content;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
-use eZ\Publish\SPI\Tests\Persistence\FileFixtureFactory;
-use eZ\Publish\SPI\Tests\Persistence\FixtureImporter;
-use eZ\Publish\SPI\Tests\Persistence\YamlFixture;
+use Ibexa\Tests\Core\Repository\LegacySchemaImporter;
+use Ibexa\Core\Persistence\Legacy\SharedGateway;
+use Ibexa\Tests\Core\Persistence\DatabaseConnectionFactory;
+use Ibexa\Core\Search\Legacy\Content;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
+use Ibexa\Contracts\Core\Test\Persistence\Fixture\FileFixtureFactory;
+use Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter;
+use Ibexa\Contracts\Core\Test\Persistence\Fixture\YamlFixture;
 use EzSystems\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform;
 use InvalidArgumentException;
 use PDOException;
@@ -57,7 +57,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected $connection;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\SharedGateway\Gateway */
+    /** @var \Ibexa\Core\Persistence\Legacy\SharedGateway\Gateway */
     private $sharedGateway;
 
     /**
@@ -349,3 +349,5 @@ abstract class TestCase extends BaseTestCase
         );
     }
 }
+
+class_alias(TestCase::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\TestCase');

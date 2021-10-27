@@ -4,12 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
+
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 
 /**
  * Test case for operations in the ObjectStateService using in memory storage.
  *
- * @see eZ\Publish\API\Repository\ObjectStateService
+ * @covers \Ibexa\Contracts\Core\Repository\ObjectStateService
  * @group integration
  * @group authorization
  */
@@ -18,12 +20,12 @@ class ObjectStateServiceAuthorizationTest extends BaseTest
     /**
      * Test for the createObjectStateGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ObjectStateService::createObjectStateGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ObjectStateServiceTest::testCreateObjectStateGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ObjectStateService::createObjectStateGroup()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ObjectStateServiceTest::testCreateObjectStateGroup
      */
     public function testCreateObjectStateGroupThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -62,12 +64,12 @@ class ObjectStateServiceAuthorizationTest extends BaseTest
     /**
      * Test for the updateObjectStateGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ObjectStateService::updateObjectStateGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ObjectStateServiceTest::testUpdateObjectStateGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ObjectStateService::updateObjectStateGroup()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ObjectStateServiceTest::testUpdateObjectStateGroup
      */
     public function testUpdateObjectStateGroupThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -111,12 +113,12 @@ class ObjectStateServiceAuthorizationTest extends BaseTest
     /**
      * Test for the deleteObjectStateGroup() method.
      *
-     * @see \eZ\Publish\API\Repository\ObjectStateService::deleteObjectStateGroup()
-     * @depends eZ\Publish\API\Repository\Tests\ObjectStateServiceTest::testDeleteObjectStateGroup
+     * @covers \Ibexa\Contracts\Core\Repository\ObjectStateService::deleteObjectStateGroup()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ObjectStateServiceTest::testDeleteObjectStateGroup
      */
     public function testDeleteObjectStateGroupThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -147,12 +149,12 @@ class ObjectStateServiceAuthorizationTest extends BaseTest
     /**
      * Test for the createObjectState() method.
      *
-     * @see \eZ\Publish\API\Repository\ObjectStateService::createObjectState()
-     * @depends eZ\Publish\API\Repository\Tests\ObjectStateServiceTest::testCreateObjectState
+     * @covers \Ibexa\Contracts\Core\Repository\ObjectStateService::createObjectState()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ObjectStateServiceTest::testCreateObjectState
      */
     public function testCreateObjectStateThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -198,12 +200,12 @@ class ObjectStateServiceAuthorizationTest extends BaseTest
     /**
      * Test for the updateObjectState() method.
      *
-     * @see \eZ\Publish\API\Repository\ObjectStateService::updateObjectState()
-     * @depends eZ\Publish\API\Repository\Tests\ObjectStateServiceTest::testUpdateObjectState
+     * @covers \Ibexa\Contracts\Core\Repository\ObjectStateService::updateObjectState()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ObjectStateServiceTest::testUpdateObjectState
      */
     public function testUpdateObjectStateThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -248,12 +250,12 @@ class ObjectStateServiceAuthorizationTest extends BaseTest
     /**
      * Test for the setPriorityOfObjectState() method.
      *
-     * @see \eZ\Publish\API\Repository\ObjectStateService::setPriorityOfObjectState()
-     * @depends eZ\Publish\API\Repository\Tests\ObjectStateServiceTest::testSetPriorityOfObjectState
+     * @covers \Ibexa\Contracts\Core\Repository\ObjectStateService::setPriorityOfObjectState()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ObjectStateServiceTest::testSetPriorityOfObjectState
      */
     public function testSetPriorityOfObjectStateThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -286,12 +288,12 @@ class ObjectStateServiceAuthorizationTest extends BaseTest
     /**
      * Test for the deleteObjectState() method.
      *
-     * @see \eZ\Publish\API\Repository\ObjectStateService::deleteObjectState()
-     * @depends eZ\Publish\API\Repository\Tests\ObjectStateServiceTest::testDeleteObjectState
+     * @covers \Ibexa\Contracts\Core\Repository\ObjectStateService::deleteObjectState()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ObjectStateServiceTest::testDeleteObjectState
      */
     public function testDeleteObjectStateThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -320,12 +322,12 @@ class ObjectStateServiceAuthorizationTest extends BaseTest
     /**
      * Test for the setContentState() method.
      *
-     * @see \eZ\Publish\API\Repository\ObjectStateService::setContentState()
-     * @depends eZ\Publish\API\Repository\Tests\ObjectStateServiceTest::testSetContentState
+     * @covers \Ibexa\Contracts\Core\Repository\ObjectStateService::setContentState()
+     * @depends Ibexa\Tests\Integration\Core\Repository\ObjectStateServiceTest::testSetContentState
      */
     public function testSetContentStateThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -364,3 +366,5 @@ class ObjectStateServiceAuthorizationTest extends BaseTest
         /* END: Use Case */
     }
 }
+
+class_alias(ObjectStateServiceAuthorizationTest::class, 'eZ\Publish\API\Repository\Tests\ObjectStateServiceAuthorizationTest');

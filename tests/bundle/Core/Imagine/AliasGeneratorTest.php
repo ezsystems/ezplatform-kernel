@@ -4,18 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine;
+namespace Ibexa\Tests\Bundle\Core\Imagine;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\AliasGenerator;
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Variation\ImagineAwareAliasGenerator;
-use eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\FieldType\Image\Value as ImageValue;
-use eZ\Publish\Core\FieldType\TextLine\Value as TextLineValue;
-use eZ\Publish\SPI\FieldType\Value as FieldTypeValue;
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\SPI\Variation\Values\ImageVariation;
+use Ibexa\Bundle\Core\Imagine\AliasGenerator;
+use Ibexa\Bundle\Core\Imagine\Variation\ImagineAwareAliasGenerator;
+use Ibexa\Bundle\Core\Imagine\VariationPathGenerator;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidVariationException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Core\FieldType\Image\Value as ImageValue;
+use Ibexa\Core\FieldType\TextLine\Value as TextLineValue;
+use Ibexa\Contracts\Core\FieldType\Value as FieldTypeValue;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\Values\BinaryFile;
+use Ibexa\Core\MVC\Exception\SourceImageNotFoundException;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Variation\Values\ImageVariation;
 use Imagine\Image\BoxInterface;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\ImagineInterface;
@@ -49,10 +52,10 @@ class AliasGeneratorTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Imagine\Image\ImagineInterface */
     private $imagine;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\AliasGenerator */
+    /** @var \Ibexa\Bundle\Core\Imagine\AliasGenerator */
     private $aliasGenerator;
 
-    /** @var \eZ\Publish\SPI\Variation\VariationHandler */
+    /** @var \Ibexa\Contracts\Core\Variation\VariationHandler */
     private $decoratedAliasGenerator;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Imagine\Image\BoxInterface */
@@ -61,10 +64,10 @@ class AliasGeneratorTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Imagine\Image\ImageInterface */
     private $image;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\IO\IOServiceInterface */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\IO\IOServiceInterface */
     private $ioService;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Bundle\Core\Imagine\VariationPathGenerator */
     private $variationPathGenerator;
 
     protected function setUp(): void
@@ -101,7 +104,7 @@ class AliasGeneratorTest extends TestCase
     /**
      * @dataProvider supportsValueProvider
      *
-     * @param \eZ\Publish\SPI\FieldType\Value $value
+     * @param \Ibexa\Contracts\Core\FieldType\Value $value
      * @param bool $isSupported
      */
     public function testSupportsValue($value, $isSupported)
@@ -116,7 +119,7 @@ class AliasGeneratorTest extends TestCase
      *
      * @return array
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function supportsValueProvider()
     {
@@ -139,7 +142,7 @@ class AliasGeneratorTest extends TestCase
     /**
      * Test obtaining Image Variation that hasn't been stored yet.
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      */
     public function testGetVariationNotStored()
     {
@@ -239,7 +242,7 @@ class AliasGeneratorTest extends TestCase
     /**
      * Test obtaining Image Variation that hasn't been stored yet and has multiple references.
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      */
     public function testGetVariationNotStoredHavingReferences()
     {
@@ -310,7 +313,7 @@ class AliasGeneratorTest extends TestCase
     /**
      * Test obtaining Image Variation that has been stored already.
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      */
     public function testGetVariationAlreadyStored()
     {
@@ -353,7 +356,7 @@ class AliasGeneratorTest extends TestCase
 
     public function testGetVariationOriginalNotFound()
     {
-        $this->expectException(\eZ\Publish\Core\MVC\Exception\SourceImageNotFoundException::class);
+        $this->expectException(SourceImageNotFoundException::class);
 
         $this->dataLoader
             ->expects($this->once())
@@ -366,7 +369,7 @@ class AliasGeneratorTest extends TestCase
 
     public function testGetVariationInvalidVariation()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidVariationException::class);
+        $this->expectException(InvalidVariationException::class);
 
         $originalPath = 'foo/bar/image.jpg';
         $variationName = 'my_variation';
@@ -413,7 +416,7 @@ class AliasGeneratorTest extends TestCase
      * @param int $imageWidth
      * @param int $imageHeight
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      */
     protected function assertImageVariationIsCorrect(
         $expectedUrl,
@@ -426,7 +429,7 @@ class AliasGeneratorTest extends TestCase
         $imageValue = new ImageValue(['id' => $originalPath, 'imageId' => $imageId]);
         $field = new Field(['value' => $imageValue]);
 
-        $binaryFile = new \eZ\Publish\Core\IO\Values\BinaryFile(
+        $binaryFile = new BinaryFile(
             [
                 'uri' => "_aliases/{$variationName}/foo/bar/image.jpg",
             ]
@@ -492,3 +495,5 @@ class AliasGeneratorTest extends TestCase
         );
     }
 }
+
+class_alias(AliasGeneratorTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\AliasGeneratorTest');

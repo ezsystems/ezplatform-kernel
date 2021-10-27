@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Base\Tests\Container\Compiler;
+namespace Ibexa\Tests\Core\Base\Container\Compiler;
 
-use eZ\Publish\Core\Base\Container\Compiler\FieldTypeRegistryPass;
-use eZ\Publish\SPI\FieldType\Generic\Type;
-use eZ\Publish\Core\Base\Container\Compiler\GenericFieldTypeConverterPass;
-use eZ\Publish\Core\Base\Container\Compiler\Storage\Legacy\FieldValueConverterRegistryPass;
-use eZ\Publish\Core\Base\Tests\Container\Compiler\Stubs\GenericFieldType;
+use Ibexa\Core\Base\Container\Compiler\FieldTypeRegistryPass;
+use Ibexa\Contracts\Core\FieldType\Generic\Type;
+use Ibexa\Core\Base\Container\Compiler\GenericFieldTypeConverterPass;
+use Ibexa\Core\Base\Container\Compiler\Storage\Legacy\FieldValueConverterRegistryPass;
+use Ibexa\Tests\Core\Base\Container\Compiler\Stubs\GenericFieldType;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\DefinitionHasMethodCallConstraint;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -140,3 +140,5 @@ class GenericFieldTypeConverterPassTest extends AbstractCompilerPassTestCase
         );
     }
 }
+
+class_alias(GenericFieldTypeConverterPassTest::class, 'eZ\Publish\Core\Base\Tests\Container\Compiler\GenericFieldTypeConverterPassTest');

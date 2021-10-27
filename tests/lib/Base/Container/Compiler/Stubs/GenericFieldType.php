@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Base\Tests\Container\Compiler\Stubs;
+namespace Ibexa\Tests\Core\Base\Container\Compiler\Stubs;
 
-use eZ\Publish\SPI\FieldType\Generic\Type;
+use Ibexa\Contracts\Core\FieldType\Generic\Type;
 
 final class GenericFieldType extends Type
 {
@@ -17,3 +17,5 @@ final class GenericFieldType extends Type
         return 'field_type_identifier';
     }
 }
+
+class_alias(GenericFieldType::class, 'eZ\Publish\Core\Base\Tests\Container\Compiler\Stubs\GenericFieldType');

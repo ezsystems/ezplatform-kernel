@@ -4,15 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Locale\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\Locale;
 
-use eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverter;
+use Ibexa\Core\MVC\Symfony\Locale\LocaleConverter;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
+/**
+ * @covers \Ibexa\Core\MVC\Symfony\Locale\LocaleConverter
+ */
 class LocaleConverterTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverter */
+    /** @var \Ibexa\Core\MVC\Symfony\Locale\LocaleConverter */
     private $localeConverter;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject */
@@ -38,8 +41,6 @@ class LocaleConverterTest extends TestCase
 
     /**
      * @dataProvider convertToPOSIXProvider
-     *
-     * @covers \eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverter::convertToPOSIX
      *
      * @param $ezpLocale
      * @param $expected
@@ -70,8 +71,6 @@ class LocaleConverterTest extends TestCase
     /**
      * @dataProvider convertToEzProvider
      *
-     * @covers \eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverter::convertToEz
-     *
      * @param $posixLocale
      * @param $expected
      */
@@ -98,3 +97,5 @@ class LocaleConverterTest extends TestCase
         ];
     }
 }
+
+class_alias(LocaleConverterTest::class, 'eZ\Publish\Core\MVC\Symfony\Locale\Tests\LocaleConverterTest');

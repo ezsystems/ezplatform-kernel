@@ -4,16 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Values\User\Limitation;
+namespace Ibexa\Tests\Integration\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 
 /**
- * Test case for the {@link \eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation}
- * class.
- *
- * @see eZ\Publish\API\Repository\Values\User\Limitation
- * @see eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation
+ * @covers \Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation
  * @group integration
  * @group limitation
  */
@@ -21,8 +18,6 @@ class ContentTypeLimitationTest extends BaseLimitationTest
 {
     /**
      * Test for the ContentTypeLimitation.
-     *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation
      *
      * @throws \ErrorException
      */
@@ -42,7 +37,7 @@ class ContentTypeLimitationTest extends BaseLimitationTest
         $role = $roleService->loadRoleByIdentifier('Editor');
         $roleDraft = $roleService->createRoleDraft($role);
         $editPolicy = null;
-        /** @var \eZ\Publish\API\Repository\Values\User\PolicyDraft $policy */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft $policy */
         foreach ($roleDraft->getPolicies() as $policy) {
             if ('content' != $policy->module || 'edit' != $policy->function) {
                 continue;
@@ -94,13 +89,11 @@ class ContentTypeLimitationTest extends BaseLimitationTest
     /**
      * Test for the ContentTypeLimitation.
      *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation
-     *
      * @throws \ErrorException
      */
     public function testContentTypeLimitationForbid()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -116,7 +109,7 @@ class ContentTypeLimitationTest extends BaseLimitationTest
         $role = $roleService->loadRoleByIdentifier('Editor');
         $roleDraft = $roleService->createRoleDraft($role);
         $editPolicy = null;
-        /** @var \eZ\Publish\API\Repository\Values\User\PolicyDraft $policy */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft $policy */
         foreach ($roleDraft->getPolicies() as $policy) {
             if ('content' != $policy->module || 'edit' != $policy->function) {
                 continue;
@@ -154,15 +147,11 @@ class ContentTypeLimitationTest extends BaseLimitationTest
     }
 
     /**
-     * Test for the ContentTypeLimitation.
-     *
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation
-     *
      * @throws \ErrorException
      */
     public function testContentTypeLimitationForbidVariant()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
         $permissionResolver = $repository->getPermissionResolver();
@@ -179,7 +168,7 @@ class ContentTypeLimitationTest extends BaseLimitationTest
         $roleDraft = $roleService->createRoleDraft($role);
         // Search for the new policy instance
         $policy = null;
-        /** @var \eZ\Publish\API\Repository\Values\User\PolicyDraft $policy */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft $policy */
         $editPolicy = null;
         foreach ($roleDraft->getPolicies() as $policy) {
             if ('content' != $policy->module || 'edit' != $policy->function) {
@@ -225,3 +214,5 @@ class ContentTypeLimitationTest extends BaseLimitationTest
         /* END: Use Case */
     }
 }
+
+class_alias(ContentTypeLimitationTest::class, 'eZ\Publish\API\Repository\Tests\Values\User\Limitation\ContentTypeLimitationTest');

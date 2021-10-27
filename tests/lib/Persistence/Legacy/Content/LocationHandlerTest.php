@@ -4,62 +4,62 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Handler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway;
-use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Location;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\TreeHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Handler as ContentHandler;
-use eZ\Publish\SPI\Persistence\Content\ObjectState;
-use eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler as ObjectStateHandler;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\Group as ObjectStateGroup;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Handler as LocationHandler;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Handler;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway;
+use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper;
+use Ibexa\Core\Persistence\Legacy\Content\TreeHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Handler as ContentHandler;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState;
+use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Handler as ObjectStateHandler;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group as ObjectStateGroup;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Handler as LocationHandler;
 
 /**
- * Test case for LocationHandlerTest.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\Location\Handler
  */
 class LocationHandlerTest extends TestCase
 {
     /**
      * Mocked location gateway instance.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway
      */
     protected $locationGateway;
 
     /**
      * Mocked location mapper instance.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Location\Mapper
      */
     protected $locationMapper;
 
     /**
      * Mocked content handler instance.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Handler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Handler
      */
     protected $contentHandler;
 
     /**
      * Mocked object state handler instance.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Handler|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $objectStateHandler;
 
     /**
      * Mocked Tree handler instance.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\TreeHandler|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Ibexa\Core\Persistence\Legacy\Content\TreeHandler|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $treeHandler;
 
@@ -92,11 +92,11 @@ class LocationHandlerTest extends TestCase
             ->expects($this->once())
             ->method('loadLocation')
             ->with(77)
-            ->will($this->returnValue(new \eZ\Publish\SPI\Persistence\Content\Location()));
+            ->willReturn(new Location());
 
         $location = $handler->load(77);
 
-        $this->assertTrue($location instanceof \eZ\Publish\SPI\Persistence\Content\Location);
+        self::assertInstanceOf(Location::class, $location);
     }
 
     public function testLoadLocationSubtree()
@@ -125,23 +125,21 @@ class LocationHandlerTest extends TestCase
             ->expects($this->once())
             ->method('getBasicNodeDataByRemoteId')
             ->with('abc123')
-            ->will(
-                $this->returnValue(
-                    [
-                        'node_id' => 77,
-                    ]
-                )
+            ->willReturn(
+                [
+                    'node_id' => 77,
+                ]
             );
 
         $this->locationMapper
             ->expects($this->once())
             ->method('createLocationFromRow')
             ->with(['node_id' => 77])
-            ->will($this->returnValue(new \eZ\Publish\SPI\Persistence\Content\Location()));
+            ->willReturn(new Location());
 
         $location = $handler->loadByRemoteId('abc123');
 
-        $this->assertTrue($location instanceof \eZ\Publish\SPI\Persistence\Content\Location);
+        self::assertInstanceOf(Location::class, $location);
     }
 
     public function testLoadLocationsByContent()
@@ -428,9 +426,6 @@ class LocationHandlerTest extends TestCase
         $handler->markSubtreeModified(69);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Handler::changeMainLocation
-     */
     public function testChangeMainLocation()
     {
         $handler = $this->getLocationHandler();
@@ -445,8 +440,6 @@ class LocationHandlerTest extends TestCase
 
     /**
      * Test for the removeSubtree() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Handler::removeSubtree
      */
     public function testRemoveSubtree()
     {
@@ -462,8 +455,6 @@ class LocationHandlerTest extends TestCase
 
     /**
      * Test for the copySubtree() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Handler::copySubtree
      */
     public function testCopySubtree()
     {
@@ -682,7 +673,7 @@ class LocationHandlerTest extends TestCase
      *
      * @param string[] $methods
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Location\Handler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Location\Handler
      */
     protected function getPartlyMockedHandler(array $methods)
     {
@@ -700,3 +691,5 @@ class LocationHandlerTest extends TestCase
             ->getMock();
     }
 }
+
+class_alias(LocationHandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\LocationHandlerTest');

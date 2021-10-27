@@ -4,11 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use eZ\Publish\Core\FieldType\BinaryFile\Value as BinaryFileValue;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\FieldType\BinaryFile\Value as BinaryFileValue;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 
 /**
  * Integration test for use field type.
@@ -182,7 +183,7 @@ class BinaryFileIntegrationTest extends FileSearchBaseIntegrationTest
     public function assertFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\BinaryFile\\Value',
+            BinaryFileValue::class,
             $field->value
         );
 
@@ -207,27 +208,6 @@ class BinaryFileIntegrationTest extends FileSearchBaseIntegrationTest
         self::$loadedBinaryFilePath = $field->value->id;
     }
 
-    /**
-     * Get field data which will result in errors during creation.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidCreationFieldData()
     {
         return [
@@ -235,7 +215,7 @@ class BinaryFileIntegrationTest extends FileSearchBaseIntegrationTest
                 [
                     'id' => '/foo/bar/sindelfingen.pdf',
                 ],
-                'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentValue',
+                InvalidArgumentValue::class,
             ],
             [
                 new BinaryFileValue(
@@ -243,7 +223,7 @@ class BinaryFileIntegrationTest extends FileSearchBaseIntegrationTest
                         'id' => '/foo/bar/sindelfingen.pdf',
                     ]
                 ),
-                'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentValue',
+                InvalidArgumentValue::class,
             ],
         ];
     }
@@ -270,7 +250,7 @@ class BinaryFileIntegrationTest extends FileSearchBaseIntegrationTest
     public function assertUpdatedFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\BinaryFile\\Value',
+            BinaryFileValue::class,
             $field->value
         );
 
@@ -293,27 +273,6 @@ class BinaryFileIntegrationTest extends FileSearchBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during update.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidUpdateFieldData()
     {
         return $this->provideInvalidCreationFieldData();
@@ -434,7 +393,7 @@ class BinaryFileIntegrationTest extends FileSearchBaseIntegrationTest
      */
     protected function checkSearchEngineSupport()
     {
-        if (ltrim(get_class($this->getSetupFactory()), '\\') === 'eZ\\Publish\\API\\Repository\\Tests\\SetupFactory\\Legacy') {
+        if ($this->getSetupFactory() instanceof Legacy) {
             $this->markTestSkipped(
                 "'ezbinaryfile' field type is not searchable with Legacy Search Engine"
             );
@@ -483,3 +442,5 @@ class BinaryFileIntegrationTest extends FileSearchBaseIntegrationTest
         ];
     }
 }
+
+class_alias(BinaryFileIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\FieldType\BinaryFileIntegrationTest');

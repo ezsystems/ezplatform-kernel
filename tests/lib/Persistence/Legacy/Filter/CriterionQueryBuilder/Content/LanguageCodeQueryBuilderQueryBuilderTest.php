@@ -6,15 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Filter\CriterionQueryBuilder\Content;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\LanguageCodeQueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\Tests\Filter\BaseCriterionVisitorQueryBuilderTestCase;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\LanguageCodeQueryBuilder;
+use Ibexa\Tests\Core\Persistence\Legacy\Filter\BaseCriterionVisitorQueryBuilderTestCase;
 
 /**
- * @covers \eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\LanguageCodeQueryBuilder::buildQueryConstraint
- * @covers \eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\LanguageCodeQueryBuilder::accepts
+ * @covers \Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\LanguageCodeQueryBuilder
  */
 final class LanguageCodeQueryBuilderQueryBuilderTest extends BaseCriterionVisitorQueryBuilderTestCase
 {
@@ -38,3 +37,5 @@ final class LanguageCodeQueryBuilderQueryBuilderTest extends BaseCriterionVisito
         return [new LanguageCodeQueryBuilder()];
     }
 }
+
+class_alias(LanguageCodeQueryBuilderQueryBuilderTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Filter\CriterionQueryBuilder\Content\LanguageCodeQueryBuilderQueryBuilderTest');

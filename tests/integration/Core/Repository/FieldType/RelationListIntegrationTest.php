@@ -4,13 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use eZ\Publish\Core\FieldType\RelationList\Value as RelationListValue;
-use eZ\Publish\Core\FieldType\RelationList\Type as RelationListType;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\Repository\Values\Content\Relation;
-use eZ\Publish\API\Repository\Values\Content\Content;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\RelationList\Value as RelationListValue;
+use Ibexa\Core\FieldType\RelationList\Type as RelationListType;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 
 /**
  * Integration test for use field type.
@@ -43,9 +44,9 @@ class RelationListIntegrationTest extends SearchMultivaluedBaseIntegrationTest
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @return array|\eZ\Publish\API\Repository\Values\Content\Relation[]
+     * @return array|\Ibexa\Contracts\Core\Repository\Values\Content\Relation[]
      */
     public function getCreateExpectedRelations(Content $content)
     {
@@ -72,9 +73,9 @@ class RelationListIntegrationTest extends SearchMultivaluedBaseIntegrationTest
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @return array|\eZ\Publish\API\Repository\Values\Content\Relation[]
+     * @return array|\Ibexa\Contracts\Core\Repository\Values\Content\Relation[]
      */
     public function getUpdateExpectedRelations(Content $content)
     {
@@ -110,9 +111,6 @@ class RelationListIntegrationTest extends SearchMultivaluedBaseIntegrationTest
         ];
     }
 
-    /**
-     * @see eZ\Publish\API\Repository\Tests\FieldType\BaseIntegrationTest::getSettingsSchema()
-     */
     public function getSettingsSchema()
     {
         return [
@@ -131,9 +129,6 @@ class RelationListIntegrationTest extends SearchMultivaluedBaseIntegrationTest
         ];
     }
 
-    /**
-     * @see eZ\Publish\API\Repository\Tests\FieldType\BaseIntegrationTest::getValidatorSchema()
-     */
     public function getValidatorSchema()
     {
         return [
@@ -233,7 +228,7 @@ class RelationListIntegrationTest extends SearchMultivaluedBaseIntegrationTest
     public function assertFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\RelationList\\Value',
+            RelationListValue::class,
             $field->value
         );
 
@@ -246,33 +241,12 @@ class RelationListIntegrationTest extends SearchMultivaluedBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during creation.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidCreationFieldData()
     {
         return [
             [
                 new RelationListValue([null]),
-                'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentType',
+                InvalidArgumentType::class,
             ],
         ];
     }
@@ -296,10 +270,7 @@ class RelationListIntegrationTest extends SearchMultivaluedBaseIntegrationTest
      */
     public function assertUpdatedFieldDataLoadedCorrect(Field $field)
     {
-        $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\RelationList\\Value',
-            $field->value
-        );
+        self::assertInstanceOf(RelationListValue::class, $field->value);
 
         $expectedData = [
             'destinationContentIds' => [49, 54, 4],
@@ -310,27 +281,6 @@ class RelationListIntegrationTest extends SearchMultivaluedBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during update.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidUpdateFieldData()
     {
         return $this->provideInvalidCreationFieldData();
@@ -347,7 +297,7 @@ class RelationListIntegrationTest extends SearchMultivaluedBaseIntegrationTest
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\RelationList\\Value',
+            RelationListValue::class,
             $field->value
         );
 
@@ -456,3 +406,5 @@ class RelationListIntegrationTest extends SearchMultivaluedBaseIntegrationTest
         return [13, 14];
     }
 }
+
+class_alias(RelationListIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\FieldType\RelationListIntegrationTest');

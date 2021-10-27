@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\Iterator\BatchIteratorAdapter;
+namespace Ibexa\Tests\Core\Repository\Iterator\BatchIteratorAdapter;
 
-use eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter\AbstractSearchAdapter;
-use eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter\ContentSearchAdapter;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter\AbstractSearchAdapter;
+use Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter\ContentSearchAdapter;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 
 final class ContentSearchAdapterTest extends AbstractSearchAdapterTest
 {
@@ -34,3 +34,5 @@ final class ContentSearchAdapterTest extends AbstractSearchAdapterTest
         return 'findContent';
     }
 }
+
+class_alias(ContentSearchAdapterTest::class, 'eZ\Publish\API\Repository\Tests\Iterator\BatchIteratorAdapter\ContentSearchAdapterTest');

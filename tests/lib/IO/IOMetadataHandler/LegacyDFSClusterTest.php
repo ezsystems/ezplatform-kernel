@@ -4,27 +4,29 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\IO\Tests\IOMetadataHandler;
+namespace Ibexa\Tests\Core\IO\IOMetadataHandler;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\IO\IOMetadataHandler\LegacyDFSCluster;
-use eZ\Publish\SPI\IO\BinaryFile as SPIBinaryFile;
-use eZ\Publish\SPI\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
+use Ibexa\Core\IO\IOMetadataHandler\LegacyDFSCluster;
+use Ibexa\Contracts\Core\IO\BinaryFile as SPIBinaryFile;
+use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Statement;
-use eZ\Publish\Core\IO\UrlDecorator;
+use Ibexa\Core\IO\UrlDecorator;
 use PHPUnit\Framework\TestCase;
 use DateTime;
 
 class LegacyDFSClusterTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\IO\IOMetadataHandler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\IO\IOMetadataHandler|\PHPUnit\Framework\MockObject\MockObject */
     private $handler;
 
     /** @var \Doctrine\DBAL\Connection|\PHPUnit\Framework\MockObject\MockObject */
     private $dbalMock;
 
-    /** @var \eZ\Publish\Core\IO\UrlDecorator|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\IO\UrlDecorator|\PHPUnit\Framework\MockObject\MockObject */
     private $urlDecoratorMock;
 
     protected function setUp(): void
@@ -74,7 +76,7 @@ class LegacyDFSClusterTest extends TestCase
 
     public function testCreateInvalidArgument()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $this->dbalMock
             ->expects($this->never())
@@ -108,7 +110,7 @@ class LegacyDFSClusterTest extends TestCase
 
     public function testDeleteNotFound()
     {
-        $this->expectException(\eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException::class);
+        $this->expectException(BinaryFileNotFoundException::class);
 
         $statement = $this->createDbalStatementMock();
         $statement
@@ -158,7 +160,7 @@ class LegacyDFSClusterTest extends TestCase
 
     public function testLoadNotFound()
     {
-        $this->expectException(\eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException::class);
+        $this->expectException(BinaryFileNotFoundException::class);
 
         $statement = $this->createDbalStatementMock();
         $statement
@@ -261,3 +263,5 @@ class LegacyDFSClusterTest extends TestCase
         return $this->createMock(Statement::class);
     }
 }
+
+class_alias(LegacyDFSClusterTest::class, 'eZ\Publish\Core\IO\Tests\IOMetadataHandler\LegacyDFSClusterTest');

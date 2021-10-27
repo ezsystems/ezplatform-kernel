@@ -4,31 +4,28 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Type;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Type;
 
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Mapper;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
 // Needed for $sortOrder and $sortField properties
-use eZ\Publish\SPI\Persistence\Content\Location;
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Persistence\Content\Type\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\Type\Group;
-use eZ\Publish\SPI\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct;
 
 /**
- * Test case for Mapper.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\Type\Mapper
  */
 class MapperTest extends TestCase
 {
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper::createGroupFromCreateStruct
-     */
     public function testCreateGroupFromCreateStruct()
     {
         $createStruct = $this->getGroupCreateStructFixture();
@@ -61,7 +58,7 @@ class MapperTest extends TestCase
     /**
      * Returns a GroupCreateStruct fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type\Group\CreateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\Group\CreateStruct
      */
     protected function getGroupCreateStructFixture()
     {
@@ -80,9 +77,6 @@ class MapperTest extends TestCase
         return $struct;
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper::createTypeFromCreateStruct
-     */
     public function testTypeFromCreateStruct()
     {
         $struct = $this->getContentTypeCreateStructFixture();
@@ -99,9 +93,6 @@ class MapperTest extends TestCase
         }
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper::createTypeFromUpdateStruct
-     */
     public function testTypeFromUpdateStruct()
     {
         $struct = $this->getContentTypeUpdateStructFixture();
@@ -118,7 +109,7 @@ class MapperTest extends TestCase
     /**
      * Returns a CreateStruct fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type\CreateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct
      */
     protected function getContentTypeCreateStructFixture()
     {
@@ -162,7 +153,7 @@ class MapperTest extends TestCase
     /**
      * Returns a CreateStruct fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct
      */
     protected function getContentTypeUpdateStructFixture(): UpdateStruct
     {
@@ -187,9 +178,6 @@ class MapperTest extends TestCase
         return $struct;
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper::createCreateStructFromType
-     */
     public function testCreateStructFromType()
     {
         $type = $this->getContentTypeFixture();
@@ -253,9 +241,6 @@ class MapperTest extends TestCase
         return $type;
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper::extractGroupsFromRows
-     */
     public function testExtractGroupsFromRows()
     {
         $rows = $this->getLoadGroupFixture();
@@ -277,12 +262,6 @@ class MapperTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper::extractTypesFromRows
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper::extractTypeFromRow
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper::extractStorageFieldFromRow
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper::extractFieldFromRow
-     */
     public function testExtractTypesFromRowsSingle()
     {
         $rows = $this->getLoadTypeFixture();
@@ -364,10 +343,6 @@ class MapperTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper::toStorageFieldDefinition
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition
-     */
     public function testToStorageFieldDefinition()
     {
         $converterMock = $this->createMock(Converter::class);
@@ -397,10 +372,6 @@ class MapperTest extends TestCase
         $mapper->toStorageFieldDefinition($fieldDef, $storageFieldDef);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper::toFieldDefinition
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition
-     */
     public function testToFieldDefinition()
     {
         $converterMock = $this->createMock(Converter::class);
@@ -460,7 +431,7 @@ class MapperTest extends TestCase
     /**
      * Returns a converter registry mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
+     * @return \Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
      */
     protected function getConverterRegistryMock()
     {
@@ -492,3 +463,5 @@ class MapperTest extends TestCase
         return $this->createMock(MaskGenerator::class);
     }
 }
+
+class_alias(MapperTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\Type\MapperTest');

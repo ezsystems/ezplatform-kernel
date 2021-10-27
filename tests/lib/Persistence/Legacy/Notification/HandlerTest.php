@@ -6,28 +6,31 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Notification;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Notification;
 
-use eZ\Publish\API\Repository\Values\Notification\Notification as APINotification;
-use eZ\Publish\Core\Persistence\Legacy\Notification\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\Notification\Mapper;
-use eZ\Publish\Core\Persistence\Legacy\Notification\Handler;
-use eZ\Publish\SPI\Persistence\Notification\CreateStruct;
-use eZ\Publish\SPI\Persistence\Notification\Notification;
-use eZ\Publish\SPI\Persistence\Notification\UpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification as APINotification;
+use Ibexa\Core\Persistence\Legacy\Notification\Gateway;
+use Ibexa\Core\Persistence\Legacy\Notification\Mapper;
+use Ibexa\Core\Persistence\Legacy\Notification\Handler;
+use Ibexa\Contracts\Core\Persistence\Notification\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Notification\Notification;
+use Ibexa\Contracts\Core\Persistence\Notification\UpdateStruct;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Ibexa\Core\Persistence\Legacy\Notification\Handler
+ */
 class HandlerTest extends TestCase
 {
     const NOTIFICATION_ID = 1;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Notification\Gateway|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Persistence\Legacy\Notification\Gateway|\PHPUnit\Framework\MockObject\MockObject */
     private $gateway;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Notification\Mapper|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Persistence\Legacy\Notification\Mapper|\PHPUnit\Framework\MockObject\MockObject */
     private $mapper;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Notification\Handler */
+    /** @var \Ibexa\Core\Persistence\Legacy\Notification\Handler */
     private $handler;
 
     protected function setUp(): void
@@ -37,9 +40,6 @@ class HandlerTest extends TestCase
         $this->handler = new Handler($this->gateway, $this->mapper);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Notification\Handler::createNotification
-     */
     public function testCreateNotification()
     {
         $createStruct = new CreateStruct([
@@ -68,9 +68,6 @@ class HandlerTest extends TestCase
         $this->assertEquals($notification->id, self::NOTIFICATION_ID);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Notification\Handler::countPendingNotifications
-     */
     public function testCountPendingNotifications()
     {
         $ownerId = 10;
@@ -85,9 +82,6 @@ class HandlerTest extends TestCase
         $this->assertEquals($expectedCount, $this->handler->countPendingNotifications($ownerId));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Notification\Handler::getNotificationById
-     */
     public function testGetNotificationById()
     {
         $rows = [
@@ -115,9 +109,6 @@ class HandlerTest extends TestCase
         $this->assertEquals($object, $this->handler->getNotificationById(self::NOTIFICATION_ID));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Notification\Handler::updateNotification
-     */
     public function testUpdateNotification()
     {
         $updateStruct = new UpdateStruct([
@@ -157,9 +148,6 @@ class HandlerTest extends TestCase
         $this->handler->updateNotification($apiNotification, $updateStruct);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Notification\Handler::countNotifications
-     */
     public function testCountNotifications()
     {
         $ownerId = 10;
@@ -174,9 +162,6 @@ class HandlerTest extends TestCase
         $this->assertEquals($expectedCount, $this->handler->countNotifications($ownerId));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Notification\Handler::loadUserNotifications
-     */
     public function testLoadUserNotifications()
     {
         $ownerId = 9;
@@ -224,3 +209,5 @@ class HandlerTest extends TestCase
         $this->handler->delete($notification);
     }
 }
+
+class_alias(HandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Notification\HandlerTest');

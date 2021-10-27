@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\EventListener\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\EventListener;
 
-use eZ\Publish\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent;
-use eZ\Publish\Core\MVC\Symfony\EventListener\LanguageSwitchListener;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\Routing\RouteReference;
-use eZ\Publish\Core\Helper\TranslationHelper;
+use Ibexa\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent;
+use Ibexa\Core\MVC\Symfony\EventListener\LanguageSwitchListener;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\MVC\Symfony\Routing\RouteReference;
+use Ibexa\Core\Helper\TranslationHelper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -82,3 +82,5 @@ class LanguageSwitchListenerTest extends TestCase
         $this->assertFalse($routeReference->has('siteaccess'));
     }
 }
+
+class_alias(LanguageSwitchListenerTest::class, 'eZ\Publish\Core\MVC\Symfony\EventListener\Tests\LanguageSwitchListenerTest');

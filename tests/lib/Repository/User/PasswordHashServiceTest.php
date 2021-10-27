@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Tests\User;
+namespace Ibexa\Tests\Core\Repository\User;
 
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\Core\Repository\User\PasswordHashService;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Core\Repository\User\PasswordHashService;
 use PHPUnit\Framework\TestCase;
 
 final class PasswordHashServiceTest extends TestCase
 {
     private const NON_EXISTING_PASSWORD_HASH = PHP_INT_MAX;
 
-    /** @var \eZ\Publish\Core\Repository\User\PasswordHashService */
+    /** @var \Ibexa\Core\Repository\User\PasswordHashService */
     private $passwordHashService;
 
     protected function setUp(): void
@@ -41,3 +41,5 @@ final class PasswordHashServiceTest extends TestCase
         $this->assertFalse($this->passwordHashService->isHashTypeSupported(self::NON_EXISTING_PASSWORD_HASH));
     }
 }
+
+class_alias(PasswordHashServiceTest::class, 'eZ\Publish\Core\Repository\Tests\User\PasswordHashServiceTest');

@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Event\Tests;
+namespace Ibexa\Tests\Core\Event;
 
-use eZ\Publish\API\Repository\Events\UserPreference\BeforeSetUserPreferenceEvent;
-use eZ\Publish\API\Repository\Events\UserPreference\SetUserPreferenceEvent;
-use eZ\Publish\API\Repository\UserPreferenceService as UserPreferenceServiceInterface;
-use eZ\Publish\Core\Event\UserPreferenceService;
+use Ibexa\Contracts\Core\Repository\Events\UserPreference\BeforeSetUserPreferenceEvent;
+use Ibexa\Contracts\Core\Repository\Events\UserPreference\SetUserPreferenceEvent;
+use Ibexa\Contracts\Core\Repository\UserPreferenceService as UserPreferenceServiceInterface;
+use Ibexa\Core\Event\UserPreferenceService;
 
 class UserPreferenceServiceTest extends AbstractServiceTest
 {
@@ -70,3 +70,5 @@ class UserPreferenceServiceTest extends AbstractServiceTest
         ]);
     }
 }
+
+class_alias(UserPreferenceServiceTest::class, 'eZ\Publish\Core\Event\Tests\UserPreferenceServiceTest');

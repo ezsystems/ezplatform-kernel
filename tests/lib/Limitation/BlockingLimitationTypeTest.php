@@ -4,17 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Limitation\Tests;
+namespace Ibexa\Tests\Core\Limitation;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\BlockingLimitation;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\MatchNone;
-use eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation;
-use eZ\Publish\Core\Limitation\BlockingLimitationType;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\BlockingLimitation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\MatchNone;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ObjectStateLimitation;
+use Ibexa\Core\Limitation\BlockingLimitationType;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Repository\Values\Content\ContentCreateStruct;
 
 /**
  * Test Case for LimitationType.
@@ -22,7 +24,7 @@ use eZ\Publish\Core\Repository\Values\Content\ContentCreateStruct;
 class BlockingLimitationTypeTest extends Base
 {
     /**
-     * @return \eZ\Publish\Core\Limitation\BlockingLimitationType
+     * @return \Ibexa\Core\Limitation\BlockingLimitationType
      */
     public function testConstruct()
     {
@@ -44,8 +46,8 @@ class BlockingLimitationTypeTest extends Base
      * @dataProvider providerForTestAcceptValue
      * @depends testConstruct
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation\BlockingLimitation $limitation
-     * @param \eZ\Publish\Core\Limitation\BlockingLimitationType $limitationType
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation\BlockingLimitation $limitation
+     * @param \Ibexa\Core\Limitation\BlockingLimitationType $limitationType
      */
     public function testAcceptValue(BlockingLimitation $limitation, BlockingLimitationType $limitationType)
     {
@@ -66,12 +68,12 @@ class BlockingLimitationTypeTest extends Base
      * @dataProvider providerForTestAcceptValueException
      * @depends testConstruct
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitation
-     * @param \eZ\Publish\Core\Limitation\BlockingLimitationType $limitationType
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
+     * @param \Ibexa\Core\Limitation\BlockingLimitationType $limitationType
      */
     public function testAcceptValueException(Limitation $limitation, BlockingLimitationType $limitationType)
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $limitationType->acceptValue($limitation);
     }
@@ -90,7 +92,7 @@ class BlockingLimitationTypeTest extends Base
     /**
      * @dataProvider providerForTestValidatePass
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation\BlockingLimitation $limitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation\BlockingLimitation $limitation
      */
     public function testValidatePass(BlockingLimitation $limitation)
     {
@@ -116,7 +118,7 @@ class BlockingLimitationTypeTest extends Base
     /**
      * @dataProvider providerForTestValidateError
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation\BlockingLimitation $limitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation\BlockingLimitation $limitation
      * @param int $errorCount
      */
     public function testValidateError(BlockingLimitation $limitation, $errorCount)
@@ -135,7 +137,7 @@ class BlockingLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\BlockingLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\BlockingLimitationType $limitationType
      */
     public function testBuildValue(BlockingLimitationType $limitationType)
     {
@@ -240,7 +242,7 @@ class BlockingLimitationTypeTest extends Base
         ValueObject $object,
         array $targets
     ) {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         // Need to create inline instead of depending on testConstruct() to get correct mock instance
         $limitationType = $this->testConstruct();
@@ -267,7 +269,7 @@ class BlockingLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\BlockingLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\BlockingLimitationType $limitationType
      */
     public function testGetCriterion(BlockingLimitationType $limitationType)
     {
@@ -284,11 +286,11 @@ class BlockingLimitationTypeTest extends Base
     /**
      * @depends testConstruct
      *
-     * @param \eZ\Publish\Core\Limitation\BlockingLimitationType $limitationType
+     * @param \Ibexa\Core\Limitation\BlockingLimitationType $limitationType
      */
     public function testValueSchema(BlockingLimitationType $limitationType)
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotImplementedException::class);
+        $this->expectException(NotImplementedException::class);
 
         self::assertEquals(
             [],
@@ -296,3 +298,5 @@ class BlockingLimitationTypeTest extends Base
         );
     }
 }
+
+class_alias(BlockingLimitationTypeTest::class, 'eZ\Publish\Core\Limitation\Tests\BlockingLimitationTypeTest');

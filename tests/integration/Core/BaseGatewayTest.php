@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Tests;
+namespace Ibexa\Tests\Integration\Core;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
-use eZ\Publish\API\Repository\Tests\SetupFactory\Legacy;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
 
 abstract class BaseGatewayTest extends BaseTest
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     protected $repository;
 
     protected function setUp(): void
@@ -21,3 +21,5 @@ abstract class BaseGatewayTest extends BaseTest
         $this->repository = (new Legacy())->getRepository(true);
     }
 }
+
+class_alias(BaseGatewayTest::class, 'eZ\Publish\SPI\Tests\BaseGatewayTest');

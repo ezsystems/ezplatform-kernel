@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\Parallel;
+namespace Ibexa\Tests\Core\Repository\Parallel;
 
 use Jenner\SimpleFork\Process;
 
@@ -25,3 +25,5 @@ final class ParallelProcessList implements \IteratorAggregate
         return new \ArrayIterator($this->pool);
     }
 }
+
+class_alias(ParallelProcessList::class, 'eZ\Publish\API\Repository\Tests\Parallel\ParallelProcessList');

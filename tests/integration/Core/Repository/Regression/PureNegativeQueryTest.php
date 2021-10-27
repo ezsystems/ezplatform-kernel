@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Regression;
+namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
 /**
  * This test will try to execute search queries that might be interpreted as "pure negative"
@@ -215,7 +215,7 @@ class PureNegativeQueryTest extends BaseTest
     /**
      * @dataProvider providerForTestMatchAll
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterion
      * @param int $totalCount
      */
     public function testMatchAllContentInfoQuery($criterion, $totalCount)
@@ -234,7 +234,7 @@ class PureNegativeQueryTest extends BaseTest
     /**
      * @dataProvider providerForTestMatchAll
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterion
      * @param int $totalCount
      */
     public function testMatchAllContentInfoFilter($criterion, $totalCount)
@@ -253,7 +253,7 @@ class PureNegativeQueryTest extends BaseTest
     /**
      * @dataProvider providerForTestMatchAll
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterion
      * @param int $totalCount
      */
     public function testMatchAllLocationQuery($criterion, $totalCount)
@@ -272,7 +272,7 @@ class PureNegativeQueryTest extends BaseTest
     /**
      * @dataProvider providerForTestMatchAll
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterion
      * @param int $totalCount
      */
     public function testMatchAllLocationFilter($criterion, $totalCount)
@@ -288,3 +288,5 @@ class PureNegativeQueryTest extends BaseTest
         $this->assertEquals($totalCount, $result->totalCount);
     }
 }
+
+class_alias(PureNegativeQueryTest::class, 'eZ\Publish\API\Repository\Tests\Regression\PureNegativeQueryTest');

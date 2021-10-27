@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\Setting\Setting;
-use eZ\Publish\SPI\Persistence\Setting\Handler as SettingHandler;
+use Ibexa\Contracts\Core\Persistence\Setting\Setting;
+use Ibexa\Contracts\Core\Persistence\Setting\Handler as SettingHandler;
 
 /**
  * Test case for Persistence\Cache\SettingHandler.
@@ -97,3 +97,5 @@ class SettingHandlerTest extends AbstractCacheHandlerTest
         ];
     }
 }
+
+class_alias(SettingHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\SettingHandlerTest');

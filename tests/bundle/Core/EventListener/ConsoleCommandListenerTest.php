@@ -4,11 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\EventListener;
+namespace Ibexa\Tests\Bundle\Core\EventListener;
 
-use eZ\Bundle\EzPublishCoreBundle\EventListener\ConsoleCommandListener;
-use eZ\Bundle\EzPublishCoreBundle\Tests\EventListener\Stubs\TestOutput;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Bundle\Core\EventListener\ConsoleCommandListener;
+use Ibexa\Core\MVC\Exception\InvalidSiteAccessException;
+use Ibexa\Tests\Bundle\Core\EventListener\Stubs\TestOutput;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\ConsoleEvents;
@@ -23,13 +24,13 @@ class ConsoleCommandListenerTest extends TestCase
 {
     private const INVALID_SA_NAME = 'foo';
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess */
     private $siteAccess;
 
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $dispatcher;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\EventListener\ConsoleCommandListener */
+    /** @var \Ibexa\Bundle\Core\EventListener\ConsoleCommandListener */
     private $listener;
 
     /** @var \Symfony\Component\Console\Input\InputDefinition */
@@ -66,7 +67,7 @@ class ConsoleCommandListenerTest extends TestCase
 
     public function testInvalidSiteAccessDev()
     {
-        $this->expectException(\eZ\Publish\Core\MVC\Exception\InvalidSiteAccessException::class);
+        $this->expectException(InvalidSiteAccessException::class);
         $this->expectExceptionMessageMatches('/^Invalid SiteAccess \'foo\', matched by .+\\. Valid SiteAccesses are/');
 
         $this->dispatcher->expects($this->never())
@@ -79,7 +80,7 @@ class ConsoleCommandListenerTest extends TestCase
 
     public function testInvalidSiteAccessProd()
     {
-        $this->expectException(\eZ\Publish\Core\MVC\Exception\InvalidSiteAccessException::class);
+        $this->expectException(InvalidSiteAccessException::class);
         $this->expectExceptionMessageMatches('/^Invalid SiteAccess \'foo\', matched by .+\\.$/');
 
         $this->dispatcher->expects($this->never())
@@ -124,3 +125,5 @@ class ConsoleCommandListenerTest extends TestCase
         return $siteAccessProviderMock;
     }
 }
+
+class_alias(ConsoleCommandListenerTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\EventListener\ConsoleCommandListenerTest');

@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer\Stubs;
+namespace Ibexa\Tests\Core\MVC\Symfony\Component\Serializer\Stubs;
 
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
-use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
 
 final class MatcherStub implements Matcher
 {
@@ -42,3 +42,5 @@ final class MatcherStub implements Matcher
         return $this->data;
     }
 }
+
+class_alias(MatcherStub::class, 'eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer\Stubs\MatcherStub');

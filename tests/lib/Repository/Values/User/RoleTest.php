@@ -4,20 +4,23 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Values\User;
+namespace Ibexa\Tests\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Tests\Values\ValueObjectTestTrait;
-use eZ\Publish\Core\Repository\Values\User\Role;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException;
+use Ibexa\Tests\Core\Repository\Values\ValueObjectTestTrait;
+use Ibexa\Core\Repository\Values\User\Role;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Ibexa\Core\Repository\Values\User\Role
+ */
 class RoleTest extends TestCase
 {
     use ValueObjectTestTrait;
 
     /**
      * Test a new class and default values on properties.
-     *
-     * @covers \eZ\Publish\API\Repository\Values\User\Role::__construct
      */
     public function testNewClass()
     {
@@ -34,11 +37,11 @@ class RoleTest extends TestCase
     /**
      * Test retrieving missing property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\User\Role::__get
+     * @covers \Ibexa\Core\Repository\Values\User\Role::__get
      */
     public function testMissingProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException::class);
+        $this->expectException(PropertyNotFoundException::class);
 
         $role = new Role();
         $value = $role->notDefined;
@@ -48,11 +51,11 @@ class RoleTest extends TestCase
     /**
      * Test setting read only property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\User\Role::__set
+     * @covers \Ibexa\Core\Repository\Values\User\Role::__set
      */
     public function testReadOnlyProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException::class);
+        $this->expectException(PropertyReadOnlyException::class);
 
         $role = new Role();
         $role->id = 42;
@@ -61,8 +64,6 @@ class RoleTest extends TestCase
 
     /**
      * Test if property exists.
-     *
-     * @covers \eZ\Publish\API\Repository\Values\User\Role::__isset
      */
     public function testIsPropertySet()
     {
@@ -77,14 +78,16 @@ class RoleTest extends TestCase
     /**
      * Test unsetting a property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\User\Role::__unset
+     * @covers \Ibexa\Core\Repository\Values\User\Role::__unset
      */
     public function testUnsetProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException::class);
+        $this->expectException(PropertyReadOnlyException::class);
 
         $role = new Role(['id' => 1]);
         unset($role->id);
         self::fail('Unsetting read-only property succeeded');
     }
 }
+
+class_alias(RoleTest::class, 'eZ\Publish\Core\Repository\Tests\Values\User\RoleTest');

@@ -4,23 +4,23 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests;
+namespace Ibexa\Tests\Core\FieldType;
 
 use DateTimeImmutable;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\API\Repository\PasswordHashService;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\FieldType\User\Type;
-use eZ\Publish\Core\FieldType\User\Type as UserType;
-use eZ\Publish\Core\FieldType\User\Value as UserValue;
-use eZ\Publish\Core\Repository\Values\User\User as RepositoryUser;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\Persistence\Cache\UserHandler;
-use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition as CoreFieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\SPI\Persistence\User;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\PasswordHashService;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\FieldType\User\Type;
+use Ibexa\Core\FieldType\User\Type as UserType;
+use Ibexa\Core\FieldType\User\Value as UserValue;
+use Ibexa\Core\Repository\Values\User\User as RepositoryUser;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Core\Persistence\Cache\UserHandler;
+use Ibexa\Core\Repository\User\PasswordValidatorInterface;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition as CoreFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Persistence\User;
 use PHPUnit\Framework\MockObject\Builder\InvocationMocker;
 
 /**
@@ -40,7 +40,7 @@ class UserTest extends FieldTypeTest
      * NOT take care for test case wide caching of the field type, just return
      * a new instance from this method!
      *
-     * @return \eZ\Publish\Core\FieldType\User\Type
+     * @return \Ibexa\Core\FieldType\User\Type
      */
     protected function createFieldTypeUnderTest(): UserType
     {
@@ -126,29 +126,6 @@ class UserTest extends FieldTypeTest
         return new UserValue();
     }
 
-    /**
-     * Data provider for invalid input to acceptValue().
-     *
-     * Returns an array of data provider sets with 2 arguments: 1. The invalid
-     * input to acceptValue(), 2. The expected exception type as a string. For
-     * example:
-     *
-     * <code>
-     *  return array(
-     *      array(
-     *          new \stdClass(),
-     *          'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
-     *      ),
-     *      array(
-     *          array(),
-     *          'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
-     *      ),
-     *      // ...
-     *  );
-     * </code>
-     *
-     * @return array
-     */
     public function provideInvalidInputForAcceptValue()
     {
         return [
@@ -389,15 +366,15 @@ class UserTest extends FieldTypeTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\User\Type::validate
+     * @covers \Ibexa\Core\FieldType\User\Type::validate
      *
      * @dataProvider providerForTestValidate
      *
-     * @param \eZ\Publish\Core\FieldType\User\Value $userValue
+     * @param \Ibexa\Core\FieldType\User\Value $userValue
      * @param array $expectedValidationErrors
      * @param callable|null $loadByLoginBehaviorCallback
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function testValidate(
         UserValue $userValue,
@@ -584,7 +561,7 @@ class UserTest extends FieldTypeTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\User\Type::toPersistenceValue
+     * @covers \Ibexa\Core\FieldType\User\Type::toPersistenceValue
      *
      * @dataProvider providerForTestCreatePersistenceValue
      */
@@ -894,3 +871,5 @@ class UserTest extends FieldTypeTest
         ];
     }
 }
+
+class_alias(UserTest::class, 'eZ\Publish\Core\FieldType\Tests\UserTest');

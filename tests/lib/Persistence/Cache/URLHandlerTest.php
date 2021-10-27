@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use eZ\Publish\API\Repository\Values\URL\URLQuery;
-use eZ\Publish\SPI\Persistence\URL\Handler as SpiURLHandler;
-use eZ\Publish\SPI\Persistence\URL\URL;
-use eZ\Publish\SPI\Persistence\URL\URLUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
+use Ibexa\Contracts\Core\Persistence\URL\Handler as SpiURLHandler;
+use Ibexa\Contracts\Core\Persistence\URL\URL;
+use Ibexa\Contracts\Core\Persistence\URL\URLUpdateStruct;
 
 class URLHandlerTest extends AbstractCacheHandlerTest
 {
@@ -154,3 +154,5 @@ class URLHandlerTest extends AbstractCacheHandlerTest
         $handler->updateUrl($urlId, $updateStruct);
     }
 }
+
+class_alias(URLHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\URLHandlerTest');

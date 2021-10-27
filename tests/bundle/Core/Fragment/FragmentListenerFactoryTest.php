@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Fragment;
+namespace Ibexa\Tests\Bundle\Core\Fragment;
 
-use eZ\Bundle\EzPublishCoreBundle\Fragment\FragmentListenerFactory;
+use Ibexa\Bundle\Core\Fragment\FragmentListenerFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -69,3 +69,5 @@ class FragmentListenerFactoryTest extends TestCase
         $this->assertNull($listener);
     }
 }
+
+class_alias(FragmentListenerFactoryTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Fragment\FragmentListenerFactoryTest');

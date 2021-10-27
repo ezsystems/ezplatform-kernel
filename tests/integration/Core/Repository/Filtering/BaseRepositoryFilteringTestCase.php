@@ -6,18 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\Filtering;
+namespace Ibexa\Tests\Integration\Core\Repository\Filtering;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ParentLocationId;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Filter\Filter;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Tests\Core\Repository\Filtering\TestContentProvider;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ParentLocationId;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
 use IteratorAggregate;
 
 /**
@@ -25,7 +26,7 @@ use IteratorAggregate;
  */
 abstract class BaseRepositoryFilteringTestCase extends BaseTest
 {
-    /** @var \eZ\Publish\API\Repository\Tests\Filtering\TestContentProvider */
+    /** @var \Ibexa\Tests\Core\Repository\Filtering\TestContentProvider */
     protected $contentProvider;
 
     abstract protected function find(Filter $filter, ?array $contextLanguages = null): iterable;
@@ -42,12 +43,12 @@ abstract class BaseRepositoryFilteringTestCase extends BaseTest
     /**
      * @dataProvider getFilterFactories
      *
-     * @covers       \eZ\Publish\API\Repository\ContentService::find
-     * @covers       \eZ\Publish\API\Repository\LocationService::find
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::find
+     * @covers \Ibexa\Contracts\Core\Repository\LocationService::find
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testFind(callable $filterFactory): void
     {
@@ -73,9 +74,9 @@ abstract class BaseRepositoryFilteringTestCase extends BaseTest
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testFindDoesNotFindDrafts(): void
     {
@@ -94,16 +95,16 @@ abstract class BaseRepositoryFilteringTestCase extends BaseTest
     }
 
     /**
-     * @covers       \eZ\Publish\API\Repository\ContentService::find
+     * @covers  \Ibexa\Contracts\Core\Repository\ContentService::find
      *
      * @dataProvider getUserLimitationData
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation[] $limitations
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] $limitations
      * @param string[] $expectedContentRemoteIds
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testFindByUserWithLimitations(
         array $limitations,
@@ -187,7 +188,7 @@ abstract class BaseRepositoryFilteringTestCase extends BaseTest
      * Note: this is a quick attempt to cover all supported Filtering Criteria. In the future it
      * should be refactored to rely on shared data structure created at runtime.
      *
-     * @return \eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion[]
      *
      * @see getFilterFactories
      */
@@ -268,8 +269,8 @@ abstract class BaseRepositoryFilteringTestCase extends BaseTest
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function getUserLimitationData(): iterable
     {
@@ -379,3 +380,5 @@ abstract class BaseRepositoryFilteringTestCase extends BaseTest
         return $filterFactory($parentFolder);
     }
 }
+
+class_alias(BaseRepositoryFilteringTestCase::class, 'eZ\Publish\API\Repository\Tests\Filtering\BaseRepositoryFilteringTestCase');

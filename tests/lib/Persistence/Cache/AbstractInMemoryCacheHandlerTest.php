@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
 /**
  * Abstract test case for spi cache impl, with in-memory handling.
@@ -294,3 +294,5 @@ abstract class AbstractInMemoryCacheHandlerTest extends AbstractBaseHandlerTest
         //$this->assertAttributeEquals([], 'tags', $cacheItem);
     }
 }
+
+class_alias(AbstractInMemoryCacheHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\AbstractInMemoryCacheHandlerTest');

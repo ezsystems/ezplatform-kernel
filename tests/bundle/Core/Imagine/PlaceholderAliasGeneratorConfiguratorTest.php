@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine;
+namespace Ibexa\Tests\Bundle\Core\Imagine;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderAliasGenerator;
-use eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderAliasGeneratorConfigurator;
-use eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderProvider;
-use eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderProviderRegistry;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Bundle\Core\Imagine\PlaceholderAliasGenerator;
+use Ibexa\Bundle\Core\Imagine\PlaceholderAliasGeneratorConfigurator;
+use Ibexa\Bundle\Core\Imagine\PlaceholderProvider;
+use Ibexa\Bundle\Core\Imagine\PlaceholderProviderRegistry;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use PHPUnit\Framework\TestCase;
 
 class PlaceholderAliasGeneratorConfiguratorTest extends TestCase
@@ -62,3 +62,5 @@ class PlaceholderAliasGeneratorConfiguratorTest extends TestCase
         $configurator->configure($generator);
     }
 }
+
+class_alias(PlaceholderAliasGeneratorConfiguratorTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\PlaceholderAliasGeneratorConfiguratorTest');

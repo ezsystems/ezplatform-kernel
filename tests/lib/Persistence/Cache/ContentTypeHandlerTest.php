@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\Content\Type as SPIType;
-use eZ\Publish\SPI\Persistence\Content\Type\CreateStruct as SPITypeCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct as SPITypeUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as SPITypeFieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\Type\Group as SPITypeGroup;
-use eZ\Publish\SPI\Persistence\Content\Type\Group\CreateStruct as SPITypeGroupCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\Group\UpdateStruct as SPITypeGroupUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as SPIContentTypeHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type as SPIType;
+use Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct as SPITypeCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct as SPITypeUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as SPITypeFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group as SPITypeGroup;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group\CreateStruct as SPITypeGroupCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group\UpdateStruct as SPITypeGroupUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as SPIContentTypeHandler;
 
 /**
  * Test case for Persistence\Cache\ContentTypeHandler.
@@ -399,8 +399,6 @@ class ContentTypeHandlerTest extends AbstractInMemoryCacheHandlerTest
 
     /**
      * Test cache invalidation when publishing Content Type.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Cache\ContentTypeHandler::publish
      */
     public function testPublish()
     {
@@ -475,3 +473,5 @@ class ContentTypeHandlerTest extends AbstractInMemoryCacheHandlerTest
         call_user_func_array([$handler, $method], $arguments);
     }
 }
+
+class_alias(ContentTypeHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\ContentTypeHandlerTest');

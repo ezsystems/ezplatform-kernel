@@ -4,24 +4,24 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Helper\Tests\ContentInfoLocationLoader;
+namespace Ibexa\Tests\Core\Helper\ContentInfoLocationLoader;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Helper\ContentInfoLocationLoader\SudoMainLocationLoader;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\Core\Repository\Repository;
-use eZ\Publish\Core\Repository\Permission\PermissionResolver;
-use eZ\Publish\Core\Repository\Mapper\RoleDomainMapper;
-use eZ\Publish\Core\Repository\Permission\LimitationService;
-use eZ\Publish\SPI\Persistence\User\Handler as SPIUserHandler;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Helper\ContentInfoLocationLoader\SudoMainLocationLoader;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Core\Repository\Repository;
+use Ibexa\Core\Repository\Permission\PermissionResolver;
+use Ibexa\Core\Repository\Mapper\RoleDomainMapper;
+use Ibexa\Core\Repository\Permission\LimitationService;
+use Ibexa\Contracts\Core\Persistence\User\Handler as SPIUserHandler;
 use PHPUnit\Framework\TestCase;
 
 class SudoMainLocationLoaderTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Helper\ContentInfoLocationLoader\SudoMainLocationLoader */
+    /** @var \Ibexa\Core\Helper\ContentInfoLocationLoader\SudoMainLocationLoader */
     private $loader;
 
     protected function setUp(): void
@@ -31,7 +31,7 @@ class SudoMainLocationLoaderTest extends TestCase
 
     public function testLoadLocationNoMainLocation()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $contentInfo = new ContentInfo();
 
@@ -68,7 +68,7 @@ class SudoMainLocationLoaderTest extends TestCase
 
     public function testLoadLocationError()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $contentInfo = new ContentInfo(['mainLocationId' => 42]);
         $location = new Location();
@@ -95,7 +95,7 @@ class SudoMainLocationLoaderTest extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\Core\Repository\Repository|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Repository\Repository|\PHPUnit\Framework\MockObject\MockObject
      */
     private function getRepositoryMock()
     {
@@ -120,7 +120,7 @@ class SudoMainLocationLoaderTest extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\LocationService|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Repository\LocationService|\PHPUnit\Framework\MockObject\MockObject
      */
     private function getLocationServiceMock()
     {
@@ -136,7 +136,7 @@ class SudoMainLocationLoaderTest extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\Core\Repository\Permission\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Repository\Permission\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject
      */
     private function getPermissionResolverMock()
     {
@@ -168,3 +168,5 @@ class SudoMainLocationLoaderTest extends TestCase
             ->getMock();
     }
 }
+
+class_alias(SudoMainLocationLoaderTest::class, 'eZ\Publish\Core\Helper\Tests\ContentInfoLocationLoader\SudoMainLocationLoaderTest');

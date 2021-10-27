@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Tests\ContentThumbnail;
+namespace Ibexa\Tests\Core\Repository\ContentThumbnail;
 
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\Thumbnail;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\Repository\Strategy\ContentThumbnail\ThumbnailChainStrategy;
-use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Strategy\ContentThumbnail\ThumbnailChainStrategy;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
 use PHPUnit\Framework\TestCase;
 
 class ThumbnailChainStrategyTest extends TestCase
@@ -99,3 +99,5 @@ class ThumbnailChainStrategyTest extends TestCase
         $this->assertEquals(new Thumbnail(['resource' => 'second']), $result);
     }
 }
+
+class_alias(ThumbnailChainStrategyTest::class, 'eZ\Publish\Core\Repository\Tests\ContentThumbnail\ThumbnailChainStrategyTest');

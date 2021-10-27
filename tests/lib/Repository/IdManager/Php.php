@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\IdManager;
+namespace Ibexa\Tests\Core\Repository\IdManager;
 
-use eZ\Publish\API\Repository\Tests\IdManager;
+use Ibexa\Tests\Integration\Core\Repository\IdManager;
 
 /**
  * ID manager for the basic PHP usage of the Public API.
@@ -45,3 +45,5 @@ class Php extends IdManager
         return $id;
     }
 }
+
+class_alias(Php::class, 'eZ\Publish\API\Repository\Tests\IdManager\Php');

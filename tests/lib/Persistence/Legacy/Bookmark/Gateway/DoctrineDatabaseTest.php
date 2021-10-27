@@ -6,14 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Bookmark\Gateway;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Bookmark\Gateway;
 
-use eZ\Publish\Core\Persistence\Legacy\Bookmark\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\Bookmark\Gateway\DoctrineDatabase;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\SPI\Persistence\Bookmark\Bookmark;
+use Ibexa\Core\Persistence\Legacy\Bookmark\Gateway;
+use Ibexa\Core\Persistence\Legacy\Bookmark\Gateway\DoctrineDatabase;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
 use PDO;
 
+/**
+ * @covers \Ibexa\Core\Persistence\Legacy\Bookmark\Gateway\DoctrineDatabase::insertBookmark
+ */
 class DoctrineDatabaseTest extends TestCase
 {
     const EXISTING_BOOKMARK_ID = 1;
@@ -31,9 +34,6 @@ class DoctrineDatabaseTest extends TestCase
         $this->insertDatabaseFixture(__DIR__ . '/../_fixtures/bookmarks.php');
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Bookmark\Gateway\DoctrineDatabase::insertBookmark
-     */
     public function testInsertBookmark()
     {
         $id = $this->getGateway()->insertBookmark(new Bookmark([
@@ -52,9 +52,6 @@ class DoctrineDatabaseTest extends TestCase
         ], $data);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Bookmark\Gateway\DoctrineDatabase::deleteBookmark
-     */
     public function testDeleteBookmark()
     {
         $this->getGateway()->deleteBookmark(self::EXISTING_BOOKMARK_ID);
@@ -62,9 +59,6 @@ class DoctrineDatabaseTest extends TestCase
         $this->assertEmpty($this->loadBookmark(self::EXISTING_BOOKMARK_ID));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Bookmark\Gateway\DoctrineDatabase::loadBookmarkDataById
-     */
     public function testLoadBookmarkDataById()
     {
         $this->assertEquals(
@@ -73,9 +67,6 @@ class DoctrineDatabaseTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Bookmark\Gateway\DoctrineDatabase::loadBookmarkDataByUserIdAndLocationId
-     */
     public function testLoadBookmarkDataByUserIdAndLocationId()
     {
         $data = $this->getGateway()->loadBookmarkDataByUserIdAndLocationId(
@@ -87,7 +78,6 @@ class DoctrineDatabaseTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Bookmark\Gateway\DoctrineDatabase::loadUserBookmarks
      * @dataProvider dataProviderForLoadUserBookmarks
      */
     public function testLoadUserBookmarks(int $userId, int $offset, int $limit, array $expected)
@@ -96,7 +86,6 @@ class DoctrineDatabaseTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Bookmark\Gateway\DoctrineDatabase::countUserBookmarks
      * @dataProvider dataProviderForLoadUserBookmarks
      */
     public function testCountUserBookmarks(int $userId, int $offset, int $limit, array $expected)
@@ -129,9 +118,6 @@ class DoctrineDatabaseTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Bookmark\Gateway\DoctrineDatabase::locationSwapped
-     */
     public function testLocationSwapped()
     {
         $bookmark1Id = 3;
@@ -171,3 +157,5 @@ class DoctrineDatabaseTest extends TestCase
         return is_array($data) ? $data : [];
     }
 }
+
+class_alias(DoctrineDatabaseTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Bookmark\Gateway\DoctrineDatabaseTest');

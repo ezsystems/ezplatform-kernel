@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
 /**
  * Abstract test case for spi cache impl.
@@ -290,3 +290,5 @@ abstract class AbstractCacheHandlerTest extends AbstractBaseHandlerTest
         //$this->assertAttributeEquals([], 'tags', $cacheItem);
     }
 }
+
+class_alias(AbstractCacheHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\AbstractCacheHandlerTest');

@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\EventListener;
+namespace Ibexa\Tests\Bundle\Core\EventListener;
 
-use eZ\Bundle\EzPublishCoreBundle\EventListener\ViewControllerListener;
-use eZ\Publish\Core\MVC\Symfony\View\BaseView;
-use eZ\Publish\Core\MVC\Symfony\View\Builder\ViewBuilder;
-use eZ\Publish\Core\MVC\Symfony\View\Builder\ViewBuilderRegistry;
-use eZ\Publish\Core\MVC\Symfony\View\ContentView;
-use eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
-use eZ\Publish\Core\MVC\Symfony\View\ViewEvents;
+use Ibexa\Bundle\Core\EventListener\ViewControllerListener;
+use Ibexa\Core\MVC\Symfony\View\BaseView;
+use Ibexa\Core\MVC\Symfony\View\Builder\ViewBuilder;
+use Ibexa\Core\MVC\Symfony\View\Builder\ViewBuilderRegistry;
+use Ibexa\Core\MVC\Symfony\View\ContentView;
+use Ibexa\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
+use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Ibexa\Contracts\Core\Event\View\PostBuildViewEvent;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -35,19 +35,19 @@ class ViewControllerListenerTest extends TestCase
     /** @var ViewControllerListener */
     private $controllerListener;
 
-    /** @var \Symfony\Component\HttpKernel\Event\FilterControllerEvent|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Symfony\Component\HttpKernel\Event\ControllerEvent */
     private $event;
 
     /** @var Request */
     private $request;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\Builder\ViewBuilderRegistry|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\MVC\Symfony\View\Builder\ViewBuilderRegistry|\PHPUnit\Framework\MockObject\MockObject */
     private $viewBuilderRegistry;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\Configurator|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\MVC\Symfony\View\Configurator|\PHPUnit\Framework\MockObject\MockObject */
     private $viewConfigurator;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\Builder\ViewBuilder|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\MVC\Symfony\View\Builder\ViewBuilder|\PHPUnit\Framework\MockObject\MockObject */
     private $viewBuilderMock;
 
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface|\PHPUnit\Framework\MockObject\MockObject */
@@ -77,7 +77,7 @@ class ViewControllerListenerTest extends TestCase
     {
         $this->assertSame(
             [KernelEvents::CONTROLLER => ['getController', 10]],
-            $this->controllerListener->getSubscribedEvents()
+            $this->controllerListener::getSubscribedEvents()
         );
     }
 
@@ -187,7 +187,7 @@ class ViewControllerListenerTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|ControllerEvent
+     * @return \Symfony\Component\HttpKernel\Event\ControllerEvent
      */
     protected function createEvent()
     {
@@ -199,3 +199,5 @@ class ViewControllerListenerTest extends TestCase
         );
     }
 }
+
+class_alias(ViewControllerListenerTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\EventListener\ViewControllerListenerTest');

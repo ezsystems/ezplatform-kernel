@@ -4,19 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\Id;
+namespace Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased\Id;
 
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Id\ParentContentType as ParentContentTypeMatcher;
-use eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\BaseTest;
-use eZ\Publish\API\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Id\ParentContentType as ParentContentTypeMatcher;
+use Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased\BaseTest;
+use Ibexa\Contracts\Core\Repository\Repository;
 
 class ParentContentTypeTest extends BaseTest
 {
     private const EXAMPLE_LOCATION_ID = 54;
     private const EXAMPLE_PARENT_LOCATION_ID = 2;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Id\ParentContentType */
+    /** @var \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Id\ParentContentType */
     private $matcher;
 
     protected function setUp(): void
@@ -77,12 +77,12 @@ class ParentContentTypeTest extends BaseTest
 
     /**
      * @dataProvider matchLocationProvider
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Id\ParentContentType::matchLocation
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
-     * @covers \eZ\Publish\Core\MVC\RepositoryAware::setRepository
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Id\ParentContentType::matchLocation
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
+     * @covers \Ibexa\Core\MVC\RepositoryAware::setRepository
      *
      * @param int|int[] $matchingConfig
-     * @param \eZ\Publish\API\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
      * @param bool $expectedResult
      */
     public function testMatchLocation($matchingConfig, Repository $repository, $expectedResult)
@@ -123,12 +123,12 @@ class ParentContentTypeTest extends BaseTest
 
     /**
      * @dataProvider matchLocationProvider
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Id\ParentContentType::matchContentInfo
-     * @covers \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
-     * @covers \eZ\Publish\Core\MVC\RepositoryAware::setRepository
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Id\ParentContentType::matchContentInfo
+     * @covers \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued::setMatchingConfig
+     * @covers \Ibexa\Core\MVC\RepositoryAware::setRepository
      *
      * @param int|int[] $matchingConfig
-     * @param \eZ\Publish\API\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
      * @param bool $expectedResult
      */
     public function testMatchContentInfo($matchingConfig, Repository $repository, $expectedResult)
@@ -144,3 +144,5 @@ class ParentContentTypeTest extends BaseTest
         );
     }
 }
+
+class_alias(ParentContentTypeTest::class, 'eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\Id\ParentContentTypeTest');

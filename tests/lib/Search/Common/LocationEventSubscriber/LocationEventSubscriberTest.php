@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Search\Tests\Common\LocationEventSubscriber;
+namespace Ibexa\Tests\Core\Search\Common\LocationEventSubscriber;
 
-use eZ\Publish\API\Repository\Events\Location\CreateLocationEvent;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\Core\Search\Common\EventSubscriber\LocationEventSubscriber;
-use eZ\Publish\Core\Search\Legacy\Content\Handler as SearchHandler;
-use eZ\Publish\SPI\Persistence\Content\Location\Handler as LocationHandler;
-use eZ\Publish\SPI\Persistence\Content\Handler as ContentHandler;
-use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
-use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo as SPIVersionInfo;
-use eZ\Publish\SPI\Persistence\Content as SPIContent;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo as SPIContentInfo;
+use Ibexa\Contracts\Core\Repository\Events\Location\CreateLocationEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Search\Common\EventSubscriber\LocationEventSubscriber;
+use Ibexa\Core\Search\Legacy\Content\Handler as SearchHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as LocationHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Handler as ContentHandler;
+use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo as SPIVersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content as SPIContent;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo as SPIContentInfo;
 use PHPUnit\Framework\TestCase;
 
 final class LocationEventSubscriberTest extends TestCase
@@ -29,13 +29,13 @@ final class LocationEventSubscriberTest extends TestCase
     private const EXAMPLE_CONTENT_ID = 56;
     private const EXAMPLE_VERSION_NO = 3;
 
-    /** @var \eZ\Publish\Core\Search\Legacy\Content\Handler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Search\Legacy\Content\Handler|\PHPUnit\Framework\MockObject\MockObject */
     private $searchHandler;
 
-    /** @var \eZ\Publish\SPI\Persistence\Handler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Persistence\Handler|\PHPUnit\Framework\MockObject\MockObject */
     private $persistenceHandler;
 
-    /** @var \eZ\Publish\Core\Search\Common\EventSubscriber\LocationEventSubscriber */
+    /** @var \Ibexa\Core\Search\Common\EventSubscriber\LocationEventSubscriber */
     private $subscriber;
 
     protected function setUp(): void
@@ -126,3 +126,5 @@ final class LocationEventSubscriberTest extends TestCase
         ]);
     }
 }
+
+class_alias(LocationEventSubscriberTest::class, 'eZ\Publish\Core\Search\Tests\Common\LocationEventSubscriber\LocationEventSubscriberTest');

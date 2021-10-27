@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\Loader;
+namespace Ibexa\Tests\Bundle\Core\Imagine\Filter\Loader;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader\ScalePercentFilterLoader;
+use Ibexa\Bundle\Core\Imagine\Filter\Loader\ScalePercentFilterLoader;
 use Imagine\Image\ImageInterface;
 use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
 use Imagine\Image\Box;
@@ -72,3 +72,5 @@ class ScalePercentFilterLoaderTest extends TestCase
         $this->assertSame($image, $this->loader->load($image, [$widthPercent, $heightPercent]));
     }
 }
+
+class_alias(ScalePercentFilterLoaderTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\Loader\ScalePercentFilterLoaderTest');

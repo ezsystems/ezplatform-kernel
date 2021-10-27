@@ -4,11 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use eZ\Publish\Core\FieldType\Date\Value as DateValue;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\FieldType\Date\Type;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
+use Ibexa\Core\FieldType\Date\Value as DateValue;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Core\FieldType\Date\Type;
 use DateTime;
 
 /**
@@ -143,7 +145,7 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
     public function assertFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Date\\Value',
+            DateValue::class,
             $field->value
         );
 
@@ -159,33 +161,12 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during creation.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidCreationFieldData()
     {
         return [
             [
                 'Some unknown date format',
-                'eZ\\Publish\\API\\Repository\\Exceptions\\InvalidArgumentException',
+                InvalidArgumentException::class,
             ],
         ];
     }
@@ -213,7 +194,7 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
     public function assertUpdatedFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Date\\Value',
+            DateValue::class,
             $field->value
         );
 
@@ -228,27 +209,6 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during update.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidUpdateFieldData()
     {
         return $this->provideInvalidCreationFieldData();
@@ -382,7 +342,7 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
     protected function getSearchTargetValueOne()
     {
         // Handling Legacy Search Engine, which stores Date value as timestamp
-        if (ltrim(get_class($this->getSetupFactory()), '\\') === 'eZ\Publish\API\Repository\Tests\SetupFactory\Legacy') {
+        if ($this->getSetupFactory() instanceof Legacy) {
             return $this->getValidSearchValueOne();
         }
 
@@ -392,7 +352,7 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
     protected function getSearchTargetValueTwo()
     {
         // Handling Legacy Search Engine, which stores Date value as timestamp
-        if (ltrim(get_class($this->getSetupFactory()), '\\') === 'eZ\Publish\API\Repository\Tests\SetupFactory\Legacy') {
+        if ($this->getSetupFactory() instanceof Legacy) {
             return $this->getValidSearchValueTwo();
         }
 
@@ -404,3 +364,5 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
         return new DateTime('1970-01-02');
     }
 }
+
+class_alias(DateIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\FieldType\DateIntegrationTest');

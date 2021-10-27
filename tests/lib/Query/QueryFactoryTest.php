@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Query\Tests;
+namespace Ibexa\Tests\Core\Query;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\Core\Query\QueryFactory;
-use eZ\Publish\Core\QueryType\QueryType;
-use eZ\Publish\Core\QueryType\QueryTypeRegistry;
-use eZ\Publish\Core\Search\Tests\TestCase;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Core\Query\QueryFactory;
+use Ibexa\Core\QueryType\QueryType;
+use Ibexa\Core\QueryType\QueryTypeRegistry;
+use Ibexa\Tests\Core\Search\TestCase;
 
 final class QueryFactoryTest extends TestCase
 {
@@ -23,10 +23,10 @@ final class QueryFactoryTest extends TestCase
         'baz' => 'baz',
     ];
 
-    /** @var \eZ\Publish\Core\QueryType\QueryTypeRegistry|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\QueryType\QueryTypeRegistry|\PHPUnit\Framework\MockObject\MockObject */
     private $queryTypeRegistry;
 
-    /** @var \eZ\Publish\Core\Query\QueryFactory */
+    /** @var \Ibexa\Core\Query\QueryFactory */
     private $queryFactory;
 
     protected function setUp(): void
@@ -60,3 +60,5 @@ final class QueryFactoryTest extends TestCase
         $this->assertEquals($expectedQuery, $actualQuery);
     }
 }
+
+class_alias(QueryFactoryTest::class, 'eZ\Publish\Core\Query\Tests\QueryFactoryTest');

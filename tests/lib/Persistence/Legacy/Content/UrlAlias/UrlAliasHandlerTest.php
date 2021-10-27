@@ -4,34 +4,34 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\UrlAlias;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\UrlAlias;
 
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway as UrlAliasGateway;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Mapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway\DoctrineDatabase;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase as DoctrineDatabaseLocation;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler as LanguageHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase as LanguageGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\Mapper as LanguageMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
-use eZ\Publish\Core\Persistence\TransformationProcessor\DefinitionBased;
-use eZ\Publish\Core\Persistence\TransformationProcessor\DefinitionBased\Parser;
-use eZ\Publish\Core\Persistence\TransformationProcessor\PcreCompiler;
-use eZ\Publish\Core\Persistence\Utf8Converter;
-use eZ\Publish\Core\Search\Legacy\Content;
-use eZ\Publish\SPI\Persistence\Content\UrlAlias;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\SPI\Persistence\TransactionHandler;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway as UrlAliasGateway;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Handler;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Mapper;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway\DoctrineDatabase;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase as ContentGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase as DoctrineDatabaseLocation;
+use Ibexa\Core\Persistence\Legacy\Content\Language\Handler as LanguageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase as LanguageGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Language\Mapper as LanguageMapper;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
+use Ibexa\Core\Persistence\TransformationProcessor\DefinitionBased;
+use Ibexa\Core\Persistence\TransformationProcessor\DefinitionBased\Parser;
+use Ibexa\Core\Persistence\TransformationProcessor\PcreCompiler;
+use Ibexa\Core\Persistence\Utf8Converter;
+use Ibexa\Core\Search\Legacy\Content;
+use Ibexa\Contracts\Core\Persistence\Content\UrlAlias;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Persistence\TransactionHandler;
 
 /**
- * Test case for UrlAliasHandler.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Handler
  *
  * @group urlalias-handler
  */
@@ -42,7 +42,6 @@ class UrlAliasHandlerTest extends TestCase
      *
      * Simple lookup case.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::lookup
      * @group location
      * @group virtual
      * @group resource
@@ -63,14 +62,14 @@ class UrlAliasHandlerTest extends TestCase
      *
      * Trying to lookup non existent URL alias throws NotFoundException.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::lookup
+     *
      * @group location
      * @group virtual
      * @group resource
      */
     public function testLookupThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $handler = $this->getHandler();
         $handler->lookup('wooden/iron');
@@ -81,7 +80,6 @@ class UrlAliasHandlerTest extends TestCase
      *
      * Trying to lookup URL alias with exceeded path segments limit
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::lookup
      * @group location
      * @group case-correction
      */
@@ -343,7 +341,6 @@ class UrlAliasHandlerTest extends TestCase
      *
      * Testing that UrlAlias is found and has expected state.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::lookup
      * @dataProvider providerForTestLookupLocationUrlAlias
      * @depends testLookup
      * @group location
@@ -391,7 +388,7 @@ class UrlAliasHandlerTest extends TestCase
      * to the "jedan/two/three", as "eng-GB" is the most prioritized language and Content that URL alias is pointing
      * to is available in it.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::lookup
+     *
      * @dataProvider providerForTestLookupLocationUrlAlias
      * @depends testLookup
      * @group case-correction
@@ -520,7 +517,6 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the lookup() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::lookup
      * @dataProvider providerForTestLookupLocationMultipleLanguages
      * @depends testLookup
      * @group multiple-languages
@@ -563,7 +559,6 @@ class UrlAliasHandlerTest extends TestCase
      *
      * @todo document
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::lookup
      * @depends testLookup
      * @group history
      * @group location
@@ -702,7 +697,6 @@ class UrlAliasHandlerTest extends TestCase
      *
      * Testing that UrlAlias is found and has expected state.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::lookup
      * @dataProvider providerForTestLookupCustomLocationUrlAlias
      * @depends testLookup
      * @group location
@@ -745,7 +739,6 @@ class UrlAliasHandlerTest extends TestCase
      *
      * Testing that UrlAlias is found and has expected state.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::lookup
      * @dataProvider providerForTestLookupCustomLocationUrlAlias
      * @depends testLookup
      * @group location
@@ -803,7 +796,6 @@ class UrlAliasHandlerTest extends TestCase
      *
      * Testing that NOP action redirects to site root.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::lookup
      * @dataProvider providerForTestLookupVirtualUrlAlias
      * @depends testLookup
      * @group virtual
@@ -873,7 +865,6 @@ class UrlAliasHandlerTest extends TestCase
      *
      * Testing that UrlAlias is found and has expected state.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::lookup
      * @dataProvider providerForTestLookupResourceUrlAlias
      * @depends testLookup
      * @group resource
@@ -916,7 +907,6 @@ class UrlAliasHandlerTest extends TestCase
      *
      * Testing that UrlAlias is found and has expected state.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::lookup
      * @dataProvider providerForTestLookupResourceUrlAlias
      * @depends testLookup
      * @group resource
@@ -957,7 +947,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the lookup() method with uppercase utf8 characters.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::lookup
+     *
      * @depends testLookup
      */
     public function testLookupUppercaseIri()
@@ -974,28 +964,10 @@ class UrlAliasHandlerTest extends TestCase
         self::assertInstanceOf(UrlAlias::class, $urlAlias);
         self::assertEquals($id, $urlAlias->id);
         self::assertEquals(UrlAlias::VIRTUAL, $urlAlias->type);
-        /*self::assertEquals(
-            new UrlAlias(
-                array(
-                    "id" => $id,
-                    "type" => UrlAlias::VIRTUAL,
-                    "destination" => null,
-                    "languageCodes" => array(),
-                    "pathData" => null,
-                    "alwaysAvailable" => true,
-                    "isHistory" => true,
-                    "isCustom" => false,
-                    "forward" => false
-                )
-            ),
-            $urlAlias
-        );*/
     }
 
     /**
      * Test for the listURLAliasesForLocation() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::listURLAliasesForLocation
      */
     public function testListURLAliasesForLocation()
     {
@@ -1066,7 +1038,7 @@ class UrlAliasHandlerTest extends TestCase
      *
      * @todo document
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
+     *
      * @depends testLookupLocationUrlAlias
      * @group publish
      */
@@ -1110,7 +1082,7 @@ class UrlAliasHandlerTest extends TestCase
      *
      * @todo document
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
+     *
      * @depends testPublishUrlAliasForLocation
      * @group publish
      */
@@ -1136,7 +1108,7 @@ class UrlAliasHandlerTest extends TestCase
      *
      * @todo document
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
+     *
      * @depends testPublishUrlAliasForLocation
      * @group publish
      */
@@ -1188,7 +1160,7 @@ class UrlAliasHandlerTest extends TestCase
      *
      * @todo document
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
+     *
      * @dataProvider providerForTestPublishUrlAliasForLocationComplex
      * @depends testPublishUrlAliasForLocation
      * @group publish
@@ -1237,7 +1209,7 @@ class UrlAliasHandlerTest extends TestCase
      *
      * @todo document
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
+     *
      * @depends testPublishUrlAliasForLocation
      * @group publish
      */
@@ -1286,7 +1258,7 @@ class UrlAliasHandlerTest extends TestCase
      *
      * @todo document
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
+     *
      * @depends testPublishUrlAliasForLocation
      * @group publish
      */
@@ -1358,7 +1330,7 @@ class UrlAliasHandlerTest extends TestCase
      *
      * @todo document
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
+     *
      * @depends testPublishUrlAliasForLocation
      * @depends testPublishUrlAliasForLocationSameAliasForMultipleLanguages
      * @group publish
@@ -1433,7 +1405,7 @@ class UrlAliasHandlerTest extends TestCase
      *
      * @todo document
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
+     *
      * @depends testPublishUrlAliasForLocation
      * @depends testPublishUrlAliasForLocationDowngradesOldEntryToHistory
      * @group publish
@@ -1466,7 +1438,7 @@ class UrlAliasHandlerTest extends TestCase
      *
      * @todo document
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
+     *
      * @depends testPublishUrlAliasForLocation
      * @depends testPublishUrlAliasForLocationDowngradesOldEntryToHistory
      * @group publish
@@ -1519,7 +1491,7 @@ class UrlAliasHandlerTest extends TestCase
      *
      * @todo document
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
+     *
      * @depends testPublishUrlAliasForLocation
      * @group publish
      */
@@ -1544,7 +1516,7 @@ class UrlAliasHandlerTest extends TestCase
      *
      * @todo document
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
+     *
      * @depends testPublishUrlAliasForLocation
      */
     public function testPublishUrlAliasForLocationReusingNopElement()
@@ -1615,7 +1587,7 @@ class UrlAliasHandlerTest extends TestCase
      *
      * @todo document
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
+     *
      * @depends testPublishUrlAliasForLocation
      * @depends testPublishUrlAliasForLocationReusingNopElement
      */
@@ -1664,7 +1636,7 @@ class UrlAliasHandlerTest extends TestCase
      *
      * @todo document
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
+     *
      * @depends testPublishUrlAliasForLocation
      * @depends testPublishUrlAliasForLocationReusingNopElementChangesCustomPath
      */
@@ -1689,8 +1661,6 @@ class UrlAliasHandlerTest extends TestCase
 
     /**
      * Test for the publishUrlAliasForLocation() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
      */
     public function testPublishUrlAliasForLocationUpdatesLocationPathIdentificationString()
     {
@@ -1710,7 +1680,6 @@ class UrlAliasHandlerTest extends TestCase
      * Test for the publishUrlAliasForLocation() method.
      *
      * @group cleanup
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
      */
     public function testPublishUrlAliasReuseNopCleanupCustomAliasIsDestroyed()
     {
@@ -1785,7 +1754,6 @@ class UrlAliasHandlerTest extends TestCase
      * Test for the publishUrlAliasForLocation() method.
      *
      * @group cleanup
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
      */
     public function testPublishUrlAliasReuseHistoryCleanup()
     {
@@ -1850,7 +1818,6 @@ class UrlAliasHandlerTest extends TestCase
      * Test for the publishUrlAliasForLocation() method.
      *
      * @group cleanup
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
      */
     public function testPublishUrlAliasReuseAutogeneratedCleanup()
     {
@@ -1915,7 +1882,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the createCustomUrlAlias() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::createCustomUrlAlias
+     *
      * @group create
      * @group custom
      */
@@ -1948,7 +1915,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the createGlobalUrlAlias() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::createGlobalUrlAlias
+     *
      * @group create
      * @group global
      */
@@ -1981,7 +1948,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the createUrlAlias() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::createUrlAlias
+     *
      * @group create
      * @group custom
      */
@@ -2028,7 +1995,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the createUrlAlias() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::createUrlAlias
+     *
      * @group create
      * @group custom
      */
@@ -2100,7 +2067,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the createUrlAlias() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::createUrlAlias
+     *
      * @group create
      * @group custom
      *
@@ -2146,7 +2113,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the createUrlAlias() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::createUrlAlias
+     *
      * @group create
      * @group custom
      */
@@ -2208,7 +2175,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the createUrlAlias() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::createUrlAlias
+     *
      * @group create
      * @group custom
      */
@@ -2254,7 +2221,6 @@ class UrlAliasHandlerTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::createUrlAlias
      * @group create
      * @group custom
      */
@@ -2308,7 +2274,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the createUrlAlias() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::createUrlAlias
+     *
      * @group create
      * @group custom
      */
@@ -2356,7 +2322,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the createUrlAlias() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::createUrlAlias
+     *
      * @group create
      * @group custom
      */
@@ -2410,7 +2376,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the createUrlAlias() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::createUrlAlias
+     *
      * @group create
      * @group custom
      */
@@ -2444,7 +2410,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the listGlobalURLAliases() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::listGlobalURLAliases
+     *
      * @depends testLookupResourceUrlAlias
      */
     public function testListGlobalURLAliases()
@@ -2467,7 +2433,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the listGlobalURLAliases() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::listGlobalURLAliases
+     *
      * @depends testLookupResourceUrlAlias
      */
     public function testListGlobalURLAliasesWithLanguageCode()
@@ -2489,7 +2455,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the listGlobalURLAliases() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::listGlobalURLAliases
+     *
      * @depends testLookupResourceUrlAlias
      */
     public function testListGlobalURLAliasesWithOffset()
@@ -2510,7 +2476,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the listGlobalURLAliases() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::listGlobalURLAliases
+     *
      * @depends testLookupResourceUrlAlias
      */
     public function testListGlobalURLAliasesWithOffsetAndLimit()
@@ -2530,8 +2496,6 @@ class UrlAliasHandlerTest extends TestCase
 
     /**
      * Test for the locationDeleted() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationDeleted
      */
     public function testLocationDeleted()
     {
@@ -2585,8 +2549,6 @@ class UrlAliasHandlerTest extends TestCase
 
     /**
      * Test for the locationMoved() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationMoved
      */
     public function testLocationMovedHistorize()
     {
@@ -2622,8 +2584,6 @@ class UrlAliasHandlerTest extends TestCase
 
     /**
      * Test for the locationMoved() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationMoved
      */
     public function testLocationMovedHistory()
     {
@@ -2659,8 +2619,6 @@ class UrlAliasHandlerTest extends TestCase
 
     /**
      * Test for the locationMoved() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationMoved
      */
     public function testLocationMovedHistorySubtree()
     {
@@ -2704,8 +2662,6 @@ class UrlAliasHandlerTest extends TestCase
 
     /**
      * Test for the locationMoved() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationMoved
      */
     public function testLocationMovedReparent()
     {
@@ -2749,12 +2705,10 @@ class UrlAliasHandlerTest extends TestCase
 
     /**
      * Test for the locationMoved() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationMoved
      */
     public function testLocationMovedReparentHistory()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $handler = $this->getHandler();
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/urlaliases_move.php');
@@ -2767,8 +2721,6 @@ class UrlAliasHandlerTest extends TestCase
 
     /**
      * Test for the locationMoved() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationMoved
      */
     public function testLocationMovedReparentSubtree()
     {
@@ -2816,8 +2768,6 @@ class UrlAliasHandlerTest extends TestCase
 
     /**
      * Test for the locationMoved() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationMoved
      */
     public function testLocationMovedReparentSubtreeHistory()
     {
@@ -2865,8 +2815,6 @@ class UrlAliasHandlerTest extends TestCase
 
     /**
      * Test for the locationCopied() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationCopied
      */
     public function testLocationCopiedCopiedLocationAliasIsValid()
     {
@@ -2885,8 +2833,6 @@ class UrlAliasHandlerTest extends TestCase
 
     /**
      * Test for the locationCopied() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationCopied
      */
     public function testLocationCopiedCopiedSubtreeIsValid()
     {
@@ -2905,12 +2851,10 @@ class UrlAliasHandlerTest extends TestCase
 
     /**
      * Test for the locationCopied() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationCopied
      */
     public function testLocationCopiedHistoryNotCopied()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $handler = $this->getHandler();
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/urlaliases_copy.php');
@@ -2922,12 +2866,10 @@ class UrlAliasHandlerTest extends TestCase
 
     /**
      * Test for the locationCopied() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationCopied
      */
     public function testLocationCopiedSubtreeHistoryNotCopied()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $handler = $this->getHandler();
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/urlaliases_copy.php');
@@ -2939,8 +2881,6 @@ class UrlAliasHandlerTest extends TestCase
 
     /**
      * Test for the locationCopied() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationCopied
      */
     public function testLocationCopiedSubtree()
     {
@@ -2995,7 +2935,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the loadUrlAlias() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::loadUrlAlias
+     *
      * @dataProvider providerForTestLookupLocationMultipleLanguages
      */
     public function testLoadAutogeneratedUrlAlias(
@@ -3033,7 +2973,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the loadUrlAlias() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::loadUrlAlias
+     *
      * @dataProvider providerForTestLookupResourceUrlAlias
      */
     public function testLoadResourceUrlAlias(
@@ -3072,7 +3012,7 @@ class UrlAliasHandlerTest extends TestCase
     /**
      * Test for the loadUrlAlias() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::loadUrlAlias
+     *
      * @dataProvider providerForTestLookupVirtualUrlAlias
      */
     public function testLoadVirtualUrlAlias($url, $id)
@@ -3122,8 +3062,6 @@ class UrlAliasHandlerTest extends TestCase
 
     /**
      * Test for the loadUrlAlias() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::loadUrlAlias
      */
     public function testLoadHistoryUrlAlias()
     {
@@ -3141,12 +3079,10 @@ class UrlAliasHandlerTest extends TestCase
 
     /**
      * Test for the loadUrlAlias() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::loadUrlAlias
      */
     public function testLoadUrlAliasThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $handler = $this->getHandler();
 
@@ -3171,7 +3107,7 @@ class UrlAliasHandlerTest extends TestCase
      * Test for the publishUrlAliasForLocation() method.
      *
      * @dataProvider providerForTestPublishUrlAliasForLocationSkipsReservedWord
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
+     * @covers \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Handler::publishUrlAliasForLocation
      * @group publish
      */
     public function testPublishUrlAliasForLocationSkipsReservedWord($text, $alias)
@@ -5255,8 +5191,6 @@ class UrlAliasHandlerTest extends TestCase
      * Test for the locationSwapped() method.
      *
      * @group swap
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationSwapped
      */
     public function testLocationSwappedUpdatesLocationPathIdentificationString()
     {
@@ -5284,8 +5218,6 @@ class UrlAliasHandlerTest extends TestCase
      * Test for the locationSwapped() method.
      *
      * @group swap
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationSwapped
      */
     public function testLocationSwappedMultipleLanguagesUpdatesLocationPathIdentificationString()
     {
@@ -5322,19 +5254,19 @@ class UrlAliasHandlerTest extends TestCase
         return (int)$statement->fetchColumn();
     }
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway */
     protected $locationGateway;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Language\Handler */
     protected $languageHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator */
     protected $languageMaskGenerator;
 
     /**
      * @param array $methods
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Handler|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getPartlyMockedHandler(array $methods)
     {
@@ -5356,7 +5288,7 @@ class UrlAliasHandlerTest extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Handler
      *
      * @throws \Doctrine\DBAL\DBALException
      */
@@ -5409,7 +5341,7 @@ class UrlAliasHandlerTest extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator
      */
     protected function getLanguageMaskGenerator()
     {
@@ -5423,7 +5355,7 @@ class UrlAliasHandlerTest extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway
      */
     protected function getLocationGateway()
     {
@@ -5440,7 +5372,7 @@ class UrlAliasHandlerTest extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\Core\Persistence\TransformationProcessor
+     * @return \Ibexa\Core\Persistence\TransformationProcessor
      */
     public function getProcessor()
     {
@@ -5467,8 +5399,6 @@ class UrlAliasHandlerTest extends TestCase
     }
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::archiveUrlAliasesForDeletedTranslations()
-     *
      * @dataProvider providerForArchiveUrlAliasesForDeletedTranslations
      *
      * @param int $locationId
@@ -5535,3 +5465,5 @@ class UrlAliasHandlerTest extends TestCase
         }
     }
 }
+
+class_alias(UrlAliasHandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\UrlAlias\UrlAliasHandlerTest');

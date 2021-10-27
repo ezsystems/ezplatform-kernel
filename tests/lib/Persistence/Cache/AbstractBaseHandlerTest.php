@@ -6,30 +6,30 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use eZ\Publish\Core\Persistence\Cache\Adapter\TransactionalInMemoryCacheAdapter;
-use eZ\Publish\Core\Persistence\Cache\Handler as CacheHandler;
-use eZ\Publish\Core\Persistence\Cache\SectionHandler as CacheSectionHandler;
-use eZ\Publish\Core\Persistence\Cache\LocationHandler as CacheLocationHandler;
-use eZ\Publish\Core\Persistence\Cache\ContentHandler as CacheContentHandler;
-use eZ\Publish\Core\Persistence\Cache\ContentLanguageHandler as CacheContentLanguageHandler;
-use eZ\Publish\Core\Persistence\Cache\ContentTypeHandler as CacheContentTypeHandler;
+use Ibexa\Core\Persistence\Cache\Adapter\TransactionalInMemoryCacheAdapter;
+use Ibexa\Core\Persistence\Cache\Handler as CacheHandler;
+use Ibexa\Core\Persistence\Cache\SectionHandler as CacheSectionHandler;
+use Ibexa\Core\Persistence\Cache\LocationHandler as CacheLocationHandler;
+use Ibexa\Core\Persistence\Cache\ContentHandler as CacheContentHandler;
+use Ibexa\Core\Persistence\Cache\ContentLanguageHandler as CacheContentLanguageHandler;
+use Ibexa\Core\Persistence\Cache\ContentTypeHandler as CacheContentTypeHandler;
+use Ibexa\Core\Persistence\Cache\UserHandler as CacheUserHandler;
 use Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface;
-use eZ\Publish\Core\Persistence\Cache\UserHandler as CacheUserHandler;
-use eZ\Publish\Core\Persistence\Cache\TransactionHandler as CacheTransactionHandler;
-use eZ\Publish\Core\Persistence\Cache\TrashHandler as CacheTrashHandler;
-use eZ\Publish\Core\Persistence\Cache\UrlAliasHandler as CacheUrlAliasHandler;
-use eZ\Publish\Core\Persistence\Cache\ObjectStateHandler as CacheObjectStateHandler;
-use eZ\Publish\Core\Persistence\Cache\URLHandler as CacheUrlHandler;
-use eZ\Publish\Core\Persistence\Cache\BookmarkHandler as CacheBookmarkHandler;
-use eZ\Publish\Core\Persistence\Cache\NotificationHandler as CacheNotificationHandler;
-use eZ\Publish\Core\Persistence\Cache\UserPreferenceHandler as CacheUserPreferenceHandler;
-use eZ\Publish\Core\Persistence\Cache\UrlWildcardHandler as CacheUrlWildcardHandler;
-use eZ\Publish\Core\Persistence\Cache\SettingHandler as CacheSettingHandler;
-use eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache;
-use eZ\Publish\Core\Persistence\Cache\PersistenceLogger;
-use eZ\Publish\SPI\Persistence\Handler;
+use Ibexa\Core\Persistence\Cache\TransactionHandler as CacheTransactionHandler;
+use Ibexa\Core\Persistence\Cache\TrashHandler as CacheTrashHandler;
+use Ibexa\Core\Persistence\Cache\UrlAliasHandler as CacheUrlAliasHandler;
+use Ibexa\Core\Persistence\Cache\ObjectStateHandler as CacheObjectStateHandler;
+use Ibexa\Core\Persistence\Cache\URLHandler as CacheUrlHandler;
+use Ibexa\Core\Persistence\Cache\BookmarkHandler as CacheBookmarkHandler;
+use Ibexa\Core\Persistence\Cache\NotificationHandler as CacheNotificationHandler;
+use Ibexa\Core\Persistence\Cache\UserPreferenceHandler as CacheUserPreferenceHandler;
+use Ibexa\Core\Persistence\Cache\UrlWildcardHandler as CacheUrlWildcardHandler;
+use Ibexa\Core\Persistence\Cache\SettingHandler as CacheSettingHandler;
+use Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache;
+use Ibexa\Core\Persistence\Cache\PersistenceLogger;
+use Ibexa\Contracts\Core\Persistence\Handler;
 use Symfony\Component\Cache\CacheItem;
 use PHPUnit\Framework\TestCase;
 
@@ -38,19 +38,19 @@ use PHPUnit\Framework\TestCase;
  */
 abstract class AbstractBaseHandlerTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Cache\Adapter\TransactionalInMemoryCacheAdapter|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Persistence\Cache\Adapter\TransactionalInMemoryCacheAdapter|\PHPUnit\Framework\MockObject\MockObject */
     protected $cacheMock;
 
-    /** @var \eZ\Publish\SPI\Persistence\Handler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Persistence\Handler|\PHPUnit\Framework\MockObject\MockObject */
     protected $persistenceHandlerMock;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\Handler */
+    /** @var \Ibexa\Core\Persistence\Cache\Handler */
     protected $persistenceCacheHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\PersistenceLogger|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Persistence\Cache\PersistenceLogger|\PHPUnit\Framework\MockObject\MockObject */
     protected $loggerMock;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache|\PHPUnit\Framework\MockObject\MockObject */
     protected $inMemoryMock;
 
     /** @var \Closure */
@@ -141,3 +141,5 @@ abstract class AbstractBaseHandlerTest extends TestCase
         return $cacheItemsClosure($key, $value, (bool)$value, $defaultLifetime);
     }
 }
+
+class_alias(AbstractBaseHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\AbstractBaseHandlerTest');

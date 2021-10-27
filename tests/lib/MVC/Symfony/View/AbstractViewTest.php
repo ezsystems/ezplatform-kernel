@@ -6,13 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\View\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\View;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\MVC\Symfony\View\View;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Ibexa\Core\MVC\Symfony\View\View
+ */
 abstract class AbstractViewTest extends TestCase
 {
     abstract protected function createViewUnderTest($template = null, array $parameters = [], $viewType = 'full'): View;
@@ -27,10 +30,6 @@ abstract class AbstractViewTest extends TestCase
         return [];
     }
 
-    /**
-     * @covers \eZ\Publish\Core\MVC\Symfony\View\View::setParameters
-     * @covers \eZ\Publish\Core\MVC\Symfony\View\View::getParameters
-     */
     public function testGetSetParameters(): void
     {
         $params = [
@@ -44,10 +43,6 @@ abstract class AbstractViewTest extends TestCase
         self::assertSame($this->getAlwaysAvailableParams() + $params, $view->getParameters());
     }
 
-    /**
-     * @covers \eZ\Publish\Core\MVC\Symfony\View\View::setParameters
-     * @covers \eZ\Publish\Core\MVC\Symfony\View\View::getParameters
-     */
     public function testAddParameters(): void
     {
         $params = ['bar' => 'baz', 'fruit' => 'apple'];
@@ -59,10 +54,6 @@ abstract class AbstractViewTest extends TestCase
         $this->assertSame($this->getAlwaysAvailableParams() + $params + $additionalParams, $view->getParameters());
     }
 
-    /**
-     * @covers \eZ\Publish\Core\MVC\Symfony\View\View::setParameters
-     * @covers \eZ\Publish\Core\MVC\Symfony\View\View::getParameters
-     */
     public function testHasParameter(): View
     {
         $view = $this->createViewUnderTest(__METHOD__, ['foo' => 'bar']);
@@ -75,12 +66,6 @@ abstract class AbstractViewTest extends TestCase
 
     /**
      * @depends testHasParameter
-     * @covers  \eZ\Publish\Core\MVC\Symfony\View\View::setParameters
-     * @covers  \eZ\Publish\Core\MVC\Symfony\View\View::getParameters
-     *
-     * @param \eZ\Publish\Core\MVC\Symfony\View\View $view
-     *
-     * @return \eZ\Publish\Core\MVC\Symfony\View\View
      */
     public function testGetParameter(View $view): View
     {
@@ -91,9 +76,6 @@ abstract class AbstractViewTest extends TestCase
 
     /**
      * @depends testGetParameter
-     *
-     * @covers \eZ\Publish\Core\MVC\Symfony\View\View::setParameters
-     * @covers \eZ\Publish\Core\MVC\Symfony\View\View::getParameters
      */
     public function testGetParameterFail(View $view): void
     {
@@ -150,3 +132,5 @@ abstract class AbstractViewTest extends TestCase
         ];
     }
 }
+
+class_alias(AbstractViewTest::class, 'eZ\Publish\Core\MVC\Symfony\View\Tests\AbstractViewTest');

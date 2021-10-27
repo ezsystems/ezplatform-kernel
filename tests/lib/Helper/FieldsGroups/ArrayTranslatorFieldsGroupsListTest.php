@@ -4,14 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Helper\Tests\FieldsGroups;
+namespace Ibexa\Tests\Core\Helper\FieldsGroups;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @covers \Ibexa\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList
+ */
 class ArrayTranslatorFieldsGroupsListTest extends TestCase
 {
     private const FIRST_GROUP_ID = 'slayer';
@@ -25,9 +28,6 @@ class ArrayTranslatorFieldsGroupsListTest extends TestCase
 
     private $translatorMock;
 
-    /**
-     * @covers \eZ\Publish\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList::getGroups
-     */
     public function testTranslatesGroups(): void
     {
         $this->applyTranslationsForTranslationsMock();
@@ -43,9 +43,6 @@ class ArrayTranslatorFieldsGroupsListTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList::getDefaultGroup
-     */
     public function testReturnsDefault(): void
     {
         $list = $this->getArrayTranslatorFieldsGroupsList([]);
@@ -53,9 +50,6 @@ class ArrayTranslatorFieldsGroupsListTest extends TestCase
         self::assertEquals(self::DEFAULT_GROUP_ID, $list->getDefaultGroup());
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList::getFieldGroup
-     */
     public function testGetFieldGroupWhenFieldDefinitionHasGroup(): void
     {
         $fieldDefinitionMock = $this->getFieldDefinitionMock(
@@ -70,9 +64,6 @@ class ArrayTranslatorFieldsGroupsListTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList::getFieldGroup
-     */
     public function testGetFieldGroupWhenFieldDefinitionMissingGroup(): void
     {
         $fieldDefinitionMock = $this->getFieldDefinitionMock();
@@ -142,7 +133,7 @@ class ArrayTranslatorFieldsGroupsListTest extends TestCase
     /**
      * @param array $constructorArgs
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition|\PHPUnit\Framework\MockObject\MockObject
      */
     private function getFieldDefinitionMock(array $constructorArgs = []): MockObject
     {
@@ -152,3 +143,5 @@ class ArrayTranslatorFieldsGroupsListTest extends TestCase
             ->getMockForAbstractClass();
     }
 }
+
+class_alias(ArrayTranslatorFieldsGroupsListTest::class, 'eZ\Publish\Core\Helper\Tests\FieldsGroups\ArrayTranslatorFieldsGroupsListTest');

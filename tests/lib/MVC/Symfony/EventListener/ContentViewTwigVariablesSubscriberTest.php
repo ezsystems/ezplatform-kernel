@@ -6,24 +6,24 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\EventListener\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\EventListener;
 
 use ArrayIterator;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent;
-use eZ\Publish\Core\MVC\Symfony\EventListener\ContentViewTwigVariablesSubscriber;
-use eZ\Publish\Core\MVC\Symfony\View\ContentView;
-use eZ\Publish\Core\MVC\Symfony\View\GenericVariableProviderRegistry;
-use eZ\Publish\Core\MVC\Symfony\View\View;
-use eZ\Publish\Core\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\SPI\MVC\View\VariableProvider;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
+use Ibexa\Core\MVC\Symfony\EventListener\ContentViewTwigVariablesSubscriber;
+use Ibexa\Core\MVC\Symfony\View\ContentView;
+use Ibexa\Core\MVC\Symfony\View\GenericVariableProviderRegistry;
+use Ibexa\Core\MVC\Symfony\View\View;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\MVC\View\VariableProvider;
 use PHPUnit\Framework\TestCase;
 
 final class ContentViewTwigVariablesSubscriberTest extends TestCase
 {
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\View\ContentView|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\MVC\Symfony\View\ContentView|\PHPUnit\Framework\MockObject\MockObject
      */
     private function getContentViewMock(): ContentView
     {
@@ -246,3 +246,5 @@ final class ContentViewTwigVariablesSubscriberTest extends TestCase
         $subscriber->onPreContentView($event);
     }
 }
+
+class_alias(ContentViewTwigVariablesSubscriberTest::class, 'eZ\Publish\Core\MVC\Symfony\EventListener\Tests\ContentViewTwigVariablesSubscriberTest');

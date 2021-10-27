@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
@@ -217,3 +217,5 @@ abstract class FileSearchBaseIntegrationTest extends SearchBaseIntegrationTest
         $this->testIsEmptyValue($updatedContent->getFieldValue('data'));
     }
 }
+
+class_alias(FileSearchBaseIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\FieldType\FileSearchBaseIntegrationTest');

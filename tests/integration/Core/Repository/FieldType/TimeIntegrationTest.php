@@ -4,10 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use eZ\Publish\Core\FieldType\Time\Value as TimeValue;
-use eZ\Publish\API\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Core\FieldType\Time\Value as TimeValue;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use DateTime;
 
 /**
@@ -147,7 +148,7 @@ class TimeIntegrationTest extends SearchBaseIntegrationTest
     public function assertFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Time\\Value',
+            TimeValue::class,
             $field->value
         );
 
@@ -160,32 +161,11 @@ class TimeIntegrationTest extends SearchBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during creation.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidCreationFieldData()
     {
         return [
             [
-                'Some unknown date format', 'eZ\\Publish\\API\\Repository\\Exceptions\\InvalidArgumentException',
+                'Some unknown date format', InvalidArgumentException::class,
             ],
         ];
     }
@@ -210,7 +190,7 @@ class TimeIntegrationTest extends SearchBaseIntegrationTest
     public function assertUpdatedFieldDataLoadedCorrect(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Time\\Value',
+            TimeValue::class,
             $field->value
         );
 
@@ -224,27 +204,6 @@ class TimeIntegrationTest extends SearchBaseIntegrationTest
         );
     }
 
-    /**
-     * Get field data which will result in errors during update.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidUpdateFieldData()
     {
         return $this->provideInvalidCreationFieldData();
@@ -262,7 +221,7 @@ class TimeIntegrationTest extends SearchBaseIntegrationTest
     {
         return [
             [
-                'Some unknown date format', 'eZ\\Publish\\API\\Repository\\Exceptions\\InvalidArgumentException',
+                'Some unknown date format', InvalidArgumentException::class,
             ],
         ];
     }
@@ -278,7 +237,7 @@ class TimeIntegrationTest extends SearchBaseIntegrationTest
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {
         $this->assertInstanceOf(
-            'eZ\\Publish\\Core\\FieldType\\Time\\Value',
+            TimeValue::class,
             $field->value
         );
 
@@ -377,3 +336,5 @@ class TimeIntegrationTest extends SearchBaseIntegrationTest
         return 14400;
     }
 }
+
+class_alias(TimeIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\FieldType\TimeIntegrationTest');

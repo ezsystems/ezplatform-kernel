@@ -4,25 +4,23 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\UrlAlias;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\UrlAlias;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
-use eZ\Publish\Core\Persistence\TransformationProcessor;
-use eZ\Publish\Core\Persistence\TransformationProcessor\PcreCompiler;
-use eZ\Publish\Core\Persistence\TransformationProcessor\PreprocessedBased;
-use eZ\Publish\Core\Persistence\Utf8Converter;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
+use Ibexa\Core\Persistence\TransformationProcessor;
+use Ibexa\Core\Persistence\TransformationProcessor\PcreCompiler;
+use Ibexa\Core\Persistence\TransformationProcessor\PreprocessedBased;
+use Ibexa\Core\Persistence\Utf8Converter;
 use PHPUnit\Framework\TestSuite;
 
 /**
- * Test case for URL slug converter.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter
  */
 class SlugConverterTest extends TestCase
 {
     /**
      * Test for the convert() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter::convert
      */
     public function testConvert()
     {
@@ -51,8 +49,6 @@ class SlugConverterTest extends TestCase
 
     /**
      * Test for the convert() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter::convert
      */
     public function testConvertWithDefaultTextFallback()
     {
@@ -81,8 +77,6 @@ class SlugConverterTest extends TestCase
 
     /**
      * Test for the convert() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter::convert
      */
     public function testConvertWithGivenTransformation()
     {
@@ -123,7 +117,6 @@ class SlugConverterTest extends TestCase
      * Test for the getUniqueCounterValue() method.
      *
      * @dataProvider providerForTestGetUniqueCounterValue
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter::getUniqueCounterValue
      */
     public function testGetUniqueCounterValue($text, $isRootLevel, $returnValue)
     {
@@ -160,12 +153,11 @@ class SlugConverterTest extends TestCase
      * Test for the cleanupText() method.
      *
      * @dataProvider cleanupTextData
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter::cleanupText
      */
     public function testCleanupText($text, $method, $expected)
     {
         $testMethod = new \ReflectionMethod(
-            '\eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter',
+            SlugConverter::class,
             'cleanupText'
         );
         $testMethod->setAccessible(true);
@@ -206,7 +198,7 @@ class SlugConverterTest extends TestCase
      * Test for the convert() method.
      *
      * @dataProvider convertData
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter::convert
+     *
      * @depends testCleanupText
      */
     public function testConvertNoMocking($text, $defaultText, $transformation, $expected)
@@ -216,10 +208,10 @@ class SlugConverterTest extends TestCase
                 new Utf8Converter()
             ),
             [
-                __DIR__ . '../../../../../Tests/TransformationProcessor/_fixtures/transformations/ascii.tr.result',
-                __DIR__ . '../../../../../Tests/TransformationProcessor/_fixtures/transformations/basic.tr.result',
-                __DIR__ . '../../../../../Tests/TransformationProcessor/_fixtures/transformations/latin.tr.result',
-                __DIR__ . '../../../../../Tests/TransformationProcessor/_fixtures/transformations/search.tr.result',
+                __DIR__ . '/../../../TransformationProcessor/_fixtures/transformations/ascii.tr.result',
+                __DIR__ . '/../../../TransformationProcessor/_fixtures/transformations/basic.tr.result',
+                __DIR__ . '/../../../TransformationProcessor/_fixtures/transformations/latin.tr.result',
+                __DIR__ . '/../../../TransformationProcessor/_fixtures/transformations/search.tr.result',
             ]
         );
         $slugConverter = new SlugConverter($transformationProcessor);
@@ -252,7 +244,7 @@ class SlugConverterTest extends TestCase
         ],
     ];
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter */
     protected $slugConverter;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject */
@@ -262,7 +254,7 @@ class SlugConverterTest extends TestCase
     protected $transformationProcessorMock;
 
     /**
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter
+     * @return \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter
      */
     protected function getMockedSlugConverter()
     {
@@ -279,7 +271,7 @@ class SlugConverterTest extends TestCase
     /**
      * @param array $methods
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getSlugConverterMock(array $methods = [])
     {
@@ -328,3 +320,5 @@ class SlugConverterTest extends TestCase
         return new TestSuite(__CLASS__);
     }
 }
+
+class_alias(SlugConverterTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\UrlAlias\SlugConverterTest');

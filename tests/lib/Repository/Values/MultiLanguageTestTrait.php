@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Values;
+namespace Ibexa\Tests\Core\Repository\Values;
 
-use eZ\Publish\SPI\Repository\Values\MultiLanguageDescription;
-use eZ\Publish\SPI\Repository\Values\MultiLanguageName;
+use Ibexa\Contracts\Core\Repository\Values\MultiLanguageDescription;
+use Ibexa\Contracts\Core\Repository\Values\MultiLanguageName;
 use ReflectionClass;
 
 /**
@@ -20,7 +20,7 @@ trait MultiLanguageTestTrait
     /**
      * @depends testNewClassWithMultiLanguageProperties
      *
-     * @param \eZ\Publish\SPI\Repository\Values\MultiLanguageName $object tested ValueObject
+     * @param \Ibexa\Contracts\Core\Repository\Values\MultiLanguageName $object tested ValueObject
      */
     public function testGetMultiLanguagePrioritizedName($object)
     {
@@ -39,7 +39,7 @@ trait MultiLanguageTestTrait
     /**
      * @depends testNewClassWithMultiLanguageProperties
      *
-     * @param \eZ\Publish\SPI\Repository\Values\MultiLanguageName $object tested ValueObject
+     * @param \Ibexa\Contracts\Core\Repository\Values\MultiLanguageName $object tested ValueObject
      */
     public function testGetMultiLanguageDefaultName($object)
     {
@@ -69,7 +69,7 @@ trait MultiLanguageTestTrait
     /**
      * @depends testNewClassWithMultiLanguageProperties
      *
-     * @param \eZ\Publish\SPI\Repository\Values\MultiLanguageDescription $object tested ValueObject
+     * @param \Ibexa\Contracts\Core\Repository\Values\MultiLanguageDescription $object tested ValueObject
      */
     public function testGetMultiLanguagePrioritizedDescription($object)
     {
@@ -88,7 +88,7 @@ trait MultiLanguageTestTrait
     /**
      * @depends testNewClassWithMultiLanguageProperties
      *
-     * @param \eZ\Publish\SPI\Repository\Values\MultiLanguageDescription $object tested ValueObject
+     * @param \Ibexa\Contracts\Core\Repository\Values\MultiLanguageDescription $object tested ValueObject
      */
     public function testGetMultiLanguageDefaultDescription($object)
     {
@@ -116,3 +116,5 @@ trait MultiLanguageTestTrait
         }
     }
 }
+
+class_alias(MultiLanguageTestTrait::class, 'eZ\Publish\Core\Repository\Tests\Values\MultiLanguageTestTrait');

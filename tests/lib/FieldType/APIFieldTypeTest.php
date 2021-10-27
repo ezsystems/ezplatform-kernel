@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests;
+namespace Ibexa\Tests\Core\FieldType;
 
-use eZ\Publish\Core\Repository\Values\ContentType\FieldType;
-use eZ\Publish\Core\FieldType\Value;
-use eZ\Publish\SPI\FieldType\FieldType as SPIFieldType;
-use eZ\Publish\SPI\FieldType\ValidationError;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
+use Ibexa\Core\Repository\Values\ContentType\FieldType;
+use Ibexa\Core\FieldType\Value;
+use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
+use Ibexa\Contracts\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
 use PHPUnit\Framework\TestCase;
 
 class APIFieldTypeTest extends TestCase
@@ -120,3 +120,5 @@ class APIFieldTypeTest extends TestCase
         self::assertSame($validationErrors, $this->fieldType->validateValue($fieldDefinition, $value));
     }
 }
+
+class_alias(APIFieldTypeTest::class, 'eZ\Publish\Core\FieldType\Tests\APIFieldTypeTest');

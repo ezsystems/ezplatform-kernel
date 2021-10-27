@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\View\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\View;
 
 use ArrayIterator;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\MVC\Symfony\View\GenericVariableProviderRegistry;
-use eZ\Publish\Core\MVC\Symfony\View\View;
-use eZ\Publish\SPI\MVC\View\VariableProvider;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\MVC\Symfony\View\GenericVariableProviderRegistry;
+use Ibexa\Core\MVC\Symfony\View\View;
+use Ibexa\Contracts\Core\MVC\View\VariableProvider;
 use PHPUnit\Framework\TestCase;
 
 final class VariableProviderRegistryTest extends TestCase
@@ -103,3 +103,5 @@ final class VariableProviderRegistryTest extends TestCase
         $this->assertFalse($registry->hasTwigVariableProvider('provider_c'));
     }
 }
+
+class_alias(VariableProviderRegistryTest::class, 'eZ\Publish\Core\MVC\Symfony\View\Tests\VariableProviderRegistryTest');

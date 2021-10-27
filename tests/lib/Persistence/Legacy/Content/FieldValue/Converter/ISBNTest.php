@@ -4,20 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use eZ\Publish\Core\FieldType\FieldSettings;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\ISBNConverter;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
+use Ibexa\Core\FieldType\FieldSettings;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\ISBNConverter;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test for ISBNConverter in Legacy Storage.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\ISBNConverter
  */
 class ISBNTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\ISBNConverter */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\ISBNConverter */
     protected $converter;
 
     protected function setUp(): void
@@ -27,8 +27,6 @@ class ISBNTest extends TestCase
 
     /**
      * @dataProvider providerForTestToFieldDefinition
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\ISBNConverter::toFieldDefinition
      */
     public function testToFieldDefinition($dataInt, $excpectedIsbn13Value)
     {
@@ -53,3 +51,5 @@ class ISBNTest extends TestCase
         ];
     }
 }
+
+class_alias(ISBNTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter\ISBNTest');

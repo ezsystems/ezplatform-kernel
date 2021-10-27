@@ -6,26 +6,26 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Bookmark;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Bookmark;
 
-use eZ\Publish\Core\Persistence\Legacy\Bookmark\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\Bookmark\Handler;
-use eZ\Publish\Core\Persistence\Legacy\Bookmark\Mapper;
-use eZ\Publish\SPI\Persistence\Bookmark\Bookmark;
-use eZ\Publish\SPI\Persistence\Bookmark\CreateStruct;
+use Ibexa\Core\Persistence\Legacy\Bookmark\Gateway;
+use Ibexa\Core\Persistence\Legacy\Bookmark\Handler;
+use Ibexa\Core\Persistence\Legacy\Bookmark\Mapper;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
+use Ibexa\Contracts\Core\Persistence\Bookmark\CreateStruct;
 use PHPUnit\Framework\TestCase;
 
 class HandlerTest extends TestCase
 {
     const BOOKMARK_ID = 7;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Bookmark\Gateway|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Persistence\Legacy\Bookmark\Gateway|\PHPUnit\Framework\MockObject\MockObject */
     private $gateway;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Bookmark\Mapper|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Persistence\Legacy\Bookmark\Mapper|\PHPUnit\Framework\MockObject\MockObject */
     private $mapper;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Bookmark\Handler */
+    /** @var \Ibexa\Core\Persistence\Legacy\Bookmark\Handler */
     private $handler;
 
     protected function setUp(): void
@@ -35,9 +35,6 @@ class HandlerTest extends TestCase
         $this->handler = new Handler($this->gateway, $this->mapper);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Bookmark\Handler::create
-     */
     public function testCreate()
     {
         $createStruct = new CreateStruct([
@@ -69,9 +66,6 @@ class HandlerTest extends TestCase
         $this->assertEquals($bookmark->id, self::BOOKMARK_ID);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Bookmark\Handler::delete
-     */
     public function testDelete()
     {
         $this->gateway
@@ -82,9 +76,6 @@ class HandlerTest extends TestCase
         $this->handler->delete(self::BOOKMARK_ID);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Bookmark\Handler::loadByUserIdAndLocationId
-     */
     public function testLoadByUserIdAndLocationIdExistingBookmark()
     {
         $userId = 87;
@@ -119,9 +110,6 @@ class HandlerTest extends TestCase
         $this->assertEquals([$locationId => $object], $this->handler->loadByUserIdAndLocationId($userId, [$locationId]));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Bookmark\Handler::loadByUserIdAndLocationId
-     */
     public function testLoadByUserIdAndLocationIdNonExistingBookmark()
     {
         $userId = 87;
@@ -142,9 +130,6 @@ class HandlerTest extends TestCase
         $this->assertEmpty($this->handler->loadByUserIdAndLocationId($userId, [$locationId]));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Bookmark\Handler::loadUserBookmarks
-     */
     public function testLoadUserBookmarks()
     {
         $userId = 87;
@@ -196,9 +181,6 @@ class HandlerTest extends TestCase
         $this->assertEquals($objects, $this->handler->loadUserBookmarks($userId, $offset, $limit));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Bookmark\Handler::locationSwapped
-     */
     public function testLocationSwapped()
     {
         $location1Id = 1;
@@ -212,3 +194,5 @@ class HandlerTest extends TestCase
         $this->handler->locationSwapped($location1Id, $location2Id);
     }
 }
+
+class_alias(HandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Bookmark\HandlerTest');

@@ -4,22 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\ObjectState;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\ObjectState;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Mapper;
-use eZ\Publish\SPI\Persistence\Content\ObjectState;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\Group;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct;
+use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
+use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Mapper;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct;
 
 /**
- * Test case for Mapper.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Mapper
  */
 class MapperTest extends LanguageAwareTestCase
 {
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Mapper::createObjectStateFromData
-     */
     public function testCreateObjectStateFromData()
     {
         $mapper = $this->getMapper();
@@ -35,9 +32,6 @@ class MapperTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Mapper::createObjectStateListFromData
-     */
     public function testCreateObjectStateListFromData()
     {
         $mapper = $this->getMapper();
@@ -53,9 +47,6 @@ class MapperTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Mapper::createObjectStateGroupFromData
-     */
     public function testCreateObjectStateGroupFromData()
     {
         $mapper = $this->getMapper();
@@ -71,9 +62,6 @@ class MapperTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Mapper::createObjectStateGroupListFromData
-     */
     public function testCreateObjectStateGroupListFromData()
     {
         $mapper = $this->getMapper();
@@ -89,9 +77,6 @@ class MapperTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Mapper::createObjectStateFromInputStruct
-     */
     public function testCreateObjectStateFromInputStruct()
     {
         $mapper = $this->getMapper();
@@ -107,9 +92,6 @@ class MapperTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Mapper::createObjectStateGroupFromInputStruct
-     */
     public function testCreateObjectStateGroupFromInputStruct()
     {
         $mapper = $this->getMapper();
@@ -128,7 +110,7 @@ class MapperTest extends LanguageAwareTestCase
     /**
      * Returns a Mapper.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Mapper
+     * @return \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Mapper
      */
     protected function getMapper()
     {
@@ -183,7 +165,7 @@ class MapperTest extends LanguageAwareTestCase
     /**
      * Returns an object state fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState
      */
     protected function getObjectStateFixture()
     {
@@ -200,7 +182,7 @@ class MapperTest extends LanguageAwareTestCase
     /**
      * Returns an object state group fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group
      */
     protected function getObjectStateGroupFixture()
     {
@@ -217,7 +199,7 @@ class MapperTest extends LanguageAwareTestCase
     /**
      * Returns the InputStruct fixture for creating object states.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct
      */
     protected function getObjectStateInputStructFixture()
     {
@@ -234,7 +216,7 @@ class MapperTest extends LanguageAwareTestCase
     /**
      * Returns the InputStruct fixture for creating object state groups.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct
      */
     protected function getObjectStateGroupInputStructFixture()
     {
@@ -248,3 +230,5 @@ class MapperTest extends LanguageAwareTestCase
         return $inputStruct;
     }
 }
+
+class_alias(MapperTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\ObjectState\MapperTest');

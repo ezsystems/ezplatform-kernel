@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\SearchService\Aggregation\Field;
+namespace Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation\Field;
 
-use eZ\Publish\API\Repository\Tests\SearchService\Aggregation\AbstractAggregationTest;
-use eZ\Publish\API\Repository\Tests\SearchService\Aggregation\FixtureGenerator\FieldAggregationFixtureGenerator;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Field\AuthorTermAggregation;
-use eZ\Publish\API\Repository\Values\Content\Search\AggregationResult\TermAggregationResult;
-use eZ\Publish\API\Repository\Values\Content\Search\AggregationResult\TermAggregationResultEntry;
-use eZ\Publish\Core\FieldType\Author\Author;
-use eZ\Publish\Core\FieldType\Author\Value as AuthorValue;
+use Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation\AbstractAggregationTest;
+use Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation\FixtureGenerator\FieldAggregationFixtureGenerator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\Field\AuthorTermAggregation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\TermAggregationResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\TermAggregationResultEntry;
+use Ibexa\Core\FieldType\Author\Author;
+use Ibexa\Core\FieldType\Author\Value as AuthorValue;
 
 final class AuthorTermAggregationTest extends AbstractAggregationTest
 {
@@ -111,3 +111,5 @@ final class AuthorTermAggregationTest extends AbstractAggregationTest
         $this->refreshSearch($this->getRepository());
     }
 }
+
+class_alias(AuthorTermAggregationTest::class, 'eZ\Publish\API\Repository\Tests\SearchService\Aggregation\Field\AuthorTermAggregationTest');

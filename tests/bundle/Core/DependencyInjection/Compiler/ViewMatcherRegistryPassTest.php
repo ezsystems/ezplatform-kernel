@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Compiler;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ViewMatcherRegistryPass;
-use eZ\Bundle\EzPublishCoreBundle\Matcher\ViewMatcherRegistry;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\ViewMatcherRegistryPass;
+use Ibexa\Bundle\Core\Matcher\ViewMatcherRegistry;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -48,3 +48,5 @@ class ViewMatcherRegistryPassTest extends AbstractCompilerPassTestCase
         );
     }
 }
+
+class_alias(ViewMatcherRegistryPassTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler\ViewMatcherRegistryPassTest');

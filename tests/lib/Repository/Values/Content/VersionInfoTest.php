@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Values\Content;
+namespace Ibexa\Tests\Core\Repository\Values\Content;
 
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use PHPUnit\Framework\TestCase;
 
 class VersionInfoTest extends TestCase
@@ -51,3 +51,5 @@ class VersionInfoTest extends TestCase
         ]);
     }
 }
+
+class_alias(VersionInfoTest::class, 'eZ\Publish\Core\Repository\Tests\Values\Content\VersionInfoTest');

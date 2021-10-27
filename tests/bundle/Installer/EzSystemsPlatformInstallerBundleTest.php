@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\PlatformInstallerBundleTests;
+namespace Ibexa\Tests\Bundle\Installer;
 
 use EzSystems\DoctrineSchemaBundle\DependencyInjection\DoctrineSchemaExtension;
-use EzSystems\PlatformInstallerBundle\DependencyInjection\Compiler\InstallerTagPass;
-use EzSystems\PlatformInstallerBundle\EzSystemsPlatformInstallerBundle;
+use Ibexa\Bundle\Installer\DependencyInjection\Compiler\InstallerTagPass;
+use Ibexa\Bundle\Installer\EzSystemsPlatformInstallerBundle;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 
 class EzSystemsPlatformInstallerBundleTest extends TestCase
 {
-    /** @var \EzSystems\PlatformInstallerBundle\EzSystemsPlatformInstallerBundle */
+    /** @var \Ibexa\Bundle\Installer\EzSystemsPlatformInstallerBundle */
     private $bundle;
 
     public function setUp(): void
@@ -27,7 +27,7 @@ class EzSystemsPlatformInstallerBundleTest extends TestCase
     }
 
     /**
-     * @covers \EzSystems\PlatformInstallerBundle\EzSystemsPlatformInstallerBundle::build
+     * @covers \Ibexa\Bundle\Installer\EzSystemsPlatformInstallerBundle::build
      */
     public function testBuild(): void
     {
@@ -47,7 +47,7 @@ class EzSystemsPlatformInstallerBundleTest extends TestCase
     }
 
     /**
-     * @covers \EzSystems\PlatformInstallerBundle\EzSystemsPlatformInstallerBundle::build
+     * @covers \Ibexa\Bundle\Installer\EzSystemsPlatformInstallerBundle::build
      */
     public function testBuildFailsWithoutDoctrineSchemaBundle(): void
     {
@@ -58,3 +58,5 @@ class EzSystemsPlatformInstallerBundleTest extends TestCase
         $this->bundle->build($container);
     }
 }
+
+class_alias(EzSystemsPlatformInstallerBundleTest::class, 'EzSystems\PlatformInstallerBundleTests\EzSystemsPlatformInstallerBundleTest');

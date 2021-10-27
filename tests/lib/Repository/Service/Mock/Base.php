@@ -4,94 +4,94 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
+namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
-use eZ\Publish\API\Repository\LanguageResolver;
-use eZ\Publish\API\Repository\PermissionService;
-use eZ\Publish\Core\Repository\Mapper\ContentDomainMapper;
-use eZ\Publish\Core\Repository\Mapper\ContentMapper;
-use eZ\Publish\Core\Repository\Mapper\RoleDomainMapper;
-use eZ\Publish\Core\Repository\Permission\LimitationService;
-use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
-use eZ\Publish\Core\Repository\Strategy\ContentValidator\ContentValidatorStrategy;
-use eZ\Publish\API\Repository\PasswordHashService;
-use eZ\Publish\Core\FieldType\FieldTypeRegistry;
-use eZ\Publish\Core\Repository\Helper\RelationProcessor;
-use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
-use eZ\Publish\Core\Repository\Validator\ContentCreateStructValidator;
-use eZ\Publish\Core\Repository\Validator\ContentUpdateStructValidator;
-use eZ\Publish\Core\Repository\Validator\VersionValidator;
-use eZ\Publish\Core\Search\Common\BackgroundIndexer\NullIndexer;
-use eZ\Publish\SPI\Persistence\Filter\Content\Handler as ContentFilteringHandler;
-use eZ\Publish\SPI\Persistence\Filter\Location\Handler as LocationFilteringHandler;
-use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
-use eZ\Publish\SPI\Repository\Validator\ContentValidator;
+use Ibexa\Contracts\Core\Repository\LanguageResolver;
+use Ibexa\Contracts\Core\Repository\PermissionService;
+use Ibexa\Core\Repository\Mapper\ContentDomainMapper;
+use Ibexa\Core\Repository\Mapper\ContentMapper;
+use Ibexa\Core\Repository\Mapper\RoleDomainMapper;
+use Ibexa\Core\Repository\Permission\LimitationService;
+use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
+use Ibexa\Core\Repository\Strategy\ContentValidator\ContentValidatorStrategy;
+use Ibexa\Contracts\Core\Repository\PasswordHashService;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Core\Repository\Helper\RelationProcessor;
+use Ibexa\Core\Repository\User\PasswordValidatorInterface;
+use Ibexa\Core\Repository\Validator\ContentCreateStructValidator;
+use Ibexa\Core\Repository\Validator\ContentUpdateStructValidator;
+use Ibexa\Core\Repository\Validator\VersionValidator;
+use Ibexa\Core\Search\Common\BackgroundIndexer\NullIndexer;
+use Ibexa\Contracts\Core\Persistence\Filter\Content\Handler as ContentFilteringHandler;
+use Ibexa\Contracts\Core\Persistence\Filter\Location\Handler as LocationFilteringHandler;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
+use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\Core\Repository\Repository;
-use eZ\Publish\Core\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Repository as APIRepository;
-use eZ\Publish\Core\Repository\Values\User\User;
-use eZ\Publish\Core\Repository\FieldTypeService;
-use eZ\Publish\Core\Repository\Mapper\ContentTypeDomainMapper;
-use eZ\Publish\SPI\Persistence\Handler;
+use Ibexa\Core\Repository\Repository;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Repository as APIRepository;
+use Ibexa\Core\Repository\Values\User\User;
+use Ibexa\Core\Repository\FieldTypeService;
+use Ibexa\Core\Repository\Mapper\ContentTypeDomainMapper;
+use Ibexa\Contracts\Core\Persistence\Handler;
 
 /**
  * Base test case for tests on services using Mock testing.
  */
 abstract class Base extends TestCase
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
-    /** @var \eZ\Publish\API\Repository\Repository|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository|\PHPUnit\Framework\MockObject\MockObject */
     private $repositoryMock;
 
-    /** @var \eZ\Publish\API\Repository\PermissionService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionService|\PHPUnit\Framework\MockObject\MockObject */
     private $permissionServiceMock;
 
-    /** @var \eZ\Publish\SPI\Persistence\Handler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Persistence\Handler|\PHPUnit\Framework\MockObject\MockObject */
     private $persistenceMock;
 
-    /** @var \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy|\PHPUnit\Framework\MockObject\MockObject */
     private $thumbnailStrategyMock;
 
     /**
      * The Content / Location / Search ... handlers for the persistence / Search / .. handler mocks.
      *
-     * @var \PHPUnit\Framework\MockObject\MockObject[] Key is relative to "\eZ\Publish\SPI\"
+     * @var \PHPUnit\Framework\MockObject\MockObject[] Key is relative to "Ibexa\Contracts\Core\"
      *
      * @see getPersistenceMockHandler()
      */
     private $spiMockHandlers = [];
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Repository\Mapper\ContentTypeDomainMapper */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Repository\Mapper\ContentTypeDomainMapper */
     private $contentTypeDomainMapperMock;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Repository\Mapper\ContentDomainMapper */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Repository\Mapper\ContentDomainMapper */
     private $contentDomainMapperMock;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Repository\Permission\LimitationService */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Repository\Permission\LimitationService */
     private $limitationServiceMock;
 
-    /** @var \eZ\Publish\API\Repository\LanguageResolver|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageResolver|\PHPUnit\Framework\MockObject\MockObject */
     private $languageResolverMock;
 
-    /** @var \eZ\Publish\Core\Repository\Mapper\RoleDomainMapper|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Repository\Mapper\RoleDomainMapper|\PHPUnit\Framework\MockObject\MockObject */
     protected $roleDomainMapperMock;
 
-    /** @var \eZ\Publish\Core\Repository\Mapper\ContentMapper|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\Repository\Mapper\ContentMapper|\PHPUnit\Framework\MockObject\MockObject */
     protected $contentMapperMock;
 
-    /** @var \eZ\Publish\SPI\Repository\Validator\ContentValidator|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\Validator\ContentValidator|\PHPUnit\Framework\MockObject\MockObject */
     protected $contentValidatorStrategyMock;
 
-    /** @var \eZ\Publish\SPI\Persistence\Filter\Content\Handler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Persistence\Filter\Content\Handler|\PHPUnit\Framework\MockObject\MockObject */
     private $contentFilteringHandlerMock;
 
-    /** @var \eZ\Publish\SPI\Persistence\Filter\Location\Handler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Persistence\Filter\Location\Handler|\PHPUnit\Framework\MockObject\MockObject */
     private $locationFilteringHandlerMock;
 
     /**
@@ -99,7 +99,7 @@ abstract class Base extends TestCase
      *
      * @param array $serviceSettings If set then non shared instance of Repository is returned
      *
-     * @return \eZ\Publish\API\Repository\Repository
+     * @return \Ibexa\Contracts\Core\Repository\Repository
      */
     protected function getRepository(array $serviceSettings = [])
     {
@@ -140,7 +140,7 @@ abstract class Base extends TestCase
     protected $fieldTypeServiceMock;
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\API\Repository\FieldTypeService
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Contracts\Core\Repository\FieldTypeService
      */
     protected function getFieldTypeServiceMock()
     {
@@ -154,7 +154,7 @@ abstract class Base extends TestCase
     protected $fieldTypeRegistryMock;
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\FieldType\FieldTypeRegistry
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\FieldType\FieldTypeRegistry
      */
     protected function getFieldTypeRegistryMock()
     {
@@ -166,7 +166,7 @@ abstract class Base extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getThumbnailStrategy()
     {
@@ -178,7 +178,7 @@ abstract class Base extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Repository|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Repository\Repository|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getRepositoryMock()
     {
@@ -190,7 +190,7 @@ abstract class Base extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getPermissionResolverMock()
     {
@@ -198,7 +198,7 @@ abstract class Base extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\PermissionService|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Repository\PermissionService|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getPermissionServiceMock(): PermissionService
     {
@@ -210,7 +210,7 @@ abstract class Base extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Repository\Mapper\ContentDomainMapper
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Repository\Mapper\ContentDomainMapper
      */
     protected function getContentDomainMapperMock(): MockObject
     {
@@ -222,7 +222,7 @@ abstract class Base extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Repository\Mapper\ContentTypeDomainMapper
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Repository\Mapper\ContentTypeDomainMapper
      */
     protected function getContentTypeDomainMapperMock()
     {
@@ -236,7 +236,7 @@ abstract class Base extends TestCase
     /**
      * Returns a persistence Handler mock.
      *
-     * @return \eZ\Publish\SPI\Persistence\Handler|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Persistence\Handler|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getPersistenceMock()
     {
@@ -299,14 +299,14 @@ abstract class Base extends TestCase
     /**
      * Returns a SPI Handler mock.
      *
-     * @param string $handler For instance "Content\Type\Handler" or "Search\Handler", must be relative to "eZ\Publish\SPI"
+     * @param string $handler For instance "Content\Type\Handler" or "Search\Handler", must be relative to "Ibexa\Contracts\Core"
      *
      * @return \PHPUnit\Framework\MockObject\MockObject
      */
     protected function getSPIMockHandler($handler)
     {
         if (!isset($this->spiMockHandlers[$handler])) {
-            $this->spiMockHandlers[$handler] = $this->getMockBuilder("eZ\\Publish\\SPI\\{$handler}")
+            $this->spiMockHandlers[$handler] = $this->getMockBuilder("Ibexa\\Contracts\\Core\\{$handler}")
                 ->setMethods([])
                 ->disableOriginalConstructor()
                 ->setConstructorArgs([])
@@ -319,7 +319,7 @@ abstract class Base extends TestCase
     /**
      * Returns a persistence Handler mock.
      *
-     * @param string $handler For instance "Content\Type\Handler", must be relative to "eZ\Publish\SPI\Persistence"
+     * @param string $handler For instance "Content\Type\Handler", must be relative to "Ibexa\Contracts\Core\Persistence"
      *
      * @return \PHPUnit\Framework\MockObject\MockObject
      */
@@ -333,7 +333,7 @@ abstract class Base extends TestCase
      *
      * @param int $id
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     protected function getStubbedUser($id)
     {
@@ -354,7 +354,7 @@ abstract class Base extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Repository\Permission\LimitationService
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Repository\Permission\LimitationService
      */
     protected function getLimitationServiceMock(): MockObject
     {
@@ -377,7 +377,7 @@ abstract class Base extends TestCase
     /**
      * @param string[] $methods
      *
-     * @return \eZ\Publish\Core\Repository\Mapper\RoleDomainMapper|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Repository\Mapper\RoleDomainMapper|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getRoleDomainMapperMock(array $methods = []): RoleDomainMapper
     {
@@ -440,3 +440,5 @@ abstract class Base extends TestCase
         return $this->locationFilteringHandlerMock;
     }
 }
+
+class_alias(Base::class, 'eZ\Publish\Core\Repository\Tests\Service\Mock\Base');

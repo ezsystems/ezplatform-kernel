@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\Loader;
+namespace Ibexa\Tests\Bundle\Core\Imagine\Filter\Loader;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\FilterInterface;
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader\ReduceNoiseFilterLoader;
+use Ibexa\Bundle\Core\Imagine\Filter\FilterInterface;
+use Ibexa\Bundle\Core\Imagine\Filter\Loader\ReduceNoiseFilterLoader;
 use Imagine\Image\ImageInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -33,3 +33,5 @@ class ReduceNoiseFilterLoaderTest extends TestCase
         $this->loader->load($this->createMock(ImageInterface::class));
     }
 }
+
+class_alias(ReduceNoiseFilterLoaderTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\Loader\ReduceNoiseFilterLoaderTest');

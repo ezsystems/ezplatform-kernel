@@ -6,20 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
+namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException as ApiNotFoundException;
-use eZ\Publish\API\Repository\LanguageResolver;
-use eZ\Publish\Core\Repository\Helper\NameSchemaService;
-use eZ\Publish\Core\Repository\LocationService;
-use eZ\Publish\Core\Repository\URLAliasService;
-use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
-use eZ\Publish\SPI\Persistence\Content\UrlAlias as SPIUrlAlias;
-use eZ\Publish\API\Repository\Values\Content\URLAlias;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Base\Exceptions\ForbiddenException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as ApiNotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\LanguageResolver;
+use Ibexa\Core\Repository\Helper\NameSchemaService;
+use Ibexa\Core\Repository\LocationService;
+use Ibexa\Core\Repository\URLAliasService;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
+use Ibexa\Contracts\Core\Persistence\Content\UrlAlias as SPIUrlAlias;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Base\Exceptions\ForbiddenException;
 use Exception;
 
 /**
@@ -33,10 +34,10 @@ class UrlAliasTest extends BaseServiceMockTest
     private const EXAMPLE_OFFSET = 10;
     private const EXAMPLE_LIMIT = 100;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\UrlAlias\Handler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\UrlAlias\Handler|\PHPUnit\Framework\MockObject\MockObject */
     private $urlAliasHandler;
 
     protected function setUp(): void
@@ -2494,7 +2495,7 @@ class UrlAliasTest extends BaseServiceMockTest
      */
     public function testLookupThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $urlAliasService = $this->getPartlyMockedURLAliasServiceService();
 
@@ -2532,7 +2533,7 @@ class UrlAliasTest extends BaseServiceMockTest
      */
     public function testLookupThrowsNotFoundExceptionPathNotMatchedOrNotLoadable($url, $prioritizedLanguageList, $languageCode)
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $urlAliasService = $this->getPartlyMockedURLAliasServiceService(
             null,
@@ -2626,7 +2627,7 @@ class UrlAliasTest extends BaseServiceMockTest
         $urlAlias = $urlAliasService->lookup('jedan/dva', $languageCode);
 
         self::assertInstanceOf(
-            'eZ\\Publish\\API\\Repository\\Values\\Content\\URLAlias',
+            URLAlias::class,
             $urlAlias
         );
     }
@@ -2710,7 +2711,7 @@ class UrlAliasTest extends BaseServiceMockTest
      */
     public function testReverseLookupCustomConfiguration()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $mockedService = $this->getPartlyMockedURLAliasServiceService(['listLocationAliases']);
         $location = $this->getLocationStub();
@@ -2736,7 +2737,7 @@ class UrlAliasTest extends BaseServiceMockTest
      */
     public function testReverseLookupThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $urlAliasService = $this->getPartlyMockedURLAliasServiceService(
             ['listLocationAliases'],
@@ -2962,7 +2963,7 @@ class UrlAliasTest extends BaseServiceMockTest
      */
     public function testCreateUrlAliasThrowsInvalidArgumentException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $location = $this->getLocationStub();
 
@@ -3117,7 +3118,7 @@ class UrlAliasTest extends BaseServiceMockTest
      */
     public function testCreateGlobalUrlAliasThrowsInvalidArgumentExceptionResource()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $mockedService = $this->getPartlyMockedURLAliasServiceService();
         $this->permissionResolver
@@ -3142,7 +3143,7 @@ class UrlAliasTest extends BaseServiceMockTest
      */
     public function testCreateGlobalUrlAliasThrowsInvalidArgumentExceptionPath()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $resource = 'module:content/search';
         $mockedService = $this->getPartlyMockedURLAliasServiceService();
@@ -3182,9 +3183,9 @@ class UrlAliasTest extends BaseServiceMockTest
     /**
      * Test for the createGlobalUrlAlias() method.
      *
-     * @depends eZ\Publish\Core\Repository\Tests\Service\Mock\UrlAliasTest::testCreateUrlAlias
-     * @depends eZ\Publish\Core\Repository\Tests\Service\Mock\UrlAliasTest::testCreateUrlAliasWithRollback
-     * @depends eZ\Publish\Core\Repository\Tests\Service\Mock\UrlAliasTest::testCreateUrlAliasThrowsInvalidArgumentException
+     * @depends Ibexa\Tests\Core\Repository\Service\Mock\UrlAliasTest::testCreateUrlAlias
+     * @depends Ibexa\Tests\Core\Repository\Service\Mock\UrlAliasTest::testCreateUrlAliasWithRollback
+     * @depends Ibexa\Tests\Core\Repository\Service\Mock\UrlAliasTest::testCreateUrlAliasThrowsInvalidArgumentException
      */
     public function testCreateGlobalUrlAliasForLocation()
     {
@@ -3251,7 +3252,7 @@ class UrlAliasTest extends BaseServiceMockTest
     /**
      * @param int $id
      *
-     * @return \eZ\Publish\Core\Repository\Values\Content\Location
+     * @return \Ibexa\Core\Repository\Values\Content\Location
      */
     protected function getLocationStub($id = 42)
     {
@@ -3280,7 +3281,7 @@ class UrlAliasTest extends BaseServiceMockTest
      *
      * @param string[] $methods
      *
-     * @return \eZ\Publish\Core\Repository\URLAliasService|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Repository\URLAliasService|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getPartlyMockedURLAliasServiceService(
         array $methods = null,
@@ -3314,11 +3315,11 @@ class UrlAliasTest extends BaseServiceMockTest
     /**
      * Test for the createUrlAlias() method.
      *
-     * @covers \eZ\Publish\Core\Repository\URLAliasService::createUrlAlias
+     * @covers \Ibexa\Contracts\Core\Repository\URLAliasService::createUrlAlias
      */
     public function testCreateUrlAliasThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $mockedService = $this->getPartlyMockedURLAliasServiceService();
         $location = $this->getLocationStub();
@@ -3342,11 +3343,11 @@ class UrlAliasTest extends BaseServiceMockTest
     /**
      * Test for the createGlobalUrlAlias() method.
      *
-     * @covers \eZ\Publish\Core\Repository\URLAliasService::createGlobalUrlAlias
+     * @covers \Ibexa\Contracts\Core\Repository\URLAliasService::createGlobalUrlAlias
      */
     public function testCreateGlobalUrlAliasThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $mockedService = $this->getPartlyMockedURLAliasServiceService();
         $this->permissionResolver
@@ -3369,11 +3370,11 @@ class UrlAliasTest extends BaseServiceMockTest
     /**
      * Test for the removeAliases() method.
      *
-     * @covers \eZ\Publish\Core\Repository\URLAliasService::removeAliases
+     * @covers \Ibexa\Contracts\Core\Repository\URLAliasService::removeAliases
      */
     public function testRemoveAliasesThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $aliasList = [new URLAlias(['isCustom' => true])];
         $mockedService = $this->getPartlyMockedURLAliasServiceService();
@@ -3389,7 +3390,7 @@ class UrlAliasTest extends BaseServiceMockTest
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Repository\Helper\NameSchemaService
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Repository\Helper\NameSchemaService
      */
     protected function getNameSchemaServiceMock()
     {
@@ -3411,3 +3412,5 @@ class UrlAliasTest extends BaseServiceMockTest
             ->willReturn($spiUrlAliases);
     }
 }
+
+class_alias(UrlAliasTest::class, 'eZ\Publish\Core\Repository\Tests\Service\Mock\UrlAliasTest');

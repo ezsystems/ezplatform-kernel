@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Converter;
+namespace Ibexa\Tests\Bundle\Core\Converter;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Bundle\EzPublishCoreBundle\Converter\LocationParamConverter;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Bundle\Core\Converter\LocationParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 
 class LocationParamConverterTest extends AbstractParamConverterTest
@@ -17,7 +17,7 @@ class LocationParamConverterTest extends AbstractParamConverterTest
 
     const LOCATION_CLASS = Location::class;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\Converter\LocationParamConverter */
+    /** @var \Ibexa\Bundle\Core\Converter\LocationParamConverter */
     private $converter;
 
     private $locationServiceMock;
@@ -73,3 +73,5 @@ class LocationParamConverterTest extends AbstractParamConverterTest
         $this->assertNull($request->attributes->get('location'));
     }
 }
+
+class_alias(LocationParamConverterTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Converter\LocationParamConverterTest');

@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
 /**
  * Integration test for use field type.
@@ -123,3 +123,5 @@ class SelectionMultilingualIntegrationTest extends SelectionIntegrationTest
         ];
     }
 }
+
+class_alias(SelectionMultilingualIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\FieldType\SelectionMultilingualIntegrationTest');

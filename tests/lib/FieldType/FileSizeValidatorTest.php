@@ -4,16 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests;
+namespace Ibexa\Tests\Core\FieldType;
 
-use eZ\Publish\Core\FieldType\BinaryFile\Value as BinaryFileValue;
-use eZ\Publish\Core\FieldType\Validator\FileSizeValidator;
-use eZ\Publish\Core\IO\Values\BinaryFile;
-use eZ\Publish\Core\FieldType\Validator;
-use eZ\Publish\API\Repository\IOServiceInterface;
-use eZ\Publish\API\Repository\Values\Translation\Message;
-use eZ\Publish\SPI\FieldType\ValidationError;
-use eZ\Publish\API\Repository\Values\Translation\Plural;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
+use Ibexa\Core\FieldType\BinaryFile\Value as BinaryFileValue;
+use Ibexa\Core\FieldType\Validator\FileSizeValidator;
+use Ibexa\Core\IO\Values\BinaryFile;
+use Ibexa\Core\FieldType\Validator;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Translation\Message;
+use Ibexa\Contracts\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\Repository\Values\Translation\Plural;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -44,8 +45,8 @@ class FileSizeValidatorTest extends TestCase
     /**
      * Tests setting and getting constraints.
      *
-     * @covers \eZ\Publish\Core\FieldType\Validator::initializeWithConstraints
-     * @covers \eZ\Publish\Core\FieldType\Validator::__get
+     * @covers \Ibexa\Core\FieldType\Validator::initializeWithConstraints
+     * @covers \Ibexa\Core\FieldType\Validator::__get
      */
     public function testConstraintsInitializeGet()
     {
@@ -62,7 +63,7 @@ class FileSizeValidatorTest extends TestCase
     /**
      * Test getting constraints schema.
      *
-     * @covers \eZ\Publish\Core\FieldType\Validator::getConstraintsSchema
+     * @covers \Ibexa\Core\FieldType\Validator::getConstraintsSchema
      */
     public function testGetConstraintsSchema()
     {
@@ -79,8 +80,8 @@ class FileSizeValidatorTest extends TestCase
     /**
      * Tests setting and getting constraints.
      *
-     * @covers \eZ\Publish\Core\FieldType\Validator::__set
-     * @covers \eZ\Publish\Core\FieldType\Validator::__get
+     * @covers \Ibexa\Core\FieldType\Validator::__set
+     * @covers \Ibexa\Core\FieldType\Validator::__get
      */
     public function testConstraintsSetGet()
     {
@@ -95,11 +96,11 @@ class FileSizeValidatorTest extends TestCase
     /**
      * Tests initializing with a wrong constraint.
      *
-     * @covers \eZ\Publish\Core\FieldType\Validator::initializeWithConstraints
+     * @covers \Ibexa\Core\FieldType\Validator::initializeWithConstraints
      */
     public function testInitializeBadConstraint()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException::class);
+        $this->expectException(PropertyNotFoundException::class);
 
         $constraints = [
             'unexisting' => 0,
@@ -113,11 +114,11 @@ class FileSizeValidatorTest extends TestCase
     /**
      * Tests setting a wrong constraint.
      *
-     * @covers \eZ\Publish\Core\FieldType\Validator::__set
+     * @covers \Ibexa\Core\FieldType\Validator::__set
      */
     public function testSetBadConstraint()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException::class);
+        $this->expectException(PropertyNotFoundException::class);
 
         $validator = new FileSizeValidator();
         $validator->unexisting = 0;
@@ -126,11 +127,11 @@ class FileSizeValidatorTest extends TestCase
     /**
      * Tests getting a wrong constraint.
      *
-     * @covers \eZ\Publish\Core\FieldType\Validator::__get
+     * @covers \Ibexa\Core\FieldType\Validator::__get
      */
     public function testGetBadConstraint()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException::class);
+        $this->expectException(PropertyNotFoundException::class);
 
         $validator = new FileSizeValidator();
         $null = $validator->unexisting;
@@ -142,8 +143,8 @@ class FileSizeValidatorTest extends TestCase
      * @param int $size
      *
      * @dataProvider providerForValidateOK
-     * @covers \eZ\Publish\Core\FieldType\Validator\FileSizeValidator::validate
-     * @covers \eZ\Publish\Core\FieldType\Validator::getMessage
+     * @covers \Ibexa\Core\FieldType\Validator\FileSizeValidator::validate
+     * @covers \Ibexa\Core\FieldType\Validator::getMessage
      */
     public function testValidateCorrectValues($size)
     {
@@ -157,7 +158,7 @@ class FileSizeValidatorTest extends TestCase
     /**
      * @param int $size
      *
-     * @return \eZ\Publish\Core\FieldType\BinaryFile\Value
+     * @return \Ibexa\Core\FieldType\BinaryFile\Value
      */
     protected function getBinaryFileValue($size)
     {
@@ -181,7 +182,7 @@ class FileSizeValidatorTest extends TestCase
      * Tests validating a wrong value.
      *
      * @dataProvider providerForValidateKO
-     * @covers \eZ\Publish\Core\FieldType\Validator\FileSizeValidator::validate
+     * @covers \Ibexa\Core\FieldType\Validator\FileSizeValidator::validate
      */
     public function testValidateWrongValues($size, $message, $values)
     {
@@ -231,7 +232,7 @@ class FileSizeValidatorTest extends TestCase
      * Tests validation of constraints.
      *
      * @dataProvider providerForValidateConstraintsOK
-     * @covers \eZ\Publish\Core\FieldType\Validator\FileSizeValidator::validateConstraints
+     * @covers \Ibexa\Core\FieldType\Validator\FileSizeValidator::validateConstraints
      */
     public function testValidateConstraintsCorrectValues($constraints)
     {
@@ -259,7 +260,7 @@ class FileSizeValidatorTest extends TestCase
      * Tests validation of constraints.
      *
      * @dataProvider providerForValidateConstraintsKO
-     * @covers \eZ\Publish\Core\FieldType\Validator\FileSizeValidator::validateConstraints
+     * @covers \Ibexa\Core\FieldType\Validator\FileSizeValidator::validateConstraints
      */
     public function testValidateConstraintsWrongValues($constraints, $expectedMessages, $values)
     {
@@ -306,3 +307,5 @@ class FileSizeValidatorTest extends TestCase
         ];
     }
 }
+
+class_alias(FileSizeValidatorTest::class, 'eZ\Publish\Core\FieldType\Tests\FileSizeValidatorTest');

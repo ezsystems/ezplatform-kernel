@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\ApiLoader;
+namespace Ibexa\Tests\Bundle\Core\ApiLoader;
 
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\CacheFactory;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Bundle\Core\ApiLoader\CacheFactory;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\Adapter\TagAwareAdapter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -63,3 +63,5 @@ class CacheFactoryTest extends TestCase
         $this->assertInstanceOf(TagAwareAdapter::class, $factory->getCachePool($this->configResolver));
     }
 }
+
+class_alias(CacheFactoryTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\ApiLoader\CacheFactoryTest');

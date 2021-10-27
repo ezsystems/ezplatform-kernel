@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\FieldType\Generic\Tests;
+namespace Ibexa\Tests\Core\FieldType\Generic;
 
-use eZ\Publish\SPI\FieldType\Tests\FieldTypeTest;
-use eZ\Publish\SPI\FieldType\ValueSerializerInterface;
-use eZ\Publish\SPI\FieldType\Generic\Tests\Stubs\Type as GenericFieldTypeStub;
-use eZ\Publish\SPI\FieldType\Generic\Tests\Stubs\Value as GenericFieldValueStub;
-use eZ\Publish\SPI\FieldType\ValidationError;
-use eZ\Publish\SPI\Exception\InvalidArgumentException;
+use Ibexa\Contracts\Core\FieldType\ValueSerializerInterface;
+use Ibexa\Tests\Core\FieldType\BaseFieldTypeTest;
+use Ibexa\Tests\Core\FieldType\Generic\Stubs\Type as GenericFieldTypeStub;
+use Ibexa\Tests\Core\FieldType\Generic\Stubs\Value as GenericFieldValueStub;
+use Ibexa\Contracts\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class GenericTest extends FieldTypeTest
+class GenericTest extends BaseFieldTypeTest
 {
-    /** @var \eZ\Publish\SPI\FieldType\ValueSerializerInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\FieldType\ValueSerializerInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $serializer;
 
     /** @var \Symfony\Component\Validator\Validator\ValidatorInterface|\PHPUnit\Framework\MockObject\MockObject */
@@ -182,3 +182,5 @@ class GenericTest extends FieldTypeTest
         return $serializer;
     }
 }
+
+class_alias(GenericTest::class, 'eZ\Publish\SPI\FieldType\Generic\Tests\GenericTest');

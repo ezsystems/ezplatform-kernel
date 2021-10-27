@@ -4,32 +4,24 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence as SPIPersistence;
-use eZ\Publish\Core\Persistence\Cache;
+use Ibexa\Contracts\Core\Persistence as SPIPersistence;
+use Ibexa\Core\Persistence\Cache;
 
 /**
  * Test case for Persistence\Cache\Handler.
+ *
+ * @covers \Ibexa\Core\Persistence\Cache\Handler
  */
 class PersistenceHandlerTest extends AbstractBaseHandlerTest
 {
-    /**
-     * Test that instance is of correct type.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Cache\Handler::__construct
-     */
     public function testHandler()
     {
         $this->assertInstanceOf(SPIPersistence\Handler::class, $this->persistenceCacheHandler);
         $this->assertInstanceOf(Cache\Handler::class, $this->persistenceCacheHandler);
     }
 
-    /**
-     * Test that instance is of correct type.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Cache\Handler::contentHandler
-     */
     public function testContentHandler()
     {
         $this->loggerMock->expects($this->never())->method($this->anything());
@@ -38,11 +30,6 @@ class PersistenceHandlerTest extends AbstractBaseHandlerTest
         $this->assertInstanceOf(Cache\ContentHandler::class, $handler);
     }
 
-    /**
-     * Test that instance is of correct type.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Cache\Handler::contentLanguageHandler
-     */
     public function testLanguageHandler()
     {
         $this->loggerMock->expects($this->never())->method($this->anything());
@@ -51,11 +38,6 @@ class PersistenceHandlerTest extends AbstractBaseHandlerTest
         $this->assertInstanceOf(Cache\ContentLanguageHandler::class, $handler);
     }
 
-    /**
-     * Test that instance is of correct type.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Cache\Handler::contentTypeHandler
-     */
     public function testContentTypeHandler()
     {
         $this->loggerMock->expects($this->never())->method($this->anything());
@@ -64,11 +46,6 @@ class PersistenceHandlerTest extends AbstractBaseHandlerTest
         $this->assertInstanceOf(Cache\ContentTypeHandler::class, $handler);
     }
 
-    /**
-     * Test that instance is of correct type.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Cache\Handler::locationHandler
-     */
     public function testContentLocationHandler()
     {
         $this->loggerMock->expects($this->never())->method($this->anything());
@@ -77,11 +54,6 @@ class PersistenceHandlerTest extends AbstractBaseHandlerTest
         $this->assertInstanceOf(Cache\LocationHandler::class, $handler);
     }
 
-    /**
-     * Test that instance is of correct type.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Cache\Handler::trashHandler
-     */
     public function testTrashHandler()
     {
         $this->loggerMock->expects($this->never())->method($this->anything());
@@ -90,11 +62,6 @@ class PersistenceHandlerTest extends AbstractBaseHandlerTest
         $this->assertInstanceOf(Cache\TrashHandler::class, $handler);
     }
 
-    /**
-     * Test that instance is of correct type.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Cache\Handler::objectStateHandler
-     */
     public function testObjectStateHandler()
     {
         $this->loggerMock->expects($this->never())->method($this->anything());
@@ -103,11 +70,6 @@ class PersistenceHandlerTest extends AbstractBaseHandlerTest
         $this->assertInstanceOf(Cache\ObjectStateHandler::class, $handler);
     }
 
-    /**
-     * Test that instance is of correct type.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Cache\Handler::sectionHandler
-     */
     public function testSectionHandler()
     {
         $this->loggerMock->expects($this->never())->method($this->anything());
@@ -116,11 +78,6 @@ class PersistenceHandlerTest extends AbstractBaseHandlerTest
         $this->assertInstanceOf(Cache\SectionHandler::class, $handler);
     }
 
-    /**
-     * Test that instance is of correct type.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Cache\Handler::userHandler
-     */
     public function testUserHandler()
     {
         $this->loggerMock->expects($this->never())->method($this->anything());
@@ -129,11 +86,6 @@ class PersistenceHandlerTest extends AbstractBaseHandlerTest
         $this->assertInstanceOf(Cache\UserHandler::class, $handler);
     }
 
-    /**
-     * Test that instance is of correct type.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Cache\Handler::urlAliasHandler
-     */
     public function testUrlAliasHandler()
     {
         $this->loggerMock->expects($this->never())->method($this->anything());
@@ -142,11 +94,6 @@ class PersistenceHandlerTest extends AbstractBaseHandlerTest
         $this->assertInstanceOf(Cache\UrlAliasHandler::class, $handler);
     }
 
-    /**
-     * Test that instance is of correct type.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Cache\Handler::urlWildcardHandler
-     */
     public function testUrlWildcardHandler()
     {
         $this->loggerMock->expects($this->never())->method($this->anything());
@@ -155,11 +102,6 @@ class PersistenceHandlerTest extends AbstractBaseHandlerTest
         $this->assertInstanceOf(Cache\UrlWildcardHandler::class, $handler);
     }
 
-    /**
-     * Test that instance is of correct type.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Cache\Handler::transactionHandler
-     */
     public function testTransactionHandler()
     {
         $this->loggerMock->expects($this->never())->method($this->anything());
@@ -168,3 +110,5 @@ class PersistenceHandlerTest extends AbstractBaseHandlerTest
         $this->assertInstanceOf(Cache\TransactionHandler::class, $handler);
     }
 }
+
+class_alias(PersistenceHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\PersistenceHandlerTest');

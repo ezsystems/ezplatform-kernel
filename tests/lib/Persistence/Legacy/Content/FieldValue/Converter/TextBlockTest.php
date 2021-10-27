@@ -4,24 +4,24 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use eZ\Publish\Core\FieldType\TextBlock\Value as TextBlockValue;
-use eZ\Publish\Core\FieldType\FieldSettings;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TextBlockConverter;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Core\FieldType\TextBlock\Value as TextBlockValue;
+use Ibexa\Core\FieldType\FieldSettings;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\TextBlockConverter;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test case for TextBlock converter in Legacy storage.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\TextBlockConverter
  */
 class TextBlockTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TextBlockConverter */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\TextBlockConverter */
     protected $converter;
 
     protected $longText;
@@ -43,7 +43,6 @@ EOT;
     /**
      * @group fieldType
      * @group textBlock
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TextBlockConverter::toStorageValue
      */
     public function testToStorageValue()
     {
@@ -61,7 +60,6 @@ EOT;
     /**
      * @group fieldType
      * @group textBlock
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TextBlockConverter::toFieldValue
      */
     public function testToFieldValue()
     {
@@ -78,7 +76,6 @@ EOT;
     /**
      * @group fieldType
      * @group textBlock
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TextBlockConverter::toStorageFieldDefinition
      */
     public function testToStorageFieldDefinition()
     {
@@ -106,7 +103,6 @@ EOT;
     /**
      * @group fieldType
      * @group textBlock
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\TextBlockConverter::toFieldDefinition
      */
     public function testToFieldDefinition()
     {
@@ -121,10 +117,12 @@ EOT;
 
         self::assertSame('', $fieldDef->defaultValue->sortKey);
         self::assertNull($fieldDef->fieldTypeConstraints->validators);
-        self::assertInstanceOf('eZ\\Publish\\Core\\FieldType\\FieldSettings', $fieldDef->fieldTypeConstraints->fieldSettings);
+        self::assertInstanceOf(FieldSettings::class, $fieldDef->fieldTypeConstraints->fieldSettings);
         self::assertSame(
             ['textRows' => 20],
             $fieldDef->fieldTypeConstraints->fieldSettings->getArrayCopy()
         );
     }
 }
+
+class_alias(TextBlockTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter\TextBlockTest');

@@ -4,9 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Regression;
+namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 /**
  * Test case for language issues in EZP-21798.
@@ -77,7 +78,7 @@ class EZP21798Test extends BaseTest
         $roleDraft = $roleService->createRoleDraft($role);
 
         $numPolicies = count($roleDraft->getPolicies());
-        /** @var \eZ\Publish\API\Repository\Values\User\PolicyDraft[] $policies */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft[] $policies */
         $policies = $roleDraft->getPolicies();
         $found = false;
 
@@ -91,7 +92,7 @@ class EZP21798Test extends BaseTest
         $this->assertTrue($found, "Couldn't find policy with module 'content' and function 'read'");
 
         $newPolicy = $roleService->newPolicyUpdateStruct();
-        $newLimitation = new \eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation();
+        $newLimitation = new SectionLimitation();
         $section = $sectionService->loadSectionByIdentifier('private');
         $newLimitation->limitationValues = [1, $section->id];
         $newPolicy->addLimitation($newLimitation);
@@ -110,3 +111,5 @@ class EZP21798Test extends BaseTest
         $contentService->loadContent($contentInfoarticle->id);
     }
 }
+
+class_alias(EZP21798Test::class, 'eZ\Publish\API\Repository\Tests\Regression\EZP21798Test');

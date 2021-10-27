@@ -4,25 +4,25 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\URLChecker;
+namespace Ibexa\Tests\Bundle\Core\URLChecker;
 
-use eZ\Publish\API\Repository\URLService;
-use eZ\Publish\API\Repository\Values\URL\SearchResult;
-use eZ\Publish\API\Repository\Values\URL\URL;
-use eZ\Publish\API\Repository\Values\URL\URLQuery;
-use eZ\Publish\API\Repository\Values\URL\URLUpdateStruct;
-use eZ\Bundle\EzPublishCoreBundle\URLChecker\URLChecker;
-use eZ\Bundle\EzPublishCoreBundle\URLChecker\URLHandlerInterface;
-use eZ\Bundle\EzPublishCoreBundle\URLChecker\URLHandlerRegistryInterface;
+use Ibexa\Contracts\Core\Repository\URLService;
+use Ibexa\Contracts\Core\Repository\Values\URL\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\URL\URL;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLUpdateStruct;
+use Ibexa\Bundle\Core\URLChecker\URLChecker;
+use Ibexa\Bundle\Core\URLChecker\URLHandlerInterface;
+use Ibexa\Bundle\Core\URLChecker\URLHandlerRegistryInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
 class URLCheckerTest extends TestCase
 {
-    /** @var \eZ\Publish\API\Repository\URLService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\URLService|\PHPUnit\Framework\MockObject\MockObject */
     private $urlService;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\URLChecker\URLHandlerRegistryInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Bundle\Core\URLChecker\URLHandlerRegistryInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $handlerRegistry;
 
     /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
@@ -153,7 +153,7 @@ class URLCheckerTest extends TestCase
     }
 
     /**
-     * @return \eZ\Bundle\EzPublishCoreBundle\URLChecker\URLChecker
+     * @return \Ibexa\Bundle\Core\URLChecker\URLChecker
      */
     private function createUrlChecker()
     {
@@ -166,3 +166,5 @@ class URLCheckerTest extends TestCase
         return $urlChecker;
     }
 }
+
+class_alias(URLCheckerTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\URLChecker\URLCheckerTest');

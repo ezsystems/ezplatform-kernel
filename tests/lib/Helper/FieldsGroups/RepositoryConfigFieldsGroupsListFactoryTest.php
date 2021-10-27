@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Helper\Tests\FieldsGroups;
+namespace Ibexa\Tests\Core\Helper\FieldsGroups;
 
-use eZ\Publish\Core\Helper\FieldsGroups\RepositoryConfigFieldsGroupsListFactory;
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider;
+use Ibexa\Core\Helper\FieldsGroups\RepositoryConfigFieldsGroupsListFactory;
+use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -37,7 +37,7 @@ class RepositoryConfigFieldsGroupsListFactoryTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider
      */
     protected function getRepositoryConfigMock()
     {
@@ -60,3 +60,5 @@ class RepositoryConfigFieldsGroupsListFactoryTest extends TestCase
         return $this->translatorMock;
     }
 }
+
+class_alias(RepositoryConfigFieldsGroupsListFactoryTest::class, 'eZ\Publish\Core\Helper\Tests\FieldsGroups\RepositoryConfigFieldsGroupsListFactoryTest');

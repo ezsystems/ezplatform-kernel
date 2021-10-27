@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Tests\Limitation\Target\Builder;
+namespace Ibexa\Tests\Core\Persistence\Limitation\Target\Builder;
 
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\SPI\Limitation\Target\Builder\VersionBuilder;
-use eZ\Publish\SPI\Limitation\Target;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
+use Ibexa\Contracts\Core\Limitation\Target;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \eZ\Publish\SPI\Limitation\Target\Builder\VersionBuilder
+ * @covers \Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder
  */
 class VersionBuilderTest extends TestCase
 {
@@ -100,19 +100,17 @@ class VersionBuilderTest extends TestCase
     }
 
     /**
-     * @covers       \eZ\Publish\SPI\Limitation\Target\Builder\VersionBuilder::build
-     *
      * @dataProvider providerForTestBuild
      *
-     * @param \eZ\Publish\SPI\Limitation\Target\Version $expectedTargetVersion
+     * @param \Ibexa\Contracts\Core\Limitation\Target\Version $expectedTargetVersion
      * @param int $newStatus
      * @param string $initialLanguageCode
-     * @param \eZ\Publish\API\Repository\Values\Content\Field[] $newFields
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $newFields
      * @param string[] $languagesList
      * @param int[] $contentTypeIdsList
      * @param string[] $publishLanguageCodes
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function testBuild(
         Target\Version $expectedTargetVersion,
@@ -136,3 +134,5 @@ class VersionBuilderTest extends TestCase
         self::assertEquals($expectedTargetVersion, $versionBuilder->build());
     }
 }
+
+class_alias(VersionBuilderTest::class, 'eZ\Publish\SPI\Tests\Limitation\Target\Builder\VersionBuilderTest');

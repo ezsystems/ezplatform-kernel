@@ -4,21 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Language;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Language;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\Mapper;
-use eZ\Publish\SPI\Persistence\Content\Language;
-use eZ\Publish\SPI\Persistence\Content\Language\CreateStruct;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Core\Persistence\Legacy\Content\Language\Mapper;
+use Ibexa\Contracts\Core\Persistence\Content\Language;
+use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct;
 
 /**
- * Test case for Mapper.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\Language\Mapper
  */
 class MapperTest extends TestCase
 {
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Mapper::createLanguageFromCreateStruct
-     */
     public function testCreateLanguageFromCreateStruct()
     {
         $mapper = new Mapper();
@@ -34,9 +31,6 @@ class MapperTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Language\Mapper::extractLanguagesFromRows
-     */
     public function testExtractLanguagesFromRows()
     {
         $mapper = new Mapper();
@@ -67,7 +61,7 @@ class MapperTest extends TestCase
     /**
      * Returns reference for the extraction from rows.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language[]
      */
     protected function getExtractReference()
     {
@@ -89,7 +83,7 @@ class MapperTest extends TestCase
     /**
      * Returns a Language CreateStruct fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language\CreateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct
      */
     protected function getCreateStructFixture()
     {
@@ -105,7 +99,7 @@ class MapperTest extends TestCase
     /**
      * Returns a Language fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language
      */
     protected function getLanguageFixture()
     {
@@ -118,3 +112,5 @@ class MapperTest extends TestCase
         return $struct;
     }
 }
+
+class_alias(MapperTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\Language\MapperTest');

@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache\Tests;
+namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\Content\Language as SPILanguage;
-use eZ\Publish\SPI\Persistence\Content\Language\CreateStruct as SPILanguageCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler;
+use Ibexa\Contracts\Core\Persistence\Content\Language as SPILanguage;
+use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct as SPILanguageCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler;
 
 /**
  * Test case for Persistence\Cache\ContentLanguageHandler.
@@ -161,3 +161,5 @@ class ContentLanguageHandlerTest extends AbstractInMemoryCacheHandlerTest
         ];
     }
 }
+
+class_alias(ContentLanguageHandlerTest::class, 'eZ\Publish\Core\Persistence\Cache\Tests\ContentLanguageHandlerTest');

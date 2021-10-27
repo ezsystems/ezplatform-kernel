@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Tests\Container\Compiler\Storage\Legacy;
+namespace Ibexa\Tests\Core\Base\Container\Compiler\Storage\Legacy;
 
-use eZ\Publish\Core\Base\Container\Compiler\Storage\Legacy\RoleLimitationConverterPass;
+use Ibexa\Core\Base\Container\Compiler\Storage\Legacy\RoleLimitationConverterPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -50,3 +50,5 @@ class RoleLimitationConverterPassTest extends AbstractCompilerPassTestCase
         );
     }
 }
+
+class_alias(RoleLimitationConverterPassTest::class, 'eZ\Publish\Core\Base\Tests\Container\Compiler\Storage\Legacy\RoleLimitationConverterPassTest');

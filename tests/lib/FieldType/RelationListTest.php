@@ -4,24 +4,24 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests;
+namespace Ibexa\Tests\Core\FieldType;
 
-use eZ\Publish\Core\FieldType\RelationList\Type as RelationList;
-use eZ\Publish\Core\FieldType\RelationList\Value;
-use eZ\Publish\API\Repository\Values\Content\Relation;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\SPI\Persistence\Content\Handler as SPIContentHandler;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Ibexa\Core\FieldType\RelationList\Type as RelationList;
+use Ibexa\Core\FieldType\RelationList\Value;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Persistence\Content\Handler as SPIContentHandler;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 
 class RelationListTest extends FieldTypeTest
 {
     private const DESTINATION_CONTENT_ID_14 = 14;
     private const DESTINATION_CONTENT_ID_22 = 22;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Handler */
     private $contentHandler;
 
     protected function setUp(): void
@@ -83,10 +83,8 @@ class RelationListTest extends FieldTypeTest
      * get*Mock() methods and/or custom get*Mock() implementations. You MUST
      * NOT take care for test case wide caching of the field type, just return
      * a new instance from this method!
-     *
-     * @return \eZ\Publish\Core\FieldType\Relation\Type
      */
-    protected function createFieldTypeUnderTest()
+    protected function createFieldTypeUnderTest(): RelationList
     {
         $fieldType = new RelationList($this->contentHandler);
         $fieldType->setTransformationProcessor($this->getTransformationProcessorMock());
@@ -145,29 +143,6 @@ class RelationListTest extends FieldTypeTest
         return new Value();
     }
 
-    /**
-     * Data provider for invalid input to acceptValue().
-     *
-     * Returns an array of data provider sets with 2 arguments: 1. The invalid
-     * input to acceptValue(), 2. The expected exception type as a string. For
-     * example:
-     *
-     * <code>
-     *  return array(
-     *      array(
-     *          new \stdClass(),
-     *          'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
-     *      ),
-     *      array(
-     *          array(),
-     *          'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
-     *      ),
-     *      // ...
-     *  );
-     * </code>
-     *
-     * @return array
-     */
     public function provideInvalidInputForAcceptValue()
     {
         return [
@@ -778,7 +753,7 @@ class RelationListTest extends FieldTypeTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\FieldType\Relation\Type::getRelations
+     * @covers \Ibexa\Core\FieldType\Relation\Type::getRelations
      */
     public function testGetRelations()
     {
@@ -817,3 +792,5 @@ class RelationListTest extends FieldTypeTest
         ];
     }
 }
+
+class_alias(RelationListTest::class, 'eZ\Publish\Core\FieldType\Tests\RelationListTest');

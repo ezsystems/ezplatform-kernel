@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\SearchService\Aggregation;
+namespace Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation;
 
-use eZ\Publish\API\Repository\Tests\SearchService\Aggregation\DataSetBuilder\TermAggregationDataSetBuilder;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\ObjectStateTermAggregation;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation\DataSetBuilder\TermAggregationDataSetBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\ObjectStateTermAggregation;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
 
 final class ObjectStateTermAggregationTest extends AbstractAggregationTest
 {
@@ -40,3 +40,5 @@ final class ObjectStateTermAggregationTest extends AbstractAggregationTest
         yield $builder->build();
     }
 }
+
+class_alias(ObjectStateTermAggregationTest::class, 'eZ\Publish\API\Repository\Tests\SearchService\Aggregation\ObjectStateTermAggregationTest');

@@ -4,22 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Regression;
+namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ObjectStateId;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ObjectStateId;
 
 /**
  * Test case for ObjectState issues in EZP-20018.
+ *
+ * @covers \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ObjectStateId
  *
  * Issue EZP-20018
  */
 class EZP20018ObjectStateTest extends BaseTest
 {
-    /**
-     * @see \eZ\Publish\API\Repository\Values\Content\Query\Criterion\ObjectStateId
-     */
     public function testSearchForNonUsedObjectState()
     {
         $repository = $this->getRepository();
@@ -48,9 +47,6 @@ class EZP20018ObjectStateTest extends BaseTest
         $this->assertCount($results2->totalCount, $results2->searchHits);
     }
 
-    /**
-     * @see \eZ\Publish\API\Repository\Values\Content\Query\Criterion\ObjectStateId
-     */
     public function testSearchForUsedObjectState()
     {
         $repository = $this->getRepository();
@@ -80,3 +76,5 @@ class EZP20018ObjectStateTest extends BaseTest
         $this->assertCount($results2->totalCount, $results2->searchHits);
     }
 }
+
+class_alias(EZP20018ObjectStateTest::class, 'eZ\Publish\API\Repository\Tests\Regression\EZP20018ObjectStateTest');

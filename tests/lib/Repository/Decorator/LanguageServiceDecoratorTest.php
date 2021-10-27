@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Tests\Decorator;
+namespace Ibexa\Tests\Core\Repository\Decorator;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct;
-use eZ\Publish\SPI\Repository\Decorator\LanguageServiceDecorator;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
+use Ibexa\Contracts\Core\Repository\Decorator\LanguageServiceDecorator;
 
 class LanguageServiceDecoratorTest extends TestCase
 {
@@ -175,3 +175,5 @@ class LanguageServiceDecoratorTest extends TestCase
         $decoratedService->newLanguageCreateStruct(...$parameters);
     }
 }
+
+class_alias(LanguageServiceDecoratorTest::class, 'eZ\Publish\SPI\Repository\Tests\Decorator\LanguageServiceDecoratorTest');

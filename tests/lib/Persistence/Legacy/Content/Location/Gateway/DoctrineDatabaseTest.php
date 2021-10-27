@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Location\Gateway;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Location\Gateway;
 
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
-use eZ\Publish\Core\Search\Legacy\Content;
-use eZ\Publish\SPI\Persistence\Content\Location;
-use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway;
+use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
+use Ibexa\Core\Search\Legacy\Content;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Doctrine\DBAL\Query\QueryBuilder;
 
 /**
- * Test case for eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase
  */
 class DoctrineDatabaseTest extends LanguageAwareTestCase
 {
@@ -96,7 +96,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
     public function testLoadInvalidLocation()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
         $gateway = $this->getLocationGateway();
@@ -544,7 +544,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     }
 
     /**
-     * @covers  \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::getMainNodeId
      * @depends testCreateLocation
      */
     public function testGetMainNodeId()
@@ -879,9 +878,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::updateLocationsContentVersionNo
-     */
     public function testUpdateLocationsContentVersionNo()
     {
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
@@ -922,9 +918,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::deleteNodeAssignment
-     */
     public function testDeleteNodeAssignment()
     {
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
@@ -944,9 +937,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::deleteNodeAssignment
-     */
     public function testDeleteNodeAssignmentWithSecondArgument()
     {
         $this->insertDatabaseFixture(__DIR__ . '/_fixtures/full_example_tree.php');
@@ -1209,8 +1199,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
     /**
      * Test for the setSectionForSubtree() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::setSectionForSubtree
      */
     public function testSetSectionForSubtree()
     {
@@ -1231,7 +1219,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Test for the changeMainLocation() method.
      *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::changeMainLocation
+     *
      *
      * @throws \Doctrine\DBAL\DBALException
      */
@@ -1369,8 +1357,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
     /**
      * Test for the getChildren() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::getChildren
      */
     public function testGetChildren()
     {
@@ -1387,10 +1373,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     }
 
     /**
-     * Test for the getFallbackMainNodeData() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::getFallbackMainNodeData
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function testGetFallbackMainNodeData(): void
@@ -1439,8 +1421,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
     /**
      * Test for the removeLocation() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::removeLocation
      */
     public function testRemoveLocation()
     {
@@ -1468,7 +1448,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Test for the updatePathIdentificationString() method.
      *
-     * @covers       \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase::updatePathIdentificationString
+     *
      * @dataProvider providerForTestUpdatePathIdentificationString
      */
     public function testUpdatePathIdentificationString(
@@ -1495,3 +1475,5 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 }
+
+class_alias(DoctrineDatabaseTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\Location\Gateway\DoctrineDatabaseTest');

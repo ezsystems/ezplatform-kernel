@@ -4,113 +4,111 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Relation;
-use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct as LocationCreateStruct;
-use eZ\Publish\Core\Persistence\Legacy\Content\TreeHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Handler;
-use eZ\Publish\API\Repository\Values\Content\Relation as RelationValue;
-use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway as UrlAliasGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway as ContentTypeGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Mapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler as ContentTypeHandler;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Relation;
+use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct as LocationCreateStruct;
+use Ibexa\Core\Persistence\Legacy\Content\TreeHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Handler;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation as RelationValue;
+use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway as UrlAliasGateway;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Gateway as ContentTypeGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper;
+use Ibexa\Core\Persistence\Legacy\Content\FieldHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Handler as ContentTypeHandler;
 use ReflectionException;
 
 /**
- * Test case for Content Handler.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\Handler
  */
 class ContentHandlerTest extends TestCase
 {
     /**
      * Content handler to test.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Handler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Handler
      */
     protected $contentHandler;
 
     /**
      * Gateway mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Gateway
      */
     protected $gatewayMock;
 
     /**
      * Location gateway mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway
      */
     protected $locationGatewayMock;
 
     /**
      * Type gateway mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Type\Gateway
      */
     protected $typeGatewayMock;
 
     /**
      * Mapper mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Mapper
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Mapper
      */
     protected $mapperMock;
 
     /**
      * Field handler mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\FieldHandler
      */
     protected $fieldHandlerMock;
 
     /**
      * Location handler mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\TreeHandler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\TreeHandler
      */
     protected $treeHandlerMock;
 
     /**
      * Slug converter mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter
+     * @var \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter
      */
     protected $slugConverterMock;
 
     /**
      * Location handler mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway
      */
     protected $urlAliasGatewayMock;
 
     /**
      * ContentType handler mock.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Type\Handler
      */
     protected $contentTypeHandlerMock;
 
     /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::create
-     *
      * @todo Current method way to complex to test, refactor!
      */
     public function testCreate()
@@ -208,9 +206,6 @@ class ContentHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::publish
-     */
     public function testPublishFirstVersion()
     {
         $handler = $this->getPartlyMockedHandler(['loadVersionInfo']);
@@ -288,9 +283,6 @@ class ContentHandlerTest extends TestCase
         $handler->publish(23, 1, $metadataUpdateStruct);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::publish
-     */
     public function testPublish()
     {
         $handler = $this->getPartlyMockedHandler(['loadVersionInfo', 'setStatus']);
@@ -374,9 +366,6 @@ class ContentHandlerTest extends TestCase
         $handler->publish(23, 2, $metadataUpdateStruct);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::createDraftFromVersion
-     */
     public function testCreateDraftFromVersion()
     {
         $handler = $this->getPartlyMockedHandler(['load']);
@@ -465,9 +454,6 @@ class ContentHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::load
-     */
     public function testLoad()
     {
         $handler = $this->getContentHandler();
@@ -513,9 +499,6 @@ class ContentHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::loadContentList
-     */
     public function testLoadContentList()
     {
         $handler = $this->getContentHandler();
@@ -568,9 +551,6 @@ class ContentHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::loadContentInfoByRemoteId
-     */
     public function testLoadContentInfoByRemoteId()
     {
         $contentInfoData = [new ContentInfo()];
@@ -593,12 +573,9 @@ class ContentHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::load
-     */
     public function testLoadErrorNotFound()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $handler = $this->getContentHandler();
 
@@ -619,7 +596,7 @@ class ContentHandlerTest extends TestCase
      * @param int $id Optional id
      * @param int $versionNo Optional version number
      *
-     * @return \eZ\Publish\SPI\Persistence\Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content
      */
     protected function getContentFixtureForDraft(int $id = 23, int $versionNo = 2)
     {
@@ -637,9 +614,6 @@ class ContentHandlerTest extends TestCase
         return $content;
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::updateContent
-     */
     public function testUpdateContent()
     {
         $handler = $this->getPartlyMockedHandler(['load', 'loadContentInfo']);
@@ -738,9 +712,6 @@ class ContentHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::updateMetadata
-     */
     public function testUpdateMetadata()
     {
         $handler = $this->getPartlyMockedHandler(['load', 'loadContentInfo']);
@@ -776,9 +747,6 @@ class ContentHandlerTest extends TestCase
         self::assertInstanceOf(ContentInfo::class, $resultContentInfo);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::updateMetadata
-     */
     public function testUpdateMetadataUpdatesPathIdentificationString()
     {
         $handler = $this->getPartlyMockedHandler(['load', 'loadContentInfo']);
@@ -843,9 +811,6 @@ class ContentHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::loadRelations
-     */
     public function testLoadRelations()
     {
         $handler = $this->getContentHandler();
@@ -876,9 +841,6 @@ class ContentHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::loadReverseRelations
-     */
     public function testLoadReverseRelations()
     {
         $handler = $this->getContentHandler();
@@ -952,9 +914,6 @@ class ContentHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::removeRelation
-     */
     public function testRemoveRelation()
     {
         $gatewayMock = $this->getGatewayMock();
@@ -979,7 +938,7 @@ class ContentHandlerTest extends TestCase
     /**
      * Returns a CreateStruct fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\CreateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\CreateStruct
      */
     public function getCreateStructFixture()
     {
@@ -1010,9 +969,6 @@ class ContentHandlerTest extends TestCase
         return $struct;
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::loadDraftsForUser
-     */
     public function testLoadDraftsForUser()
     {
         $handler = $this->getContentHandler();
@@ -1079,8 +1035,6 @@ class ContentHandlerTest extends TestCase
 
     /**
      * Test for the deleteContent() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::deleteContent
      */
     public function testDeleteContentWithLocations()
     {
@@ -1106,8 +1060,6 @@ class ContentHandlerTest extends TestCase
 
     /**
      * Test for the deleteContent() method.
-     *
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::deleteContent
      */
     public function testDeleteContentWithoutLocations()
     {
@@ -1125,9 +1077,6 @@ class ContentHandlerTest extends TestCase
         $handlerMock->deleteContent(23);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::deleteVersion
-     */
     public function testDeleteVersion()
     {
         $handler = $this->getContentHandler();
@@ -1190,9 +1139,6 @@ class ContentHandlerTest extends TestCase
         $handler->deleteVersion(225, 2);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::copy
-     */
     public function testCopySingleVersion()
     {
         $handler = $this->getPartlyMockedHandler(['load', 'internalCreate']);
@@ -1254,9 +1200,6 @@ class ContentHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::copy
-     */
     public function testCopyAllVersions()
     {
         $handler = $this->getPartlyMockedHandler(
@@ -1411,7 +1354,7 @@ class ContentHandlerTest extends TestCase
 
     public function testCopyThrowsNotFoundExceptionContentNotFound()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $handler = $this->getContentHandler();
 
@@ -1427,12 +1370,9 @@ class ContentHandlerTest extends TestCase
         $handler->copy(23);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::copy
-     */
     public function testCopyThrowsNotFoundExceptionVersionNotFound()
     {
-        $this->expectException(\eZ\Publish\Core\Base\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $handler = $this->getContentHandler();
 
@@ -1445,9 +1385,6 @@ class ContentHandlerTest extends TestCase
         $result = $handler->copy(23, 32);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::setStatus
-     */
     public function testSetStatus()
     {
         $handler = $this->getContentHandler();
@@ -1468,7 +1405,7 @@ class ContentHandlerTest extends TestCase
     /**
      * Returns the handler to test.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Handler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Handler
      */
     protected function getContentHandler()
     {
@@ -1493,7 +1430,7 @@ class ContentHandlerTest extends TestCase
      *
      * @param string[] $methods
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Handler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Handler
      */
     protected function getPartlyMockedHandler(array $methods)
     {
@@ -1517,7 +1454,7 @@ class ContentHandlerTest extends TestCase
     /**
      * Returns a TreeHandler mock.
      *
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Persistence\Legacy\Content\TreeHandler
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Persistence\Legacy\Content\TreeHandler
      */
     protected function getTreeHandlerMock()
     {
@@ -1531,7 +1468,7 @@ class ContentHandlerTest extends TestCase
     /**
      * Returns a ContentTypeHandler mock.
      *
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Persistence\Legacy\Content\Type\Handler
      */
     protected function getContentTypeHandlerMock()
     {
@@ -1545,7 +1482,7 @@ class ContentHandlerTest extends TestCase
     /**
      * Returns a FieldHandler mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler
+     * @return \Ibexa\Core\Persistence\Legacy\Content\FieldHandler
      */
     protected function getFieldHandlerMock()
     {
@@ -1559,7 +1496,7 @@ class ContentHandlerTest extends TestCase
     /**
      * Returns a Mapper mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Mapper
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Mapper
      */
     protected function getMapperMock()
     {
@@ -1573,7 +1510,7 @@ class ContentHandlerTest extends TestCase
     /**
      * Returns a Location Gateway mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway
      */
     protected function getLocationGatewayMock()
     {
@@ -1587,7 +1524,7 @@ class ContentHandlerTest extends TestCase
     /**
      * Returns a Content Type gateway mock.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Type\Gateway
      */
     protected function getTypeGatewayMock()
     {
@@ -1601,7 +1538,7 @@ class ContentHandlerTest extends TestCase
     /**
      * Returns a mock object for the Content Gateway.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Gateway|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Gateway|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getGatewayMock()
     {
@@ -1619,7 +1556,7 @@ class ContentHandlerTest extends TestCase
     /**
      * Returns a mock object for the UrlAlias Handler.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter
+     * @return \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter
      */
     protected function getSlugConverterMock()
     {
@@ -1633,7 +1570,7 @@ class ContentHandlerTest extends TestCase
     /**
      * Returns a mock object for the UrlAlias Gateway.
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway
+     * @return \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway
      */
     protected function getUrlAliasGatewayMock()
     {
@@ -1644,3 +1581,5 @@ class ContentHandlerTest extends TestCase
         return $this->urlAliasGatewayMock;
     }
 }
+
+class_alias(ContentHandlerTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\ContentHandlerTest');

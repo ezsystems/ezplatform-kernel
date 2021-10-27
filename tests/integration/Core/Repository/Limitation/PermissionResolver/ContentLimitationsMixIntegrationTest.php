@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\Limitation\PermissionResolver;
+namespace Ibexa\Tests\Integration\Core\Repository\Limitation\PermissionResolver;
 
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
 /**
  * Test mix of chosen core Content Limitations.
@@ -72,11 +72,11 @@ class ContentLimitationsMixIntegrationTest extends BaseLimitationIntegrationTest
      * @param array $limitations
      * @param bool $expectedResult
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testCanUser(
         string $module,
@@ -105,7 +105,7 @@ class ContentLimitationsMixIntegrationTest extends BaseLimitationIntegrationTest
     /**
      * Get a list of Limitations common to all test cases.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Limitation[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
      */
     private function getCommonLimitations(): array
     {
@@ -116,3 +116,5 @@ class ContentLimitationsMixIntegrationTest extends BaseLimitationIntegrationTest
         ];
     }
 }
+
+class_alias(ContentLimitationsMixIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\Limitation\PermissionResolver\ContentLimitationsMixIntegrationTest');

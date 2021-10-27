@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\PHPUnitConstraint;
+namespace Ibexa\Tests\Core\Repository\PHPUnitConstraint;
 
-use eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException;
-use eZ\Publish\API\Repository\Translatable;
+use Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException;
+use Ibexa\Contracts\Core\Repository\Translatable;
 use PHPUnit\Framework\Constraint\Constraint as AbstractPHPUnitConstraint;
 
 /**
  * PHPUnit constraint checking that all the given validation error messages occur in the asserted
  * ContentFieldValidationException.
  *
- * @see \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException
- * @see \eZ\Publish\SPI\FieldType\ValidationError
+ * @see \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException
+ * @see \Ibexa\Contracts\Core\FieldType\ValidationError
  */
 class AllValidationErrorsOccur extends AbstractPHPUnitConstraint
 {
@@ -38,7 +38,7 @@ class AllValidationErrorsOccur extends AbstractPHPUnitConstraint
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException $other
+     * @param \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException $other
      *
      * @return bool
      */
@@ -55,7 +55,7 @@ class AllValidationErrorsOccur extends AbstractPHPUnitConstraint
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException $exception
+     * @param \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException $exception
      *
      * @return string[]
      */
@@ -80,7 +80,7 @@ class AllValidationErrorsOccur extends AbstractPHPUnitConstraint
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException $other
+     * @param \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException $other
      *
      * @return string
      */
@@ -105,3 +105,5 @@ class AllValidationErrorsOccur extends AbstractPHPUnitConstraint
         return "contain the messages: '{$messages}'";
     }
 }
+
+class_alias(AllValidationErrorsOccur::class, 'eZ\Publish\API\Repository\Tests\PHPUnitConstraint\AllValidationErrorsOccur');

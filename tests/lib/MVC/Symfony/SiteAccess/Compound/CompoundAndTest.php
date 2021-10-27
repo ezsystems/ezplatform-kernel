@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests\Compound;
+namespace Ibexa\Tests\Core\MVC\Symfony\SiteAccess\Compound;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\MatcherBuilderInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Compound\LogicalAnd;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Compound;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\VersatileMatcher;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
-use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\MatcherBuilder;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilderInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Compound\LogicalAnd;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Compound;
+use Ibexa\Core\MVC\Symfony\SiteAccess\VersatileMatcher;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilder;
 use PHPUnit\Framework\TestCase;
 
 class CompoundAndTest extends TestCase
@@ -28,7 +28,7 @@ class CompoundAndTest extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Compound\LogicalAnd
+     * @return \Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Compound\LogicalAnd
      */
     public function testConstruct()
     {
@@ -36,7 +36,7 @@ class CompoundAndTest extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Compound\LogicalAnd
+     * @return \Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Compound\LogicalAnd
      */
     private function buildMatcher()
     {
@@ -90,7 +90,7 @@ class CompoundAndTest extends TestCase
     /**
      * @dataProvider matchProvider
      *
-     * @param \eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest $request
+     * @param \Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest $request
      * @param $expectedMatch
      */
     public function testMatch(SimplifiedRequest $request, $expectedMatch)
@@ -329,3 +329,5 @@ class CompoundAndTest extends TestCase
         $this->assertSame($serializedSA1, $serializedSA2);
     }
 }
+
+class_alias(CompoundAndTest::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests\Compound\CompoundAndTest');

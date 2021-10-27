@@ -4,29 +4,29 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\URLAliasService;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\Content\Trash\SearchResult;
-use eZ\Publish\API\Repository\Values\Content\TrashItem as APITrashItem;
-use eZ\Publish\API\Repository\Values\User\Limitation\SubtreeLimitation;
-use eZ\Publish\Core\Repository\Values\Content\TrashItem;
-use eZ\Publish\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\URLAliasService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem as APITrashItem;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
+use Ibexa\Core\Repository\Values\Content\TrashItem;
+use Ibexa\Core\Repository\Values\Content\Location;
 use DateTime;
 
 /**
  * Test case for operations in the TrashService using in memory storage.
  *
- * @see eZ\Publish\API\Repository\TrashService
+ * @covers \Ibexa\Contracts\Core\Repository\TrashService
  * @group integration
  * @group trash
  */
@@ -35,8 +35,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the trash() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::trash()
-     * @depends eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocationByRemoteId
+     * @depends Ibexa\Tests\Integration\Core\Repository\LocationServiceTest::testLoadLocationByRemoteId
      */
     public function testTrash()
     {
@@ -45,7 +44,7 @@ class TrashServiceTest extends BaseTrashServiceTest
         /* END: Use Case */
 
         $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\Values\\Content\\TrashItem',
+            TrashItem::class,
             $trashItem
         );
     }
@@ -53,8 +52,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the trash() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::trash()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testTrashSetsExpectedTrashItemProperties()
     {
@@ -87,12 +85,11 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the trash() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::trash()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testTrashRemovesLocationFromMainStorage()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
 
@@ -113,8 +110,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the trash() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::trash()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testTrashRemovesChildLocationsFromMainStorage()
     {
@@ -149,8 +145,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the trash() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::trash()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testTrashDecrementsChildCountOnParentLocation()
     {
@@ -175,8 +170,6 @@ class TrashServiceTest extends BaseTrashServiceTest
 
     /**
      * Test sending a location to trash updates Content mainLocation.
-     *
-     * @covers \eZ\Publish\API\Repository\TrashService::trash
      */
     public function testTrashUpdatesMainLocation()
     {
@@ -205,8 +198,6 @@ class TrashServiceTest extends BaseTrashServiceTest
 
     /**
      * Test sending a location to trash.
-     *
-     * @covers \eZ\Publish\API\Repository\TrashService::trash
      */
     public function testTrashReturnsNull()
     {
@@ -229,8 +220,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the loadTrashItem() method.
      *
-     * @covers \eZ\Publish\API\Repository\TrashService::loadTrashItem
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testLoadTrashItem()
     {
@@ -284,12 +274,11 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the loadTrashItem() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::loadTrashItem()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testLoadTrashItem
+     * @depends testLoadTrashItem
      */
     public function testLoadTrashItemThrowsNotFoundException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
 
@@ -306,8 +295,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the recover() method.
      *
-     * @covers \eZ\Publish\API\Repository\TrashService::recover
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testRecover()
     {
@@ -349,12 +337,10 @@ class TrashServiceTest extends BaseTrashServiceTest
 
     /**
      * Test recovering a non existing trash item results in a NotFoundException.
-     *
-     * @covers \eZ\Publish\API\Repository\TrashService::recover
      */
     public function testRecoverThrowsNotFoundExceptionForNonExistingTrashItem()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
         $trashService = $repository->getTrashService();
@@ -371,12 +357,11 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the trash() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::recover()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testNotFoundAliasAfterRemoveIt()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $mediaRemoteId = '75c715a51699d2d309a924eca6a95145';
 
@@ -398,8 +383,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the recover() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::recover()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testAliasesForRemovedItems()
     {
@@ -441,8 +425,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the recover() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::recover()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testRecover
+     * @depends testRecover
      */
     public function testRecoverDoesNotRestoreChildLocations()
     {
@@ -491,8 +474,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the recover() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::recover($trashItem, $newParentLocation)
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testRecover
+     * @depends testRecover
      *
      * @todo Fix naming
      */
@@ -543,8 +525,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the recover() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::recover($trashItem)
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testRecover
+     * @depends testRecover
      */
     public function testRecoverIncrementsChildCountOnOriginalParent()
     {
@@ -583,8 +564,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the recover() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::recover($trashItem, $newParentLocation)
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testRecoverWithLocationCreateStructParameter
+     * @depends testRecoverWithLocationCreateStructParameter
      */
     public function testRecoverWithLocationCreateStructParameterIncrementsChildCountOnNewParent()
     {
@@ -628,12 +608,10 @@ class TrashServiceTest extends BaseTrashServiceTest
 
     /**
      * Test recovering a location from trash to non existing location.
-     *
-     * @covers \eZ\Publish\API\Repository\TrashService::recover
      */
     public function testRecoverToNonExistingLocation()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
         $trashService = $repository->getTrashService();
@@ -652,7 +630,6 @@ class TrashServiceTest extends BaseTrashServiceTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\TrashService::findTrashItems
      * @dataProvider trashFiltersProvider
      */
     public function testFindTrashItems(
@@ -681,12 +658,10 @@ class TrashServiceTest extends BaseTrashServiceTest
     }
 
     /**
-     * @covers  \eZ\Publish\API\Repository\TrashService::findTrashItems
-     *
      * @throws \ErrorException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testFindTrashItemsSortedByDateTrashed(): void
     {
@@ -723,7 +698,6 @@ class TrashServiceTest extends BaseTrashServiceTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\TrashService::findTrashItems
      * @dataProvider trashSortClausesProvider
      */
     public function testFindTrashItemsSort(array $sortClausesClasses): void
@@ -769,8 +743,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the findTrashItems() method for it's result structure.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::findTrashItems()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testTrash
+     * @depends testTrash
      */
     public function testFindTrashItemsLimits()
     {
@@ -800,8 +773,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the findTrashItems() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::findTrashItems()
-     * @depends \eZ\Publish\API\Repository\Tests\TrashServiceTest::testFindTrashItems
+     * @depends Ibexa\Tests\Integration\Core\Repository\TrashServiceTest::testFindTrashItems
      */
     public function testFindTrashItemsLimitedAccess()
     {
@@ -830,7 +802,7 @@ class TrashServiceTest extends BaseTrashServiceTest
         /* END: Use Case */
 
         $this->assertInstanceOf(
-            '\\eZ\\Publish\\API\\Repository\\Values\\Content\\SearchResult',
+            SearchResult::class,
             $searchResult
         );
 
@@ -896,8 +868,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the emptyTrash() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::emptyTrash()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testFindTrashItems
+     * @depends testFindTrashItems
      */
     public function testEmptyTrash()
     {
@@ -928,8 +899,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the emptyTrash() method with user which has subtree limitations.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::emptyTrash()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testFindTrashItems
+     * @depends testFindTrashItems
      */
     public function testEmptyTrashForUserWithSubtreeLimitation()
     {
@@ -973,8 +943,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     /**
      * Test for the deleteTrashItem() method.
      *
-     * @see \eZ\Publish\API\Repository\TrashService::deleteTrashItem()
-     * @depends eZ\Publish\API\Repository\Tests\TrashServiceTest::testFindTrashItems
+     * @depends testFindTrashItems
      */
     public function testDeleteTrashItem()
     {
@@ -1024,12 +993,10 @@ class TrashServiceTest extends BaseTrashServiceTest
 
     /**
      * Test deleting a non existing trash item.
-     *
-     * @covers \eZ\Publish\API\Repository\TrashService::deleteTrashItem
      */
     public function testDeleteThrowsNotFoundExceptionForNonExistingTrashItem()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         $repository = $this->getRepository();
         $trashService = $repository->getTrashService();
@@ -1257,7 +1224,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * @param Repository $repository
      * @param int $parentLocationId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createNewContentInPlaceTrashedOne(Repository $repository, $parentLocationId)
     {
@@ -1277,22 +1244,6 @@ class TrashServiceTest extends BaseTrashServiceTest
     }
 
     /**
-     * @param URLAliasService $urlAliasService
-     * @param string $urlPath Url alias path
-     *
-     * @return \eZ\Publish\API\Repository\Values\Content\URLAlias
-     */
-    private function assertAliasExists(URLAliasService $urlAliasService, $urlPath)
-    {
-        $urlAlias = $urlAliasService->lookup($urlPath);
-
-        $this->assertInstanceOf('\eZ\Publish\API\Repository\Values\Content\URLAlias', $urlAlias);
-
-        return $urlAlias;
-    }
-
-    /**
-     * @param URLAliasService $urlAliasService
      * @param string $urlPath Url alias path
      */
     private function assertAliasNotExists(URLAliasService $urlAliasService, $urlPath)
@@ -1300,7 +1251,7 @@ class TrashServiceTest extends BaseTrashServiceTest
         try {
             $this->getRepository()->getURLAliasService()->lookup($urlPath);
             $this->fail(sprintf('Alias [%s] should not exist', $urlPath));
-        } catch (\eZ\Publish\API\Repository\Exceptions\NotFoundException $e) {
+        } catch (NotFoundException $e) {
             $this->assertTrue(true);
         }
     }
@@ -1312,7 +1263,7 @@ class TrashServiceTest extends BaseTrashServiceTest
      * @param int $contentId
      * @param int $parentLocationId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\TrashItem
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem
      */
     private function getTrashItemDouble(int $trashId, int $contentId = 44, int $parentLocationId = 2): APITrashItem
     {
@@ -1360,3 +1311,5 @@ class TrashServiceTest extends BaseTrashServiceTest
         }
     }
 }
+
+class_alias(TrashServiceTest::class, 'eZ\Publish\API\Repository\Tests\TrashServiceTest');

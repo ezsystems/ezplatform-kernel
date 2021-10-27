@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\VariationPathGenerator;
+namespace Ibexa\Tests\Bundle\Core\Imagine\VariationPathGenerator;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator\OriginalDirectoryVariationPathGenerator;
+use Ibexa\Bundle\Core\Imagine\VariationPathGenerator\OriginalDirectoryVariationPathGenerator;
 use PHPUnit\Framework\TestCase;
 
 class OriginalDirectoryVariationPathGeneratorTest extends TestCase
@@ -20,3 +20,5 @@ class OriginalDirectoryVariationPathGeneratorTest extends TestCase
         );
     }
 }
+
+class_alias(OriginalDirectoryVariationPathGeneratorTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\VariationPathGenerator\OriginalDirectoryVariationPathGeneratorTest');

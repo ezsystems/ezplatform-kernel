@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler;
+namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Compiler;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\InjectEntityManagerMappingsPass;
-use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\AnnotationEntityBundle\AnnotationEntityBundle;
-use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\XmlEntityBundle\XmlEntityBundle;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\InjectEntityManagerMappingsPass;
+use Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\AnnotationEntityBundle\AnnotationEntityBundle;
+use Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\XmlEntityBundle\XmlEntityBundle;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -28,13 +28,13 @@ class InjectEntityManagerMappingPassTest extends AbstractCompilerPassTestCase
             'is_bundle' => true,
             'type' => 'annotation',
             'dir' => 'Entity',
-            'prefix' => '\eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\AnnotationEntityBundle\Entity',
+            'prefix' => '\Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\AnnotationEntityBundle\Entity',
         ],
         'XmlEntityBundle' => [
             'is_bundle' => true,
             'type' => 'xml',
             'dir' => 'config',
-            'prefix' => '\eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\XmlEntityBundle\XmlEntityBundle\Entity',
+            'prefix' => '\Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\XmlEntityBundle\XmlEntityBundle\Entity',
         ],
     ];
 
@@ -100,3 +100,5 @@ class InjectEntityManagerMappingPassTest extends AbstractCompilerPassTestCase
         }
     }
 }
+
+class_alias(InjectEntityManagerMappingPassTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Compiler\InjectEntityManagerMappingPassTest');

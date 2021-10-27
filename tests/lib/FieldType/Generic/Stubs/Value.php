@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\FieldType\Generic\Tests\Stubs;
+namespace Ibexa\Tests\Core\FieldType\Generic\Stubs;
 
-use eZ\Publish\SPI\FieldType\Value as ValueInterface;
+use Ibexa\Contracts\Core\FieldType\Value as ValueInterface;
 
 final class Value implements ValueInterface
 {
@@ -29,3 +29,5 @@ final class Value implements ValueInterface
         return (string)$this->value;
     }
 }
+
+class_alias(Value::class, 'eZ\Publish\SPI\FieldType\Generic\Tests\Stubs\Value');

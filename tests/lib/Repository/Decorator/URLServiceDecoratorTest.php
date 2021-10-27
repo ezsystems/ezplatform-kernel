@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Tests\Decorator;
+namespace Ibexa\Tests\Core\Repository\Decorator;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\API\Repository\URLService;
-use eZ\Publish\API\Repository\Values\URL\URL;
-use eZ\Publish\API\Repository\Values\URL\URLQuery;
-use eZ\Publish\API\Repository\Values\URL\URLUpdateStruct;
-use eZ\Publish\SPI\Repository\Decorator\URLServiceDecorator;
+use Ibexa\Contracts\Core\Repository\URLService;
+use Ibexa\Contracts\Core\Repository\Values\URL\URL;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Decorator\URLServiceDecorator;
 
 class URLServiceDecoratorTest extends TestCase
 {
@@ -108,3 +108,5 @@ class URLServiceDecoratorTest extends TestCase
         $decoratedService->updateUrl(...$parameters);
     }
 }
+
+class_alias(URLServiceDecoratorTest::class, 'eZ\Publish\SPI\Repository\Tests\Decorator\URLServiceDecoratorTest');

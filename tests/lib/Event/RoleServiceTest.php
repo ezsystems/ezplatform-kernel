@@ -4,45 +4,45 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Event\Tests;
+namespace Ibexa\Tests\Core\Event;
 
-use eZ\Publish\API\Repository\Events\Role\AddPolicyByRoleDraftEvent;
-use eZ\Publish\API\Repository\Events\Role\AssignRoleToUserEvent;
-use eZ\Publish\API\Repository\Events\Role\AssignRoleToUserGroupEvent;
-use eZ\Publish\API\Repository\Events\Role\BeforeAddPolicyByRoleDraftEvent;
-use eZ\Publish\API\Repository\Events\Role\BeforeAssignRoleToUserEvent;
-use eZ\Publish\API\Repository\Events\Role\BeforeAssignRoleToUserGroupEvent;
-use eZ\Publish\API\Repository\Events\Role\BeforeCreateRoleDraftEvent;
-use eZ\Publish\API\Repository\Events\Role\BeforeCreateRoleEvent;
-use eZ\Publish\API\Repository\Events\Role\BeforeDeleteRoleDraftEvent;
-use eZ\Publish\API\Repository\Events\Role\BeforeDeleteRoleEvent;
-use eZ\Publish\API\Repository\Events\Role\BeforePublishRoleDraftEvent;
-use eZ\Publish\API\Repository\Events\Role\BeforeRemovePolicyByRoleDraftEvent;
-use eZ\Publish\API\Repository\Events\Role\BeforeRemoveRoleAssignmentEvent;
-use eZ\Publish\API\Repository\Events\Role\BeforeUpdatePolicyByRoleDraftEvent;
-use eZ\Publish\API\Repository\Events\Role\BeforeUpdateRoleDraftEvent;
-use eZ\Publish\API\Repository\Events\Role\CreateRoleDraftEvent;
-use eZ\Publish\API\Repository\Events\Role\CreateRoleEvent;
-use eZ\Publish\API\Repository\Events\Role\DeleteRoleDraftEvent;
-use eZ\Publish\API\Repository\Events\Role\DeleteRoleEvent;
-use eZ\Publish\API\Repository\Events\Role\PublishRoleDraftEvent;
-use eZ\Publish\API\Repository\Events\Role\RemovePolicyByRoleDraftEvent;
-use eZ\Publish\API\Repository\Events\Role\RemoveRoleAssignmentEvent;
-use eZ\Publish\API\Repository\Events\Role\UpdatePolicyByRoleDraftEvent;
-use eZ\Publish\API\Repository\Events\Role\UpdateRoleDraftEvent;
-use eZ\Publish\API\Repository\RoleService as RoleServiceInterface;
-use eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation;
-use eZ\Publish\API\Repository\Values\User\PolicyCreateStruct;
-use eZ\Publish\API\Repository\Values\User\PolicyDraft;
-use eZ\Publish\API\Repository\Values\User\PolicyUpdateStruct;
-use eZ\Publish\API\Repository\Values\User\Role;
-use eZ\Publish\API\Repository\Values\User\RoleAssignment;
-use eZ\Publish\API\Repository\Values\User\RoleCreateStruct;
-use eZ\Publish\API\Repository\Values\User\RoleDraft;
-use eZ\Publish\API\Repository\Values\User\RoleUpdateStruct;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Values\User\UserGroup;
-use eZ\Publish\Core\Event\RoleService;
+use Ibexa\Contracts\Core\Repository\Events\Role\AddPolicyByRoleDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\AssignRoleToUserEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\AssignRoleToUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\BeforeAddPolicyByRoleDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\BeforeAssignRoleToUserEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\BeforeAssignRoleToUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\BeforeCreateRoleDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\BeforeCreateRoleEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\BeforeDeleteRoleDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\BeforeDeleteRoleEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\BeforePublishRoleDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\BeforeRemovePolicyByRoleDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\BeforeRemoveRoleAssignmentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\BeforeUpdatePolicyByRoleDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\BeforeUpdateRoleDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\CreateRoleDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\CreateRoleEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\DeleteRoleDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\DeleteRoleEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\PublishRoleDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\RemovePolicyByRoleDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\RemoveRoleAssignmentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\UpdatePolicyByRoleDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\Role\UpdateRoleDraftEvent;
+use Ibexa\Contracts\Core\Repository\RoleService as RoleServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\PolicyCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft;
+use Ibexa\Contracts\Core\Repository\Values\User\PolicyUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleDraft;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
+use Ibexa\Core\Event\RoleService;
 
 class RoleServiceTest extends AbstractServiceTest
 {
@@ -1005,3 +1005,5 @@ class RoleServiceTest extends AbstractServiceTest
         ]);
     }
 }
+
+class_alias(RoleServiceTest::class, 'eZ\Publish\Core\Event\Tests\RoleServiceTest');

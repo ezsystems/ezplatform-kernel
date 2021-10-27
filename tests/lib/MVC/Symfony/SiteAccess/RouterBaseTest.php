@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\SiteAccess;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Router;
-use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\MatcherBuilder;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilder;
 
 abstract class RouterBaseTest extends TestCase
 {
@@ -20,10 +20,10 @@ abstract class RouterBaseTest extends TestCase
     protected const ENV_SA_NAME = 'env_sa';
     protected const HEADERBASED_SA_NAME = 'headerbased_sa';
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\MatcherBuilder */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilder */
     protected $matcherBuilder;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface */
     protected $siteAccessProvider;
 
     protected function setUp(): void
@@ -82,7 +82,9 @@ abstract class RouterBaseTest extends TestCase
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests\SiteAccessSetting[]
+     * @return \Ibexa\Tests\Core\MVC\Symfony\SiteAccess\SiteAccessSetting[]
      */
     abstract public function getSiteAccessProviderSettings(): array;
 }
+
+class_alias(RouterBaseTest::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests\RouterBaseTest');

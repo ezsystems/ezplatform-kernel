@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Tests\Variation;
+namespace Ibexa\Tests\Integration\Core\Persistence\Variation;
 
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\SPI\Variation\Values\Variation;
-use eZ\Publish\SPI\Variation\VariationHandler;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Variation\Values\Variation;
+use Ibexa\Contracts\Core\Variation\VariationHandler;
 
 class InMemoryVariationHandler implements VariationHandler
 {
@@ -26,3 +26,5 @@ class InMemoryVariationHandler implements VariationHandler
         ]);
     }
 }
+
+class_alias(InMemoryVariationHandler::class, 'eZ\Publish\SPI\Tests\Variation\InMemoryVariationHandler');

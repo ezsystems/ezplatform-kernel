@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Tests\Container\Compiler;
+namespace Ibexa\Tests\Core\Base\Container\Compiler;
 
-use eZ\Publish\Core\Base\Container\Compiler\FieldTypeRegistryPass;
-use eZ\Publish\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Core\Base\Container\Compiler\FieldTypeRegistryPass;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -84,3 +84,5 @@ class FieldTypeRegistryPassTest extends AbstractCompilerPassTestCase
         ];
     }
 }
+
+class_alias(FieldTypeRegistryPassTest::class, 'eZ\Publish\Core\Base\Tests\Container\Compiler\FieldTypeRegistryPassTest');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests\Image\PathGenerator;
+namespace Ibexa\Tests\Core\FieldType\Image\PathGenerator;
 
-use eZ\Publish\Core\FieldType\Image\PathGenerator\LegacyPathGenerator;
+use Ibexa\Core\FieldType\Image\PathGenerator\LegacyPathGenerator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -65,3 +65,5 @@ class LegacyPathGeneratorTest extends TestCase
         ];
     }
 }
+
+class_alias(LegacyPathGeneratorTest::class, 'eZ\Publish\Core\FieldType\Tests\Image\PathGenerator\LegacyPathGeneratorTest');

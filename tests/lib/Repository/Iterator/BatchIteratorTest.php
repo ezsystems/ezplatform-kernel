@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Tests\Iterator;
+namespace Ibexa\Tests\Core\Repository\Iterator;
 
-use eZ\Publish\API\Repository\Iterator\BatchIterator;
+use Ibexa\Contracts\Core\Repository\Iterator\BatchIterator;
 use PHPUnit\Framework\TestCase;
 
 final class BatchIteratorTest extends TestCase
@@ -48,3 +48,5 @@ final class BatchIteratorTest extends TestCase
         $this->assertEquals(1, $adapter->getFetchCounter());
     }
 }
+
+class_alias(BatchIteratorTest::class, 'eZ\Publish\API\Repository\Tests\Iterator\BatchIteratorTest');

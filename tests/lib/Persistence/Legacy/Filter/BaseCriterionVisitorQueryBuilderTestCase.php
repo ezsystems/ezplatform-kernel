@@ -6,23 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Filter;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Filter;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
-use eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\Filter\CriterionVisitor;
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder;
+use Ibexa\Core\Persistence\Legacy\Filter\CriterionVisitor;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 use PHPUnit\Framework\TestCase;
 
 abstract class BaseCriterionVisitorQueryBuilderTestCase extends TestCase
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Filter\CriterionVisitor */
+    /** @var \Ibexa\Core\Persistence\Legacy\Filter\CriterionVisitor */
     private $criterionVisitor;
 
     /**
-     * @return \eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Filter\CriterionQueryBuilder[]
      */
     abstract protected function getCriterionQueryBuilders(): iterable;
 
@@ -45,11 +45,11 @@ abstract class BaseCriterionVisitorQueryBuilderTestCase extends TestCase
     /**
      * @dataProvider getFilteringCriteriaQueryData
      *
-     * @covers \eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder::buildQueryConstraint
-     * @covers \eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder::accepts
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Filter\CriterionVisitor::visitCriteria
+     * @covers \Ibexa\Contracts\Core\Repository\Values\Filter\CriterionQueryBuilder::buildQueryConstraint
+     * @covers \Ibexa\Contracts\Core\Repository\Values\Filter\CriterionQueryBuilder::accepts
+     * @covers \Ibexa\Core\Persistence\Legacy\Filter\CriterionVisitor::visitCriteria
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException
      */
     public function testVisitCriteriaProducesQuery(
         FilteringCriterion $criterion,
@@ -103,3 +103,5 @@ abstract class BaseCriterionVisitorQueryBuilderTestCase extends TestCase
         ];
     }
 }
+
+class_alias(BaseCriterionVisitorQueryBuilderTestCase::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Filter\BaseCriterionVisitorQueryBuilderTestCase');

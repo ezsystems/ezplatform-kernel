@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
 use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
-use eZ\Publish\API\Repository\Exceptions\BadStateException;
-use eZ\Publish\API\Repository\Exceptions\ForbiddenException;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\FieldType\User\Type;
-use eZ\Publish\Core\FieldType\User\Value as UserValue;
-use eZ\Publish\Core\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\FieldType\User\Type;
+use Ibexa\Core\FieldType\User\Value as UserValue;
+use Ibexa\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 
 /**
  * Integration test for use field type.
@@ -161,7 +161,7 @@ class UserIntegrationTest extends BaseIntegrationTest
     /**
      * Get initial field externals data.
      *
-     * @return \eZ\Publish\Core\FieldType\User\Value
+     * @return \Ibexa\Core\FieldType\User\Value
      */
     public function getValidCreationFieldData(): UserValue
     {
@@ -214,27 +214,6 @@ class UserIntegrationTest extends BaseIntegrationTest
         $this->assertNotNull($field->value->contentId);
     }
 
-    /**
-     * Get field data which will result in errors during creation.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidCreationFieldData()
     {
         return [];
@@ -250,7 +229,7 @@ class UserIntegrationTest extends BaseIntegrationTest
     /**
      * Get update field externals data.
      *
-     * @return \eZ\Publish\Core\FieldType\User\Value
+     * @return \Ibexa\Core\FieldType\User\Value
      */
     public function getValidUpdateFieldData()
     {
@@ -296,27 +275,6 @@ class UserIntegrationTest extends BaseIntegrationTest
         $this->assertNotNull($field->value->contentId);
     }
 
-    /**
-     * Get field data which will result in errors during update.
-     *
-     * This is a PHPUnit data provider.
-     *
-     * The returned records must contain of an error producing data value and
-     * the expected exception class (from the API or SPI, not implementation
-     * specific!) as the second element. For example:
-     *
-     * <code>
-     * array(
-     *      array(
-     *          new DoomedValue( true ),
-     *          'eZ\\Publish\\API\\Repository\\Exceptions\\ContentValidationException'
-     *      ),
-     *      // ...
-     * );
-     * </code>
-     *
-     * @return array[]
-     */
     public function provideInvalidUpdateFieldData()
     {
         return [
@@ -579,9 +537,9 @@ class UserIntegrationTest extends BaseIntegrationTest
     /**
      * Finds ezuser field definition in given $contentType or mark test as failed if it doens't exists.
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition
      */
     private function getUserFieldDefinition(ContentType $contentType): FieldDefinition
     {
@@ -594,3 +552,5 @@ class UserIntegrationTest extends BaseIntegrationTest
         return $fieldDefinition;
     }
 }
+
+class_alias(UserIntegrationTest::class, 'eZ\Publish\API\Repository\Tests\FieldType\UserIntegrationTest');

@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security\Tests\Authentication;
+namespace Ibexa\Tests\Core\MVC\Symfony\Security\Authentication;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\Authentication\AnonymousAuthenticationProvider;
-use eZ\Publish\Core\Repository\Values\User\UserReference;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authentication\AnonymousAuthenticationProvider;
+use Ibexa\Core\Repository\Values\User\UserReference;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -19,7 +19,7 @@ class AnonymousAuthenticationProviderTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $configResolver;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
     private $permissionResolver;
 
     protected function setUp(): void
@@ -54,3 +54,5 @@ class AnonymousAuthenticationProviderTest extends TestCase
         $this->assertSame($anonymousToken, $authProvider->authenticate($anonymousToken));
     }
 }
+
+class_alias(AnonymousAuthenticationProviderTest::class, 'eZ\Publish\Core\MVC\Symfony\Security\Tests\Authentication\AnonymousAuthenticationProviderTest');

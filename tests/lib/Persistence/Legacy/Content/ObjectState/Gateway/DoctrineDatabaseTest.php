@@ -4,29 +4,29 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\ObjectState\Gateway;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\ObjectState\Gateway;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase;
-use eZ\Publish\SPI\Persistence\Content\ObjectState;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\Group;
+use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
+use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group;
 
 /**
- * Test case for eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase.
+ * @covers \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase
  */
 class DoctrineDatabaseTest extends LanguageAwareTestCase
 {
     /**
      * Database gateway to test.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase
+     * @var \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase
      */
     protected $databaseGateway;
 
     /**
      * Language mask generator.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator
      */
     protected $languageMaskGenerator;
 
@@ -46,9 +46,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::loadObjectStateData
-     */
     public function testLoadObjectStateData()
     {
         $gateway = $this->getDatabaseGateway();
@@ -73,9 +70,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::loadObjectStateDataByIdentifier
-     */
     public function testLoadObjectStateDataByIdentifier()
     {
         $gateway = $this->getDatabaseGateway();
@@ -100,9 +94,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::loadObjectStateListData
-     */
     public function testLoadObjectStateListData()
     {
         $gateway = $this->getDatabaseGateway();
@@ -142,9 +133,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::loadObjectStateGroupData
-     */
     public function testLoadObjectStateGroupData()
     {
         $gateway = $this->getDatabaseGateway();
@@ -168,9 +156,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::loadObjectStateGroupDataByIdentifier
-     */
     public function testLoadObjectStateGroupDataByIdentifier()
     {
         $gateway = $this->getDatabaseGateway();
@@ -194,9 +179,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::loadObjectStateGroupListData
-     */
     public function testLoadObjectStateGroupListData()
     {
         $gateway = $this->getDatabaseGateway();
@@ -222,9 +204,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::insertObjectState
-     */
     public function testInsertObjectState()
     {
         $gateway = $this->getDatabaseGateway();
@@ -252,9 +231,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::insertObjectState
-     */
     public function testInsertObjectStateInEmptyGroup()
     {
         $gateway = $this->getDatabaseGateway();
@@ -290,9 +266,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::updateObjectState
-     */
     public function testUpdateObjectState()
     {
         $gateway = $this->getDatabaseGateway();
@@ -320,9 +293,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::deleteObjectState
-     */
     public function testDeleteObjectState()
     {
         $gateway = $this->getDatabaseGateway();
@@ -335,9 +305,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::updateObjectStateLinks
-     */
     public function testUpdateObjectStateLinks()
     {
         $gateway = $this->getDatabaseGateway();
@@ -348,9 +315,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         self::assertSame(185, $gateway->getContentCount(2));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::deleteObjectStateLinks
-     */
     public function testDeleteObjectStateLinks()
     {
         $gateway = $this->getDatabaseGateway();
@@ -360,9 +324,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         self::assertSame(0, $gateway->getContentCount(1));
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::insertObjectStateGroup
-     */
     public function testInsertObjectStateGroup()
     {
         $gateway = $this->getDatabaseGateway();
@@ -388,9 +349,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::updateObjectStateGroup
-     */
     public function testUpdateObjectStateGroup()
     {
         $gateway = $this->getDatabaseGateway();
@@ -417,9 +375,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::deleteObjectStateGroup
-     */
     public function testDeleteObjectStateGroup()
     {
         $gateway = $this->getDatabaseGateway();
@@ -432,9 +387,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::setContentState
-     */
     public function testSetContentState()
     {
         $gateway = $this->getDatabaseGateway();
@@ -455,9 +407,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::loadObjectStateDataForContent
-     */
     public function testLoadObjectStateDataForContent()
     {
         $gateway = $this->getDatabaseGateway();
@@ -482,9 +431,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         );
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::getContentCount
-     */
     public function testGetContentCount()
     {
         $gateway = $this->getDatabaseGateway();
@@ -495,9 +441,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         $this->assertEquals(185, $result);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase::updateObjectStatePriority
-     */
     public function testUpdateObjectStatePriority()
     {
         $gateway = $this->getDatabaseGateway();
@@ -527,7 +470,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns an object state fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState
      */
     protected function getObjectStateFixture()
     {
@@ -544,7 +487,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns an object state group fixture.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group
      */
     protected function getObjectStateGroupFixture()
     {
@@ -575,3 +518,5 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
         return $this->databaseGateway;
     }
 }
+
+class_alias(DoctrineDatabaseTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Content\ObjectState\Gateway\DoctrineDatabaseTest');

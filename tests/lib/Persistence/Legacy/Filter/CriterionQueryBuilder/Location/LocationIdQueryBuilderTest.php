@@ -6,15 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Tests\Filter\CriterionQueryBuilder\Location;
+namespace Ibexa\Tests\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location\IdQueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\Tests\Filter\BaseCriterionVisitorQueryBuilderTestCase;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location\IdQueryBuilder;
+use Ibexa\Tests\Core\Persistence\Legacy\Filter\BaseCriterionVisitorQueryBuilderTestCase;
 
 /**
- * @covers \eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location\ParentLocationIdQueryBuilder::buildQueryConstraint
- * @covers \eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location\ParentLocationIdQueryBuilder::accepts
+ * @covers \Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location\ParentLocationIdQueryBuilder
  */
 final class LocationIdQueryBuilderTest extends BaseCriterionVisitorQueryBuilderTestCase
 {
@@ -43,3 +42,5 @@ final class LocationIdQueryBuilderTest extends BaseCriterionVisitorQueryBuilderT
         return [new IdQueryBuilder()];
     }
 }
+
+class_alias(LocationIdQueryBuilderTest::class, 'eZ\Publish\Core\Persistence\Legacy\Tests\Filter\CriterionQueryBuilder\Location\LocationIdQueryBuilderTest');

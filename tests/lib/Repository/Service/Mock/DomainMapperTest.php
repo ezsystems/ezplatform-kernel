@@ -4,26 +4,26 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
+namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
 use DateTime;
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
-use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
-use eZ\Publish\Core\Repository\Mapper\ContentDomainMapper;
-use eZ\Publish\Core\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo as SPIContentInfo;
-use eZ\Publish\SPI\Persistence\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo as SPIVersionInfo;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
+use Ibexa\Core\Repository\Mapper\ContentDomainMapper;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo as SPIContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo as SPIVersionInfo;
 
 /**
- * Mock test case for internal ContentDomainMapper.
+ * @covers \Ibexa\Core\Repository\Mapper\ContentDomainMapper
  */
 class DomainMapperTest extends BaseServiceMockTest
 {
@@ -36,7 +36,6 @@ class DomainMapperTest extends BaseServiceMockTest
     private const EXAMPLE_CREATOR_ID = 23;
 
     /**
-     * @covers \eZ\Publish\Core\Repository\Mapper\ContentDomainMapper::buildVersionInfoDomainObject
      * @dataProvider providerForBuildVersionInfo
      */
     public function testBuildVersionInfo(SPIVersionInfo $spiVersionInfo)
@@ -49,9 +48,6 @@ class DomainMapperTest extends BaseServiceMockTest
         $this->assertInstanceOf(APIVersionInfo::class, $versionInfo);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Repository\Mapper\ContentDomainMapper::buildLocationWithContent
-     */
     public function testBuildLocationWithContentForRootLocation()
     {
         $spiRootLocation = new Location(['id' => 1, 'parentId' => 1]);
@@ -60,7 +56,7 @@ class DomainMapperTest extends BaseServiceMockTest
         $legacyDateTime = new DateTime();
         $legacyDateTime->setTimestamp(1030968000);
 
-        $expectedContentInfo = new \eZ\Publish\API\Repository\Values\Content\ContentInfo([
+        $expectedContentInfo = new ContentInfo([
             'id' => 0,
             'name' => 'Top Level Nodes',
             'sectionId' => 1,
@@ -95,9 +91,6 @@ class DomainMapperTest extends BaseServiceMockTest
         $this->assertEquals($expectedContent, $apiRootLocation->getContent());
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Repository\Mapper\ContentDomainMapper::buildLocationWithContent
-     */
     public function testBuildLocationWithContentThrowsInvalidArgumentException()
     {
         $this->expectException(InvalidArgumentException::class);
@@ -192,8 +185,8 @@ class DomainMapperTest extends BaseServiceMockTest
                 [32, 33],
                 [],
                 [
-                    32 => new ContentInfo($properties + ['id' => 32]),
-                    33 => new ContentInfo($properties + ['id' => 33]),
+                    32 => new SPIContentInfo($properties + ['id' => 32]),
+                    33 => new SPIContentInfo($properties + ['id' => 33]),
                 ],
                 0,
             ],
@@ -202,7 +195,7 @@ class DomainMapperTest extends BaseServiceMockTest
                 [32, 33],
                 ['languages' => ['eng-GB']],
                 [
-                    32 => new ContentInfo($properties + ['id' => 32]),
+                    32 => new SPIContentInfo($properties + ['id' => 32]),
                 ],
                 1,
             ],
@@ -217,7 +210,6 @@ class DomainMapperTest extends BaseServiceMockTest
     }
 
     /**
-     * @covers \eZ\Publish\Core\Repository\Mapper\ContentDomainMapper::buildLocationDomainObjectsOnSearchResult
      * @dataProvider providerForBuildLocationDomainObjectsOnSearchResult
      *
      * @param array $locationHits
@@ -263,7 +255,7 @@ class DomainMapperTest extends BaseServiceMockTest
     /**
      * Returns ContentDomainMapper.
      *
-     * @return \eZ\Publish\Core\Repository\Mapper\ContentDomainMapper
+     * @return \Ibexa\Core\Repository\Mapper\ContentDomainMapper
      */
     protected function getContentDomainMapper(): ContentDomainMapper
     {
@@ -280,7 +272,7 @@ class DomainMapperTest extends BaseServiceMockTest
     }
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\Content\Handler|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Handler|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getContentHandlerMock()
     {
@@ -288,7 +280,7 @@ class DomainMapperTest extends BaseServiceMockTest
     }
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\Content\Language\Handler|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language\Handler|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getLanguageHandlerMock()
     {
@@ -296,7 +288,7 @@ class DomainMapperTest extends BaseServiceMockTest
     }
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\Content\Type\Handler|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\Handler|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getTypeHandlerMock()
     {
@@ -308,3 +300,5 @@ class DomainMapperTest extends BaseServiceMockTest
         return $this->createMock(ProxyDomainMapperInterface::class);
     }
 }
+
+class_alias(DomainMapperTest::class, 'eZ\Publish\Core\Repository\Tests\Service\Mock\DomainMapperTest');

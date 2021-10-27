@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Tests;
+namespace Ibexa\Tests\Core\QueryType\BuiltIn\SortSpec;
 
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecLexerInterface;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Token;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortSpecLexerInterface;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\Token;
 
 /**
- * Dummy \eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecLexerInterface implementation.
+ * Dummy {@see \Ibexa\Core\QueryType\BuiltIn\SortSpec\SortSpecLexerInterface} implementation.
  */
 final class SortSpecLexerStub implements SortSpecLexerInterface
 {
-    /** @var \eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Token[] */
+    /** @var \Ibexa\Core\QueryType\BuiltIn\SortSpec\Token[] */
     private $tokens;
 
     /** @var string|null */
@@ -58,3 +58,5 @@ final class SortSpecLexerStub implements SortSpecLexerInterface
         return $this->tokens[$this->position + 1] ?? null;
     }
 }
+
+class_alias(SortSpecLexerStub::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Tests\SortSpecLexerStub');

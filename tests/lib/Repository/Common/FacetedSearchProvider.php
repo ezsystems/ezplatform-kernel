@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests\Common;
+namespace Ibexa\Tests\Core\Repository\Common;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\FacetBuilder;
 
 /**
  * Provider for facet tests against SearchService.
@@ -18,8 +18,8 @@ use eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder;
  * - class const: QUERY_CLASS
  * - method: getFixtureDir
  *
- * @see \eZ\Publish\API\Repository\Tests\SearchServiceTest
- * @see \eZ\Publish\API\Repository\Tests\SearchServiceLocationTest
+ * @see \Ibexa\Tests\Integration\Core\Repository\SearchServiceTest
+ * @see \Ibexa\Tests\Integration\Core\Repository\SearchServiceLocationTest
  */
 trait FacetedSearchProvider
 {
@@ -265,3 +265,5 @@ trait FacetedSearchProvider
         ];
     }
 }
+
+class_alias(FacetedSearchProvider::class, 'eZ\Publish\API\Repository\Tests\Common\FacetedSearchProvider');

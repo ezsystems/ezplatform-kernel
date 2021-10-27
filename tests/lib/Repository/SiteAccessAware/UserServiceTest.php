@@ -4,22 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\SiteAccessAware\Tests;
+namespace Ibexa\Tests\Core\Repository\SiteAccessAware;
 
 use DateInterval;
 use DateTime;
-use eZ\Publish\API\Repository\UserService as APIService;
-use eZ\Publish\API\Repository\Values\User\PasswordInfo;
-use eZ\Publish\API\Repository\Values\User\PasswordValidationContext;
-use eZ\Publish\API\Repository\Values\User\UserGroupUpdateStruct;
-use eZ\Publish\API\Repository\Values\User\UserTokenUpdateStruct;
-use eZ\Publish\API\Repository\Values\User\UserUpdateStruct;
-use eZ\Publish\Core\Repository\SiteAccessAware\UserService;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\Repository\Values\User\User;
-use eZ\Publish\Core\Repository\Values\User\UserCreateStruct;
-use eZ\Publish\Core\Repository\Values\User\UserGroup;
-use eZ\Publish\Core\Repository\Values\User\UserGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\UserService as APIService;
+use Ibexa\Contracts\Core\Repository\Values\User\PasswordInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\PasswordValidationContext;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\UserTokenUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\UserUpdateStruct;
+use Ibexa\Core\Repository\SiteAccessAware\UserService;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\User\User;
+use Ibexa\Core\Repository\Values\User\UserCreateStruct;
+use Ibexa\Core\Repository\Values\User\UserGroup;
+use Ibexa\Core\Repository\Values\User\UserGroupCreateStruct;
 
 class UserServiceTest extends AbstractServiceTest
 {
@@ -103,3 +103,5 @@ class UserServiceTest extends AbstractServiceTest
         ];
     }
 }
+
+class_alias(UserServiceTest::class, 'eZ\Publish\Core\Repository\SiteAccessAware\Tests\UserServiceTest');

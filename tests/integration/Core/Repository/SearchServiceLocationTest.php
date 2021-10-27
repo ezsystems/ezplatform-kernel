@@ -4,23 +4,25 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
 use EzSystems\EzPlatformSolrSearchEngine\Tests\SetupFactory\LegacySetupFactory as LegacySolrSetupFactory;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Tests\Core\Repository\Common;
 
 /**
  * Test case for Location operations in the SearchService.
  *
- * @see eZ\Publish\API\Repository\SearchService
+ * @covers \Ibexa\Contracts\Core\Repository\SearchService
  * @group integration
  * @group search
  */
@@ -35,7 +37,7 @@ class SearchServiceLocationTest extends BaseTest
      *
      * @dataProvider getFacetedSearches
      *
-     * @see \eZ\Publish\API\Repository\SearchService::findLoctions()
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations
      */
     public function testFindFacetedLocation(LocationQuery $query, $fixture)
     {
@@ -45,7 +47,7 @@ class SearchServiceLocationTest extends BaseTest
     /**
      * Create movie Content with subtitle field set to null.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content[]
      */
     protected function createMovieContent(): array
     {
@@ -123,7 +125,7 @@ class SearchServiceLocationTest extends BaseTest
     /**
      * Create test Content with ezcountry field having multiple countries selected.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function createMultipleCountriesContent()
     {
@@ -171,9 +173,9 @@ class SearchServiceLocationTest extends BaseTest
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     protected function createFolderWithNonPrintableUtf8Characters(): Content
     {
@@ -202,7 +204,7 @@ class SearchServiceLocationTest extends BaseTest
     /**
      * Test for the findLocations() method.
      *
-     * @see \eZ\Publish\API\Repository\SearchService::findLocations()
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations()
      */
     public function testFieldIsEmptyInLocation()
     {
@@ -235,7 +237,7 @@ class SearchServiceLocationTest extends BaseTest
     /**
      * Test for the findLocations() method.
      *
-     * @see \eZ\Publish\API\Repository\SearchService::findLocations()
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations()
      */
     public function testFieldIsNotEmptyInLocation()
     {
@@ -265,7 +267,7 @@ class SearchServiceLocationTest extends BaseTest
     /**
      * Test for the findLocations() method.
      *
-     * @see \eZ\Publish\API\Repository\SearchService::findLocations()
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations()
      */
     public function testFieldCollectionContains()
     {
@@ -295,8 +297,8 @@ class SearchServiceLocationTest extends BaseTest
     /**
      * Test for the findLocations() method.
      *
-     * @see \eZ\Publish\API\Repository\SearchService::findLocations()
-     * @depends eZ\Publish\API\Repository\Tests\SearchServiceTest::testFieldCollectionContains
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations()
+     * @depends Ibexa\Tests\Integration\Core\Repository\SearchServiceTest::testFieldCollectionContains
      */
     public function testFieldCollectionContainsNoMatch()
     {
@@ -319,11 +321,11 @@ class SearchServiceLocationTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\SearchService::findLocations
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testNonPrintableUtf8Characters(): void
     {
@@ -350,12 +352,12 @@ class SearchServiceLocationTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\SearchService::findLocations
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations
      *
      * @throws \ErrorException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testEscapedNonPrintableUtf8Characters(): void
     {
@@ -464,7 +466,7 @@ class SearchServiceLocationTest extends BaseTest
     /**
      * Test for the findLocations() method.
      *
-     * @see \eZ\Publish\API\Repository\SearchService::findLocations()
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations()
      */
     public function testQueryCustomField()
     {
@@ -495,12 +497,12 @@ class SearchServiceLocationTest extends BaseTest
      * the last_name of admin and anonymous. This is done to show the custom
      * copy field working.
      *
-     * @see \eZ\Publish\API\Repository\SearchService::findLocations()
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations()
      */
     public function testQueryModifiedField()
     {
         // Check using get_class since the others extend SetupFactory\Legacy
-        if (ltrim(get_class($this->getSetupFactory()), '\\') === 'eZ\Publish\API\Repository\Tests\SetupFactory\Legacy') {
+        if ($this->getSetupFactory() instanceof Legacy) {
             $this->markTestIncomplete(
                 'Custom fields not supported by LegacySE ' .
                 '(@todo: Legacy should fallback to just querying normal field so this should be tested here)'
@@ -530,7 +532,7 @@ class SearchServiceLocationTest extends BaseTest
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
      */
     protected function createTestPlaceContentType()
     {
@@ -563,7 +565,7 @@ class SearchServiceLocationTest extends BaseTest
     /**
      * Test for the findLocations() method.
      *
-     * @see \eZ\Publish\API\Repository\SearchService::findLocations()
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations()
      * @group maplocation
      */
     public function testMapLocationDistanceLessThanOrEqual()
@@ -644,7 +646,7 @@ class SearchServiceLocationTest extends BaseTest
     /**
      * Test for the findLocations() method.
      *
-     * @see \eZ\Publish\API\Repository\SearchService::findLocations()
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations()
      * @group maplocation
      */
     public function testMapLocationDistanceGreaterThanOrEqual()
@@ -725,7 +727,7 @@ class SearchServiceLocationTest extends BaseTest
     /**
      * Test for the findLocations() method.
      *
-     * @see \eZ\Publish\API\Repository\SearchService::findLocations()
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations()
      * @group maplocation
      */
     public function testMapLocationDistanceBetween()
@@ -822,7 +824,7 @@ class SearchServiceLocationTest extends BaseTest
     /**
      * Test for the findLocations() method.
      *
-     * @see \eZ\Publish\API\Repository\SearchService::findLocations()
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations()
      * @group maplocation
      */
     public function testMapLocationDistanceSortAscending()
@@ -940,7 +942,7 @@ class SearchServiceLocationTest extends BaseTest
     /**
      * Test for the findLocations() method.
      *
-     * @see \eZ\Publish\API\Repository\SearchService::findLocations()
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations()
      * @group maplocation
      */
     public function testMapLocationDistanceSortDescending()
@@ -1058,7 +1060,7 @@ class SearchServiceLocationTest extends BaseTest
     /**
      * Test for the findLocations() method.
      *
-     * @see \eZ\Publish\API\Repository\SearchService::findLocations()
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations()
      * @group maplocation
      */
     public function testMapLocationDistanceWithCustomField()
@@ -1142,7 +1144,7 @@ class SearchServiceLocationTest extends BaseTest
     /**
      * Test for the findLocations() method.
      *
-     * @see \eZ\Publish\API\Repository\SearchService::findLocations()
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations()
      * @group maplocation
      */
     public function testMapLocationDistanceWithCustomFieldSort()
@@ -1263,7 +1265,7 @@ class SearchServiceLocationTest extends BaseTest
     /**
      * Test for the findLocations() method.
      *
-     * @see \eZ\Publish\API\Repository\SearchService::findLocations()
+     * @covers \Ibexa\Contracts\Core\Repository\SearchService::findLocations()
      */
     public function testVisibilityCriterionWithHiddenContent()
     {
@@ -1478,3 +1480,5 @@ class SearchServiceLocationTest extends BaseTest
         return __DIR__ . '/_fixtures/' . getenv('fixtureDir') . '/';
     }
 }
+
+class_alias(SearchServiceLocationTest::class, 'eZ\Publish\API\Repository\Tests\SearchServiceLocationTest');

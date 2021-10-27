@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests;
+namespace Ibexa\Tests\Core\MVC\Symfony\SiteAccess;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 
 /**
  * This class represents settings which will be used to construct SiteAccessProvider mock.
@@ -34,3 +34,5 @@ final class SiteAccessSetting
         $this->matchingType = $matchingType;
     }
 }
+
+class_alias(SiteAccessSetting::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests\SiteAccessSetting');

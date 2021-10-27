@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\IO\Tests\UrlDecorator;
+namespace Ibexa\Tests\Core\IO\UrlDecorator;
 
-use eZ\Publish\Core\IO\IOConfigProvider;
-use eZ\Publish\Core\IO\UrlDecorator;
-use eZ\Publish\Core\IO\UrlDecorator\AbsolutePrefix;
+use Ibexa\Core\IO\IOConfigProvider;
+use Ibexa\Core\IO\UrlDecorator;
+use Ibexa\Core\IO\UrlDecorator\AbsolutePrefix;
 
 /**
  * Test case for IO Service.
@@ -63,3 +63,5 @@ class AbsolutePrefixTest extends PrefixTest
         ];
     }
 }
+
+class_alias(AbsolutePrefixTest::class, 'eZ\Publish\Core\IO\Tests\UrlDecorator\AbsolutePrefixTest');

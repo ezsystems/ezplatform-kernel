@@ -4,17 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Tests\FieldType;
+namespace Ibexa\Tests\Integration\Core\FieldType;
 
-use eZ\Publish\API\Repository\Tests\Container\Compiler\SetAllServicesPublicPass;
-use eZ\Publish\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Tests\Integration\Core\Persistence\FieldType\BaseIntegrationTest;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 use FileSystemIterator;
 use Symfony\Component\Filesystem\Filesystem as FilesystemComponent;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 abstract class FileBaseIntegrationTest extends BaseIntegrationTest
 {
@@ -222,3 +219,5 @@ abstract class FileBaseIntegrationTest extends BaseIntegrationTest
         return filesize($this->getPathFromId($binaryFileId));
     }
 }
+
+class_alias(FileBaseIntegrationTest::class, 'eZ\Publish\SPI\Tests\FieldType\FileBaseIntegrationTest');

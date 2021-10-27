@@ -4,10 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\ApiLoader;
+namespace Ibexa\Tests\Bundle\Core\ApiLoader;
 
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Bundle\Core\ApiLoader\Exception\InvalidRepositoryException;
+use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use PHPUnit\Framework\TestCase;
 
 class RepositoryConfigurationProviderTest extends TestCase
@@ -73,7 +74,7 @@ class RepositoryConfigurationProviderTest extends TestCase
      */
     public function testGetRepositoryConfigUndefinedRepository(array $repositories): void
     {
-        $this->expectException(\eZ\Bundle\EzPublishCoreBundle\ApiLoader\Exception\InvalidRepositoryException::class);
+        $this->expectException(InvalidRepositoryException::class);
 
         $configResolver = $this->getConfigResolverMock();
 
@@ -130,10 +131,12 @@ class RepositoryConfigurationProviderTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\MVC\ConfigResolverInterface
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\MVC\ConfigResolverInterface
      */
     protected function getConfigResolverMock()
     {
         return $this->createMock(ConfigResolverInterface::class);
     }
 }
+
+class_alias(RepositoryConfigurationProviderTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\ApiLoader\RepositoryConfigurationProviderTest');

@@ -4,22 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Tests;
+namespace Ibexa\Tests\Integration\Core\Repository;
 
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
-use eZ\Publish\API\Repository\Values\URL\URLQuery;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
 
 class URLServiceAuthorizationTest extends BaseURLServiceTest
 {
     /**
      * Test for the findUrls() method.
      *
-     * @see \eZ\Publish\API\Repository\URLService::findUrls
+     * @covers \Ibexa\Contracts\Core\Repository\URLService::findUrls
      */
     public function testFindUrlsThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
 
@@ -44,11 +44,11 @@ class URLServiceAuthorizationTest extends BaseURLServiceTest
     /**
      * Test for the updateUrl() method.
      *
-     * @see \eZ\Publish\API\Repository\URLService::updateUrl
+     * @covers \Ibexa\Contracts\Core\Repository\URLService::updateUrl
      */
     public function testUpdateUrlThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
 
@@ -75,11 +75,11 @@ class URLServiceAuthorizationTest extends BaseURLServiceTest
     /**
      * Test for the loadById() method.
      *
-     * @see \eZ\Publish\API\Repository\URLService::loadById
+     * @covers \Ibexa\Contracts\Core\Repository\URLService::loadById
      */
     public function testLoadByIdThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
 
@@ -102,11 +102,11 @@ class URLServiceAuthorizationTest extends BaseURLServiceTest
     /**
      * Test for the loadByUrl() method.
      *
-     * @see \eZ\Publish\API\Repository\URLService::loadById
+     * @covers \Ibexa\Contracts\Core\Repository\URLService::loadById
      */
     public function testLoadByUrlThrowsUnauthorizedException()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\UnauthorizedException::class);
+        $this->expectException(UnauthorizedException::class);
 
         $repository = $this->getRepository();
 
@@ -127,3 +127,5 @@ class URLServiceAuthorizationTest extends BaseURLServiceTest
         /* END: Use Case */
     }
 }
+
+class_alias(URLServiceAuthorizationTest::class, 'eZ\Publish\API\Repository\Tests\URLServiceAuthorizationTest');

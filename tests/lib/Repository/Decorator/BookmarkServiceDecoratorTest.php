@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Tests\Decorator;
+namespace Ibexa\Tests\Core\Repository\Decorator;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\API\Repository\BookmarkService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\SPI\Repository\Decorator\BookmarkServiceDecorator;
+use Ibexa\Contracts\Core\Repository\BookmarkService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Decorator\BookmarkServiceDecorator;
 
 class BookmarkServiceDecoratorTest extends TestCase
 {
@@ -78,3 +78,5 @@ class BookmarkServiceDecoratorTest extends TestCase
         $decoratedService->isBookmarked(...$parameters);
     }
 }
+
+class_alias(BookmarkServiceDecoratorTest::class, 'eZ\Publish\SPI\Repository\Tests\Decorator\BookmarkServiceDecoratorTest');

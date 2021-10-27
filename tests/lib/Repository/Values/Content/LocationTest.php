@@ -4,14 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Tests\Values\Content;
+namespace Ibexa\Tests\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Tests\Values\ValueObjectTestTrait;
-use eZ\Publish\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException;
+use Ibexa\Tests\Core\Repository\Values\ValueObjectTestTrait;
+use Ibexa\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test internal integrity of @see \eZ\Publish\Core\Repository\Values\Content\Location ValueObject.
+ * @covers \Ibexa\Core\Repository\Values\Content\Location
  */
 class LocationTest extends TestCase
 {
@@ -19,8 +21,6 @@ class LocationTest extends TestCase
 
     /**
      * Test a new class and default values on properties.
-     *
-     * @covers \eZ\Publish\API\Repository\Values\Content\Location::__construct
      */
     public function testNewClass()
     {
@@ -47,12 +47,10 @@ class LocationTest extends TestCase
 
     /**
      * Test retrieving missing property.
-     *
-     * @covers \eZ\Publish\API\Repository\Values\Content\Location::__get
      */
     public function testMissingProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException::class);
+        $this->expectException(PropertyNotFoundException::class);
 
         $location = new Location();
         $value = $location->notDefined;
@@ -62,11 +60,11 @@ class LocationTest extends TestCase
     /**
      * Test setting read only property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\Content\Location::__set
+     * @covers \Ibexa\Core\Repository\Values\Content\Location::__set
      */
     public function testReadOnlyProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException::class);
+        $this->expectException(PropertyReadOnlyException::class);
 
         $location = new Location();
         $location->id = 42;
@@ -75,8 +73,6 @@ class LocationTest extends TestCase
 
     /**
      * Test if property exists.
-     *
-     * @covers \eZ\Publish\API\Repository\Values\Content\Location::__isset
      */
     public function testIsPropertySet()
     {
@@ -91,14 +87,16 @@ class LocationTest extends TestCase
     /**
      * Test unsetting a property.
      *
-     * @covers \eZ\Publish\API\Repository\Values\Content\Location::__unset
+     * @covers \Ibexa\Core\Repository\Values\Content\Location::__unset
      */
     public function testUnsetProperty()
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException::class);
+        $this->expectException(PropertyReadOnlyException::class);
 
         $location = new Location(['id' => 2]);
         unset($location->id);
         self::fail('Unsetting read-only property succeeded');
     }
 }
+
+class_alias(LocationTest::class, 'eZ\Publish\Core\Repository\Tests\Values\Content\LocationTest');

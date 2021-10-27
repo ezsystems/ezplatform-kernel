@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security\Tests\Authentication;
+namespace Ibexa\Tests\Core\MVC\Symfony\Security\Authentication;
 
-use eZ\Publish\API\Repository\Exceptions\PasswordInUnsupportedFormatException;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\User\User as APIUser;
-use eZ\Publish\Core\MVC\Symfony\Security\Authentication\RepositoryAuthenticationProvider;
-use eZ\Publish\Core\Repository\User\Exception\UnsupportedPasswordHashType;
+use Ibexa\Contracts\Core\Repository\Exceptions\PasswordInUnsupportedFormatException;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
+use Ibexa\Core\MVC\Symfony\Security\Authentication\RepositoryAuthenticationProvider;
+use Ibexa\Core\Repository\User\Exception\UnsupportedPasswordHashType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\User;
+use Ibexa\Core\MVC\Symfony\Security\User;
 
 class RepositoryAuthenticationProviderTest extends TestCase
 {
@@ -30,7 +30,7 @@ class RepositoryAuthenticationProviderTest extends TestCase
     /** @var RepositoryAuthenticationProvider */
     private $authProvider;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
     private $permissionResolver;
 
     /**
@@ -38,7 +38,7 @@ class RepositoryAuthenticationProviderTest extends TestCase
      */
     private $userProvider;
 
-    /** @var \eZ\Publish\API\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject */
     private $userService;
 
     protected function setUp(): void
@@ -210,3 +210,5 @@ class RepositoryAuthenticationProviderTest extends TestCase
         $this->authProvider->authenticate($token);
     }
 }
+
+class_alias(RepositoryAuthenticationProviderTest::class, 'eZ\Publish\Core\MVC\Symfony\Security\Tests\Authentication\RepositoryAuthenticationProviderTest');

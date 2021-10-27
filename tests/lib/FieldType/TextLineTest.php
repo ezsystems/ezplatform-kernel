@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Tests;
+namespace Ibexa\Tests\Core\FieldType;
 
-use eZ\Publish\Core\FieldType\TextLine\Type as TextLineType;
-use eZ\Publish\Core\FieldType\TextLine\Value as TextLineValue;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\FieldType\TextLine\Type as TextLineType;
+use Ibexa\Core\FieldType\TextLine\Value as TextLineValue;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * @group fieldType
@@ -26,7 +26,7 @@ class TextLineTest extends FieldTypeTest
      * NOT take care for test case wide caching of the field type, just return
      * a new instance from this method!
      *
-     * @return \eZ\Publish\Core\FieldType\FieldType
+     * @return \Ibexa\Core\FieldType\FieldType
      */
     protected function createFieldTypeUnderTest()
     {
@@ -70,36 +70,13 @@ class TextLineTest extends FieldTypeTest
     /**
      * Returns the empty value expected from the field type.
      *
-     * @return \eZ\Publish\Core\FieldType\TextLine\Value
+     * @return \Ibexa\Core\FieldType\TextLine\Value
      */
     protected function getEmptyValueExpectation()
     {
         return new TextLineValue();
     }
 
-    /**
-     * Data provider for invalid input to acceptValue().
-     *
-     * Returns an array of data provider sets with 2 arguments: 1. The invalid
-     * input to acceptValue(), 2. The expected exception type as a string. For
-     * example:
-     *
-     * <code>
-     *  return array(
-     *      array(
-     *          new \stdClass(),
-     *          'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
-     *      ),
-     *      array(
-     *          array(),
-     *          'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
-     *      ),
-     *      // ...
-     *  );
-     * </code>
-     *
-     * @return array
-     */
     public function provideInvalidInputForAcceptValue()
     {
         return [
@@ -718,3 +695,5 @@ class TextLineTest extends FieldTypeTest
         ];
     }
 }
+
+class_alias(TextLineTest::class, 'eZ\Publish\Core\FieldType\Tests\TextLineTest');
