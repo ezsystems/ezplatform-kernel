@@ -1,8 +1,12 @@
 <?php
 
-return array(
-    'ezurlalias_ml' => array(
-        0 => array(
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+return [
+    'ezurlalias_ml' => [
+        0 => [
             'action' => 'eznode:2',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -14,8 +18,8 @@ return array(
             'parent' => '0',
             'text' => '',
             'text_md5' => 'd41d8cd98f00b204e9800998ecf8427e',
-        ),
-        1 => array(
+        ],
+        1 => [
             'action' => 'eznode:314',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -27,8 +31,8 @@ return array(
             'parent' => '0',
             'text' => 'jedan',
             'text_md5' => '6896260129051a949051c3847c34466f',
-        ),
-        2 => array(
+        ],
+        2 => [
             'action' => 'eznode:315',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -40,8 +44,8 @@ return array(
             'parent' => '0',
             'text' => 'dva',
             'text_md5' => 'c67ed9a09ab136fae610b6a087d82e21',
-        ),
-        3 => array(
+        ],
+        3 => [
             'action' => 'eznode:316',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -53,8 +57,8 @@ return array(
             'parent' => '2',
             'text' => 'swap-this',
             'text_md5' => '21940df6bebbfc9501b3b512640dffe5',
-        ),
-        4 => array(
+        ],
+        4 => [
             'action' => 'eznode:316',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -66,8 +70,8 @@ return array(
             'parent' => '2',
             'text' => 'swap-en',
             'text_md5' => '5a1cafd1fc29c227c11c751d79b0c155',
-        ),
-        5 => array(
+        ],
+        5 => [
             'action' => 'eznode:317',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -79,8 +83,8 @@ return array(
             'parent' => '3',
             'text' => 'swap-hr',
             'text_md5' => 'b0a33436ea51b6cc92f20b7d5be52cf6',
-        ),
-        6 => array(
+        ],
+        6 => [
             'action' => 'eznode:317',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -92,53 +96,53 @@ return array(
             'parent' => '3',
             'text' => 'swap-this',
             'text_md5' => '21940df6bebbfc9501b3b512640dffe5',
-        ),
-    ),
-    'ezcontent_language' => array(
-        0 => array(
+        ],
+    ],
+    'ezcontent_language' => [
+        0 => [
             'disabled' => 0,
             'id' => 2,
             'locale' => 'cro-HR',
-            'name' => 'Croatian (Hrvatski)'
-        ),
-        1 => array(
+            'name' => 'Croatian (Hrvatski)',
+        ],
+        1 => [
             'disabled' => 0,
             'id' => 4,
             'locale' => 'eng-GB',
-            'name' => 'English (United Kingdom)'
-        ),
-        2 => array(
+            'name' => 'English (United Kingdom)',
+        ],
+        2 => [
             'disabled' => 0,
             'id' => 8,
             'locale' => 'ger-DE',
-            'name' => 'German'
-        ),
-        3 => array(
+            'name' => 'German',
+        ],
+        3 => [
             'disabled' => 0,
             'id' => 16,
             'locale' => 'nor-NO',
-            'name' => 'Norwegian (Bokmal)'
-        ),
-    ),
-    'ezurlalias_ml_incr' => array(
-        0 => array(
+            'name' => 'Norwegian (Bokmal)',
+        ],
+    ],
+    'ezurlalias_ml_incr' => [
+        0 => [
             'id' => '1',
-        ),
-        1 => array(
+        ],
+        1 => [
             'id' => '2',
-        ),
-        2 => array(
+        ],
+        2 => [
             'id' => '3',
-        ),
-        3 => array(
+        ],
+        3 => [
             'id' => '4',
-        ),
-        4 => array(
+        ],
+        4 => [
             'id' => '5',
-        ),
-    ),
-    'ezcontentobject_tree' => array(
-        0 => array(
+        ],
+    ],
+    'ezcontentobject_tree' => [
+        0 => [
             'node_id' => 314,
             'main_node_id' => 314,
             'parent_node_id' => 2,
@@ -146,8 +150,8 @@ return array(
             'path_identification_string' => '',
             'remote_id' => '',
             'contentobject_id' => 1,
-        ),
-        1 => array(
+        ],
+        1 => [
             'node_id' => 315,
             'main_node_id' => 315,
             'parent_node_id' => 2,
@@ -155,8 +159,8 @@ return array(
             'path_identification_string' => '',
             'remote_id' => '',
             'contentobject_id' => 2,
-        ),
-        2 => array(
+        ],
+        2 => [
             'node_id' => 316,
             'main_node_id' => 316,
             'parent_node_id' => 314,
@@ -164,8 +168,8 @@ return array(
             'path_identification_string' => '',
             'remote_id' => '',
             'contentobject_id' => 3,
-        ),
-        3 => array(
+        ],
+        3 => [
             'node_id' => 317,
             'main_node_id' => 317,
             'parent_node_id' => 315,
@@ -173,20 +177,20 @@ return array(
             'path_identification_string' => '',
             'remote_id' => '',
             'contentobject_id' => 4,
-        ),
-    ),
-    'ezcontentobject' => array(
-        0 => array(
+        ],
+    ],
+    'ezcontentobject' => [
+        0 => [
             'id' => 3,
             'initial_language_id' => 2,
             'current_version' => 1,
-        ),
-        1 => array(
+        ],
+        1 => [
             'id' => 4,
             'initial_language_id' => 2,
             'current_version' => 1,
-        ),
-    ),
+        ],
+    ],
     'ezcontentobject_name' => [
         0 => [
             'contentobject_id' => 3,
@@ -225,4 +229,4 @@ return array(
             'content_translation' => 'eng-GB',
         ],
     ],
-);
+];

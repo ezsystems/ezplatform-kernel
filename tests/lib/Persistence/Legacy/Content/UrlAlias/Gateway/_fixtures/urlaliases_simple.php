@@ -1,8 +1,12 @@
 <?php
 
-return array(
-    'ezurlalias_ml' => array(
-        0 => array(
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+return [
+    'ezurlalias_ml' => [
+        0 => [
             'action' => 'eznode:2',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -14,8 +18,8 @@ return array(
             'parent' => '0',
             'text' => '',
             'text_md5' => 'd41d8cd98f00b204e9800998ecf8427e',
-        ),
-        1 => array(
+        ],
+        1 => [
             'action' => 'eznode:314',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -27,8 +31,8 @@ return array(
             'parent' => '0',
             'text' => 'jedan',
             'text_md5' => '6896260129051a949051c3847c34466f',
-        ),
-        2 => array(
+        ],
+        2 => [
             'action' => 'eznode:315',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -40,25 +44,25 @@ return array(
             'parent' => '2',
             'text' => 'dva',
             'text_md5' => 'c67ed9a09ab136fae610b6a087d82e21',
-        ),
-    ),
-    'ezcontent_language' => array(
-        0 => array(
+        ],
+    ],
+    'ezcontent_language' => [
+        0 => [
             'disabled' => 0,
             'id' => 2,
             'locale' => 'cro-HR',
-            'name' => 'Croatian (Hrvatski)'
-        ),
-    ),
-    'ezurlalias_ml_incr' => array(
-        0 => array(
+            'name' => 'Croatian (Hrvatski)',
+        ],
+    ],
+    'ezurlalias_ml_incr' => [
+        0 => [
             'id' => '1',
-        ),
-        1 => array(
+        ],
+        1 => [
             'id' => '2',
-        ),
-        2 => array(
+        ],
+        2 => [
             'id' => '3',
-        ),
-    ),
-);
+        ],
+    ],
+];

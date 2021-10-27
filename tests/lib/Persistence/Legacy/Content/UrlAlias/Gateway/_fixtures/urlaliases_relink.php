@@ -1,8 +1,12 @@
 <?php
 
-return array(
-    'ezurlalias_ml' => array(
-        0 => array(
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+return [
+    'ezurlalias_ml' => [
+        0 => [
             'action' => 'eznode:2',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -14,8 +18,8 @@ return array(
             'parent' => '0',
             'text' => '',
             'text_md5' => 'd41d8cd98f00b204e9800998ecf8427e',
-        ),
-        1 => array(
+        ],
+        1 => [
             'action' => 'eznode:314',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -27,8 +31,8 @@ return array(
             'parent' => '0',
             'text' => 'history',
             'text_md5' => '3cd15f8f2940aff879df34df4e5c2cd1',
-        ),
-        2 => array(
+        ],
+        2 => [
             'action' => 'eznode:315',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -40,20 +44,20 @@ return array(
             'parent' => '0',
             'text' => 'reused-history',
             'text_md5' => '51e775a611265b7b0cde62a413c91cdc',
-        ),
-    ),
-    'ezurlalias_ml_incr' => array(
-        0 => array(
+        ],
+    ],
+    'ezurlalias_ml_incr' => [
+        0 => [
             'id' => '1',
-        ),
-        1 => array(
+        ],
+        1 => [
             'id' => '2',
-        ),
-        2 => array(
+        ],
+        2 => [
             'id' => '3',
-        ),
-        3 => array(
+        ],
+        3 => [
             'id' => '4',
-        ),
-    ),
-);
+        ],
+    ],
+];

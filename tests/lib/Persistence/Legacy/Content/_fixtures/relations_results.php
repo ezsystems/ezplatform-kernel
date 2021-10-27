@@ -1,5 +1,10 @@
 <?php
-use eZ\Publish\SPI\Persistence\Content\Relation;
+
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+use Ibexa\Contracts\Core\Persistence\Content\Relation;
 
 $relation = new Relation();
 $relation->id = 1;

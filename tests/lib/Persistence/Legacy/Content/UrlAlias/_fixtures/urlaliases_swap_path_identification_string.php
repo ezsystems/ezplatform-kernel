@@ -1,8 +1,12 @@
 <?php
 
-return array(
-    'ezurlalias_ml' => array(
-        0 => array(
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+return [
+    'ezurlalias_ml' => [
+        0 => [
             'action' => 'eznode:2',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -14,8 +18,8 @@ return array(
             'parent' => '0',
             'text' => '',
             'text_md5' => 'd41d8cd98f00b204e9800998ecf8427e',
-        ),
-        1 => array(
+        ],
+        1 => [
             'action' => 'eznode:314',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -27,8 +31,8 @@ return array(
             'parent' => '0',
             'text' => 'jedan',
             'text_md5' => '6896260129051a949051c3847c34466f',
-        ),
-        2 => array(
+        ],
+        2 => [
             'action' => 'eznode:315',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -40,41 +44,41 @@ return array(
             'parent' => '0',
             'text' => 'dva',
             'text_md5' => 'c67ed9a09ab136fae610b6a087d82e21',
-        ),
-    ),
-    'ezcontent_language' => array(
-        0 => array(
+        ],
+    ],
+    'ezcontent_language' => [
+        0 => [
             'disabled' => 0,
             'id' => 2,
             'locale' => 'cro-HR',
             'name' => 'Croatian (Hrvatski)',
-        ),
-        1 => array(
+        ],
+        1 => [
             'disabled' => 0,
             'id' => 4,
             'locale' => 'eng-GB',
             'name' => 'English (United Kingdom)',
-        ),
-        2 => array(
+        ],
+        2 => [
             'disabled' => 0,
             'id' => 8,
             'locale' => 'ger-DE',
             'name' => 'German',
-        ),
-    ),
-    'ezurlalias_ml_incr' => array(
-        0 => array(
+        ],
+    ],
+    'ezurlalias_ml_incr' => [
+        0 => [
             'id' => '1',
-        ),
-        1 => array(
+        ],
+        1 => [
             'id' => '2',
-        ),
-        2 => array(
+        ],
+        2 => [
             'id' => '3',
-        ),
-    ),
-    'ezcontentobject_tree' => array(
-        0 => array(
+        ],
+    ],
+    'ezcontentobject_tree' => [
+        0 => [
             'node_id' => 2,
             'main_node_id' => 2,
             'parent_node_id' => 1,
@@ -82,8 +86,8 @@ return array(
             'path_identification_string' => '',
             'remote_id' => '',
             'contentobject_id' => 1,
-        ),
-        1 => array(
+        ],
+        1 => [
             'node_id' => 314,
             'main_node_id' => 314,
             'parent_node_id' => 2,
@@ -91,8 +95,8 @@ return array(
             'path_identification_string' => 'jedan',
             'remote_id' => '',
             'contentobject_id' => 2,
-        ),
-        2 => array(
+        ],
+        2 => [
             'node_id' => 315,
             'main_node_id' => 315,
             'parent_node_id' => 2,
@@ -100,20 +104,20 @@ return array(
             'path_identification_string' => 'dva',
             'remote_id' => '',
             'contentobject_id' => 3,
-        ),
-    ),
-    'ezcontentobject' => array(
-        0 => array(
+        ],
+    ],
+    'ezcontentobject' => [
+        0 => [
             'id' => 2,
             'initial_language_id' => 2,
             'current_version' => 1,
-        ),
-        1 => array(
+        ],
+        1 => [
             'id' => 3,
             'initial_language_id' => 2,
             'current_version' => 1,
-        ),
-    ),
+        ],
+    ],
     'ezcontentobject_name' => [
         0 => [
             'contentobject_id' => 2,
@@ -128,4 +132,4 @@ return array(
             'content_translation' => 'cro-HR',
         ],
     ],
-);
+];

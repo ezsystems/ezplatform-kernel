@@ -1,8 +1,12 @@
 <?php
 
-return array(
-    'ezurlalias_ml' => array(
-        0 => array(
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+return [
+    'ezurlalias_ml' => [
+        0 => [
             'action' => 'eznode:2',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -14,8 +18,8 @@ return array(
             'parent' => '0',
             'text' => '',
             'text_md5' => 'd41d8cd98f00b204e9800998ecf8427e',
-        ),
-        1 => array(
+        ],
+        1 => [
             'action' => 'eznode:314',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -27,8 +31,8 @@ return array(
             'parent' => '0',
             'text' => 'location',
             'text_md5' => 'd5189de027922f81005951e6efe0efd5',
-        ),
-        2 => array(
+        ],
+        2 => [
             'action' => 'eznode:314',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -40,8 +44,8 @@ return array(
             'parent' => '0',
             'text' => 'location-history',
             'text_md5' => 'a59d9f07e3d5fcf77911155650956a73',
-        ),
-        3 => array(
+        ],
+        3 => [
             'action' => 'eznode:314',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -53,8 +57,8 @@ return array(
             'parent' => '0',
             'text' => 'location-custom',
             'text_md5' => '6449cba11bb134a57af94c8cb7f6c99c',
-        ),
-        4 => array(
+        ],
+        4 => [
             'action' => 'eznode:315',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -66,8 +70,8 @@ return array(
             'parent' => '0',
             'text' => 'location2',
             'text_md5' => '0a06c09b6dd9a4606b4eb6d60ab188f0',
-        ),
-        5 => array(
+        ],
+        5 => [
             'action' => 'eznode:315',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -79,8 +83,8 @@ return array(
             'parent' => '0',
             'text' => 'location2-translation',
             'text_md5' => '82f2bce3283a0806a398fe78beda17d9',
-        ),
-        6 => array(
+        ],
+        6 => [
             'action' => 'eznode:315',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -92,29 +96,29 @@ return array(
             'parent' => '0',
             'text' => 'location2-custom',
             'text_md5' => '863d659d9fec68e5ab117b5f585a4ee7',
-        ),
-    ),
-    'ezurlalias_ml_incr' => array(
-        0 => array(
+        ],
+    ],
+    'ezurlalias_ml_incr' => [
+        0 => [
             'id' => '1',
-        ),
-        1 => array(
+        ],
+        1 => [
             'id' => '2',
-        ),
-        2 => array(
+        ],
+        2 => [
             'id' => '3',
-        ),
-        3 => array(
+        ],
+        3 => [
             'id' => '4',
-        ),
-        4 => array(
+        ],
+        4 => [
             'id' => '5',
-        ),
-        5 => array(
+        ],
+        5 => [
             'id' => '6',
-        ),
-        6 => array(
+        ],
+        6 => [
             'id' => '7',
-        ),
-    ),
-);
+        ],
+    ],
+];

@@ -1,8 +1,12 @@
 <?php
 
-return array(
-    'ezurlalias_ml' => array(
-        0 => array(
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+return [
+    'ezurlalias_ml' => [
+        0 => [
             'action' => 'eznode:2',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -14,8 +18,8 @@ return array(
             'parent' => '0',
             'text' => '',
             'text_md5' => 'd41d8cd98f00b204e9800998ecf8427e',
-        ),
-        1 => array(
+        ],
+        1 => [
             'action' => 'eznode:3',
             'action_type' => 'eznode',
             'alias_redirects' => '0',
@@ -27,8 +31,8 @@ return array(
             'parent' => '0',
             'text' => 'moved-parent',
             'text_md5' => 'b3c65c78b56bcec4b9884dd694088379',
-        ),
-        2 => array(
+        ],
+        2 => [
             'action' => 'eznode:4',
             'action_type' => 'eznode',
             'alias_redirects' => '0',
@@ -40,8 +44,8 @@ return array(
             'parent' => '2',
             'text' => 'moved',
             'text_md5' => '11dfd868d93bc2b0e4ce0bee5756f8b1',
-        ),
-        4 => array(
+        ],
+        4 => [
             'action' => 'eznode:5',
             'action_type' => 'eznode',
             'alias_redirects' => '0',
@@ -53,8 +57,8 @@ return array(
             'parent' => '0',
             'text' => 'moved-original-parent',
             'text_md5' => '6b01ae8cd40d07ea8be54bbddc9a42f8',
-        ),
-        5 => array(
+        ],
+        5 => [
             'action' => 'eznode:4',
             'action_type' => 'eznode',
             'alias_redirects' => '0',
@@ -66,8 +70,8 @@ return array(
             'parent' => '4',
             'text' => 'moved-history',
             'text_md5' => '7e6a74afb9efb5db7d18fdbd2edecaec',
-        ),
-        6 => array(
+        ],
+        6 => [
             'action' => 'eznode:6',
             'action_type' => 'eznode',
             'alias_redirects' => '0',
@@ -79,8 +83,8 @@ return array(
             'parent' => '3',
             'text' => 'sub',
             'text_md5' => '8a68dc3e925eacf92633be230722a140',
-        ),
-        7 => array(
+        ],
+        7 => [
             'action' => 'eznode:7',
             'action_type' => 'eznode',
             'alias_redirects' => '0',
@@ -92,8 +96,8 @@ return array(
             'parent' => '3',
             'text' => 'sub-history',
             'text_md5' => 'e9f37abc40f517ebd795873f2683e690',
-        ),
-        8 => array(
+        ],
+        8 => [
             'action' => 'eznode:4',
             'action_type' => 'eznode',
             'alias_redirects' => '0',
@@ -105,8 +109,8 @@ return array(
             'parent' => '0',
             'text' => 'moved-previous-history',
             'text_md5' => '520472b9a76d8980eefc68bf519aa446',
-        ),
-        9 => array(
+        ],
+        9 => [
             'action' => 'eznode:8',
             'action_type' => 'eznode',
             'alias_redirects' => '0',
@@ -118,8 +122,8 @@ return array(
             'parent' => '4',
             'text' => 'sub2',
             'text_md5' => '5fbef65269a99bddc2106251dd89b1dc',
-        ),
-        10 => array(
+        ],
+        10 => [
             'action' => 'nop:',
             'action_type' => 'nop',
             'alias_redirects' => '1',
@@ -131,8 +135,8 @@ return array(
             'parent' => '0',
             'text' => 'custom-below',
             'text_md5' => '4fedee449bc4573f786d5839bf39ef31',
-        ),
-        11 => array(
+        ],
+        11 => [
             'action' => 'eznode:5',
             'action_type' => 'eznode',
             'alias_redirects' => '0',
@@ -144,8 +148,8 @@ return array(
             'parent' => '10',
             'text' => 'moved-original-parent-custom',
             'text_md5' => '1098a946541fe683a50fb569b13a2fd9',
-        ),
-        12 => array(
+        ],
+        12 => [
             'action' => 'eznode:5',
             'action_type' => 'eznode',
             'alias_redirects' => '0',
@@ -157,8 +161,8 @@ return array(
             'parent' => '0',
             'text' => 'moved-original-parent-history',
             'text_md5' => '1098a946541fe683a50fb569b13a2fd9',
-        ),
-        13 => array(
+        ],
+        13 => [
             'action' => 'eznode:9',
             'action_type' => 'eznode',
             'alias_redirects' => '0',
@@ -170,8 +174,8 @@ return array(
             'parent' => '0',
             'text' => 'to-delete-folder',
             'text_md5' => '0e6c631eff791a398821ce8ab54ccdc1',
-        ),
-        14 => array(
+        ],
+        14 => [
             'action' => 'eznode:10',
             'action_type' => 'eznode',
             'alias_redirects' => '1',
@@ -183,8 +187,8 @@ return array(
             'parent' => '13',
             'text' => 'article-to-move-relative-alias',
             'text_md5' => 'cad0af09404cf6c7863415319ae7accb',
-        ),
-        15 => array(
+        ],
+        15 => [
             'action' => 'eznode:10',
             'action_type' => 'eznode',
             'alias_redirects' => '0',
@@ -196,8 +200,8 @@ return array(
             'parent' => '0',
             'text' => 'article-to-move',
             'text_md5' => 'bad5f760788aeeb88006892230f26e64',
-        ),
-        16 => array(
+        ],
+        16 => [
             'action' => 'eznode:10',
             'action_type' => 'eznode',
             'alias_redirects' => '0',
@@ -209,58 +213,58 @@ return array(
             'parent' => '13',
             'text' => 'article-to-move',
             'text_md5' => 'bad5f760788aeeb88006892230f26e64',
-        ),
-    ),
-    'ezurlalias_ml_incr' => array(
-        0 => array(
+        ],
+    ],
+    'ezurlalias_ml_incr' => [
+        0 => [
             'id' => '1',
-        ),
-        1 => array(
+        ],
+        1 => [
             'id' => '2',
-        ),
-        2 => array(
+        ],
+        2 => [
             'id' => '3',
-        ),
-        3 => array(
+        ],
+        3 => [
             'id' => '4',
-        ),
-        4 => array(
+        ],
+        4 => [
             'id' => '5',
-        ),
-        5 => array(
+        ],
+        5 => [
             'id' => '6',
-        ),
-        6 => array(
+        ],
+        6 => [
             'id' => '7',
-        ),
-        7 => array(
+        ],
+        7 => [
             'id' => '8',
-        ),
-        8 => array(
+        ],
+        8 => [
             'id' => '9',
-        ),
-        9 => array(
+        ],
+        9 => [
             'id' => '10',
-        ),
-        10 => array(
+        ],
+        10 => [
             'id' => '11',
-        ),
-        11 => array(
+        ],
+        11 => [
             'id' => '12',
-        ),
-    ),
-    'ezcontent_language' => array(
-        0 => array(
+        ],
+    ],
+    'ezcontent_language' => [
+        0 => [
             'disabled' => 0,
             'id' => 2,
             'locale' => 'cro-HR',
-            'name' => 'Croatian (Hrvatski)'
-        ),
-        1 => array(
+            'name' => 'Croatian (Hrvatski)',
+        ],
+        1 => [
             'disabled' => 0,
             'id' => 4,
             'locale' => 'eng-GB',
-            'name' => 'English (United Kingdom)'
-        ),
-    ),
-);
+            'name' => 'English (United Kingdom)',
+        ],
+    ],
+];

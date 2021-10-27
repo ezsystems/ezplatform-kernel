@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
 return [
     'ezcontentobject_link' => [
         ['contentclassattribute_id' => '0', 'from_contentobject_id' => '57', 'from_contentobject_version' => '1', 'id' => '2', 'relation_type' => '1', 'to_contentobject_id' => '58'],
