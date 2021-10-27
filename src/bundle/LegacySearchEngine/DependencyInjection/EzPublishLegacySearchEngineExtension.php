@@ -20,10 +20,10 @@ class EzPublishLegacySearchEngineExtension extends Extension
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        // Loading configuration from Core/settings
+        // Loading configuration from ./src/lib/Resources/settings/policies.yml
         $loader = new YamlFileLoader(
             $container,
-            new FileLocator(__DIR__ . '/../../../Publish/Core/settings')
+            new FileLocator(__DIR__ . '/../../../lib/Resources/settings')
         );
         $loader->load('search_engines/legacy.yml');
 

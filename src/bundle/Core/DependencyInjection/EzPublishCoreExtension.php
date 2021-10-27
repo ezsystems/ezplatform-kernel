@@ -343,13 +343,16 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param \Symfony\Component\DependencyInjection\Loader\FileLoader $loader
+     *
+     * @throws \Exception
      */
-    private function handleApiLoading(ContainerBuilder $container, FileLoader $loader)
+    private function handleApiLoading(ContainerBuilder $container, FileLoader $loader): void
     {
-        // Loading configuration from Core/settings
+        // @todo move settings to Core Bundle Resources
+        // Loading configuration from ./src/lib/Resources/settings
         $coreLoader = new Loader\YamlFileLoader(
             $container,
-            new FileLocator(__DIR__ . '/../../../Publish/Core/settings')
+            new FileLocator(__DIR__ . '/../../../lib/Resources/settings')
         );
         $coreLoader->load('repository.yml');
         $coreLoader->load('repository/inner.yml');

@@ -163,7 +163,7 @@ class UserLanguagePreferenceProviderTest extends TestCase
     private function getLanguageCodesMap(): array
     {
         $config = Yaml::parseFile(
-            realpath(dirname(__DIR__, 6) . '/Bundle/EzPublishCoreBundle/Resources/config/locale.yml')
+            realpath(dirname(__DIR__, 5) . '/src/bundle/Core/Resources/config/locale.yml')
         );
 
         return $config['parameters']['ezpublish.locale.browser_map'];

@@ -8,5 +8,5 @@ services:
             tags:
                 - { name: ezplatform.limitation.language.version_target_evaluator }
 
-    Ibexa\Core\Core\Limitation\LanguageLimitation\:
-        resource: '../../Limitation/LanguageLimitation/*'
+    Ibexa\Core\Limitation\LanguageLimitation\:
+        resource: '../../../Limitation/LanguageLimitation/*'

@@ -39,8 +39,8 @@ final class LegacyTestContainerBuilder extends ContainerBuilder
     {
         $this->addResource(new FileResource(__FILE__));
 
-        $installDir = __DIR__ . '/../../../../..';
-        $settingsPath = $installDir . '/eZ/Publish/Core/settings/';
+        $installDir = __DIR__ . '/../../..';
+        $settingsPath = $installDir . '/src/lib/Resources/settings/';
 
         $this->coreLoader = $this->loadCoreSettings($settingsPath);
 

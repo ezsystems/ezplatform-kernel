@@ -265,7 +265,7 @@ class Legacy extends SetupFactory
             $schemaImporter = new LegacySchemaImporter($this->getDatabaseConnection());
             $schemaImporter->importSchema(
                 dirname(__DIR__, 5) .
-                '/Bundle/EzPublishCoreBundle/Resources/config/storage/legacy/schema.yaml'
+                '/src/bundle/Core/Resources/config/storage/legacy/schema.yaml'
             );
 
             self::$schemaInitialized = true;

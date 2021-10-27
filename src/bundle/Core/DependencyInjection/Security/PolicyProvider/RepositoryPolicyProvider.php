@@ -7,7 +7,7 @@
 namespace Ibexa\Bundle\Core\DependencyInjection\Security\PolicyProvider;
 
 /**
- * @deprecated Deprecated since 7.1. No longer used. System policies configuration was moved to the eZ/Publish/Core/settings/policies.yml.
+ * @deprecated Deprecated since 7.1. No longer used. System policies configuration was moved to src/lib/Resources/settings/policies.yml.
  */
 class RepositoryPolicyProvider extends YamlPolicyProvider
 {

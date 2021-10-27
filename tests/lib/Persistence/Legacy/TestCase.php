@@ -133,8 +133,8 @@ abstract class TestCase extends BaseTestCase
         try {
             $schemaImporter = new LegacySchemaImporter($this->getDatabaseConnection());
             $schemaImporter->importSchema(
-                dirname(__DIR__, 5) .
-                '/Bundle/EzPublishCoreBundle/Resources/config/storage/legacy/schema.yaml'
+                dirname(__DIR__, 4) .
+                '/src/bundle/Core/Resources/config/storage/legacy/schema.yaml'
             );
         } catch (PDOException | ConnectionException $e) {
             self::fail(

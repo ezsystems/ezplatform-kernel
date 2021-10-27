@@ -10,3 +10,4 @@ Doctrine                | Doctrine DBAL implementation of "Database" (planned to
 Legacy                  | SPI Persistence implementation for sql database as used in eZ Publish 4.x "legacy"
 Test                    | Test for common functionality in this folder, including TransformationProcessor (todo: move to ./Common)
 TransformationProcessor | Common transformation processor for string transformation use by Storage and Search engines.
+``

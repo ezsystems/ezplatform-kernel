@@ -47,9 +47,9 @@ services:
     ezpublish.search.common.field_value_mapper.aggregate:
         class: Ibexa\Core\Search\Common\FieldValueMapper\Aggregate
 
-    Ibexa\Core\Core\Search\Common\EventSubscriber\:
-        resource: '../../Search/Common/EventSubscriber/*'
-        exclude: '../../Search/Common/EventSubscriber/{AbstractSearchEventSubscriber.php}'
+    Ibexa\Core\Search\Common\EventSubscriber\:
+        resource: '../../../Search/Common/EventSubscriber/*'
+        exclude: '../../../Search/Common/EventSubscriber/{AbstractSearchEventSubscriber.php}'
         autoconfigure: true
         autowire: true
         public: false

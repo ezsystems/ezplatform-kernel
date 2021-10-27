@@ -26,7 +26,7 @@ abstract class Gateway
      * The second, optional, column is an explicit language id.
      *
      * It depends on the schema defined in
-     * <code>eZ/Bundle/EzPublishCoreBundle/Resources/config/storage/legacy/schema.yaml</code>
+     * <code>./src/bundle/Core/Resources/config/storage/legacy/schema.yaml</code>
      */
     public const MULTILINGUAL_TABLES_COLUMNS = [
         'ezcobj_state' => ['language_mask', 'default_language_id'],
