@@ -26,13 +26,6 @@ final class SetSystemContentTypeGroupCommand extends Command
 {
     private const DEFAULT_REPOSITORY_USER = 'admin';
 
-    private const BEFORE_RUNNING_HINTS = <<<EOT
-<error>Before you continue:</error>
-- Make sure to back up your database.
-- Run this command in production environment using <info>--env=prod</info>
-- Manually clear SPI/HTTP cache after running this command.
-EOT;
-
     protected static $defaultName = 'ibexa:content-type-group:set-system';
 
     /** @var \eZ\Publish\API\Repository\ContentTypeService */
@@ -58,14 +51,13 @@ EOT;
 
     protected function configure()
     {
-        $beforeRunningHints = self::BEFORE_RUNNING_HINTS;
         $this
             ->addArgument('content-type-group-identifier', InputArgument::REQUIRED, 'ContentTypGroup identifier')
             ->addOption(
                 'system',
                 null,
                 InputOption::VALUE_NEGATABLE,
-                'Please set true if ContentTypeGroup should be a system group or false if it should not be a system group.'
+                'Sets ContentTypeGroup as a system group.'
             )
             ->addOption(
                 'user',
@@ -78,8 +70,6 @@ EOT;
             ->setHelp(
                 <<<EOT
 The command <info>%command.name%</info> sets `is_system` flag for ContentTypeGroup which determines if ContentTypeGroup is a system group.
-
-{$beforeRunningHints}
 EOT
             );
     }
@@ -107,7 +97,7 @@ EOT
         try {
             $contentTypeGroup = $this->contentTypeService->loadContentTypeGroupByIdentifier($identifier);
         } catch (NotFoundException $e) {
-            $io->warning(sprintf('Can\'t find ContentTypeGroup with identifier: %s', $identifier));
+            $io->error(sprintf('Can\'t find ContentTypeGroup with identifier: %s', $identifier));
 
             return self::INVALID;
         }
