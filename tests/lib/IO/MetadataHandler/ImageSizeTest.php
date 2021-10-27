@@ -18,7 +18,7 @@ class ImageSizeTest extends TestCase
     public function testExtract()
     {
         $metadataHandler = new ImageSizeMetadataHandler();
-        $file = 'eZ/Publish/Core/Repository/Tests/Service/Integration/ezplogo.png';
+        $file = __DIR__ . '/ezplogo.png';
         self::assertEquals(
             ['width' => 189, 'height' => 200, 'mime' => 'image/png'],
             $metadataHandler->extract($file)

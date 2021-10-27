@@ -145,12 +145,12 @@ class BinaryFileIntegrationTest extends FileBaseIntegrationTest
                 'data' => null,
                 'externalData' => [
                     'id' => null,
-                    'inputUri' => ($path = __DIR__ . '/_fixtures/image.jpg'),
+                    'inputUri' => ($path = dirname(__DIR__, 2) . '/Repository/FieldType/_fixtures/image.jpg'),
                     'fileName' => 'Ice-Flower-Binary.jpg',
                     'fileSize' => filesize($path),
                     'mimeType' => 'image/jpeg',
                     'downloadCount' => 0,
-                    'uri' => __DIR__ . '/_fixtures/image.jpg',
+                    'uri' => __DIR__ . '/../../Repository/FieldType/_fixtures/image.png',
                 ],
                 'sortKey' => '',
             ]
@@ -195,13 +195,13 @@ class BinaryFileIntegrationTest extends FileBaseIntegrationTest
                 'externalData' => [
                     // used to ensure that inputUri has precedence over 'id'
                     'id' => 'some/value',
-                    'inputUri' => ($path = __DIR__ . '/_fixtures/image.png'),
+                    'inputUri' => ($path = dirname(__DIR__, 2) . '/Repository/FieldType/_fixtures/image.png'),
                     'fileName' => 'Blueish-Blue-Binary.jpg',
                     'fileSize' => filesize($path),
                     // on purpuse wrong, as it should be ignored by storage
                     'mimeType' => 'foo/bar',
                     'downloadCount' => 23,
-                    'uri' => __DIR__ . '/_fixtures/image.jpg',
+                    'uri' => __DIR__ . '/../../Repository/FieldType/_fixtures/image.png',
                 ],
                 'sortKey' => '',
             ]

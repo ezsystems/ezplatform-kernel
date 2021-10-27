@@ -215,7 +215,7 @@ abstract class BaseIntegrationTest extends TestCase
             parent::setUp();
             $fixtureImporter = new FixtureImporter($this->getDatabaseConnection());
             $fixtureImporter->import(
-                new YamlFixture(__DIR__ . '/../../../API/Repository/Tests/_fixtures/Legacy/data/test_data.yaml')
+                new YamlFixture(dirname(__DIR__, 2) . '/Repository/_fixtures/Legacy/data/test_data.yaml')
             );
             self::$setUp = true;
         }

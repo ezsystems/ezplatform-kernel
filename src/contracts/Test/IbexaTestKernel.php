@@ -175,7 +175,7 @@ class IbexaTestKernel extends Kernel
 
     private static function getResourcesPath(): string
     {
-        return dirname(__DIR__, 3) . '/eZ/Bundle/EzPublishCoreBundle/Tests/Resources';
+        return dirname(__DIR__, 3) . '/tests/bundle/Core/Resources';
     }
 
     private static function createPublicAliasesForServicesUnderTest(ContainerBuilder $container): void

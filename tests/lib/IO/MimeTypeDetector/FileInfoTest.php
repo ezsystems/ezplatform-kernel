@@ -21,7 +21,7 @@ class FileInfoTest extends TestCase
 
     protected function getFixture()
     {
-        return __DIR__ . '/../_fixtures/squirrel-developers.jpg';
+        return __DIR__ . '/../../_fixtures/squirrel-developers.jpg';
     }
 
     public function testGetFromPath()

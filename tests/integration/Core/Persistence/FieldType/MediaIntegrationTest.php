@@ -151,7 +151,7 @@ class MediaIntegrationTest extends FileBaseIntegrationTest
                 'data' => null,
                 'externalData' => [
                     'id' => null,
-                    'inputUri' => ($path = __DIR__ . '/_fixtures/image.jpg'),
+                    'inputUri' => ($path = dirname(__DIR__, 2) . '/Repository/FieldType/_fixtures/image.jpg'),
                     'fileName' => 'Ice-Flower-Media.jpg',
                     'fileSize' => filesize($path),
                     'mimeType' => 'image/jpeg',
@@ -211,7 +211,7 @@ class MediaIntegrationTest extends FileBaseIntegrationTest
                 'data' => null,
                 'externalData' => [
                     'id' => null,
-                    'inputUri' => ($path = __DIR__ . '/_fixtures/image.png'),
+                    'inputUri' => ($path = dirname(__DIR__, 2) . '/Repository/FieldType/_fixtures/image.png'),
                     'fileName' => 'Blueish-Blue-Media.jpg',
                     'fileSize' => filesize($path),
                     'mimeType' => 'image/png',

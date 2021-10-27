@@ -20,9 +20,9 @@ Scenario: A content view can be configured to run and render a query
       <?php
       namespace App\QueryType;
 
-      use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-      use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ParentLocationId;
-      use eZ\Publish\Core\QueryType\QueryType;
+      use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+      use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ParentLocationId;
+      use Ibexa\Core\QueryType\QueryType;
 
       class LocationChildrenQueryType implements QueryType
       {
@@ -67,9 +67,9 @@ Scenario: A content view can be configured to run and render a query and return 
       <?php
       namespace App\QueryType;
 
-      use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-      use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ParentLocationId;
-      use eZ\Publish\Core\QueryType\QueryType;
+      use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+      use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ParentLocationId;
+      use Ibexa\Core\QueryType\QueryType;
 
       class LocationChildrenQueryType implements QueryType
       {
@@ -118,9 +118,9 @@ Scenario: A content view can be configured to run and render a query return a Pa
       <?php
       namespace App\QueryType;
 
-      use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-      use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ParentLocationId;
-      use eZ\Publish\Core\QueryType\QueryType;
+      use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+      use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ParentLocationId;
+      use Ibexa\Core\QueryType\QueryType;
 
       class LocationChildrenQueryType implements QueryType
       {
@@ -171,9 +171,9 @@ Scenario: A content view can be configured to run and render a query and set a s
       <?php
       namespace App\QueryType;
 
-      use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-      use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ParentLocationId;
-      use eZ\Publish\Core\QueryType\QueryType;
+      use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+      use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ParentLocationId;
+      use Ibexa\Core\QueryType\QueryType;
 
       class LocationChildrenQueryType implements QueryType
       {

@@ -33,7 +33,7 @@ class ImageTest extends FieldTypeTest
 
     public function getImageInputPath()
     {
-        return __DIR__ . '/squirrel-developers.jpg';
+        return __DIR__ . '/../_fixtures/squirrel-developers.jpg';
     }
 
     /**
@@ -743,9 +743,9 @@ class ImageTest extends FieldTypeTest
                 ],
                 new ImageValue(
                     [
-                        'id' => __DIR__ . '/phppng.php',
-                        'fileName' => basename(__DIR__ . '/phppng.php'),
-                        'fileSize' => filesize(__DIR__ . '/phppng.php'),
+                        'id' => __DIR__ . '/../_fixtures/phppng.php',
+                        'fileName' => basename(__DIR__ . '/../_fixtures/phppng.php'),
+                        'fileSize' => filesize(__DIR__ . '/../_fixtures/phppng.php'),
                         'alternativeText' => null,
                         'uri' => '',
                     ]
@@ -772,9 +772,9 @@ class ImageTest extends FieldTypeTest
                 ],
                 new ImageValue(
                     [
-                        'id' => __DIR__ . '/phppng2.PHP',
-                        'fileName' => basename(__DIR__ . '/phppng2.PHP'),
-                        'fileSize' => filesize(__DIR__ . '/phppng2.PHP'),
+                        'id' => __DIR__ . '/../_fixtures/phppng2.PHP',
+                        'fileName' => basename(__DIR__ . '/../_fixtures/phppng2.PHP'),
+                        'fileSize' => filesize(__DIR__ . '/../_fixtures/phppng2.PHP'),
                         'alternativeText' => null,
                         'uri' => '',
                     ]

@@ -71,7 +71,7 @@ abstract class IbexaKernelTestCase extends KernelTestCase
      */
     protected static function getFixtures(): iterable
     {
-        yield new YamlFixture(dirname(__DIR__, 3) . '/eZ/Publish/API/Repository/Tests/_fixtures/Legacy/data/test_data.yaml');
+        yield new YamlFixture(dirname(__DIR__, 3) . '/tests/integration/Core/Repository/_fixtures/Legacy/data/test_data.yaml');
     }
 
     /**

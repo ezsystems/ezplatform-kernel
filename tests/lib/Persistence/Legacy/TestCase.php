@@ -195,7 +195,7 @@ abstract class TestCase extends BaseTestCase
             $fixtureImporter = new FixtureImporter($this->getDatabaseConnection());
             $fixtureImporter->import(
                 new YamlFixture(
-                    __DIR__ . '/../../../../API/Repository/Tests/_fixtures/Legacy/data/test_data.yaml'
+                    __DIR__ . '/../../../integration/Core/Repository/_fixtures/Legacy/data/test_data.yaml'
                 )
             );
         } catch (DBALException $e) {

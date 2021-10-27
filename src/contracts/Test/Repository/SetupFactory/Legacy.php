@@ -201,9 +201,9 @@ class Legacy extends SetupFactory
         $fixtureImporter->import($this->getInitialDataFixture());
     }
 
-    protected function getInitialVarDir()
+    protected function getInitialVarDir(): string
     {
-        return __DIR__ . '/../../../../../../var';
+        return __DIR__ . '/../../../../../var';
     }
 
     protected function cleanupVarDir($sourceDir)
@@ -246,7 +246,7 @@ class Legacy extends SetupFactory
     {
         if (!isset(self::$initialDataFixture)) {
             self::$initialDataFixture = new YamlFixture(
-                __DIR__ . '/../_fixtures/Legacy/data/test_data.yaml'
+                dirname(__DIR__, 5) . '/tests/integration/Core/Repository/_fixtures/Legacy/data/test_data.yaml'
             );
         }
 

@@ -5379,7 +5379,7 @@ class UrlAliasHandlerTest extends TestCase
         return new DefinitionBased(
             new Parser(),
             new PcreCompiler(new Utf8Converter()),
-            glob(__DIR__ . '/../../../../Tests/TransformationProcessor/_fixtures/transformations/*.tr')
+            glob(__DIR__ . '/../../../TransformationProcessor/_fixtures/transformations/*.tr')
         );
     }
 

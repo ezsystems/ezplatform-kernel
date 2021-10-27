@@ -11,21 +11,16 @@ use PHPUnit\Framework\TestCase;
 
 class GlobCollectorTest extends TestCase
 {
-    public function testCollect()
+    public function testCollect(): void
     {
-        $translationRootDir = str_replace(
-            sprintf('%1$sTests%1$sTranslation', \DIRECTORY_SEPARATOR),
-            sprintf('%1$sTests%1$sResources%1$sTranslation', \DIRECTORY_SEPARATOR),
-            __DIR__
-        );
-        $collector = new GlobCollector($translationRootDir);
+        $collector = new GlobCollector(__DIR__ . '/../Resources/Translation');
 
         $files = $collector->collect();
-        $this->assertCount(3, $files);
+        self::assertCount(3, $files);
         foreach ($files as $file) {
-            $this->assertTrue(in_array($file['domain'], ['messages', 'dashboard']));
-            $this->assertTrue(in_array($file['locale'], ['fr', 'ach_UG']));
-            $this->assertEquals($file['format'], 'xlf');
+            self::assertContains($file['domain'], ['messages', 'dashboard']);
+            self::assertContains($file['locale'], ['fr', 'ach_UG']);
+            self::assertEquals('xlf', $file['format']);
         }
     }
 }
