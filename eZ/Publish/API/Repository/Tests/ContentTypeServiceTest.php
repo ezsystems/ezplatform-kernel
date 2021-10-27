@@ -233,6 +233,9 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
             'System',
             $systemGroup->identifier
         );
+        $this->assertTrue(
+            $systemGroup->isSystem
+        );
     }
 
     /**
