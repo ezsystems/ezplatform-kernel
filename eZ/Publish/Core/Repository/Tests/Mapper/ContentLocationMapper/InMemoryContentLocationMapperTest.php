@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Tests\ContentLocationMapper;
+namespace eZ\Publish\Core\Repository\Tests\Mapper\ContentLocationMapper;
 
-use eZ\Publish\Core\Repository\ContentLocationMapper\InMemoryContentLocationMapper;
+use eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\InMemoryContentLocationMapper;
 use PHPUnit\Framework\TestCase;
 
 class InMemoryContentLocationMapperTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Repository\ContentLocationMapper\ContentLocationMapper */
+    /** @var \eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper */
     private $mapper;
 
     protected function setUp(): void
@@ -36,12 +36,12 @@ class InMemoryContentLocationMapperTest extends TestCase
     public function testHasMapping(): void
     {
         self::assertTrue($this->mapper->hasMapping(5));
-        self::assertNotTrue($this->mapper->hasMapping(7));
+        self::assertFalse($this->mapper->hasMapping(7));
     }
 
     public function testSetMapping(): void
     {
-        self::assertNotTrue($this->mapper->hasMapping(7));
+        self::assertFalse($this->mapper->hasMapping(7));
 
         $this->mapper->setMapping(7, 8);
 
@@ -55,6 +55,6 @@ class InMemoryContentLocationMapperTest extends TestCase
 
         $this->mapper->removeMapping(3);
 
-        self::assertNotTrue($this->mapper->hasMapping(3));
+        self::assertFalse($this->mapper->hasMapping(3));
     }
 }

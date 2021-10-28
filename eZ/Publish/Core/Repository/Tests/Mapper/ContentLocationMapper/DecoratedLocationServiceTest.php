@@ -6,25 +6,25 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Tests\ContentLocationMapper\Service;
+namespace eZ\Publish\Core\Repository\Tests\Mapper\ContentLocationMapper;
 
 use eZ\Publish\API\Repository\LocationService as ApiLocationService;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\LocationList;
-use eZ\Publish\Core\Repository\ContentLocationMapper\ContentLocationMapper;
-use eZ\Publish\Core\Repository\ContentLocationMapper\Service\LocationService;
+use eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper;
+use eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\DecoratedLocationService;
 use eZ\Publish\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
 
-class LocationServiceTest extends TestCase
+class DecoratedLocationServiceTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Repository\ContentLocationMapper\Service\LocationService */
+    /** @var \eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\DecoratedLocationService */
     private $locationService;
 
     /** @var ApiLocationService */
     private $innerLocationService;
 
-    /** @var \eZ\Publish\Core\Repository\ContentLocationMapper\ContentLocationMapper */
+    /** @var \eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper */
     private $mapper;
 
     protected function setUp(): void
@@ -34,7 +34,7 @@ class LocationServiceTest extends TestCase
         $this->mapper = $this->createMock(ContentLocationMapper::class);
         $this->innerLocationService = $this->createMock(ApiLocationService::class);
 
-        $this->locationService = new LocationService($this->innerLocationService, $this->mapper);
+        $this->locationService = new DecoratedLocationService($this->innerLocationService, $this->mapper);
     }
 
     public function testLoadLocation(): void

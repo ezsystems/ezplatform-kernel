@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\ContentLocationMapper;
+namespace eZ\Publish\Core\Repository\Mapper\ContentLocationMapper;
 
 /**
  * Retrieves Content ID from Location ID.

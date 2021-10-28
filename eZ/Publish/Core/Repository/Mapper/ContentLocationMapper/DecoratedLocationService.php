@@ -6,23 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\ContentLocationMapper\Service;
+namespace eZ\Publish\Core\Repository\Mapper\ContentLocationMapper;
 
 use eZ\Publish\API\Repository\LocationService as RepositoryLocationService;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\LocationList;
 use eZ\Publish\SPI\Repository\Decorator\LocationServiceDecorator;
-use eZ\Publish\Core\Repository\ContentLocationMapper\ContentLocationMapper;
 
 /**
  * Service decorator hooking ContentLocationMapper to load* calls.
  *
  * @internal
  */
-final class LocationService extends LocationServiceDecorator
+final class DecoratedLocationService extends LocationServiceDecorator
 {
-    /** @var \eZ\Publish\Core\Repository\ContentLocationMapper\ContentLocationMapper */
+    /** @var \eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper */
     private $contentLocationMapper;
 
     public function __construct(
