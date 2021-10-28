@@ -6,6 +6,7 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\URLAliasService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
@@ -797,6 +798,12 @@ class TrashServiceTest extends BaseTrashServiceTest
         // Set the Editor user as current user, these users have no access to Trash by default.
         $repository->getPermissionResolver()->setCurrentUserReference($user);
 
+        // Finding trash items with Field Criterion is not supported yet
+        $this->expectException(NotImplementedException::class);
+        $this->expectExceptionMessage(
+            'Intentionally not implemented: No visitor available for: ' .
+            'Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Field'
+        );
         // Load all trashed locations
         $searchResult = $trashService->findTrashItems($query);
         /* END: Use Case */
