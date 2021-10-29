@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\Exception;
+namespace Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\Exception;
 
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 
 /**
  * Exception thrown if no converter for a type was found.
@@ -21,8 +21,10 @@ class NotFound extends NotFoundException
     public function __construct($typeName)
     {
         parent::__construct(
-            'eZ\\Publish\\SPI\\Persistence\\Content\\FieldValue\\Converter\\*',
+            'Persistence Field Value Converter',
             $typeName
         );
     }
 }
+
+class_alias(NotFound::class, 'eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\Exception\NotFound');

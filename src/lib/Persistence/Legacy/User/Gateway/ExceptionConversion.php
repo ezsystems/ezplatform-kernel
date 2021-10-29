@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\User\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\User\Gateway;
 
-use eZ\Publish\Core\Base\Exceptions\DatabaseException;
-use eZ\Publish\Core\Persistence\Legacy\User\Gateway;
+use Ibexa\Core\Base\Exceptions\DatabaseException;
+use Ibexa\Core\Persistence\Legacy\User\Gateway;
 use Doctrine\DBAL\DBALException;
-use eZ\Publish\SPI\Persistence\User;
-use eZ\Publish\SPI\Persistence\User\UserTokenUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\User;
+use Ibexa\Contracts\Core\Persistence\User\UserTokenUpdateStruct;
 use PDOException;
 
 /**
@@ -23,7 +23,7 @@ final class ExceptionConversion extends Gateway
     /**
      * The wrapped gateway.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\User\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\User\Gateway
      */
     private $innerGateway;
 
@@ -127,3 +127,5 @@ final class ExceptionConversion extends Gateway
         }
     }
 }
+
+class_alias(ExceptionConversion::class, 'eZ\Publish\Core\Persistence\Legacy\User\Gateway\ExceptionConversion');

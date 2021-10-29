@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\ExpressionLanguage;
+namespace Ibexa\Core\MVC\Symfony\ExpressionLanguage;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\MVC\Symfony\View\ContentView;
-use eZ\Publish\Core\MVC\Symfony\View\VariableProviderRegistry;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\MVC\Symfony\View\ContentView;
+use Ibexa\Core\MVC\Symfony\View\VariableProviderRegistry;
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
@@ -55,3 +55,5 @@ final class TwigVariableProviderExtension implements ExpressionFunctionProviderI
             && $variables[self::PROVIDER_REGISTRY_PARAMETER] instanceof VariableProviderRegistry;
     }
 }
+
+class_alias(TwigVariableProviderExtension::class, 'eZ\Publish\Core\MVC\Symfony\ExpressionLanguage\TwigVariableProviderExtension');

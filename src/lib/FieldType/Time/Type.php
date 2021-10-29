@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Time;
+namespace Ibexa\Core\FieldType\Time;
 
 use DateTime;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\FieldType\FieldType;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\FieldType\FieldType;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 class Type extends FieldType
 {
@@ -49,7 +49,7 @@ class Type extends FieldType
     }
 
     /**
-     * @param \eZ\Publish\Core\FieldType\Time\Value|\eZ\Publish\SPI\FieldType\Value $value
+     * @param \Ibexa\Core\FieldType\Time\Value|\Ibexa\Contracts\Core\FieldType\Value $value
      *
      * @throws \Exception
      */
@@ -68,7 +68,7 @@ class Type extends FieldType
      * Returns the fallback default value of field type when no such default
      * value is provided in the field definition in content types.
      *
-     * @return \eZ\Publish\Core\FieldType\Time\Value
+     * @return \Ibexa\Core\FieldType\Time\Value
      */
     public function getEmptyValue()
     {
@@ -78,9 +78,9 @@ class Type extends FieldType
     /**
      * Inspects given $inputValue and potentially converts it into a dedicated value object.
      *
-     * @param string|int|\DateTime|\eZ\Publish\Core\FieldType\Time\Value $inputValue
+     * @param string|int|\DateTime|\Ibexa\Core\FieldType\Time\Value $inputValue
      *
-     * @return \eZ\Publish\Core\FieldType\Time\Value The potentially converted and structurally plausible value.
+     * @return \Ibexa\Core\FieldType\Time\Value The potentially converted and structurally plausible value.
      */
     protected function createValueFromInput($inputValue)
     {
@@ -102,9 +102,9 @@ class Type extends FieldType
     /**
      * Throws an exception if value structure is not of expected format.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
      *
-     * @param \eZ\Publish\Core\FieldType\Time\Value $value
+     * @param \Ibexa\Core\FieldType\Time\Value $value
      */
     protected function checkValueStructure(BaseValue $value)
     {
@@ -120,7 +120,7 @@ class Type extends FieldType
     /**
      * Returns information for FieldValue->$sortKey relevant to the field type.
      *
-     * @param \eZ\Publish\Core\FieldType\Time\Value $value
+     * @param \Ibexa\Core\FieldType\Time\Value $value
      *
      * @return int
      */
@@ -134,7 +134,7 @@ class Type extends FieldType
      *
      * @param int $hash Number of seconds since Unix Epoch
      *
-     * @return \eZ\Publish\Core\FieldType\Time\Value $value
+     * @return \Ibexa\Core\FieldType\Time\Value $value
      */
     public function fromHash($hash)
     {
@@ -149,7 +149,7 @@ class Type extends FieldType
      * Returns if the given $value is considered empty by the field type.
      *
      *
-     * @param \eZ\Publish\Core\FieldType\Value $value
+     * @param \Ibexa\Core\FieldType\Value $value
      *
      * @return bool
      */
@@ -165,7 +165,7 @@ class Type extends FieldType
     /**
      * Converts a $Value to a hash.
      *
-     * @param \eZ\Publish\Core\FieldType\Time\Value $value
+     * @param \Ibexa\Core\FieldType\Time\Value $value
      *
      * @return mixed
      */
@@ -193,7 +193,7 @@ class Type extends FieldType
      *
      * @param mixed $fieldSettings
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validateFieldSettings($fieldSettings)
     {
@@ -247,3 +247,5 @@ class Type extends FieldType
         return $validationErrors;
     }
 }
+
+class_alias(Type::class, 'eZ\Publish\Core\FieldType\Time\Type');

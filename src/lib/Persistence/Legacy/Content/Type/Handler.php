@@ -4,26 +4,26 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Type;
+namespace Ibexa\Core\Persistence\Legacy\Content\Type;
 
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as BaseContentTypeHandler;
-use eZ\Publish\SPI\Persistence\Content\Type\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\Type\Group;
-use eZ\Publish\SPI\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler as UpdateHandler;
-use eZ\Publish\Core\Persistence\Legacy\Exception;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as BaseContentTypeHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Update\Handler as UpdateHandler;
+use Ibexa\Core\Persistence\Legacy\Exception;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 class Handler implements BaseContentTypeHandler
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Type\Gateway */
     protected $contentTypeGateway;
 
     /**
@@ -36,16 +36,16 @@ class Handler implements BaseContentTypeHandler
     /**
      * Content Type update handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Type\Update\Handler
      */
     protected $updateHandler;
 
     /**
      * Creates a new content type handler.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway $contentTypeGateway
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper $mapper
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler $updateHandler
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Type\Gateway $contentTypeGateway
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Type\Mapper $mapper
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Type\Update\Handler $updateHandler
      */
     public function __construct(
         Gateway $contentTypeGateway,
@@ -58,7 +58,7 @@ class Handler implements BaseContentTypeHandler
     }
 
     /**
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\Group\CreateStruct $createStruct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\Group\CreateStruct $createStruct
      *
      * @return Group
      */
@@ -76,9 +76,9 @@ class Handler implements BaseContentTypeHandler
     }
 
     /**
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\Group\UpdateStruct $struct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\Group\UpdateStruct $struct
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type\Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\Group
      */
     public function updateGroup(GroupUpdateStruct $struct)
     {
@@ -92,8 +92,8 @@ class Handler implements BaseContentTypeHandler
     /**
      * @param mixed $groupId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException If type group contains types
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If type group with id is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException If type group contains types
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If type group with id is not found
      */
     public function deleteGroup($groupId)
     {
@@ -106,7 +106,7 @@ class Handler implements BaseContentTypeHandler
     /**
      * @param mixed $groupId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If type group with $groupId is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If type group with $groupId is not found
      *
      * @return Group
      */
@@ -143,9 +143,9 @@ class Handler implements BaseContentTypeHandler
     /**
      * @param string $identifier
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If type group with $identifier is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If type group with $identifier is not found
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type\Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\Group
      */
     public function loadGroupByIdentifier($identifier)
     {
@@ -199,7 +199,7 @@ class Handler implements BaseContentTypeHandler
      * @param int $contentTypeId
      * @param int $status
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     public function load($contentTypeId, $status = Type::STATUS_DEFINED)
     {
@@ -217,9 +217,9 @@ class Handler implements BaseContentTypeHandler
      *
      * @param string $identifier
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If defined type is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If defined type is not found
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     public function loadByIdentifier($identifier)
     {
@@ -235,9 +235,9 @@ class Handler implements BaseContentTypeHandler
      *
      * @param mixed $remoteId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If defined type is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If defined type is not found
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     public function loadByRemoteId($remoteId)
     {
@@ -255,7 +255,7 @@ class Handler implements BaseContentTypeHandler
      * @param mixed $typeIdentifier
      * @param int $status
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     protected function loadFromRows(array $rows, $typeIdentifier, $status)
     {
@@ -268,9 +268,9 @@ class Handler implements BaseContentTypeHandler
     }
 
     /**
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\CreateStruct $createStruct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct $createStruct
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     public function create(CreateStruct $createStruct)
     {
@@ -282,10 +282,10 @@ class Handler implements BaseContentTypeHandler
      *
      * Used by self::create(), self::createDraft() and self::copy()
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\CreateStruct $createStruct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct $createStruct
      * @param mixed|null $contentTypeId Used by self::createDraft() to retain ContentType id in the draft
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     protected function internalCreate(CreateStruct $createStruct, $contentTypeId = null)
     {
@@ -334,7 +334,7 @@ class Handler implements BaseContentTypeHandler
     /**
      * @param mixed $typeId
      * @param int $status
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct $contentType
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct $updateStruct
      *
      * @return Type
      */
@@ -349,7 +349,7 @@ class Handler implements BaseContentTypeHandler
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException If type is defined and still has content
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException If type is defined and still has content
      *
      * @param mixed $contentTypeId
      * @param int $status
@@ -379,9 +379,9 @@ class Handler implements BaseContentTypeHandler
      * @param mixed $modifierId
      * @param mixed $contentTypeId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If type with defined status is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If type with defined status is not found
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     public function createDraft($modifierId, $contentTypeId)
     {
@@ -437,8 +437,8 @@ class Handler implements BaseContentTypeHandler
      * @param mixed $contentTypeId
      * @param int $status
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If group or type with provided status is not found
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException If $groupId is last group on $contentTypeId or
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If group or type with provided status is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException If $groupId is last group on $contentTypeId or
      *                                                                 not a group assigned to type
      *
      * @todo Add throws for NotFound and BadState when group is not assigned to type
@@ -461,8 +461,8 @@ class Handler implements BaseContentTypeHandler
      * @param mixed $groupId
      * @param mixed $contentTypeId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If group or type with provided status is not found
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException If type is already part of group
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If group or type with provided status is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException If type is already part of group
      *
      * @todo Above throws are not implemented
      */
@@ -476,12 +476,12 @@ class Handler implements BaseContentTypeHandler
     /**
      * Returns field definition for the given field definition id.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If field definition is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If field definition is not found
      *
      * @param mixed $id
      * @param int $status One of Type::STATUS_DEFINED|Type::STATUS_DRAFT|Type::STATUS_MODIFIED
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition
      */
     public function getFieldDefinition($id, $status)
     {
@@ -523,7 +523,7 @@ class Handler implements BaseContentTypeHandler
      *
      * @param mixed $contentTypeId
      * @param int $status One of Type::STATUS_DEFINED|Type::STATUS_DRAFT|Type::STATUS_MODIFIED
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition $fieldDefinition
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition $fieldDefinition
      */
     public function addFieldDefinition($contentTypeId, $status, FieldDefinition $fieldDefinition)
     {
@@ -565,7 +565,7 @@ class Handler implements BaseContentTypeHandler
      * field (default) values.
      *
      * @param mixed $contentTypeId
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition $fieldDefinition
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition $fieldDefinition
      */
     public function updateFieldDefinition($contentTypeId, $status, FieldDefinition $fieldDefinition)
     {
@@ -601,9 +601,6 @@ class Handler implements BaseContentTypeHandler
         $this->updateHandler->publishNewType($toType, Type::STATUS_DEFINED);
     }
 
-    /**
-     * @see \eZ\Publish\SPI\Persistence\Content\Type\Handler::getSearchableFieldMap
-     */
     public function getSearchableFieldMap()
     {
         $fieldMap = [];
@@ -623,7 +620,7 @@ class Handler implements BaseContentTypeHandler
      * @param int $contentTypeId
      * @param string $languageCode
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     public function removeContentTypeTranslation(int $contentTypeId, string $languageCode): Type
     {
@@ -666,3 +663,5 @@ class Handler implements BaseContentTypeHandler
         $this->contentTypeGateway->removeByUserAndVersion($userId, $status);
     }
 }
+
+class_alias(Handler::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler');

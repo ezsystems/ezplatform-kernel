@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Cache\Adapter;
+namespace Ibexa\Core\Persistence\Cache\Adapter;
 
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 use Psr\Cache\CacheItemInterface;
@@ -16,14 +16,14 @@ use Symfony\Contracts\Cache\ItemInterface;
 /**
  * Internal proxy adapter invalidating our isolated in-memory cache, and defer shared pool changes during transactions.
  *
- * @internal For type hinting inside eZ\Publish\Core\Persistence\Cache\*. For external, type hint on TagAwareAdapterInterface.
+ * @internal For type hinting inside {@see \Ibexa\Core\Persistence\Cache\}. For external, type hint on TagAwareAdapterInterface.
  */
 class TransactionalInMemoryCacheAdapter implements TransactionAwareAdapterInterface
 {
     /** @var \Symfony\Component\Cache\Adapter\TagAwareAdapterInterface */
     protected $sharedPool;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\inMemory\InMemoryCache[] */
+    /** @var \Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache[] */
     private $inMemoryPools;
 
     /** @var int */
@@ -40,7 +40,7 @@ class TransactionalInMemoryCacheAdapter implements TransactionAwareAdapterInterf
 
     /**
      * @param \Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $sharedPool
-     * @param \eZ\Publish\Core\Persistence\Cache\inMemory\InMemoryCache[] $inMemoryPools
+     * @param \Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache[] $inMemoryPools
      * @param int $transactionDepth
      * @param array $deferredTagsInvalidation
      * @param array $deferredItemsDeletion
@@ -306,3 +306,5 @@ class TransactionalInMemoryCacheAdapter implements TransactionAwareAdapterInterf
         }
     }
 }
+
+class_alias(TransactionalInMemoryCacheAdapter::class, 'eZ\Publish\Core\Persistence\Cache\Adapter\TransactionalInMemoryCacheAdapter');

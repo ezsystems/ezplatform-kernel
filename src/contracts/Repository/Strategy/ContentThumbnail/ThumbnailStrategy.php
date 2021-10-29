@@ -6,13 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Strategy\ContentThumbnail;
+namespace Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail;
 
-use eZ\Publish\API\Repository\Values\Content\Thumbnail;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
 interface ThumbnailStrategy
 {
     public function getThumbnail(ContentType $contentType, array $fields, ?VersionInfo $versionInfo = null): ?Thumbnail;
 }
+
+class_alias(ThumbnailStrategy::class, 'eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy');

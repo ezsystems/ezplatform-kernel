@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType;
+namespace Ibexa\Core\FieldType;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\SPI\FieldType\Value as ValueInterface;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\FieldType\Value as ValueInterface;
 
 /**
  * Abstract class for all field value classes.
@@ -22,3 +22,5 @@ abstract class Value extends ValueObject implements ValueInterface
      */
     abstract public function __toString();
 }
+
+class_alias(Value::class, 'eZ\Publish\Core\FieldType\Value');

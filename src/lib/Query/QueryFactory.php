@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Query;
+namespace Ibexa\Core\Query;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\Core\QueryType\QueryTypeRegistry;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Core\QueryType\QueryTypeRegistry;
 
 final class QueryFactory implements QueryFactoryInterface
 {
-    /** @var \eZ\Publish\Core\QueryType\QueryTypeRegistry */
+    /** @var \Ibexa\Core\QueryType\QueryTypeRegistry */
     private $queryTypeRegistry;
 
     public function __construct(QueryTypeRegistry $queryTypeRegistry)
@@ -26,3 +26,5 @@ final class QueryFactory implements QueryFactoryInterface
         return $this->queryTypeRegistry->getQueryType($type)->getQuery($parameters);
     }
 }
+
+class_alias(QueryFactory::class, 'eZ\Publish\Core\Query\QueryFactory');

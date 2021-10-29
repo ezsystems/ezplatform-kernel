@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Features\Context;
+namespace Ibexa\Bundle\Core\Features\Context;
 
 use Behat\Behat\Context\Context;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 use PHPUnit\Framework\Assert as Assertion;
@@ -208,3 +208,5 @@ class ConsoleContext implements Context
         return $this->defaultSiteaccess;
     }
 }
+
+class_alias(ConsoleContext::class, 'eZ\Bundle\EzPublishCoreBundle\Features\Context\ConsoleContext');

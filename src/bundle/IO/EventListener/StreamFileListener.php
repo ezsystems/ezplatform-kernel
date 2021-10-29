@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\EventListener;
+namespace Ibexa\Bundle\IO\EventListener;
 
-use eZ\Bundle\EzPublishIOBundle\BinaryStreamResponse;
-use eZ\Publish\Core\IO\IOConfigProvider;
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\Core\IO\Values\MissingBinaryFile;
+use Ibexa\Bundle\IO\BinaryStreamResponse;
+use Ibexa\Core\IO\IOConfigProvider;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\Values\MissingBinaryFile;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -24,7 +24,7 @@ class StreamFileListener implements EventSubscriberInterface
     /** @var IOServiceInterface */
     private $ioService;
 
-    /** @var \eZ\Publish\Core\IO\IOConfigProvider */
+    /** @var \Ibexa\Core\IO\IOConfigProvider */
     private $ioConfigResolver;
 
     public function __construct(IOServiceInterface $ioService, IOConfigProvider $ioConfigResolver)
@@ -84,3 +84,5 @@ class StreamFileListener implements EventSubscriberInterface
         return strpos(ltrim($uri, '/'), $urlPrefix) === 0;
     }
 }
+
+class_alias(StreamFileListener::class, 'eZ\Bundle\EzPublishIOBundle\EventListener\StreamFileListener');

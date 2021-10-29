@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\DependencyInjection;
+namespace Ibexa\Bundle\IO\DependencyInjection;
 
 use ArrayObject;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -20,10 +20,10 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 class EzPublishIOExtension extends Extension
 {
-    /** @var \eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory[]|\ArrayObject */
+    /** @var \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|\ArrayObject */
     private $metadataHandlerFactories;
 
-    /** @var \eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory[]|\ArrayObject */
+    /** @var \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|\ArrayObject */
     private $binarydataHandlerFactories;
 
     public function __construct()
@@ -36,7 +36,7 @@ class EzPublishIOExtension extends Extension
      * Registers a metadata handler configuration $factory for handler with $alias.
      *
      * @param string $alias
-     * @param \eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory $factory
+     * @param \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory $factory
      */
     public function addMetadataHandlerFactory($alias, ConfigurationFactory $factory)
     {
@@ -47,7 +47,7 @@ class EzPublishIOExtension extends Extension
      * Registers a binarydata handler configuration $factory for handler with $alias.
      *
      * @param string $alias
-     * @param \eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory $factory
+     * @param \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory $factory
      */
     public function addBinarydataHandlerFactory($alias, ConfigurationFactory $factory)
     {
@@ -55,7 +55,7 @@ class EzPublishIOExtension extends Extension
     }
 
     /**
-     * @return \eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory[]|\ArrayObject
+     * @return \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|\ArrayObject
      */
     public function getMetadataHandlerFactories()
     {
@@ -63,7 +63,7 @@ class EzPublishIOExtension extends Extension
     }
 
     /**
-     * @return \eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory[]|\ArrayObject
+     * @return \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|\ArrayObject
      */
     public function getBinarydataHandlerFactories()
     {
@@ -125,3 +125,5 @@ class EzPublishIOExtension extends Extension
         return $configuration;
     }
 }
+
+class_alias(EzPublishIOExtension::class, 'eZ\Bundle\EzPublishIOBundle\DependencyInjection\EzPublishIOExtension');

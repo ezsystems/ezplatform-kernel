@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Provider;
+namespace Ibexa\Core\MVC\Symfony\SiteAccess\Provider;
 
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface;
 use Traversable;
 
 final class ChainSiteAccessProvider implements SiteAccessProviderInterface
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface[] */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface[] */
     private $providers;
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface[] $providers
+     * @param \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface[] $providers
      */
     public function __construct(iterable $providers = [])
     {
@@ -49,7 +49,7 @@ final class ChainSiteAccessProvider implements SiteAccessProviderInterface
     }
 
     /**
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException
      */
     public function getSiteAccess(string $name): SiteAccess
     {
@@ -62,3 +62,5 @@ final class ChainSiteAccessProvider implements SiteAccessProviderInterface
         throw new NotFoundException('Site Access', $name);
     }
 }
+
+class_alias(ChainSiteAccessProvider::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccess\Provider\ChainSiteAccessProvider');

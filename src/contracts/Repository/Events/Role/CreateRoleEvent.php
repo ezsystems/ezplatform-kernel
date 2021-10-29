@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Role;
+namespace Ibexa\Contracts\Core\Repository\Events\Role;
 
-use eZ\Publish\API\Repository\Values\User\RoleCreateStruct;
-use eZ\Publish\API\Repository\Values\User\RoleDraft;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleDraft;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class CreateRoleEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\RoleCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleCreateStruct */
     private $roleCreateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\RoleDraft */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft */
     private $roleDraft;
 
     public function __construct(
@@ -38,3 +38,5 @@ final class CreateRoleEvent extends AfterEvent
         return $this->roleDraft;
     }
 }
+
+class_alias(CreateRoleEvent::class, 'eZ\Publish\API\Repository\Events\Role\CreateRoleEvent');

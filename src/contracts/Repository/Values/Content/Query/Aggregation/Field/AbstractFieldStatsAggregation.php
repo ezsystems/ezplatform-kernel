@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Field;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\Field;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\AbstractStatsAggregation;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\FieldAggregation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\AbstractStatsAggregation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\FieldAggregation;
 
 abstract class AbstractFieldStatsAggregation extends AbstractStatsAggregation implements FieldAggregation
 {
@@ -26,3 +26,5 @@ abstract class AbstractFieldStatsAggregation extends AbstractStatsAggregation im
         $this->fieldDefinitionIdentifier = $fieldDefinitionIdentifier;
     }
 }
+
+class_alias(AbstractFieldStatsAggregation::class, 'eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Field\AbstractFieldStatsAggregation');

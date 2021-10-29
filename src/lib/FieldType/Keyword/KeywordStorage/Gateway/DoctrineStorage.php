@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Keyword\KeywordStorage\Gateway;
+namespace Ibexa\Core\FieldType\Keyword\KeywordStorage\Gateway;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
-use eZ\Publish\Core\FieldType\Keyword\KeywordStorage\Gateway;
-use eZ\Publish\SPI\Persistence\Content\Field;
+use Ibexa\Core\FieldType\Keyword\KeywordStorage\Gateway;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
 use RuntimeException;
 
 class DoctrineStorage extends Gateway
@@ -29,7 +29,7 @@ class DoctrineStorage extends Gateway
     /**
      * Stores the keyword list from $field->value->externalData.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field
      * @param int $contentTypeId
      */
     public function storeFieldData(Field $field, $contentTypeId)
@@ -65,7 +65,7 @@ class DoctrineStorage extends Gateway
     /**
      * Sets the list of assigned keywords into $field->value->externalData.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      */
     public function getFieldData(Field $field)
     {
@@ -75,7 +75,7 @@ class DoctrineStorage extends Gateway
     /**
      * Retrieve the ContentType ID for the given $field.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      *
      * @return int
      */
@@ -367,3 +367,5 @@ class DoctrineStorage extends Gateway
         $deleteQuery->execute();
     }
 }
+
+class_alias(DoctrineStorage::class, 'eZ\Publish\Core\FieldType\Keyword\KeywordStorage\Gateway\DoctrineStorage');

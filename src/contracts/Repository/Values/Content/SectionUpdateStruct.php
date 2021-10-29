@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
 /**
  * This class is used to provide data for updating a section. At least one property has to set.
@@ -14,3 +14,5 @@ namespace eZ\Publish\API\Repository\Values\Content;
 class SectionUpdateStruct extends SectionStruct
 {
 }
+
+class_alias(SectionUpdateStruct::class, 'eZ\Publish\API\Repository\Values\Content\SectionUpdateStruct');

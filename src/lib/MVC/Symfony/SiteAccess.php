@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony;
+namespace Ibexa\Core\MVC\Symfony;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use JsonSerializable;
 
 /**
@@ -23,7 +23,7 @@ class SiteAccess extends ValueObject implements JsonSerializable
      */
     public $name;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccessGroup[] */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccessGroup[] */
     public $groups = [];
 
     /**
@@ -37,7 +37,7 @@ class SiteAccess extends ValueObject implements JsonSerializable
     /**
      * The matcher instance that has been used to discover the siteaccess.
      *
-     * @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher
+     * @var \Ibexa\Core\MVC\Symfony\SiteAccess\Matcher
      */
     public $matcher;
 
@@ -77,3 +77,5 @@ class SiteAccess extends ValueObject implements JsonSerializable
         ];
     }
 }
+
+class_alias(SiteAccess::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccess');

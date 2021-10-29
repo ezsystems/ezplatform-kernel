@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class is used to update a role.
@@ -22,3 +22,5 @@ class RoleUpdateStruct extends ValueObject
      */
     public $identifier;
 }
+
+class_alias(RoleUpdateStruct::class, 'eZ\Publish\API\Repository\Values\User\RoleUpdateStruct');

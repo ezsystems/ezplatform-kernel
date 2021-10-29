@@ -4,25 +4,25 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\URL;
+namespace Ibexa\Core\Persistence\Legacy\URL;
 
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
-use eZ\Publish\API\Repository\Values\URL\Query\SortClause;
-use eZ\Publish\SPI\Persistence\URL\URL;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause;
+use Ibexa\Contracts\Core\Persistence\URL\URL;
 
 abstract class Gateway
 {
     /**
      * Update the URL.
      *
-     * @param \eZ\Publish\SPI\Persistence\URL\URL $url
+     * @param \Ibexa\Contracts\Core\Persistence\URL\URL $url
      */
     abstract public function updateUrl(URL $url);
 
     /**
      * Selects URLs matching specified criteria.
      *
-     * @param \eZ\Publish\API\Repository\Values\URL\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion $criterion
      * @param int $offset
      * @param int $limit
      * @param SortClause[] $sortClauses
@@ -33,8 +33,8 @@ abstract class Gateway
      *     "count": int|null,
      * }
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException if Criterion is not applicable to its target
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException if Criterion is not applicable to its target
      */
     abstract public function find(Criterion $criterion, $offset, $limit, array $sortClauses = [], $doCount = true);
 
@@ -65,3 +65,5 @@ abstract class Gateway
      */
     abstract public function loadUrlDataByUrl($url);
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\Persistence\Legacy\URL\Gateway');

@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware;
 
 /**
  * ConfigurationMapper purpose is to map parsed semantic configuration for given scope
@@ -28,3 +28,5 @@ interface ConfigurationMapperInterface
      */
     public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer);
 }
+
+class_alias(ConfigurationMapperInterface::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ConfigurationMapperInterface');

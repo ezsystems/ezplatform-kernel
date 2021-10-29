@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway;
+namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use RuntimeException;
 
 /**
@@ -18,7 +18,7 @@ class SortClauseConverter
     /**
      * Sort clause handlers.
      *
-     * @var \eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler[]
+     * @var \Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler[]
      */
     protected $handlers;
 
@@ -32,7 +32,7 @@ class SortClauseConverter
     /**
      * Construct from an optional array of sort clause handlers.
      *
-     * @param \eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler[] $handlers
+     * @param \Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler[] $handlers
      */
     public function __construct(array $handlers = [])
     {
@@ -42,7 +42,7 @@ class SortClauseConverter
     /**
      * Adds handler.
      *
-     * @param \eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler $handler
+     * @param \Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler $handler
      */
     public function addHandler(SortClauseHandler $handler)
     {
@@ -53,7 +53,7 @@ class SortClauseConverter
      * Apply select parts of sort clauses to query.
      *
      * @param \Doctrine\DBAL\Query\QueryBuilder $query
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\SortClause[] $sortClauses
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause[] $sortClauses
      *
      * @throws \RuntimeException If no handler is available for sort clause
      */
@@ -85,7 +85,7 @@ class SortClauseConverter
      *
      * @throws \RuntimeException If no handler is available for sort clause
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\SortClause[] $sortClauses
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause[] $sortClauses
      * @param array $languageSettings
      */
     public function applyJoin(QueryBuilder $query, array $sortClauses, array $languageSettings): void
@@ -121,3 +121,5 @@ class SortClauseConverter
         $this->sortColumns = [];
     }
 }
+
+class_alias(SortClauseConverter::class, 'eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter');

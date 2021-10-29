@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\URLAlias;
+namespace Ibexa\Contracts\Core\Repository\Events\URLAlias;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\URLAlias;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class CreateUrlAliasEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
     private $location;
 
     private $path;
@@ -25,7 +25,7 @@ final class CreateUrlAliasEvent extends AfterEvent
 
     private $alwaysAvailable;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\URLAlias */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLAlias */
     private $urlAlias;
 
     public function __construct(
@@ -74,3 +74,5 @@ final class CreateUrlAliasEvent extends AfterEvent
         return $this->urlAlias;
     }
 }
+
+class_alias(CreateUrlAliasEvent::class, 'eZ\Publish\API\Repository\Events\URLAlias\CreateUrlAliasEvent');

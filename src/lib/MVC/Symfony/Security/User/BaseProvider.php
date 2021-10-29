@@ -6,26 +6,26 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Security\User;
+namespace Ibexa\Core\MVC\Symfony\Security\User;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\Core\MVC\Symfony\Security\User;
-use eZ\Publish\Core\MVC\Symfony\Security\UserInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\ReferenceUserInterface;
-use eZ\Publish\API\Repository\Values\User\User as APIUser;
-use eZ\Publish\Core\Repository\Values\User\UserReference;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Core\MVC\Symfony\Security\User;
+use Ibexa\Core\MVC\Symfony\Security\UserInterface;
+use Ibexa\Core\MVC\Symfony\Security\ReferenceUserInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
+use Ibexa\Core\Repository\Values\User\UserReference;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface as CoreUserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 abstract class BaseProvider implements APIUserProviderInterface
 {
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     protected $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     protected $userService;
 
     public function __construct(
@@ -74,9 +74,9 @@ abstract class BaseProvider implements APIUserProviderInterface
     /**
      * Loads a regular user object, usable by Symfony Security component, from a user object returned by Public API.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\User $apiUser
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $apiUser
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\Security\User
+     * @return \Ibexa\Core\MVC\Symfony\Security\User
      */
     public function loadUserByAPIUser(APIUser $apiUser)
     {
@@ -86,12 +86,14 @@ abstract class BaseProvider implements APIUserProviderInterface
     /**
      * Creates user object, usable by Symfony Security component, from a user object returned by Public API.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\User $apiUser
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $apiUser
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\Security\User
+     * @return \Ibexa\Core\MVC\Symfony\Security\User
      */
     protected function createSecurityUser(APIUser $apiUser): User
     {
         return new User($apiUser, ['ROLE_USER']);
     }
 }
+
+class_alias(BaseProvider::class, 'eZ\Publish\Core\MVC\Symfony\Security\User\BaseProvider');

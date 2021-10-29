@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Notification;
+namespace Ibexa\Core\Persistence\Legacy\Notification;
 
-use eZ\Publish\SPI\Persistence\Notification\CreateStruct;
-use eZ\Publish\SPI\Persistence\Notification\Notification;
+use Ibexa\Contracts\Core\Persistence\Notification\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Notification\Notification;
 
 abstract class Gateway
 {
     /**
      * Store Notification ValueObject in persistent storage.
      *
-     * @param \eZ\Publish\SPI\Persistence\Notification\CreateStruct $notification
+     * @param \Ibexa\Contracts\Core\Persistence\Notification\CreateStruct $notification
      *
      * @return int
      */
@@ -35,9 +35,9 @@ abstract class Gateway
      * Update Notification ValueObject in persistent storage.
      * There's no edit feature but it's essential to mark Notification as read.
      *
-     * @param \eZ\Publish\SPI\Persistence\Notification\Notification $notification
+     * @param \Ibexa\Contracts\Core\Persistence\Notification\Notification $notification
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      */
     abstract public function updateNotification(Notification $notification): void;
 
@@ -71,3 +71,5 @@ abstract class Gateway
      */
     abstract public function delete(int $notificationId): void;
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\Persistence\Legacy\Notification\Gateway');

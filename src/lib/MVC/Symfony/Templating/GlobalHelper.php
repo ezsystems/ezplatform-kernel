@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Templating;
+namespace Ibexa\Core\MVC\Symfony\Templating;
 
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\Core\Helper\TranslationHelper;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\RequestStackAware;
-use eZ\Publish\Core\MVC\Symfony\Routing\UrlAliasRouter;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Core\Helper\TranslationHelper;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\RequestStackAware;
+use Ibexa\Core\MVC\Symfony\Routing\UrlAliasRouter;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -21,16 +21,16 @@ class GlobalHelper
 {
     use RequestStackAware;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     protected $configResolver;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     protected $locationService;
 
     /** @var \Symfony\Component\Routing\RouterInterface */
     protected $router;
 
-    /** @var \eZ\Publish\Core\Helper\TranslationHelper */
+    /** @var \Ibexa\Core\Helper\TranslationHelper */
     protected $translationHelper;
 
     public function __construct(
@@ -48,7 +48,7 @@ class GlobalHelper
     /**
      * Returns the current siteaccess.
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\SiteAccess|null
+     * @return \Ibexa\Core\MVC\Symfony\SiteAccess|null
      */
     public function getSiteaccess()
     {
@@ -130,7 +130,7 @@ class GlobalHelper
     /**
      * Returns the root location.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
      */
     public function getRootLocation()
     {
@@ -164,10 +164,12 @@ class GlobalHelper
     /**
      * Returns the config resolver.
      *
-     * @return \eZ\Publish\Core\MVC\ConfigResolverInterface
+     * @return \Ibexa\Core\MVC\ConfigResolverInterface
      */
     public function getConfigResolver()
     {
         return $this->configResolver;
     }
 }
+
+class_alias(GlobalHelper::class, 'eZ\Publish\Core\MVC\Symfony\Templating\GlobalHelper');

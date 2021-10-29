@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\SiteAccessAware;
+namespace Ibexa\Core\Repository\SiteAccessAware;
 
-use eZ\Publish\API\Repository\SectionService as SectionServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\SectionCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\SectionUpdateStruct;
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\SectionService as SectionServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 /**
  * SectionService for SiteAccessAware layer.
@@ -22,13 +22,13 @@ use eZ\Publish\API\Repository\Values\Content\ContentInfo;
  */
 class SectionService implements SectionServiceInterface
 {
-    /** @var \eZ\Publish\API\Repository\SectionService */
+    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
     protected $service;
 
     /**
      * Construct service object from aggregated service.
      *
-     * @param \eZ\Publish\API\Repository\SectionService $service
+     * @param \Ibexa\Contracts\Core\Repository\SectionService $service
      */
     public function __construct(
         SectionServiceInterface $service
@@ -96,3 +96,5 @@ class SectionService implements SectionServiceInterface
         return $this->service->newSectionUpdateStruct();
     }
 }
+
+class_alias(SectionService::class, 'eZ\Publish\Core\Repository\SiteAccessAware\SectionService');

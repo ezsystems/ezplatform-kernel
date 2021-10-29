@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Search\Content;
+namespace Ibexa\Contracts\Core\Search\Content;
 
 use DateTimeInterface;
 use Generator;
@@ -52,3 +52,5 @@ interface IndexerGateway
      */
     public function countAllContent(): int;
 }
+
+class_alias(IndexerGateway::class, 'eZ\Publish\SPI\Search\Content\IndexerGateway');

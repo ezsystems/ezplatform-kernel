@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Tests\Persistence;
+namespace Ibexa\Contracts\Core\Test\Persistence\Fixture;
 
 /**
  * Data fixture stored in PHP file which returns it as an array.
@@ -20,3 +20,5 @@ final class PhpArrayFileFixture extends BaseInMemoryCachedFileFixture
         return require $this->getFilePath();
     }
 }
+
+class_alias(PhpArrayFileFixture::class, 'eZ\Publish\SPI\Tests\Persistence\PhpArrayFileFixture');

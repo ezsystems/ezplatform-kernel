@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\FacetBuilder;
 
-use eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\FacetBuilder;
 
 /**
  * Build a user facet.
@@ -41,3 +41,5 @@ class UserFacetBuilder extends FacetBuilder
      */
     public $type = self::OWNER;
 }
+
+class_alias(UserFacetBuilder::class, 'eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder\UserFacetBuilder');

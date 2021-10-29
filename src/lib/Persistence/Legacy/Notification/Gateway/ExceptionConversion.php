@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Notification\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\Notification\Gateway;
 
 use Doctrine\DBAL\DBALException;
-use eZ\Publish\Core\Base\Exceptions\DatabaseException;
-use eZ\Publish\Core\Persistence\Legacy\Notification\Gateway;
-use eZ\Publish\SPI\Persistence\Notification\CreateStruct;
-use eZ\Publish\SPI\Persistence\Notification\Notification;
+use Ibexa\Core\Base\Exceptions\DatabaseException;
+use Ibexa\Core\Persistence\Legacy\Notification\Gateway;
+use Ibexa\Contracts\Core\Persistence\Notification\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Notification\Notification;
 use PDOException;
 
 class ExceptionConversion extends Gateway
@@ -20,14 +20,14 @@ class ExceptionConversion extends Gateway
     /**
      * The wrapped gateway.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Notification\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Notification\Gateway
      */
     protected $innerGateway;
 
     /**
      * ExceptionConversion constructor.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Notification\Gateway $innerGateway
+     * @param \Ibexa\Core\Persistence\Legacy\Notification\Gateway $innerGateway
      */
     public function __construct(Gateway $innerGateway)
     {
@@ -97,3 +97,5 @@ class ExceptionConversion extends Gateway
         }
     }
 }
+
+class_alias(ExceptionConversion::class, 'eZ\Publish\Core\Persistence\Legacy\Notification\Gateway\ExceptionConversion');

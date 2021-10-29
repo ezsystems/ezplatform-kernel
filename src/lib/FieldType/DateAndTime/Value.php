@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\DateAndTime;
+namespace Ibexa\Core\FieldType\DateAndTime;
 
-use eZ\Publish\Core\FieldType\Value as BaseValue;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
 use Exception;
 use DateTime;
 
@@ -45,7 +45,7 @@ class Value extends BaseValue
      *
      * @param string $dateString
      *
-     * @return \eZ\Publish\Core\FieldType\DateAndTime\Value
+     * @return \Ibexa\Core\FieldType\DateAndTime\Value
      */
     public static function fromString($dateString)
     {
@@ -61,7 +61,7 @@ class Value extends BaseValue
      *
      * @param int $timestamp
      *
-     * @return \eZ\Publish\Core\FieldType\DateAndTime\Value
+     * @return \Ibexa\Core\FieldType\DateAndTime\Value
      */
     public static function fromTimestamp($timestamp)
     {
@@ -72,9 +72,6 @@ class Value extends BaseValue
         }
     }
 
-    /**
-     * @see \eZ\Publish\Core\FieldType\Value
-     */
     public function __toString()
     {
         if (!$this->value instanceof DateTime) {
@@ -84,3 +81,5 @@ class Value extends BaseValue
         return $this->value->format($this->stringFormat);
     }
 }
+
+class_alias(Value::class, 'eZ\Publish\Core\FieldType\DateAndTime\Value');

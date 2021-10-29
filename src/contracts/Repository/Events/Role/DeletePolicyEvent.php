@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Role;
+namespace Ibexa\Contracts\Core\Repository\Events\Role;
 
-use eZ\Publish\API\Repository\Values\User\Policy;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\Policy;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class DeletePolicyEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\Policy */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Policy */
     private $policy;
 
     public function __construct(
@@ -27,3 +27,5 @@ final class DeletePolicyEvent extends AfterEvent
         return $this->policy;
     }
 }
+
+class_alias(DeletePolicyEvent::class, 'eZ\Publish\API\Repository\Events\Role\DeletePolicyEvent');

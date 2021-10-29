@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository;
+namespace Ibexa\Contracts\Core\Repository;
 
 /**
  * Resolve language settings for Repository layer.
@@ -68,3 +68,5 @@ interface LanguageResolver
      */
     public function setDefaultUseAlwaysAvailable(bool $defaultUseAlwaysAvailable): void;
 }
+
+class_alias(LanguageResolver::class, 'eZ\Publish\API\Repository\LanguageResolver');

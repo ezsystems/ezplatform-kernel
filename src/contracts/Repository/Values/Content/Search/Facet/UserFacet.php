@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Search\Facet;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Search\Facet;
 
-use eZ\Publish\API\Repository\Values\Content\Search\Facet;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\Facet;
 
 /**
  * This class holds counts for content owned, created or modified by users.
@@ -24,3 +24,5 @@ class UserFacet extends Facet
      */
     public $entries;
 }
+
+class_alias(UserFacet::class, 'eZ\Publish\API\Repository\Values\Content\Search\Facet\UserFacet');

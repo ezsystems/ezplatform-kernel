@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory\MetadataHandler;
+namespace Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory\MetadataHandler;
 
-use eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory;
+use Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\Definition as ServiceDefinition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -37,3 +37,5 @@ class LegacyDFSCluster implements ConfigurationFactory
             ->end();
     }
 }
+
+class_alias(LegacyDFSCluster::class, 'eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory\MetadataHandler\LegacyDFSCluster');

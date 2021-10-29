@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\DraftList;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\DraftList;
 
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 
 interface ContentDraftListItemInterface
 {
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null
      */
     public function getVersionInfo(): ?VersionInfo;
 
@@ -22,3 +22,5 @@ interface ContentDraftListItemInterface
      */
     public function hasVersionInfo(): bool;
 }
+
+class_alias(ContentDraftListItemInterface::class, 'eZ\Publish\API\Repository\Values\Content\DraftList\ContentDraftListItemInterface');

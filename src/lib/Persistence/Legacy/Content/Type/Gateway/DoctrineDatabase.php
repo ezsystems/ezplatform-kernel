@@ -6,23 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\Content\Type\Gateway;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Persistence\Legacy\Content\MultilingualStorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
-use eZ\Publish\Core\Persistence\Legacy\SharedGateway\Gateway as SharedGateway;
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\Type\Group;
-use eZ\Publish\SPI\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Persistence\Legacy\Content\MultilingualStorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Gateway;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use Ibexa\Core\Persistence\Legacy\SharedGateway\Gateway as SharedGateway;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 use function sprintf;
 
 /**
@@ -30,7 +30,7 @@ use function sprintf;
  *
  * @internal Gateway implementation is considered internal. Use Persistence Content Type Handler instead.
  *
- * @see \eZ\Publish\SPI\Persistence\Content\Type\Handler
+ * @see \Ibexa\Contracts\Core\Persistence\Content\Type\Handler
  */
 final class DoctrineDatabase extends Gateway
 {
@@ -103,13 +103,13 @@ final class DoctrineDatabase extends Gateway
     /** @var \Doctrine\DBAL\Platforms\AbstractPlatform */
     private $dbPlatform;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\SharedGateway\Gateway */
+    /** @var \Ibexa\Core\Persistence\Legacy\SharedGateway\Gateway */
     private $sharedGateway;
 
     /**
      * Language mask generator.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator
      */
     private $languageMaskGenerator;
 
@@ -242,7 +242,7 @@ final class DoctrineDatabase extends Gateway
     /**
      * @param string[] $languages
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if at least one of the used languages does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if at least one of the used languages does not exist
      */
     private function insertTypeNameData(int $typeId, int $typeStatus, array $languages): void
     {
@@ -1452,3 +1452,5 @@ SQL;
         $this->connection->executeUpdate($sql);
     }
 }
+
+class_alias(DoctrineDatabase::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway\DoctrineDatabase');

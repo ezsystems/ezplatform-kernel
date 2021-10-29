@@ -6,12 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Tests\Persistence;
+namespace Ibexa\Contracts\Core\Test\Persistence\Fixture;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Driver\PDOException;
 use Doctrine\DBAL\Schema\Column;
+use Ibexa\Contracts\Core\Test\Persistence\Fixture;
 
 /**
  * Database fixture importer.
@@ -178,3 +179,5 @@ final class FixtureImporter
         return null;
     }
 }
+
+class_alias(FixtureImporter::class, 'eZ\Publish\SPI\Tests\Persistence\FixtureImporter');

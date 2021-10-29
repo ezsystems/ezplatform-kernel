@@ -4,22 +4,23 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Limitation;
+namespace Ibexa\Core\Limitation;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\API\Repository\Values\User\UserReference as APIUserReference;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\API\Repository\Values\User\Limitation\OwnerLimitation as APIOwnerLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation as APILimitationValue;
-use eZ\Publish\SPI\Limitation\Type as SPILimitationTypeInterface;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\OwnerLimitation as APIOwnerLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitationValue;
+use Ibexa\Contracts\Core\Limitation\Type as SPILimitationTypeInterface;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
 /**
  * OwnerLimitation is a Content limitation.
@@ -31,9 +32,9 @@ class OwnerLimitationType extends AbstractPersistenceLimitationType implements S
      *
      * Makes sure LimitationValue object and ->limitationValues is of correct type.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the value does not match the expected type/structure
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the value does not match the expected type/structure
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitationValue
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitationValue
      */
     public function acceptValue(APILimitationValue $limitationValue)
     {
@@ -58,9 +59,9 @@ class OwnerLimitationType extends AbstractPersistenceLimitationType implements S
      *
      * Make sure {@link acceptValue()} is checked first!
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitationValue
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitationValue
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validate(APILimitationValue $limitationValue)
     {
@@ -86,7 +87,7 @@ class OwnerLimitationType extends AbstractPersistenceLimitationType implements S
      *
      * @param mixed[] $limitationValues
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Limitation
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation
      */
     public function buildValue(array $limitationValues)
     {
@@ -96,15 +97,15 @@ class OwnerLimitationType extends AbstractPersistenceLimitationType implements S
     /**
      * Evaluate permission against content & target(placement/parent/assignment).
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If any of the arguments are invalid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If any of the arguments are invalid
      *         Example: If LimitationValue is instance of ContentTypeLimitationValue, and Type is SectionLimitationType.
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException If value of the LimitationValue is unsupported
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException If value of the LimitationValue is unsupported
      *         Example if OwnerLimitationValue->limitationValues[0] is not one of: [ 1,  2 ]
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $value
-     * @param \eZ\Publish\API\Repository\Values\User\UserReference $currentUser
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $object
-     * @param \eZ\Publish\API\Repository\Values\ValueObject[]|null $targets The context of the $object, like Location of Content, if null none where provided by caller
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserReference $currentUser
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $object
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject[]|null $targets The context of the $object, like Location of Content, if null none where provided by caller
      *
      * @return bool
      *
@@ -148,10 +149,10 @@ class OwnerLimitationType extends AbstractPersistenceLimitationType implements S
     /**
      * Returns Criterion for use in find() query.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $value
-     * @param \eZ\Publish\API\Repository\Values\User\UserReference $currentUser
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserReference $currentUser
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Query\CriterionInterface
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface
      *
      * @todo Add support for $limitationValues[0] == 2 when session values can be injected somehow, or deprecate
      */
@@ -184,6 +185,8 @@ class OwnerLimitationType extends AbstractPersistenceLimitationType implements S
      */
     public function valueSchema()
     {
-        throw new \eZ\Publish\API\Repository\Exceptions\NotImplementedException(__METHOD__);
+        throw new NotImplementedException(__METHOD__);
     }
 }
+
+class_alias(OwnerLimitationType::class, 'eZ\Publish\Core\Limitation\OwnerLimitationType');

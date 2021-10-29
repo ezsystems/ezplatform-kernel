@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location;
+namespace Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location;
 
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Visibility;
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Visibility;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 
 /**
  * @internal for internal use by Repository Filtering
@@ -28,7 +28,7 @@ final class VisibilityQueryBuilder extends BaseLocationCriterionQueryBuilder
         FilteringQueryBuilder $queryBuilder,
         FilteringCriterion $criterion
     ): ?string {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion\Visibility $criterion */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Visibility $criterion */
         parent::buildQueryConstraint($queryBuilder, $criterion);
 
         $expressionBuilder = $queryBuilder->expr();
@@ -60,3 +60,5 @@ final class VisibilityQueryBuilder extends BaseLocationCriterionQueryBuilder
         ];
     }
 }
+
+class_alias(VisibilityQueryBuilder::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location\VisibilityQueryBuilder');

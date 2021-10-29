@@ -6,24 +6,24 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Decorator;
+namespace Ibexa\Contracts\Core\Repository\Decorator;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeCreateStruct;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroupCreateStruct;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroupUpdateStruct;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeUpdateStruct;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
-use eZ\Publish\API\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 
 abstract class ContentTypeServiceDecorator implements ContentTypeService
 {
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     protected $innerService;
 
     public function __construct(ContentTypeService $innerService)
@@ -228,3 +228,5 @@ abstract class ContentTypeServiceDecorator implements ContentTypeService
         $this->innerService->deleteUserDrafts($userId);
     }
 }
+
+class_alias(ContentTypeServiceDecorator::class, 'eZ\Publish\SPI\Repository\Decorator\ContentTypeServiceDecorator');

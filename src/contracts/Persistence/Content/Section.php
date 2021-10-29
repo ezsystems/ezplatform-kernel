@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content;
+namespace Ibexa\Contracts\Core\Persistence\Content;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 class Section extends ValueObject
 {
@@ -31,3 +31,5 @@ class Section extends ValueObject
      */
     public $name;
 }
+
+class_alias(Section::class, 'eZ\Publish\SPI\Persistence\Content\Section');

@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Limitation\Target;
+namespace Ibexa\Contracts\Core\Limitation\Target;
 
-use eZ\Publish\SPI\Limitation\Target;
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 /**
  * Version Limitation target. Indicates an intent to create new Version.
@@ -20,7 +20,7 @@ use eZ\Publish\SPI\Persistence\ValueObject;
  * @property-read string $forUpdateInitialLanguageCode
  * @property-read string[] $forUpdateLanguageCodesList
  * @property-read string[] $forPublishLanguageCodesList
- * @property-read \eZ\Publish\API\Repository\Values\Content\Field[] $updatedFields
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $updatedFields
  */
 final class Version extends ValueObject implements Target
 {
@@ -62,15 +62,15 @@ final class Version extends ValueObject implements Target
     /**
      * One of the following: STATUS_DRAFT, STATUS_PUBLISHED, STATUS_ARCHIVED.
      *
-     * @see \eZ\Publish\API\Repository\Values\Content\VersionInfo::STATUS_DRAFT
-     * @see \eZ\Publish\API\Repository\Values\Content\VersionInfo::STATUS_PUBLISHED
-     * @see \eZ\Publish\API\Repository\Values\Content\VersionInfo::STATUS_ARCHIVED
+     * @see \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo::STATUS_DRAFT
+     * @see \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo::STATUS_PUBLISHED
+     * @see \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo::STATUS_ARCHIVED
      *
      * @var int|null
      */
     protected $newStatus;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Field[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Field[] */
     protected $updatedFields = [];
 
     /**
@@ -98,3 +98,5 @@ final class Version extends ValueObject implements Target
         return $this->translationsToDelete;
     }
 }
+
+class_alias(Version::class, 'eZ\Publish\SPI\Limitation\Target\Version');

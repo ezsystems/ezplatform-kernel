@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content;
+namespace Ibexa\Core\Persistence\Legacy\Content;
 
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
 
 /**
  * Base class for content gateways.
@@ -35,7 +35,7 @@ abstract class Gateway
     /**
      * Insert a new Content item.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     abstract public function insertContentObject(
         CreateStruct $struct,
@@ -45,16 +45,16 @@ abstract class Gateway
     /**
      * Insert a new Version.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Field[] $fields
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field[] $fields
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     abstract public function insertVersion(VersionInfo $versionInfo, array $fields): int;
 
     /**
      * Update an existing content identified by $contentId based on $struct.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     abstract public function updateContent(
         int $contentId,
@@ -70,7 +70,7 @@ abstract class Gateway
     /**
      * Update "always available" flag for content identified by $contentId based on $alwaysAvailable.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     abstract public function updateAlwaysAvailableFlag(
         int $contentId,
@@ -82,7 +82,7 @@ abstract class Gateway
      *
      * @param int $status the one of STATUS_DRAFT, STATUS_PUBLISHED, STATUS_ARCHIVED
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     abstract public function setStatus(int $contentId, int $version, int $status): bool;
 
@@ -94,7 +94,7 @@ abstract class Gateway
      *
      * @see setStatus
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException if other operation affected publishing process
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException if other operation affected publishing process
      */
     abstract public function setPublishedStatus(int $contentId, int $status): void;
 
@@ -116,7 +116,7 @@ abstract class Gateway
      *
      * Used to insert a field with an existing ID but a new version number.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     abstract public function insertExistingField(
         Content $content,
@@ -167,7 +167,7 @@ abstract class Gateway
      *
      * Returns an array with the relevant data.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     abstract public function loadContentInfoByRemoteId(string $remoteId): array;
 
@@ -176,7 +176,7 @@ abstract class Gateway
      *
      * Returns an array with the relevant data.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     abstract public function loadContentInfoByLocationId(int $locationId): array;
 
@@ -186,7 +186,7 @@ abstract class Gateway
      *  - always_available => Boolean indicating if content's language mask contains alwaysAvailable bit field
      *  - main_language_code => Language code for main (initial) language. E.g. "eng-GB".
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     abstract public function loadContentInfo(int $contentId): array;
 
@@ -194,7 +194,7 @@ abstract class Gateway
      * Loads rows of info for content identified by $contentIds.
      *
      * @see loadContentInfo For the returned structure.
-     * @see \eZ\Publish\SPI\Persistence\Content\Handler::loadContentInfoList For how this will only return items found and not throw.
+     * @see \Ibexa\Contracts\Core\Persistence\Content\Handler::loadContentInfoList For how this will only return items found and not throw.
      *
      * @param int[] $contentIds
      */
@@ -334,7 +334,7 @@ abstract class Gateway
     /**
      * Set the content object name.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     abstract public function setName(
         int $contentId,
@@ -351,7 +351,7 @@ abstract class Gateway
     /**
      * Load data of related to/from $contentId.
      *
-     * @return array Content data, array structured like {@see \eZ\Publish\Core\Persistence\Legacy\Content\Gateway::load()}
+     * @return array Content data, array structured like {@see \Ibexa\Core\Persistence\Legacy\Content\Gateway::load}
      */
     abstract public function loadRelations(
         int $contentId,
@@ -367,7 +367,7 @@ abstract class Gateway
     /**
      * Load data of related to/from $contentId.
      *
-     * @return array Content data, array structured like {@see \eZ\Publish\Core\Persistence\Legacy\Content\Gateway::load()}
+     * @return array Content data, array structured like {@see \Ibexa\Core\Persistence\Legacy\Content\Gateway::load}
      */
     abstract public function loadReverseRelations(int $contentId, ?int $relationType = null): array;
 
@@ -386,7 +386,7 @@ abstract class Gateway
      *
      * @param int $type one of Relation type constants.
      *
-     * @see \eZ\Publish\API\Repository\Values\Content\Relation
+     * @see \Ibexa\Contracts\Core\Repository\Values\Content\Relation
      */
     abstract public function deleteRelation(int $relationId, int $type): void;
 
@@ -429,8 +429,8 @@ abstract class Gateway
     /**
      * Remove the specified translation from the Content Object Version.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     abstract public function deleteTranslationFromContent(
         int $contentId,
@@ -451,8 +451,8 @@ abstract class Gateway
     /**
      * Delete the specified Translation from the given Version.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     abstract public function deleteTranslationFromVersion(
         int $contentId,
@@ -460,3 +460,5 @@ abstract class Gateway
         string $languageCode
     ): void;
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Gateway');

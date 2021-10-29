@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPurger;
+namespace Ibexa\Bundle\Core\Imagine\VariationPurger;
 
 use Iterator;
 use Countable;
@@ -15,3 +15,5 @@ use Countable;
 interface ImageFileList extends Countable, Iterator
 {
 }
+
+class_alias(ImageFileList::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPurger\ImageFileList');

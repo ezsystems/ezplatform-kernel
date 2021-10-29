@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Exception;
+namespace Ibexa\Core\Persistence\Legacy\Exception;
 
 use InvalidArgumentException;
 
@@ -25,3 +25,5 @@ class StorageNotFound extends InvalidArgumentException
         );
     }
 }
+
+class_alias(StorageNotFound::class, 'eZ\Publish\Core\Persistence\Legacy\Exception\StorageNotFound');

@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader;
+namespace Ibexa\Bundle\Core\Imagine\Filter\Loader;
 
 use Imagine\Filter\Advanced\Border;
 use Imagine\Image\ImageInterface;
@@ -40,3 +40,5 @@ class BorderFilterLoader implements LoaderInterface
         return $border->apply($image);
     }
 }
+
+class_alias(BorderFilterLoader::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader\BorderFilterLoader');

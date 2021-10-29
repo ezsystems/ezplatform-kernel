@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\URLAlias;
+namespace Ibexa\Contracts\Core\Repository\Events\URLAlias;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\URLAlias;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCreateUrlAliasEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
     private $location;
 
     private $path;
@@ -26,7 +26,7 @@ final class BeforeCreateUrlAliasEvent extends BeforeEvent
 
     private $alwaysAvailable;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\URLAlias|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLAlias|null */
     private $urlAlias;
 
     public function __construct(Location $location, $path, $languageCode, $forwarding, $alwaysAvailable)
@@ -82,3 +82,5 @@ final class BeforeCreateUrlAliasEvent extends BeforeEvent
         return $this->urlAlias instanceof URLAlias;
     }
 }
+
+class_alias(BeforeCreateUrlAliasEvent::class, 'eZ\Publish\API\Repository\Events\URLAlias\BeforeCreateUrlAliasEvent');

@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\IO\IOBinarydataHandler;
+namespace Ibexa\Core\IO\IOBinarydataHandler;
 
-use eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException;
-use eZ\Publish\Core\IO\IOBinarydataHandler;
-use eZ\Publish\Core\IO\UrlDecorator;
-use eZ\Publish\SPI\IO\BinaryFileCreateStruct;
+use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
+use Ibexa\Core\IO\IOBinarydataHandler;
+use Ibexa\Core\IO\UrlDecorator;
+use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException as FlysystemNotFoundException;
@@ -20,7 +20,7 @@ class Flysystem implements IOBinaryDataHandler
     /** @var \League\Flysystem\FilesystemInterface */
     private $filesystem;
 
-    /** @var \eZ\Publish\Core\IO\UrlDecorator */
+    /** @var \Ibexa\Core\IO\UrlDecorator */
     private $urlDecorator;
 
     public function __construct(FilesystemInterface $filesystem, UrlDecorator $urlDecorator = null)
@@ -102,3 +102,5 @@ class Flysystem implements IOBinaryDataHandler
         $this->filesystem->deleteDir($spiPath);
     }
 }
+
+class_alias(Flysystem::class, 'eZ\Publish\Core\IO\IOBinarydataHandler\Flysystem');

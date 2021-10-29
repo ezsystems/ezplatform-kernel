@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Features\Context;
+namespace Ibexa\Bundle\Core\Features\Context;
 
 use Behat\Behat\Context\Context;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -115,3 +115,5 @@ class YamlConfigurationContext implements Context
         $application->run($input);
     }
 }
+
+class_alias(YamlConfigurationContext::class, 'eZ\Bundle\EzPublishCoreBundle\Features\Context\YamlConfigurationContext');

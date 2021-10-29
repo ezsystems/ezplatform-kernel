@@ -4,26 +4,23 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\BinaryBase;
+namespace Ibexa\Core\FieldType\BinaryBase;
 
-use eZ\Publish\Core\FieldType\FieldType;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
-use eZ\Publish\Core\FieldType\Media\Value;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\SPI\FieldType\BinaryBase\RouteAwarePathGenerator;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
-use eZ\Publish\SPI\Persistence\Content\FieldValue as PersistenceValue;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\FieldType\FieldType;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\FieldType\Media\Value;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\FieldType\BinaryBase\RouteAwarePathGenerator;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue as PersistenceValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * Base FileType class for Binary field types (i.e. BinaryBase & Media).
  */
 abstract class Type extends FieldType
 {
-    /**
-     * @see \eZ\Publish\Core\FieldType\FieldType::$validatorConfigurationSchema
-     */
     protected $validatorConfigurationSchema = [
         'FileSizeValidator' => [
             'maxFileSize' => [
@@ -33,14 +30,14 @@ abstract class Type extends FieldType
         ],
     ];
 
-    /** @var \eZ\Publish\Core\FieldType\Validator[] */
+    /** @var \Ibexa\Core\FieldType\Validator[] */
     private $validators;
 
-    /** @var \eZ\Publish\SPI\FieldType\BinaryBase\RouteAwarePathGenerator|null */
+    /** @var \Ibexa\Contracts\Core\FieldType\BinaryBase\RouteAwarePathGenerator|null */
     protected $routeAwarePathGenerator;
 
     /**
-     * @param \eZ\Publish\Core\FieldType\Validator[] $validators
+     * @param \Ibexa\Core\FieldType\Validator[] $validators
      */
     public function __construct(array $validators, ?RouteAwarePathGenerator $routeAwarePathGenerator = null)
     {
@@ -72,7 +69,7 @@ abstract class Type extends FieldType
     }
 
     /**
-     * @param \eZ\Publish\Core\FieldType\BinaryBase\Value|\eZ\Publish\SPI\FieldType\Value $value
+     * @param \Ibexa\Core\FieldType\BinaryBase\Value|\Ibexa\Contracts\Core\FieldType\Value $value
      */
     public function getName(SPIValue $value, FieldDefinition $fieldDefinition, string $languageCode): string
     {
@@ -82,9 +79,9 @@ abstract class Type extends FieldType
     /**
      * Inspects given $inputValue and potentially converts it into a dedicated value object.
      *
-     * @param string|array|\eZ\Publish\Core\FieldType\BinaryBase\Value $inputValue
+     * @param string|array|\Ibexa\Core\FieldType\BinaryBase\Value $inputValue
      *
-     * @return \eZ\Publish\Core\FieldType\BinaryBase\Value The potentially converted and structurally plausible value.
+     * @return \Ibexa\Core\FieldType\BinaryBase\Value The potentially converted and structurally plausible value.
      */
     protected function createValueFromInput($inputValue)
     {
@@ -106,9 +103,9 @@ abstract class Type extends FieldType
     /**
      * Throws an exception if value structure is not of expected format.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
      *
-     * @param \eZ\Publish\Core\FieldType\BinaryBase\Value $value
+     * @param \Ibexa\Core\FieldType\BinaryBase\Value $value
      */
     protected function checkValueStructure(BaseValue $value)
     {
@@ -151,7 +148,7 @@ abstract class Type extends FieldType
     /**
      * Attempts to complete the data in $value.
      *
-     * @param \eZ\Publish\Core\FieldType\BinaryBase\Value|\eZ\Publish\Core\FieldType\Value $value
+     * @param \Ibexa\Core\FieldType\BinaryBase\Value|\Ibexa\Core\FieldType\Value $value
      */
     protected function completeValue(BaseValue $value)
     {
@@ -172,7 +169,7 @@ abstract class Type extends FieldType
     /**
      * BinaryBase does not support sorting, yet.
      *
-     * @param \eZ\Publish\Core\FieldType\BinaryBase\Value $value
+     * @param \Ibexa\Core\FieldType\BinaryBase\Value $value
      *
      * @return mixed
      */
@@ -186,7 +183,7 @@ abstract class Type extends FieldType
      *
      * @param mixed $hash
      *
-     * @return \eZ\Publish\Core\FieldType\BinaryBase\Value $value
+     * @return \Ibexa\Core\FieldType\BinaryBase\Value $value
      */
     public function fromHash($hash)
     {
@@ -200,7 +197,7 @@ abstract class Type extends FieldType
     /**
      * Converts a $Value to a hash.
      *
-     * @param \eZ\Publish\Core\FieldType\BinaryBase\Value $value
+     * @param \Ibexa\Core\FieldType\BinaryBase\Value $value
      *
      * @return mixed
      */
@@ -218,28 +215,6 @@ abstract class Type extends FieldType
         ];
     }
 
-    /**
-     * Converts a $value to a persistence value.
-     *
-     * In this method the field type puts the data which is stored in the field of content in the repository
-     * into the property FieldValue::data. The format of $data is a primitive, an array (map) or an object, which
-     * is then canonically converted to e.g. json/xml structures by future storage engines without
-     * further conversions. For mapping the $data to the legacy database an appropriate Converter
-     * (implementing eZ\Publish\Core\Persistence\Legacy\FieldValue\Converter) has implemented for the field
-     * type. Note: $data should only hold data which is actually stored in the field. It must not
-     * hold data which is stored externally.
-     *
-     * The $externalData property in the FieldValue is used for storing data externally by the
-     * FieldStorage interface method storeFieldData.
-     *
-     * The FieldValuer::sortKey is build by the field type for using by sort operations.
-     *
-     * @see \eZ\Publish\SPI\Persistence\Content\FieldValue
-     *
-     * @param \eZ\Publish\Core\FieldType\BinaryBase\Value $value The value of the field type
-     *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldValue the value processed by the storage engine
-     */
     public function toPersistenceValue(SPIValue $value)
     {
         // Store original data as external (to indicate they need to be stored)
@@ -257,9 +232,9 @@ abstract class Type extends FieldType
      *
      * This method builds a field type value from the $data and $externalData properties.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\FieldValue $fieldValue
+     * @param \Ibexa\Contracts\Core\Persistence\Content\FieldValue $fieldValue
      *
-     * @return \eZ\Publish\Core\FieldType\BinaryBase\Value
+     * @return \Ibexa\Core\FieldType\BinaryBase\Value
      */
     public function fromPersistenceValue(PersistenceValue $fieldValue)
     {
@@ -287,12 +262,12 @@ abstract class Type extends FieldType
     /**
      * Validates a field based on the validators in the field definition.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition $fieldDefinition The field definition of the field
-     * @param \eZ\Publish\Core\FieldType\BinaryBase\Value $fieldValue The field value for which an action is performed
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition $fieldDefinition The field definition of the field
+     * @param \Ibexa\Core\FieldType\BinaryBase\Value $fieldValue The field value for which an action is performed
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validate(FieldDefinition $fieldDefinition, SPIValue $fieldValue)
     {
@@ -340,7 +315,7 @@ abstract class Type extends FieldType
      *
      * @param mixed $validatorConfiguration
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validateValidatorConfiguration($validatorConfiguration)
     {
@@ -399,3 +374,5 @@ abstract class Type extends FieldType
         return true;
     }
 }
+
+class_alias(Type::class, 'eZ\Publish\Core\FieldType\BinaryBase\Type');

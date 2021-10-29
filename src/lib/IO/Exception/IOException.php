@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\IO\Exception;
+namespace Ibexa\Core\IO\Exception;
 
 use Exception;
 use RuntimeException;
@@ -19,3 +19,5 @@ class IOException extends RuntimeException
         parent::__construct($message, 0, $e);
     }
 }
+
+class_alias(IOException::class, 'eZ\Publish\Core\IO\Exception\IOException');

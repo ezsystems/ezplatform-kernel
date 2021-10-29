@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Decorator;
+namespace Ibexa\Contracts\Core\Repository\Decorator;
 
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
 
 abstract class LanguageServiceDecorator implements LanguageService
 {
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     protected $innerService;
 
     public function __construct(LanguageService $innerService)
@@ -84,3 +84,5 @@ abstract class LanguageServiceDecorator implements LanguageService
         return $this->innerService->newLanguageCreateStruct();
     }
 }
+
+class_alias(LanguageServiceDecorator::class, 'eZ\Publish\SPI\Repository\Decorator\LanguageServiceDecorator');

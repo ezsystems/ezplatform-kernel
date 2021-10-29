@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\FieldValue;
+namespace Ibexa\Core\Persistence\Legacy\Content\FieldValue;
 
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\Exception\NotFound;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\Exception\NotFound;
 
 class ConverterRegistry
 {
@@ -25,7 +25,7 @@ class ConverterRegistry
      * factory converter object should be returned on execution. The object
      * is used to convert content fields and content type field definitions
      * to the legacy storage engine. The given class names must derive the
-     * {@link \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter}
+     * {@link \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter}
      * interface.
      *
      * @param array $converterMap A map where key is field type name, and value
@@ -52,10 +52,10 @@ class ConverterRegistry
      *
      * @param string $typeName
      *
-     * @throws \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\Exception\NotFound
+     * @throws \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\Exception\NotFound
      * @throws \RuntimeException When type is neither Converter instance or callable factory
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter
+     * @return \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter
      */
     public function getConverter($typeName)
     {
@@ -79,3 +79,5 @@ class ConverterRegistry
         return $this->converterMap[$typeName];
     }
 }
+
+class_alias(ConverterRegistry::class, 'eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry');

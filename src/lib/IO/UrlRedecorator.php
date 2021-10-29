@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\IO;
+namespace Ibexa\Core\IO;
 
 /**
  * Converts urls between two decorators.
@@ -37,3 +37,5 @@ class UrlRedecorator implements UrlRedecoratorInterface
         );
     }
 }
+
+class_alias(UrlRedecorator::class, 'eZ\Publish\Core\IO\UrlRedecorator');

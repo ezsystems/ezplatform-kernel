@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Pagination\Pagerfanta;
+namespace Ibexa\Core\Pagination\Pagerfanta;
 
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\Values\Filter\Filter;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 use Pagerfanta\Adapter\AdapterInterface;
 
 final class LocationFilteringAdapter implements AdapterInterface
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\Values\Filter\Filter */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Filter\Filter */
     private $filter;
 
     /** @var array|null */
@@ -64,3 +64,5 @@ final class LocationFilteringAdapter implements AdapterInterface
         return $results;
     }
 }
+
+class_alias(LocationFilteringAdapter::class, 'eZ\Publish\Core\Pagination\Pagerfanta\LocationFilteringAdapter');

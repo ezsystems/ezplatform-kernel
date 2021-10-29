@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\User;
+namespace Ibexa\Contracts\Core\Repository\Events\User;
 
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class DeleteUserEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\User */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User */
     private $user;
 
     /** @var array */
@@ -37,3 +37,5 @@ final class DeleteUserEvent extends AfterEvent
         return $this->locations;
     }
 }
+
+class_alias(DeleteUserEvent::class, 'eZ\Publish\API\Repository\Events\User\DeleteUserEvent');

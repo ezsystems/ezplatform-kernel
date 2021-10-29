@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Features\Context;
+namespace Ibexa\Bundle\Core\Features\Context;
 
 use Behat\Behat\Context\Context;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use Behat\Gherkin\Node\TableNode;
 use PHPUnit\Framework\Assert as Assertion;
 
@@ -27,7 +27,7 @@ class ContentTypeContext implements Context
      */
     const DEFAULT_LANGUAGE = 'eng-GB';
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     protected $contentTypeService;
 
     /** @var \EzSystems\BehatBundle\Context\Object\ContentTypeGroup */
@@ -121,7 +121,7 @@ class ContentTypeContext implements Context
      * @param  string  $identifier       content type identifier
      * @param  bool $throwIfNotFound  if true, throws an exception if it is not found.
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null
      */
     protected function loadContentTypeByIdentifier($identifier, $throwIfNotFound = true)
     {
@@ -147,7 +147,7 @@ class ContentTypeContext implements Context
      * @param  string $identifier      content type identifier
      * @param  array $fields           content type fields definitions
      *
-     * @return eZ\Publish\API\Repository\Values\ContentType\ContentType
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
      */
     public function createContentType($groupIdentifier, $identifier, $fields)
     {
@@ -195,7 +195,7 @@ class ContentTypeContext implements Context
     /**
      * Remove the given 'ContentType' object.
      *
-     * @param  eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      */
     protected function removeContentType($contentType)
     {
@@ -207,8 +207,8 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
      */
     protected function assignContentGroupTypeToContentType($contentType, $contentTypeGroup)
     {
@@ -243,3 +243,5 @@ class ContentTypeContext implements Context
         return $contentType ? true : false;
     }
 }
+
+class_alias(ContentTypeContext::class, 'eZ\Bundle\EzPublishCoreBundle\Features\Context\ContentTypeContext');

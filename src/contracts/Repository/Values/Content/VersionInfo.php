@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\SPI\Repository\Values\MultiLanguageName;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\MultiLanguageName;
 
 /**
  * This class holds version information data. It also contains the corresponding {@link Content} to
  * which the version belongs to.
  *
- * @property-read \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo calls getContentInfo()
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo calls getContentInfo()
  * @property-read mixed $id the internal id of the version
  * @property-read int $versionNo the version number of this version (which only increments in scope of a single Content object)
  * @property-read \DateTime $modificationDate the last modified date of this version
@@ -94,7 +94,7 @@ abstract class VersionInfo extends ValueObject implements MultiLanguageName
     /**
      * Content of the content this version belongs to.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
      */
     abstract public function getContentInfo(): ContentInfo;
 
@@ -103,7 +103,7 @@ abstract class VersionInfo extends ValueObject implements MultiLanguageName
     abstract public function getInitialLanguage(): Language;
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
      */
     abstract public function getLanguages(): iterable;
 
@@ -137,3 +137,5 @@ abstract class VersionInfo extends ValueObject implements MultiLanguageName
         return $this->status === self::STATUS_ARCHIVED;
     }
 }
+
+class_alias(VersionInfo::class, 'eZ\Publish\API\Repository\Values\Content\VersionInfo');

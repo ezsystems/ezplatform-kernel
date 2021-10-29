@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\SortSpec;
+namespace Ibexa\Core\QueryType\BuiltIn\SortSpec;
 
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
 interface SortSpecParserInterface
 {
@@ -24,3 +24,5 @@ interface SortSpecParserInterface
 
     public function matchAnyOf(string ...$types): Token;
 }
+
+class_alias(SortSpecParserInterface::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecParserInterface');

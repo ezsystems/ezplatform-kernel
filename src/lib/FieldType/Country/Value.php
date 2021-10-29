@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Country;
+namespace Ibexa\Core\FieldType\Country;
 
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * Value for Country field type.
@@ -42,11 +42,10 @@ class Value extends BaseValue
         $this->countries = $countries;
     }
 
-    /**
-     * @see \eZ\Publish\Core\FieldType\Value
-     */
     public function __toString()
     {
         return implode(', ', array_column($this->countries, 'Name'));
     }
 }
+
+class_alias(Value::class, 'eZ\Publish\Core\FieldType\Country\Value');

@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Content;
+namespace Ibexa\Core\Persistence\Legacy\Content;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 class MultilingualStorageFieldDefinition extends ValueObject
 {
@@ -27,3 +27,5 @@ class MultilingualStorageFieldDefinition extends ValueObject
     /** @var int */
     public $languageId;
 }
+
+class_alias(MultilingualStorageFieldDefinition::class, 'eZ\Publish\Core\Persistence\Legacy\Content\MultilingualStorageFieldDefinition');

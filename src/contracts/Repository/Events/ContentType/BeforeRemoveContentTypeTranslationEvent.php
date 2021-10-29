@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Events\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeRemoveContentTypeTranslationEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft */
     private $contentTypeDraft;
 
     /** @var string */
     private $languageCode;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft|null */
     private $newContentTypeDraft;
 
     public function __construct(ContentTypeDraft $contentTypeDraft, string $languageCode)
@@ -58,3 +58,5 @@ final class BeforeRemoveContentTypeTranslationEvent extends BeforeEvent
         return $this->newContentTypeDraft instanceof ContentTypeDraft;
     }
 }
+
+class_alias(BeforeRemoveContentTypeTranslationEvent::class, 'eZ\Publish\API\Repository\Events\ContentType\BeforeRemoveContentTypeTranslationEvent');

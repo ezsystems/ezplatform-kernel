@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\ObjectState;
+namespace Ibexa\Contracts\Core\Repository\Values\ObjectState;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\SPI\Repository\Values\MultiLanguageDescription;
-use eZ\Publish\SPI\Repository\Values\MultiLanguageName;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\MultiLanguageDescription;
+use Ibexa\Contracts\Core\Repository\Values\MultiLanguageName;
 
 /**
  * This class represents an object state group value.
@@ -51,3 +51,5 @@ abstract class ObjectStateGroup extends ValueObject implements MultiLanguageName
      */
     protected $languageCodes;
 }
+
+class_alias(ObjectStateGroup::class, 'eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup');

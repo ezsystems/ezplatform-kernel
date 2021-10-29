@@ -6,12 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\FieldType\BinaryBase;
+namespace Ibexa\Contracts\Core\FieldType\BinaryBase;
 
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 
 interface PathGeneratorInterface
 {
     public function getStoragePathForField(Field $field, VersionInfo $versionInfo);
 }
+
+class_alias(PathGeneratorInterface::class, 'eZ\Publish\SPI\FieldType\BinaryBase\PathGeneratorInterface');

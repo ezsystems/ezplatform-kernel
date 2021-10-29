@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target\CustomFieldTarget;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Target\CustomFieldTarget;
 
 /**
  * Sorts search results by raw search index field.
@@ -22,3 +22,5 @@ final class CustomField extends SortClause
         parent::__construct('custom_field', $sortDirection, new CustomFieldTarget($field));
     }
 }
+
+class_alias(CustomField::class, 'eZ\Publish\API\Repository\Values\Content\Query\SortClause\CustomField');

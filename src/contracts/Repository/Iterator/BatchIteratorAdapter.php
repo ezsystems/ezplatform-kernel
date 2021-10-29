@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Iterator;
+namespace Ibexa\Contracts\Core\Repository\Iterator;
 
 use Iterator;
 
@@ -14,3 +14,5 @@ interface BatchIteratorAdapter
 {
     public function fetch(int $offset, int $limit): Iterator;
 }
+
+class_alias(BatchIteratorAdapter::class, 'eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter');

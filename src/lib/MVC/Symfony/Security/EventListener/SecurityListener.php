@@ -4,20 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security\EventListener;
+namespace Ibexa\Core\MVC\Symfony\Security\EventListener;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
-use eZ\Publish\Core\MVC\Symfony\Security\Exception\UnauthorizedSiteAccessException;
-use eZ\Publish\Core\MVC\Symfony\Security\InteractiveLoginToken;
-use eZ\Publish\Core\MVC\Symfony\Security\UserInterface as eZUser;
-use eZ\Publish\API\Repository\Values\User\User as APIUser;
-use eZ\Publish\Core\MVC\Symfony\Event\InteractiveLoginEvent;
-use eZ\Publish\Core\MVC\Symfony\Security\UserWrapped;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use Ibexa\Core\MVC\Symfony\Security\Exception\UnauthorizedSiteAccessException;
+use Ibexa\Core\MVC\Symfony\Security\InteractiveLoginToken;
+use Ibexa\Core\MVC\Symfony\Security\UserInterface as eZUser;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
+use Ibexa\Core\MVC\Symfony\Event\InteractiveLoginEvent;
+use Ibexa\Core\MVC\Symfony\Security\UserWrapped;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,13 +40,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class SecurityListener implements EventSubscriberInterface
 {
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     protected $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     protected $userService;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     protected $configResolver;
 
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
@@ -148,9 +148,9 @@ class SecurityListener implements EventSubscriberInterface
      * One may want to override this method to use their own user class.
      *
      * @param \Symfony\Component\Security\Core\User\UserInterface $originalUser
-     * @param \eZ\Publish\API\Repository\Values\User\User $apiUser
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $apiUser
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\Security\UserInterface
+     * @return \Ibexa\Core\MVC\Symfony\Security\UserInterface
      */
     protected function getUser(UserInterface $originalUser, APIUser $apiUser)
     {
@@ -162,7 +162,7 @@ class SecurityListener implements EventSubscriberInterface
      *
      * @param BaseInteractiveLoginEvent $event
      *
-     * @throws \eZ\Publish\Core\MVC\Symfony\Security\Exception\UnauthorizedSiteAccessException
+     * @throws \Ibexa\Core\MVC\Symfony\Security\Exception\UnauthorizedSiteAccessException
      */
     public function checkSiteAccessPermission(BaseInteractiveLoginEvent $event)
     {
@@ -184,7 +184,7 @@ class SecurityListener implements EventSubscriberInterface
      *
      * @param RequestEvent $event
      *
-     * @throws \eZ\Publish\Core\MVC\Symfony\Security\Exception\UnauthorizedSiteAccessException
+     * @throws \Ibexa\Core\MVC\Symfony\Security\Exception\UnauthorizedSiteAccessException
      */
     public function onKernelRequest(RequestEvent $event)
     {
@@ -248,3 +248,5 @@ class SecurityListener implements EventSubscriberInterface
         );
     }
 }
+
+class_alias(SecurityListener::class, 'eZ\Publish\Core\MVC\Symfony\Security\EventListener\SecurityListener');

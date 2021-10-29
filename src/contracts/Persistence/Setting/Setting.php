@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Persistence\Setting;
+namespace Ibexa\Contracts\Core\Persistence\Setting;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 /**
  * @property-read string $group
@@ -26,3 +26,5 @@ class Setting extends ValueObject
     /** @var string */
     protected $serializedValue;
 }
+
+class_alias(Setting::class, 'eZ\Publish\SPI\Persistence\Setting\Setting');

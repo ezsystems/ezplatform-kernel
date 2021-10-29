@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\User\Exception;
+namespace Ibexa\Core\Repository\User\Exception;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 class UnsupportedPasswordHashType extends InvalidArgumentException
 {
@@ -17,3 +17,5 @@ class UnsupportedPasswordHashType extends InvalidArgumentException
         parent::__construct('hashType', "Password hash type '$hashType' is not recognized");
     }
 }
+
+class_alias(UnsupportedPasswordHashType::class, 'eZ\Publish\Core\Repository\User\Exception\UnsupportedPasswordHashType');

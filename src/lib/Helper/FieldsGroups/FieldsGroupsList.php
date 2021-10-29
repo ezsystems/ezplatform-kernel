@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Helper\FieldsGroups;
+namespace Ibexa\Core\Helper\FieldsGroups;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 
 /**
  * List of content fields groups.
@@ -32,9 +32,11 @@ interface FieldsGroupsList
     public function getDefaultGroup();
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition $fieldDefinition
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition $fieldDefinition
      *
      * @return string
      */
     public function getFieldGroup(FieldDefinition $fieldDefinition): string;
 }
+
+class_alias(FieldsGroupsList::class, 'eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList');

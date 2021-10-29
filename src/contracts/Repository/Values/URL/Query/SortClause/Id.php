@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\URL\Query\SortClause;
+namespace Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause;
 
-use eZ\Publish\API\Repository\Values\URL\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause;
 
 class Id extends SortClause
 {
@@ -22,3 +22,5 @@ class Id extends SortClause
         parent::__construct('id', $sortDirection);
     }
 }
+
+class_alias(Id::class, 'eZ\Publish\API\Repository\Values\URL\Query\SortClause\Id');

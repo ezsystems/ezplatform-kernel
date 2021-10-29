@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
 /**
  *  This interface represents a user reference for use in sessions and Repository.
@@ -20,3 +20,5 @@ interface UserReference
      */
     public function getUserId(): int;
 }
+
+class_alias(UserReference::class, 'eZ\Publish\API\Repository\Values\User\UserReference');

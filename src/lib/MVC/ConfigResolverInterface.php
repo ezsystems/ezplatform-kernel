@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC;
+namespace Ibexa\Core\MVC;
 
 /**
  * Interface for config resolvers.
@@ -47,3 +47,5 @@ interface ConfigResolverInterface
      */
     public function getDefaultNamespace(): string;
 }
+
+class_alias(ConfigResolverInterface::class, 'eZ\Publish\Core\MVC\ConfigResolverInterface');

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension;
+namespace Ibexa\Core\MVC\Symfony\Templating\Twig\Extension;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -54,3 +54,5 @@ class DataAttributesExtension extends AbstractExtension
         return rtrim($result);
     }
 }
+
+class_alias(DataAttributesExtension::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\DataAttributesExtension');

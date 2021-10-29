@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Decorator;
+namespace Ibexa\Contracts\Core\Repository\Decorator;
 
-use eZ\Publish\API\Repository\URLAliasService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\URLAlias;
+use Ibexa\Contracts\Core\Repository\URLAliasService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 
 abstract class URLAliasServiceDecorator implements URLAliasService
 {
-    /** @var \eZ\Publish\API\Repository\URLAliasService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
     protected $innerService;
 
     public function __construct(URLAliasService $innerService)
@@ -107,3 +107,5 @@ abstract class URLAliasServiceDecorator implements URLAliasService
         return $this->innerService->deleteCorruptedUrlAliases();
     }
 }
+
+class_alias(URLAliasServiceDecorator::class, 'eZ\Publish\SPI\Repository\Decorator\URLAliasServiceDecorator');

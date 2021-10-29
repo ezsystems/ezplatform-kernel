@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\FieldType;
+namespace Ibexa\Contracts\Core\FieldType;
 
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 
 /**
  * The field type interface which all field types have to implement to be
@@ -18,17 +18,17 @@ interface Indexable
     /**
      * Get index data for field for search backend.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition $fieldDefinition
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition $fieldDefinition
      *
-     * @return \eZ\Publish\SPI\Search\Field[]
+     * @return \Ibexa\Contracts\Core\Search\Field[]
      */
     public function getIndexData(Field $field, FieldDefinition $fieldDefinition);
 
     /**
      * Get index field types for search backend.
      *
-     * @return \eZ\Publish\SPI\Search\FieldType[]
+     * @return array<string, \Ibexa\Contracts\Core\Search\FieldType>
      */
     public function getIndexDefinition();
 
@@ -54,3 +54,5 @@ interface Indexable
      */
     public function getDefaultSortField();
 }
+
+class_alias(Indexable::class, 'eZ\Publish\SPI\FieldType\Indexable');

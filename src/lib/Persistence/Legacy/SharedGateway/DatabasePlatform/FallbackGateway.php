@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\SharedGateway\DatabasePlatform;
+namespace Ibexa\Core\Persistence\Legacy\SharedGateway\DatabasePlatform;
 
 use Doctrine\DBAL\Connection;
-use eZ\Publish\Core\Persistence\Legacy\SharedGateway\Gateway;
+use Ibexa\Core\Persistence\Legacy\SharedGateway\Gateway;
 
 final class FallbackGateway implements Gateway
 {
@@ -34,3 +34,5 @@ final class FallbackGateway implements Gateway
         return (int)$this->connection->lastInsertId($sequenceName);
     }
 }
+
+class_alias(FallbackGateway::class, 'eZ\Publish\Core\Persistence\Legacy\SharedGateway\DatabasePlatform\FallbackGateway');

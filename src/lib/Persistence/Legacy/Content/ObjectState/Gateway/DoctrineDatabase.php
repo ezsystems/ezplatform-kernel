@@ -6,30 +6,30 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\Content\ObjectState\Gateway;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
-use eZ\Publish\SPI\Persistence\Content\ObjectState;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\Group;
+use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Gateway;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group;
 
 /**
  * Object State gateway implementation using the Doctrine database.
  *
  * @internal Gateway implementation is considered internal. Use Persistence Location Handler instead.
  *
- * @see \eZ\Publish\SPI\Persistence\Content\ObjectState\Handler
+ * @see \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Handler
  */
 final class DoctrineDatabase extends Gateway
 {
     /**
      * Language mask generator.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator
      */
     private $maskGenerator;
 
@@ -155,7 +155,7 @@ final class DoctrineDatabase extends Gateway
 
     /**
      * @throws \Doctrine\DBAL\DBALException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function insertObjectState(ObjectState $objectState, int $groupId): void
     {
@@ -216,7 +216,7 @@ final class DoctrineDatabase extends Gateway
     /**
      * @param string[] $languageCodes
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function updateObjectStateCommonFields(
         string $tableName,
@@ -586,7 +586,7 @@ final class DoctrineDatabase extends Gateway
     /**
      * Insert object state group translations into database.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if Object State language does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if Object State language does not exist
      */
     private function insertObjectStateTranslations(ObjectState $objectState): void
     {
@@ -645,7 +645,7 @@ final class DoctrineDatabase extends Gateway
     /**
      * Insert object state group translations into database.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if Object State Group language does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if Object State Group language does not exist
      */
     private function insertObjectStateGroupTranslations(Group $objectStateGroup): void
     {
@@ -767,3 +767,5 @@ final class DoctrineDatabase extends Gateway
         $query->execute();
     }
 }
+
+class_alias(DoctrineDatabase::class, 'eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase');

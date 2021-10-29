@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Matcher;
+namespace Ibexa\Bundle\Core\Matcher;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\Core\MVC\Symfony\Matcher\ClassNameMatcherFactory;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Core\MVC\Symfony\Matcher\ClassNameMatcherFactory;
 
 /**
  * A view matcher factory that also accepts services as matchers.
@@ -17,7 +17,7 @@ use eZ\Publish\Core\MVC\Symfony\Matcher\ClassNameMatcherFactory;
  */
 final class ServiceAwareMatcherFactory extends ClassNameMatcherFactory
 {
-    /** @var \eZ\Bundle\EzPublishCoreBundle\Matcher\ViewMatcherRegistry */
+    /** @var \Ibexa\Bundle\Core\Matcher\ViewMatcherRegistry */
     private $viewMatcherRegistry;
 
     public function __construct(
@@ -34,9 +34,9 @@ final class ServiceAwareMatcherFactory extends ClassNameMatcherFactory
     /**
      * @param string $matcherIdentifier
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MatcherInterface
+     * @return \Ibexa\Core\MVC\Symfony\Matcher\ContentBased\MatcherInterface
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     protected function getMatcher($matcherIdentifier)
     {
@@ -47,3 +47,5 @@ final class ServiceAwareMatcherFactory extends ClassNameMatcherFactory
         return parent::getMatcher($matcherIdentifier);
     }
 }
+
+class_alias(ServiceAwareMatcherFactory::class, 'eZ\Bundle\EzPublishCoreBundle\Matcher\ServiceAwareMatcherFactory');

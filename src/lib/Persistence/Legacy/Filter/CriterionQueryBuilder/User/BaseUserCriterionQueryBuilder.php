@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\User;
+namespace Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\User;
 
-use eZ\Publish\Core\FieldType\User\UserStorage\Gateway\DoctrineStorage;
-use eZ\Publish\Core\Persistence\TransformationProcessor;
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Core\FieldType\User\UserStorage\Gateway\DoctrineStorage;
+use Ibexa\Core\Persistence\TransformationProcessor;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\CriterionQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 
 /**
  * @internal for internal use by Repository Filtering
  */
 abstract class BaseUserCriterionQueryBuilder implements CriterionQueryBuilder
 {
-    /** @var \eZ\Publish\Core\Persistence\TransformationProcessor */
+    /** @var \Ibexa\Core\Persistence\TransformationProcessor */
     private $transformationProcessor;
 
     public function __construct(TransformationProcessor $transformationProcessor)
@@ -57,3 +57,5 @@ abstract class BaseUserCriterionQueryBuilder implements CriterionQueryBuilder
         );
     }
 }
+
+class_alias(BaseUserCriterionQueryBuilder::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\User\BaseUserCriterionQueryBuilder');

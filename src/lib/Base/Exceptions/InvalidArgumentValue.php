@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Exceptions;
+namespace Ibexa\Core\Base\Exceptions;
 
 use Exception;
 
@@ -43,3 +43,5 @@ class InvalidArgumentValue extends InvalidArgumentException
         $this->message = $this->getBaseTranslation();
     }
 }
+
+class_alias(InvalidArgumentValue::class, 'eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue');

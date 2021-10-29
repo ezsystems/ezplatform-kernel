@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Security;
+namespace Ibexa\Bundle\Core\DependencyInjection\Security;
 
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\HttpBasicFactory as BaseHttpBasicFactory;
 
@@ -20,3 +20,5 @@ class HttpBasicFactory extends BaseHttpBasicFactory
         return 'ezpublish_http_basic';
     }
 }
+
+class_alias(HttpBasicFactory::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Security\HttpBasicFactory');

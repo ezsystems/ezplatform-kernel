@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\Core\DependencyInjection\Compiler;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\FilterConfiguration;
+use Ibexa\Bundle\Core\Imagine\Filter\FilterConfiguration;
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -57,3 +57,5 @@ class ImaginePass implements CompilerPassInterface
         );
     }
 }
+
+class_alias(ImaginePass::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ImaginePass');

@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Persistence\Notification;
+namespace Ibexa\Contracts\Core\Persistence\Notification;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 class CreateStruct extends ValueObject
 {
@@ -27,3 +27,5 @@ class CreateStruct extends ValueObject
     /** @var int */
     public $created;
 }
+
+class_alias(CreateStruct::class, 'eZ\Publish\SPI\Persistence\Notification\CreateStruct');

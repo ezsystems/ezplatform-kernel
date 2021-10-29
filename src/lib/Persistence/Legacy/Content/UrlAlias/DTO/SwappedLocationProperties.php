@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\DTO;
+namespace Ibexa\Core\Persistence\Legacy\Content\UrlAlias\DTO;
 
 /**
  * @internal To be used internally by UrlAlias Persistence Handler.
@@ -42,3 +42,5 @@ class SwappedLocationProperties
      */
     public $entries;
 }
+
+class_alias(SwappedLocationProperties::class, 'eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\DTO\SwappedLocationProperties');

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Base\Exceptions;
+namespace Ibexa\Core\Base\Exceptions;
 
 use RuntimeException;
 use Throwable;
@@ -26,3 +26,5 @@ final class DatabaseException extends RuntimeException
         return new self($message, $code, $previous);
     }
 }
+
+class_alias(DatabaseException::class, 'eZ\Publish\Core\Base\Exceptions\DatabaseException');

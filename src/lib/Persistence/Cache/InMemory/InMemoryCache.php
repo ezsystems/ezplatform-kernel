@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Cache\InMemory;
+namespace Ibexa\Core\Persistence\Cache\InMemory;
 
 /**
  * Simple internal In-Memory Cache Pool.
@@ -218,3 +218,5 @@ class InMemoryCache
         }
     }
 }
+
+class_alias(InMemoryCache::class, 'eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache');

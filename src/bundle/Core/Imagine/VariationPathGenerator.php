@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine;
+namespace Ibexa\Bundle\Core\Imagine;
 
 /**
  * Generates the path to variations of original images.
@@ -21,3 +21,5 @@ interface VariationPathGenerator
      */
     public function getVariationPath($originalPath, $filter);
 }
+
+class_alias(VariationPathGenerator::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator');

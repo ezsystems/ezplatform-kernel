@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\Core\DependencyInjection\Compiler;
 
 use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -72,8 +72,10 @@ class ViewProvidersPass implements CompilerPassInterface
         if ($container->hasDefinition('ezpublish.view.custom_location_controller_checker')) {
             $container->getDefinition('ezpublish.view.custom_location_controller_checker')->addMethodCall(
                 'addViewProviders',
-                [$viewProviders['eZ\Publish\Core\MVC\Symfony\View\ContentView']]
+                [$viewProviders['Ibexa\Core\MVC\Symfony\View\ContentView']]
             );
         }
     }
 }
+
+class_alias(ViewProvidersPass::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ViewProvidersPass');

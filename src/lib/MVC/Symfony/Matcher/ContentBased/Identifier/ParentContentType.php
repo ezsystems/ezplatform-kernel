@@ -4,22 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Identifier;
+namespace Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Identifier;
 
-use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\MVC\Symfony\View\ContentValueView;
-use eZ\Publish\Core\MVC\Symfony\View\LocationValueView;
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\MVC\Symfony\View\ContentValueView;
+use Ibexa\Core\MVC\Symfony\View\LocationValueView;
+use Ibexa\Core\MVC\Symfony\View\View;
 
 class ParentContentType extends MultipleValued
 {
     /**
      * Checks if a Location object matches.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      *
      * @return bool
      */
@@ -41,7 +41,7 @@ class ParentContentType extends MultipleValued
     /**
      * Checks if a ContentInfo object matches.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      *
      * @return bool
      */
@@ -69,3 +69,5 @@ class ParentContentType extends MultipleValued
         return false;
     }
 }
+
+class_alias(ParentContentType::class, 'eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Identifier\ParentContentType');

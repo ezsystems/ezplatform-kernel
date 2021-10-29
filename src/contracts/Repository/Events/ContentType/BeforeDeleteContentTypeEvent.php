@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Events\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 
 final class BeforeDeleteContentTypeEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
     private $contentType;
 
     public function __construct(ContentType $contentType)
@@ -26,3 +26,5 @@ final class BeforeDeleteContentTypeEvent extends BeforeEvent
         return $this->contentType;
     }
 }
+
+class_alias(BeforeDeleteContentTypeEvent::class, 'eZ\Publish\API\Repository\Events\ContentType\BeforeDeleteContentTypeEvent');

@@ -4,31 +4,31 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\Content\Gateway;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder as DoctrineQueryBuilder;
-use eZ\Publish\API\Repository\Values\Content\Relation;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase\QueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
-use eZ\Publish\Core\Persistence\Legacy\SharedGateway\Gateway as SharedGateway;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException as NotFound;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase\QueryBuilder;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
+use Ibexa\Core\Persistence\Legacy\SharedGateway\Gateway as SharedGateway;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
+use Ibexa\Core\Base\Exceptions\NotFoundException as NotFound;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
 use DOMXPath;
 use DOMDocument;
 
@@ -37,7 +37,7 @@ use DOMDocument;
  *
  * @internal Gateway implementation is considered internal. Use Persistence Content Handler instead.
  *
- * @see \eZ\Publish\SPI\Persistence\Content\Handler
+ * @see \Ibexa\Contracts\Core\Persistence\Content\Handler
  */
 final class DoctrineDatabase extends Gateway
 {
@@ -59,25 +59,25 @@ final class DoctrineDatabase extends Gateway
     /**
      * Query builder.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase\QueryBuilder
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase\QueryBuilder
      */
     protected $queryBuilder;
 
     /**
      * Caching language handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler
      */
     protected $languageHandler;
 
     /**
      * Language mask generator.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator
      */
     protected $languageMaskGenerator;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\SharedGateway\Gateway */
+    /** @var \Ibexa\Core\Persistence\Legacy\SharedGateway\Gateway */
     private $sharedGateway;
 
     /** @var \Doctrine\DBAL\Platforms\AbstractPlatform */
@@ -290,7 +290,7 @@ final class DoctrineDatabase extends Gateway
     /**
      * Updates version $versionNo for content identified by $contentId, in respect to $struct.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function updateVersion(int $contentId, int $versionNo, UpdateStruct $struct): void
     {
@@ -539,7 +539,7 @@ final class DoctrineDatabase extends Gateway
     /**
      * @return int ID
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function insertNewField(Content $content, Field $field, StorageFieldValue $value): int
     {
@@ -584,7 +584,7 @@ final class DoctrineDatabase extends Gateway
     /**
      * Set the given query field (ezcontentobject_attribute) values.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function setInsertFieldValues(
         DoctrineQueryBuilder $query,
@@ -1860,7 +1860,7 @@ final class DoctrineDatabase extends Gateway
      * @param int $contentId
      * @param int $languageId
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\BadStateException
+     * @throws \Ibexa\Core\Base\Exceptions\BadStateException
      */
     private function deleteTranslationFromContentObject($contentId, $languageId)
     {
@@ -1898,7 +1898,7 @@ final class DoctrineDatabase extends Gateway
      *
      * @param int|null $versionNo optional, if specified, apply to this Version only.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     private function deleteTranslationFromContentVersions(
         int $contentId,
@@ -1980,3 +1980,5 @@ final class DoctrineDatabase extends Gateway
         return $query;
     }
 }
+
+class_alias(DoctrineDatabase::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase');

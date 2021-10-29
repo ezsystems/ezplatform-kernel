@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\Core\DependencyInjection\Compiler;
 
 use RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -55,3 +55,5 @@ final class LazyDoctrineRepositoriesPass implements CompilerPassInterface
         );
     }
 }
+
+class_alias(LazyDoctrineRepositoriesPass::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\LazyDoctrineRepositoriesPass');

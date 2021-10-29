@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Event;
+namespace Ibexa\Core\Event;
 
-use eZ\Publish\API\Repository\Events\URLWildcard\BeforeUpdateEvent;
-use eZ\Publish\API\Repository\Events\URLWildcard\UpdateEvent;
-use eZ\Publish\API\Repository\URLWildcardService as URLWildcardServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\URLWildcard;
-use eZ\Publish\API\Repository\Values\Content\URLWildcardTranslationResult;
-use eZ\Publish\API\Repository\Events\URLWildcard\BeforeCreateEvent;
-use eZ\Publish\API\Repository\Events\URLWildcard\BeforeRemoveEvent;
-use eZ\Publish\API\Repository\Events\URLWildcard\BeforeTranslateEvent;
-use eZ\Publish\API\Repository\Events\URLWildcard\CreateEvent;
-use eZ\Publish\API\Repository\Events\URLWildcard\RemoveEvent;
-use eZ\Publish\API\Repository\Events\URLWildcard\TranslateEvent;
-use eZ\Publish\API\Repository\Values\Content\URLWildcardUpdateStruct;
-use eZ\Publish\SPI\Repository\Decorator\URLWildcardServiceDecorator;
+use Ibexa\Contracts\Core\Repository\Events\URLWildcard\BeforeUpdateEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLWildcard\UpdateEvent;
+use Ibexa\Contracts\Core\Repository\URLWildcardService as URLWildcardServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardTranslationResult;
+use Ibexa\Contracts\Core\Repository\Events\URLWildcard\BeforeCreateEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLWildcard\BeforeRemoveEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLWildcard\BeforeTranslateEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLWildcard\CreateEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLWildcard\RemoveEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLWildcard\TranslateEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Decorator\URLWildcardServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class URLWildcardService extends URLWildcardServiceDecorator
@@ -129,3 +129,5 @@ class URLWildcardService extends URLWildcardServiceDecorator
         return $result;
     }
 }
+
+class_alias(URLWildcardService::class, 'eZ\Publish\Core\Event\URLWildcardService');

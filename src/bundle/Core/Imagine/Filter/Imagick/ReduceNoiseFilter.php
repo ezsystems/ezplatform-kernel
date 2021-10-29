@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Imagick;
+namespace Ibexa\Bundle\Core\Imagine\Filter\Imagick;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\AbstractFilter;
+use Ibexa\Bundle\Core\Imagine\Filter\AbstractFilter;
 use Imagine\Image\ImageInterface;
 
 class ReduceNoiseFilter extends AbstractFilter
@@ -25,3 +25,5 @@ class ReduceNoiseFilter extends AbstractFilter
         return $image;
     }
 }
+
+class_alias(ReduceNoiseFilter::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Imagick\ReduceNoiseFilter');

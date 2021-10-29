@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Trash;
+namespace Ibexa\Contracts\Core\Repository\Events\Trash;
 
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult;
-use eZ\Publish\API\Repository\Values\Content\TrashItem;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class DeleteTrashItemEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\TrashItem */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem */
     private $trashItem;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult */
     private $result;
 
     public function __construct(
@@ -38,3 +38,5 @@ final class DeleteTrashItemEvent extends AfterEvent
         return $this->result;
     }
 }
+
+class_alias(DeleteTrashItemEvent::class, 'eZ\Publish\API\Repository\Events\Trash\DeleteTrashItemEvent');

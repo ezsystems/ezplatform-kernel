@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Exception;
+namespace Ibexa\Core\Persistence\Legacy\Exception;
 
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 
 /**
  * Exception thrown when a Type to be loaded is not found.
@@ -22,8 +22,10 @@ class TypeGroupNotFound extends NotFoundException
     public function __construct($typeGroupId)
     {
         parent::__construct(
-            'eZ\\Publish\\SPI\\Persistence\\Content\\Type\\Group',
+            'Persistence Content Type Group',
             sprintf('ID: %s', $typeGroupId)
         );
     }
 }
+
+class_alias(TypeGroupNotFound::class, 'eZ\Publish\Core\Persistence\Legacy\Exception\TypeGroupNotFound');

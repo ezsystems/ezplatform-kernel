@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased;
+namespace Ibexa\Core\MVC\Symfony\Matcher\ContentBased;
 
-use eZ\Publish\Core\MVC\RepositoryAware;
+use Ibexa\Core\MVC\RepositoryAware;
 
 /**
  * Abstract class for basic matchers, accepting multiple values to match against.
@@ -41,10 +41,12 @@ abstract class MultipleValued extends RepositoryAware implements MatcherInterfac
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Repository
+     * @return \Ibexa\Contracts\Core\Repository\Repository
      */
     public function getRepository()
     {
         return $this->repository;
     }
 }
+
+class_alias(MultipleValued::class, 'eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued');

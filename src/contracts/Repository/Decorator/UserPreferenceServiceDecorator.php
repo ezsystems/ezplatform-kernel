@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Decorator;
+namespace Ibexa\Contracts\Core\Repository\Decorator;
 
-use eZ\Publish\API\Repository\UserPreferenceService;
-use eZ\Publish\API\Repository\Values\UserPreference\UserPreference;
-use eZ\Publish\API\Repository\Values\UserPreference\UserPreferenceList;
+use Ibexa\Contracts\Core\Repository\UserPreferenceService;
+use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreference;
+use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreferenceList;
 
 abstract class UserPreferenceServiceDecorator implements UserPreferenceService
 {
-    /** @var \eZ\Publish\API\Repository\UserPreferenceService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserPreferenceService */
     protected $innerService;
 
     public function __construct(UserPreferenceService $innerService)
@@ -44,3 +44,5 @@ abstract class UserPreferenceServiceDecorator implements UserPreferenceService
         return $this->innerService->getUserPreferenceCount();
     }
 }
+
+class_alias(UserPreferenceServiceDecorator::class, 'eZ\Publish\SPI\Repository\Decorator\UserPreferenceServiceDecorator');

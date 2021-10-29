@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\SortSpec;
+namespace Ibexa\Core\QueryType\BuiltIn\SortSpec;
 
 interface SortSpecLexerInterface
 {
@@ -35,3 +35,5 @@ interface SortSpecLexerInterface
      */
     public function isEOF(): bool;
 }
+
+class_alias(SortSpecLexerInterface::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecLexerInterface');

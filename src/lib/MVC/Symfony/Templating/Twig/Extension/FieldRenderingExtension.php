@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension;
+namespace Ibexa\Core\MVC\Symfony\Templating\Twig\Extension;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Helper\TranslationHelper;
-use eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistryInterface;
-use eZ\Publish\Core\MVC\Symfony\Templating\FieldBlockRendererInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Helper\TranslationHelper;
+use Ibexa\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistryInterface;
+use Ibexa\Core\MVC\Symfony\Templating\FieldBlockRendererInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -22,7 +22,7 @@ use Twig\TwigFunction;
  */
 class FieldRenderingExtension extends AbstractExtension
 {
-    /** @var FieldBlockRendererInterface|\eZ\Publish\Core\MVC\Symfony\Templating\Twig\FieldBlockRenderer */
+    /** @var \Ibexa\Core\MVC\Symfony\Templating\FieldBlockRendererInterface */
     private $fieldBlockRenderer;
 
     /** @var ParameterProviderRegistryInterface */
@@ -81,7 +81,7 @@ class FieldRenderingExtension extends AbstractExtension
      * Renders the HTML for the settings for the given field definition
      * $definition.
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition $fieldDefinition
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition $fieldDefinition
      *
      * @return string
      */
@@ -93,7 +93,7 @@ class FieldRenderingExtension extends AbstractExtension
     /**
      * Renders the HTML for a given field.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param string $fieldIdentifier Identifier for the field we want to render
      * @param array $params An array of parameters to pass to the field view
      *
@@ -120,8 +120,8 @@ class FieldRenderingExtension extends AbstractExtension
     /**
      * Generates the array of parameter to pass to the field template.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field the Field to display
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field the Field to display
      * @param array $params An array of parameters to pass to the field view
      *
      * @return array
@@ -169,8 +169,8 @@ class FieldRenderingExtension extends AbstractExtension
     /**
      * Returns the field type identifier for $field.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      *
      * @return string
      */
@@ -188,3 +188,5 @@ class FieldRenderingExtension extends AbstractExtension
         return $this->fieldTypeIdentifiers[$key];
     }
 }
+
+class_alias(FieldRenderingExtension::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\FieldRenderingExtension');

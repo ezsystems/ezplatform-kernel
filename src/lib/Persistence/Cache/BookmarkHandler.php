@@ -6,15 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Cache;
+namespace Ibexa\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\Bookmark\Bookmark;
-use eZ\Publish\SPI\Persistence\Bookmark\CreateStruct;
-use eZ\Publish\SPI\Persistence\Bookmark\Handler as BookmarkHandlerInterface;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
+use Ibexa\Contracts\Core\Persistence\Bookmark\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Handler as BookmarkHandlerInterface;
 
-/**
- * @see \eZ\Publish\SPI\Persistence\Bookmark\Handler
- */
 class BookmarkHandler extends AbstractHandler implements BookmarkHandlerInterface
 {
     private const BOOKMARK_IDENTIFIER = 'bookmark';
@@ -123,3 +120,5 @@ class BookmarkHandler extends AbstractHandler implements BookmarkHandlerInterfac
         $this->persistenceHandler->bookmarkHandler()->locationSwapped($location1Id, $location2Id);
     }
 }
+
+class_alias(BookmarkHandler::class, 'eZ\Publish\Core\Persistence\Cache\BookmarkHandler');

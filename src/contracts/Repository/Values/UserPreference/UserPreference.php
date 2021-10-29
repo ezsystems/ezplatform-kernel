@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\UserPreference;
+namespace Ibexa\Contracts\Core\Repository\Values\UserPreference;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class represents a user preference value.
@@ -36,3 +36,5 @@ class UserPreference extends ValueObject
      */
     protected $value;
 }
+
+class_alias(UserPreference::class, 'eZ\Publish\API\Repository\Values\UserPreference\UserPreference');

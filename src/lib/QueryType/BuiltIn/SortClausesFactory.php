@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn;
+namespace Ibexa\Core\QueryType\BuiltIn;
 
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecLexer;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecParser;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortSpecLexer;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortSpecParser;
 
 /**
  * @internal
  */
 final class SortClausesFactory implements SortClausesFactoryInterface
 {
-    /** @var \eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface */
+    /** @var \Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface */
     private $sortClauseParser;
 
     public function __construct(SortClauseParserInterface $sortClauseArgsParser)
@@ -26,9 +26,9 @@ final class SortClausesFactory implements SortClausesFactoryInterface
     }
 
     /**
-     * @throws \eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Exception\SyntaxErrorException
+     * @throws \Ibexa\Core\QueryType\BuiltIn\SortSpec\Exception\SyntaxErrorException
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Query\SortClause[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause[]
      */
     public function createFromSpecification(string $specification): array
     {
@@ -40,3 +40,5 @@ final class SortClausesFactory implements SortClausesFactoryInterface
         return $parser->parseSortClausesList();
     }
 }
+
+class_alias(SortClausesFactory::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortClausesFactory');

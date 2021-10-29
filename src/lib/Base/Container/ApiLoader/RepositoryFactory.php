@@ -4,28 +4,28 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Container\ApiLoader;
+namespace Ibexa\Core\Base\Container\ApiLoader;
 
-use eZ\Publish\API\Repository\LanguageResolver;
-use eZ\Publish\API\Repository\PermissionService;
-use eZ\Publish\API\Repository\PasswordHashService;
-use eZ\Publish\Core\FieldType\FieldTypeRegistry;
-use eZ\Publish\Core\Repository\Permission\LimitationService;
-use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
-use eZ\Publish\Core\Repository\Helper\RelationProcessor;
-use eZ\Publish\Core\Repository\Mapper;
-use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
-use eZ\Publish\Core\Search\Common\BackgroundIndexer;
-use eZ\Publish\SPI\Persistence\Filter\Content\Handler as ContentFilteringHandler;
-use eZ\Publish\SPI\Persistence\Filter\Location\Handler as LocationFilteringHandler;
-use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
-use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
-use eZ\Publish\SPI\Repository\Validator\ContentValidator;
-use eZ\Publish\SPI\Search\Handler as SearchHandler;
-use eZ\Publish\API\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\LanguageResolver;
+use Ibexa\Contracts\Core\Repository\PermissionService;
+use Ibexa\Contracts\Core\Repository\PasswordHashService;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Core\Repository\Permission\LimitationService;
+use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
+use Ibexa\Core\Repository\Helper\RelationProcessor;
+use Ibexa\Core\Repository\Mapper;
+use Ibexa\Core\Repository\User\PasswordValidatorInterface;
+use Ibexa\Core\Search\Common\BackgroundIndexer;
+use Ibexa\Contracts\Core\Persistence\Filter\Content\Handler as ContentFilteringHandler;
+use Ibexa\Contracts\Core\Persistence\Filter\Location\Handler as LocationFilteringHandler;
+use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
+use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
+use Ibexa\Contracts\Core\Search\Handler as SearchHandler;
+use Ibexa\Contracts\Core\Repository\Repository;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 class RepositoryFactory implements ContainerAwareInterface
 {
@@ -41,7 +41,7 @@ class RepositoryFactory implements ContainerAwareInterface
      */
     protected $policyMap = [];
 
-    /** @var \eZ\Publish\API\Repository\LanguageResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageResolver */
     private $languageResolver;
 
     public function __construct(
@@ -115,10 +115,10 @@ class RepositoryFactory implements ContainerAwareInterface
     /**
      * Returns a service based on a name string (content => contentService, etc).
      *
-     * @param \eZ\Publish\API\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
      * @param string $serviceName
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      *
      * @return mixed
      */
@@ -132,3 +132,5 @@ class RepositoryFactory implements ContainerAwareInterface
         return $repository->$methodName();
     }
 }
+
+class_alias(RepositoryFactory::class, 'eZ\Publish\Core\Base\Container\ApiLoader\RepositoryFactory');

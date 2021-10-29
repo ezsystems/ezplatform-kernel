@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension;
+namespace Ibexa\Core\MVC\Symfony\Templating\Twig\Extension;
 
-use eZ\Publish\API\Repository\Exceptions\InvalidVariationException;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\FieldType\ImageAsset\AssetMapper;
-use eZ\Publish\Core\MVC\Exception\SourceImageNotFoundException;
-use eZ\Publish\SPI\Variation\VariationHandler;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidVariationException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\FieldType\ImageAsset\AssetMapper;
+use Ibexa\Core\MVC\Exception\SourceImageNotFoundException;
+use Ibexa\Contracts\Core\Variation\VariationHandler;
 use InvalidArgumentException;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -21,7 +21,7 @@ class ImageExtension extends AbstractExtension
     /** @var VariationHandler */
     private $imageVariationService;
 
-    /** @var \eZ\Publish\Core\FieldType\ImageAsset\AssetMapper */
+    /** @var \Ibexa\Core\FieldType\ImageAsset\AssetMapper */
     protected $assetMapper;
 
     public function __construct(VariationHandler $imageVariationService, AssetMapper $assetMapper)
@@ -54,11 +54,11 @@ class ImageExtension extends AbstractExtension
     /**
      * Returns the image variation object for $field/$versionInfo.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      * @param string $variationName
      *
-     * @return \eZ\Publish\SPI\Variation\Values\Variation|null
+     * @return \Ibexa\Contracts\Core\Variation\Values\Variation|null
      */
     public function getImageVariation(Field $field, VersionInfo $versionInfo, $variationName)
     {
@@ -95,3 +95,5 @@ class ImageExtension extends AbstractExtension
         return $this->assetMapper->getContentFieldIdentifier();
     }
 }
+
+class_alias(ImageExtension::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\ImageExtension');

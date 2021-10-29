@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target\RandomTarget;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Target\RandomTarget;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
 /**
  * Sets sort random on a content query.
@@ -25,3 +25,5 @@ class Random extends SortClause
         parent::__construct('random', $sortDirection, new RandomTarget($seed));
     }
 }
+
+class_alias(Random::class, 'eZ\Publish\API\Repository\Values\Content\Query\SortClause\Random');

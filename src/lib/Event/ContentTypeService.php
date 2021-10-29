@@ -6,51 +6,51 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Event;
+namespace Ibexa\Core\Event;
 
-use eZ\Publish\API\Repository\ContentTypeService as ContentTypeServiceInterface;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeCreateStruct;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroupCreateStruct;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroupUpdateStruct;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeUpdateStruct;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Events\ContentType\AddFieldDefinitionEvent;
-use eZ\Publish\API\Repository\Events\ContentType\AssignContentTypeGroupEvent;
-use eZ\Publish\API\Repository\Events\ContentType\BeforeAddFieldDefinitionEvent;
-use eZ\Publish\API\Repository\Events\ContentType\BeforeAssignContentTypeGroupEvent;
-use eZ\Publish\API\Repository\Events\ContentType\BeforeCopyContentTypeEvent;
-use eZ\Publish\API\Repository\Events\ContentType\BeforeCreateContentTypeDraftEvent;
-use eZ\Publish\API\Repository\Events\ContentType\BeforeCreateContentTypeEvent;
-use eZ\Publish\API\Repository\Events\ContentType\BeforeCreateContentTypeGroupEvent;
-use eZ\Publish\API\Repository\Events\ContentType\BeforeDeleteContentTypeEvent;
-use eZ\Publish\API\Repository\Events\ContentType\BeforeDeleteContentTypeGroupEvent;
-use eZ\Publish\API\Repository\Events\ContentType\BeforePublishContentTypeDraftEvent;
-use eZ\Publish\API\Repository\Events\ContentType\BeforeRemoveContentTypeTranslationEvent;
-use eZ\Publish\API\Repository\Events\ContentType\BeforeRemoveFieldDefinitionEvent;
-use eZ\Publish\API\Repository\Events\ContentType\BeforeUnassignContentTypeGroupEvent;
-use eZ\Publish\API\Repository\Events\ContentType\BeforeUpdateContentTypeDraftEvent;
-use eZ\Publish\API\Repository\Events\ContentType\BeforeUpdateContentTypeGroupEvent;
-use eZ\Publish\API\Repository\Events\ContentType\BeforeUpdateFieldDefinitionEvent;
-use eZ\Publish\API\Repository\Events\ContentType\CopyContentTypeEvent;
-use eZ\Publish\API\Repository\Events\ContentType\CreateContentTypeDraftEvent;
-use eZ\Publish\API\Repository\Events\ContentType\CreateContentTypeEvent;
-use eZ\Publish\API\Repository\Events\ContentType\CreateContentTypeGroupEvent;
-use eZ\Publish\API\Repository\Events\ContentType\DeleteContentTypeEvent;
-use eZ\Publish\API\Repository\Events\ContentType\DeleteContentTypeGroupEvent;
-use eZ\Publish\API\Repository\Events\ContentType\PublishContentTypeDraftEvent;
-use eZ\Publish\API\Repository\Events\ContentType\RemoveContentTypeTranslationEvent;
-use eZ\Publish\API\Repository\Events\ContentType\RemoveFieldDefinitionEvent;
-use eZ\Publish\API\Repository\Events\ContentType\UnassignContentTypeGroupEvent;
-use eZ\Publish\API\Repository\Events\ContentType\UpdateContentTypeDraftEvent;
-use eZ\Publish\API\Repository\Events\ContentType\UpdateContentTypeGroupEvent;
-use eZ\Publish\API\Repository\Events\ContentType\UpdateFieldDefinitionEvent;
-use eZ\Publish\SPI\Repository\Decorator\ContentTypeServiceDecorator;
+use Ibexa\Contracts\Core\Repository\ContentTypeService as ContentTypeServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\AddFieldDefinitionEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\AssignContentTypeGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\BeforeAddFieldDefinitionEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\BeforeAssignContentTypeGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\BeforeCopyContentTypeEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\BeforeCreateContentTypeDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\BeforeCreateContentTypeEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\BeforeCreateContentTypeGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\BeforeDeleteContentTypeEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\BeforeDeleteContentTypeGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\BeforePublishContentTypeDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\BeforeRemoveContentTypeTranslationEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\BeforeRemoveFieldDefinitionEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\BeforeUnassignContentTypeGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\BeforeUpdateContentTypeDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\BeforeUpdateContentTypeGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\BeforeUpdateFieldDefinitionEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\CopyContentTypeEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\CreateContentTypeDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\CreateContentTypeEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\CreateContentTypeGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\DeleteContentTypeEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\DeleteContentTypeGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\PublishContentTypeDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\RemoveContentTypeTranslationEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\RemoveFieldDefinitionEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\UnassignContentTypeGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\UpdateContentTypeDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\UpdateContentTypeGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\ContentType\UpdateFieldDefinitionEvent;
+use Ibexa\Contracts\Core\Repository\Decorator\ContentTypeServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ContentTypeService extends ContentTypeServiceDecorator
@@ -409,3 +409,5 @@ class ContentTypeService extends ContentTypeServiceDecorator
         return $newContentTypeDraft;
     }
 }
+
+class_alias(ContentTypeService::class, 'eZ\Publish\Core\Event\ContentTypeService');

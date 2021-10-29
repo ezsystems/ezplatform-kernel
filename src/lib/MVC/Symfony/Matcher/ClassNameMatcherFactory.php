@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Matcher;
+namespace Ibexa\Core\MVC\Symfony\Matcher;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\Core\MVC\RepositoryAwareInterface;
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Core\MVC\RepositoryAwareInterface;
+use Ibexa\Core\MVC\Symfony\View\View;
 use SplObjectStorage;
 use InvalidArgumentException;
 
@@ -20,7 +20,7 @@ use InvalidArgumentException;
  */
 class ClassNameMatcherFactory implements ConfigurableMatcherFactoryInterface
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     protected $repository;
 
     /**
@@ -31,7 +31,7 @@ class ClassNameMatcherFactory implements ConfigurableMatcherFactoryInterface
      */
     protected $matchConfig;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Matcher\ViewMatcherInterface[] */
+    /** @var \Ibexa\Core\MVC\Symfony\Matcher\ViewMatcherInterface[] */
     protected $matchers = [];
 
     /**
@@ -66,7 +66,7 @@ class ClassNameMatcherFactory implements ConfigurableMatcherFactoryInterface
      *
      * @throws InvalidArgumentException
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\Matcher\ViewMatcherInterface
+     * @return \Ibexa\Core\MVC\Symfony\Matcher\ViewMatcherInterface
      */
     protected function getMatcher($matcherIdentifier)
     {
@@ -97,7 +97,7 @@ class ClassNameMatcherFactory implements ConfigurableMatcherFactoryInterface
      * If so, the configuration hash will be returned.
      * $valueObject can be for example a Location or a Content object.
      *
-     * @param \eZ\Publish\Core\MVC\Symfony\View\View $view
+     * @param \Ibexa\Core\MVC\Symfony\View\View $view
      *
      * @return array|null The matched configuration as a hash, containing template or controller to use, or null if not matched.
      */
@@ -145,3 +145,5 @@ class ClassNameMatcherFactory implements ConfigurableMatcherFactoryInterface
         $this->matchConfig = $matchConfig;
     }
 }
+
+class_alias(ClassNameMatcherFactory::class, 'eZ\Publish\Core\MVC\Symfony\Matcher\ClassNameMatcherFactory');

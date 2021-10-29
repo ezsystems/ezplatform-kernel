@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Formatter;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\Formatter;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\ConfigSuggestion;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\ConfigSuggestion;
 
 /**
  * Interface for ConfigSuggestion formatters.
@@ -18,3 +18,5 @@ interface SuggestionFormatterInterface
 {
     public function format(ConfigSuggestion $configSuggestion);
 }
+
+class_alias(SuggestionFormatterInterface::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Formatter\SuggestionFormatterInterface');

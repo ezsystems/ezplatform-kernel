@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Role;
+namespace Ibexa\Contracts\Core\Repository\Events\Role;
 
-use eZ\Publish\API\Repository\Values\User\PolicyCreateStruct;
-use eZ\Publish\API\Repository\Values\User\RoleDraft;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\PolicyCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleDraft;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeAddPolicyByRoleDraftEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\RoleDraft */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft */
     private $roleDraft;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\PolicyCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyCreateStruct */
     private $policyCreateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\RoleDraft|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft|null */
     private $updatedRoleDraft;
 
     public function __construct(RoleDraft $roleDraft, PolicyCreateStruct $policyCreateStruct)
@@ -59,3 +59,5 @@ final class BeforeAddPolicyByRoleDraftEvent extends BeforeEvent
         return $this->updatedRoleDraft instanceof RoleDraft;
     }
 }
+
+class_alias(BeforeAddPolicyByRoleDraftEvent::class, 'eZ\Publish\API\Repository\Events\Role\BeforeAddPolicyByRoleDraftEvent');

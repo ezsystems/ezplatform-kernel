@@ -4,23 +4,23 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
+namespace Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\Core\IO\UrlRedecoratorInterface;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\UrlRedecoratorInterface;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
 use SimpleXMLElement;
 
 class ImageConverter extends BinaryFileConverter
 {
-    /** @var \eZ\Publish\Core\IO\IOServiceInterface */
+    /** @var \Ibexa\Core\IO\IOServiceInterface */
     private $imageIoService;
 
-    /** @var \eZ\Publish\Core\IO\UrlRedecoratorInterface */
+    /** @var \Ibexa\Core\IO\UrlRedecoratorInterface */
     private $urlRedecorator;
 
     public function __construct(IOServiceInterface $imageIoService, UrlRedecoratorInterface $urlRedecorator)
@@ -32,8 +32,8 @@ class ImageConverter extends BinaryFileConverter
     /**
      * Converts data from $value to $storageFieldValue.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\FieldValue $value
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue $storageFieldValue
+     * @param \Ibexa\Contracts\Core\Persistence\Content\FieldValue $value
+     * @param \Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue $storageFieldValue
      */
     public function toStorageValue(FieldValue $value, StorageFieldValue $storageFieldValue)
     {
@@ -167,8 +167,8 @@ EOT;
     /**
      * Converts data from $value to $fieldValue.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue $value
-     * @param \eZ\Publish\SPI\Persistence\Content\FieldValue $fieldValue
+     * @param \Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue $value
+     * @param \Ibexa\Contracts\Core\Persistence\Content\FieldValue $fieldValue
      */
     public function toFieldValue(StorageFieldValue $value, FieldValue $fieldValue)
     {
@@ -262,3 +262,5 @@ EOT;
         return $extractedData;
     }
 }
+
+class_alias(ImageConverter::class, 'eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\ImageConverter');

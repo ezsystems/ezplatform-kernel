@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Exceptions;
+namespace Ibexa\Contracts\Core\Repository\Exceptions;
 
 /**
  * This exception is thrown if a service method is called with an illegal or non appropriate value.
@@ -14,3 +14,5 @@ namespace eZ\Publish\API\Repository\Exceptions;
 abstract class InvalidArgumentException extends ForbiddenException
 {
 }
+
+class_alias(InvalidArgumentException::class, 'eZ\Publish\API\Repository\Exceptions\InvalidArgumentException');

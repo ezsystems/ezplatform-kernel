@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Variation\Values;
+namespace Ibexa\Contracts\Core\Variation\Values;
 
 /**
  * @property-read int $width The width as number of pixels (for example "320")
@@ -51,3 +51,5 @@ class ImageVariation extends Variation
     /** @var mixed */
     protected $imageId;
 }
+
+class_alias(ImageVariation::class, 'eZ\Publish\SPI\Variation\Values\ImageVariation');

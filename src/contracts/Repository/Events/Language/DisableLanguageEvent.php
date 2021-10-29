@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Language;
+namespace Ibexa\Contracts\Core\Repository\Events\Language;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class DisableLanguageEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
     private $disabledLanguage;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
     private $language;
 
     public function __construct(
@@ -37,3 +37,5 @@ final class DisableLanguageEvent extends AfterEvent
         return $this->language;
     }
 }
+
+class_alias(DisableLanguageEvent::class, 'eZ\Publish\API\Repository\Events\Language\DisableLanguageEvent');

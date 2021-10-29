@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\IO;
+namespace Ibexa\Contracts\Core\IO;
 
 interface MimeTypeDetector
 {
@@ -26,3 +26,5 @@ interface MimeTypeDetector
      */
     public function getFromBuffer($buffer);
 }
+
+class_alias(MimeTypeDetector::class, 'eZ\Publish\SPI\IO\MimeTypeDetector');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Search;
+namespace Ibexa\Contracts\Core\Search;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * Base class for documents.
@@ -45,14 +45,16 @@ class Document extends ValueObject
     /**
      * An array of fields.
      *
-     * @var \eZ\Publish\SPI\Search\Field[]
+     * @var \Ibexa\Contracts\Core\Search\Field[]
      */
     public $fields = [];
 
     /**
      * An array of sub-documents.
      *
-     * @var \eZ\Publish\SPI\Search\Document[]
+     * @var \Ibexa\Contracts\Core\Search\Document[]
      */
     public $documents = [];
 }
+
+class_alias(Document::class, 'eZ\Publish\SPI\Search\Document');

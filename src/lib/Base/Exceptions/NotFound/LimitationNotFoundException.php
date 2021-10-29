@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Exceptions\NotFound;
+namespace Ibexa\Core\Base\Exceptions\NotFound;
 
-use eZ\Publish\Core\Base\Exceptions\Httpable;
+use Ibexa\Core\Base\Exceptions\Httpable;
 use Exception;
-use eZ\Publish\Core\Base\TranslatableBase;
-use eZ\Publish\Core\Base\Translatable;
-use eZ\Publish\Core\Limitation\BlockingLimitationType;
+use Ibexa\Core\Base\TranslatableBase;
+use Ibexa\Core\Base\Translatable;
+use Ibexa\Core\Limitation\BlockingLimitationType;
 use RuntimeException;
 
 /**
@@ -41,3 +41,5 @@ class LimitationNotFoundException extends RuntimeException implements Httpable, 
         parent::__construct($this->getBaseTranslation(), self::INTERNAL_ERROR, $previous);
     }
 }
+
+class_alias(LimitationNotFoundException::class, 'eZ\Publish\Core\Base\Exceptions\NotFound\LimitationNotFoundException');

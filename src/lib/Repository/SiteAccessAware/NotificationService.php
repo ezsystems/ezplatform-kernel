@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\SiteAccessAware;
+namespace Ibexa\Core\Repository\SiteAccessAware;
 
-use eZ\Publish\API\Repository\NotificationService as NotificationServiceInterface;
-use eZ\Publish\API\Repository\Values\Notification\CreateStruct;
-use eZ\Publish\API\Repository\Values\Notification\Notification;
-use eZ\Publish\API\Repository\Values\Notification\NotificationList;
+use Ibexa\Contracts\Core\Repository\NotificationService as NotificationServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Notification\CreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification;
+use Ibexa\Contracts\Core\Repository\Values\Notification\NotificationList;
 
 class NotificationService implements NotificationServiceInterface
 {
-    /** @var \eZ\Publish\API\Repository\NotificationService */
+    /** @var \Ibexa\Contracts\Core\Repository\NotificationService */
     protected $service;
 
     /**
      * Construct service object from aggregated service.
      *
-     * @param \eZ\Publish\API\Repository\NotificationService $service
+     * @param \Ibexa\Contracts\Core\Repository\NotificationService $service
      */
     public function __construct(
         NotificationServiceInterface $service
@@ -35,7 +35,7 @@ class NotificationService implements NotificationServiceInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return \eZ\Publish\API\Repository\Values\Notification\NotificationList
+     * @return \Ibexa\Contracts\Core\Repository\Values\Notification\NotificationList
      */
     public function loadNotifications(int $offset, int $limit): NotificationList
     {
@@ -45,7 +45,7 @@ class NotificationService implements NotificationServiceInterface
     /**
      * @param int $notificationId
      *
-     * @return \eZ\Publish\API\Repository\Values\Notification\Notification
+     * @return \Ibexa\Contracts\Core\Repository\Values\Notification\Notification
      */
     public function getNotification(int $notificationId): Notification
     {
@@ -55,7 +55,7 @@ class NotificationService implements NotificationServiceInterface
     /**
      * Mark notification as read so it no longer bother the user.
      *
-     * @param \eZ\Publish\API\Repository\Values\Notification\Notification $notification
+     * @param \Ibexa\Contracts\Core\Repository\Values\Notification\Notification $notification
      */
     public function markNotificationAsRead(Notification $notification): void
     {
@@ -83,7 +83,7 @@ class NotificationService implements NotificationServiceInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Notification\Notification $notification
+     * @param \Ibexa\Contracts\Core\Repository\Values\Notification\Notification $notification
      */
     public function deleteNotification(Notification $notification): void
     {
@@ -91,12 +91,14 @@ class NotificationService implements NotificationServiceInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Notification\CreateStruct $createStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\Notification\CreateStruct $createStruct
      *
-     * @return \eZ\Publish\API\Repository\Values\Notification\Notification
+     * @return \Ibexa\Contracts\Core\Repository\Values\Notification\Notification
      */
     public function createNotification(CreateStruct $createStruct): Notification
     {
         return $this->service->createNotification($createStruct);
     }
 }
+
+class_alias(NotificationService::class, 'eZ\Publish\Core\Repository\SiteAccessAware\NotificationService');

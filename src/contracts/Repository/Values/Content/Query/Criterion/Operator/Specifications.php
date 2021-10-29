@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator;
 
 /**
  * This class is used by Criteria to describe which operators they support.
@@ -79,3 +79,5 @@ class Specifications
         $this->valueCount = $valueCount;
     }
 }
+
+class_alias(Specifications::class, 'eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator\Specifications');

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Setting;
+namespace Ibexa\Contracts\Core\Repository\Values\Setting;
 
 class SettingCreateStruct extends Setting
 {
@@ -28,3 +28,5 @@ class SettingCreateStruct extends Setting
         $this->value = $value;
     }
 }
+
+class_alias(SettingCreateStruct::class, 'eZ\Publish\API\Repository\Values\Setting\SettingCreateStruct');

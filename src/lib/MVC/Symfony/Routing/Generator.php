@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Routing;
+namespace Ibexa\Core\MVC\Symfony\Routing;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RequestContext;
@@ -21,10 +21,10 @@ abstract class Generator implements SiteAccessAware
     /** @var \Symfony\Component\Routing\RequestContext */
     protected $requestContext;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface */
     protected $siteAccessRouter;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess */
     protected $siteAccess;
 
     /** @var \Psr\Log\LoggerInterface */
@@ -39,7 +39,7 @@ abstract class Generator implements SiteAccessAware
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface $siteAccessRouter
+     * @param \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface $siteAccessRouter
      */
     public function setSiteAccessRouter(SiteAccessRouterInterface $siteAccessRouter)
     {
@@ -47,7 +47,7 @@ abstract class Generator implements SiteAccessAware
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\SiteAccess $siteAccess
+     * @param \Ibexa\Core\MVC\Symfony\SiteAccess|null $siteAccess
      */
     public function setSiteAccess(SiteAccess $siteAccess = null)
     {
@@ -172,3 +172,5 @@ abstract class Generator implements SiteAccessAware
         return $context;
     }
 }
+
+class_alias(Generator::class, 'eZ\Publish\Core\MVC\Symfony\Routing\Generator');

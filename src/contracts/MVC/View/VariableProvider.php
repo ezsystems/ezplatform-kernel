@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\MVC\View;
+namespace Ibexa\Contracts\Core\MVC\View;
 
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Symfony\View\View;
 
 interface VariableProvider
 {
@@ -16,3 +16,5 @@ interface VariableProvider
 
     public function getTwigVariables(View $view, array $options = []): object;
 }
+
+class_alias(VariableProvider::class, 'eZ\Publish\SPI\MVC\View\VariableProvider');

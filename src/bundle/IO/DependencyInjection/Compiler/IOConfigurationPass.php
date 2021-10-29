@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\IO\DependencyInjection\Compiler;
 
 use ArrayObject;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -22,10 +22,10 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class IOConfigurationPass implements CompilerPassInterface
 {
-    /** @var \eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory[]|ArrayObject */
+    /** @var \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|ArrayObject */
     private $metadataHandlerFactories;
 
-    /** @var \eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory[]|ArrayObject */
+    /** @var \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|ArrayObject */
     private $binarydataHandlerFactories;
 
     public function __construct(
@@ -72,7 +72,7 @@ class IOConfigurationPass implements CompilerPassInterface
      * @param ContainerBuilder $container
      * @param Definition $factory The factory service that should receive the list of handlers
      * @param array $configuredHandlers Handlers configuration declared via semantic config
-     * @param \eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory[]|ArrayObject $factories Map of alias => handler service id
+     * @param \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|ArrayObject $factories Map of alias => handler service id
      * @param string $defaultHandler default handler id
      *
      * @internal param $HandlerTypesMap
@@ -106,10 +106,10 @@ class IOConfigurationPass implements CompilerPassInterface
      * Returns from $factories the factory for handler $type.
      *
      * @param ContainerBuilder $container
-     * @param \eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory[]|ArrayObject|ContainerAware[] $factories
+     * @param \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|ArrayObject $factories
      * @param string $type
      *
-     * @return \eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory
+     * @return \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory
      */
     protected function getFactory(ArrayObject $factories, $type, ContainerBuilder $container)
     {
@@ -123,3 +123,5 @@ class IOConfigurationPass implements CompilerPassInterface
         return $factories[$type];
     }
 }
+
+class_alias(IOConfigurationPass::class, 'eZ\Bundle\EzPublishIOBundle\DependencyInjection\Compiler\IOConfigurationPass');

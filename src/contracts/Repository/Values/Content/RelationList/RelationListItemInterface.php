@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\RelationList;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\RelationList;
 
-use eZ\Publish\API\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
 
 interface RelationListItemInterface
 {
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Relation|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Relation|null
      */
     public function getRelation(): ?Relation;
 
@@ -22,3 +22,5 @@ interface RelationListItemInterface
      */
     public function hasRelation(): bool;
 }
+
+class_alias(RelationListItemInterface::class, 'eZ\Publish\API\Repository\Values\Content\RelationList\RelationListItemInterface');

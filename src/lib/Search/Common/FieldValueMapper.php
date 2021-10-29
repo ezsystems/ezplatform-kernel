@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Common;
+namespace Ibexa\Core\Search\Common;
 
-use eZ\Publish\SPI\Search\Field;
+use Ibexa\Contracts\Core\Search\Field;
 
 /**
  * Maps raw field values to something search engine can understand.
@@ -15,14 +15,14 @@ use eZ\Publish\SPI\Search\Field;
  * implementation, meaning engines should override common implementation
  * as needed, but the same input should be handled across engines.
  *
- * @see \eZ\Publish\SPI\Search\FieldType
+ * @see \Ibexa\Contracts\Core\Search\FieldType
  */
 abstract class FieldValueMapper
 {
     /**
      * Check if field can be mapped.
      *
-     * @param \eZ\Publish\SPI\Search\Field $field
+     * @param \Ibexa\Contracts\Core\Search\Field $field
      *
      * @return bool
      */
@@ -31,9 +31,11 @@ abstract class FieldValueMapper
     /**
      * Map field value to a proper search engine representation.
      *
-     * @param \eZ\Publish\SPI\Search\Field $field
+     * @param \Ibexa\Contracts\Core\Search\Field $field
      *
      * @return mixed|null Returns null on empty value
      */
     abstract public function map(Field $field);
 }
+
+class_alias(FieldValueMapper::class, 'eZ\Publish\Core\Search\Common\FieldValueMapper');

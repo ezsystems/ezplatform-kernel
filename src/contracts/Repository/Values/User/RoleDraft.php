@@ -6,13 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
 /**
  * This class represents a draft of a role.
  *
- * @property-read \eZ\Publish\API\Repository\Values\User\PolicyDraft[] $policies
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft[] $policies
  */
 abstract class RoleDraft extends Role
 {
 }
+
+class_alias(RoleDraft::class, 'eZ\Publish\API\Repository\Values\User\RoleDraft');

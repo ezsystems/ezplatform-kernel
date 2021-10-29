@@ -6,21 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\SiteAccess;
+namespace Ibexa\Bundle\Core\SiteAccess;
 
 /**
  * @internal
  *
- * @todo Move to eZ\Publish\Core\MVC\Symfony\Matcher
+ * @todo Move to \Ibexa\Core\MVC\Symfony\SiteAccess\Matcher
  */
 interface SiteAccessMatcherRegistryInterface
 {
     public function setMatcher(string $identifier, Matcher $matcher): void;
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function getMatcher(string $identifier): Matcher;
 
     public function hasMatcher(string $identifier): bool;
 }
+
+class_alias(SiteAccessMatcherRegistryInterface::class, 'eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessMatcherRegistryInterface');

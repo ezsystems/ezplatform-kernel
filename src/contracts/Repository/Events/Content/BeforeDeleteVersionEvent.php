@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Content;
+namespace Ibexa\Contracts\Core\Repository\Events\Content;
 
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 
 final class BeforeDeleteVersionEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\VersionInfo */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo */
     private $versionInfo;
 
     public function __construct(VersionInfo $versionInfo)
@@ -26,3 +26,5 @@ final class BeforeDeleteVersionEvent extends BeforeEvent
         return $this->versionInfo;
     }
 }
+
+class_alias(BeforeDeleteVersionEvent::class, 'eZ\Publish\API\Repository\Events\Content\BeforeDeleteVersionEvent');

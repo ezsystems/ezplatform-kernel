@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\User\Role;
+namespace Ibexa\Core\Persistence\Legacy\User\Role;
 
-use eZ\Publish\SPI\Persistence\User\RoleUpdateStruct;
-use eZ\Publish\SPI\Persistence\User\Policy;
-use eZ\Publish\SPI\Persistence\User\Role;
+use Ibexa\Contracts\Core\Persistence\User\RoleUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\User\Policy;
+use Ibexa\Contracts\Core\Persistence\User\Role;
 
 /**
  * User Role Gateway.
@@ -154,3 +154,5 @@ abstract class Gateway
      */
     abstract public function removePolicyLimitations(int $policyId): void;
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway');

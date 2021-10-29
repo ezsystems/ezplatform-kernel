@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Role;
+namespace Ibexa\Contracts\Core\Repository\Events\Role;
 
-use eZ\Publish\API\Repository\Values\User\Role;
-use eZ\Publish\API\Repository\Values\User\RoleCopyStruct;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleCopyStruct;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class CopyRoleEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\Role */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role */
     private $copiedRole;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\Role */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role */
     private $role;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\RoleCopyStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleCopyStruct */
     private $roleCopyStruct;
 
     public function __construct(
@@ -48,3 +48,5 @@ final class CopyRoleEvent extends AfterEvent
         return $this->roleCopyStruct;
     }
 }
+
+class_alias(CopyRoleEvent::class, 'eZ\Publish\API\Repository\Events\Role\CopyRoleEvent');

@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Session\Handler;
+namespace Ibexa\Bundle\Core\Session\Handler;
 
 /**
  * Class NativeSessionHandler.
@@ -34,3 +34,5 @@ class NativeSessionHandler extends \SessionHandler
         }
     }
 }
+
+class_alias(NativeSessionHandler::class, 'eZ\Bundle\EzPublishCoreBundle\Session\Handler\NativeSessionHandler');

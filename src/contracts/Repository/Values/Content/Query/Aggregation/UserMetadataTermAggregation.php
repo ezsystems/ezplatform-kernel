@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
 
 final class UserMetadataTermAggregation extends AbstractTermAggregation
 {
@@ -46,3 +46,5 @@ final class UserMetadataTermAggregation extends AbstractTermAggregation
         return $this->type;
     }
 }
+
+class_alias(UserMetadataTermAggregation::class, 'eZ\Publish\API\Repository\Values\Content\Query\Aggregation\UserMetadataTermAggregation');

@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\FieldType\BinaryBase;
+namespace Ibexa\Core\MVC\Symfony\FieldType\BinaryBase;
 
-use eZ\Publish\SPI\FieldType\BinaryBase\PathGenerator;
-use eZ\Publish\SPI\FieldType\BinaryBase\RouteAwarePathGenerator;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\FieldType\BinaryBase\PathGenerator;
+use Ibexa\Contracts\Core\FieldType\BinaryBase\RouteAwarePathGenerator;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Symfony\Component\Routing\RouterInterface;
 
 class ContentDownloadUrlGenerator extends PathGenerator implements RouteAwarePathGenerator
@@ -49,3 +49,5 @@ class ContentDownloadUrlGenerator extends PathGenerator implements RouteAwarePat
         ];
     }
 }
+
+class_alias(ContentDownloadUrlGenerator::class, 'eZ\Publish\Core\MVC\Symfony\FieldType\BinaryBase\ContentDownloadUrlGenerator');

@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\IO\Adapter;
+namespace Ibexa\Core\IO\Adapter;
 
-use eZ\Publish\Core\IO\IOConfigProvider;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\SPI\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
+use Ibexa\Core\IO\IOConfigProvider;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Contracts\Core\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
 use League\Flysystem\Adapter\Local;
 use LogicException;
 
@@ -20,10 +20,10 @@ use LogicException;
  */
 final class LocalAdapter extends Local implements ConfigScopeChangeSubscriber
 {
-    /** @var \eZ\Publish\Core\IO\IOConfigProvider */
+    /** @var \Ibexa\Core\IO\IOConfigProvider */
     private $ioConfigProvider;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(IOConfigProvider $ioConfigProvider, ConfigResolverInterface $configResolver)
@@ -67,3 +67,5 @@ final class LocalAdapter extends Local implements ConfigScopeChangeSubscriber
         );
     }
 }
+
+class_alias(LocalAdapter::class, 'eZ\Publish\Core\IO\Adapter\LocalAdapter');

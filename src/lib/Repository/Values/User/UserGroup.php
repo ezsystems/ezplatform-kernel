@@ -6,13 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Values\User;
+namespace Ibexa\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\Thumbnail;
-use eZ\Publish\API\Repository\Values\User\UserGroup as APIUserGroup;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\SPI\FieldType\Value;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup as APIUserGroup;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\FieldType\Value;
 
 /**
  * This class represents a user group.
@@ -24,16 +25,16 @@ class UserGroup extends APIUserGroup
     /**
      * Internal content representation.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Content
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected $content;
 
     /**
      * Returns the VersionInfo for this version.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo
      */
-    public function getVersionInfo(): \eZ\Publish\API\Repository\Values\Content\VersionInfo
+    public function getVersionInfo(): VersionInfo
     {
         return $this->content->getVersionInfo();
     }
@@ -63,7 +64,7 @@ class UserGroup extends APIUserGroup
     /**
      * This method returns the complete fields collection.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Field[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field[]
      */
     public function getFields(): iterable
     {
@@ -77,7 +78,7 @@ class UserGroup extends APIUserGroup
      *
      * @param string $languageCode
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Field[] with field identifier as keys
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field[] with field identifier as keys
      */
     public function getFieldsByLanguage(?string $languageCode = null): iterable
     {
@@ -92,7 +93,7 @@ class UserGroup extends APIUserGroup
      * @param string $fieldDefIdentifier
      * @param string|null $languageCode
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Field|null A {@link Field} or null if nothing is found
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field|null A {@link Field} or null if nothing is found
      */
     public function getField(string $fieldDefIdentifier, ?string $languageCode = null): ?Field
     {
@@ -188,3 +189,5 @@ class UserGroup extends APIUserGroup
         return $this->content->getThumbnail();
     }
 }
+
+class_alias(UserGroup::class, 'eZ\Publish\Core\Repository\Values\User\UserGroup');

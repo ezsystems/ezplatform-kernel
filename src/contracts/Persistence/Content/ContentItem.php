@@ -6,27 +6,27 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Persistence\Content;
+namespace Ibexa\Contracts\Core\Persistence\Content;
 
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 /**
  * Content item Value Object - a composite of Content and Type instances.
  *
- * @property-read \eZ\Publish\SPI\Persistence\Content $content
- * @property-read \eZ\Publish\SPI\Persistence\Content\ContentInfo $contentInfo
- * @property-read \eZ\Publish\SPI\Persistence\Content\Type $type
+ * @property-read \Ibexa\Contracts\Core\Persistence\Content $content
+ * @property-read \Ibexa\Contracts\Core\Persistence\Content\ContentInfo $contentInfo
+ * @property-read \Ibexa\Contracts\Core\Persistence\Content\Type $type
  */
 final class ContentItem extends ValueObject
 {
-    /** @var \eZ\Publish\SPI\Persistence\Content */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content */
     protected $content;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\ContentInfo */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\ContentInfo */
     protected $contentInfo;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Type */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Type */
     protected $type;
 
     /**
@@ -55,3 +55,5 @@ final class ContentItem extends ValueObject
         return $this->type;
     }
 }
+
+class_alias(ContentItem::class, 'eZ\Publish\SPI\Persistence\Content\ContentItem');

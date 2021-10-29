@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Features\Context;
+namespace Ibexa\Bundle\Core\Features\Context;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\ContentService;
 
 /**
  * Sentences for Fields.
@@ -58,13 +58,13 @@ class FieldTypeContext implements Context
         'integer' => 1,
     ];
 
-    /** @var eZ\Publish\B\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var eZ\Publish\B\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var eZ\Publish\B\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
     public function __construct(
@@ -387,3 +387,5 @@ class FieldTypeContext implements Context
         }
     }
 }
+
+class_alias(FieldTypeContext::class, 'eZ\Bundle\EzPublishCoreBundle\Features\Context\FieldTypeContext');

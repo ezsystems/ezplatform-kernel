@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Fragment;
+namespace Ibexa\Bundle\Core\Fragment;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface;
@@ -20,7 +20,7 @@ class DecoratedFragmentRenderer implements FragmentRendererInterface, SiteAccess
     /** @var \Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface */
     private $innerRenderer;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess */
     private $siteAccess;
 
     public function __construct(FragmentRendererInterface $innerRenderer)
@@ -29,7 +29,7 @@ class DecoratedFragmentRenderer implements FragmentRendererInterface, SiteAccess
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\SiteAccess $siteAccess
+     * @param \Ibexa\Core\MVC\Symfony\SiteAccess|null $siteAccess
      */
     public function setSiteAccess(SiteAccess $siteAccess = null)
     {
@@ -62,7 +62,7 @@ class DecoratedFragmentRenderer implements FragmentRendererInterface, SiteAccess
     {
         if ($uri instanceof ControllerReference && $request->attributes->has('siteaccess')) {
             // Serialize the siteaccess to get it back after.
-            // @see eZ\Publish\Core\MVC\Symfony\EventListener\SiteAccessMatchListener
+            // @see \Ibexa\Core\MVC\Symfony\EventListener\SiteAccessMatchListener
             $siteAccess = $request->attributes->get('siteaccess');
             $this->serializeSiteAccess($siteAccess, $uri);
         }
@@ -80,3 +80,5 @@ class DecoratedFragmentRenderer implements FragmentRendererInterface, SiteAccess
         return $this->innerRenderer->getName();
     }
 }
+
+class_alias(DecoratedFragmentRenderer::class, 'eZ\Bundle\EzPublishCoreBundle\Fragment\DecoratedFragmentRenderer');

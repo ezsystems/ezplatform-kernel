@@ -4,33 +4,33 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Helper;
+namespace Ibexa\Core\Helper;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
-use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\SPI\Persistence\Content\Location\Handler as PersistenceLocationHandler;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as PersistenceLocationHandler;
 
 /**
  * Provides location(s) for a content. Handles unpublished content that does not have an actual location yet.
  */
 class PreviewLocationProvider
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Location\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Location\Handler */
     private $locationHandler;
 
     /**
-     * @param \eZ\Publish\API\Repository\LocationService $locationService
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \eZ\Publish\SPI\Persistence\Content\Location\Handler $locationHandler
+     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Location\Handler $locationHandler
      */
     public function __construct(
         LocationService $locationService,
@@ -53,12 +53,12 @@ class PreviewLocationProvider
      * @deprecated Since 7.5.4, rather use loadMainLocationByContent.
      * @see loadMainLocationByContent
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      *
      * @param mixed $contentId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     public function loadMainLocation($contentId)
     {
@@ -75,9 +75,9 @@ class PreviewLocationProvider
      *
      * If the content doesn't have a location nor a location draft, null is returned.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     public function loadMainLocationByContent(APIContent $content): ?APILocation
     {
@@ -113,3 +113,5 @@ class PreviewLocationProvider
         return $location;
     }
 }
+
+class_alias(PreviewLocationProvider::class, 'eZ\Publish\Core\Helper\PreviewLocationProvider');

@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler;
+namespace Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
-use eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway as SectionGateway;
-use eZ\Publish\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
+use Ibexa\Core\Persistence\Legacy\Content\Section\Gateway as SectionGateway;
+use Ibexa\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
 
 class SectionIdentifier extends Base
 {
@@ -53,3 +53,5 @@ class SectionIdentifier extends Base
         );
     }
 }
+
+class_alias(SectionIdentifier::class, 'eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler\SectionIdentifier');

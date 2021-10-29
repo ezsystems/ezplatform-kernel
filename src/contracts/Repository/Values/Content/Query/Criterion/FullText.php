@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator\Specifications;
-use eZ\Publish\API\Repository\Values\Content\Query\CustomFieldInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator\Specifications;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\CustomFieldInterface;
 
 /**
  * Full text search criterion.
@@ -21,7 +21,7 @@ use eZ\Publish\API\Repository\Values\Content\Query\CustomFieldInterface;
  * Normalization and querying capabilities might depend on the system
  * configuration or the used search engine and might differ. To find about
  * supported querying capabilities you can use
- * {@link \eZ\Publish\API\Repository\SearchService::supports()} method.
+ * {@link \Ibexa\Contracts\Core\Repository\SearchService::supports()} method.
  *
  * If supported, advanced full text query has the following semantics:
  *
@@ -156,3 +156,5 @@ class FullText extends Criterion implements CustomFieldInterface
         return $this->customFields[$type][$field];
     }
 }
+
+class_alias(FullText::class, 'eZ\Publish\API\Repository\Values\Content\Query\Criterion\FullText');

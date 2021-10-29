@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Persistence\UserPreference;
+namespace Ibexa\Contracts\Core\Persistence\UserPreference;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 class UserPreference extends ValueObject
 {
@@ -44,3 +44,5 @@ class UserPreference extends ValueObject
      */
     public $value;
 }
+
+class_alias(UserPreference::class, 'eZ\Publish\SPI\Persistence\UserPreference\UserPreference');

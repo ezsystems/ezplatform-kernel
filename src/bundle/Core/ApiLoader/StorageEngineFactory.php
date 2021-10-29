@@ -4,24 +4,24 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\ApiLoader;
+namespace Ibexa\Bundle\Core\ApiLoader;
 
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\Exception\InvalidStorageEngine;
-use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
+use Ibexa\Bundle\Core\ApiLoader\Exception\InvalidStorageEngine;
+use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
 
 /**
  * The storage engine factory.
  */
 class StorageEngineFactory
 {
-    /** @var \eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider */
+    /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */
     private $repositoryConfigurationProvider;
 
     /**
      * Hash of registered storage engines.
      * Key is the storage engine identifier, value persistence handler itself.
      *
-     * @var \eZ\Publish\SPI\Persistence\Handler[]
+     * @var \Ibexa\Contracts\Core\Persistence\Handler[]
      */
     protected $storageEngines = [];
 
@@ -35,7 +35,7 @@ class StorageEngineFactory
      *
      * Note: It is strongly recommenced to register a lazy persistent handler.
      *
-     * @param \eZ\Publish\SPI\Persistence\Handler $persistenceHandler
+     * @param \Ibexa\Contracts\Core\Persistence\Handler $persistenceHandler
      * @param string $storageEngineIdentifier
      */
     public function registerStorageEngine(PersistenceHandler $persistenceHandler, $storageEngineIdentifier)
@@ -44,7 +44,7 @@ class StorageEngineFactory
     }
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\Handler[]
+     * @return \Ibexa\Contracts\Core\Persistence\Handler[]
      */
     public function getStorageEngines()
     {
@@ -54,9 +54,9 @@ class StorageEngineFactory
     /**
      * Builds storage engine identified by $storageEngineIdentifier (the "alias" attribute in the service tag).
      *
-     * @throws \eZ\Bundle\EzPublishCoreBundle\ApiLoader\Exception\InvalidStorageEngine
+     * @throws \Ibexa\Bundle\Core\ApiLoader\Exception\InvalidStorageEngine
      *
-     * @return \eZ\Publish\SPI\Persistence\Handler
+     * @return \Ibexa\Contracts\Core\Persistence\Handler
      */
     public function buildStorageEngine()
     {
@@ -78,3 +78,5 @@ class StorageEngineFactory
         return $this->storageEngines[$repositoryConfig['storage']['engine']];
     }
 }
+
+class_alias(StorageEngineFactory::class, 'eZ\Bundle\EzPublishCoreBundle\ApiLoader\StorageEngineFactory');

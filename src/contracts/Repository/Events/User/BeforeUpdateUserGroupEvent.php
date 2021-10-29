@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\User;
+namespace Ibexa\Contracts\Core\Repository\Events\User;
 
-use eZ\Publish\API\Repository\Values\User\UserGroup;
-use eZ\Publish\API\Repository\Values\User\UserGroupUpdateStruct;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeUpdateUserGroupEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\UserGroup */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroup */
     private $userGroup;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\UserGroupUpdateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroupUpdateStruct */
     private $userGroupUpdateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\UserGroup|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroup|null */
     private $updatedUserGroup;
 
     public function __construct(UserGroup $userGroup, UserGroupUpdateStruct $userGroupUpdateStruct)
@@ -59,3 +59,5 @@ final class BeforeUpdateUserGroupEvent extends BeforeEvent
         return $this->updatedUserGroup instanceof UserGroup;
     }
 }
+
+class_alias(BeforeUpdateUserGroupEvent::class, 'eZ\Publish\API\Repository\Events\User\BeforeUpdateUserGroupEvent');

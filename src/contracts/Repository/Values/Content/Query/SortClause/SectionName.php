@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause;
-use eZ\Publish\SPI\Repository\Values\Trash\Query\SortClause as TrashSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Trash\Query\SortClause as TrashSortClause;
 
 /**
  * Sets sort direction on Section name for a content query.
@@ -28,3 +28,5 @@ class SectionName extends SortClause implements FilteringSortClause, TrashSortCl
         parent::__construct('section_name', $sortDirection);
     }
 }
+
+class_alias(SectionName::class, 'eZ\Publish\API\Repository\Values\Content\Query\SortClause\SectionName');

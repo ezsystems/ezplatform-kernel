@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\FieldType\ValueSerializer;
+namespace Ibexa\Core\FieldType\ValueSerializer;
 
-use eZ\Publish\SPI\FieldType\Value;
-use eZ\Publish\SPI\FieldType\ValueSerializerInterface;
+use Ibexa\Contracts\Core\FieldType\Value;
+use Ibexa\Contracts\Core\FieldType\ValueSerializerInterface;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -78,3 +78,5 @@ final class SymfonySerializerAdapter implements ValueSerializerInterface
         return $this->decoder->decode($data, $this->format, $context);
     }
 }
+
+class_alias(SymfonySerializerAdapter::class, 'eZ\Publish\Core\FieldType\ValueSerializer\SymfonySerializerAdapter');

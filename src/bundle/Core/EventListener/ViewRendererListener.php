@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\EventListener;
+namespace Ibexa\Bundle\Core\EventListener;
 
-use eZ\Publish\Core\MVC\Symfony\View\Renderer as ViewRenderer;
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Symfony\View\Renderer as ViewRenderer;
+use Ibexa\Core\MVC\Symfony\View\View;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class ViewRendererListener implements EventSubscriberInterface
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\Renderer */
+    /** @var \Ibexa\Core\MVC\Symfony\View\Renderer */
     private $viewRenderer;
 
     public function __construct(ViewRenderer $viewRenderer)
@@ -43,3 +43,5 @@ class ViewRendererListener implements EventSubscriberInterface
         $event->setResponse($response);
     }
 }
+
+class_alias(ViewRendererListener::class, 'eZ\Bundle\EzPublishCoreBundle\EventListener\ViewRendererListener');

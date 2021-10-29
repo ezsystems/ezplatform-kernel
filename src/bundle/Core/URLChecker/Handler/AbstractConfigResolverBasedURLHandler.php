@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\URLChecker\Handler;
+namespace Ibexa\Bundle\Core\URLChecker\Handler;
 
-use eZ\Publish\API\Repository\URLService;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\Repository\URLService;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 
 /**
  * URLHandler based on ConfigResolver configured using $parameterName, $namespace and $scope properties.
  */
 abstract class AbstractConfigResolverBasedURLHandler extends AbstractURLHandler
 {
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     protected $configResolver;
 
     /** @var string */
@@ -52,3 +52,5 @@ abstract class AbstractConfigResolverBasedURLHandler extends AbstractURLHandler
         return $this->getOptionsResolver()->resolve($options);
     }
 }
+
+class_alias(AbstractConfigResolverBasedURLHandler::class, 'eZ\Bundle\EzPublishCoreBundle\URLChecker\Handler\AbstractConfigResolverBasedURLHandler');

@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator\Specifications;
-use eZ\Publish\API\Repository\Values\Content\Query\CustomFieldInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator\Specifications;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\CustomFieldInterface;
 
 /**
  * The Field Criterion class.
@@ -75,3 +75,5 @@ class Field extends Criterion implements CustomFieldInterface
         return $this->customFields[$type][$field];
     }
 }
+
+class_alias(Field::class, 'eZ\Publish\API\Repository\Values\Content\Query\Criterion\Field');

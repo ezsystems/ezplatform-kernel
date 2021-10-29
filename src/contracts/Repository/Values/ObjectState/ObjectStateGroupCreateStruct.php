@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\ObjectState;
+namespace Ibexa\Contracts\Core\Repository\Values\ObjectState;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class represents a value for creating object state groups.
@@ -49,3 +49,5 @@ class ObjectStateGroupCreateStruct extends ValueObject
      */
     public $descriptions;
 }
+
+class_alias(ObjectStateGroupCreateStruct::class, 'eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupCreateStruct');

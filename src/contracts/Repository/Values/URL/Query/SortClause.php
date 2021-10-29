@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\URL\Query;
+namespace Ibexa\Contracts\Core\Repository\Values\URL\Query;
 
 use InvalidArgumentException;
 
@@ -50,3 +50,5 @@ abstract class SortClause
         $this->target = $sortTarget;
     }
 }
+
+class_alias(SortClause::class, 'eZ\Publish\API\Repository\Values\URL\Query\SortClause');

@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Fragment;
+namespace Ibexa\Bundle\Core\Fragment;
 
-use eZ\Publish\Core\MVC\Symfony\Component\Serializer\SerializerTrait;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\Component\Serializer\SerializerTrait;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
@@ -19,7 +19,7 @@ trait SiteAccessSerializationTrait
 
     public function serializeSiteAccess(SiteAccess $siteAccess, ControllerReference $uri): void
     {
-        // Serialize the siteaccess to get it back after. @see eZ\Publish\Core\MVC\Symfony\EventListener\SiteAccessMatchListener
+        // Serialize the siteaccess to get it back after. @see \Ibexa\Core\MVC\Symfony\EventListener\SiteAccessMatchListener
         $uri->attributes['serialized_siteaccess'] = json_encode($siteAccess);
         $uri->attributes['serialized_siteaccess_matcher'] = $this->getSerializer()->serialize(
             $siteAccess->matcher,
@@ -38,3 +38,5 @@ trait SiteAccessSerializationTrait
         }
     }
 }
+
+class_alias(SiteAccessSerializationTrait::class, 'eZ\Bundle\EzPublishCoreBundle\Fragment\SiteAccessSerializationTrait');

@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Validator;
+namespace Ibexa\Core\FieldType\Validator;
 
-use eZ\Publish\Core\FieldType\Validator;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\FieldType\Validator;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * Validator to validate ranges in float values.
@@ -78,7 +78,7 @@ class FloatValueValidator extends Validator
      * When a check against a constant has failed, an entry will be added to the
      * $errors array.
      *
-     * @param \eZ\Publish\Core\FieldType\Float\Value $value
+     * @param \Ibexa\Core\FieldType\Float\Value $value
      *
      * @return bool
      */
@@ -111,3 +111,5 @@ class FloatValueValidator extends Validator
         return $isValid;
     }
 }
+
+class_alias(FloatValueValidator::class, 'eZ\Publish\Core\FieldType\Validator\FloatValueValidator');

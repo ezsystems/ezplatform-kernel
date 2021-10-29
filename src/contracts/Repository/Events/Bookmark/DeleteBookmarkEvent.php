@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Bookmark;
+namespace Ibexa\Contracts\Core\Repository\Events\Bookmark;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class DeleteBookmarkEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
     private $location;
 
     public function __construct(Location $location)
@@ -26,3 +26,5 @@ final class DeleteBookmarkEvent extends AfterEvent
         return $this->location;
     }
 }
+
+class_alias(DeleteBookmarkEvent::class, 'eZ\Publish\API\Repository\Events\Bookmark\DeleteBookmarkEvent');

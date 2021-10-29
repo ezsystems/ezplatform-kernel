@@ -4,25 +4,25 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Content;
+namespace Ibexa\Core\Search\Legacy\Content;
 
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\Location;
-use eZ\Publish\SPI\Search\VersatileHandler as SearchHandlerInterface;
-use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
-use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway as LocationGateway;
-use eZ\Publish\Core\Search\Legacy\Content\WordIndexer\Gateway as WordIndexerGateway;
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
-use eZ\Publish\Core\Search\Legacy\Content\Mapper\FullTextMapper;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Search\VersatileHandler as SearchHandlerInterface;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
+use Ibexa\Core\Search\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Search\Legacy\Content\WordIndexer\Gateway as WordIndexerGateway;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
+use Ibexa\Core\Search\Legacy\Content\Mapper\FullTextMapper;
 
 /**
  * The Content Search handler retrieves sets of of Content objects, based on a
@@ -50,63 +50,52 @@ class Handler implements SearchHandlerInterface
     /**
      * Content locator gateway.
      *
-     * @var \eZ\Publish\Core\Search\Legacy\Content\Gateway
+     * @var \Ibexa\Core\Search\Legacy\Content\Gateway
      */
     protected $gateway;
 
     /**
      * Location locator gateway.
      *
-     * @var \eZ\Publish\Core\Search\Legacy\Content\Location\Gateway
+     * @var \Ibexa\Core\Search\Legacy\Content\Location\Gateway
      */
     protected $locationGateway;
 
     /**
      * Word indexer gateway.
      *
-     * @var \eZ\Publish\Core\Search\Legacy\Content\WordIndexer\Gateway
+     * @var \Ibexa\Core\Search\Legacy\Content\WordIndexer\Gateway
      */
     protected $indexerGateway;
 
     /**
      * Content mapper.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Mapper
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Mapper
      */
     protected $contentMapper;
 
     /**
      * Location locationMapper.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Location\Mapper
      */
     protected $locationMapper;
 
     /**
      * Language handler.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\Language\Handler
+     * @var \Ibexa\Contracts\Core\Persistence\Content\Language\Handler
      */
     protected $languageHandler;
 
     /**
      * FullText mapper.
      *
-     * @var \eZ\Publish\Core\Search\Legacy\Content\Mapper\FullTextMapper
+     * @var \Ibexa\Core\Search\Legacy\Content\Mapper\FullTextMapper
      */
     protected $mapper;
 
-    /**
-     * Creates a new content handler.
-     *
-     * @param \eZ\Publish\Core\Search\Legacy\Content\Gateway $gateway
-     * @param \eZ\Publish\Core\Search\Legacy\Content\Location\Gateway $locationGateway
-     * @param \eZ\Publish\Core\Search\Legacy\Content\WordIndexer\Gateway $indexerGateway
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Mapper $contentMapper
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper $locationMapper
-     * @param \eZ\Publish\SPI\Persistence\Content\Language\Handler $languageHandler
-     * @param \eZ\Publish\Core\Search\Legacy\Content\Mapper\FullTextMapper $mapper
-     */
     public function __construct(
         Gateway $gateway,
         LocationGateway $locationGateway,
@@ -128,15 +117,15 @@ class Handler implements SearchHandlerInterface
     /**
      * Finds content objects for the given query.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if Query criterion is not applicable to its target
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if Query criterion is not applicable to its target
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query $query
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query $query
      * @param array $languageFilter - a map of language related filters specifying languages query will be performed on.
      *        Also used to define which field languages are loaded for the returned content.
      *        Currently supports: <code>array("languages" => array(<language1>,..), "useAlwaysAvailable" => bool)</code>
      *                            useAlwaysAvailable defaults to true to avoid exceptions on missing translations
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Search\SearchResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult
      */
     public function findContent(Query $query, array $languageFilter = [])
     {
@@ -211,17 +200,17 @@ class Handler implements SearchHandlerInterface
     /**
      * Performs a query for a single content object.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the object was not found by the query or due to permissions
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if Criterion is not applicable to its target
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if there is more than than one result matching the criterions
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the object was not found by the query or due to permissions
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if Criterion is not applicable to its target
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if there is more than than one result matching the criterions
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $filter
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $filter
      * @param array $languageFilter - a map of language related filters specifying languages query will be performed on.
      *        Also used to define which field languages are loaded for the returned content.
      *        Currently supports: <code>array("languages" => array(<language1>,..), "useAlwaysAvailable" => bool)</code>
      *                            useAlwaysAvailable defaults to true to avoid exceptions on missing translations
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ContentInfo
      */
     public function findSingle(Criterion $filter, array $languageFilter = [])
     {
@@ -253,9 +242,6 @@ class Handler implements SearchHandlerInterface
         return $first->valueObject;
     }
 
-    /**
-     * @see \eZ\Publish\SPI\Search\Handler::findLocations
-     */
     public function findLocations(LocationQuery $query, array $languageFilter = [])
     {
         if (!isset($languageFilter['languages'])) {
@@ -307,7 +293,7 @@ class Handler implements SearchHandlerInterface
      * @param string $prefix
      * @param string[] $fieldPaths
      * @param int $limit
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $filter
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion|null $filter
      *
      * @throws NotImplementedException
      */
@@ -319,7 +305,7 @@ class Handler implements SearchHandlerInterface
     /**
      * Indexes a content object.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content $content
      */
     public function indexContent(Content $content)
     {
@@ -331,7 +317,7 @@ class Handler implements SearchHandlerInterface
     /**
      * Bulk index list of content objects.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content[] $contentList
+     * @param \Ibexa\Contracts\Core\Persistence\Content[] $contentList
      * @param callable $errorCallback (Content $content, NotFoundException $e)
      */
     public function bulkIndex(array $contentList, callable $errorCallback)
@@ -349,7 +335,7 @@ class Handler implements SearchHandlerInterface
     }
 
     /**
-     * @param \eZ\Publish\SPI\Persistence\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Location $location
      */
     public function indexLocation(Location $location)
     {
@@ -406,3 +392,5 @@ class Handler implements SearchHandlerInterface
         return false;
     }
 }
+
+class_alias(Handler::class, 'eZ\Publish\Core\Search\Legacy\Content\Handler');

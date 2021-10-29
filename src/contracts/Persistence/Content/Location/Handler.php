@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content\Location;
+namespace Ibexa\Contracts\Core\Persistence\Content\Location;
 
-use eZ\Publish\SPI\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
 
 /**
  * The Location Handler interface defines operations on Location elements in the storage engine.
@@ -20,9 +20,9 @@ interface Handler
      * @param string[]|null $translations If set, NotFound is thrown if content is not in given translation.
      * @param bool $useAlwaysAvailable Respect always available flag on content, where main language is valid translation fallback.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location
      */
     public function load($locationId, array $translations = null, bool $useAlwaysAvailable = true);
 
@@ -36,7 +36,7 @@ interface Handler
      * @param string[]|null $translations If set, only locations with content in given translations are returned.
      * @param bool $useAlwaysAvailable Respect always available flag on content, where main language is valid translation fallback.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location[]|iterable
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location[]|iterable
      */
     public function loadList(array $locationIds, array $translations = null, bool $useAlwaysAvailable = true): iterable;
 
@@ -45,7 +45,7 @@ interface Handler
      *
      * @param int $locationId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      *
      * @return array Location ids are in the index, Content ids in the value.
      */
@@ -58,9 +58,9 @@ interface Handler
      * @param string[]|null $translations If set, NotFound is thrown if content is not in given translation.
      * @param bool $useAlwaysAvailable Respect always available flag on content, where main language is valid translation fallback.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location
      */
     public function loadByRemoteId($remoteId, array $translations = null, bool $useAlwaysAvailable = true);
 
@@ -71,7 +71,7 @@ interface Handler
      * @param int $contentId
      * @param int $rootLocationId
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location[]
      */
     public function loadLocationsByContent($contentId, $rootLocationId = null);
 
@@ -79,7 +79,7 @@ interface Handler
      * Loads all locations for $contentId in trash, optionally limited to a sub tree
      * identified by $rootLocationId.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location[]
      */
     public function loadLocationsByTrashContent(int $contentId, ?int $rootLocationId = null): array;
 
@@ -89,7 +89,7 @@ interface Handler
      *
      * @param mixed $contentId
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location[]
      */
     public function loadParentLocationsForDraftContent($contentId);
 
@@ -104,7 +104,7 @@ interface Handler
      * @param mixed $sourceId
      * @param mixed $destinationParentId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If $sourceId or $destinationParentId are invalid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If $sourceId or $destinationParentId are invalid
      *
      * @return Location the newly created Location.
      */
@@ -182,7 +182,7 @@ interface Handler
     /**
      * Updates an existing location.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct $location
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct $location
      * @param int $locationId
      */
     public function update(UpdateStruct $location, $locationId);
@@ -190,11 +190,11 @@ interface Handler
     /**
      * Creates a new location rooted at $location->parentId.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Location\CreateStruct $location
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct $location
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if parent Location does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if parent Location does not exist
      */
     public function create(CreateStruct $location);
 
@@ -247,7 +247,9 @@ interface Handler
      * @param int $offset
      * @param int $limit
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location[]
      */
     public function loadAllLocations($offset, $limit);
 }
+
+class_alias(Handler::class, 'eZ\Publish\SPI\Persistence\Content\Location\Handler');

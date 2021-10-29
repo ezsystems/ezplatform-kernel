@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Exceptions;
+namespace Ibexa\Core\Base\Exceptions;
 
-use eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException as APIContentFieldValidationException;
-use eZ\Publish\Core\Base\Translatable;
-use eZ\Publish\Core\Base\TranslatableBase;
+use Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException as APIContentFieldValidationException;
+use Ibexa\Core\Base\Translatable;
+use Ibexa\Core\Base\TranslatableBase;
 
 /**
  * This Exception is thrown on create or update content one or more given fields are not valid.
@@ -26,7 +26,7 @@ class ContentFieldValidationException extends APIContentFieldValidationException
      *  $fieldErrors["43"]["eng-GB"]->getTranslatableMessage();
      * </code>
      *
-     * @var \eZ\Publish\Core\FieldType\ValidationError[]
+     * @var \Ibexa\Core\FieldType\ValidationError[]
      */
     protected $errors;
 
@@ -35,7 +35,7 @@ class ContentFieldValidationException extends APIContentFieldValidationException
      *
      * Also sets the given $fieldErrors to the internal property, retrievable by getFieldErrors()
      *
-     * @param \eZ\Publish\Core\FieldType\ValidationError[] $errors
+     * @param \Ibexa\Core\FieldType\ValidationError[] $errors
      */
     public function __construct(array $errors)
     {
@@ -47,10 +47,12 @@ class ContentFieldValidationException extends APIContentFieldValidationException
     /**
      * Returns an array of field validation error messages.
      *
-     * @return \eZ\Publish\Core\FieldType\ValidationError[]
+     * @return \Ibexa\Core\FieldType\ValidationError[]
      */
     public function getFieldErrors()
     {
         return $this->errors;
     }
 }
+
+class_alias(ContentFieldValidationException::class, 'eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException');

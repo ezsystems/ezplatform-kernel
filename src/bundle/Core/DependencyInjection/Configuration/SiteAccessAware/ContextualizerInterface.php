@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -35,7 +35,7 @@ interface ContextualizerInterface
      * use Symfony\Component\HttpKernel\DependencyInjection\Extension;
      * use Symfony\Component\DependencyInjection\ContainerBuilder;
      * use Symfony\Component\DependencyInjection\Loader;
-     * use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware;
+     * use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware;
      *
      * class AcmeDemoExtension extends Extension
      * {
@@ -122,7 +122,7 @@ interface ContextualizerInterface
      * use Symfony\Component\HttpKernel\DependencyInjection\Extension;
      * use Symfony\Component\DependencyInjection\ContainerBuilder;
      * use Symfony\Component\DependencyInjection\Loader;
-     * use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware;
+     * use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware;
      *
      * class AcmeDemoExtension extends Extension
      * {
@@ -234,3 +234,5 @@ interface ContextualizerInterface
      */
     public function getGroupsBySiteAccess();
 }
+
+class_alias(ContextualizerInterface::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface');

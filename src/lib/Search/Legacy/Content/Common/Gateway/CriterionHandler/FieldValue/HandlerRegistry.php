@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FieldValue;
+namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FieldValue;
 
 use OutOfBoundsException;
 
@@ -17,14 +17,14 @@ class HandlerRegistry
      * Map of Criterion field value handlers where key is field type identifier
      * and value is field value handler.
      *
-     * @var \eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FieldValue\Handler[]
+     * @var \Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FieldValue\Handler[]
      */
     protected $map = [];
 
     /**
      * Create field value handler registry with handler map.
      *
-     * @param \eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FieldValue\Handler[] $map
+     * @param \Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FieldValue\Handler[] $map
      *        Map of Criterion field value handlers where key is field type identifier and value field value handler
      */
     public function __construct(array $map = [])
@@ -38,7 +38,7 @@ class HandlerRegistry
      * Register $handler for $fieldTypeIdentifier.
      *
      * @param string $fieldTypeIdentifier
-     * @param \eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FieldValue\Handler $handler
+     * @param \Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FieldValue\Handler $handler
      */
     public function register($fieldTypeIdentifier, $handler)
     {
@@ -52,7 +52,7 @@ class HandlerRegistry
      *
      * @param string $fieldTypeIdentifier
      *
-     * @return \eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FieldValue\Handler
+     * @return \Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FieldValue\Handler
      */
     public function get($fieldTypeIdentifier)
     {
@@ -75,3 +75,5 @@ class HandlerRegistry
         return isset($this->map[$fieldTypeIdentifier]);
     }
 }
+
+class_alias(HandlerRegistry::class, 'eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FieldValue\HandlerRegistry');

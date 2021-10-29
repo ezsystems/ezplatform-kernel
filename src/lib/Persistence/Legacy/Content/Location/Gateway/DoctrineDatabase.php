@@ -4,24 +4,24 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\Content\Location\Gateway;
 
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content\Location;
-use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException as NotFound;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Core\Base\Exceptions\NotFoundException as NotFound;
 use RuntimeException;
 use PDO;
 use function time;
@@ -31,23 +31,23 @@ use function time;
  *
  * @internal Gateway implementation is considered internal. Use Persistence Location Handler instead.
  *
- * @see \eZ\Publish\SPI\Persistence\Content\Location\Handler
+ * @see \Ibexa\Contracts\Core\Persistence\Content\Location\Handler
  */
 final class DoctrineDatabase extends Gateway
 {
     /** @var \Doctrine\DBAL\Connection */
     private $connection;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator */
     private $languageMaskGenerator;
 
     /** @var \Doctrine\DBAL\Platforms\AbstractPlatform */
     private $dbPlatform;
 
-    /** @var \eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter */
+    /** @var \Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter */
     private $trashCriteriaConverter;
 
-    /** @var \eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter */
+    /** @var \Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter */
     private $trashSortClauseConverter;
 
     /**
@@ -984,7 +984,7 @@ final class DoctrineDatabase extends Gateway
      *
      * Will not throw anything if location id is invalid or no entries are affected.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct $location
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct $location
      * @param int $locationId
      */
     public function update(UpdateStruct $location, $locationId): void
@@ -1550,7 +1550,7 @@ final class DoctrineDatabase extends Gateway
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException
      */
     private function addConditionsByCriterion(?Criterion $criterion, QueryBuilder $query): void
     {
@@ -1576,3 +1576,5 @@ final class DoctrineDatabase extends Gateway
         $this->trashSortClauseConverter->applyOrderBy($query);
     }
 }
+
+class_alias(DoctrineDatabase::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase');

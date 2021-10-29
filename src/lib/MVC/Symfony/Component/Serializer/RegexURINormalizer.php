@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Component\Serializer;
+namespace Ibexa\Core\MVC\Symfony\Component\Serializer;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Regex\URI;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Regex\URI;
 
 final class RegexURINormalizer extends AbstractPropertyWhitelistNormalizer
 {
@@ -22,3 +22,5 @@ final class RegexURINormalizer extends AbstractPropertyWhitelistNormalizer
         return $data instanceof URI;
     }
 }
+
+class_alias(RegexURINormalizer::class, 'eZ\Publish\Core\MVC\Symfony\Component\Serializer\RegexURINormalizer');

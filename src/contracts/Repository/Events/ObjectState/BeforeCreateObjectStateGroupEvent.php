@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ObjectState;
+namespace Ibexa\Contracts\Core\Repository\Events\ObjectState;
 
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCreateObjectStateGroupEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupCreateStruct */
     private $objectStateGroupCreateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup|null */
     private $objectStateGroup;
 
     public function __construct(ObjectStateGroupCreateStruct $objectStateGroupCreateStruct)
@@ -50,3 +50,5 @@ final class BeforeCreateObjectStateGroupEvent extends BeforeEvent
         return $this->objectStateGroup instanceof ObjectStateGroup;
     }
 }
+
+class_alias(BeforeCreateObjectStateGroupEvent::class, 'eZ\Publish\API\Repository\Events\ObjectState\BeforeCreateObjectStateGroupEvent');

@@ -6,45 +6,40 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository;
+namespace Ibexa\Core\Repository;
 
 use DateTime;
 use DateTimeInterface;
 use Exception;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Repository as RepositoryInterface;
-use eZ\Publish\API\Repository\URLService as URLServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion as ContentCriterion;
-use eZ\Publish\API\Repository\Values\URL\SearchResult;
-use eZ\Publish\API\Repository\Values\URL\URL;
-use eZ\Publish\API\Repository\Values\URL\URLQuery;
-use eZ\Publish\API\Repository\Values\URL\URLUpdateStruct;
-use eZ\Publish\API\Repository\Values\URL\UsageSearchResult;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
-use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
-use eZ\Publish\SPI\Persistence\URL\Handler as URLHandler;
-use eZ\Publish\SPI\Persistence\URL\URL as SPIUrl;
-use eZ\Publish\SPI\Persistence\URL\URLUpdateStruct as SPIUrlUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
+use Ibexa\Contracts\Core\Repository\URLService as URLServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion as ContentCriterion;
+use Ibexa\Contracts\Core\Repository\Values\URL\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\URL\URL;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\URL\UsageSearchResult;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Persistence\URL\Handler as URLHandler;
+use Ibexa\Contracts\Core\Persistence\URL\URL as SPIUrl;
+use Ibexa\Contracts\Core\Persistence\URL\URLUpdateStruct as SPIUrlUpdateStruct;
 
 class URLService implements URLServiceInterface
 {
-    /** @var \eZ\Publish\Core\Repository\Repository */
+    /** @var \Ibexa\Core\Repository\Repository */
     protected $repository;
 
-    /** @var \eZ\Publish\SPI\Persistence\URL\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\URL\Handler */
     protected $urlHandler;
 
-    /** \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /**
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\SPI\Persistence\URL\Handler $urlHandler
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
-     */
     public function __construct(
         RepositoryInterface $repository,
         URLHandler $urlHandler,
@@ -187,9 +182,9 @@ class URLService implements URLServiceInterface
     /**
      * Builds domain object from ValueObject returned by Persistence API.
      *
-     * @param \eZ\Publish\SPI\Persistence\URL\URL $data
+     * @param \Ibexa\Contracts\Core\Persistence\URL\URL $data
      *
-     * @return \eZ\Publish\API\Repository\Values\URL\URL
+     * @return \Ibexa\Contracts\Core\Repository\Values\URL\URL
      */
     protected function buildDomainObject(SPIUrl $data): URL
     {
@@ -206,10 +201,10 @@ class URLService implements URLServiceInterface
     /**
      * Builds SPI update structure used by Persistence API.
      *
-     * @param \eZ\Publish\API\Repository\Values\URL\URL $url
-     * @param \eZ\Publish\API\Repository\Values\URL\URLUpdateStruct $data
+     * @param \Ibexa\Contracts\Core\Repository\Values\URL\URL $url
+     * @param \Ibexa\Contracts\Core\Repository\Values\URL\URLUpdateStruct $data
      *
-     * @return \eZ\Publish\SPI\Persistence\URL\URLUpdateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\URL\URLUpdateStruct
      */
     protected function buildUpdateStruct(URL $url, URLUpdateStruct $data): SPIUrlUpdateStruct
     {
@@ -249,7 +244,7 @@ class URLService implements URLServiceInterface
      *
      * @return bool
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     protected function isUnique(int $id, string $url): bool
     {
@@ -269,3 +264,5 @@ class URLService implements URLServiceInterface
         return null;
     }
 }
+
+class_alias(URLService::class, 'eZ\Publish\Core\Repository\URLService');

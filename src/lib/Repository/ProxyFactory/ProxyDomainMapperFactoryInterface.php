@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\ProxyFactory;
+namespace Ibexa\Core\Repository\ProxyFactory;
 
-use eZ\Publish\API\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Repository;
 
 /**
  * @internal
@@ -15,3 +15,5 @@ interface ProxyDomainMapperFactoryInterface
 {
     public function create(Repository $repository): ProxyDomainMapperInterface;
 }
+
+class_alias(ProxyDomainMapperFactoryInterface::class, 'eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface');

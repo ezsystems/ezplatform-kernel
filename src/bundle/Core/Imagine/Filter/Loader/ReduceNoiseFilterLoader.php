@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader;
+namespace Ibexa\Bundle\Core\Imagine\Filter\Loader;
 
 use Imagine\Exception\NotSupportedException;
-use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\FilterInterface;
+use Ibexa\Bundle\Core\Imagine\Filter\FilterInterface;
 use Imagine\Image\ImageInterface;
 use Imagine\Gmagick\Image as GmagickImage;
 use Imagine\Imagick\Image as ImagickImage;
@@ -40,3 +40,5 @@ class ReduceNoiseFilterLoader implements LoaderInterface
         return $this->filter->apply($image);
     }
 }
+
+class_alias(ReduceNoiseFilterLoader::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader\ReduceNoiseFilterLoader');

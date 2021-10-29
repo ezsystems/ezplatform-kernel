@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Migration;
+namespace Ibexa\Bundle\IO\Migration;
 
-use eZ\Publish\SPI\IO\BinaryFile;
+use Ibexa\Contracts\Core\IO\BinaryFile;
 
 interface FileListerInterface extends MigrationHandlerInterface
 {
@@ -27,3 +27,5 @@ interface FileListerInterface extends MigrationHandlerInterface
      */
     public function loadMetadataList($limit = null, $offset = null);
 }
+
+class_alias(FileListerInterface::class, 'eZ\Bundle\EzPublishIOBundle\Migration\FileListerInterface');

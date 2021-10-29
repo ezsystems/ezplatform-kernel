@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Exceptions;
+namespace Ibexa\Contracts\Core\Repository\Exceptions;
 
 /**
  * This Exception is thrown on create, update or assign policy or role
@@ -21,3 +21,5 @@ abstract class LimitationValidationException extends ForbiddenException
      */
     abstract public function getLimitationErrors();
 }
+
+class_alias(LimitationValidationException::class, 'eZ\Publish\API\Repository\Exceptions\LimitationValidationException');

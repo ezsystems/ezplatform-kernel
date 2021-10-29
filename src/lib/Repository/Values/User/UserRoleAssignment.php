@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Values\User;
+namespace Ibexa\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation as APIRoleLimitation;
-use eZ\Publish\API\Repository\Values\User\Role as APIRole;
-use eZ\Publish\API\Repository\Values\User\User as APIUser;
-use eZ\Publish\API\Repository\Values\User\UserRoleAssignment as APIUserRoleAssignment;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation as APIRoleLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Role as APIRole;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
+use Ibexa\Contracts\Core\Repository\Values\User\UserRoleAssignment as APIUserRoleAssignment;
 
 /**
  * This class represents a user to role assignment.
@@ -23,28 +23,28 @@ class UserRoleAssignment extends APIUserRoleAssignment
     /**
      * the limitation of this role assignment.
      *
-     * @var \eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation|null
      */
     protected $limitation;
 
     /**
      * the role which is assigned to the user.
      *
-     * @var \eZ\Publish\API\Repository\Values\User\Role
+     * @var \Ibexa\Contracts\Core\Repository\Values\User\Role
      */
     protected $role;
 
     /**
      * user to which the role is assigned to.
      *
-     * @var \eZ\Publish\API\Repository\Values\User\User
+     * @var \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     protected $user;
 
     /**
      * Returns the limitation of the user role assignment.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation|null
      */
     public function getRoleLimitation(): ?APIRoleLimitation
     {
@@ -54,7 +54,7 @@ class UserRoleAssignment extends APIUserRoleAssignment
     /**
      * Returns the role to which the user is assigned to.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Role
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role
      */
     public function getRole(): APIRole
     {
@@ -64,10 +64,12 @@ class UserRoleAssignment extends APIUserRoleAssignment
     /**
      * Returns the user to which the role is assigned to.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     public function getUser(): APIUser
     {
         return $this->user;
     }
 }
+
+class_alias(UserRoleAssignment::class, 'eZ\Publish\Core\Repository\Values\User\UserRoleAssignment');

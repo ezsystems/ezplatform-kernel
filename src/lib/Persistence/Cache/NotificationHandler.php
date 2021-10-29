@@ -6,19 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Cache;
+namespace Ibexa\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\Notification\CreateStruct;
-use eZ\Publish\SPI\Persistence\Notification\Handler;
-use eZ\Publish\SPI\Persistence\Notification\Notification;
-use eZ\Publish\SPI\Persistence\Notification\UpdateStruct;
-use eZ\Publish\API\Repository\Values\Notification\Notification as APINotification;
+use Ibexa\Contracts\Core\Persistence\Notification\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Notification\Handler;
+use Ibexa\Contracts\Core\Persistence\Notification\Notification;
+use Ibexa\Contracts\Core\Persistence\Notification\UpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification as APINotification;
 
-/**
- * SPI cache for Notification Handler.
- *
- * @see \eZ\Publish\SPI\Persistence\Notification\Handler
- */
 class NotificationHandler extends AbstractHandler implements Handler
 {
     private const NOTIFICATION_IDENTIFIER = 'notification';
@@ -169,3 +164,5 @@ class NotificationHandler extends AbstractHandler implements Handler
         return $this->persistenceHandler->notificationHandler()->loadUserNotifications($userId, $offset, $limit);
     }
 }
+
+class_alias(NotificationHandler::class, 'eZ\Publish\Core\Persistence\Cache\NotificationHandler');

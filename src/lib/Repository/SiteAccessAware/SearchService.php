@@ -6,32 +6,32 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\SiteAccessAware;
+namespace Ibexa\Core\Repository\SiteAccessAware;
 
-use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
-use eZ\Publish\API\Repository\LanguageResolver;
+use Ibexa\Contracts\Core\Repository\SearchService as SearchServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Repository\LanguageResolver;
 
 /**
  * SiteAccess aware implementation of SearchService injecting languages where needed.
  */
 class SearchService implements SearchServiceInterface
 {
-    /** @var \eZ\Publish\API\Repository\SearchService */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     protected $service;
 
-    /** @var \eZ\Publish\API\Repository\LanguageResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageResolver */
     protected $languageResolver;
 
     /**
      * Construct service object from aggregated service and LanguageResolver.
      *
-     * @param \eZ\Publish\API\Repository\SearchService $service
-     * @param \eZ\Publish\API\Repository\LanguageResolver $languageResolver
+     * @param \Ibexa\Contracts\Core\Repository\SearchService $service
+     * @param \Ibexa\Contracts\Core\Repository\LanguageResolver $languageResolver
      */
     public function __construct(
         SearchServiceInterface $service,
@@ -103,3 +103,5 @@ class SearchService implements SearchServiceInterface
         return $this->service->supports($capabilityFlag);
     }
 }
+
+class_alias(SearchService::class, 'eZ\Publish\Core\Repository\SiteAccessAware\SearchService');

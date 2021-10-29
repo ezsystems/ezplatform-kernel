@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator\Specifications;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator\Specifications;
 
 /**
  * The Field Criterion class.
@@ -33,3 +33,5 @@ class CustomField extends Criterion
         ];
     }
 }
+
+class_alias(CustomField::class, 'eZ\Publish\API\Repository\Values\Content\Query\Criterion\CustomField');

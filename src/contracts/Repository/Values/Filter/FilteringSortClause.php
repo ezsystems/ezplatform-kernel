@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Values\Filter;
+namespace Ibexa\Contracts\Core\Repository\Values\Filter;
 
 /**
  * Marker for Content & Location filtering Sort Clause.
@@ -14,3 +14,5 @@ namespace eZ\Publish\SPI\Repository\Values\Filter;
 interface FilteringSortClause
 {
 }
+
+class_alias(FilteringSortClause::class, 'eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause');

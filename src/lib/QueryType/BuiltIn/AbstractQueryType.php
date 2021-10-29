@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn;
+namespace Ibexa\Core\QueryType\BuiltIn;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Subtree;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Visibility;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\QueryType\OptionsResolverBasedQueryType;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Subtree;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Visibility;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\QueryType\OptionsResolverBasedQueryType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -25,13 +25,13 @@ abstract class AbstractQueryType extends OptionsResolverBasedQueryType
 {
     public const DEFAULT_LIMIT = 25;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     protected $repository;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     protected $configResolver;
 
-    /** @var \eZ\Publish\Core\QueryType\BuiltIn\SortClausesFactoryInterface */
+    /** @var \Ibexa\Core\QueryType\BuiltIn\SortClausesFactoryInterface */
     private $sortClausesFactory;
 
     public function __construct(
@@ -133,3 +133,5 @@ abstract class AbstractQueryType extends OptionsResolverBasedQueryType
         return $rootLocation->pathString;
     }
 }
+
+class_alias(AbstractQueryType::class, 'eZ\Publish\Core\QueryType\BuiltIn\AbstractQueryType');

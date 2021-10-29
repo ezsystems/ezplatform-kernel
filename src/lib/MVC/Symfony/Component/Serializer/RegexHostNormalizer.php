@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Component\Serializer;
+namespace Ibexa\Core\MVC\Symfony\Component\Serializer;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Regex\Host;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Regex\Host;
 
 final class RegexHostNormalizer extends AbstractPropertyWhitelistNormalizer
 {
@@ -22,3 +22,5 @@ final class RegexHostNormalizer extends AbstractPropertyWhitelistNormalizer
         return $data instanceof Host;
     }
 }
+
+class_alias(RegexHostNormalizer::class, 'eZ\Publish\Core\MVC\Symfony\Component\Serializer\RegexHostNormalizer');

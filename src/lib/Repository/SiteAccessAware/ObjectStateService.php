@@ -4,34 +4,34 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\SiteAccessAware;
+namespace Ibexa\Core\Repository\SiteAccessAware;
 
-use eZ\Publish\API\Repository\ObjectStateService as ObjectStateServiceInterface;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateCreateStruct;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateUpdateStruct;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\LanguageResolver;
+use Ibexa\Contracts\Core\Repository\ObjectStateService as ObjectStateServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\LanguageResolver;
 
 /**
  * SiteAccess aware implementation of ObjectStateService injecting languages where needed.
  */
 class ObjectStateService implements ObjectStateServiceInterface
 {
-    /** @var \eZ\Publish\API\Repository\ObjectStateService */
+    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
     protected $service;
 
-    /** @var \eZ\Publish\API\Repository\LanguageResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageResolver */
     protected $languageResolver;
 
     /**
      * Construct service object from aggregated service and LanguageResolver.
      *
-     * @param \eZ\Publish\API\Repository\ObjectStateService $service
-     * @param \eZ\Publish\API\Repository\LanguageResolver $languageResolver
+     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $service
+     * @param \Ibexa\Contracts\Core\Repository\LanguageResolver $languageResolver
      */
     public function __construct(
         ObjectStateServiceInterface $service,
@@ -162,3 +162,5 @@ class ObjectStateService implements ObjectStateServiceInterface
         return $this->service->newObjectStateUpdateStruct();
     }
 }
+
+class_alias(ObjectStateService::class, 'eZ\Publish\Core\Repository\SiteAccessAware\ObjectStateService');

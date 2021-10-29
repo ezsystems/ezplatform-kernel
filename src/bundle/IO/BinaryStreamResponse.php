@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle;
+namespace Ibexa\Bundle\IO;
 
 use DateTime;
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\Core\IO\Values\BinaryFile;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\Values\BinaryFile;
 use LogicException;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -225,3 +225,5 @@ class BinaryStreamResponse extends Response
         return null;
     }
 }
+
+class_alias(BinaryStreamResponse::class, 'eZ\Bundle\EzPublishIOBundle\BinaryStreamResponse');

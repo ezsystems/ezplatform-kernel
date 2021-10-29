@@ -4,20 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\EventListener;
+namespace Ibexa\Core\MVC\Symfony\EventListener;
 
-// @todo Move SiteAccessMatcherRegistryInterface to eZ\Publish\Core\MVC\Symfony\Matcher
-use eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessMatcherRegistryInterface;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\MVC\Symfony\Component\Serializer\SerializerTrait;
+// @todo Move SiteAccessMatcherRegistryInterface to \Ibexa\Core\MVC\Symfony\SiteAccess\Matcher
+use Ibexa\Bundle\Core\SiteAccess\SiteAccessMatcherRegistryInterface;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\MVC\Symfony\Component\Serializer\SerializerTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelEvents;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Router as SiteAccessRouter;
-use eZ\Publish\Core\MVC\Symfony\Event\PostSiteAccessMatchEvent;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Router as SiteAccessRouter;
+use Ibexa\Core\MVC\Symfony\Event\PostSiteAccessMatchEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -30,13 +30,13 @@ class SiteAccessMatchListener implements EventSubscriberInterface
 {
     use SerializerTrait;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\Router */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\Router */
     protected $siteAccessRouter;
 
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
     protected $eventDispatcher;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessMatcherRegistryInterface */
+    /** @var \Ibexa\Bundle\Core\SiteAccess\SiteAccessMatcherRegistryInterface */
     private $siteAccessMatcherRegistry;
 
     public function __construct(
@@ -60,8 +60,8 @@ class SiteAccessMatchListener implements EventSubscriberInterface
     /**
      * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function onKernelRequest(RequestEvent $event): void
     {
@@ -125,8 +125,8 @@ class SiteAccessMatchListener implements EventSubscriberInterface
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function deserializeMatcher(
         SerializerInterface $serializer,
@@ -167,7 +167,7 @@ class SiteAccessMatchListener implements EventSubscriberInterface
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function buildMatcherFromSerializedClass(
         SerializerInterface $serializer,
@@ -188,3 +188,5 @@ class SiteAccessMatchListener implements EventSubscriberInterface
         return $matcher;
     }
 }
+
+class_alias(SiteAccessMatchListener::class, 'eZ\Publish\Core\MVC\Symfony\EventListener\SiteAccessMatchListener');

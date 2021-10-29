@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\FieldType\ValidationError;
+namespace Ibexa\Contracts\Core\FieldType\ValidationError;
 
 final class UnknownValidatorValidationError extends AbstractValidationError
 {
@@ -21,3 +21,5 @@ final class UnknownValidatorValidationError extends AbstractValidationError
         );
     }
 }
+
+class_alias(UnknownValidatorValidationError::class, 'eZ\Publish\SPI\FieldType\ValidationError\UnknownValidatorValidationError');

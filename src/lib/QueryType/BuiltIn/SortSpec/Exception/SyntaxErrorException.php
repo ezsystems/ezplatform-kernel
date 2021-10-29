@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Exception;
+namespace Ibexa\Core\QueryType\BuiltIn\SortSpec\Exception;
 
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Token;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\Token;
 use RuntimeException;
 
 final class SyntaxErrorException extends RuntimeException
@@ -27,3 +27,5 @@ final class SyntaxErrorException extends RuntimeException
         return new self($message);
     }
 }
+
+class_alias(SyntaxErrorException::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Exception\SyntaxErrorException');

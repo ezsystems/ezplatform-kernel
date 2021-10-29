@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver;
 
-use eZ\Publish\Core\MVC\Exception\ParameterNotFoundException;
-use eZ\Publish\Core\MVC\Symfony\Configuration\VersatileScopeInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
+use Ibexa\Core\MVC\Exception\ParameterNotFoundException;
+use Ibexa\Core\MVC\Symfony\Configuration\VersatileScopeInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 
 abstract class SiteAccessConfigResolver implements VersatileScopeInterface, SiteAccessAware
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface */
     protected $siteAccessProvider;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess */
     protected $currentSiteAccess;
 
     /** @var string */
@@ -123,3 +123,5 @@ abstract class SiteAccessConfigResolver implements VersatileScopeInterface, Site
 
     abstract protected function getParameterFromResolver(SiteAccess $siteAccess, string $paramName, string $namespace);
 }
+
+class_alias(SiteAccessConfigResolver::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver\SiteAccessConfigResolver');

@@ -4,28 +4,28 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Migration\FileLister;
+namespace Ibexa\Bundle\IO\Migration\FileLister;
 
-use eZ\Bundle\EzPublishIOBundle\ApiLoader\HandlerRegistry;
-use eZ\Bundle\EzPublishIOBundle\Migration\FileListerInterface;
-use eZ\Bundle\EzPublishIOBundle\Migration\MigrationHandler;
-use eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException;
+use Ibexa\Bundle\IO\ApiLoader\HandlerRegistry;
+use Ibexa\Bundle\IO\Migration\FileListerInterface;
+use Ibexa\Bundle\IO\Migration\MigrationHandler;
+use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
 use Iterator;
 use LimitIterator;
 use Psr\Log\LoggerInterface;
 
 class BinaryFileLister extends MigrationHandler implements FileListerInterface
 {
-    /** @var \eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileIteratorInterface */
+    /** @var \Ibexa\Bundle\IO\Migration\FileLister\FileIteratorInterface */
     private $fileList;
 
     /** @var string Directory where files are stored, within the storage dir. Example: 'original' */
     private $filesDir;
 
     /**
-     * @param \eZ\Bundle\EzPublishIOBundle\ApiLoader\HandlerRegistry $metadataHandlerRegistry
-     * @param \eZ\Bundle\EzPublishIOBundle\ApiLoader\HandlerRegistry $binarydataHandlerRegistry
-     * @param \Psr\Log\LoggerInterface $logger
+     * @param \Ibexa\Bundle\IO\ApiLoader\HandlerRegistry $metadataHandlerRegistry
+     * @param \Ibexa\Bundle\IO\ApiLoader\HandlerRegistry $binarydataHandlerRegistry
+     * @param \Psr\Log\LoggerInterface|null $logger
      * @param \Iterator $fileList
      * @param string $filesDir Directory where files are stored, within the storage dir. Example: 'original'
      */
@@ -67,3 +67,5 @@ class BinaryFileLister extends MigrationHandler implements FileListerInterface
         return $metadataList;
     }
 }
+
+class_alias(BinaryFileLister::class, 'eZ\Bundle\EzPublishIOBundle\Migration\FileLister\BinaryFileLister');

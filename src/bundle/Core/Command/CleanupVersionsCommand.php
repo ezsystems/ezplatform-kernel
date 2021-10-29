@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Command;
+namespace Ibexa\Bundle\Core\Command;
 
 use Doctrine\DBAL\Connection;
 use Exception;
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use PDO;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -43,10 +43,10 @@ EOT;
         self::VERSION_PUBLISHED => VersionInfo::STATUS_PUBLISHED,
     ];
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider */
+    /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */
     private $repositoryConfigurationProvider;
 
     /** @var \Doctrine\DBAL\Driver\Connection */
@@ -204,7 +204,7 @@ EOT
                     (int) $contentId
                 ), OutputInterface::VERBOSITY_VERBOSE);
 
-                /** @var \eZ\Publish\API\Repository\Values\Content\VersionInfo $version */
+                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $version */
                 foreach ($versions as $version) {
                     $contentService->deleteVersion($version);
                     ++$removedVersionsCounter;
@@ -242,7 +242,7 @@ EOT
      *
      * @return array
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      */
     protected function getObjectsIds($keep, $status, $excludedContentTypes = [])
     {
@@ -284,7 +284,7 @@ EOT
      *
      * @return int
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      */
     private function mapStatusToVersionInfoStatus($status)
     {
@@ -306,3 +306,5 @@ EOT
         return ['ezplatform:content:cleanup-versions'];
     }
 }
+
+class_alias(CleanupVersionsCommand::class, 'eZ\Bundle\EzPublishCoreBundle\Command\CleanupVersionsCommand');

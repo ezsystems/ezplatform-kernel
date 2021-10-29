@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Pagination\Pagerfanta;
+namespace Ibexa\Core\Pagination\Pagerfanta;
 
-use eZ\Publish\API\Repository\Values\Content\Search\AggregationResultCollection;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResultCollection;
 use Pagerfanta\Pagerfanta as BasePagerfanta;
 
 final class Pagerfanta extends BasePagerfanta
@@ -38,3 +38,5 @@ final class Pagerfanta extends BasePagerfanta
         return $this->getAdapter()->getMaxScore();
     }
 }
+
+class_alias(Pagerfanta::class, 'eZ\Publish\Core\Pagination\Pagerfanta\Pagerfanta');

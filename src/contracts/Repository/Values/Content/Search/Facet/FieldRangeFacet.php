@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Search\Facet;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Search\Facet;
 
-use eZ\Publish\API\Repository\Values\Content\Search\Facet;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\Facet;
 
 /**
  * This class represents a field range facet.
@@ -41,7 +41,9 @@ class FieldRangeFacet extends Facet
     /**
      * For each interval there is an entry with statistical data.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Search\Facet\RangeFacetEntry[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\Facet\RangeFacetEntry[]
      */
     public $entries;
 }
+
+class_alias(FieldRangeFacet::class, 'eZ\Publish\API\Repository\Values\Content\Search\Facet\FieldRangeFacet');

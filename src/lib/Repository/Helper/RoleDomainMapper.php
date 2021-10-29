@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Helper;
+namespace Ibexa\Core\Repository\Helper;
 
-use eZ\Publish\Core\Repository\Mapper\RoleDomainMapper as BaseRoleDomainMapper;
+use Ibexa\Core\Repository\Mapper\RoleDomainMapper as BaseRoleDomainMapper;
 
 /**
  * Internal service to map Role objects between API and SPI values.
@@ -18,3 +18,5 @@ use eZ\Publish\Core\Repository\Mapper\RoleDomainMapper as BaseRoleDomainMapper;
 class RoleDomainMapper extends BaseRoleDomainMapper
 {
 }
+
+class_alias(RoleDomainMapper::class, 'eZ\Publish\Core\Repository\Helper\RoleDomainMapper');

@@ -4,24 +4,24 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\ApiLoader;
+namespace Ibexa\Bundle\Core\ApiLoader;
 
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\Exception\InvalidSearchEngine;
-use eZ\Publish\SPI\Search\Handler as SearchHandler;
+use Ibexa\Bundle\Core\ApiLoader\Exception\InvalidSearchEngine;
+use Ibexa\Contracts\Core\Search\Handler as SearchHandler;
 
 /**
  * The search engine factory.
  */
 class SearchEngineFactory
 {
-    /** @var \eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider */
+    /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */
     private $repositoryConfigurationProvider;
 
     /**
      * Hash of registered search engines.
      * Key is the search engine identifier, value search handler itself.
      *
-     * @var \eZ\Publish\SPI\Search\Handler[]
+     * @var \Ibexa\Contracts\Core\Search\Handler[]
      */
     protected $searchEngines = [];
 
@@ -35,7 +35,7 @@ class SearchEngineFactory
      *
      * Note It is strongly recommended to register a lazy persistent handler.
      *
-     * @param \eZ\Publish\SPI\Search\Handler $searchHandler
+     * @param \Ibexa\Contracts\Core\Search\Handler $searchHandler
      * @param string $searchEngineIdentifier
      */
     public function registerSearchEngine(SearchHandler $searchHandler, $searchEngineIdentifier)
@@ -46,7 +46,7 @@ class SearchEngineFactory
     /**
      * Returns registered search engines.
      *
-     * @return \eZ\Publish\SPI\Search\Handler[]
+     * @return \Ibexa\Contracts\Core\Search\Handler[]
      */
     public function getSearchEngines()
     {
@@ -57,9 +57,9 @@ class SearchEngineFactory
      * Builds search engine identified by its identifier (the "alias" attribute in the service tag),
      * resolved for current siteaccess.
      *
-     * @throws \eZ\Bundle\EzPublishCoreBundle\ApiLoader\Exception\InvalidSearchEngine
+     * @return \Ibexa\Contracts\Core\Search\Handler
      *
-     * @return \eZ\Publish\SPI\Persistence\Handler
+     * @throws \Ibexa\Bundle\Core\ApiLoader\Exception\InvalidSearchEngine
      */
     public function buildSearchEngine()
     {
@@ -81,3 +81,5 @@ class SearchEngineFactory
         return $this->searchEngines[$repositoryConfig['search']['engine']];
     }
 }
+
+class_alias(SearchEngineFactory::class, 'eZ\Bundle\EzPublishCoreBundle\ApiLoader\SearchEngineFactory');

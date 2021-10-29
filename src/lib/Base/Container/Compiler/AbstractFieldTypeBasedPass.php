@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Container\Compiler;
+namespace Ibexa\Core\Base\Container\Compiler;
 
-use eZ\Publish\Core\Base\Container\Compiler\TaggedServiceIdsIterator\BackwardCompatibleIterator;
+use Ibexa\Core\Base\Container\Compiler\TaggedServiceIdsIterator\BackwardCompatibleIterator;
 use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -55,3 +55,5 @@ abstract class AbstractFieldTypeBasedPass implements CompilerPassInterface
 
     abstract public function process(ContainerBuilder $container);
 }
+
+class_alias(AbstractFieldTypeBasedPass::class, 'eZ\Publish\Core\Base\Container\Compiler\AbstractFieldTypeBasedPass');

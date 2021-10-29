@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\View;
+namespace Ibexa\Core\MVC\Symfony\View;
 
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
@@ -46,3 +46,5 @@ final class LoginFormView extends BaseView
         ];
     }
 }
+
+class_alias(LoginFormView::class, 'eZ\Publish\Core\MVC\Symfony\View\LoginFormView');

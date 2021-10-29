@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Content\Location\Gateway\SortClauseHandler\Location;
+namespace Ibexa\Core\Search\Legacy\Content\Location\Gateway\SortClauseHandler\Location;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
 /**
  * Content locator gateway implementation using the DoctrineDatabase.
@@ -18,7 +18,7 @@ class Path extends SortClauseHandler
     /**
      * Check if this sort clause handler accepts to handle the given sort clause.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\SortClause $sortClause
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause $sortClause
      *
      * @return bool
      */
@@ -43,3 +43,5 @@ class Path extends SortClauseHandler
         return [$column];
     }
 }
+
+class_alias(Path::class, 'eZ\Publish\Core\Search\Legacy\Content\Location\Gateway\SortClauseHandler\Location\Path');

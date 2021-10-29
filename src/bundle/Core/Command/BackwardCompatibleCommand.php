@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Command;
+namespace Ibexa\Bundle\Core\Command;
 
 interface BackwardCompatibleCommand
 {
@@ -17,3 +17,5 @@ interface BackwardCompatibleCommand
      */
     public function getDeprecatedAliases(): array;
 }
+
+class_alias(BackwardCompatibleCommand::class, 'eZ\Bundle\EzPublishCoreBundle\Command\BackwardCompatibleCommand');

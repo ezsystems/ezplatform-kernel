@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence;
+namespace Ibexa\Core\Persistence;
 
-use eZ\Publish\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
-use eZ\Publish\SPI\FieldType\FieldType as SPIFieldType;
-use eZ\Publish\SPI\Persistence\FieldType as FieldTypeInterface;
+use Ibexa\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
+use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
+use Ibexa\Contracts\Core\Persistence\FieldType as FieldTypeInterface;
 
 /**
  * Registry for field types available to storage engines.
@@ -17,16 +17,16 @@ class FieldTypeRegistry
 {
     /**
      * Map of FieldTypes where key is field type identifier and value is FieldType object complying
-     * to {@link \eZ\Publish\SPI\FieldType\FieldType} interface.
+     * to {@link \Ibexa\Contracts\Core\FieldType\FieldType} interface.
      *
-     * @var \eZ\Publish\SPI\FieldType\FieldType[]
+     * @var \Ibexa\Contracts\Core\FieldType\FieldType[]
      */
     protected $coreFieldTypes;
 
     /**
      * Map of FieldTypes where key is field type identifier and value is FieldType object.
      *
-     * @var \eZ\Publish\SPI\Persistence\FieldType[]
+     * @var \Ibexa\Contracts\Core\Persistence\FieldType[]
      */
     protected $fieldTypes;
 
@@ -34,10 +34,10 @@ class FieldTypeRegistry
      * Creates FieldType registry.
      *
      * In $fieldTypes a mapping of field type identifier to object is expected.
-     * The FieldType object must comply to the {@link \eZ\Publish\SPI\FieldType\FieldType} interface.
+     * The FieldType object must comply to the {@link \Ibexa\Contracts\Core\FieldType\FieldType} interface.
      *
-     * @param \eZ\Publish\Core\Persistence\FieldType[] $coreFieldTypes
-     * @param SPIFieldType[] $fieldTypes A map where key is field type identifier and value is
+     * @param \Ibexa\Core\Persistence\FieldType[] $coreFieldTypes
+     * @param \Ibexa\Contracts\Core\FieldType\FieldType[] $fieldTypes A map where key is field type identifier and value is
      *                                                          a callable factory to get FieldType OR FieldType object.
      */
     public function __construct(array $coreFieldTypes = [], array $fieldTypes = [])
@@ -51,10 +51,10 @@ class FieldTypeRegistry
      *
      * @param string $identifier
      *
-     * @return \eZ\Publish\SPI\Persistence\FieldType
+     * @return \Ibexa\Contracts\Core\Persistence\FieldType
      *
      * @throws \RuntimeException If field type for given $identifier is not instance or callable.
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException If field type for given $identifier is not found.
+     * @throws \Ibexa\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException If field type for given $identifier is not found.
      */
     public function getFieldType(string $identifier): FieldTypeInterface
     {
@@ -79,3 +79,5 @@ class FieldTypeRegistry
         return $this->coreFieldTypes[$identifier];
     }
 }
+
+class_alias(FieldTypeRegistry::class, 'eZ\Publish\Core\Persistence\FieldTypeRegistry');

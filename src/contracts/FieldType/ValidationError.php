@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\FieldType;
+namespace Ibexa\Contracts\Core\FieldType;
 
-use eZ\Publish\API\Repository\Translatable;
+use Ibexa\Contracts\Core\Repository\Translatable;
 
 /**
  * Interface for validation errors.
@@ -38,3 +38,5 @@ interface ValidationError extends Translatable
      */
     public function getTarget();
 }
+
+class_alias(ValidationError::class, 'eZ\Publish\SPI\FieldType\ValidationError');

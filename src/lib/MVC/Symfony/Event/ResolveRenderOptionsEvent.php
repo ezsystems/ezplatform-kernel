@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Event;
+namespace Ibexa\Core\MVC\Symfony\Event;
 
-use eZ\Publish\Core\MVC\Symfony\Templating\RenderOptions;
+use Ibexa\Core\MVC\Symfony\Templating\RenderOptions;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class ResolveRenderOptionsEvent extends Event
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Templating\RenderOptions */
+    /** @var \Ibexa\Core\MVC\Symfony\Templating\RenderOptions */
     private $renderOptions;
 
     public function __construct(
@@ -32,3 +32,5 @@ final class ResolveRenderOptionsEvent extends Event
         $this->renderOptions = $renderOptions;
     }
 }
+
+class_alias(ResolveRenderOptionsEvent::class, 'eZ\Publish\Core\MVC\Symfony\Event\ResolveRenderOptionsEvent');

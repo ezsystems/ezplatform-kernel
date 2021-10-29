@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\URL;
+namespace Ibexa\Contracts\Core\Repository\Events\URL;
 
-use eZ\Publish\API\Repository\Values\URL\URL;
-use eZ\Publish\API\Repository\Values\URL\URLUpdateStruct;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\URL\URL;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeUpdateUrlEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\URL\URL */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\URL\URL */
     private $url;
 
-    /** @var \eZ\Publish\API\Repository\Values\URL\URLUpdateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\URL\URLUpdateStruct */
     private $struct;
 
-    /** @var \eZ\Publish\API\Repository\Values\URL\URL|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\URL\URL|null */
     private $updatedUrl;
 
     public function __construct(URL $url, URLUpdateStruct $struct)
@@ -59,3 +59,5 @@ final class BeforeUpdateUrlEvent extends BeforeEvent
         return $this->updatedUrl instanceof URL;
     }
 }
+
+class_alias(BeforeUpdateUrlEvent::class, 'eZ\Publish\API\Repository\Events\URL\BeforeUpdateUrlEvent');

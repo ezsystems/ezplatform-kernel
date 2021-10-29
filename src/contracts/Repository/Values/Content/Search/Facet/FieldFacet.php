@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Search\Facet;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Search\Facet;
 
-use eZ\Publish\API\Repository\Values\Content\Search\Facet;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\Facet;
 
 /**
  * This class represents a field facet which holds the collected terms for one or more fields.
@@ -47,3 +47,5 @@ class FieldFacet extends Facet
      */
     public $entries;
 }
+
+class_alias(FieldFacet::class, 'eZ\Publish\API\Repository\Values\Content\Search\Facet\FieldFacet');

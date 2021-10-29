@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn;
+namespace Ibexa\Core\QueryType\BuiltIn;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location\Depth;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\MatchNone;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Subtree;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Location\Depth;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\MatchNone;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Subtree;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class SubtreeQueryType extends AbstractLocationQueryType
@@ -53,3 +53,5 @@ final class SubtreeQueryType extends AbstractLocationQueryType
         return new Subtree($location->pathString);
     }
 }
+
+class_alias(SubtreeQueryType::class, 'eZ\Publish\Core\QueryType\BuiltIn\SubtreeQueryType');

@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType;
+namespace Ibexa\Core\FieldType;
 
 use ArrayObject;
-use eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException;
-use eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
 
 /**
  * Container for field type specific properties.
@@ -22,7 +22,7 @@ class FieldSettings extends ArrayObject
      *
      * This is so that only settings specified by a field type can be set.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException On non existing indexes
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException On non existing indexes
      *
      * @param string|int $index
      * @param mixed $value
@@ -41,7 +41,7 @@ class FieldSettings extends ArrayObject
      *
      * @param string $index
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException If $index is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException If $index is not found
      *
      * @return mixed
      */
@@ -54,3 +54,5 @@ class FieldSettings extends ArrayObject
         return parent::offsetGet($index);
     }
 }
+
+class_alias(FieldSettings::class, 'eZ\Publish\Core\FieldType\FieldSettings');

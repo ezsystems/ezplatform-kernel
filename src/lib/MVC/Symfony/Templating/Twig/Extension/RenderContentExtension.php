@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension;
+namespace Ibexa\Core\MVC\Symfony\Templating\Twig\Extension;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\Core\MVC\Symfony\Event\ResolveRenderOptionsEvent;
-use eZ\Publish\Core\MVC\Symfony\Templating\RenderContentStrategy;
-use eZ\Publish\Core\MVC\Symfony\Templating\RenderOptions;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Core\MVC\Symfony\Event\ResolveRenderOptionsEvent;
+use Ibexa\Core\MVC\Symfony\Templating\RenderContentStrategy;
+use Ibexa\Core\MVC\Symfony\Templating\RenderOptions;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -21,7 +21,7 @@ use Twig\TwigFunction;
  */
 final class RenderContentExtension extends AbstractExtension
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Templating\RenderContentStrategy */
+    /** @var \Ibexa\Core\MVC\Symfony\Templating\RenderContentStrategy */
     private $renderContentStrategy;
 
     /** @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface */
@@ -56,3 +56,5 @@ final class RenderContentExtension extends AbstractExtension
         return $this->renderContentStrategy->render($content, $event->getRenderOptions());
     }
 }
+
+class_alias(RenderContentExtension::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\RenderContentExtension');

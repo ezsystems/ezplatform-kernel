@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\LocationResolver;
+namespace Ibexa\Core\Repository\LocationResolver;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException as CoreNotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Base\Exceptions\NotFoundException as CoreNotFoundException;
 
 /**
  * @internal For internal use by eZ Platform core packages
  */
 final class PermissionAwareLocationResolver implements LocationResolver
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
     public function __construct(LocationService $locationService)
@@ -29,9 +29,9 @@ final class PermissionAwareLocationResolver implements LocationResolver
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function resolveLocation(ContentInfo $contentInfo): Location
     {
@@ -57,3 +57,5 @@ final class PermissionAwareLocationResolver implements LocationResolver
         return $location;
     }
 }
+
+class_alias(PermissionAwareLocationResolver::class, 'eZ\Publish\Core\Repository\LocationResolver\PermissionAwareLocationResolver');

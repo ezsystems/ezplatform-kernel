@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\ProxyFactory;
+namespace Ibexa\Core\Repository\ProxyFactory;
 
 use Closure;
 use ProxyManager\Configuration;
@@ -83,3 +83,5 @@ final class ProxyGenerator implements ProxyGeneratorInterface
         return new LazyLoadingValueHolderFactory($config);
     }
 }
+
+class_alias(ProxyGenerator::class, 'eZ\Publish\Core\Repository\ProxyFactory\ProxyGenerator');

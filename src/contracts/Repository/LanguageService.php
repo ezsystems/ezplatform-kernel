@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository;
+namespace Ibexa\Contracts\Core\Repository;
 
-use eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 
 /**
  * Language service, used for language operations.
@@ -17,46 +17,46 @@ interface LanguageService
     /**
      * Creates the a new Language in the content repository.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct $languageCreateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct $languageCreateStruct
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the languageCode already exists
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if the languageCode already exists
      */
     public function createLanguage(LanguageCreateStruct $languageCreateStruct): Language;
 
     /**
      * Changes the name of the language in the content repository.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      * @param string $newName
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
      */
     public function updateLanguageName(Language $language, string $newName): Language;
 
     /**
      * Enables a language.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
      */
     public function enableLanguage(Language $language): Language;
 
     /**
      * Disables a language.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
      */
     public function disableLanguage(Language $language): Language;
 
@@ -65,16 +65,16 @@ interface LanguageService
      *
      * @param string $languageCode
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if language could not be found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if language could not be found
      */
     public function loadLanguage(string $languageCode): Language;
 
     /**
      * Loads all Languages.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
      */
     public function loadLanguages(): iterable;
 
@@ -83,9 +83,9 @@ interface LanguageService
      *
      * @param int $languageId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if language could not be found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if language could not be found
      */
     public function loadLanguageById(int $languageId): Language;
 
@@ -96,7 +96,7 @@ interface LanguageService
      *
      * @param string[] $languageCodes
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language[] list of Languages with language-code as keys
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[] list of Languages with language-code as keys
      */
     public function loadLanguageListByCode(array $languageCodes): iterable;
 
@@ -107,18 +107,18 @@ interface LanguageService
      *
      * @param int[] $languageIds
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language[] list of Languages with id as keys
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[] list of Languages with id as keys
      */
     public function loadLanguageListById(array $languageIds): iterable;
 
     /**
      * Deletes  a language from content repository.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if language can not be deleted
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if language can not be deleted
      *         because it is still assigned to some content / type / (...).
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If user is not allowed to delete a language
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If user is not allowed to delete a language
      */
     public function deleteLanguage(Language $language): void;
 
@@ -132,7 +132,9 @@ interface LanguageService
     /**
      * Instantiates an object to be used for creating languages.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct
      */
     public function newLanguageCreateStruct(): LanguageCreateStruct;
 }
+
+class_alias(LanguageService::class, 'eZ\Publish\API\Repository\LanguageService');

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
 
 /**
  * Marker interface for location based aggregation.
@@ -14,3 +14,5 @@ namespace eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
 interface LocationAggregation
 {
 }
+
+class_alias(LocationAggregation::class, 'eZ\Publish\API\Repository\Values\Content\Query\Aggregation\LocationAggregation');

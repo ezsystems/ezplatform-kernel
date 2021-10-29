@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content;
+namespace Ibexa\Contracts\Core\Persistence\Content;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 /**
  * UrlAlias models one url alias path element separated by '/' in urls.
@@ -103,3 +103,5 @@ class UrlAlias extends ValueObject
      */
     public $forward;
 }
+
+class_alias(UrlAlias::class, 'eZ\Publish\SPI\Persistence\Content\UrlAlias');

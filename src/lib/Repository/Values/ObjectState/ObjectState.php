@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Values\ObjectState;
+namespace Ibexa\Core\Repository\Values\ObjectState;
 
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectState as APIObjectState;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup as APIObjectStateGroup;
-use eZ\Publish\Core\Repository\Values\MultiLanguageDescriptionTrait;
-use eZ\Publish\Core\Repository\Values\MultiLanguageNameTrait;
-use eZ\Publish\Core\Repository\Values\MultiLanguageTrait;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState as APIObjectState;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup as APIObjectStateGroup;
+use Ibexa\Core\Repository\Values\MultiLanguageDescriptionTrait;
+use Ibexa\Core\Repository\Values\MultiLanguageNameTrait;
+use Ibexa\Core\Repository\Values\MultiLanguageTrait;
 
 /**
  * This class represents a object state value.
@@ -33,13 +33,13 @@ class ObjectState extends APIObjectState
     use MultiLanguageNameTrait;
     use MultiLanguageDescriptionTrait;
 
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup */
     protected $objectStateGroup;
 
     /**
      * The object state group this object state belongs to.
      *
-     * @return \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup
+     * @return \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup
      */
     public function getObjectStateGroup(): APIObjectStateGroup
     {
@@ -87,3 +87,5 @@ class ObjectState extends APIObjectState
         return parent::__isset($property);
     }
 }
+
+class_alias(ObjectState::class, 'eZ\Publish\Core\Repository\Values\ObjectState\ObjectState');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content\UrlWildcard;
+namespace Ibexa\Contracts\Core\Persistence\Content\UrlWildcard;
 
-use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
+use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard;
 
 /**
  * The UrlWildcard Handler interface provides nice urls with wildcards management.
@@ -23,7 +23,7 @@ interface Handler
      * @param string $destinationUrl
      * @param bool $forward
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlWildcard
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlWildcard
      */
     public function create($sourceUrl, $destinationUrl, $forward = false);
 
@@ -37,7 +37,7 @@ interface Handler
     /**
      * removes an url wildcard.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the url wild card was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the url wild card was not found
      *
      * @param mixed $id
      */
@@ -46,11 +46,11 @@ interface Handler
     /**
      * Loads a url wild card.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the url wild card was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the url wild card was not found
      *
      * @param mixed $id
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlWildcard
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlWildcard
      */
     public function load($id);
 
@@ -60,18 +60,18 @@ interface Handler
      * @param int $offset
      * @param int $limit
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlWildcard[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlWildcard[]
      */
     public function loadAll($offset = 0, $limit = -1);
 
     /**
      * Performs lookup for given (source) URL.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the url wild card was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the url wild card was not found
      *
      * @param string $sourceUrl
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlWildcard
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlWildcard
      */
     public function translate(string $sourceUrl): UrlWildcard;
 
@@ -84,3 +84,5 @@ interface Handler
      */
     public function exactSourceUrlExists(string $sourceUrl): bool;
 }
+
+class_alias(Handler::class, 'eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler');

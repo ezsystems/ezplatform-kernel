@@ -6,25 +6,25 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\Handler;
+namespace Ibexa\Core\Persistence\Legacy\Filter\Handler;
 
-use eZ\Publish\API\Repository\Values\Filter\Filter;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationLegacyMapper;
-use eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Content\GatewayDataMapper as ContentGatewayDataMapper;
-use eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Gateway;
-use eZ\Publish\SPI\Persistence\Content\LocationWithContentInfo;
-use eZ\Publish\SPI\Persistence\Filter\Location\Handler;
-use eZ\Publish\SPI\Persistence\Filter\Location\LazyLocationListIterator;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationLegacyMapper;
+use Ibexa\Core\Persistence\Legacy\Filter\Gateway\Content\GatewayDataMapper as ContentGatewayDataMapper;
+use Ibexa\Core\Persistence\Legacy\Filter\Gateway\Gateway;
+use Ibexa\Contracts\Core\Persistence\Content\LocationWithContentInfo;
+use Ibexa\Contracts\Core\Persistence\Filter\Location\Handler;
+use Ibexa\Contracts\Core\Persistence\Filter\Location\LazyLocationListIterator;
 
 class LocationFilteringHandler implements Handler
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Gateway */
+    /** @var \Ibexa\Core\Persistence\Legacy\Filter\Gateway\Gateway */
     private $gateway;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Location\Mapper */
     private $locationMapper;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Content\GatewayDataMapper */
+    /** @var \Ibexa\Core\Persistence\Legacy\Filter\Gateway\Content\GatewayDataMapper */
     private $contentGatewayDataMapper;
 
     public function __construct(
@@ -69,3 +69,5 @@ class LocationFilteringHandler implements Handler
         return $list;
     }
 }
+
+class_alias(LocationFilteringHandler::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\Handler\LocationFilteringHandler');

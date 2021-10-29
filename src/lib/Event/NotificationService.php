@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Event;
+namespace Ibexa\Core\Event;
 
-use eZ\Publish\API\Repository\NotificationService as NotificationServiceInterface;
-use eZ\Publish\API\Repository\Values\Notification\CreateStruct;
-use eZ\Publish\API\Repository\Values\Notification\Notification;
-use eZ\Publish\API\Repository\Events\Notification\BeforeCreateNotificationEvent;
-use eZ\Publish\API\Repository\Events\Notification\BeforeDeleteNotificationEvent;
-use eZ\Publish\API\Repository\Events\Notification\BeforeMarkNotificationAsReadEvent;
-use eZ\Publish\API\Repository\Events\Notification\CreateNotificationEvent;
-use eZ\Publish\API\Repository\Events\Notification\DeleteNotificationEvent;
-use eZ\Publish\API\Repository\Events\Notification\MarkNotificationAsReadEvent;
-use eZ\Publish\SPI\Repository\Decorator\NotificationServiceDecorator;
+use Ibexa\Contracts\Core\Repository\NotificationService as NotificationServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Notification\CreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification;
+use Ibexa\Contracts\Core\Repository\Events\Notification\BeforeCreateNotificationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Notification\BeforeDeleteNotificationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Notification\BeforeMarkNotificationAsReadEvent;
+use Ibexa\Contracts\Core\Repository\Events\Notification\CreateNotificationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Notification\DeleteNotificationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Notification\MarkNotificationAsReadEvent;
+use Ibexa\Contracts\Core\Repository\Decorator\NotificationServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class NotificationService extends NotificationServiceDecorator
@@ -92,3 +92,5 @@ class NotificationService extends NotificationServiceDecorator
         );
     }
 }
+
+class_alias(NotificationService::class, 'eZ\Publish\Core\Event\NotificationService');

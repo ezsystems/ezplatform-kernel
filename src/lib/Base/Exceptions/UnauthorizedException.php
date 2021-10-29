@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Exceptions;
+namespace Ibexa\Core\Base\Exceptions;
 
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException as APIUnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException as APIUnauthorizedException;
 use Exception;
-use eZ\Publish\Core\Base\Translatable;
-use eZ\Publish\Core\Base\TranslatableBase;
+use Ibexa\Core\Base\Translatable;
+use Ibexa\Core\Base\TranslatableBase;
 
 /**
  * UnauthorizedException Exception implementation.
@@ -48,3 +48,5 @@ class UnauthorizedException extends APIUnauthorizedException implements Httpable
         parent::__construct($this->getBaseTranslation(), self::UNAUTHORIZED, $previous);
     }
 }
+
+class_alias(UnauthorizedException::class, 'eZ\Publish\Core\Base\Exceptions\UnauthorizedException');

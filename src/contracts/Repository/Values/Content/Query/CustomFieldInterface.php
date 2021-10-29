@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query;
 
 /**
  * Interface for criteria and sort clauses, which defines a custom field mapping.
@@ -39,3 +39,5 @@ interface CustomFieldInterface
      */
     public function getCustomField(string $type, string $field): ?string;
 }
+
+class_alias(CustomFieldInterface::class, 'eZ\Publish\API\Repository\Values\Content\Query\CustomFieldInterface');

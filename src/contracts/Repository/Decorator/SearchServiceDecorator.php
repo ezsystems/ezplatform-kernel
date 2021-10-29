@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Decorator;
+namespace Ibexa\Contracts\Core\Repository\Decorator;
 
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
 abstract class SearchServiceDecorator implements SearchService
 {
-    /** @var \eZ\Publish\API\Repository\SearchService */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     protected $innerService;
 
     public function __construct(SearchService $innerService)
@@ -71,3 +71,5 @@ abstract class SearchServiceDecorator implements SearchService
         return $this->innerService->supports($capabilityFlag);
     }
 }
+
+class_alias(SearchServiceDecorator::class, 'eZ\Publish\SPI\Repository\Decorator\SearchServiceDecorator');

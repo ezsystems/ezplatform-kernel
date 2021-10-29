@@ -6,24 +6,24 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\UserPreference;
+namespace Ibexa\Core\Persistence\Legacy\UserPreference;
 
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct;
-use eZ\Publish\SPI\Persistence\UserPreference\Handler as HandlerInterface;
-use eZ\Publish\SPI\Persistence\UserPreference\UserPreference;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
+use Ibexa\Contracts\Core\Persistence\UserPreference\Handler as HandlerInterface;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference;
 
 class Handler implements HandlerInterface
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway */
+    /** @var \Ibexa\Core\Persistence\Legacy\UserPreference\Gateway */
     protected $gateway;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\UserPreference\Mapper */
+    /** @var \Ibexa\Core\Persistence\Legacy\UserPreference\Mapper */
     protected $mapper;
 
     /**
-     * @param \eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway $gateway
-     * @param \eZ\Publish\Core\Persistence\Legacy\UserPreference\Mapper $mapper
+     * @param \Ibexa\Core\Persistence\Legacy\UserPreference\Gateway $gateway
+     * @param \Ibexa\Core\Persistence\Legacy\UserPreference\Mapper $mapper
      */
     public function __construct(Gateway $gateway, Mapper $mapper)
     {
@@ -34,7 +34,7 @@ class Handler implements HandlerInterface
     /**
      * {@inheritdoc}
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException
      */
     public function setUserPreference(UserPreferenceSetStruct $setStruct): UserPreference
     {
@@ -46,7 +46,7 @@ class Handler implements HandlerInterface
     /**
      * {@inheritdoc}
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException
      */
     public function getUserPreferenceByUserIdAndName(int $userId, string $name): UserPreference
     {
@@ -79,3 +79,5 @@ class Handler implements HandlerInterface
         );
     }
 }
+
+class_alias(Handler::class, 'eZ\Publish\Core\Persistence\Legacy\UserPreference\Handler');

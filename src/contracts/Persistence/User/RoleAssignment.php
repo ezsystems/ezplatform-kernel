@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\User;
+namespace Ibexa\Contracts\Core\Persistence\User;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 class RoleAssignment extends ValueObject
 {
@@ -45,3 +45,5 @@ class RoleAssignment extends ValueObject
      */
     public $values;
 }
+
+class_alias(RoleAssignment::class, 'eZ\Publish\SPI\Persistence\User\RoleAssignment');

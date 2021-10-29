@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\SiteAccessAware;
+namespace Ibexa\Core\Repository\SiteAccessAware;
 
-use eZ\Publish\API\Repository\TrashService as TrashServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\TrashItem;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Trash\SearchResult;
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult;
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResultList;
+use Ibexa\Contracts\Core\Repository\TrashService as TrashServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList;
 
 /**
  * TrashService for SiteAccessAware layer.
@@ -23,13 +23,13 @@ use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResultList;
  */
 class TrashService implements TrashServiceInterface
 {
-    /** @var \eZ\Publish\API\Repository\TrashService */
+    /** @var \Ibexa\Contracts\Core\Repository\TrashService */
     protected $service;
 
     /**
      * Construct service object from aggregated service.
      *
-     * @param \eZ\Publish\API\Repository\TrashService $service
+     * @param \Ibexa\Contracts\Core\Repository\TrashService $service
      */
     public function __construct(
         TrashServiceInterface $service
@@ -67,3 +67,5 @@ class TrashService implements TrashServiceInterface
         return $this->service->findTrashItems($query);
     }
 }
+
+class_alias(TrashService::class, 'eZ\Publish\Core\Repository\SiteAccessAware\TrashService');

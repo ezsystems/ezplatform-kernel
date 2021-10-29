@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType;
+namespace Ibexa\Core\FieldType;
 
-use eZ\Publish\SPI\FieldType\FieldType as SPIFieldType;
-use eZ\Publish\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
+use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
+use Ibexa\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
 
 /**
  * Registry for SPI FieldTypes.
@@ -16,14 +16,14 @@ use eZ\Publish\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
  */
 class FieldTypeRegistry
 {
-    /** @var \eZ\Publish\SPI\FieldType\FieldType[] Hash of SPI FieldTypes where key is identifier */
+    /** @var \Ibexa\Contracts\Core\FieldType\FieldType[] Hash of SPI FieldTypes where key is identifier */
     protected $fieldTypes;
 
     /** @var string[] */
     private $concreteFieldTypesIdentifiers;
 
     /**
-     * @param \eZ\Publish\SPI\FieldType\FieldType[] $fieldTypes Hash of SPI FieldTypes where key is identifier
+     * @param \Ibexa\Contracts\Core\FieldType\FieldType[] $fieldTypes Hash of SPI FieldTypes where key is identifier
      */
     public function __construct(array $fieldTypes = [])
     {
@@ -33,7 +33,7 @@ class FieldTypeRegistry
     /**
      * Returns a list of all SPI FieldTypes.
      *
-     * @return \eZ\Publish\SPI\FieldType\FieldType[]
+     * @return \Ibexa\Contracts\Core\FieldType\FieldType[]
      */
     public function getFieldTypes(): array
     {
@@ -43,11 +43,11 @@ class FieldTypeRegistry
     /**
      * Return a SPI FieldType object.
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException If $identifier was not found
+     * @throws \Ibexa\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException If $identifier was not found
      *
      * @param string $identifier
      *
-     * @return \eZ\Publish\SPI\FieldType\FieldType
+     * @return \Ibexa\Contracts\Core\FieldType\FieldType
      */
     public function getFieldType($identifier): SPIFieldType
     {
@@ -91,3 +91,5 @@ class FieldTypeRegistry
         return $this->concreteFieldTypesIdentifiers;
     }
 }
+
+class_alias(FieldTypeRegistry::class, 'eZ\Publish\Core\FieldType\FieldTypeRegistry');

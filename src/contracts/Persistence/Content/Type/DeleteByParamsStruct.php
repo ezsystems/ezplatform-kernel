@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content\Type;
+namespace Ibexa\Contracts\Core\Persistence\Content\Type;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 class DeleteByParamsStruct extends ValueObject
 {
@@ -20,3 +20,5 @@ class DeleteByParamsStruct extends ValueObject
      */
     public $status;
 }
+
+class_alias(DeleteByParamsStruct::class, 'eZ\Publish\SPI\Persistence\Content\Type\DeleteByParamsStruct');

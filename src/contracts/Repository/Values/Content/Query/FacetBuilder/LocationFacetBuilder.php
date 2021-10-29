@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\FacetBuilder;
 
-use eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\FacetBuilder;
 
 /**
  * Build a Subtree facet.
@@ -25,7 +25,9 @@ class LocationFacetBuilder extends FacetBuilder
     /**
      * The parent location.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Location
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location
      */
     public $location;
 }
+
+class_alias(LocationFacetBuilder::class, 'eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder\LocationFacetBuilder');

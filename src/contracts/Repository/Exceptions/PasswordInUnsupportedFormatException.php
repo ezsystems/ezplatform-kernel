@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Exceptions;
+namespace Ibexa\Contracts\Core\Repository\Exceptions;
 
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Throwable;
@@ -18,3 +18,5 @@ class PasswordInUnsupportedFormatException extends AuthenticationException
         parent::__construct("User's password is in a format which is not supported any more.", 0, $previous);
     }
 }
+
+class_alias(PasswordInUnsupportedFormatException::class, 'eZ\Publish\API\Repository\Exceptions\PasswordInUnsupportedFormatException');

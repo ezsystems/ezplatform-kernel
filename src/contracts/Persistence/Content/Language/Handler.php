@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content\Language;
+namespace Ibexa\Contracts\Core\Persistence\Content\Language;
 
-use eZ\Publish\SPI\Persistence\Content\Language;
+use Ibexa\Contracts\Core\Persistence\Content\Language;
 
 /**
  * Language Handler interface.
@@ -16,16 +16,16 @@ interface Handler
     /**
      * Create a new language.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Language\CreateStruct $struct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct $struct
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language
      */
     public function create(CreateStruct $struct);
 
     /**
      * Update language.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Language $struct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Language $struct
      */
     public function update(Language $struct);
 
@@ -34,9 +34,9 @@ interface Handler
      *
      * @param mixed $id
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If language could not be found by $id
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If language could not be found by $id
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language
      */
     public function load($id);
 
@@ -48,7 +48,7 @@ interface Handler
      *
      * @param array $ids
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language[]|iterable
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language[]|iterable
      */
     public function loadList(array $ids): iterable;
 
@@ -57,9 +57,9 @@ interface Handler
      *
      * @param string $languageCode
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If language could not be found by $languageCode
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If language could not be found by $languageCode
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language
      */
     public function loadByLanguageCode($languageCode);
 
@@ -71,7 +71,7 @@ interface Handler
      *
      * @param string[] $languageCodes
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language[]|iterable
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language[]|iterable
      */
     public function loadListByLanguageCodes(array $languageCodes): iterable;
 
@@ -80,7 +80,7 @@ interface Handler
      *
      * Return list of languages where key of hash is language code.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language[]
      */
     public function loadAll();
 
@@ -93,3 +93,5 @@ interface Handler
      */
     public function delete($id);
 }
+
+class_alias(Handler::class, 'eZ\Publish\SPI\Persistence\Content\Language\Handler');

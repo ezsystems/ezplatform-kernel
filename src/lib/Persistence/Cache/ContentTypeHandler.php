@@ -4,23 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache;
+namespace Ibexa\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandlerInterface;
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Persistence\Content\Type\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandlerInterface;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
 
-/**
- * ContentType cache.
- *
- * Caches defined (published) content types and content type groups.
- *
- * @see \eZ\Publish\SPI\Persistence\Content\Type\Handler
- */
 class ContentTypeHandler extends AbstractInMemoryPersistenceHandler implements ContentTypeHandlerInterface
 {
     private const TYPE_IDENTIFIER = 'type';
@@ -583,7 +576,7 @@ class ContentTypeHandler extends AbstractInMemoryPersistenceHandler implements C
      * @param int $contentTypeId
      * @param string $languageCode
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      *
      * @throws \Psr\Cache\InvalidArgumentException
      */
@@ -617,3 +610,5 @@ class ContentTypeHandler extends AbstractInMemoryPersistenceHandler implements C
         }
     }
 }
+
+class_alias(ContentTypeHandler::class, 'eZ\Publish\Core\Persistence\Cache\ContentTypeHandler');

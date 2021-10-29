@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\TransformationProcessor;
+namespace Ibexa\Core\Persistence\TransformationProcessor;
 
-use eZ\Publish\Core\Persistence\TransformationProcessor;
+use Ibexa\Core\Persistence\TransformationProcessor;
 
 /**
  * Class for processing a set of transformations, loaded from .tr files, on a string.
@@ -16,7 +16,7 @@ class PreprocessedBased extends TransformationProcessor
     /**
      * Constructor.
      *
-     * @param \eZ\Publish\Core\Persistence\TransformationProcessor\PcreCompiler $compiler
+     * @param \Ibexa\Core\Persistence\TransformationProcessor\PcreCompiler $compiler
      * @param string $installDir Base dir for rule loading
      * @param array $ruleFiles
      */
@@ -45,3 +45,5 @@ class PreprocessedBased extends TransformationProcessor
         return $this->compiledRules;
     }
 }
+
+class_alias(PreprocessedBased::class, 'eZ\Publish\Core\Persistence\TransformationProcessor\PreprocessedBased');

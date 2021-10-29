@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Helper\FieldsGroups;
+namespace Ibexa\Core\Helper\FieldsGroups;
 
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider;
+use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -14,7 +14,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class RepositoryConfigFieldsGroupsListFactory
 {
-    /** @var \eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider */
+    /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */
     private $configProvider;
 
     public function __construct(RepositoryConfigurationProvider $configProvider)
@@ -33,3 +33,5 @@ final class RepositoryConfigFieldsGroupsListFactory
         );
     }
 }
+
+class_alias(RepositoryConfigFieldsGroupsListFactory::class, 'eZ\Publish\Core\Helper\FieldsGroups\RepositoryConfigFieldsGroupsListFactory');

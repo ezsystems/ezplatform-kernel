@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Component\Serializer;
+namespace Ibexa\Core\MVC\Symfony\Component\Serializer;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\HostElement;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\HostElement;
 
 final class HostElementNormalizer extends AbstractPropertyWhitelistNormalizer
 {
@@ -18,10 +18,12 @@ final class HostElementNormalizer extends AbstractPropertyWhitelistNormalizer
     }
 
     /**
-     * @see \eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\HostElement::__sleep
+     * @see \Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\HostElement::__sleep
      */
     protected function getAllowedProperties(): array
     {
         return ['elementNumber', 'hostElements'];
     }
 }
+
+class_alias(HostElementNormalizer::class, 'eZ\Publish\Core\MVC\Symfony\Component\Serializer\HostElementNormalizer');

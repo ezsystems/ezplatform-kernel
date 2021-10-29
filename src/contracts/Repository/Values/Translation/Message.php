@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Values\Translation;
+namespace Ibexa\Contracts\Core\Repository\Values\Translation;
 
-use eZ\Publish\API\Repository\Values\Translation;
+use Ibexa\Contracts\Core\Repository\Values\Translation;
 
 /**
  * Class for translatable messages, which only occur in singular form.
@@ -52,3 +52,5 @@ class Message extends Translation
         return strtr($this->message, $this->values);
     }
 }
+
+class_alias(Message::class, 'eZ\Publish\API\Repository\Values\Translation\Message');

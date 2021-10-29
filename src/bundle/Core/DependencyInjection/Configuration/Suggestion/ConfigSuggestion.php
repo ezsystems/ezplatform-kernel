@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion;
 
 /**
  * ConfigSuggestion is a value object holding a suggestion change for semantic configuration.
@@ -86,3 +86,5 @@ class ConfigSuggestion
         return $this->mandatory;
     }
 }
+
+class_alias(ConfigSuggestion::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\ConfigSuggestion');

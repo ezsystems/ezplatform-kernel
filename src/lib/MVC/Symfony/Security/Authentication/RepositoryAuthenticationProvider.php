@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security\Authentication;
+namespace Ibexa\Core\MVC\Symfony\Security\Authentication;
 
-use eZ\Publish\API\Repository\Exceptions\PasswordInUnsupportedFormatException;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\Core\MVC\Symfony\Security\UserInterface as EzUserInterface;
-use eZ\Publish\Core\Repository\User\Exception\UnsupportedPasswordHashType;
+use Ibexa\Contracts\Core\Repository\Exceptions\PasswordInUnsupportedFormatException;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Core\MVC\Symfony\Security\UserInterface as EzUserInterface;
+use Ibexa\Core\Repository\User\Exception\UnsupportedPasswordHashType;
 use Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -19,10 +19,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class RepositoryAuthenticationProvider extends DaoAuthenticationProvider
 {
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
     public function setPermissionResolver(PermissionResolver $permissionResolver)
@@ -67,7 +67,7 @@ class RepositoryAuthenticationProvider extends DaoAuthenticationProvider
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\PasswordInUnsupportedFormatException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\PasswordInUnsupportedFormatException
      */
     public function authenticate(TokenInterface $token)
     {
@@ -78,3 +78,5 @@ class RepositoryAuthenticationProvider extends DaoAuthenticationProvider
         }
     }
 }
+
+class_alias(RepositoryAuthenticationProvider::class, 'eZ\Publish\Core\MVC\Symfony\Security\Authentication\RepositoryAuthenticationProvider');

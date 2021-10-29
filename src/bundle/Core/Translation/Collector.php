@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Translation;
+namespace Ibexa\Bundle\Core\Translation;
 
 /**
  * Interface for collecting translations.
@@ -16,3 +16,5 @@ interface Collector
      */
     public function collect();
 }
+
+class_alias(Collector::class, 'eZ\Bundle\EzPublishCoreBundle\Translation\Collector');

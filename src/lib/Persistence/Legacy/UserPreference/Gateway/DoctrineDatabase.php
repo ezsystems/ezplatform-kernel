@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\UserPreference\Gateway;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
-use eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway;
-use eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct;
+use Ibexa\Core\Persistence\Legacy\UserPreference\Gateway;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
 
 class DoctrineDatabase extends Gateway
 {
@@ -136,3 +136,5 @@ class DoctrineDatabase extends Gateway
         ];
     }
 }
+
+class_alias(DoctrineDatabase::class, 'eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway\DoctrineDatabase');

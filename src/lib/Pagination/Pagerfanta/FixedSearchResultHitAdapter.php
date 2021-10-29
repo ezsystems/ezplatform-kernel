@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Pagination\Pagerfanta;
+namespace Ibexa\Core\Pagination\Pagerfanta;
 
-use eZ\Publish\API\Repository\Values\Content\Search\AggregationResultCollection;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResultCollection;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 
 final class FixedSearchResultHitAdapter implements SearchResultAdapter
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Search\SearchResult */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult */
     private $searchResult;
 
     public function __construct(SearchResult $searchResult)
@@ -51,3 +51,5 @@ final class FixedSearchResultHitAdapter implements SearchResultAdapter
         return $this->searchResult->maxScore;
     }
 }
+
+class_alias(FixedSearchResultHitAdapter::class, 'eZ\Publish\Core\Pagination\Pagerfanta\FixedSearchResultHitAdapter');

@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension;
+namespace Ibexa\Core\MVC\Symfony\Templating\Twig\Extension;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\MVC\Symfony\Event\ResolveRenderOptionsEvent;
-use eZ\Publish\Core\MVC\Symfony\Templating\RenderOptions;
-use eZ\Publish\SPI\MVC\Templating\RenderStrategy;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\MVC\Symfony\Event\ResolveRenderOptionsEvent;
+use Ibexa\Core\MVC\Symfony\Templating\RenderOptions;
+use Ibexa\Contracts\Core\MVC\Templating\RenderStrategy;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -22,7 +22,7 @@ use Twig\TwigFunction;
  */
 final class RenderExtension extends AbstractExtension
 {
-    /** @var \eZ\Publish\SPI\MVC\Templating\RenderStrategy */
+    /** @var \Ibexa\Contracts\Core\MVC\Templating\RenderStrategy */
     private $renderStrategy;
 
     /** @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface */
@@ -64,3 +64,5 @@ final class RenderExtension extends AbstractExtension
         return $this->renderStrategy->render($valueObject, $event->getRenderOptions());
     }
 }
+
+class_alias(RenderExtension::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\RenderExtension');

@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Section;
+namespace Ibexa\Contracts\Core\Repository\Events\Section;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class AssignSectionEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo */
     private $contentInfo;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Section */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section */
     private $section;
 
     public function __construct(
@@ -38,3 +38,5 @@ final class AssignSectionEvent extends AfterEvent
         return $this->section;
     }
 }
+
+class_alias(AssignSectionEvent::class, 'eZ\Publish\API\Repository\Events\Section\AssignSectionEvent');

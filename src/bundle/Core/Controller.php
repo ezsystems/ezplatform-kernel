@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle;
+namespace Ibexa\Bundle\Core;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Templating\GlobalHelper;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Templating\GlobalHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class Controller extends AbstractController
@@ -34,7 +34,7 @@ class Controller extends AbstractController
     /**
      * Returns the root location object for current siteaccess configuration.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
      */
     public function getRootLocation(): Location
     {
@@ -53,3 +53,5 @@ class Controller extends AbstractController
         );
     }
 }
+
+class_alias(Controller::class, 'eZ\Bundle\EzPublishCoreBundle\Controller');

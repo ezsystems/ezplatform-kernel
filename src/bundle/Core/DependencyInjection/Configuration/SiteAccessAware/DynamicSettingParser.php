@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware;
 
 use OutOfBoundsException;
 
@@ -45,3 +45,5 @@ class DynamicSettingParser implements DynamicSettingParserInterface
         return substr($setting, 1, -1);
     }
 }
+
+class_alias(DynamicSettingParser::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\DynamicSettingParser');

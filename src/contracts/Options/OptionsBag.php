@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Options;
+namespace Ibexa\Contracts\Core\Options;
 
 interface OptionsBag
 {
@@ -21,3 +21,5 @@ interface OptionsBag
 
     public function has(string $key): bool;
 }
+
+class_alias(OptionsBag::class, 'eZ\Publish\SPI\Options\OptionsBag');

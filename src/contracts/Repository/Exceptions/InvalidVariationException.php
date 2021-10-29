@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Exceptions;
+namespace Ibexa\Contracts\Core\Repository\Exceptions;
 
 use Exception;
 
@@ -17,3 +17,5 @@ class InvalidVariationException extends InvalidArgumentException
         parent::__construct("Invalid variation '$variationName' for $variationType", $code, $previous);
     }
 }
+
+class_alias(InvalidVariationException::class, 'eZ\Publish\API\Repository\Exceptions\InvalidVariationException');

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Values\ContentType;
 
 /**
  * This class is used for creating a content type group.
@@ -27,3 +27,5 @@ class ContentTypeGroupCreateStruct extends ContentTypeGroupStruct
      */
     public $creationDate = null;
 }
+
+class_alias(ContentTypeGroupCreateStruct::class, 'eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroupCreateStruct');

@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Events\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class UpdateFieldDefinitionEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft */
     private $contentTypeDraft;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition */
     private $fieldDefinition;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionUpdateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStruct */
     private $fieldDefinitionUpdateStruct;
 
     public function __construct(
@@ -49,3 +49,5 @@ final class UpdateFieldDefinitionEvent extends AfterEvent
         return $this->fieldDefinitionUpdateStruct;
     }
 }
+
+class_alias(UpdateFieldDefinitionEvent::class, 'eZ\Publish\API\Repository\Events\ContentType\UpdateFieldDefinitionEvent');

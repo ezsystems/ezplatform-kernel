@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\User;
+namespace Ibexa\Core\Persistence\Legacy\User;
 
-use eZ\Publish\SPI\Persistence\User;
-use eZ\Publish\SPI\Persistence\User\UserTokenUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\User;
+use Ibexa\Contracts\Core\Persistence\User\UserTokenUpdateStruct;
 
 /**
  * User Gateway.
@@ -43,14 +43,14 @@ abstract class Gateway
     /**
      * Update the user password as specified by the user struct.
      *
-     * @param \eZ\Publish\SPI\Persistence\User $user
+     * @param \Ibexa\Contracts\Core\Persistence\User $user
      */
     abstract public function updateUserPassword(User $user): void;
 
     /**
      * Update a User token specified by UserTokenUpdateStruct.
      *
-     * @see \eZ\Publish\SPI\Persistence\User\UserTokenUpdateStruct
+     * @see \Ibexa\Contracts\Core\Persistence\User\UserTokenUpdateStruct
      */
     abstract public function updateUserToken(UserTokenUpdateStruct $userTokenUpdateStruct): void;
 
@@ -76,3 +76,5 @@ abstract class Gateway
      */
     abstract public function removeRoleAssignmentById(int $roleAssignmentId): void;
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\Persistence\Legacy\User\Gateway');

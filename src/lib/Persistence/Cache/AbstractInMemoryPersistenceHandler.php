@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache;
+namespace Ibexa\Core\Persistence\Cache;
 
-use eZ\Publish\Core\Persistence\Cache\Adapter\TransactionAwareAdapterInterface;
-use eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache;
-use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
+use Ibexa\Core\Persistence\Cache\Adapter\TransactionAwareAdapterInterface;
+use Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache;
+use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
 use Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface;
 
 /**
  * Internal abstract handler for use in other SPI Persistence Cache Handlers.
  *
- * @internal Only for use as abstract in eZ\Publish\Core\Persistence\Cache\*Handlers.
+ * @internal Only for use as a Handler abstract in {@see \Ibexa\Core\Persistence\Cache\}.
  */
 abstract class AbstractInMemoryPersistenceHandler extends AbstractInMemoryHandler
 {
-    /** @var \eZ\Publish\SPI\Persistence\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Handler */
     protected $persistenceHandler;
 
     /** @var \Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface */
@@ -27,10 +27,10 @@ abstract class AbstractInMemoryPersistenceHandler extends AbstractInMemoryHandle
     /**
      * Setups current handler with everything needed.
      *
-     * @param \eZ\Publish\Core\Persistence\Cache\Adapter\TransactionAwareAdapterInterface $cache
-     * @param \eZ\Publish\Core\Persistence\Cache\PersistenceLogger $logger
-     * @param \eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache $inMemory
-     * @param \eZ\Publish\SPI\Persistence\Handler $persistenceHandler
+     * @param \Ibexa\Core\Persistence\Cache\Adapter\TransactionAwareAdapterInterface $cache
+     * @param \Ibexa\Core\Persistence\Cache\PersistenceLogger $logger
+     * @param \Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache $inMemory
+     * @param \Ibexa\Contracts\Core\Persistence\Handler $persistenceHandler
      * @param \Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface $cacheIdentifierGenerator
      */
     public function __construct(
@@ -56,3 +56,5 @@ abstract class AbstractInMemoryPersistenceHandler extends AbstractInMemoryHandle
         // overload to add init logic if needed in handler
     }
 }
+
+class_alias(AbstractInMemoryPersistenceHandler::class, 'eZ\Publish\Core\Persistence\Cache\AbstractInMemoryPersistenceHandler');

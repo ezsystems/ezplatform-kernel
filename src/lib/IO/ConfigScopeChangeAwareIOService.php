@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\IO;
+namespace Ibexa\Core\IO;
 
-use eZ\Publish\Core\IO\Values\BinaryFile;
-use eZ\Publish\Core\IO\Values\BinaryFileCreateStruct;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\SPI\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
+use Ibexa\Core\IO\Values\BinaryFile;
+use Ibexa\Core\IO\Values\BinaryFileCreateStruct;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Contracts\Core\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
 
 class ConfigScopeChangeAwareIOService implements IOServiceInterface, ConfigScopeChangeSubscriber
 {
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \eZ\Publish\Core\IO\IOServiceInterface */
+    /** @var \Ibexa\Core\IO\IOServiceInterface */
     private $innerIOService;
 
     /** @var string */
@@ -118,3 +118,5 @@ class ConfigScopeChangeAwareIOService implements IOServiceInterface, ConfigScope
         $this->setPrefix($this->configResolver->getParameter($this->prefixParameterName));
     }
 }
+
+class_alias(ConfigScopeChangeAwareIOService::class, 'eZ\Publish\Core\IO\ConfigScopeChangeAwareIOService');

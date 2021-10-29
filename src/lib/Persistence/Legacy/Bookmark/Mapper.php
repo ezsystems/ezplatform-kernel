@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Bookmark;
+namespace Ibexa\Core\Persistence\Legacy\Bookmark;
 
-use eZ\Publish\SPI\Persistence\Bookmark\Bookmark;
-use eZ\Publish\SPI\Persistence\Bookmark\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
+use Ibexa\Contracts\Core\Persistence\Bookmark\CreateStruct;
 
 /**
  * Bookmark mapper.
@@ -19,9 +19,9 @@ class Mapper
     /**
      * Creates a Bookmark from $createStruct.
      *
-     * @param \eZ\Publish\SPI\Persistence\Bookmark\CreateStruct $createStruct
+     * @param \Ibexa\Contracts\Core\Persistence\Bookmark\CreateStruct $createStruct
      *
-     * @return \eZ\Publish\SPI\Persistence\Bookmark\Bookmark
+     * @return \Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark
      */
     public function createBookmarkFromCreateStruct(CreateStruct $createStruct): Bookmark
     {
@@ -38,7 +38,7 @@ class Mapper
      *
      * @param array $rows
      *
-     * @return \eZ\Publish\SPI\Persistence\Bookmark\Bookmark[]
+     * @return \Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark[]
      */
     public function extractBookmarksFromRows(array $rows): array
     {
@@ -55,7 +55,7 @@ class Mapper
      *
      * @param array $row
      *
-     * @return \eZ\Publish\SPI\Persistence\Bookmark\Bookmark
+     * @return \Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark
      */
     private function extractBookmarkFromRow(array $row): Bookmark
     {
@@ -68,3 +68,5 @@ class Mapper
         return $bookmark;
     }
 }
+
+class_alias(Mapper::class, 'eZ\Publish\Core\Persistence\Legacy\Bookmark\Mapper');

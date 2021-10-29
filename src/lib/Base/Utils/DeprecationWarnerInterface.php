@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Utils;
+namespace Ibexa\Core\Base\Utils;
 
 /**
  * Utility for logging deprecated error messages.
@@ -18,3 +18,5 @@ interface DeprecationWarnerInterface
      */
     public function log($message);
 }
+
+class_alias(DeprecationWarnerInterface::class, 'eZ\Publish\Core\Base\Utils\DeprecationWarnerInterface');

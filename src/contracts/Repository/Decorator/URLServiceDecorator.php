@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Decorator;
+namespace Ibexa\Contracts\Core\Repository\Decorator;
 
-use eZ\Publish\API\Repository\URLService;
-use eZ\Publish\API\Repository\Values\URL\SearchResult;
-use eZ\Publish\API\Repository\Values\URL\URL;
-use eZ\Publish\API\Repository\Values\URL\URLQuery;
-use eZ\Publish\API\Repository\Values\URL\URLUpdateStruct;
-use eZ\Publish\API\Repository\Values\URL\UsageSearchResult;
+use Ibexa\Contracts\Core\Repository\URLService;
+use Ibexa\Contracts\Core\Repository\Values\URL\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\URL\URL;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\URL\UsageSearchResult;
 
 abstract class URLServiceDecorator implements URLService
 {
-    /** @var \eZ\Publish\API\Repository\URLService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLService */
     protected $innerService;
 
     public function __construct(URLService $innerService)
@@ -60,3 +60,5 @@ abstract class URLServiceDecorator implements URLService
         return $this->innerService->updateUrl($url, $struct);
     }
 }
+
+class_alias(URLServiceDecorator::class, 'eZ\Publish\SPI\Repository\Decorator\URLServiceDecorator');

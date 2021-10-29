@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\MapLocation\MapLocationStorage\Gateway;
+namespace Ibexa\Core\FieldType\MapLocation\MapLocationStorage\Gateway;
 
 use Doctrine\DBAL\Connection;
-use eZ\Publish\Core\FieldType\MapLocation\MapLocationStorage\Gateway;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Ibexa\Core\FieldType\MapLocation\MapLocationStorage\Gateway;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use PDO;
 
 class DoctrineStorage extends Gateway
@@ -30,8 +30,8 @@ class DoctrineStorage extends Gateway
      * Potentially rewrites data in $field and returns true, if the $field
      * needs to be updated in the database.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      *
      * @return bool If restoring of the internal field data is required
      */
@@ -65,10 +65,8 @@ class DoctrineStorage extends Gateway
     /**
      * Perform an update on the field data.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
-     *
-     * @return bool
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      */
     protected function updateFieldData(VersionInfo $versionInfo, Field $field)
     {
@@ -102,8 +100,8 @@ class DoctrineStorage extends Gateway
     /**
      * Store new field data.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      */
     protected function storeNewFieldData(VersionInfo $versionInfo, Field $field)
     {
@@ -130,8 +128,8 @@ class DoctrineStorage extends Gateway
     /**
      * Set the loaded field data into $field->externalData.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      *
      * @return array
      */
@@ -206,7 +204,7 @@ class DoctrineStorage extends Gateway
     /**
      * Delete the data for all given $fieldIds.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
      * @param int[] $fieldIds
      */
     public function deleteFieldData(VersionInfo $versionInfo, array $fieldIds)
@@ -238,3 +236,5 @@ class DoctrineStorage extends Gateway
         $deleteQuery->execute();
     }
 }
+
+class_alias(DoctrineStorage::class, 'eZ\Publish\Core\FieldType\MapLocation\MapLocationStorage\Gateway\DoctrineStorage');

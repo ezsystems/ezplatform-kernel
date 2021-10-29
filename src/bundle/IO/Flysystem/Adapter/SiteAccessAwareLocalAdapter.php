@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishIOBundle\Flysystem\Adapter;
+namespace Ibexa\Bundle\IO\Flysystem\Adapter;
 
-use eZ\Publish\SPI\SiteAccess\ConfigProcessor;
+use Ibexa\Contracts\Core\SiteAccess\ConfigProcessor;
 use League\Flysystem\Adapter\Local;
 use function sprintf;
 
@@ -17,7 +17,7 @@ use function sprintf;
  */
 final class SiteAccessAwareLocalAdapter extends Local
 {
-    /** @var \eZ\Bundle\EzPublishCoreBundle\SiteAccess\Config\ComplexConfigProcessor */
+    /** @var \Ibexa\Bundle\Core\SiteAccess\Config\ComplexConfigProcessor */
     private $configProcessor;
 
     /** @var string */
@@ -47,3 +47,5 @@ final class SiteAccessAwareLocalAdapter extends Local
         return sprintf('%s%s', $this->pathPrefix, $contextPath);
     }
 }
+
+class_alias(SiteAccessAwareLocalAdapter::class, 'eZ\Bundle\EzPublishIOBundle\Flysystem\Adapter\SiteAccessAwareLocalAdapter');

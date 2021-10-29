@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User\Limitation;
+namespace Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
 class SectionLimitation extends RoleLimitation
 {
     /**
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation::getIdentifier()
+     * @see \Ibexa\Contracts\Core\Repository\Values\User\Limitation::getIdentifier()
      *
      * @return string
      */
@@ -22,3 +22,5 @@ class SectionLimitation extends RoleLimitation
         return Limitation::SECTION;
     }
 }
+
+class_alias(SectionLimitation::class, 'eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation');

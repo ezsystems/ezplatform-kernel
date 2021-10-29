@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Content;
+namespace Ibexa\Contracts\Core\Repository\Events\Content;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\ContentMetadataUpdateStruct;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class UpdateContentMetadataEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Content */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */
     private $content;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo */
     private $contentInfo;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\ContentMetadataUpdateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct */
     private $contentMetadataUpdateStruct;
 
     public function __construct(
@@ -49,3 +49,5 @@ final class UpdateContentMetadataEvent extends AfterEvent
         return $this->contentMetadataUpdateStruct;
     }
 }
+
+class_alias(UpdateContentMetadataEvent::class, 'eZ\Publish\API\Repository\Events\Content\UpdateContentMetadataEvent');

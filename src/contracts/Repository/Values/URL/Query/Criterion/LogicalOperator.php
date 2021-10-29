@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\URL\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
 
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
 use InvalidArgumentException;
 
 abstract class LogicalOperator extends Criterion
@@ -50,3 +50,5 @@ abstract class LogicalOperator extends Criterion
         }
     }
 }
+
+class_alias(LogicalOperator::class, 'eZ\Publish\API\Repository\Values\URL\Query\Criterion\LogicalOperator');

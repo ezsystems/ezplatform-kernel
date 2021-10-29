@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
+namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * Content locator gateway implementation using the DoctrineDatabase.
@@ -24,14 +24,14 @@ class Field extends SortClauseHandler
     /**
      * Language handler.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\Language\Handler
+     * @var \Ibexa\Contracts\Core\Persistence\Content\Language\Handler
      */
     protected $languageHandler;
 
     /**
      * Content Type handler.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\Type\Handler
+     * @var \Ibexa\Contracts\Core\Persistence\Content\Type\Handler
      */
     protected $contentTypeHandler;
 
@@ -49,7 +49,7 @@ class Field extends SortClauseHandler
     /**
      * Check if this sort clause handler accepts to handle the given sort clause.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\SortClause $sortClause
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause $sortClause
      *
      * @return bool
      */
@@ -65,7 +65,7 @@ class Field extends SortClauseHandler
      * used for sorting.
      *
      * @param \Doctrine\DBAL\Query\QueryBuilder $query
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\SortClause $sortClause
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause $sortClause
      * @param int $number
      *
      * @return array
@@ -112,7 +112,7 @@ class Field extends SortClauseHandler
         int $number,
         array $languageSettings
     ): void {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target\FieldTarget $fieldTarget */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Target\FieldTarget $fieldTarget */
         $fieldTarget = $sortClause->targetData;
         $fieldMap = $this->contentTypeHandler->getSearchableFieldMap();
 
@@ -237,3 +237,5 @@ class Field extends SortClauseHandler
         );
     }
 }
+
+class_alias(Field::class, 'eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\Field');

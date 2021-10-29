@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Author;
+namespace Ibexa\Core\FieldType\Author;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 /**
  * Value object for an author.
@@ -35,3 +35,5 @@ class Author extends ValueObject
      */
     public $email;
 }
+
+class_alias(Author::class, 'eZ\Publish\Core\FieldType\Author\Author');

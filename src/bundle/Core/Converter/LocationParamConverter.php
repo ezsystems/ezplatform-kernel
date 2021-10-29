@@ -4,13 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Converter;
+namespace Ibexa\Bundle\Core\Converter;
 
-use eZ\Publish\API\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class LocationParamConverter extends RepositoryParamConverter
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
     public function __construct(LocationService $locationService)
@@ -20,7 +21,7 @@ class LocationParamConverter extends RepositoryParamConverter
 
     protected function getSupportedClass()
     {
-        return 'eZ\Publish\API\Repository\Values\Content\Location';
+        return Location::class;
     }
 
     protected function getPropertyName()
@@ -33,3 +34,5 @@ class LocationParamConverter extends RepositoryParamConverter
         return $this->locationService->loadLocation($id);
     }
 }
+
+class_alias(LocationParamConverter::class, 'eZ\Bundle\EzPublishCoreBundle\Converter\LocationParamConverter');

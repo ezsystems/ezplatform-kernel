@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\SiteAccess;
+namespace Ibexa\Bundle\Core\SiteAccess;
 
 /**
  * Allows to filter SiteAccess configuration before it gets processed.
@@ -31,3 +31,5 @@ interface SiteAccessConfigurationFilter
      */
     public function filter(array $siteAccessConfiguration);
 }
+
+class_alias(SiteAccessConfigurationFilter::class, 'eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessConfigurationFilter');

@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Exception;
+namespace Ibexa\Core\QueryType\BuiltIn\SortSpec\Exception;
 
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface;
 use RuntimeException;
 use Throwable;
 
@@ -25,3 +25,5 @@ final class UnsupportedSortClauseException extends RuntimeException
         parent::__construct($message, $code, $previous);
     }
 }
+
+class_alias(UnsupportedSortClauseException::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Exception\UnsupportedSortClauseException');

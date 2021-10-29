@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
 /**
  * @property-read mixed $originalId Original policy ID the policy was created from.
@@ -21,3 +21,5 @@ abstract class PolicyDraft extends Policy
      */
     protected $originalId;
 }
+
+class_alias(PolicyDraft::class, 'eZ\Publish\API\Repository\Values\User\PolicyDraft');

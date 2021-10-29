@@ -4,26 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Image;
+namespace Ibexa\Core\FieldType\Image;
 
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\SPI\FieldType\Indexable;
-use eZ\Publish\SPI\Search;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Contracts\Core\FieldType\Indexable;
+use Ibexa\Contracts\Core\Search;
 
 /**
  * Indexable definition for TextLine field type.
  */
 class SearchField implements Indexable
 {
-    /**
-     * Get index data for field for search backend.
-     *
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition $fieldDefinition
-     *
-     * @return \eZ\Publish\SPI\Search\Field[]
-     */
     public function getIndexData(Field $field, FieldDefinition $fieldDefinition)
     {
         return [
@@ -50,11 +42,6 @@ class SearchField implements Indexable
         ];
     }
 
-    /**
-     * Get index field types for search backend.
-     *
-     * @return \eZ\Publish\SPI\Search\FieldType[]
-     */
     public function getIndexDefinition()
     {
         return [
@@ -93,3 +80,5 @@ class SearchField implements Indexable
         return $this->getDefaultMatchField();
     }
 }
+
+class_alias(SearchField::class, 'eZ\Publish\Core\FieldType\Image\SearchField');

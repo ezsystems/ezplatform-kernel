@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause;
-use eZ\Publish\SPI\Repository\Values\Trash\Query\SortClause as TrashSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Trash\Query\SortClause as TrashSortClause;
 
 /**
  * Sets sort direction on the Location path for a Location query.
@@ -28,3 +28,5 @@ class Path extends Location implements FilteringSortClause, TrashSortClause
         parent::__construct('location_path', $sortDirection);
     }
 }
+
+class_alias(Path::class, 'eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location\Path');

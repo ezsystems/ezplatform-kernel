@@ -6,8 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Tests\Persistence;
+namespace Ibexa\Contracts\Core\Test\Persistence\Fixture;
 
+use Ibexa\Contracts\Core\Test\Persistence\Fixture;
 use PHPUnit\Runner\Exception;
 
 /**
@@ -51,3 +52,5 @@ abstract class BaseInMemoryCachedFileFixture implements Fixture
         return self::$inMemoryCachedLoadedData[$this->filePath] ?? [];
     }
 }
+
+class_alias(BaseInMemoryCachedFileFixture::class, 'eZ\Publish\SPI\Tests\Persistence\BaseInMemoryCachedFileFixture');

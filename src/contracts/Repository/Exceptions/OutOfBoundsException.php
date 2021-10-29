@@ -6,11 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Exceptions;
+namespace Ibexa\Contracts\Core\Repository\Exceptions;
 
-use eZ\Publish\API\Repository\Exceptions\Exception as RepositoryException;
+use Ibexa\Contracts\Core\Repository\Exceptions\Exception as RepositoryException;
 use OutOfBoundsException as BaseOutOfBoundsException;
 
 class OutOfBoundsException extends BaseOutOfBoundsException implements RepositoryException
 {
 }
+
+class_alias(OutOfBoundsException::class, 'eZ\Publish\API\Repository\Exceptions\OutOfBoundsException');

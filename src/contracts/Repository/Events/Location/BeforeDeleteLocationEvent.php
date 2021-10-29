@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Location;
+namespace Ibexa\Contracts\Core\Repository\Events\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 
 final class BeforeDeleteLocationEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
     private $location;
 
     public function __construct(Location $location)
@@ -26,3 +26,5 @@ final class BeforeDeleteLocationEvent extends BeforeEvent
         return $this->location;
     }
 }
+
+class_alias(BeforeDeleteLocationEvent::class, 'eZ\Publish\API\Repository\Events\Location\BeforeDeleteLocationEvent');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content\Relation;
+namespace Ibexa\Contracts\Core\Persistence\Content\Relation;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 /**
  * CreateStruct representing a relation between content.
@@ -44,12 +44,14 @@ class CreateStruct extends ValueObject
     /**
      * Type bitmask.
      *
-     * @see \eZ\Publish\API\Repository\Values\Content\Relation::COMMON,
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::EMBED,
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::LINK,
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::FIELD
+     * @see \Ibexa\Contracts\Core\Repository\Values\Content\Relation::COMMON,
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::EMBED,
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::LINK,
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::FIELD
      *
      * @var int
      */
     public $type;
 }
+
+class_alias(CreateStruct::class, 'eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct');

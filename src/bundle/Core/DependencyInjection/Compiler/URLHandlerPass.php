@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\Core\DependencyInjection\Compiler;
 
 use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -43,3 +43,5 @@ class URLHandlerPass implements CompilerPassInterface
         }
     }
 }
+
+class_alias(URLHandlerPass::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\URLHandlerPass');

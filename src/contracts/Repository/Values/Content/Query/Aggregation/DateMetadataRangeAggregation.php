@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
 
 final class DateMetadataRangeAggregation extends AbstractRangeAggregation
 {
@@ -28,3 +28,5 @@ final class DateMetadataRangeAggregation extends AbstractRangeAggregation
         return $this->type;
     }
 }
+
+class_alias(DateMetadataRangeAggregation::class, 'eZ\Publish\API\Repository\Values\Content\Query\Aggregation\DateMetadataRangeAggregation');

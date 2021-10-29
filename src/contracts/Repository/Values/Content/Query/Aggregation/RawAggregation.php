@@ -6,9 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
 
 interface RawAggregation
 {
     public function getFieldName(): string;
 }
+
+class_alias(RawAggregation::class, 'eZ\Publish\API\Repository\Values\Content\Query\Aggregation\RawAggregation');

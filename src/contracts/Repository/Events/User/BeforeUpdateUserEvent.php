@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\User;
+namespace Ibexa\Contracts\Core\Repository\Events\User;
 
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Values\User\UserUpdateStruct;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\User\UserUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeUpdateUserEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\User */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User */
     private $user;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\UserUpdateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserUpdateStruct */
     private $userUpdateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\User|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User|null */
     private $updatedUser;
 
     public function __construct(User $user, UserUpdateStruct $userUpdateStruct)
@@ -59,3 +59,5 @@ final class BeforeUpdateUserEvent extends BeforeEvent
         return $this->updatedUser instanceof User;
     }
 }
+
+class_alias(BeforeUpdateUserEvent::class, 'eZ\Publish\API\Repository\Events\User\BeforeUpdateUserEvent');

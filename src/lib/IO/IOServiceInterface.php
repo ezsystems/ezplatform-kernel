@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\IO;
+namespace Ibexa\Core\IO;
 
-use eZ\Publish\Core\IO\Values\BinaryFile;
-use eZ\Publish\Core\IO\Values\BinaryFileCreateStruct;
+use Ibexa\Core\IO\Values\BinaryFile;
+use Ibexa\Core\IO\Values\BinaryFileCreateStruct;
 
 /**
  * Interface for Input/Output handling of binary files.
@@ -35,7 +35,7 @@ interface IOServiceInterface
     /**
      * Creates a BinaryFileCreateStruct object from $localFile.
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException When given a non existing / unreadable file
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException When given a non existing / unreadable file
      *
      * @param string $localFile Path to local file
      *
@@ -66,27 +66,27 @@ interface IOServiceInterface
     /**
      * Loads the binary file with $id.
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue If the id is invalid
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue If the id is invalid
      *
      * @param string $binaryFileId
      *
      * @return BinaryFile the file, or false if it doesn't exist
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException If no file identified by $binaryFileId exists
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue If $binaryFileId is invalid
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException If no file identified by $binaryFileId exists
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue If $binaryFileId is invalid
      */
     public function loadBinaryFile($binaryFileId);
 
     /**
      * Loads the binary file with uri $uri.
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue If the id is invalid
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue If the id is invalid
      *
      * @param string $binaryFileUri
      *
      * @return BinaryFile the file, or false if it doesn't exist
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException If no file identified by $binaryFileId exists
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException If no file identified by $binaryFileId exists
      */
     public function loadBinaryFileByUri($binaryFileUri);
 
@@ -95,8 +95,8 @@ interface IOServiceInterface
      *
      * @param BinaryFile $binaryFile
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException If $binaryFile isn't found
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException If $binaryFile isn't found
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue
      *
      * @return string
      */
@@ -107,7 +107,7 @@ interface IOServiceInterface
      *
      * @param BinaryFileCreateStruct $binaryFileCreateStruct
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue
      *
      * @return BinaryFile The created BinaryFile object
      */
@@ -138,7 +138,7 @@ interface IOServiceInterface
      *
      * @param BinaryFile $binaryFile
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue
      *
      * @return resource
      */
@@ -149,14 +149,14 @@ interface IOServiceInterface
      *
      * @param BinaryFile $binaryFile
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue
      */
     public function deleteBinaryFile(BinaryFile $binaryFile);
 
     /**
      * Creates a BinaryFileCreateStruct object from the uploaded file $uploadedFile.
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException When given an invalid uploaded file
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException When given an invalid uploaded file
      *
      * @param array $uploadedFile The $_POST hash of an uploaded file
      *
@@ -171,3 +171,5 @@ interface IOServiceInterface
      */
     public function deleteDirectory($path);
 }
+
+class_alias(IOServiceInterface::class, 'eZ\Publish\Core\IO\IOServiceInterface');

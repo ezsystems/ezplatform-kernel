@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\FieldType\ValidationError;
+namespace Ibexa\Contracts\Core\FieldType\ValidationError;
 
 final class NonConfigurableValidationError extends AbstractValidationError
 {
@@ -21,3 +21,5 @@ final class NonConfigurableValidationError extends AbstractValidationError
         );
     }
 }
+
+class_alias(NonConfigurableValidationError::class, 'eZ\Publish\SPI\FieldType\ValidationError\NonConfigurableValidationError');

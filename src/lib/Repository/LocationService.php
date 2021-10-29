@@ -6,45 +6,45 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository;
+namespace Ibexa\Core\Repository;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\PermissionCriterionResolver;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\LocationUpdateStruct;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
-use eZ\Publish\API\Repository\Values\Content\LocationList;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LanguageCode;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Repository\Mapper\ContentDomainMapper;
-use eZ\Publish\SPI\Limitation\Target;
-use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
-use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
-use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
-use eZ\Publish\API\Repository\Repository as RepositoryInterface;
-use eZ\Publish\SPI\Persistence\Filter\Location\Handler as LocationFilteringHandler;
-use eZ\Publish\SPI\Persistence\Handler;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd as CriterionLogicalAnd;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalNot as CriterionLogicalNot;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Subtree as CriterionSubtree;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\PermissionCriterionResolver;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LanguageCode;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Repository\Mapper\ContentDomainMapper;
+use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
+use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
+use Ibexa\Contracts\Core\Repository\LocationService as LocationServiceInterface;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
+use Ibexa\Contracts\Core\Persistence\Filter\Location\Handler as LocationFilteringHandler;
+use Ibexa\Contracts\Core\Persistence\Handler;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd as CriterionLogicalAnd;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalNot as CriterionLogicalNot;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Subtree as CriterionSubtree;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
 use Exception;
-use eZ\Publish\API\Repository\Values\Filter\Filter;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use function count;
 
 /**
@@ -54,45 +54,45 @@ use function count;
  */
 class LocationService implements LocationServiceInterface
 {
-    /** @var \eZ\Publish\Core\Repository\Repository */
+    /** @var \Ibexa\Core\Repository\Repository */
     protected $repository;
 
-    /** @var \eZ\Publish\SPI\Persistence\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Handler */
     protected $persistenceHandler;
 
     /** @var array */
     protected $settings;
 
-    /** @var \eZ\Publish\Core\Repository\Mapper\ContentDomainMapper */
+    /** @var \Ibexa\Core\Repository\Mapper\ContentDomainMapper */
     protected $contentDomainMapper;
 
-    /** @var \eZ\Publish\Core\Repository\Helper\NameSchemaService */
+    /** @var \Ibexa\Core\Repository\Helper\NameSchemaService */
     protected $nameSchemaService;
 
-    /** @var \eZ\Publish\API\Repository\PermissionCriterionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionCriterionResolver */
     protected $permissionCriterionResolver;
 
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\SPI\Persistence\Filter\Location\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Filter\Location\Handler */
     private $locationFilteringHandler;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     protected $contentTypeService;
 
     /**
      * Setups service with reference to repository object that created it & corresponding handler.
      *
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\SPI\Persistence\Handler $handler
-     * @param \eZ\Publish\Core\Repository\Mapper\ContentDomainMapper $contentDomainMapper
-     * @param \eZ\Publish\Core\Repository\Helper\NameSchemaService $nameSchemaService
-     * @param \eZ\Publish\API\Repository\PermissionCriterionResolver $permissionCriterionResolver
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Persistence\Handler $handler
+     * @param \Ibexa\Core\Repository\Mapper\ContentDomainMapper $contentDomainMapper
+     * @param \Ibexa\Core\Repository\Helper\NameSchemaService $nameSchemaService
+     * @param \Ibexa\Contracts\Core\Repository\PermissionCriterionResolver $permissionCriterionResolver
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
      * @param array $settings
      * @param \Psr\Log\LoggerInterface|null $logger
      */
@@ -128,14 +128,14 @@ class LocationService implements LocationServiceInterface
      *
      * Only the items on which the user has read access are copied.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user is not allowed copy the subtree to the given parent location
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user does not have read access to the whole source subtree
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the target location is a sub location of the given location
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the current user user is not allowed copy the subtree to the given parent location
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the current user user does not have read access to the whole source subtree
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if the target location is a sub location of the given location
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $subtree - the subtree denoted by the location to copy
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $targetParentLocation - the target parent location for the copy operation
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $subtree - the subtree denoted by the location to copy
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $targetParentLocation - the target parent location for the copy operation
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location The newly created location of the copied subtree
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location The newly created location of the copied subtree
      */
     public function copySubtree(APILocation $subtree, APILocation $targetParentLocation): APILocation
     {
@@ -392,7 +392,7 @@ class LocationService implements LocationServiceInterface
     /**
      * Returns the number of children which are readable by the current user of a location object.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      *
      * @return int
      */
@@ -406,11 +406,11 @@ class LocationService implements LocationServiceInterface
     /**
      * Searches children locations of the provided parent location id.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param int $offset
      * @param int $limit
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Search\SearchResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult
      */
     protected function searchChildrenLocations(APILocation $location, $offset = 0, $limit = -1, array $prioritizedLanguages = null)
     {
@@ -427,15 +427,15 @@ class LocationService implements LocationServiceInterface
     /**
      * Creates the new $location in the content repository for the given content.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to create this location
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the content is already below the specified parent
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to create this location
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if the content is already below the specified parent
      *                                        or the parent is a sub location of the location of the content
      *                                        or if set the remoteId exists already
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \eZ\Publish\API\Repository\Values\Content\LocationCreateStruct $locationCreateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct $locationCreateStruct
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location the newly created Location
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location the newly created Location
      */
     public function createLocation(ContentInfo $contentInfo, LocationCreateStruct $locationCreateStruct): APILocation
     {
@@ -523,13 +523,13 @@ class LocationService implements LocationServiceInterface
     /**
      * Updates $location in the content repository.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to update this location
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException   if if set the remoteId exists already
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to update this location
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException   if if set the remoteId exists already
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
-     * @param \eZ\Publish\API\Repository\Values\Content\LocationUpdateStruct $locationUpdateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct $locationUpdateStruct
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location the updated Location
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location the updated Location
      */
     public function updateLocation(APILocation $location, LocationUpdateStruct $locationUpdateStruct): APILocation
     {
@@ -586,10 +586,10 @@ class LocationService implements LocationServiceInterface
     /**
      * Swaps the contents held by $location1 and $location2.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to swap content
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to swap content
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location1
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location2
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location1
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location2
      */
     public function swapLocation(APILocation $location1, APILocation $location2): void
     {
@@ -623,11 +623,11 @@ class LocationService implements LocationServiceInterface
     /**
      * Hides the $location and marks invisible all descendants of $location.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to hide this location
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to hide this location
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location $location, with updated hidden value
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location $location, with updated hidden value
      */
     public function hideLocation(APILocation $location): APILocation
     {
@@ -653,11 +653,11 @@ class LocationService implements LocationServiceInterface
      * This method and marks visible all descendants of $locations
      * until a hidden location is found.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to unhide this location
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to unhide this location
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location $location, with updated hidden value
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location $location, with updated hidden value
      */
     public function unhideLocation(APILocation $location): APILocation
     {
@@ -764,9 +764,9 @@ class LocationService implements LocationServiceInterface
     /**
      * Deletes $location and all its descendants.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user is not allowed to delete this location or a descendant
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the current user is not allowed to delete this location or a descendant
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      */
     public function deleteLocation(APILocation $location): void
     {
@@ -824,9 +824,9 @@ class LocationService implements LocationServiceInterface
      * Instantiates a new location create class.
      *
      * @param mixed $parentLocationId the parent under which the new location should be created
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType|null $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\LocationCreateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct
      */
     public function newLocationCreateStruct($parentLocationId, ContentType $contentType = null): LocationCreateStruct
     {
@@ -844,7 +844,7 @@ class LocationService implements LocationServiceInterface
     /**
      * Instantiates a new location update class.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\LocationUpdateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct
      */
     public function newLocationUpdateStruct(): LocationUpdateStruct
     {
@@ -869,10 +869,10 @@ class LocationService implements LocationServiceInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function loadAllLocations(int $offset = 0, int $limit = 25): array
     {
@@ -928,7 +928,7 @@ class LocationService implements LocationServiceInterface
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function find(Filter $filter, ?array $languages = null): LocationList
     {
@@ -967,3 +967,5 @@ class LocationService implements LocationServiceInterface
         );
     }
 }
+
+class_alias(LocationService::class, 'eZ\Publish\Core\Repository\LocationService');

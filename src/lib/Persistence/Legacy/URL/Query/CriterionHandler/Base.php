@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler;
+namespace Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\URL\Gateway\DoctrineDatabase;
-use eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Core\Persistence\Legacy\URL\Gateway\DoctrineDatabase;
+use Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler;
 
 abstract class Base implements CriterionHandler
 {
@@ -78,3 +78,5 @@ abstract class Base implements CriterionHandler
         return false;
     }
 }
+
+class_alias(Base::class, 'eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler\Base');

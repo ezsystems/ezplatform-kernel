@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Container\Compiler\Search\Legacy;
+namespace Ibexa\Core\Base\Container\Compiler\Search\Legacy;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -46,3 +46,5 @@ class CriterionFieldValueHandlerRegistryPass implements CompilerPassInterface
         }
     }
 }
+
+class_alias(CriterionFieldValueHandlerRegistryPass::class, 'eZ\Publish\Core\Base\Container\Compiler\Search\Legacy\CriterionFieldValueHandlerRegistryPass');

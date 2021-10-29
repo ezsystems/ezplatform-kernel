@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View;
+namespace Ibexa\Core\MVC\Symfony\View;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use RuntimeException;
@@ -39,13 +39,13 @@ class Manager implements ViewManagerInterface
      */
     protected $locationViewProviders = [];
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\Provider\Content[] */
+    /** @var \Ibexa\Core\MVC\Symfony\View\Provider\Content[] */
     protected $sortedContentViewProviders;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\Provider\Location[] */
+    /** @var \Ibexa\Core\MVC\Symfony\View\Provider\Location[] */
     protected $sortedLocationViewProviders;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     protected $repository;
 
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
@@ -62,7 +62,7 @@ class Manager implements ViewManagerInterface
     /** @var ConfigResolverInterface */
     protected $configResolver;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\Configurator */
+    /** @var \Ibexa\Core\MVC\Symfony\View\Configurator */
     private $viewConfigurator;
 
     public function __construct(
@@ -87,7 +87,7 @@ class Manager implements ViewManagerInterface
      * Helper for {@see addContentViewProvider()} and {@see addLocationViewProvider()}.
      *
      * @param array $property
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ViewProvider $viewProvider
+     * @param \Ibexa\Core\MVC\Symfony\View\ViewProvider $viewProvider
      * @param int $priority
      */
     private function addViewProvider(&$property, $viewProvider, $priority)
@@ -104,7 +104,7 @@ class Manager implements ViewManagerInterface
      * Registers $viewProvider as a valid content view provider.
      * When this view provider will be called in the chain depends on $priority. The highest $priority is, the earliest the router will be called.
      *
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ViewProvider $viewProvider
+     * @param \Ibexa\Core\MVC\Symfony\View\ViewProvider $viewProvider
      * @param int $priority
      */
     public function addContentViewProvider(ViewProvider $viewProvider, $priority = 0)
@@ -116,7 +116,7 @@ class Manager implements ViewManagerInterface
      * Registers $viewProvider as a valid location view provider.
      * When this view provider will be called in the chain depends on $priority. The highest $priority is, the earliest the router will be called.
      *
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ViewProvider $viewProvider
+     * @param \Ibexa\Core\MVC\Symfony\View\ViewProvider $viewProvider
      * @param int $priority
      */
     public function addLocationViewProvider(ViewProvider $viewProvider, $priority = 0)
@@ -125,7 +125,7 @@ class Manager implements ViewManagerInterface
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\View\ViewProvider[]
+     * @return \Ibexa\Core\MVC\Symfony\View\ViewProvider[]
      */
     public function getAllContentViewProviders()
     {
@@ -137,7 +137,7 @@ class Manager implements ViewManagerInterface
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\View\ViewProvider[]
+     * @return \Ibexa\Core\MVC\Symfony\View\ViewProvider[]
      */
     public function getAllLocationViewProviders()
     {
@@ -154,7 +154,7 @@ class Manager implements ViewManagerInterface
      *
      * @param array $property view providers to sort
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\View\Provider\Content[]|\eZ\Publish\Core\MVC\Symfony\View\Provider\Location[]|\eZ\Publish\Core\MVC\Symfony\View\Provider\Block[]
+     * @return \Ibexa\Core\MVC\Symfony\View\Provider\Content[]|\Ibexa\Core\MVC\Symfony\View\Provider\Location[]
      */
     protected function sortViewProviders($property)
     {
@@ -172,7 +172,7 @@ class Manager implements ViewManagerInterface
      * Renders $content by selecting the right template.
      * $content will be injected in the selected template.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param string $viewType Variation of display for your content. Default is 'full'.
      * @param array $parameters Parameters to pass to the template called to
      *        render the view. By default, it's empty. 'content' entry is
@@ -203,7 +203,7 @@ class Manager implements ViewManagerInterface
      * Renders $location by selecting the right template for $viewType.
      * $content and $location will be injected in the selected template.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param string $viewType Variation of display for your content. Default is 'full'.
      * @param array $parameters Parameters to pass to the template called to
      *        render the view. By default, it's empty. 'location' and 'content'
@@ -234,7 +234,7 @@ class Manager implements ViewManagerInterface
      * Renders passed ContentView object via the template engine.
      * If $view's template identifier is a closure, then it is called directly and the result is returned as is.
      *
-     * @param \eZ\Publish\Core\MVC\Symfony\View\View $view
+     * @param \Ibexa\Core\MVC\Symfony\View\View $view
      * @param array $defaultParams
      *
      * @return string
@@ -254,3 +254,5 @@ class Manager implements ViewManagerInterface
         return $this->templateEngine->render($templateIdentifier, $params);
     }
 }
+
+class_alias(Manager::class, 'eZ\Publish\Core\MVC\Symfony\View\Manager');

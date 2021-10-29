@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Setting\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\Setting\Gateway;
 
-use eZ\Publish\Core\Base\Exceptions\DatabaseException;
-use eZ\Publish\Core\Persistence\Legacy\Setting\Gateway;
+use Ibexa\Core\Base\Exceptions\DatabaseException;
+use Ibexa\Core\Persistence\Legacy\Setting\Gateway;
 use Doctrine\DBAL\DBALException;
 use PDOException;
 
@@ -18,7 +18,7 @@ use PDOException;
  */
 final class ExceptionConversion extends Gateway
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Setting\Gateway */
+    /** @var \Ibexa\Core\Persistence\Legacy\Setting\Gateway */
     private $innerGateway;
 
     public function __construct(Gateway $innerGateway)
@@ -27,7 +27,7 @@ final class ExceptionConversion extends Gateway
     }
 
     /**
-     * @throw \eZ\Publish\Core\Base\Exceptions\DatabaseException
+     * @throws \Ibexa\Core\Base\Exceptions\DatabaseException
      */
     public function insertSetting(string $group, string $identifier, string $serializedValue): int
     {
@@ -39,7 +39,7 @@ final class ExceptionConversion extends Gateway
     }
 
     /**
-     * @throw \eZ\Publish\Core\Base\Exceptions\DatabaseException
+     * @throws \Ibexa\Core\Base\Exceptions\DatabaseException
      */
     public function updateSetting(string $group, string $identifier, string $serializedValue): void
     {
@@ -51,7 +51,7 @@ final class ExceptionConversion extends Gateway
     }
 
     /**
-     * @throw \eZ\Publish\Core\Base\Exceptions\DatabaseException
+     * @throws \Ibexa\Core\Base\Exceptions\DatabaseException
      */
     public function loadSetting(string $group, string $identifier): ?array
     {
@@ -63,7 +63,7 @@ final class ExceptionConversion extends Gateway
     }
 
     /**
-     * @throw \eZ\Publish\Core\Base\Exceptions\DatabaseException
+     * @throws \Ibexa\Core\Base\Exceptions\DatabaseException
      */
     public function loadSettingById(int $id): ?array
     {
@@ -75,7 +75,7 @@ final class ExceptionConversion extends Gateway
     }
 
     /**
-     * @throw \eZ\Publish\Core\Base\Exceptions\DatabaseException
+     * @throws \Ibexa\Core\Base\Exceptions\DatabaseException
      */
     public function deleteSetting(string $group, string $identifier): void
     {
@@ -86,3 +86,5 @@ final class ExceptionConversion extends Gateway
         }
     }
 }
+
+class_alias(ExceptionConversion::class, 'eZ\Publish\Core\Persistence\Legacy\Setting\Gateway\ExceptionConversion');

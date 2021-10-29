@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security;
+namespace Ibexa\Core\MVC\Symfony\Security;
 
-use eZ\Publish\API\Repository\Values\User\User as APIUser;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
 use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 
 /**
@@ -15,14 +15,16 @@ use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 interface UserInterface extends BaseUserInterface
 {
     /**
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     public function getAPIUser();
 
     /**
      * @deprecated Will be replaced by {@link ReferenceUserInterface::getAPIUser()}, adding LogicException to signature.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\User $apiUser
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $apiUser
      */
     public function setAPIUser(APIUser $apiUser);
 }
+
+class_alias(UserInterface::class, 'eZ\Publish\Core\MVC\Symfony\Security\UserInterface');

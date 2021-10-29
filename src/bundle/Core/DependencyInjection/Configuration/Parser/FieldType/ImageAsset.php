@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\FieldType;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\FieldType;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\AbstractFieldTypeParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
-use eZ\Publish\Core\FieldType\ImageAsset\Type as ImageAssetFieldType;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\AbstractFieldTypeParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use Ibexa\Core\FieldType\ImageAsset\Type as ImageAssetFieldType;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 class ImageAsset extends AbstractFieldTypeParser
@@ -63,3 +63,5 @@ class ImageAsset extends AbstractFieldTypeParser
         }
     }
 }
+
+class_alias(ImageAsset::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\FieldType\ImageAsset');

@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Controller\Content;
+namespace Ibexa\Core\MVC\Symfony\Controller\Content;
 
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\Core\MVC\Symfony\View\ContentView;
-use eZ\Publish\Core\Pagination\Pagerfanta\Pagerfanta;
-use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchHitAdapter;
-use eZ\Publish\Core\Pagination\Pagerfanta\LocationSearchHitAdapter;
-use eZ\Publish\Core\QueryType\ContentViewQueryTypeMapper;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Core\MVC\Symfony\View\ContentView;
+use Ibexa\Core\Pagination\Pagerfanta\Pagerfanta;
+use Ibexa\Core\Pagination\Pagerfanta\ContentSearchHitAdapter;
+use Ibexa\Core\Pagination\Pagerfanta\LocationSearchHitAdapter;
+use Ibexa\Core\QueryType\ContentViewQueryTypeMapper;
 use Pagerfanta\Adapter\AdapterInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -24,10 +24,10 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class QueryController
 {
-    /** @var \eZ\Publish\API\Repository\SearchService */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     private $searchService;
 
-    /** @var \eZ\Publish\Core\QueryType\ContentViewQueryTypeMapper */
+    /** @var \Ibexa\Core\QueryType\ContentViewQueryTypeMapper */
     private $contentViewQueryTypeMapper;
 
     public function __construct(
@@ -95,10 +95,10 @@ class QueryController
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\View\ContentView
+     * @return \Ibexa\Core\MVC\Symfony\View\ContentView
      */
     public function pagingQueryAction(ContentView $view, Request $request)
     {
@@ -108,7 +108,7 @@ class QueryController
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      * @param \Symfony\Component\HttpFoundation\Request $request
      */
     private function runPagingQuery(ContentView $view, Request $request)
@@ -131,7 +131,7 @@ class QueryController
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Query $query
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query $query
      *
      * @return \Pagerfanta\Adapter\AdapterInterface
      */
@@ -144,3 +144,5 @@ class QueryController
         return new ContentSearchHitAdapter($query, $this->searchService);
     }
 }
+
+class_alias(QueryController::class, 'eZ\Publish\Core\MVC\Symfony\Controller\Content\QueryController');

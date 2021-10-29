@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Type;
+namespace Ibexa\Core\Persistence\Legacy\Content\Type;
 
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\Type\Group;
-use eZ\Publish\SPI\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 
 /**
  * Content Type Gateway.
@@ -57,14 +57,14 @@ abstract class Gateway
     abstract public function loadTypesDataForGroup(int $groupId, int $status): array;
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the given language does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the given language does not exist
      */
     abstract public function insertType(Type $type, ?int $typeId = null): int;
 
     /**
      * Assign a Content Type of the given status (published, draft) to Content Type Group.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the given Group does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the given Group does not exist
      */
     abstract public function insertGroupAssignment(int $groupId, int $typeId, int $status): void;
 
@@ -105,7 +105,7 @@ abstract class Gateway
     /**
      * Update a Content Type based on the given SPI Persistence Type Value Object.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if at least one of the used languages does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if at least one of the used languages does not exist
      */
     abstract public function updateType(int $typeId, int $status, Type $type): void;
 
@@ -154,7 +154,7 @@ abstract class Gateway
     /**
      * Remove Field Definition data from multilingual table.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the given language does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the given language does not exist
      */
     abstract public function removeFieldDefinitionTranslation(
         int $fieldDefinitionId,
@@ -167,3 +167,5 @@ abstract class Gateway
      */
     abstract public function removeByUserAndVersion(int $userId, int $version): void;
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway');

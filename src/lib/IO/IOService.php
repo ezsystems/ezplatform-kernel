@@ -4,33 +4,33 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\IO;
+namespace Ibexa\Core\IO;
 
 use Exception;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
-use eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException;
-use eZ\Publish\Core\IO\Exception\InvalidBinaryFileIdException;
-use eZ\Publish\Core\IO\Exception\InvalidBinaryPrefixException;
-use eZ\Publish\Core\IO\Exception\IOException;
-use eZ\Publish\Core\IO\Values\BinaryFile;
-use eZ\Publish\Core\IO\Values\BinaryFileCreateStruct;
-use eZ\Publish\SPI\IO\BinaryFile as SPIBinaryFile;
-use eZ\Publish\SPI\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
-use eZ\Publish\SPI\IO\MimeTypeDetector;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
+use Ibexa\Core\IO\Exception\InvalidBinaryFileIdException;
+use Ibexa\Core\IO\Exception\InvalidBinaryPrefixException;
+use Ibexa\Core\IO\Exception\IOException;
+use Ibexa\Core\IO\Values\BinaryFile;
+use Ibexa\Core\IO\Values\BinaryFileCreateStruct;
+use Ibexa\Contracts\Core\IO\BinaryFile as SPIBinaryFile;
+use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
+use Ibexa\Contracts\Core\IO\MimeTypeDetector;
 
 /**
  * The io service for managing binary files.
  */
 class IOService implements IOServiceInterface
 {
-    /** @var \eZ\Publish\Core\IO\IOBinarydataHandler */
+    /** @var \Ibexa\Core\IO\IOBinarydataHandler */
     protected $binarydataHandler;
 
-    /** @var \eZ\Publish\Core\IO\IOMetadataHandler */
+    /** @var \Ibexa\Core\IO\IOMetadataHandler */
     protected $metadataHandler;
 
-    /** @var \eZ\Publish\SPI\IO\MimeTypeDetector */
+    /** @var \Ibexa\Contracts\Core\IO\MimeTypeDetector */
     protected $mimeTypeDetector;
 
     /** @var array */
@@ -224,9 +224,9 @@ class IOService implements IOServiceInterface
     /**
      * Generates SPI BinaryFileCreateStruct object from provided API BinaryFileCreateStruct object.
      *
-     * @param \eZ\Publish\Core\IO\Values\BinaryFileCreateStruct $binaryFileCreateStruct
+     * @param \Ibexa\Core\IO\Values\BinaryFileCreateStruct $binaryFileCreateStruct
      *
-     * @return \eZ\Publish\SPI\IO\BinaryFileCreateStruct
+     * @return \Ibexa\Contracts\Core\IO\BinaryFileCreateStruct
      */
     protected function buildSPIBinaryFileCreateStructObject(BinaryFileCreateStruct $binaryFileCreateStruct)
     {
@@ -244,9 +244,9 @@ class IOService implements IOServiceInterface
     /**
      * Generates API BinaryFile object from provided SPI BinaryFile object.
      *
-     * @param \eZ\Publish\SPI\IO\BinaryFile $spiBinaryFile
+     * @param \Ibexa\Contracts\Core\IO\BinaryFile $spiBinaryFile
      *
-     * @return \eZ\Publish\Core\IO\Values\BinaryFile
+     * @return \Ibexa\Core\IO\Values\BinaryFile
      */
     protected function buildDomainBinaryFileObject(SPIBinaryFile $spiBinaryFile)
     {
@@ -283,7 +283,7 @@ class IOService implements IOServiceInterface
      *
      * @return string
      *
-     * @throws \eZ\Publish\Core\IO\Exception\InvalidBinaryPrefixException
+     * @throws \Ibexa\Core\IO\Exception\InvalidBinaryPrefixException
      */
     protected function removeUriPrefix($spiBinaryFileId)
     {
@@ -334,3 +334,5 @@ class IOService implements IOServiceInterface
         return $path[0] === '/' || (PHP_OS === 'WINNT' && $path[1] === ':');
     }
 }
+
+class_alias(IOService::class, 'eZ\Publish\Core\IO\IOService');

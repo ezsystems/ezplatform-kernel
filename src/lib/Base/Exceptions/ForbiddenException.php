@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Exceptions;
+namespace Ibexa\Core\Base\Exceptions;
 
-use eZ\Publish\API\Repository\Exceptions\ForbiddenException as APIForbiddenException;
-use eZ\Publish\Core\Base\Translatable;
-use eZ\Publish\Core\Base\TranslatableBase;
+use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException as APIForbiddenException;
+use Ibexa\Core\Base\Translatable;
+use Ibexa\Core\Base\TranslatableBase;
 
 /**
  * Forbidden Exception implementation.
@@ -32,3 +32,5 @@ class ForbiddenException extends APIForbiddenException implements Translatable
         parent::__construct($this->getBaseTranslation());
     }
 }
+
+class_alias(ForbiddenException::class, 'eZ\Publish\Core\Base\Exceptions\ForbiddenException');

@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class is the base class for facet builders.
@@ -34,7 +34,7 @@ abstract class FacetBuilder extends ValueObject
     /**
      * An additional facet filter that will further filter the documents the facet will be executed on.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion
      */
     public $filter = null;
 
@@ -52,3 +52,5 @@ abstract class FacetBuilder extends ValueObject
      */
     public $minCount = 1;
 }
+
+class_alias(FacetBuilder::class, 'eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder');

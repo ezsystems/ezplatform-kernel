@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
+namespace Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\URILexer;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\MatcherBuilderInterface;
-use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess\URILexer;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
+use Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilderInterface;
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 
 /**
  * Base for Compound siteaccess matchers.
@@ -28,13 +28,13 @@ abstract class Compound implements CompoundInterface, URILexer
      */
     protected $matchersMap = [];
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher[] */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\Matcher[] */
     protected $subMatchers = [];
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\MatcherBuilderInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilderInterface */
     protected $matcherBuilder;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest */
+    /** @var \Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest */
     protected $request;
 
     public function __construct(array $config)
@@ -119,8 +119,6 @@ abstract class Compound implements CompoundInterface, URILexer
 
     /**
      * Serialization occurs when serializing the siteaccess for subrequests.
-     *
-     * @see \eZ\Bundle\EzPublishCoreBundle\Fragment\FragmentUriGenerator::generateFragmentUri()
      */
     public function __sleep()
     {
@@ -129,3 +127,5 @@ abstract class Compound implements CompoundInterface, URILexer
         return ['subMatchers'];
     }
 }
+
+class_alias(Compound::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Compound');

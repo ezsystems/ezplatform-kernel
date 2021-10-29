@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishDebugBundle;
+namespace Ibexa\Bundle\Debug;
 
-use eZ\Bundle\EzPublishDebugBundle\DependencyInjection\Compiler\DataCollectorPass;
+use Ibexa\Bundle\Debug\DependencyInjection\Compiler\DataCollectorPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -18,3 +18,5 @@ class EzPublishDebugBundle extends Bundle
         $container->addCompilerPass(new DataCollectorPass());
     }
 }
+
+class_alias(EzPublishDebugBundle::class, 'eZ\Bundle\EzPublishDebugBundle\EzPublishDebugBundle');

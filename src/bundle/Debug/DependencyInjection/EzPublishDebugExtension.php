@@ -4,8 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishDebugBundle\DependencyInjection;
+namespace Ibexa\Bundle\Debug\DependencyInjection;
 
+use Ibexa\Bundle\Debug\Twig\DebugTemplate;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -33,8 +34,10 @@ class EzPublishDebugExtension extends Extension implements PrependExtensionInter
         if ($container->getParameter('kernel.debug')) {
             $container->prependExtensionConfig(
                 'twig',
-                ['base_template_class' => 'eZ\Bundle\EzPublishDebugBundle\Twig\DebugTemplate']
+                ['base_template_class' => DebugTemplate::class]
             );
         }
     }
 }
+
+class_alias(EzPublishDebugExtension::class, 'eZ\Bundle\EzPublishDebugBundle\DependencyInjection\EzPublishDebugExtension');

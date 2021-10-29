@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content;
+namespace Ibexa\Core\Persistence\Legacy\Content;
 
-use eZ\Publish\SPI\FieldType\FieldStorage;
-use eZ\Publish\Core\FieldType\NullStorage;
+use Ibexa\Contracts\Core\FieldType\FieldStorage;
+use Ibexa\Core\FieldType\NullStorage;
 
 /**
  * Registry for external storages.
  */
 class StorageRegistry
 {
-    /** @var \eZ\Publish\SPI\FieldType\FieldStorage[] */
+    /** @var \Ibexa\Contracts\Core\FieldType\FieldStorage[] */
     protected $storageMap;
 
     /**
@@ -40,3 +40,5 @@ class StorageRegistry
         return $this->storageMap[$typeName];
     }
 }
+
+class_alias(StorageRegistry::class, 'eZ\Publish\Core\Persistence\Legacy\Content\StorageRegistry');

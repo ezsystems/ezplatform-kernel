@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository;
+namespace Ibexa\Contracts\Core\Repository;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 
 /**
  * Search service.
@@ -103,7 +103,7 @@ interface SearchService
      * Advance full text is a feature making to possible by current engine to parse advance full text expressions.
      *
      * @since 6.12 (constant added in 6.7.6 and up)
-     * @see \eZ\Publish\API\Repository\Values\Content\Query\Criterion\FullText
+     * @see \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\FullText
      */
     public const CAPABILITY_ADVANCED_FULLTEXT = 64;
 
@@ -117,16 +117,16 @@ interface SearchService
     /**
      * Finds content objects for the given query.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if query is not valid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if query is not valid
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query $query
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query $query
      * @param array $languageFilter Configuration for specifying prioritized languages query will be performed on.
      *        Also used to define which field languages are loaded for the returned content.
      *        Currently supports: <code>array("languages" => array(<language1>,..), "useAlwaysAvailable" => bool)</code>
      *                            useAlwaysAvailable defaults to true to avoid exceptions on missing translations
      * @param bool $filterOnUserPermissions if true only the objects which the user is allowed to read are returned.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Search\SearchResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult
      */
     public function findContent(Query $query, array $languageFilter = [], bool $filterOnUserPermissions = true): SearchResult;
 
@@ -139,32 +139,32 @@ interface SearchService
      *
      * @since 5.4.5
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if query is not valid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if query is not valid
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query $query
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query $query
      * @param array $languageFilter Configuration for specifying prioritized languages query will be performed on.
      *        Currently supports: <code>array("languages" => array(<language1>,..), "useAlwaysAvailable" => bool)</code>
      *                            useAlwaysAvailable defaults to true to avoid exceptions on missing translations
      * @param bool $filterOnUserPermissions if true (default) only the objects which is the user allowed to read are returned.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Search\SearchResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult
      */
     public function findContentInfo(Query $query, array $languageFilter = [], bool $filterOnUserPermissions = true): SearchResult;
 
     /**
      * Performs a query for a single content object.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the object was not found by the query or due to permissions
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if criterion is not valid
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if there is more than than one result matching the criterions
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the object was not found by the query or due to permissions
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if criterion is not valid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if there is more than than one result matching the criterions
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $filter
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $filter
      * @param array $languageFilter Configuration for specifying prioritized languages query will be performed on.
      *        Currently supports: <code>array("languages" => array(<language1>,..), "useAlwaysAvailable" => bool)</code>
      *                            useAlwaysAvailable defaults to true to avoid exceptions on missing translations
      * @param bool $filterOnUserPermissions if true only the objects which is the user allowed to read are returned.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     public function findSingle(Criterion $filter, array $languageFilter = [], bool $filterOnUserPermissions = true): Content;
 
@@ -174,29 +174,29 @@ interface SearchService
      * @param string $prefix
      * @param string[] $fieldPaths
      * @param int $limit
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $filter
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $filter
      */
     public function suggest(string $prefix, array $fieldPaths = [], int $limit = 10, Criterion $filter = null);
 
     /**
      * Finds Locations for the given query.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if query is not valid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if query is not valid
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\LocationQuery $query
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery $query
      * @param array $languageFilter Configuration for specifying prioritized languages query will be performed on.
      *        Currently supports: <code>array("languages" => array(<language1>,..), "useAlwaysAvailable" => bool)</code>
      *                            useAlwaysAvailable defaults to true to avoid exceptions on missing translations
      * @param bool $filterOnUserPermissions if true only the objects which is the user allowed to read are returned.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Search\SearchResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult
      */
     public function findLocations(LocationQuery $query, array $languageFilter = [], bool $filterOnUserPermissions = true): SearchResult;
 
     /**
      * Query for supported capability of currently configured search engine.
      *
-     * Will return false if search engine does not implement {@see \eZ\Publish\SPI\Search\Capable}.
+     * Will return false if search engine does not implement {@see \Ibexa\Contracts\Core\Search\Capable}.
      *
      * @since 6.12
      *
@@ -206,3 +206,5 @@ interface SearchService
      */
     public function supports(int $capabilityFlag): bool;
 }
+
+class_alias(SearchService::class, 'eZ\Publish\API\Repository\SearchService');

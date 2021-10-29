@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\IO\Exception;
+namespace Ibexa\Core\IO\Exception;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
 
 class InvalidBinaryFileIdException extends InvalidArgumentValue
 {
@@ -15,3 +15,5 @@ class InvalidBinaryFileIdException extends InvalidArgumentValue
         parent::__construct('BinaryFile::id', $id, 'BinaryFile');
     }
 }
+
+class_alias(InvalidBinaryFileIdException::class, 'eZ\Publish\Core\IO\Exception\InvalidBinaryFileIdException');

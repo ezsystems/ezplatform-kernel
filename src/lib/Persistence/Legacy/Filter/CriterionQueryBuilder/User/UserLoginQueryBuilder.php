@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\User;
+namespace Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\User;
 
 use Doctrine\DBAL\Connection;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\UserLogin;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator;
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\UserLogin;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 
 /**
  * @internal for internal use by Repository Filtering
@@ -28,7 +28,7 @@ final class UserLoginQueryBuilder extends BaseUserCriterionQueryBuilder
         FilteringQueryBuilder $queryBuilder,
         FilteringCriterion $criterion
     ): ?string {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion\UserId $criterion */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\UserId $criterion */
         parent::buildQueryConstraint($queryBuilder, $criterion);
 
         $expr = $queryBuilder->expr();
@@ -49,3 +49,5 @@ final class UserLoginQueryBuilder extends BaseUserCriterionQueryBuilder
         );
     }
 }
+
+class_alias(UserLoginQueryBuilder::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\User\UserLoginQueryBuilder');

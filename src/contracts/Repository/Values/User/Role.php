@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class represents a role.
  *
  * @property-read int $id the internal id of the role
  * @property-read string $identifier the identifier of the role
- * @property-read \eZ\Publish\API\Repository\Values\User\Policy[] $policies an array of the policies {@link \eZ\Publish\API\Repository\Values\User\Policy} of the role.
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\User\Policy[] $policies an array of the policies {@link \Ibexa\Contracts\Core\Repository\Values\User\Policy} of the role.
  */
 abstract class Role extends ValueObject
 {
@@ -55,7 +55,9 @@ abstract class Role extends ValueObject
     /**
      * Returns the list of policies of this role.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Policy[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Policy[]
      */
     abstract public function getPolicies(): iterable;
 }
+
+class_alias(Role::class, 'eZ\Publish\API\Repository\Values\User\Role');

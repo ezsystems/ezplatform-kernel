@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Values\ObjectState;
+namespace Ibexa\Core\Repository\Values\ObjectState;
 
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup as APIObjectStateGroup;
-use eZ\Publish\Core\Repository\Values\MultiLanguageDescriptionTrait;
-use eZ\Publish\Core\Repository\Values\MultiLanguageNameTrait;
-use eZ\Publish\Core\Repository\Values\MultiLanguageTrait;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup as APIObjectStateGroup;
+use Ibexa\Core\Repository\Values\MultiLanguageDescriptionTrait;
+use Ibexa\Core\Repository\Values\MultiLanguageNameTrait;
+use Ibexa\Core\Repository\Values\MultiLanguageTrait;
 
 /**
  * This class represents an object state group value.
@@ -64,3 +64,5 @@ class ObjectStateGroup extends APIObjectStateGroup
         return parent::__isset($property);
     }
 }
+
+class_alias(ObjectStateGroup::class, 'eZ\Publish\Core\Repository\Values\ObjectState\ObjectStateGroup');

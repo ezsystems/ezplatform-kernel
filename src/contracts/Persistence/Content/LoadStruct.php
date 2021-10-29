@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content;
+namespace Ibexa\Contracts\Core\Persistence\Content;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 /**
  * Load struct for mass loading content or specific content versions.
@@ -46,3 +46,5 @@ class LoadStruct extends ValueObject
      */
     public $languages = [];
 }
+
+class_alias(LoadStruct::class, 'eZ\Publish\SPI\Persistence\Content\LoadStruct');

@@ -18,7 +18,7 @@ interface CacheIdentifierGeneratorInterface
      * @param array $values containing scalars, mostly integers and strings
      * @param bool $withPrefix used mainly by keys, if set to true, tags will be prefixed with ibx-
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function generateTag(string $patternName, array $values = [], bool $withPrefix = false): string;
 
@@ -27,7 +27,7 @@ interface CacheIdentifierGeneratorInterface
      * @param array $values containing scalars, mostly integers and strings
      * @param bool $withPrefix used mainly by keys, if set to true, tags will be prefixed with ibx-
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function generateKey(string $patternName, array $values = [], bool $withPrefix = false): string;
 }

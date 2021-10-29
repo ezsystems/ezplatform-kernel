@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Values\Content;
+namespace Ibexa\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo as APIContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\TrashItem as APITrashItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo as APIContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem as APITrashItem;
 
 /**
  * this class represents a trash item, which is actually a trashed location.
@@ -22,20 +22,20 @@ class TrashItem extends APITrashItem
     /**
      * Content info of the content object of this trash item.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\ContentInfo
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
      */
     protected $contentInfo;
 
     /** @var array */
     protected $path;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
     protected $parentLocation;
 
     /**
      * Returns the content info of the content object of this trash item.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
      */
     public function getContentInfo(): APIContentInfo
     {
@@ -105,3 +105,5 @@ class TrashItem extends APITrashItem
         return parent::__isset($property);
     }
 }
+
+class_alias(TrashItem::class, 'eZ\Publish\Core\Repository\Values\Content\TrashItem');

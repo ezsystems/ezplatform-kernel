@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Iterator;
+namespace Ibexa\Contracts\Core\Repository\Iterator;
 
 use Iterator;
 
@@ -14,7 +14,7 @@ final class BatchIterator implements Iterator
 {
     public const DEFAULT_BATCH_SIZE = 25;
 
-    /** @var \eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter */
+    /** @var \Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter */
     private $adapter;
 
     /** @var Iterator|null */
@@ -97,3 +97,5 @@ final class BatchIterator implements Iterator
         return $this->adapter->fetch($this->position, $this->batchSize);
     }
 }
+
+class_alias(BatchIterator::class, 'eZ\Publish\API\Repository\Iterator\BatchIterator');

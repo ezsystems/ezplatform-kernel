@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security\Authorization\Voter;
+namespace Ibexa\Core\MVC\Symfony\Security\Authorization\Voter;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute as AuthorizationAttribute;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute as AuthorizationAttribute;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
  */
 class ValueObjectVoter implements VoterInterface
 {
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
     public function __construct(PermissionResolver $permissionResolver)
@@ -39,13 +39,13 @@ class ValueObjectVoter implements VoterInterface
      * Checks if user has access to a given action on a given value object.
      *
      * $attributes->limitations is a hash that contains:
-     *  - 'valueObject' - The ValueObject to check access on (eZ\Publish\API\Repository\Values\ValueObject). e.g. Location or Content.
+     *  - 'valueObject' - The {@see \Ibexa\Contracts\Core\Repository\Values\ValueObject} to check access on. e.g. Location or Content.
      *  - 'targets' - The location, parent or "assignment" value object, or an array of the same.
      *
      * This method must return one of the following constants:
      * ACCESS_GRANTED, ACCESS_DENIED, or ACCESS_ABSTAIN.
      *
-     * @see \eZ\Publish\API\Repository\PermissionResolver::canUser()
+     * @see \Ibexa\Contracts\Core\Repository\PermissionResolver::canUser()
      *
      * @param TokenInterface $token      A TokenInterface instance
      * @param object         $object     The object to secure
@@ -76,3 +76,5 @@ class ValueObjectVoter implements VoterInterface
         return VoterInterface::ACCESS_ABSTAIN;
     }
 }
+
+class_alias(ValueObjectVoter::class, 'eZ\Publish\Core\MVC\Symfony\Security\Authorization\Voter\ValueObjectVoter');

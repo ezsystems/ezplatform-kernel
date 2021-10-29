@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Search\AggregationResult;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 final class TermAggregationResultEntry extends ValueObject
 {
@@ -39,3 +39,5 @@ final class TermAggregationResultEntry extends ValueObject
         return $this->count;
     }
 }
+
+class_alias(TermAggregationResultEntry::class, 'eZ\Publish\API\Repository\Values\Content\Search\AggregationResult\TermAggregationResultEntry');

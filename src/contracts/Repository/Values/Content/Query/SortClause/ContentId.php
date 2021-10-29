@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
 
 /**
  * Sets sort direction on Content ID for a content query.
@@ -36,3 +36,5 @@ class ContentId extends SortClause implements FilteringSortClause
         parent::__construct('content_id', $sortDirection);
     }
 }
+
+class_alias(ContentId::class, 'eZ\Publish\API\Repository\Values\Content\Query\SortClause\ContentId');

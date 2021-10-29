@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Section;
+namespace Ibexa\Contracts\Core\Repository\Events\Section;
 
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\API\Repository\Values\Content\SectionUpdateStruct;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class UpdateSectionEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Section */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section */
     private $section;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\SectionUpdateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct */
     private $sectionUpdateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Section */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section */
     private $updatedSection;
 
     public function __construct(
@@ -48,3 +48,5 @@ final class UpdateSectionEvent extends AfterEvent
         return $this->updatedSection;
     }
 }
+
+class_alias(UpdateSectionEvent::class, 'eZ\Publish\API\Repository\Events\Section\UpdateSectionEvent');

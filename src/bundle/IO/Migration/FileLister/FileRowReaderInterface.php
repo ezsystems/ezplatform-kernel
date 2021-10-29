@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Migration\FileLister;
+namespace Ibexa\Bundle\IO\Migration\FileLister;
 
 /**
  * Reads files from a data source.
@@ -32,3 +32,5 @@ interface FileRowReaderInterface
      */
     public function getCount();
 }
+
+class_alias(FileRowReaderInterface::class, 'eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileRowReaderInterface');

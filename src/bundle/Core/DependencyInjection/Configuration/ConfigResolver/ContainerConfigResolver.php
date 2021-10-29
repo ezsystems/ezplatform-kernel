@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Exception\ParameterNotFoundException;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Exception\ParameterNotFoundException;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
@@ -70,3 +70,5 @@ abstract class ContainerConfigResolver implements ConfigResolverInterface, Conta
         return "$namespace.$scope.$paramName";
     }
 }
+
+class_alias(ContainerConfigResolver::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver\ContainerConfigResolver');

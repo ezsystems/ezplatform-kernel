@@ -6,23 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Content;
+namespace Ibexa\Contracts\Core\Repository\Events\Content;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Relation;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeAddRelationEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\VersionInfo */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo */
     private $sourceVersion;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo */
     private $destinationContent;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Relation|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Relation|null */
     private $relation;
 
     public function __construct(VersionInfo $sourceVersion, ContentInfo $destinationContent)
@@ -60,3 +60,5 @@ final class BeforeAddRelationEvent extends BeforeEvent
         return $this->relation instanceof Relation;
     }
 }
+
+class_alias(BeforeAddRelationEvent::class, 'eZ\Publish\API\Repository\Events\Content\BeforeAddRelationEvent');

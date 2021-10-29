@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
 
 /**
  * This class is used to create a new user in the repository.
@@ -49,3 +49,5 @@ abstract class UserCreateStruct extends ContentCreateStruct
      */
     public $enabled = true;
 }
+
+class_alias(UserCreateStruct::class, 'eZ\Publish\API\Repository\Values\User\UserCreateStruct');

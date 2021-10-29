@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\FieldType;
+namespace Ibexa\Contracts\Core\FieldType;
 
 /**
  * Interface for field value classes.
@@ -18,3 +18,5 @@ interface Value
      */
     public function __toString();
 }
+
+class_alias(Value::class, 'eZ\Publish\SPI\FieldType\Value');

@@ -4,19 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\URL\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\URL\Gateway;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
-use eZ\Publish\API\Repository\Values\URL\Query\SortClause;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\URL\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
-use eZ\Publish\SPI\Persistence\URL\URL;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Core\Persistence\Legacy\URL\Gateway;
+use Ibexa\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
+use Ibexa\Contracts\Core\Persistence\URL\URL;
 use RuntimeException;
 
 /**
@@ -49,7 +49,7 @@ class DoctrineDatabase extends Gateway
     /**
      * Criteria converter.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\URL\Query\CriteriaConverter
+     * @var \Ibexa\Core\Persistence\Legacy\URL\Query\CriteriaConverter
      */
     protected $criteriaConverter;
 
@@ -203,7 +203,7 @@ class DoctrineDatabase extends Gateway
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException
      */
     protected function doCount(Criterion $criterion): int
     {
@@ -251,7 +251,7 @@ class DoctrineDatabase extends Gateway
     }
 
     /**
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      */
     private function getQuerySortingDirection(string $direction): string
     {
@@ -268,3 +268,5 @@ class DoctrineDatabase extends Gateway
         return self::SORT_DIRECTION_MAP[$direction];
     }
 }
+
+class_alias(DoctrineDatabase::class, 'eZ\Publish\Core\Persistence\Legacy\URL\Gateway\DoctrineDatabase');

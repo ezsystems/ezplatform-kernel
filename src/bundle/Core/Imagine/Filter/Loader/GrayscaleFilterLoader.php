@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader;
+namespace Ibexa\Bundle\Core\Imagine\Filter\Loader;
 
 use Imagine\Image\ImageInterface;
 use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
@@ -22,3 +22,5 @@ class GrayscaleFilterLoader implements LoaderInterface
         return $image;
     }
 }
+
+class_alias(GrayscaleFilterLoader::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader\GrayscaleFilterLoader');

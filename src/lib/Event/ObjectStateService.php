@@ -6,33 +6,33 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Event;
+namespace Ibexa\Core\Event;
 
-use eZ\Publish\API\Repository\ObjectStateService as ObjectStateServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateCreateStruct;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateUpdateStruct;
-use eZ\Publish\API\Repository\Events\ObjectState\BeforeCreateObjectStateEvent;
-use eZ\Publish\API\Repository\Events\ObjectState\BeforeCreateObjectStateGroupEvent;
-use eZ\Publish\API\Repository\Events\ObjectState\BeforeDeleteObjectStateEvent;
-use eZ\Publish\API\Repository\Events\ObjectState\BeforeDeleteObjectStateGroupEvent;
-use eZ\Publish\API\Repository\Events\ObjectState\BeforeSetContentStateEvent;
-use eZ\Publish\API\Repository\Events\ObjectState\BeforeSetPriorityOfObjectStateEvent;
-use eZ\Publish\API\Repository\Events\ObjectState\BeforeUpdateObjectStateEvent;
-use eZ\Publish\API\Repository\Events\ObjectState\BeforeUpdateObjectStateGroupEvent;
-use eZ\Publish\API\Repository\Events\ObjectState\CreateObjectStateEvent;
-use eZ\Publish\API\Repository\Events\ObjectState\CreateObjectStateGroupEvent;
-use eZ\Publish\API\Repository\Events\ObjectState\DeleteObjectStateEvent;
-use eZ\Publish\API\Repository\Events\ObjectState\DeleteObjectStateGroupEvent;
-use eZ\Publish\API\Repository\Events\ObjectState\SetContentStateEvent;
-use eZ\Publish\API\Repository\Events\ObjectState\SetPriorityOfObjectStateEvent;
-use eZ\Publish\API\Repository\Events\ObjectState\UpdateObjectStateEvent;
-use eZ\Publish\API\Repository\Events\ObjectState\UpdateObjectStateGroupEvent;
-use eZ\Publish\SPI\Repository\Decorator\ObjectStateServiceDecorator;
+use Ibexa\Contracts\Core\Repository\ObjectStateService as ObjectStateServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Events\ObjectState\BeforeCreateObjectStateEvent;
+use Ibexa\Contracts\Core\Repository\Events\ObjectState\BeforeCreateObjectStateGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\ObjectState\BeforeDeleteObjectStateEvent;
+use Ibexa\Contracts\Core\Repository\Events\ObjectState\BeforeDeleteObjectStateGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\ObjectState\BeforeSetContentStateEvent;
+use Ibexa\Contracts\Core\Repository\Events\ObjectState\BeforeSetPriorityOfObjectStateEvent;
+use Ibexa\Contracts\Core\Repository\Events\ObjectState\BeforeUpdateObjectStateEvent;
+use Ibexa\Contracts\Core\Repository\Events\ObjectState\BeforeUpdateObjectStateGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\ObjectState\CreateObjectStateEvent;
+use Ibexa\Contracts\Core\Repository\Events\ObjectState\CreateObjectStateGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\ObjectState\DeleteObjectStateEvent;
+use Ibexa\Contracts\Core\Repository\Events\ObjectState\DeleteObjectStateGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\ObjectState\SetContentStateEvent;
+use Ibexa\Contracts\Core\Repository\Events\ObjectState\SetPriorityOfObjectStateEvent;
+use Ibexa\Contracts\Core\Repository\Events\ObjectState\UpdateObjectStateEvent;
+use Ibexa\Contracts\Core\Repository\Events\ObjectState\UpdateObjectStateGroupEvent;
+use Ibexa\Contracts\Core\Repository\Decorator\ObjectStateServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ObjectStateService extends ObjectStateServiceDecorator
@@ -236,3 +236,5 @@ class ObjectStateService extends ObjectStateServiceDecorator
         );
     }
 }
+
+class_alias(ObjectStateService::class, 'eZ\Publish\Core\Event\ObjectStateService');

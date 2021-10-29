@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User\Limitation;
+namespace Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
 /**
  * Class ObjectStateLimitation.
@@ -20,7 +20,7 @@ use eZ\Publish\API\Repository\Values\User\Limitation;
 class ObjectStateLimitation extends Limitation
 {
     /**
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation::getIdentifier()
+     * @see \Ibexa\Contracts\Core\Repository\Values\User\Limitation::getIdentifier()
      *
      * @return string
      */
@@ -29,3 +29,5 @@ class ObjectStateLimitation extends Limitation
         return Limitation::STATE;
     }
 }
+
+class_alias(ObjectStateLimitation::class, 'eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation');

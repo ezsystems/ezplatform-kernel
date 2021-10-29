@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security\Authentication;
+namespace Ibexa\Core\MVC\Symfony\Security\Authentication;
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -40,3 +40,5 @@ interface AuthenticatorInterface
      */
     public function logout(Request $request);
 }
+
+class_alias(AuthenticatorInterface::class, 'eZ\Publish\Core\MVC\Symfony\Security\Authentication\AuthenticatorInterface');

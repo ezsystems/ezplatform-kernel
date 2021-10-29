@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Security\PolicyProvider;
+namespace Ibexa\Bundle\Core\DependencyInjection\Security\PolicyProvider;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ContainerConfigBuilder;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ContainerConfigBuilder;
 use Symfony\Component\Config\Resource\ResourceInterface;
 
 class PoliciesConfigBuilder extends ContainerConfigBuilder
@@ -57,3 +57,5 @@ class PoliciesConfigBuilder extends ContainerConfigBuilder
         return array_key_exists($module, $policyMap) && array_key_exists($function, $policyMap[$module]);
     }
 }
+
+class_alias(PoliciesConfigBuilder::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Security\PolicyProvider\PoliciesConfigBuilder');

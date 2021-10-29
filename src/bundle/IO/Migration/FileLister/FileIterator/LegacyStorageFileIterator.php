@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileIterator;
+namespace Ibexa\Bundle\IO\Migration\FileLister\FileIterator;
 
-use eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileRowReaderInterface;
-use eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileIteratorInterface;
+use Ibexa\Bundle\IO\Migration\FileLister\FileRowReaderInterface;
+use Ibexa\Bundle\IO\Migration\FileLister\FileIteratorInterface;
 
 /**
  * Iterator for entries in legacy's file tables.
@@ -22,11 +22,11 @@ final class LegacyStorageFileIterator implements FileIteratorInterface
     /** @var int Iteration cursor on statement. */
     private $cursor;
 
-    /** @var \eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileRowReaderInterface Used to get file rows. */
+    /** @var \Ibexa\Bundle\IO\Migration\FileLister\FileRowReaderInterface Used to get file rows. */
     private $rowReader;
 
     /**
-     * @param \eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileRowReaderInterface $rowReader
+     * @param \Ibexa\Bundle\IO\Migration\FileLister\FileRowReaderInterface $rowReader
      */
     public function __construct(FileRowReaderInterface $rowReader)
     {
@@ -76,3 +76,5 @@ final class LegacyStorageFileIterator implements FileIteratorInterface
         $this->item = $fileId;
     }
 }
+
+class_alias(LegacyStorageFileIterator::class, 'eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileIterator\LegacyStorageFileIterator');

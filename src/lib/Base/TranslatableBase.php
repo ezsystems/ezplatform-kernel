@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base;
+namespace Ibexa\Core\Base;
 
 /**
  * Trait providing a default implementation of Translatable.
@@ -50,3 +50,5 @@ trait TranslatableBase
         return strtr($this->messageTemplate, $this->parameters);
     }
 }
+
+class_alias(TranslatableBase::class, 'eZ\Publish\Core\Base\TranslatableBase');

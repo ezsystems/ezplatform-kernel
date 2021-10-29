@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content\Type;
+namespace Ibexa\Contracts\Core\Persistence\Content\Type;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
-use eZ\Publish\SPI\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
 
 class CreateStruct extends ValueObject
 {
@@ -140,7 +140,7 @@ class CreateStruct extends ValueObject
     /**
      * Content fields in this type.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition[]
+     * @var \Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition[]
      */
     public $fieldDefinitions = [];
 
@@ -161,3 +161,5 @@ class CreateStruct extends ValueObject
         }
     }
 }
+
+class_alias(CreateStruct::class, 'eZ\Publish\SPI\Persistence\Content\Type\CreateStruct');

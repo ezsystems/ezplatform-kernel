@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Type;
+namespace Ibexa\Core\Persistence\Legacy\Content\Type;
 
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry as Registry;
-use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry as Registry;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 
 /**
  * Class to update content objects to a new type version.
@@ -21,34 +21,34 @@ class ContentUpdater
     /**
      * Content gateway.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Gateway
      */
     protected $contentGateway;
 
     /**
      * FieldValue converter registry.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
+     * @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
      */
     protected $converterRegistry;
 
     /**
      * Storage handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\StorageHandler
      */
     protected $storageHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Mapper */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Mapper */
     protected $contentMapper;
 
     /**
      * Creates a new content updater.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Gateway $contentGateway
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry $converterRegistry
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler $storageHandler
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Mapper $contentMapper
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Gateway $contentGateway
+     * @param \Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry $converterRegistry
+     * @param \Ibexa\Core\Persistence\Legacy\Content\StorageHandler $storageHandler
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Mapper $contentMapper
      */
     public function __construct(
         ContentGateway $contentGateway,
@@ -65,10 +65,10 @@ class ContentUpdater
     /**
      * Determines the necessary update actions.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Type $fromType
-     * @param \eZ\Publish\SPI\Persistence\Content\Type $toType
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type $fromType
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type $toType
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action[]
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action[]
      */
     public function determineActions(Type $fromType, Type $toType)
     {
@@ -103,8 +103,8 @@ class ContentUpdater
     /**
      * hasFieldDefinition.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Type $type
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition $fieldDef
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type $type
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition $fieldDef
      *
      * @return bool
      */
@@ -123,7 +123,7 @@ class ContentUpdater
      * Applies all given updates.
      *
      * @param mixed $contentTypeId
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action[] $actions
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action[] $actions
      */
     public function applyUpdates($contentTypeId, array $actions)
     {
@@ -150,3 +150,5 @@ class ContentUpdater
         return $this->contentGateway->getContentIdsByContentTypeId($contentTypeId);
     }
 }
+
+class_alias(ContentUpdater::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater');

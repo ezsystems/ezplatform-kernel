@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\EventListener;
+namespace Ibexa\Bundle\Core\EventListener;
 
-use eZ\Publish\Core\MVC\Exception\InvalidSiteAccessException;
-use eZ\Publish\Core\MVC\Symfony\Event\ScopeChangeEvent;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
+use Ibexa\Core\MVC\Exception\InvalidSiteAccessException;
+use Ibexa\Core\MVC\Symfony\Event\ScopeChangeEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -21,13 +21,13 @@ class ConsoleCommandListener implements EventSubscriberInterface, SiteAccessAwar
     /** @var string */
     private $defaultSiteAccessName;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface */
     private $siteAccessProvider;
 
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
     private $eventDispatcher;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess|null */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess|null */
     private $siteAccess;
 
     /** @var bool */
@@ -81,3 +81,5 @@ class ConsoleCommandListener implements EventSubscriberInterface, SiteAccessAwar
         $this->debug = $debug;
     }
 }
+
+class_alias(ConsoleCommandListener::class, 'eZ\Bundle\EzPublishCoreBundle\EventListener\ConsoleCommandListener');

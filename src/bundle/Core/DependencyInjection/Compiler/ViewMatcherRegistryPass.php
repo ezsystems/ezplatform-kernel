@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\Core\DependencyInjection\Compiler;
 
-use eZ\Bundle\EzPublishCoreBundle\Matcher\ViewMatcherRegistry;
+use Ibexa\Bundle\Core\Matcher\ViewMatcherRegistry;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -39,3 +39,5 @@ final class ViewMatcherRegistryPass implements CompilerPassInterface
         }
     }
 }
+
+class_alias(ViewMatcherRegistryPass::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ViewMatcherRegistryPass');

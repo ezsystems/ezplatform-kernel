@@ -4,39 +4,39 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Type;
+namespace Ibexa\Core\Persistence\Legacy\Content\Type;
 
-use eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache;
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as BaseContentTypeHandler;
-use eZ\Publish\SPI\Persistence\Content\Type\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\Type\Group;
-use eZ\Publish\SPI\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
+use Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as BaseContentTypeHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
 
 class MemoryCachingHandler implements BaseContentTypeHandler
 {
     /**
      * Inner handler to dispatch calls to.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\Type\Handler
+     * @var \Ibexa\Contracts\Core\Persistence\Content\Type\Handler
      */
     protected $innerHandler;
 
     /**
      * Type cache.
      *
-     * @var \eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache
+     * @var \Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache
      */
     protected $cache;
 
     /**
      * Creates a new content type handler.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\Handler $handler
-     * @param \eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache $cache
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\Handler $handler
+     * @param \Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache $cache
      */
     public function __construct(BaseContentTypeHandler $handler, InMemoryCache $cache)
     {
@@ -454,3 +454,5 @@ class MemoryCachingHandler implements BaseContentTypeHandler
         $this->innerHandler->deleteByUserAndStatus($userId, $status);
     }
 }
+
+class_alias(MemoryCachingHandler::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Type\MemoryCachingHandler');

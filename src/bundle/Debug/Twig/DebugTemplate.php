@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishDebugBundle\Twig;
+namespace Ibexa\Bundle\Debug\Twig;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Twig\Template;
@@ -97,3 +97,5 @@ class DebugTemplate extends Template
         return [];
     }
 }
+
+class_alias(DebugTemplate::class, 'eZ\Bundle\EzPublishDebugBundle\Twig\DebugTemplate');

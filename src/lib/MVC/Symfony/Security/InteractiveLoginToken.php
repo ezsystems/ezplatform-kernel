@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security;
+namespace Ibexa\Core\MVC\Symfony\Security;
 
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
@@ -42,3 +42,5 @@ class InteractiveLoginToken extends UsernamePasswordToken
         parent::__unserialize($parentStr);
     }
 }
+
+class_alias(InteractiveLoginToken::class, 'eZ\Publish\Core\MVC\Symfony\Security\InteractiveLoginToken');

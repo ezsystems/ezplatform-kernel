@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Location;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\AbstractTermAggregation;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\LocationAggregation;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\AbstractTermAggregation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\LocationAggregation;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 final class SubtreeTermAggregation extends AbstractTermAggregation implements LocationAggregation
 {
@@ -47,3 +47,5 @@ final class SubtreeTermAggregation extends AbstractTermAggregation implements Lo
         return new self($name, $location->pathString);
     }
 }
+
+class_alias(SubtreeTermAggregation::class, 'eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Location\SubtreeTermAggregation');

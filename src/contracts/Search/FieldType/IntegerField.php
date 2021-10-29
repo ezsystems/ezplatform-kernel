@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Search\FieldType;
+namespace Ibexa\Contracts\Core\Search\FieldType;
 
-use eZ\Publish\SPI\Search\FieldType;
+use Ibexa\Contracts\Core\Search\FieldType;
 
 /**
  * Integer document field.
@@ -20,3 +20,5 @@ class IntegerField extends FieldType
      */
     protected $type = 'ez_integer';
 }
+
+class_alias(IntegerField::class, 'eZ\Publish\SPI\Search\FieldType\IntegerField');

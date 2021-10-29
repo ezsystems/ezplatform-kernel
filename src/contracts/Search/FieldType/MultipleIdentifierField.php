@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Search\FieldType;
+namespace Ibexa\Contracts\Core\Search\FieldType;
 
-use eZ\Publish\SPI\Search\FieldType;
+use Ibexa\Contracts\Core\Search\FieldType;
 
 /**
  * Identifier document field.
@@ -27,3 +27,5 @@ class MultipleIdentifierField extends FieldType
      */
     protected $raw = false;
 }
+
+class_alias(MultipleIdentifierField::class, 'eZ\Publish\SPI\Search\FieldType\MultipleIdentifierField');

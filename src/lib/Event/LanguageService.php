@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Event;
+namespace Ibexa\Core\Event;
 
-use eZ\Publish\API\Repository\LanguageService as LanguageServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct;
-use eZ\Publish\API\Repository\Events\Language\BeforeCreateLanguageEvent;
-use eZ\Publish\API\Repository\Events\Language\BeforeDeleteLanguageEvent;
-use eZ\Publish\API\Repository\Events\Language\BeforeDisableLanguageEvent;
-use eZ\Publish\API\Repository\Events\Language\BeforeEnableLanguageEvent;
-use eZ\Publish\API\Repository\Events\Language\BeforeUpdateLanguageNameEvent;
-use eZ\Publish\API\Repository\Events\Language\CreateLanguageEvent;
-use eZ\Publish\API\Repository\Events\Language\DeleteLanguageEvent;
-use eZ\Publish\API\Repository\Events\Language\DisableLanguageEvent;
-use eZ\Publish\API\Repository\Events\Language\EnableLanguageEvent;
-use eZ\Publish\API\Repository\Events\Language\UpdateLanguageNameEvent;
-use eZ\Publish\SPI\Repository\Decorator\LanguageServiceDecorator;
+use Ibexa\Contracts\Core\Repository\LanguageService as LanguageServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
+use Ibexa\Contracts\Core\Repository\Events\Language\BeforeCreateLanguageEvent;
+use Ibexa\Contracts\Core\Repository\Events\Language\BeforeDeleteLanguageEvent;
+use Ibexa\Contracts\Core\Repository\Events\Language\BeforeDisableLanguageEvent;
+use Ibexa\Contracts\Core\Repository\Events\Language\BeforeEnableLanguageEvent;
+use Ibexa\Contracts\Core\Repository\Events\Language\BeforeUpdateLanguageNameEvent;
+use Ibexa\Contracts\Core\Repository\Events\Language\CreateLanguageEvent;
+use Ibexa\Contracts\Core\Repository\Events\Language\DeleteLanguageEvent;
+use Ibexa\Contracts\Core\Repository\Events\Language\DisableLanguageEvent;
+use Ibexa\Contracts\Core\Repository\Events\Language\EnableLanguageEvent;
+use Ibexa\Contracts\Core\Repository\Events\Language\UpdateLanguageNameEvent;
+use Ibexa\Contracts\Core\Repository\Decorator\LanguageServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class LanguageService extends LanguageServiceDecorator
@@ -149,3 +149,5 @@ class LanguageService extends LanguageServiceDecorator
         );
     }
 }
+
+class_alias(LanguageService::class, 'eZ\Publish\Core\Event\LanguageService');

@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn;
+namespace Ibexa\Core\QueryType\BuiltIn;
 
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\MapLocationDistance;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\MapLocationDistance;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -69,3 +69,5 @@ final class GeoLocationQueryType extends AbstractQueryType
         );
     }
 }
+
+class_alias(GeoLocationQueryType::class, 'eZ\Publish\Core\QueryType\BuiltIn\GeoLocationQueryType');

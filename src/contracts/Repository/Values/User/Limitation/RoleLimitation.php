@@ -6,10 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User\Limitation;
+namespace Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
 abstract class RoleLimitation extends Limitation
 {
 }
+
+class_alias(RoleLimitation::class, 'eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation');

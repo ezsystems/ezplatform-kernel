@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View\Builder;
+namespace Ibexa\Core\MVC\Symfony\View\Builder;
 
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Symfony\View\View;
 
 /**
  * Builds View objects based on an array of parameters.
@@ -31,3 +31,5 @@ interface ViewBuilder
      */
     public function buildView(array $parameters);
 }
+
+class_alias(ViewBuilder::class, 'eZ\Publish\Core\MVC\Symfony\View\Builder\ViewBuilder');

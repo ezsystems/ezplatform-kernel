@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
 /**
  * This is the base for Location SortClause classes, used to set sorting of Location queries.
@@ -16,3 +16,5 @@ use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 abstract class Location extends SortClause
 {
 }
+
+class_alias(Location::class, 'eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location');

@@ -4,18 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Helper;
+namespace Ibexa\Core\Helper;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -23,10 +23,10 @@ use Psr\Log\LoggerInterface;
  */
 class TranslationHelper
 {
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     protected $configResolver;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     protected $contentService;
 
     /** @var array */
@@ -47,7 +47,7 @@ class TranslationHelper
      * Returns content name, translated.
      * By default this method uses prioritized languages, unless $forcedLanguage is provided.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param string $forcedLanguage Locale we want the content name translation in (e.g. "fre-FR"). Null by default (takes current locale)
      *
      * @return string
@@ -64,7 +64,7 @@ class TranslationHelper
      * Returns content name, translated, from a VersionInfo object.
      * By default this method uses prioritized languages, unless $forcedLanguage is provided.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      * @param string $forcedLanguage
      *
      * @return string
@@ -85,7 +85,7 @@ class TranslationHelper
      * Returns content name, translated, from a ContentInfo object.
      * By default this method uses prioritized languages, unless $forcedLanguage is provided.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      * @param string $forcedLanguage Locale we want the content name translation in (e.g. "fre-FR"). Null by default (takes current locale)
      *
      * @todo Remove ContentService usage when translated names are available in ContentInfo (see https://jira.ez.no/browse/EZP-21755)
@@ -113,11 +113,11 @@ class TranslationHelper
      * By default, this method will return the field in current language if translation is present. If not, main language will be used.
      * If $forcedLanguage is provided, will return the field in this language, if translation is present.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param string $fieldDefIdentifier Field definition identifier.
      * @param string $forcedLanguage Locale we want the field translation in (e.g. "fre-FR"). Null by default (takes current locale)
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Field|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field|null
      */
     public function getTranslatedField(Content $content, $fieldDefIdentifier, $forcedLanguage = null)
     {
@@ -136,7 +136,7 @@ class TranslationHelper
      * By default, this method will return the field definition name in current language if translation is present. If not, main language will be used.
      * If $forcedLanguage is provided, will return the field definition name in this language, if translation is present.
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      * @param string $fieldDefIdentifier Field Definition identifier
      * @param string $property Specifies if 'name' or 'description' should be used
      * @param string $forcedLanguage Locale we want the field definition name translated in in (e.g. "fre-FR"). Null by default (takes current locale)
@@ -181,7 +181,7 @@ class TranslationHelper
      * Languages will consist of either forced language or current languages list, in addition helper will check if for
      * mainLanguage property and append that to languages if alwaysAvailable property is true or non-existing.
      *
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $object  Can be any kid of Value object which directly holds the translated property
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $object  Can be any kid of Value object which directly holds the translated property
      * @param string $property Property name, example 'names', 'descriptions'
      * @param string $forcedLanguage Locale we want the content name translation in (e.g. "fre-FR"). Null by default (takes current locale)
      *
@@ -220,7 +220,7 @@ class TranslationHelper
      * Languages will consist of either forced language or current languages list, in addition helper will append null
      * to list of languages so method may fallback to main/initial language if supported by domain.
      *
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $object  Can be any kind of Value object which directly holds the methods that provides translated value.
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $object  Can be any kind of Value object which directly holds the methods that provides translated value.
      * @param string $method Method name, example 'getName', 'description'
      * @param string $forcedLanguage Locale we want the content name translation in (e.g. "fre-FR"). Null by default (takes current locale)
      *
@@ -315,3 +315,5 @@ class TranslationHelper
         return $languages;
     }
 }
+
+class_alias(TranslationHelper::class, 'eZ\Publish\Core\Helper\TranslationHelper');

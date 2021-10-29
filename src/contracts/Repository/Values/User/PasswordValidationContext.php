@@ -6,29 +6,31 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * Context of the password validation.
  *
- * @property-read \eZ\Publish\API\Repository\Values\ContentType\ContentType|null $contentType
- * @property-read \eZ\Publish\API\Repository\Values\User\User|null $user
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\User\User|null $user
  */
 class PasswordValidationContext extends ValueObject
 {
     /**
      * Content type of the password owner.
      *
-     * @var \eZ\Publish\API\Repository\Values\ContentType\ContentType|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
      */
     protected $contentType;
 
     /**
      * Owner of the password.
      *
-     * @var \eZ\Publish\API\Repository\Values\User\User|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\User\User|null
      */
     protected $user;
 }
+
+class_alias(PasswordValidationContext::class, 'eZ\Publish\API\Repository\Values\User\PasswordValidationContext');

@@ -4,23 +4,23 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias;
+namespace Ibexa\Core\Persistence\Legacy\Content\UrlAlias;
 
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\DTO\SwappedLocationProperties;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\DTO\UrlAliasForSwappedLocation;
-use eZ\Publish\SPI\Persistence\Content\Language;
-use eZ\Publish\SPI\Persistence\Content\UrlAlias;
-use eZ\Publish\SPI\Persistence\Content\UrlAlias\Handler as UrlAliasHandlerInterface;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Base\Exceptions\ForbiddenException;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\DTO\SwappedLocationProperties;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\DTO\UrlAliasForSwappedLocation;
+use Ibexa\Contracts\Core\Persistence\Content\Language;
+use Ibexa\Contracts\Core\Persistence\Content\UrlAlias;
+use Ibexa\Contracts\Core\Persistence\Content\UrlAlias\Handler as UrlAliasHandlerInterface;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Base\Exceptions\ForbiddenException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use eZ\Publish\SPI\Persistence\TransactionHandler;
+use Ibexa\Contracts\Core\Persistence\TransactionHandler;
 
 /**
  * The UrlAlias Handler provides nice urls management.
@@ -49,66 +49,66 @@ class Handler implements UrlAliasHandlerInterface
     /**
      * UrlAlias Gateway.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway
      */
     protected $gateway;
 
     /**
      * Gateway for handling location data.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway
      */
     protected $locationGateway;
 
     /**
      * UrlAlias Mapper.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Mapper
+     * @var \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Mapper
      */
     protected $mapper;
 
     /**
      * Caching language handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler
      */
     protected $languageHandler;
 
     /**
      * URL slug converter.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter
+     * @var \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter
      */
     protected $slugConverter;
 
     /**
      * Gateway for handling content data.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Gateway
      */
     protected $contentGateway;
 
     /**
      * Language mask generator.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator
      */
     protected $maskGenerator;
 
-    /** @var \eZ\Publish\SPI\Persistence\TransactionHandler */
+    /** @var \Ibexa\Contracts\Core\Persistence\TransactionHandler */
     private $transactionHandler;
 
     /**
      * Creates a new UrlAlias Handler.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway $gateway
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Mapper $mapper
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway $locationGateway
-     * @param \eZ\Publish\SPI\Persistence\Content\Language\Handler $languageHandler
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter $slugConverter
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Gateway $contentGateway
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator $maskGenerator
-     * @param \eZ\Publish\SPI\Persistence\TransactionHandler $transactionHandler
+     * @param \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway $gateway
+     * @param \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Mapper $mapper
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway $locationGateway
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Language\Handler $languageHandler
+     * @param \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter $slugConverter
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Gateway $contentGateway
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator $maskGenerator
+     * @param \Ibexa\Contracts\Core\Persistence\TransactionHandler $transactionHandler
      */
     public function __construct(
         Gateway $gateway,
@@ -154,7 +154,7 @@ class Handler implements UrlAliasHandlerInterface
      * Internal publish method, accepting language ID instead of language code and optionally
      * new alias ID (used when swapping Locations).
      *
-     * @see \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationSwapped()
+     * @see \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationSwapped
      *
      * @param int $locationId
      * @param int $parentLocationId
@@ -308,9 +308,9 @@ class Handler implements UrlAliasHandlerInterface
      * If $languageCode is null the $alias is created in the system's default
      * language. $alwaysAvailable makes the alias available in all languages.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
      *
      * @param mixed $locationId
      * @param string $path
@@ -318,7 +318,7 @@ class Handler implements UrlAliasHandlerInterface
      * @param string $languageCode
      * @param bool $alwaysAvailable
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlAlias
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlAlias
      */
     public function createCustomUrlAlias($locationId, $path, $forwarding = false, $languageCode = null, $alwaysAvailable = false)
     {
@@ -339,9 +339,9 @@ class Handler implements UrlAliasHandlerInterface
      * If $languageCode is null the $alias is created in the system's default
      * language. $alwaysAvailable makes the alias available in all languages.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException if the path already exists for the given resource
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException if the path is broken
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException if the path already exists for the given resource
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException if the path is broken
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      *
      * @param string $resource
      * @param string $path
@@ -349,7 +349,7 @@ class Handler implements UrlAliasHandlerInterface
      * @param string $languageCode
      * @param bool $alwaysAvailable
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlAlias
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlAlias
      */
     public function createGlobalUrlAlias($resource, $path, $forwarding = false, $languageCode = null, $alwaysAvailable = false)
     {
@@ -365,9 +365,9 @@ class Handler implements UrlAliasHandlerInterface
     /**
      * Internal method for creating global or custom URL alias (these are handled in the same way).
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException if the path already exists for the given context
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException if the path already exists for the given context
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      *
      * @param string $action
      * @param string $path
@@ -375,7 +375,7 @@ class Handler implements UrlAliasHandlerInterface
      * @param string|null $languageCode
      * @param bool $alwaysAvailable
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlAlias
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlAlias
      */
     protected function createUrlAlias($action, $path, $forward, $languageCode, $alwaysAvailable): UrlAlias
     {
@@ -497,12 +497,12 @@ class Handler implements UrlAliasHandlerInterface
     /**
      * List of user generated or autogenerated url entries, pointing to $locationId.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      *
      * @param mixed $locationId
      * @param bool $custom if true the user generated aliases are listed otherwise the autogenerated
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlAlias[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlAlias[]
      */
     public function listURLAliasesForLocation($locationId, $custom = false)
     {
@@ -517,13 +517,13 @@ class Handler implements UrlAliasHandlerInterface
     /**
      * List global aliases.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      *
      * @param string|null $languageCode
      * @param int $offset
      * @param int $limit
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlAlias[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlAlias[]
      */
     public function listGlobalURLAliases($languageCode = null, $offset = 0, $limit = -1)
     {
@@ -540,7 +540,7 @@ class Handler implements UrlAliasHandlerInterface
      *
      * Autogenerated aliases are not removed by this method.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\UrlAlias[] $urlAliases
+     * @param \Ibexa\Contracts\Core\Persistence\Content\UrlAlias[] $urlAliases
      *
      * @return bool
      */
@@ -561,13 +561,13 @@ class Handler implements UrlAliasHandlerInterface
     /**
      * Looks up a url alias for the given url.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      *
      * @param string $url
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlAlias
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlAlias
      */
     public function lookup($url)
     {
@@ -609,12 +609,12 @@ class Handler implements UrlAliasHandlerInterface
     /**
      * Loads URL alias by given $id.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      *
      * @param string $id
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlAlias
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlAlias
      */
     public function loadUrlAlias($id)
     {
@@ -697,7 +697,7 @@ class Handler implements UrlAliasHandlerInterface
      * @param int $location2Id
      * @param int $location2ParentId
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException
      */
     public function locationSwapped($location1Id, $location1ParentId, $location2Id, $location2ParentId)
     {
@@ -785,7 +785,7 @@ class Handler implements UrlAliasHandlerInterface
      * We need to historize everything separately per language (mask), in case the entries
      * remain history future publishing reusages need to be able to take them over cleanly.
      *
-     * @see \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationSwapped()
+     * @see \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Handler::locationSwapped
      *
      * @param array $location1Entries
      * @param array $location2Entries
@@ -850,11 +850,11 @@ class Handler implements UrlAliasHandlerInterface
      *
      * @see shouldUrlAliasForSecondLocationBePublishedFirst
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Language $language
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\DTO\SwappedLocationProperties $location1
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\DTO\SwappedLocationProperties $location2
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Language $language
+     * @param \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\DTO\SwappedLocationProperties $location1
+     * @param \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\DTO\SwappedLocationProperties $location2
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\DTO\UrlAliasForSwappedLocation[]
+     * @return \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\DTO\UrlAliasForSwappedLocation[]
      */
     private function getUrlAliasesForSwappedLocations(
         Language $language,
@@ -1139,7 +1139,7 @@ class Handler implements UrlAliasHandlerInterface
      *
      * @param int $locationId
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\BadStateException
+     * @throws \Ibexa\Core\Base\Exceptions\BadStateException
      */
     public function repairBrokenUrlAliasesForLocation(int $locationId)
     {
@@ -1188,3 +1188,5 @@ class Handler implements UrlAliasHandlerInterface
         }
     }
 }
+
+class_alias(Handler::class, 'eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler');

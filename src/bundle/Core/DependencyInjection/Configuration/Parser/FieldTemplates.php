@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser;
 
 class FieldTemplates extends Templates
 {
@@ -12,3 +12,5 @@ class FieldTemplates extends Templates
     const INFO = 'Template settings for fields rendered by the ez_render_field() Twig function';
     const INFO_TEMPLATE_KEY = 'Template file where to find block definition to display fields';
 }
+
+class_alias(FieldTemplates::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\FieldTemplates');

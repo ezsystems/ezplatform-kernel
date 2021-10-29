@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class represents a url alias in the repository.
@@ -96,3 +96,5 @@ class URLAlias extends ValueObject
      */
     protected $forward;
 }
+
+class_alias(URLAlias::class, 'eZ\Publish\API\Repository\Values\Content\URLAlias');

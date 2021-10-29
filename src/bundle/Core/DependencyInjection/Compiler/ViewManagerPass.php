@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\Core\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -13,8 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  * The ViewPass adds DIC compiler pass related to content view.
  * This includes adding ContentViewProvider implementations.
  *
- * @see \eZ\Publish\Core\MVC\Symfony\View\Manager
- * @see \eZ\Publish\Core\MVC\Symfony\View\ContentViewProvider
+ * @see \Ibexa\Core\MVC\Symfony\View\Manager
  * @deprecated since 6.0
  *
  * Converts the old tag (ezpublish.xxx_view_provider) to the new one (ezpublish.view_provider with type attribute)
@@ -41,3 +40,5 @@ abstract class ViewManagerPass implements CompilerPassInterface
         }
     }
 }
+
+class_alias(ViewManagerPass::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ViewManagerPass');

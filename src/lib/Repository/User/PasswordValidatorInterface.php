@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\User;
+namespace Ibexa\Core\Repository\User;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 
 /**
  * @internal
@@ -16,7 +16,9 @@ use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 interface PasswordValidatorInterface
 {
     /**
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validatePassword(string $password, FieldDefinition $userFieldDefinition): array;
 }
+
+class_alias(PasswordValidatorInterface::class, 'eZ\Publish\Core\Repository\User\PasswordValidatorInterface');

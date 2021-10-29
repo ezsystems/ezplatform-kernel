@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\EventSubscriber;
+namespace Ibexa\Bundle\Core\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -34,3 +34,5 @@ class CrowdinRequestLocaleSubscriber implements EventSubscriberInterface
         $e->getRequest()->headers->set('accept-language', 'ach-UG');
     }
 }
+
+class_alias(CrowdinRequestLocaleSubscriber::class, 'eZ\Bundle\EzPublishCoreBundle\EventSubscriber\CrowdinRequestLocaleSubscriber');

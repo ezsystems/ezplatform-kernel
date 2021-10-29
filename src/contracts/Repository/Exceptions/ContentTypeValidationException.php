@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Exceptions;
+namespace Ibexa\Contracts\Core\Repository\Exceptions;
 
 /**
  * This Exception is thrown on create or update content type when content type is not valid.
@@ -14,3 +14,5 @@ namespace eZ\Publish\API\Repository\Exceptions;
 abstract class ContentTypeValidationException extends ForbiddenException
 {
 }
+
+class_alias(ContentTypeValidationException::class, 'eZ\Publish\API\Repository\Exceptions\ContentTypeValidationException');

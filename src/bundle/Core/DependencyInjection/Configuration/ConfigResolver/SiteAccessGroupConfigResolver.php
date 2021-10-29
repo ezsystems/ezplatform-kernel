@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver;
 
-use eZ\Publish\Core\MVC\Exception\ParameterNotFoundException;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccessGroup;
+use Ibexa\Core\MVC\Exception\ParameterNotFoundException;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccessGroup;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
@@ -107,3 +107,5 @@ class SiteAccessGroupConfigResolver extends SiteAccessConfigResolver
         return array_key_exists($scope, $this->siteAccessGroups);
     }
 }
+
+class_alias(SiteAccessGroupConfigResolver::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver\SiteAccessGroupConfigResolver');

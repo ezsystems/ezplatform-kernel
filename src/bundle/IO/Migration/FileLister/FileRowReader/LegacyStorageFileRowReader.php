@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileRowReader;
+namespace Ibexa\Bundle\IO\Migration\FileLister\FileRowReader;
 
 use Doctrine\DBAL\Connection;
-use eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileRowReaderInterface;
+use Ibexa\Bundle\IO\Migration\FileLister\FileRowReaderInterface;
 
 abstract class LegacyStorageFileRowReader implements FileRowReaderInterface
 {
@@ -63,3 +63,5 @@ abstract class LegacyStorageFileRowReader implements FileRowReaderInterface
         return substr($mimeType, 0, strpos($mimeType, '/')) . '/' . $path;
     }
 }
+
+class_alias(LegacyStorageFileRowReader::class, 'eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileRowReader\LegacyStorageFileRowReader');

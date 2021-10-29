@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory;
+namespace Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory;
 
-use eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory;
+use Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\ChildDefinition;
@@ -78,3 +78,5 @@ abstract class Flysystem implements ConfigurationFactory, ContainerAwareInterfac
         return $filesystemId;
     }
 }
+
+class_alias(Flysystem::class, 'eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory\Flysystem');

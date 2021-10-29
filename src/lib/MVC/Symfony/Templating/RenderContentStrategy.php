@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Templating;
+namespace Ibexa\Core\MVC\Symfony\Templating;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\SPI\MVC\Templating\BaseRenderStrategy;
-use eZ\Publish\SPI\MVC\Templating\RenderStrategy;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\MVC\Templating\BaseRenderStrategy;
+use Ibexa\Contracts\Core\MVC\Templating\RenderStrategy;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
 final class RenderContentStrategy extends BaseRenderStrategy implements RenderStrategy
@@ -34,7 +34,7 @@ final class RenderContentStrategy extends BaseRenderStrategy implements RenderSt
             );
         }
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Content $content */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
         $content = $valueObject;
 
         $currentRequest = $this->requestStack->getCurrentRequest();
@@ -48,3 +48,5 @@ final class RenderContentStrategy extends BaseRenderStrategy implements RenderSt
         return $renderer->render($controllerReference, $currentRequest)->getContent();
     }
 }
+
+class_alias(RenderContentStrategy::class, 'eZ\Publish\Core\MVC\Symfony\Templating\RenderContentStrategy');

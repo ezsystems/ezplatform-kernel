@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base;
+namespace Ibexa\Core\Base;
 
 /**
  * Interface for translatable value objects.
@@ -65,3 +65,5 @@ interface Translatable
      */
     public function getBaseTranslation();
 }
+
+class_alias(Translatable::class, 'eZ\Publish\Core\Base\Translatable');

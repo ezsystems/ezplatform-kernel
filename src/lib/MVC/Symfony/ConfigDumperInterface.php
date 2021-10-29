@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony;
+namespace Ibexa\Core\MVC\Symfony;
 
 /**
  * Interface for configuration dumpers.
@@ -19,7 +19,9 @@ interface ConfigDumperInterface
      * Dumps settings contained in $configArray in a configuration storage (e.g. a YAML config file).
      *
      * @param array $configArray Hash of settings.
-     * @param int $options A binary combination of options. See class OPT_* class constants in {@link \eZ\Publish\Core\MVC\Symfony\ConfigDumperInterface}
+     * @param int $options A binary combination of options. See class OPT_* class constants in {@link \Ibexa\Core\MVC\Symfony\ConfigDumperInterface}
      */
     public function dump(array $configArray, $options = self::OPT_DEFAULT);
 }
+
+class_alias(ConfigDumperInterface::class, 'eZ\Publish\Core\MVC\Symfony\ConfigDumperInterface');

@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ObjectState;
+namespace Ibexa\Contracts\Core\Repository\Events\ObjectState;
 
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 
 final class BeforeDeleteObjectStateGroupEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup */
     private $objectStateGroup;
 
     public function __construct(ObjectStateGroup $objectStateGroup)
@@ -26,3 +26,5 @@ final class BeforeDeleteObjectStateGroupEvent extends BeforeEvent
         return $this->objectStateGroup;
     }
 }
+
+class_alias(BeforeDeleteObjectStateGroupEvent::class, 'eZ\Publish\API\Repository\Events\ObjectState\BeforeDeleteObjectStateGroupEvent');

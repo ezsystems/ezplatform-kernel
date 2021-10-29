@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Validator;
+namespace Ibexa\Contracts\Core\Repository\Validator;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 interface ContentValidator
 {
@@ -24,7 +24,7 @@ interface ContentValidator
      * @return array Grouped validation errors by field definition and language code, in format:
      *           $returnValue[string|int $fieldDefinitionId][string $languageCode] = $fieldErrors;
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function validate(
         ValueObject $object,
@@ -32,3 +32,5 @@ interface ContentValidator
         ?array $fieldIdentifiers = null
     ): array;
 }
+
+class_alias(ContentValidator::class, 'eZ\Publish\SPI\Repository\Validator\ContentValidator');

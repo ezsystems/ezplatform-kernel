@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\FieldType;
+namespace Ibexa\Contracts\Core\FieldType;
 
 /**
  * Base class for FieldType external storage gateways.
@@ -24,3 +24,5 @@ abstract class StorageGateway
         return sprintf('%s_%s_seq', $table, $column);
     }
 }
+
+class_alias(StorageGateway::class, 'eZ\Publish\SPI\FieldType\StorageGateway');

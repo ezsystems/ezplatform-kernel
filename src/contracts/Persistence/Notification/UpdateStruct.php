@@ -6,12 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Persistence\Notification;
+namespace Ibexa\Contracts\Core\Persistence\Notification;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 class UpdateStruct extends ValueObject
 {
     /** @var bool */
     public $isPending;
 }
+
+class_alias(UpdateStruct::class, 'eZ\Publish\SPI\Persistence\Notification\UpdateStruct');

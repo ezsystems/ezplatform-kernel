@@ -6,29 +6,29 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\SiteAccessAware;
+namespace Ibexa\Core\Repository\SiteAccessAware;
 
-use eZ\Publish\API\Repository\URLAliasService as URLAliasServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\LanguageResolver;
-use eZ\Publish\API\Repository\Values\Content\URLAlias;
+use Ibexa\Contracts\Core\Repository\URLAliasService as URLAliasServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\LanguageResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 
 /**
  * SiteAccess aware implementation of URLAliasService injecting languages where needed.
  */
 class URLAliasService implements URLAliasServiceInterface
 {
-    /** @var \eZ\Publish\API\Repository\URLAliasService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
     protected $service;
 
-    /** @var \eZ\Publish\API\Repository\LanguageResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageResolver */
     protected $languageResolver;
 
     /**
      * Construct service object from aggregated service and LanguageResolver.
      *
-     * @param \eZ\Publish\API\Repository\URLAliasService $service
-     * @param \eZ\Publish\API\Repository\LanguageResolver $languageResolver
+     * @param \Ibexa\Contracts\Core\Repository\URLAliasService $service
+     * @param \Ibexa\Contracts\Core\Repository\LanguageResolver $languageResolver
      */
     public function __construct(
         URLAliasServiceInterface $service,
@@ -118,3 +118,5 @@ class URLAliasService implements URLAliasServiceInterface
         return $this->service->deleteCorruptedUrlAliases();
     }
 }
+
+class_alias(URLAliasService::class, 'eZ\Publish\Core\Repository\SiteAccessAware\URLAliasService');

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Exceptions;
+namespace Ibexa\Contracts\Core\Repository\Exceptions;
 
 use Throwable;
 
@@ -16,3 +16,5 @@ use Throwable;
 interface Exception extends Throwable
 {
 }
+
+class_alias(Exception::class, 'eZ\Publish\API\Repository\Exceptions\Exception');

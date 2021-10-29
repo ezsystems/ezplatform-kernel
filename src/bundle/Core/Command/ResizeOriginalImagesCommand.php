@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Command;
+namespace Ibexa\Bundle\Core\Command;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use eZ\Publish\Core\FieldType\Image\Value;
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\Core\IO\Values\BinaryFile;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Core\FieldType\Image\Value;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\Values\BinaryFile;
 use Imagine\Image\ImagineInterface;
 use Liip\ImagineBundle\Binary\BinaryInterface;
 use Liip\ImagineBundle\Exception\Imagine\Filter\NonExistingFilterException;
@@ -41,25 +41,25 @@ class ResizeOriginalImagesCommand extends Command implements BackwardCompatibleC
     const DEFAULT_ITERATION_COUNT = 25;
     const DEFAULT_REPOSITORY_USER = 'admin';
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\SearchService */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     private $searchService;
 
     /** @var \Liip\ImagineBundle\Imagine\Filter\FilterManager */
     private $filterManager;
 
-    /** @var \eZ\Publish\Core\IO\IOServiceInterface */
+    /** @var \Ibexa\Core\IO\IOServiceInterface */
     private $ioService;
 
     /** @var \Symfony\Component\Mime\MimeTypesInterface */
@@ -210,7 +210,7 @@ class ResizeOriginalImagesCommand extends Command implements BackwardCompatibleC
         while ($query->offset <= $totalCount) {
             $results = $this->searchService->findContent($query);
 
-            /** @var \eZ\Publish\API\Repository\Values\Content\Search\SearchHit $hit */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit $hit */
             foreach ($results->searchHits as $hit) {
                 $this->resize($output, $hit, $imageFieldIdentifier, $filter);
                 $progressBar->advance();
@@ -233,14 +233,14 @@ class ResizeOriginalImagesCommand extends Command implements BackwardCompatibleC
 
     /**
      * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \eZ\Publish\API\Repository\Values\Content\Search\SearchHit $hit
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit $hit
      * @param string $imageFieldIdentifier
      * @param string $filter
      */
     private function resize(OutputInterface $output, SearchHit $hit, string $imageFieldIdentifier, string $filter): void
     {
         try {
-            /** @var \eZ\Publish\Core\FieldType\Image\Value $field */
+            /** @var \Ibexa\Core\FieldType\Image\Value $field */
             foreach ($hit->valueObject->fields[$imageFieldIdentifier] as $language => $field) {
                 if (null === $field->id) {
                     continue;
@@ -285,17 +285,17 @@ class ResizeOriginalImagesCommand extends Command implements BackwardCompatibleC
     }
 
     /**
-     * Copy of eZ\Bundle\EzPublishCoreBundle\Imagine\IORepositoryResolver::store()
-     * Original one cannot be used since original method uses eZ\Bundle\EzPublishCoreBundle\Imagine\IORepositoryResolver::getFilePath()
+     * Copy of {@see \Ibexa\Bundle\Core\Imagine\IORepositoryResolver::store}
+     * Original one cannot be used since original method uses {@see \Ibexa\Bundle\Core\Imagine\IORepositoryResolver::getFilePath}
      * so ends-up with image stored in _aliases instead of overwritten original image.
      *
      * @param \Liip\ImagineBundle\Binary\BinaryInterface $binary
-     * @param \eZ\Publish\Core\FieldType\Image\Value $image
+     * @param \Ibexa\Core\FieldType\Image\Value $image
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue
      *
-     * @return \eZ\Publish\Core\IO\Values\BinaryFile
+     * @return \Ibexa\Core\IO\Values\BinaryFile
      */
     private function store(BinaryInterface $binary, Value $image): BinaryFile
     {
@@ -315,3 +315,5 @@ class ResizeOriginalImagesCommand extends Command implements BackwardCompatibleC
         return ['ezplatform:images:resize-original'];
     }
 }
+
+class_alias(ResizeOriginalImagesCommand::class, 'eZ\Bundle\EzPublishCoreBundle\Command\ResizeOriginalImagesCommand');

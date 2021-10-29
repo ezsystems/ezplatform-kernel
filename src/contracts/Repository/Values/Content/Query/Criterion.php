@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Value;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator\Specifications;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Value;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator\Specifications;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator;
 use InvalidArgumentException;
 
 abstract class Criterion implements CriterionInterface
@@ -39,7 +39,7 @@ abstract class Criterion implements CriterionInterface
     /**
      * Additional value data, required by some criterions, MapLocationDistance for instance.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion\Value
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Value
      */
     public $valueData;
 
@@ -51,7 +51,7 @@ abstract class Criterion implements CriterionInterface
      *        The operator the Criterion uses. If null is given, will default to Operator::IN if $value is an array,
      *        Operator::EQ if it is not.
      * @param string[]|int[]|int|string|bool $value
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion\Value|null $valueData
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Value|null $valueData
      *
      * @todo Add a dedicated exception
      *
@@ -117,7 +117,7 @@ abstract class Criterion implements CriterionInterface
      * Criterion description function.
      *
      * Returns the combination of the Criterion's supported operator/value,
-     * as an array of eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator\Specifications objects
+     * as an array of {@see \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator\Specifications} objects
      * - Operator is one supported Operator, as an Operator::* constant
      * - ValueType is the type of input value this operator requires, either array or single
      * - SupportedTypes is an array of types the operator will accept
@@ -141,7 +141,7 @@ abstract class Criterion implements CriterionInterface
      * ]
      * </code>
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator\Specifications[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator\Specifications[]
      */
     abstract public function getSpecifications(): array;
 
@@ -178,3 +178,5 @@ abstract class Criterion implements CriterionInterface
         return $callback;
     }
 }
+
+class_alias(Criterion::class, 'eZ\Publish\API\Repository\Values\Content\Query\Criterion');

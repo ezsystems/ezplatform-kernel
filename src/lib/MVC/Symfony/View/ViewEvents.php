@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View;
+namespace Ibexa\Core\MVC\Symfony\View;
 
 /**
  * Events constants of views.
@@ -29,3 +29,5 @@ final class ViewEvents
      */
     const FILTER_VIEW_PARAMETERS = 'view.parameters_injection';
 }
+
+class_alias(ViewEvents::class, 'eZ\Publish\Core\MVC\Symfony\View\ViewEvents');

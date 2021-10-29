@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\User;
+namespace Ibexa\Contracts\Core\Repository\Events\User;
 
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeDeleteUserEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\User */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User */
     private $user;
 
     /** @var array|null */
@@ -49,3 +49,5 @@ final class BeforeDeleteUserEvent extends BeforeEvent
         return is_array($this->locations);
     }
 }
+
+class_alias(BeforeDeleteUserEvent::class, 'eZ\Publish\API\Repository\Events\User\BeforeDeleteUserEvent');

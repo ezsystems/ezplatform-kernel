@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Base\Container\Compiler;
+namespace Ibexa\Core\Base\Container\Compiler;
 
-use eZ\Publish\Core\Base\Container\Compiler\Storage\Legacy\FieldValueConverterRegistryPass;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\SerializableConverter;
-use eZ\Publish\SPI\FieldType\Generic\Type as GenericType;
+use Ibexa\Core\Base\Container\Compiler\Storage\Legacy\FieldValueConverterRegistryPass;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\SerializableConverter;
+use Ibexa\Contracts\Core\FieldType\Generic\Type as GenericType;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\LogicException;
@@ -146,3 +146,5 @@ final class GenericFieldTypeConverterPass implements CompilerPassInterface
         return $reflection->isSubclassOf(GenericType::class);
     }
 }
+
+class_alias(GenericFieldTypeConverterPass::class, 'eZ\Publish\Core\Base\Container\Compiler\GenericFieldTypeConverterPass');

@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Exceptions;
+namespace Ibexa\Core\Base\Exceptions;
 
 use Exception;
-use eZ\Publish\Core\Base\Translatable;
-use eZ\Publish\Core\Base\TranslatableBase;
+use Ibexa\Core\Base\Translatable;
+use Ibexa\Core\Base\TranslatableBase;
 use LogicException;
 
 /**
@@ -43,3 +43,5 @@ class MissingClass extends LogicException implements Translatable
         parent::__construct($this->getBaseTranslation(), 0, $previous);
     }
 }
+
+class_alias(MissingClass::class, 'eZ\Publish\Core\Base\Exceptions\MissingClass');

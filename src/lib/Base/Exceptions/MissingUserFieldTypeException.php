@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Exceptions;
+namespace Ibexa\Core\Base\Exceptions;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
 /**
  * @internal
@@ -24,3 +24,5 @@ final class MissingUserFieldTypeException extends ContentValidationException
         );
     }
 }
+
+class_alias(MissingUserFieldTypeException::class, 'eZ\Publish\Core\Base\Exceptions\MissingUserFieldTypeException');

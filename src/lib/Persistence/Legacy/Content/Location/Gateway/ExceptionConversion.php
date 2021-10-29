@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\Content\Location\Gateway;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\Core\Base\Exceptions\DatabaseException;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway;
-use eZ\Publish\SPI\Persistence\Content\Location;
-use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Core\Base\Exceptions\DatabaseException;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
 use Doctrine\DBAL\DBALException;
 use PDOException;
 
@@ -23,14 +23,14 @@ final class ExceptionConversion extends Gateway
     /**
      * The wrapped gateway.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway
      */
     private $innerGateway;
 
     /**
      * Creates a new exception conversion gateway around $innerGateway.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway $innerGateway
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway $innerGateway
      */
     public function __construct(Gateway $innerGateway)
     {
@@ -412,3 +412,5 @@ final class ExceptionConversion extends Gateway
         }
     }
 }
+
+class_alias(ExceptionConversion::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\ExceptionConversion');

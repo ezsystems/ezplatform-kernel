@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\User;
+namespace Ibexa\Contracts\Core\Repository\Events\User;
 
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Values\User\UserCreateStruct;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\User\UserCreateStruct;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCreateUserEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\UserCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserCreateStruct */
     private $userCreateStruct;
 
     /** @var array */
     private $parentGroups;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\User|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User|null */
     private $user;
 
     public function __construct(UserCreateStruct $userCreateStruct, array $parentGroups)
@@ -59,3 +59,5 @@ final class BeforeCreateUserEvent extends BeforeEvent
         return $this->user instanceof User;
     }
 }
+
+class_alias(BeforeCreateUserEvent::class, 'eZ\Publish\API\Repository\Events\User\BeforeCreateUserEvent');

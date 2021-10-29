@@ -6,23 +6,25 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 abstract class PolicyStruct extends ValueObject
 {
     /**
      * Returns list of limitations added to policy.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Limitation[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
      */
     abstract public function getLimitations(): iterable;
 
     /**
      * Adds a limitation with the given identifier and list of values.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
      */
     abstract public function addLimitation(Limitation $limitation): void;
 }
+
+class_alias(PolicyStruct::class, 'eZ\Publish\API\Repository\Values\User\PolicyStruct');

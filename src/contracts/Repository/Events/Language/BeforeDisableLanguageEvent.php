@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Language;
+namespace Ibexa\Contracts\Core\Repository\Events\Language;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeDisableLanguageEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
     private $language;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
     private $disabledLanguage;
 
     public function __construct(Language $language)
@@ -49,3 +49,5 @@ final class BeforeDisableLanguageEvent extends BeforeEvent
         return $this->disabledLanguage instanceof Language;
     }
 }
+
+class_alias(BeforeDisableLanguageEvent::class, 'eZ\Publish\API\Repository\Events\Language\BeforeDisableLanguageEvent');

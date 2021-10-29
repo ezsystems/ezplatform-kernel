@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Events\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class AddFieldDefinitionEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft */
     private $contentTypeDraft;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct */
     private $fieldDefinitionCreateStruct;
 
     public function __construct(
@@ -38,3 +38,5 @@ final class AddFieldDefinitionEvent extends AfterEvent
         return $this->fieldDefinitionCreateStruct;
     }
 }
+
+class_alias(AddFieldDefinitionEvent::class, 'eZ\Publish\API\Repository\Events\ContentType\AddFieldDefinitionEvent');

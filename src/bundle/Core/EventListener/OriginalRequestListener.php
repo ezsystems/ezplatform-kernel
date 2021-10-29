@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\EventListener;
+namespace Ibexa\Bundle\Core\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,3 +49,5 @@ class OriginalRequestListener implements EventSubscriberInterface
         $request->attributes->set('_ez_original_request', $originalRequest);
     }
 }
+
+class_alias(OriginalRequestListener::class, 'eZ\Bundle\EzPublishCoreBundle\EventListener\OriginalRequestListener');

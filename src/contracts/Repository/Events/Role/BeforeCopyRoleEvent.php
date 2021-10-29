@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Role;
+namespace Ibexa\Contracts\Core\Repository\Events\Role;
 
-use eZ\Publish\API\Repository\Values\User\RoleCopyStruct;
-use eZ\Publish\API\Repository\Values\User\Role;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleCopyStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCopyRoleEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\Role */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role */
     private $role;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\RoleCopyStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleCopyStruct */
     private $roleCopyStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\Role|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role|null */
     private $copiedRole;
 
     public function __construct(Role $role, RoleCopyStruct $roleCopyStruct)
@@ -41,7 +41,7 @@ final class BeforeCopyRoleEvent extends BeforeEvent
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function getCopiedRole(): Role
     {
@@ -62,3 +62,5 @@ final class BeforeCopyRoleEvent extends BeforeEvent
         return $this->copiedRole instanceof Role;
     }
 }
+
+class_alias(BeforeCopyRoleEvent::class, 'eZ\Publish\API\Repository\Events\Role\BeforeCopyRoleEvent');

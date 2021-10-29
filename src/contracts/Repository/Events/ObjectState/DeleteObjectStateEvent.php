@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ObjectState;
+namespace Ibexa\Contracts\Core\Repository\Events\ObjectState;
 
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class DeleteObjectStateEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectState */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState */
     private $objectState;
 
     public function __construct(ObjectState $objectState)
@@ -26,3 +26,5 @@ final class DeleteObjectStateEvent extends AfterEvent
         return $this->objectState;
     }
 }
+
+class_alias(DeleteObjectStateEvent::class, 'eZ\Publish\API\Repository\Events\ObjectState\DeleteObjectStateEvent');

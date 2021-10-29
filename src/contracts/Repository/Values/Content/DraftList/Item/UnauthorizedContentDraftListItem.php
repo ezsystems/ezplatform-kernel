@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\DraftList\Item;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item;
 
-use eZ\Publish\API\Repository\Values\Content\DraftList\ContentDraftListItemInterface;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\ContentDraftListItemInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 
 /**
  * Item of content drafts list which represents draft to which user has no access for.
@@ -62,7 +62,7 @@ class UnauthorizedContentDraftListItem implements ContentDraftListItemInterface
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null
      */
     public function getVersionInfo(): ?VersionInfo
     {
@@ -77,3 +77,5 @@ class UnauthorizedContentDraftListItem implements ContentDraftListItemInterface
         return false;
     }
 }
+
+class_alias(UnauthorizedContentDraftListItem::class, 'eZ\Publish\API\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem');

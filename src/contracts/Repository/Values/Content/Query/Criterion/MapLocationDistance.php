@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Value\MapLocationValue;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator\Specifications;
-use eZ\Publish\API\Repository\Values\Content\Query\CustomFieldInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Value\MapLocationValue;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator\Specifications;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\CustomFieldInterface;
 
 /**
  * The MapLocationDistance Criterion class.
@@ -95,3 +95,5 @@ class MapLocationDistance extends Criterion implements CustomFieldInterface
         return $this->customFields[$type][$field];
     }
 }
+
+class_alias(MapLocationDistance::class, 'eZ\Publish\API\Repository\Values\Content\Query\Criterion\MapLocationDistance');

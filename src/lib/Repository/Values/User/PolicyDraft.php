@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Values\User;
+namespace Ibexa\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\User\PolicyDraft as APIPolicyDraft;
+use Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft as APIPolicyDraft;
 
 /**
  * Class PolicyDraft.
@@ -17,7 +17,7 @@ use eZ\Publish\API\Repository\Values\User\PolicyDraft as APIPolicyDraft;
  */
 class PolicyDraft extends APIPolicyDraft
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\Policy */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Policy */
     protected $innerPolicy;
 
     /**
@@ -55,10 +55,12 @@ class PolicyDraft extends APIPolicyDraft
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\User\Limitation[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
      */
     public function getLimitations(): iterable
     {
         return $this->innerPolicy->getLimitations();
     }
 }
+
+class_alias(PolicyDraft::class, 'eZ\Publish\Core\Repository\Values\User\PolicyDraft');

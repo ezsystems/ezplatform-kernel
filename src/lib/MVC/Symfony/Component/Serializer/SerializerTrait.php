@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Component\Serializer;
+namespace Ibexa\Core\MVC\Symfony\Component\Serializer;
 
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer;
@@ -37,3 +37,5 @@ trait SerializerTrait
         );
     }
 }
+
+class_alias(SerializerTrait::class, 'eZ\Publish\Core\MVC\Symfony\Component\Serializer\SerializerTrait');

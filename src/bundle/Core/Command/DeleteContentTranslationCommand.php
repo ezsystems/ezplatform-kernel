@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Command;
+namespace Ibexa\Bundle\Core\Command;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -23,10 +23,10 @@ use Exception;
  */
 class DeleteContentTranslationCommand extends Command implements BackwardCompatibleCommand
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
     /** @var \Symfony\Component\Console\Input\InputInterface */
@@ -148,11 +148,11 @@ class DeleteContentTranslationCommand extends Command implements BackwardCompati
     /**
      * Interact with user to update main Language of a Content Object.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      * @param string $languageCode language code of the Translation to be deleted
      * @param string[] $lastVersionLanguageCodes all Translations last Version has.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
      */
     private function promptUserForMainLanguageChange(
         ContentInfo $contentInfo,
@@ -201,3 +201,5 @@ class DeleteContentTranslationCommand extends Command implements BackwardCompati
         return ['ezplatform:delete-content-translation'];
     }
 }
+
+class_alias(DeleteContentTranslationCommand::class, 'eZ\Bundle\EzPublishCoreBundle\Command\DeleteContentTranslationCommand');

@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Search;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Search;
 
 use ArrayIterator;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Iterator;
 use IteratorAggregate;
 
@@ -21,21 +21,21 @@ class SearchResult extends ValueObject implements IteratorAggregate
     /**
      * The facets for this search.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Search\Facet[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\Facet[]
      *
      * @deprecated since eZ Platform 3.2.0, to be removed in eZ Platform 4.0.0.
      */
     public $facets = [];
 
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\Search\AggregationResultCollection
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResultCollection
      */
     public $aggregations;
 
     /**
      * The value objects found for the query.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Search\SearchHit[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit[]
      */
     public $searchHits = [];
 
@@ -43,7 +43,7 @@ class SearchResult extends ValueObject implements IteratorAggregate
      * If spellcheck is on this field contains a collated query suggestion where in the appropriate
      * criterions the wrong spelled value is replaced by a corrected one (TBD).
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion
      */
     public $spellSuggestion;
 
@@ -91,3 +91,5 @@ class SearchResult extends ValueObject implements IteratorAggregate
         return new ArrayIterator($this->searchHits);
     }
 }
+
+class_alias(SearchResult::class, 'eZ\Publish\API\Repository\Values\Content\Search\SearchResult');

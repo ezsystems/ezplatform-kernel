@@ -4,22 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View\Builder;
+namespace Ibexa\Core\MVC\Symfony\View\Builder;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
-use eZ\Publish\Core\Helper\ContentInfoLocationLoader;
-use eZ\Publish\Core\MVC\Exception\HiddenLocationException;
-use eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController;
-use eZ\Publish\Core\MVC\Symfony\View\Configurator;
-use eZ\Publish\Core\MVC\Symfony\View\ContentView;
-use eZ\Publish\Core\MVC\Symfony\View\EmbedView;
-use eZ\Publish\Core\MVC\Symfony\View\ParametersInjector;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
+use Ibexa\Core\Helper\ContentInfoLocationLoader;
+use Ibexa\Core\MVC\Exception\HiddenLocationException;
+use Ibexa\Core\MVC\Symfony\Controller\Content\PreviewController;
+use Ibexa\Core\MVC\Symfony\View\Configurator;
+use Ibexa\Core\MVC\Symfony\View\ContentView;
+use Ibexa\Core\MVC\Symfony\View\EmbedView;
+use Ibexa\Core\MVC\Symfony\View\ParametersInjector;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -27,16 +27,16 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class ContentViewBuilder implements ViewBuilder
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\Configurator */
+    /** @var \Ibexa\Core\MVC\Symfony\View\Configurator */
     private $viewConfigurator;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\ParametersInjector */
+    /** @var \Ibexa\Core\MVC\Symfony\View\ParametersInjector */
     private $viewParametersInjector;
 
     /** @var \Symfony\Component\HttpFoundation\RequestStack */
@@ -49,7 +49,7 @@ class ContentViewBuilder implements ViewBuilder
      */
     private $defaultTemplates;
 
-    /** @var \eZ\Publish\Core\Helper\ContentInfoLocationLoader */
+    /** @var \Ibexa\Core\Helper\ContentInfoLocationLoader */
     private $locationLoader;
 
     public function __construct(
@@ -75,12 +75,12 @@ class ContentViewBuilder implements ViewBuilder
     /**
      * @param array $parameters
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\View\ContentView|\eZ\Publish\Core\MVC\Symfony\View\View
+     * @return \Ibexa\Core\MVC\Symfony\View\ContentView|\Ibexa\Core\MVC\Symfony\View\View
      *         If both contentId and locationId parameters are missing
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      *         If both contentId and locationId parameters are missing
-     * @throws \eZ\Publish\Core\Base\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Core\Base\Exceptions\UnauthorizedException
      */
     public function buildView(array $parameters)
     {
@@ -173,9 +173,9 @@ class ContentViewBuilder implements ViewBuilder
      *
      * @param mixed $contentId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Core\Base\Exceptions\UnauthorizedException
      */
     private function loadContent($contentId, ?string $languageCode = null)
     {
@@ -191,11 +191,11 @@ class ContentViewBuilder implements ViewBuilder
      * if provided.
      *
      * @param mixed $contentId
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Core\Base\Exceptions\UnauthorizedException
      */
     private function loadEmbeddedContent($contentId, Location $location = null, ?string $languageCode = null)
     {
@@ -228,7 +228,7 @@ class ContentViewBuilder implements ViewBuilder
      *
      * @param $locationId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
      */
     private function loadLocation($locationId)
     {
@@ -251,8 +251,8 @@ class ContentViewBuilder implements ViewBuilder
     /**
      * Checks if a user can read a content, or view it as an embed.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      * @param bool $isEmbed
      *
      * @return bool
@@ -286,3 +286,5 @@ class ContentViewBuilder implements ViewBuilder
         return false;
     }
 }
+
+class_alias(ContentViewBuilder::class, 'eZ\Publish\Core\MVC\Symfony\View\Builder\ContentViewBuilder');

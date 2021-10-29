@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\LocationResolver;
+namespace Ibexa\Core\Repository\LocationResolver;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 /**
  * @internal For internal use by eZ Platform core packages
@@ -17,9 +17,11 @@ use eZ\Publish\API\Repository\Values\Content\Location;
 interface LocationResolver
 {
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function resolveLocation(ContentInfo $contentInfo): Location;
 }
+
+class_alias(LocationResolver::class, 'eZ\Publish\Core\Repository\LocationResolver\LocationResolver');

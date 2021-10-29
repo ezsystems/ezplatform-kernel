@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\TransformationProcessor\DefinitionBased;
+namespace Ibexa\Core\Persistence\TransformationProcessor\DefinitionBased;
 
-use eZ\Publish\Core\Persistence\TransformationProcessor;
+use Ibexa\Core\Persistence\TransformationProcessor;
 use RuntimeException;
 
 /**
@@ -180,3 +180,5 @@ class Parser
         return $data;
     }
 }
+
+class_alias(Parser::class, 'eZ\Publish\Core\Persistence\TransformationProcessor\DefinitionBased\Parser');

@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Role;
+namespace Ibexa\Contracts\Core\Repository\Events\Role;
 
-use eZ\Publish\API\Repository\Values\User\RoleCreateStruct;
-use eZ\Publish\API\Repository\Values\User\RoleDraft;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleDraft;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCreateRoleEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\RoleCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleCreateStruct */
     private $roleCreateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\RoleDraft|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft|null */
     private $roleDraft;
 
     public function __construct(RoleCreateStruct $roleCreateStruct)
@@ -50,3 +50,5 @@ final class BeforeCreateRoleEvent extends BeforeEvent
         return $this->roleDraft instanceof RoleDraft;
     }
 }
+
+class_alias(BeforeCreateRoleEvent::class, 'eZ\Publish\API\Repository\Events\Role\BeforeCreateRoleEvent');

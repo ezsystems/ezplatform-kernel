@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Values\ContentType;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * this class is used to update a field definition.
@@ -108,3 +108,5 @@ class FieldDefinitionUpdateStruct extends ValueObject
      */
     public $isSearchable;
 }
+
+class_alias(FieldDefinitionUpdateStruct::class, 'eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionUpdateStruct');

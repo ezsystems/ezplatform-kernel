@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\ExpressionLanguage;
+namespace Ibexa\Core\MVC\Symfony\ExpressionLanguage;
 
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage as BaseExpressionLanguage;
@@ -22,3 +22,5 @@ final class ExpressionLanguage extends BaseExpressionLanguage
         parent::__construct($cache, $providers);
     }
 }
+
+class_alias(ExpressionLanguage::class, 'eZ\Publish\Core\MVC\Symfony\ExpressionLanguage\ExpressionLanguage');

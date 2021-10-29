@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard;
+namespace Ibexa\Core\Persistence\Legacy\Content\UrlWildcard;
 
-use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
+use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard;
 
 /**
  * UrlWildcard Gateway.
@@ -55,3 +55,5 @@ abstract class Gateway
      */
     abstract public function loadUrlWildcardBySourceUrl(string $sourceUrl): array;
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway');

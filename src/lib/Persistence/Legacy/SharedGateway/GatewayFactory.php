@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\SharedGateway;
+namespace Ibexa\Core\Persistence\Legacy\SharedGateway;
 
 use Doctrine\DBAL\Connection;
 
@@ -17,10 +17,10 @@ use Doctrine\DBAL\Connection;
  */
 final class GatewayFactory
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\SharedGateway\Gateway */
+    /** @var \Ibexa\Core\Persistence\Legacy\SharedGateway\Gateway */
     private $fallbackGateway;
 
-    /** @var \iterable|\eZ\Publish\Core\Persistence\Legacy\SharedGateway\Gateway[] */
+    /** @var \iterable|\Ibexa\Core\Persistence\Legacy\SharedGateway\Gateway[] */
     private $gateways;
 
     public function __construct(Gateway $fallbackGateway, iterable $gateways)
@@ -48,3 +48,5 @@ final class GatewayFactory
         return $this->fallbackGateway;
     }
 }
+
+class_alias(GatewayFactory::class, 'eZ\Publish\Core\Persistence\Legacy\SharedGateway\GatewayFactory');

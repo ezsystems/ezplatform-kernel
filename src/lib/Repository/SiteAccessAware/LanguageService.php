@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\SiteAccessAware;
+namespace Ibexa\Core\Repository\SiteAccessAware;
 
-use eZ\Publish\API\Repository\LanguageService as LanguageServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\LanguageService as LanguageServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 
 /**
  * LanguageService for SiteAccessAware layer.
@@ -17,13 +17,13 @@ use eZ\Publish\API\Repository\Values\Content\Language;
  */
 class LanguageService implements LanguageServiceInterface
 {
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     protected $service;
 
     /**
      * Construct service object from aggregated service.
      *
-     * @param \eZ\Publish\API\Repository\LanguageService $service
+     * @param \Ibexa\Contracts\Core\Repository\LanguageService $service
      */
     public function __construct(
         LanguageServiceInterface $service
@@ -91,3 +91,5 @@ class LanguageService implements LanguageServiceInterface
         return $this->service->newLanguageCreateStruct();
     }
 }
+
+class_alias(LanguageService::class, 'eZ\Publish\Core\Repository\SiteAccessAware\LanguageService');

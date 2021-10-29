@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Exception;
+namespace Ibexa\Core\MVC\Exception;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class HiddenLocationException extends NotFoundHttpException
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
     private $location;
 
     public function __construct(Location $location, $message = null, \Exception $previous = null, $code = 0)
@@ -21,10 +21,12 @@ class HiddenLocationException extends NotFoundHttpException
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
      */
     public function getLocation()
     {
         return $this->location;
     }
 }
+
+class_alias(HiddenLocationException::class, 'eZ\Publish\Core\MVC\Exception\HiddenLocationException');

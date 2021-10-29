@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Values\Content\Query\Criterion;
+namespace Ibexa\Core\Repository\Values\Content\Query\Criterion;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Subtree as APISubtreeCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Subtree as APISubtreeCriterion;
 
 /**
  * Criterion that matches content that belongs to a given (list of) Subtree(s).
@@ -32,3 +32,5 @@ class PermissionSubtree extends APISubtreeCriterion
         return new self($value);
     }
 }
+
+class_alias(PermissionSubtree::class, 'eZ\Publish\Core\Repository\Values\Content\Query\Criterion\PermissionSubtree');

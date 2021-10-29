@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\URL\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
 
 /**
  * Matches URLs which contains the pattern.
@@ -34,3 +34,5 @@ class Pattern extends Matcher
         $this->pattern = $pattern;
     }
 }
+
+class_alias(Pattern::class, 'eZ\Publish\API\Repository\Values\URL\Query\Criterion\Pattern');

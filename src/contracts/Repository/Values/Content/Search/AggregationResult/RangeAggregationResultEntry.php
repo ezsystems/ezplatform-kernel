@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Search\AggregationResult;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Range;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\Range;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 final class RangeAggregationResultEntry extends ValueObject
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Range */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\Range */
     private $key;
 
     /** @var int */
@@ -37,3 +37,5 @@ final class RangeAggregationResultEntry extends ValueObject
         return $this->count;
     }
 }
+
+class_alias(RangeAggregationResultEntry::class, 'eZ\Publish\API\Repository\Values\Content\Search\AggregationResult\RangeAggregationResultEntry');

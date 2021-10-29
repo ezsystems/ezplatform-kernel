@@ -6,9 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query;
 
 interface Aggregation
 {
     public function getName(): string;
 }
+
+class_alias(Aggregation::class, 'eZ\Publish\API\Repository\Values\Content\Query\Aggregation');

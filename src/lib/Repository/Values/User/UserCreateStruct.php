@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Values\User;
+namespace Ibexa\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\User\UserCreateStruct as APIUserCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\User\UserCreateStruct as APIUserCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 
 /**
  * This class is used to create a new user in the repository.
@@ -21,7 +21,7 @@ class UserCreateStruct extends APIUserCreateStruct
     /**
      * The list of fields added to the user.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Field[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Field[]
      */
     public $fields = [];
 
@@ -52,3 +52,5 @@ class UserCreateStruct extends APIUserCreateStruct
         );
     }
 }
+
+class_alias(UserCreateStruct::class, 'eZ\Publish\Core\Repository\Values\User\UserCreateStruct');

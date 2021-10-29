@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Search\FieldType;
+namespace Ibexa\Contracts\Core\Search\FieldType;
 
-use eZ\Publish\SPI\Search\FieldType;
+use Ibexa\Contracts\Core\Search\FieldType;
 
 /**
  * Float document field.
@@ -20,3 +20,5 @@ class FloatField extends FieldType
      */
     protected $type = 'ez_float';
 }
+
+class_alias(FloatField::class, 'eZ\Publish\SPI\Search\FieldType\FloatField');

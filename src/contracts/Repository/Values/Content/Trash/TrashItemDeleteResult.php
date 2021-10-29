@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Trash;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Trash;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 class TrashItemDeleteResult extends ValueObject
 {
@@ -25,3 +25,5 @@ class TrashItemDeleteResult extends ValueObject
      */
     public $contentRemoved = false;
 }
+
+class_alias(TrashItemDeleteResult::class, 'eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult');

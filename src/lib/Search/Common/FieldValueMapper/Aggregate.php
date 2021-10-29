@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Common\FieldValueMapper;
+namespace Ibexa\Core\Search\Common\FieldValueMapper;
 
-use eZ\Publish\Core\Search\Common\FieldValueMapper;
-use eZ\Publish\SPI\Search\Field;
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
+use Ibexa\Core\Search\Common\FieldValueMapper;
+use Ibexa\Contracts\Core\Search\Field;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
 
 /**
  * Common aggregate mapper implementation.
@@ -18,14 +18,14 @@ class Aggregate extends FieldValueMapper
     /**
      * Array of available mappers.
      *
-     * @var \eZ\Publish\Core\Search\Common\FieldValueMapper[]
+     * @var \Ibexa\Core\Search\Common\FieldValueMapper[]
      */
     protected $mappers = [];
 
     /**
      * Construct from optional mapper array.
      *
-     * @param \eZ\Publish\Core\Search\Common\FieldValueMapper[] $mappers
+     * @param \Ibexa\Core\Search\Common\FieldValueMapper[] $mappers
      */
     public function __construct(array $mappers = [])
     {
@@ -37,7 +37,7 @@ class Aggregate extends FieldValueMapper
     /**
      * Adds mapper.
      *
-     * @param \eZ\Publish\Core\Search\Common\FieldValueMapper $mapper
+     * @param \Ibexa\Core\Search\Common\FieldValueMapper $mapper
      */
     public function addMapper(FieldValueMapper $mapper)
     {
@@ -47,7 +47,7 @@ class Aggregate extends FieldValueMapper
     /**
      * Check if field can be mapped.
      *
-     * @param \eZ\Publish\SPI\Search\Field $field
+     * @param \Ibexa\Contracts\Core\Search\Field $field
      *
      * @return bool
      */
@@ -59,9 +59,9 @@ class Aggregate extends FieldValueMapper
     /**
      * Map field value to a proper search engine representation.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException
      *
-     * @param \eZ\Publish\SPI\Search\Field $field
+     * @param \Ibexa\Contracts\Core\Search\Field $field
      *
      * @return mixed
      */
@@ -78,3 +78,5 @@ class Aggregate extends FieldValueMapper
         );
     }
 }
+
+class_alias(Aggregate::class, 'eZ\Publish\Core\Search\Common\FieldValueMapper\Aggregate');

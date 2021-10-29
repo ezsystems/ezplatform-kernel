@@ -6,39 +6,39 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Event;
+namespace Ibexa\Core\Event;
 
-use eZ\Publish\API\Repository\Events\User\BeforeUpdateUserPasswordEvent;
-use eZ\Publish\API\Repository\Events\User\UpdateUserPasswordEvent;
-use eZ\Publish\API\Repository\UserService as UserServiceInterface;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Values\User\UserCreateStruct;
-use eZ\Publish\API\Repository\Values\User\UserGroup;
-use eZ\Publish\API\Repository\Values\User\UserGroupCreateStruct;
-use eZ\Publish\API\Repository\Values\User\UserGroupUpdateStruct;
-use eZ\Publish\API\Repository\Values\User\UserTokenUpdateStruct;
-use eZ\Publish\API\Repository\Values\User\UserUpdateStruct;
-use eZ\Publish\API\Repository\Events\User\AssignUserToUserGroupEvent;
-use eZ\Publish\API\Repository\Events\User\BeforeAssignUserToUserGroupEvent;
-use eZ\Publish\API\Repository\Events\User\BeforeCreateUserEvent;
-use eZ\Publish\API\Repository\Events\User\BeforeCreateUserGroupEvent;
-use eZ\Publish\API\Repository\Events\User\BeforeDeleteUserEvent;
-use eZ\Publish\API\Repository\Events\User\BeforeDeleteUserGroupEvent;
-use eZ\Publish\API\Repository\Events\User\BeforeMoveUserGroupEvent;
-use eZ\Publish\API\Repository\Events\User\BeforeUnAssignUserFromUserGroupEvent;
-use eZ\Publish\API\Repository\Events\User\BeforeUpdateUserEvent;
-use eZ\Publish\API\Repository\Events\User\BeforeUpdateUserGroupEvent;
-use eZ\Publish\API\Repository\Events\User\BeforeUpdateUserTokenEvent;
-use eZ\Publish\API\Repository\Events\User\CreateUserEvent;
-use eZ\Publish\API\Repository\Events\User\CreateUserGroupEvent;
-use eZ\Publish\API\Repository\Events\User\DeleteUserEvent;
-use eZ\Publish\API\Repository\Events\User\DeleteUserGroupEvent;
-use eZ\Publish\API\Repository\Events\User\MoveUserGroupEvent;
-use eZ\Publish\API\Repository\Events\User\UnAssignUserFromUserGroupEvent;
-use eZ\Publish\API\Repository\Events\User\UpdateUserEvent;
-use eZ\Publish\API\Repository\Events\User\UpdateUserGroupEvent;
-use eZ\Publish\API\Repository\Events\User\UpdateUserTokenEvent;
-use eZ\Publish\SPI\Repository\Decorator\UserServiceDecorator;
+use Ibexa\Contracts\Core\Repository\Events\User\BeforeUpdateUserPasswordEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\UpdateUserPasswordEvent;
+use Ibexa\Contracts\Core\Repository\UserService as UserServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\User\UserCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\UserTokenUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\UserUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Events\User\AssignUserToUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\BeforeAssignUserToUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\BeforeCreateUserEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\BeforeCreateUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\BeforeDeleteUserEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\BeforeDeleteUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\BeforeMoveUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\BeforeUnAssignUserFromUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\BeforeUpdateUserEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\BeforeUpdateUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\BeforeUpdateUserTokenEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\CreateUserEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\CreateUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\DeleteUserEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\DeleteUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\MoveUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\UnAssignUserFromUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\UpdateUserEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\UpdateUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\UpdateUserTokenEvent;
+use Ibexa\Contracts\Core\Repository\Decorator\UserServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class UserService extends UserServiceDecorator
@@ -355,3 +355,5 @@ class UserService extends UserServiceDecorator
         );
     }
 }
+
+class_alias(UserService::class, 'eZ\Publish\Core\Event\UserService');

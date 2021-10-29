@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Values\Content;
+namespace Ibexa\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo as APIContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo as APIContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
 
 /**
  * This class represents a location in the repository.
@@ -21,20 +21,20 @@ class Location extends APILocation
     /**
      * Content info of the content object of this location.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\ContentInfo
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
      */
     protected $contentInfo;
 
     /** @var array */
     protected $path;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
     protected $parentLocation;
 
     /**
      * Returns the content info of the content object of this location.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
      */
     public function getContentInfo(): APIContentInfo
     {
@@ -104,3 +104,5 @@ class Location extends APILocation
         return parent::__isset($property);
     }
 }
+
+class_alias(Location::class, 'eZ\Publish\Core\Repository\Values\Content\Location');

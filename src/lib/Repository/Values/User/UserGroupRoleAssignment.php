@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Values\User;
+namespace Ibexa\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation as APIRoleLimitation;
-use eZ\Publish\API\Repository\Values\User\Role as APIRole;
-use eZ\Publish\API\Repository\Values\User\UserGroup as APIUserGroup;
-use eZ\Publish\API\Repository\Values\User\UserGroupRoleAssignment as APIUserGroupRoleAssignment;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation as APIRoleLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Role as APIRole;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup as APIUserGroup;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroupRoleAssignment as APIUserGroupRoleAssignment;
 
 /**
  * This class represents a user group to role assignment.
@@ -23,28 +23,28 @@ class UserGroupRoleAssignment extends APIUserGroupRoleAssignment
     /**
      * the limitation of this role assignment.
      *
-     * @var \eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation|null
      */
     protected $limitation;
 
     /**
      * the role which is assigned to the user group.
      *
-     * @var \eZ\Publish\API\Repository\Values\User\Role
+     * @var \Ibexa\Contracts\Core\Repository\Values\User\Role
      */
     protected $role;
 
     /**
      * user group to which the role is assigned to.
      *
-     * @var \eZ\Publish\API\Repository\Values\User\UserGroup
+     * @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroup
      */
     protected $userGroup;
 
     /**
      * Returns the limitation of the role assignment.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation|null
      */
     public function getRoleLimitation(): ?APIRoleLimitation
     {
@@ -54,7 +54,7 @@ class UserGroupRoleAssignment extends APIUserGroupRoleAssignment
     /**
      * Returns the role to which the user group is assigned to.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Role
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role
      */
     public function getRole(): APIRole
     {
@@ -64,10 +64,12 @@ class UserGroupRoleAssignment extends APIUserGroupRoleAssignment
     /**
      * Returns the user group to which the role is assigned to.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\UserGroup
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\UserGroup
      */
     public function getUserGroup(): APIUserGroup
     {
         return $this->userGroup;
     }
 }
+
+class_alias(UserGroupRoleAssignment::class, 'eZ\Publish\Core\Repository\Values\User\UserGroupRoleAssignment');

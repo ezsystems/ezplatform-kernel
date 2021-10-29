@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ObjectState;
+namespace Ibexa\Contracts\Core\Repository\Events\ObjectState;
 
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateUpdateStruct;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class UpdateObjectStateEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectState */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState */
     private $updatedObjectState;
 
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectState */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState */
     private $objectState;
 
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateUpdateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateUpdateStruct */
     private $objectStateUpdateStruct;
 
     public function __construct(
@@ -48,3 +48,5 @@ final class UpdateObjectStateEvent extends AfterEvent
         return $this->objectStateUpdateStruct;
     }
 }
+
+class_alias(UpdateObjectStateEvent::class, 'eZ\Publish\API\Repository\Events\ObjectState\UpdateObjectStateEvent');

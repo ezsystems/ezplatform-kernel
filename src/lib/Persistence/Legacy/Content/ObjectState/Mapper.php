@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\ObjectState;
+namespace Ibexa\Core\Persistence\Legacy\Content\ObjectState;
 
-use eZ\Publish\SPI\Persistence\Content\ObjectState;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\Group;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
 
 /**
  * Mapper for ObjectState and object state Group objects.
@@ -19,14 +19,14 @@ class Mapper
     /**
      * Language handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Language\Handler
      */
     protected $languageHandler;
 
     /**
      * Creates a new mapper.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Language\Handler $languageHandler
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Language\Handler $languageHandler
      */
     public function __construct(LanguageHandler $languageHandler)
     {
@@ -38,7 +38,7 @@ class Mapper
      *
      * @param array $data
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState
      */
     public function createObjectStateFromData(array $data)
     {
@@ -75,7 +75,7 @@ class Mapper
      *
      * @param array $data
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState[]
      */
     public function createObjectStateListFromData(array $data)
     {
@@ -93,7 +93,7 @@ class Mapper
      *
      * @param array $data
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group
      */
     public function createObjectStateGroupFromData(array $data)
     {
@@ -130,7 +130,7 @@ class Mapper
      *
      * @param array $data
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\Group[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group[]
      */
     public function createObjectStateGroupListFromData(array $data)
     {
@@ -146,9 +146,9 @@ class Mapper
     /**
      * Creates an instance of ObjectStateGroup object from provided $input struct.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct $input
+     * @param \Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct $input
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group
      */
     public function createObjectStateGroupFromInputStruct(InputStruct $input)
     {
@@ -170,9 +170,9 @@ class Mapper
     /**
      * Creates an instance of ObjectState object from provided $input struct.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct $input
+     * @param \Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct $input
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState
      */
     public function createObjectStateFromInputStruct(InputStruct $input)
     {
@@ -191,3 +191,5 @@ class Mapper
         return $objectState;
     }
 }
+
+class_alias(Mapper::class, 'eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Mapper');

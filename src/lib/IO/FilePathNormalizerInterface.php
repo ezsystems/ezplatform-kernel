@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\IO;
+namespace Ibexa\Core\IO;
 
 /**
  * @internal
@@ -15,3 +15,5 @@ interface FilePathNormalizerInterface
 {
     public function normalizePath(string $filePath): string;
 }
+
+class_alias(FilePathNormalizerInterface::class, 'eZ\Publish\Core\IO\FilePathNormalizerInterface');

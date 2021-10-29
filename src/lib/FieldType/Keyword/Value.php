@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Keyword;
+namespace Ibexa\Core\FieldType\Keyword;
 
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * Value for Keyword field type.
@@ -53,3 +53,5 @@ class Value extends BaseValue
         return implode(', ', $this->values);
     }
 }
+
+class_alias(Value::class, 'eZ\Publish\Core\FieldType\Keyword\Value');

@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\URL\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\URL\Gateway;
 
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
-use eZ\Publish\Core\Base\Exceptions\DatabaseException;
-use eZ\Publish\Core\Persistence\Legacy\URL\Gateway;
-use eZ\Publish\SPI\Persistence\URL\URL;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
+use Ibexa\Core\Base\Exceptions\DatabaseException;
+use Ibexa\Core\Persistence\Legacy\URL\Gateway;
+use Ibexa\Contracts\Core\Persistence\URL\URL;
 use Doctrine\DBAL\DBALException;
 use PDOException;
 
@@ -18,14 +18,14 @@ class ExceptionConversion extends Gateway
     /**
      * The wrapped gateway.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\URL\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\URL\Gateway
      */
     protected $innerGateway;
 
     /**
      * ExceptionConversion constructor.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\URL\Gateway $innerGateway
+     * @param \Ibexa\Core\Persistence\Legacy\URL\Gateway $innerGateway
      */
     public function __construct(Gateway $innerGateway)
     {
@@ -77,3 +77,5 @@ class ExceptionConversion extends Gateway
         }
     }
 }
+
+class_alias(ExceptionConversion::class, 'eZ\Publish\Core\Persistence\Legacy\URL\Gateway\ExceptionConversion');

@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Events\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeCreateStruct;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCreateContentTypeEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct */
     private $contentTypeCreateStruct;
 
     /** @var array */
     private $contentTypeGroups;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft|null */
     private $contentTypeDraft;
 
     public function __construct(ContentTypeCreateStruct $contentTypeCreateStruct, array $contentTypeGroups)
@@ -59,3 +59,5 @@ final class BeforeCreateContentTypeEvent extends BeforeEvent
         return $this->contentTypeDraft instanceof ContentTypeDraft;
     }
 }
+
+class_alias(BeforeCreateContentTypeEvent::class, 'eZ\Publish\API\Repository\Events\ContentType\BeforeCreateContentTypeEvent');

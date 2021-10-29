@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\URLWildcard;
+namespace Ibexa\Contracts\Core\Repository\Events\URLWildcard;
 
-use eZ\Publish\API\Repository\Values\Content\URLWildcard;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCreateEvent extends BeforeEvent
@@ -20,7 +20,7 @@ final class BeforeCreateEvent extends BeforeEvent
 
     private $forward;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\URLWildcard|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|null */
     private $urlWildcard;
 
     public function __construct($sourceUrl, $destinationUrl, $forward)
@@ -64,3 +64,5 @@ final class BeforeCreateEvent extends BeforeEvent
         return $this->urlWildcard instanceof URLWildcard;
     }
 }
+
+class_alias(BeforeCreateEvent::class, 'eZ\Publish\API\Repository\Events\URLWildcard\BeforeCreateEvent');

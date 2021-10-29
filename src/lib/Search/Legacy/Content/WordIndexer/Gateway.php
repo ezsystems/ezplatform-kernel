@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Content\WordIndexer;
+namespace Ibexa\Core\Search\Legacy\Content\WordIndexer;
 
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\Core\Search\Legacy\Content\FullTextData;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Core\Search\Legacy\Content\FullTextData;
 
 /**
  * The WordIndexer Gateway abstracts indexing of content full text data.
@@ -17,7 +17,7 @@ abstract class Gateway
     /**
      * Index search engine FullTextData objects corresponding to content object field values.
      *
-     * @param \eZ\Publish\Core\Search\Legacy\Content\FullTextData $fullTextValue
+     * @param \Ibexa\Core\Search\Legacy\Content\FullTextData $fullTextValue
      */
     abstract public function index(FullTextData $fullTextValue);
 
@@ -32,7 +32,7 @@ abstract class Gateway
     /**
      * Indexes an array of FullTextData objects.
      *
-     * @param \eZ\Publish\Core\Search\Legacy\Content\FullTextData[] $fullTextBulkData
+     * @param \Ibexa\Core\Search\Legacy\Content\FullTextData[] $fullTextBulkData
      */
     abstract public function bulkIndex(array $fullTextBulkData);
 
@@ -41,3 +41,5 @@ abstract class Gateway
      */
     abstract public function purgeIndex();
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\Search\Legacy\Content\WordIndexer\Gateway');

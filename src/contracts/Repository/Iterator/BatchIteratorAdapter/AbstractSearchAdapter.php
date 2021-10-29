@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter;
+namespace Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter;
 
-use eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Iterator;
 
 abstract class AbstractSearchAdapter implements BatchIteratorAdapter
 {
-    /** @var \eZ\Publish\API\Repository\SearchService */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     protected $searchService;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Query */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query */
     protected $query;
 
     /** @var string[] */
@@ -51,3 +51,5 @@ abstract class AbstractSearchAdapter implements BatchIteratorAdapter
 
     abstract protected function executeSearch(Query $query): SearchResult;
 }
+
+class_alias(AbstractSearchAdapter::class, 'eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter\AbstractSearchAdapter');

@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\BinaryBase;
+namespace Ibexa\Core\FieldType\BinaryBase;
 
-use eZ\Publish\SPI\FieldType\BinaryBase\RouteAwarePathGenerator;
-use eZ\Publish\SPI\FieldType\GatewayBasedStorage;
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\SPI\FieldType\BinaryBase\PathGenerator;
-use eZ\Publish\SPI\FieldType\StorageGateway;
-use eZ\Publish\SPI\IO\MimeTypeDetector;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\FieldType\BinaryBase\RouteAwarePathGenerator;
+use Ibexa\Contracts\Core\FieldType\GatewayBasedStorage;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Contracts\Core\FieldType\BinaryBase\PathGenerator;
+use Ibexa\Contracts\Core\FieldType\StorageGateway;
+use Ibexa\Contracts\Core\IO\MimeTypeDetector;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 
 /**
  * Storage for binary files.
@@ -23,29 +23,29 @@ class BinaryBaseStorage extends GatewayBasedStorage
     /**
      * An instance of IOService configured to store to the images folder.
      *
-     * @var \eZ\Publish\Core\IO\IOServiceInterface
+     * @var \Ibexa\Core\IO\IOServiceInterface
      */
     protected $ioService;
 
-    /** @var \eZ\Publish\SPI\FieldType\BinaryBase\PathGenerator */
+    /** @var \Ibexa\Contracts\Core\FieldType\BinaryBase\PathGenerator */
     protected $pathGenerator;
 
-    /** @var \eZ\Publish\SPI\IO\MimeTypeDetector */
+    /** @var \Ibexa\Contracts\Core\IO\MimeTypeDetector */
     protected $mimeTypeDetector;
 
-    /** @var \eZ\Publish\SPI\FieldType\BinaryBase\PathGenerator */
+    /** @var \Ibexa\Contracts\Core\FieldType\BinaryBase\PathGenerator */
     protected $downloadUrlGenerator;
 
-    /** @var \eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway */
+    /** @var \Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway */
     protected $gateway;
 
     /**
      * Construct from gateways.
      *
-     * @param \eZ\Publish\SPI\FieldType\StorageGateway $gateway
-     * @param \eZ\Publish\Core\IO\IOServiceInterface $ioService
-     * @param \eZ\Publish\SPI\FieldType\BinaryBase\PathGenerator $pathGenerator
-     * @param \eZ\Publish\SPI\IO\MimeTypeDetector $mimeTypeDetector
+     * @param \Ibexa\Contracts\Core\FieldType\StorageGateway $gateway
+     * @param \Ibexa\Core\IO\IOServiceInterface $ioService
+     * @param \Ibexa\Contracts\Core\FieldType\BinaryBase\PathGenerator $pathGenerator
+     * @param \Ibexa\Contracts\Core\IO\MimeTypeDetector $mimeTypeDetector
      */
     public function __construct(
         StorageGateway $gateway,
@@ -60,7 +60,7 @@ class BinaryBaseStorage extends GatewayBasedStorage
     }
 
     /**
-     * @param \eZ\Publish\SPI\FieldType\BinaryBase\PathGenerator $downloadUrlGenerator
+     * @param \Ibexa\Contracts\Core\FieldType\BinaryBase\PathGenerator $downloadUrlGenerator
      */
     public function setDownloadUrlGenerator(PathGenerator $downloadUrlGenerator)
     {
@@ -194,3 +194,5 @@ class BinaryBaseStorage extends GatewayBasedStorage
     {
     }
 }
+
+class_alias(BinaryBaseStorage::class, 'eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage');

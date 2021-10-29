@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Base\Container\Compiler\TaggedServiceIdsIterator;
+namespace Ibexa\Core\Base\Container\Compiler\TaggedServiceIdsIterator;
 
 use Iterator;
 use IteratorAggregate;
@@ -58,3 +58,5 @@ final class BackwardCompatibleIterator implements IteratorAggregate
         yield from [];
     }
 }
+
+class_alias(BackwardCompatibleIterator::class, 'eZ\Publish\Core\Base\Container\Compiler\TaggedServiceIdsIterator\BackwardCompatibleIterator');

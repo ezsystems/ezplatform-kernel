@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\ApiLoader;
+namespace Ibexa\Bundle\Core\ApiLoader;
 
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\Exception\InvalidRepositoryException;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Bundle\Core\ApiLoader\Exception\InvalidRepositoryException;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 
 /**
  * The repository configuration provider.
@@ -18,7 +18,7 @@ class RepositoryConfigurationProvider
     private const REPOSITORY_CONNECTION = 'connection';
     private const DEFAULT_CONNECTION_NAME = 'default';
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     /** @var array */
@@ -33,7 +33,7 @@ class RepositoryConfigurationProvider
     /**
      * @return array
      *
-     * @throws \eZ\Bundle\EzPublishCoreBundle\ApiLoader\Exception\InvalidRepositoryException
+     * @throws \Ibexa\Bundle\Core\ApiLoader\Exception\InvalidRepositoryException
      */
     public function getRepositoryConfig()
     {
@@ -72,3 +72,5 @@ class RepositoryConfigurationProvider
             : self::DEFAULT_CONNECTION_NAME;
     }
 }
+
+class_alias(RepositoryConfigurationProvider::class, 'eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider');

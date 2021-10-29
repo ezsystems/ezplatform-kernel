@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\EventListener;
+namespace Ibexa\Bundle\Core\EventListener;
 
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\Event\PostSiteAccessMatchEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\MVC\Symfony\Event\PostSiteAccessMatchEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -46,3 +46,5 @@ class SessionInitByPostListener implements EventSubscriberInterface
         }
     }
 }
+
+class_alias(SessionInitByPostListener::class, 'eZ\Bundle\EzPublishCoreBundle\EventListener\SessionInitByPostListener');

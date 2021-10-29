@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content;
+namespace Ibexa\Core\Persistence\Legacy\Content;
 
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\Core\Persistence\FieldTypeRegistry;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Core\Persistence\FieldTypeRegistry;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
 
 /**
  * Field Handler.
@@ -23,31 +23,31 @@ class FieldHandler
     /**
      * Content Gateway.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Gateway
      */
     protected $contentGateway;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Language\Handler */
     protected $languageHandler;
 
     /**
      * Content Mapper.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Mapper
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Mapper
      */
     protected $mapper;
 
     /**
      * Storage Handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\StorageHandler
      */
     protected $storageHandler;
 
     /**
      * FieldType registry.
      *
-     * @var \eZ\Publish\Core\Persistence\FieldTypeRegistry
+     * @var \Ibexa\Core\Persistence\FieldTypeRegistry
      */
     protected $fieldTypeRegistry;
 
@@ -61,11 +61,11 @@ class FieldHandler
     /**
      * Creates a new Field Handler.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Gateway $contentGateway
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Mapper $mapper
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler $storageHandler
-     * @param \eZ\Publish\SPI\Persistence\Content\Language\Handler $languageHandler
-     * @param \eZ\Publish\Core\Persistence\FieldTypeRegistry $fieldTypeRegistry
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Gateway $contentGateway
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Mapper $mapper
+     * @param \Ibexa\Core\Persistence\Legacy\Content\StorageHandler $storageHandler
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Language\Handler $languageHandler
+     * @param \Ibexa\Core\Persistence\FieldTypeRegistry $fieldTypeRegistry
      */
     public function __construct(
         Gateway $contentGateway,
@@ -84,8 +84,8 @@ class FieldHandler
     /**
      * Creates new fields in the database from $content of $contentType.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content $content
-     * @param \eZ\Publish\SPI\Persistence\Content\Type $contentType
+     * @param \Ibexa\Contracts\Core\Persistence\Content $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type $contentType
      */
     public function createNewFields(Content $content, Type $contentType)
     {
@@ -124,10 +124,10 @@ class FieldHandler
      *
      * Uses FieldType to create empty field value.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition $fieldDefinition
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition $fieldDefinition
      * @param string $languageCode
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Field
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Field
      */
     protected function getEmptyField(FieldDefinition $fieldDefinition, $languageCode)
     {
@@ -146,7 +146,7 @@ class FieldHandler
     /**
      * Creates existing fields in a new version for $content.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content $content
      */
     public function createExistingFieldsInNewVersion(Content $content)
     {
@@ -160,8 +160,8 @@ class FieldHandler
      *
      * Used by self::createNewFields() and self::updateFields()
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
-     * @param \eZ\Publish\SPI\Persistence\Content $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content $content
      */
     protected function createNewField(Field $field, Content $content)
     {
@@ -186,7 +186,7 @@ class FieldHandler
 
     /**
      * @param array $fields
-     * @param \eZ\Publish\SPI\Persistence\Content $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content $content
      */
     protected function copyFields(array $fields, Content $content)
     {
@@ -202,9 +202,9 @@ class FieldHandler
      *
      * Used by self::createNewFields() and self::updateFields()
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $originalField
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $originalField
      * @param string $languageCode
-     * @param \eZ\Publish\SPI\Persistence\Content $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content $content
      */
     protected function copyField(Field $originalField, $languageCode, Content $content)
     {
@@ -236,8 +236,8 @@ class FieldHandler
      *
      * Used by self::createNewFields() and self::updateFields()
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
-     * @param \eZ\Publish\SPI\Persistence\Content $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content $content
      */
     protected function updateField(Field $field, Content $content)
     {
@@ -307,9 +307,9 @@ class FieldHandler
     /**
      * Updates the fields in for content identified by $contentId and $versionNo in the database in respect to $updateStruct.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content $content
-     * @param \eZ\Publish\SPI\Persistence\Content\UpdateStruct $updateStruct
-     * @param \eZ\Publish\SPI\Persistence\Content\Type $contentType
+     * @param \Ibexa\Contracts\Core\Persistence\Content $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content\UpdateStruct $updateStruct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type $contentType
      */
     public function updateFields(Content $content, UpdateStruct $updateStruct, Type $contentType)
     {
@@ -381,10 +381,10 @@ class FieldHandler
      * By default copying falls back to storing, it is upon external storage implementation to override
      * the behaviour as needed.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $updateField
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $originalField
-     * @param \eZ\Publish\SPI\Persistence\Content $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $updateField
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $originalField
+     * @param \Ibexa\Contracts\Core\Persistence\Content $content
      */
     protected function updateCopiedField(Field $field, Field $updateField, Field $originalField, Content $content)
     {
@@ -410,10 +410,10 @@ class FieldHandler
     /**
      * Returns given $fields structured in hash array with field definition ids and language codes as keys.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Field[] $fields
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field[] $fields
      * @param array $languageCodes
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Field[][]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Field[]
      */
     protected function getFieldMap(array $fields, &$languageCodes = null)
     {
@@ -432,7 +432,7 @@ class FieldHandler
      * Deletes the fields for $contentId in $versionInfo from the database.
      *
      * @param int $contentId
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
      */
     public function deleteFields($contentId, VersionInfo $versionInfo)
     {
@@ -446,7 +446,7 @@ class FieldHandler
      * Deletes translated fields and their external storage data for the given Content Versions.
      *
      * @param int $contentId
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo[] $versions
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo[] $versions
      * @param string $languageCode
      */
     public function deleteTranslationFromContentFields($contentId, array $versions, $languageCode)
@@ -470,7 +470,7 @@ class FieldHandler
     /**
      * Deletes translated fields and their external storage data for the given $versionInfo.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
      * @param string $languageCode
      */
     public function deleteTranslationFromVersionFields(VersionInfo $versionInfo, $languageCode)
@@ -490,3 +490,5 @@ class FieldHandler
         );
     }
 }
+
+class_alias(FieldHandler::class, 'eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler');

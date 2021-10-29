@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Content\Doctrine;
+namespace Ibexa\Core\Persistence\Legacy\Filter\Gateway\Content\Doctrine;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Base\Exceptions\DatabaseException;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Gateway;
-use eZ\Publish\SPI\Persistence\Filter\CriterionVisitor;
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
-use eZ\Publish\SPI\Persistence\Filter\SortClauseVisitor;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Core\Base\Exceptions\DatabaseException;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Persistence\Legacy\Filter\Gateway\Gateway;
+use Ibexa\Contracts\Core\Persistence\Filter\CriterionVisitor;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Persistence\Filter\SortClauseVisitor;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 use Traversable;
 use function array_filter;
 use function iterator_to_array;
@@ -62,10 +62,10 @@ final class DoctrineGateway implements Gateway
     /** @var \Doctrine\DBAL\Connection */
     private $connection;
 
-    /** @var \eZ\Publish\SPI\Persistence\Filter\CriterionVisitor */
+    /** @var \Ibexa\Contracts\Core\Persistence\Filter\CriterionVisitor */
     private $criterionVisitor;
 
-    /** @var \eZ\Publish\SPI\Persistence\Filter\SortClauseVisitor */
+    /** @var \Ibexa\Contracts\Core\Persistence\Filter\SortClauseVisitor */
     private $sortClauseVisitor;
 
     public function __construct(
@@ -290,3 +290,5 @@ final class DoctrineGateway implements Gateway
         return $wrappedQuery;
     }
 }
+
+class_alias(DoctrineGateway::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Content\Doctrine\DoctrineGateway');

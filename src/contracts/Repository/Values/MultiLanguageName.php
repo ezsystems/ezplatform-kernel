@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Repository\Values;
+namespace Ibexa\Contracts\Core\Repository\Values;
 
 /**
  * This is the interface for all ValueObjects implementing translated name logic.
@@ -46,3 +46,5 @@ interface MultiLanguageName
      */
     public function getName($languageCode = null);
 }
+
+class_alias(MultiLanguageName::class, 'eZ\Publish\SPI\Repository\Values\MultiLanguageName');

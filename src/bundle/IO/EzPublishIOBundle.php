@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle;
+namespace Ibexa\Bundle\IO;
 
-use eZ\Bundle\EzPublishIOBundle\DependencyInjection\Compiler;
-use eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory;
-use eZ\Bundle\EzPublishIOBundle\DependencyInjection\EzPublishIOExtension;
+use Ibexa\Bundle\IO\DependencyInjection\Compiler;
+use Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory;
+use Ibexa\Bundle\IO\DependencyInjection\EzPublishIOExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class EzPublishIOBundle extends Bundle
 {
-    /** @var \eZ\Bundle\EzPublishIOBundle\DependencyInjection\EzPublishIOExtension */
+    /** @var \Ibexa\Bundle\IO\DependencyInjection\EzPublishIOExtension */
     protected $extension;
 
     public function build(ContainerBuilder $container)
@@ -42,3 +42,5 @@ class EzPublishIOBundle extends Bundle
         return $this->extension;
     }
 }
+
+class_alias(EzPublishIOBundle::class, 'eZ\Bundle\EzPublishIOBundle\EzPublishIOBundle');

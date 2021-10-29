@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Permission;
+namespace Ibexa\Core\Repository\Permission;
 
-use eZ\Publish\API\Repository\PermissionResolver as APIPermissionResolver;
-use eZ\Publish\API\Repository\PermissionCriterionResolver as APIPermissionCriterionResolver;
-use eZ\Publish\API\Repository\PermissionService;
-use eZ\Publish\API\Repository\Repository as RepositoryInterface;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\User\LookupLimitationResult;
-use eZ\Publish\API\Repository\Values\User\UserReference;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\PermissionResolver as APIPermissionResolver;
+use Ibexa\Contracts\Core\Repository\PermissionCriterionResolver as APIPermissionCriterionResolver;
+use Ibexa\Contracts\Core\Repository\PermissionService;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Exception;
 
 /**
@@ -31,10 +31,10 @@ use Exception;
  */
 class CachedPermissionService implements PermissionService
 {
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $innerPermissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\PermissionCriterionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionCriterionResolver */
     private $permissionCriterionResolver;
 
     /** @var int */
@@ -52,7 +52,7 @@ class CachedPermissionService implements PermissionService
      *
      * Value is null if not yet set or cleared.
      *
-     * @var bool|\eZ\Publish\API\Repository\Values\Content\Query\Criterion
+     * @var bool|\Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion
      */
     private $permissionCriterion;
 
@@ -66,8 +66,8 @@ class CachedPermissionService implements PermissionService
     /**
      * CachedPermissionService constructor.
      *
-     * @param \eZ\Publish\API\Repository\PermissionResolver $innerPermissionResolver
-     * @param \eZ\Publish\API\Repository\PermissionCriterionResolver $permissionCriterionResolver
+     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $innerPermissionResolver
+     * @param \Ibexa\Contracts\Core\Repository\PermissionCriterionResolver $permissionCriterionResolver
      * @param int $cacheTTL By default set to 5 seconds, should be low to avoid to many permission exceptions on long running requests / processes (even if tolerant search service should handle that)
      */
     public function __construct(
@@ -157,3 +157,5 @@ class CachedPermissionService implements PermissionService
         return $this->permissionCriterionResolver->getQueryPermissionsCriterion();
     }
 }
+
+class_alias(CachedPermissionService::class, 'eZ\Publish\Core\Repository\Permission\CachedPermissionService');

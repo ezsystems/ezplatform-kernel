@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content;
+namespace Ibexa\Core\Persistence\Legacy\Content;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 class StorageFieldDefinition extends ValueObject
 {
@@ -111,7 +111,9 @@ class StorageFieldDefinition extends ValueObject
     /**
      * Associative array with language codes keys.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\MultilingualStorageFieldDefinition[]
+     * @var \Ibexa\Core\Persistence\Legacy\Content\MultilingualStorageFieldDefinition[]
      */
     public $multilingualData = [];
 }
+
+class_alias(StorageFieldDefinition::class, 'eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition');

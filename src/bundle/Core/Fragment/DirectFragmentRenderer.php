@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Fragment;
+namespace Ibexa\Bundle\Core\Fragment;
 
-use eZ\Bundle\EzPublishCoreBundle\EventListener\ViewControllerListener;
-use eZ\Publish\Core\MVC\Symfony\Templating\Exception\InvalidResponseException;
-use eZ\Publish\Core\MVC\Symfony\View\Renderer\TemplateRenderer;
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Bundle\Core\EventListener\ViewControllerListener;
+use Ibexa\Core\MVC\Symfony\Templating\Exception\InvalidResponseException;
+use Ibexa\Core\MVC\Symfony\View\Renderer\TemplateRenderer;
+use Ibexa\Core\MVC\Symfony\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
@@ -30,7 +30,7 @@ class DirectFragmentRenderer extends InlineFragmentRenderer implements FragmentR
     /** @var \Symfony\Component\HttpKernel\KernelInterface */
     protected $kernel;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\EventListener\ViewControllerListener */
+    /** @var \Ibexa\Bundle\Core\EventListener\ViewControllerListener */
     protected $controllerListener;
 
     /** @var \Symfony\Component\HttpKernel\Controller\ControllerResolverInterface */
@@ -42,7 +42,7 @@ class DirectFragmentRenderer extends InlineFragmentRenderer implements FragmentR
     /** @var \Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface */
     protected $argumentValueResolver;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\Renderer\TemplateRenderer */
+    /** @var \Ibexa\Core\MVC\Symfony\View\Renderer\TemplateRenderer */
     protected $viewTemplateRenderer;
 
     public function __construct(
@@ -115,7 +115,7 @@ class DirectFragmentRenderer extends InlineFragmentRenderer implements FragmentR
     /**
      * @param string|\Symfony\Component\HttpKernel\Controller\ControllerReference $uri
      *
-     * @throws \eZ\Publish\Core\MVC\Symfony\Templating\Exception\InvalidResponseException
+     * @throws \Ibexa\Core\MVC\Symfony\Templating\Exception\InvalidResponseException
      */
     public function render(
         $uri,
@@ -160,3 +160,5 @@ class DirectFragmentRenderer extends InlineFragmentRenderer implements FragmentR
         return self::NAME;
     }
 }
+
+class_alias(DirectFragmentRenderer::class, 'eZ\Bundle\EzPublishCoreBundle\Fragment\DirectFragmentRenderer');

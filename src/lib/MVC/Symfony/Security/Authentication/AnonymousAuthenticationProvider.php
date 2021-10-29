@@ -4,20 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security\Authentication;
+namespace Ibexa\Core\MVC\Symfony\Security\Authentication;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\Repository\Values\User\UserReference;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\Repository\Values\User\UserReference;
 use Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider as BaseAnonymousProvider;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class AnonymousAuthenticationProvider extends BaseAnonymousProvider
 {
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
     public function setConfigResolver(ConfigResolverInterface $configResolver)
@@ -38,3 +38,5 @@ class AnonymousAuthenticationProvider extends BaseAnonymousProvider
         return $token;
     }
 }
+
+class_alias(AnonymousAuthenticationProvider::class, 'eZ\Publish\Core\MVC\Symfony\Security\Authentication\AnonymousAuthenticationProvider');

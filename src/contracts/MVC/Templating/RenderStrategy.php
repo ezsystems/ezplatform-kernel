@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\MVC\Templating;
+namespace Ibexa\Contracts\Core\MVC\Templating;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\MVC\Symfony\Templating\RenderOptions;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\MVC\Symfony\Templating\RenderOptions;
 
 /**
  * Strategy to decide, based on ValueObject descendant type, which
@@ -23,3 +23,5 @@ interface RenderStrategy
 
     public function render(ValueObject $valueObject, RenderOptions $options): string;
 }
+
+class_alias(RenderStrategy::class, 'eZ\Publish\SPI\MVC\Templating\RenderStrategy');

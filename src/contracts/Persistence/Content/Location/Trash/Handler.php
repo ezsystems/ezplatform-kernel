@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content\Location\Trash;
+namespace Ibexa\Contracts\Core\Persistence\Content\Location\Trash;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
 /**
  * The Trash Handler interface defines operations on Location elements in the storage engine.
@@ -19,9 +19,9 @@ interface Handler
      *
      * @param int $id
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location\Trashed
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location\Trashed
      */
     public function loadTrashItem($id);
 
@@ -34,7 +34,7 @@ interface Handler
      *
      * @param mixed $locationId
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location\Trashed|null null if location was deleted, otherwise Trashed object
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location\Trashed|null null if location was deleted, otherwise Trashed object
      */
     public function trashSubtree($locationId);
 
@@ -50,7 +50,7 @@ interface Handler
      * @param mixed $trashedId
      * @param mixed $newParentId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If $newParentId is invalid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If $newParentId is invalid
      *
      * @return int Newly restored location id
      */
@@ -64,12 +64,12 @@ interface Handler
      * TrashResult->totalCount will ignore limit and offset and representing the total amount of trashed items
      * matching the criterion.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion|null $criterion
      * @param int $offset Offset to start listing from, 0 by default
      * @param int $limit Limit for the listing. Null by default (no limit)
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\SortClause[] $sort
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause[] $sort
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location\Trashed[]|\eZ\Publish\SPI\Persistence\Content\Location\Trash\TrashResult
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location\Trashed[]|\Ibexa\Contracts\Core\Persistence\Content\Location\Trash\TrashResult
      */
     public function findTrashItems(Criterion $criterion = null, $offset = 0, $limit = null, array $sort = null);
 
@@ -77,7 +77,7 @@ interface Handler
      * Empties the trash
      * Everything contained in the trash must be removed.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResultList
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList
      */
     public function emptyTrash();
 
@@ -87,7 +87,9 @@ interface Handler
      *
      * @param int $trashedId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult
      */
     public function deleteTrashItem($trashedId);
 }
+
+class_alias(Handler::class, 'eZ\Publish\SPI\Persistence\Content\Location\Trash\Handler');

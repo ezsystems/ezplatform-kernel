@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\EventListener;
+namespace Ibexa\Bundle\Core\EventListener;
 
-use eZ\Publish\Core\MVC\Symfony\View\Builder\ViewBuilderRegistry;
-use eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
-use eZ\Publish\Core\MVC\Symfony\View\ViewEvents;
+use Ibexa\Core\MVC\Symfony\View\Builder\ViewBuilderRegistry;
+use Ibexa\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
+use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Ibexa\Contracts\Core\Event\View\PostBuildViewEvent;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -26,7 +26,7 @@ class ViewControllerListener implements EventSubscriberInterface
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\Builder\ViewBuilderRegistry */
+    /** @var \Ibexa\Core\MVC\Symfony\View\Builder\ViewBuilderRegistry */
     private $viewBuilderRegistry;
 
     /** @var \Symfony\Component\EventDispatcher\EventDispatcher */
@@ -79,3 +79,5 @@ class ViewControllerListener implements EventSubscriberInterface
         }
     }
 }
+
+class_alias(ViewControllerListener::class, 'eZ\Bundle\EzPublishCoreBundle\EventListener\ViewControllerListener');

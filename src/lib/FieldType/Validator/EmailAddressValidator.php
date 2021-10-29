@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Validator;
+namespace Ibexa\Core\FieldType\Validator;
 
-use eZ\Publish\Core\FieldType\Validator;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\FieldType\Validator;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * Validator for checking validity of email addresses. Both form and MX record validity checking are provided.
@@ -80,7 +80,7 @@ class EmailAddressValidator extends Validator
      *
      * @abstract
      *
-     * @param \eZ\Publish\Core\FieldType\Value $value
+     * @param \Ibexa\Core\FieldType\Value $value
      *
      * @return bool
      */
@@ -102,3 +102,5 @@ class EmailAddressValidator extends Validator
         return false;
     }
 }
+
+class_alias(EmailAddressValidator::class, 'eZ\Publish\Core\FieldType\Validator\EmailAddressValidator');

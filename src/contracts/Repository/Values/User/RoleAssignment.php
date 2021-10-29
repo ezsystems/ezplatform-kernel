@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This value object represents an assignment od a user or user group to a role including a limitation.
  *
- * @property-read \eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation|null $limitation the limitation of this role assignment
- * @property-read \eZ\Publish\API\Repository\Values\User\Role $role the role which is assigned to the user or user group
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation|null $limitation the limitation of this role assignment
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\User\Role $role the role which is assigned to the user or user group
  */
 abstract class RoleAssignment extends ValueObject
 {
@@ -29,14 +29,16 @@ abstract class RoleAssignment extends ValueObject
     /**
      * Returns the limitation of the role assignment.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation|null
      */
     abstract public function getRoleLimitation(): ?RoleLimitation;
 
     /**
      * Returns the role to which the user or user group is assigned to.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Role
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role
      */
     abstract public function getRole(): Role;
 }
+
+class_alias(RoleAssignment::class, 'eZ\Publish\API\Repository\Values\User\RoleAssignment');

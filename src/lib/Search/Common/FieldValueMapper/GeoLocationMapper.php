@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Common\FieldValueMapper;
+namespace Ibexa\Core\Search\Common\FieldValueMapper;
 
-use eZ\Publish\Core\Search\Common\FieldValueMapper;
-use eZ\Publish\SPI\Search\FieldType\GeoLocationField;
-use eZ\Publish\SPI\Search\Field;
+use Ibexa\Core\Search\Common\FieldValueMapper;
+use Ibexa\Contracts\Core\Search\FieldType\GeoLocationField;
+use Ibexa\Contracts\Core\Search\Field;
 
 /**
  * Common geo location field value mapper implementation.
@@ -18,7 +18,7 @@ class GeoLocationMapper extends FieldValueMapper
     /**
      * Check if field can be mapped.
      *
-     * @param \eZ\Publish\SPI\Search\Field $field
+     * @param \Ibexa\Contracts\Core\Search\Field $field
      *
      * @return bool
      */
@@ -30,7 +30,7 @@ class GeoLocationMapper extends FieldValueMapper
     /**
      * Map field value to a proper search engine representation.
      *
-     * @param \eZ\Publish\SPI\Search\Field $field
+     * @param \Ibexa\Contracts\Core\Search\Field $field
      *
      * @return mixed|null Returns null on empty value
      */
@@ -43,3 +43,5 @@ class GeoLocationMapper extends FieldValueMapper
         return sprintf('%F,%F', $field->value['latitude'], $field->value['longitude']);
     }
 }
+
+class_alias(GeoLocationMapper::class, 'eZ\Publish\Core\Search\Common\FieldValueMapper\GeoLocationMapper');

@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\User;
+namespace Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\User;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\IsUserBased;
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\IsUserBased;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 
 /**
  * @internal for internal use by Repository Filtering
@@ -29,7 +29,7 @@ final class IsUserBasedQueryBuilder extends BaseUserCriterionQueryBuilder
         FilteringQueryBuilder $queryBuilder,
         FilteringCriterion $criterion
     ): ?string {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion\IsUserBased $criterion */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\IsUserBased $criterion */
         // intentionally not using parent buildQueryConstraint
         $queryBuilder
             ->leftJoinOnce(
@@ -47,3 +47,5 @@ final class IsUserBasedQueryBuilder extends BaseUserCriterionQueryBuilder
             : $databasePlatform->getIsNullExpression('user_storage.contentobject_id');
     }
 }
+
+class_alias(IsUserBasedQueryBuilder::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\User\IsUserBasedQueryBuilder');

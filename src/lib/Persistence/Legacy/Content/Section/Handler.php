@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Section;
+namespace Ibexa\Core\Persistence\Legacy\Content\Section;
 
-use eZ\Publish\SPI\Persistence\Content\Section\Handler as BaseSectionHandler;
-use eZ\Publish\SPI\Persistence\Content\Section;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException as NotFound;
+use Ibexa\Contracts\Core\Persistence\Content\Section\Handler as BaseSectionHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Section;
+use Ibexa\Core\Base\Exceptions\NotFoundException as NotFound;
 use RuntimeException;
 
 /**
@@ -19,14 +19,14 @@ class Handler implements BaseSectionHandler
     /**
      * Section Gateway.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Section\Gateway
      */
     protected $sectionGateway;
 
     /**
      * Creates a new Section Handler.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway $sectionGateway
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Section\Gateway $sectionGateway
      */
     public function __construct(Gateway $sectionGateway)
     {
@@ -39,7 +39,7 @@ class Handler implements BaseSectionHandler
      * @param string $name
      * @param string $identifier
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Section
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Section
      */
     public function create($name, $identifier)
     {
@@ -60,7 +60,7 @@ class Handler implements BaseSectionHandler
      * @param string $name
      * @param string $identifier
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Section
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Section
      */
     public function update($id, $name, $identifier)
     {
@@ -79,9 +79,9 @@ class Handler implements BaseSectionHandler
      *
      * @param mixed $id
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If section is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If section is not found
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Section
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Section
      */
     public function load($id)
     {
@@ -97,7 +97,7 @@ class Handler implements BaseSectionHandler
     /**
      * Get all section data.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Section[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Section[]
      */
     public function loadAll()
     {
@@ -111,9 +111,9 @@ class Handler implements BaseSectionHandler
      *
      * @param string $identifier
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If section is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If section is not found
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Section
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Section
      */
     public function loadByIdentifier($identifier)
     {
@@ -131,7 +131,7 @@ class Handler implements BaseSectionHandler
      *
      * @param array $data
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Section
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Section
      */
     protected function createSectionFromArray(array $data)
     {
@@ -149,7 +149,7 @@ class Handler implements BaseSectionHandler
      *
      * @param array $data
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Section[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Section[]
      */
     protected function createSectionsFromArray(array $data)
     {
@@ -229,3 +229,5 @@ class Handler implements BaseSectionHandler
         return $this->sectionGateway->countRoleAssignmentsUsingSection($sectionId);
     }
 }
+
+class_alias(Handler::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Section\Handler');

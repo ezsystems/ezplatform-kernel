@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security;
+namespace Ibexa\Core\MVC\Symfony\Security;
 
-use eZ\Publish\API\Repository\Values\User\User as APIUser;
-use eZ\Publish\API\Repository\Values\User\UserReference as APIUserReference;
-use eZ\Publish\Core\Repository\Values\User\UserReference;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
+use Ibexa\Core\Repository\Values\User\UserReference;
 use InvalidArgumentException;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface as CoreUserInterface;
@@ -27,10 +27,10 @@ class UserWrapped implements ReferenceUserInterface, EquatableInterface
     /** @var \Symfony\Component\Security\Core\User\UserInterface */
     private $wrappedUser;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\User */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User */
     private $apiUser;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\UserReference */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserReference */
     private $apiUserReference;
 
     public function __construct(CoreUserInterface $wrappedUser, APIUser $apiUser)
@@ -46,7 +46,7 @@ class UserWrapped implements ReferenceUserInterface, EquatableInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\User $apiUser
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $apiUser
      */
     public function setAPIUser(APIUser $apiUser)
     {
@@ -55,7 +55,7 @@ class UserWrapped implements ReferenceUserInterface, EquatableInterface
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     public function getAPIUser()
     {
@@ -69,7 +69,7 @@ class UserWrapped implements ReferenceUserInterface, EquatableInterface
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\User\UserReference
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\UserReference
      */
     public function getAPIUserReference(): APIUserReference
     {
@@ -135,15 +135,13 @@ class UserWrapped implements ReferenceUserInterface, EquatableInterface
         return $this->wrappedUser instanceof EquatableInterface ? $this->wrappedUser->isEqualTo($user) : true;
     }
 
-    /*
-    * Make sure we don't serialize the whole API user object given it's a full fledged api content object. We set
-    * (& either way refresh) the user object in \eZ\Publish\Core\MVC\Symfony\Security\User\Provider->refreshUser()
-    * when object wakes back up from session.
-    *
-    * @return array
-    */
+    /**
+     * @see \Ibexa\Core\MVC\Symfony\Security\User::__sleep
+     */
     public function __sleep(): array
     {
         return ['wrappedUser', 'apiUserReference'];
     }
 }
+
+class_alias(UserWrapped::class, 'eZ\Publish\Core\MVC\Symfony\Security\UserWrapped');

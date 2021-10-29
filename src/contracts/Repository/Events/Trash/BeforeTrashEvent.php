@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Trash;
+namespace Ibexa\Contracts\Core\Repository\Events\Trash;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\TrashItem;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeTrashEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
     private $location;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\TrashItem|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem|null */
     private $result;
 
     /** @var bool */
@@ -65,3 +65,5 @@ final class BeforeTrashEvent extends BeforeEvent
         return $this->resultSet;
     }
 }
+
+class_alias(BeforeTrashEvent::class, 'eZ\Publish\API\Repository\Events\Trash\BeforeTrashEvent');

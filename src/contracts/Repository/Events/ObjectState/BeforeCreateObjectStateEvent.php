@@ -6,23 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ObjectState;
+namespace Ibexa\Contracts\Core\Repository\Events\ObjectState;
 
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateCreateStruct;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCreateObjectStateEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup */
     private $objectStateGroup;
 
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateCreateStruct */
     private $objectStateCreateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectState|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState|null */
     private $objectState;
 
     public function __construct(ObjectStateGroup $objectStateGroup, ObjectStateCreateStruct $objectStateCreateStruct)
@@ -60,3 +60,5 @@ final class BeforeCreateObjectStateEvent extends BeforeEvent
         return $this->objectState instanceof ObjectState;
     }
 }
+
+class_alias(BeforeCreateObjectStateEvent::class, 'eZ\Publish\API\Repository\Events\ObjectState\BeforeCreateObjectStateEvent');

@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Limitation\LanguageLimitation;
+namespace Ibexa\Core\Limitation\LanguageLimitation;
 
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\Core\Limitation\LanguageLimitationType;
-use eZ\Publish\SPI\Limitation\Target;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LanguageLimitationType;
+use Ibexa\Contracts\Core\Limitation\Target;
 
 /**
  * @internal for internal use by LanguageLimitation
@@ -28,3 +28,5 @@ final class NewDraftEvaluator implements VersionTargetEvaluator
         return LanguageLimitationType::ACCESS_GRANTED;
     }
 }
+
+class_alias(NewDraftEvaluator::class, 'eZ\Publish\Core\Limitation\LanguageLimitation\NewDraftEvaluator');

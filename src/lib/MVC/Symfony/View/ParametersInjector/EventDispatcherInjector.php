@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View\ParametersInjector;
+namespace Ibexa\Core\MVC\Symfony\View\ParametersInjector;
 
-use eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewParametersEvent;
-use eZ\Publish\Core\MVC\Symfony\View\ViewEvents;
-use eZ\Publish\Core\MVC\Symfony\View\ParametersInjector;
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Symfony\View\Event\FilterViewParametersEvent;
+use Ibexa\Core\MVC\Symfony\View\ViewEvents;
+use Ibexa\Core\MVC\Symfony\View\ParametersInjector;
+use Ibexa\Core\MVC\Symfony\View\View;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -32,3 +32,5 @@ class EventDispatcherInjector implements ParametersInjector
         $view->addParameters($event->getViewParameters());
     }
 }
+
+class_alias(EventDispatcherInjector::class, 'eZ\Publish\Core\MVC\Symfony\View\ParametersInjector\EventDispatcherInjector');

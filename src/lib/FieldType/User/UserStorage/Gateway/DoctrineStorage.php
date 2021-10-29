@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\User\UserStorage\Gateway;
+namespace Ibexa\Core\FieldType\User\UserStorage\Gateway;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\DBAL\ParameterType;
-use eZ\Publish\Core\Base\Exceptions\ForbiddenException;
-use eZ\Publish\Core\FieldType\User\UserStorage\Gateway;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Ibexa\Core\Base\Exceptions\ForbiddenException;
+use Ibexa\Core\FieldType\User\UserStorage\Gateway;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use PDO;
 
 /**
@@ -245,7 +245,7 @@ class DoctrineStorage extends Gateway
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
      */
     public function storeFieldData(VersionInfo $versionInfo, Field $field): bool
     {
@@ -440,3 +440,5 @@ class DoctrineStorage extends Gateway
             ->fetchColumn();
     }
 }
+
+class_alias(DoctrineStorage::class, 'eZ\Publish\Core\FieldType\User\UserStorage\Gateway\DoctrineStorage');

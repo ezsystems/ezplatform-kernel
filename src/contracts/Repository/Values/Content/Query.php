@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class is used to perform a Content query.
@@ -32,7 +32,7 @@ class Query extends ValueObject
      * Can contain multiple criterion, as items of a logical one (by default
      * AND)
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion
      */
     public $filter;
 
@@ -45,14 +45,14 @@ class Query extends ValueObject
      * Can contain multiple criterion, as items of a logical one (by default
      * AND). Defaults to MatchAll.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion
      */
     public $query;
 
     /**
      * Query sorting clauses.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Query\SortClause[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause[]
      */
     public $sortClauses = [];
 
@@ -62,12 +62,12 @@ class Query extends ValueObject
      * Search engines may ignore any, or given facet builders they don't support and will just return search result
      * facets supported by the engine. API consumer should dynamically iterate over returned facets for further use.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\FacetBuilder[]
      */
     public $facetBuilders = [];
 
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\Query\Aggregation[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation[]
      */
     public $aggregations = [];
 
@@ -104,3 +104,5 @@ class Query extends ValueObject
      */
     public $performCount = true;
 }
+
+class_alias(Query::class, 'eZ\Publish\API\Repository\Values\Content\Query');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishDebugBundle\Collector;
+namespace Ibexa\Bundle\Debug\Collector;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
@@ -43,3 +43,5 @@ class SiteAccessCollector extends DataCollector
         $this->data = [];
     }
 }
+
+class_alias(SiteAccessCollector::class, 'eZ\Bundle\EzPublishDebugBundle\Collector\SiteAccessCollector');

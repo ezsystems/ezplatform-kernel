@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration;
 
 use Symfony\Component\Config\Resource\ResourceInterface;
 
@@ -28,3 +28,5 @@ interface ConfigBuilderInterface
      */
     public function addResource(ResourceInterface $resource);
 }
+
+class_alias(ConfigBuilderInterface::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigBuilderInterface');

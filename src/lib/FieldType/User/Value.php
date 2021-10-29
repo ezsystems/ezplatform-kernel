@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\User;
+namespace Ibexa\Core\FieldType\User;
 
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * Value for User field type.
@@ -79,11 +79,10 @@ class Value extends BaseValue
      */
     public $plainPassword;
 
-    /**
-     * @see \eZ\Publish\Core\FieldType\Value
-     */
     public function __toString()
     {
         return (string)$this->login;
     }
 }
+
+class_alias(Value::class, 'eZ\Publish\Core\FieldType\User\Value');

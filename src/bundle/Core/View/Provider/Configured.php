@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\View\Provider;
+namespace Ibexa\Bundle\Core\View\Provider;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\View\Provider\Configured as BaseConfigured;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\View\Provider\Configured as BaseConfigured;
 
 class Configured extends BaseConfigured implements SiteAccessAware
 {
@@ -24,3 +24,5 @@ class Configured extends BaseConfigured implements SiteAccessAware
         }
     }
 }
+
+class_alias(Configured::class, 'eZ\Bundle\EzPublishCoreBundle\View\Provider\Configured');

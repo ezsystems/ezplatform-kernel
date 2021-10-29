@@ -4,24 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Image;
+namespace Ibexa\Core\FieldType\Image;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\Core\FieldType\FieldType;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\FieldType;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Core\FieldType\Value as BaseValue;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
 
 /**
  * The Image field type.
  */
 class Type extends FieldType
 {
-    /**
-     * @see eZ\Publish\Core\FieldType::$validatorConfigurationSchema
-     */
     protected $validatorConfigurationSchema = [
         'FileSizeValidator' => [
             'maxFileSize' => [
@@ -37,11 +34,11 @@ class Type extends FieldType
         ],
     ];
 
-    /** @var \eZ\Publish\Core\FieldType\Validator[] */
+    /** @var \Ibexa\Core\FieldType\Validator[] */
     private $validators;
 
     /**
-     * @param \eZ\Publish\Core\FieldType\Validator[] $validators
+     * @param \Ibexa\Core\FieldType\Validator[] $validators
      */
     public function __construct(array $validators)
     {
@@ -59,7 +56,7 @@ class Type extends FieldType
     }
 
     /**
-     * @param \eZ\Publish\Core\FieldType\Image\Value $value
+     * @param \Ibexa\Core\FieldType\Image\Value $value
      */
     public function getName(SPIValue $value, FieldDefinition $fieldDefinition, string $languageCode): string
     {
@@ -70,7 +67,7 @@ class Type extends FieldType
      * Returns the fallback default value of field type when no such default
      * value is provided in the field definition in content types.
      *
-     * @return \eZ\Publish\Core\FieldType\Image\Value
+     * @return \Ibexa\Core\FieldType\Image\Value
      */
     public function getEmptyValue()
     {
@@ -80,9 +77,9 @@ class Type extends FieldType
     /**
      * Inspects given $inputValue and potentially converts it into a dedicated value object.
      *
-     * @param string|array|\eZ\Publish\Core\FieldType\Image\Value $inputValue
+     * @param string|array|\Ibexa\Core\FieldType\Image\Value $inputValue
      *
-     * @return \eZ\Publish\Core\FieldType\Image\Value The potentially converted and structurally plausible value.
+     * @return \Ibexa\Core\FieldType\Image\Value The potentially converted and structurally plausible value.
      */
     protected function createValueFromInput($inputValue)
     {
@@ -107,9 +104,9 @@ class Type extends FieldType
     /**
      * Throws an exception if value structure is not of expected format.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
      *
-     * @param \eZ\Publish\Core\FieldType\Image\Value $value
+     * @param \Ibexa\Core\FieldType\Image\Value $value
      */
     protected function checkValueStructure(BaseValue $value)
     {
@@ -151,12 +148,12 @@ class Type extends FieldType
     /**
      * Validates a field based on the validators in the field definition.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition $fieldDefinition The field definition of the field
-     * @param \eZ\Publish\Core\FieldType\Image\Value $fieldValue The field value for which an action is performed
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition $fieldDefinition The field definition of the field
+     * @param \Ibexa\Core\FieldType\Image\Value $fieldValue The field value for which an action is performed
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validate(FieldDefinition $fieldDefinition, SPIValue $fieldValue)
     {
@@ -213,7 +210,7 @@ class Type extends FieldType
      *
      * @param mixed $validatorConfiguration
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validateValidatorConfiguration($validatorConfiguration)
     {
@@ -288,7 +285,7 @@ class Type extends FieldType
      *
      * @param mixed $hash
      *
-     * @return \eZ\Publish\Core\FieldType\Image\Value $value
+     * @return \Ibexa\Core\FieldType\Image\Value $value
      */
     public function fromHash($hash)
     {
@@ -302,7 +299,7 @@ class Type extends FieldType
     /**
      * Converts a $Value to a hash.
      *
-     * @param \eZ\Publish\Core\FieldType\Image\Value $value
+     * @param \Ibexa\Core\FieldType\Image\Value $value
      *
      * @return mixed
      */
@@ -330,9 +327,9 @@ class Type extends FieldType
     /**
      * Converts a $value to a persistence value.
      *
-     * @param \eZ\Publish\Core\FieldType\Image\Value $value
+     * @param \Ibexa\Core\FieldType\Image\Value $value
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldValue
+     * @return \Ibexa\Contracts\Core\Persistence\Content\FieldValue
      */
     public function toPersistenceValue(SPIValue $value)
     {
@@ -349,9 +346,9 @@ class Type extends FieldType
     /**
      * Converts a persistence $fieldValue to a Value.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\FieldValue $fieldValue
+     * @param \Ibexa\Contracts\Core\Persistence\Content\FieldValue $fieldValue
      *
-     * @return \eZ\Publish\Core\FieldType\Image\Value
+     * @return \Ibexa\Core\FieldType\Image\Value
      */
     public function fromPersistenceValue(FieldValue $fieldValue)
     {
@@ -404,3 +401,5 @@ class Type extends FieldType
         return $hashValue1 === $hashValue2;
     }
 }
+
+class_alias(Type::class, 'eZ\Publish\Core\FieldType\Image\Type');

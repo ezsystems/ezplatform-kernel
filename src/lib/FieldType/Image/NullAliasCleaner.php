@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\FieldType\Image;
+namespace Ibexa\Core\FieldType\Image;
 
 /**
  * Default, IO-independent, implementation of image variation (alias) cleaner.
@@ -23,3 +23,5 @@ final class NullAliasCleaner implements AliasCleanerInterface
         // Nothing to do
     }
 }
+
+class_alias(NullAliasCleaner::class, 'eZ\Publish\Core\FieldType\Image\NullAliasCleaner');

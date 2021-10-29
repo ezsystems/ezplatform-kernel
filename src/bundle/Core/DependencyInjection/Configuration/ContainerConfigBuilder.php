@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -18,3 +18,5 @@ abstract class ContainerConfigBuilder implements ConfigBuilderInterface
         $this->containerBuilder = $containerBuilder;
     }
 }
+
+class_alias(ContainerConfigBuilder::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ContainerConfigBuilder');

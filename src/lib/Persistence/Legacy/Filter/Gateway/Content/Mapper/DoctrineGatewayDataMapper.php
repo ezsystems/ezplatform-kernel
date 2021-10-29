@@ -6,35 +6,35 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Content\Mapper;
+namespace Ibexa\Core\Persistence\Legacy\Filter\Gateway\Content\Mapper;
 
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Content\GatewayDataMapper;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Core\Persistence\Legacy\Filter\Gateway\Content\GatewayDataMapper;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 
 /**
  * @internal for internal use by Content Filtering Doctrine Gateway data mapper.
  */
 final class DoctrineGatewayDataMapper implements GatewayDataMapper
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry */
     private $converterRegistry;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator */
     private $languageMaskGenerator;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Language\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Language\Handler */
     private $languageHandler;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Type\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Type\Handler */
     private $contentTypeHandler;
 
     public function __construct(
@@ -53,9 +53,9 @@ final class DoctrineGatewayDataMapper implements GatewayDataMapper
      * {@inheritdoc}
      *
      * Column names come from query built by
-     * {@see \eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Content\Doctrine\DoctrineGateway::buildQuery}
+     * {@see \Ibexa\Core\Persistence\Legacy\Filter\Gateway\Content\Doctrine\DoctrineGateway::buildQuery}
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function mapRawDataToPersistenceContentItem(array $row): Content\ContentItem
     {
@@ -75,7 +75,7 @@ final class DoctrineGatewayDataMapper implements GatewayDataMapper
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function mapContentDataToPersistenceContent(array $row): Content
     {
@@ -90,7 +90,7 @@ final class DoctrineGatewayDataMapper implements GatewayDataMapper
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function mapVersionDataToPersistenceVersionInfo(array $row): Content\VersionInfo
     {
@@ -115,9 +115,9 @@ final class DoctrineGatewayDataMapper implements GatewayDataMapper
     }
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\Content\Field[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Field[]
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function mapFieldDataToPersistenceFieldList(
         array $rawVersionFields,
@@ -157,7 +157,7 @@ final class DoctrineGatewayDataMapper implements GatewayDataMapper
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function buildFieldValue(
         StorageFieldValue $storageFieldValue,
@@ -172,7 +172,7 @@ final class DoctrineGatewayDataMapper implements GatewayDataMapper
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function mapContentMetadataToPersistenceContentInfo(array $row): ContentInfo
     {
@@ -203,3 +203,5 @@ final class DoctrineGatewayDataMapper implements GatewayDataMapper
         return $contentInfo;
     }
 }
+
+class_alias(DoctrineGatewayDataMapper::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Content\Mapper\DoctrineGatewayDataMapper');

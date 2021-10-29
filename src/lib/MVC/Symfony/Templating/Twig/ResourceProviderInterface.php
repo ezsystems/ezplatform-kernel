@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig;
+namespace Ibexa\Core\MVC\Symfony\Templating\Twig;
 
 interface ResourceProviderInterface
 {
@@ -30,3 +30,5 @@ interface ResourceProviderInterface
      */
     public function getFieldDefinitionEditResources(): array;
 }
+
+class_alias(ResourceProviderInterface::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Twig\ResourceProviderInterface');

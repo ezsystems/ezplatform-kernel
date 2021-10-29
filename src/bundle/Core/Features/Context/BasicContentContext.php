@@ -4,12 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Features\Context;
+namespace Ibexa\Bundle\Core\Features\Context;
 
 use Behat\Behat\Context\Context;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Core\Repository\Values\Content\Content;
 
 /**
  * Sentences for simple Contents creation.
@@ -26,13 +27,13 @@ class BasicContentContext implements Context
      */
     private $contentPaths = [];
 
-    /** @var eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
     public function __construct(
@@ -65,8 +66,6 @@ class BasicContentContext implements Context
 
     /**
      * Publishes a content draft.
-     *
-     * @param eZ\Publish\API\Repository\Values\Content\Content $content
      */
     public function publishDraft(Content $content)
     {
@@ -76,12 +75,12 @@ class BasicContentContext implements Context
     /**
      * Creates a content draft.
      *
-     * @param eZ\Publish\API\Repository\Values\Content\Location $parentLocationId
+     * @param int $parentLocationId
      * @param string $contentTypeIdentifier
      * @param string $languageCode
      * @param array $fields Fields, as primitives understood by setField
      *
-     * @return eZ\Publish\API\Repository\Values\Content\Content an unpublished Content draft
+     * @return \Ibexa\Core\Repository\Values\Content\Content an unpublished Content draft
      */
     public function createContentDraft($parentLocationId, $contentTypeIdentifier, $fields, $languageCode = null)
     {
@@ -194,3 +193,5 @@ class BasicContentContext implements Context
         return '<?xml version="1.0" encoding="UTF-8"?><section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ezxhtml="http://ez.no/xmlns/ezpublish/docbook/xhtml" xmlns:ezcustom="http://ez.no/xmlns/ezpublish/docbook/custom" version="5.0-variant ezpublish-1.0"><para>This is a paragraph.</para></section>';
     }
 }
+
+class_alias(BasicContentContext::class, 'eZ\Bundle\EzPublishCoreBundle\Features\Context\BasicContentContext');

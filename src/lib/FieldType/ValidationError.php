@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType;
+namespace Ibexa\Core\FieldType;
 
-use eZ\Publish\SPI\FieldType\ValidationError as ValidationErrorInterface;
-use eZ\Publish\API\Repository\Values\Translation\Message;
-use eZ\Publish\API\Repository\Values\Translation\Plural;
+use Ibexa\Contracts\Core\FieldType\ValidationError as ValidationErrorInterface;
+use Ibexa\Contracts\Core\Repository\Values\Translation\Message;
+use Ibexa\Contracts\Core\Repository\Values\Translation\Plural;
 
 /**
  * Class for validation errors.
@@ -50,7 +50,7 @@ class ValidationError implements ValidationErrorInterface
     /**
      * Returns a translatable Message.
      *
-     * @return \eZ\Publish\API\Repository\Values\Translation
+     * @return \Ibexa\Contracts\Core\Repository\Values\Translation
      */
     public function getTranslatableMessage()
     {
@@ -78,3 +78,5 @@ class ValidationError implements ValidationErrorInterface
         return $this->target;
     }
 }
+
+class_alias(ValidationError::class, 'eZ\Publish\Core\FieldType\ValidationError');

@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\EventListener;
+namespace Ibexa\Bundle\Core\EventListener;
 
-use eZ\Bundle\EzPublishCoreBundle\Command\BackwardCompatibleCommand;
+use Ibexa\Bundle\Core\Command\BackwardCompatibleCommand;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -46,3 +46,5 @@ final class BackwardCompatibleCommandListener implements EventSubscriberInterfac
         }
     }
 }
+
+class_alias(BackwardCompatibleCommandListener::class, 'eZ\Bundle\EzPublishCoreBundle\EventListener\BackwardCompatibleCommandListener');

@@ -6,34 +6,34 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Limitation;
+namespace Ibexa\Contracts\Core\Limitation;
 
-use eZ\Publish\API\Repository\Values\ValueObject as APIValueObject;
-use eZ\Publish\API\Repository\Values\User\Limitation as APILimitationValue;
-use eZ\Publish\API\Repository\Values\User\UserReference as APIUserReference;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject as APIValueObject;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitationValue;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
 
 /**
  * Represents Limitation type.
  * Indicates that Limitation Type implementation properly supports $targets passed as instances of Target.
  *
- * @see \eZ\Publish\SPI\Limitation\Type
- * @see \eZ\Publish\SPI\Limitation\Target
+ * @see \Ibexa\Contracts\Core\Limitation\Type
+ * @see \Ibexa\Contracts\Core\Limitation\Target
  */
 interface TargetAwareType extends Type
 {
     /**
      * Evaluate ("Vote") against a main value object and targets for the context.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $value
-     * @param \eZ\Publish\API\Repository\Values\User\UserReference $currentUser
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $object
-     * @param \eZ\Publish\SPI\Limitation\Target[]|null $targets $targets An array of location, parent or "assignment"
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserReference $currentUser
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $object
+     * @param \Ibexa\Contracts\Core\Limitation\Target[]|null $targets An array of location, parent or "assignment"
      *                                                                 objects, if null: none where provided by caller
      *
      * @return bool|null Returns one of ACCESS_* constants
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException If value of the LimitationValue is unsupported
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If any of the arguments are invalid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException If value of the LimitationValue is unsupported
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If any of the arguments are invalid
      */
     public function evaluate(
         APILimitationValue $value,
@@ -42,3 +42,5 @@ interface TargetAwareType extends Type
         array $targets = null
     ): ?bool;
 }
+
+class_alias(TargetAwareType::class, 'eZ\Publish\SPI\Limitation\TargetAwareType');

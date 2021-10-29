@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension;
+namespace Ibexa\Core\MVC\Symfony\Templating\Twig\Extension;
 
 use Locale;
 use NumberFormatter;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 
 /**
  * Class FileSizeExtension.
@@ -115,3 +115,5 @@ class FileSizeExtension extends AbstractExtension
         return 'ezpublish.fileSize';
     }
 }
+
+class_alias(FileSizeExtension::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\FileSizeExtension');

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
 use ArrayIterator;
 use IteratorAggregate;
@@ -20,7 +20,7 @@ final class ContentList implements IteratorAggregate
     /** @var int */
     private $totalCount;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Content[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content[] */
     private $contentItems;
 
     /**
@@ -38,10 +38,12 @@ final class ContentList implements IteratorAggregate
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Content[]|\Traversable
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content[]|\Traversable
      */
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->contentItems);
     }
 }
+
+class_alias(ContentList::class, 'eZ\Publish\API\Repository\Values\Content\ContentList');

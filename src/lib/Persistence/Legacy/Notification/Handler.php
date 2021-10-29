@@ -6,26 +6,26 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Notification;
+namespace Ibexa\Core\Persistence\Legacy\Notification;
 
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\SPI\Persistence\Notification\CreateStruct;
-use eZ\Publish\SPI\Persistence\Notification\Handler as HandlerInterface;
-use eZ\Publish\SPI\Persistence\Notification\Notification;
-use eZ\Publish\SPI\Persistence\Notification\UpdateStruct;
-use eZ\Publish\API\Repository\Values\Notification\Notification as APINotification;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Persistence\Notification\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Notification\Handler as HandlerInterface;
+use Ibexa\Contracts\Core\Persistence\Notification\Notification;
+use Ibexa\Contracts\Core\Persistence\Notification\UpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification as APINotification;
 
 class Handler implements HandlerInterface
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Notification\Gateway */
+    /** @var \Ibexa\Core\Persistence\Legacy\Notification\Gateway */
     protected $gateway;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Notification\Mapper */
+    /** @var \Ibexa\Core\Persistence\Legacy\Notification\Mapper */
     protected $mapper;
 
     /**
-     * @param \eZ\Publish\Core\Persistence\Legacy\Notification\Gateway $gateway
-     * @param \eZ\Publish\Core\Persistence\Legacy\Notification\Mapper $mapper
+     * @param \Ibexa\Core\Persistence\Legacy\Notification\Gateway $gateway
+     * @param \Ibexa\Core\Persistence\Legacy\Notification\Mapper $mapper
      */
     public function __construct(Gateway $gateway, Mapper $mapper)
     {
@@ -36,7 +36,7 @@ class Handler implements HandlerInterface
     /**
      * {@inheritdoc}
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException
      */
     public function createNotification(CreateStruct $createStruct): Notification
     {
@@ -56,7 +56,7 @@ class Handler implements HandlerInterface
     /**
      * {@inheritdoc}
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException
      */
     public function getNotificationById(int $notificationId): Notification
     {
@@ -74,8 +74,8 @@ class Handler implements HandlerInterface
     /**
      * {@inheritdoc}
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException
      */
     public function updateNotification(APINotification $apiNotification, UpdateStruct $updateStruct): Notification
     {
@@ -115,3 +115,5 @@ class Handler implements HandlerInterface
         $this->gateway->delete($notification->id);
     }
 }
+
+class_alias(Handler::class, 'eZ\Publish\Core\Persistence\Legacy\Notification\Handler');

@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\Trash;
+namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\Trash;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\User\Gateway as UserGateway;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use Ibexa\Core\Persistence\Legacy\User\Gateway as UserGateway;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
 /**
  * @internal
@@ -50,3 +50,5 @@ final class UserLogin extends SortClauseHandler
         );
     }
 }
+
+class_alias(UserLogin::class, 'eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\Trash\UserLogin');

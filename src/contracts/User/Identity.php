@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\User;
+namespace Ibexa\Contracts\Core\User;
 
 /**
  * Interface for a user identity.
@@ -53,3 +53,5 @@ interface Identity
      */
     public function getHash();
 }
+
+class_alias(Identity::class, 'eZ\Publish\SPI\User\Identity');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine;
+namespace Ibexa\Bundle\Core\Imagine;
 
-use eZ\Publish\Core\FieldType\Image\AliasCleanerInterface;
+use Ibexa\Core\FieldType\Image\AliasCleanerInterface;
 use Liip\ImagineBundle\Imagine\Cache\Resolver\ResolverInterface;
 
 class AliasCleaner implements AliasCleanerInterface
@@ -24,3 +24,5 @@ class AliasCleaner implements AliasCleanerInterface
         $this->aliasResolver->remove([$originalPath], []);
     }
 }
+
+class_alias(AliasCleaner::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\AliasCleaner');

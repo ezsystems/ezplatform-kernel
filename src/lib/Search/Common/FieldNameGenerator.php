@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Common;
+namespace Ibexa\Core\Search\Common;
 
-use eZ\Publish\SPI\Search\FieldType;
+use Ibexa\Contracts\Core\Search\FieldType;
 
 /**
  * Generator for search backend field names.
@@ -21,7 +21,7 @@ class FieldNameGenerator
      * We implement this mapping, because those dynamic fields are common to
      * search backend configurations.
      *
-     * @see \eZ\Publish\SPI\Search\FieldType
+     * @see \Ibexa\Contracts\Core\Search\FieldType
      *
      * Code example:
      *
@@ -70,7 +70,7 @@ class FieldNameGenerator
      * Only the field with the name 'id' remains untouched.
      *
      * @param string $name
-     * @param \eZ\Publish\SPI\Search\FieldType $type
+     * @param \Ibexa\Contracts\Core\Search\FieldType $type
      *
      * @return string
      */
@@ -89,3 +89,5 @@ class FieldNameGenerator
         return $name . '_' . $typeName;
     }
 }
+
+class_alias(FieldNameGenerator::class, 'eZ\Publish\Core\Search\Common\FieldNameGenerator');

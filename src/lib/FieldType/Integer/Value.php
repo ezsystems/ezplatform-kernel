@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Integer;
+namespace Ibexa\Core\FieldType\Integer;
 
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * Value for Integer field type.
@@ -30,11 +30,10 @@ class Value extends BaseValue
         $this->value = $value;
     }
 
-    /**
-     * @see \eZ\Publish\Core\FieldType\Value
-     */
     public function __toString()
     {
         return (string)$this->value;
     }
 }
+
+class_alias(Value::class, 'eZ\Publish\Core\FieldType\Integer\Value');

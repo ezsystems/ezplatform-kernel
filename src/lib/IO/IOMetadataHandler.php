@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\IO;
+namespace Ibexa\Core\IO;
 
-use eZ\Publish\SPI\IO\BinaryFile;
-use eZ\Publish\SPI\IO\BinaryFileCreateStruct;
+use Ibexa\Contracts\Core\IO\BinaryFile;
+use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct;
 
 /**
  * Provides reading & writing of files meta data (size, modification time...).
@@ -28,7 +28,7 @@ interface IOMetadataHandler
     /**
      * Deletes file $spiBinaryFileId.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If $spiBinaryFileId is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If $spiBinaryFileId is not found
      *
      * @param string $spiBinaryFileId
      */
@@ -63,3 +63,5 @@ interface IOMetadataHandler
 
     public function deleteDirectory($spiPath);
 }
+
+class_alias(IOMetadataHandler::class, 'eZ\Publish\Core\IO\IOMetadataHandler');

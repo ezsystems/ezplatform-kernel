@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ObjectState;
+namespace Ibexa\Contracts\Core\Repository\Events\ObjectState;
 
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeUpdateObjectStateGroupEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup */
     private $objectStateGroup;
 
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct */
     private $objectStateGroupUpdateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup|null */
     private $updatedObjectStateGroup;
 
     public function __construct(ObjectStateGroup $objectStateGroup, ObjectStateGroupUpdateStruct $objectStateGroupUpdateStruct)
@@ -59,3 +59,5 @@ final class BeforeUpdateObjectStateGroupEvent extends BeforeEvent
         return $this->updatedObjectStateGroup instanceof ObjectStateGroup;
     }
 }
+
+class_alias(BeforeUpdateObjectStateGroupEvent::class, 'eZ\Publish\API\Repository\Events\ObjectState\BeforeUpdateObjectStateGroupEvent');

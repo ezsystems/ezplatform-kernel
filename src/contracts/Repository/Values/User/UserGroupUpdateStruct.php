@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class is used to update a user group in the repository.
@@ -18,14 +18,16 @@ class UserGroupUpdateStruct extends ValueObject
     /**
      * The update structure for the profile content.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct
      */
     public $contentUpdateStruct = null;
 
     /**
      * The update structure for the profile meta data.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\ContentMetadataUpdateStruct
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct
      */
     public $contentMetadataUpdateStruct = null;
 }
+
+class_alias(UserGroupUpdateStruct::class, 'eZ\Publish\API\Repository\Values\User\UserGroupUpdateStruct');

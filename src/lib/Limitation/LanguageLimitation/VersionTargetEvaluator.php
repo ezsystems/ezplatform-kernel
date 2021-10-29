@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Limitation\LanguageLimitation;
+namespace Ibexa\Core\Limitation\LanguageLimitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\SPI\Limitation\Target;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Limitation\Target;
 
 /**
  * @internal for internal use by LanguageLimitation
@@ -20,3 +20,5 @@ interface VersionTargetEvaluator
 
     public function evaluate(Target\Version $targetVersion, Limitation $limitationValue): ?bool;
 }
+
+class_alias(VersionTargetEvaluator::class, 'eZ\Publish\Core\Limitation\LanguageLimitation\VersionTargetEvaluator');

@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\PlatformInstallerBundle\Installer;
+namespace Ibexa\Bundle\Installer\Installer;
 
 /**
  * Interface Installer.
@@ -36,3 +36,5 @@ interface Installer
      */
     public function importBinaries();
 }
+
+class_alias(Installer::class, 'EzSystems\PlatformInstallerBundle\Installer\Installer');

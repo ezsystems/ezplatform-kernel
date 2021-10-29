@@ -4,22 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Controller\Content;
+namespace Ibexa\Core\MVC\Symfony\Controller\Content;
 
 use Exception;
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\Helper\ContentPreviewHelper;
-use eZ\Publish\Core\Helper\PreviewLocationProvider;
-use eZ\Publish\Core\MVC\Symfony\Routing\UrlAliasRouter;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\View\CustomLocationControllerChecker;
-use eZ\Publish\Core\MVC\Symfony\View\ViewManagerInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute as AuthorizationAttribute;
-use eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Helper\ContentPreviewHelper;
+use Ibexa\Core\Helper\PreviewLocationProvider;
+use Ibexa\Core\MVC\Symfony\Routing\UrlAliasRouter;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\View\CustomLocationControllerChecker;
+use Ibexa\Core\MVC\Symfony\View\ViewManagerInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute as AuthorizationAttribute;
+use Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -30,19 +30,19 @@ class PreviewController
     const PREVIEW_PARAMETER_NAME = 'isPreview';
     const CONTENT_VIEW_ROUTE = '_ez_content_view';
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
     /** @var \Symfony\Component\HttpKernel\HttpKernelInterface */
     private $kernel;
 
-    /** @var \eZ\Publish\Core\Helper\ContentPreviewHelper */
+    /** @var \Ibexa\Core\Helper\ContentPreviewHelper */
     private $previewHelper;
 
     /** @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface */
     private $authorizationChecker;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\CustomLocationControllerChecker */
+    /** @var \Ibexa\Core\MVC\Symfony\View\CustomLocationControllerChecker */
     private $controllerChecker;
 
     public function __construct(
@@ -123,9 +123,9 @@ EOF;
     /**
      * Returns the Request object that will be forwarded to the kernel for previewing the content.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param \eZ\Publish\Core\MVC\Symfony\SiteAccess $previewSiteAccess
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param \Ibexa\Core\MVC\Symfony\SiteAccess $previewSiteAccess
      * @param Request $request
      * @param string $language
      *
@@ -169,3 +169,5 @@ EOF;
         );
     }
 }
+
+class_alias(PreviewController::class, 'eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController');

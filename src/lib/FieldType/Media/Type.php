@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Media;
+namespace Ibexa\Core\FieldType\Media;
 
-use eZ\Publish\Core\FieldType\BinaryBase\Type as BaseType;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
-use eZ\Publish\SPI\fieldType\Value as SPIValue;
+use Ibexa\Core\FieldType\BinaryBase\Type as BaseType;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Core\FieldType\Value as BaseValue;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
 
 /**
  * The TextLine field type.
@@ -66,7 +66,7 @@ class Type extends BaseType
      * Returns the fallback default value of field type when no such default
      * value is provided in the field definition in content types.
      *
-     * @return \eZ\Publish\Core\FieldType\Media\Value
+     * @return \Ibexa\Core\FieldType\Media\Value
      */
     public function getEmptyValue()
     {
@@ -78,7 +78,7 @@ class Type extends BaseType
      *
      * @param mixed $fieldSettings
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validateFieldSettings($fieldSettings)
     {
@@ -120,7 +120,7 @@ class Type extends BaseType
      *
      * @param array $inputValue
      *
-     * @return \eZ\Publish\Core\FieldType\Media\Value
+     * @return \Ibexa\Core\FieldType\Media\Value
      */
     protected function createValue(array $inputValue)
     {
@@ -132,9 +132,9 @@ class Type extends BaseType
     /**
      * Throws an exception if value structure is not of expected format.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
      *
-     * @param \eZ\Publish\Core\FieldType\Media\Value $value
+     * @param \Ibexa\Core\FieldType\Media\Value $value
      */
     protected function checkValueStructure(BaseValue $value)
     {
@@ -181,7 +181,7 @@ class Type extends BaseType
     /**
      * Attempts to complete the data in $value.
      *
-     * @param \eZ\Publish\Core\FieldType\Media\Value|\eZ\Publish\Core\FieldType\Value $value
+     * @param \Ibexa\Core\FieldType\Media\Value|\Ibexa\Core\FieldType\Value $value
      */
     protected function completeValue(BaseValue $value)
     {
@@ -208,7 +208,7 @@ class Type extends BaseType
     /**
      * Converts a $Value to a hash.
      *
-     * @param \eZ\Publish\Core\FieldType\Media\Value $value
+     * @param \Ibexa\Core\FieldType\Media\Value $value
      *
      * @return mixed
      */
@@ -234,9 +234,9 @@ class Type extends BaseType
      *
      * This method builds a field type value from the $data and $externalData properties.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\FieldValue $fieldValue
+     * @param \Ibexa\Contracts\Core\Persistence\Content\FieldValue $fieldValue
      *
-     * @return \eZ\Publish\Core\FieldType\Media\Value
+     * @return \Ibexa\Core\FieldType\Media\Value
      */
     public function fromPersistenceValue(FieldValue $fieldValue)
     {
@@ -275,3 +275,5 @@ class Type extends BaseType
         return false;
     }
 }
+
+class_alias(Type::class, 'eZ\Publish\Core\FieldType\Media\Type');

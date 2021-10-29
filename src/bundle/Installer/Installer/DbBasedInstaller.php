@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\PlatformInstallerBundle\Installer;
+namespace Ibexa\Bundle\Installer\Installer;
 
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Filesystem\Filesystem;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 class DbBasedInstaller
 {
@@ -79,7 +79,7 @@ class DbBasedInstaller
      *
      * @return string absolute existing file path
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Doctrine\DBAL\DBALException
      *
      * @since 6.13
@@ -104,3 +104,5 @@ class DbBasedInstaller
         return realpath($filePath);
     }
 }
+
+class_alias(DbBasedInstaller::class, 'EzSystems\PlatformInstallerBundle\Installer\DbBasedInstaller');

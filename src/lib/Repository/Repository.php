@@ -6,45 +6,45 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository;
+namespace Ibexa\Core\Repository;
 
-use eZ\Publish\API\Repository\LanguageResolver;
-use eZ\Publish\API\Repository\PermissionCriterionResolver as PermissionCriterionResolverInterface;
-use eZ\Publish\API\Repository\PermissionService;
-use eZ\Publish\API\Repository\Repository as RepositoryInterface;
-use eZ\Publish\API\Repository\NotificationService as NotificationServiceInterface;
-use eZ\Publish\API\Repository\BookmarkService as BookmarkServiceInterface;
-use eZ\Publish\API\Repository\ContentService as ContentServiceInterface;
-use eZ\Publish\API\Repository\ContentTypeService as ContentTypeServiceInterface;
-use eZ\Publish\API\Repository\FieldTypeService as FieldTypeServiceInterface;
-use eZ\Publish\API\Repository\LanguageService as LanguageServiceInterface;
-use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
-use eZ\Publish\API\Repository\ObjectStateService as ObjectStateServiceInterface;
-use eZ\Publish\API\Repository\PermissionResolver as PermissionResolverInterface;
-use eZ\Publish\API\Repository\RoleService as RoleServiceInterface;
-use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
-use eZ\Publish\API\Repository\SectionService as SectionServiceInterface;
-use eZ\Publish\API\Repository\TrashService as TrashServiceInterface;
-use eZ\Publish\API\Repository\URLAliasService as URLAliasServiceInterface;
-use eZ\Publish\API\Repository\URLService as URLServiceInterface;
-use eZ\Publish\API\Repository\URLWildcardService as URLWildcardServiceInterface;
-use eZ\Publish\API\Repository\UserPreferenceService as UserPreferenceServiceInterface;
-use eZ\Publish\API\Repository\UserService as UserServiceInterface;
-use eZ\Publish\API\Repository\PasswordHashService;
-use eZ\Publish\Core\FieldType\FieldTypeRegistry;
-use eZ\Publish\Core\Repository\Helper\NameSchemaService;
-use eZ\Publish\Core\Repository\Permission\LimitationService;
-use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
-use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
-use eZ\Publish\Core\Repository\Helper\RelationProcessor;
-use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
-use eZ\Publish\Core\Search\Common\BackgroundIndexer;
-use eZ\Publish\SPI\Persistence\Filter\Content\Handler as ContentFilteringHandler;
-use eZ\Publish\SPI\Persistence\Filter\Location\Handler as LocationFilteringHandler;
-use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
-use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
-use eZ\Publish\SPI\Repository\Validator\ContentValidator;
-use eZ\Publish\SPI\Search\Handler as SearchHandler;
+use Ibexa\Contracts\Core\Repository\LanguageResolver;
+use Ibexa\Contracts\Core\Repository\PermissionCriterionResolver as PermissionCriterionResolverInterface;
+use Ibexa\Contracts\Core\Repository\PermissionService;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
+use Ibexa\Contracts\Core\Repository\NotificationService as NotificationServiceInterface;
+use Ibexa\Contracts\Core\Repository\BookmarkService as BookmarkServiceInterface;
+use Ibexa\Contracts\Core\Repository\ContentService as ContentServiceInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService as ContentTypeServiceInterface;
+use Ibexa\Contracts\Core\Repository\FieldTypeService as FieldTypeServiceInterface;
+use Ibexa\Contracts\Core\Repository\LanguageService as LanguageServiceInterface;
+use Ibexa\Contracts\Core\Repository\LocationService as LocationServiceInterface;
+use Ibexa\Contracts\Core\Repository\ObjectStateService as ObjectStateServiceInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver as PermissionResolverInterface;
+use Ibexa\Contracts\Core\Repository\RoleService as RoleServiceInterface;
+use Ibexa\Contracts\Core\Repository\SearchService as SearchServiceInterface;
+use Ibexa\Contracts\Core\Repository\SectionService as SectionServiceInterface;
+use Ibexa\Contracts\Core\Repository\TrashService as TrashServiceInterface;
+use Ibexa\Contracts\Core\Repository\URLAliasService as URLAliasServiceInterface;
+use Ibexa\Contracts\Core\Repository\URLService as URLServiceInterface;
+use Ibexa\Contracts\Core\Repository\URLWildcardService as URLWildcardServiceInterface;
+use Ibexa\Contracts\Core\Repository\UserPreferenceService as UserPreferenceServiceInterface;
+use Ibexa\Contracts\Core\Repository\UserService as UserServiceInterface;
+use Ibexa\Contracts\Core\Repository\PasswordHashService;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Core\Repository\Helper\NameSchemaService;
+use Ibexa\Core\Repository\Permission\LimitationService;
+use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
+use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
+use Ibexa\Core\Repository\Helper\RelationProcessor;
+use Ibexa\Core\Repository\User\PasswordValidatorInterface;
+use Ibexa\Core\Search\Common\BackgroundIndexer;
+use Ibexa\Contracts\Core\Persistence\Filter\Content\Handler as ContentFilteringHandler;
+use Ibexa\Contracts\Core\Persistence\Filter\Location\Handler as LocationFilteringHandler;
+use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
+use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
+use Ibexa\Contracts\Core\Search\Handler as SearchHandler;
 use Exception;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -58,150 +58,150 @@ class Repository implements RepositoryInterface
     /**
      * Repository Handler object.
      *
-     * @var \eZ\Publish\SPI\Persistence\Handler
+     * @var \Ibexa\Contracts\Core\Persistence\Handler
      */
     protected $persistenceHandler;
 
     /**
      * Instance of main Search Handler.
      *
-     * @var \eZ\Publish\SPI\Search\Handler
+     * @var \Ibexa\Contracts\Core\Search\Handler
      */
     protected $searchHandler;
 
     /**
      * Instance of content service.
      *
-     * @var \eZ\Publish\API\Repository\ContentService
+     * @var \Ibexa\Contracts\Core\Repository\ContentService
      */
     protected $contentService;
 
     /**
      * Instance of section service.
      *
-     * @var \eZ\Publish\API\Repository\SectionService
+     * @var \Ibexa\Contracts\Core\Repository\SectionService
      */
     protected $sectionService;
 
     /**
      * Instance of role service.
      *
-     * @var \eZ\Publish\API\Repository\RoleService
+     * @var \Ibexa\Contracts\Core\Repository\RoleService
      */
     protected $roleService;
 
     /**
      * Instance of search service.
      *
-     * @var \eZ\Publish\API\Repository\SearchService
+     * @var \Ibexa\Contracts\Core\Repository\SearchService
      */
     protected $searchService;
 
     /**
      * Instance of user service.
      *
-     * @var \eZ\Publish\API\Repository\UserService
+     * @var \Ibexa\Contracts\Core\Repository\UserService
      */
     protected $userService;
 
     /**
      * Instance of language service.
      *
-     * @var \eZ\Publish\API\Repository\LanguageService
+     * @var \Ibexa\Contracts\Core\Repository\LanguageService
      */
     protected $languageService;
 
     /**
      * Instance of location service.
      *
-     * @var \eZ\Publish\API\Repository\LocationService
+     * @var \Ibexa\Contracts\Core\Repository\LocationService
      */
     protected $locationService;
 
     /**
      * Instance of Trash service.
      *
-     * @var \eZ\Publish\API\Repository\TrashService
+     * @var \Ibexa\Contracts\Core\Repository\TrashService
      */
     protected $trashService;
 
     /**
      * Instance of content type service.
      *
-     * @var \eZ\Publish\API\Repository\ContentTypeService
+     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService
      */
     protected $contentTypeService;
 
     /**
      * Instance of object state service.
      *
-     * @var \eZ\Publish\API\Repository\ObjectStateService
+     * @var \Ibexa\Contracts\Core\Repository\ObjectStateService
      */
     protected $objectStateService;
 
     /**
      * Instance of field type service.
      *
-     * @var \eZ\Publish\API\Repository\FieldTypeService
+     * @var \Ibexa\Contracts\Core\Repository\FieldTypeService
      */
     protected $fieldTypeService;
 
-    /** @var \eZ\Publish\Core\FieldType\FieldTypeRegistry */
+    /** @var \Ibexa\Core\FieldType\FieldTypeRegistry */
     private $fieldTypeRegistry;
 
     /**
      * Instance of name schema resolver service.
      *
-     * @var \eZ\Publish\Core\Repository\Helper\NameSchemaService
+     * @var \Ibexa\Core\Repository\Helper\NameSchemaService
      */
     protected $nameSchemaService;
 
     /**
      * Instance of relation processor service.
      *
-     * @var \eZ\Publish\Core\Repository\Helper\RelationProcessor
+     * @var \Ibexa\Core\Repository\Helper\RelationProcessor
      */
     protected $relationProcessor;
 
     /**
      * Instance of URL alias service.
      *
-     * @var \eZ\Publish\Core\Repository\URLAliasService
+     * @var \Ibexa\Core\Repository\URLAliasService
      */
     protected $urlAliasService;
 
     /**
      * Instance of URL wildcard service.
      *
-     * @var \eZ\Publish\Core\Repository\URLWildcardService
+     * @var \Ibexa\Core\Repository\URLWildcardService
      */
     protected $urlWildcardService;
 
     /**
      * Instance of URL service.
      *
-     * @var \eZ\Publish\Core\Repository\URLService
+     * @var \Ibexa\Core\Repository\URLService
      */
     protected $urlService;
 
     /**
      * Instance of Bookmark service.
      *
-     * @var \eZ\Publish\API\Repository\BookmarkService
+     * @var \Ibexa\Contracts\Core\Repository\BookmarkService
      */
     protected $bookmarkService;
 
     /**
      * Instance of Notification service.
      *
-     * @var \eZ\Publish\API\Repository\NotificationService
+     * @var \Ibexa\Contracts\Core\Repository\NotificationService
      */
     protected $notificationService;
 
     /**
      * Instance of User Preference service.
      *
-     * @var \eZ\Publish\API\Repository\UserPreferenceService
+     * @var \Ibexa\Contracts\Core\Repository\UserPreferenceService
      */
     protected $userPreferenceService;
 
@@ -212,52 +212,52 @@ class Repository implements RepositoryInterface
      */
     protected $serviceSettings;
 
-    /** @var \eZ\Publish\Core\Repository\Permission\LimitationService */
+    /** @var \Ibexa\Core\Repository\Permission\LimitationService */
     protected $limitationService;
 
-    /** @var \eZ\Publish\Core\Repository\Mapper\RoleDomainMapper */
+    /** @var \Ibexa\Core\Repository\Mapper\RoleDomainMapper */
     protected $roleDomainMapper;
 
-    /** @var \eZ\Publish\Core\Repository\Mapper\ContentDomainMapper */
+    /** @var \Ibexa\Core\Repository\Mapper\ContentDomainMapper */
     protected $contentDomainMapper;
 
-    /** @var \eZ\Publish\Core\Repository\Mapper\ContentTypeDomainMapper */
+    /** @var \Ibexa\Core\Repository\Mapper\ContentTypeDomainMapper */
     protected $contentTypeDomainMapper;
 
-    /** @var \eZ\Publish\Core\Search\Common\BackgroundIndexer|null */
+    /** @var \Ibexa\Core\Search\Common\BackgroundIndexer|null */
     protected $backgroundIndexer;
 
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    /** @var \eZ\Publish\API\Repository\PasswordHashService */
+    /** @var \Ibexa\Contracts\Core\Repository\PasswordHashService */
     private $passwordHashService;
 
-    /** @var \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy */
+    /** @var \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy */
     private $thumbnailStrategy;
 
-    /** @var \eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactory */
+    /** @var \Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperFactory */
     private $proxyDomainMapperFactory;
 
-    /** @var \eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperInterface|null */
+    /** @var \Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperInterface|null */
     private $proxyDomainMapper;
 
-    /** @var \eZ\Publish\API\Repository\LanguageResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageResolver */
     private $languageResolver;
 
-    /** @var \eZ\Publish\API\Repository\PermissionService */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionService */
     private $permissionService;
 
-    /** @var \eZ\Publish\Core\Repository\Mapper\ContentMapper */
+    /** @var \Ibexa\Core\Repository\Mapper\ContentMapper */
     private $contentMapper;
 
-    /** @var \eZ\Publish\SPI\Repository\Validator\ContentValidator */
+    /** @var \Ibexa\Contracts\Core\Repository\Validator\ContentValidator */
     private $contentValidator;
 
-    /** @var \eZ\Publish\SPI\Persistence\Filter\Content\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Filter\Content\Handler */
     private $contentFilteringHandler;
 
-    /** @var \eZ\Publish\SPI\Persistence\Filter\Location\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Filter\Location\Handler */
     private $locationFilteringHandler;
 
     /** @var PasswordValidatorInterface */
@@ -347,7 +347,7 @@ class Repository implements RepositoryInterface
      *
      * Get service object to perform operations on Content objects and it's aggregate members.
      *
-     * @return \eZ\Publish\API\Repository\ContentService
+     * @return \Ibexa\Contracts\Core\Repository\ContentService
      */
     public function getContentService(): ContentServiceInterface
     {
@@ -377,7 +377,7 @@ class Repository implements RepositoryInterface
      *
      * Get service object to perform operations on Content language objects
      *
-     * @return \eZ\Publish\API\Repository\LanguageService
+     * @return \Ibexa\Contracts\Core\Repository\LanguageService
      */
     public function getContentLanguageService(): LanguageServiceInterface
     {
@@ -401,7 +401,7 @@ class Repository implements RepositoryInterface
      * Get service object to perform operations on Content Type objects and it's aggregate members.
      * ( Group, Field & FieldCategory )
      *
-     * @return \eZ\Publish\API\Repository\ContentTypeService
+     * @return \Ibexa\Contracts\Core\Repository\ContentTypeService
      */
     public function getContentTypeService(): ContentTypeServiceInterface
     {
@@ -428,7 +428,7 @@ class Repository implements RepositoryInterface
      *
      * Get service object to perform operations on Location objects and subtrees
      *
-     * @return \eZ\Publish\API\Repository\LocationService
+     * @return \Ibexa\Contracts\Core\Repository\LocationService
      */
     public function getLocationService(): LocationServiceInterface
     {
@@ -458,7 +458,7 @@ class Repository implements RepositoryInterface
      * Trash service allows to perform operations related to location trash
      * (trash/untrash, load/list from trash...)
      *
-     * @return \eZ\Publish\API\Repository\TrashService
+     * @return \Ibexa\Contracts\Core\Repository\TrashService
      */
     public function getTrashService(): TrashServiceInterface
     {
@@ -484,7 +484,7 @@ class Repository implements RepositoryInterface
      *
      * Get Section service that lets you manipulate section objects
      *
-     * @return \eZ\Publish\API\Repository\SectionService
+     * @return \Ibexa\Contracts\Core\Repository\SectionService
      */
     public function getSectionService(): SectionServiceInterface
     {
@@ -508,7 +508,7 @@ class Repository implements RepositoryInterface
      *
      * Get service object to perform operations on Users and UserGroup
      *
-     * @return \eZ\Publish\API\Repository\UserService
+     * @return \Ibexa\Contracts\Core\Repository\UserService
      */
     public function getUserService(): UserServiceInterface
     {
@@ -532,7 +532,7 @@ class Repository implements RepositoryInterface
     /**
      * Get URLAliasService.
      *
-     * @return \eZ\Publish\API\Repository\URLAliasService
+     * @return \Ibexa\Contracts\Core\Repository\URLAliasService
      */
     public function getURLAliasService(): URLAliasServiceInterface
     {
@@ -554,7 +554,7 @@ class Repository implements RepositoryInterface
     /**
      * Get URLWildcardService.
      *
-     * @return \eZ\Publish\API\Repository\URLWildcardService
+     * @return \Ibexa\Contracts\Core\Repository\URLWildcardService
      */
     public function getURLWildcardService(): URLWildcardServiceInterface
     {
@@ -575,7 +575,7 @@ class Repository implements RepositoryInterface
     /**
      * Get URLService.
      *
-     * @return \eZ\Publish\API\Repository\URLService
+     * @return \Ibexa\Contracts\Core\Repository\URLService
      */
     public function getURLService(): URLServiceInterface
     {
@@ -595,7 +595,7 @@ class Repository implements RepositoryInterface
     /**
      * Get BookmarkService.
      *
-     * @return \eZ\Publish\API\Repository\BookmarkService
+     * @return \Ibexa\Contracts\Core\Repository\BookmarkService
      */
     public function getBookmarkService(): BookmarkServiceInterface
     {
@@ -612,7 +612,7 @@ class Repository implements RepositoryInterface
     /**
      * Get UserPreferenceService.
      *
-     * @return \eZ\Publish\API\Repository\UserPreferenceService
+     * @return \Ibexa\Contracts\Core\Repository\UserPreferenceService
      */
     public function getUserPreferenceService(): UserPreferenceServiceInterface
     {
@@ -629,7 +629,7 @@ class Repository implements RepositoryInterface
     /**
      * Get ObjectStateService.
      *
-     * @return \eZ\Publish\API\Repository\ObjectStateService
+     * @return \Ibexa\Contracts\Core\Repository\ObjectStateService
      */
     public function getObjectStateService(): ObjectStateServiceInterface
     {
@@ -650,7 +650,7 @@ class Repository implements RepositoryInterface
     /**
      * Get RoleService.
      *
-     * @return \eZ\Publish\API\Repository\RoleService
+     * @return \Ibexa\Contracts\Core\Repository\RoleService
      */
     public function getRoleService(): RoleServiceInterface
     {
@@ -677,7 +677,7 @@ class Repository implements RepositoryInterface
     /**
      * Get SearchService.
      *
-     * @return \eZ\Publish\API\Repository\SearchService
+     * @return \Ibexa\Contracts\Core\Repository\SearchService
      */
     public function getSearchService(): SearchServiceInterface
     {
@@ -700,7 +700,7 @@ class Repository implements RepositoryInterface
     /**
      * Get FieldTypeService.
      *
-     * @return \eZ\Publish\API\Repository\FieldTypeService
+     * @return \Ibexa\Contracts\Core\Repository\FieldTypeService
      */
     public function getFieldTypeService(): FieldTypeServiceInterface
     {
@@ -732,7 +732,7 @@ class Repository implements RepositoryInterface
      * @internal
      * @private
      *
-     * @return \eZ\Publish\Core\Repository\Helper\NameSchemaService
+     * @return \Ibexa\Core\Repository\Helper\NameSchemaService
      */
     public function getNameSchemaService(): NameSchemaService
     {
@@ -751,7 +751,7 @@ class Repository implements RepositoryInterface
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\NotificationService
+     * @return \Ibexa\Contracts\Core\Repository\NotificationService
      */
     public function getNotificationService(): NotificationServiceInterface
     {
@@ -773,7 +773,7 @@ class Repository implements RepositoryInterface
      *
      * @todo Move out from this & other repo instances when services becomes proper services in DIC terms using factory.
      *
-     * @return \eZ\Publish\Core\Repository\Helper\RelationProcessor
+     * @return \Ibexa\Core\Repository\Helper\RelationProcessor
      */
     protected function getRelationProcessor(): RelationProcessor
     {
@@ -839,3 +839,5 @@ class Repository implements RepositoryInterface
         }
     }
 }
+
+class_alias(Repository::class, 'eZ\Publish\Core\Repository\Repository');

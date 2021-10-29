@@ -4,22 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content;
+namespace Ibexa\Core\Persistence\Legacy\Content;
 
 use Exception;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\Handler as BaseContentHandler;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway as UrlAliasGateway;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException as NotFound;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\Handler as BaseContentHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway as UrlAliasGateway;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use Ibexa\Core\Base\Exceptions\NotFoundException as NotFound;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -31,14 +31,14 @@ class Handler implements BaseContentHandler
     /**
      * Content gateway.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Gateway
      */
     protected $contentGateway;
 
     /**
      * Location gateway.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway
      */
     protected $locationGateway;
 
@@ -52,35 +52,35 @@ class Handler implements BaseContentHandler
     /**
      * FieldHandler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\FieldHandler
      */
     protected $fieldHandler;
 
     /**
      * URL slug converter.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter
+     * @var \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter
      */
     protected $slugConverter;
 
     /**
      * UrlAlias gateway.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway
      */
     protected $urlAliasGateway;
 
     /**
      * ContentType handler.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\Type\Handler
+     * @var \Ibexa\Contracts\Core\Persistence\Content\Type\Handler
      */
     protected $contentTypeHandler;
 
     /**
      * Tree handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\TreeHandler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\TreeHandler
      */
     protected $treeHandler;
 
@@ -90,14 +90,14 @@ class Handler implements BaseContentHandler
     /**
      * Creates a new content handler.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Gateway $contentGateway
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway $locationGateway
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Mapper $mapper
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler $fieldHandler
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter $slugConverter
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway $urlAliasGateway
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\Handler $contentTypeHandler
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\TreeHandler $treeHandler
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Gateway $contentGateway
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway $locationGateway
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Mapper $mapper
+     * @param \Ibexa\Core\Persistence\Legacy\Content\FieldHandler $fieldHandler
+     * @param \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter $slugConverter
+     * @param \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway $urlAliasGateway
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\Handler $contentTypeHandler
+     * @param \Ibexa\Core\Persistence\Legacy\Content\TreeHandler $treeHandler
      * @param \Psr\Log\LoggerInterface|null $logger
      */
     public function __construct(
@@ -130,9 +130,9 @@ class Handler implements BaseContentHandler
      *
      * Will contain always a complete list of fields.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\CreateStruct $struct Content creation struct.
+     * @param \Ibexa\Contracts\Core\Persistence\Content\CreateStruct $struct Content creation struct.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content Content value object
+     * @return \Ibexa\Contracts\Core\Persistence\Content Content value object
      */
     public function create(CreateStruct $struct)
     {
@@ -147,10 +147,10 @@ class Handler implements BaseContentHandler
      *
      * Will contain always a complete list of fields.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\CreateStruct $struct Content creation struct.
+     * @param \Ibexa\Contracts\Core\Persistence\Content\CreateStruct $struct Content creation struct.
      * @param mixed $versionNo Used by self::copy() to maintain version numbers
      *
-     * @return \eZ\Publish\SPI\Persistence\Content Content value object
+     * @return \Ibexa\Contracts\Core\Persistence\Content Content value object
      */
     protected function internalCreate(CreateStruct $struct, $versionNo = 1)
     {
@@ -205,12 +205,12 @@ class Handler implements BaseContentHandler
      *
      * @param int $contentId
      * @param int $versionNo
-     * @param \eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct $metaDataUpdateStruct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct $metaDataUpdateStruct
      *
-     * @return \eZ\Publish\SPI\Persistence\Content The published Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content The published Content
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function publish($contentId, $versionNo, MetadataUpdateStruct $metaDataUpdateStruct)
     {
@@ -254,7 +254,7 @@ class Handler implements BaseContentHandler
      * @param mixed $userId
      * @param string|null $languageCode
      *
-     * @return \eZ\Publish\SPI\Persistence\Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content
      */
     public function createDraftFromVersion($contentId, $srcVersion, $userId, ?string $languageCode = null)
     {
@@ -411,7 +411,7 @@ class Handler implements BaseContentHandler
      *
      * @param int|string $contentId
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ContentInfo
      */
     public function loadContentInfo($contentId)
     {
@@ -437,7 +437,7 @@ class Handler implements BaseContentHandler
      *
      * @param mixed $remoteId
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ContentInfo
      */
     public function loadContentInfoByRemoteId($remoteId)
     {
@@ -474,7 +474,7 @@ class Handler implements BaseContentHandler
      *
      * @param int $userId
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\VersionInfo[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\VersionInfo[]
      */
     public function loadDraftsForUser($userId)
     {
@@ -539,9 +539,9 @@ class Handler implements BaseContentHandler
      * Updates a content object meta data, identified by $contentId.
      *
      * @param int $contentId
-     * @param \eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct $content
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ContentInfo
      */
     public function updateMetadata($contentId, MetadataUpdateStruct $content)
     {
@@ -558,7 +558,7 @@ class Handler implements BaseContentHandler
      * This is specific to the Legacy storage engine, as path identification string is deprecated.
      *
      * @param int $contentId
-     * @param \eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct $content
      */
     protected function updatePathIdentificationString($contentId, MetadataUpdateStruct $content)
     {
@@ -592,9 +592,9 @@ class Handler implements BaseContentHandler
      *
      * @param int $contentId
      * @param int $versionNo
-     * @param \eZ\Publish\SPI\Persistence\Content\UpdateStruct $updateStruct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\UpdateStruct $updateStruct
      *
-     * @return \eZ\Publish\SPI\Persistence\Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content
      */
     public function updateContent($contentId, $versionNo, UpdateStruct $updateStruct)
     {
@@ -678,7 +678,7 @@ class Handler implements BaseContentHandler
      * @param mixed|null $status Optional argument to filter versions by status, like {@see VersionInfo::STATUS_ARCHIVED}.
      * @param int $limit Limit for items returned, -1 means none.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\VersionInfo[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\VersionInfo[]
      */
     public function listVersions($contentId, $status = null, $limit = -1)
     {
@@ -690,13 +690,13 @@ class Handler implements BaseContentHandler
      *
      * {@inheritdoc}
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If content or version is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If content or version is not found
      *
      * @param mixed $contentId
      * @param mixed|null $versionNo Copy all versions if left null
      * @param int|null $newOwnerId
      *
-     * @return \eZ\Publish\SPI\Persistence\Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content
      */
     public function copy($contentId, $versionNo = null, $newOwnerId = null)
     {
@@ -763,9 +763,9 @@ class Handler implements BaseContentHandler
      *
      * @todo Should the existence verifications happen here or is this supposed to be handled at a higher level?
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct $createStruct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct $createStruct
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Relation
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Relation
      */
     public function addRelation(RelationCreateStruct $createStruct)
     {
@@ -782,10 +782,10 @@ class Handler implements BaseContentHandler
      * @todo Should the existence verifications happen here or is this supposed to be handled at a higher level?
      *
      * @param mixed $relationId
-     * @param int $type {@see \eZ\Publish\API\Repository\Values\Content\Relation::COMMON,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::EMBED,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::LINK,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::FIELD}
+     * @param int $type {@see \Ibexa\Contracts\Core\Repository\Values\Content\Relation::COMMON,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::EMBED,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::LINK,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::FIELD}
      */
     public function removeRelation($relationId, $type)
     {
@@ -797,12 +797,12 @@ class Handler implements BaseContentHandler
      *
      * @param mixed $sourceContentId Source Content ID
      * @param mixed|null $sourceContentVersionNo Source Content Version, null if not specified
-     * @param int|null $type {@see \eZ\Publish\API\Repository\Values\Content\Relation::COMMON,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::EMBED,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::LINK,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::FIELD}
+     * @param int|null $type {@see \Ibexa\Contracts\Core\Repository\Values\Content\Relation::COMMON,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::EMBED,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::LINK,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::FIELD}
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Relation[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Relation[]
      */
     public function loadRelations($sourceContentId, $sourceContentVersionNo = null, $type = null)
     {
@@ -825,12 +825,12 @@ class Handler implements BaseContentHandler
      * Only loads relations against published versions.
      *
      * @param mixed $destinationContentId Destination Content ID
-     * @param int|null $type {@see \eZ\Publish\API\Repository\Values\Content\Relation::COMMON,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::EMBED,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::LINK,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::FIELD}
+     * @param int|null $type {@see \Ibexa\Contracts\Core\Repository\Values\Content\Relation::COMMON,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::EMBED,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::LINK,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::FIELD}
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Relation[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Relation[]
      */
     public function loadReverseRelations($destinationContentId, $type = null)
     {
@@ -905,3 +905,5 @@ class Handler implements BaseContentHandler
         return $this->load($contentId, $versionNo);
     }
 }
+
+class_alias(Handler::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Handler');

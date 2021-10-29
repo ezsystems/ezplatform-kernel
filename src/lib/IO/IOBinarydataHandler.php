@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\IO;
+namespace Ibexa\Core\IO;
 
-use eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException;
-use eZ\Publish\SPI\IO\BinaryFileCreateStruct;
+use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
+use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct;
 
 /**
  * Provides reading & writing of files binary data.
@@ -77,3 +77,5 @@ interface IOBinarydataHandler
      */
     public function deleteDirectory($spiPath);
 }
+
+class_alias(IOBinarydataHandler::class, 'eZ\Publish\Core\IO\IOBinarydataHandler');

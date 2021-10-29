@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content;
+namespace Ibexa\Contracts\Core\Persistence\Content;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 /**
  * This class holds version information data.
@@ -47,7 +47,7 @@ class VersionInfo extends ValueObject
     /**
      * ContentInfo of the content this VersionInfo belongs to.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\ContentInfo
+     * @var \Ibexa\Contracts\Core\Persistence\Content\ContentInfo
      */
     public $contentInfo;
 
@@ -105,3 +105,5 @@ class VersionInfo extends ValueObject
      */
     public $languageCodes = [];
 }
+
+class_alias(VersionInfo::class, 'eZ\Publish\SPI\Persistence\Content\VersionInfo');

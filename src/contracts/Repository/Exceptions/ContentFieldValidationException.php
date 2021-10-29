@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Exceptions;
+namespace Ibexa\Contracts\Core\Repository\Exceptions;
 
 /**
  * This Exception is thrown on create or update content one or more given fields are not valid.
@@ -20,3 +20,5 @@ abstract class ContentFieldValidationException extends ForbiddenException
      */
     abstract public function getFieldErrors();
 }
+
+class_alias(ContentFieldValidationException::class, 'eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException');

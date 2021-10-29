@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\UserPreference;
+namespace Ibexa\Contracts\Core\Repository\Values\UserPreference;
 
 use ArrayIterator;
 use IteratorAggregate;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * List of user preferences.
@@ -27,7 +27,7 @@ class UserPreferenceList extends ValueObject implements IteratorAggregate
     /**
      * List of user preferences.
      *
-     * @var \eZ\Publish\API\Repository\Values\UserPreference\UserPreference[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreference[]
      */
     public $items = [];
 
@@ -39,3 +39,5 @@ class UserPreferenceList extends ValueObject implements IteratorAggregate
         return new ArrayIterator($this->items);
     }
 }
+
+class_alias(UserPreferenceList::class, 'eZ\Publish\API\Repository\Values\UserPreference\UserPreferenceList');

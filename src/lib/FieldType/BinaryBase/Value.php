@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\BinaryBase;
+namespace Ibexa\Core\FieldType\BinaryBase;
 
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * Base value for binary field types.
@@ -122,3 +122,5 @@ abstract class Value extends BaseValue
         return parent::__isset($propertyName);
     }
 }
+
+class_alias(Value::class, 'eZ\Publish\Core\FieldType\BinaryBase\Value');

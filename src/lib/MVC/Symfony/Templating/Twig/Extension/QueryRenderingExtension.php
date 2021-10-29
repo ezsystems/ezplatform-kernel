@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension;
+namespace Ibexa\Core\MVC\Symfony\Templating\Twig\Extension;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 use Twig\Extension\AbstractExtension;
@@ -63,7 +63,7 @@ class QueryRenderingExtension extends AbstractExtension
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function assertTypeIsValid(string $type): void
     {
@@ -75,3 +75,5 @@ class QueryRenderingExtension extends AbstractExtension
         }
     }
 }
+
+class_alias(QueryRenderingExtension::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\QueryRenderingExtension');

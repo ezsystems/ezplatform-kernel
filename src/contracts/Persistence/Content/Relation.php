@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content;
+namespace Ibexa\Contracts\Core\Persistence\Content;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 /**
  * Class representing a relation between content.
@@ -51,13 +51,15 @@ class Relation extends ValueObject
     /**
      * Type bitmask.
      *
-     * @see \eZ\Publish\API\Repository\Values\Content\Relation::COMMON,
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::EMBED,
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::LINK,
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::FIELD
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::ASSET
+     * @see \Ibexa\Contracts\Core\Repository\Values\Content\Relation::COMMON,
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::EMBED,
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::LINK,
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::FIELD
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::ASSET
      *
      * @var int
      */
     public $type;
 }
+
+class_alias(Relation::class, 'eZ\Publish\SPI\Persistence\Content\Relation');

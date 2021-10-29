@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\URL;
+namespace Ibexa\Contracts\Core\Repository\Values\URL;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class is used to perform a URL query.
@@ -18,14 +18,14 @@ class URLQuery extends ValueObject
     /**
      * The Query filter.
      *
-     * @var \eZ\Publish\API\Repository\Values\URL\Query\Criterion
+     * @var \Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion
      */
     public $filter;
 
     /**
      * Query sorting clauses.
      *
-     * @var \eZ\Publish\API\Repository\Values\URL\Query\SortClause[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause[]
      */
     public $sortClauses = [];
 
@@ -55,3 +55,5 @@ class URLQuery extends ValueObject
      */
     public $performCount = true;
 }
+
+class_alias(URLQuery::class, 'eZ\Publish\API\Repository\Values\URL\URLQuery');

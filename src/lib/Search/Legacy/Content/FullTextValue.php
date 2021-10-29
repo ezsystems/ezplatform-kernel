@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Content;
+namespace Ibexa\Core\Search\Legacy\Content;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * Represents full text searchable value of Content object field which can be indexed by the legacy search engine.
@@ -65,3 +65,5 @@ class FullTextValue extends ValueObject
      */
     public $splitFlag;
 }
+
+class_alias(FullTextValue::class, 'eZ\Publish\Core\Search\Legacy\Content\FullTextValue');

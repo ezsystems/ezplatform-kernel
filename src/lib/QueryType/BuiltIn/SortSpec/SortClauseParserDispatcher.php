@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\SortSpec;
+namespace Ibexa\Core\QueryType\BuiltIn\SortSpec;
 
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Exception\UnsupportedSortClauseException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\Exception\UnsupportedSortClauseException;
 
 final class SortClauseParserDispatcher implements SortClauseParserInterface
 {
-    /** @var \eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface[] */
+    /** @var \Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface[] */
     private $parsers;
 
     public function __construct(iterable $parsers = [])
@@ -47,3 +47,5 @@ final class SortClauseParserDispatcher implements SortClauseParserInterface
         return null;
     }
 }
+
+class_alias(SortClauseParserDispatcher::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParserDispatcher');

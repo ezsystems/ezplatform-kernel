@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
-use eZ\Publish\SPI\Repository\Values\Trash\Query\Criterion as TrashCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Trash\Query\Criterion as TrashCriterion;
 
 /**
  * This criterion implements a logical OR criterion and will only match
@@ -18,3 +18,5 @@ use eZ\Publish\SPI\Repository\Values\Trash\Query\Criterion as TrashCriterion;
 class LogicalOr extends LogicalOperator implements FilteringCriterion, TrashCriterion
 {
 }
+
+class_alias(LogicalOr::class, 'eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalOr');

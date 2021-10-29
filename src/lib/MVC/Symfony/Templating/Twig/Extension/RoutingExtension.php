@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension;
+namespace Ibexa\Core\MVC\Symfony\Templating\Twig\Extension;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\MVC\Symfony\Routing\Generator\RouteReferenceGeneratorInterface;
-use eZ\Publish\Core\MVC\Symfony\Routing\RouteReference;
-use eZ\Publish\Core\MVC\Symfony\Routing\UrlAliasRouter;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\Symfony\Routing\Generator\RouteReferenceGeneratorInterface;
+use Ibexa\Core\MVC\Symfony\Routing\RouteReference;
+use Ibexa\Core\MVC\Symfony\Routing\UrlAliasRouter;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Extension\AbstractExtension;
@@ -24,7 +24,7 @@ use Twig\TwigFunction;
 
 class RoutingExtension extends AbstractExtension
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Routing\Generator\RouteReferenceGeneratorInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\Routing\Generator\RouteReferenceGeneratorInterface */
     private $routeReferenceGenerator;
 
     /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
@@ -67,7 +67,7 @@ class RoutingExtension extends AbstractExtension
      * @param mixed $resource
      * @param array $params
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\Routing\RouteReference
+     * @return \Ibexa\Core\MVC\Symfony\Routing\RouteReference
      */
     public function getRouteReference($resource = null, $params = []): RouteReference
     {
@@ -135,3 +135,5 @@ class RoutingExtension extends AbstractExtension
         return [];
     }
 }
+
+class_alias(RoutingExtension::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\RoutingExtension');

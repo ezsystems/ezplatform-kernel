@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence;
+namespace Ibexa\Core\Persistence;
 
 use RuntimeException;
 
@@ -178,3 +178,5 @@ class Utf8Converter
         return $charCode;
     }
 }
+
+class_alias(Utf8Converter::class, 'eZ\Publish\Core\Persistence\Utf8Converter');

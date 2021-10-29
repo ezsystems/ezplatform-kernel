@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader;
+namespace Ibexa\Bundle\Core\Imagine\Filter\Loader;
 
 use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
 
@@ -21,3 +21,5 @@ abstract class FilterLoaderWrapped implements LoaderInterface
         $this->innerLoader = $innerLoader;
     }
 }
+
+class_alias(FilterLoaderWrapped::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader\FilterLoaderWrapped');

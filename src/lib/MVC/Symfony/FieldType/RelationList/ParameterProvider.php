@@ -4,19 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\FieldType\RelationList;
+namespace Ibexa\Core\MVC\Symfony\FieldType\RelationList;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderInterface;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Core\MVC\Symfony\FieldType\View\ParameterProviderInterface;
 
 class ParameterProvider implements ParameterProviderInterface
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
      */
     public function __construct(ContentService $contentService)
     {
@@ -30,7 +30,7 @@ class ParameterProvider implements ParameterProviderInterface
      * Key is the parameter name (the variable name exposed in the template, in the 'parameters' array).
      * Value is the parameter's value.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field The field parameters are provided for.
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field The field parameters are provided for.
      *
      * @return array
      */
@@ -55,3 +55,5 @@ class ParameterProvider implements ParameterProviderInterface
         ];
     }
 }
+
+class_alias(ParameterProvider::class, 'eZ\Publish\Core\MVC\Symfony\FieldType\RelationList\ParameterProvider');

@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Locale;
+namespace Ibexa\Core\MVC\Symfony\Locale;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use eZ\Publish\API\Repository\UserPreferenceService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\UserPreferenceService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 
 class UserLanguagePreferenceProvider implements UserLanguagePreferenceProviderInterface
 {
     /** @var \Symfony\Component\HttpFoundation\RequestStack */
     private $requestStack;
 
-    /** @var \eZ\Publish\API\Repository\UserPreferenceService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserPreferenceService */
     private $userPreferenceService;
 
     /** @var array */
@@ -29,7 +29,7 @@ class UserLanguagePreferenceProvider implements UserLanguagePreferenceProviderIn
 
     /**
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-     * @param \eZ\Publish\API\Repository\UserPreferenceService $userPreferenceService
+     * @param \Ibexa\Contracts\Core\Repository\UserPreferenceService $userPreferenceService
      * @param array $languageCodesMap
      * @param string $localeFallback
      */
@@ -81,3 +81,5 @@ class UserLanguagePreferenceProvider implements UserLanguagePreferenceProviderIn
         return array_unique(array_merge(...$languageCodes));
     }
 }
+
+class_alias(UserLanguagePreferenceProvider::class, 'eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProvider');

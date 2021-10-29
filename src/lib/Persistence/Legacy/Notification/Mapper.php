@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Notification;
+namespace Ibexa\Core\Persistence\Legacy\Notification;
 
-use eZ\Publish\SPI\Persistence\Notification\Notification;
-use eZ\Publish\SPI\Persistence\Notification\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Notification\Notification;
+use Ibexa\Contracts\Core\Persistence\Notification\UpdateStruct;
 use RuntimeException;
 
 class Mapper
@@ -19,7 +19,7 @@ class Mapper
      *
      * @param array $rows
      *
-     * @return \eZ\Publish\SPI\Persistence\Notification\Notification[]
+     * @return \Ibexa\Contracts\Core\Persistence\Notification\Notification[]
      */
     public function extractNotificationsFromRows(array $rows): array
     {
@@ -32,9 +32,9 @@ class Mapper
     }
 
     /**
-     * @param \eZ\Publish\SPI\Persistence\Notification\UpdateStruct $updateStruct
+     * @param \Ibexa\Contracts\Core\Persistence\Notification\UpdateStruct $updateStruct
      *
-     * @return \eZ\Publish\SPI\Persistence\Notification\Notification
+     * @return \Ibexa\Contracts\Core\Persistence\Notification\Notification
      */
     public function createNotificationFromUpdateStruct(UpdateStruct $updateStruct): Notification
     {
@@ -49,7 +49,7 @@ class Mapper
      *
      * @param array $row
      *
-     * @return \eZ\Publish\SPI\Persistence\Notification\Notification
+     * @return \Ibexa\Contracts\Core\Persistence\Notification\Notification
      */
     private function extractNotificationFromRow(array $row): Notification
     {
@@ -69,3 +69,5 @@ class Mapper
         return $notification;
     }
 }
+
+class_alias(Mapper::class, 'eZ\Publish\Core\Persistence\Legacy\Notification\Mapper');

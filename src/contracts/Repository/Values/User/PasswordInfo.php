@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
 use DateTime;
 use DateTimeImmutable;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 final class PasswordInfo extends ValueObject
 {
@@ -55,3 +55,5 @@ final class PasswordInfo extends ValueObject
         return $this->expirationWarningDate;
     }
 }
+
+class_alias(PasswordInfo::class, 'eZ\Publish\API\Repository\Values\User\PasswordInfo');

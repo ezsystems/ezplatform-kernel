@@ -4,18 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Type;
+namespace Ibexa\Core\Persistence\Legacy\Content\Type;
 
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
-use eZ\Publish\Core\Persistence\Legacy\Content\MultilingualStorageFieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Persistence\Content\Type\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\Type\Group;
-use eZ\Publish\SPI\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use Ibexa\Core\Persistence\Legacy\Content\MultilingualStorageFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
 
 /**
  * Mapper for Content Type Handler.
@@ -27,18 +27,18 @@ class Mapper
     /**
      * Converter registry.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
+     * @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry
      */
     protected $converterRegistry;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator */
     private $maskGenerator;
 
     /**
      * Creates a new content type mapper.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry $converterRegistry
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator $maskGenerator
+     * @param \Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry $converterRegistry
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator $maskGenerator
      */
     public function __construct(ConverterRegistry $converterRegistry, MaskGenerator $maskGenerator)
     {
@@ -49,7 +49,7 @@ class Mapper
     /**
      * Creates a Group from its create struct.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\Group\CreateStruct $struct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\Group\CreateStruct $struct
      *
      * @todo $description is not supported by database, yet
      *
@@ -77,7 +77,7 @@ class Mapper
      *
      * @param array $rows
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type\Group[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\Group[]
      */
     public function extractGroupsFromRows(array $rows)
     {
@@ -209,7 +209,7 @@ class Mapper
      * @param array $row
      * @param array $multilingualData
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition
      */
     public function extractFieldFromRow(array $row, array $multilingualData = [])
     {
@@ -252,7 +252,7 @@ class Mapper
      * @param array $row
      * @param array $multilingualDataRow
      *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition
+     * @return \Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition
      */
     protected function extractStorageFieldFromRow(array $row, array $multilingualDataRow = [])
     {
@@ -318,9 +318,9 @@ class Mapper
     /**
      * Maps properties from $struct to $type.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\CreateStruct $createStruct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct $createStruct
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     public function createTypeFromCreateStruct(CreateStruct $createStruct)
     {
@@ -352,9 +352,9 @@ class Mapper
     /**
      * Creates a create struct from an existing $type.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Type $type
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type $type
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type\CreateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct
      */
     public function createCreateStructFromType(Type $type)
     {
@@ -385,9 +385,9 @@ class Mapper
     /**
      * Creates an update struct from an existing $type.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Type $type
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type $type
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct
      */
     public function createUpdateStructFromType(Type $type)
     {
@@ -413,8 +413,8 @@ class Mapper
     /**
      * Maps $fieldDef to the legacy storage specific StorageFieldDefinition.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition $fieldDef
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition $storageFieldDef
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition $fieldDef
+     * @param \Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition $storageFieldDef
      */
     public function toStorageFieldDefinition(
         FieldDefinition $fieldDef,
@@ -443,8 +443,8 @@ class Mapper
     /**
      * Maps a FieldDefinition from the given $storageFieldDef.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition $storageFieldDef
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition $fieldDef
+     * @param \Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition $storageFieldDef
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition $fieldDef
      */
     public function toFieldDefinition(
         StorageFieldDefinition $storageFieldDef,
@@ -475,9 +475,9 @@ class Mapper
     }
 
     /**
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct $updateStruct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct $updateStruct
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     public function createTypeFromUpdateStruct(UpdateStruct $updateStruct): Type
     {
@@ -518,3 +518,5 @@ class Mapper
         return $mlFieldDefinitionData;
     }
 }
+
+class_alias(Mapper::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper');

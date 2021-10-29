@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\URL;
+namespace Ibexa\Contracts\Core\Repository\Values\URL;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 class URL extends ValueObject
 {
@@ -54,3 +54,5 @@ class URL extends ValueObject
      */
     protected $modified;
 }
+
+class_alias(URL::class, 'eZ\Publish\API\Repository\Values\URL\URL');

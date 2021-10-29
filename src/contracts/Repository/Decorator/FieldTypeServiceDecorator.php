@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Decorator;
+namespace Ibexa\Contracts\Core\Repository\Decorator;
 
-use eZ\Publish\API\Repository\FieldTypeService;
-use eZ\Publish\API\Repository\FieldType;
+use Ibexa\Contracts\Core\Repository\FieldTypeService;
+use Ibexa\Contracts\Core\Repository\FieldType;
 
 abstract class FieldTypeServiceDecorator implements FieldTypeService
 {
-    /** @var \eZ\Publish\API\Repository\FieldTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\FieldTypeService */
     protected $innerService;
 
     public function __construct(FieldTypeService $innerService)
@@ -36,3 +36,5 @@ abstract class FieldTypeServiceDecorator implements FieldTypeService
         return $this->innerService->hasFieldType($identifier);
     }
 }
+
+class_alias(FieldTypeServiceDecorator::class, 'eZ\Publish\SPI\Repository\Decorator\FieldTypeServiceDecorator');

@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
+namespace Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
 
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 
 /**
  * Action to remove a field from content objects.
@@ -20,27 +20,27 @@ class RemoveField extends Action
     /**
      * Field definition of the field to remove.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition
+     * @var \Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition
      */
     protected $fieldDefinition;
 
     /**
      * Storage handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\StorageHandler
      */
     protected $storageHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Mapper */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Mapper */
     protected $contentMapper;
 
     /**
      * Creates a new action.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Gateway $contentGateway
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition $fieldDef
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler $storageHandler
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Mapper $contentMapper
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Gateway $contentGateway
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition $fieldDef
+     * @param \Ibexa\Core\Persistence\Legacy\Content\StorageHandler $storageHandler
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Mapper $contentMapper
      */
     public function __construct(
         ContentGateway $contentGateway,
@@ -103,3 +103,5 @@ class RemoveField extends Action
         }
     }
 }
+
+class_alias(RemoveField::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action\RemoveField');

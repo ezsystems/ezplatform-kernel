@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Event;
+namespace Ibexa\Core\Event;
 
-use eZ\Publish\API\Repository\TranslationService as TranslationServiceInterface;
-use eZ\Publish\SPI\Repository\Decorator\TranslationServiceDecorator;
+use Ibexa\Contracts\Core\Repository\TranslationService as TranslationServiceInterface;
+use Ibexa\Contracts\Core\Repository\Decorator\TranslationServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class TranslationService extends TranslationServiceDecorator
@@ -26,3 +26,5 @@ class TranslationService extends TranslationServiceDecorator
         $this->eventDispatcher = $eventDispatcher;
     }
 }
+
+class_alias(TranslationService::class, 'eZ\Publish\Core\Event\TranslationService');

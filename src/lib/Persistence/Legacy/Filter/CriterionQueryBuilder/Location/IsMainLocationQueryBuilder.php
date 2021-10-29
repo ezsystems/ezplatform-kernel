@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location;
+namespace Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location;
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Location;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 
 /**
  * @internal for internal use by Repository Filtering
@@ -26,7 +26,7 @@ final class IsMainLocationQueryBuilder extends BaseLocationCriterionQueryBuilder
         FilteringQueryBuilder $queryBuilder,
         FilteringCriterion $criterion
     ): ?string {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location\IsMainLocation $criterion */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Location\IsMainLocation $criterion */
         parent::buildQueryConstraint($queryBuilder, $criterion);
 
         return $criterion->value[0] === Location\IsMainLocation::MAIN
@@ -34,3 +34,5 @@ final class IsMainLocationQueryBuilder extends BaseLocationCriterionQueryBuilder
             : 'location.node_id <> location.main_node_id';
     }
 }
+
+class_alias(IsMainLocationQueryBuilder::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location\IsMainLocationQueryBuilder');

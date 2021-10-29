@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
+namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\FieldType\User\UserStorage\Gateway\DoctrineStorage as UserGateway;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use Ibexa\Core\FieldType\User\UserStorage\Gateway\DoctrineStorage as UserGateway;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
 class UserId extends CriterionHandler
 {
@@ -46,3 +46,5 @@ class UserId extends CriterionHandler
         );
     }
 }
+
+class_alias(UserId::class, 'eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\UserId');

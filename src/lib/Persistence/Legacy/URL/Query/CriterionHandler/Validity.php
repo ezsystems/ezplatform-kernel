@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler;
+namespace Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler;
 
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
-use eZ\Publish\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
-use eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
+use Ibexa\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
+use Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler;
 
 class Validity implements CriterionHandler
 {
@@ -30,7 +30,7 @@ class Validity implements CriterionHandler
         QueryBuilder $queryBuilder,
         Criterion $criterion
     ) {
-        /** @var \eZ\Publish\API\Repository\Values\URL\Query\Criterion\Validity $criterion */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion\Validity $criterion */
         return $queryBuilder->expr()->eq(
             'is_valid',
             $queryBuilder->createNamedParameter(
@@ -41,3 +41,5 @@ class Validity implements CriterionHandler
         );
     }
 }
+
+class_alias(Validity::class, 'eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler\Validity');

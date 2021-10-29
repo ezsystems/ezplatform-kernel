@@ -6,15 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Limitation;
+namespace Ibexa\Contracts\Core\Limitation;
 
 /**
  * Marker interface for PermissionResolver::canUser $targets objects.
  *
  * It's aimed to provide Limitations with information about intent (result of an action) to evaluate.
  *
- * @see \eZ\Publish\API\Repository\PermissionResolver::canUser
+ * @see \Ibexa\Contracts\Core\Repository\PermissionResolver::canUser
  */
 interface Target
 {
 }
+
+class_alias(Target::class, 'eZ\Publish\SPI\Limitation\Target');

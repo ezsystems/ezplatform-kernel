@@ -6,15 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Tests\Persistence;
+namespace Ibexa\Contracts\Core\Test\Persistence\Fixture;
 
+use Ibexa\Contracts\Core\Test\Persistence\Fixture;
 use RuntimeException;
 use SplFileInfo;
 
 /**
  * Factory building an instance of Fixture depending on a file type.
  *
- * @see \eZ\Publish\SPI\Tests\Persistence\Fixture
+ * @see \Ibexa\Contracts\Core\Test\Persistence\Fixture
  */
 final class FileFixtureFactory
 {
@@ -34,3 +35,5 @@ final class FileFixtureFactory
         }
     }
 }
+
+class_alias(FileFixtureFactory::class, 'eZ\Publish\SPI\Tests\Persistence\FileFixtureFactory');

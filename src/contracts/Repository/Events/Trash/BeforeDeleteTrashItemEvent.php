@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Trash;
+namespace Ibexa\Contracts\Core\Repository\Events\Trash;
 
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult;
-use eZ\Publish\API\Repository\Values\Content\TrashItem;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeDeleteTrashItemEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\TrashItem */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem */
     private $trashItem;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult|null */
     private $result;
 
     public function __construct(TrashItem $trashItem)
@@ -50,3 +50,5 @@ final class BeforeDeleteTrashItemEvent extends BeforeEvent
         return $this->result instanceof TrashItemDeleteResult;
     }
 }
+
+class_alias(BeforeDeleteTrashItemEvent::class, 'eZ\Publish\API\Repository\Events\Trash\BeforeDeleteTrashItemEvent');

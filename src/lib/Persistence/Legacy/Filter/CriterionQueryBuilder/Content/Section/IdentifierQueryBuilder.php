@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\Section;
+namespace Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\Section;
 
 use Doctrine\DBAL\Connection;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\SectionIdentifier;
-use eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway;
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\SectionIdentifier;
+use Ibexa\Core\Persistence\Legacy\Content\Section\Gateway;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\CriterionQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 
 /**
  * Section Identifier Filtering Criterion Query Builder.
@@ -39,7 +39,7 @@ final class IdentifierQueryBuilder implements CriterionQueryBuilder
                 'content.section_id = section.id'
             );
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion\SectionIdentifier $criterion */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\SectionIdentifier $criterion */
         return $queryBuilder->expr()->in(
             'section.identifier',
             $queryBuilder->createNamedParameter(
@@ -49,3 +49,5 @@ final class IdentifierQueryBuilder implements CriterionQueryBuilder
         );
     }
 }
+
+class_alias(IdentifierQueryBuilder::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\Section\IdentifierQueryBuilder');

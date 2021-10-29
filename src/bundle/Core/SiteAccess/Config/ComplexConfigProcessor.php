@@ -6,26 +6,26 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\SiteAccess\Config;
+namespace Ibexa\Bundle\Core\SiteAccess\Config;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser;
-use eZ\Publish\Core\MVC\Exception\ParameterNotFoundException;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessService;
-use eZ\Publish\SPI\SiteAccess\ConfigProcessor;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser;
+use Ibexa\Core\MVC\Exception\ParameterNotFoundException;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService;
+use Ibexa\Contracts\Core\SiteAccess\ConfigProcessor;
 use function str_replace;
 
 final class ComplexConfigProcessor implements ConfigProcessor
 {
     private const DEFAULT_NAMESPACE = 'ezsettings';
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessService */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService */
     private $siteAccessService;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParserInterface */
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParserInterface */
     private $complexSettingParser;
 
     public function __construct(
@@ -83,3 +83,5 @@ final class ComplexConfigProcessor implements ConfigProcessor
         return $value;
     }
 }
+
+class_alias(ComplexConfigProcessor::class, 'eZ\Bundle\EzPublishCoreBundle\SiteAccess\Config\ComplexConfigProcessor');

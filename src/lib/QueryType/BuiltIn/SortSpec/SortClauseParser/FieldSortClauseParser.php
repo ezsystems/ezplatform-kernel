@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParser;
+namespace Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParser;
 
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Field;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecParserInterface;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Token;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Field;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortSpecParserInterface;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\Token;
 
 /**
- * Parser for \eZ\Publish\API\Repository\Values\Content\Query\SortClause\Field sort clause.
+ * Parser for {@see \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Field} sort clause.
  *
  * Example of correct input:
  *
@@ -41,3 +41,5 @@ final class FieldSortClauseParser implements SortClauseParserInterface
         return $name === self::SUPPORTED_CLAUSE_NAME;
     }
 }
+
+class_alias(FieldSortClauseParser::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\FieldSortClauseParser');

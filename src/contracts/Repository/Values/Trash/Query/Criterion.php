@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Values\Trash\Query;
+namespace Ibexa\Contracts\Core\Repository\Values\Trash\Query;
 
 /**
  * Marker for Content & Location trash Criterion.
@@ -14,3 +14,5 @@ namespace eZ\Publish\SPI\Repository\Values\Trash\Query;
 interface Criterion
 {
 }
+
+class_alias(Criterion::class, 'eZ\Publish\SPI\Repository\Values\Trash\Query\Criterion');

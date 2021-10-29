@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Routing;
+namespace Ibexa\Core\MVC\Symfony\Routing;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\URLWildcardService;
-use eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\URLWildcardService;
+use Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
 use Symfony\Cmf\Component\Routing\ChainedRouterInterface;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,10 +23,10 @@ class UrlWildcardRouter implements ChainedRouterInterface, RequestMatcherInterfa
 {
     public const URL_ALIAS_ROUTE_NAME = 'ez_urlalias';
 
-    /** @var \eZ\Publish\API\Repository\URLWildcardService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLWildcardService */
     private $wildcardService;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator */
+    /** @var \Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator */
     private $generator;
 
     /** @var \Symfony\Component\Routing\RequestContext */
@@ -36,8 +36,8 @@ class UrlWildcardRouter implements ChainedRouterInterface, RequestMatcherInterfa
     private $logger;
 
     /**
-     * @param \eZ\Publish\API\Repository\URLWildcardService $wildcardService
-     * @param \eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator $generator
+     * @param \Ibexa\Contracts\Core\Repository\URLWildcardService $wildcardService
+     * @param \Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator $generator
      * @param \Symfony\Component\Routing\RequestContext $requestContext
      */
     public function __construct(
@@ -170,3 +170,5 @@ class UrlWildcardRouter implements ChainedRouterInterface, RequestMatcherInterfa
         return $name;
     }
 }
+
+class_alias(UrlWildcardRouter::class, 'eZ\Publish\Core\MVC\Symfony\Routing\UrlWildcardRouter');

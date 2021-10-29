@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
 /**
  * This class is used to perform a Location query.
@@ -14,3 +14,5 @@ namespace eZ\Publish\API\Repository\Values\Content;
 class LocationQuery extends Query
 {
 }
+
+class_alias(LocationQuery::class, 'eZ\Publish\API\Repository\Values\Content\LocationQuery');

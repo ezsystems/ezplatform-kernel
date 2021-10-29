@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\User;
+namespace Ibexa\Contracts\Core\Persistence\User;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 /**
  * This update struct is used to update User Tokens (formerly known as User account keys).
@@ -35,3 +35,5 @@ class UserTokenUpdateStruct extends ValueObject
      */
     public $userId;
 }
+
+class_alias(UserTokenUpdateStruct::class, 'eZ\Publish\SPI\Persistence\User\UserTokenUpdateStruct');

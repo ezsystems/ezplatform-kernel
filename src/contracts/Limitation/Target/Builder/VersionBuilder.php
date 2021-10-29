@@ -6,18 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Limitation\Target\Builder;
+namespace Ibexa\Contracts\Core\Limitation\Target\Builder;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\SPI\Limitation\Target;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Limitation\Target;
 
 /**
- * Builder of \eZ\Publish\SPI\Limitation\Target\Version instance.
- *
- * @see \eZ\Publish\SPI\Limitation\Target\Version
+ * Builder of {@see \Ibexa\Contracts\Core\Limitation\Target\Version} instance.
  */
 final class VersionBuilder
 {
@@ -46,7 +44,7 @@ final class VersionBuilder
      *
      * @return self
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function translateToAnyLanguageOf(array $languageCodes): self
     {
@@ -68,7 +66,7 @@ final class VersionBuilder
      *
      * @return self
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function createFromAnyContentTypeOf(array $contentTypeIds): self
     {
@@ -88,13 +86,13 @@ final class VersionBuilder
      *
      * Supported: <code>VersionInfo::STATUS_DRAFT, VersionInfo::STATUS_PUBLISHED, VersionInfo::STATUS_ARCHIVED</code>
      *
-     * @see \eZ\Publish\API\Repository\Values\Content\VersionInfo
+     * @see \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo
      *
      * @param int $status
      *
      * @return self
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function changeStatusTo(int $status): self
     {
@@ -117,7 +115,7 @@ final class VersionBuilder
      * Set intent to update Content Version Fields.
      *
      * @param string|null $initialLanguageCode
-     * @param \eZ\Publish\API\Repository\Values\Content\Field[] $fields
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $fields
      *
      * @return self
      */
@@ -145,7 +143,7 @@ final class VersionBuilder
      *
      * @return self
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function publishTranslations(array $languageCodes): self
     {
@@ -160,3 +158,5 @@ final class VersionBuilder
         return $this;
     }
 }
+
+class_alias(VersionBuilder::class, 'eZ\Publish\SPI\Limitation\Target\Builder\VersionBuilder');

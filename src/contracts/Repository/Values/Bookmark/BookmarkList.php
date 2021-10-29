@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Bookmark;
+namespace Ibexa\Contracts\Core\Repository\Values\Bookmark;
 
 use ArrayIterator;
 use IteratorAggregate;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Traversable;
 
 /**
@@ -28,7 +28,7 @@ class BookmarkList extends ValueObject implements IteratorAggregate
     /**
      * List of bookmarked locations.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Location[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      */
     public $items = [];
 
@@ -40,3 +40,5 @@ class BookmarkList extends ValueObject implements IteratorAggregate
         return new ArrayIterator($this->items);
     }
 }
+
+class_alias(BookmarkList::class, 'eZ\Publish\API\Repository\Values\Bookmark\BookmarkList');

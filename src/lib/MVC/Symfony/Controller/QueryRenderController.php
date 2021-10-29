@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Controller;
+namespace Ibexa\Core\MVC\Symfony\Controller;
 
-use eZ\Publish\Core\MVC\Symfony\View\QueryView;
-use eZ\Publish\Core\Pagination\Pagerfanta\Pagerfanta;
-use eZ\Publish\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactoryInterface;
-use eZ\Publish\Core\Pagination\Pagerfanta\SearchResultAdapter;
-use eZ\Publish\Core\Query\QueryFactoryInterface;
+use Ibexa\Core\MVC\Symfony\View\QueryView;
+use Ibexa\Core\Pagination\Pagerfanta\Pagerfanta;
+use Ibexa\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactoryInterface;
+use Ibexa\Core\Pagination\Pagerfanta\SearchResultAdapter;
+use Ibexa\Core\Query\QueryFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,10 +23,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class QueryRenderController
 {
-    /** @var \eZ\Publish\Core\Query\QueryFactoryInterface */
+    /** @var \Ibexa\Core\Query\QueryFactoryInterface */
     private $queryFactory;
 
-    /** @var \eZ\Publish\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactoryInterface */
+    /** @var \Ibexa\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactoryInterface */
     private $searchHitAdapterFactory;
 
     public function __construct(
@@ -117,3 +117,5 @@ final class QueryRenderController
         return $view;
     }
 }
+
+class_alias(QueryRenderController::class, 'eZ\Publish\Core\MVC\Symfony\Controller\QueryRenderController');

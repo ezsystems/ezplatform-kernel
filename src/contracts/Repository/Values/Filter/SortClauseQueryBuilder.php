@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Values\Filter;
+namespace Ibexa\Contracts\Core\Repository\Values\Filter;
 
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
 
 interface SortClauseQueryBuilder
 {
@@ -19,3 +19,5 @@ interface SortClauseQueryBuilder
         FilteringSortClause $sortClause
     ): void;
 }
+
+class_alias(SortClauseQueryBuilder::class, 'eZ\Publish\SPI\Repository\Values\Filter\SortClauseQueryBuilder');

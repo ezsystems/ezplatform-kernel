@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ObjectState;
+namespace Ibexa\Contracts\Core\Repository\Events\ObjectState;
 
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 
 final class BeforeSetPriorityOfObjectStateEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectState */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState */
     private $objectState;
 
     private $priority;
@@ -34,3 +34,5 @@ final class BeforeSetPriorityOfObjectStateEvent extends BeforeEvent
         return $this->priority;
     }
 }
+
+class_alias(BeforeSetPriorityOfObjectStateEvent::class, 'eZ\Publish\API\Repository\Events\ObjectState\BeforeSetPriorityOfObjectStateEvent');

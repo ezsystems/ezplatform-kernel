@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class represents a section.
@@ -40,3 +40,5 @@ class Section extends ValueObject
      */
     protected $name;
 }
+
+class_alias(Section::class, 'eZ\Publish\API\Repository\Values\Content\Section');

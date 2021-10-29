@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator\Specifications;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
-use eZ\Publish\SPI\Repository\Values\Trash\Query\Criterion as TrashCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator\Specifications;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Trash\Query\Criterion as TrashCriterion;
 use InvalidArgumentException;
 
 /**
@@ -86,3 +86,5 @@ class UserMetadata extends Criterion implements TrashCriterion, FilteringCriteri
         ];
     }
 }
+
+class_alias(UserMetadata::class, 'eZ\Publish\API\Repository\Values\Content\Query\Criterion\UserMetadata');

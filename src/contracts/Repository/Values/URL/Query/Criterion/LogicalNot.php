@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\URL\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
 
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
 
 class LogicalNot extends LogicalOperator
 {
@@ -17,7 +17,7 @@ class LogicalNot extends LogicalOperator
      *
      * Will match of the given criterion doesn't match
      *
-     * @param \eZ\Publish\API\Repository\Values\URL\Query\Criterion $criterion criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion $criterion criterion
      *
      * @throws \InvalidArgumentException if more than one criterion is given in the array parameter
      */
@@ -26,3 +26,5 @@ class LogicalNot extends LogicalOperator
         parent::__construct([$criterion]);
     }
 }
+
+class_alias(LogicalNot::class, 'eZ\Publish\API\Repository\Values\URL\Query\Criterion\LogicalNot');

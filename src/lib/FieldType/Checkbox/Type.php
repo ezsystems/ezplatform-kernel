@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Checkbox;
+namespace Ibexa\Core\FieldType\Checkbox;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\FieldType\FieldType;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\FieldType\FieldType;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * Checkbox field type.
@@ -30,7 +30,7 @@ class Type extends FieldType
     }
 
     /**
-     * @param \eZ\Publish\Core\FieldType\Checkbox\Value|\eZ\Publish\SPI\FieldType\Value $value
+     * @param \Ibexa\Core\FieldType\Checkbox\Value|\Ibexa\Contracts\Core\FieldType\Value $value
      */
     public function getName(SPIValue $value, FieldDefinition $fieldDefinition, string $languageCode): string
     {
@@ -41,7 +41,7 @@ class Type extends FieldType
      * Returns the fallback default value of field type when no such default
      * value is provided in the field definition in content types.
      *
-     * @return \eZ\Publish\Core\FieldType\Checkbox\Value
+     * @return \Ibexa\Core\FieldType\Checkbox\Value
      */
     public function getEmptyValue()
     {
@@ -51,9 +51,9 @@ class Type extends FieldType
     /**
      * Inspects given $inputValue and potentially converts it into a dedicated value object.
      *
-     * @param bool|\eZ\Publish\Core\FieldType\Checkbox\Value $inputValue
+     * @param bool|\Ibexa\Core\FieldType\Checkbox\Value $inputValue
      *
-     * @return \eZ\Publish\Core\FieldType\Checkbox\Value The potentially converted and structurally plausible value.
+     * @return \Ibexa\Core\FieldType\Checkbox\Value The potentially converted and structurally plausible value.
      */
     protected function createValueFromInput($inputValue)
     {
@@ -67,16 +67,16 @@ class Type extends FieldType
     /**
      * Throws an exception if value structure is not of expected format.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
      *
-     * @param \eZ\Publish\Core\FieldType\Checkbox\Value $value
+     * @param \Ibexa\Core\FieldType\Checkbox\Value $value
      */
     protected function checkValueStructure(BaseValue $value)
     {
         if (!$value instanceof Value) {
             throw new InvalidArgumentType(
                 '$value',
-                'eZ\\Publish\\Core\\FieldType\\Checkbox\\Value',
+                Value::class,
                 $value
             );
         }
@@ -93,7 +93,7 @@ class Type extends FieldType
     /**
      * Returns information for FieldValue->$sortKey relevant to the field type.
      *
-     * @param \eZ\Publish\Core\FieldType\Checkbox\Value $value
+     * @param \Ibexa\Core\FieldType\Checkbox\Value $value
      *
      * @return int
      */
@@ -107,7 +107,7 @@ class Type extends FieldType
      *
      * @param mixed $hash
      *
-     * @return \eZ\Publish\Core\FieldType\Checkbox\Value $value
+     * @return \Ibexa\Core\FieldType\Checkbox\Value $value
      */
     public function fromHash($hash)
     {
@@ -117,7 +117,7 @@ class Type extends FieldType
     /**
      * Converts a $Value to a hash.
      *
-     * @param \eZ\Publish\Core\FieldType\Checkbox\Value $value
+     * @param \Ibexa\Core\FieldType\Checkbox\Value $value
      *
      * @return mixed
      */
@@ -136,3 +136,5 @@ class Type extends FieldType
         return true;
     }
 }
+
+class_alias(Type::class, 'eZ\Publish\Core\FieldType\Checkbox\Type');

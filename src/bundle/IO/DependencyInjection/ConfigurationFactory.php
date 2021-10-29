@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\DependencyInjection;
+namespace Ibexa\Bundle\IO\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\Definition as ServiceDefinition;
@@ -57,3 +57,5 @@ interface ConfigurationFactory
      */
     public function configureHandler(ServiceDefinition $serviceDefinition, array $config);
 }
+
+class_alias(ConfigurationFactory::class, 'eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory');

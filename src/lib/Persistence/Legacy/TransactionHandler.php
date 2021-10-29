@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy;
+namespace Ibexa\Core\Persistence\Legacy;
 
 use Doctrine\DBAL\Connection;
-use eZ\Publish\SPI\Persistence\TransactionHandler as TransactionHandlerInterface;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\MemoryCachingHandler as CachingContentTypeHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler as CachingLanguageHandler;
+use Ibexa\Contracts\Core\Persistence\TransactionHandler as TransactionHandlerInterface;
+use Ibexa\Core\Persistence\Legacy\Content\Type\MemoryCachingHandler as CachingContentTypeHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler as CachingLanguageHandler;
 use Exception;
 use RuntimeException;
 
@@ -23,10 +23,10 @@ class TransactionHandler implements TransactionHandlerInterface
     /** @var \Doctrine\DBAL\Connection */
     protected $connection;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Type\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Type\Handler */
     protected $contentTypeHandler;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Language\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Language\Handler */
     protected $languageHandler;
 
     public function __construct(
@@ -88,3 +88,5 @@ class TransactionHandler implements TransactionHandlerInterface
         }
     }
 }
+
+class_alias(TransactionHandler::class, 'eZ\Publish\Core\Persistence\Legacy\TransactionHandler');

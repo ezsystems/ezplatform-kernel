@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\IO\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -36,3 +36,5 @@ final class MigrationFileListerPass implements CompilerPassInterface
         $fileListerRegistryDef->setArguments([$fileListers]);
     }
 }
+
+class_alias(MigrationFileListerPass::class, 'eZ\Bundle\EzPublishIOBundle\DependencyInjection\Compiler\MigrationFileListerPass');

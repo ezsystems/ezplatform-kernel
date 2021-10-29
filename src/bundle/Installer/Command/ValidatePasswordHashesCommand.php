@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\PlatformInstallerBundle\Command;
+namespace Ibexa\Bundle\Installer\Command;
 
-use eZ\Bundle\EzPublishCoreBundle\Command\BackwardCompatibleCommand;
-use eZ\Publish\API\Repository\PasswordHashService;
-use eZ\Publish\Core\FieldType\User\UserStorage;
+use Ibexa\Bundle\Core\Command\BackwardCompatibleCommand;
+use Ibexa\Contracts\Core\Repository\PasswordHashService;
+use Ibexa\Core\FieldType\User\UserStorage;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 final class ValidatePasswordHashesCommand extends Command implements BackwardCompatibleCommand
 {
-    /** @var \eZ\Publish\Core\FieldType\User\UserStorage */
+    /** @var \Ibexa\Core\FieldType\User\UserStorage */
     private $userStorage;
 
-    /** @var \eZ\Publish\API\Repository\PasswordHashService */
+    /** @var \Ibexa\Contracts\Core\Repository\PasswordHashService */
     private $passwordHashService;
 
     public function __construct(
@@ -58,3 +58,5 @@ final class ValidatePasswordHashesCommand extends Command implements BackwardCom
         return ['ezplatform:user:validate-password-hashes'];
     }
 }
+
+class_alias(ValidatePasswordHashesCommand::class, 'EzSystems\PlatformInstallerBundle\Command\ValidatePasswordHashesCommand');

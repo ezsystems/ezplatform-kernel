@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\User\Role\LimitationHandler;
+namespace Ibexa\Core\Persistence\Legacy\User\Role\LimitationHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\Core\Persistence\Legacy\User\Role\LimitationHandler;
-use eZ\Publish\SPI\Persistence\User\Policy;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Persistence\Legacy\User\Role\LimitationHandler;
+use Ibexa\Contracts\Core\Persistence\User\Policy;
 
 /**
  * Limitation Handler.
@@ -132,3 +132,5 @@ class ObjectStateHandler extends LimitationHandler
         return $map;
     }
 }
+
+class_alias(ObjectStateHandler::class, 'eZ\Publish\Core\Persistence\Legacy\User\Role\LimitationHandler\ObjectStateHandler');

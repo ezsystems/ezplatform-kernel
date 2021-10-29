@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Search\Facet;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Search\Facet;
 
-use eZ\Publish\API\Repository\Values\Content\Search\Facet;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\Facet;
 
 /**
  * this class hold counts for content in sections.
@@ -24,3 +24,5 @@ class TermFacet extends Facet
      */
     public $entries;
 }
+
+class_alias(TermFacet::class, 'eZ\Publish\API\Repository\Values\Content\Search\Facet\TermFacet');

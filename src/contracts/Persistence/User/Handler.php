@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\User;
+namespace Ibexa\Contracts\Core\Persistence\User;
 
-use eZ\Publish\SPI\Persistence\User;
+use Ibexa\Contracts\Core\Persistence\User;
 
 /**
  * Storage Engine handler for user module.
@@ -19,9 +19,9 @@ interface Handler
      * The User struct used to create the user will contain an ID which is used
      * to reference the user.
      *
-     * @param \eZ\Publish\SPI\Persistence\User $user
+     * @param \Ibexa\Contracts\Core\Persistence\User $user
      *
-     * @return \eZ\Publish\SPI\Persistence\User
+     * @return \Ibexa\Contracts\Core\Persistence\User
      */
     public function create(User $user);
 
@@ -30,9 +30,9 @@ interface Handler
      *
      * @param mixed $userId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If user is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If user is not found
      *
-     * @return \eZ\Publish\SPI\Persistence\User
+     * @return \Ibexa\Contracts\Core\Persistence\User
      */
     public function load($userId);
 
@@ -43,9 +43,9 @@ interface Handler
      *
      * @param string $login
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If user is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If user is not found
      *
-     * @return \eZ\Publish\SPI\Persistence\User
+     * @return \Ibexa\Contracts\Core\Persistence\User
      */
     public function loadByLogin($login);
 
@@ -56,7 +56,7 @@ interface Handler
      *
      * @param string $email
      *
-     * @return \eZ\Publish\SPI\Persistence\User
+     * @return \Ibexa\Contracts\Core\Persistence\User
      */
     public function loadByEmail(string $email): User;
 
@@ -70,7 +70,7 @@ interface Handler
      *
      * @param string $email
      *
-     * @return \eZ\Publish\SPI\Persistence\User[]
+     * @return \Ibexa\Contracts\Core\Persistence\User[]
      */
     public function loadUsersByEmail(string $email): array;
 
@@ -79,16 +79,16 @@ interface Handler
      *
      * @param string $hash
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If user is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If user is not found
      *
-     * @return \eZ\Publish\SPI\Persistence\User
+     * @return \Ibexa\Contracts\Core\Persistence\User
      */
     public function loadUserByToken($hash);
 
     /**
      * Update the user information specified by the user struct.
      *
-     * @param \eZ\Publish\SPI\Persistence\User $user
+     * @param \Ibexa\Contracts\Core\Persistence\User $user
      */
     public function update(User $user);
 
@@ -97,7 +97,7 @@ interface Handler
     /**
      * Update the user information specified by the user token struct.
      *
-     * @param \eZ\Publish\SPI\Persistence\User\UserTokenUpdateStruct $userTokenUpdateStruct
+     * @param \Ibexa\Contracts\Core\Persistence\User\UserTokenUpdateStruct $userTokenUpdateStruct
      */
     public function updateUserToken(UserTokenUpdateStruct $userTokenUpdateStruct);
 
@@ -120,9 +120,9 @@ interface Handler
     /**
      * Create new role.
      *
-     * @param \eZ\Publish\SPI\Persistence\User\RoleCreateStruct $createStruct
+     * @param \Ibexa\Contracts\Core\Persistence\User\RoleCreateStruct $createStruct
      *
-     * @return \eZ\Publish\SPI\Persistence\User\Role
+     * @return \Ibexa\Contracts\Core\Persistence\User\Role
      */
     public function createRole(RoleCreateStruct $createStruct);
 
@@ -133,9 +133,9 @@ interface Handler
      *
      * @param mixed $roleId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If role with defined status is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If role with defined status is not found
      *
-     * @return \eZ\Publish\SPI\Persistence\User\Role
+     * @return \Ibexa\Contracts\Core\Persistence\User\Role
      */
     public function createRoleDraft($roleId);
 
@@ -150,9 +150,9 @@ interface Handler
      * @param mixed $roleId
      * @param int $status One of Role::STATUS_DEFINED|Role::STATUS_DRAFT
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If role is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If role is not found
      *
-     * @return \eZ\Publish\SPI\Persistence\User\Role
+     * @return \Ibexa\Contracts\Core\Persistence\User\Role
      */
     public function loadRole($roleId, $status = Role::STATUS_DEFINED);
 
@@ -162,9 +162,9 @@ interface Handler
      * @param string $identifier
      * @param int $status One of Role::STATUS_DEFINED|Role::STATUS_DRAFT
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If role is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If role is not found
      *
-     * @return \eZ\Publish\SPI\Persistence\User\Role
+     * @return \Ibexa\Contracts\Core\Persistence\User\Role
      */
     public function loadRoleByIdentifier($identifier, $status = Role::STATUS_DEFINED);
 
@@ -173,16 +173,16 @@ interface Handler
      *
      * @param mixed $roleId ID of the role the draft was created from.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If role is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If role is not found
      *
-     * @return \eZ\Publish\SPI\Persistence\User\Role
+     * @return \Ibexa\Contracts\Core\Persistence\User\Role
      */
     public function loadRoleDraftByRoleId($roleId);
 
     /**
      * Loads all roles.
      *
-     * @return \eZ\Publish\SPI\Persistence\User\Role[]
+     * @return \Ibexa\Contracts\Core\Persistence\User\Role[]
      */
     public function loadRoles();
 
@@ -191,9 +191,9 @@ interface Handler
      *
      * @param mixed $roleAssignmentId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If role assignment is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If role assignment is not found
      *
-     * @return \eZ\Publish\SPI\Persistence\User\RoleAssignment
+     * @return \Ibexa\Contracts\Core\Persistence\User\RoleAssignment
      */
     public function loadRoleAssignment($roleAssignmentId);
 
@@ -204,7 +204,7 @@ interface Handler
      *
      * @param mixed $roleId
      *
-     * @return \eZ\Publish\SPI\Persistence\User\RoleAssignment[]
+     * @return \Ibexa\Contracts\Core\Persistence\User\RoleAssignment[]
      */
     public function loadRoleAssignmentsByRoleId($roleId);
 
@@ -217,14 +217,14 @@ interface Handler
      *                      By the nature of legacy this can currently also be used to get by $userId.
      * @param bool $inherit If true also return inherited role assignments from user groups.
      *
-     * @return \eZ\Publish\SPI\Persistence\User\RoleAssignment[]
+     * @return \Ibexa\Contracts\Core\Persistence\User\RoleAssignment[]
      */
     public function loadRoleAssignmentsByGroupId($groupId, $inherit = false);
 
     /**
      * Update role (draft).
      *
-     * @param \eZ\Publish\SPI\Persistence\User\RoleUpdateStruct $role
+     * @param \Ibexa\Contracts\Core\Persistence\User\RoleUpdateStruct $role
      */
     public function updateRole(RoleUpdateStruct $role);
 
@@ -247,13 +247,13 @@ interface Handler
      * Adds a policy to a role draft.
      *
      * @param mixed $roleId
-     * @param \eZ\Publish\SPI\Persistence\User\Policy $policy
+     * @param \Ibexa\Contracts\Core\Persistence\User\Policy $policy
      *
-     * @return \eZ\Publish\SPI\Persistence\User\Policy
+     * @return \Ibexa\Contracts\Core\Persistence\User\Policy
      *
      * @todo Throw on invalid Role Id?
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If $policy->limitation is empty (null, empty string/array..)
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If $policy->limitation is empty (null, empty string/array..)
      */
     public function addPolicyByRoleDraft($roleId, Policy $policy);
 
@@ -261,13 +261,13 @@ interface Handler
      * Adds a policy to a role.
      *
      * @param mixed $roleId
-     * @param \eZ\Publish\SPI\Persistence\User\Policy $policy
+     * @param \Ibexa\Contracts\Core\Persistence\User\Policy $policy
      *
-     * @return \eZ\Publish\SPI\Persistence\User\Policy
+     * @return \Ibexa\Contracts\Core\Persistence\User\Policy
      *
      * @todo Throw on invalid Role Id?
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If $policy->limitation is empty (null, empty string/array..)
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If $policy->limitation is empty (null, empty string/array..)
      */
     public function addPolicy($roleId, Policy $policy);
 
@@ -276,9 +276,9 @@ interface Handler
      *
      * Replaces limitations values with new values.
      *
-     * @param \eZ\Publish\SPI\Persistence\User\Policy $policy
+     * @param \Ibexa\Contracts\Core\Persistence\User\Policy $policy
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If $policy->limitation is empty (null, empty string/array..)
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If $policy->limitation is empty (null, empty string/array..)
      */
     public function updatePolicy(Policy $policy);
 
@@ -300,7 +300,7 @@ interface Handler
      * @param mixed $userId
      *              In legacy storage engine this is the content object id roles are assigned to in ezuser_role.
      *
-     * @return \eZ\Publish\SPI\Persistence\User\Policy[]
+     * @return \Ibexa\Contracts\Core\Persistence\User\Policy[]
      */
     public function loadPoliciesByUserId($userId);
 
@@ -343,3 +343,5 @@ interface Handler
      */
     public function removeRoleAssignment($roleAssignmentId);
 }
+
+class_alias(Handler::class, 'eZ\Publish\SPI\Persistence\User\Handler');

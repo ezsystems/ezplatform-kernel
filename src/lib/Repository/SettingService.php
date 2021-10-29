@@ -6,25 +6,25 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository;
+namespace Ibexa\Core\Repository;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\SettingService as SettingServiceInterface;
-use eZ\Publish\API\Repository\Values\Setting\Setting;
-use eZ\Publish\API\Repository\Values\Setting\SettingCreateStruct;
-use eZ\Publish\API\Repository\Values\Setting\SettingUpdateStruct;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
-use eZ\Publish\SPI\Persistence\Setting\Handler as SettingHandler;
-use eZ\Publish\SPI\Persistence\Setting\Setting as SPISetting;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\SettingService as SettingServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Setting\Setting;
+use Ibexa\Contracts\Core\Repository\Values\Setting\SettingCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Setting\SettingUpdateStruct;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Persistence\Setting\Handler as SettingHandler;
+use Ibexa\Contracts\Core\Persistence\Setting\Setting as SPISetting;
 
 final class SettingService implements SettingServiceInterface
 {
-    /** @var \eZ\Publish\SPI\Persistence\Setting\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Setting\Handler */
     private $settingHandler;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
     public function __construct(
@@ -114,3 +114,5 @@ final class SettingService implements SettingServiceInterface
         ]);
     }
 }
+
+class_alias(SettingService::class, 'eZ\Publish\Core\Repository\SettingService');

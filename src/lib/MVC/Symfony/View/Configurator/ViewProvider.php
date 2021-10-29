@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View\Configurator;
+namespace Ibexa\Core\MVC\Symfony\View\Configurator;
 
-use eZ\Publish\Core\MVC\Symfony\View\Configurator;
-use eZ\Publish\Core\MVC\Symfony\View\Provider\Registry;
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Symfony\View\Configurator;
+use Ibexa\Core\MVC\Symfony\View\Provider\Registry;
+use Ibexa\Core\MVC\Symfony\View\View;
 
 /**
  * Configures a view based on the ViewProviders.
@@ -24,7 +24,7 @@ class ViewProvider implements Configurator
     /**
      * ViewProvider constructor.
      *
-     * @param \eZ\Publish\Core\MVC\Symfony\View\Provider\Registry $providersRegistry
+     * @param \Ibexa\Core\MVC\Symfony\View\Provider\Registry $providersRegistry
      */
     public function __construct(Registry $providersRegistry)
     {
@@ -51,3 +51,5 @@ class ViewProvider implements Configurator
         }
     }
 }
+
+class_alias(ViewProvider::class, 'eZ\Publish\Core\MVC\Symfony\View\Configurator\ViewProvider');

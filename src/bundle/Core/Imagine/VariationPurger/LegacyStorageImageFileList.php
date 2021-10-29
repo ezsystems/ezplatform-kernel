@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPurger;
+namespace Ibexa\Bundle\Core\Imagine\VariationPurger;
 
-use eZ\Publish\Core\IO\IOConfigProvider;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\IO\IOConfigProvider;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 
 /**
  * Iterator for entries in legacy's ezimagefile table.
@@ -33,14 +33,14 @@ class LegacyStorageImageFileList implements ImageFileList
     /**
      * Used to get ezimagefile rows.
      *
-     * @var \eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPurger\ImageFileRowReader
+     * @var \Ibexa\Bundle\Core\Imagine\VariationPurger\ImageFileRowReader
      */
     private $rowReader;
 
-    /** @var \eZ\Publish\Core\IO\IOConfigProvider */
+    /** @var \Ibexa\Core\IO\IOConfigProvider */
     private $ioConfigResolver;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -103,3 +103,5 @@ class LegacyStorageImageFileList implements ImageFileList
         $this->item = $imageId;
     }
 }
+
+class_alias(LegacyStorageImageFileList::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPurger\LegacyStorageImageFileList');

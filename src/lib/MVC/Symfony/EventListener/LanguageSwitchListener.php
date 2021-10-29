@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\EventListener;
+namespace Ibexa\Core\MVC\Symfony\EventListener;
 
-use eZ\Publish\Core\Helper\TranslationHelper;
-use eZ\Publish\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\Helper\TranslationHelper;
+use Ibexa\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class LanguageSwitchListener implements EventSubscriberInterface
 {
-    /** @var \eZ\Publish\Core\Helper\TranslationHelper */
+    /** @var \Ibexa\Core\Helper\TranslationHelper */
     private $translationHelper;
 
     public function __construct(TranslationHelper $translationHelper)
@@ -37,10 +37,10 @@ class LanguageSwitchListener implements EventSubscriberInterface
      * If found, it will add "siteaccess" parameter to the RouteReference, to trigger SiteAccess switch when generating
      * the final link.
      *
-     * @see \eZ\Publish\Core\MVC\Symfony\Routing\Generator::generate()
-     * @see \eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator::doGenerate()
+     * @see \Ibexa\Core\MVC\Symfony\Routing\Generator::generate
+     * @see \Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator::doGenerate
      *
-     * @param \eZ\Publish\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent $event
+     * @param \Ibexa\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent $event
      */
     public function onRouteReferenceGeneration(RouteReferenceGenerationEvent $event)
     {
@@ -57,3 +57,5 @@ class LanguageSwitchListener implements EventSubscriberInterface
         }
     }
 }
+
+class_alias(LanguageSwitchListener::class, 'eZ\Publish\Core\MVC\Symfony\EventListener\LanguageSwitchListener');

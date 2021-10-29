@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Specification\Content;
+namespace Ibexa\Contracts\Core\Specification\Content;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 
 final class ContentContainerSpecification implements ContentSpecification
 {
@@ -17,3 +17,5 @@ final class ContentContainerSpecification implements ContentSpecification
         return $content->getContentType()->isContainer;
     }
 }
+
+class_alias(ContentContainerSpecification::class, 'eZ\Publish\SPI\Specification\Content\ContentContainerSpecification');

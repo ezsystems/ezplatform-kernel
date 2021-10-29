@@ -6,25 +6,25 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Event;
+namespace Ibexa\Core\Event;
 
-use eZ\Publish\API\Repository\SectionService as SectionServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\API\Repository\Values\Content\SectionCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\SectionUpdateStruct;
-use eZ\Publish\API\Repository\Events\Section\AssignSectionEvent;
-use eZ\Publish\API\Repository\Events\Section\AssignSectionToSubtreeEvent;
-use eZ\Publish\API\Repository\Events\Section\BeforeAssignSectionEvent;
-use eZ\Publish\API\Repository\Events\Section\BeforeAssignSectionToSubtreeEvent;
-use eZ\Publish\API\Repository\Events\Section\BeforeCreateSectionEvent;
-use eZ\Publish\API\Repository\Events\Section\BeforeDeleteSectionEvent;
-use eZ\Publish\API\Repository\Events\Section\BeforeUpdateSectionEvent;
-use eZ\Publish\API\Repository\Events\Section\CreateSectionEvent;
-use eZ\Publish\API\Repository\Events\Section\DeleteSectionEvent;
-use eZ\Publish\API\Repository\Events\Section\UpdateSectionEvent;
-use eZ\Publish\SPI\Repository\Decorator\SectionServiceDecorator;
+use Ibexa\Contracts\Core\Repository\SectionService as SectionServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Events\Section\AssignSectionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\AssignSectionToSubtreeEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\BeforeAssignSectionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\BeforeAssignSectionToSubtreeEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\BeforeCreateSectionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\BeforeDeleteSectionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\BeforeUpdateSectionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\CreateSectionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\DeleteSectionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\UpdateSectionEvent;
+use Ibexa\Contracts\Core\Repository\Decorator\SectionServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class SectionService extends SectionServiceDecorator
@@ -154,3 +154,5 @@ class SectionService extends SectionServiceDecorator
         );
     }
 }
+
+class_alias(SectionService::class, 'eZ\Publish\Core\Event\SectionService');

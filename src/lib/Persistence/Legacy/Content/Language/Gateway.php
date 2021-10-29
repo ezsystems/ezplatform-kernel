@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Language;
+namespace Ibexa\Core\Persistence\Legacy\Content\Language;
 
-use eZ\Publish\SPI\Persistence\Content\Language;
+use Ibexa\Contracts\Core\Persistence\Content\Language;
 
 /**
  * Content Model language gateway.
@@ -86,3 +86,5 @@ abstract class Gateway
      */
     abstract public function canDeleteLanguage(int $id): bool;
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway');

@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View;
+namespace Ibexa\Core\MVC\Symfony\View;
 
 /**
  * Configures a View object.
@@ -15,3 +15,5 @@ interface Configurator
 {
     public function configure(View $view);
 }
+
+class_alias(Configurator::class, 'eZ\Publish\Core\MVC\Symfony\View\Configurator');

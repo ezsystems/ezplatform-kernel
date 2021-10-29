@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Search;
+namespace Ibexa\Contracts\Core\Search;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 /**
  * Base class for document fields.
@@ -54,3 +54,5 @@ class Field extends ValueObject
         $this->type = $type;
     }
 }
+
+class_alias(Field::class, 'eZ\Publish\SPI\Search\Field');

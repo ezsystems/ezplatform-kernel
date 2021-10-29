@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class is used to create a new Location for a content object.
@@ -72,3 +72,5 @@ class LocationCreateStruct extends ValueObject
      */
     public $parentLocationId;
 }
+
+class_alias(LocationCreateStruct::class, 'eZ\Publish\API\Repository\Values\Content\LocationCreateStruct');

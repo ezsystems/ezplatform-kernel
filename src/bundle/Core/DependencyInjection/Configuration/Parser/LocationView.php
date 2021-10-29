@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 
 class LocationView extends View
 {
@@ -50,3 +50,5 @@ class LocationView extends View
         $contextualizer->mapConfigArray(ContentView::NODE_KEY, $config, ContextualizerInterface::MERGE_FROM_SECOND_LEVEL);
     }
 }
+
+class_alias(LocationView::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\LocationView');

@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Exception;
+namespace Ibexa\Core\MVC\Symfony\Templating\Exception;
 
-use eZ\Publish\Core\Base\Exceptions\ForbiddenException;
-use eZ\Publish\Core\Base\Translatable;
-use eZ\Publish\Core\Base\TranslatableBase;
+use Ibexa\Core\Base\Exceptions\ForbiddenException;
+use Ibexa\Core\Base\Translatable;
+use Ibexa\Core\Base\TranslatableBase;
 
 class InvalidResponseException extends ForbiddenException implements Translatable
 {
@@ -26,3 +26,5 @@ class InvalidResponseException extends ForbiddenException implements Translatabl
         );
     }
 }
+
+class_alias(InvalidResponseException::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Exception\InvalidResponseException');

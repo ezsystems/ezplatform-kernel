@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content\Location\Trash;
+namespace Ibexa\Contracts\Core\Persistence\Content\Location\Trash;
 
 use ArrayIterator;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 class TrashResult extends ValueObject implements \IteratorAggregate
 {
@@ -21,7 +21,7 @@ class TrashResult extends ValueObject implements \IteratorAggregate
     /**
      * The value objects found for the query.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\Location\Trashed[]
+     * @var \Ibexa\Contracts\Core\Persistence\Content\Location\Trashed[]
      */
     public $items = [];
 
@@ -33,3 +33,5 @@ class TrashResult extends ValueObject implements \IteratorAggregate
         return new ArrayIterator($this->items);
     }
 }
+
+class_alias(TrashResult::class, 'eZ\Publish\SPI\Persistence\Content\Location\Trash\TrashResult');

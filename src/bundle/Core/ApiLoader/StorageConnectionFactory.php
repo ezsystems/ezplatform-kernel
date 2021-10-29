@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\ApiLoader;
+namespace Ibexa\Bundle\Core\ApiLoader;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
@@ -14,7 +14,7 @@ class StorageConnectionFactory implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider */
+    /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */
     protected $repositoryConfigurationProvider;
 
     public function __construct(RepositoryConfigurationProvider $repositoryConfigurationProvider)
@@ -52,3 +52,5 @@ class StorageConnectionFactory implements ContainerAwareInterface
         return $this->container->get($doctrineConnectionId);
     }
 }
+
+class_alias(StorageConnectionFactory::class, 'eZ\Bundle\EzPublishCoreBundle\ApiLoader\StorageConnectionFactory');

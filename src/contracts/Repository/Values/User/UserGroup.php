@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 
 /**
  * This class represents a user group.
@@ -24,3 +24,5 @@ abstract class UserGroup extends Content
      */
     protected $parentId;
 }
+
+class_alias(UserGroup::class, 'eZ\Publish\API\Repository\Values\User\UserGroup');

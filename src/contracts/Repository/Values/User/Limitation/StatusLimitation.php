@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User\Limitation;
+namespace Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
 /**
  * Status Limitation is used to limit the access to Content based on its version status.
@@ -16,7 +16,7 @@ use eZ\Publish\API\Repository\Values\User\Limitation;
 class StatusLimitation extends Limitation
 {
     /**
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation::getIdentifier()
+     * @see \Ibexa\Contracts\Core\Repository\Values\User\Limitation::getIdentifier()
      *
      * @return string
      */
@@ -25,3 +25,5 @@ class StatusLimitation extends Limitation
         return Limitation::STATUS;
     }
 }
+
+class_alias(StatusLimitation::class, 'eZ\Publish\API\Repository\Values\User\Limitation\StatusLimitation');

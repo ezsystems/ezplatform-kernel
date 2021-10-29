@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\EventSubscriber;
+namespace Ibexa\Core\Repository\EventSubscriber;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Events\User\DeleteUserEvent;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Events\User\DeleteUserEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DeleteUserSubscriber implements EventSubscriberInterface
 {
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
     public function __construct(ContentTypeService $contentTypeService)
@@ -34,3 +34,5 @@ class DeleteUserSubscriber implements EventSubscriberInterface
         $this->contentTypeService->deleteUserDrafts($event->getUser()->id);
     }
 }
+
+class_alias(DeleteUserSubscriber::class, 'eZ\Publish\Core\Repository\EventSubscriber\DeleteUserSubscriber');

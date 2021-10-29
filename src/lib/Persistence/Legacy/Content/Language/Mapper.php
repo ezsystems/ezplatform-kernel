@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Language;
+namespace Ibexa\Core\Persistence\Legacy\Content\Language;
 
-use eZ\Publish\SPI\Persistence\Content\Language;
-use eZ\Publish\SPI\Persistence\Content\Language\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Language;
+use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct;
 
 /**
  * Language Mapper.
@@ -17,9 +17,9 @@ class Mapper
     /**
      * Creates a Language from $struct.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Language\CreateStruct $struct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct $struct
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language
      */
     public function createLanguageFromCreateStruct(CreateStruct $struct): Language
     {
@@ -38,7 +38,7 @@ class Mapper
      * @param array $rows
      * @param string $key Column name for use as key in returned array.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language[]
      */
     public function extractLanguagesFromRows(array $rows, string $key = 'locale'): array
     {
@@ -58,3 +58,5 @@ class Mapper
         return $languages;
     }
 }
+
+class_alias(Mapper::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Language\Mapper');

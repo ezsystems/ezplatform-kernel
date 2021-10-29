@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\SortClauseQueryBuilder\Content;
+namespace Ibexa\Core\Persistence\Legacy\Filter\SortClauseQueryBuilder\Content;
 
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\SectionName;
-use eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway as SectionGateway;
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause;
-use eZ\Publish\SPI\Repository\Values\Filter\SortClauseQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\SectionName;
+use Ibexa\Core\Persistence\Legacy\Content\Section\Gateway as SectionGateway;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Filter\SortClauseQueryBuilder;
 
 class SectionNameSortClauseQueryBuilder implements SortClauseQueryBuilder
 {
@@ -34,7 +34,9 @@ class SectionNameSortClauseQueryBuilder implements SortClauseQueryBuilder
                 'content.section_id = section.id'
             );
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\SortClause $sortClause */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause $sortClause */
         $queryBuilder->addOrderBy('section.name', $sortClause->direction);
     }
 }
+
+class_alias(SectionNameSortClauseQueryBuilder::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\SortClauseQueryBuilder\Content\SectionNameSortClauseQueryBuilder');

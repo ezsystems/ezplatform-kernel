@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Image\ImageStorage;
+namespace Ibexa\Core\FieldType\Image\ImageStorage;
 
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\FieldType\StorageGateway;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\FieldType\StorageGateway;
 
 /**
  * Image Field Type external storage gateway.
@@ -77,3 +77,5 @@ abstract class Gateway extends StorageGateway
 
     abstract public function updateImagePath(int $fieldId, string $oldPath, string $newPath): void;
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\FieldType\Image\ImageStorage\Gateway');

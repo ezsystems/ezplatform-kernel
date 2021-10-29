@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\Core\DependencyInjection\Compiler;
 
-use eZ\Bundle\EzPublishCoreBundle\Translation\GlobCollector;
+use Ibexa\Bundle\Core\Translation\GlobCollector;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -55,3 +55,5 @@ class TranslationCollectorPass implements CompilerPassInterface
         $container->setParameter('available_translations', array_values(array_unique($availableTranslations)));
     }
 }
+
+class_alias(TranslationCollectorPass::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\TranslationCollectorPass');

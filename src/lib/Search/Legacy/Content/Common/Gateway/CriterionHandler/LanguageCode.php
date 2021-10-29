@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
+namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
 
 /**
  * LanguageCode criterion handler.
  */
 class LanguageCode extends CriterionHandler
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator */
     private $maskGenerator;
 
     public function __construct(Connection $connection, MaskGenerator $maskGenerator)
@@ -31,7 +31,7 @@ class LanguageCode extends CriterionHandler
     /**
      * Check if this criterion handler accepts to handle the given criterion.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterion
      *
      * @return bool
      */
@@ -46,7 +46,7 @@ class LanguageCode extends CriterionHandler
         Criterion $criterion,
         array $languageSettings
     ) {
-        /* @var $criterion \eZ\Publish\API\Repository\Values\Content\Query\Criterion\LanguageCode */
+        /* @var $criterion \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LanguageCode */
         return $queryBuilder->expr()->gt(
             $this->dbPlatform->getBitAndComparisonExpression(
                 'c.language_mask',
@@ -59,3 +59,5 @@ class LanguageCode extends CriterionHandler
         );
     }
 }
+
+class_alias(LanguageCode::class, 'eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\LanguageCode');

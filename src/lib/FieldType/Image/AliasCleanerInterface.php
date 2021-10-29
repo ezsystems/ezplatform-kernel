@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Image;
+namespace Ibexa\Core\FieldType\Image;
 
 /**
  * Interface for image alias cleaners.
@@ -18,3 +18,5 @@ interface AliasCleanerInterface
      */
     public function removeAliases($originalPath);
 }
+
+class_alias(AliasCleanerInterface::class, 'eZ\Publish\Core\FieldType\Image\AliasCleanerInterface');

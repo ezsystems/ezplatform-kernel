@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content;
+namespace Ibexa\Core\Persistence\Legacy\Content;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
 
 /**
  * The TreeHandler is an intersect between ContentHandler and LocationHandler,
@@ -21,44 +21,44 @@ class TreeHandler
     /**
      * Gateway for handling location data.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway
      */
     protected $locationGateway;
 
     /**
      * Location Mapper.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Location\Mapper
      */
     protected $locationMapper;
 
     /**
      * Content gateway.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Gateway
      */
     protected $contentGateway;
 
     /**
      * Content handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Mapper
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Mapper
      */
     protected $contentMapper;
 
     /**
      * FieldHandler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\FieldHandler
      */
     protected $fieldHandler;
 
     /**
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway $locationGateway
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper $locationMapper
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Gateway $contentGateway
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Mapper $contentMapper
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler $fieldHandler
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway $locationGateway
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Location\Mapper $locationMapper
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Gateway $contentGateway
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Mapper $contentMapper
+     * @param \Ibexa\Core\Persistence\Legacy\Content\FieldHandler $fieldHandler
      */
     public function __construct(
         LocationGateway $locationGateway,
@@ -79,9 +79,9 @@ class TreeHandler
      *
      * @param int|string $contentId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ContentInfo
      */
     public function loadContentInfo($contentId)
     {
@@ -95,7 +95,7 @@ class TreeHandler
      *
      * @param int $contentId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function removeRawContent($contentId)
     {
@@ -125,7 +125,7 @@ class TreeHandler
      * @param mixed|null $status Optional argument to filter versions by status, like {@see VersionInfo::STATUS_ARCHIVED}.
      * @param int $limit Limit for items returned, -1 means none.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\VersionInfo[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\VersionInfo[]
      */
     public function listVersions($contentId, $status = null, $limit = -1)
     {
@@ -158,9 +158,9 @@ class TreeHandler
      * @param string[]|null $translations If set, NotFound is thrown if content is not in given translation.
      * @param bool $useAlwaysAvailable Respect always available flag on content, where main language is valid translation fallback.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location
      */
     public function loadLocation($locationId, array $translations = null, bool $useAlwaysAvailable = true)
     {
@@ -180,7 +180,7 @@ class TreeHandler
      *
      * @param mixed $locationId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      *
      * @return bool
      */
@@ -221,7 +221,7 @@ class TreeHandler
      * @param mixed $locationId
      * @param mixed $sectionId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function setSectionForSubtree($locationId, $sectionId)
     {
@@ -238,7 +238,7 @@ class TreeHandler
      * @param mixed $contentId
      * @param mixed $locationId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function changeMainLocation($contentId, $locationId)
     {
@@ -268,3 +268,5 @@ class TreeHandler
         }
     }
 }
+
+class_alias(TreeHandler::class, 'eZ\Publish\Core\Persistence\Legacy\Content\TreeHandler');

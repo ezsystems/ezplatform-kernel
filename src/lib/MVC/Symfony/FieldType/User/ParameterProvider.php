@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\FieldType\User;
+namespace Ibexa\Core\MVC\Symfony\FieldType\User;
 
 use DateTime;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderInterface;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Core\MVC\Symfony\FieldType\View\ParameterProviderInterface;
 
 class ParameterProvider implements ParameterProviderInterface
 {
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
     public function __construct(UserService $userService)
@@ -41,3 +41,5 @@ class ParameterProvider implements ParameterProviderInterface
         ];
     }
 }
+
+class_alias(ParameterProvider::class, 'eZ\Publish\Core\MVC\Symfony\FieldType\User\ParameterProvider');

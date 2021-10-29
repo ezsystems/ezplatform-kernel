@@ -4,18 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\RelationList;
+namespace Ibexa\Core\FieldType\RelationList;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\FieldType\FieldType;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\API\Repository\Values\Content\Relation;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
-use eZ\Publish\SPI\Persistence\Content\Handler as SPIContentHandler;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\FieldType\FieldType;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Contracts\Core\Persistence\Content\Handler as SPIContentHandler;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * The RelationList field type.
@@ -63,7 +63,7 @@ class Type extends FieldType
         ],
     ];
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Handler */
     private $handler;
 
     public function __construct(SPIContentHandler $handler)
@@ -71,13 +71,6 @@ class Type extends FieldType
         $this->handler = $handler;
     }
 
-    /**
-     * @see \eZ\Publish\Core\FieldType\FieldType::validateFieldSettings()
-     *
-     * @param mixed $fieldSettings
-     *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
-     */
     public function validateFieldSettings($fieldSettings)
     {
         $validationErrors = [];
@@ -172,7 +165,7 @@ class Type extends FieldType
      *
      * @param mixed $validatorConfiguration
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validateValidatorConfiguration($validatorConfiguration)
     {
@@ -233,12 +226,12 @@ class Type extends FieldType
     /**
      * Validates a field based on the validators in the field definition.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition $fieldDefinition The field definition of the field
-     * @param \eZ\Publish\Core\FieldType\RelationList\Value $fieldValue The field value for which an action is performed
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition $fieldDefinition The field definition of the field
+     * @param \Ibexa\Core\FieldType\RelationList\Value $fieldValue The field value for which an action is performed
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validate(FieldDefinition $fieldDefinition, SPIValue $fieldValue)
     {
@@ -281,7 +274,7 @@ class Type extends FieldType
     }
 
     /**
-     * @param \eZ\Publish\Core\FieldType\RelationList\Value|\eZ\Publish\SPI\FieldType\Value $value
+     * @param \Ibexa\Core\FieldType\RelationList\Value|\Ibexa\Contracts\Core\FieldType\Value $value
      */
     public function getName(SPIValue $value, FieldDefinition $fieldDefinition, string $languageCode): string
     {
@@ -312,7 +305,7 @@ class Type extends FieldType
      * Returns the fallback default value of field type when no such default
      * value is provided in the field definition in content types.
      *
-     * @return \eZ\Publish\Core\FieldType\RelationList\Value
+     * @return \Ibexa\Core\FieldType\RelationList\Value
      */
     public function getEmptyValue()
     {
@@ -322,9 +315,9 @@ class Type extends FieldType
     /**
      * Inspects given $inputValue and potentially converts it into a dedicated value object.
      *
-     * @param int|string|array|\eZ\Publish\API\Repository\Values\Content\ContentInfo|\eZ\Publish\Core\FieldType\RelationList\Value $inputValue
+     * @param int|string|array|\Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|\Ibexa\Core\FieldType\RelationList\Value $inputValue
      *
-     * @return \eZ\Publish\Core\FieldType\RelationList\Value The potentially converted and structurally plausible value.
+     * @return \Ibexa\Core\FieldType\RelationList\Value The potentially converted and structurally plausible value.
      */
     protected function createValueFromInput($inputValue)
     {
@@ -345,9 +338,9 @@ class Type extends FieldType
     /**
      * Throws an exception if value structure is not of expected format.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
      *
-     * @param \eZ\Publish\Core\FieldType\RelationList\Value $value
+     * @param \Ibexa\Core\FieldType\RelationList\Value $value
      */
     protected function checkValueStructure(BaseValue $value)
     {
@@ -375,7 +368,7 @@ class Type extends FieldType
      *
      * For this FieldType, the related objects IDs are returned, separated by ",".
      *
-     * @param \eZ\Publish\Core\FieldType\RelationList\Value $value
+     * @param \Ibexa\Core\FieldType\RelationList\Value $value
      *
      * @return string
      */
@@ -389,7 +382,7 @@ class Type extends FieldType
      *
      * @param mixed $hash
      *
-     * @return \eZ\Publish\Core\FieldType\RelationList\Value $value
+     * @return \Ibexa\Core\FieldType\RelationList\Value $value
      */
     public function fromHash($hash)
     {
@@ -399,7 +392,7 @@ class Type extends FieldType
     /**
      * Converts a $Value to a hash.
      *
-     * @param \eZ\Publish\Core\FieldType\RelationList\Value $value
+     * @param \Ibexa\Core\FieldType\RelationList\Value $value
      *
      * @return mixed
      */
@@ -421,31 +414,31 @@ class Type extends FieldType
     /**
      * Returns relation data extracted from value.
      *
-     * Not intended for \eZ\Publish\API\Repository\Values\Content\Relation::COMMON type relations,
+     * Not intended for \Ibexa\Contracts\Core\Repository\Values\Content\Relation::COMMON type relations,
      * there is an API for handling those.
      *
-     * @param \eZ\Publish\Core\FieldType\RelationList\Value $value
+     * @param \Ibexa\Core\FieldType\RelationList\Value $value
      *
      * @return array Hash with relation type as key and array of destination content ids as value.
      *
      * Example:
      * <code>
      *  array(
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::LINK => array(
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::LINK => array(
      *          "contentIds" => array( 12, 13, 14 ),
      *          "locationIds" => array( 24 )
      *      ),
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::EMBED => array(
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::EMBED => array(
      *          "contentIds" => array( 12 ),
      *          "locationIds" => array( 24, 45 )
      *      ),
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::FIELD => array( 12 )
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::FIELD => array( 12 )
      *  )
      * </code>
      */
     public function getRelations(SPIValue $value)
     {
-        /* @var \eZ\Publish\Core\FieldType\RelationList\Value $value */
+        /* @var \Ibexa\Core\FieldType\RelationList\Value $value */
         return [
             Relation::FIELD => $value->destinationContentIds,
         ];
@@ -471,3 +464,5 @@ class Type extends FieldType
         ], true);
     }
 }
+
+class_alias(Type::class, 'eZ\Publish\Core\FieldType\RelationList\Type');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Values\Translation;
+namespace Ibexa\Contracts\Core\Repository\Values\Translation;
 
-use eZ\Publish\API\Repository\Values\Translation;
+use Ibexa\Contracts\Core\Repository\Values\Translation;
 
 /**
  * Class for translatable messages, which may contain plural forms.
@@ -77,3 +77,5 @@ class Plural extends Translation
         return strtr(current($this->values) == 1 ? $this->plural : $this->singular, $this->values);
     }
 }
+
+class_alias(Plural::class, 'eZ\Publish\API\Repository\Values\Translation\Plural');

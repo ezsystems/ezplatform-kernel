@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Notification;
+namespace Ibexa\Contracts\Core\Repository\Values\Notification;
 
 use ArrayIterator;
 use IteratorAggregate;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Traversable;
 
 class NotificationList extends ValueObject implements IteratorAggregate
@@ -18,7 +18,7 @@ class NotificationList extends ValueObject implements IteratorAggregate
     /** @var int */
     public $totalCount = 0;
 
-    /** @var \eZ\Publish\API\Repository\Values\Notification\Notification[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Notification\Notification[] */
     public $items = [];
 
     /**
@@ -29,3 +29,5 @@ class NotificationList extends ValueObject implements IteratorAggregate
         return new ArrayIterator($this->items);
     }
 }
+
+class_alias(NotificationList::class, 'eZ\Publish\API\Repository\Values\Notification\NotificationList');

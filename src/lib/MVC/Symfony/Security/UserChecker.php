@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Security;
+namespace Ibexa\Core\MVC\Symfony\Security;
 
-use eZ\Publish\API\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\UserService;
 use Symfony\Component\Security\Core\Exception\CredentialsExpiredException;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\UserInterface as EzUserInterface;
+use Ibexa\Core\MVC\Symfony\Security\UserInterface as EzUserInterface;
 
 final class UserChecker implements UserCheckerInterface
 {
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
     public function __construct(UserService $userService)
@@ -53,3 +53,5 @@ final class UserChecker implements UserCheckerInterface
         }
     }
 }
+
+class_alias(UserChecker::class, 'eZ\Publish\Core\MVC\Symfony\Security\UserChecker');

@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Helper\ContentInfoLocationLoader;
+namespace Ibexa\Core\Helper\ContentInfoLocationLoader;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Helper\ContentInfoLocationLoader;
-use eZ\Publish\API\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Helper\ContentInfoLocationLoader;
+use Ibexa\Contracts\Core\Repository\Repository;
 use Exception;
 
 /**
@@ -17,7 +17,7 @@ use Exception;
  */
 class SudoMainLocationLoader implements ContentInfoLocationLoader
 {
-    /** @var \eZ\Publish\API\Repository\Repository|\eZ\Publish\Core\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository|\Ibexa\Core\Repository\Repository */
     private $repository;
 
     public function __construct(Repository $repository)
@@ -42,3 +42,5 @@ class SudoMainLocationLoader implements ContentInfoLocationLoader
         }
     }
 }
+
+class_alias(SudoMainLocationLoader::class, 'eZ\Publish\Core\Helper\ContentInfoLocationLoader\SudoMainLocationLoader');

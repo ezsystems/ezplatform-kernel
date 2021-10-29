@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content;
+namespace Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Sibling;
-use eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\LogicalAndQueryBuilder;
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Sibling;
+use Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\LogicalAndQueryBuilder;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\CriterionQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 
 /**
  * @internal for internal use by Repository Filtering
  */
 final class SiblingQueryBuilder implements CriterionQueryBuilder
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\LogicalAndQueryBuilder */
+    /** @var \Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\LogicalAndQueryBuilder */
     private $logicalAndQueryBuilder;
 
     /**
@@ -39,10 +39,12 @@ final class SiblingQueryBuilder implements CriterionQueryBuilder
         FilteringQueryBuilder $queryBuilder,
         FilteringCriterion $criterion
     ): ?string {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion\Sibling $criterion */
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd $_criterion */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Sibling $criterion */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd $_criterion */
         $_criterion = $criterion->criteria;
 
         return $this->logicalAndQueryBuilder->buildQueryConstraint($queryBuilder, $_criterion);
     }
 }
+
+class_alias(SiblingQueryBuilder::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\SiblingQueryBuilder');

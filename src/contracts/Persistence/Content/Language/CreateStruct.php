@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content\Language;
+namespace Ibexa\Contracts\Core\Persistence\Content\Language;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 /**
  * Struct containing accessible properties when creating Language entities.
@@ -34,3 +34,5 @@ class CreateStruct extends ValueObject
      */
     public $isEnabled = true;
 }
+
+class_alias(CreateStruct::class, 'eZ\Publish\SPI\Persistence\Content\Language\CreateStruct');

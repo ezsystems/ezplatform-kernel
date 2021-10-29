@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository;
+namespace Ibexa\Contracts\Core\Repository;
 
-use eZ\Publish\API\Repository\Values\UserPreference\UserPreference;
-use eZ\Publish\API\Repository\Values\UserPreference\UserPreferenceList;
+use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreference;
+use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreferenceList;
 
 /**
  * User Preference Service.
@@ -21,10 +21,10 @@ interface UserPreferenceService
     /**
      * Set user preference.
      *
-     * @param \eZ\Publish\API\Repository\Values\UserPreference\UserPreferenceSetStruct[] $userPreferenceSetStructs
+     * @param \Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreferenceSetStruct[] $userPreferenceSetStructs
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to set user preference
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException If the $userPreferenceSetStruct is invalid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to set user preference
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException If the $userPreferenceSetStruct is invalid
      */
     public function setUserPreference(array $userPreferenceSetStructs): void;
 
@@ -33,10 +33,10 @@ interface UserPreferenceService
      *
      * @param string $userPreferenceName
      *
-     * @return \eZ\Publish\API\Repository\Values\UserPreference\UserPreference
+     * @return \Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreference
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the current user user is not allowed to fetch user preference
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the current user user is not allowed to fetch user preference
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function getUserPreference(string $userPreferenceName): UserPreference;
 
@@ -46,9 +46,9 @@ interface UserPreferenceService
      * @param int $offset the start offset for paging
      * @param int $limit the number of user preferences returned
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      *
-     * @return \eZ\Publish\API\Repository\Values\UserPreference\UserPreferenceList
+     * @return \Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreferenceList
      */
     public function loadUserPreferences(int $offset = 0, int $limit = 25): UserPreferenceList;
 
@@ -59,3 +59,5 @@ interface UserPreferenceService
      */
     public function getUserPreferenceCount(): int;
 }
+
+class_alias(UserPreferenceService::class, 'eZ\Publish\API\Repository\UserPreferenceService');

@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Content\Gateway;
+namespace Ibexa\Core\Search\Legacy\Content\Gateway;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
-use eZ\Publish\Core\Search\Legacy\Content\Gateway;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
+use Ibexa\Core\Search\Legacy\Content\Gateway;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
 use RuntimeException;
 
 /**
@@ -35,21 +35,21 @@ final class DoctrineDatabase extends Gateway
     /**
      * Criteria converter.
      *
-     * @var \eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter
+     * @var \Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter
      */
     private $criteriaConverter;
 
     /**
      * Sort clause converter.
      *
-     * @var \eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter
+     * @var \Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter
      */
     private $sortClauseConverter;
 
     /**
      * Language handler.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\Language\Handler
+     * @var \Ibexa\Contracts\Core\Persistence\Content\Language\Handler
      */
     private $languageHandler;
 
@@ -102,7 +102,7 @@ final class DoctrineDatabase extends Gateway
      *
      * @return int
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function getLanguageMask(array $languageSettings)
     {
@@ -123,7 +123,7 @@ final class DoctrineDatabase extends Gateway
      *
      * @return string
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException
      */
     private function getQueryCondition(
         Criterion $filter,
@@ -167,7 +167,7 @@ final class DoctrineDatabase extends Gateway
     /**
      * Get result count.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $filter
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $filter
      * @param array $languageFilter
      *
      * @return int
@@ -206,7 +206,7 @@ final class DoctrineDatabase extends Gateway
      *
      * @return int[]
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException
      */
     private function getContentInfoList(
         Criterion $filter,
@@ -262,3 +262,5 @@ final class DoctrineDatabase extends Gateway
         return $statement->fetchAll(FetchMode::ASSOCIATIVE);
     }
 }
+
+class_alias(DoctrineDatabase::class, 'eZ\Publish\Core\Search\Legacy\Content\Gateway\DoctrineDatabase');

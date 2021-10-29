@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Exceptions;
+namespace Ibexa\Core\Base\Exceptions;
 
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException as APIInvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException as APIInvalidArgumentException;
 use Exception;
-use eZ\Publish\Core\Base\Translatable;
-use eZ\Publish\Core\Base\TranslatableBase;
+use Ibexa\Core\Base\Translatable;
+use Ibexa\Core\Base\TranslatableBase;
 
 /**
  * Invalid Argument Type Exception implementation.
@@ -34,3 +34,5 @@ class InvalidArgumentException extends APIInvalidArgumentException implements Tr
         parent::__construct($this->getBaseTranslation(), 0, $previous);
     }
 }
+
+class_alias(InvalidArgumentException::class, 'eZ\Publish\Core\Base\Exceptions\InvalidArgumentException');

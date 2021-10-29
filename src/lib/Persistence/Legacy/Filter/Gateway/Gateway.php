@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\Filter\Gateway;
 
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 
 /**
  * Repository filtering gateway.
@@ -26,7 +26,7 @@ interface Gateway
      * Return iterator for raw Repository data for the given Query result filtered by the given Criteria,
      * sorted by the given Sort Clauses and constrained by the given pagination limit & offset.
      *
-     * @param \eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause[] $sortClauses
+     * @param \Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause[] $sortClauses
      */
     public function find(
         FilteringCriterion $criterion,
@@ -35,3 +35,5 @@ interface Gateway
         int $offset
     ): iterable;
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Gateway');

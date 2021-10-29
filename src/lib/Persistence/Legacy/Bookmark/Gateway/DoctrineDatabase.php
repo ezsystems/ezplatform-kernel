@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Bookmark\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\Bookmark\Gateway;
 
 use Doctrine\DBAL\Connection;
-use eZ\Publish\Core\Persistence\Legacy\Bookmark\Gateway;
-use eZ\Publish\SPI\Persistence\Bookmark\Bookmark;
+use Ibexa\Core\Persistence\Legacy\Bookmark\Gateway;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
 use PDO;
 
 class DoctrineDatabase extends Gateway
@@ -167,3 +167,5 @@ class DoctrineDatabase extends Gateway
         ];
     }
 }
+
+class_alias(DoctrineDatabase::class, 'eZ\Publish\Core\Persistence\Legacy\Bookmark\Gateway\DoctrineDatabase');

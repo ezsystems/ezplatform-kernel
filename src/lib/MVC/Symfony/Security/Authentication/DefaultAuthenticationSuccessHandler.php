@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security\Authentication;
+namespace Ibexa\Core\MVC\Symfony\Security\Authentication;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler as BaseSuccessHandler;
 
 class DefaultAuthenticationSuccessHandler extends BaseSuccessHandler
@@ -24,3 +24,5 @@ class DefaultAuthenticationSuccessHandler extends BaseSuccessHandler
         }
     }
 }
+
+class_alias(DefaultAuthenticationSuccessHandler::class, 'eZ\Publish\Core\MVC\Symfony\Security\Authentication\DefaultAuthenticationSuccessHandler');

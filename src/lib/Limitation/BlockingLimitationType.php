@@ -4,18 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Limitation;
+namespace Ibexa\Core\Limitation;
 
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\API\Repository\Values\User\UserReference as APIUserReference;
-use eZ\Publish\API\Repository\Values\User\Limitation as APILimitationValue;
-use eZ\Publish\API\Repository\Values\User\Limitation\BlockingLimitation as APIBlockingLimitation;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\SPI\Limitation\Type as SPILimitationTypeInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitationValue;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\BlockingLimitation as APIBlockingLimitation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\Limitation\Type as SPILimitationTypeInterface;
 
 /**
  * BlockingLimitationType is a limitation type that always says no to the permission system.
@@ -49,9 +49,9 @@ class BlockingLimitationType implements SPILimitationTypeInterface
      *
      * Makes sure LimitationValue object and ->limitationValues is of correct type.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the value does not match the expected type/structure
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the value does not match the expected type/structure
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitationValue
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitationValue
      */
     public function acceptValue(APILimitationValue $limitationValue)
     {
@@ -67,9 +67,9 @@ class BlockingLimitationType implements SPILimitationTypeInterface
      *
      * Make sure {@link acceptValue()} is checked first!
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitationValue
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitationValue
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validate(APILimitationValue $limitationValue)
     {
@@ -92,7 +92,7 @@ class BlockingLimitationType implements SPILimitationTypeInterface
      *
      * @param mixed[] $limitationValues
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Limitation
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation
      */
     public function buildValue(array $limitationValues)
     {
@@ -102,15 +102,15 @@ class BlockingLimitationType implements SPILimitationTypeInterface
     /**
      * Evaluate permission against content & target(placement/parent/assignment).
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If any of the arguments are invalid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If any of the arguments are invalid
      *         Example: If LimitationValue is instance of ContentTypeLimitationValue, and Type is SectionLimitationType.
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException If value of the LimitationValue is unsupported
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException If value of the LimitationValue is unsupported
      *         Example if OwnerLimitationValue->limitationValues[0] is not one of: [ 1,  2 ]
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $value
-     * @param \eZ\Publish\API\Repository\Values\User\UserReference $currentUser
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $object
-     * @param \eZ\Publish\API\Repository\Values\ValueObject[]|null $targets The context of the $object, like Location of Content, if null none where provided by caller
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserReference $currentUser
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $object
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject[]|null $targets The context of the $object, like Location of Content, if null none where provided by caller
      *
      * @return bool
      */
@@ -126,10 +126,10 @@ class BlockingLimitationType implements SPILimitationTypeInterface
     /**
      * Returns Criterion for use in find() query.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $value
-     * @param \eZ\Publish\API\Repository\Values\User\UserReference $currentUser
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserReference $currentUser
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Query\CriterionInterface
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface
      */
     public function getCriterion(APILimitationValue $value, APIUserReference $currentUser)
     {
@@ -139,7 +139,7 @@ class BlockingLimitationType implements SPILimitationTypeInterface
     /**
      * Returns info on valid $limitationValues.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException Values will need to be injected in ctor.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException Values will need to be injected in ctor.
      *
      * @return mixed[]|int In case of array, a hash with key as valid limitations value and value as human readable name
      *                     of that option, in case of int on of VALUE_SCHEMA_ constants.
@@ -149,3 +149,5 @@ class BlockingLimitationType implements SPILimitationTypeInterface
         throw new NotImplementedException(__METHOD__);
     }
 }
+
+class_alias(BlockingLimitationType::class, 'eZ\Publish\Core\Limitation\BlockingLimitationType');

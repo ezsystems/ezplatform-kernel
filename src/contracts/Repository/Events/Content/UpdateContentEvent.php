@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Content;
+namespace Ibexa\Contracts\Core\Repository\Events\Content;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class UpdateContentEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Content */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */
     private $content;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\VersionInfo */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo */
     private $versionInfo;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct */
     private $contentUpdateStruct;
 
     /** @var string[]|null */
@@ -62,3 +62,5 @@ final class UpdateContentEvent extends AfterEvent
         return $this->fieldIdentifiersToValidate;
     }
 }
+
+class_alias(UpdateContentEvent::class, 'eZ\Publish\API\Repository\Events\Content\UpdateContentEvent');

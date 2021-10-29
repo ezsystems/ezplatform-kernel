@@ -6,28 +6,28 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Bookmark;
+namespace Ibexa\Core\Persistence\Legacy\Bookmark;
 
-use eZ\Publish\SPI\Persistence\Bookmark\Bookmark;
-use eZ\Publish\SPI\Persistence\Bookmark\CreateStruct;
-use eZ\Publish\SPI\Persistence\Bookmark\Handler as HandlerInterface;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
+use Ibexa\Contracts\Core\Persistence\Bookmark\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Handler as HandlerInterface;
 
 /**
  * Storage Engine handler for bookmarks.
  */
 class Handler implements HandlerInterface
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Bookmark\Gateway */
+    /** @var \Ibexa\Core\Persistence\Legacy\Bookmark\Gateway */
     private $gateway;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Bookmark\Mapper */
+    /** @var \Ibexa\Core\Persistence\Legacy\Bookmark\Mapper */
     private $mapper;
 
     /**
      * Handler constructor.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Bookmark\Gateway $gateway
-     * @param \eZ\Publish\Core\Persistence\Legacy\Bookmark\Mapper $mapper
+     * @param \Ibexa\Core\Persistence\Legacy\Bookmark\Gateway $gateway
+     * @param \Ibexa\Core\Persistence\Legacy\Bookmark\Mapper $mapper
      */
     public function __construct(Gateway $gateway, Mapper $mapper)
     {
@@ -99,3 +99,5 @@ class Handler implements HandlerInterface
         $this->gateway->locationSwapped($location1Id, $location2Id);
     }
 }
+
+class_alias(Handler::class, 'eZ\Publish\Core\Persistence\Legacy\Bookmark\Handler');

@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\User\Role\Gateway;
 
-use eZ\Publish\Core\Base\Exceptions\DatabaseException;
-use eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway;
-use eZ\Publish\SPI\Persistence\User\Policy;
-use eZ\Publish\SPI\Persistence\User\RoleUpdateStruct;
-use eZ\Publish\SPI\Persistence\User\Role;
+use Ibexa\Core\Base\Exceptions\DatabaseException;
+use Ibexa\Core\Persistence\Legacy\User\Role\Gateway;
+use Ibexa\Contracts\Core\Persistence\User\Policy;
+use Ibexa\Contracts\Core\Persistence\User\RoleUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\User\Role;
 use Doctrine\DBAL\DBALException;
 use PDOException;
 
@@ -204,3 +204,5 @@ final class ExceptionConversion extends Gateway
         }
     }
 }
+
+class_alias(ExceptionConversion::class, 'eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway\ExceptionConversion');

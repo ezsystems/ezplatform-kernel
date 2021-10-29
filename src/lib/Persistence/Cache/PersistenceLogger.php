@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Cache;
+namespace Ibexa\Core\Persistence\Cache;
 
 /**
  * Log un-cached & cached use of SPI Persistence.
@@ -164,9 +164,9 @@ class PersistenceLogger
     /**
      * Simplify trace to an array of strings.
      *
-     * Skipps any traces from Syfony proxies or closures to make trace as readable as possible in as few lines as
+     * Skips any traces from Symfony proxies or closures to make trace as readable as possible in as few lines as
      * possible. And point is to identify which code outside kernel is triggering the SPI call, so trace stops one
-     * call after namespace is no longer in eZ\Publish\Core\.
+     * call after namespace is no longer in \Ibexa\Core\.
      *
      * @param array $backtrace Partial backtrace from |debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS) or similar.
      *
@@ -189,7 +189,7 @@ class PersistenceLogger
             }
 
             // Break out as soon as we have listed 2 classes outside of kernel
-            if ($call['class'][0] !== 'e' && \strpos($call['class'], 'eZ\\Publish\\Core\\') !== 0) {
+            if ($call['class'][0] !== 'e' && \strpos($call['class'], 'Ibexa\\Core\\') !== 0) {
                 $exitOnNext = true;
             }
         }
@@ -250,3 +250,5 @@ class PersistenceLogger
         return $this->unCachedHandlers;
     }
 }
+
+class_alias(PersistenceLogger::class, 'eZ\Publish\Core\Persistence\Cache\PersistenceLogger');

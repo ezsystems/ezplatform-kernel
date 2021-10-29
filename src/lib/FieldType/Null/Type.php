@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Null;
+namespace Ibexa\Core\FieldType\Null;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\FieldType\FieldType;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\FieldType\FieldType;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * ATTENTION: For testing purposes only!
@@ -24,11 +24,7 @@ class Type extends FieldType
     protected $fieldTypeIdentifier;
 
     /**
-     * Constructs field type object, initializing internal data structures.
-     *
      * @param string $fieldTypeIdentifier
-     *
-     * @return \eZ\Publish\Core\FieldType\Null\Type
      */
     public function __construct($fieldTypeIdentifier)
     {
@@ -46,7 +42,7 @@ class Type extends FieldType
     }
 
     /**
-     * @param \eZ\Publish\Core\FieldType\Null\Value|\eZ\Publish\SPI\FieldType\Value $value
+     * @param \Ibexa\Core\FieldType\Null\Value|\Ibexa\Contracts\Core\FieldType\Value $value
      */
     public function getName(SPIValue $value, FieldDefinition $fieldDefinition, string $languageCode): string
     {
@@ -57,7 +53,7 @@ class Type extends FieldType
      * Returns the fallback default value of field type when no such default
      * value is provided in the field definition in content types.
      *
-     * @return \eZ\Publish\Core\FieldType\Null\Value
+     * @return \Ibexa\Core\FieldType\Null\Value
      */
     public function getEmptyValue()
     {
@@ -67,9 +63,9 @@ class Type extends FieldType
     /**
      * Inspects given $inputValue and potentially converts it into a dedicated value object.
      *
-     * @param \eZ\Publish\Core\FieldType\Null\Value $inputValue
+     * @param \Ibexa\Core\FieldType\Null\Value $inputValue
      *
-     * @return \eZ\Publish\Core\FieldType\Null\Value The potentially converted and structurally plausible value.
+     * @return \Ibexa\Core\FieldType\Null\Value The potentially converted and structurally plausible value.
      */
     protected function createValueFromInput($inputValue)
     {
@@ -79,9 +75,9 @@ class Type extends FieldType
     /**
      * Throws an exception if value structure is not of expected format.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
      *
-     * @param \eZ\Publish\Core\FieldType\Null\Value $value
+     * @param \Ibexa\Core\FieldType\Null\Value $value
      */
     protected function checkValueStructure(BaseValue $value)
     {
@@ -101,7 +97,7 @@ class Type extends FieldType
      *
      * @param mixed $hash
      *
-     * @return \eZ\Publish\Core\FieldType\Null\Value $value
+     * @return \Ibexa\Core\FieldType\Null\Value $value
      */
     public function fromHash($hash)
     {
@@ -111,7 +107,7 @@ class Type extends FieldType
     /**
      * Converts a $Value to a hash.
      *
-     * @param \eZ\Publish\Core\FieldType\Null\Value $value
+     * @param \Ibexa\Core\FieldType\Null\Value $value
      *
      * @return mixed
      */
@@ -134,3 +130,5 @@ class Type extends FieldType
         return true;
     }
 }
+
+class_alias(Type::class, 'eZ\Publish\Core\FieldType\Null\Type');

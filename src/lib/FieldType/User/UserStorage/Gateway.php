@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\User\UserStorage;
+namespace Ibexa\Core\FieldType\User\UserStorage;
 
-use eZ\Publish\SPI\FieldType\StorageGateway;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\FieldType\StorageGateway;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 
 abstract class Gateway extends StorageGateway
 {
@@ -41,7 +41,7 @@ abstract class Gateway extends StorageGateway
     abstract public function storeFieldData(VersionInfo $versionInfo, Field $field): bool;
 
     /**
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
      * @param int[] $fieldIds
      *
      * @return bool
@@ -55,3 +55,5 @@ abstract class Gateway extends StorageGateway
      */
     abstract public function countUsersWithUnsupportedHashType(array $supportedHashTypes): int;
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\FieldType\User\UserStorage\Gateway');

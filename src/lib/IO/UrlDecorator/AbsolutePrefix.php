@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\IO\UrlDecorator;
+namespace Ibexa\Core\IO\UrlDecorator;
 
 /**
  * Prefixes the URI with a string, and makes it absolute.
@@ -32,3 +32,5 @@ class AbsolutePrefix extends Prefix
         return $prefix;
     }
 }
+
+class_alias(AbsolutePrefix::class, 'eZ\Publish\Core\IO\UrlDecorator\AbsolutePrefix');

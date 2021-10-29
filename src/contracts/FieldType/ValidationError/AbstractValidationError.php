@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\FieldType\ValidationError;
+namespace Ibexa\Contracts\Core\FieldType\ValidationError;
 
-use eZ\Publish\API\Repository\Values\Translation;
-use eZ\Publish\API\Repository\Values\Translation\Message;
-use eZ\Publish\SPI\FieldType\ValidationError;
+use Ibexa\Contracts\Core\Repository\Values\Translation;
+use Ibexa\Contracts\Core\Repository\Values\Translation\Message;
+use Ibexa\Contracts\Core\FieldType\ValidationError;
 
 /**
  * @internal
@@ -55,3 +55,5 @@ abstract class AbstractValidationError implements ValidationError
         return $this->target;
     }
 }
+
+class_alias(AbstractValidationError::class, 'eZ\Publish\SPI\FieldType\ValidationError\AbstractValidationError');

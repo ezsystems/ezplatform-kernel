@@ -6,23 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Strategy\ContentThumbnail\Field;
+namespace Ibexa\Core\Repository\Strategy\ContentThumbnail\Field;
 
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\Thumbnail;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
-use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy;
 use Traversable;
 
 final class ContentFieldStrategy implements ThumbnailStrategy
 {
-    /** @var \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy[] */
     private $strategies = [];
 
     /**
-     * @param \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy[]|Traversable $strategies
+     * @param \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy[]|Traversable $strategies
      */
     public function __construct(Traversable $strategies)
     {
@@ -34,7 +34,7 @@ final class ContentFieldStrategy implements ThumbnailStrategy
     }
 
     /**
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException
      */
     public function getThumbnail(Field $field, ?VersionInfo $versionInfo = null): ?Thumbnail
     {
@@ -67,7 +67,7 @@ final class ContentFieldStrategy implements ThumbnailStrategy
     }
 
     /**
-     * @param \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy[]|Traversable $thumbnailStrategies
+     * @param \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy[]|Traversable $thumbnailStrategies
      */
     public function setStrategies(array $thumbnailStrategies): void
     {
@@ -78,3 +78,5 @@ final class ContentFieldStrategy implements ThumbnailStrategy
         }
     }
 }
+
+class_alias(ContentFieldStrategy::class, 'eZ\Publish\Core\Repository\Strategy\ContentThumbnail\Field\ContentFieldStrategy');

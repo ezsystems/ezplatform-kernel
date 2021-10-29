@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Values\ContentType;
 
 use ArrayAccess;
 use Closure;
@@ -18,7 +18,7 @@ interface FieldDefinitionCollection extends Countable, IteratorAggregate, ArrayA
     /**
      * This method returns the field definition for the given identifier.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\OutOfBoundsException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\OutOfBoundsException
      */
     public function get(string $fieldDefinitionIdentifier): FieldDefinition;
 
@@ -30,14 +30,14 @@ interface FieldDefinitionCollection extends Countable, IteratorAggregate, ArrayA
     /**
      * Return first element of collection.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\OutOfBoundsException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\OutOfBoundsException
      */
     public function first(): FieldDefinition;
 
     /**
      * Return last element of collection.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\OutOfBoundsException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\OutOfBoundsException
      */
     public function last(): FieldDefinition;
 
@@ -97,14 +97,16 @@ interface FieldDefinitionCollection extends Countable, IteratorAggregate, ArrayA
      * of elements where the predicate returned TRUE, the second element
      * contains the collection of elements where the predicate returned FALSE.
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCollection[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection[]
      */
     public function partition(Closure $predicate): array;
 
     /**
      * Gets a native PHP array representation of the collection.
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[]
      */
     public function toArray(): array;
 }
+
+class_alias(FieldDefinitionCollection::class, 'eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCollection');

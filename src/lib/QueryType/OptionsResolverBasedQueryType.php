@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\QueryType;
+namespace Ibexa\Core\QueryType;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -78,3 +78,5 @@ abstract class OptionsResolverBasedQueryType implements QueryType
         return $this->resolver;
     }
 }
+
+class_alias(OptionsResolverBasedQueryType::class, 'eZ\Publish\Core\QueryType\OptionsResolverBasedQueryType');

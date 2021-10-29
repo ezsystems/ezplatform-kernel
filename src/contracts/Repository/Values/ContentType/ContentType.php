@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Values\ContentType;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\SPI\Repository\Values\MultiLanguageName;
-use eZ\Publish\SPI\Repository\Values\MultiLanguageDescription;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\MultiLanguageName;
+use Ibexa\Contracts\Core\Repository\Values\MultiLanguageDescription;
 
 /**
  * this class represents a content type value.
  *
- * @property-read \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroups calls getContentTypeGroups
- * @property-read \eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCollection $fieldDefinitions calls getFieldDefinitions() or on access getFieldDefinition($fieldDefIdentifier)
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroups calls getContentTypeGroups
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection $fieldDefinitions calls getFieldDefinitions() or on access getFieldDefinition($fieldDefIdentifier)
  * @property-read mixed $id the id of the content type
  * @property-read int $status the status of the content type. One of ContentType::STATUS_DEFINED|ContentType::STATUS_DRAFT|ContentType::STATUS_MODIFIED
  * @property-read string $identifier the identifier of the content type
@@ -167,7 +167,7 @@ abstract class ContentType extends ValueObject implements MultiLanguageName, Mul
     /**
      * This method returns the content type groups this content type is assigned to.
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[]
      */
     abstract public function getContentTypeGroups();
 
@@ -181,7 +181,7 @@ abstract class ContentType extends ValueObject implements MultiLanguageName, Mul
      *
      * @param string $fieldDefinitionIdentifier
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition|null
      */
     public function getFieldDefinition($fieldDefinitionIdentifier): ?FieldDefinition
     {
@@ -229,3 +229,5 @@ abstract class ContentType extends ValueObject implements MultiLanguageName, Mul
         return null;
     }
 }
+
+class_alias(ContentType::class, 'eZ\Publish\API\Repository\Values\ContentType\ContentType');

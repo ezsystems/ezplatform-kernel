@@ -4,18 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Location\Trash;
+namespace Ibexa\Core\Persistence\Legacy\Content\Location\Trash;
 
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult;
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResultList;
-use eZ\Publish\SPI\Persistence\Content\Location\Trash\TrashResult;
-use eZ\Publish\SPI\Persistence\Content\Location\Trashed;
-use eZ\Publish\SPI\Persistence\Content\Location\Trash\Handler as BaseTrashHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Handler as ContentHandler;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Handler as LocationHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Trash\TrashResult;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Trashed;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Trash\Handler as BaseTrashHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Handler as ContentHandler;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Handler as LocationHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
 
 /**
  * The Location Handler interface defines operations on Location elements in the storage engine.
@@ -27,41 +27,31 @@ class Handler implements BaseTrashHandler
     /**
      * Location handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Handler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Location\Handler
      */
     protected $locationHandler;
 
     /**
      * Gateway for handling location data.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway
      */
     protected $locationGateway;
 
     /**
      * Mapper for handling location data.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Location\Mapper
      */
     protected $locationMapper;
 
     /**
      * Content handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Handler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Handler
      */
     protected $contentHandler;
 
-    /**
-     * Construct from userGateway.
-     *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Location\Handler $locationHandler
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway $locationGateway
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper $locationMapper
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Handler $contentHandler
-     *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Location\Trash\Handler
-     */
     public function __construct(
         LocationHandler $locationHandler,
         LocationGateway $locationGateway,
@@ -80,9 +70,9 @@ class Handler implements BaseTrashHandler
      *
      * @param int $id
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location\Trashed
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location\Trashed
      */
     public function loadTrashItem($id)
     {
@@ -102,7 +92,7 @@ class Handler implements BaseTrashHandler
      *
      * @todo Handle field types actions
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location\Trashed|null null if location was deleted, otherwise Trashed object
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location\Trashed|null null if location was deleted, otherwise Trashed object
      */
     public function trashSubtree($locationId)
     {
@@ -160,7 +150,7 @@ class Handler implements BaseTrashHandler
      *
      * @return int Newly restored location id
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException If $newParentId is invalid
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException If $newParentId is invalid
      *
      * @todo Handle field types actions
      */
@@ -216,7 +206,7 @@ class Handler implements BaseTrashHandler
      *
      * @param int $trashedId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult
      */
     public function deleteTrashItem($trashedId)
     {
@@ -227,9 +217,9 @@ class Handler implements BaseTrashHandler
      * Triggers delete operations for $trashItem.
      * If there is no more locations for corresponding content, then it will be deleted as well.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Location\Trashed $trashItem
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Location\Trashed $trashItem
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult
      */
     protected function delete(Trashed $trashItem)
     {
@@ -247,3 +237,5 @@ class Handler implements BaseTrashHandler
         return $result;
     }
 }
+
+class_alias(Handler::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Location\Trash\Handler');

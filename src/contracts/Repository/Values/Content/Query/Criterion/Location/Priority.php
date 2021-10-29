@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator\Specifications;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator\Specifications;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 
 /**
  * A criterion that matches Location based on its priority.
@@ -55,3 +55,5 @@ class Priority extends Location implements FilteringCriterion
         return new self($operator, $value);
     }
 }
+
+class_alias(Priority::class, 'eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location\Priority');

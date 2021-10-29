@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType;
+namespace Ibexa\Core\FieldType;
 
-use eZ\Publish\SPI\FieldType\FieldStorage;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\Field;
+use Ibexa\Contracts\Core\FieldType\FieldStorage;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
 
 /**
  * Description of NullStorage.
@@ -16,7 +16,7 @@ use eZ\Publish\SPI\Persistence\Content\Field;
 class NullStorage implements FieldStorage
 {
     /**
-     * @see \eZ\Publish\SPI\FieldType\FieldStorage::storeFieldData()
+     * @see \Ibexa\Contracts\Core\FieldType\FieldStorage::storeFieldData()
      */
     public function storeFieldData(VersionInfo $versionInfo, Field $field, array $context)
     {
@@ -24,7 +24,7 @@ class NullStorage implements FieldStorage
     }
 
     /**
-     * @see \eZ\Publish\SPI\FieldType\FieldStorage::getFieldData()
+     * @see \Ibexa\Contracts\Core\FieldType\FieldStorage::getFieldData()
      */
     public function getFieldData(VersionInfo $versionInfo, Field $field, array $context)
     {
@@ -32,7 +32,7 @@ class NullStorage implements FieldStorage
     }
 
     /**
-     * @see \eZ\Publish\SPI\FieldType\FieldStorage::deleteFieldData()
+     * @see \Ibexa\Contracts\Core\FieldType\FieldStorage::deleteFieldData()
      */
     public function deleteFieldData(VersionInfo $versionInfo, array $fieldIds, array $context)
     {
@@ -40,7 +40,7 @@ class NullStorage implements FieldStorage
     }
 
     /**
-     * @see \eZ\Publish\SPI\FieldType\FieldStorage::hasFieldData()
+     * @see \Ibexa\Contracts\Core\FieldType\FieldStorage::hasFieldData()
      *
      * @return bool
      */
@@ -50,7 +50,7 @@ class NullStorage implements FieldStorage
     }
 
     /**
-     * @see \eZ\Publish\SPI\FieldType\FieldStorage::getIndexData()
+     * @see \Ibexa\Contracts\Core\FieldType\FieldStorage::getIndexData()
      */
     public function getIndexData(VersionInfo $versionInfo, Field $field, array $context)
     {
@@ -61,18 +61,20 @@ class NullStorage implements FieldStorage
      * This method is used exclusively by Legacy Storage to copy external data of existing field in main language to
      * the untranslatable field not passed in create or update struct, but created implicitly in storage layer.
      *
-     * By default the method falls back to the {@link \eZ\Publish\SPI\FieldType\FieldStorage::storeFieldData()}.
+     * By default, the method falls back to the {@link \Ibexa\Contracts\Core\FieldType\FieldStorage::storeFieldData()}.
      * External storages implement this method as needed.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $originalField
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $originalField
      * @param array $context
      *
-     * @return bool|null Same as {@link \eZ\Publish\SPI\FieldType\FieldStorage::storeFieldData()}.
+     * @return bool|null Same as {@link \Ibexa\Contracts\Core\FieldType\FieldStorage::storeFieldData()}.
      */
     public function copyLegacyField(VersionInfo $versionInfo, Field $field, Field $originalField, array $context)
     {
         return;
     }
 }
+
+class_alias(NullStorage::class, 'eZ\Publish\Core\FieldType\NullStorage');

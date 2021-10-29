@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Search\AggregationResult;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult;
 
 use ArrayIterator;
 use Countable;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Range;
-use eZ\Publish\API\Repository\Values\Content\Search\AggregationResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\Range;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult;
 use Iterator;
 use IteratorAggregate;
 
 final class RangeAggregationResult extends AggregationResult implements IteratorAggregate, Countable
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Search\AggregationResult\RangeAggregationResultEntry[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\RangeAggregationResultEntry[] */
     private $entries;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Search\AggregationResult\RangeAggregationResultEntry[] $entries
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\RangeAggregationResultEntry[] $entries
      */
     public function __construct(string $name, iterable $entries = [])
     {
@@ -36,7 +36,7 @@ final class RangeAggregationResult extends AggregationResult implements Iterator
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Search\AggregationResult\RangeAggregationResultEntry[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\RangeAggregationResultEntry[]
      */
     public function getEntries(): iterable
     {
@@ -75,3 +75,5 @@ final class RangeAggregationResult extends AggregationResult implements Iterator
         }
     }
 }
+
+class_alias(RangeAggregationResult::class, 'eZ\Publish\API\Repository\Values\Content\Search\AggregationResult\RangeAggregationResult');

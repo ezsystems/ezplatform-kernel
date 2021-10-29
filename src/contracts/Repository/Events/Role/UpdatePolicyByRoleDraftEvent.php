@@ -6,25 +6,25 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Role;
+namespace Ibexa\Contracts\Core\Repository\Events\Role;
 
-use eZ\Publish\API\Repository\Values\User\PolicyDraft;
-use eZ\Publish\API\Repository\Values\User\PolicyUpdateStruct;
-use eZ\Publish\API\Repository\Values\User\RoleDraft;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft;
+use Ibexa\Contracts\Core\Repository\Values\User\PolicyUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleDraft;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class UpdatePolicyByRoleDraftEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\RoleDraft */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft */
     private $roleDraft;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\PolicyDraft */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft */
     private $policy;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\PolicyUpdateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyUpdateStruct */
     private $policyUpdateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\PolicyDraft */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft */
     private $updatedPolicyDraft;
 
     public function __construct(
@@ -59,3 +59,5 @@ final class UpdatePolicyByRoleDraftEvent extends AfterEvent
         return $this->updatedPolicyDraft;
     }
 }
+
+class_alias(UpdatePolicyByRoleDraftEvent::class, 'eZ\Publish\API\Repository\Events\Role\UpdatePolicyByRoleDraftEvent');

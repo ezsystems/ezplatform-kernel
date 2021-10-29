@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\SiteAccess;
+namespace Ibexa\Core\MVC\Symfony\SiteAccess;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Traversable;
 
 /**
@@ -22,3 +22,5 @@ interface SiteAccessProviderInterface
 
     public function getSiteAccesses(): Traversable;
 }
+
+class_alias(SiteAccessProviderInterface::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface');

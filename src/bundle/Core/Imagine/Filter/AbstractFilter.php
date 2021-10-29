@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\Filter;
+namespace Ibexa\Bundle\Core\Imagine\Filter;
 
 /**
  * Base implementation of FilterInterface, handling options.
@@ -44,3 +44,5 @@ abstract class AbstractFilter implements FilterInterface
         return $this->options;
     }
 }
+
+class_alias(AbstractFilter::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\AbstractFilter');

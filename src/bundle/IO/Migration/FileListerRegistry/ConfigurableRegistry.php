@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Migration\FileListerRegistry;
+namespace Ibexa\Bundle\IO\Migration\FileListerRegistry;
 
-use eZ\Bundle\EzPublishIOBundle\Migration\FileListerRegistry;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Bundle\IO\Migration\FileListerRegistry;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 
 /**
  * A registry of FileListerInterfaces which is configurable via the array passed to its constructor.
  */
 final class ConfigurableRegistry implements FileListerRegistry
 {
-    /** @var \eZ\Bundle\EzPublishIOBundle\Migration\FileListerInterface[] */
+    /** @var \Ibexa\Bundle\IO\Migration\FileListerInterface[] */
     private $registry = [];
 
     /**
-     * @param \eZ\Bundle\EzPublishIOBundle\Migration\FileListerInterface[] $items Hash of FileListerInterfaces, with identifier string as key.
+     * @param \Ibexa\Bundle\IO\Migration\FileListerInterface[] $items Hash of FileListerInterfaces, with identifier string as key.
      */
     public function __construct(array $items = [])
     {
@@ -30,9 +30,9 @@ final class ConfigurableRegistry implements FileListerRegistry
      *
      * @param string $identifier An identifier string.
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException If no FileListerInterface exists with this identifier
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException If no FileListerInterface exists with this identifier
      *
-     * @return \eZ\Bundle\EzPublishIOBundle\Migration\FileListerInterface The FileListerInterface given by the identifier.
+     * @return \Ibexa\Bundle\IO\Migration\FileListerInterface The FileListerInterface given by the identifier.
      */
     public function getItem($identifier)
     {
@@ -53,3 +53,5 @@ final class ConfigurableRegistry implements FileListerRegistry
         return array_keys($this->registry);
     }
 }
+
+class_alias(ConfigurableRegistry::class, 'eZ\Bundle\EzPublishIOBundle\Migration\FileListerRegistry\ConfigurableRegistry');

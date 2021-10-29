@@ -6,9 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field;
+namespace Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field;
 
 interface FieldTypeBasedThumbnailStrategy extends ThumbnailStrategy
 {
     public function getFieldTypeIdentifier(): string;
 }
+
+class_alias(FieldTypeBasedThumbnailStrategy::class, 'eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy');

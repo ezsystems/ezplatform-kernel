@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Values\ContentType;
+namespace Ibexa\Core\Repository\Values\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
-use eZ\Publish\Core\Repository\Values\MultiLanguageDescriptionTrait;
-use eZ\Publish\Core\Repository\Values\MultiLanguageNameTrait;
-use eZ\Publish\Core\Repository\Values\MultiLanguageTrait;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
+use Ibexa\Core\Repository\Values\MultiLanguageDescriptionTrait;
+use Ibexa\Core\Repository\Values\MultiLanguageNameTrait;
+use Ibexa\Core\Repository\Values\MultiLanguageTrait;
 
 /**
  * This class represents a field definition.
@@ -73,3 +73,5 @@ class FieldDefinition extends APIFieldDefinition
         return $this->fieldSettings;
     }
 }
+
+class_alias(FieldDefinition::class, 'eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition');

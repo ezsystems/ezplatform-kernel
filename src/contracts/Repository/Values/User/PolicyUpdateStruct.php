@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
 /**
  * This class is used for updating a policy. The limitations of the policy are replaced
@@ -15,3 +15,5 @@ namespace eZ\Publish\API\Repository\Values\User;
 abstract class PolicyUpdateStruct extends PolicyStruct
 {
 }
+
+class_alias(PolicyUpdateStruct::class, 'eZ\Publish\API\Repository\Values\User\PolicyUpdateStruct');

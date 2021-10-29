@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content;
+namespace Ibexa\Contracts\Core\Persistence\Content;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 class UpdateStruct extends ValueObject
 {
@@ -23,7 +23,7 @@ class UpdateStruct extends ValueObject
     /**
      * Contains fields to be updated.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\Field[]
+     * @var \Ibexa\Contracts\Core\Persistence\Content\Field[]
      */
     public $fields = [];
 
@@ -42,3 +42,5 @@ class UpdateStruct extends ValueObject
      */
     public $initialLanguageId = false;
 }
+
+class_alias(UpdateStruct::class, 'eZ\Publish\SPI\Persistence\Content\UpdateStruct');

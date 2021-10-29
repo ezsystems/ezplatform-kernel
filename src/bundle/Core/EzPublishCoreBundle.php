@@ -4,48 +4,48 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle;
+namespace Ibexa\Bundle\Core;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\BinaryContentDownloadPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ConsoleCacheWarmupPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ConsoleCommandPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\EntityManagerFactoryServiceLocatorPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\FieldTypeParameterProviderRegistryPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\FragmentPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ViewMatcherRegistryPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\InjectEntityManagerMappingsPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\LazyDoctrineRepositoriesPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\NotificationRendererPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\PlaceholderProviderPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ImaginePass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\QueryTypePass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\RegisterSearchEngineIndexerPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\RegisterSearchEnginePass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\RegisterStorageEnginePass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ChainRoutingPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ChainConfigResolverPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ContentViewPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\LocationViewPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\RouterPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\SecurityPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\SiteAccessMatcherRegistryPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\SlugConverterConfigurationPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\TranslationCollectorPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ViewProvidersPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\StorageConnectionPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser;
-use eZ\Publish\Core\Base\Container\Compiler\GenericFieldTypeConverterPass;
-use eZ\Publish\Core\Base\Container\Compiler\FieldTypeRegistryPass;
-use eZ\Publish\Core\Base\Container\Compiler\Persistence\FieldTypeRegistryPass as PersistenceFieldTypeRegistryPass;
-use eZ\Publish\Core\Base\Container\Compiler\Storage\ExternalStorageRegistryPass;
-use eZ\Publish\Core\Base\Container\Compiler\Storage\Legacy\FieldValueConverterRegistryPass;
-use eZ\Publish\Core\Base\Container\Compiler\Storage\Legacy\RoleLimitationConverterPass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser as ConfigParser;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\BinaryContentDownloadPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\ConsoleCacheWarmupPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\ConsoleCommandPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\EntityManagerFactoryServiceLocatorPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\FieldTypeParameterProviderRegistryPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\FragmentPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\ViewMatcherRegistryPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\InjectEntityManagerMappingsPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\LazyDoctrineRepositoriesPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\NotificationRendererPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\PlaceholderProviderPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\ImaginePass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\QueryTypePass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\RegisterSearchEngineIndexerPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\RegisterSearchEnginePass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\RegisterStorageEnginePass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\ChainRoutingPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\ChainConfigResolverPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\ContentViewPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\LocationViewPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\RouterPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\SecurityPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\SiteAccessMatcherRegistryPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\SlugConverterConfigurationPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\TranslationCollectorPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\ViewProvidersPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\StorageConnectionPass;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser;
+use Ibexa\Core\Base\Container\Compiler\GenericFieldTypeConverterPass;
+use Ibexa\Core\Base\Container\Compiler\FieldTypeRegistryPass;
+use Ibexa\Core\Base\Container\Compiler\Persistence\FieldTypeRegistryPass as PersistenceFieldTypeRegistryPass;
+use Ibexa\Core\Base\Container\Compiler\Storage\ExternalStorageRegistryPass;
+use Ibexa\Core\Base\Container\Compiler\Storage\Legacy\FieldValueConverterRegistryPass;
+use Ibexa\Core\Base\Container\Compiler\Storage\Legacy\RoleLimitationConverterPass;
+use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser as ConfigParser;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Repository as RepositoryConfigParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Security\HttpBasicFactory;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\URLHandlerPass;
-use eZ\Publish\SPI\MVC\View\VariableProvider;
+use Ibexa\Bundle\Core\DependencyInjection\Security\HttpBasicFactory;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\URLHandlerPass;
+use Ibexa\Contracts\Core\MVC\View\VariableProvider;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -135,3 +135,5 @@ class EzPublishCoreBundle extends Bundle
         return $this->extension;
     }
 }
+
+class_alias(EzPublishCoreBundle::class, 'eZ\Bundle\EzPublishCoreBundle\EzPublishCoreBundle');

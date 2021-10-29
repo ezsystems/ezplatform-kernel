@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 /**
@@ -16,7 +16,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  */
 class ConfigParser implements ParserInterface
 {
-    /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface[] */
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface[] */
     private $configParsers;
 
     public function __construct(array $configParsers = [])
@@ -25,7 +25,7 @@ class ConfigParser implements ParserInterface
             if (!$parser instanceof ParserInterface) {
                 throw new InvalidArgumentType(
                     'Inner config parser',
-                    'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface',
+                    ParserInterface::class,
                     $parser
                 );
             }
@@ -35,7 +35,7 @@ class ConfigParser implements ParserInterface
     }
 
     /**
-     * @param \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface[] $configParsers
+     * @param \Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface[] $configParsers
      */
     public function setConfigParsers($configParsers)
     {
@@ -43,7 +43,7 @@ class ConfigParser implements ParserInterface
     }
 
     /**
-     * @return \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface[]
+     * @return \Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface[]
      */
     public function getConfigParsers()
     {
@@ -87,3 +87,5 @@ class ConfigParser implements ParserInterface
         }
     }
 }
+
+class_alias(ConfigParser::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigParser');

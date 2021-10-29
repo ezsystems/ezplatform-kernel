@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence;
+namespace Ibexa\Contracts\Core\Persistence;
 
 class User extends ValueObject
 {
@@ -69,3 +69,5 @@ class User extends ValueObject
      */
     public $maxLogin = 0;
 }
+
+class_alias(User::class, 'eZ\Publish\SPI\Persistence\User');

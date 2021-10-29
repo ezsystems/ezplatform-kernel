@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\SiteAccess;
+namespace Ibexa\Core\MVC\Symfony\SiteAccess;
 
 /**
  * Interface for SiteAccess matchers.
@@ -21,7 +21,7 @@ interface VersatileMatcher extends Matcher
      *
      * @param string $siteAccessName
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\SiteAccess\VersatileMatcher|null Typically the current matcher, with updated request.
+     * @return \Ibexa\Core\MVC\Symfony\SiteAccess\VersatileMatcher|null Typically the current matcher, with updated request.
      */
     public function reverseMatch($siteAccessName);
 
@@ -31,7 +31,9 @@ interface VersatileMatcher extends Matcher
      *
      * @see reverseMatch()
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest
+     * @return \Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest
      */
     public function getRequest();
 }
+
+class_alias(VersatileMatcher::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccess\VersatileMatcher');

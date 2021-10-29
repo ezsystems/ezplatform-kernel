@@ -4,71 +4,71 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository;
+namespace Ibexa\Core\Repository;
 
 use Exception;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
-use eZ\Publish\API\Repository\Repository as RepositoryInterface;
-use eZ\Publish\API\Repository\RoleService as RoleServiceInterface;
-use eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation;
-use eZ\Publish\API\Repository\Values\User\Policy as APIPolicy;
-use eZ\Publish\API\Repository\Values\User\PolicyCreateStruct as APIPolicyCreateStruct;
-use eZ\Publish\API\Repository\Values\User\PolicyDraft;
-use eZ\Publish\API\Repository\Values\User\PolicyUpdateStruct as APIPolicyUpdateStruct;
-use eZ\Publish\API\Repository\Values\User\Role as APIRole;
-use eZ\Publish\API\Repository\Values\User\RoleAssignment;
-use eZ\Publish\API\Repository\Values\User\RoleCopyStruct as APIRoleCopyStruct;
-use eZ\Publish\API\Repository\Values\User\RoleCreateStruct as APIRoleCreateStruct;
-use eZ\Publish\API\Repository\Values\User\RoleDraft as APIRoleDraft;
-use eZ\Publish\API\Repository\Values\User\RoleUpdateStruct;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Values\User\UserGroup;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
-use eZ\Publish\Core\Base\Exceptions\LimitationValidationException;
-use eZ\Publish\Core\Base\Exceptions\NotFound\LimitationNotFoundException;
-use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
-use eZ\Publish\Core\Repository\Values\User\PolicyCreateStruct;
-use eZ\Publish\Core\Repository\Values\User\PolicyUpdateStruct;
-use eZ\Publish\Core\Repository\Values\User\Role;
-use eZ\Publish\Core\Repository\Values\User\RoleCopyStruct;
-use eZ\Publish\Core\Repository\Values\User\RoleCreateStruct;
-use eZ\Publish\SPI\Limitation\Type;
-use eZ\Publish\SPI\Persistence\User\Handler;
-use eZ\Publish\SPI\Persistence\User\Role as SPIRole;
-use eZ\Publish\SPI\Persistence\User\RoleUpdateStruct as SPIRoleUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
+use Ibexa\Contracts\Core\Repository\RoleService as RoleServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Policy as APIPolicy;
+use Ibexa\Contracts\Core\Repository\Values\User\PolicyCreateStruct as APIPolicyCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft;
+use Ibexa\Contracts\Core\Repository\Values\User\PolicyUpdateStruct as APIPolicyUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\Role as APIRole;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleCopyStruct as APIRoleCopyStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleCreateStruct as APIRoleCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleDraft as APIRoleDraft;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\Base\Exceptions\LimitationValidationException;
+use Ibexa\Core\Base\Exceptions\NotFound\LimitationNotFoundException;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
+use Ibexa\Core\Repository\Values\User\PolicyCreateStruct;
+use Ibexa\Core\Repository\Values\User\PolicyUpdateStruct;
+use Ibexa\Core\Repository\Values\User\Role;
+use Ibexa\Core\Repository\Values\User\RoleCopyStruct;
+use Ibexa\Core\Repository\Values\User\RoleCreateStruct;
+use Ibexa\Contracts\Core\Limitation\Type;
+use Ibexa\Contracts\Core\Persistence\User\Handler;
+use Ibexa\Contracts\Core\Persistence\User\Role as SPIRole;
+use Ibexa\Contracts\Core\Persistence\User\RoleUpdateStruct as SPIRoleUpdateStruct;
 
 /**
  * This service provides methods for managing Roles and Policies.
  */
 class RoleService implements RoleServiceInterface
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     protected $repository;
 
-    /** @var \eZ\Publish\SPI\Persistence\User\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\User\Handler */
     protected $userHandler;
 
-    /** @var \eZ\Publish\Core\Repository\Permission\LimitationService */
+    /** @var \Ibexa\Core\Repository\Permission\LimitationService */
     protected $limitationService;
 
-    /** @var \eZ\Publish\Core\Repository\Mapper\RoleDomainMapper */
+    /** @var \Ibexa\Core\Repository\Mapper\RoleDomainMapper */
     protected $roleDomainMapper;
 
     /** @var array */
     protected $settings;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
     /**
      * Setups service with reference to repository object that created it & corresponding handler.
      *
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\SPI\Persistence\User\Handler $userHandler
-     * @param \eZ\Publish\Core\Repository\Permission\LimitationService $limitationService
-     * @param \eZ\Publish\Core\Repository\Mapper\RoleDomainMapper $roleDomainMapper
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Persistence\User\Handler $userHandler
+     * @param \Ibexa\Core\Repository\Permission\LimitationService $limitationService
+     * @param \Ibexa\Core\Repository\Mapper\RoleDomainMapper $roleDomainMapper
      * @param array $settings
      */
     public function __construct(
@@ -91,15 +91,15 @@ class RoleService implements RoleServiceInterface
      *
      * @since 6.0
      *
-     * @param \eZ\Publish\API\Repository\Values\User\RoleCreateStruct $roleCreateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleCreateStruct $roleCreateStruct
      *
-     * @return \eZ\Publish\API\Repository\Values\User\RoleDraft
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the name of the role already exists or if limitation of the same type
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if the name of the role already exists or if limitation of the same type
      *         is repeated in the policy create struct or if limitation is not allowed on module/function
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to create a RoleDraft
-     * @throws \eZ\Publish\API\Repository\Exceptions\LimitationValidationException if a policy limitation in the $roleCreateStruct is not valid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to create a RoleDraft
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\LimitationValidationException if a policy limitation in the $roleCreateStruct is not valid
      */
     public function createRole(APIRoleCreateStruct $roleCreateStruct): APIRoleDraft
     {
@@ -147,13 +147,13 @@ class RoleService implements RoleServiceInterface
      *
      * @since 6.0
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      *
-     * @return \eZ\Publish\API\Repository\Values\User\RoleDraft
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the Role already has a RoleDraft that will need to be removed first
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to create a RoleDraft
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if the Role already has a RoleDraft that will need to be removed first
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to create a RoleDraft
      */
     public function createRoleDraft(APIRole $role): APIRoleDraft
     {
@@ -246,12 +246,12 @@ class RoleService implements RoleServiceInterface
      *
      * @param int $id
      *
-     * @return \eZ\Publish\API\Repository\Values\User\RoleDraft
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if a RoleDraft with the given id was not found
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to create a RoleDraft
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if a RoleDraft with the given id was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to create a RoleDraft
      */
     public function loadRoleDraft(int $id): APIRoleDraft
     {
@@ -271,12 +271,12 @@ class RoleService implements RoleServiceInterface
      *
      * @param int $roleId ID of the role the draft was created from.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\RoleDraft
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if a RoleDraft with the given id was not found
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to read this role
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if a RoleDraft with the given id was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to read this role
      */
     public function loadRoleDraftByRoleId(int $roleId): APIRoleDraft
     {
@@ -296,15 +296,15 @@ class RoleService implements RoleServiceInterface
      *
      * @since 6.0
      *
-     * @param \eZ\Publish\API\Repository\Values\User\RoleDraft $roleDraft
-     * @param \eZ\Publish\API\Repository\Values\User\RoleUpdateStruct $roleUpdateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft $roleDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct $roleUpdateStruct
      *
-     * @return \eZ\Publish\API\Repository\Values\User\RoleDraft
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the identifier of the RoleDraft already exists
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to update a RoleDraft
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if the identifier of the RoleDraft already exists
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to update a RoleDraft
      */
     public function updateRoleDraft(APIRoleDraft $roleDraft, RoleUpdateStruct $roleUpdateStruct): APIRoleDraft
     {
@@ -362,17 +362,17 @@ class RoleService implements RoleServiceInterface
      *
      * @since 6.0
      *
-     * @param \eZ\Publish\API\Repository\Values\User\RoleDraft $roleDraft
-     * @param \eZ\Publish\API\Repository\Values\User\PolicyCreateStruct $policyCreateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft $roleDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\PolicyCreateStruct $policyCreateStruct
      *
-     * @return \eZ\Publish\API\Repository\Values\User\RoleDraft
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if limitation of the same type is repeated in policy create
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if limitation of the same type is repeated in policy create
      *                                                                        struct or if limitation is not allowed on module/function
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\LimitationValidationException if a limitation in the $policyCreateStruct is not valid
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to add a policy
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\LimitationValidationException if a limitation in the $policyCreateStruct is not valid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to add a policy
      */
     public function addPolicyByRoleDraft(APIRoleDraft $roleDraft, APIPolicyCreateStruct $policyCreateStruct): APIRoleDraft
     {
@@ -427,15 +427,15 @@ class RoleService implements RoleServiceInterface
      *
      * @since 6.0
      *
-     * @param \eZ\Publish\API\Repository\Values\User\RoleDraft $roleDraft
-     * @param \eZ\Publish\API\Repository\Values\User\PolicyDraft $policyDraft the policy to remove from the RoleDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft $roleDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft $policyDraft the policy to remove from the RoleDraft
      *
-     * @return \eZ\Publish\API\Repository\Values\User\RoleDraft
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if policy does not belong to the given RoleDraft
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to remove a policy
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if policy does not belong to the given RoleDraft
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to remove a policy
      */
     public function removePolicyByRoleDraft(APIRoleDraft $roleDraft, PolicyDraft $policyDraft): APIRoleDraft
     {
@@ -458,17 +458,17 @@ class RoleService implements RoleServiceInterface
      *
      * @since 6.0
      *
-     * @param \eZ\Publish\API\Repository\Values\User\RoleDraft $roleDraft
-     * @param \eZ\Publish\API\Repository\Values\User\PolicyDraft $policy
-     * @param \eZ\Publish\API\Repository\Values\User\PolicyUpdateStruct $policyUpdateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft $roleDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft $policy
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\PolicyUpdateStruct $policyUpdateStruct
      *
-     * @return \eZ\Publish\API\Repository\Values\User\PolicyDraft
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if limitation of the same type is repeated in policy update
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if limitation of the same type is repeated in policy update
      *                                                                        struct or if limitation is not allowed on module/function
-     * @throws \eZ\Publish\API\Repository\Exceptions\LimitationValidationException if a limitation in the $policyUpdateStruct is not valid
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to update a policy
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\LimitationValidationException if a limitation in the $policyUpdateStruct is not valid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to update a policy
      */
     public function updatePolicyByRoleDraft(
         APIRoleDraft $roleDraft,
@@ -527,12 +527,12 @@ class RoleService implements RoleServiceInterface
      *
      * @since 6.0
      *
-     * @param \eZ\Publish\API\Repository\Values\User\RoleDraft $roleDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft $roleDraft
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to delete this RoleDraft
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to delete this RoleDraft
      */
     public function deleteRoleDraft(APIRoleDraft $roleDraft): void
     {
@@ -553,11 +553,11 @@ class RoleService implements RoleServiceInterface
      *
      * @since 6.0
      *
-     * @param \eZ\Publish\API\Repository\Values\User\RoleDraft $roleDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft $roleDraft
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException if the role draft cannot be loaded
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to publish this RoleDraft
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException if the role draft cannot be loaded
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to publish this RoleDraft
      */
     public function publishRoleDraft(APIRoleDraft $roleDraft): void
     {
@@ -590,12 +590,12 @@ class RoleService implements RoleServiceInterface
      *
      * @param int $id
      *
-     * @return \eZ\Publish\Core\Repository\Values\User\Role
+     * @return \Ibexa\Core\Repository\Values\User\Role
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if a role with the given id was not found
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to read this role
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if a role with the given id was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to read this role
      */
     public function loadRole(int $id): APIRole
     {
@@ -615,12 +615,12 @@ class RoleService implements RoleServiceInterface
      *
      * @param string $identifier
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Role
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if a role with the given name was not found
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to read this role
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if a role with the given name was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to read this role
      */
     public function loadRoleByIdentifier(string $identifier): APIRole
     {
@@ -638,7 +638,7 @@ class RoleService implements RoleServiceInterface
     /**
      * Loads all roles, excluding the ones the current user is not allowed to read.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Role[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role[]
      */
     public function loadRoles(): iterable
     {
@@ -662,12 +662,12 @@ class RoleService implements RoleServiceInterface
     /**
      * Deletes the given role.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to delete this role
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to delete this role
      */
     public function deleteRole(APIRole $role): void
     {
@@ -690,15 +690,15 @@ class RoleService implements RoleServiceInterface
     /**
      * Assigns a role to the given user group.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
-     * @param \eZ\Publish\API\Repository\Values\User\UserGroup $userGroup
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation $roleLimitation an optional role limitation (which is either a subtree limitation or section limitation)
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup $userGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation|null $roleLimitation an optional role limitation (which is either a subtree limitation or section limitation)
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If assignment already exists
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to assign a role
-     * @throws \eZ\Publish\API\Repository\Exceptions\LimitationValidationException if $roleLimitation is not valid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If assignment already exists
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to assign a role
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\LimitationValidationException if $roleLimitation is not valid
      */
     public function assignRoleToUserGroup(APIRole $role, UserGroup $userGroup, RoleLimitation $roleLimitation = null): void
     {
@@ -740,15 +740,15 @@ class RoleService implements RoleServiceInterface
     /**
      * Assigns a role to the given user.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
-     * @param \eZ\Publish\API\Repository\Values\User\User $user
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation $roleLimitation an optional role limitation (which is either a subtree limitation or section limitation)
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $user
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation|null $roleLimitation an optional role limitation (which is either a subtree limitation or section limitation)
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If assignment already exists
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\LimitationValidationException if $roleLimitation is not valid
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to assign a role
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If assignment already exists
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\LimitationValidationException if $roleLimitation is not valid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to assign a role
      */
     public function assignRoleToUser(APIRole $role, User $user, RoleLimitation $roleLimitation = null): void
     {
@@ -790,12 +790,12 @@ class RoleService implements RoleServiceInterface
     /**
      * Removes the given role assignment.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\RoleAssignment $roleAssignment
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment $roleAssignment
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to remove a role assignment
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to remove a role assignment
      */
     public function removeRoleAssignment(RoleAssignment $roleAssignment): void
     {
@@ -820,12 +820,12 @@ class RoleService implements RoleServiceInterface
      *
      * @param int $roleAssignmentId
      *
-     * @return \eZ\Publish\API\Repository\Values\User\RoleAssignment
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If the role assignment was not found
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to read this role
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If the role assignment was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to read this role
      */
     public function loadRoleAssignment(int $roleAssignmentId): RoleAssignment
     {
@@ -867,13 +867,13 @@ class RoleService implements RoleServiceInterface
     /**
      * Returns the assigned user and user groups to this role.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      *
-     * @return \eZ\Publish\API\Repository\Values\User\RoleAssignment[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment[]
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to read a role
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to read a role
      */
     public function getRoleAssignments(APIRole $role): iterable
     {
@@ -913,17 +913,17 @@ class RoleService implements RoleServiceInterface
     }
 
     /**
-     * @see \eZ\Publish\API\Repository\RoleService::getRoleAssignmentsForUser()
+     * @see \Ibexa\Contracts\Core\Repository\RoleService::getRoleAssignmentsForUser()
      *
-     * @param \eZ\Publish\API\Repository\Values\User\User $user
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $user
      * @param bool $inherited
      *
      * @return iterable
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function getRoleAssignmentsForUser(User $user, bool $inherited = false): iterable
     {
@@ -958,14 +958,14 @@ class RoleService implements RoleServiceInterface
     /**
      * Returns the roles assigned to the given user group, excluding the ones the current user is not allowed to read.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\UserGroup $userGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup $userGroup
      *
-     * @return \eZ\Publish\API\Repository\Values\User\UserGroupRoleAssignment[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\UserGroupRoleAssignment[]
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function getRoleAssignmentsForUserGroup(UserGroup $userGroup): iterable
     {
@@ -991,7 +991,7 @@ class RoleService implements RoleServiceInterface
      *
      * @param string $name
      *
-     * @return \eZ\Publish\API\Repository\Values\User\RoleCreateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleCreateStruct
      */
     public function newRoleCreateStruct(string $name): APIRoleCreateStruct
     {
@@ -1019,7 +1019,7 @@ class RoleService implements RoleServiceInterface
      * @param string $module
      * @param string $function
      *
-     * @return \eZ\Publish\API\Repository\Values\User\PolicyCreateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\PolicyCreateStruct
      */
     public function newPolicyCreateStruct(string $module, string $function): APIPolicyCreateStruct
     {
@@ -1035,7 +1035,7 @@ class RoleService implements RoleServiceInterface
     /**
      * Instantiates a policy update class.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\PolicyUpdateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\PolicyUpdateStruct
      */
     public function newPolicyUpdateStruct(): APIPolicyUpdateStruct
     {
@@ -1049,7 +1049,7 @@ class RoleService implements RoleServiceInterface
     /**
      * Instantiates a policy update class.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\RoleUpdateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct
      */
     public function newRoleUpdateStruct(): RoleUpdateStruct
     {
@@ -1064,7 +1064,7 @@ class RoleService implements RoleServiceInterface
      *
      * @param string $identifier
      *
-     * @return \eZ\Publish\SPI\Limitation\Type
+     * @return \Ibexa\Contracts\Core\Limitation\Type
      *
      * @throws \RuntimeException if there is no LimitationType with $identifier
      */
@@ -1083,9 +1083,9 @@ class RoleService implements RoleServiceInterface
      * @param string $module Legacy name of "controller", it's a unique identifier like "content"
      * @param string $function Legacy name of a controller "action", it's a unique within the controller like "read"
      *
-     * @return \eZ\Publish\SPI\Limitation\Type[]
+     * @return \Ibexa\Contracts\Core\Limitation\Type[]
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException If module/function to limitation type mapping
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException If module/function to limitation type mapping
      *                                                                 refers to a non existing identifier.
      */
     public function getLimitationTypesByModuleFunction(string $module, string $function): iterable
@@ -1115,11 +1115,11 @@ class RoleService implements RoleServiceInterface
      *
      * @uses ::validatePolicy()
      *
-     * @param \eZ\Publish\API\Repository\Values\User\RoleCreateStruct $roleCreateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleCreateStruct $roleCreateStruct
      *
-     * @return \eZ\Publish\Core\FieldType\ValidationError[][][]
+     * @return \Ibexa\Core\FieldType\ValidationError[][][]
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     protected function validateRoleCreateStruct(APIRoleCreateStruct $roleCreateStruct): iterable
     {
@@ -1142,14 +1142,14 @@ class RoleService implements RoleServiceInterface
     /**
      * Validates Policy context: Limitations on a module and function.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the same limitation is repeated or if
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the same limitation is repeated or if
      *                                                                   limitation is not allowed on module/function
      *
      * @param string $module
      * @param string $function
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation[] $limitations
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] $limitations
      *
-     * @return \eZ\Publish\Core\FieldType\ValidationError[][]
+     * @return \Ibexa\Core\FieldType\ValidationError[][]
      */
     protected function validatePolicy(string $module, string $function, array $limitations): iterable
     {
@@ -1181,12 +1181,12 @@ class RoleService implements RoleServiceInterface
      * Validate that assignments not already exists and filter validations against existing.
      *
      * @param int $contentId
-     * @param \eZ\Publish\SPI\Persistence\User\Role $spiRole
+     * @param \Ibexa\Contracts\Core\Persistence\User\Role $spiRole
      * @param array|null $limitation
      *
      * @return array[]|null Filtered version of $limitation
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If assignment already exists
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If assignment already exists
      */
     protected function checkAssignmentAndFilterLimitationValues(
         int $contentId,
@@ -1239,7 +1239,7 @@ class RoleService implements RoleServiceInterface
      *
      * Used by {@link removePolicy()} and {@link deletePolicy()}
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Policy $policy
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Policy $policy
      *
      * @throws \Exception
      */
@@ -1255,3 +1255,5 @@ class RoleService implements RoleServiceInterface
         }
     }
 }
+
+class_alias(RoleService::class, 'eZ\Publish\Core\Repository\RoleService');

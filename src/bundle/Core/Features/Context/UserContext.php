@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Features\Context;
+namespace Ibexa\Bundle\Core\Features\Context;
 
 use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Context\Context;
 use PHPUnit\Framework\Assert as Assertion;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 
 /**
  * Sentences for Users.
@@ -33,10 +33,10 @@ class UserContext implements Context
     const USERGROUP_ROOT_SUBTREE = '/1/5/';
     const USERGROUP_CONTENT_IDENTIFIER = 'user_group';
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     protected $userService;
 
-    /** @var \eZ\Publish\API\Repository\SearchService */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     protected $searchService;
 
     public function __construct(UserService $userService, SearchService $searchService)
@@ -51,7 +51,7 @@ class UserContext implements Context
      * @param string $username name of User to search for
      * @param string $parentGroupLocationId where to search, in User Group tree
      *
-     * @return User found
+     * @return \Ibexa\Core\Repository\Values\User\User found
      */
     public function searchUserByLogin($username, $parentGroupId = null)
     {
@@ -82,7 +82,7 @@ class UserContext implements Context
      * @param string $name name of User Group to search for
      * @param string $parentLocationId (optional) parent location id to search in
      *
-     * @return search results
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit[] search results
      */
     public function searchUserGroups($name, $parentLocationId = null)
     {
@@ -105,12 +105,12 @@ class UserContext implements Context
     /**
      * Create user inside given User Group; DELETES existing User if login already exists!
      *
-     * @param $username username of the user to create
-     * @param $email email address of user to create
-     * @param $password account password for user to create
-     * @param $parentGroup pathstring wherein to create user
+     * @param string $username username of the user to create
+     * @param string $email email address of user to create
+     * @param string $password account password for user to create
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup $parentGroup
      *
-     * @return eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     protected function createUser($username, $email, $password, $parentGroup = null, $fields = [])
     {
@@ -147,9 +147,9 @@ class UserContext implements Context
      * Create new User Group inside existing parent User Group.
      *
      * @param string $name  User Group name
-     * @param \eZ\Publish\API\Repository\Values\User\UserGroup $parentGroup  (optional) parent user group, defaults to UserGroup "/Users"
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup $parentGroup  (optional) parent user group, defaults to UserGroup "/Users"
      *
-     * @return \eZ\Publish\API\Repository\Values\User\UserGroup
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\UserGroup
      */
     public function createUserGroup($name, $parentGroup = null)
     {
@@ -171,7 +171,7 @@ class UserContext implements Context
      * @param string $password User's password
      * @param string $parentGroupName (optional) name of the parent group to check
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     public function ensureUserExists($username, $email, $password, $parentGroupName = null)
     {
@@ -328,7 +328,7 @@ class UserContext implements Context
      *
      * Ensures a user with username ':username' exists, creating a new one if necessary.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     public function iHaveUser($username)
     {
@@ -342,7 +342,7 @@ class UserContext implements Context
      *
      * Ensures a user exists with given username/email/password, creating a new one if necessary.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     public function iHaveUserWithUsernameEmailAndPassword($username, $email, $password)
     {
@@ -354,7 +354,7 @@ class UserContext implements Context
      *
      * Ensures a user with username ':username' exists as a child of ':parentGroup' user group, can create either one.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     public function iHaveUserInGroup($username, $parentGroupName)
     {
@@ -368,7 +368,7 @@ class UserContext implements Context
      *
      * Ensures a user with given username/email/password as a child of ':parentGroup' user group, can create either one.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     public function iHaveUserWithUsernameEmailAndPasswordInGroup($username, $email, $password, $parentGroupName)
     {
@@ -578,3 +578,5 @@ class UserContext implements Context
         throw new \Exception('Possible endless loop when attempting to find a new name for the User.');
     }
 }
+
+class_alias(UserContext::class, 'eZ\Bundle\EzPublishCoreBundle\Features\Context\UserContext');

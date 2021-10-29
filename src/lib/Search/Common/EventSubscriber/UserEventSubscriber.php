@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Common\EventSubscriber;
+namespace Ibexa\Core\Search\Common\EventSubscriber;
 
-use eZ\Publish\API\Repository\Events\User\CreateUserEvent;
-use eZ\Publish\API\Repository\Events\User\CreateUserGroupEvent;
-use eZ\Publish\API\Repository\Events\User\DeleteUserEvent;
-use eZ\Publish\API\Repository\Events\User\DeleteUserGroupEvent;
-use eZ\Publish\API\Repository\Events\User\MoveUserGroupEvent;
-use eZ\Publish\API\Repository\Events\User\UpdateUserEvent;
-use eZ\Publish\API\Repository\Events\User\UpdateUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\CreateUserEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\CreateUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\DeleteUserEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\DeleteUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\MoveUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\UpdateUserEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\UpdateUserGroupEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class UserEventSubscriber extends AbstractSearchEventSubscriber implements EventSubscriberInterface
@@ -145,3 +145,5 @@ class UserEventSubscriber extends AbstractSearchEventSubscriber implements Event
         }
     }
 }
+
+class_alias(UserEventSubscriber::class, 'eZ\Publish\Core\Search\Common\EventSubscriber\UserEventSubscriber');

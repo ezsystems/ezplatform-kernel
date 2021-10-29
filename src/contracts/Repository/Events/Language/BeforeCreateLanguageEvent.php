@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Language;
+namespace Ibexa\Contracts\Core\Repository\Events\Language;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCreateLanguageEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct */
     private $languageCreateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
     private $language;
 
     public function __construct(LanguageCreateStruct $languageCreateStruct)
@@ -50,3 +50,5 @@ final class BeforeCreateLanguageEvent extends BeforeEvent
         return $this->language instanceof Language;
     }
 }
+
+class_alias(BeforeCreateLanguageEvent::class, 'eZ\Publish\API\Repository\Events\Language\BeforeCreateLanguageEvent');

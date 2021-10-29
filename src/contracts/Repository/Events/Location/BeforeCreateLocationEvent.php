@@ -6,23 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Location;
+namespace Ibexa\Contracts\Core\Repository\Events\Location;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCreateLocationEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo */
     private $contentInfo;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\LocationCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct */
     private $locationCreateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
     private $location;
 
     public function __construct(ContentInfo $contentInfo, LocationCreateStruct $locationCreateStruct)
@@ -60,3 +60,5 @@ final class BeforeCreateLocationEvent extends BeforeEvent
         return $this->location instanceof Location;
     }
 }
+
+class_alias(BeforeCreateLocationEvent::class, 'eZ\Publish\API\Repository\Events\Location\BeforeCreateLocationEvent');

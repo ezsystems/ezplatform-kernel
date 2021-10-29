@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Event;
+namespace Ibexa\Core\Event;
 
-use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
-use eZ\Publish\SPI\Repository\Decorator\SearchServiceDecorator;
+use Ibexa\Contracts\Core\Repository\SearchService as SearchServiceInterface;
+use Ibexa\Contracts\Core\Repository\Decorator\SearchServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class SearchService extends SearchServiceDecorator
@@ -26,3 +26,5 @@ class SearchService extends SearchServiceDecorator
         $this->eventDispatcher = $eventDispatcher;
     }
 }
+
+class_alias(SearchService::class, 'eZ\Publish\Core\Event\SearchService');

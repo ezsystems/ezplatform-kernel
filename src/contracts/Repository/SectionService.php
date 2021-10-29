@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository;
+namespace Ibexa\Contracts\Core\Repository;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\SectionCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\API\Repository\Values\Content\SectionUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct;
 
 /**
  * Section service, used for section operations.
@@ -22,63 +22,63 @@ interface SectionService
     /**
      * Creates the a new Section in the content repository.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to create a section
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the new identifier in $sectionCreateStruct already exists
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to create a section
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the new identifier in $sectionCreateStruct already exists
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\SectionCreateStruct $sectionCreateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct $sectionCreateStruct
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Section The newly create section
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section The newly create section
      */
     public function createSection(SectionCreateStruct $sectionCreateStruct): Section;
 
     /**
      * Updates the given in the content repository.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to create a section
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the new identifier already exists (if set in the update struct)
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to create a section
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the new identifier already exists (if set in the update struct)
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
-     * @param \eZ\Publish\API\Repository\Values\Content\SectionUpdateStruct $sectionUpdateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct $sectionUpdateStruct
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Section
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section
      */
     public function updateSection(Section $section, SectionUpdateStruct $sectionUpdateStruct): Section;
 
     /**
      * Loads a Section from its id ($sectionId).
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if section could not be found
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to read a section
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if section could not be found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to read a section
      *
      * @param int $sectionId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Section
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section
      */
     public function loadSection(int $sectionId): Section;
 
     /**
      * Loads all sections, excluding the ones the current user is not allowed to read.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Section[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section[]
      */
     public function loadSections(): iterable;
 
     /**
      * Loads a Section from its identifier ($sectionIdentifier).
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if section could not be found
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to read a section
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if section could not be found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to read a section
      *
      * @param string $sectionIdentifier
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Section
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section
      */
     public function loadSectionByIdentifier(string $sectionIdentifier): Section;
 
     /**
      * Counts the contents which $section is assigned to.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
      *
      * @return int
      *
@@ -93,7 +93,7 @@ interface SectionService
      *
      * @since 6.0
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
      *
      * @return bool
      */
@@ -102,44 +102,46 @@ interface SectionService
     /**
      * Assigns the content to the given section this method overrides the current assigned section.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If user does not have access to view provided object
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If user does not have access to view provided object
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
      */
     public function assignSection(ContentInfo $contentInfo, Section $section): void;
 
     /**
      * Assigns the subtree to the given section this method overrides the current assigned section.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
      */
     public function assignSectionToSubtree(Location $location, Section $section): void;
 
     /**
      * Deletes $section from content repository.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If the specified section is not found
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to delete a section
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException  if section can not be deleted
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If the specified section is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to delete a section
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException  if section can not be deleted
      *         because it is still assigned to some contents.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
      */
     public function deleteSection(Section $section): void;
 
     /**
      * Instantiates a new SectionCreateStruct.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\SectionCreateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct
      */
     public function newSectionCreateStruct(): SectionCreateStruct;
 
     /**
      * Instantiates a new SectionUpdateStruct.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\SectionUpdateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct
      */
     public function newSectionUpdateStruct(): SectionUpdateStruct;
 }
+
+class_alias(SectionService::class, 'eZ\Publish\API\Repository\SectionService');

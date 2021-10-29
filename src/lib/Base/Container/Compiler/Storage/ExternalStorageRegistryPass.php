@@ -4,9 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Container\Compiler\Storage;
+namespace Ibexa\Core\Base\Container\Compiler\Storage;
 
-use eZ\Publish\Core\Base\Container\Compiler\TaggedServiceIdsIterator\BackwardCompatibleIterator;
+use Ibexa\Core\Base\Container\Compiler\TaggedServiceIdsIterator\BackwardCompatibleIterator;
+use Ibexa\Core\FieldType\GatewayBasedStorage;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -109,7 +110,7 @@ class ExternalStorageRegistryPass implements CompilerPassInterface
                 if (
                     is_subclass_of(
                         $storageHandlerClass,
-                        'eZ\\Publish\\Core\\FieldType\\GatewayBasedStorage'
+                        GatewayBasedStorage::class
                     )
                 ) {
                     if (!isset($externalStorageGateways[$attribute['alias']])) {
@@ -139,3 +140,5 @@ class ExternalStorageRegistryPass implements CompilerPassInterface
         }
     }
 }
+
+class_alias(ExternalStorageRegistryPass::class, 'eZ\Publish\Core\Base\Container\Compiler\Storage\ExternalStorageRegistryPass');

@@ -4,42 +4,42 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Image;
+namespace Ibexa\Core\FieldType\Image;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Utils\DeprecationWarnerInterface as DeprecationWarner;
-use eZ\Publish\Core\IO\FilePathNormalizerInterface;
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\Core\IO\MetadataHandler;
-use eZ\Publish\SPI\FieldType\GatewayBasedStorage;
-use eZ\Publish\SPI\FieldType\StorageGateway;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Utils\DeprecationWarnerInterface as DeprecationWarner;
+use Ibexa\Core\IO\FilePathNormalizerInterface;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\MetadataHandler;
+use Ibexa\Contracts\Core\FieldType\GatewayBasedStorage;
+use Ibexa\Contracts\Core\FieldType\StorageGateway;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 
 /**
  * Converter for Image field type external storage.
  */
 class ImageStorage extends GatewayBasedStorage
 {
-    /** @var \eZ\Publish\Core\IO\IOServiceInterface */
+    /** @var \Ibexa\Core\IO\IOServiceInterface */
     protected $ioService;
 
-    /** @var \eZ\Publish\Core\FieldType\Image\PathGenerator */
+    /** @var \Ibexa\Core\FieldType\Image\PathGenerator */
     protected $pathGenerator;
 
-    /** @var \eZ\Publish\Core\IO\MetadataHandler */
+    /** @var \Ibexa\Core\IO\MetadataHandler */
     protected $imageSizeMetadataHandler;
 
-    /** @var \eZ\Publish\Core\Base\Utils\DeprecationWarnerInterface */
+    /** @var \Ibexa\Core\Base\Utils\DeprecationWarnerInterface */
     private $deprecationWarner;
 
-    /** @var \eZ\Publish\Core\FieldType\Image\AliasCleanerInterface */
+    /** @var \Ibexa\Core\FieldType\Image\AliasCleanerInterface */
     protected $aliasCleaner;
 
-    /** @var \eZ\Publish\Core\FieldType\Image\ImageStorage\Gateway */
+    /** @var \Ibexa\Core\FieldType\Image\ImageStorage\Gateway */
     protected $gateway;
 
-    /** @var \eZ\Publish\Core\IO\FilePathNormalizerInterface */
+    /** @var \Ibexa\Core\IO\FilePathNormalizerInterface */
     protected $filePathNormalizer;
 
     public function __construct(
@@ -190,3 +190,5 @@ class ImageStorage extends GatewayBasedStorage
         );
     }
 }
+
+class_alias(ImageStorage::class, 'eZ\Publish\Core\FieldType\Image\ImageStorage');

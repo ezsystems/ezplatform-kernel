@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Pagination\Pagerfanta;
+namespace Ibexa\Core\Pagination\Pagerfanta;
 
 /**
  * Pagerfanta adapter for eZ Publish content search.
@@ -18,7 +18,7 @@ class LocationSearchAdapter extends LocationSearchHitAdapter
      * @param int $offset The offset.
      * @param int $length The length.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      */
     public function getSlice($offset, $length)
     {
@@ -30,3 +30,5 @@ class LocationSearchAdapter extends LocationSearchHitAdapter
         return $list;
     }
 }
+
+class_alias(LocationSearchAdapter::class, 'eZ\Publish\Core\Pagination\Pagerfanta\LocationSearchAdapter');

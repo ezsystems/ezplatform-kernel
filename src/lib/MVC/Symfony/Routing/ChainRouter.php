@@ -6,10 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Routing;
+namespace Ibexa\Core\MVC\Symfony\Routing;
 
 use Symfony\Cmf\Component\Routing\ChainRouter as BaseChainRouter;
 
 class ChainRouter extends BaseChainRouter
 {
 }
+
+class_alias(ChainRouter::class, 'eZ\Publish\Core\MVC\Symfony\Routing\ChainRouter');

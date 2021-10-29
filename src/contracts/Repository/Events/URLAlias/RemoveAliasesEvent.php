@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\URLAlias;
+namespace Ibexa\Contracts\Core\Repository\Events\URLAlias;
 
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class RemoveAliasesEvent extends AfterEvent
 {
@@ -26,3 +26,5 @@ final class RemoveAliasesEvent extends AfterEvent
         return $this->aliasList;
     }
 }
+
+class_alias(RemoveAliasesEvent::class, 'eZ\Publish\API\Repository\Events\URLAlias\RemoveAliasesEvent');

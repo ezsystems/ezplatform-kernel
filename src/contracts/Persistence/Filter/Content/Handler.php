@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Persistence\Filter\Content;
+namespace Ibexa\Contracts\Core\Persistence\Filter\Content;
 
-use eZ\Publish\API\Repository\Values\Filter\Filter;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 
 /**
  * Content Filtering ContentHandler.
@@ -18,7 +18,9 @@ use eZ\Publish\API\Repository\Values\Filter\Filter;
 interface Handler
 {
     /**
-     * @return \eZ\Publish\SPI\Persistence\Filter\Content\LazyContentItemListIterator
+     * @return \Ibexa\Contracts\Core\Persistence\Filter\Content\LazyContentItemListIterator
      */
     public function find(Filter $filter): iterable;
 }
+
+class_alias(Handler::class, 'eZ\Publish\SPI\Persistence\Filter\Content\Handler');

@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View\ParametersInjector;
+namespace Ibexa\Core\MVC\Symfony\View\ParametersInjector;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewParametersEvent;
-use eZ\Publish\Core\MVC\Symfony\View\ViewEvents;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\View\Event\FilterViewParametersEvent;
+use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -19,7 +19,7 @@ class ViewbaseLayout implements EventSubscriberInterface
     /** @var string */
     private $viewbaseLayout;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct($viewbaseLayout, ConfigResolverInterface $configResolver)
@@ -48,3 +48,5 @@ class ViewbaseLayout implements EventSubscriberInterface
         $event->getParameterBag()->set('page_layout', $pageLayout);
     }
 }
+
+class_alias(ViewbaseLayout::class, 'eZ\Publish\Core\MVC\Symfony\View\ParametersInjector\ViewbaseLayout');

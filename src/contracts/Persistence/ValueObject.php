@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence;
+namespace Ibexa\Contracts\Core\Persistence;
 
-use eZ\Publish\API\Repository\Values\ValueObject as APIValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject as APIValueObject;
 
 /**
  * Base SPI Value object.
@@ -16,3 +16,5 @@ use eZ\Publish\API\Repository\Values\ValueObject as APIValueObject;
 abstract class ValueObject extends APIValueObject
 {
 }
+
+class_alias(ValueObject::class, 'eZ\Publish\SPI\Persistence\ValueObject');

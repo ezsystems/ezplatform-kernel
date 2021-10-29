@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache;
+namespace Ibexa\Core\Persistence\Cache;
 
 use Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface;
-use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
+use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 
 /**
@@ -20,10 +20,10 @@ abstract class AbstractHandler
     /** @var \Symfony\Component\Cache\Adapter\TagAwareAdapterInterface */
     protected $cache;
 
-    /** @var \eZ\Publish\SPI\Persistence\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Handler */
     protected $persistenceHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\PersistenceLogger */
+    /** @var \Ibexa\Core\Persistence\Cache\PersistenceLogger */
     protected $logger;
 
     /** @var \Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface */
@@ -33,8 +33,8 @@ abstract class AbstractHandler
      * Setups current handler with everything needed.
      *
      * @param \Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $cache
-     * @param \eZ\Publish\SPI\Persistence\Handler $persistenceHandler
-     * @param \eZ\Publish\Core\Persistence\Cache\PersistenceLogger $logger
+     * @param \Ibexa\Contracts\Core\Persistence\Handler $persistenceHandler
+     * @param \Ibexa\Core\Persistence\Cache\PersistenceLogger $logger
      * @param \Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface $cacheIdentifierGenerator
      */
     public function __construct(
@@ -133,3 +133,5 @@ abstract class AbstractHandler
         );
     }
 }
+
+class_alias(AbstractHandler::class, 'eZ\Publish\Core\Persistence\Cache\AbstractHandler');

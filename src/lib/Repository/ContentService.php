@@ -6,63 +6,63 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository;
+namespace Ibexa\Core\Repository;
 
-use eZ\Publish\API\Repository\ContentService as ContentServiceInterface;
-use eZ\Publish\API\Repository\PermissionService;
-use eZ\Publish\API\Repository\Repository as RepositoryInterface;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LanguageCode;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\FieldType\FieldTypeRegistry;
-use eZ\Publish\API\Repository\Values\Content\ContentDraftList;
-use eZ\Publish\API\Repository\Values\Content\DraftList\Item\ContentDraftListItem;
-use eZ\Publish\API\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem;
-use eZ\Publish\API\Repository\Values\Content\RelationList;
-use eZ\Publish\API\Repository\Values\Content\RelationList\Item\RelationListItem;
-use eZ\Publish\API\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem;
-use eZ\Publish\API\Repository\Values\User\UserReference;
-use eZ\Publish\Core\Repository\Mapper\ContentDomainMapper;
-use eZ\Publish\Core\Repository\Mapper\ContentMapper;
-use eZ\Publish\Core\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\SPI\Persistence\Filter\Content\Handler as ContentFilteringHandler;
-use eZ\Publish\SPI\FieldType\Comparable;
-use eZ\Publish\SPI\FieldType\FieldType;
-use eZ\Publish\SPI\FieldType\Value;
-use eZ\Publish\SPI\Persistence\Handler;
-use eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct as APIContentUpdateStruct;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct as APIContentCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\ContentMetadataUpdateStruct;
-use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\Relation as APIRelation;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException;
-use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Repository\Values\Content\ContentCreateStruct;
-use eZ\Publish\Core\Repository\Values\Content\ContentUpdateStruct;
-use eZ\Publish\SPI\Limitation\Target;
-use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct as SPIMetadataUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\CreateStruct as SPIContentCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct as SPIContentUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Field as SPIField;
-use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as SPIRelationCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo as SPIContentInfo;
+use Ibexa\Contracts\Core\Repository\ContentService as ContentServiceInterface;
+use Ibexa\Contracts\Core\Repository\PermissionService;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LanguageCode;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentDraftList;
+use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\ContentDraftListItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference;
+use Ibexa\Core\Repository\Mapper\ContentDomainMapper;
+use Ibexa\Core\Repository\Mapper\ContentMapper;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Persistence\Filter\Content\Handler as ContentFilteringHandler;
+use Ibexa\Contracts\Core\FieldType\Comparable;
+use Ibexa\Contracts\Core\FieldType\FieldType;
+use Ibexa\Contracts\Core\FieldType\Value;
+use Ibexa\Contracts\Core\Persistence\Handler;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct as APIContentUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct as APIContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation as APIRelation;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\ContentFieldValidationException;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Core\Repository\Values\Content\ContentUpdateStruct;
+use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct as SPIMetadataUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\CreateStruct as SPIContentCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct as SPIContentUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Field as SPIField;
+use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as SPIRelationCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo as SPIContentInfo;
 use Exception;
-use eZ\Publish\SPI\Repository\Validator\ContentValidator;
-use eZ\Publish\API\Repository\Values\Content\ContentList;
-use eZ\Publish\API\Repository\Values\Filter\Filter;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentList;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 use function count;
 use function sprintf;
 
@@ -71,37 +71,37 @@ use function sprintf;
  */
 class ContentService implements ContentServiceInterface
 {
-    /** @var \eZ\Publish\Core\Repository\Repository */
+    /** @var \Ibexa\Core\Repository\Repository */
     protected $repository;
 
-    /** @var \eZ\Publish\SPI\Persistence\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Handler */
     protected $persistenceHandler;
 
     /** @var array */
     protected $settings;
 
-    /** @var \eZ\Publish\Core\Repository\Mapper\ContentDomainMapper */
+    /** @var \Ibexa\Core\Repository\Mapper\ContentDomainMapper */
     protected $contentDomainMapper;
 
-    /** @var \eZ\Publish\Core\Repository\Helper\RelationProcessor */
+    /** @var \Ibexa\Core\Repository\Helper\RelationProcessor */
     protected $relationProcessor;
 
-    /** @var \eZ\Publish\Core\Repository\Helper\NameSchemaService */
+    /** @var \Ibexa\Core\Repository\Helper\NameSchemaService */
     protected $nameSchemaService;
 
-    /** @var \eZ\Publish\Core\FieldType\FieldTypeRegistry */
+    /** @var \Ibexa\Core\FieldType\FieldTypeRegistry */
     protected $fieldTypeRegistry;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\Core\Repository\Mapper\ContentMapper */
+    /** @var \Ibexa\Core\Repository\Mapper\ContentMapper */
     private $contentMapper;
 
-    /** @var \eZ\Publish\SPI\Repository\Validator\ContentValidator */
+    /** @var \Ibexa\Contracts\Core\Repository\Validator\ContentValidator */
     private $contentValidator;
 
-    /** @var \eZ\Publish\SPI\Persistence\Filter\Content\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Filter\Content\Handler */
     private $contentFilteringHandler;
 
     public function __construct(
@@ -140,12 +140,12 @@ class ContentService implements ContentServiceInterface
      *
      * To load fields use loadContent
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to read the content
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException - if the content with the given id does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to read the content
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException - if the content with the given id does not exist
      *
      * @param int $contentId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
      */
     public function loadContentInfo(int $contentId): ContentInfo
     {
@@ -177,11 +177,11 @@ class ContentService implements ContentServiceInterface
     /**
      * Loads a content info object.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException - if the content with the given id does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException - if the content with the given id does not exist
      *
      * @param int $id
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
      */
     public function internalLoadContentInfoById(int $id): ContentInfo
     {
@@ -197,11 +197,11 @@ class ContentService implements ContentServiceInterface
     /**
      * Loads a content info object by remote id.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException - if the content with the given id does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException - if the content with the given id does not exist
      *
      * @param string $remoteId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
      */
     public function internalLoadContentInfoByRemoteId(string $remoteId): ContentInfo
     {
@@ -219,12 +219,12 @@ class ContentService implements ContentServiceInterface
      *
      * To load fields use loadContent
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to read the content
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException - if the content with the given remote id does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to read the content
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException - if the content with the given remote id does not exist
      *
      * @param string $remoteId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
      */
     public function loadContentInfoByRemoteId(string $remoteId): ContentInfo
     {
@@ -242,13 +242,13 @@ class ContentService implements ContentServiceInterface
      *
      * If no version number is given, the method returns the current version
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException - if the version with the given number does not exist
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to load this version
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException - if the version with the given number does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to load this version
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      * @param int|null $versionNo the version number. If not given the current version is returned.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo
      */
     public function loadVersionInfo(ContentInfo $contentInfo, ?int $versionNo = null): APIVersionInfo
     {
@@ -260,13 +260,13 @@ class ContentService implements ContentServiceInterface
      *
      * If no version number is given, the method returns the current version
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException - if the version with the given number does not exist
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to load this version
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException - if the version with the given number does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to load this version
      *
      * @param int $contentId
      * @param int|null $versionNo the version number. If not given the current version is returned.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo
      */
     public function loadVersionInfoById(int $contentId, ?int $versionNo = null): APIVersionInfo
     {
@@ -450,15 +450,15 @@ class ContentService implements ContentServiceInterface
      *
      * If no version is given, the method returns the current version
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException - if the content or version with the given remote id does not exist
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the user has no access to read content and in case of un-published content: read versions
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException - if the content or version with the given remote id does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the user has no access to read content and in case of un-published content: read versions
      *
      * @param string $remoteId
      * @param array $languages A language filter for fields. If not given all languages are returned
      * @param int $versionNo the version number. If not given the current version is returned
      * @param bool $useAlwaysAvailable Add Main language to \$languages if true (default) and if alwaysAvailable is true
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     public function loadContentByRemoteId(string $remoteId, array $languages = null, ?int $versionNo = null, bool $useAlwaysAvailable = true): APIContent
     {
@@ -485,13 +485,13 @@ class ContentService implements ContentServiceInterface
      * Moreover, since the method works on pre-loaded ContentInfo list, it is assumed that user is
      * allowed to access every Content on the list.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo[] $contentInfoList
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[] $contentInfoList
      * @param string[] $languages A language priority, filters returned fields and is used as prioritized language code on
      *                            returned value object. If not given all languages are returned.
      * @param bool $useAlwaysAvailable Add Main language to \$languages if true (default) and if alwaysAvailable is true,
      *                                 unless all languages have been asked for.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content[] list of Content items with Content Ids as keys
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content[] list of Content items with Content Ids as keys
      */
     public function loadContentListByContentInfo(
         array $contentInfoList,
@@ -545,20 +545,20 @@ class ContentService implements ContentServiceInterface
      * The user has to publish the draft if it should be visible.
      * In 4.x at least one location has to be provided in the location creation array.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to create the content in the given location
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the provided remoteId exists in the system, required properties on
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to create the content in the given location
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if the provided remoteId exists in the system, required properties on
      *                                                                        struct are missing or invalid, or if multiple locations are under the
      *                                                                        same parent.
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException if a field in the $contentCreateStruct is not valid,
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException if a field in the $contentCreateStruct is not valid,
      *                                                                               or if a required field is missing / set to an empty value.
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException If field definition does not exist in the ContentType,
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException If field definition does not exist in the ContentType,
      *                                                                          or value is set for non-translatable field in language
      *                                                                          other than main.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentCreateStruct $contentCreateStruct
-     * @param \eZ\Publish\API\Repository\Values\Content\LocationCreateStruct[] $locationCreateStructs For each location parent under which a location should be created for the content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct $contentCreateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct[] $locationCreateStructs For each location parent under which a location should be created for the content
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content - the newly created content draft
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content - the newly created content draft
      */
     public function createContent(APIContentCreateStruct $contentCreateStruct, array $locationCreateStructs = [], ?array $fieldIdentifiersToValidate = null): APIContent
     {
@@ -652,7 +652,7 @@ class ContentService implements ContentServiceInterface
         $locationIdToContentIdMapping = [];
 
         foreach ($contentCreateStruct->contentType->getFieldDefinitions() as $fieldDefinition) {
-            /** @var $fieldType \eZ\Publish\Core\FieldType\FieldType */
+            /** @var $fieldType \Ibexa\Core\FieldType\FieldType */
             $fieldType = $this->fieldTypeRegistry->getFieldType(
                 $fieldDefinition->fieldTypeIdentifier
             );
@@ -757,7 +757,7 @@ class ContentService implements ContentServiceInterface
     /**
      * Returns an array of default content states with content state group id as key.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState[]
      */
     protected function getDefaultObjectStates(): array
     {
@@ -776,12 +776,12 @@ class ContentService implements ContentServiceInterface
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\LocationCreateStruct[] $locationCreateStructs
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType|null $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct[] $locationCreateStructs
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location\CreateStruct[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct[]
      */
     protected function buildSPILocationCreateStructs(
         array $locationCreateStructs,
@@ -833,13 +833,13 @@ class ContentService implements ContentServiceInterface
      *
      * (see {@link ContentMetadataUpdateStruct}) of a content object - to update fields use updateContent
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to update the content meta data
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the remoteId in $contentMetadataUpdateStruct is set but already exists
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to update the content meta data
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if the remoteId in $contentMetadataUpdateStruct is set but already exists
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentMetadataUpdateStruct $contentMetadataUpdateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct $contentMetadataUpdateStruct
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content the content with the updated attributes
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content the content with the updated attributes
      */
     public function updateContentMetadata(ContentInfo $contentInfo, ContentMetadataUpdateStruct $contentMetadataUpdateStruct): APIContent
     {
@@ -932,7 +932,7 @@ class ContentService implements ContentServiceInterface
     /**
      * Publishes URL aliases for all locations of a given content.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param bool $updatePathIdentificationString this parameter is legacy storage specific for updating
      *                      ezcontentobject_tree.path_identification_string, it is ignored by other storage engines
      */
@@ -966,9 +966,9 @@ class ContentService implements ContentServiceInterface
     /**
      * Deletes a content object including all its versions and locations including their subtrees.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to delete the content (in one of the locations of the given content object)
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to delete the content (in one of the locations of the given content object)
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      *
      * @return mixed[] Affected Location Id's
      */
@@ -1011,16 +1011,16 @@ class ContentService implements ContentServiceInterface
      *
      * If no version is given, the current published version is used.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo|null $versionInfo
-     * @param \eZ\Publish\API\Repository\Values\User\User|null $creator if set given user is used to create the draft - otherwise the current-user is used
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null if not set the draft is created with the initialLanguage code of the source version or if not present with the main language.
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User|null $creator if set given user is used to create the draft - otherwise the current-user is used
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null if not set the draft is created with the initialLanguage code of the source version or if not present with the main language.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content - the newly created content draft
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content - the newly created content draft
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the current-user is not allowed to create the draft
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the current-user is not allowed to create the draft
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the current-user is not allowed to create the draft
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the current-user is not allowed to create the draft
      */
     public function createContentDraft(
         ContentInfo $contentInfo,
@@ -1127,13 +1127,13 @@ class ContentService implements ContentServiceInterface
      *
      * If no user is given the drafts for the authenticated user are returned
      *
-     * @param \eZ\Publish\API\Repository\Values\User\User|null $user
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User|null $user
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo[] Drafts owned by the given user
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[] Drafts owned by the given user
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function loadContentDrafts(?User $user = null): iterable
     {
@@ -1195,24 +1195,24 @@ class ContentService implements ContentServiceInterface
     /**
      * Updates the fields of a draft.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct $contentUpdateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct $contentUpdateStruct
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content the content draft with the updated fields
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content the content draft with the updated fields
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException if a field in the $contentCreateStruct is not valid,
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException if a field in the $contentCreateStruct is not valid,
      *                                                                               or if a required field is missing / set to an empty value.
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException If field definition does not exist in the ContentType,
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException If field definition does not exist in the ContentType,
      *                                                                          or value is set for non-translatable field in language
      *                                                                          other than main.
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to update this version
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException if the version is not a draft
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if a property on the struct is invalid.
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to update this version
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException if the version is not a draft
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if a property on the struct is invalid.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function updateContent(APIVersionInfo $versionInfo, APIContentUpdateStruct $contentUpdateStruct, ?array $fieldIdentifiersToValidate = null): APIContent
     {
-        /** @var $content \eZ\Publish\Core\Repository\Values\Content\Content */
+        /** @var $content \Ibexa\Core\Repository\Values\Content\Content */
         $content = $this->loadContent(
             $versionInfo->getContentInfo()->id,
             null,
@@ -1244,14 +1244,14 @@ class ContentService implements ContentServiceInterface
     /**
      * Updates the fields of a draft without checking the permissions.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException if a field in the $contentCreateStruct is not valid,
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException if a field in the $contentCreateStruct is not valid,
      *                                                                               or if a required field is missing / set to an empty value.
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException If field definition does not exist in the ContentType,
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException If field definition does not exist in the ContentType,
      *                                                                          or value is set for non-translatable field in language
      *                                                                          other than main.
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException if the version is not a draft
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if a property on the struct is invalid.
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException if the version is not a draft
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if a property on the struct is invalid.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     protected function internalUpdateContent(
         APIVersionInfo $versionInfo,
@@ -1260,7 +1260,7 @@ class ContentService implements ContentServiceInterface
     ): Content {
         $contentUpdateStruct = clone $contentUpdateStruct;
 
-        /** @var $content \eZ\Publish\Core\Repository\Values\Content\Content */
+        /** @var $content \Ibexa\Core\Repository\Values\Content\Content */
         $content = $this->internalLoadContentById(
             $versionInfo->getContentInfo()->id,
             null,
@@ -1416,15 +1416,15 @@ class ContentService implements ContentServiceInterface
      * Publishes a content version and deletes archive versions if they overflow max archive versions.
      * Max archive versions are currently a configuration, but might be moved to be a param of ContentType in the future.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      * @param string[] $translations
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException if the version is not a draft
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException if the version is not a draft
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function publishVersion(APIVersionInfo $versionInfo, array $translations = Language::ALL): APIContent
     {
@@ -1466,14 +1466,14 @@ class ContentService implements ContentServiceInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      * @param array $translations
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     protected function copyTranslationsFromPublishedVersion(APIVersionInfo $versionInfo, array $translations = []): void
     {
@@ -1597,12 +1597,12 @@ class ContentService implements ContentServiceInterface
      * Publishes a content version and deletes archive versions if they overflow max archive versions.
      * Max archive versions are currently a configuration, but might be moved to be a param of ContentType in the future.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException if the version is not a draft
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException if the version is not a draft
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      * @param int|null $publicationDate If null existing date is kept if there is one, otherwise current time is used.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     protected function internalPublishVersion(APIVersionInfo $versionInfo, $publicationDate = null)
     {
@@ -1669,7 +1669,7 @@ class ContentService implements ContentServiceInterface
 
         $maxVersionArchiveCount = max(0, min(50, $this->settings['default_version_archive_limit']));
         while (!empty($archiveList) && count($archiveList) > $maxVersionArchiveCount) {
-            /** @var \eZ\Publish\SPI\Persistence\Content\VersionInfo $archiveVersion */
+            /** @var \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $archiveVersion */
             $archiveVersion = array_shift($archiveList);
             $this->persistenceHandler->contentHandler()->deleteVersion(
                 $contentId,
@@ -1689,11 +1689,11 @@ class ContentService implements ContentServiceInterface
     /**
      * Removes the given version.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException if the version is in
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException if the version is in
      *         published state or is a last version of Content in non draft state
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to remove this version
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to remove this version
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      */
     public function deleteVersion(APIVersionInfo $versionInfo): void
     {
@@ -1749,13 +1749,13 @@ class ContentService implements ContentServiceInterface
     /**
      * Loads all versions for the given content.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to list versions
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the given status is invalid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to list versions
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if the given status is invalid
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      * @param int|null $status
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo[] Sorted by creation date
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[] Sorted by creation date
      */
     public function loadVersions(ContentInfo $contentInfo, ?int $status = null): iterable
     {
@@ -1791,13 +1791,13 @@ class ContentService implements ContentServiceInterface
      * Copies the content to a new location. If no version is given,
      * all versions are copied, otherwise only the given version.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to copy the content to the given location
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to copy the content to the given location
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \eZ\Publish\API\Repository\Values\Content\LocationCreateStruct $destinationLocationCreateStruct the target location where the content is copied to
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct $destinationLocationCreateStruct the target location where the content is copied to
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null $versionInfo
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     public function copyContent(ContentInfo $contentInfo, LocationCreateStruct $destinationLocationCreateStruct, ?APIVersionInfo $versionInfo = null): APIContent
     {
@@ -1858,11 +1858,11 @@ class ContentService implements ContentServiceInterface
     /**
      * Loads all outgoing relations for the given version.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to read this version
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to read this version
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Relation[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Relation[]
      */
     public function loadRelations(APIVersionInfo $versionInfo): iterable
     {
@@ -1882,9 +1882,9 @@ class ContentService implements ContentServiceInterface
     /**
      * Loads all outgoing relations for the given version without checking the permissions.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Relation[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Relation[]
      */
     protected function internalLoadRelations(APIVersionInfo $versionInfo): array
     {
@@ -1894,7 +1894,7 @@ class ContentService implements ContentServiceInterface
             $versionInfo->versionNo
         );
 
-        /** @var $relations \eZ\Publish\API\Repository\Values\Content\Relation[] */
+        /** @var $relations \Ibexa\Contracts\Core\Repository\Values\Content\Relation[] */
         $relations = [];
         foreach ($spiRelations as $spiRelation) {
             $destinationContentInfo = $this->internalLoadContentInfoById($spiRelation->destinationContentId);
@@ -1931,11 +1931,11 @@ class ContentService implements ContentServiceInterface
      *
      * The relations come only from published versions of the source content objects
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to read this version
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to read this version
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Relation[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Relation[]
      */
     public function loadReverseRelations(ContentInfo $contentInfo): iterable
     {
@@ -2011,13 +2011,13 @@ class ContentService implements ContentServiceInterface
      * The source of the relation is the content and version
      * referenced by $versionInfo.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to edit this version
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException if the version is not a draft
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to edit this version
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException if the version is not a draft
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $sourceVersion
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $destinationContent the destination of the relation
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $sourceVersion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $destinationContent the destination of the relation
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Relation the newly created relation
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Relation the newly created relation
      */
     public function addRelation(APIVersionInfo $sourceVersion, ContentInfo $destinationContent): APIRelation
     {
@@ -2064,12 +2064,12 @@ class ContentService implements ContentServiceInterface
     /**
      * Removes a relation of type COMMON from a draft.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed edit this version
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException if the version is not a draft
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if there is no relation of type COMMON for the given destination
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed edit this version
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException if the version is not a draft
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if there is no relation of type COMMON for the given destination
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $sourceVersion
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $destinationContent
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $sourceVersion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $destinationContent
      */
     public function deleteRelation(APIVersionInfo $sourceVersion, ContentInfo $destinationContent): void
     {
@@ -2127,14 +2127,14 @@ class ContentService implements ContentServiceInterface
      *
      * NOTE: this operation is risky and permanent, so user interface should provide a warning before performing it.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException if the specified Translation
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException if the specified Translation
      *         is the Main Translation of a Content Item.
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed
      *         to delete the content (in one of the locations of the given Content Item).
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if languageCode argument
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if languageCode argument
      *         is invalid for the given content.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      * @param string $languageCode
      *
      * @since 6.13
@@ -2222,18 +2222,18 @@ class ContentService implements ContentServiceInterface
     /**
      * Delete specified Translation from a Content Draft.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException if the specified Translation
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException if the specified Translation
      *         is the only one the Content Draft has or it is the main Translation of a Content Object.
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed
      *         to edit the Content (in one of the locations of the given Content Object).
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if languageCode argument
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if languageCode argument
      *         is invalid for the given Draft.
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if specified Version was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if specified Version was not found
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo Content Version Draft
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo Content Version Draft
      * @param string $languageCode Language code of the Translation to be removed
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content Content Draft w/o the specified Translation
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content Content Draft w/o the specified Translation
      *
      * @since 6.12
      */
@@ -2312,7 +2312,7 @@ class ContentService implements ContentServiceInterface
      *
      * @see revealContent
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      */
     public function hideContent(ContentInfo $contentInfo): void
     {
@@ -2346,7 +2346,7 @@ class ContentService implements ContentServiceInterface
      *
      * @see hideContent
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      */
     public function revealContent(ContentInfo $contentInfo): void
     {
@@ -2379,10 +2379,10 @@ class ContentService implements ContentServiceInterface
      *
      * alwaysAvailable is set to the ContentType's defaultAlwaysAvailable
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      * @param string $mainLanguageCode
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentCreateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct
      */
     public function newContentCreateStruct(ContentType $contentType, string $mainLanguageCode): APIContentCreateStruct
     {
@@ -2398,7 +2398,7 @@ class ContentService implements ContentServiceInterface
     /**
      * Instantiates a new content meta data update struct.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentMetadataUpdateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct
      */
     public function newContentMetadataUpdateStruct(): ContentMetadataUpdateStruct
     {
@@ -2408,7 +2408,7 @@ class ContentService implements ContentServiceInterface
     /**
      * Instantiates a new content update struct.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct
      */
     public function newContentUpdateStruct(): APIContentUpdateStruct
     {
@@ -2416,9 +2416,9 @@ class ContentService implements ContentServiceInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\User|null $user
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User|null $user
      *
-     * @return \eZ\Publish\API\Repository\Values\User\UserReference
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\UserReference
      */
     private function resolveUser(?User $user): UserReference
     {
@@ -2473,3 +2473,5 @@ class ContentService implements ContentServiceInterface
         return new ContentList($contentItemsIterator->getTotalCount(), $contentItems);
     }
 }
+
+class_alias(ContentService::class, 'eZ\Publish\Core\Repository\ContentService');

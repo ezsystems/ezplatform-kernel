@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Persistence\Bookmark;
+namespace Ibexa\Contracts\Core\Persistence\Bookmark;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 class CreateStruct extends ValueObject
 {
@@ -35,3 +35,5 @@ class CreateStruct extends ValueObject
      */
     public $userId;
 }
+
+class_alias(CreateStruct::class, 'eZ\Publish\SPI\Persistence\Bookmark\CreateStruct');

@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Section;
+namespace Ibexa\Contracts\Core\Repository\Events\Section;
 
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\API\Repository\Values\Content\SectionCreateStruct;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCreateSectionEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\SectionCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct */
     private $sectionCreateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Section|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null */
     private $section;
 
     public function __construct(SectionCreateStruct $sectionCreateStruct)
@@ -50,3 +50,5 @@ final class BeforeCreateSectionEvent extends BeforeEvent
         return $this->section instanceof Section;
     }
 }
+
+class_alias(BeforeCreateSectionEvent::class, 'eZ\Publish\API\Repository\Events\Section\BeforeCreateSectionEvent');

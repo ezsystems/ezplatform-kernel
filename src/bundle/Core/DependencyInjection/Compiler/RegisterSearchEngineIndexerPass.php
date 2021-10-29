@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\Core\DependencyInjection\Compiler;
 
-use eZ\Publish\Core\Base\Container\Compiler\TaggedServiceIdsIterator\BackwardCompatibleIterator;
+use Ibexa\Core\Base\Container\Compiler\TaggedServiceIdsIterator\BackwardCompatibleIterator;
 use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -23,7 +23,7 @@ class RegisterSearchEngineIndexerPass implements CompilerPassInterface
     /**
      * Container service id of the SearchEngineIndexerFactory.
      *
-     * @see \eZ\Bundle\EzPublishCoreBundle\ApiLoader\SearchEngineIndexerFactory
+     * @see \Ibexa\Bundle\Core\ApiLoader\SearchEngineIndexerFactory
      *
      * @var string
      */
@@ -75,3 +75,5 @@ class RegisterSearchEngineIndexerPass implements CompilerPassInterface
         }
     }
 }
+
+class_alias(RegisterSearchEngineIndexerPass::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\RegisterSearchEngineIndexerPass');

@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\Cache\Resolver;
+namespace Ibexa\Bundle\Core\Imagine\Cache\Resolver;
 
 use Liip\ImagineBundle\Imagine\Cache\Resolver\ProxyResolver as ImagineProxyResolver;
 
@@ -32,3 +32,5 @@ class ProxyResolver extends ImagineProxyResolver
         return $proxyHost . $relativeUrl;
     }
 }
+
+class_alias(ProxyResolver::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\Cache\Resolver\ProxyResolver');

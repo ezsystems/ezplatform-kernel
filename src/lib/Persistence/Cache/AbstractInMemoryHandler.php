@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache;
+namespace Ibexa\Core\Persistence\Cache;
 
-use eZ\Publish\Core\Persistence\Cache\Adapter\TransactionAwareAdapterInterface;
-use eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache;
+use Ibexa\Core\Persistence\Cache\Adapter\TransactionAwareAdapterInterface;
+use Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache;
 
 /**
  * Abstract handler for use in other SPI Handlers.
@@ -20,27 +20,27 @@ abstract class AbstractInMemoryHandler
     /**
      * NOTE: Instance of this must be TransactionalInMemoryCacheAdapter in order for cache clearing to affect in-memory cache.
      *
-     * @var \eZ\Publish\Core\Persistence\Cache\Adapter\TransactionAwareAdapterInterface
+     * @var \Ibexa\Core\Persistence\Cache\Adapter\TransactionAwareAdapterInterface
      */
     protected $cache;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\PersistenceLogger */
+    /** @var \Ibexa\Core\Persistence\Cache\PersistenceLogger */
     protected $logger;
 
     /**
      * NOTE: On purpose private as it's only supposed to be interacted with in tandem with symfony cache here,
      *       hence the cache decorator and the reusable methods here.
      *
-     * @var \eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache
+     * @var \Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache
      */
     private $inMemory;
 
     /**
      * Setups current handler with everything needed.
      *
-     * @param \eZ\Publish\Core\Persistence\Cache\Adapter\TransactionAwareAdapterInterface $cache
-     * @param \eZ\Publish\Core\Persistence\Cache\PersistenceLogger $logger
-     * @param \eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache $inMemory
+     * @param \Ibexa\Core\Persistence\Cache\Adapter\TransactionAwareAdapterInterface $cache
+     * @param \Ibexa\Core\Persistence\Cache\PersistenceLogger $logger
+     * @param \Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache $inMemory
      */
     public function __construct(
         TransactionAwareAdapterInterface $cache,
@@ -291,3 +291,5 @@ abstract class AbstractInMemoryHandler
         );
     }
 }
+
+class_alias(AbstractInMemoryHandler::class, 'eZ\Publish\Core\Persistence\Cache\AbstractInMemoryHandler');

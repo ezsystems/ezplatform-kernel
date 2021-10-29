@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\User\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\User\Gateway;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\User\Gateway;
-use eZ\Publish\SPI\Persistence\User;
-use eZ\Publish\SPI\Persistence\User\UserTokenUpdateStruct;
+use Ibexa\Core\Persistence\Legacy\User\Gateway;
+use Ibexa\Contracts\Core\Persistence\User;
+use Ibexa\Contracts\Core\Persistence\User\UserTokenUpdateStruct;
 use function time;
 
 /**
@@ -22,7 +22,7 @@ use function time;
  *
  * @internal Gateway implementation is considered internal. Use Persistence User Handler instead.
  *
- * @see \eZ\Publish\SPI\Persistence\User\Handler
+ * @see \Ibexa\Contracts\Core\Persistence\User\Handler
  */
 final class DoctrineDatabase extends Gateway
 {
@@ -306,3 +306,5 @@ final class DoctrineDatabase extends Gateway
         return !empty($query->execute()->fetch(FetchMode::ASSOCIATIVE));
     }
 }
+
+class_alias(DoctrineDatabase::class, 'eZ\Publish\Core\Persistence\Legacy\User\Gateway\DoctrineDatabase');

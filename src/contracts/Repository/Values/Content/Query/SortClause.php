@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Target;
 use InvalidArgumentException;
 
 /**
@@ -35,7 +35,7 @@ abstract class SortClause
     /**
      * Extra target data, required by some sort clauses, field for instance.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Target|null
      */
     public $targetData;
 
@@ -44,7 +44,7 @@ abstract class SortClause
      *
      * @param string $sortTarget
      * @param string $sortDirection one of Query::SORT_ASC or Query::SORT_DESC
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target|null $targetData Extra target data, used by some clauses (field for instance)
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Target|null $targetData Extra target data, used by some clauses (field for instance)
      *
      * @throws InvalidArgumentException if the given sort order isn't one of Query::SORT_ASC or Query::SORT_DESC
      */
@@ -62,3 +62,5 @@ abstract class SortClause
         }
     }
 }
+
+class_alias(SortClause::class, 'eZ\Publish\API\Repository\Values\Content\Query\SortClause');

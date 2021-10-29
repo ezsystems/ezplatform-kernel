@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository;
+namespace Ibexa\Contracts\Core\Repository;
 
-use eZ\Publish\API\Repository\Values\User\LookupLimitationResult;
-use eZ\Publish\API\Repository\Values\User\UserReference;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This service provides methods for resolving permissions.
@@ -20,14 +20,14 @@ interface PermissionResolver
     /**
      * Get current user reference.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\UserReference
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\UserReference
      */
     public function getCurrentUserReference(): UserReference;
 
     /**
      * Sets the current user to the given $user.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\UserReference $userReference
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserReference $userReference
      */
     public function setCurrentUserReference(UserReference $userReference): void;
 
@@ -40,11 +40,11 @@ interface PermissionResolver
      *          This includes Role Assignment limitations, but also future policy limitations added in kernel,
      *          or as plain user configuration and/or extending the system.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If module or function is invalid.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If module or function is invalid.
      *
      * @param string $module The module, aka controller identifier to check permissions on
      * @param string $function The function, aka the controller action to check permissions on
-     * @param \eZ\Publish\API\Repository\Values\User\UserReference|null $userReference User for
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserReference|null $userReference User for
      *        which the information is returned, current user will be used if null
      *
      * @return bool|array if limitations are on this function an array of limitations is returned
@@ -62,13 +62,13 @@ interface PermissionResolver
      * Example2: canUser( 'section', 'assign', $content, $section );
      *           Check if user has access to assign $content to $section.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If any of the arguments are invalid
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException If value of the LimitationValue is unsupported
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If any of the arguments are invalid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException If value of the LimitationValue is unsupported
      *
      * @param string $module The module, aka controller identifier to check permissions on
      * @param string $function The function, aka the controller action to check permissions on
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $object The object to check if the user has access to
-     * @param \eZ\Publish\API\Repository\Values\ValueObject[] $targets An array of location, parent or "assignment" value objects
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $object The object to check if the user has access to
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject[] $targets An array of location, parent or "assignment" value objects
      *
      * @return bool
      */
@@ -77,14 +77,14 @@ interface PermissionResolver
     /**
      * @param string $module The module, aka controller identifier to check permissions on
      * @param string $function The function, aka the controller action to check permissions on
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $object The object to check if the user has access to
-     * @param \eZ\Publish\API\Repository\Values\ValueObject[] $targets An array of location, parent or "assignment" value objects
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $object The object to check if the user has access to
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject[] $targets An array of location, parent or "assignment" value objects
      * @param string[] $limitationsIdentifiers An array of Limitations identifiers to filter from all which will pass
      *
-     * @return \eZ\Publish\API\Repository\Values\User\LookupLimitationResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function lookupLimitations(
         string $module,
@@ -94,3 +94,5 @@ interface PermissionResolver
         array $limitationsIdentifiers = []
     ): LookupLimitationResult;
 }
+
+class_alias(PermissionResolver::class, 'eZ\Publish\API\Repository\PermissionResolver');

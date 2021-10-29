@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Templating;
+namespace Ibexa\Core\MVC\Symfony\Templating;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\SPI\MVC\Templating\BaseRenderStrategy;
-use eZ\Publish\SPI\MVC\Templating\RenderStrategy;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\MVC\Templating\BaseRenderStrategy;
+use Ibexa\Contracts\Core\MVC\Templating\RenderStrategy;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
 final class RenderLocationStrategy extends BaseRenderStrategy implements RenderStrategy
@@ -33,7 +33,7 @@ final class RenderLocationStrategy extends BaseRenderStrategy implements RenderS
             );
         }
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
         $location = $valueObject;
         $content = $location->getContent();
 
@@ -49,3 +49,5 @@ final class RenderLocationStrategy extends BaseRenderStrategy implements RenderS
         return $renderer->render($controllerReference, $currentRequest)->getContent();
     }
 }
+
+class_alias(RenderLocationStrategy::class, 'eZ\Publish\Core\MVC\Symfony\Templating\RenderLocationStrategy');

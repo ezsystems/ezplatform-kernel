@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Setting;
+namespace Ibexa\Contracts\Core\Repository\Events\Setting;
 
-use eZ\Publish\API\Repository\Values\Setting\Setting;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Setting\Setting;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 
 final class BeforeDeleteSettingEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Setting\Setting */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Setting\Setting */
     private $setting;
 
     public function __construct(Setting $setting)
@@ -26,3 +26,5 @@ final class BeforeDeleteSettingEvent extends BeforeEvent
         return $this->setting;
     }
 }
+
+class_alias(BeforeDeleteSettingEvent::class, 'eZ\Publish\API\Repository\Events\Setting\BeforeDeleteSettingEvent');

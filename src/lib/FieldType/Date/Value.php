@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Date;
+namespace Ibexa\Core\FieldType\Date;
 
-use eZ\Publish\Core\FieldType\Value as BaseValue;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
 use Exception;
 use DateTime;
 
@@ -47,11 +47,11 @@ class Value extends BaseValue
     /**
      * Creates a Value from the given $dateString.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      *
      * @param string $dateString
      *
-     * @return \eZ\Publish\Core\FieldType\Date\Value
+     * @return \Ibexa\Core\FieldType\Date\Value
      */
     public static function fromString($dateString)
     {
@@ -65,11 +65,11 @@ class Value extends BaseValue
     /**
      * Creates a Value from the given $timestamp.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      *
      * @param int $timestamp
      *
-     * @return \eZ\Publish\Core\FieldType\Date\Value
+     * @return \Ibexa\Core\FieldType\Date\Value
      */
     public static function fromTimestamp($timestamp)
     {
@@ -83,9 +83,6 @@ class Value extends BaseValue
         }
     }
 
-    /**
-     * @see \eZ\Publish\Core\FieldType\Value
-     */
     public function __toString()
     {
         if (!$this->date instanceof DateTime) {
@@ -95,3 +92,5 @@ class Value extends BaseValue
         return $this->date->format($this->stringFormat);
     }
 }
+
+class_alias(Value::class, 'eZ\Publish\Core\FieldType\Date\Value');

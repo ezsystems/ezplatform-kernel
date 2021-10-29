@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\SiteAccessAware\Language;
+namespace Ibexa\Core\Repository\SiteAccessAware\Language;
 
 /**
  * Resolves language settings for use in SiteAccess aware Repository.
@@ -32,3 +32,5 @@ final class LanguageResolver extends AbstractLanguageResolver
         return $this->configLanguages;
     }
 }
+
+class_alias(LanguageResolver::class, 'eZ\Publish\Core\Repository\SiteAccessAware\Language\LanguageResolver');

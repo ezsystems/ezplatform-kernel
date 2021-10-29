@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository;
+namespace Ibexa\Contracts\Core\Repository;
 
 /**
  * Repository interface.
@@ -27,7 +27,7 @@ interface Repository
      *
      *
      * @param callable $callback
-     * @param \eZ\Publish\API\Repository\Repository|null $outerRepository Optional, mostly for internal use but allows to
+     * @param \Ibexa\Contracts\Core\Repository\Repository|null $outerRepository Optional, mostly for internal use but allows to
      *                                                   specify Repository to pass to closure.
      *
      * @throws \Exception Re-throws exceptions thrown inside $callback
@@ -41,7 +41,7 @@ interface Repository
      *
      * Get service object to perform operations on Content objects and it's aggregate members.
      *
-     * @return \eZ\Publish\API\Repository\ContentService
+     * @return \Ibexa\Contracts\Core\Repository\ContentService
      */
     public function getContentService(): ContentService;
 
@@ -50,7 +50,7 @@ interface Repository
      *
      * Get service object to perform operations on Content language objects
      *
-     * @return \eZ\Publish\API\Repository\LanguageService
+     * @return \Ibexa\Contracts\Core\Repository\LanguageService
      */
     public function getContentLanguageService(): LanguageService;
 
@@ -60,7 +60,7 @@ interface Repository
      * Get service object to perform operations on Content Type objects and it's aggregate members.
      * ( Group, Field & FieldCategory )
      *
-     * @return \eZ\Publish\API\Repository\ContentTypeService
+     * @return \Ibexa\Contracts\Core\Repository\ContentTypeService
      */
     public function getContentTypeService(): ContentTypeService;
 
@@ -69,7 +69,7 @@ interface Repository
      *
      * Get service object to perform operations on Location objects and subtrees
      *
-     * @return \eZ\Publish\API\Repository\LocationService
+     * @return \Ibexa\Contracts\Core\Repository\LocationService
      */
     public function getLocationService(): LocationService;
 
@@ -79,7 +79,7 @@ interface Repository
      * Trash service allows to perform operations related to location trash
      * (trash/untrash, load/list from trash...)
      *
-     * @return \eZ\Publish\API\Repository\TrashService
+     * @return \Ibexa\Contracts\Core\Repository\TrashService
      */
     public function getTrashService(): TrashService;
 
@@ -88,7 +88,7 @@ interface Repository
      *
      * Get Section service that lets you manipulate section objects
      *
-     * @return \eZ\Publish\API\Repository\SectionService
+     * @return \Ibexa\Contracts\Core\Repository\SectionService
      */
     public function getSectionService(): SectionService;
 
@@ -97,7 +97,7 @@ interface Repository
      *
      * Get search service that lets you find content objects
      *
-     * @return \eZ\Publish\API\Repository\SearchService
+     * @return \Ibexa\Contracts\Core\Repository\SearchService
      */
     public function getSearchService(): SearchService;
 
@@ -106,77 +106,77 @@ interface Repository
      *
      * Get service object to perform operations on Users and UserGroup
      *
-     * @return \eZ\Publish\API\Repository\UserService
+     * @return \Ibexa\Contracts\Core\Repository\UserService
      */
     public function getUserService(): UserService;
 
     /**
      * Get URLAliasService.
      *
-     * @return \eZ\Publish\API\Repository\URLAliasService
+     * @return \Ibexa\Contracts\Core\Repository\URLAliasService
      */
     public function getURLAliasService(): URLAliasService;
 
     /**
      * Get URLWildcardService.
      *
-     * @return \eZ\Publish\API\Repository\URLWildcardService
+     * @return \Ibexa\Contracts\Core\Repository\URLWildcardService
      */
     public function getURLWildcardService(): URLWildcardService;
 
     /**
      * Get ObjectStateService.
      *
-     * @return \eZ\Publish\API\Repository\ObjectStateService
+     * @return \Ibexa\Contracts\Core\Repository\ObjectStateService
      */
     public function getObjectStateService(): ObjectStateService;
 
     /**
      * Get RoleService.
      *
-     * @return \eZ\Publish\API\Repository\RoleService
+     * @return \Ibexa\Contracts\Core\Repository\RoleService
      */
     public function getRoleService(): RoleService;
 
     /**
      * Get FieldTypeService.
      *
-     * @return \eZ\Publish\API\Repository\FieldTypeService
+     * @return \Ibexa\Contracts\Core\Repository\FieldTypeService
      */
     public function getFieldTypeService(): FieldTypeService;
 
     /**
      * Get PermissionResolver.
      *
-     * @return \eZ\Publish\API\Repository\PermissionResolver
+     * @return \Ibexa\Contracts\Core\Repository\PermissionResolver
      */
     public function getPermissionResolver(): PermissionResolver;
 
     /**
      * Get URLService.
      *
-     * @return \eZ\Publish\API\Repository\URLService
+     * @return \Ibexa\Contracts\Core\Repository\URLService
      */
     public function getURLService(): URLService;
 
     /**
      * Get BookmarkService.
      *
-     * @return \eZ\Publish\API\Repository\BookmarkService
+     * @return \Ibexa\Contracts\Core\Repository\BookmarkService
      */
     public function getBookmarkService(): BookmarkService;
 
     /**
      * Get NotificationService.
      *
-     * @return \eZ\Publish\API\Repository\NotificationService
+     * @return \Ibexa\Contracts\Core\Repository\NotificationService
      */
     public function getNotificationService(): NotificationService;
 
     /**
      * Get UserPreferenceService.
      *
-     * @return \eZ\Publish\API\Repository\UserPreferenceService
+     * @return \Ibexa\Contracts\Core\Repository\UserPreferenceService
      */
     public function getUserPreferenceService(): UserPreferenceService;
 
@@ -206,3 +206,5 @@ interface Repository
      */
     public function rollback(): void;
 }
+
+class_alias(Repository::class, 'eZ\Publish\API\Repository\Repository');

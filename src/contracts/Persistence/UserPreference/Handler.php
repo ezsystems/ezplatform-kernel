@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Persistence\UserPreference;
+namespace Ibexa\Contracts\Core\Persistence\UserPreference;
 
 interface Handler
 {
     /**
      * Store UserPreference ValueObject in persistent storage.
      *
-     * @param \eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct $setStruct
+     * @param \Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct $setStruct
      *
-     * @return \eZ\Publish\SPI\Persistence\UserPreference\UserPreference
+     * @return \Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference
      */
     public function setUserPreference(UserPreferenceSetStruct $setStruct): UserPreference;
 
@@ -25,9 +25,9 @@ interface Handler
      * @param int $userId
      * @param string $name
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If no value is found for given preference name.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If no value is found for given preference name.
      *
-     * @return \eZ\Publish\SPI\Persistence\UserPreference\UserPreference
+     * @return \Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference
      */
     public function getUserPreferenceByUserIdAndName(int $userId, string $name): UserPreference;
 
@@ -36,7 +36,7 @@ interface Handler
      * @param int $offset
      * @param int $limit
      *
-     * @return \eZ\Publish\SPI\Persistence\UserPreference\UserPreference[]
+     * @return \Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference[]
      */
     public function loadUserPreferences(int $userId, int $offset, int $limit): array;
 
@@ -47,3 +47,5 @@ interface Handler
      */
     public function countUserPreferences(int $userId): int;
 }
+
+class_alias(Handler::class, 'eZ\Publish\SPI\Persistence\UserPreference\Handler');

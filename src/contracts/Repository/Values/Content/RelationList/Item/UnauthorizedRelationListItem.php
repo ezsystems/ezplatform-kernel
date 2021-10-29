@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\RelationList\Item;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item;
 
-use eZ\Publish\API\Repository\Lists\UnauthorizedListItem;
-use eZ\Publish\API\Repository\Values\Content\RelationList\RelationListItemInterface;
-use eZ\Publish\API\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Lists\UnauthorizedListItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\RelationListItemInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
 
 /**
  * Item of relation list.
@@ -27,3 +27,5 @@ final class UnauthorizedRelationListItem extends UnauthorizedListItem implements
         return false;
     }
 }
+
+class_alias(UnauthorizedRelationListItem::class, 'eZ\Publish\API\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem');

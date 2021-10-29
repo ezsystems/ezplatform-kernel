@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Translation;
+namespace Ibexa\Bundle\Core\Translation;
 
 /**
  * Retrieves all installed ezplatform translation files ie those installed as ezsystems/ezplatform-i18n-* package.
@@ -41,3 +41,5 @@ class GlobCollector implements Collector
         return $meta;
     }
 }
+
+class_alias(GlobCollector::class, 'eZ\Bundle\EzPublishCoreBundle\Translation\GlobCollector');

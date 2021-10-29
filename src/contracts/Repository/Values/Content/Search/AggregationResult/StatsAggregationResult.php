@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Search\AggregationResult;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult;
 
-use eZ\Publish\API\Repository\Values\Content\Search\AggregationResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult;
 
 final class StatsAggregationResult extends AggregationResult
 {
@@ -63,3 +63,5 @@ final class StatsAggregationResult extends AggregationResult
         return $this->sum;
     }
 }
+
+class_alias(StatsAggregationResult::class, 'eZ\Publish\API\Repository\Values\Content\Search\AggregationResult\StatsAggregationResult');

@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Events\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 
 final class BeforeRemoveFieldDefinitionEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft */
     private $contentTypeDraft;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition */
     private $fieldDefinition;
 
     public function __construct(ContentTypeDraft $contentTypeDraft, FieldDefinition $fieldDefinition)
@@ -36,3 +36,5 @@ final class BeforeRemoveFieldDefinitionEvent extends BeforeEvent
         return $this->fieldDefinition;
     }
 }
+
+class_alias(BeforeRemoveFieldDefinitionEvent::class, 'eZ\Publish\API\Repository\Events\ContentType\BeforeRemoveFieldDefinitionEvent');

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Command;
+namespace Ibexa\Bundle\Core\Command;
 
 use DateTime;
 use DateTimeZone;
@@ -513,3 +513,5 @@ EOT
         return ['ezplatform:timestamps:to-utc'];
     }
 }
+
+class_alias(UpdateTimestampsToUTCCommand::class, 'eZ\Bundle\EzPublishCoreBundle\Command\UpdateTimestampsToUTCCommand');

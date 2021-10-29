@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Exception;
+namespace Ibexa\Core\Persistence\Legacy\Exception;
 
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\BadStateException;
 
 /**
  * Exception thrown when a Type is to be unlinked from its last Group.
@@ -31,3 +31,5 @@ class RemoveLastGroupFromType extends BadStateException
         );
     }
 }
+
+class_alias(RemoveLastGroupFromType::class, 'eZ\Publish\Core\Persistence\Legacy\Exception\RemoveLastGroupFromType');

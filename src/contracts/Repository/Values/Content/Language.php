@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class represents a language in the repository.
@@ -53,3 +53,5 @@ class Language extends ValueObject
      */
     protected $enabled;
 }
+
+class_alias(Language::class, 'eZ\Publish\API\Repository\Values\Content\Language');

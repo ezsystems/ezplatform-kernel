@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Gateway;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway;
-use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
+use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Gateway;
+use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard;
 
 /**
  * URL wildcard gateway implementation using the Doctrine database.
  *
  * @internal Gateway implementation is considered internal. Use Persistence UrlWildcard Handler instead.
  *
- * @see \eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler
+ * @see \Ibexa\Contracts\Core\Persistence\Content\UrlWildcard\Handler
  */
 final class DoctrineDatabase extends Gateway
 {
@@ -181,3 +181,5 @@ final class DoctrineDatabase extends Gateway
         return trim($url, '/');
     }
 }
+
+class_alias(DoctrineDatabase::class, 'eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase');

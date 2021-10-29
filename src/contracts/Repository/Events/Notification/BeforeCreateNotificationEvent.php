@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Notification;
+namespace Ibexa\Contracts\Core\Repository\Events\Notification;
 
-use eZ\Publish\API\Repository\Values\Notification\CreateStruct;
-use eZ\Publish\API\Repository\Values\Notification\Notification;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Notification\CreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCreateNotificationEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Notification\CreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Notification\CreateStruct */
     private $createStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\Notification\Notification|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Notification\Notification|null */
     private $notification;
 
     public function __construct(CreateStruct $createStruct)
@@ -50,3 +50,5 @@ final class BeforeCreateNotificationEvent extends BeforeEvent
         return $this->notification instanceof Notification;
     }
 }
+
+class_alias(BeforeCreateNotificationEvent::class, 'eZ\Publish\API\Repository\Events\Notification\BeforeCreateNotificationEvent');

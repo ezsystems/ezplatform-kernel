@@ -6,42 +6,42 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\FieldType\ImageAsset;
+namespace Ibexa\Core\FieldType\ImageAsset;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\FieldType\FieldType;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\API\Repository\Values\Content\Relation;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
-use eZ\Publish\SPI\Persistence\Content\Handler as SPIContentHandler;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\FieldType\FieldType;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Contracts\Core\Persistence\Content\Handler as SPIContentHandler;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 class Type extends FieldType
 {
     const FIELD_TYPE_IDENTIFIER = 'ezimageasset';
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \eZ\Publish\Core\FieldType\ImageAsset\AssetMapper */
+    /** @var \Ibexa\Core\FieldType\ImageAsset\AssetMapper */
     private $assetMapper;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Handler */
     private $handler;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
-     * @param \eZ\Publish\Core\FieldType\ImageAsset\AssetMapper $mapper
-     * @param \eZ\Publish\SPI\Persistence\Content\Handler $handler
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
+     * @param \Ibexa\Core\FieldType\ImageAsset\AssetMapper $mapper
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Handler $handler
      */
     public function __construct(
         ContentService $contentService,
@@ -58,10 +58,10 @@ class Type extends FieldType
     /**
      * Validates a field based on the validators in the field definition.
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition $fieldDefinition The field definition of the field
-     * @param \eZ\Publish\Core\FieldType\ImageAsset\Value $fieldValue The field value for which an action is performed
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition $fieldDefinition The field definition of the field
+     * @param \Ibexa\Core\FieldType\ImageAsset\Value $fieldValue The field value for which an action is performed
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validate(FieldDefinition $fieldDefinition, SPIValue $fieldValue): array
     {
@@ -104,7 +104,7 @@ class Type extends FieldType
     }
 
     /**
-     * @param \eZ\Publish\Core\FieldType\ImageAsset\Value|\eZ\Publish\SPI\FieldType\Value $value
+     * @param \Ibexa\Core\FieldType\ImageAsset\Value|\Ibexa\Contracts\Core\FieldType\Value $value
      */
     public function getName(SPIValue $value, FieldDefinition $fieldDefinition, string $languageCode): string
     {
@@ -126,7 +126,7 @@ class Type extends FieldType
      * Returns the fallback default value of field type when no such default
      * value is provided in the field definition in content types.
      *
-     * @return \eZ\Publish\Core\FieldType\ImageAsset\Value
+     * @return \Ibexa\Core\FieldType\ImageAsset\Value
      */
     public function getEmptyValue(): Value
     {
@@ -148,9 +148,9 @@ class Type extends FieldType
     /**
      * Inspects given $inputValue and potentially converts it into a dedicated value object.
      *
-     * @param int|string|\eZ\Publish\API\Repository\Values\Content\ContentInfo|\eZ\Publish\Core\FieldType\Relation\Value $inputValue
+     * @param int|string|\Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|\Ibexa\Core\FieldType\Relation\Value $inputValue
      *
-     * @return \eZ\Publish\Core\FieldType\ImageAsset\Value The potentially converted and structurally plausible value.
+     * @return \Ibexa\Core\FieldType\ImageAsset\Value The potentially converted and structurally plausible value.
      */
     protected function createValueFromInput($inputValue)
     {
@@ -166,9 +166,9 @@ class Type extends FieldType
     /**
      * Throws an exception if value structure is not of expected format.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
      *
-     * @param \eZ\Publish\Core\FieldType\ImageAsset\Value $value
+     * @param \Ibexa\Core\FieldType\ImageAsset\Value $value
      */
     protected function checkValueStructure(BaseValue $value): void
     {
@@ -193,7 +193,7 @@ class Type extends FieldType
      * Returns information for FieldValue->$sortKey relevant to the field type.
      * For this FieldType, the related object's name is returned.
      *
-     * @param \eZ\Publish\Core\FieldType\Relation\Value $value
+     * @param \Ibexa\Core\FieldType\Relation\Value $value
      *
      * @return bool
      */
@@ -207,7 +207,7 @@ class Type extends FieldType
      *
      * @param mixed $hash
      *
-     * @return \eZ\Publish\Core\FieldType\ImageAsset\Value $value
+     * @return \Ibexa\Core\FieldType\ImageAsset\Value $value
      */
     public function fromHash($hash): Value
     {
@@ -226,7 +226,7 @@ class Type extends FieldType
     /**
      * Converts a $Value to a hash.
      *
-     * @param \eZ\Publish\Core\FieldType\ImageAsset\Value $value
+     * @param \Ibexa\Core\FieldType\ImageAsset\Value $value
      *
      * @return array
      */
@@ -246,25 +246,25 @@ class Type extends FieldType
     /**
      * Returns relation data extracted from value.
      *
-     * Not intended for \eZ\Publish\API\Repository\Values\Content\Relation::COMMON type relations,
+     * Not intended for \Ibexa\Contracts\Core\Repository\Values\Content\Relation::COMMON type relations,
      * there is an API for handling those.
      *
-     * @param \eZ\Publish\Core\FieldType\ImageAsset\Value $fieldValue
+     * @param \Ibexa\Core\FieldType\ImageAsset\Value $fieldValue
      *
      * @return array Hash with relation type as key and array of destination content ids as value.
      *
      * Example:
      * <code>
      *  array(
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::LINK => array(
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::LINK => array(
      *          "contentIds" => array( 12, 13, 14 ),
      *          "locationIds" => array( 24 )
      *      ),
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::EMBED => array(
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::EMBED => array(
      *          "contentIds" => array( 12 ),
      *          "locationIds" => array( 24, 45 )
      *      ),
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::FIELD => array( 12 )
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::FIELD => array( 12 )
      *  )
      * </code>
      */
@@ -288,3 +288,5 @@ class Type extends FieldType
         return true;
     }
 }
+
+class_alias(Type::class, 'eZ\Publish\Core\FieldType\ImageAsset\Type');

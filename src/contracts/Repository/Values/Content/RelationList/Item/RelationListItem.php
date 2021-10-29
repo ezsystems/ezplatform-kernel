@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\RelationList\Item;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item;
 
-use eZ\Publish\API\Repository\Values\Content\Relation;
-use eZ\Publish\API\Repository\Values\Content\RelationList\RelationListItemInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\RelationListItemInterface;
 
 /**
  * Item of relation list.
  */
 class RelationListItem implements RelationListItemInterface
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Relation */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Relation */
     private $relation;
 
     public function __construct(Relation $relation)
@@ -34,3 +34,5 @@ class RelationListItem implements RelationListItemInterface
         return true;
     }
 }
+
+class_alias(RelationListItem::class, 'eZ\Publish\API\Repository\Values\Content\RelationList\Item\RelationListItem');

@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType;
+namespace Ibexa\Core\FieldType;
 
-use eZ\Publish\SPI\FieldType\FieldStorage;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\FieldType\GatewayBasedStorage as SPIGatewayBasedStorage;
+use Ibexa\Contracts\Core\FieldType\FieldStorage;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\FieldType\GatewayBasedStorage as SPIGatewayBasedStorage;
 
 /**
  * Storage gateway base class to be used by FieldType storages.
  *
- * @deprecated Since 6.11. Use {@link \eZ\Publish\SPI\FieldType\GatewayBasedStorage}
+ * @deprecated Since 6.11. Use {@link \Ibexa\Contracts\Core\FieldType\GatewayBasedStorage}
  *
  * This class gives a common basis to realized gateway based storage
  * dispatching. It is intended to deal as a base class for FieldType storages,
@@ -29,14 +29,14 @@ abstract class GatewayBasedStorage implements FieldStorage
     /**
      * Gateways.
      *
-     * @var \eZ\Publish\Core\FieldType\StorageGateway[]
+     * @var \Ibexa\Core\FieldType\StorageGateway[]
      */
     protected $gateways;
 
     /**
      * Construct from gateways.
      *
-     * @param \eZ\Publish\Core\FieldType\StorageGateway[] $gateways
+     * @param \Ibexa\Core\FieldType\StorageGateway[] $gateways
      */
     public function __construct(array $gateways = [])
     {
@@ -59,7 +59,7 @@ abstract class GatewayBasedStorage implements FieldStorage
      * Adds a storage $gateway assigned to the given $identifier.
      *
      * @param string $identifier
-     * @param \eZ\Publish\Core\FieldType\StorageGateway $gateway
+     * @param \Ibexa\Core\FieldType\StorageGateway $gateway
      */
     public function addGateway($identifier, StorageGateway $gateway)
     {
@@ -74,7 +74,7 @@ abstract class GatewayBasedStorage implements FieldStorage
      *
      * @param array $context
      *
-     * @return \eZ\Publish\Core\FieldType\StorageGateway
+     * @return \Ibexa\Core\FieldType\StorageGateway
      */
     protected function getGateway(array $context)
     {
@@ -100,18 +100,20 @@ abstract class GatewayBasedStorage implements FieldStorage
      * This method is used exclusively by Legacy Storage to copy external data of existing field in main language to
      * the untranslatable field not passed in create or update struct, but created implicitly in storage layer.
      *
-     * By default the method falls back to the {@link \eZ\Publish\SPI\FieldType\FieldStorage::storeFieldData()}.
+     * By default the method falls back to the {@link \Ibexa\Contracts\Core\FieldType\FieldStorage::storeFieldData()}.
      * External storages implement this method as needed.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $originalField
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $originalField
      * @param array $context
      *
-     * @return bool|null Same as {@link \eZ\Publish\SPI\FieldType\FieldStorage::storeFieldData()}.
+     * @return bool|null Same as {@link \Ibexa\Contracts\Core\FieldType\FieldStorage::storeFieldData()}.
      */
     public function copyLegacyField(VersionInfo $versionInfo, Field $field, Field $originalField, array $context)
     {
         return $this->storeFieldData($versionInfo, $field, $context);
     }
 }
+
+class_alias(GatewayBasedStorage::class, 'eZ\Publish\Core\FieldType\GatewayBasedStorage');

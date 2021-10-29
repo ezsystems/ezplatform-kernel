@@ -6,33 +6,33 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository;
+namespace Ibexa\Core\Repository;
 
 use DateTime;
-use eZ\Publish\API\Repository\NotificationService as NotificationServiceInterface;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\Notification\CreateStruct as APICreateStruct;
-use eZ\Publish\API\Repository\Values\Notification\Notification as APINotification;
-use eZ\Publish\API\Repository\Values\Notification\NotificationList;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
-use eZ\Publish\SPI\Persistence\Notification\CreateStruct;
-use eZ\Publish\SPI\Persistence\Notification\Handler;
-use eZ\Publish\SPI\Persistence\Notification\Notification;
-use eZ\Publish\SPI\Persistence\Notification\UpdateStruct;
+use Ibexa\Contracts\Core\Repository\NotificationService as NotificationServiceInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Notification\CreateStruct as APICreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification as APINotification;
+use Ibexa\Contracts\Core\Repository\Values\Notification\NotificationList;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Persistence\Notification\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Notification\Handler;
+use Ibexa\Contracts\Core\Persistence\Notification\Notification;
+use Ibexa\Contracts\Core\Persistence\Notification\UpdateStruct;
 
 class NotificationService implements NotificationServiceInterface
 {
-    /** @var \eZ\Publish\SPI\Persistence\Notification\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Notification\Handler */
     protected $persistenceHandler;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     protected $permissionResolver;
 
     /**
-     * @param \eZ\Publish\SPI\Persistence\Notification\Handler $persistenceHandler
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
+     * @param \Ibexa\Contracts\Core\Persistence\Notification\Handler $persistenceHandler
+     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
      */
     public function __construct(Handler $persistenceHandler, PermissionResolver $permissionResolver)
     {
@@ -156,9 +156,9 @@ class NotificationService implements NotificationServiceInterface
     /**
      * Builds Notification domain object from ValueObject returned by Persistence API.
      *
-     * @param \eZ\Publish\SPI\Persistence\Notification\Notification $spiNotification
+     * @param \Ibexa\Contracts\Core\Persistence\Notification\Notification $spiNotification
      *
-     * @return \eZ\Publish\API\Repository\Values\Notification\Notification
+     * @return \Ibexa\Contracts\Core\Repository\Values\Notification\Notification
      */
     protected function buildDomainObject(Notification $spiNotification): APINotification
     {
@@ -179,3 +179,5 @@ class NotificationService implements NotificationServiceInterface
             ->getUserId();
     }
 }
+
+class_alias(NotificationService::class, 'eZ\Publish\Core\Repository\NotificationService');

@@ -4,26 +4,26 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View\Provider;
+namespace Ibexa\Core\MVC\Symfony\View\Provider;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\MVC\Symfony\View\View;
 
 class Registry
 {
     /**
      * Array of ViewProvider, indexed by handled type.
      *
-     * @var \eZ\Publish\Core\MVC\Symfony\View\ViewProvider[][]
+     * @var \Ibexa\Core\MVC\Symfony\View\ViewProvider[][]
      */
     private $viewProviders;
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\View $view
+     * @param \Ibexa\Core\MVC\Symfony\View\View $view
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\View\ViewProvider[]
+     * @return \Ibexa\Core\MVC\Symfony\View\ViewProvider[]
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      */
     public function getViewProviders(View $view)
     {
@@ -45,3 +45,5 @@ class Registry
         $this->viewProviders = $viewProviders;
     }
 }
+
+class_alias(Registry::class, 'eZ\Publish\Core\MVC\Symfony\View\Provider\Registry');

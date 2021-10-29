@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Event;
+namespace Ibexa\Core\Event;
 
-use eZ\Publish\API\Repository\UserPreferenceService as UserPreferenceServiceInterface;
-use eZ\Publish\API\Repository\Events\UserPreference\BeforeSetUserPreferenceEvent;
-use eZ\Publish\API\Repository\Events\UserPreference\SetUserPreferenceEvent;
-use eZ\Publish\SPI\Repository\Decorator\UserPreferenceServiceDecorator;
+use Ibexa\Contracts\Core\Repository\UserPreferenceService as UserPreferenceServiceInterface;
+use Ibexa\Contracts\Core\Repository\Events\UserPreference\BeforeSetUserPreferenceEvent;
+use Ibexa\Contracts\Core\Repository\Events\UserPreference\SetUserPreferenceEvent;
+use Ibexa\Contracts\Core\Repository\Decorator\UserPreferenceServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class UserPreferenceService extends UserPreferenceServiceDecorator
@@ -46,3 +46,5 @@ class UserPreferenceService extends UserPreferenceServiceDecorator
         );
     }
 }
+
+class_alias(UserPreferenceService::class, 'eZ\Publish\Core\Event\UserPreferenceService');

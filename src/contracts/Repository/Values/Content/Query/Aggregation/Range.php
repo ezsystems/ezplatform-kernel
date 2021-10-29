@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
 
 use DateTimeInterface;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 final class Range extends ValueObject
 {
@@ -82,3 +82,5 @@ final class Range extends ValueObject
         return new self($from, $to);
     }
 }
+
+class_alias(Range::class, 'eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Range');

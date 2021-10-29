@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Component\Serializer;
+namespace Ibexa\Core\MVC\Symfony\Component\Serializer;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\URIText;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\URIText;
 
 final class URITextNormalizer extends AbstractPropertyWhitelistNormalizer
 {
@@ -22,3 +22,5 @@ final class URITextNormalizer extends AbstractPropertyWhitelistNormalizer
         return $data instanceof URIText;
     }
 }
+
+class_alias(URITextNormalizer::class, 'eZ\Publish\Core\MVC\Symfony\Component\Serializer\URITextNormalizer');

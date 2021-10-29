@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\SortSpec;
+namespace Ibexa\Core\QueryType\BuiltIn\SortSpec;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Exception\SyntaxErrorException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\Exception\SyntaxErrorException;
 
 /**
  * Parser recognizing the following grammar:.
@@ -32,10 +32,10 @@ final class SortSpecParser implements SortSpecParserInterface
 {
     private const DEFAULT_SORT_DIRECTION = Query::SORT_ASC;
 
-    /** @var \eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecLexerInterface */
+    /** @var \Ibexa\Core\QueryType\BuiltIn\SortSpec\SortSpecLexerInterface */
     private $lexer;
 
-    /** @var \eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface */
+    /** @var \Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface */
     private $sortClauseParser;
 
     public function __construct(SortClauseParserInterface $sortClauseParser, SortSpecLexerInterface $lexer = null)
@@ -49,7 +49,7 @@ final class SortSpecParser implements SortSpecParserInterface
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Query\SortClause[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause[]
      */
     public function parseSortClausesList(): array
     {
@@ -120,3 +120,5 @@ final class SortSpecParser implements SortSpecParserInterface
         );
     }
 }
+
+class_alias(SortSpecParser::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecParser');

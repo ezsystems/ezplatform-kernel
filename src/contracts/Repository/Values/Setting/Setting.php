@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Setting;
+namespace Ibexa\Contracts\Core\Repository\Values\Setting;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * @property-read string $group
@@ -26,3 +26,5 @@ class Setting extends ValueObject
     /** @var mixed */
     protected $value;
 }
+
+class_alias(Setting::class, 'eZ\Publish\API\Repository\Values\Setting\Setting');

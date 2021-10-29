@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Location;
+namespace Ibexa\Contracts\Core\Repository\Events\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class HideLocationEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
     private $hiddenLocation;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
     private $location;
 
     public function __construct(
@@ -37,3 +37,5 @@ final class HideLocationEvent extends AfterEvent
         return $this->location;
     }
 }
+
+class_alias(HideLocationEvent::class, 'eZ\Publish\API\Repository\Events\Location\HideLocationEvent');

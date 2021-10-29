@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Search\Legacy\Content;
+namespace Ibexa\Core\Search\Legacy\Content;
 
 use DateTimeInterface;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\ResultStatement;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Search\Content\IndexerGateway as SPIIndexerGateway;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Search\Content\IndexerGateway as SPIIndexerGateway;
 use Generator;
 
 /**
@@ -145,3 +145,5 @@ final class IndexerGateway implements SPIIndexerGateway
         } while (!empty($contentId));
     }
 }
+
+class_alias(IndexerGateway::class, 'eZ\Publish\Core\Search\Legacy\Content\IndexerGateway');

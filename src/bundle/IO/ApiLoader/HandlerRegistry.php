@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\ApiLoader;
+namespace Ibexa\Bundle\IO\ApiLoader;
 
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
@@ -41,3 +41,5 @@ class HandlerRegistry
         return $this->handlersMap[$handlerName];
     }
 }
+
+class_alias(HandlerRegistry::class, 'eZ\Bundle\EzPublishIOBundle\ApiLoader\HandlerRegistry');

@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
 use DateTime;
-use eZ\Publish\API\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 
 /**
  * This class represents a user value.
@@ -105,3 +105,5 @@ abstract class User extends Content implements UserReference
         return $this->id;
     }
 }
+
+class_alias(User::class, 'eZ\Publish\API\Repository\Values\User\User');

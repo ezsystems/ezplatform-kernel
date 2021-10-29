@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder;
+namespace Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalNot;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\SPI\Persistence\Filter\CriterionVisitor;
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalNot;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Persistence\Filter\CriterionVisitor;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\CriterionQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 
 /**
  * @internal for internal use by Repository Filtering
  */
 final class LogicalNotQueryBuilder implements CriterionQueryBuilder
 {
-    /** @var \eZ\Publish\SPI\Persistence\Filter\CriterionVisitor */
+    /** @var \Ibexa\Contracts\Core\Persistence\Filter\CriterionVisitor */
     private $criterionVisitor;
 
     public function __construct(CriterionVisitor $criterionVisitor)
@@ -34,13 +34,13 @@ final class LogicalNotQueryBuilder implements CriterionQueryBuilder
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function buildQueryConstraint(
         FilteringQueryBuilder $queryBuilder,
         FilteringCriterion $criterion
     ): ?string {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalNot $criterion */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalNot $criterion */
         if (!$criterion->criteria[0] instanceof FilteringCriterion) {
             throw new InvalidArgumentException(
                 '$criterion',
@@ -59,3 +59,5 @@ final class LogicalNotQueryBuilder implements CriterionQueryBuilder
         return null !== $constraint ? sprintf('NOT (%s)', $constraint) : null;
     }
 }
+
+class_alias(LogicalNotQueryBuilder::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\LogicalNotQueryBuilder');

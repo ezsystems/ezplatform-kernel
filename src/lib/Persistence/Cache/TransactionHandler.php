@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache;
+namespace Ibexa\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\TransactionHandler as TransactionHandlerInterface;
+use Ibexa\Contracts\Core\Persistence\TransactionHandler as TransactionHandlerInterface;
 
 /**
  * Persistence Transaction Cache Handler class.
@@ -46,3 +46,5 @@ class TransactionHandler extends AbstractInMemoryPersistenceHandler implements T
         $this->cache->rollbackTransaction();
     }
 }
+
+class_alias(TransactionHandler::class, 'eZ\Publish\Core\Persistence\Cache\TransactionHandler');

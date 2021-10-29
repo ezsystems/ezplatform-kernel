@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType;
+namespace Ibexa\Core\FieldType;
 
-use eZ\Publish\SPI\FieldType\StorageGateway as SPIStorageGateway;
+use Ibexa\Contracts\Core\FieldType\StorageGateway as SPIStorageGateway;
 
 /**
  * Abstract base class for storage gateways.
  *
- * @deprecated Since 6.11. Extend {@link \eZ\Publish\SPI\FieldType\StorageGateway} class instead.
+ * @deprecated Since 6.11. Extend {@link \Ibexa\Contracts\Core\FieldType\StorageGateway} class instead.
  */
 abstract class StorageGateway extends SPIStorageGateway
 {
@@ -28,3 +28,5 @@ abstract class StorageGateway extends SPIStorageGateway
      */
     abstract public function setConnection($connection);
 }
+
+class_alias(StorageGateway::class, 'eZ\Publish\Core\FieldType\StorageGateway');

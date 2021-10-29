@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Cache\Adapter;
+namespace Ibexa\Core\Persistence\Cache\Adapter;
 
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 
@@ -37,3 +37,5 @@ interface TransactionAwareAdapterInterface extends TagAwareAdapterInterface
      */
     public function rollbackTransaction(): void;
 }
+
+class_alias(TransactionAwareAdapterInterface::class, 'eZ\Publish\Core\Persistence\Cache\Adapter\TransactionAwareAdapterInterface');

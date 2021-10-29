@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Converter;
+namespace Ibexa\Bundle\Core\Converter;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
@@ -25,7 +25,7 @@ abstract class RepositoryParamConverter implements ParamConverterInterface
     abstract protected function getPropertyName();
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ValueObject
+     * @return \Ibexa\Contracts\Core\Repository\Values\ValueObject
      */
     abstract protected function loadValueObject($id);
 
@@ -51,3 +51,5 @@ abstract class RepositoryParamConverter implements ParamConverterInterface
         return true;
     }
 }
+
+class_alias(RepositoryParamConverter::class, 'eZ\Bundle\EzPublishCoreBundle\Converter\RepositoryParamConverter');

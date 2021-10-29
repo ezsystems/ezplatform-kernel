@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Event;
+namespace Ibexa\Core\MVC\Symfony\Event;
 
 use Symfony\Contracts\EventDispatcher\Event;
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Symfony\View\View;
 use Exception;
 
 /**
@@ -19,7 +19,7 @@ class APIContentExceptionEvent extends Event
     /** @var \Exception */
     private $apiException;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\View */
+    /** @var \Ibexa\Core\MVC\Symfony\View\View */
     private $contentView;
 
     /** @var array */
@@ -43,7 +43,7 @@ class APIContentExceptionEvent extends Event
      * Injects the ContentView object to display content from.
      * It is a good idea to call {@link stopPropagation()} after that so that other listeners won't override it.
      *
-     * @param \eZ\Publish\Core\MVC\Symfony\View\View $contentView
+     * @param \Ibexa\Core\MVC\Symfony\View\View $contentView
      */
     public function setContentView(View $contentView)
     {
@@ -51,7 +51,7 @@ class APIContentExceptionEvent extends Event
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\View\View
+     * @return \Ibexa\Core\MVC\Symfony\View\View
      */
     public function getContentView()
     {
@@ -80,3 +80,5 @@ class APIContentExceptionEvent extends Event
         return $this->contentMeta;
     }
 }
+
+class_alias(APIContentExceptionEvent::class, 'eZ\Publish\Core\MVC\Symfony\Event\APIContentExceptionEvent');

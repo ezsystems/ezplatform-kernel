@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\SortSpec;
+namespace Ibexa\Core\QueryType\BuiltIn\SortSpec;
 
 final class Token
 {
@@ -75,3 +75,5 @@ final class Token
         return "{$this->type}";
     }
 }
+
+class_alias(Token::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Token');

@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Command;
+namespace Ibexa\Bundle\IO\Command;
 
-use eZ\Bundle\EzPublishCoreBundle\Command\BackwardCompatibleCommand;
-use eZ\Bundle\EzPublishIOBundle\Migration\FileListerRegistry;
-use eZ\Bundle\EzPublishIOBundle\Migration\FileMigratorInterface;
+use Ibexa\Bundle\Core\Command\BackwardCompatibleCommand;
+use Ibexa\Bundle\IO\Migration\FileListerRegistry;
+use Ibexa\Bundle\IO\Migration\FileMigratorInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -24,13 +24,13 @@ final class MigrateFilesCommand extends Command implements BackwardCompatibleCom
     /** @var mixed Configuration for binary data handlers */
     private $configuredBinarydataHandlers;
 
-    /** @var \eZ\Bundle\EzPublishIOBundle\Migration\FileListerRegistry */
+    /** @var \Ibexa\Bundle\IO\Migration\FileListerRegistry */
     private $fileListerRegistry;
 
-    /** @var \eZ\Bundle\EzPublishIOBundle\Migration\FileListerInterface[] */
+    /** @var \Ibexa\Bundle\IO\Migration\FileListerInterface[] */
     private $fileListers;
 
-    /** @var \eZ\Bundle\EzPublishIOBundle\Migration\FileMigratorInterface */
+    /** @var \Ibexa\Bundle\IO\Migration\FileMigratorInterface */
     private $fileMigrator;
 
     public function __construct(
@@ -324,3 +324,5 @@ EOT
         return ['ezplatform:io:migrate-files'];
     }
 }
+
+class_alias(MigrateFilesCommand::class, 'eZ\Bundle\EzPublishIOBundle\Command\MigrateFilesCommand');

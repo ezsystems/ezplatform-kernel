@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\PlatformInstallerBundle\DependencyInjection;
+namespace Ibexa\Bundle\Installer\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -19,3 +19,5 @@ class EzSystemsPlatformInstallerExtension extends Extension
         $loader->load('services.yml');
     }
 }
+
+class_alias(EzSystemsPlatformInstallerExtension::class, 'EzSystems\PlatformInstallerBundle\DependencyInjection\EzSystemsPlatformInstallerExtension');

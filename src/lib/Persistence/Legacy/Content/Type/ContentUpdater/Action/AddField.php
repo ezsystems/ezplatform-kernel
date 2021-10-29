@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
+namespace Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
 
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway;
+use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 
 /**
  * Action to add a field to content objects.
@@ -24,35 +24,35 @@ class AddField extends Action
     /**
      * Field definition of the field to add.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition
+     * @var \Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition
      */
     protected $fieldDefinition;
 
     /**
      * Storage handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\StorageHandler
      */
     protected $storageHandler;
 
     /**
      * Field value converter.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter
+     * @var \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter
      */
     protected $fieldValueConverter;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Mapper */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Mapper */
     protected $contentMapper;
 
     /**
      * Creates a new action.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Gateway $contentGateway
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition $fieldDef
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter $converter
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler $storageHandler
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Mapper $contentMapper
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Gateway $contentGateway
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition $fieldDef
+     * @param \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter $converter
+     * @param \Ibexa\Core\Persistence\Legacy\Content\StorageHandler $storageHandler
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Mapper $contentMapper
      */
     public function __construct(
         Gateway $contentGateway,
@@ -130,8 +130,8 @@ class AddField extends Action
      * If $field->id is null, creating new field id will be created.
      * Otherwise it will be inserted for the given $content version, reusing existing Field id.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content $content
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      *
      * @return int The ID of the field that was inserted
      */
@@ -186,7 +186,7 @@ class AddField extends Action
      * @param int $versionNo
      * @param string $languageCode
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Field
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Field
      */
     protected function createField($id, $versionNo, $languageCode)
     {
@@ -202,3 +202,5 @@ class AddField extends Action
         return $field;
     }
 }
+
+class_alias(AddField::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action\AddField');

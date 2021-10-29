@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository;
+namespace Ibexa\Contracts\Core\Repository;
 
 /**
  * An implementation of this class provides access to FieldTypes.
  *
- * @see \eZ\Publish\API\Repository\FieldType
+ * @see \Ibexa\Contracts\Core\Repository\FieldType
  */
 interface FieldTypeService
 {
     /**
      * Returns a list of all field types.
      *
-     * @return \eZ\Publish\API\Repository\FieldType[]
+     * @return \Ibexa\Contracts\Core\Repository\FieldType[]
      */
     public function getFieldTypes(): iterable;
 
@@ -27,9 +27,9 @@ interface FieldTypeService
      *
      * @param string $identifier
      *
-     * @return \eZ\Publish\API\Repository\FieldType
+     * @return \Ibexa\Contracts\Core\Repository\FieldType
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if there is no FieldType registered with $identifier
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if there is no FieldType registered with $identifier
      */
     public function getFieldType(string $identifier): FieldType;
 
@@ -42,3 +42,5 @@ interface FieldTypeService
      */
     public function hasFieldType(string $identifier): bool;
 }
+
+class_alias(FieldTypeService::class, 'eZ\Publish\API\Repository\FieldTypeService');

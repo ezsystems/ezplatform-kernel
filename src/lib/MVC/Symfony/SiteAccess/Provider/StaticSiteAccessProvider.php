@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Provider;
+namespace Ibexa\Core\MVC\Symfony\SiteAccess\Provider;
 
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccessGroup;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccessGroup;
 use Traversable;
 
 /**
@@ -75,3 +75,5 @@ final class StaticSiteAccessProvider implements SiteAccessProviderInterface
         return $siteAccess;
     }
 }
+
+class_alias(StaticSiteAccessProvider::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider');

@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\BinaryFile;
+namespace Ibexa\Core\FieldType\BinaryFile;
 
-use eZ\Publish\Core\FieldType\BinaryBase\Type as BinaryBaseType;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\FieldType\BinaryBase\Type as BinaryBaseType;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * The TextLine field type.
@@ -32,7 +32,7 @@ class Type extends BinaryBaseType
      * Returns the fallback default value of field type when no such default
      * value is provided in the field definition in content types.
      *
-     * @return \eZ\Publish\Core\FieldType\BinaryFile\Value
+     * @return \Ibexa\Core\FieldType\BinaryFile\Value
      */
     public function getEmptyValue()
     {
@@ -44,7 +44,7 @@ class Type extends BinaryBaseType
      *
      * @param array $inputValue
      *
-     * @return \eZ\Publish\Core\FieldType\BinaryFile\Value
+     * @return \Ibexa\Core\FieldType\BinaryFile\Value
      */
     protected function createValue(array $inputValue)
     {
@@ -56,7 +56,7 @@ class Type extends BinaryBaseType
     /**
      * Attempts to complete the data in $value.
      *
-     * @param \eZ\Publish\Core\FieldType\BinaryFile\Value|\eZ\Publish\Core\FieldType\Value $value
+     * @param \Ibexa\Core\FieldType\BinaryFile\Value|\Ibexa\Core\FieldType\Value $value
      */
     protected function completeValue(Basevalue $value)
     {
@@ -70,7 +70,7 @@ class Type extends BinaryBaseType
     /**
      * Converts a $Value to a hash.
      *
-     * @param \eZ\Publish\Core\FieldType\BinaryFile\Value $value
+     * @param \Ibexa\Core\FieldType\BinaryFile\Value $value
      *
      * @return mixed
      */
@@ -92,9 +92,9 @@ class Type extends BinaryBaseType
      *
      * This method builds a field type value from the $data and $externalData properties.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\FieldValue $fieldValue
+     * @param \Ibexa\Contracts\Core\Persistence\Content\FieldValue $fieldValue
      *
-     * @return \eZ\Publish\Core\FieldType\BinaryFile\Value
+     * @return \Ibexa\Core\FieldType\BinaryFile\Value
      */
     public function fromPersistenceValue(FieldValue $fieldValue)
     {
@@ -111,3 +111,5 @@ class Type extends BinaryBaseType
         return $result;
     }
 }
+
+class_alias(Type::class, 'eZ\Publish\Core\FieldType\BinaryFile\Type');

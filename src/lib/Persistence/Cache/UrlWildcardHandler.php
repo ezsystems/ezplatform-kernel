@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache;
+namespace Ibexa\Core\Persistence\Cache;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
-use eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler as UrlWildcardHandlerInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard;
+use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard\Handler as UrlWildcardHandlerInterface;
 
 class UrlWildcardHandler extends AbstractHandler implements UrlWildcardHandlerInterface
 {
@@ -21,9 +21,6 @@ class UrlWildcardHandler extends AbstractHandler implements UrlWildcardHandlerIn
     private const URL_WILDCARD_NOT_FOUND_IDENTIFIER = 'url_wildcard_not_found';
     private const URL_WILDCARD_SOURCE_IDENTIFIER = 'url_wildcard_source';
 
-    /**
-     * @see \eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler::create
-     */
     public function create($sourceUrl, $destinationUrl, $forward = false)
     {
         $this->logger->logCall(
@@ -82,9 +79,6 @@ class UrlWildcardHandler extends AbstractHandler implements UrlWildcardHandlerIn
         return $urlWildcard;
     }
 
-    /**
-     * @see \eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler::remove
-     */
     public function remove($id)
     {
         $this->logger->logCall(__METHOD__, ['id' => $id]);
@@ -96,9 +90,6 @@ class UrlWildcardHandler extends AbstractHandler implements UrlWildcardHandlerIn
         ]);
     }
 
-    /**
-     * @see \eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler::load
-     */
     public function load($id)
     {
         $cacheItem = $this->cache->getItem(
@@ -122,9 +113,6 @@ class UrlWildcardHandler extends AbstractHandler implements UrlWildcardHandlerIn
         return $urlWildcard;
     }
 
-    /**
-     * @see \eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler::loadAll
-     */
     public function loadAll($offset = 0, $limit = -1)
     {
         $this->logger->logCall(__METHOD__, ['offset' => $offset, 'limit' => $limit]);
@@ -132,9 +120,6 @@ class UrlWildcardHandler extends AbstractHandler implements UrlWildcardHandlerIn
         return $this->persistenceHandler->urlWildcardHandler()->loadAll($offset, $limit);
     }
 
-    /**
-     * @see \eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler::lookup
-     */
     public function translate(string $sourceUrl): UrlWildcard
     {
         $cacheItem = $this->cache->getItem(
@@ -176,9 +161,6 @@ class UrlWildcardHandler extends AbstractHandler implements UrlWildcardHandlerIn
         return $urlWildcard;
     }
 
-    /**
-     * @see \eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler::exactSourceUrlExists()
-     */
     public function exactSourceUrlExists(string $sourceUrl): bool
     {
         $this->logger->logCall(__METHOD__, ['source' => $sourceUrl]);
@@ -186,3 +168,5 @@ class UrlWildcardHandler extends AbstractHandler implements UrlWildcardHandlerIn
         return $this->persistenceHandler->urlWildcardHandler()->exactSourceUrlExists($sourceUrl);
     }
 }
+
+class_alias(UrlWildcardHandler::class, 'eZ\Publish\Core\Persistence\Cache\UrlWildcardHandler');

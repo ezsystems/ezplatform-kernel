@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View;
+namespace Ibexa\Core\MVC\Symfony\View;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 /**
  * Main object to be rendered by the View Manager when viewing a content.
@@ -18,8 +18,8 @@ use eZ\Publish\API\Repository\Values\Content\Location;
  * The prototype of the closure must be :
  * <code>
  * namespace Foo;
- * use eZ\Publish\API\Repository\Values\Content\ContentInfo;
- * use eZ\Publish\API\Repository\Values\Content\Location;
+ * use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+ * use Ibexa\Contracts\Core\Repository\Values\Content\Location;
  *
  * // For a content
  * function ( ContentInfo $contentInfo, array $parameters = array() )
@@ -38,17 +38,17 @@ use eZ\Publish\API\Repository\Values\Content\Location;
  */
 class ContentView extends BaseView implements View, ContentValueView, LocationValueView, EmbedView, CachableView
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Content */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */
     private $content;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
     private $location;
 
     /** @var bool */
     private $isEmbed = false;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      */
     public function setContent(Content $content)
     {
@@ -58,7 +58,7 @@ class ContentView extends BaseView implements View, ContentValueView, LocationVa
     /**
      * Returns the Content.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     public function getContent()
     {
@@ -66,7 +66,7 @@ class ContentView extends BaseView implements View, ContentValueView, LocationVa
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      */
     public function setLocation(Location $location)
     {
@@ -74,7 +74,7 @@ class ContentView extends BaseView implements View, ContentValueView, LocationVa
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     public function getLocation()
     {
@@ -111,3 +111,5 @@ class ContentView extends BaseView implements View, ContentValueView, LocationVa
         return $this->isEmbed;
     }
 }
+
+class_alias(ContentView::class, 'eZ\Publish\Core\MVC\Symfony\View\ContentView');

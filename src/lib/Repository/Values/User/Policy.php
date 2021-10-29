@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Values\User;
+namespace Ibexa\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\User\Policy as APIPolicy;
+use Ibexa\Contracts\Core\Repository\Values\User\Policy as APIPolicy;
 
 /**
  * This class represents a policy value.
@@ -20,17 +20,19 @@ class Policy extends APIPolicy
     /**
      * Limitations assigned to this policy.
      *
-     * @var \eZ\Publish\API\Repository\Values\User\Limitation[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
      */
     protected $limitations = [];
 
     /**
      * Returns the list of limitations for this policy.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Limitation[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
      */
     public function getLimitations(): iterable
     {
         return $this->limitations;
     }
 }
+
+class_alias(Policy::class, 'eZ\Publish\Core\Repository\Values\User\Policy');

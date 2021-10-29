@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Event;
+namespace Ibexa\Core\Event;
 
-use eZ\Publish\API\Repository\Events\Setting\BeforeCreateSettingEvent;
-use eZ\Publish\API\Repository\Events\Setting\BeforeDeleteSettingEvent;
-use eZ\Publish\API\Repository\Events\Setting\BeforeUpdateSettingEvent;
-use eZ\Publish\API\Repository\Events\Setting\CreateSettingEvent;
-use eZ\Publish\API\Repository\Events\Setting\DeleteSettingEvent;
-use eZ\Publish\API\Repository\Events\Setting\UpdateSettingEvent;
-use eZ\Publish\API\Repository\SettingService as SettingServiceInterface;
-use eZ\Publish\API\Repository\Values\Setting\Setting;
-use eZ\Publish\API\Repository\Values\Setting\SettingCreateStruct;
-use eZ\Publish\API\Repository\Values\Setting\SettingUpdateStruct;
-use eZ\Publish\SPI\Repository\Decorator\SettingServiceDecorator;
+use Ibexa\Contracts\Core\Repository\Events\Setting\BeforeCreateSettingEvent;
+use Ibexa\Contracts\Core\Repository\Events\Setting\BeforeDeleteSettingEvent;
+use Ibexa\Contracts\Core\Repository\Events\Setting\BeforeUpdateSettingEvent;
+use Ibexa\Contracts\Core\Repository\Events\Setting\CreateSettingEvent;
+use Ibexa\Contracts\Core\Repository\Events\Setting\DeleteSettingEvent;
+use Ibexa\Contracts\Core\Repository\Events\Setting\UpdateSettingEvent;
+use Ibexa\Contracts\Core\Repository\SettingService as SettingServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Setting\Setting;
+use Ibexa\Contracts\Core\Repository\Values\Setting\SettingCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Setting\SettingUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Decorator\SettingServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final class SettingService extends SettingServiceDecorator
@@ -100,3 +100,5 @@ final class SettingService extends SettingServiceDecorator
         );
     }
 }
+
+class_alias(SettingService::class, 'eZ\Publish\Core\Event\SettingService');

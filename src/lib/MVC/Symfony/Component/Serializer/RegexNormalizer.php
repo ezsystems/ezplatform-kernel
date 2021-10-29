@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Component\Serializer;
+namespace Ibexa\Core\MVC\Symfony\Component\Serializer;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Regex;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Regex;
 
 final class RegexNormalizer extends AbstractPropertyWhitelistNormalizer
 {
@@ -18,10 +18,12 @@ final class RegexNormalizer extends AbstractPropertyWhitelistNormalizer
     }
 
     /**
-     * @see \eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Regex::__sleep
+     * @see \Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Regex::__sleep
      */
     protected function getAllowedProperties(): array
     {
         return ['regex', 'itemNumber', 'matchedSiteAccess'];
     }
 }
+
+class_alias(RegexNormalizer::class, 'eZ\Publish\Core\MVC\Symfony\Component\Serializer\RegexNormalizer');

@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Base\Exceptions;
+namespace Ibexa\Core\Base\Exceptions;
 
 use Exception;
-use eZ\Publish\Core\FieldType\ValidationError;
+use Ibexa\Core\FieldType\ValidationError;
 
 class UserPasswordValidationException extends InvalidArgumentException
 {
@@ -29,3 +29,5 @@ class UserPasswordValidationException extends InvalidArgumentException
         parent::__construct($argumentName, 'The password does not match the following rules: ' . implode(', ', $rules), $previous);
     }
 }
+
+class_alias(UserPasswordValidationException::class, 'eZ\Publish\Core\Base\Exceptions\UserPasswordValidationException');

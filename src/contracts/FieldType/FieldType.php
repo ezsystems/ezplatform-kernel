@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\FieldType;
+namespace Ibexa\Contracts\Core\FieldType;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
 
 /**
  * The field type interface which all field types have to implement.
@@ -49,8 +49,8 @@ abstract class FieldType
      *
      * The used $value can be assumed to be already accepted by {@link FieldType::acceptValue()}.
      *
-     * @param \eZ\Publish\SPI\FieldType\Value $value
-     * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition $fieldDefinition
+     * @param \Ibexa\Contracts\Core\FieldType\Value $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition $fieldDefinition
      * @param string $languageCode
      *
      * @return string
@@ -122,12 +122,12 @@ abstract class FieldType
     /**
      * Validates a field based on the validator configuration in the field definition.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition $fieldDef The field definition of the field
-     * @param \eZ\Publish\SPI\FieldType\Value $value The field value for which an action is performed
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition $fieldDef The field definition of the field
+     * @param \Ibexa\Contracts\Core\FieldType\Value $value The field value for which an action is performed
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     abstract public function validate(FieldDefinition $fieldDef, Value $value);
 
@@ -140,14 +140,14 @@ abstract class FieldType
      *
      * @param mixed $validatorConfiguration
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     abstract public function validateValidatorConfiguration($validatorConfiguration);
 
     /**
      * Applies the default values to the given $validatorConfiguration of a FieldDefinitionCreateStruct.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      *
      * @param mixed $validatorConfiguration
      */
@@ -161,14 +161,14 @@ abstract class FieldType
      *
      * @param mixed $fieldSettings
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     abstract public function validateFieldSettings($fieldSettings);
 
     /**
      * Applies the default values to the fieldSettings of a FieldDefinitionCreateStruct.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      *
      * @param mixed $fieldSettings
      */
@@ -203,7 +203,7 @@ abstract class FieldType
      * also used to determine that a user intentionally (or unintentionally) did not
      * set a non-empty value.
      *
-     * @return \eZ\Publish\SPI\FieldType\Value
+     * @return \Ibexa\Contracts\Core\FieldType\Value
      */
     abstract public function getEmptyValue();
 
@@ -214,7 +214,7 @@ abstract class FieldType
      * considered empty. The given $value can be safely assumed to have already
      * been processed by {@link acceptValue()}.
      *
-     * @param \eZ\Publish\SPI\FieldType\Value $value
+     * @param \Ibexa\Contracts\Core\FieldType\Value $value
      *
      * @return bool
      */
@@ -234,12 +234,12 @@ abstract class FieldType
      * Note that this method must also cope with the empty value for the field
      * type as e.g. returned by {@link getEmptyValue()}.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the parameter is not of the supported value sub type
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the value does not match the expected structure
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if the parameter is not of the supported value sub type
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if the value does not match the expected structure
      *
      * @param mixed $inputValue
      *
-     * @return \eZ\Publish\SPI\FieldType\Value The potentially converted and structurally plausible value.
+     * @return \Ibexa\Contracts\Core\FieldType\Value The potentially converted and structurally plausible value.
      */
     abstract public function acceptValue($inputValue);
 
@@ -253,7 +253,7 @@ abstract class FieldType
      *
      * @param mixed $hash
      *
-     * @return \eZ\Publish\SPI\FieldType\Value
+     * @return \Ibexa\Contracts\Core\FieldType\Value
      */
     abstract public function fromHash($hash);
 
@@ -265,7 +265,7 @@ abstract class FieldType
      * support complex structures like objects. See the class level doc block
      * for additional information. See the class description for more details on a hash format.
      *
-     * @param \eZ\Publish\SPI\FieldType\Value $value
+     * @param \Ibexa\Contracts\Core\FieldType\Value $value
      *
      * @return mixed
      */
@@ -278,7 +278,7 @@ abstract class FieldType
      *
      * @param mixed $fieldSettings
      *
-     * @return array|hash|scalar|null
+     * @return array|scalar|null
      */
     abstract public function fieldSettingsToHash($fieldSettings);
 
@@ -288,7 +288,7 @@ abstract class FieldType
      * This is the reverse operation of {@link fieldSettingsToHash()}.
      * See the class description for more details on a hash format.
      *
-     * @param array|hash|scalar|null $fieldSettingsHash
+     * @param array|scalar|null $fieldSettingsHash
      *
      * @return mixed
      */
@@ -301,7 +301,7 @@ abstract class FieldType
      *
      * @param mixed $validatorConfiguration
      *
-     * @return array|hash|scalar|null
+     * @return array|scalar|null
      */
     abstract public function validatorConfigurationToHash($validatorConfiguration);
 
@@ -311,7 +311,7 @@ abstract class FieldType
      *
      * See the class description for more details on a hash format.
      *
-     * @param array|hash|scalar|null $validatorConfigurationHash
+     * @param array|scalar|null $validatorConfigurationHash
      *
      * @return mixed
      */
@@ -324,7 +324,7 @@ abstract class FieldType
      * into the property FieldValue::data. The format of $data is a primitive, an array (map) or an object, which
      * is then canonically converted to e.g. json/xml structures by future storage engines without
      * further conversions. For mapping the $data to the legacy database an appropriate Converter
-     * (implementing eZ\Publish\Core\Persistence\Legacy\FieldValue\Converter) has implemented for the field
+     * (implementing {@see \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter}) has implemented for the field
      * type. Note: $data should only hold data which is actually stored in the field. It must not
      * hold data which is stored externally.
      *
@@ -333,11 +333,11 @@ abstract class FieldType
      *
      * The FieldValuer::sortKey is build by the field type for using by sort operations.
      *
-     * @see \eZ\Publish\SPI\Persistence\Content\FieldValue
+     * @see \Ibexa\Contracts\Core\Persistence\Content\FieldValue
      *
-     * @param \eZ\Publish\SPI\FieldType\Value $value The value of the field type
+     * @param \Ibexa\Contracts\Core\FieldType\Value $value The value of the field type
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldValue the value processed by the storage engine
+     * @return \Ibexa\Contracts\Core\Persistence\Content\FieldValue the value processed by the storage engine
      */
     abstract public function toPersistenceValue(Value $value);
 
@@ -346,36 +346,38 @@ abstract class FieldType
      *
      * This method builds a field type value from the $data and $externalData properties.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\FieldValue $fieldValue
+     * @param \Ibexa\Contracts\Core\Persistence\Content\FieldValue $fieldValue
      *
-     * @return \eZ\Publish\SPI\FieldType\Value
+     * @return \Ibexa\Contracts\Core\FieldType\Value
      */
     abstract public function fromPersistenceValue(FieldValue $fieldValue);
 
     /**
      * Returns relation data extracted from value.
      *
-     * Not intended for \eZ\Publish\API\Repository\Values\Content\Relation::COMMON type relations,
+     * Not intended for \Ibexa\Contracts\Core\Repository\Values\Content\Relation::COMMON type relations,
      * there is an API for handling those.
      *
-     * @param \eZ\Publish\SPI\FieldType\Value $value
+     * @param \Ibexa\Contracts\Core\FieldType\Value $value
      *
      * @return array Hash with relation type as key and array of destination content ids as value.
      *
      * Example:
      * <code>
      *  array(
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::LINK => array(
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::LINK => array(
      *          "contentIds" => array( 12, 13, 14 ),
      *          "locationIds" => array( 24 )
      *      ),
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::EMBED => array(
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::EMBED => array(
      *          "contentIds" => array( 12 ),
      *          "locationIds" => array( 24, 45 )
      *      ),
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::FIELD => array( 12 )
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::FIELD => array( 12 )
      *  )
      * </code>
      */
     abstract public function getRelations(Value $value);
 }
+
+class_alias(FieldType::class, 'eZ\Publish\SPI\FieldType\FieldType');

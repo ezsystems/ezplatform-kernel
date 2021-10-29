@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn;
+namespace Ibexa\Core\QueryType\BuiltIn;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\MatchNone;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\MatchNone;
 
 final class SiblingsQueryType extends AbstractLocationQueryType
 {
@@ -29,3 +29,5 @@ final class SiblingsQueryType extends AbstractLocationQueryType
         return Criterion\Sibling::fromLocation($location);
     }
 }
+
+class_alias(SiblingsQueryType::class, 'eZ\Publish\Core\QueryType\BuiltIn\SiblingsQueryType');

@@ -4,22 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection;
+namespace Ibexa\Bundle\Core\DependencyInjection;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\QueryTypePass;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ConfigurationProcessor;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollector;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollectorAwareInterface;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Formatter\YamlSuggestionFormatter;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Security\PolicyProvider\PoliciesConfigBuilder;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Security\PolicyProvider\PolicyProviderInterface;
-use eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessConfigurationFilter;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\QueryType\QueryType;
-use eZ\Publish\SPI\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
-use eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder as FilteringCriterionQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\SortClauseQueryBuilder as FilteringSortClauseQueryBuilder;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\QueryTypePass;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ConfigurationProcessor;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollector;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollectorAwareInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\Formatter\YamlSuggestionFormatter;
+use Ibexa\Bundle\Core\DependencyInjection\Security\PolicyProvider\PoliciesConfigBuilder;
+use Ibexa\Bundle\Core\DependencyInjection\Security\PolicyProvider\PolicyProviderInterface;
+use Ibexa\Bundle\Core\SiteAccess\SiteAccessConfigurationFilter;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\QueryType\QueryType;
+use Ibexa\Contracts\Core\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
+use Ibexa\Contracts\Core\Repository\Values\Filter\CriterionQueryBuilder as FilteringCriterionQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\SortClauseQueryBuilder as FilteringSortClauseQueryBuilder;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParser;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParserInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -31,7 +31,7 @@ use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Loader\FileLoader;
 use Symfony\Component\Config\FileLocator;
 use InvalidArgumentException;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface;
 
 class EzPublishCoreExtension extends Extension implements PrependExtensionInterface
 {
@@ -40,16 +40,16 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
         'mappings' => [],
     ];
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollector */
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollector */
     private $suggestionCollector;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface */
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface */
     private $mainConfigParser;
 
     /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParser */
     private $mainRepositoryConfigParser;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface[] */
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface[] */
     private $siteAccessConfigParsers;
 
     /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParserInterface[] */
@@ -66,7 +66,7 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
      */
     private $defaultSettingsCollection = [];
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessConfigurationFilter[] */
+    /** @var \Ibexa\Bundle\Core\SiteAccess\SiteAccessConfigurationFilter[] */
     private $siteaccessConfigurationFilters = [];
 
     public function __construct(array $siteAccessConfigParsers = [], array $repositoryConfigParsers = [])
@@ -165,7 +165,7 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
      * @param array $config
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      *
-     * @return \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration
+     * @return \Ibexa\Bundle\Core\DependencyInjection\Configuration
      */
     public function getConfiguration(array $config, ContainerBuilder $container)
     {
@@ -190,7 +190,7 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
     }
 
     /**
-     * @return \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface
+     * @return \Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface
      */
     private function getMainConfigParser()
     {
@@ -529,7 +529,7 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
      *
      * @since 6.0
      *
-     * @param \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface $configParser
+     * @param \Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface $configParser
      */
     public function addConfigParser(ParserInterface $configParser)
     {
@@ -701,3 +701,5 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
             ->addTag(ServiceTags::FILTERING_SORT_CLAUSE_QUERY_BUILDER);
     }
 }
+
+class_alias(EzPublishCoreExtension::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension');

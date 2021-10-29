@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Content\Location\Gateway;
+namespace Ibexa\Core\Search\Legacy\Content\Location\Gateway;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
-use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
+use Ibexa\Core\Search\Legacy\Content\Location\Gateway;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
 use RuntimeException;
 
 /**
@@ -31,16 +31,16 @@ final class DoctrineDatabase extends Gateway
     /** @var \Doctrine\DBAL\Connection */
     private $connection;
 
-    /** @var \eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter */
+    /** @var \Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter */
     private $criteriaConverter;
 
-    /** @var \eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter */
+    /** @var \Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter */
     private $sortClauseConverter;
 
     /**
      * Language handler.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\Language\Handler
+     * @var \Ibexa\Contracts\Core\Persistence\Content\Language\Handler
      */
     private $languageHandler;
 
@@ -165,11 +165,11 @@ final class DoctrineDatabase extends Gateway
     /**
      * Returns total results count for $criterion and $sortClauses.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterion
      * @param array $languageFilter
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function getTotalCount(Criterion $criterion, array $languageFilter): int
     {
@@ -234,7 +234,7 @@ final class DoctrineDatabase extends Gateway
      *
      * @param array $languageFilter
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function getLanguageMask(array $languageFilter): int
     {
@@ -258,3 +258,5 @@ final class DoctrineDatabase extends Gateway
         return $mask;
     }
 }
+
+class_alias(DoctrineDatabase::class, 'eZ\Publish\Core\Search\Legacy\Content\Location\Gateway\DoctrineDatabase');

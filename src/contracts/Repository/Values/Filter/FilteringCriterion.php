@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Values\Filter;
+namespace Ibexa\Contracts\Core\Repository\Values\Filter;
 
 /**
  * Marker for Content & Location filtering Criterion.
@@ -14,3 +14,5 @@ namespace eZ\Publish\SPI\Repository\Values\Filter;
 interface FilteringCriterion
 {
 }
+
+class_alias(FilteringCriterion::class, 'eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion');

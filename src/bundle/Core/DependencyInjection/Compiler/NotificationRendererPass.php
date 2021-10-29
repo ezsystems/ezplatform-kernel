@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\Core\DependencyInjection\Compiler;
 
 use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -40,3 +40,5 @@ class NotificationRendererPass implements CompilerPassInterface
         }
     }
 }
+
+class_alias(NotificationRendererPass::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\NotificationRendererPass');

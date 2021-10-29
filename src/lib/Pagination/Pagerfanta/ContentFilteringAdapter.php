@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Pagination\Pagerfanta;
+namespace Ibexa\Core\Pagination\Pagerfanta;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Filter\Filter;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
@@ -17,10 +17,10 @@ use Pagerfanta\Adapter\AdapterInterface;
  */
 final class ContentFilteringAdapter implements AdapterInterface
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\Values\Filter\Filter */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Filter\Filter */
     private $filter;
 
     /** @var array|null */
@@ -67,3 +67,5 @@ final class ContentFilteringAdapter implements AdapterInterface
         return $results;
     }
 }
+
+class_alias(ContentFilteringAdapter::class, 'eZ\Publish\Core\Pagination\Pagerfanta\ContentFilteringAdapter');

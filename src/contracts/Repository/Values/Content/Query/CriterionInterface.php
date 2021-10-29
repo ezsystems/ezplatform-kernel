@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query;
 
 /**
  * Base interface for Criterion implementations.
@@ -14,3 +14,5 @@ namespace eZ\Publish\API\Repository\Values\Content\Query;
 interface CriterionInterface
 {
 }
+
+class_alias(CriterionInterface::class, 'eZ\Publish\API\Repository\Values\Content\Query\CriterionInterface');

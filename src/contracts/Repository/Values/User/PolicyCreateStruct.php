@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
 /**
  * This class is used to create a policy.
@@ -31,3 +31,5 @@ abstract class PolicyCreateStruct extends PolicyStruct
      */
     public $function;
 }
+
+class_alias(PolicyCreateStruct::class, 'eZ\Publish\API\Repository\Values\User\PolicyCreateStruct');

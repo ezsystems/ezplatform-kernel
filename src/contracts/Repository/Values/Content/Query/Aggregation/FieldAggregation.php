@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
 
 interface FieldAggregation
 {
@@ -14,3 +14,5 @@ interface FieldAggregation
 
     public function getFieldDefinitionIdentifier(): string;
 }
+
+class_alias(FieldAggregation::class, 'eZ\Publish\API\Repository\Values\Content\Query\Aggregation\FieldAggregation');

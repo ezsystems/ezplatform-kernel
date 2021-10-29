@@ -6,23 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter;
+namespace Ibexa\Core\Persistence\Legacy\Filter;
 
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
-use eZ\Publish\SPI\Persistence\Filter\SortClauseVisitor as FilteringSortClauseVisitor;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause;
-use eZ\Publish\SPI\Repository\Values\Filter\SortClauseQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Persistence\Filter\SortClauseVisitor as FilteringSortClauseVisitor;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Filter\SortClauseQueryBuilder;
 
 /**
- * @internal Type-hint {@see \eZ\Publish\SPI\Persistence\Filter\SortClauseVisitor} instead.
+ * @internal Type-hint {@see \Ibexa\Contracts\Core\Persistence\Filter\SortClauseVisitor} instead.
  */
 final class SortClauseVisitor implements FilteringSortClauseVisitor
 {
-    /** @var \eZ\Publish\SPI\Repository\Values\Filter\SortClauseQueryBuilder[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Filter\SortClauseQueryBuilder[] */
     private $sortClauseQueryBuilders;
 
-    /** @var \eZ\Publish\SPI\Repository\Values\Filter\SortClauseQueryBuilder[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Filter\SortClauseQueryBuilder[] */
     private static $queryBuildersForSortClauses = [];
 
     public function __construct(iterable $sortClauseQueryBuilders)
@@ -31,9 +31,9 @@ final class SortClauseVisitor implements FilteringSortClauseVisitor
     }
 
     /**
-     * @param \eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause[] $sortClauses
+     * @param \Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause[] $sortClauses
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException if there's no builder for a Sort Clause
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException if there's no builder for a Sort Clause
      */
     public function visitSortClauses(FilteringQueryBuilder $queryBuilder, array $sortClauses): void
     {
@@ -47,7 +47,7 @@ final class SortClauseVisitor implements FilteringSortClauseVisitor
     /**
      * Cache Query Builders in-memory and get the one for the given Sort Clause.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException
      */
     private function getQueryBuilderForSortClause(
         FilteringSortClause $sortClause
@@ -71,3 +71,5 @@ final class SortClauseVisitor implements FilteringSortClauseVisitor
         return self::$queryBuildersForSortClauses[$sortClauseFQCN];
     }
 }
+
+class_alias(SortClauseVisitor::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\SortClauseVisitor');

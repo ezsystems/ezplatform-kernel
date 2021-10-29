@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View\Provider;
+namespace Ibexa\Core\MVC\Symfony\View\Provider;
 
-use eZ\Publish\Core\MVC\Symfony\Matcher\MatcherFactoryInterface;
-use eZ\Publish\Core\MVC\Symfony\View\ContentView;
-use eZ\Publish\Core\MVC\Symfony\View\View;
-use eZ\Publish\Core\MVC\Symfony\View\ViewProvider;
+use Ibexa\Core\MVC\Symfony\Matcher\MatcherFactoryInterface;
+use Ibexa\Core\MVC\Symfony\View\ContentView;
+use Ibexa\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Symfony\View\ViewProvider;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
 /**
@@ -17,11 +17,11 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
  */
 class Configured implements ViewProvider
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Matcher\MatcherFactoryInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\Matcher\MatcherFactoryInterface */
     protected $matcherFactory;
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\Matcher\MatcherFactoryInterface $matcherFactory
+     * @param \Ibexa\Core\MVC\Symfony\Matcher\MatcherFactoryInterface $matcherFactory
      */
     public function __construct(MatcherFactoryInterface $matcherFactory)
     {
@@ -61,3 +61,5 @@ class Configured implements ViewProvider
         return $view;
     }
 }
+
+class_alias(Configured::class, 'eZ\Publish\Core\MVC\Symfony\View\Provider\Configured');

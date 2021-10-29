@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\SiteAccess;
+namespace Ibexa\Bundle\Core\SiteAccess;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher as BaseMatcher;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher as BaseMatcher;
 
 /**
  * Interface for service based siteaccess matchers.
@@ -20,3 +20,5 @@ interface Matcher extends BaseMatcher
      */
     public function setMatchingConfiguration($matchingConfiguration);
 }
+
+class_alias(Matcher::class, 'eZ\Bundle\EzPublishCoreBundle\SiteAccess\Matcher');

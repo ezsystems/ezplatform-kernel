@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Validator;
+namespace Ibexa\Core\FieldType\Validator;
 
-use eZ\Publish\Core\FieldType\Validator;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\FieldType\Validator;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * Validator for checking min. and max. length of strings.
@@ -100,7 +100,7 @@ class StringLengthValidator extends Validator
      *
      * The range is determined by $maxStringLength and $minStringLength.
      *
-     * @param \eZ\Publish\Core\FieldType\TextLine\Value $value
+     * @param \Ibexa\Core\FieldType\TextLine\Value $value
      *
      * @return bool
      */
@@ -136,3 +136,5 @@ class StringLengthValidator extends Validator
         return $isValid;
     }
 }
+
+class_alias(StringLengthValidator::class, 'eZ\Publish\Core\FieldType\Validator\StringLengthValidator');

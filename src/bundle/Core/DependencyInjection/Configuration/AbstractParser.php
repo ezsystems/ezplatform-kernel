@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 
 abstract class AbstractParser implements ParserInterface
 {
@@ -42,3 +42,5 @@ abstract class AbstractParser implements ParserInterface
     {
     }
 }
+
+class_alias(AbstractParser::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\AbstractParser');

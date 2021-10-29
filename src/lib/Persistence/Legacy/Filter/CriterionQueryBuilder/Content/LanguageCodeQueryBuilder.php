@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content;
+namespace Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content;
 
 use Doctrine\DBAL\Connection;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LanguageCode;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway;
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LanguageCode;
+use Ibexa\Core\Persistence\Legacy\Content\Language\Gateway;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\CriterionQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 
 /**
  * Content Language Code Criterion visitor query builder.
  *
- * @see \eZ\Publish\API\Repository\Values\Content\Query\Criterion\LanguageCode
+ * @see \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LanguageCode
  *
  * @internal for internal use by Repository Filtering
  */
@@ -33,7 +33,7 @@ final class LanguageCodeQueryBuilder implements CriterionQueryBuilder
         FilteringQueryBuilder $queryBuilder,
         FilteringCriterion $criterion
     ): ?string {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion\LanguageCode $criterion */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LanguageCode $criterion */
         $queryBuilder
             ->joinOnce(
                 'version',
@@ -59,3 +59,5 @@ final class LanguageCodeQueryBuilder implements CriterionQueryBuilder
         return $expr;
     }
 }
+
+class_alias(LanguageCodeQueryBuilder::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\LanguageCodeQueryBuilder');

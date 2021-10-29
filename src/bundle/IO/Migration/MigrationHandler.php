@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Migration;
+namespace Ibexa\Bundle\IO\Migration;
 
-use eZ\Bundle\EzPublishIOBundle\ApiLoader\HandlerRegistry;
+use Ibexa\Bundle\IO\ApiLoader\HandlerRegistry;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -14,25 +14,25 @@ use Psr\Log\LoggerInterface;
  */
 abstract class MigrationHandler implements MigrationHandlerInterface
 {
-    /** @var \eZ\Bundle\EzPublishIOBundle\ApiLoader\HandlerRegistry */
+    /** @var \Ibexa\Bundle\IO\ApiLoader\HandlerRegistry */
     private $metadataHandlerRegistry;
 
-    /** @var \eZ\Bundle\EzPublishIOBundle\ApiLoader\HandlerRegistry */
+    /** @var \Ibexa\Bundle\IO\ApiLoader\HandlerRegistry */
     private $binarydataHandlerRegistry;
 
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    /** @var \eZ\Publish\Core\IO\IOMetadataHandler */
+    /** @var \Ibexa\Core\IO\IOMetadataHandler */
     protected $fromMetadataHandler;
 
-    /** @var \eZ\Publish\Core\IO\IOBinarydataHandler */
+    /** @var \Ibexa\Core\IO\IOBinarydataHandler */
     protected $fromBinarydataHandler;
 
-    /** @var \eZ\Publish\Core\IO\IOMetadataHandler */
+    /** @var \Ibexa\Core\IO\IOMetadataHandler */
     protected $toMetadataHandler;
 
-    /** @var \eZ\Publish\Core\IO\IOBinarydataHandler */
+    /** @var \Ibexa\Core\IO\IOBinarydataHandler */
     protected $toBinarydataHandler;
 
     public function __construct(
@@ -78,3 +78,5 @@ abstract class MigrationHandler implements MigrationHandlerInterface
         $this->logInfo("File with id $id not found");
     }
 }
+
+class_alias(MigrationHandler::class, 'eZ\Bundle\EzPublishIOBundle\Migration\MigrationHandler');

@@ -6,26 +6,26 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Content;
+namespace Ibexa\Contracts\Core\Repository\Events\Content;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class CopyContentEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Content */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */
     private $content;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo */
     private $contentInfo;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\LocationCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct */
     private $destinationLocationCreateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\VersionInfo */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo */
     private $versionInfo;
 
     public function __construct(
@@ -60,3 +60,5 @@ final class CopyContentEvent extends AfterEvent
         return $this->versionInfo;
     }
 }
+
+class_alias(CopyContentEvent::class, 'eZ\Publish\API\Repository\Events\Content\CopyContentEvent');

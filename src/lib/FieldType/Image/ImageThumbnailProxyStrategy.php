@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\FieldType\Image;
+namespace Ibexa\Core\FieldType\Image;
 
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\Thumbnail;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Repository\ProxyFactory\ProxyGeneratorInterface;
-use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Repository\ProxyFactory\ProxyGeneratorInterface;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
 use ProxyManager\Proxy\LazyLoadingInterface;
 
 final class ImageThumbnailProxyStrategy implements FieldTypeBasedThumbnailStrategy
 {
-    /** @var \eZ\Publish\Core\FieldType\Image\ImageThumbnailStrategy */
+    /** @var \Ibexa\Core\FieldType\Image\ImageThumbnailStrategy */
     private $imageThumbnailStrategy;
 
-    /** @var \eZ\Publish\Core\Repository\ProxyFactory\ProxyGeneratorInterface */
+    /** @var \Ibexa\Core\Repository\ProxyFactory\ProxyGeneratorInterface */
     private $proxyGenerator;
 
     public function __construct(
@@ -51,3 +51,5 @@ final class ImageThumbnailProxyStrategy implements FieldTypeBasedThumbnailStrate
         return $this->proxyGenerator->createProxy(Thumbnail::class, $initializer);
     }
 }
+
+class_alias(ImageThumbnailProxyStrategy::class, 'eZ\Publish\Core\FieldType\Image\ImageThumbnailProxyStrategy');

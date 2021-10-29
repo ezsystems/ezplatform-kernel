@@ -6,28 +6,28 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Mapper;
+namespace Ibexa\Core\Repository\Mapper;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\Base\Exceptions\ContentValidationException;
-use eZ\Publish\Core\FieldType\FieldTypeRegistry;
-use eZ\Publish\SPI\FieldType\Value;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Base\Exceptions\ContentValidationException;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Contracts\Core\FieldType\Value;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler;
 
 /**
  * @internal Meant for internal use by Repository
  */
 class ContentMapper
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Language\Handler */
     private $contentLanguageHandler;
 
-    /** @var \eZ\Publish\Core\FieldType\FieldTypeRegistry */
+    /** @var \Ibexa\Core\FieldType\FieldTypeRegistry */
     private $fieldTypeRegistry;
 
     public function __construct(
@@ -41,11 +41,11 @@ class ContentMapper
     /**
      * Returns an array of fields like $fields[$field->fieldDefIdentifier][$field->languageCode].
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException If field definition does not exist in the ContentType
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException If field definition does not exist in the ContentType
      *                                                                          or value is set for non-translatable field in language
      *                                                                          other than main
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentCreateStruct $contentCreateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct $contentCreateStruct
      *
      * @return array
      */
@@ -86,7 +86,7 @@ class ContentMapper
     /**
      * Returns all language codes used in given $fields.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentCreateStruct $contentCreateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct $contentCreateStruct
      *
      * @return string[]
      */
@@ -118,12 +118,12 @@ class ContentMapper
     /**
      * Returns an array of fields like $fields[$field->fieldDefIdentifier][$field->languageCode].
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException If field definition does not exist in the ContentType
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException If field definition does not exist in the ContentType
      *                                                                          or value is set for non-translatable field in language
      *                                                                          other than main
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct $contentUpdateStruct
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct $contentUpdateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      * @param string $mainLanguageCode
      *
      * @return array
@@ -212,8 +212,8 @@ class ContentMapper
     /**
      * Returns all language codes used in given $fields.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct $contentUpdateStruct
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct $contentUpdateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
      * @return string[]
      */
@@ -233,7 +233,7 @@ class ContentMapper
     /**
      * Returns only updated language codes.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct $contentUpdateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct $contentUpdateStruct
      *
      * @return string[]
      */
@@ -257,10 +257,10 @@ class ContentMapper
     /**
      * Clones $field with overriding specific properties from given $overrides array.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      * @param array $overrides
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Field
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field
      */
     private function cloneField(Field $field, array $overrides = []): Field
     {
@@ -279,9 +279,9 @@ class ContentMapper
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Field[] $updatedFields
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $updatedFields
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Field[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field[]
      */
     public function getFieldsForUpdate(array $updatedFields, Content $content): array
     {
@@ -325,7 +325,7 @@ class ContentMapper
     {
         $fields = [];
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Field $createdField */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Field $createdField */
         foreach ($createdFields as $createdField) {
             $fieldDefinition = $contentType->getFieldDefinition($createdField->fieldDefIdentifier);
 
@@ -354,3 +354,5 @@ class ContentMapper
         return $fields;
     }
 }
+
+class_alias(ContentMapper::class, 'eZ\Publish\Core\Repository\Mapper\ContentMapper');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\BinaryFile;
+namespace Ibexa\Core\FieldType\BinaryFile;
 
-use eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage;
+use Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage;
 
 /**
  * Description of BinaryFileStorage.
@@ -14,3 +14,5 @@ use eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage;
 class BinaryFileStorage extends BinaryBaseStorage
 {
 }
+
+class_alias(BinaryFileStorage::class, 'eZ\Publish\Core\FieldType\BinaryFile\BinaryFileStorage');

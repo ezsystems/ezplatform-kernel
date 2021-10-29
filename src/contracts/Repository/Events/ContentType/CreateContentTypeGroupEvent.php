@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Events\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroupCreateStruct;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class CreateContentTypeGroupEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup */
     private $contentTypeGroup;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroupCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupCreateStruct */
     private $contentTypeGroupCreateStruct;
 
     public function __construct(
@@ -38,3 +38,5 @@ final class CreateContentTypeGroupEvent extends AfterEvent
         return $this->contentTypeGroupCreateStruct;
     }
 }
+
+class_alias(CreateContentTypeGroupEvent::class, 'eZ\Publish\API\Repository\Events\ContentType\CreateContentTypeGroupEvent');

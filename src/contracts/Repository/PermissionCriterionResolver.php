@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository;
+namespace Ibexa\Contracts\Core\Repository;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
 /**
  * This service provides methods for resolving criterion permissions.
@@ -27,16 +27,18 @@ interface PermissionCriterionResolver
      * @param string $function
      * @param array|null $targets
      *
-     * @return bool|\eZ\Publish\API\Repository\Values\Content\Query\Criterion
+     * @return bool|\Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion
      */
     public function getPermissionsCriterion(string $module = 'content', string $function = 'read', ?array $targets = null);
 
     /**
      * Get composite Criterion for Querying permissions.
      *
-     * {@see \eZ\Publish\API\Repository\Values\Content\Query\Criterion\MatchAll}
-     * and {@see \eZ\Publish\API\Repository\Values\Content\Query\Criterion\MatchNone} are returned
+     * {@see \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\MatchAll}
+     * and {@see \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\MatchNone} are returned
      * for a user with full and no access respectively.
      */
     public function getQueryPermissionsCriterion(): Criterion;
 }
+
+class_alias(PermissionCriterionResolver::class, 'eZ\Publish\API\Repository\PermissionCriterionResolver');

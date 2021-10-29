@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser;
 
 class FieldDefinitionSettingsTemplates extends Templates
 {
@@ -12,3 +12,5 @@ class FieldDefinitionSettingsTemplates extends Templates
     const INFO = 'Template settings for field definition settings rendered by the ez_render_field_definition_settings() Twig function';
     const INFO_TEMPLATE_KEY = 'Template file where to find block definition to display field definition settings';
 }
+
+class_alias(FieldDefinitionSettingsTemplates::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\FieldDefinitionSettingsTemplates');

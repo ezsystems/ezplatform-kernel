@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\ProxyFactory;
+namespace Ibexa\Core\Repository\ProxyFactory;
 
-use eZ\Publish\API\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Repository;
 
 /**
  * @internal
  */
 final class ProxyDomainMapperFactory implements ProxyDomainMapperFactoryInterface
 {
-    /** @var \eZ\Publish\Core\Repository\ProxyFactory\ProxyGeneratorInterface */
+    /** @var \Ibexa\Core\Repository\ProxyFactory\ProxyGeneratorInterface */
     private $proxyGenerator;
 
     public function __construct(ProxyGeneratorInterface $proxyGenerator)
@@ -28,3 +28,5 @@ final class ProxyDomainMapperFactory implements ProxyDomainMapperFactoryInterfac
         return new ProxyDomainMapper($repository, $this->proxyGenerator);
     }
 }
+
+class_alias(ProxyDomainMapperFactory::class, 'eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactory');

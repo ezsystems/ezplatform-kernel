@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
 /**
  * This class is used for updating the fields of a content object draft.
  *
- * @property \eZ\Publish\API\Repository\Values\Content\Field[] $fields
+ * @property \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $fields
  */
 abstract class ContentUpdateStruct extends ContentStruct
 {
@@ -38,3 +38,5 @@ abstract class ContentUpdateStruct extends ContentStruct
      */
     public $creatorId;
 }
+
+class_alias(ContentUpdateStruct::class, 'eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct');

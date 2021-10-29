@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Common;
+namespace Ibexa\Core\Search\Common;
 
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
 
 /**
  * Interface for performing indexing in background.
@@ -28,7 +28,7 @@ interface BackgroundIndexer
      *
      * .. then item is removed from index, if not it is added/updated.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\ContentInfo $contentInfo
      */
     public function registerContent(ContentInfo $contentInfo);
 
@@ -41,7 +41,9 @@ interface BackgroundIndexer
      *
      * .. then item is removed from index, if not it is added/updated.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Location $location
      */
     public function registerLocation(Location $location);
 }
+
+class_alias(BackgroundIndexer::class, 'eZ\Publish\Core\Search\Common\BackgroundIndexer');

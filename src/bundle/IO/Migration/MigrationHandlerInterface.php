@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Migration;
+namespace Ibexa\Bundle\IO\Migration;
 
 interface MigrationHandlerInterface
 {
@@ -26,3 +26,5 @@ interface MigrationHandlerInterface
         $toBinarydataHandlerIdentifier
     );
 }
+
+class_alias(MigrationHandlerInterface::class, 'eZ\Bundle\EzPublishIOBundle\Migration\MigrationHandlerInterface');

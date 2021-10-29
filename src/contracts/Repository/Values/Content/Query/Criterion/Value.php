@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
 /**
  * Struct that stores extra value information for a Criterion object.
@@ -14,3 +14,5 @@ namespace eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 abstract class Value
 {
 }
+
+class_alias(Value::class, 'eZ\Publish\API\Repository\Values\Content\Query\Criterion\Value');

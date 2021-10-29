@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\SiteAccessAware;
+namespace Ibexa\Core\Repository\SiteAccessAware;
 
-use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\LocationList;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\LocationUpdateStruct;
-use eZ\Publish\API\Repository\LanguageResolver;
-use eZ\Publish\API\Repository\Values\Filter\Filter;
+use Ibexa\Contracts\Core\Repository\LocationService as LocationServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct;
+use Ibexa\Contracts\Core\Repository\LanguageResolver;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 
 /**
  * LocationService for SiteAccessAware layer.
@@ -25,17 +25,17 @@ use eZ\Publish\API\Repository\Values\Filter\Filter;
  */
 class LocationService implements LocationServiceInterface
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     protected $service;
 
-    /** @var \eZ\Publish\API\Repository\LanguageResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageResolver */
     protected $languageResolver;
 
     /**
      * Construct service object from aggregated service and LanguageResolver.
      *
-     * @param \eZ\Publish\API\Repository\LocationService $service
-     * @param \eZ\Publish\API\Repository\LanguageResolver $languageResolver
+     * @param \Ibexa\Contracts\Core\Repository\LocationService $service
+     * @param \Ibexa\Contracts\Core\Repository\LanguageResolver $languageResolver
      */
     public function __construct(
         LocationServiceInterface $service,
@@ -172,7 +172,7 @@ class LocationService implements LocationServiceInterface
      * @param int $limit
      * @param int $offset
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      */
     public function loadAllLocations(int $offset = 0, int $limit = 25): array
     {
@@ -187,3 +187,5 @@ class LocationService implements LocationServiceInterface
         );
     }
 }
+
+class_alias(LocationService::class, 'eZ\Publish\Core\Repository\SiteAccessAware\LocationService');

@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\URL;
+namespace Ibexa\Contracts\Core\Repository\Values\URL;
 
 use ArrayIterator;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Traversable;
 
 class UsageSearchResult extends ValueObject implements \IteratorAggregate
@@ -24,7 +24,7 @@ class UsageSearchResult extends ValueObject implements \IteratorAggregate
     /**
      * The value objects found for the query.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\ContentInfo[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[]
      */
     public $items = [];
 
@@ -33,3 +33,5 @@ class UsageSearchResult extends ValueObject implements \IteratorAggregate
         return new ArrayIterator($this->items);
     }
 }
+
+class_alias(UsageSearchResult::class, 'eZ\Publish\API\Repository\Values\URL\UsageSearchResult');

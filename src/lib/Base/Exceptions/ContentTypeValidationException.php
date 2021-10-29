@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Exceptions;
+namespace Ibexa\Core\Base\Exceptions;
 
-use eZ\Publish\API\Repository\Exceptions\ContentTypeValidationException as APIContentTypeValidationException;
-use eZ\Publish\Core\Base\Translatable;
-use eZ\Publish\Core\Base\TranslatableBase;
+use Ibexa\Contracts\Core\Repository\Exceptions\ContentTypeValidationException as APIContentTypeValidationException;
+use Ibexa\Core\Base\Translatable;
+use Ibexa\Core\Base\TranslatableBase;
 
 /**
  * This Exception is thrown on create or update content type when content type is not valid.
@@ -32,3 +32,5 @@ class ContentTypeValidationException extends APIContentTypeValidationException i
         parent::__construct($this->getBaseTranslation());
     }
 }
+
+class_alias(ContentTypeValidationException::class, 'eZ\Publish\Core\Base\Exceptions\ContentTypeValidationException');

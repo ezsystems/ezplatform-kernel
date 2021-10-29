@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Setting;
+namespace Ibexa\Core\Persistence\Legacy\Setting;
 
 /**
  * @internal For internal use by Persistence Handlers.
@@ -57,3 +57,5 @@ abstract class Gateway
         string $identifier
     ): void;
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\Persistence\Legacy\Setting\Gateway');

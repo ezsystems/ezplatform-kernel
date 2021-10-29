@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\Core\DependencyInjection\Compiler;
 
-use eZ\Publish\Core\Base\Container\Compiler\TaggedServiceIdsIterator\BackwardCompatibleIterator;
+use Ibexa\Core\Base\Container\Compiler\TaggedServiceIdsIterator\BackwardCompatibleIterator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -49,3 +49,5 @@ final class QueryTypePass implements CompilerPassInterface
         $aggregatorDefinition->addMethodCall('addQueryTypes', [$queryTypes]);
     }
 }
+
+class_alias(QueryTypePass::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\QueryTypePass');

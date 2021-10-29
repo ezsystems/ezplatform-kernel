@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View\Builder\ParametersFilter;
+namespace Ibexa\Core\MVC\Symfony\View\Builder\ParametersFilter;
 
-use eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
+use Ibexa\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use eZ\Publish\Core\MVC\Symfony\View\ViewEvents;
+use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 
 /**
  * Collects parameters for the ViewBuilder from the Request.
@@ -23,7 +23,7 @@ class RequestAttributes implements EventSubscriberInterface
     /**
      * Adds all the request attributes to the parameters.
      *
-     * @param \eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent $e
+     * @param \Ibexa\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent $e
      */
     public function addRequestAttributes(FilterViewBuilderParametersEvent $e)
     {
@@ -36,3 +36,5 @@ class RequestAttributes implements EventSubscriberInterface
         }
     }
 }
+
+class_alias(RequestAttributes::class, 'eZ\Publish\Core\MVC\Symfony\View\Builder\ParametersFilter\RequestAttributes');

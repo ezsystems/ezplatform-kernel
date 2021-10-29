@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Mapper;
+namespace Ibexa\Core\Repository\Mapper;
 
-use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
+use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
 
 /**
  * @internal For internal use by Domain Mappers
@@ -17,7 +17,7 @@ use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
  */
 abstract class ProxyAwareDomainMapper
 {
-    /** @var \eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperInterface */
+    /** @var \Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperInterface */
     protected $proxyFactory;
 
     public function __construct(?ProxyDomainMapperInterface $proxyFactory = null)
@@ -35,3 +35,5 @@ abstract class ProxyAwareDomainMapper
         $this->proxyFactory = $proxyFactory;
     }
 }
+
+class_alias(ProxyAwareDomainMapper::class, 'eZ\Publish\Core\Repository\Mapper\ProxyAwareDomainMapper');

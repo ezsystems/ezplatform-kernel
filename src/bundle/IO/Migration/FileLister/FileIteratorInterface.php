@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Migration\FileLister;
+namespace Ibexa\Bundle\IO\Migration\FileLister;
 
 use Iterator;
 use Countable;
@@ -15,3 +15,5 @@ use Countable;
 interface FileIteratorInterface extends Countable, Iterator
 {
 }
+
+class_alias(FileIteratorInterface::class, 'eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileIteratorInterface');

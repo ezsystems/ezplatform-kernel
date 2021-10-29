@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Values\Content;
+namespace Ibexa\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct as APIContentCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct as APIContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 
 /**
  * This class is used for creating a new content object.
  *
- * @property \eZ\Publish\API\Repository\Values\Content\Field[] $fields
+ * @property \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $fields
  *
  * @internal Meant for internal use by Repository, type hint against API instead.
  */
@@ -23,7 +23,7 @@ class ContentCreateStruct extends APIContentCreateStruct
     /**
      * Field collection.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Field[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Field[]
      */
     public $fields = [];
 
@@ -54,3 +54,5 @@ class ContentCreateStruct extends APIContentCreateStruct
         );
     }
 }
+
+class_alias(ContentCreateStruct::class, 'eZ\Publish\Core\Repository\Values\Content\ContentCreateStruct');

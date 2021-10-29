@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Field;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\Field;
 
 final class CountryTermAggregation extends AbstractFieldTermAggregation
 {
@@ -34,3 +34,5 @@ final class CountryTermAggregation extends AbstractFieldTermAggregation
         return $this->type;
     }
 }
+
+class_alias(CountryTermAggregation::class, 'eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Field\CountryTermAggregation');

@@ -4,35 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType;
+namespace Ibexa\Core\FieldType;
 
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\SPI\FieldType\Indexable;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Contracts\Core\FieldType\Indexable;
 
 /**
  * Indexable definition for string field type.
  */
 class Unindexed implements Indexable
 {
-    /**
-     * Get index data for field for search backend.
-     *
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition $fieldDefinition
-     *
-     * @return \eZ\Publish\SPI\Search\Field[]
-     */
     public function getIndexData(Field $field, FieldDefinition $fieldDefinition)
     {
         return [];
     }
 
-    /**
-     * Get index field types for search backend.
-     *
-     * @return \eZ\Publish\SPI\Search\FieldType[]
-     */
     public function getIndexDefinition()
     {
         return [];
@@ -66,3 +53,5 @@ class Unindexed implements Indexable
         return null;
     }
 }
+
+class_alias(Unindexed::class, 'eZ\Publish\Core\FieldType\Unindexed');

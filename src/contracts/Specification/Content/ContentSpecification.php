@@ -6,11 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Specification\Content;
+namespace Ibexa\Contracts\Core\Specification\Content;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 
 interface ContentSpecification
 {
     public function isSatisfiedBy(Content $content): bool;
 }
+
+class_alias(ContentSpecification::class, 'eZ\Publish\SPI\Specification\Content\ContentSpecification');

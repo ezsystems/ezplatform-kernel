@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\User\Role;
+namespace Ibexa\Core\Persistence\Legacy\User\Role;
 
-use eZ\Publish\SPI\Persistence\User\Policy;
+use Ibexa\Contracts\Core\Persistence\User\Policy;
 
 /**
  * Limitation converter.
@@ -15,13 +15,13 @@ use eZ\Publish\SPI\Persistence\User\Policy;
  */
 class LimitationConverter
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\User\Role\LimitationHandler[] */
+    /** @var \Ibexa\Core\Persistence\Legacy\User\Role\LimitationHandler[] */
     protected $limitationHandlers;
 
     /**
      * Construct from LimitationConverter.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\User\Role\LimitationHandler[] $limitationHandlers
+     * @param \Ibexa\Core\Persistence\Legacy\User\Role\LimitationHandler[] $limitationHandlers
      */
     public function __construct(array $limitationHandlers = [])
     {
@@ -31,7 +31,7 @@ class LimitationConverter
     /**
      * Adds handler.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\User\Role\LimitationHandler $handler
+     * @param \Ibexa\Core\Persistence\Legacy\User\Role\LimitationHandler $handler
      */
     public function addHandler(LimitationHandler $handler)
     {
@@ -58,3 +58,5 @@ class LimitationConverter
         }
     }
 }
+
+class_alias(LimitationConverter::class, 'eZ\Publish\Core\Persistence\Legacy\User\Role\LimitationConverter');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\IO\MimeTypeDetector;
+namespace Ibexa\Core\IO\MimeTypeDetector;
 
-use eZ\Publish\SPI\IO\MimeTypeDetector;
+use Ibexa\Contracts\Core\IO\MimeTypeDetector;
 
 class FileInfo implements MimeTypeDetector
 {
@@ -53,3 +53,5 @@ class FileInfo implements MimeTypeDetector
         return $this->fileInfo;
     }
 }
+
+class_alias(FileInfo::class, 'eZ\Publish\Core\IO\MimeTypeDetector\FileInfo');

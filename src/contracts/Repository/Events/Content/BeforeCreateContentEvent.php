@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Content;
+namespace Ibexa\Contracts\Core\Repository\Events\Content;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCreateContentEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\ContentCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct */
     private $contentCreateStruct;
 
     /** @var array */
     private $locationCreateStructs;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Content|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content|null */
     private $content;
 
     /** @var string[]|null */
@@ -74,3 +74,5 @@ final class BeforeCreateContentEvent extends BeforeEvent
         return $this->content instanceof Content;
     }
 }
+
+class_alias(BeforeCreateContentEvent::class, 'eZ\Publish\API\Repository\Events\Content\BeforeCreateContentEvent');

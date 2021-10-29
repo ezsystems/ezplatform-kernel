@@ -6,24 +6,24 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\FieldType\Generic;
+namespace Ibexa\Contracts\Core\FieldType\Generic;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\SPI\Exception\InvalidArgumentType;
-use eZ\Publish\SPI\FieldType\FieldType;
-use eZ\Publish\SPI\FieldType\Generic\ValidationError\ConstraintViolationAdapter;
-use eZ\Publish\SPI\FieldType\ValidationError\NonConfigurableValidationError;
-use eZ\Publish\SPI\FieldType\ValidationError\UnknownValidatorValidationError;
-use eZ\Publish\SPI\FieldType\Value;
-use eZ\Publish\SPI\FieldType\ValueSerializerInterface;
-use eZ\Publish\SPI\Persistence\Content\FieldValue as PersistenceValue;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Exception\InvalidArgumentType;
+use Ibexa\Contracts\Core\FieldType\FieldType;
+use Ibexa\Contracts\Core\FieldType\Generic\ValidationError\ConstraintViolationAdapter;
+use Ibexa\Contracts\Core\FieldType\ValidationError\NonConfigurableValidationError;
+use Ibexa\Contracts\Core\FieldType\ValidationError\UnknownValidatorValidationError;
+use Ibexa\Contracts\Core\FieldType\Value;
+use Ibexa\Contracts\Core\FieldType\ValueSerializerInterface;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue as PersistenceValue;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class Type extends FieldType
 {
-    /** @var \eZ\Publish\SPI\FieldType\ValueSerializerInterface */
+    /** @var \Ibexa\Contracts\Core\FieldType\ValueSerializerInterface */
     protected $serializer;
 
     /** @var \Symfony\Component\Validator\Validator\ValidatorInterface */
@@ -194,7 +194,7 @@ abstract class Type extends FieldType
      *
      * In case of multi value, values should be string and separated by "-" or ",".
      *
-     * @param \eZ\Publish\Core\FieldType\Value $value
+     * @param \Ibexa\Core\FieldType\Value $value
      *
      * @return mixed
      */
@@ -270,7 +270,7 @@ abstract class Type extends FieldType
      *  {
      *      if ( is_array( $inputValue ) )
      *      {
-     *          $inputValue = \eZ\Publish\Core\FieldType\CookieJar\Value( $inputValue );
+     *          $inputValue = \My\FieldType\CookieJar\Value( $inputValue );
      *      }
      *
      *      return $inputValue;
@@ -315,7 +315,7 @@ abstract class Type extends FieldType
      * <code>
      *  protected function checkValueType($value): void
      *  {
-     *      if ( !$inputValue instanceof \eZ\Publish\Core\FieldType\CookieJar\Value ) )
+     *      if ( !$inputValue instanceof \My\FieldType\CookieJar\Value ) )
      *      {
      *          throw new InvalidArgumentException( "Given value type is not supported." );
      *      }
@@ -324,7 +324,7 @@ abstract class Type extends FieldType
      *
      * @param mixed $value A value returned by {@see createValueFromInput()}.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the parameter is not an instance of the supported value subtype.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the parameter is not an instance of the supported value subtype.
      */
     protected function checkValueType($value): void
     {
@@ -359,3 +359,5 @@ abstract class Type extends FieldType
         return [];
     }
 }
+
+class_alias(Type::class, 'eZ\Publish\SPI\FieldType\Generic\Type');

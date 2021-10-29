@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content\Location;
+namespace Ibexa\Contracts\Core\Persistence\Content\Location;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 class UpdateStruct extends ValueObject
 {
@@ -47,3 +47,5 @@ class UpdateStruct extends ValueObject
      */
     public $sortOrder;
 }
+
+class_alias(UpdateStruct::class, 'eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct');

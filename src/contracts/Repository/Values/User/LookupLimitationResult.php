@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class represents a LookupLimitation for module and function in the context of current User.
@@ -18,16 +18,16 @@ final class LookupLimitationResult extends ValueObject
     /** @var bool */
     protected $hasAccess;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\Limitation[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] */
     protected $roleLimitations;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\LookupPolicyLimitations[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\LookupPolicyLimitations[] */
     protected $lookupPolicyLimitations;
 
     /**
      * @param bool $hasAccess
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation[] $roleLimitations
-     * @param \eZ\Publish\API\Repository\Values\User\LookupPolicyLimitations[] $lookupPolicyLimitations
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] $roleLimitations
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\LookupPolicyLimitations[] $lookupPolicyLimitations
      */
     public function __construct(
         bool $hasAccess,
@@ -41,3 +41,5 @@ final class LookupLimitationResult extends ValueObject
         $this->roleLimitations = $roleLimitations;
     }
 }
+
+class_alias(LookupLimitationResult::class, 'eZ\Publish\API\Repository\Values\User\LookupLimitationResult');

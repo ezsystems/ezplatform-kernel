@@ -4,20 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository;
+namespace Ibexa\Core\Repository;
 
-use eZ\Publish\API\Repository\LanguageService as LanguageServiceInterface;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler;
-use eZ\Publish\API\Repository\Repository as RepositoryInterface;
-use eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Language as SPILanguage;
-use eZ\Publish\SPI\Persistence\Content\Language\CreateStruct;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\LanguageService as LanguageServiceInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Language as SPILanguage;
+use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
 use LogicException;
 use Exception;
 
@@ -26,23 +26,23 @@ use Exception;
  */
 class LanguageService implements LanguageServiceInterface
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     protected $repository;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Language\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Language\Handler */
     protected $languageHandler;
 
     /** @var array */
     protected $settings;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
     /**
      * Setups service with reference to repository object that created it & corresponding handler.
      *
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\SPI\Persistence\Content\Language\Handler $languageHandler
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Language\Handler $languageHandler
      * @param array $settings
      */
     public function __construct(
@@ -63,12 +63,12 @@ class LanguageService implements LanguageServiceInterface
     /**
      * Creates the a new Language in the content repository.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct $languageCreateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct $languageCreateStruct
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the languageCode already exists
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if the languageCode already exists
      */
     public function createLanguage(LanguageCreateStruct $languageCreateStruct): Language
     {
@@ -119,14 +119,14 @@ class LanguageService implements LanguageServiceInterface
     /**
      * Changes the name of the language in the content repository.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      * @param string $newName
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if languageCode argument
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if languageCode argument
      *         is not string
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
      */
     public function updateLanguageName(Language $language, string $newName): Language
     {
@@ -164,11 +164,11 @@ class LanguageService implements LanguageServiceInterface
     /**
      * Enables a language.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
      */
     public function enableLanguage(Language $language): Language
     {
@@ -202,11 +202,11 @@ class LanguageService implements LanguageServiceInterface
     /**
      * Disables a language.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
      */
     public function disableLanguage(Language $language): Language
     {
@@ -242,11 +242,11 @@ class LanguageService implements LanguageServiceInterface
      *
      * @param string $languageCode
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if languageCode argument
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if languageCode argument
      *         is not string
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if language could not be found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if language could not be found
      */
     public function loadLanguage(string $languageCode): Language
     {
@@ -262,7 +262,7 @@ class LanguageService implements LanguageServiceInterface
     /**
      * Loads all Languages.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
      */
     public function loadLanguages(): iterable
     {
@@ -281,9 +281,9 @@ class LanguageService implements LanguageServiceInterface
      *
      * @param mixed $languageId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if language could not be found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if language could not be found
      */
     public function loadLanguageById(int $languageId): Language
     {
@@ -325,11 +325,11 @@ class LanguageService implements LanguageServiceInterface
     /**
      * Deletes  a language from content repository.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if language can not be deleted
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if language can not be deleted
      *         because it is still assigned to some content / type / (...).
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If user does not have access to content translations
      */
     public function deleteLanguage(Language $language): void
     {
@@ -376,7 +376,7 @@ class LanguageService implements LanguageServiceInterface
     /**
      * Instantiates an object to be used for creating languages.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct
      */
     public function newLanguageCreateStruct(): LanguageCreateStruct
     {
@@ -386,9 +386,9 @@ class LanguageService implements LanguageServiceInterface
     /**
      * Builds Language domain object from ValueObject returned by Persistence API.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Language $spiLanguage
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Language $spiLanguage
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      */
     protected function buildDomainObject(SPILanguage $spiLanguage)
     {
@@ -402,3 +402,5 @@ class LanguageService implements LanguageServiceInterface
         );
     }
 }
+
+class_alias(LanguageService::class, 'eZ\Publish\Core\Repository\LanguageService');

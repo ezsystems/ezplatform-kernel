@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Variation\Values;
+namespace Ibexa\Contracts\Core\Variation\Values;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * Base class for file variations (i.e. image aliases).
@@ -62,3 +62,5 @@ class Variation extends ValueObject
      */
     protected $lastModified;
 }
+
+class_alias(Variation::class, 'eZ\Publish\SPI\Variation\Values\Variation');

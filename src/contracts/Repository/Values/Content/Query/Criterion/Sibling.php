@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 
 /**
  * A criterion that matches content that is sibling to the given Location.
@@ -33,3 +33,5 @@ class Sibling extends CompositeCriterion implements FilteringCriterion
         return new self($location->id, $location->parentLocationId);
     }
 }
+
+class_alias(Sibling::class, 'eZ\Publish\API\Repository\Values\Content\Query\Criterion\Sibling');

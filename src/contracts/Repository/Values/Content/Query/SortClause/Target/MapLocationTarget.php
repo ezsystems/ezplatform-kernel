@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Target;
 
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Target;
 
 /**
  * Struct that stores extra value information for a MapLocationDistance SortClause object.
@@ -61,3 +61,5 @@ class MapLocationTarget extends Target
         $this->fieldIdentifier = $fieldIdentifier;
     }
 }
+
+class_alias(MapLocationTarget::class, 'eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target\MapLocationTarget');

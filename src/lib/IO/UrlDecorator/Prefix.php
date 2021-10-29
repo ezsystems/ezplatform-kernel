@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\IO\UrlDecorator;
+namespace Ibexa\Core\IO\UrlDecorator;
 
-use eZ\Publish\Core\IO\Exception\InvalidBinaryPrefixException;
-use eZ\Publish\Core\IO\IOConfigProvider;
-use eZ\Publish\Core\IO\UrlDecorator;
+use Ibexa\Core\IO\Exception\InvalidBinaryPrefixException;
+use Ibexa\Core\IO\IOConfigProvider;
+use Ibexa\Core\IO\UrlDecorator;
 
 /**
  * Prefixes the URI with a string. Ensures an initial / in the parameter.
  */
 class Prefix implements UrlDecorator
 {
-    /** @var \eZ\Publish\Core\IO\IOConfigProvider */
+    /** @var \Ibexa\Core\IO\IOConfigProvider */
     protected $ioConfigResolver;
 
     public function __construct(IOConfigProvider $IOConfigResolver)
@@ -43,7 +43,7 @@ class Prefix implements UrlDecorator
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function undecorate($url)
     {
@@ -59,3 +59,5 @@ class Prefix implements UrlDecorator
         return trim(substr($url, strlen($prefix)), '/');
     }
 }
+
+class_alias(Prefix::class, 'eZ\Publish\Core\IO\UrlDecorator\Prefix');

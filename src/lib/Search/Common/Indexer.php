@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Common;
+namespace Ibexa\Core\Search\Common;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Statement;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
-use eZ\Publish\SPI\Search\Handler as SearchHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
+use Ibexa\Contracts\Core\Search\Handler as SearchHandler;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -24,13 +24,13 @@ abstract class Indexer
     /** @var \Psr\Log\LoggerInterface */
     protected $logger;
 
-    /** @var \eZ\Publish\SPI\Persistence\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Handler */
     protected $persistenceHandler;
 
     /** @var \Doctrine\DBAL\Connection */
     protected $connection;
 
-    /** @var \eZ\Publish\SPI\Search\Handler */
+    /** @var \Ibexa\Contracts\Core\Search\Handler */
     protected $searchHandler;
 
     public function __construct(
@@ -70,3 +70,5 @@ abstract class Indexer
         return $query->execute();
     }
 }
+
+class_alias(Indexer::class, 'eZ\Publish\Core\Search\Common\Indexer');

@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Migration\FileLister;
+namespace Ibexa\Bundle\IO\Migration\FileLister;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator;
-use eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPurger\ImageFileList;
-use eZ\Bundle\EzPublishIOBundle\ApiLoader\HandlerRegistry;
-use eZ\Bundle\EzPublishIOBundle\Migration\FileListerInterface;
-use eZ\Bundle\EzPublishIOBundle\Migration\MigrationHandler;
-use eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException;
+use Ibexa\Bundle\Core\Imagine\VariationPathGenerator;
+use Ibexa\Bundle\Core\Imagine\VariationPurger\ImageFileList;
+use Ibexa\Bundle\IO\ApiLoader\HandlerRegistry;
+use Ibexa\Bundle\IO\Migration\FileListerInterface;
+use Ibexa\Bundle\IO\Migration\MigrationHandler;
+use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
 use Iterator;
 use Liip\ImagineBundle\Imagine\Filter\FilterConfiguration;
 use LimitIterator;
@@ -22,7 +22,7 @@ class ImageFileLister extends MigrationHandler implements FileListerInterface
     /** @var ImageFileList */
     private $imageFileList;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator */
+    /** @var \Ibexa\Bundle\Core\Imagine\VariationPathGenerator */
     private $variationPathGenerator;
 
     /** @var \Liip\ImagineBundle\Imagine\Filter\FilterConfiguration */
@@ -32,11 +32,11 @@ class ImageFileLister extends MigrationHandler implements FileListerInterface
     private $imagesDir;
 
     /**
-     * @param \eZ\Bundle\EzPublishIOBundle\ApiLoader\HandlerRegistry $metadataHandlerRegistry
-     * @param \eZ\Bundle\EzPublishIOBundle\ApiLoader\HandlerRegistry $binarydataHandlerRegistry
+     * @param \Ibexa\Bundle\IO\ApiLoader\HandlerRegistry $metadataHandlerRegistry
+     * @param \Ibexa\Bundle\IO\ApiLoader\HandlerRegistry $binarydataHandlerRegistry
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Iterator $imageFileList
-     * @param \eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator
+     * @param \Ibexa\Bundle\Core\Imagine\VariationPathGenerator
      * @param \Liip\ImagineBundle\Imagine\Filter\FilterConfiguration
      * @param string $imagesDir Directory where images are stored, within the storage dir. Example: 'images'
      */
@@ -93,3 +93,5 @@ class ImageFileLister extends MigrationHandler implements FileListerInterface
         return $metadataList;
     }
 }
+
+class_alias(ImageFileLister::class, 'eZ\Bundle\EzPublishIOBundle\Migration\FileLister\ImageFileLister');

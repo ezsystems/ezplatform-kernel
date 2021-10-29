@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishDebugBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\Debug\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -33,3 +33,5 @@ class DataCollectorPass implements CompilerPassInterface
         }
     }
 }
+
+class_alias(DataCollectorPass::class, 'eZ\Bundle\EzPublishDebugBundle\DependencyInjection\Compiler\DataCollectorPass');

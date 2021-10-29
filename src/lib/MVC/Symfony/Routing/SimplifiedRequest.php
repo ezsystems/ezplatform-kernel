@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Routing;
+namespace Ibexa\Core\MVC\Symfony\Routing;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * @property-read string $scheme The request scheme - http or https
@@ -133,7 +133,7 @@ class SimplifiedRequest extends ValueObject
      *
      * @internal
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest
+     * @return \Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest
      */
     public static function fromUrl($url)
     {
@@ -159,3 +159,5 @@ class SimplifiedRequest extends ValueObject
         return ['scheme', 'host', 'port', 'pathinfo', 'queryParams', 'languages', 'headers'];
     }
 }
+
+class_alias(SimplifiedRequest::class, 'eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest');

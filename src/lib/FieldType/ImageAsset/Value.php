@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\FieldType\ImageAsset;
+namespace Ibexa\Core\FieldType\ImageAsset;
 
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 class Value extends BaseValue
 {
@@ -46,3 +46,5 @@ class Value extends BaseValue
         return (string) $this->destinationContentId;
     }
 }
+
+class_alias(Value::class, 'eZ\Publish\Core\FieldType\ImageAsset\Value');

@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Language;
+namespace Ibexa\Contracts\Core\Repository\Events\Language;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class UpdateLanguageNameEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
     private $updatedLanguage;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
     private $language;
 
     /** @var string */
@@ -47,3 +47,5 @@ final class UpdateLanguageNameEvent extends AfterEvent
         return $this->newName;
     }
 }
+
+class_alias(UpdateLanguageNameEvent::class, 'eZ\Publish\API\Repository\Events\Language\UpdateLanguageNameEvent');

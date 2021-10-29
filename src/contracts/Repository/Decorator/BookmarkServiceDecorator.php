@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Decorator;
+namespace Ibexa\Contracts\Core\Repository\Decorator;
 
-use eZ\Publish\API\Repository\BookmarkService;
-use eZ\Publish\API\Repository\Values\Bookmark\BookmarkList;
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\BookmarkService;
+use Ibexa\Contracts\Core\Repository\Values\Bookmark\BookmarkList;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 abstract class BookmarkServiceDecorator implements BookmarkService
 {
-    /** @var \eZ\Publish\API\Repository\BookmarkService */
+    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
     protected $innerService;
 
     public function __construct(BookmarkService $innerService)
@@ -44,3 +44,5 @@ abstract class BookmarkServiceDecorator implements BookmarkService
         return $this->innerService->isBookmarked($location);
     }
 }
+
+class_alias(BookmarkServiceDecorator::class, 'eZ\Publish\SPI\Repository\Decorator\BookmarkServiceDecorator');

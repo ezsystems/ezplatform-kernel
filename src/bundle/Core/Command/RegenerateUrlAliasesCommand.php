@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Command;
+namespace Ibexa\Bundle\Core\Command;
 
 use Exception;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\Console\Command\Command;
@@ -36,14 +36,14 @@ class RegenerateUrlAliasesCommand extends Command implements BackwardCompatibleC
 - Manually clear HTTP cache after running this command.
 EOT;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
     /**
-     * @param \eZ\Publish\API\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(Repository $repository, LoggerInterface $logger = null)
@@ -181,7 +181,7 @@ EOT
     /**
      * Process single results page of fetched Locations.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location[] $locations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
      * @param \Symfony\Component\Console\Helper\ProgressBar $progressBar
      */
     private function processLocations(array $locations, ProgressBar $progressBar)
@@ -240,7 +240,7 @@ EOT
      * @param int $offset
      * @param int $iterationCount
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      *
      * @throws \Exception
      */
@@ -258,7 +258,7 @@ EOT
      * @param int $offset
      * @param int $iterationCount
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      *
      * @throws \Exception
      */
@@ -335,3 +335,5 @@ EOT
         return ['ezplatform:urls:regenerate-aliases'];
     }
 }
+
+class_alias(RegenerateUrlAliasesCommand::class, 'eZ\Bundle\EzPublishCoreBundle\Command\RegenerateUrlAliasesCommand');

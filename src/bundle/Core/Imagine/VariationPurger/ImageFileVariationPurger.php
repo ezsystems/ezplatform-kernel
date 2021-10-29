@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPurger;
+namespace Ibexa\Bundle\Core\Imagine\VariationPurger;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator;
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\SPI\Variation\VariationPurger;
+use Ibexa\Bundle\Core\Imagine\VariationPathGenerator;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Contracts\Core\Variation\VariationPurger;
 use Iterator;
 
 /**
@@ -22,10 +22,10 @@ class ImageFileVariationPurger implements VariationPurger
     /** @var ImageFileList */
     private $imageFileList;
 
-    /** @var \eZ\Publish\Core\IO\IOServiceInterface */
+    /** @var \Ibexa\Core\IO\IOServiceInterface */
     private $ioService;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator */
+    /** @var \Ibexa\Bundle\Core\Imagine\VariationPathGenerator */
     private $variationPathGenerator;
 
     /** @var \Psr\Log\LoggerInterface */
@@ -69,3 +69,5 @@ class ImageFileVariationPurger implements VariationPurger
         $this->logger = $logger;
     }
 }
+
+class_alias(ImageFileVariationPurger::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPurger\ImageFileVariationPurger');

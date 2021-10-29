@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence;
+namespace Ibexa\Core\Persistence;
 
-use eZ\Publish\Core\Persistence\TransformationProcessor\PcreCompiler;
+use Ibexa\Core\Persistence\TransformationProcessor\PcreCompiler;
 
 /**
  * Interface for processing a set of transformations on a string.
@@ -38,7 +38,7 @@ abstract class TransformationProcessor
     /**
      * Transformation compiler.
      *
-     * @var \eZ\Publish\Core\Persistence\TransformationProcessor\PcreCompiler
+     * @var \Ibexa\Core\Persistence\TransformationProcessor\PcreCompiler
      */
     protected $compiler = null;
 
@@ -48,7 +48,7 @@ abstract class TransformationProcessor
      * Through the $ruleFiles array, a list of files with full text
      * transformation rules is given.
      *
-     * @param \eZ\Publish\Core\Persistence\TransformationProcessor\PcreCompiler $compiler
+     * @param \Ibexa\Core\Persistence\TransformationProcessor\PcreCompiler $compiler
      * @param array $ruleFiles
      */
     public function __construct(PcreCompiler $compiler, array $ruleFiles = [])
@@ -129,3 +129,5 @@ abstract class TransformationProcessor
         return $string;
     }
 }
+
+class_alias(TransformationProcessor::class, 'eZ\Publish\Core\Persistence\TransformationProcessor');

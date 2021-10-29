@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Templating;
+namespace Ibexa\Core\MVC\Symfony\Templating;
 
-use eZ\Publish\SPI\Options\MutableOptionsBag;
+use Ibexa\Contracts\Core\Options\MutableOptionsBag;
 
 final class RenderOptions implements MutableOptionsBag
 {
@@ -57,3 +57,5 @@ final class RenderOptions implements MutableOptionsBag
         unset($this->options[$key]);
     }
 }
+
+class_alias(RenderOptions::class, 'eZ\Publish\Core\MVC\Symfony\Templating\RenderOptions');

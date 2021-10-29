@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Command;
+namespace Ibexa\Bundle\Core\Command;
 
 use Symfony\Component\Console\Style\SymfonyStyle;
 use function count;
 use const DIRECTORY_SEPARATOR;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Search\Common\Indexer;
-use eZ\Publish\Core\Search\Common\IncrementalIndexer;
-use eZ\Publish\SPI\Search\Content\IndexerGateway;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Search\Common\Indexer;
+use Ibexa\Core\Search\Common\IncrementalIndexer;
+use Ibexa\Contracts\Core\Search\Content\IndexerGateway;
 use Generator;
-use eZ\Publish\SPI\Persistence\Content\Location\Handler;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Handler;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -28,7 +28,7 @@ use DateTime;
 
 class ReindexCommand extends Command implements BackwardCompatibleCommand
 {
-    /** @var \eZ\Publish\Core\Search\Common\Indexer|\eZ\Publish\Core\Search\Common\IncrementalIndexer */
+    /** @var \Ibexa\Core\Search\Common\Indexer|\Ibexa\Core\Search\Common\IncrementalIndexer */
     private $searchIndexer;
 
     /** @var string */
@@ -49,10 +49,10 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
     /** @var string */
     private $projectDir;
 
-    /** @var \eZ\Publish\SPI\Search\Content\IndexerGateway */
+    /** @var \Ibexa\Contracts\Core\Search\Content\IndexerGateway */
     private $gateway;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Location\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Location\Handler */
     private $locationHandler;
 
     public function __construct(
@@ -251,7 +251,7 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
             $generator = $this->gateway->getContentSince(new DateTime($since), $iterationCount);
             $purge = false;
         } elseif ($locationId = (int) $input->getOption('subtree')) {
-            /** @var \eZ\Publish\SPI\Persistence\Content\Location\Handler */
+            /** @var \Ibexa\Contracts\Core\Persistence\Content\Location\Handler */
             $location = $this->locationHandler->load($locationId);
             $count = $this->gateway->countContentInSubtree($location->pathString);
             $generator = $this->gateway->getContentInSubtree($location->pathString, $iterationCount);
@@ -317,7 +317,7 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function runParallelProcess(
         ProgressBar $progress,
@@ -368,7 +368,7 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
     /**
      * @param array $contentIds
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function getPhpProcess(array $contentIds, bool $commit): Process
     {
@@ -455,3 +455,5 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
         return ['ezplatform:reindex'];
     }
 }
+
+class_alias(ReindexCommand::class, 'eZ\Bundle\EzPublishCoreBundle\Command\ReindexCommand');

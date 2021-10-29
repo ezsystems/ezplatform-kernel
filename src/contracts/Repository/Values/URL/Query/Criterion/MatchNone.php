@@ -6,8 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\URL\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
 
 class MatchNone extends Matcher
 {
 }
+
+class_alias(MatchNone::class, 'eZ\Publish\API\Repository\Values\URL\Query\Criterion\MatchNone');

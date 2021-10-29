@@ -4,19 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Helper;
+namespace Ibexa\Core\Helper;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\FieldTypeService;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\FieldTypeService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 class FieldHelper
 {
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\FieldTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\FieldTypeService */
     private $fieldTypeService;
 
     /** @var TranslationHelper */
@@ -32,7 +32,7 @@ class FieldHelper
     /**
      * Checks if provided field can be considered empty.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param string $fieldDefIdentifier
      * @param null $forcedLanguage
      *
@@ -57,7 +57,7 @@ class FieldHelper
      * @param ContentInfo $contentInfo
      * @param string $fieldDefIdentifier
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition
      */
     public function getFieldDefinition(ContentInfo $contentInfo, $fieldDefIdentifier)
     {
@@ -67,3 +67,5 @@ class FieldHelper
             ->getFieldDefinition($fieldDefIdentifier);
     }
 }
+
+class_alias(FieldHelper::class, 'eZ\Publish\Core\Helper\FieldHelper');

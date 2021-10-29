@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishDebugBundle\Collector;
+namespace Ibexa\Bundle\Debug\Collector;
 
-use eZ\Publish\Core\Persistence\Cache\PersistenceLogger;
+use Ibexa\Core\Persistence\Cache\PersistenceLogger;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
@@ -148,3 +148,5 @@ class PersistenceCacheCollector extends DataCollector
         $this->data = [];
     }
 }
+
+class_alias(PersistenceCacheCollector::class, 'eZ\Bundle\EzPublishDebugBundle\Collector\PersistenceCacheCollector');

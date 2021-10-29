@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Persistence\User;
+namespace Ibexa\Contracts\Core\Persistence\User;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 class RoleCopyStruct extends ValueObject
 {
@@ -36,7 +36,9 @@ class RoleCopyStruct extends ValueObject
     /**
      * Contains an array of role policies.
      *
-     * @var \eZ\Publish\API\Repository\Values\User\PolicyCreateStruct[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyCreateStruct[]
      */
     public $policies = [];
 }
+
+class_alias(RoleCopyStruct::class, 'eZ\Publish\SPI\Persistence\User\RoleCopyStruct');

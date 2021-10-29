@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Search;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Search;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 abstract class AggregationResult extends ValueObject
 {
@@ -31,3 +31,5 @@ abstract class AggregationResult extends ValueObject
         return $this->name;
     }
 }
+
+class_alias(AggregationResult::class, 'eZ\Publish\API\Repository\Values\Content\Search\AggregationResult');

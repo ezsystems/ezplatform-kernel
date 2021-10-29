@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Exceptions;
+namespace Ibexa\Core\Base\Exceptions;
 
-use eZ\Publish\API\Repository\Exceptions\LimitationValidationException as APILimitationValidationException;
-use eZ\Publish\Core\Base\Translatable;
-use eZ\Publish\Core\Base\TranslatableBase;
+use Ibexa\Contracts\Core\Repository\Exceptions\LimitationValidationException as APILimitationValidationException;
+use Ibexa\Core\Base\Translatable;
+use Ibexa\Core\Base\TranslatableBase;
 
 /**
  * This Exception is thrown on create, update or assign policy or role
@@ -21,7 +21,7 @@ class LimitationValidationException extends APILimitationValidationException imp
     /**
      * Contains an array of limitation ValidationError objects.
      *
-     * @var \eZ\Publish\Core\FieldType\ValidationError[]
+     * @var \Ibexa\Core\FieldType\ValidationError[]
      */
     protected $errors;
 
@@ -30,7 +30,7 @@ class LimitationValidationException extends APILimitationValidationException imp
      *
      * Also sets the given $errors to the internal property, retrievable by getValidationErrors()
      *
-     * @param \eZ\Publish\Core\FieldType\ValidationError[] $errors
+     * @param \Ibexa\Core\FieldType\ValidationError[] $errors
      */
     public function __construct(array $errors)
     {
@@ -42,10 +42,12 @@ class LimitationValidationException extends APILimitationValidationException imp
     /**
      * Returns an array of limitation ValidationError objects.
      *
-     * @return \eZ\Publish\Core\FieldType\ValidationError[]
+     * @return \Ibexa\Core\FieldType\ValidationError[]
      */
     public function getLimitationErrors()
     {
         return $this->errors;
     }
 }
+
+class_alias(LimitationValidationException::class, 'eZ\Publish\Core\Base\Exceptions\LimitationValidationException');

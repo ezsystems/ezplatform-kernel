@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase;
+namespace Ibexa\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder as DoctrineQueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway;
 use function time;
 
 /**
@@ -184,3 +184,5 @@ final class QueryBuilder
         return $query;
     }
 }
+
+class_alias(QueryBuilder::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase\QueryBuilder');

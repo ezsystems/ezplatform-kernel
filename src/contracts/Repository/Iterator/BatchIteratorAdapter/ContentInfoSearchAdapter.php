@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter;
+namespace Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 
 final class ContentInfoSearchAdapter extends AbstractSearchAdapter
 {
@@ -22,3 +22,5 @@ final class ContentInfoSearchAdapter extends AbstractSearchAdapter
         );
     }
 }
+
+class_alias(ContentInfoSearchAdapter::class, 'eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter\ContentInfoSearchAdapter');

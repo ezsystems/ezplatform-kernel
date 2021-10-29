@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader;
+namespace Ibexa\Bundle\Core\Imagine\Filter\Loader;
 
 use Imagine\Image\ImageInterface;
 use Imagine\Exception\InvalidArgumentException;
@@ -32,3 +32,5 @@ class ScalePercentFilterLoader extends FilterLoaderWrapped
         return $this->innerLoader->load($image, ['size' => [$targetWidth, $targetHeight]]);
     }
 }
+
+class_alias(ScalePercentFilterLoader::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader\ScalePercentFilterLoader');

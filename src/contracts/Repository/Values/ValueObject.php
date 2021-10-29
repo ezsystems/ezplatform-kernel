@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository\Values;
+namespace Ibexa\Contracts\Core\Repository\Values;
 
-use eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException;
-use eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException;
 
 /**
  * The base class for all value objects and structs.
  *
  * Supports readonly properties by marking them as protected.
  * In this case they will only be writable using constructor, and need to be documented
- * using @property-read <type> <$var> in class doc in addition to inline property doc.
+ * using property-read <type> <$var> annotation in class doc in addition to inline property doc.
  * Writable properties must be public and must be documented inline.
  */
 abstract class ValueObject
@@ -64,8 +64,8 @@ abstract class ValueObject
      *
      * @ignore This method is for internal use
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException When property does not exist
-     * @throws \eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException When property is readonly (protected)
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException When property does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException When property is readonly (protected)
      *
      * @param string $property Name of the property
      * @param string $value
@@ -85,7 +85,7 @@ abstract class ValueObject
      *
      * @ignore This method is for internal use
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException exception on all reads to undefined properties so typos are not silently accepted.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException exception on all reads to undefined properties so typos are not silently accepted.
      *
      * @param string $property Name of the property
      *
@@ -120,8 +120,8 @@ abstract class ValueObject
      *
      * @ignore This method is for internal use
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\PropertyNotFoundException exception on all writes to undefined properties so typos are not silently accepted and
-     * @throws \eZ\Publish\API\Repository\Exceptions\PropertyReadOnlyException exception on readonly (protected) properties.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException exception on all writes to undefined properties so typos are not silently accepted and
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException exception on readonly (protected) properties.
      *
      * @uses ::__set()
      *
@@ -207,3 +207,5 @@ abstract class ValueObject
         return $this->__isset($property);
     }
 }
+
+class_alias(ValueObject::class, 'eZ\Publish\API\Repository\Values\ValueObject');

@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User\Limitation;
+namespace Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
 /*
  * A always blocking limitation
@@ -38,7 +38,7 @@ class BlockingLimitation extends Limitation
     }
 
     /**
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation::getIdentifier()
+     * @see \Ibexa\Contracts\Core\Repository\Values\User\Limitation::getIdentifier()
      *
      * @return string
      */
@@ -47,3 +47,5 @@ class BlockingLimitation extends Limitation
         return $this->identifier;
     }
 }
+
+class_alias(BlockingLimitation::class, 'eZ\Publish\API\Repository\Values\User\Limitation\BlockingLimitation');

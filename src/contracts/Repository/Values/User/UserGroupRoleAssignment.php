@@ -6,19 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
 /**
  * This class represents a user group to role assignment.
  *
- * @property-read \eZ\Publish\API\Repository\Values\User\UserGroup $userGroup calls getUserGroup()
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\User\UserGroup $userGroup calls getUserGroup()
  */
 abstract class UserGroupRoleAssignment extends RoleAssignment
 {
     /**
      * Returns the user group to which the role is assigned to.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\UserGroup
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\UserGroup
      */
     abstract public function getUserGroup(): UserGroup;
 }
+
+class_alias(UserGroupRoleAssignment::class, 'eZ\Publish\API\Repository\Values\User\UserGroupRoleAssignment');

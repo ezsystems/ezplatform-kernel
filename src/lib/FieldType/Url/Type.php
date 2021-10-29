@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Url;
+namespace Ibexa\Core\FieldType\Url;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\FieldType\FieldType;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\FieldType\FieldType;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * The Url field type.
@@ -31,7 +31,7 @@ class Type extends FieldType
     }
 
     /**
-     * @param \eZ\Publish\Core\FieldType\Url\Value|\eZ\Publish\SPI\FieldType\Value $value
+     * @param \Ibexa\Core\FieldType\Url\Value|\Ibexa\Contracts\Core\FieldType\Value $value
      */
     public function getName(SPIValue $value, FieldDefinition $fieldDefinition, string $languageCode): string
     {
@@ -42,7 +42,7 @@ class Type extends FieldType
      * Returns the fallback default value of field type when no such default
      * value is provided in the field definition in content types.
      *
-     * @return \eZ\Publish\Core\FieldType\Url\Value
+     * @return \Ibexa\Core\FieldType\Url\Value
      */
     public function getEmptyValue()
     {
@@ -52,9 +52,9 @@ class Type extends FieldType
     /**
      * Inspects given $inputValue and potentially converts it into a dedicated value object.
      *
-     * @param string|\eZ\Publish\Core\FieldType\Url\Value $inputValue
+     * @param string|\Ibexa\Core\FieldType\Url\Value $inputValue
      *
-     * @return \eZ\Publish\Core\FieldType\Url\Value The potentially converted and structurally plausible value.
+     * @return \Ibexa\Core\FieldType\Url\Value The potentially converted and structurally plausible value.
      */
     protected function createValueFromInput($inputValue)
     {
@@ -68,9 +68,9 @@ class Type extends FieldType
     /**
      * Throws an exception if value structure is not of expected format.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
      *
-     * @param \eZ\Publish\Core\FieldType\Url\Value $value
+     * @param \Ibexa\Core\FieldType\Url\Value $value
      */
     protected function checkValueStructure(BaseValue $value)
     {
@@ -104,7 +104,7 @@ class Type extends FieldType
      *
      * @param mixed $hash
      *
-     * @return \eZ\Publish\Core\FieldType\Url\Value $value
+     * @return \Ibexa\Core\FieldType\Url\Value $value
      */
     public function fromHash($hash)
     {
@@ -122,7 +122,7 @@ class Type extends FieldType
     /**
      * Converts a $Value to a hash.
      *
-     * @param \eZ\Publish\Core\FieldType\Url\Value $value
+     * @param \Ibexa\Core\FieldType\Url\Value $value
      *
      * @return mixed
      */
@@ -135,28 +135,6 @@ class Type extends FieldType
         return ['link' => $value->link, 'text' => $value->text];
     }
 
-    /**
-     * Converts a $value to a persistence value.
-     *
-     * In this method the field type puts the data which is stored in the field of content in the repository
-     * into the property FieldValue::data. The format of $data is a primitive, an array (map) or an object, which
-     * is then canonically converted to e.g. json/xml structures by future storage engines without
-     * further conversions. For mapping the $data to the legacy database an appropriate Converter
-     * (implementing eZ\Publish\Core\Persistence\Legacy\FieldValue\Converter) has implemented for the field
-     * type. Note: $data should only hold data which is actually stored in the field. It must not
-     * hold data which is stored externally.
-     *
-     * The $externalData property in the FieldValue is used for storing data externally by the
-     * FieldStorage interface method storeFieldData.
-     *
-     * The FieldValuer::sortKey is build by the field type for using by sort operations.
-     *
-     * @see \eZ\Publish\SPI\Persistence\Content\FieldValue
-     *
-     * @param \eZ\Publish\Core\FieldType\Url\Value $value The value of the field type
-     *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldValue the value processed by the storage engine
-     */
     public function toPersistenceValue(SPIValue $value)
     {
         if ($value === null) {
@@ -186,9 +164,9 @@ class Type extends FieldType
      *
      * This method builds a field type value from the $data and $externalData properties.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\FieldValue $fieldValue
+     * @param \Ibexa\Contracts\Core\Persistence\Content\FieldValue $fieldValue
      *
-     * @return \eZ\Publish\Core\FieldType\Url\Value
+     * @return \Ibexa\Core\FieldType\Url\Value
      */
     public function fromPersistenceValue(FieldValue $fieldValue)
     {
@@ -202,3 +180,5 @@ class Type extends FieldType
         );
     }
 }
+
+class_alias(Type::class, 'eZ\Publish\Core\FieldType\Url\Type');

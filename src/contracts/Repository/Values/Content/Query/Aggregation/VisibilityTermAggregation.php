@@ -6,8 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
 
 final class VisibilityTermAggregation extends AbstractTermAggregation
 {
 }
+
+class_alias(VisibilityTermAggregation::class, 'eZ\Publish\API\Repository\Values\Content\Query\Aggregation\VisibilityTermAggregation');

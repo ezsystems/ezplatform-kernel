@@ -6,31 +6,31 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository;
+namespace Ibexa\Core\Repository;
 
 use Exception;
-use eZ\Publish\API\Repository\BookmarkService as BookmarkServiceInterface;
-use eZ\Publish\API\Repository\Repository as RepositoryInterface;
-use eZ\Publish\API\Repository\Values\Bookmark\BookmarkList;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\SPI\Persistence\Bookmark\Bookmark;
-use eZ\Publish\SPI\Persistence\Bookmark\CreateStruct;
-use eZ\Publish\SPI\Persistence\Bookmark\Handler as BookmarkHandler;
+use Ibexa\Contracts\Core\Repository\BookmarkService as BookmarkServiceInterface;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
+use Ibexa\Contracts\Core\Repository\Values\Bookmark\BookmarkList;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
+use Ibexa\Contracts\Core\Persistence\Bookmark\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Handler as BookmarkHandler;
 
 class BookmarkService implements BookmarkServiceInterface
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     protected $repository;
 
-    /** @var \eZ\Publish\SPI\Persistence\Bookmark\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Bookmark\Handler */
     protected $bookmarkHandler;
 
     /**
      * BookmarkService constructor.
      *
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\SPI\Persistence\Bookmark\Handler $bookmarkHandler
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Persistence\Bookmark\Handler $bookmarkHandler
      */
     public function __construct(RepositoryInterface $repository, BookmarkHandler $bookmarkHandler)
     {
@@ -129,3 +129,5 @@ class BookmarkService implements BookmarkServiceInterface
             ->getUserId();
     }
 }
+
+class_alias(BookmarkService::class, 'eZ\Publish\Core\Repository\BookmarkService');

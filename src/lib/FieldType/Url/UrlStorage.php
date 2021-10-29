@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Url;
+namespace Ibexa\Core\FieldType\Url;
 
-use eZ\Publish\SPI\FieldType\GatewayBasedStorage;
-use eZ\Publish\SPI\FieldType\StorageGateway;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\Field;
+use Ibexa\Contracts\Core\FieldType\GatewayBasedStorage;
+use Ibexa\Contracts\Core\FieldType\StorageGateway;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -20,13 +20,13 @@ class UrlStorage extends GatewayBasedStorage
     /** @var \Psr\Log\LoggerInterface */
     protected $logger;
 
-    /** @var \eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway */
+    /** @var \Ibexa\Core\FieldType\Url\UrlStorage\Gateway */
     protected $gateway;
 
     /**
      * Construct from gateways.
      *
-     * @param \eZ\Publish\SPI\FieldType\StorageGateway $gateway
+     * @param \Ibexa\Contracts\Core\FieldType\StorageGateway $gateway
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(StorageGateway $gateway, LoggerInterface $logger = null)
@@ -36,10 +36,10 @@ class UrlStorage extends GatewayBasedStorage
     }
 
     /**
-     * @see \eZ\Publish\SPI\FieldType\FieldStorage
+     * @see \Ibexa\Contracts\Core\FieldType\FieldStorage
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      * @param array $context
      *
      * @return bool|mixed
@@ -74,16 +74,6 @@ class UrlStorage extends GatewayBasedStorage
         return true;
     }
 
-    /**
-     * Populates $field value property based on the external data.
-     * $field->value is a {@link eZ\Publish\SPI\Persistence\Content\FieldValue} object.
-     * This value holds the data as a {@link eZ\Publish\Core\FieldType\Value} based object,
-     * according to the field type (e.g. for TextLine, it will be a {@link eZ\Publish\Core\FieldType\TextLine\Value} object).
-     *
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
-     * @param array $context
-     */
     public function getFieldData(VersionInfo $versionInfo, Field $field, array $context)
     {
         $id = $field->value->data['urlId'];
@@ -107,7 +97,7 @@ class UrlStorage extends GatewayBasedStorage
      * Deletes field data for all $fieldIds in the version identified by
      * $versionInfo.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
      * @param array $fieldIds
      * @param array $context
      *
@@ -131,13 +121,15 @@ class UrlStorage extends GatewayBasedStorage
     }
 
     /**
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      * @param array $context
      *
-     * @return \eZ\Publish\SPI\Search\Field[]
+     * @return \Ibexa\Contracts\Core\Search\Field[]
      */
     public function getIndexData(VersionInfo $versionInfo, Field $field, array $context)
     {
     }
 }
+
+class_alias(UrlStorage::class, 'eZ\Publish\Core\FieldType\Url\UrlStorage');

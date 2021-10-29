@@ -6,23 +6,25 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Notification\Renderer;
+namespace Ibexa\Core\Notification\Renderer;
 
-use eZ\Publish\API\Repository\Values\Notification\Notification;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification;
 
 interface NotificationRenderer
 {
     /**
-     * @param \eZ\Publish\API\Repository\Values\Notification\Notification $notification
+     * @param \Ibexa\Contracts\Core\Repository\Values\Notification\Notification $notification
      *
      * @return string
      */
     public function render(Notification $notification): string;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Notification\Notification $notification
+     * @param \Ibexa\Contracts\Core\Repository\Values\Notification\Notification $notification
      *
      * @return string|null
      */
     public function generateUrl(Notification $notification): ?string;
 }
+
+class_alias(NotificationRenderer::class, 'eZ\Publish\Core\Notification\Renderer\NotificationRenderer');

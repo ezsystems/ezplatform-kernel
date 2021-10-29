@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View\Renderer;
+namespace Ibexa\Core\MVC\Symfony\View\Renderer;
 
-use eZ\Publish\Core\MVC\Exception\NoViewTemplateException;
-use eZ\Publish\Core\MVC\Symfony\View\Renderer;
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Exception\NoViewTemplateException;
+use Ibexa\Core\MVC\Symfony\View\Renderer;
+use Ibexa\Core\MVC\Symfony\View\View;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
 use Closure;
 use Twig\Environment;
 
@@ -30,7 +30,7 @@ class TemplateRenderer implements Renderer
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\View $view
+     * @param \Ibexa\Core\MVC\Symfony\View\View $view
      *
      * @throws NoViewTemplateException
      *
@@ -55,3 +55,5 @@ class TemplateRenderer implements Renderer
         );
     }
 }
+
+class_alias(TemplateRenderer::class, 'eZ\Publish\Core\MVC\Symfony\View\Renderer\TemplateRenderer');

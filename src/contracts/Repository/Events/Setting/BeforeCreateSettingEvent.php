@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Setting;
+namespace Ibexa\Contracts\Core\Repository\Events\Setting;
 
-use eZ\Publish\API\Repository\Values\Setting\Setting;
-use eZ\Publish\API\Repository\Values\Setting\SettingCreateStruct;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Setting\Setting;
+use Ibexa\Contracts\Core\Repository\Values\Setting\SettingCreateStruct;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCreateSettingEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Setting\SettingCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Setting\SettingCreateStruct */
     private $settingCreateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\Setting\Setting|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Setting\Setting|null */
     private $setting;
 
     public function __construct(SettingCreateStruct $settingCreateStruct)
@@ -50,3 +50,5 @@ final class BeforeCreateSettingEvent extends BeforeEvent
         return $this->setting instanceof Setting;
     }
 }
+
+class_alias(BeforeCreateSettingEvent::class, 'eZ\Publish\API\Repository\Events\Setting\BeforeCreateSettingEvent');

@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Common\EventSubscriber;
+namespace Ibexa\Core\Search\Common\EventSubscriber;
 
-use eZ\Publish\API\Repository\Events\Content\CopyContentEvent;
-use eZ\Publish\API\Repository\Events\Content\DeleteContentEvent;
-use eZ\Publish\API\Repository\Events\Content\DeleteTranslationEvent;
-use eZ\Publish\API\Repository\Events\Content\HideContentEvent;
-use eZ\Publish\API\Repository\Events\Content\PublishVersionEvent;
-use eZ\Publish\API\Repository\Events\Content\RevealContentEvent;
-use eZ\Publish\API\Repository\Events\Content\UpdateContentMetadataEvent;
-use eZ\Publish\SPI\Search\ContentTranslationHandler;
+use Ibexa\Contracts\Core\Repository\Events\Content\CopyContentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\DeleteContentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\DeleteTranslationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\HideContentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\PublishVersionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\RevealContentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\UpdateContentMetadataEvent;
+use Ibexa\Contracts\Core\Search\ContentTranslationHandler;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ContentEventSubscriber extends AbstractSearchEventSubscriber implements EventSubscriberInterface
@@ -131,3 +131,5 @@ class ContentEventSubscriber extends AbstractSearchEventSubscriber implements Ev
         $this->searchHandler->indexLocation($this->persistenceHandler->locationHandler()->load($contentInfo->mainLocationId));
     }
 }
+
+class_alias(ContentEventSubscriber::class, 'eZ\Publish\Core\Search\Common\EventSubscriber\ContentEventSubscriber');

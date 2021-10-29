@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver;
 
-use eZ\Publish\Core\MVC\Exception\ParameterNotFoundException;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider;
+use Ibexa\Core\MVC\Exception\ParameterNotFoundException;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
@@ -44,3 +44,5 @@ class StaticSiteAccessConfigResolver extends SiteAccessConfigResolver
         return StaticSiteAccessProvider::class === $siteAccess->provider;
     }
 }
+
+class_alias(StaticSiteAccessConfigResolver::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver\StaticSiteAccessConfigResolver');

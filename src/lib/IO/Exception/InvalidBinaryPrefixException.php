@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\IO\Exception;
+namespace Ibexa\Core\IO\Exception;
 
 use Exception;
 
@@ -19,3 +19,5 @@ class InvalidBinaryPrefixException extends InvalidBinaryFileIdException
         Exception::__construct($this->getBaseTranslation(), $code);
     }
 }
+
+class_alias(InvalidBinaryPrefixException::class, 'eZ\Publish\Core\IO\Exception\InvalidBinaryPrefixException');

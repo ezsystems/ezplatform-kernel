@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Location;
+namespace Ibexa\Contracts\Core\Repository\Events\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class CopySubtreeEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
     private $location;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
     private $subtree;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
     private $targetParentLocation;
 
     public function __construct(
@@ -47,3 +47,5 @@ final class CopySubtreeEvent extends AfterEvent
         return $this->targetParentLocation;
     }
 }
+
+class_alias(CopySubtreeEvent::class, 'eZ\Publish\API\Repository\Events\Location\CopySubtreeEvent');

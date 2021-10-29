@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPurger;
+namespace Ibexa\Bundle\Core\Imagine\VariationPurger;
 
 use Doctrine\DBAL\Connection;
 
@@ -38,3 +38,5 @@ class LegacyStorageImageFileRowReader implements ImageFileRowReader
         return $this->statement->rowCount();
     }
 }
+
+class_alias(LegacyStorageImageFileRowReader::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPurger\LegacyStorageImageFileRowReader');

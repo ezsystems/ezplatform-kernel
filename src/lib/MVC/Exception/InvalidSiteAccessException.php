@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Exception;
+namespace Ibexa\Core\MVC\Exception;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface;
 use RuntimeException;
 
 /**
@@ -16,7 +16,7 @@ class InvalidSiteAccessException extends RuntimeException
 {
     /**
      * @param string $siteAccess The invalid SiteAccess
-     * @param \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface $siteAccessProvider
+     * @param \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface $siteAccessProvider
      * @param string $matchType How $siteAccess was matched
      * @param bool $debug If true, Symfony environment is a debug one (like 'dev')
      */
@@ -35,3 +35,5 @@ class InvalidSiteAccessException extends RuntimeException
         parent::__construct($message);
     }
 }
+
+class_alias(InvalidSiteAccessException::class, 'eZ\Publish\Core\MVC\Exception\InvalidSiteAccessException');

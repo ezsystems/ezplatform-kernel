@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Features\Context;
+namespace Ibexa\Bundle\Core\Features\Context;
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Mink\Element\NodeElement;
 use Behat\MinkExtension\Context\RawMinkContext;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
@@ -40,7 +40,7 @@ class QueryControllerContext extends RawMinkContext implements Context
         $environment = $scope->getEnvironment();
 
         $this->configurationContext = $environment->getContext(
-            'eZ\Bundle\EzPublishCoreBundle\Features\Context\YamlConfigurationContext'
+            YamlConfigurationContext::class
         );
     }
 
@@ -394,3 +394,5 @@ class QueryControllerContext extends RawMinkContext implements Context
         return $items;
     }
 }
+
+class_alias(QueryControllerContext::class, 'eZ\Bundle\EzPublishCoreBundle\Features\Context\QueryControllerContext');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Image\PathGenerator;
+namespace Ibexa\Core\FieldType\Image\PathGenerator;
 
-use eZ\Publish\Core\FieldType\Image\PathGenerator;
+use Ibexa\Core\FieldType\Image\PathGenerator;
 
 class LegacyPathGenerator extends PathGenerator
 {
@@ -52,3 +52,5 @@ class LegacyPathGenerator extends PathGenerator
         );
     }
 }
+
+class_alias(LegacyPathGenerator::class, 'eZ\Publish\Core\FieldType\Image\PathGenerator\LegacyPathGenerator');

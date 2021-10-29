@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Media\MediaStorage\Gateway;
+namespace Ibexa\Core\FieldType\Media\MediaStorage\Gateway;
 
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway\DoctrineStorage as BaseDoctrineStorage;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway\DoctrineStorage as BaseDoctrineStorage;
 use PDO;
 
 /**
@@ -142,3 +142,5 @@ class DoctrineStorage extends BaseDoctrineStorage
         ;
     }
 }
+
+class_alias(DoctrineStorage::class, 'eZ\Publish\Core\FieldType\Media\MediaStorage\Gateway\DoctrineStorage');

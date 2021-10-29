@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class provides all version independent information of the Content object.
@@ -54,7 +54,7 @@ class ContentInfo extends ValueObject
     /**
      * The computed name (via name schema) in the main language of the Content object.
      *
-     * For names in other languages then main see {@see \eZ\Publish\API\Repository\Values\Content\VersionInfo}
+     * For names in other languages then main see {@see \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo}
      *
      * @var string
      */
@@ -146,19 +146,19 @@ class ContentInfo extends ValueObject
     /** @var bool */
     protected $isHidden;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
     protected $contentType;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Section */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section */
     protected $section;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
     protected $mainLanguage;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
     protected $mainLocation;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\User */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User */
     protected $owner;
 
     /**
@@ -210,3 +210,5 @@ class ContentInfo extends ValueObject
         return $this->owner;
     }
 }
+
+class_alias(ContentInfo::class, 'eZ\Publish\API\Repository\Values\Content\ContentInfo');

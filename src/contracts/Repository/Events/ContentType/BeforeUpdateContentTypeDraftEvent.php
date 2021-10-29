@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Events\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeUpdateStruct;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 
 final class BeforeUpdateContentTypeDraftEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft */
     private $contentTypeDraft;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeUpdateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeUpdateStruct */
     private $contentTypeUpdateStruct;
 
     public function __construct(ContentTypeDraft $contentTypeDraft, ContentTypeUpdateStruct $contentTypeUpdateStruct)
@@ -36,3 +36,5 @@ final class BeforeUpdateContentTypeDraftEvent extends BeforeEvent
         return $this->contentTypeUpdateStruct;
     }
 }
+
+class_alias(BeforeUpdateContentTypeDraftEvent::class, 'eZ\Publish\API\Repository\Events\ContentType\BeforeUpdateContentTypeDraftEvent');

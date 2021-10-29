@@ -4,19 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Author;
+namespace Ibexa\Core\FieldType\Author;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use ArrayObject;
 
 /**
  * Author collection.
- * This collection can only hold {@link \eZ\Publish\Core\FieldType\Author\Author} objects.
+ * This collection can only hold {@link \Ibexa\Core\FieldType\Author\Author} objects.
  */
 class AuthorCollection extends ArrayObject
 {
     /**
-     * @param \eZ\Publish\Core\FieldType\Author\Author[] $elements
+     * @param \Ibexa\Core\FieldType\Author\Author[] $elements
      */
     public function __construct(array $elements = [])
     {
@@ -34,14 +34,14 @@ class AuthorCollection extends ArrayObject
      * @throws InvalidArgumentType When $value is not of type Author
      *
      * @param int $offset
-     * @param \eZ\Publish\Core\FieldType\Author\Author $value
+     * @param \Ibexa\Core\FieldType\Author\Author $value
      */
     public function offsetSet($offset, $value)
     {
         if (!$value instanceof Author) {
             throw new InvalidArgumentType(
                 '$value',
-                'eZ\\Publish\\Core\\FieldType\\Author\\Author',
+                Author::class,
                 $value
             );
         }
@@ -74,3 +74,5 @@ class AuthorCollection extends ArrayObject
         $this->exchangeArray($aAuthors);
     }
 }
+
+class_alias(AuthorCollection::class, 'eZ\Publish\Core\FieldType\Author\AuthorCollection');

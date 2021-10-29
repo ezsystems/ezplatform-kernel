@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Search;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Search;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * Base class for facets.
@@ -24,3 +24,5 @@ abstract class Facet extends ValueObject
      */
     public $name;
 }
+
+class_alias(Facet::class, 'eZ\Publish\API\Repository\Values\Content\Search\Facet');

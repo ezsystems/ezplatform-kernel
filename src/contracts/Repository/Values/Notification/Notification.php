@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Notification;
+namespace Ibexa\Contracts\Core\Repository\Values\Notification;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class represents a notification value.
@@ -40,3 +40,5 @@ class Notification extends ValueObject
     /** @var array */
     protected $data = [];
 }
+
+class_alias(Notification::class, 'eZ\Publish\API\Repository\Values\Notification\Notification');

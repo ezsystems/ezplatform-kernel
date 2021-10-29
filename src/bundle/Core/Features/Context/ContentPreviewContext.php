@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Features\Context;
+namespace Ibexa\Bundle\Core\Features\Context;
 
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\MinkExtension\Context\RawMinkContext;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use PHPUnit\Framework\Assert as Assertion;
 
 class ContentPreviewContext extends RawMinkContext
 {
-    /** @var \eZ\Bundle\EzPublishCoreBundle\Features\Context\ContentContext */
+    /** @var \Ibexa\Bundle\Core\Features\Context\ContentContext */
     private $contentContext;
 
     /** @BeforeScenario */
@@ -21,7 +21,7 @@ class ContentPreviewContext extends RawMinkContext
     {
         $environment = $scope->getEnvironment();
 
-        $this->contentContext = $environment->getContext('eZ\Bundle\EzPublishCoreBundle\Features\Context\ContentContext');
+        $this->contentContext = $environment->getContext(ContentContext::class);
     }
 
     /**
@@ -113,3 +113,5 @@ class ContentPreviewContext extends RawMinkContext
         );
     }
 }
+
+class_alias(ContentPreviewContext::class, 'eZ\Bundle\EzPublishCoreBundle\Features\Context\ContentPreviewContext');

@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Image\IO;
+namespace Ibexa\Core\FieldType\Image\IO;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\Core\IO\Values\BinaryFile;
-use eZ\Publish\Core\IO\Values\BinaryFileCreateStruct;
-use eZ\Publish\Core\IO\Values\MissingBinaryFile;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\Values\BinaryFile;
+use Ibexa\Core\IO\Values\BinaryFileCreateStruct;
+use Ibexa\Core\IO\Values\MissingBinaryFile;
 
 /**
  * Legacy Image IOService.
@@ -31,14 +31,14 @@ class Legacy implements IOServiceInterface
     /**
      * Published images IO Service.
      *
-     * @var \eZ\Publish\Core\IO\IOServiceInterface
+     * @var \Ibexa\Core\IO\IOServiceInterface
      */
     private $publishedIOService;
 
     /**
      * Draft images IO Service.
      *
-     * @var \eZ\Publish\Core\IO\IOServiceInterface
+     * @var \Ibexa\Core\IO\IOServiceInterface
      */
     private $draftIOService;
 
@@ -58,15 +58,12 @@ class Legacy implements IOServiceInterface
      */
     private $draftPrefix;
 
-    /** @var \eZ\Publish\Core\FieldType\Image\IO\OptionsProvider */
+    /** @var \Ibexa\Core\FieldType\Image\IO\OptionsProvider */
     private $optionsProvider;
 
     /**
-     * @param \eZ\Publish\Core\IO\IOServiceInterface $publishedIOService
-     * @param \eZ\Publish\Core\IO\IOServiceInterface $draftIOService
-     * @param array $options Path options. Known keys: var_dir, storage_dir, draft_images_dir, published_images_dir.
+     * @param \Ibexa\Core\FieldType\Image\IO\OptionsProvider $optionsProvider Path options. Known keys: var_dir, storage_dir, draft_images_dir, published_images_dir.
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException if required options are missing
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      *         If any of the passed options has not been defined or does not contain an allowed value
      * @throws \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
@@ -265,3 +262,5 @@ class Legacy implements IOServiceInterface
         return strpos($internalPath, $this->draftPrefix) === 0;
     }
 }
+
+class_alias(Legacy::class, 'eZ\Publish\Core\FieldType\Image\IO\Legacy');

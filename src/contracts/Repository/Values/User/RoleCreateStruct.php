@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class is used to create a new role.
@@ -25,14 +25,16 @@ abstract class RoleCreateStruct extends ValueObject
     /**
      * Returns policies associated with the role.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\PolicyCreateStruct[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\PolicyCreateStruct[]
      */
     abstract public function getPolicies(): iterable;
 
     /**
      * Adds a policy to this role.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\PolicyCreateStruct $policyCreateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\PolicyCreateStruct $policyCreateStruct
      */
     abstract public function addPolicy(PolicyCreateStruct $policyCreateStruct): void;
 }
+
+class_alias(RoleCreateStruct::class, 'eZ\Publish\API\Repository\Values\User\RoleCreateStruct');

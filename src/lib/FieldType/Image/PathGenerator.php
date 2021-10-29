@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Image;
+namespace Ibexa\Core\FieldType\Image;
 
 abstract class PathGenerator
 {
@@ -21,3 +21,5 @@ abstract class PathGenerator
      */
     abstract public function getStoragePathForField($fieldId, $versionNo, $languageCode);
 }
+
+class_alias(PathGenerator::class, 'eZ\Publish\Core\FieldType\Image\PathGenerator');

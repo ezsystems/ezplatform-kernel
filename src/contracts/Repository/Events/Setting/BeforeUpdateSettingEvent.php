@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Setting;
+namespace Ibexa\Contracts\Core\Repository\Events\Setting;
 
-use eZ\Publish\API\Repository\Values\Setting\Setting;
-use eZ\Publish\API\Repository\Values\Setting\SettingUpdateStruct;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Setting\Setting;
+use Ibexa\Contracts\Core\Repository\Values\Setting\SettingUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeUpdateSettingEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Setting\Setting */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Setting\Setting */
     private $setting;
 
-    /** @var \eZ\Publish\API\Repository\Values\Setting\SettingUpdateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Setting\SettingUpdateStruct */
     private $settingUpdateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\Setting\Setting|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Setting\Setting|null */
     private $updatedSetting;
 
     public function __construct(Setting $setting, SettingUpdateStruct $settingUpdateStruct)
@@ -59,3 +59,5 @@ final class BeforeUpdateSettingEvent extends BeforeEvent
         return $this->updatedSetting instanceof Setting;
     }
 }
+
+class_alias(BeforeUpdateSettingEvent::class, 'eZ\Publish\API\Repository\Events\Setting\BeforeUpdateSettingEvent');

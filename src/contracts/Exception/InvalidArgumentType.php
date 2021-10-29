@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Exception;
+namespace Ibexa\Contracts\Core\Exception;
 
 use Exception;
 
@@ -37,3 +37,5 @@ class InvalidArgumentType extends InvalidArgumentException
         parent::__construct($argumentName, $whatIsWrong, $previous);
     }
 }
+
+class_alias(InvalidArgumentType::class, 'eZ\Publish\SPI\Exception\InvalidArgumentType');

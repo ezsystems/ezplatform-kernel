@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class is used to update a user token in the repository.
@@ -29,3 +29,5 @@ class UserTokenUpdateStruct extends ValueObject
      */
     public $time;
 }
+
+class_alias(UserTokenUpdateStruct::class, 'eZ\Publish\API\Repository\Values\User\UserTokenUpdateStruct');

@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
+namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
 
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
 
 /**
  * Content locator gateway implementation using the DoctrineDatabase.
@@ -20,7 +20,7 @@ class MapLocationDistance extends Field
     /**
      * Check if this sort clause handler accepts to handle the given sort clause.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\SortClause $sortClause
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause $sortClause
      *
      * @return bool
      */
@@ -34,7 +34,7 @@ class MapLocationDistance extends Field
         SortClause $sortClause,
         int $number
     ): array {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target\MapLocationTarget $target */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Target\MapLocationTarget $target */
         $target = $sortClause->targetData;
         $externalTable = $this->getSortTableName($number, 'ezgmaplocation');
 
@@ -65,7 +65,7 @@ class MapLocationDistance extends Field
         int $number,
         array $languageSettings
     ): void {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target\FieldTarget $fieldTarget */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Target\FieldTarget $fieldTarget */
         $fieldTarget = $sortClause->targetData;
         $fieldMap = $this->contentTypeHandler->getSearchableFieldMap();
 
@@ -121,3 +121,5 @@ class MapLocationDistance extends Field
             );
     }
 }
+
+class_alias(MapLocationDistance::class, 'eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\MapLocationDistance');

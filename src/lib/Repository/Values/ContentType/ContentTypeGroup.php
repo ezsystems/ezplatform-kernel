@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Values\ContentType;
+namespace Ibexa\Core\Repository\Values\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup as APIContentTypeGroup;
-use eZ\Publish\Core\Repository\Values\MultiLanguageDescriptionTrait;
-use eZ\Publish\Core\Repository\Values\MultiLanguageNameTrait;
-use eZ\Publish\Core\Repository\Values\MultiLanguageTrait;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup as APIContentTypeGroup;
+use Ibexa\Core\Repository\Values\MultiLanguageDescriptionTrait;
+use Ibexa\Core\Repository\Values\MultiLanguageNameTrait;
+use Ibexa\Core\Repository\Values\MultiLanguageTrait;
 
 /**
  * This class represents a content type group value.
@@ -32,3 +32,5 @@ class ContentTypeGroup extends APIContentTypeGroup
     use MultiLanguageNameTrait;
     use MultiLanguageDescriptionTrait;
 }
+
+class_alias(ContentTypeGroup::class, 'eZ\Publish\Core\Repository\Values\ContentType\ContentTypeGroup');

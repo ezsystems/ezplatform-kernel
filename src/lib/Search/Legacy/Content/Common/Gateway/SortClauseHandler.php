@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway;
+namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
 /**
  * Handler for a single sort clause.
@@ -33,7 +33,7 @@ abstract class SortClauseHandler
     /**
      * Check if this sort clause handler accepts to handle the given sort clause.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\SortClause $sortClause
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause $sortClause
      *
      * @return bool
      */
@@ -46,7 +46,7 @@ abstract class SortClauseHandler
      * used for sorting.
      *
      * @param \Doctrine\DBAL\Query\QueryBuilder $query
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\SortClause $sortClause
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause $sortClause
      * @param int $number
      *
      * @return array column names to be used when sorting
@@ -91,3 +91,5 @@ abstract class SortClauseHandler
         return 'sort_table_' . ($externalTableName !== null ? $externalTableName . '_' : '') . $number;
     }
 }
+
+class_alias(SortClauseHandler::class, 'eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler');

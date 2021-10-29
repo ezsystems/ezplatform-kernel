@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Values\ContentType;
+namespace Ibexa\Core\Repository\Values\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft as APIContentTypeDraft;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCollection as APIFieldDefinitionCollection;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\Repository\Values\MultiLanguageTrait;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft as APIContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection as APIFieldDefinitionCollection;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Repository\Values\MultiLanguageTrait;
 
 /**
  * This class represents a draft of a content type.
@@ -74,7 +74,7 @@ class ContentTypeDraft extends APIContentTypeDraft
     /**
      * Holds internal content type object.
      *
-     * @var \eZ\Publish\API\Repository\Values\ContentType\ContentType
+     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
      *
      * @todo document
      */
@@ -115,7 +115,7 @@ class ContentTypeDraft extends APIContentTypeDraft
     /**
      * This method returns the content type groups this content type is assigned to.
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[]
      */
     public function getContentTypeGroups()
     {
@@ -125,7 +125,7 @@ class ContentTypeDraft extends APIContentTypeDraft
     /**
      * This method returns the content type field definitions from this type.
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[]
      */
     public function getFieldDefinitions(): APIFieldDefinitionCollection
     {
@@ -137,7 +137,7 @@ class ContentTypeDraft extends APIContentTypeDraft
      *
      * @param string $fieldDefinitionIdentifier
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition
      */
     public function getFieldDefinition($fieldDefinitionIdentifier): ?FieldDefinition
     {
@@ -149,3 +149,5 @@ class ContentTypeDraft extends APIContentTypeDraft
         return $this->innerContentType->hasFieldDefinition($fieldDefinitionIdentifier);
     }
 }
+
+class_alias(ContentTypeDraft::class, 'eZ\Publish\Core\Repository\Values\ContentType\ContentTypeDraft');

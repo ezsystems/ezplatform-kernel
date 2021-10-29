@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\EventListener;
+namespace Ibexa\Bundle\Core\EventListener;
 
-use eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController;
+use Ibexa\Core\MVC\Symfony\Controller\Content\PreviewController;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -45,3 +45,5 @@ class PreviewRequestListener implements EventSubscriberInterface
         }
     }
 }
+
+class_alias(PreviewRequestListener::class, 'eZ\Bundle\EzPublishCoreBundle\EventListener\PreviewRequestListener');

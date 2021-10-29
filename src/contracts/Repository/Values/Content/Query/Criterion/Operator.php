@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
 /**
  * Operators struct.
@@ -31,3 +31,5 @@ abstract class Operator
     public const LIKE = 'like';
     public const CONTAINS = 'contains';
 }
+
+class_alias(Operator::class, 'eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator');

@@ -6,16 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParser;
+namespace Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParser;
 
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\MapLocationDistance;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecParserInterface;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Token;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\MapLocationDistance;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortSpecParserInterface;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\Token;
 
 /**
- * Parser for \eZ\Publish\API\Repository\Values\Content\Query\SortClause\MapLocationDistance sort clause.
+ * Parser for {@see \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\MapLocationDistance}
+ * sort clause.
  *
  * Example of correct input:
  *
@@ -43,3 +44,5 @@ final class MapDistanceSortClauseParser implements SortClauseParserInterface
         return $name === self::SUPPORTED_CLAUSE_NAME;
     }
 }
+
+class_alias(MapDistanceSortClauseParser::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\MapDistanceSortClauseParser');

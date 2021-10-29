@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderProvider;
+namespace Ibexa\Bundle\Core\Imagine\PlaceholderProvider;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderProvider;
-use eZ\Publish\Core\FieldType\Image\Value as ImageValue;
+use Ibexa\Bundle\Core\Imagine\PlaceholderProvider;
+use Ibexa\Core\FieldType\Image\Value as ImageValue;
 use RuntimeException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -73,3 +73,5 @@ class RemoteProvider implements PlaceholderProvider
         return $resolver->resolve($options);
     }
 }
+
+class_alias(RemoteProvider::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderProvider\RemoteProvider');

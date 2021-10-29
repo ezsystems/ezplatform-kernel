@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Content\ObjectState;
+namespace Ibexa\Core\Persistence\Legacy\Content\ObjectState;
 
-use eZ\Publish\SPI\Persistence\Content\ObjectState;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\Group;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group;
 
 /**
  * Base class for Object State gateways.
@@ -63,14 +63,14 @@ abstract class Gateway
     /**
      * Insert a new object state into database.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     abstract public function insertObjectState(ObjectState $objectState, int $groupId): void;
 
     /**
      * Update the stored object state with provided data.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     abstract public function updateObjectState(ObjectState $objectState): void;
 
@@ -92,14 +92,14 @@ abstract class Gateway
     /**
      * Insert a new object state group into database.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if Object State Group language does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if Object State Group language does not exist
      */
     abstract public function insertObjectStateGroup(Group $objectStateGroup): void;
 
     /**
      * Update the stored object state group with provided data.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     abstract public function updateObjectStateGroup(Group $objectStateGroup): void;
 
@@ -131,3 +131,5 @@ abstract class Gateway
      */
     abstract public function updateObjectStatePriority(int $stateId, int $priority): void;
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway');

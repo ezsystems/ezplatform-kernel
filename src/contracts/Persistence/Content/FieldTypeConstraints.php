@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content;
+namespace Ibexa\Contracts\Core\Persistence\Content;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 class FieldTypeConstraints extends ValueObject
 {
@@ -17,7 +17,7 @@ class FieldTypeConstraints extends ValueObject
      * Note that contents of this property must be serializable and exportable
      * (i.e. no circular references, resources and friends).
      *
-     * @see \eZ\Publish\SPI\FieldType\FieldType
+     * @see \Ibexa\Contracts\Core\FieldType\FieldType
      *
      * @var mixed
      */
@@ -30,9 +30,11 @@ class FieldTypeConstraints extends ValueObject
      * Note that contents of this property must be serializable and exportable
      * (i.e. no circular references, resources and friends).
      *
-     * @see \eZ\Publish\SPI\FieldType\FieldType
+     * @see \Ibexa\Contracts\Core\FieldType\FieldType
      *
      * @var mixed
      */
     public $fieldSettings;
 }
+
+class_alias(FieldTypeConstraints::class, 'eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints');

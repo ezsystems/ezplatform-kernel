@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Values\User;
+namespace Ibexa\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\User\UserGroupCreateStruct as APIUserGroupCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroupCreateStruct as APIUserGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 
 /**
  * This class is used to create a new user group in the repository.
@@ -21,7 +21,7 @@ class UserGroupCreateStruct extends APIUserGroupCreateStruct
     /**
      * The list of fields added to the user group.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Field[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Field[]
      */
     public $fields = [];
 
@@ -52,3 +52,5 @@ class UserGroupCreateStruct extends APIUserGroupCreateStruct
         );
     }
 }
+
+class_alias(UserGroupCreateStruct::class, 'eZ\Publish\Core\Repository\Values\User\UserGroupCreateStruct');

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\ProxyFactory;
+namespace Ibexa\Core\Repository\ProxyFactory;
 
 use Closure;
 use ProxyManager\Proxy\VirtualProxyInterface;
@@ -29,3 +29,5 @@ interface ProxyGeneratorInterface
 
     public function warmUp(iterable $classes): void;
 }
+
+class_alias(ProxyGeneratorInterface::class, 'eZ\Publish\Core\Repository\ProxyFactory\ProxyGeneratorInterface');

@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Role;
+namespace Ibexa\Contracts\Core\Repository\Events\Role;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation;
-use eZ\Publish\API\Repository\Values\User\Role;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 
 final class BeforeAssignRoleToUserEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\Role */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role */
     private $role;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\User */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User */
     private $user;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation */
     private $roleLimitation;
 
     public function __construct(Role $role, User $user, ?RoleLimitation $roleLimitation = null)
@@ -46,3 +46,5 @@ final class BeforeAssignRoleToUserEvent extends BeforeEvent
         return $this->roleLimitation;
     }
 }
+
+class_alias(BeforeAssignRoleToUserEvent::class, 'eZ\Publish\API\Repository\Events\Role\BeforeAssignRoleToUserEvent');

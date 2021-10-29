@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType;
+namespace Ibexa\Core\FieldType;
 
-use eZ\Publish\SPI\FieldType\Comparable;
-use eZ\Publish\SPI\FieldType\FieldType as SPIFieldType;
-use eZ\Publish\Core\Persistence\TransformationProcessor;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
-use eZ\Publish\SPI\Persistence\Content\FieldValue as PersistenceValue;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Contracts\Core\FieldType\Comparable;
+use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
+use Ibexa\Core\Persistence\TransformationProcessor;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue as PersistenceValue;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 
 /**
  * Base class for field types, the most basic storage unit of data inside eZ Publish.
@@ -59,12 +59,12 @@ abstract class FieldType extends SPIFieldType implements Comparable
     /**
      * String transformation processor, used to normalize sort string as needed.
      *
-     * @var \eZ\Publish\Core\Persistence\TransformationProcessor
+     * @var \Ibexa\Core\Persistence\TransformationProcessor
      */
     protected $transformationProcessor;
 
     /**
-     * @param \eZ\Publish\Core\Persistence\TransformationProcessor $transformationProcessor
+     * @param \Ibexa\Core\Persistence\TransformationProcessor $transformationProcessor
      */
     public function setTransformationProcessor(TransformationProcessor $transformationProcessor)
     {
@@ -123,12 +123,12 @@ abstract class FieldType extends SPIFieldType implements Comparable
      * that no validation errors occurred. Overwrite in derived types, if
      * validation is supported.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition $fieldDefinition The field definition of the field
-     * @param \eZ\Publish\Core\FieldType\Value $value The field value for which an action is performed
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition $fieldDefinition The field definition of the field
+     * @param \Ibexa\Core\FieldType\Value $value The field value for which an action is performed
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validate(FieldDefinition $fieldDefinition, SPIValue $value)
     {
@@ -147,7 +147,7 @@ abstract class FieldType extends SPIFieldType implements Comparable
      *
      * @param mixed $validatorConfiguration
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validateValidatorConfiguration($validatorConfiguration)
     {
@@ -173,7 +173,7 @@ abstract class FieldType extends SPIFieldType implements Comparable
      * This is a base implementation, expecting best practice validator configuration format used by
      * field types in standard eZ publish installation. Overwrite in derived types if needed.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      *
      * @param mixed $validatorConfiguration
      */
@@ -206,7 +206,7 @@ abstract class FieldType extends SPIFieldType implements Comparable
      *
      * @param mixed $fieldSettings
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validateFieldSettings($fieldSettings)
     {
@@ -232,7 +232,7 @@ abstract class FieldType extends SPIFieldType implements Comparable
      * This is a base implementation, expecting best practice field settings format used by
      * field types in standard eZ publish installation. Overwrite in derived types if needed.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      *
      * @param mixed $fieldSettings
      */
@@ -264,7 +264,7 @@ abstract class FieldType extends SPIFieldType implements Comparable
      *
      * In case of multi value, values should be string and separated by "-" or ",".
      *
-     * @param \eZ\Publish\Core\FieldType\Value $value
+     * @param \Ibexa\Core\FieldType\Value $value
      *
      * @return mixed
      */
@@ -276,9 +276,9 @@ abstract class FieldType extends SPIFieldType implements Comparable
     /**
      * Converts a $value to a persistence value.
      *
-     * @param \eZ\Publish\Core\FieldType\Value $value
+     * @param \Ibexa\Core\FieldType\Value $value
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\FieldValue
+     * @return \Ibexa\Contracts\Core\Persistence\Content\FieldValue
      */
     public function toPersistenceValue(SPIValue $value)
     {
@@ -297,9 +297,9 @@ abstract class FieldType extends SPIFieldType implements Comparable
     /**
      * Converts a persistence $fieldValue to a Value.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\FieldValue $fieldValue
+     * @param \Ibexa\Contracts\Core\Persistence\Content\FieldValue $fieldValue
      *
-     * @return \eZ\Publish\Core\FieldType\Value
+     * @return \Ibexa\Core\FieldType\Value
      */
     public function fromPersistenceValue(PersistenceValue $fieldValue)
     {
@@ -343,7 +343,7 @@ abstract class FieldType extends SPIFieldType implements Comparable
      * returned by {@link getEmptyValue()}. Overwrite in the specific field
      * type, if necessary.
      *
-     * @param \eZ\Publish\Core\FieldType\Value $value
+     * @param \Ibexa\Core\FieldType\Value $value
      *
      * @return bool
      */
@@ -366,12 +366,12 @@ abstract class FieldType extends SPIFieldType implements Comparable
      * Note that this method must also cope with the empty value for the field
      * type as e.g. returned by {@link getEmptyValue()}.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the parameter is not of the supported value sub type
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the value does not match the expected structure
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if the parameter is not of the supported value sub type
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if the value does not match the expected structure
      *
      * @param mixed $inputValue
      *
-     * @return \eZ\Publish\Core\FieldType\Value The potentially converted and structurally plausible value.
+     * @return \Ibexa\Core\FieldType\Value The potentially converted and structurally plausible value.
      */
     final public function acceptValue($inputValue)
     {
@@ -406,7 +406,7 @@ abstract class FieldType extends SPIFieldType implements Comparable
      *  {
      *      if ( is_array( $inputValue ) )
      *      {
-     *          $inputValue = \eZ\Publish\Core\FieldType\CookieJar\Value( $inputValue );
+     *          $inputValue = \My\FieldType\CookieJar\Value( $inputValue );
      *      }
      *
      *      return $inputValue;
@@ -431,14 +431,14 @@ abstract class FieldType extends SPIFieldType implements Comparable
      * <code>
      *  static protected function checkValueType( $value )
      *  {
-     *      if ( !$inputValue instanceof \eZ\Publish\Core\FieldType\CookieJar\Value ) )
+     *      if ( !$inputValue instanceof \My\FieldType\CookieJar\Value ) )
      *      {
      *          throw new InvalidArgumentException( "Given value type is not supported." );
      *      }
      *  }
      * </code>
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the parameter is not an instance of the supported value subtype.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the parameter is not an instance of the supported value subtype.
      *
      * @param mixed $value A value returned by {@see createValueFromInput()}.
      */
@@ -472,9 +472,9 @@ abstract class FieldType extends SPIFieldType implements Comparable
      *  }
      * </code>
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the value does not match the expected structure.
      *
-     * @param \eZ\Publish\Core\FieldType\Value $value
+     * @param \Ibexa\Core\FieldType\Value $value
      */
     abstract protected function checkValueStructure(Value $value);
 
@@ -487,7 +487,7 @@ abstract class FieldType extends SPIFieldType implements Comparable
      *
      * @param mixed $fieldSettings
      *
-     * @return array|hash|scalar|null
+     * @return array|scalar|null
      */
     public function fieldSettingsToHash($fieldSettings)
     {
@@ -504,7 +504,7 @@ abstract class FieldType extends SPIFieldType implements Comparable
      * a hash format. Overwrite this in your specific implementation, if
      * necessary.
      *
-     * @param array|hash|scalar|null $fieldSettingsHash
+     * @param array|scalar|null $fieldSettingsHash
      *
      * @return mixed
      */
@@ -522,7 +522,7 @@ abstract class FieldType extends SPIFieldType implements Comparable
      *
      * @param mixed $validatorConfiguration
      *
-     * @return array|hash|scalar|null
+     * @return array|scalar|null
      */
     public function validatorConfigurationToHash($validatorConfiguration)
     {
@@ -538,7 +538,7 @@ abstract class FieldType extends SPIFieldType implements Comparable
      * convention an array for all internal field types. Overwrite this method,
      * if necessary.
      *
-     * @param array|hash|scalar|null $validatorConfigurationHash
+     * @param array|scalar|null $validatorConfigurationHash
      *
      * @return mixed
      */
@@ -550,25 +550,25 @@ abstract class FieldType extends SPIFieldType implements Comparable
     /**
      * Returns relation data extracted from value.
      *
-     * Not intended for \eZ\Publish\API\Repository\Values\Content\Relation::COMMON type relations,
+     * Not intended for \Ibexa\Contracts\Core\Repository\Values\Content\Relation::COMMON type relations,
      * there is an API for handling those.
      *
-     * @param \eZ\Publish\Core\FieldType\Value $fieldValue
+     * @param \Ibexa\Core\FieldType\Value $fieldValue
      *
      * @return array Hash with relation type as key and array of destination content ids as value.
      *
      * Example:
      * <code>
      *  array(
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::LINK => array(
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::LINK => array(
      *          "contentIds" => array( 12, 13, 14 ),
      *          "locationIds" => array( 24 )
      *      ),
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::EMBED => array(
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::EMBED => array(
      *          "contentIds" => array( 12 ),
      *          "locationIds" => array( 24, 45 )
      *      ),
-     *      \eZ\Publish\API\Repository\Values\Content\Relation::FIELD => array( 12 )
+     *      \Ibexa\Contracts\Core\Repository\Values\Content\Relation::FIELD => array( 12 )
      *  )
      * </code>
      */
@@ -582,3 +582,5 @@ abstract class FieldType extends SPIFieldType implements Comparable
         return $this->toHash($value1) === $this->toHash($value2);
     }
 }
+
+class_alias(FieldType::class, 'eZ\Publish\Core\FieldType\FieldType');

@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Exception;
+namespace Ibexa\Core\MVC\Exception;
 
 use Exception;
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Symfony\View\View;
 
 /**
  * Thrown when a view is attempted to be rendered without a template set.
@@ -33,3 +33,5 @@ class NoViewTemplateException extends Exception
         return $this->view;
     }
 }
+
+class_alias(NoViewTemplateException::class, 'eZ\Publish\Core\MVC\Exception\NoViewTemplateException');

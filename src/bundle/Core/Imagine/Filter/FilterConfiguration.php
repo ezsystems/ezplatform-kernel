@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\Filter;
+namespace Ibexa\Bundle\Core\Imagine\Filter;
 
-use eZ\Publish\API\Repository\Exceptions\InvalidVariationException;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidVariationException;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Liip\ImagineBundle\Imagine\Filter\FilterConfiguration as BaseFilterConfiguration;
 
 class FilterConfiguration extends BaseFilterConfiguration
@@ -98,3 +98,5 @@ class FilterConfiguration extends BaseFilterConfiguration
         return [];
     }
 }
+
+class_alias(FilterConfiguration::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\FilterConfiguration');

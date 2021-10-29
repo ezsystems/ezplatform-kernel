@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository;
+namespace Ibexa\Core\Repository;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\URLWildcardService as URLWildcardServiceInterface;
-use eZ\Publish\API\Repository\Repository as RepositoryInterface;
-use eZ\Publish\API\Repository\Values\Content\URLWildcardUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler;
-use eZ\Publish\API\Repository\Values\Content\URLWildcard;
-use eZ\Publish\API\Repository\Values\Content\URLWildcardTranslationResult;
-use eZ\Publish\SPI\Persistence\Content\UrlWildcard as SPIUrlWildcard;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\ContentValidationException;
-use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\URLWildcardService as URLWildcardServiceInterface;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard\Handler;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardTranslationResult;
+use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard as SPIUrlWildcard;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\ContentValidationException;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
 use Exception;
 
 /**
@@ -28,13 +28,13 @@ use Exception;
  */
 class URLWildcardService implements URLWildcardServiceInterface
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     protected $repository;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\UrlWildcard\Handler */
     protected $urlWildcardHandler;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
     /** @var array */
@@ -43,9 +43,9 @@ class URLWildcardService implements URLWildcardServiceInterface
     /**
      * Setups service with reference to repository object that created it & corresponding handler.
      *
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler $urlWildcardHandler
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Persistence\Content\UrlWildcard\Handler $urlWildcardHandler
+     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
      * @param array $settings
      */
     public function __construct(
@@ -63,16 +63,16 @@ class URLWildcardService implements URLWildcardServiceInterface
     /**
      * Creates a new url wildcard.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the $sourceUrl pattern already exists
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to create url wildcards
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException if the number of "*" patterns in $sourceUrl and
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if the $sourceUrl pattern already exists
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to create url wildcards
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException if the number of "*" patterns in $sourceUrl and
      *         the numbers in {\d} placeholders in $destinationUrl does not match.
      *
      * @param string $sourceUrl
      * @param string $destinationUrl
      * @param bool $forward
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\UrlWildcard
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\UrlWildcard
      */
     public function create(string $sourceUrl, string $destinationUrl, bool $forward = false): UrlWildcard
     {
@@ -139,11 +139,11 @@ class URLWildcardService implements URLWildcardServiceInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\UrlWildcard $urlWildcard the url wildcard to remove
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\UrlWildcard $urlWildcard the url wildcard to remove
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to remove url wildcards
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to remove url wildcards
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function remove(URLWildcard $urlWildcard): void
     {
@@ -168,11 +168,11 @@ class URLWildcardService implements URLWildcardServiceInterface
      *
      * @param int $id
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\UrlWildcard
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\UrlWildcard
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the url wild card was not found
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\Core\Base\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the url wild card was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\UnauthorizedException
      */
     public function load(int $id): UrlWildcard
     {
@@ -187,10 +187,10 @@ class URLWildcardService implements URLWildcardServiceInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\UrlWildcard[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\UrlWildcard[]
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\Core\Base\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\UnauthorizedException
      */
     public function loadAll(int $offset = 0, int $limit = -1): iterable
     {
@@ -211,11 +211,11 @@ class URLWildcardService implements URLWildcardServiceInterface
      * Translates an url to an existing uri resource based on the
      * source/destination patterns of the url wildcard.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the url could not be translated
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the url could not be translated
      *
      * @param string $url
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\URLWildcardTranslationResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardTranslationResult
      */
     public function translate(string $url): URLWildcardTranslationResult
     {
@@ -232,9 +232,9 @@ class URLWildcardService implements URLWildcardServiceInterface
     /**
      * Builds API UrlWildcard object from given SPI UrlWildcard object.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\UrlWildcard $wildcard
+     * @param \Ibexa\Contracts\Core\Persistence\Content\UrlWildcard $wildcard
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\URLWildcard
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard
      */
     private function buildUrlWildcardDomainObject(SPIUrlWildcard $wildcard): URLWildcard
     {
@@ -276,7 +276,7 @@ class URLWildcardService implements URLWildcardServiceInterface
      * @param string $sourceUrl
      * @param string $destinationUrl
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\ContentValidationException
+     * @throws \Ibexa\Core\Base\Exceptions\ContentValidationException
      */
     private function validateUrls(string $sourceUrl, string $destinationUrl): void
     {
@@ -295,3 +295,5 @@ class URLWildcardService implements URLWildcardServiceInterface
         }
     }
 }
+
+class_alias(URLWildcardService::class, 'eZ\Publish\Core\Repository\URLWildcardService');

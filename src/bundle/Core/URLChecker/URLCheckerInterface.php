@@ -4,16 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\URLChecker;
+namespace Ibexa\Bundle\Core\URLChecker;
 
-use eZ\Publish\API\Repository\Values\URL\URLQuery;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
 
 interface URLCheckerInterface
 {
     /**
      * Checks URLs returned by given query.
      *
-     * @param \eZ\Publish\API\Repository\Values\URL\URLQuery $query
+     * @param \Ibexa\Contracts\Core\Repository\Values\URL\URLQuery $query
      */
     public function check(URLQuery $query);
 }
+
+class_alias(URLCheckerInterface::class, 'eZ\Bundle\EzPublishCoreBundle\URLChecker\URLCheckerInterface');

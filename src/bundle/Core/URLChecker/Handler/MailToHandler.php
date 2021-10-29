@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\URLChecker\Handler;
+namespace Ibexa\Bundle\Core\URLChecker\Handler;
 
-use eZ\Publish\API\Repository\URLService;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\Repository\URLService;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MailToHandler extends AbstractConfigResolverBasedURLHandler
@@ -53,3 +53,5 @@ class MailToHandler extends AbstractConfigResolverBasedURLHandler
         return $resolver;
     }
 }
+
+class_alias(MailToHandler::class, 'eZ\Bundle\EzPublishCoreBundle\URLChecker\Handler\MailToHandler');

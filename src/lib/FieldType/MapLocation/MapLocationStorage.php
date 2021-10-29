@@ -4,25 +4,25 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\MapLocation;
+namespace Ibexa\Core\FieldType\MapLocation;
 
-use eZ\Publish\SPI\FieldType\GatewayBasedStorage;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\Field;
+use Ibexa\Contracts\Core\FieldType\GatewayBasedStorage;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
 
 /**
  * Storage for the MapLocation field type.
  */
 class MapLocationStorage extends GatewayBasedStorage
 {
-    /** @var \eZ\Publish\Core\FieldType\MapLocation\MapLocationStorage\Gateway */
+    /** @var \Ibexa\Core\FieldType\MapLocation\MapLocationStorage\Gateway */
     protected $gateway;
 
     /**
-     * @see \eZ\Publish\SPI\FieldType\FieldStorage
+     * @see \Ibexa\Contracts\Core\FieldType\FieldStorage
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      * @param array $context
      *
      * @return mixed
@@ -32,22 +32,13 @@ class MapLocationStorage extends GatewayBasedStorage
         return $this->gateway->storeFieldData($versionInfo, $field);
     }
 
-    /**
-     * Populates $field value property based on the external data.
-     * $field->value is a {@link eZ\Publish\SPI\Persistence\Content\FieldValue} object.
-     * This value holds the data as a {@link eZ\Publish\Core\FieldType\Value} based object,
-     * according to the field type (e.g. for TextLine, it will be a {@link eZ\Publish\Core\FieldType\TextLine\Value} object).
-     *
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
-     * @param array $context
-     */
     public function getFieldData(VersionInfo $versionInfo, Field $field, array $context)
     {
         $this->gateway->getFieldData($versionInfo, $field);
     }
 
     /**
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
      * @param array $fieldIds
      * @param array $context
      *
@@ -69,14 +60,16 @@ class MapLocationStorage extends GatewayBasedStorage
     }
 
     /**
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      * @param array $context
      *
-     * @return \eZ\Publish\SPI\Search\Field[]|null
+     * @return \Ibexa\Contracts\Core\Search\Field[]|null
      */
     public function getIndexData(VersionInfo $versionInfo, Field $field, array $context)
     {
         return is_array($field->value->externalData) ? $field->value->externalData['address'] : null;
     }
 }
+
+class_alias(MapLocationStorage::class, 'eZ\Publish\Core\FieldType\MapLocation\MapLocationStorage');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Url\UrlStorage;
+namespace Ibexa\Core\FieldType\Url\UrlStorage;
 
-use eZ\Publish\SPI\FieldType\StorageGateway;
+use Ibexa\Contracts\Core\FieldType\StorageGateway;
 
 /**
  * Abstract gateway class for Url field type.
@@ -63,3 +63,5 @@ abstract class Gateway extends StorageGateway
      */
     abstract public function unlinkUrl($fieldId, $versionNo, array $excludeUrlIds = []);
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway');

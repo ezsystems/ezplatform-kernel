@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security;
+namespace Ibexa\Core\MVC\Symfony\Security;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\HttpUtils as BaseHttpUtils;
 
@@ -17,7 +17,7 @@ class HttpUtils extends BaseHttpUtils implements SiteAccessAware
     private $siteAccess;
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\SiteAccess $siteAccess
+     * @param \Ibexa\Core\MVC\Symfony\SiteAccess|null $siteAccess
      */
     public function setSiteAccess(SiteAccess $siteAccess = null)
     {
@@ -58,3 +58,5 @@ class HttpUtils extends BaseHttpUtils implements SiteAccessAware
         return $path && strpos($path, 'http') !== 0 && strpos($path, '/') !== 0;
     }
 }
+
+class_alias(HttpUtils::class, 'eZ\Publish\Core\MVC\Symfony\Security\HttpUtils');

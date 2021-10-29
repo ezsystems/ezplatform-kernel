@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Validator;
+namespace Ibexa\Core\Repository\Validator;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\FieldType\FieldTypeRegistry;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\SPI\Repository\Validator\ContentValidator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
 
 /**
  * @internal Meant for internal use by Repository
  */
 final class VersionValidator implements ContentValidator
 {
-    /** @var \eZ\Publish\Core\FieldType\FieldTypeRegistry */
+    /** @var \Ibexa\Core\FieldType\FieldTypeRegistry */
     private $fieldTypeRegistry;
 
     public function __construct(
@@ -95,3 +95,5 @@ final class VersionValidator implements ContentValidator
         return $allFieldErrors;
     }
 }
+
+class_alias(VersionValidator::class, 'eZ\Publish\Core\Repository\Validator\VersionValidator');

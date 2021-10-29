@@ -4,22 +4,23 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Limitation;
+namespace Ibexa\Core\Limitation;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\API\Repository\Values\User\UserReference as APIUserReference;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\API\Repository\Values\User\Limitation\ParentDepthLimitation as APIParentDepthLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation as APILimitationValue;
-use eZ\Publish\SPI\Limitation\Type as SPILimitationTypeInterface;
-use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentDepthLimitation as APIParentDepthLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitationValue;
+use Ibexa\Contracts\Core\Limitation\Type as SPILimitationTypeInterface;
+use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
 
 /**
  * ParentDepthLimitation is a Content limitation.
@@ -31,9 +32,9 @@ class ParentDepthLimitationType extends AbstractPersistenceLimitationType implem
      *
      * Makes sure LimitationValue object and ->limitationValues is of correct type.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the value does not match the expected type/structure
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the value does not match the expected type/structure
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitationValue
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitationValue
      */
     public function acceptValue(APILimitationValue $limitationValue)
     {
@@ -58,9 +59,9 @@ class ParentDepthLimitationType extends AbstractPersistenceLimitationType implem
      *
      * Make sure {@link acceptValue()} is checked first!
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitationValue
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitationValue
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validate(APILimitationValue $limitationValue)
     {
@@ -74,7 +75,7 @@ class ParentDepthLimitationType extends AbstractPersistenceLimitationType implem
      *
      * @param mixed[] $limitationValues
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Limitation
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation
      */
     public function buildValue(array $limitationValues)
     {
@@ -84,15 +85,15 @@ class ParentDepthLimitationType extends AbstractPersistenceLimitationType implem
     /**
      * Evaluate permission against content & target(placement/parent/assignment).
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If any of the arguments are invalid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If any of the arguments are invalid
      *         Example: If LimitationValue is instance of ContentTypeLimitationValue, and Type is SectionLimitationType.
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException If value of the LimitationValue is unsupported
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException If value of the LimitationValue is unsupported
      *         Example if OwnerLimitationValue->limitationValues[0] is not one of: [ 1,  2 ]
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $value
-     * @param \eZ\Publish\API\Repository\Values\User\UserReference $currentUser
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $object
-     * @param \eZ\Publish\API\Repository\Values\ValueObject[]|null $targets The context of the $object, like Location of Content, if null none where provided by caller
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserReference $currentUser
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $object
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject[]|null $targets The context of the $object, like Location of Content, if null none where provided by caller
      *
      * @return bool
      */
@@ -153,10 +154,10 @@ class ParentDepthLimitationType extends AbstractPersistenceLimitationType implem
     /**
      * Evaluate permissions for ContentCreateStruct against LocationCreateStruct placements.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If $targets does not contain
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If $targets does not contain
      *         objects of type LocationCreateStruct
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $value
      * @param array|null $targets
      *
      * @return bool
@@ -194,14 +195,14 @@ class ParentDepthLimitationType extends AbstractPersistenceLimitationType implem
     /**
      * Returns Criterion for use in find() query.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $value
-     * @param \eZ\Publish\API\Repository\Values\User\UserReference $currentUser
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserReference $currentUser
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Query\CriterionInterface
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface
      */
     public function getCriterion(APILimitationValue $value, APIUserReference $currentUser)
     {
-        throw new \eZ\Publish\API\Repository\Exceptions\NotImplementedException(__METHOD__);
+        throw new NotImplementedException(__METHOD__);
     }
 
     /**
@@ -212,6 +213,8 @@ class ParentDepthLimitationType extends AbstractPersistenceLimitationType implem
      */
     public function valueSchema()
     {
-        throw new \eZ\Publish\API\Repository\Exceptions\NotImplementedException(__METHOD__);
+        throw new NotImplementedException(__METHOD__);
     }
 }
+
+class_alias(ParentDepthLimitationType::class, 'eZ\Publish\Core\Limitation\ParentDepthLimitationType');

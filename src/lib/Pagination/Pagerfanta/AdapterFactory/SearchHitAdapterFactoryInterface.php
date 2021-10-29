@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Pagination\Pagerfanta\AdapterFactory;
+namespace Ibexa\Core\Pagination\Pagerfanta\AdapterFactory;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
@@ -20,3 +20,5 @@ interface SearchHitAdapterFactoryInterface
 
     public function createFixedAdapter(Query $query, array $languageFilter = []): AdapterInterface;
 }
+
+class_alias(SearchHitAdapterFactoryInterface::class, 'eZ\Publish\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactoryInterface');

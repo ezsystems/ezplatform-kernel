@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Role;
+namespace Ibexa\Contracts\Core\Repository\Events\Role;
 
-use eZ\Publish\API\Repository\Values\User\RoleAssignment;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class RemoveRoleAssignmentEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\RoleAssignment */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment */
     private $roleAssignment;
 
     public function __construct(
@@ -27,3 +27,5 @@ final class RemoveRoleAssignmentEvent extends AfterEvent
         return $this->roleAssignment;
     }
 }
+
+class_alias(RemoveRoleAssignmentEvent::class, 'eZ\Publish\API\Repository\Events\Role\RemoveRoleAssignmentEvent');

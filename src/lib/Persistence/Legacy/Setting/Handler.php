@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Setting;
+namespace Ibexa\Core\Persistence\Legacy\Setting;
 
-use eZ\Publish\Core\Base\Exceptions\NotFoundException as NotFound;
-use eZ\Publish\SPI\Persistence\Setting\Handler as BaseSettingHandler;
-use eZ\Publish\SPI\Persistence\Setting\Setting;
+use Ibexa\Core\Base\Exceptions\NotFoundException as NotFound;
+use Ibexa\Contracts\Core\Persistence\Setting\Handler as BaseSettingHandler;
+use Ibexa\Contracts\Core\Persistence\Setting\Setting;
 
 class Handler implements BaseSettingHandler
 {
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Setting\Gateway */
+    /** @var \Ibexa\Core\Persistence\Legacy\Setting\Gateway */
     protected $settingGateway;
 
     public function __construct(Gateway $settingGateway)
@@ -38,7 +38,7 @@ class Handler implements BaseSettingHandler
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function update(string $group, string $identifier, string $serializedValue): Setting
     {
@@ -58,7 +58,7 @@ class Handler implements BaseSettingHandler
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function load(string $group, string $identifier): Setting
     {
@@ -83,3 +83,5 @@ class Handler implements BaseSettingHandler
         $this->settingGateway->deleteSetting($group, $identifier);
     }
 }
+
+class_alias(Handler::class, 'eZ\Publish\Core\Persistence\Legacy\Setting\Handler');

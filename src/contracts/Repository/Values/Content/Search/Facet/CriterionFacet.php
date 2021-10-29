@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Search\Facet;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Search\Facet;
 
-use eZ\Publish\API\Repository\Values\Content\Search\Facet;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\Facet;
 
 /**
  * This class holds the count of content matching the criterion.
@@ -24,3 +24,5 @@ class CriterionFacet extends Facet
      */
     public $count;
 }
+
+class_alias(CriterionFacet::class, 'eZ\Publish\API\Repository\Values\Content\Search\Facet\CriterionFacet');

@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine;
+namespace Ibexa\Bundle\Core\Imagine;
 
-use eZ\Publish\API\Repository\Exceptions\InvalidVariationException;
-use eZ\Publish\Core\MVC\Exception\SourceImageNotFoundException;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\SPI\Variation\Values\ImageVariation;
-use eZ\Publish\SPI\Variation\VariationHandler;
-use eZ\Publish\SPI\FieldType\Value;
-use eZ\Publish\Core\FieldType\Image\Value as ImageValue;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidVariationException;
+use Ibexa\Core\MVC\Exception\SourceImageNotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Variation\Values\ImageVariation;
+use Ibexa\Contracts\Core\Variation\VariationHandler;
+use Ibexa\Contracts\Core\FieldType\Value;
+use Ibexa\Core\FieldType\Image\Value as ImageValue;
 use Imagine\Exception\RuntimeException;
 use Liip\ImagineBundle\Binary\BinaryInterface;
 use Liip\ImagineBundle\Binary\Loader\LoaderInterface;
@@ -72,13 +72,13 @@ class AliasGenerator implements VariationHandler
     /**
      * {@inheritdoc}
      *
-     * @throws \InvalidArgumentException If field value is not an instance of \eZ\Publish\Core\FieldType\Image\Value.
-     * @throws \eZ\Publish\Core\MVC\Exception\SourceImageNotFoundException If source image cannot be found.
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidVariationException If a problem occurs with generated variation.
+     * @throws \InvalidArgumentException If field value is not an instance of {@see \Ibexa\Core\FieldType\Image\Value}.
+     * @throws \Ibexa\Core\MVC\Exception\SourceImageNotFoundException If source image cannot be found.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidVariationException If a problem occurs with generated variation.
      */
     public function getVariation(Field $field, VersionInfo $versionInfo, $variationName, array $parameters = [])
     {
-        /** @var \eZ\Publish\Core\FieldType\Image\Value $imageValue */
+        /** @var \Ibexa\Core\FieldType\Image\Value $imageValue */
         $imageValue = $field->value;
         $fieldId = $field->id;
         $fieldDefIdentifier = $field->fieldDefIdentifier;
@@ -165,3 +165,5 @@ class AliasGenerator implements VariationHandler
         return $value instanceof ImageValue;
     }
 }
+
+class_alias(AliasGenerator::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\AliasGenerator');

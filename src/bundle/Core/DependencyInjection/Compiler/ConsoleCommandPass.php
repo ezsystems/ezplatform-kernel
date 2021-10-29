@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\Core\DependencyInjection\Compiler;
 
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -28,3 +28,5 @@ final class ConsoleCommandPass implements CompilerPassInterface
         }
     }
 }
+
+class_alias(ConsoleCommandPass::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ConsoleCommandPass');

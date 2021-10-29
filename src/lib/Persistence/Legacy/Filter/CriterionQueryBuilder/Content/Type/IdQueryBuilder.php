@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\Type;
+namespace Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\Type;
 
 use Doctrine\DBAL\Connection;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ContentTypeId;
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeId;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 
 /**
  * Content Type ID Criterion visitor query builder.
  *
- * @see \eZ\Publish\API\Repository\Values\Content\Query\Criterion\ContentTypeId
+ * @see \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeId
  *
  * @internal for internal use by Repository Filtering
  */
@@ -31,7 +31,7 @@ final class IdQueryBuilder extends BaseQueryBuilder
         FilteringQueryBuilder $queryBuilder,
         FilteringCriterion $criterion
     ): ?string {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier $criterion */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier $criterion */
         parent::buildQueryConstraint($queryBuilder, $criterion);
 
         return $queryBuilder->expr()->in(
@@ -43,3 +43,5 @@ final class IdQueryBuilder extends BaseQueryBuilder
         );
     }
 }
+
+class_alias(IdQueryBuilder::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\Type\IdQueryBuilder');

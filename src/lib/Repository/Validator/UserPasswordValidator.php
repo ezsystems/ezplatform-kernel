@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Validator;
+namespace Ibexa\Core\Repository\Validator;
 
-use eZ\Publish\Core\FieldType\ValidationError;
+use Ibexa\Core\FieldType\ValidationError;
 
 /**
  * Internal service to user password validation against specified constraints.
@@ -38,7 +38,7 @@ class UserPasswordValidator
      *
      * @param string $password
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validate(string $password): array
     {
@@ -155,10 +155,12 @@ class UserPasswordValidator
      * @param string $message
      * @param array $values
      *
-     * @return \eZ\Publish\Core\FieldType\ValidationError
+     * @return \Ibexa\Core\FieldType\ValidationError
      */
     private function createValidationError(string $message, array $values = []): ValidationError
     {
         return new ValidationError($message, null, $values, 'password');
     }
 }
+
+class_alias(UserPasswordValidator::class, 'eZ\Publish\Core\Repository\Validator\UserPasswordValidator');

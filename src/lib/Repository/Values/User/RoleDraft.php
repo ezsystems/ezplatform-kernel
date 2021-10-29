@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Values\User;
+namespace Ibexa\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\User\RoleDraft as APIRoleDraft;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleDraft as APIRoleDraft;
 
 /**
  * This class represents a draft of a role.
@@ -20,7 +20,7 @@ class RoleDraft extends APIRoleDraft
     /**
      * Holds internal role object.
      *
-     * @var \eZ\Publish\API\Repository\Values\User\Role
+     * @var \Ibexa\Contracts\Core\Repository\Values\User\Role
      *
      * @todo document
      */
@@ -64,10 +64,12 @@ class RoleDraft extends APIRoleDraft
     /**
      * Returns the list of policies of this role.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\PolicyDraft[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft[]
      */
     public function getPolicies(): iterable
     {
         return $this->innerRole->getPolicies();
     }
 }
+
+class_alias(RoleDraft::class, 'eZ\Publish\Core\Repository\Values\User\RoleDraft');

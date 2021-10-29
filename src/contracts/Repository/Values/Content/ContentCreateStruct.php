@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
 /**
  * This class is used for creating a new content object.
  *
- * @property \eZ\Publish\API\Repository\Values\Content\Field[] $fields
+ * @property \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $fields
  */
 abstract class ContentCreateStruct extends ContentStruct
 {
@@ -20,7 +20,7 @@ abstract class ContentCreateStruct extends ContentStruct
      *
      * Required.
      *
-     * @var \eZ\Publish\API\Repository\Values\ContentType\ContentType
+     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
      */
     public $contentType;
 
@@ -73,3 +73,5 @@ abstract class ContentCreateStruct extends ContentStruct
      */
     public $modificationDate;
 }
+
+class_alias(ContentCreateStruct::class, 'eZ\Publish\API\Repository\Values\Content\ContentCreateStruct');

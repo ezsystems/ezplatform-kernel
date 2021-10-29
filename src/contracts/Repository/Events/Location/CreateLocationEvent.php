@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Location;
+namespace Ibexa\Contracts\Core\Repository\Events\Location;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class CreateLocationEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
     private $location;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo */
     private $contentInfo;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\LocationCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct */
     private $locationCreateStruct;
 
     public function __construct(
@@ -49,3 +49,5 @@ final class CreateLocationEvent extends AfterEvent
         return $this->locationCreateStruct;
     }
 }
+
+class_alias(CreateLocationEvent::class, 'eZ\Publish\API\Repository\Events\Location\CreateLocationEvent');

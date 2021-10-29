@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Values\ContentType;
 
 /**
  * This class is used for updating a content type group.
@@ -27,3 +27,5 @@ class ContentTypeGroupUpdateStruct extends ContentTypeGroupStruct
      */
     public $modificationDate = null;
 }
+
+class_alias(ContentTypeGroupUpdateStruct::class, 'eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroupUpdateStruct');

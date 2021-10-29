@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\Content\Language\Gateway;
 
-use eZ\Publish\Core\Base\Exceptions\DatabaseException;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway;
-use eZ\Publish\SPI\Persistence\Content\Language;
+use Ibexa\Core\Base\Exceptions\DatabaseException;
+use Ibexa\Core\Persistence\Legacy\Content\Language\Gateway;
+use Ibexa\Contracts\Core\Persistence\Content\Language;
 use Doctrine\DBAL\DBALException;
 use PDOException;
 
@@ -20,14 +20,14 @@ use PDOException;
 final class ExceptionConversion extends Gateway
 {
     /**
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Language\Gateway
      */
     private $innerGateway;
 
     /**
      * Creates a new exception conversion gateway around $innerGateway.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway $innerGateway
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Language\Gateway $innerGateway
      */
     public function __construct(Gateway $innerGateway)
     {
@@ -97,3 +97,5 @@ final class ExceptionConversion extends Gateway
         }
     }
 }
+
+class_alias(ExceptionConversion::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway\ExceptionConversion');

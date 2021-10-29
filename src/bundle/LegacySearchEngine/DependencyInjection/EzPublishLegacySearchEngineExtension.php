@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishLegacySearchEngineBundle\DependencyInjection;
+namespace Ibexa\Bundle\LegacySearchEngine\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -34,3 +34,5 @@ class EzPublishLegacySearchEngineExtension extends Extension
         $loader->load('services.yml');
     }
 }
+
+class_alias(EzPublishLegacySearchEngineExtension::class, 'eZ\Bundle\EzPublishLegacySearchEngineBundle\DependencyInjection\EzPublishLegacySearchEngineExtension');

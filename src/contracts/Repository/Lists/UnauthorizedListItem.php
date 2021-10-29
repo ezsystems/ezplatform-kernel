@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Lists;
+namespace Ibexa\Contracts\Core\Repository\Lists;
 
 /**
  * This class represents an element of the list to which the user has no access.
@@ -58,3 +58,5 @@ abstract class UnauthorizedListItem
         return $this->payload;
     }
 }
+
+class_alias(UnauthorizedListItem::class, 'eZ\Publish\API\Repository\Lists\UnauthorizedListItem');

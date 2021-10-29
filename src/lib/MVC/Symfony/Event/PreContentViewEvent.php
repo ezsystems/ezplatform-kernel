@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Event;
+namespace Ibexa\Core\MVC\Symfony\Event;
 
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Symfony\View\View;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
@@ -34,7 +34,7 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class PreContentViewEvent extends Event
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\View */
+    /** @var \Ibexa\Core\MVC\Symfony\View\View */
     private $contentView;
 
     public function __construct(View $contentView)
@@ -43,10 +43,12 @@ class PreContentViewEvent extends Event
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\View\View
+     * @return \Ibexa\Core\MVC\Symfony\View\View
      */
     public function getContentView()
     {
         return $this->contentView;
     }
 }
+
+class_alias(PreContentViewEvent::class, 'eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent');

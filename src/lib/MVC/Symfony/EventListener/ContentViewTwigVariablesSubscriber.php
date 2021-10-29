@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\EventListener;
+namespace Ibexa\Core\MVC\Symfony\EventListener;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\ExpressionLanguage\ExpressionLanguage;
-use eZ\Publish\Core\MVC\Symfony\ExpressionLanguage\TwigVariableProviderExtension;
-use eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\View\VariableProviderRegistry;
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\ExpressionLanguage\ExpressionLanguage;
+use Ibexa\Core\MVC\Symfony\ExpressionLanguage\TwigVariableProviderExtension;
+use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\MVC\Symfony\View\VariableProviderRegistry;
+use Ibexa\Core\MVC\Symfony\View\View;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ContentViewTwigVariablesSubscriber implements EventSubscriberInterface
@@ -23,10 +23,10 @@ final class ContentViewTwigVariablesSubscriber implements EventSubscriberInterfa
 
     public const PARAMETERS_KEY = 'params';
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\VariableProviderRegistry */
+    /** @var \Ibexa\Core\MVC\Symfony\View\VariableProviderRegistry */
     private $parameterProviderRegistry;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Symfony\Component\ExpressionLanguage\ExpressionLanguage */
@@ -88,3 +88,5 @@ final class ContentViewTwigVariablesSubscriber implements EventSubscriberInterfa
         return substr($twigVariable, strlen(self::EXPRESSION_INDICATOR));
     }
 }
+
+class_alias(ContentViewTwigVariablesSubscriber::class, 'eZ\Publish\Core\MVC\Symfony\EventListener\ContentViewTwigVariablesSubscriber');

@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ComplexSettings;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\ComplexSettings;
 
 /**
  * Factory for complex dynamic settings resolution.
@@ -56,3 +56,5 @@ class ComplexSettingValueResolver
         return $value;
     }
 }
+
+class_alias(ComplexSettingValueResolver::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ComplexSettings\ComplexSettingValueResolver');

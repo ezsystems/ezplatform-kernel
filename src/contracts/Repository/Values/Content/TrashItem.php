@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
 /**
  * this class represents a trash item, which is actually a trashed location.
@@ -20,3 +20,5 @@ abstract class TrashItem extends Location
      */
     protected $trashed;
 }
+
+class_alias(TrashItem::class, 'eZ\Publish\API\Repository\Values\Content\TrashItem');

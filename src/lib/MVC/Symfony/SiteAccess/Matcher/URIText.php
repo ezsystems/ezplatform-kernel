@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
+namespace Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\VersatileMatcher;
-use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\URILexer;
+use Ibexa\Core\MVC\Symfony\SiteAccess\VersatileMatcher;
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess\URILexer;
 
 class URIText extends Regex implements VersatileMatcher, URILexer
 {
@@ -50,7 +50,7 @@ class URIText extends Regex implements VersatileMatcher, URILexer
     /**
      * Injects the request object to match against.
      *
-     * @param \eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest $request
+     * @param \Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest $request
      */
     public function setRequest(SimplifiedRequest $request)
     {
@@ -102,3 +102,5 @@ class URIText extends Regex implements VersatileMatcher, URILexer
         return $this->request;
     }
 }
+
+class_alias(URIText::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\URIText');

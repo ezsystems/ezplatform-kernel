@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Checkbox;
+namespace Ibexa\Core\FieldType\Checkbox;
 
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * Value for Checkbox field type.
@@ -31,8 +31,6 @@ class Value extends BaseValue
     }
 
     /**
-     * @see \eZ\Publish\Core\FieldType\Value
-     *
      * @return string
      */
     public function __toString()
@@ -40,3 +38,5 @@ class Value extends BaseValue
         return $this->bool ? '1' : '0';
     }
 }
+
+class_alias(Value::class, 'eZ\Publish\Core\FieldType\Checkbox\Value');

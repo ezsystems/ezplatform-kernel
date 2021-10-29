@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Command;
+namespace Ibexa\Bundle\Core\Command;
 
-use eZ\Bundle\EzPublishCoreBundle\URLChecker\URLCheckerInterface;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\URLService;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
-use eZ\Publish\API\Repository\Values\URL\Query\SortClause;
-use eZ\Publish\API\Repository\Values\URL\URLQuery;
+use Ibexa\Bundle\Core\URLChecker\URLCheckerInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\URLService;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -27,16 +27,16 @@ class CheckURLsCommand extends Command implements BackwardCompatibleCommand
     private const DEFAULT_ITERATION_COUNT = 50;
     private const DEFAULT_REPOSITORY_USER = 'admin';
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\URLService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLService */
     private $urlService;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\URLChecker\URLCheckerInterface */
+    /** @var \Ibexa\Bundle\Core\URLChecker\URLCheckerInterface */
     private $urlChecker;
 
     public function __construct(
@@ -124,3 +124,5 @@ class CheckURLsCommand extends Command implements BackwardCompatibleCommand
         return ['ezplatform:check-urls'];
     }
 }
+
+class_alias(CheckURLsCommand::class, 'eZ\Bundle\EzPublishCoreBundle\Command\CheckURLsCommand');

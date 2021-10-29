@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Values\ContentType;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 /**
  * This class is used for creating content types.
  *
- * @property \eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct[] $fieldDefinitions the collection of field definitions
+ * @property \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct[] $fieldDefinitions the collection of field definitions
  */
 abstract class ContentTypeCreateStruct extends ValueObject
 {
@@ -109,7 +109,7 @@ abstract class ContentTypeCreateStruct extends ValueObject
     /**
      * Adds a new field definition.
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct $fieldDef
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct $fieldDef
      */
     abstract public function addFieldDefinition(FieldDefinitionCreateStruct $fieldDef): void;
 
@@ -127,3 +127,5 @@ abstract class ContentTypeCreateStruct extends ValueObject
      */
     public $creationDate = null;
 }
+
+class_alias(ContentTypeCreateStruct::class, 'eZ\Publish\API\Repository\Values\ContentType\ContentTypeCreateStruct');

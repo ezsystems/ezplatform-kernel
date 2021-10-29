@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator\Specifications;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator\Specifications;
 
 /**
  * A criterion that matches Content based on the relations in relation field.
  * This includes Relation and RelationList field types in standard installation, but also any
- * other field type storing {@link \eZ\Publish\API\Repository\Values\Content\Relation::FIELD}
+ * other field type storing {@link \Ibexa\Contracts\Core\Repository\Values\Content\Relation::FIELD}
  * type relation.
  *
  * Supported operators:
@@ -33,3 +33,5 @@ class FieldRelation extends Criterion
         ];
     }
 }
+
+class_alias(FieldRelation::class, 'eZ\Publish\API\Repository\Values\Content\Query\Criterion\FieldRelation');

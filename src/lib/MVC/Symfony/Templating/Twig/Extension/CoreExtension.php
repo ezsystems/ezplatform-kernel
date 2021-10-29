@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension;
+namespace Ibexa\Core\MVC\Symfony\Templating\Twig\Extension;
 
 use Twig\Extension\AbstractExtension;
-use eZ\Publish\Core\MVC\Symfony\Templating\GlobalHelper;
+use Ibexa\Core\MVC\Symfony\Templating\GlobalHelper;
 use Twig\Extension\GlobalsInterface;
 
 class CoreExtension extends AbstractExtension implements GlobalsInterface
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Templating\GlobalHelper */
+    /** @var \Ibexa\Core\MVC\Symfony\Templating\GlobalHelper */
     private $globalHelper;
 
     public function __construct(GlobalHelper $globalHelper)
@@ -38,3 +38,5 @@ class CoreExtension extends AbstractExtension implements GlobalsInterface
         return ['ezplatform' => $this->globalHelper];
     }
 }
+
+class_alias(CoreExtension::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\CoreExtension');

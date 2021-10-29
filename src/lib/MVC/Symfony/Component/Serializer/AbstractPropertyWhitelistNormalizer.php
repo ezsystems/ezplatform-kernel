@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Component\Serializer;
+namespace Ibexa\Core\MVC\Symfony\Component\Serializer;
 
 use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 
@@ -29,3 +29,5 @@ abstract class AbstractPropertyWhitelistNormalizer extends PropertyNormalizer
      */
     abstract protected function getAllowedProperties(): array;
 }
+
+class_alias(AbstractPropertyWhitelistNormalizer::class, 'eZ\Publish\Core\MVC\Symfony\Component\Serializer\AbstractPropertyWhitelistNormalizer');

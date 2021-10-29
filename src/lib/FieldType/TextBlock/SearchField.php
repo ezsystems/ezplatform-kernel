@@ -4,26 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\TextBlock;
+namespace Ibexa\Core\FieldType\TextBlock;
 
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\SPI\FieldType\Indexable;
-use eZ\Publish\SPI\Search;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Contracts\Core\FieldType\Indexable;
+use Ibexa\Contracts\Core\Search;
 
 /**
  * Indexable definition for TextBlock field type.
  */
 class SearchField implements Indexable
 {
-    /**
-     * Get index data for field for search backend.
-     *
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition $fieldDefinition
-     *
-     * @return \eZ\Publish\SPI\Search\Field[]
-     */
     public function getIndexData(Field $field, FieldDefinition $fieldDefinition)
     {
         return [
@@ -52,11 +44,6 @@ class SearchField implements Indexable
         return mb_substr(strtok(trim($string), "\r\n"), 0, 255);
     }
 
-    /**
-     * Get index field types for search backend.
-     *
-     * @return \eZ\Publish\SPI\Search\FieldType[]
-     */
     public function getIndexDefinition()
     {
         return [
@@ -92,3 +79,5 @@ class SearchField implements Indexable
         return $this->getDefaultMatchField();
     }
 }
+
+class_alias(SearchField::class, 'eZ\Publish\Core\FieldType\TextBlock\SearchField');

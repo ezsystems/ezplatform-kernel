@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Strategy\ContentValidator;
+namespace Ibexa\Core\Repository\Strategy\ContentValidator;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\SPI\Repository\Validator\ContentValidator;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
 
 /**
  * @internal Meant for internal use by Repository
  */
 final class ContentValidatorStrategy implements ContentValidator
 {
-    /** @var \eZ\Publish\SPI\Repository\Validator\ContentValidator[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Validator\ContentValidator[] */
     private $contentValidators;
 
     public function __construct(iterable $contentValidators)
@@ -80,3 +80,5 @@ final class ContentValidatorStrategy implements ContentValidator
         return $fieldErrors;
     }
 }
+
+class_alias(ContentValidatorStrategy::class, 'eZ\Publish\Core\Repository\Strategy\ContentValidator\ContentValidatorStrategy');

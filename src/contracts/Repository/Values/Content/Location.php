@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
 /**
  * This class represents a location in the repository.
  *
- * @property-read \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo calls getContentInfo()
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo calls getContentInfo()
  * @property-read int $contentId calls getContentInfo()->id
  * @property-read int $id the id of the location
  * @property-read int $priority Position of the Location among its siblings when sorted using priority
@@ -183,20 +183,20 @@ abstract class Location extends ValueObject
      */
     protected $sortOrder;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Content */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */
     protected $content;
 
     /**
      * Returns the content info of the content object of this location.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
      */
     abstract public function getContentInfo(): ContentInfo;
 
     /**
      * Return the parent location of of this location.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     abstract public function getParentLocation(): ?Location;
 
@@ -211,7 +211,7 @@ abstract class Location extends ValueObject
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     public function getContent(): Content
     {
@@ -221,9 +221,9 @@ abstract class Location extends ValueObject
     /**
      * Get SortClause objects built from Locations's sort options.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException If sort field has a deprecated/unsupported value which does not have a Sort Clause.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException If sort field has a deprecated/unsupported value which does not have a Sort Clause.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Query\SortClause[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause[]
      */
     public function getSortClauses(): array
     {
@@ -240,3 +240,5 @@ abstract class Location extends ValueObject
         return [$sortClause];
     }
 }
+
+class_alias(Location::class, 'eZ\Publish\API\Repository\Values\Content\Location');

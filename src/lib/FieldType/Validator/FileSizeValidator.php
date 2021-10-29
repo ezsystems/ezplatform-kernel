@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Validator;
+namespace Ibexa\Core\FieldType\Validator;
 
-use eZ\Publish\Core\FieldType\Validator;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\FieldType\Validator;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * Validator for checking max. size of binary files.
@@ -62,7 +62,7 @@ class FileSizeValidator extends Validator
     /**
      * Checks if $value->file has the appropriate size.
      *
-     * @param \eZ\Publish\Core\FieldType\BinaryFile\Value $value
+     * @param \Ibexa\Core\FieldType\BinaryFile\Value $value
      *
      * @return bool
      */
@@ -84,3 +84,5 @@ class FileSizeValidator extends Validator
         return $isValid;
     }
 }
+
+class_alias(FileSizeValidator::class, 'eZ\Publish\Core\FieldType\Validator\FileSizeValidator');

@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Decorator;
+namespace Ibexa\Contracts\Core\Repository\Decorator;
 
-use eZ\Publish\API\Repository\TranslationService;
-use eZ\Publish\API\Repository\Values\Translation;
+use Ibexa\Contracts\Core\Repository\TranslationService;
+use Ibexa\Contracts\Core\Repository\Values\Translation;
 
 abstract class TranslationServiceDecorator implements TranslationService
 {
-    /** @var \eZ\Publish\API\Repository\TranslationService */
+    /** @var \Ibexa\Contracts\Core\Repository\TranslationService */
     protected $innerService;
 
     public function __construct(TranslationService $innerService)
@@ -35,3 +35,5 @@ abstract class TranslationServiceDecorator implements TranslationService
         return $this->innerService->translateString($translation, $locale);
     }
 }
+
+class_alias(TranslationServiceDecorator::class, 'eZ\Publish\SPI\Repository\Decorator\TranslationServiceDecorator');

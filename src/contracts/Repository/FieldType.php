@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository;
+namespace Ibexa\Contracts\Core\Repository;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\SPI\FieldType\Value;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\FieldType\Value;
 
 /**
  * Interface that FieldTypes expose to the public API.
  *
- * @see \eZ\Publish\SPI\FieldType\FieldType For implementer doc
+ * @see \Ibexa\Contracts\Core\FieldType\FieldType For implementer doc
  */
 interface FieldType
 {
@@ -160,7 +160,7 @@ interface FieldType
      *
      * @param mixed $fieldSettings
      *
-     * @return array|hash|scalar|null
+     * @return array|scalar|null
      */
     public function fieldSettingsToHash($fieldSettings);
 
@@ -169,7 +169,7 @@ interface FieldType
      *
      * This is the reverse operation of {@link fieldSettingsToHash()}.
      *
-     * @param array|hash|scalar|null $fieldSettingsHash
+     * @param array|scalar|null $fieldSettingsHash
      *
      * @return mixed
      */
@@ -180,7 +180,7 @@ interface FieldType
      *
      * @param mixed $validatorConfiguration
      *
-     * @return array|hash|scalar|null
+     * @return array|scalar|null
      */
     public function validatorConfigurationToHash($validatorConfiguration);
 
@@ -188,7 +188,7 @@ interface FieldType
      * Converts the given $validatorConfigurationHash to a validator
      * configuration of the type.
      *
-     * @param array|hash|scalar|null $validatorConfigurationHash
+     * @param array|scalar|null $validatorConfigurationHash
      *
      * @return mixed
      */
@@ -202,7 +202,7 @@ interface FieldType
      *
      * @param mixed $validatorConfiguration
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validateValidatorConfiguration($validatorConfiguration): iterable;
 
@@ -214,17 +214,19 @@ interface FieldType
      *
      * @param mixed $fieldSettings
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validateFieldSettings($fieldSettings): iterable;
 
     /**
      * Validates a field value based on the validator configuration in the field definition.
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition $fieldDef The field definition of the field
-     * @param \eZ\Publish\SPI\FieldType\Value $value The field value for which an action is performed
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition $fieldDef The field definition of the field
+     * @param \Ibexa\Contracts\Core\FieldType\Value $value The field value for which an action is performed
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validateValue(FieldDefinition $fieldDef, Value $value): iterable;
 }
+
+class_alias(FieldType::class, 'eZ\Publish\API\Repository\FieldType');

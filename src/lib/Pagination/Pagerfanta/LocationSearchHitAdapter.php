@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Pagination\Pagerfanta;
+namespace Ibexa\Core\Pagination\Pagerfanta;
 
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 
 /**
  * Pagerfanta adapter for eZ Publish location search.
@@ -23,10 +23,12 @@ class LocationSearchHitAdapter extends AbstractSearchResultAdapter
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\LocationQuery $query
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery $query
      */
     protected function executeQuery(SearchService $searchService, Query $query, array $languageFilter): SearchResult
     {
         return $searchService->findLocations($query, $languageFilter);
     }
 }
+
+class_alias(LocationSearchHitAdapter::class, 'eZ\Publish\Core\Pagination\Pagerfanta\LocationSearchHitAdapter');

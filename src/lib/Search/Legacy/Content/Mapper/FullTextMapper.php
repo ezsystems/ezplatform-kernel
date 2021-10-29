@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Content\Mapper;
+namespace Ibexa\Core\Search\Legacy\Content\Mapper;
 
-use eZ\Publish\Core\Search\Common\FieldRegistry;
-use eZ\Publish\Core\Search\Legacy\Content\FullTextData;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Search\Field;
-use eZ\Publish\SPI\Search\FieldType;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
-use eZ\Publish\Core\Search\Legacy\Content\FullTextValue;
+use Ibexa\Core\Search\Common\FieldRegistry;
+use Ibexa\Core\Search\Legacy\Content\FullTextData;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Search\Field;
+use Ibexa\Contracts\Core\Search\FieldType;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
+use Ibexa\Core\Search\Legacy\Content\FullTextValue;
 
 /**
  * FullTextMapper maps Content object fields to FullTextValue objects which are searchable and
@@ -24,20 +24,20 @@ class FullTextMapper
     /**
      * Field registry.
      *
-     * @var \eZ\Publish\Core\Search\Common\FieldRegistry
+     * @var \Ibexa\Core\Search\Common\FieldRegistry
      */
     protected $fieldRegistry;
 
     /**
      * Content type handler.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\Type\Handler
+     * @var \Ibexa\Contracts\Core\Persistence\Content\Type\Handler
      */
     protected $contentTypeHandler;
 
     /**
-     * @param \eZ\Publish\Core\Search\Common\FieldRegistry $fieldRegistry
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\Handler $contentTypeHandler
+     * @param \Ibexa\Core\Search\Common\FieldRegistry $fieldRegistry
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\Handler $contentTypeHandler
      */
     public function __construct(
         FieldRegistry $fieldRegistry,
@@ -50,9 +50,9 @@ class FullTextMapper
     /**
      * Map given Content to a FullTextValue.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content $content
      *
-     * @return \eZ\Publish\Core\Search\Legacy\Content\FullTextData
+     * @return \Ibexa\Core\Search\Legacy\Content\FullTextData
      */
     public function mapContent(Content $content)
     {
@@ -71,11 +71,11 @@ class FullTextMapper
      * Returns an array of FullTextValue object containing searchable values of content object
      * fields for the given $content.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content $content
      *
-     * @return \eZ\Publish\Core\Search\Legacy\Content\FullTextValue[]
+     * @return \Ibexa\Core\Search\Legacy\Content\FullTextValue[]
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     protected function getFullTextValues(Content $content): array
     {
@@ -131,3 +131,5 @@ class FullTextMapper
         return !empty($fullTextFields) ? array_values($fullTextFields)[0] : null;
     }
 }
+
+class_alias(FullTextMapper::class, 'eZ\Publish\Core\Search\Legacy\Content\Mapper\FullTextMapper');

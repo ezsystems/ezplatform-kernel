@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Decorator;
+namespace Ibexa\Contracts\Core\Repository\Decorator;
 
-use eZ\Publish\API\Repository\URLWildcardService;
-use eZ\Publish\API\Repository\Values\Content\URLWildcard;
-use eZ\Publish\API\Repository\Values\Content\URLWildcardTranslationResult;
-use eZ\Publish\API\Repository\Values\Content\URLWildcardUpdateStruct;
+use Ibexa\Contracts\Core\Repository\URLWildcardService;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardTranslationResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct;
 
 abstract class URLWildcardServiceDecorator implements URLWildcardService
 {
-    /** @var \eZ\Publish\API\Repository\URLWildcardService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLWildcardService */
     protected $innerService;
 
     public function __construct(URLWildcardService $innerService)
@@ -60,3 +60,5 @@ abstract class URLWildcardServiceDecorator implements URLWildcardService
         return $this->innerService->translate($url);
     }
 }
+
+class_alias(URLWildcardServiceDecorator::class, 'eZ\Publish\SPI\Repository\Decorator\URLWildcardServiceDecorator');

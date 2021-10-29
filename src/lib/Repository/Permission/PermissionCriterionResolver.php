@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Permission;
+namespace Ibexa\Core\Repository\Permission;
 
-use eZ\Publish\API\Repository\PermissionCriterionResolver as APIPermissionCriterionResolver;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalOr;
-use eZ\Publish\API\Repository\Values\Content\Query\CriterionInterface;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\API\Repository\PermissionResolver as PermissionResolverInterface;
-use eZ\Publish\API\Repository\Values\User\UserReference;
-use eZ\Publish\Core\Limitation\TargetOnlyLimitationType;
+use Ibexa\Contracts\Core\Repository\PermissionCriterionResolver as APIPermissionCriterionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalOr;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\PermissionResolver as PermissionResolverInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference;
+use Ibexa\Core\Limitation\TargetOnlyLimitationType;
 use RuntimeException;
 
 /**
@@ -24,17 +24,17 @@ use RuntimeException;
  */
 class PermissionCriterionResolver implements APIPermissionCriterionResolver
 {
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $innerPermissionResolver;
 
-    /** @var \eZ\Publish\Core\Repository\Permission\LimitationService */
+    /** @var \Ibexa\Core\Repository\Permission\LimitationService */
     private $limitationService;
 
     /**
      * Constructor.
      *
-     * @param \eZ\Publish\API\Repository\PermissionResolver $innerPermissionResolver
-     * @param \eZ\Publish\Core\Repository\Permission\LimitationService $limitationService
+     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $innerPermissionResolver
+     * @param \Ibexa\Core\Repository\Permission\LimitationService $limitationService
      */
     public function __construct(
         PermissionResolverInterface $innerPermissionResolver,
@@ -47,14 +47,14 @@ class PermissionCriterionResolver implements APIPermissionCriterionResolver
     /**
      * Get permission criteria if needed and return false if no access at all.
      *
-     * @uses \eZ\Publish\API\Repository\PermissionResolver::getCurrentUserReference()
-     * @uses \eZ\Publish\API\Repository\PermissionResolver::hasAccess()
+     * @uses \Ibexa\Contracts\Core\Repository\PermissionResolver::getCurrentUserReference()
+     * @uses \Ibexa\Contracts\Core\Repository\PermissionResolver::hasAccess()
      *
      * @param string $module
      * @param string $function
      * @param array $targets
      *
-     * @return bool|\eZ\Publish\API\Repository\Values\Content\Query\Criterion
+     * @return bool|\Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion
      */
     public function getPermissionsCriterion(string $module = 'content', string $function = 'read', ?array $targets = null)
     {
@@ -78,7 +78,7 @@ class PermissionCriterionResolver implements APIPermissionCriterionResolver
         foreach ($permissionSets as $permissionSet) {
             // $permissionSet is a RoleAssignment, but in the form of role limitation & role policies hash
             $policyOrCriteria = [];
-            /** @var \eZ\Publish\API\Repository\Values\User\Policy */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\User\Policy */
             foreach ($permissionSet['policies'] as $policy) {
                 $limitations = $policy->getLimitations();
                 if (empty($limitations)) {
@@ -101,7 +101,7 @@ class PermissionCriterionResolver implements APIPermissionCriterionResolver
             /**
              * Apply role limitations if there is one.
              *
-             * @var \eZ\Publish\API\Repository\Values\User\Limitation[]
+             * @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
              */
             if ($permissionSet['limitation'] instanceof Limitation) {
                 // We need to match both the limitation AND *one* of the policies, aka; roleLimit AND policies(OR)
@@ -137,11 +137,11 @@ class PermissionCriterionResolver implements APIPermissionCriterionResolver
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitation
-     * @param \eZ\Publish\API\Repository\Values\User\UserReference $currentUserRef
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserReference $currentUserRef
      * @param array|null $targets
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Query\CriterionInterface|\eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalOperator
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface|\Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalOperator
      */
     private function getCriterionForLimitation(Limitation $limitation, UserReference $currentUserRef, ?array $targets): CriterionInterface
     {
@@ -170,3 +170,5 @@ class PermissionCriterionResolver implements APIPermissionCriterionResolver
         return $permissionCriterion;
     }
 }
+
+class_alias(PermissionCriterionResolver::class, 'eZ\Publish\Core\Repository\Permission\PermissionCriterionResolver');

@@ -6,27 +6,27 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\FieldType\ImageAsset;
+namespace Ibexa\Core\MVC\Symfony\FieldType\ImageAsset;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderInterface;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Core\MVC\Symfony\FieldType\View\ParameterProviderInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 class ParameterProvider implements ParameterProviderInterface
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionsResolver;
 
-    /** @var \eZ\Publish\Core\Repository\FieldTypeService */
+    /** @var \Ibexa\Core\Repository\FieldTypeService */
     private $fieldTypeService;
 
     /**
-     * @param \eZ\Publish\API\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
      */
     public function __construct(Repository $repository)
     {
@@ -66,9 +66,9 @@ class ParameterProvider implements ParameterProviderInterface
     /**
      * @param int $id
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function loadContentInfo(int $id): ContentInfo
     {
@@ -80,7 +80,7 @@ class ParameterProvider implements ParameterProviderInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      *
      * @return bool
      */
@@ -97,3 +97,5 @@ class ParameterProvider implements ParameterProviderInterface
         return false;
     }
 }
+
+class_alias(ParameterProvider::class, 'eZ\Publish\Core\MVC\Symfony\FieldType\ImageAsset\ParameterProvider');

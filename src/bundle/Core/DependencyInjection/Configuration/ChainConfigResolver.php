@@ -4,24 +4,24 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Exception\ParameterNotFoundException;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Exception\ParameterNotFoundException;
 
 class ChainConfigResolver implements ConfigResolverInterface
 {
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface[] */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface[] */
     protected $resolvers = [];
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface[] */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface[] */
     protected $sortedResolvers;
 
     /**
      * Registers $mapper as a valid mapper to be used in the configuration mapping chain.
      * When this mapper will be called in the chain depends on $priority. The highest $priority is, the earliest the router will be called.
      *
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $resolver
+     * @param \Ibexa\Core\MVC\ConfigResolverInterface $resolver
      * @param int $priority
      */
     public function addResolver(ConfigResolverInterface $resolver, $priority = 0)
@@ -36,7 +36,7 @@ class ChainConfigResolver implements ConfigResolverInterface
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\ConfigResolverInterface[]
+     * @return \Ibexa\Core\MVC\ConfigResolverInterface[]
      */
     public function getAllResolvers()
     {
@@ -51,7 +51,7 @@ class ChainConfigResolver implements ConfigResolverInterface
      * Sort the registered mappers by priority.
      * The highest priority number is the highest priority (reverse sorting).
      *
-     * @return \eZ\Publish\Core\MVC\ConfigResolverInterface[]
+     * @return \Ibexa\Core\MVC\ConfigResolverInterface[]
      */
     protected function sortResolvers()
     {
@@ -68,7 +68,7 @@ class ChainConfigResolver implements ConfigResolverInterface
     /**
      * @return mixed
      *
-     * @throws \eZ\Publish\Core\MVC\Exception\ParameterNotFoundException
+     * @throws \Ibexa\Core\MVC\Exception\ParameterNotFoundException
      */
     public function getParameter(string $paramName, ?string $namespace = null, ?string $scope = null)
     {
@@ -113,3 +113,5 @@ class ChainConfigResolver implements ConfigResolverInterface
         throw new \LogicException('getDefaultNamespace() is not supported by the ChainConfigResolver');
     }
 }
+
+class_alias(ChainConfigResolver::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ChainConfigResolver');

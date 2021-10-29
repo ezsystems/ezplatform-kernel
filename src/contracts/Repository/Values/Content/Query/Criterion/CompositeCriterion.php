@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
 abstract class CompositeCriterion extends Criterion
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion */
     public $criteria;
 
     public function __construct(Criterion $criteria)
@@ -26,3 +26,5 @@ abstract class CompositeCriterion extends Criterion
         throw new NotImplementedException('getSpecifications() not implemented for CompositeCriterion');
     }
 }
+
+class_alias(CompositeCriterion::class, 'eZ\Publish\API\Repository\Values\Content\Query\Criterion\CompositeCriterion');

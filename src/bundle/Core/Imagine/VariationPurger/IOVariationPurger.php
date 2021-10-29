@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPurger;
+namespace Ibexa\Bundle\Core\Imagine\VariationPurger;
 
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\SPI\Variation\VariationPurger;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Contracts\Core\Variation\VariationPurger;
 
 /**
  * Purges image variations using the IOService.
@@ -16,7 +16,7 @@ use eZ\Publish\SPI\Variation\VariationPurger;
  */
 class IOVariationPurger implements VariationPurger
 {
-    /** @var \eZ\Publish\Core\IO\IOServiceInterface */
+    /** @var \Ibexa\Core\IO\IOServiceInterface */
     private $io;
 
     /** @var \Psr\Log\LoggerInterface */
@@ -47,3 +47,5 @@ class IOVariationPurger implements VariationPurger
         }
     }
 }
+
+class_alias(IOVariationPurger::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPurger\IOVariationPurger');

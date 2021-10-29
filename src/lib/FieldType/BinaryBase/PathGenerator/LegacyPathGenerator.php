@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\BinaryBase\PathGenerator;
+namespace Ibexa\Core\FieldType\BinaryBase\PathGenerator;
 
-use eZ\Publish\SPI\FieldType\BinaryBase\PathGenerator;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\Field;
+use Ibexa\Contracts\Core\FieldType\BinaryBase\PathGenerator;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
 
 class LegacyPathGenerator extends PathGenerator
 {
@@ -33,3 +33,5 @@ class LegacyPathGenerator extends PathGenerator
         return substr($mimeType, 0, strpos($mimeType, '/'));
     }
 }
+
+class_alias(LegacyPathGenerator::class, 'eZ\Publish\Core\FieldType\BinaryBase\PathGenerator\LegacyPathGenerator');

@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection;
+namespace Ibexa\Bundle\Core\DependencyInjection;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\Configuration as SiteAccessConfiguration;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollectorInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\Configuration as SiteAccessConfiguration;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollectorInterface;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParserInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
@@ -17,7 +17,7 @@ class Configuration extends SiteAccessConfiguration
 {
     const CUSTOM_TAG_ATTRIBUTE_TYPES = ['number', 'string', 'boolean', 'choice'];
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface */
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface */
     private $mainSiteAccessConfigParser;
 
     /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParserInterface */
@@ -26,7 +26,7 @@ class Configuration extends SiteAccessConfiguration
     /** @var Configuration\Suggestion\Collector\SuggestionCollectorInterface */
     private $suggestionCollector;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessConfigurationFilter[] */
+    /** @var \Ibexa\Bundle\Core\SiteAccess\SiteAccessConfigurationFilter[] */
     private $siteAccessConfigurationFilters;
 
     public function __construct(
@@ -491,7 +491,7 @@ EOT;
      *                  is_bundle: true
      *                  type: annotation
      *                  dir: Entity
-     *                  prefix: eZ\Bundle\EzPublishCoreBundle\Entity
+     *                  prefix: Ibexa\Bundle\Core\Entity
      *
      * </code>
      *
@@ -530,3 +530,5 @@ EOT;
             ->end();
     }
 }
+
+class_alias(Configuration::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration');

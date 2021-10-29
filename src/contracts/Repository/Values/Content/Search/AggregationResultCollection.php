@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Search;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Search;
 
 use ArrayIterator;
-use eZ\Publish\API\Repository\Exceptions\OutOfBoundsException;
+use Ibexa\Contracts\Core\Repository\Exceptions\OutOfBoundsException;
 use Iterator;
 use IteratorAggregate;
 use Countable;
 
 final class AggregationResultCollection implements Countable, IteratorAggregate
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Search\AggregationResult[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult[] */
     private $entries;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Search\AggregationResult[] $results
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult[] $results
      */
     public function __construct(iterable $results = [])
     {
@@ -33,7 +33,7 @@ final class AggregationResultCollection implements Countable, IteratorAggregate
     /**
      * This method returns the aggregation result for the given aggregation name.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\OutOfBoundsException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\OutOfBoundsException
      */
     public function get(string $name): AggregationResult
     {
@@ -57,7 +57,7 @@ final class AggregationResultCollection implements Countable, IteratorAggregate
     /**
      * Return first element of collection.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\OutOfBoundsException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\OutOfBoundsException
      */
     public function first(): AggregationResult
     {
@@ -71,7 +71,7 @@ final class AggregationResultCollection implements Countable, IteratorAggregate
     /**
      * Return last element of collection.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\OutOfBoundsException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\OutOfBoundsException
      */
     public function last(): AggregationResult
     {
@@ -95,7 +95,7 @@ final class AggregationResultCollection implements Countable, IteratorAggregate
     /**
      * Gets a native PHP array representation of the collection.
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[]
      */
     public function toArray(): array
     {
@@ -112,3 +112,5 @@ final class AggregationResultCollection implements Countable, IteratorAggregate
         return count($this->entries);
     }
 }
+
+class_alias(AggregationResultCollection::class, 'eZ\Publish\API\Repository\Values\Content\Search\AggregationResultCollection');

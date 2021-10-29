@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\DraftList\Item;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item;
 
-use eZ\Publish\API\Repository\Values\Content\DraftList\ContentDraftListItemInterface;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\ContentDraftListItemInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 
 /**
  * Item of content drafts list.
@@ -17,12 +17,12 @@ use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 class ContentDraftListItem implements ContentDraftListItemInterface
 {
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\VersionInfo
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo
      */
     private $versionInfo;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      */
     public function __construct(VersionInfo $versionInfo)
     {
@@ -30,7 +30,7 @@ class ContentDraftListItem implements ContentDraftListItemInterface
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null
      */
     public function getVersionInfo(): ?VersionInfo
     {
@@ -45,3 +45,5 @@ class ContentDraftListItem implements ContentDraftListItemInterface
         return $this->versionInfo instanceof VersionInfo;
     }
 }
+
+class_alias(ContentDraftListItem::class, 'eZ\Publish\API\Repository\Values\Content\DraftList\Item\ContentDraftListItem');

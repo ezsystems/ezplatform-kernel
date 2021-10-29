@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Strategy\ContentThumbnail;
+namespace Ibexa\Core\Repository\Strategy\ContentThumbnail;
 
-use eZ\Publish\API\Repository\FieldTypeService;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\Thumbnail;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy as ContentFieldThumbnailStrategy;
-use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
+use Ibexa\Contracts\Core\Repository\FieldTypeService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy as ContentFieldThumbnailStrategy;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
 
 final class FirstMatchingFieldStrategy implements ThumbnailStrategy
 {
-    /** @var \eZ\Publish\API\Repository\FieldTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\FieldTypeService */
     private $fieldTypeService;
 
-    /** @var \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy */
+    /** @var \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy */
     private $contentFieldStrategy;
 
     public function __construct(
@@ -59,7 +59,7 @@ final class FirstMatchingFieldStrategy implements ThumbnailStrategy
 
     private function getFieldByIdentifier(string $identifier, array $fields): ?Field
     {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Field $field */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Field $field */
         foreach ($fields as $field) {
             if ($field->fieldDefIdentifier === $identifier) {
                 return $field;
@@ -69,3 +69,5 @@ final class FirstMatchingFieldStrategy implements ThumbnailStrategy
         return null;
     }
 }
+
+class_alias(FirstMatchingFieldStrategy::class, 'eZ\Publish\Core\Repository\Strategy\ContentThumbnail\FirstMatchingFieldStrategy');

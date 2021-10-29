@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Command;
+namespace Ibexa\Bundle\Core\Command;
 
 use Doctrine\DBAL\Driver\Connection;
-use eZ\Publish\Core\FieldType\Image\ImageStorage\Gateway as ImageStorageGateway;
-use eZ\Publish\Core\IO\FilePathNormalizerInterface;
+use Ibexa\Core\FieldType\Image\ImageStorage\Gateway as ImageStorageGateway;
+use Ibexa\Core\IO\FilePathNormalizerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -31,10 +31,10 @@ EOT;
 
     protected static $defaultName = 'ibexa:images:normalize-paths';
 
-    /** @var \eZ\Publish\Core\FieldType\Image\ImageStorage\Gateway */
+    /** @var \Ibexa\Core\FieldType\Image\ImageStorage\Gateway */
     private $imageGateway;
 
-    /** @var \eZ\Publish\Core\IO\FilePathNormalizerInterface */
+    /** @var \Ibexa\Core\IO\FilePathNormalizerInterface */
     private $filePathNormalizer;
 
     /** @var \Doctrine\DBAL\Driver\Connection */
@@ -165,3 +165,5 @@ EOT
         }
     }
 }
+
+class_alias(NormalizeImagesPathsCommand::class, 'eZ\Bundle\EzPublishCoreBundle\Command\NormalizeImagesPathsCommand');

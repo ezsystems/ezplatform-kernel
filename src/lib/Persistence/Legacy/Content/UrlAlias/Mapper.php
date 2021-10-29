@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias;
+namespace Ibexa\Core\Persistence\Legacy\Content\UrlAlias;
 
-use eZ\Publish\SPI\Persistence\Content\UrlAlias;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
+use Ibexa\Contracts\Core\Persistence\Content\UrlAlias;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
 
 /**
  * UrlAlias Mapper.
@@ -17,14 +17,14 @@ class Mapper
     /**
      * Language mask generator.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator
      */
     protected $languageMaskGenerator;
 
     /**
      * Creates a new UrlWildcard Handler.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator $languageMaskGenerator
+     * @param \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator $languageMaskGenerator
      */
     public function __construct(LanguageMaskGenerator $languageMaskGenerator)
     {
@@ -36,7 +36,7 @@ class Mapper
      *
      * @param mixed[] $data
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlAlias
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlAlias
      */
     public function extractUrlAliasFromData($data)
     {
@@ -61,7 +61,7 @@ class Mapper
      *
      * @param array $rows
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlAlias[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlAlias[]
      */
     public function extractUrlAliasListFromData(array $rows)
     {
@@ -169,3 +169,5 @@ class Mapper
         }
     }
 }
+
+class_alias(Mapper::class, 'eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Mapper');

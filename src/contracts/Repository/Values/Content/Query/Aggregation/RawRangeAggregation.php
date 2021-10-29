@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
 
 final class RawRangeAggregation extends AbstractRangeAggregation implements RawAggregation
 {
@@ -25,3 +25,5 @@ final class RawRangeAggregation extends AbstractRangeAggregation implements RawA
         return $this->fieldName;
     }
 }
+
+class_alias(RawRangeAggregation::class, 'eZ\Publish\API\Repository\Values\Content\Query\Aggregation\RawRangeAggregation');

@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Exceptions;
+namespace Ibexa\Core\Base\Exceptions;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
 use Exception;
-use eZ\Publish\Core\Base\Translatable;
-use eZ\Publish\Core\Base\TranslatableBase;
+use Ibexa\Core\Base\Translatable;
+use Ibexa\Core\Base\TranslatableBase;
 
 /**
  * Not Found Exception implementation.
@@ -36,3 +36,5 @@ class NotFoundException extends APINotFoundException implements Httpable, Transl
         parent::__construct($this->getBaseTranslation(), self::NOT_FOUND, $previous);
     }
 }
+
+class_alias(NotFoundException::class, 'eZ\Publish\Core\Base\Exceptions\NotFoundException');

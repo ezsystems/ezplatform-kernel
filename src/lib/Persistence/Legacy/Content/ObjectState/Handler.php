@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\ObjectState;
+namespace Ibexa\Core\Persistence\Legacy\Content\ObjectState;
 
-use eZ\Publish\SPI\Persistence\Content\ObjectState\Handler as BaseObjectStateHandler;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Handler as BaseObjectStateHandler;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 
 /**
  * The Object State Handler class provides managing of object states and groups.
@@ -18,22 +18,22 @@ class Handler implements BaseObjectStateHandler
     /**
      * ObjectState Gateway.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Gateway
      */
     protected $objectStateGateway;
 
     /**
      * ObjectState Mapper.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Mapper
+     * @var \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Mapper
      */
     protected $objectStateMapper;
 
     /**
      * Creates a new ObjectState Handler.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway $objectStateGateway
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Mapper $objectStateMapper
+     * @param \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Gateway $objectStateGateway
+     * @param \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Mapper $objectStateMapper
      */
     public function __construct(Gateway $objectStateGateway, Mapper $objectStateMapper)
     {
@@ -44,9 +44,9 @@ class Handler implements BaseObjectStateHandler
     /**
      * Creates a new object state group.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct $input
+     * @param \Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct $input
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group
      */
     public function createGroup(InputStruct $input)
     {
@@ -61,9 +61,9 @@ class Handler implements BaseObjectStateHandler
      *
      * @param mixed $groupId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the group was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the group was not found
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group
      */
     public function loadGroup($groupId)
     {
@@ -81,9 +81,9 @@ class Handler implements BaseObjectStateHandler
      *
      * @param string $identifier
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the group was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the group was not found
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group
      */
     public function loadGroupByIdentifier($identifier)
     {
@@ -102,7 +102,7 @@ class Handler implements BaseObjectStateHandler
      * @param int $offset
      * @param int $limit
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\Group[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group[]
      */
     public function loadAllGroups($offset = 0, $limit = -1)
     {
@@ -116,7 +116,7 @@ class Handler implements BaseObjectStateHandler
      *
      * @param mixed $groupId
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState[]
      */
     public function loadObjectStates($groupId)
     {
@@ -129,9 +129,9 @@ class Handler implements BaseObjectStateHandler
      * Updates an object state group.
      *
      * @param mixed $groupId
-     * @param \eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct $input
+     * @param \Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct $input
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group
      */
     public function updateGroup($groupId, InputStruct $input)
     {
@@ -166,9 +166,9 @@ class Handler implements BaseObjectStateHandler
      * set to this state.
      *
      * @param mixed $groupId
-     * @param \eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct $input
+     * @param \Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct $input
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState
      */
     public function create($groupId, InputStruct $input)
     {
@@ -183,9 +183,9 @@ class Handler implements BaseObjectStateHandler
      *
      * @param mixed $stateId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the state was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the state was not found
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState
      */
     public function load($stateId)
     {
@@ -204,9 +204,9 @@ class Handler implements BaseObjectStateHandler
      * @param string $identifier
      * @param mixed $groupId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the state was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the state was not found
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState
      */
     public function loadByIdentifier($identifier, $groupId)
     {
@@ -223,9 +223,9 @@ class Handler implements BaseObjectStateHandler
      * Updates an object state.
      *
      * @param mixed $stateId
-     * @param \eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct $input
+     * @param \Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct $input
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState
      */
     public function update($stateId, InputStruct $input)
     {
@@ -269,7 +269,7 @@ class Handler implements BaseObjectStateHandler
      * Deletes a object state. The state of the content objects is reset to the
      * first object state in the group.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If state with $stateId doesn't exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If state with $stateId doesn't exist
      *
      * @param mixed $stateId
      */
@@ -320,12 +320,12 @@ class Handler implements BaseObjectStateHandler
      *
      * The $state is the id of the state within one group.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If no state is found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If no state is found
      *
      * @param mixed $contentId
      * @param mixed $stateGroupId
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState
      */
     public function getContentState($contentId, $stateGroupId)
     {
@@ -350,3 +350,5 @@ class Handler implements BaseObjectStateHandler
         return $this->objectStateGateway->getContentCount($stateId);
     }
 }
+
+class_alias(Handler::class, 'eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler');

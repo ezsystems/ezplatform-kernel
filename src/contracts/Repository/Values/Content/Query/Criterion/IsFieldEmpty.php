@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator\Specifications;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator\Specifications;
 
 /**
  * A criterion that matches content based on if Field is empty.
@@ -20,7 +20,7 @@ class IsFieldEmpty extends Criterion
      * @param string $fieldDefinitionIdentifier
      * @param bool $value
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function __construct(string $fieldDefinitionIdentifier, bool $value = true)
     {
@@ -34,3 +34,5 @@ class IsFieldEmpty extends Criterion
         ];
     }
 }
+
+class_alias(IsFieldEmpty::class, 'eZ\Publish\API\Repository\Values\Content\Query\Criterion\IsFieldEmpty');

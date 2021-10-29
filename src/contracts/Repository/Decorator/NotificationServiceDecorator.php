@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Decorator;
+namespace Ibexa\Contracts\Core\Repository\Decorator;
 
-use eZ\Publish\API\Repository\NotificationService;
-use eZ\Publish\API\Repository\Values\Notification\CreateStruct;
-use eZ\Publish\API\Repository\Values\Notification\Notification;
-use eZ\Publish\API\Repository\Values\Notification\NotificationList;
+use Ibexa\Contracts\Core\Repository\NotificationService;
+use Ibexa\Contracts\Core\Repository\Values\Notification\CreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification;
+use Ibexa\Contracts\Core\Repository\Values\Notification\NotificationList;
 
 abstract class NotificationServiceDecorator implements NotificationService
 {
-    /** @var \eZ\Publish\API\Repository\NotificationService */
+    /** @var \Ibexa\Contracts\Core\Repository\NotificationService */
     protected $innerService;
 
     public function __construct(NotificationService $innerService)
@@ -60,3 +60,5 @@ abstract class NotificationServiceDecorator implements NotificationService
         $this->innerService->deleteNotification($notification);
     }
 }
+
+class_alias(NotificationServiceDecorator::class, 'eZ\Publish\SPI\Repository\Decorator\NotificationServiceDecorator');

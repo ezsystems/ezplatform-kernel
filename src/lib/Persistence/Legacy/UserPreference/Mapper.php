@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\UserPreference;
+namespace Ibexa\Core\Persistence\Legacy\UserPreference;
 
-use eZ\Publish\SPI\Persistence\UserPreference\UserPreference;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference;
 
 class Mapper
 {
@@ -17,7 +17,7 @@ class Mapper
      *
      * @param array $rows
      *
-     * @return \eZ\Publish\SPI\Persistence\UserPreference\UserPreference[]
+     * @return \Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference[]
      */
     public function extractUserPreferencesFromRows(array $rows): array
     {
@@ -34,7 +34,7 @@ class Mapper
      *
      * @param array $row
      *
-     * @return \eZ\Publish\SPI\Persistence\UserPreference\UserPreference
+     * @return \Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference
      */
     private function extractUserPreferenceFromRow(array $row): UserPreference
     {
@@ -47,3 +47,5 @@ class Mapper
         return $userPreference;
     }
 }
+
+class_alias(Mapper::class, 'eZ\Publish\Core\Persistence\Legacy\UserPreference\Mapper');

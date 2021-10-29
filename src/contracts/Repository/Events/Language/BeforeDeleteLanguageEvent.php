@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Language;
+namespace Ibexa\Contracts\Core\Repository\Events\Language;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 
 final class BeforeDeleteLanguageEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
     private $language;
 
     public function __construct(Language $language)
@@ -26,3 +26,5 @@ final class BeforeDeleteLanguageEvent extends BeforeEvent
         return $this->language;
     }
 }
+
+class_alias(BeforeDeleteLanguageEvent::class, 'eZ\Publish\API\Repository\Events\Language\BeforeDeleteLanguageEvent');

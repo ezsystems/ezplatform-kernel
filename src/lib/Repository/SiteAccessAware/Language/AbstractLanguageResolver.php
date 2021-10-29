@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\SiteAccessAware\Language;
+namespace Ibexa\Core\Repository\SiteAccessAware\Language;
 
-use eZ\Publish\API\Repository\LanguageResolver as APILanguageResolver;
-use eZ\Publish\API\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\LanguageResolver as APILanguageResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 
 /**
  * Common abstract implementation of Language resolver.
@@ -162,3 +162,5 @@ abstract class AbstractLanguageResolver implements APILanguageResolver
         return $this->defaultShowAllTranslations;
     }
 }
+
+class_alias(AbstractLanguageResolver::class, 'eZ\Publish\Core\Repository\SiteAccessAware\Language\AbstractLanguageResolver');

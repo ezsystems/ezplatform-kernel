@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\URL;
+namespace Ibexa\Contracts\Core\Persistence\URL;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 class URLUpdateStruct extends ValueObject
 {
@@ -38,3 +38,5 @@ class URLUpdateStruct extends ValueObject
      */
     public $modified;
 }
+
+class_alias(URLUpdateStruct::class, 'eZ\Publish\SPI\Persistence\URL\URLUpdateStruct');

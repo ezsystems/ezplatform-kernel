@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
 
 abstract class AbstractTermAggregation implements Aggregation
 {
@@ -70,3 +70,5 @@ abstract class AbstractTermAggregation implements Aggregation
         return $this;
     }
 }
+
+class_alias(AbstractTermAggregation::class, 'eZ\Publish\API\Repository\Values\Content\Query\Aggregation\AbstractTermAggregation');

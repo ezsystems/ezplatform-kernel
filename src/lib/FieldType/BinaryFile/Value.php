@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\BinaryFile;
+namespace Ibexa\Core\FieldType\BinaryFile;
 
-use eZ\Publish\Core\FieldType\BinaryBase\Value as BaseValue;
+use Ibexa\Core\FieldType\BinaryBase\Value as BaseValue;
 
 /**
  * Value for BinaryFile field type.
@@ -20,3 +20,5 @@ class Value extends BaseValue
      */
     public $downloadCount = 0;
 }
+
+class_alias(Value::class, 'eZ\Publish\Core\FieldType\BinaryFile\Value');

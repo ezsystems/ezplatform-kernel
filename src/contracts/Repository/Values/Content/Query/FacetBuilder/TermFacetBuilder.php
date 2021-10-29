@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\FacetBuilder;
 
-use eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\FacetBuilder;
 
 /**
  * Build a term facet.
@@ -21,3 +21,5 @@ use eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder;
 class TermFacetBuilder extends FacetBuilder
 {
 }
+
+class_alias(TermFacetBuilder::class, 'eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder\TermFacetBuilder');

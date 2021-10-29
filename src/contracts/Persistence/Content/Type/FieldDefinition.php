@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content\Type;
+namespace Ibexa\Contracts\Core\Persistence\Content\Type;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
-use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
 
 /**
  * @todo Do we need a FieldDefinitionCreateStruct?
@@ -99,14 +99,14 @@ class FieldDefinition extends ValueObject
      *   - validators
      *   - fieldSettings.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints
+     * @var \Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints
      */
     public $fieldTypeConstraints;
 
     /**
      * Default value of the field.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\FieldValue
+     * @var \Ibexa\Contracts\Core\Persistence\Content\FieldValue
      */
     public $defaultValue;
 
@@ -134,3 +134,5 @@ class FieldDefinition extends ValueObject
         parent::__construct($properties);
     }
 }
+
+class_alias(FieldDefinition::class, 'eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition');

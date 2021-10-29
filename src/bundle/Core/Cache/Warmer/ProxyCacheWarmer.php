@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Cache\Warmer;
+namespace Ibexa\Bundle\Core\Cache\Warmer;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\API\Repository\Values\Content\Thumbnail;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\Core\Repository\ProxyFactory\ProxyGeneratorInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Core\Repository\ProxyFactory\ProxyGeneratorInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 
 final class ProxyCacheWarmer implements CacheWarmerInterface
@@ -34,7 +34,7 @@ final class ProxyCacheWarmer implements CacheWarmerInterface
         Thumbnail::class,
     ];
 
-    /** @var \eZ\Publish\Core\Repository\ProxyFactory\ProxyGeneratorInterface */
+    /** @var \Ibexa\Core\Repository\ProxyFactory\ProxyGeneratorInterface */
     private $proxyGenerator;
 
     public function __construct(ProxyGeneratorInterface $proxyGenerator)
@@ -52,3 +52,5 @@ final class ProxyCacheWarmer implements CacheWarmerInterface
         $this->proxyGenerator->warmUp(self::PROXY_CLASSES);
     }
 }
+
+class_alias(ProxyCacheWarmer::class, 'eZ\Bundle\EzPublishCoreBundle\Cache\Warmer\ProxyCacheWarmer');

@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Strategy\ContentThumbnail;
+namespace Ibexa\Core\Repository\Strategy\ContentThumbnail;
 
-use eZ\Publish\API\Repository\Values\Content\Thumbnail;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
+use Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
 
 final class ThumbnailChainStrategy implements ThumbnailStrategy
 {
-    /** @var \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy[] */
     private $strategies;
 
     /**
-     * @param \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy[] $strategies
+     * @param \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy[] $strategies
      */
     public function __construct(iterable $strategies)
     {
@@ -39,3 +39,5 @@ final class ThumbnailChainStrategy implements ThumbnailStrategy
         return null;
     }
 }
+
+class_alias(ThumbnailChainStrategy::class, 'eZ\Publish\Core\Repository\Strategy\ContentThumbnail\ThumbnailChainStrategy');

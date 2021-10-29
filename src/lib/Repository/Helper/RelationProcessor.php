@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Helper;
+namespace Ibexa\Core\Repository\Helper;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\SPI\Persistence\Handler;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\Repository\Values\Content\Relation;
-use eZ\Publish\SPI\FieldType\Value as BaseValue;
-use eZ\Publish\SPI\FieldType\FieldType as SPIFieldType;
-use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as SPIRelationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Persistence\Handler;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\FieldType\Value as BaseValue;
+use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
+use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as SPIRelationCreateStruct;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
@@ -25,13 +25,13 @@ class RelationProcessor
 {
     use LoggerAwareTrait;
 
-    /** @var \eZ\Publish\SPI\Persistence\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Handler */
     protected $persistenceHandler;
 
     /**
      * Setups service with reference to repository object that created it & corresponding handler.
      *
-     * @param \eZ\Publish\SPI\Persistence\Handler $handler
+     * @param \Ibexa\Contracts\Core\Persistence\Handler $handler
      */
     public function __construct(Handler $handler)
     {
@@ -46,8 +46,8 @@ class RelationProcessor
      *
      * @param array $relations
      * @param array $locationIdToContentIdMapping An array with Location Ids as keys and corresponding Content Id as values
-     * @param \eZ\Publish\SPI\FieldType\FieldType $fieldType
-     * @param \eZ\Publish\SPI\FieldType\Value $fieldValue Accepted field value.
+     * @param \Ibexa\Contracts\Core\FieldType\FieldType $fieldType
+     * @param \Ibexa\Contracts\Core\FieldType\Value $fieldValue Accepted field value.
      * @param string $fieldDefinitionId
      */
     public function appendFieldRelations(
@@ -103,8 +103,8 @@ class RelationProcessor
      * @param array $inputRelations
      * @param mixed $sourceContentId
      * @param mixed $sourceContentVersionNo
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
-     * @param \eZ\Publish\API\Repository\Values\Content\Relation[] $existingRelations An array of existing relations for Content version (empty when creating new content)
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Relation[] $existingRelations An array of existing relations for Content version (empty when creating new content)
      */
     public function processFieldRelations(
         array $inputRelations,
@@ -207,3 +207,5 @@ class RelationProcessor
         }
     }
 }
+
+class_alias(RelationProcessor::class, 'eZ\Publish\Core\Repository\Helper\RelationProcessor');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API\Repository;
+namespace Ibexa\Contracts\Core\Repository;
 
-use eZ\Publish\API\Repository\Values\Translation;
+use Ibexa\Contracts\Core\Repository\Values\Translation;
 
 /**
  * Interface for a translation service.
@@ -44,3 +44,5 @@ interface TranslationService
      */
     public function translateString($translation, $locale);
 }
+
+class_alias(TranslationService::class, 'eZ\Publish\API\Repository\TranslationService');

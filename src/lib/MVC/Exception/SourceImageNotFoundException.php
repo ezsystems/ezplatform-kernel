@@ -4,10 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Exception;
+namespace Ibexa\Core\MVC\Exception;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 
 class SourceImageNotFoundException extends NotFoundException
 {
 }
+
+class_alias(SourceImageNotFoundException::class, 'eZ\Publish\Core\MVC\Exception\SourceImageNotFoundException');

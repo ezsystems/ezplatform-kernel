@@ -6,23 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Persistence\Content;
+namespace Ibexa\Contracts\Core\Persistence\Content;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 /**
  * SPI\Persistence Location with Content Info Value Object.
  * A composite of Location and ContentInfo instances.
  *
- * @property-read \eZ\Publish\SPI\Persistence\Content\Location $location
- * @property-read \eZ\Publish\SPI\Persistence\Content\ContentInfo $contentInfo
+ * @property-read \Ibexa\Contracts\Core\Persistence\Content\Location $location
+ * @property-read \Ibexa\Contracts\Core\Persistence\Content\ContentInfo $contentInfo
  */
 class LocationWithContentInfo extends ValueObject
 {
-    /** @var \eZ\Publish\SPI\Persistence\Content\Location */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Location */
     protected $location;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\ContentInfo */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\ContentInfo */
     protected $contentInfo;
 
     /**
@@ -45,3 +45,5 @@ class LocationWithContentInfo extends ValueObject
         return $this->contentInfo;
     }
 }
+
+class_alias(LocationWithContentInfo::class, 'eZ\Publish\SPI\Persistence\Content\LocationWithContentInfo');

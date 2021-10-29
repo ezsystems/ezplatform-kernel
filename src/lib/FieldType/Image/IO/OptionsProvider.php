@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Image\IO;
+namespace Ibexa\Core\FieldType\Image\IO;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 
 /**
  * @internal
  */
 class OptionsProvider
 {
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     protected $configResolver;
 
     public function __construct(ConfigResolverInterface $configResolver)
@@ -48,3 +48,5 @@ class OptionsProvider
         return $this->getSetting('image.published_images_dir');
     }
 }
+
+class_alias(OptionsProvider::class, 'eZ\Publish\Core\FieldType\Image\IO\OptionsProvider');

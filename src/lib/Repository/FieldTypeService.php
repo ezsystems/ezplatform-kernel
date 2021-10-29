@@ -6,34 +6,34 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository;
+namespace Ibexa\Core\Repository;
 
-use eZ\Publish\API\Repository\FieldTypeService as FieldTypeServiceInterface;
-use eZ\Publish\API\Repository\FieldType as APIFieldType;
-use eZ\Publish\Core\FieldType\FieldTypeRegistry;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldType;
+use Ibexa\Contracts\Core\Repository\FieldTypeService as FieldTypeServiceInterface;
+use Ibexa\Contracts\Core\Repository\FieldType as APIFieldType;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Core\Repository\Values\ContentType\FieldType;
 
 /**
  * An implementation of this class provides access to FieldTypes.
  *
- * @see \eZ\Publish\API\Repository\FieldType
+ * @see \Ibexa\Contracts\Core\Repository\FieldType
  */
 class FieldTypeService implements FieldTypeServiceInterface
 {
-    /** @var \eZ\Publish\Core\FieldType\FieldTypeRegistry */
+    /** @var \Ibexa\Core\FieldType\FieldTypeRegistry */
     protected $fieldTypeRegistry;
 
     /**
      * Holds an array of FieldType objects to avoid re creating them all the time from SPI variants.
      *
-     * @var \eZ\Publish\API\Repository\FieldType[]
+     * @var \Ibexa\Contracts\Core\Repository\FieldType[]
      */
     protected $fieldTypes = [];
 
     /**
      * Setups service with reference to repository object that created it & corresponding handler.
      *
-     * @param \eZ\Publish\Core\FieldType\FieldTypeRegistry $fieldTypeRegistry Registry for SPI FieldTypes
+     * @param \Ibexa\Core\FieldType\FieldTypeRegistry $fieldTypeRegistry Registry for SPI FieldTypes
      */
     public function __construct(FieldTypeRegistry $fieldTypeRegistry)
     {
@@ -43,7 +43,7 @@ class FieldTypeService implements FieldTypeServiceInterface
     /**
      * Returns a list of all field types.
      *
-     * @return \eZ\Publish\API\Repository\FieldType[]
+     * @return \Ibexa\Contracts\Core\Repository\FieldType[]
      */
     public function getFieldTypes(): iterable
     {
@@ -63,9 +63,9 @@ class FieldTypeService implements FieldTypeServiceInterface
      *
      * @param string $identifier
      *
-     * @return \eZ\Publish\API\Repository\FieldType
+     * @return \Ibexa\Contracts\Core\Repository\FieldType
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if there is no FieldType registered with $identifier
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if there is no FieldType registered with $identifier
      */
     public function getFieldType(string $identifier): APIFieldType
     {
@@ -88,3 +88,5 @@ class FieldTypeService implements FieldTypeServiceInterface
         return $this->fieldTypeRegistry->hasFieldType($identifier);
     }
 }
+
+class_alias(FieldTypeService::class, 'eZ\Publish\Core\Repository\FieldTypeService');

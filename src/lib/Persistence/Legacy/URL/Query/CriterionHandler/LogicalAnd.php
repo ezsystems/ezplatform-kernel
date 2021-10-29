@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler;
+namespace Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
-use eZ\Publish\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
-use eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
+use Ibexa\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
+use Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler;
 
 class LogicalAnd implements CriterionHandler
 {
@@ -24,7 +24,7 @@ class LogicalAnd implements CriterionHandler
     /**
      * {@inheritdoc}
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException
      */
     public function handle(CriteriaConverter $converter, QueryBuilder $queryBuilder, Criterion $criterion)
     {
@@ -36,3 +36,5 @@ class LogicalAnd implements CriterionHandler
         return $queryBuilder->expr()->andX(...$subexpressions);
     }
 }
+
+class_alias(LogicalAnd::class, 'eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler\LogicalAnd');

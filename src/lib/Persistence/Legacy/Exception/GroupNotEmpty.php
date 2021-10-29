@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Exception;
+namespace Ibexa\Core\Persistence\Legacy\Exception;
 
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\BadStateException;
 
 /**
  * Exception thrown if a Content\Type\Group is to be deleted which is not
@@ -27,3 +27,5 @@ class GroupNotEmpty extends BadStateException
         );
     }
 }
+
+class_alias(GroupNotEmpty::class, 'eZ\Publish\Core\Persistence\Legacy\Exception\GroupNotEmpty');

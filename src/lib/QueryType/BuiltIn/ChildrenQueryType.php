@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn;
+namespace Ibexa\Core\QueryType\BuiltIn;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\MatchNone;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ParentLocationId;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\MatchNone;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ParentLocationId;
 
 final class ChildrenQueryType extends AbstractLocationQueryType
 {
@@ -30,3 +30,5 @@ final class ChildrenQueryType extends AbstractLocationQueryType
         return new ParentLocationId($location->id);
     }
 }
+
+class_alias(ChildrenQueryType::class, 'eZ\Publish\Core\QueryType\BuiltIn\ChildrenQueryType');

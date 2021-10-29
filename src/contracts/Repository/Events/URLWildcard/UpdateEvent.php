@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\URLWildcard;
+namespace Ibexa\Contracts\Core\Repository\Events\URLWildcard;
 
-use eZ\Publish\API\Repository\Values\Content\URLWildcard;
-use eZ\Publish\API\Repository\Values\Content\URLWildcardUpdateStruct;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class UpdateEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\URLWildcard */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard */
     private $urlWildcard;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\URLWildcardUpdateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct */
     private $updateStruct;
 
     public function __construct(
@@ -38,3 +38,5 @@ final class UpdateEvent extends AfterEvent
         return $this->updateStruct;
     }
 }
+
+class_alias(UpdateEvent::class, 'eZ\Publish\API\Repository\Events\URLWildcard\UpdateEvent');

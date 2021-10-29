@@ -6,13 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Filter;
+namespace Ibexa\Contracts\Core\Repository\Values\Filter;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use function sprintf;
 
 /**
@@ -20,10 +18,10 @@ use function sprintf;
  */
 final class Filter
 {
-    /** @var \eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion|null */
     private $criterion;
 
-    /** @var \eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause[] */
     private $sortClauses = [];
 
     /** @var int */
@@ -37,7 +35,7 @@ final class Filter
      *
      * It's recommended to skip arguments and use `with...` and `andWith...` methods to build Filter.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException for invalid Sort Clause
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException for invalid Sort Clause
      */
     public function __construct(?FilteringCriterion $criterion = null, array $sortClauses = [])
     {
@@ -78,13 +76,13 @@ final class Filter
      *
      * To re-build Criterion from scratch `reset` it first.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException if Criterion is already set
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException if Criterion is already set
      *
      * @see reset
      * @see andWithCriterion
      * @see orWithCriterion
-     * @see \eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalOr
-     * @see \eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd
+     * @see \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalOr
+     * @see \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd
      */
     public function withCriterion(FilteringCriterion $criterion): self
     {
@@ -163,7 +161,7 @@ final class Filter
      *
      * @param int $limit >=0, use 0 for no limit.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function sliceBy(int $limit, int $offset): self
     {
@@ -193,7 +191,7 @@ final class Filter
     }
 
     /**
-     * @return \eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause[]
      */
     public function getSortClauses(): array
     {
@@ -231,3 +229,5 @@ final class Filter
         );
     }
 }
+
+class_alias(Filter::class, 'eZ\Publish\API\Repository\Values\Filter\Filter');

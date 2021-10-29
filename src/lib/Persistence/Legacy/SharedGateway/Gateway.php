@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\SharedGateway;
+namespace Ibexa\Core\Persistence\Legacy\SharedGateway;
 
 /**
  * Database platform-dependent shared Gateway.
@@ -42,3 +42,5 @@ interface Gateway
      */
     public function getLastInsertedId(string $sequenceName): int;
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\Persistence\Legacy\SharedGateway\Gateway');

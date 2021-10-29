@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Values\ContentType;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\SPI\Repository\Values\MultiLanguageName;
-use eZ\Publish\SPI\Repository\Values\MultiLanguageDescription;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\MultiLanguageName;
+use Ibexa\Contracts\Core\Repository\Values\MultiLanguageDescription;
 
 /**
  * This class represents a content type group value.
@@ -66,3 +66,5 @@ abstract class ContentTypeGroup extends ValueObject implements MultiLanguageName
      */
     protected $modifierId;
 }
+
+class_alias(ContentTypeGroup::class, 'eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup');

@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content\ObjectState;
+namespace Ibexa\Contracts\Core\Persistence\Content\ObjectState;
 
 /**
  * The Object State Handler interface provides managing of object states and groups.
@@ -14,9 +14,9 @@ interface Handler
     /**
      * Creates a new object state group.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct $input
+     * @param \Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct $input
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group
      */
     public function createGroup(InputStruct $input);
 
@@ -25,9 +25,9 @@ interface Handler
      *
      * @param mixed $groupId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the group was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the group was not found
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group
      */
     public function loadGroup($groupId);
 
@@ -36,9 +36,9 @@ interface Handler
      *
      * @param string $identifier
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the group was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the group was not found
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group
      */
     public function loadGroupByIdentifier($identifier);
 
@@ -48,7 +48,7 @@ interface Handler
      * @param int $offset
      * @param int $limit
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\Group[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group[]
      */
     public function loadAllGroups($offset = 0, $limit = -1);
 
@@ -57,7 +57,7 @@ interface Handler
      *
      * @param mixed $groupId
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState[]
      */
     public function loadObjectStates($groupId);
 
@@ -65,9 +65,9 @@ interface Handler
      * Updates an object state group.
      *
      * @param mixed $groupId
-     * @param \eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct $input
+     * @param \Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct $input
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group
      */
     public function updateGroup($groupId, InputStruct $input);
 
@@ -85,9 +85,9 @@ interface Handler
      * set to this state.
      *
      * @param mixed $groupId
-     * @param \eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct $input
+     * @param \Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct $input
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState
      */
     public function create($groupId, InputStruct $input);
 
@@ -96,9 +96,9 @@ interface Handler
      *
      * @param mixed $stateId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the state was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the state was not found
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState
      */
     public function load($stateId);
 
@@ -108,9 +108,9 @@ interface Handler
      * @param string $identifier
      * @param mixed $groupId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the state was not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the state was not found
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState
      */
     public function loadByIdentifier($identifier, $groupId);
 
@@ -118,9 +118,9 @@ interface Handler
      * Updates an object state.
      *
      * @param mixed $stateId
-     * @param \eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct $input
+     * @param \Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct $input
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState
      */
     public function update($stateId, InputStruct $input);
 
@@ -159,7 +159,7 @@ interface Handler
      * @param mixed $contentId
      * @param mixed $stateGroupId
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState
      */
     public function getContentState($contentId, $stateGroupId);
 
@@ -172,3 +172,5 @@ interface Handler
      */
     public function getContentCount($stateId);
 }
+
+class_alias(Handler::class, 'eZ\Publish\SPI\Persistence\Content\ObjectState\Handler');

@@ -4,16 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache;
+namespace Ibexa\Core\Persistence\Cache;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\SPI\Persistence\Content\UrlAlias\Handler as UrlAliasHandlerInterface;
-use eZ\Publish\SPI\Persistence\Content\UrlAlias;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Persistence\Content\UrlAlias\Handler as UrlAliasHandlerInterface;
+use Ibexa\Contracts\Core\Persistence\Content\UrlAlias;
 
-/**
- * @see \eZ\Publish\SPI\Persistence\Content\UrlAlias\Handler
- */
 class UrlAliasHandler extends AbstractInMemoryPersistenceHandler implements UrlAliasHandlerInterface
 {
     private const URL_ALIAS_LOCATION_IDENTIFIER = 'url_alias_location';
@@ -439,7 +436,7 @@ class UrlAliasHandler extends AbstractInMemoryPersistenceHandler implements UrlA
      *
      * For use when generating cache, not on invalidation.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\UrlAlias $urlAlias
+     * @param \Ibexa\Contracts\Core\Persistence\Content\UrlAlias $urlAlias
      * @param array $tags Optional, can be used to specify other tags.
      *
      * @return array
@@ -485,7 +482,7 @@ class UrlAliasHandler extends AbstractInMemoryPersistenceHandler implements UrlA
      *
      * @param int $locationId
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\BadStateException
+     * @throws \Ibexa\Core\Base\Exceptions\BadStateException
      * @throws \Psr\Cache\InvalidArgumentException
      */
     public function repairBrokenUrlAliasesForLocation(int $locationId)
@@ -502,3 +499,5 @@ class UrlAliasHandler extends AbstractInMemoryPersistenceHandler implements UrlA
         );
     }
 }
+
+class_alias(UrlAliasHandler::class, 'eZ\Publish\Core\Persistence\Cache\UrlAliasHandler');

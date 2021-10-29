@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User\Limitation;
+namespace Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
 class ParentOwnerLimitation extends Limitation
 {
     /**
-     * @see \eZ\Publish\API\Repository\Values\User\Limitation::getIdentifier()
+     * @see \Ibexa\Contracts\Core\Repository\Values\User\Limitation::getIdentifier()
      *
      * @return string
      */
@@ -22,3 +22,5 @@ class ParentOwnerLimitation extends Limitation
         return Limitation::PARENTOWNER;
     }
 }
+
+class_alias(ParentOwnerLimitation::class, 'eZ\Publish\API\Repository\Values\User\Limitation\ParentOwnerLimitation');

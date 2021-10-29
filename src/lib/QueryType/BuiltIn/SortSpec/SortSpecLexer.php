@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\SortSpec;
+namespace Ibexa\Core\QueryType\BuiltIn\SortSpec;
 
 final class SortSpecLexer implements SortSpecLexerInterface
 {
@@ -20,16 +20,16 @@ final class SortSpecLexer implements SortSpecLexerInterface
     /** @var string */
     private $input;
 
-    /** @var \eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Token[] */
+    /** @var \Ibexa\Core\QueryType\BuiltIn\SortSpec\Token[] */
     private $tokens = [];
 
     /** @var int|null */
     private $position;
 
-    /** @var \eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Token|null */
+    /** @var \Ibexa\Core\QueryType\BuiltIn\SortSpec\Token|null */
     private $current;
 
-    /** @var \eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Token|null */
+    /** @var \Ibexa\Core\QueryType\BuiltIn\SortSpec\Token|null */
     private $next;
 
     public function getAll(): iterable
@@ -152,3 +152,5 @@ final class SortSpecLexer implements SortSpecLexerInterface
         return preg_match('/^' . self::ID_PATTERN . '$/', $value) === 1;
     }
 }
+
+class_alias(SortSpecLexer::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecLexer');

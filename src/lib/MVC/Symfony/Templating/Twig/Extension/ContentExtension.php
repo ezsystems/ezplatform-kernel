@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension;
+namespace Ibexa\Core\MVC\Symfony\Templating\Twig\Extension;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\Core\Helper\FieldHelper;
-use eZ\Publish\Core\Helper\TranslationHelper;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\Helper\FieldHelper;
+use Ibexa\Core\Helper\TranslationHelper;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Psr\Log\LoggerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -24,13 +24,13 @@ use Twig\TwigFunction;
  */
 class ContentExtension extends AbstractExtension
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     protected $repository;
 
-    /** @var \eZ\Publish\Core\Helper\TranslationHelper */
+    /** @var \Ibexa\Core\Helper\TranslationHelper */
     protected $translationHelper;
 
-    /** @var \eZ\Publish\Core\Helper\FieldHelper */
+    /** @var \Ibexa\Core\Helper\FieldHelper */
     protected $fieldHelper;
 
     /** @var LoggerInterface */
@@ -98,10 +98,10 @@ class ContentExtension extends AbstractExtension
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $content Must be a valid Content or ContentInfo object.
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $content Must be a valid Content or ContentInfo object.
      * @param string $forcedLanguage Locale we want the content name translation in (e.g. "fre-FR"). Null by default (takes current locale)
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType When $content is not a valid Content or ContentInfo object.
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType When $content is not a valid Content or ContentInfo object.
      *
      * @return string
      */
@@ -113,18 +113,22 @@ class ContentExtension extends AbstractExtension
             return $this->translationHelper->getTranslatedContentNameByContentInfo($content, $forcedLanguage);
         }
 
-        throw new InvalidArgumentType('$content', 'eZ\Publish\API\Repository\Values\Content\Content or eZ\Publish\API\Repository\Values\Content\ContentInfo', $content);
+        throw new InvalidArgumentType(
+            '$content',
+            sprintf('%s or %s', Content::class, ContentInfo::class),
+            $content
+        );
     }
 
     /**
      * Returns the translated field, very similar to getTranslatedFieldValue but this returns the whole field.
      * To be used with ez_image_alias for example, which requires the whole field.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param string $fieldDefIdentifier Identifier for the field we want to get.
      * @param string $forcedLanguage Locale we want the field in (e.g. "cro-HR"). Null by default (takes current locale).
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Field
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field
      */
     public function getTranslatedField(Content $content, $fieldDefIdentifier, $forcedLanguage = null)
     {
@@ -132,7 +136,7 @@ class ContentExtension extends AbstractExtension
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param string $fieldDefIdentifier Identifier for the field we want to get the value from.
      * @param string $forcedLanguage Locale we want the content name translation in (e.g. "fre-FR"). Null by default (takes current locale).
      *
@@ -146,11 +150,11 @@ class ContentExtension extends AbstractExtension
     /**
      * Gets name of a FieldDefinition name by loading ContentType based on Content/ContentInfo object.
      *
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $content Must be Content or ContentInfo object
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $content Must be Content or ContentInfo object
      * @param string $fieldDefIdentifier Identifier for the field we want to get the name from
      * @param string $forcedLanguage Locale we want the content name translation in (e.g. "fre-FR"). Null by default (takes current locale)
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType When $content is not a valid Content object.
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType When $content is not a valid Content object.
      *
      * @return string|null
      */
@@ -171,11 +175,11 @@ class ContentExtension extends AbstractExtension
     /**
      * Gets name of a FieldDefinition description by loading ContentType based on Content/ContentInfo object.
      *
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $content Must be Content or ContentInfo object
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $content Must be Content or ContentInfo object
      * @param string $fieldDefIdentifier Identifier for the field we want to get the name from
      * @param string $forcedLanguage Locale we want the content name translation in (e.g. "fre-FR"). Null by default (takes current locale)
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType When $content is not a valid Content object.
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType When $content is not a valid Content object.
      *
      * @return string|null
      */
@@ -197,8 +201,8 @@ class ContentExtension extends AbstractExtension
      * Checks if a given field is considered empty.
      * This method accepts field as Objects or by identifiers.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param \eZ\Publish\API\Repository\Values\Content\Field|string $fieldDefIdentifier Field or Field Identifier to
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field|string $fieldDefIdentifier Field or Field Identifier to
      *                                                                                   get the value from.
      * @param string $forcedLanguage Locale we want the content name translation in (e.g. "fre-FR").
      *                               Null by default (takes current locale).
@@ -217,9 +221,9 @@ class ContentExtension extends AbstractExtension
     /**
      * Get ContentType by Content/ContentInfo.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content|\eZ\Publish\API\Repository\Values\Content\ContentInfo $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content|\Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $content
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
      */
     private function getContentType(ValueObject $content)
     {
@@ -253,3 +257,5 @@ class ContentExtension extends AbstractExtension
         return null;
     }
 }
+
+class_alias(ContentExtension::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\ContentExtension');

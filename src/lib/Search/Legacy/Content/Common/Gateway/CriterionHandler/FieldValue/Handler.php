@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FieldValue;
+namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FieldValue;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator as CriterionOperator;
-use eZ\Publish\Core\Persistence\TransformationProcessor;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator as CriterionOperator;
+use Ibexa\Core\Persistence\TransformationProcessor;
 use RuntimeException;
 
 /**
@@ -38,7 +38,7 @@ abstract class Handler
     /**
      * Transformation processor.
      *
-     * @var \eZ\Publish\Core\Persistence\TransformationProcessor
+     * @var \Ibexa\Core\Persistence\TransformationProcessor
      */
     protected $transformationProcessor;
 
@@ -60,7 +60,7 @@ abstract class Handler
      *
      * @param \Doctrine\DBAL\Query\QueryBuilder $outerQuery to be used only for parameter binding
      * @param \Doctrine\DBAL\Query\QueryBuilder $subQuery to modify Field Value query constraints
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterion
      *
      * @return \Doctrine\DBAL\Query\Expression\CompositeExpression|string
      *
@@ -148,3 +148,5 @@ abstract class Handler
         return $this->transformationProcessor->transformByGroup($string, 'lowercase');
     }
 }
+
+class_alias(Handler::class, 'eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FieldValue\Handler');

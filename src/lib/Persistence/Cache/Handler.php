@@ -6,105 +6,86 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Cache;
+namespace Ibexa\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\Handler as PersistenceHandlerInterface;
-use eZ\Publish\Core\Persistence\Cache\SectionHandler as CacheSectionHandler;
-use eZ\Publish\Core\Persistence\Cache\LocationHandler as CacheLocationHandler;
-use eZ\Publish\Core\Persistence\Cache\ContentHandler as CacheContentHandler;
-use eZ\Publish\Core\Persistence\Cache\ContentLanguageHandler as CacheContentLanguageHandler;
-use eZ\Publish\Core\Persistence\Cache\ContentTypeHandler as CacheContentTypeHandler;
-use eZ\Publish\Core\Persistence\Cache\UserHandler as CacheUserHandler;
-use eZ\Publish\Core\Persistence\Cache\TransactionHandler as CacheTransactionHandler;
-use eZ\Publish\Core\Persistence\Cache\TrashHandler as CacheTrashHandler;
-use eZ\Publish\Core\Persistence\Cache\UrlAliasHandler as CacheUrlAliasHandler;
-use eZ\Publish\Core\Persistence\Cache\ObjectStateHandler as CacheObjectStateHandler;
-use eZ\Publish\Core\Persistence\Cache\URLHandler as CacheUrlHandler;
-use eZ\Publish\Core\Persistence\Cache\BookmarkHandler as CacheBookmarkHandler;
-use eZ\Publish\Core\Persistence\Cache\NotificationHandler as CacheNotificationHandler;
-use eZ\Publish\Core\Persistence\Cache\UserPreferenceHandler as CacheUserPreferenceHandler;
-use eZ\Publish\Core\Persistence\Cache\UrlWildcardHandler as CacheUrlWildcardHandler;
-use eZ\Publish\Core\Persistence\Cache\SettingHandler as SettingHandler;
-use eZ\Publish\SPI\Persistence\Setting\Handler as SPISettingHandler;
+use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandlerInterface;
+use Ibexa\Core\Persistence\Cache\SectionHandler as CacheSectionHandler;
+use Ibexa\Core\Persistence\Cache\LocationHandler as CacheLocationHandler;
+use Ibexa\Core\Persistence\Cache\ContentHandler as CacheContentHandler;
+use Ibexa\Core\Persistence\Cache\ContentLanguageHandler as CacheContentLanguageHandler;
+use Ibexa\Core\Persistence\Cache\ContentTypeHandler as CacheContentTypeHandler;
+use Ibexa\Core\Persistence\Cache\UserHandler as CacheUserHandler;
+use Ibexa\Core\Persistence\Cache\TransactionHandler as CacheTransactionHandler;
+use Ibexa\Core\Persistence\Cache\TrashHandler as CacheTrashHandler;
+use Ibexa\Core\Persistence\Cache\UrlAliasHandler as CacheUrlAliasHandler;
+use Ibexa\Core\Persistence\Cache\ObjectStateHandler as CacheObjectStateHandler;
+use Ibexa\Core\Persistence\Cache\URLHandler as CacheUrlHandler;
+use Ibexa\Core\Persistence\Cache\BookmarkHandler as CacheBookmarkHandler;
+use Ibexa\Core\Persistence\Cache\NotificationHandler as CacheNotificationHandler;
+use Ibexa\Core\Persistence\Cache\UserPreferenceHandler as CacheUserPreferenceHandler;
+use Ibexa\Core\Persistence\Cache\UrlWildcardHandler as CacheUrlWildcardHandler;
+use Ibexa\Core\Persistence\Cache\SettingHandler as SettingHandler;
+use Ibexa\Contracts\Core\Persistence\Setting\Handler as SPISettingHandler;
 
 /**
  * Persistence Cache Handler class.
  */
 class Handler implements PersistenceHandlerInterface
 {
-    /** @var \eZ\Publish\SPI\Persistence\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Handler */
     protected $persistenceHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\SectionHandler */
+    /** @var \Ibexa\Core\Persistence\Cache\SectionHandler */
     protected $sectionHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\ContentHandler */
+    /** @var \Ibexa\Core\Persistence\Cache\ContentHandler */
     protected $contentHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\ContentLanguageHandler */
+    /** @var \Ibexa\Core\Persistence\Cache\ContentLanguageHandler */
     protected $contentLanguageHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\ContentTypeHandler */
+    /** @var \Ibexa\Core\Persistence\Cache\ContentTypeHandler */
     protected $contentTypeHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\LocationHandler */
+    /** @var \Ibexa\Core\Persistence\Cache\LocationHandler */
     protected $locationHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\UserHandler */
+    /** @var \Ibexa\Core\Persistence\Cache\UserHandler */
     protected $userHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\TrashHandler */
+    /** @var \Ibexa\Core\Persistence\Cache\TrashHandler */
     protected $trashHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\UrlAliasHandler */
+    /** @var \Ibexa\Core\Persistence\Cache\UrlAliasHandler */
     protected $urlAliasHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\ObjectStateHandler */
+    /** @var \Ibexa\Core\Persistence\Cache\ObjectStateHandler */
     protected $objectStateHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\TransactionHandler */
+    /** @var \Ibexa\Core\Persistence\Cache\TransactionHandler */
     protected $transactionHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\URLHandler */
+    /** @var \Ibexa\Core\Persistence\Cache\URLHandler */
     protected $urlHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\BookmarkHandler */
+    /** @var \Ibexa\Core\Persistence\Cache\BookmarkHandler */
     protected $bookmarkHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\NotificationHandler */
+    /** @var \Ibexa\Core\Persistence\Cache\NotificationHandler */
     protected $notificationHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\UserPreferenceHandler */
+    /** @var \Ibexa\Core\Persistence\Cache\UserPreferenceHandler */
     protected $userPreferenceHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\UrlWildcardHandler */
+    /** @var \Ibexa\Core\Persistence\Cache\UrlWildcardHandler */
     private $urlWildcardHandler;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\PersistenceLogger */
+    /** @var \Ibexa\Core\Persistence\Cache\PersistenceLogger */
     protected $logger;
 
-    /** @var \eZ\Publish\Core\Persistence\Cache\SettingHandler */
+    /** @var \Ibexa\Core\Persistence\Cache\SettingHandler */
     private $settingHandler;
 
-    /**
-     * @param \eZ\Publish\SPI\Persistence\Handler $persistenceHandler Must be factory for inner persistence, ie: legacy
-     * @param \eZ\Publish\Core\Persistence\Cache\SectionHandler $sectionHandler
-     * @param \eZ\Publish\Core\Persistence\Cache\LocationHandler $locationHandler
-     * @param \eZ\Publish\Core\Persistence\Cache\ContentHandler $contentHandler
-     * @param \eZ\Publish\Core\Persistence\Cache\ContentLanguageHandler $contentLanguageHandler
-     * @param \eZ\Publish\Core\Persistence\Cache\ContentTypeHandler $contentTypeHandler
-     * @param \eZ\Publish\Core\Persistence\Cache\UserHandler $userHandler
-     * @param \eZ\Publish\Core\Persistence\Cache\TransactionHandler $transactionHandler
-     * @param \eZ\Publish\Core\Persistence\Cache\TrashHandler $trashHandler
-     * @param \eZ\Publish\Core\Persistence\Cache\UrlAliasHandler $urlAliasHandler
-     * @param \eZ\Publish\Core\Persistence\Cache\ObjectStateHandler $objectStateHandler
-     * @param \eZ\Publish\Core\Persistence\Cache\URLHandler $urlHandler
-     * @param \eZ\Publish\Core\Persistence\Cache\BookmarkHandler $bookmarkHandler
-     * @param \eZ\Publish\Core\Persistence\Cache\NotificationHandler $notificationHandler
-     * @param \eZ\Publish\Core\Persistence\Cache\UserPreferenceHandler $userPreferenceHandler
-     * @param \eZ\Publish\Core\Persistence\Cache\UrlWildcardHandler $urlWildcardHandler
-     * @param \eZ\Publish\Core\Persistence\Cache\PersistenceLogger $logger
-     */
     public function __construct(
         PersistenceHandlerInterface $persistenceHandler,
         CacheSectionHandler $sectionHandler,
@@ -146,7 +127,7 @@ class Handler implements PersistenceHandlerInterface
     }
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\Content\Handler
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Handler
      */
     public function contentHandler()
     {
@@ -154,7 +135,7 @@ class Handler implements PersistenceHandlerInterface
     }
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\Content\Type\Handler
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\Handler
      */
     public function contentTypeHandler()
     {
@@ -162,7 +143,7 @@ class Handler implements PersistenceHandlerInterface
     }
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\Content\Language\Handler
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language\Handler
      */
     public function contentLanguageHandler()
     {
@@ -170,7 +151,7 @@ class Handler implements PersistenceHandlerInterface
     }
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\Content\Location\Handler
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location\Handler
      */
     public function locationHandler()
     {
@@ -178,7 +159,7 @@ class Handler implements PersistenceHandlerInterface
     }
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState\Handler
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState\Handler
      */
     public function objectStateHandler()
     {
@@ -186,7 +167,7 @@ class Handler implements PersistenceHandlerInterface
     }
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\User\Handler
+     * @return \Ibexa\Contracts\Core\Persistence\User\Handler
      */
     public function userHandler()
     {
@@ -194,7 +175,7 @@ class Handler implements PersistenceHandlerInterface
     }
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\Content\Section\Handler
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Section\Handler
      */
     public function sectionHandler()
     {
@@ -202,7 +183,7 @@ class Handler implements PersistenceHandlerInterface
     }
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\Content\Location\Trash\Handler
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location\Trash\Handler
      */
     public function trashHandler()
     {
@@ -210,7 +191,7 @@ class Handler implements PersistenceHandlerInterface
     }
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlAlias\Handler
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlAlias\Handler
      */
     public function urlAliasHandler()
     {
@@ -218,7 +199,7 @@ class Handler implements PersistenceHandlerInterface
     }
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlWildcard\Handler
      */
     public function urlWildcardHandler()
     {
@@ -226,7 +207,7 @@ class Handler implements PersistenceHandlerInterface
     }
 
     /**
-     * @return \eZ\Publish\SPI\Persistence\TransactionHandler
+     * @return \Ibexa\Contracts\Core\Persistence\TransactionHandler
      */
     public function transactionHandler()
     {
@@ -239,7 +220,7 @@ class Handler implements PersistenceHandlerInterface
     }
 
     /**
-     * @return \eZ\Publish\Core\Persistence\Cache\URLHandler
+     * @return \Ibexa\Core\Persistence\Cache\URLHandler
      */
     public function urlHandler()
     {
@@ -247,7 +228,7 @@ class Handler implements PersistenceHandlerInterface
     }
 
     /**
-     * @return \eZ\Publish\Core\Persistence\Cache\BookmarkHandler
+     * @return \Ibexa\Core\Persistence\Cache\BookmarkHandler
      */
     public function bookmarkHandler()
     {
@@ -255,7 +236,7 @@ class Handler implements PersistenceHandlerInterface
     }
 
     /**
-     * @return \eZ\Publish\Core\Persistence\Cache\NotificationHandler
+     * @return \Ibexa\Core\Persistence\Cache\NotificationHandler
      */
     public function notificationHandler()
     {
@@ -263,7 +244,7 @@ class Handler implements PersistenceHandlerInterface
     }
 
     /**
-     * @return \eZ\Publish\Core\Persistence\Cache\UserPreferenceHandler
+     * @return \Ibexa\Core\Persistence\Cache\UserPreferenceHandler
      */
     public function userPreferenceHandler()
     {
@@ -294,3 +275,5 @@ class Handler implements PersistenceHandlerInterface
         $this->transactionHandler->rollback();
     }
 }
+
+class_alias(Handler::class, 'eZ\Publish\Core\Persistence\Cache\Handler');

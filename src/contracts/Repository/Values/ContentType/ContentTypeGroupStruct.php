@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Values\ContentType;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 abstract class ContentTypeGroupStruct extends ValueObject
 {
@@ -19,3 +19,5 @@ abstract class ContentTypeGroupStruct extends ValueObject
      */
     public $identifier;
 }
+
+class_alias(ContentTypeGroupStruct::class, 'eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroupStruct');

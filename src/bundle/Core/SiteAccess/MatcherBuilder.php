@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\SiteAccess;
+namespace Ibexa\Bundle\Core\SiteAccess;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\MatcherBuilder as BaseMatcherBuilder;
-use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilder as BaseMatcherBuilder;
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 
 /**
  * Siteaccess matcher builder based on services.
  */
 final class MatcherBuilder extends BaseMatcherBuilder
 {
-    /** @var \eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessMatcherRegistryInterface */
+    /** @var \Ibexa\Bundle\Core\SiteAccess\SiteAccessMatcherRegistryInterface */
     protected $siteAccessMatcherRegistry;
 
     public function __construct(SiteAccessMatcherRegistryInterface $siteAccessMatcherRegistry)
@@ -28,11 +28,11 @@ final class MatcherBuilder extends BaseMatcherBuilder
      *
      * @param $matchingClass
      * @param $matchingConfiguration
-     * @param \eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest $request
+     * @param \Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest $request
      *
-     * @return \eZ\Bundle\EzPublishCoreBundle\SiteAccess\Matcher
+     * @return \Ibexa\Bundle\Core\SiteAccess\Matcher
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function buildMatcher($matchingClass, $matchingConfiguration, SimplifiedRequest $request)
     {
@@ -48,3 +48,5 @@ final class MatcherBuilder extends BaseMatcherBuilder
         return parent::buildMatcher($matchingClass, $matchingConfiguration, $request);
     }
 }
+
+class_alias(MatcherBuilder::class, 'eZ\Bundle\EzPublishCoreBundle\SiteAccess\MatcherBuilder');

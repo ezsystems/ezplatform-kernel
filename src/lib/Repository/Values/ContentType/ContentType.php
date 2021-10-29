@@ -4,19 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Values\ContentType;
+namespace Ibexa\Core\Repository\Values\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentType as APIContentType;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCollection as APIFieldDefinitionCollection;
-use eZ\Publish\Core\Repository\Values\MultiLanguageDescriptionTrait;
-use eZ\Publish\Core\Repository\Values\MultiLanguageNameTrait;
-use eZ\Publish\Core\Repository\Values\MultiLanguageTrait;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType as APIContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection as APIFieldDefinitionCollection;
+use Ibexa\Core\Repository\Values\MultiLanguageDescriptionTrait;
+use Ibexa\Core\Repository\Values\MultiLanguageNameTrait;
+use Ibexa\Core\Repository\Values\MultiLanguageTrait;
 
 /**
  * this class represents a content type value.
  *
- * @property-read \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroups calls getContentTypeGroups
- * @property-read \eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCollection $fieldDefinitions calls getFieldDefinitions() or on access getFieldDefinition($fieldDefIdentifier)
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroups calls getContentTypeGroups
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection $fieldDefinitions calls getFieldDefinitions() or on access getFieldDefinition($fieldDefIdentifier)
  * @property-read mixed $id the id of the content type
  * @property-read int $status the status of the content type. One of ContentType::STATUS_DEFINED|ContentType::STATUS_DRAFT|ContentType::STATUS_MODIFIED
  * @property-read string $identifier the identifier of the content type
@@ -44,14 +44,14 @@ class ContentType extends APIContentType
     /**
      * Holds the collection of contenttypegroups the contenttype is assigned to.
      *
-     * @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[]
      */
     protected $contentTypeGroups = [];
 
     /**
      * Contains the content type field definitions from this type.
      *
-     * @var \eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCollection
+     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection
      */
     protected $fieldDefinitions;
 
@@ -65,7 +65,7 @@ class ContentType extends APIContentType
     /**
      * This method returns the content type groups this content type is assigned to.
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[]
      */
     public function getContentTypeGroups()
     {
@@ -75,10 +75,12 @@ class ContentType extends APIContentType
     /**
      * This method returns the content type field definitions from this type.
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCollection
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection
      */
     public function getFieldDefinitions(): APIFieldDefinitionCollection
     {
         return $this->fieldDefinitions;
     }
 }
+
+class_alias(ContentType::class, 'eZ\Publish\Core\Repository\Values\ContentType\ContentType');

@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter;
+namespace Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter;
 
-use eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\Values\Filter\Filter;
+use Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 use Iterator;
 
 final class LocationFilteringAdapter implements BatchIteratorAdapter
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\Values\Filter\Filter */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Filter\Filter */
     private $filter;
 
     /** @var string[]|null */
@@ -39,3 +39,5 @@ final class LocationFilteringAdapter implements BatchIteratorAdapter
         return $this->locationService->find($filter, $this->languages)->getIterator();
     }
 }
+
+class_alias(LocationFilteringAdapter::class, 'eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter\LocationFilteringAdapter');

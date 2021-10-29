@@ -6,26 +6,26 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Pagination\Pagerfanta;
+namespace Ibexa\Core\Pagination\Pagerfanta;
 
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Search\AggregationResultCollection;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResultCollection;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Pagerfanta\Adapter\AdapterInterface;
 
 abstract class AbstractSearchResultAdapter implements AdapterInterface, SearchResultAdapter
 {
-    /** @var \eZ\Publish\API\Repository\SearchService */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     private $searchService;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Query */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query */
     private $query;
 
     /** @var array */
     private $languageFilter;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Search\AggregationResultCollection|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResultCollection|null */
     private $aggregations;
 
     /** @var float|null */
@@ -79,7 +79,7 @@ abstract class AbstractSearchResultAdapter implements AdapterInterface, SearchRe
      * @param int $offset The offset.
      * @param int $length The length.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Search\SearchHit[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit[]
      */
     public function getSlice($offset, $length)
     {
@@ -147,3 +147,5 @@ abstract class AbstractSearchResultAdapter implements AdapterInterface, SearchRe
         array $languageFilter
     ): SearchResult;
 }
+
+class_alias(AbstractSearchResultAdapter::class, 'eZ\Publish\Core\Pagination\Pagerfanta\AbstractSearchResultAdapter');

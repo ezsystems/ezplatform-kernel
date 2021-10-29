@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Event;
+namespace Ibexa\Core\Event;
 
-use eZ\Publish\API\Repository\FieldTypeService as FieldTypeServiceInterface;
-use eZ\Publish\SPI\Repository\Decorator\FieldTypeServiceDecorator;
+use Ibexa\Contracts\Core\Repository\FieldTypeService as FieldTypeServiceInterface;
+use Ibexa\Contracts\Core\Repository\Decorator\FieldTypeServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class FieldTypeService extends FieldTypeServiceDecorator
@@ -26,3 +26,5 @@ class FieldTypeService extends FieldTypeServiceDecorator
         $this->eventDispatcher = $eventDispatcher;
     }
 }
+
+class_alias(FieldTypeService::class, 'eZ\Publish\Core\Event\FieldTypeService');

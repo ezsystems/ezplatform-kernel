@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Limitation\LanguageLimitation;
+namespace Ibexa\Core\Limitation\LanguageLimitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\Core\Limitation\LanguageLimitationType;
-use eZ\Publish\SPI\Limitation\Target;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LanguageLimitationType;
+use Ibexa\Contracts\Core\Limitation\Target;
 
 /**
  * @internal for internal use by LanguageLimitation
@@ -37,3 +37,5 @@ final class VersionPublishingEvaluator implements VersionTargetEvaluator
             : LanguageLimitationType::ACCESS_DENIED;
     }
 }
+
+class_alias(VersionPublishingEvaluator::class, 'eZ\Publish\Core\Limitation\LanguageLimitation\VersionPublishingEvaluator');

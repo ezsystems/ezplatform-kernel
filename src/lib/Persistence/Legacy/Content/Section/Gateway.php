@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Section;
+namespace Ibexa\Core\Persistence\Legacy\Content\Section;
 
 /**
  * Base class for Section gateways.
@@ -70,3 +70,5 @@ abstract class Gateway
      */
     abstract public function assignSectionToContent(int $sectionId, int $contentId): void;
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway');

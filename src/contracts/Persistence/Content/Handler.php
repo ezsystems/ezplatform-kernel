@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content;
+namespace Ibexa\Contracts\Core\Persistence\Content;
 
 // @todo We must verify whether we want to type cast on the "Criterion" interface or abstract class
-use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
 
 /**
  * The Content Handler interface defines content operations on the storage engine.
@@ -26,9 +26,9 @@ interface Handler
      *
      * Will contain always a complete list of fields.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\CreateStruct $content Content creation struct.
+     * @param \Ibexa\Contracts\Core\Persistence\Content\CreateStruct $content Content creation struct.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content Content value object
+     * @return \Ibexa\Contracts\Core\Persistence\Content Content value object
      */
     public function create(CreateStruct $content);
 
@@ -43,7 +43,7 @@ interface Handler
      * @param mixed $userId
      * @param string|null $languageCode
      *
-     * @return \eZ\Publish\SPI\Persistence\Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content
      */
     public function createDraftFromVersion($contentId, $srcVersion, $userId, ?string $languageCode = null);
 
@@ -62,7 +62,7 @@ interface Handler
      * @param int|null $version
      * @param string[]|null $translations
      *
-     * @return \eZ\Publish\SPI\Persistence\Content Content value object
+     * @return \Ibexa\Contracts\Core\Persistence\Content Content value object
      */
     public function load($id, $version = null, array $translations = null);
 
@@ -85,7 +85,7 @@ interface Handler
      * @param int[] $contentIds
      * @param string[]|null $translations
      *
-     * @return \eZ\Publish\SPI\Persistence\Content[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content[]
      */
     public function loadContentList(array $contentIds, array $translations = null): iterable;
 
@@ -94,7 +94,7 @@ interface Handler
      *
      * @param int|string $contentId
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ContentInfo
      */
     public function loadContentInfo($contentId);
 
@@ -106,7 +106,7 @@ interface Handler
      *
      * @param array $contentIds
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ContentInfo[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ContentInfo[]
      */
     public function loadContentInfoList(array $contentIds);
 
@@ -115,19 +115,19 @@ interface Handler
      *
      * @param mixed $remoteId
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ContentInfo
      */
     public function loadContentInfoByRemoteId($remoteId);
 
     /**
      * Returns the version object for a content/version identified by $contentId and $versionNo.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If version is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If version is not found
      *
      * @param int|string $contentId
      * @param int|null $versionNo Version number to load, loads current version if null.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\VersionInfo
+     * @return \Ibexa\Contracts\Core\Persistence\Content\VersionInfo
      */
     public function loadVersionInfo($contentId, $versionNo = null);
 
@@ -145,7 +145,7 @@ interface Handler
      *
      * @param int $userId
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\VersionInfo[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\VersionInfo[]
      */
     public function loadDraftsForUser($userId);
 
@@ -156,7 +156,7 @@ interface Handler
      * @param int $offset
      * @param int $limit
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\VersionInfo[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\VersionInfo[]
      */
     public function loadDraftListForUser(int $userId, int $offset = 0, int $limit = -1): array;
 
@@ -178,9 +178,9 @@ interface Handler
      * Updates a content object meta data, identified by $contentId.
      *
      * @param int $contentId
-     * @param \eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct $content
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ContentInfo
      */
     public function updateMetadata($contentId, MetadataUpdateStruct $content);
 
@@ -189,9 +189,9 @@ interface Handler
      *
      * @param int $contentId
      * @param int $versionNo
-     * @param \eZ\Publish\SPI\Persistence\Content\UpdateStruct $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content\UpdateStruct $content
      *
-     * @return \eZ\Publish\SPI\Persistence\Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content
      */
     public function updateContent($contentId, $versionNo, UpdateStruct $content);
 
@@ -228,7 +228,7 @@ interface Handler
      * @param mixed|null $status Optional argument to filter versions by status, like {@see VersionInfo::STATUS_ARCHIVED}.
      * @param int $limit Limit for items returned, -1 means none.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\VersionInfo[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\VersionInfo[]
      */
     public function listVersions($contentId, $status = null, $limit = -1);
 
@@ -238,14 +238,14 @@ interface Handler
      * Copies all fields and relations from $contentId in $version (or all versions if false)
      * to a new object which is returned. Version numbers are maintained.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If content or version is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If content or version is not found
      *
      * @param mixed $contentId
      * @param mixed|null $versionNo Copy all versions if left null
      * @param int|null $newOwnerId By default owner is same content we copy, for other cases set owner here to change it.
      *        E.g. In order to give person copying access to edit (if owner limitation), use this to set copier as owner.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content
      */
     public function copy($contentId, $versionNo = null, $newOwnerId = null);
 
@@ -255,9 +255,9 @@ interface Handler
      *
      * @todo Should the existence verifications happen here or is this supposed to be handled at a higher level?
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct $createStruct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct $createStruct
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Relation
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Relation
      */
     public function addRelation(RelationCreateStruct $createStruct);
 
@@ -267,10 +267,10 @@ interface Handler
      * @todo Should the existence verifications happen here or is this supposed to be handled at a higher level?
      *
      * @param mixed $relationId
-     * @param int $type {@see \eZ\Publish\API\Repository\Values\Content\Relation::COMMON,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::EMBED,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::LINK,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::FIELD}
+     * @param int $type {@see \Ibexa\Contracts\Core\Repository\Values\Content\Relation::COMMON,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::EMBED,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::LINK,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::FIELD}
      */
     public function removeRelation($relationId, $type);
 
@@ -279,12 +279,12 @@ interface Handler
      *
      * @param mixed $sourceContentId Source Content ID
      * @param mixed|null $sourceContentVersionNo Source Content Version, null if not specified
-     * @param int|null $type {@see \eZ\Publish\API\Repository\Values\Content\Relation::COMMON,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::EMBED,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::LINK,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::FIELD}
+     * @param int|null $type {@see \Ibexa\Contracts\Core\Repository\Values\Content\Relation::COMMON,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::EMBED,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::LINK,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::FIELD}
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Relation[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Relation[]
      */
     public function loadRelations($sourceContentId, $sourceContentVersionNo = null, $type = null);
 
@@ -292,7 +292,7 @@ interface Handler
      * Counts relations from $destinationContentId only against published versions. Optionally, count only those with $type.
      *
      * @param int $destinationContentId Destination Content ID
-     * @param int|null $type The relation type bitmask {@see \eZ\Publish\API\Repository\Values\Content\Relation}
+     * @param int|null $type The relation type bitmask {@see \Ibexa\Contracts\Core\Repository\Values\Content\Relation}
      *
      * @return int
      */
@@ -304,12 +304,12 @@ interface Handler
      * Only loads relations against published versions.
      *
      * @param mixed $destinationContentId Destination Content ID
-     * @param int|null $type {@see \eZ\Publish\API\Repository\Values\Content\Relation::COMMON,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::EMBED,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::LINK,
-     *                 \eZ\Publish\API\Repository\Values\Content\Relation::FIELD}
+     * @param int|null $type {@see \Ibexa\Contracts\Core\Repository\Values\Content\Relation::COMMON,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::EMBED,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::LINK,
+     *                 \Ibexa\Contracts\Core\Repository\Values\Content\Relation::FIELD}
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Relation[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Relation[]
      */
     public function loadReverseRelations($destinationContentId, $type = null);
 
@@ -321,9 +321,9 @@ interface Handler
      * @param int $destinationContentId Destination Content ID
      * @param int $offset
      * @param int $limit
-     * @param int|null $type The relation type bitmask {@see \eZ\Publish\API\Repository\Values\Content\Relation}
+     * @param int|null $type The relation type bitmask {@see \Ibexa\Contracts\Core\Repository\Values\Content\Relation}
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Relation[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Relation[]
      */
     public function loadReverseRelationList(
         int $destinationContentId,
@@ -338,11 +338,11 @@ interface Handler
      *
      * @param int $contentId
      * @param int $versionNo
-     * @param \eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct $metaDataUpdateStruct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct $metaDataUpdateStruct
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      *
-     * @return \eZ\Publish\SPI\Persistence\Content The published Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content The published Content
      */
     public function publish($contentId, $versionNo, MetadataUpdateStruct $metaDataUpdateStruct);
 
@@ -361,7 +361,9 @@ interface Handler
      * @param int $versionNo
      * @param string $languageCode
      *
-     * @return \eZ\Publish\SPI\Persistence\Content The Content Draft w/o removed Translation
+     * @return \Ibexa\Contracts\Core\Persistence\Content The Content Draft w/o removed Translation
      */
     public function deleteTranslationFromDraft($contentId, $versionNo, $languageCode);
 }
+
+class_alias(Handler::class, 'eZ\Publish\SPI\Persistence\Content\Handler');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Security\PolicyProvider;
+namespace Ibexa\Bundle\Core\DependencyInjection\Security\PolicyProvider;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigBuilderInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigBuilderInterface;
 
 /**
  * Interface for DIC extensions which provide policies to be exposed for permissions in the Repository.
@@ -17,7 +17,7 @@ use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigBuilde
  *
  * Each function can provide a collection of limitations.
  * These need to be implemented as "limitation types" and declared as services with "ezpublish.limitationType" service tag.
- * Limitation types also provide value objects based on \eZ\Publish\API\Repository\Values\User\Limitation abstract class.
+ * Limitation types also provide value objects based on {@see \Ibexa\Contracts\Core\Repository\Values\User\Limitation} abstract class.
  *
  * @since 6.0
  */
@@ -61,3 +61,5 @@ interface PolicyProviderInterface
      */
     public function addPolicies(ConfigBuilderInterface $configBuilder);
 }
+
+class_alias(PolicyProviderInterface::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Security\PolicyProvider\PolicyProviderInterface');

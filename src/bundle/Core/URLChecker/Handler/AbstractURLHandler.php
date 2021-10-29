@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\URLChecker\Handler;
+namespace Ibexa\Bundle\Core\URLChecker\Handler;
 
 use DateTime;
 use Exception;
-use eZ\Bundle\EzPublishCoreBundle\URLChecker\URLHandlerInterface;
-use eZ\Publish\API\Repository\URLService;
-use eZ\Publish\API\Repository\Values\URL\URL;
+use Ibexa\Bundle\Core\URLChecker\URLHandlerInterface;
+use Ibexa\Contracts\Core\Repository\URLService;
+use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +19,7 @@ abstract class AbstractURLHandler implements URLHandlerInterface
 {
     use LoggerAwareTrait;
 
-    /** @var \eZ\Publish\API\Repository\URLService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLService */
     protected $urlService;
 
     public function __construct(URLService $urlService)
@@ -35,7 +35,7 @@ abstract class AbstractURLHandler implements URLHandlerInterface
     /**
      * Sets URL status.
      *
-     * @param \eZ\Publish\API\Repository\Values\URL\URL $url
+     * @param \Ibexa\Contracts\Core\Repository\Values\URL\URL $url
      * @param bool $isValid
      */
     protected function setUrlStatus(URL $url, $isValid)
@@ -53,3 +53,5 @@ abstract class AbstractURLHandler implements URLHandlerInterface
         }
     }
 }
+
+class_alias(AbstractURLHandler::class, 'eZ\Bundle\EzPublishCoreBundle\URLChecker\Handler\AbstractURLHandler');

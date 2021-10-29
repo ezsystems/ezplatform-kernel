@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Values\Content;
+namespace Ibexa\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct as APIContentUpdateStruct;
-use eZ\Publish\API\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct as APIContentUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 
 /**
  * This class is used for updating the fields of a content object draft.
  *
- * @property \eZ\Publish\API\Repository\Values\Content\Field[] $fields
+ * @property \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $fields
  *
  * @internal Meant for internal use by Repository, type hint against API instead.
  */
@@ -23,7 +23,7 @@ class ContentUpdateStruct extends APIContentUpdateStruct
     /**
      * Field collection.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Field[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Field[]
      */
     public $fields = [];
 
@@ -48,3 +48,5 @@ class ContentUpdateStruct extends APIContentUpdateStruct
         );
     }
 }
+
+class_alias(ContentUpdateStruct::class, 'eZ\Publish\Core\Repository\Values\Content\ContentUpdateStruct');

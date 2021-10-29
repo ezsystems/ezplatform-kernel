@@ -4,18 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Common\EventSubscriber;
+namespace Ibexa\Core\Search\Common\EventSubscriber;
 
-use eZ\Publish\API\Repository\Events\Location\CopySubtreeEvent;
-use eZ\Publish\API\Repository\Events\Location\CreateLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\DeleteLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\HideLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\MoveSubtreeEvent;
-use eZ\Publish\API\Repository\Events\Location\SwapLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\UnhideLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\UpdateLocationEvent;
-use eZ\Publish\API\Repository\Events\Section\AssignSectionToSubtreeEvent;
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Events\Location\CopySubtreeEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\CreateLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\DeleteLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\HideLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\MoveSubtreeEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\SwapLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\UnhideLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Location\UpdateLocationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Section\AssignSectionToSubtreeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class LocationEventSubscriber extends AbstractSearchEventSubscriber implements EventSubscriberInterface
@@ -131,3 +131,5 @@ class LocationEventSubscriber extends AbstractSearchEventSubscriber implements E
         $this->indexSubtree($event->getLocation()->id);
     }
 }
+
+class_alias(LocationEventSubscriber::class, 'eZ\Publish\Core\Search\Common\EventSubscriber\LocationEventSubscriber');

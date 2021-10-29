@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Setting;
+namespace Ibexa\Contracts\Core\Repository\Events\Setting;
 
-use eZ\Publish\API\Repository\Values\Setting\Setting;
-use eZ\Publish\API\Repository\Values\Setting\SettingCreateStruct;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Setting\Setting;
+use Ibexa\Contracts\Core\Repository\Values\Setting\SettingCreateStruct;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class CreateSettingEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Setting\Setting */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Setting\Setting */
     private $setting;
 
-    /** @var \eZ\Publish\API\Repository\Values\Setting\SettingCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Setting\SettingCreateStruct */
     private $settingCreateStruct;
 
     public function __construct(
@@ -38,3 +38,5 @@ final class CreateSettingEvent extends AfterEvent
         return $this->settingCreateStruct;
     }
 }
+
+class_alias(CreateSettingEvent::class, 'eZ\Publish\API\Repository\Events\Setting\CreateSettingEvent');

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Options;
+namespace Ibexa\Contracts\Core\Options;
 
 interface MutableOptionsBag extends OptionsBag
 {
@@ -17,3 +17,5 @@ interface MutableOptionsBag extends OptionsBag
 
     public function remove(string $key): void;
 }
+
+class_alias(MutableOptionsBag::class, 'eZ\Publish\SPI\Options\MutableOptionsBag');

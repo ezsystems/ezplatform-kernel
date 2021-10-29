@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Security;
+namespace Ibexa\Core\MVC\Symfony\Security;
 
-use eZ\Publish\API\Repository\Values\User\User as APIUser;
-use eZ\Publish\Core\Repository\Values\User\UserReference;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
+use Ibexa\Core\Repository\Values\User\UserReference;
 use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 
 class User implements ReferenceUserInterface, EquatableInterface
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\User */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User */
     private $user;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\UserReference */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserReference */
     private $reference;
 
-    /** @var array */
+    /** @var string[] */
     private $roles;
 
     public function __construct(APIUser $user, array $roles = [])
@@ -45,7 +45,7 @@ class User implements ReferenceUserInterface, EquatableInterface
      * and populated in any number of different ways when the user object
      * is created.
      *
-     * @return Role[] The user roles
+     * @return string[] The user roles
      */
     public function getRoles()
     {
@@ -98,7 +98,7 @@ class User implements ReferenceUserInterface, EquatableInterface
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\User\UserReference
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\UserReference
      */
     public function getAPIUserReference()
     {
@@ -106,7 +106,7 @@ class User implements ReferenceUserInterface, EquatableInterface
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     public function getAPIUser()
     {
@@ -120,7 +120,7 @@ class User implements ReferenceUserInterface, EquatableInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\User $user
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $user
      */
     public function setAPIUser(APIUser $user)
     {
@@ -147,7 +147,7 @@ class User implements ReferenceUserInterface, EquatableInterface
 
     /**
      * Make sure we don't serialize the whole API user object given it's a full fledged api content object. We set
-     * (& either way refresh) the user object in \eZ\Publish\Core\MVC\Symfony\Security\User\Provider->refreshUser()
+     * (& either way refresh) the user object in {@see \Ibexa\Core\MVC\Symfony\Security\User\BaseProvider::refreshUser}
      * when object wakes back up from session.
      *
      * @return array
@@ -157,3 +157,5 @@ class User implements ReferenceUserInterface, EquatableInterface
         return ['reference', 'roles'];
     }
 }
+
+class_alias(User::class, 'eZ\Publish\Core\MVC\Symfony\Security\User');

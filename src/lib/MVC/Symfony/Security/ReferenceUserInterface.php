@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security;
+namespace Ibexa\Core\MVC\Symfony\Security;
 
 /**
  * Interface for Repository based users, where we only serialize user id / Reference in session values.
@@ -18,7 +18,7 @@ namespace eZ\Publish\Core\MVC\Symfony\Security;
 interface ReferenceUserInterface extends UserInterface
 {
     /**
-     * @return \eZ\Publish\API\Repository\Values\User\UserReference
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\UserReference
      */
     public function getAPIUserReference();
 
@@ -26,7 +26,9 @@ interface ReferenceUserInterface extends UserInterface
      * @throws \LogicException If api user has not been refreshed yet by UserProvider after being
      *         unserialized from session.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     public function getAPIUser();
 }
+
+class_alias(ReferenceUserInterface::class, 'eZ\Publish\Core\MVC\Symfony\Security\ReferenceUserInterface');

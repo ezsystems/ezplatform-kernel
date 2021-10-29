@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Helper;
+namespace Ibexa\Core\Helper;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 /**
  * Loads a location based on a ContentInfo.
@@ -18,10 +18,12 @@ interface ContentInfoLocationLoader
      *
      * @param ContentInfo $contentInfo
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the location doesn't have a contentId.
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the location failed to load.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the location doesn't have a contentId.
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the location failed to load.
      */
     public function loadLocation(ContentInfo $contentInfo);
 }
+
+class_alias(ContentInfoLocationLoader::class, 'eZ\Publish\Core\Helper\ContentInfoLocationLoader');

@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Content;
+namespace Ibexa\Contracts\Core\Repository\Events\Content;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class DeleteContentEvent extends AfterEvent
 {
     /** @var array */
     private $locations;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo */
     private $contentInfo;
 
     public function __construct(
@@ -37,3 +37,5 @@ final class DeleteContentEvent extends AfterEvent
         return $this->contentInfo;
     }
 }
+
+class_alias(DeleteContentEvent::class, 'eZ\Publish\API\Repository\Events\Content\DeleteContentEvent');

@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
 
 abstract class AbstractRangeAggregation implements Aggregation
 {
@@ -19,7 +19,7 @@ abstract class AbstractRangeAggregation implements Aggregation
      */
     protected $name;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Range[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\Range[] */
     protected $ranges;
 
     public function __construct(string $name, array $ranges = [])
@@ -38,3 +38,5 @@ abstract class AbstractRangeAggregation implements Aggregation
         return $this->name;
     }
 }
+
+class_alias(AbstractRangeAggregation::class, 'eZ\Publish\API\Repository\Values\Content\Query\Aggregation\AbstractRangeAggregation');

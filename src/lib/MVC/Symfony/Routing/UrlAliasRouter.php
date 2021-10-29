@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Routing;
+namespace Ibexa\Core\MVC\Symfony\Routing;
 
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\URLAliasService;
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\URLAlias;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\MVC\Symfony\View\Manager as ViewManager;
-use eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\URLAliasService;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\Symfony\View\Manager as ViewManager;
+use Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
 use Symfony\Cmf\Component\Routing\ChainedRouterInterface;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\Routing\Matcher\RequestMatcherInterface;
@@ -37,16 +37,16 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
     /** @var \Symfony\Component\Routing\RequestContext */
     protected $requestContext;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     protected $locationService;
 
-    /** @var \eZ\Publish\API\Repository\URLAliasService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
     protected $urlAliasService;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     protected $contentService;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator */
+    /** @var \Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator */
     protected $generator;
 
     /**
@@ -221,7 +221,7 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
      * Used to determine if redirect is needed because requested path is case-different
      * from the stored one.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\URLAlias $loadedUrlAlias
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLAlias $loadedUrlAlias
      * @param string $requestedPath
      * @param string $pathPrefix
      *
@@ -248,7 +248,7 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
      *
      * @param $pathinfo
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the path does not exist or is not valid for the given language
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the path does not exist or is not valid for the given language
      *
      * @return URLAlias
      */
@@ -272,7 +272,7 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
      *
      * It is possible to directly pass a Location object as the route name, as the ChainRouter allows it through ChainedRouterInterface.
      *
-     * If $name is a route name, the "location" key in $parameters must be set to a valid eZ\Publish\API\Repository\Values\Content\Location object.
+     * If $name is a route name, the "location" key in $parameters must be set to a valid {@see \Ibexa\Contracts\Core\Repository\Values\Content\Location} object.
      * "locationId" can also be provided.
      *
      * If the generator is not able to generate the url, it must throw the RouteNotFoundException
@@ -403,3 +403,5 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
         return $name;
     }
 }
+
+class_alias(UrlAliasRouter::class, 'eZ\Publish\Core\MVC\Symfony\Routing\UrlAliasRouter');

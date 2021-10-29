@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
 
 /**
  * Sets sort direction on the content modification date for a content query.
@@ -27,3 +27,5 @@ class DateModified extends SortClause implements FilteringSortClause
         parent::__construct('date_modified', $sortDirection);
     }
 }
+
+class_alias(DateModified::class, 'eZ\Publish\API\Repository\Values\Content\Query\SortClause\DateModified');

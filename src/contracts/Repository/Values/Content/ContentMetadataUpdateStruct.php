@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * With this class data can be provided to update version independent fields of the content.
@@ -77,3 +77,5 @@ class ContentMetadataUpdateStruct extends ValueObject
      */
     public $name;
 }
+
+class_alias(ContentMetadataUpdateStruct::class, 'eZ\Publish\API\Repository\Values\Content\ContentMetadataUpdateStruct');

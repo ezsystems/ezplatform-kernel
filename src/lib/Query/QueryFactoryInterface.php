@@ -4,11 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Query;
+namespace Ibexa\Core\Query;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 
 interface QueryFactoryInterface
 {
     public function create(string $type, array $parameters = []): Query;
 }
+
+class_alias(QueryFactoryInterface::class, 'eZ\Publish\Core\Query\QueryFactoryInterface');

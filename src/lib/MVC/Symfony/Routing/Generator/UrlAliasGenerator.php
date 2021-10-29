@@ -4,24 +4,24 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Routing\Generator;
+namespace Ibexa\Core\MVC\Symfony\Routing\Generator;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Routing\Generator;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Routing\Generator;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
  * URL generator for UrlAlias based links.
  *
- * @see \eZ\Publish\Core\MVC\Symfony\Routing\UrlAliasRouter
+ * @see \Ibexa\Core\MVC\Symfony\Routing\UrlAliasRouter
  */
 class UrlAliasGenerator extends Generator
 {
     const INTERNAL_CONTENT_VIEW_ROUTE = '_ez_content_view';
 
-    /** @var \eZ\Publish\Core\Repository\Repository */
+    /** @var \Ibexa\Core\Repository\Repository */
     private $repository;
 
     /**
@@ -40,7 +40,7 @@ class UrlAliasGenerator extends Generator
     /** @var array */
     private $pathPrefixMap = [];
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     /**
@@ -63,7 +63,7 @@ class UrlAliasGenerator extends Generator
      * Generates the URL from $urlResource and $parameters.
      * Entries in $parameters will be added in the query string.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param array $parameters
      *
      * @return string
@@ -158,20 +158,20 @@ class UrlAliasGenerator extends Generator
      *
      * @param int $locationId
      *
-     * @return \eZ\Publish\Core\Repository\Values\Content\Location
+     * @return \Ibexa\Core\Repository\Values\Content\Location
      */
     public function loadLocation($locationId)
     {
         return $this->repository->sudo(
             function (Repository $repository) use ($locationId) {
-                /* @var $repository \eZ\Publish\Core\Repository\Repository */
+                /* @var $repository \Ibexa\Core\Repository\Repository */
                 return $repository->getLocationService()->loadLocation($locationId);
             }
         );
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param string|null $siteAccess
      *
      * @return string
@@ -257,3 +257,5 @@ class UrlAliasGenerator extends Generator
         return strtr($url, $this->unsafeCharMap);
     }
 }
+
+class_alias(UrlAliasGenerator::class, 'eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator');

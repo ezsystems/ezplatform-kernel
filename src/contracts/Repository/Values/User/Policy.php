@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class represents a policy value.
@@ -17,7 +17,7 @@ use eZ\Publish\API\Repository\Values\ValueObject;
  * @property-read mixed $roleId the role id this policy belongs to
  * @property-read string $module Name of module, associated with the Policy
  * @property-read string $function  Name of the module function Or all functions with '*'
- * @property-read \eZ\Publish\API\Repository\Values\User\Limitation[] $limitations an array of \eZ\Publish\API\Repository\Values\User\Limitation
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] $limitations an array of \Ibexa\Contracts\Core\Repository\Values\User\Limitation
  */
 abstract class Policy extends ValueObject
 {
@@ -54,7 +54,9 @@ abstract class Policy extends ValueObject
     protected $function;
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\User\Limitation[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
      */
     abstract public function getLimitations(): iterable;
 }
+
+class_alias(Policy::class, 'eZ\Publish\API\Repository\Values\User\Policy');

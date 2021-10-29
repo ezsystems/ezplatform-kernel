@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileRowReader;
+namespace Ibexa\Bundle\IO\Migration\FileLister\FileRowReader;
 
 final class LegacyStorageMediaFileRowReader extends LegacyStorageFileRowReader
 {
@@ -18,3 +18,5 @@ final class LegacyStorageMediaFileRowReader extends LegacyStorageFileRowReader
         return 'ezmedia';
     }
 }
+
+class_alias(LegacyStorageMediaFileRowReader::class, 'eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileRowReader\LegacyStorageMediaFileRowReader');

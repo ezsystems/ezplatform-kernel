@@ -4,17 +4,17 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View;
+namespace Ibexa\Core\MVC\Symfony\View;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 /**
  * Used to check if a Location is rendered using a custom controller.
  */
 class CustomLocationControllerChecker
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\ViewProvider[] */
+    /** @var \Ibexa\Core\MVC\Symfony\View\ViewProvider[] */
     private $viewProviders;
 
     /**
@@ -47,10 +47,12 @@ class CustomLocationControllerChecker
     }
 
     /**
-     * @param $viewProviders \eZ\Publish\Core\MVC\Symfony\View\ViewProvider[]
+     * @param  \Ibexa\Core\MVC\Symfony\View\ViewProvider[] $viewProviders
      */
     public function addViewProviders(array $viewProviders)
     {
         $this->viewProviders = $viewProviders;
     }
 }
+
+class_alias(CustomLocationControllerChecker::class, 'eZ\Publish\Core\MVC\Symfony\View\CustomLocationControllerChecker');

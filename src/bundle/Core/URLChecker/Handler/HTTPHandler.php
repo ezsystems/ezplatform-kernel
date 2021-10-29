@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\URLChecker\Handler;
+namespace Ibexa\Bundle\Core\URLChecker\Handler;
 
-use eZ\Publish\API\Repository\Values\URL\URL;
+use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class HTTPHandler extends AbstractConfigResolverBasedURLHandler
@@ -157,3 +157,5 @@ class HTTPHandler extends AbstractConfigResolverBasedURLHandler
         return $statusCode >= 200 && $statusCode < 300;
     }
 }
+
+class_alias(HTTPHandler::class, 'eZ\Bundle\EzPublishCoreBundle\URLChecker\Handler\HTTPHandler');

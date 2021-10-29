@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Persistence\Bookmark;
+namespace Ibexa\Contracts\Core\Persistence\Bookmark;
 
 interface Handler
 {
     /**
      * Create a new bookmark.
      *
-     * @param \eZ\Publish\SPI\Persistence\Bookmark\CreateStruct $createStruct
+     * @param \Ibexa\Contracts\Core\Persistence\Bookmark\CreateStruct $createStruct
      *
-     * @return \eZ\Publish\SPI\Persistence\Bookmark\Bookmark
+     * @return \Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark
      */
     public function create(CreateStruct $createStruct): Bookmark;
 
@@ -24,7 +24,7 @@ interface Handler
      *
      * @param int $bookmarkId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function delete(int $bookmarkId): void;
 
@@ -34,7 +34,7 @@ interface Handler
      * @param int $userId
      * @param array $locationIds
      *
-     * @return \eZ\Publish\SPI\Persistence\Bookmark\Bookmark[]
+     * @return \Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark[]
      */
     public function loadByUserIdAndLocationId(int $userId, array $locationIds): array;
 
@@ -45,7 +45,7 @@ interface Handler
      * @param int $offset the start offset for paging
      * @param int $limit the number of bookmarked locations returned
      *
-     * @return \eZ\Publish\SPI\Persistence\Bookmark\Bookmark[]
+     * @return \Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark[]
      */
     public function loadUserBookmarks(int $userId, int $offset = 0, int $limit = -1): array;
 
@@ -68,3 +68,5 @@ interface Handler
      */
     public function locationSwapped(int $location1Id, int $location2Id): void;
 }
+
+class_alias(Handler::class, 'eZ\Publish\SPI\Persistence\Bookmark\Handler');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ComplexSettings;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\ComplexSettings;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\DynamicSettingParserInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\DynamicSettingParserInterface;
 
 /**
  * Parses a string that contains dynamic settings ($foo;eng;bar$).
@@ -33,3 +33,5 @@ interface ComplexSettingParserInterface extends DynamicSettingParserInterface
      */
     public function parseComplexSetting($string);
 }
+
+class_alias(ComplexSettingParserInterface::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParserInterface');

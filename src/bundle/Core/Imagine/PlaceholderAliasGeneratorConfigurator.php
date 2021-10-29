@@ -4,16 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine;
+namespace Ibexa\Bundle\Core\Imagine;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 
 class PlaceholderAliasGeneratorConfigurator
 {
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderProviderRegistry */
+    /** @var \Ibexa\Bundle\Core\Imagine\PlaceholderProviderRegistry */
     private $providerRegistry;
 
     /** @var array */
@@ -43,3 +43,5 @@ class PlaceholderAliasGeneratorConfigurator
         }
     }
 }
+
+class_alias(PlaceholderAliasGeneratorConfigurator::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\PlaceholderAliasGeneratorConfigurator');

@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\Factory;
+namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\Factory;
 
 use Doctrine\DBAL\Connection;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\AbstractRandom;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\AbstractRandom;
 
 class RandomSortClauseHandlerFactory
 {
-    /** @var iterable|\eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\AbstractRandom[] */
+    /** @var iterable|\Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\AbstractRandom[] */
     private $randomSortClauseGateways = [];
 
     /** @var \Doctrine\DBAL\Connection */
@@ -28,7 +28,7 @@ class RandomSortClauseHandlerFactory
 
     /**
      * @throws \Doctrine\DBAL\DBALException
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      */
     public function getGateway(): AbstractRandom
     {
@@ -43,3 +43,5 @@ class RandomSortClauseHandlerFactory
         throw new InvalidArgumentException('$this->randomSortClauseGateways', 'No RandomSortClauseHandler found for driver ' . $driverName);
     }
 }
+
+class_alias(RandomSortClauseHandlerFactory::class, 'eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\Factory\RandomSortClauseHandlerFactory');

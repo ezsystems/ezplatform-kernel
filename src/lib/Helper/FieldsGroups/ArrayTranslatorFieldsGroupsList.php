@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Helper\FieldsGroups;
+namespace Ibexa\Core\Helper\FieldsGroups;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -62,3 +62,5 @@ final class ArrayTranslatorFieldsGroupsList implements FieldsGroupsList
         return $fieldDefinition->fieldGroup;
     }
 }
+
+class_alias(ArrayTranslatorFieldsGroupsList::class, 'eZ\Publish\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList');

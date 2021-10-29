@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\View;
+namespace Ibexa\Core\MVC\Symfony\View;
 
-use eZ\Publish\SPI\MVC\View\VariableProvider;
+use Ibexa\Contracts\Core\MVC\View\VariableProvider;
 
 interface VariableProviderRegistry
 {
@@ -18,3 +18,5 @@ interface VariableProviderRegistry
 
     public function hasTwigVariableProvider(string $identifier): bool;
 }
+
+class_alias(VariableProviderRegistry::class, 'eZ\Publish\Core\MVC\Symfony\View\VariableProviderRegistry');

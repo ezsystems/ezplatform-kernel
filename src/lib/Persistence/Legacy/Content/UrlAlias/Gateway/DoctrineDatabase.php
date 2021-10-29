@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway;
 use RuntimeException;
 
 /**
@@ -22,7 +22,7 @@ use RuntimeException;
  *
  * @internal Gateway implementation is considered internal. Use Persistence UrlAlias Handler instead.
  *
- * @see \eZ\Publish\SPI\Persistence\Content\UrlAlias\Handler
+ * @see \Ibexa\Contracts\Core\Persistence\Content\UrlAlias\Handler
  */
 final class DoctrineDatabase extends Gateway
 {
@@ -46,7 +46,7 @@ final class DoctrineDatabase extends Gateway
         'text_md5' => ParameterType::STRING,
     ];
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator */
     private $languageMaskGenerator;
 
     /**
@@ -1453,3 +1453,5 @@ final class DoctrineDatabase extends Gateway
         return $queryBuilder->execute();
     }
 }
+
+class_alias(DoctrineDatabase::class, 'eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway\DoctrineDatabase');

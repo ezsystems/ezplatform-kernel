@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Event;
+namespace Ibexa\Core\Event;
 
-use eZ\Publish\API\Repository\URLService as URLServiceInterface;
-use eZ\Publish\API\Repository\Values\URL\URL;
-use eZ\Publish\API\Repository\Values\URL\URLUpdateStruct;
-use eZ\Publish\API\Repository\Events\URL\BeforeUpdateUrlEvent;
-use eZ\Publish\API\Repository\Events\URL\UpdateUrlEvent;
-use eZ\Publish\SPI\Repository\Decorator\URLServiceDecorator;
+use Ibexa\Contracts\Core\Repository\URLService as URLServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\URL\URL;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Events\URL\BeforeUpdateUrlEvent;
+use Ibexa\Contracts\Core\Repository\Events\URL\UpdateUrlEvent;
+use Ibexa\Contracts\Core\Repository\Decorator\URLServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class URLService extends URLServiceDecorator
@@ -57,3 +57,5 @@ class URLService extends URLServiceDecorator
         return $updatedUrl;
     }
 }
+
+class_alias(URLService::class, 'eZ\Publish\Core\Event\URLService');

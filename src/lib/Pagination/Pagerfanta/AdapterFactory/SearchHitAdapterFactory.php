@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Pagination\Pagerfanta\AdapterFactory;
+namespace Ibexa\Core\Pagination\Pagerfanta\AdapterFactory;
 
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchHitAdapter;
-use eZ\Publish\Core\Pagination\Pagerfanta\FixedSearchResultHitAdapter;
-use eZ\Publish\Core\Pagination\Pagerfanta\LocationSearchHitAdapter;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Core\Pagination\Pagerfanta\ContentSearchHitAdapter;
+use Ibexa\Core\Pagination\Pagerfanta\FixedSearchResultHitAdapter;
+use Ibexa\Core\Pagination\Pagerfanta\LocationSearchHitAdapter;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
@@ -21,7 +21,7 @@ use Pagerfanta\Adapter\AdapterInterface;
  */
 final class SearchHitAdapterFactory implements SearchHitAdapterFactoryInterface
 {
-    /** @var \eZ\Publish\API\Repository\SearchService */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     private $searchService;
 
     public function __construct(SearchService $searchService)
@@ -49,3 +49,5 @@ final class SearchHitAdapterFactory implements SearchHitAdapterFactoryInterface
         return new FixedSearchResultHitAdapter($searchResults);
     }
 }
+
+class_alias(SearchHitAdapterFactory::class, 'eZ\Publish\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactory');

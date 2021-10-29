@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver;
 
 /**
  * @internal
@@ -30,3 +30,5 @@ class GlobalScopeConfigResolver extends ContainerConfigResolver
         return parent::getParameter($paramName, $namespace, self::SCOPE_NAME);
     }
 }
+
+class_alias(GlobalScopeConfigResolver::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver\GlobalScopeConfigResolver');

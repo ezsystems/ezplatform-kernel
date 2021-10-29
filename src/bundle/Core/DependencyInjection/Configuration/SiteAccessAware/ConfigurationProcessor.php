@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware;
 
 use InvalidArgumentException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -44,7 +44,7 @@ class ConfigurationProcessor
      */
     protected $scopeNodeName;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface */
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface */
     protected $contextualizer;
 
     public function __construct(ContainerInterface $containerBuilder, $namespace, $siteAcccessNodeName = 'system')
@@ -162,7 +162,7 @@ class ConfigurationProcessor
      * @param string $namespace
      * @param string $siteAccessNodeName
      *
-     * @return \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface
+     * @return \Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface
      */
     protected function buildContextualizer(ContainerInterface $containerBuilder, $namespace, $siteAccessNodeName)
     {
@@ -177,7 +177,7 @@ class ConfigurationProcessor
     }
 
     /**
-     * @param \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface $contextualizer
+     * @param \Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface $contextualizer
      */
     public function setContextualizer(ContextualizerInterface $contextualizer)
     {
@@ -185,10 +185,12 @@ class ConfigurationProcessor
     }
 
     /**
-     * @return \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface
+     * @return \Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface
      */
     public function getContextualizer()
     {
         return $this->contextualizer;
     }
 }
+
+class_alias(ConfigurationProcessor::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ConfigurationProcessor');

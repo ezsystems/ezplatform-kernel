@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Target;
 
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Target;
 
 /**
  * Struct that stores extra target informations for a SortClause object.
@@ -35,3 +35,5 @@ class FieldTarget extends Target
         $this->fieldIdentifier = $fieldIdentifier;
     }
 }
+
+class_alias(FieldTarget::class, 'eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target\FieldTarget');

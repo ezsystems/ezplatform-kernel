@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security\Exception;
+namespace Ibexa\Core\MVC\Symfony\Security\Exception;
 
 use Exception;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -21,3 +21,5 @@ class UnauthorizedSiteAccessException extends AccessDeniedException
         parent::__construct("User '$username' doesn't have user/login permission to SiteAccess '$siteAccess->name'", $previous);
     }
 }
+
+class_alias(UnauthorizedSiteAccessException::class, 'eZ\Publish\Core\MVC\Symfony\Security\Exception\UnauthorizedSiteAccessException');

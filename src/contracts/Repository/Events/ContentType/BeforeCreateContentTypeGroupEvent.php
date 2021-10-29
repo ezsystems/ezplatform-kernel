@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Events\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroupCreateStruct;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCreateContentTypeGroupEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroupCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupCreateStruct */
     private $contentTypeGroupCreateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null */
     private $contentTypeGroup;
 
     public function __construct(ContentTypeGroupCreateStruct $contentTypeGroupCreateStruct)
@@ -50,3 +50,5 @@ final class BeforeCreateContentTypeGroupEvent extends BeforeEvent
         return $this->contentTypeGroup instanceof ContentTypeGroup;
     }
 }
+
+class_alias(BeforeCreateContentTypeGroupEvent::class, 'eZ\Publish\API\Repository\Events\ContentType\BeforeCreateContentTypeGroupEvent');

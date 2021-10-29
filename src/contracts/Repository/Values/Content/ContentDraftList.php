@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
 use ArrayIterator;
 use IteratorAggregate;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Traversable;
 
 /**
@@ -24,7 +24,7 @@ class ContentDraftList extends ValueObject implements IteratorAggregate
     public $totalCount = 0;
 
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\DraftList\ContentDraftListItemInterface[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\DraftList\ContentDraftListItemInterface[]
      */
     public $items = [];
 
@@ -36,3 +36,5 @@ class ContentDraftList extends ValueObject implements IteratorAggregate
         return new ArrayIterator($this->items);
     }
 }
+
+class_alias(ContentDraftList::class, 'eZ\Publish\API\Repository\Values\Content\ContentDraftList');

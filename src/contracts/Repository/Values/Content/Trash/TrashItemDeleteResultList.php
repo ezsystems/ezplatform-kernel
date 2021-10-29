@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Trash;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Trash;
 
 use ArrayIterator;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Traversable;
 
 class TrashItemDeleteResultList extends ValueObject implements \IteratorAggregate
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult[] */
     public $items = [];
 
     /**
@@ -25,3 +25,5 @@ class TrashItemDeleteResultList extends ValueObject implements \IteratorAggregat
         return new ArrayIterator($this->items);
     }
 }
+
+class_alias(TrashItemDeleteResultList::class, 'eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResultList');

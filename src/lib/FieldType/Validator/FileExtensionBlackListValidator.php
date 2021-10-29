@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Validator;
+namespace Ibexa\Core\FieldType\Validator;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\FieldType\Validator;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\FieldType\Validator;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 class FileExtensionBlackListValidator extends Validator
 {
@@ -25,7 +25,7 @@ class FileExtensionBlackListValidator extends Validator
     ];
 
     /**
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Core\MVC\ConfigResolverInterface $configResolver
      */
     public function __construct(ConfigResolverInterface $configResolver)
     {
@@ -66,3 +66,5 @@ class FileExtensionBlackListValidator extends Validator
         return true;
     }
 }
+
+class_alias(FileExtensionBlackListValidator::class, 'eZ\Publish\Core\FieldType\Validator\FileExtensionBlackListValidator');

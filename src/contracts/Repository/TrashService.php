@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository;
+namespace Ibexa\Contracts\Core\Repository;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Trash\SearchResult;
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult;
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResultList;
-use eZ\Publish\API\Repository\Values\Content\TrashItem;
-use eZ\Publish\API\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 
 /**
  * Trash service, used for managing trashed content.
@@ -27,10 +27,10 @@ interface TrashService
      *
      * @param int $trashItemId
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to read the trashed location
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException - if the location with the given id does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to read the trashed location
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException - if the location with the given id does not exist
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\TrashItem
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem
      */
     public function loadTrashItem(int $trashItemId): TrashItem;
 
@@ -40,11 +40,11 @@ interface TrashService
      * The current user may not have access to the returned trash item, check before using it.
      * Content is left untouched.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to trash the given location
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to trash the given location
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\TrashItem|null null if location was deleted, otherwise TrashItem
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem|null null if location was deleted, otherwise TrashItem
      */
     public function trash(Location $location): ?TrashItem;
 
@@ -53,12 +53,12 @@ interface TrashService
      *
      * If $newParentLocation is provided, $trashedLocation will be restored under it.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to recover the trash item at the parent location location
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to recover the trash item at the parent location location
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\TrashItem $trashItem
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $newParentLocation
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem $trashItem
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $newParentLocation
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location the newly created or recovered location
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location the newly created or recovered location
      */
     public function recover(TrashItem $trashItem, Location $newParentLocation = null): Location;
 
@@ -68,9 +68,9 @@ interface TrashService
      * All locations contained in the trash will be removed. Content objects will be removed
      * if all locations of the content are gone.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to empty the trash
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to empty the trash
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResultList
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList
      */
     public function emptyTrash(): TrashItemDeleteResultList;
 
@@ -79,11 +79,11 @@ interface TrashService
      *
      * The corresponding content object will be removed
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\TrashItem $trashItem
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem $trashItem
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to delete this trash item
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException if the user is not allowed to delete this trash item
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult
      */
     public function deleteTrashItem(TrashItem $trashItem): TrashItemDeleteResult;
 
@@ -92,9 +92,11 @@ interface TrashService
      *
      * $query allows to filter/sort the elements to be contained in the collection.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query $query
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query $query
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Trash\SearchResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Trash\SearchResult
      */
     public function findTrashItems(Query $query): SearchResult;
 }
+
+class_alias(TrashService::class, 'eZ\Publish\API\Repository\TrashService');

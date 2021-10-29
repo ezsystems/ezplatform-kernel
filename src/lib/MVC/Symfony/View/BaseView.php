@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View;
+namespace Ibexa\Core\MVC\Symfony\View;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
@@ -38,7 +38,7 @@ abstract class BaseView implements View
      * @param string $viewType
      * @param array $parameters Hash of parameters to pass to the template/closure.
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      */
     public function __construct($templateIdentifier = null, array $parameters = [], $viewType = 'full')
     {
@@ -110,7 +110,7 @@ abstract class BaseView implements View
     /**
      * @param string|\Closure $templateIdentifier
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      */
     public function setTemplateIdentifier($templateIdentifier)
     {
@@ -206,3 +206,5 @@ abstract class BaseView implements View
         return $this->isCacheEnabled;
     }
 }
+
+class_alias(BaseView::class, 'eZ\Publish\Core\MVC\Symfony\View\BaseView');

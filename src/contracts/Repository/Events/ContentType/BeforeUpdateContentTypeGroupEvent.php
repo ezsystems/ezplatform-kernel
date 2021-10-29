@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Events\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroupUpdateStruct;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 
 final class BeforeUpdateContentTypeGroupEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup */
     private $contentTypeGroup;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroupUpdateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupUpdateStruct */
     private $contentTypeGroupUpdateStruct;
 
     public function __construct(ContentTypeGroup $contentTypeGroup, ContentTypeGroupUpdateStruct $contentTypeGroupUpdateStruct)
@@ -36,3 +36,5 @@ final class BeforeUpdateContentTypeGroupEvent extends BeforeEvent
         return $this->contentTypeGroupUpdateStruct;
     }
 }
+
+class_alias(BeforeUpdateContentTypeGroupEvent::class, 'eZ\Publish\API\Repository\Events\ContentType\BeforeUpdateContentTypeGroupEvent');

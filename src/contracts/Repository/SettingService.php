@@ -6,35 +6,35 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository;
+namespace Ibexa\Contracts\Core\Repository;
 
-use eZ\Publish\API\Repository\Values\Setting\Setting;
-use eZ\Publish\API\Repository\Values\Setting\SettingCreateStruct;
-use eZ\Publish\API\Repository\Values\Setting\SettingUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Setting\Setting;
+use Ibexa\Contracts\Core\Repository\Values\Setting\SettingCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Setting\SettingUpdateStruct;
 
 interface SettingService
 {
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If a setting with the given group and identifier could not be found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If a setting with the given group and identifier could not be found
      */
     public function loadSetting(string $group, string $identifier): Setting;
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user is not allowed to update a setting
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the current user is not allowed to update a setting
      */
     public function updateSetting(Setting $setting, SettingUpdateStruct $settingUpdateStruct): Setting;
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If a setting with the given group and identifier already exists
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user is not allowed to create a setting
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If a setting with the given group and identifier already exists
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the current user is not allowed to create a setting
      */
     public function createSetting(SettingCreateStruct $settingCreateStruct): Setting;
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If the setting has already been removed
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user is not allowed to remove a setting
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If the setting has already been removed
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException If the current user is not allowed to remove a setting
      */
     public function deleteSetting(Setting $setting): void;
 
@@ -42,3 +42,5 @@ interface SettingService
 
     public function newSettingUpdateStruct(array $properties = []): SettingUpdateStruct;
 }
+
+class_alias(SettingService::class, 'eZ\Publish\API\Repository\SettingService');

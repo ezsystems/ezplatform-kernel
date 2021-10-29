@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Values\User;
+namespace Ibexa\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\User\UserReference as APIUserReference;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
 
 /**
  * This class represents a user reference for use in sessions and Repository.
@@ -35,3 +35,5 @@ class UserReference implements APIUserReference
         return $this->userId;
     }
 }
+
+class_alias(UserReference::class, 'eZ\Publish\Core\Repository\Values\User\UserReference');

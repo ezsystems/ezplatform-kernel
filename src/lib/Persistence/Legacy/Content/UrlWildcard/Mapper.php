@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard;
+namespace Ibexa\Core\Persistence\Legacy\Content\UrlWildcard;
 
-use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
+use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard;
 
 /**
  * UrlWildcard Mapper.
@@ -20,7 +20,7 @@ class Mapper
      * @param string $destinationUrl
      * @param bool $forward
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlWildcard
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlWildcard
      */
     public function createUrlWildcard($sourceUrl, $destinationUrl, $forward)
     {
@@ -38,7 +38,7 @@ class Mapper
      *
      * @param array $row
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlWildcard
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlWildcard
      */
     public function extractUrlWildcardFromRow(array $row)
     {
@@ -72,7 +72,7 @@ class Mapper
      *
      * @param array $rows
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\UrlWildcard[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\UrlWildcard[]
      */
     public function extractUrlWildcardsFromRows(array $rows)
     {
@@ -85,3 +85,5 @@ class Mapper
         return $urlWildcards;
     }
 }
+
+class_alias(Mapper::class, 'eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Mapper');

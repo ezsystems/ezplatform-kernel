@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Author;
+namespace Ibexa\Core\FieldType\Author;
 
-use eZ\Publish\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * Value for Author field type.
@@ -16,23 +16,20 @@ class Value extends BaseValue
     /**
      * List of authors.
      *
-     * @var \eZ\Publish\Core\FieldType\Author\AuthorCollection
+     * @var \Ibexa\Core\FieldType\Author\AuthorCollection
      */
     public $authors;
 
     /**
      * Construct a new Value object and initialize with $authors.
      *
-     * @param \eZ\Publish\Core\FieldType\Author\Author[] $authors
+     * @param \Ibexa\Core\FieldType\Author\Author[] $authors
      */
     public function __construct(array $authors = [])
     {
         $this->authors = new AuthorCollection($authors);
     }
 
-    /**
-     * @see \eZ\Publish\Core\FieldType\Value
-     */
     public function __toString()
     {
         if (empty($this->authors)) {
@@ -50,3 +47,5 @@ class Value extends BaseValue
         return implode(', ', $authorNames);
     }
 }
+
+class_alias(Value::class, 'eZ\Publish\Core\FieldType\Author\Value');

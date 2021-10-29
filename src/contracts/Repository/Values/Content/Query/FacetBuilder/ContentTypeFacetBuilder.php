@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\FacetBuilder;
 
-use eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\FacetBuilder;
 
 /**
  * Building a content type facet.
@@ -20,3 +20,5 @@ use eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder;
 class ContentTypeFacetBuilder extends FacetBuilder
 {
 }
+
+class_alias(ContentTypeFacetBuilder::class, 'eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder\ContentTypeFacetBuilder');

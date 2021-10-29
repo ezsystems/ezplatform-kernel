@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\Core\DependencyInjection\Compiler;
 
-use eZ\Bundle\EzPublishCoreBundle\Fragment\InlineFragmentRenderer;
+use Ibexa\Bundle\Core\Fragment\InlineFragmentRenderer;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -57,3 +57,5 @@ class FragmentPass implements CompilerPassInterface
         }
     }
 }
+
+class_alias(FragmentPass::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\FragmentPass');

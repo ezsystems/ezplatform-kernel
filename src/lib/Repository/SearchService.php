@@ -6,59 +6,59 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository;
+namespace Ibexa\Core\Repository;
 
-use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
-use eZ\Publish\API\Repository\PermissionCriterionResolver;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalOperator;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location as LocationCriterion;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location as LocationSortClause;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Repository as RepositoryInterface;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\Core\Repository\Mapper\ContentDomainMapper;
-use eZ\Publish\SPI\Search\Capable;
-use eZ\Publish\Core\Search\Common\BackgroundIndexer;
-use eZ\Publish\SPI\Search\Handler;
+use Ibexa\Contracts\Core\Repository\SearchService as SearchServiceInterface;
+use Ibexa\Contracts\Core\Repository\PermissionCriterionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalOperator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Location as LocationCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location as LocationSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\Repository\Mapper\ContentDomainMapper;
+use Ibexa\Contracts\Core\Search\Capable;
+use Ibexa\Core\Search\Common\BackgroundIndexer;
+use Ibexa\Contracts\Core\Search\Handler;
 
 /**
  * Search service.
  */
 class SearchService implements SearchServiceInterface
 {
-    /** @var \eZ\Publish\Core\Repository\Repository */
+    /** @var \Ibexa\Core\Repository\Repository */
     protected $repository;
 
-    /** @var \eZ\Publish\SPI\Search\Handler */
+    /** @var \Ibexa\Contracts\Core\Search\Handler */
     protected $searchHandler;
 
     /** @var array */
     protected $settings;
 
-    /** @var \eZ\Publish\Core\Repository\Mapper\ContentDomainMapper */
+    /** @var \Ibexa\Core\Repository\Mapper\ContentDomainMapper */
     protected $contentDomainMapper;
 
-    /** @var \eZ\Publish\API\Repository\PermissionCriterionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionCriterionResolver */
     protected $permissionCriterionResolver;
 
-    /** @var \eZ\Publish\Core\Search\Common\BackgroundIndexer */
+    /** @var \Ibexa\Core\Search\Common\BackgroundIndexer */
     protected $backgroundIndexer;
 
     /**
      * Setups service with reference to repository object that created it & corresponding handler.
      *
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\SPI\Search\Handler $searchHandler
-     * @param \eZ\Publish\Core\Repository\Mapper\ContentDomainMapper $contentDomainMapper
-     * @param \eZ\Publish\API\Repository\PermissionCriterionResolver $permissionCriterionResolver
-     * @param \eZ\Publish\Core\Search\Common\BackgroundIndexer $backgroundIndexer
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Search\Handler $searchHandler
+     * @param \Ibexa\Core\Repository\Mapper\ContentDomainMapper $contentDomainMapper
+     * @param \Ibexa\Contracts\Core\Repository\PermissionCriterionResolver $permissionCriterionResolver
+     * @param \Ibexa\Core\Search\Common\BackgroundIndexer $backgroundIndexer
      * @param array $settings
      */
     public function __construct(
@@ -83,15 +83,15 @@ class SearchService implements SearchServiceInterface
     /**
      * Finds content objects for the given query.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if query is not valid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if query is not valid
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query $query
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query $query
      * @param array $languageFilter Configuration for specifying prioritized languages query will be performed on.
      *        Currently supports: <code>array("languages" => array(<language1>,..), "useAlwaysAvailable" => bool)</code>
      *                            useAlwaysAvailable defaults to true to avoid exceptions on missing translations.
      * @param bool $filterOnUserPermissions if true only the objects which the user is allowed to read are returned.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Search\SearchResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult
      */
     public function findContent(Query $query, array $languageFilter = [], bool $filterOnUserPermissions = true): SearchResult
     {
@@ -110,15 +110,15 @@ class SearchService implements SearchServiceInterface
      * @see SearchServiceInterface::findContentInfo()
      * @since 5.4.5
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if query is not valid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if query is not valid
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query $query
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query $query
      * @param array $languageFilter - a map of filters for the returned fields.
      *        Currently supports: <code>array("languages" => array(<language1>,..), "useAlwaysAvailable" => bool)</code>
      *                            useAlwaysAvailable defaults to true to avoid exceptions on missing translations.
      * @param bool $filterOnUserPermissions if true (default) only the objects which is the user allowed to read are returned.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Search\SearchResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult
      */
     public function findContentInfo(Query $query, array $languageFilter = [], bool $filterOnUserPermissions = true): SearchResult
     {
@@ -137,15 +137,15 @@ class SearchService implements SearchServiceInterface
      *
      * Internal for use by {@link findContent} and {@link findContentInfo}.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if query is not valid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if query is not valid
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query $query
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query $query
      * @param array $languageFilter - a map of filters for the returned fields.
      *        Currently supports: <code>array("languages" => array(<language1>,..), "useAlwaysAvailable" => bool)</code>
      *                            useAlwaysAvailable defaults to true to avoid exceptions on missing translations.
      * @param bool $filterOnUserPermissions if true only the objects which is the user allowed to read are returned.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Search\SearchResult With "raw" SPI contentInfo objects in result
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult With "raw" SPI contentInfo objects in result
      */
     protected function internalFindContentInfo(Query $query, array $languageFilter = [], $filterOnUserPermissions = true)
     {
@@ -182,9 +182,9 @@ class SearchService implements SearchServiceInterface
     /**
      * Checks that $criteria does not contain Location criterions.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion[] $criteria
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion[] $criteria
      * @param string $argumentName
      */
     protected function validateContentCriteria(array $criteria, $argumentName)
@@ -205,9 +205,9 @@ class SearchService implements SearchServiceInterface
     /**
      * Checks that $query does not contain Location sort clauses.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query $query
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query $query
      */
     protected function validateContentSortClauses(Query $query)
     {
@@ -221,17 +221,17 @@ class SearchService implements SearchServiceInterface
     /**
      * Performs a query for a single content object.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the object was not found by the query or due to permissions
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if criterion is not valid
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if there is more than one result matching the criterions
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the object was not found by the query or due to permissions
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if criterion is not valid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if there is more than one result matching the criterions
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $filter
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $filter
      * @param array $languageFilter Configuration for specifying prioritized languages query will be performed on.
      *        Currently supports: <code>array("languages" => array(<language1>,..), "useAlwaysAvailable" => bool)</code>
      *                            useAlwaysAvailable defaults to true to avoid exceptions on missing translations.
      * @param bool $filterOnUserPermissions if true only the objects which is the user allowed to read are returned.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     public function findSingle(Criterion $filter, array $languageFilter = [], bool $filterOnUserPermissions = true): Content
     {
@@ -257,7 +257,7 @@ class SearchService implements SearchServiceInterface
      * @param string $prefix
      * @param string[] $fieldPaths
      * @param int $limit
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $filter
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion|null $filter
      */
     public function suggest(string $prefix, array $fieldPaths = [], int $limit = 10, Criterion $filter = null)
     {
@@ -266,15 +266,15 @@ class SearchService implements SearchServiceInterface
     /**
      * Finds Locations for the given query.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if query is not valid
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if query is not valid
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\LocationQuery $query
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery $query
      * @param array $languageFilter Configuration for specifying prioritized languages query will be performed on.
      *        Currently supports: <code>array("languages" => array(<language1>,..), "useAlwaysAvailable" => bool)</code>
      *                            useAlwaysAvailable defaults to true to avoid exceptions on missing translations
      * @param bool $filterOnUserPermissions if true only the objects which is the user allowed to read are returned.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Search\SearchResult
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult
      */
     public function findLocations(LocationQuery $query, array $languageFilter = [], bool $filterOnUserPermissions = true): SearchResult
     {
@@ -314,13 +314,13 @@ class SearchService implements SearchServiceInterface
     /**
      * Adds content, read Permission criteria if needed and return false if no access at all.
      *
-     * @uses \eZ\Publish\API\Repository\PermissionCriterionResolver::getPermissionsCriterion()
+     * @uses \Ibexa\Contracts\Core\Repository\PermissionCriterionResolver::getPermissionsCriterion()
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterion
      *
-     * @return bool|\eZ\Publish\API\Repository\Values\Content\Query\Criterion
+     * @return bool
      */
-    protected function addPermissionsCriterion(Criterion &$criterion)
+    protected function addPermissionsCriterion(Criterion &$criterion): bool
     {
         $permissionCriterion = $this->permissionCriterionResolver->getPermissionsCriterion('content', 'read');
         if ($permissionCriterion === true || $permissionCriterion === false) {
@@ -351,3 +351,5 @@ class SearchService implements SearchServiceInterface
         return false;
     }
 }
+
+class_alias(SearchService::class, 'eZ\Publish\Core\Repository\SearchService');

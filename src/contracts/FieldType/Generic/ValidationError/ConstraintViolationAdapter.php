@@ -6,15 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\FieldType\Generic\ValidationError;
+namespace Ibexa\Contracts\Core\FieldType\Generic\ValidationError;
 
-use eZ\Publish\API\Repository\Values\Translation;
-use eZ\Publish\API\Repository\Values\Translation\Message;
-use eZ\Publish\SPI\FieldType\ValidationError as ValidationErrorInterface;
+use Ibexa\Contracts\Core\Repository\Values\Translation;
+use Ibexa\Contracts\Core\Repository\Values\Translation\Message;
+use Ibexa\Contracts\Core\FieldType\ValidationError as ValidationErrorInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 
 /**
- * \Symfony\Component\Validator\ConstraintViolationInterface to eZ\Publish\SPI\FieldType\ValidationError adapter.
+ * {@see \Symfony\Component\Validator\ConstraintViolationInterface} to
+ * {@see \Ibexa\Contracts\Core\FieldType\ValidationError} adapter.
  */
 final class ConstraintViolationAdapter implements ValidationErrorInterface
 {
@@ -55,3 +56,5 @@ final class ConstraintViolationAdapter implements ValidationErrorInterface
         return $this->target;
     }
 }
+
+class_alias(ConstraintViolationAdapter::class, 'eZ\Publish\SPI\FieldType\Generic\ValidationError\ConstraintViolationAdapter');

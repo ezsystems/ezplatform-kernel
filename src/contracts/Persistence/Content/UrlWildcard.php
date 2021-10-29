@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content;
+namespace Ibexa\Contracts\Core\Persistence\Content;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 /**
  * UrlWildCard models one url alias path with wild cards.
@@ -41,3 +41,5 @@ class UrlWildcard extends ValueObject
      */
     public $forward;
 }
+
+class_alias(UrlWildcard::class, 'eZ\Publish\SPI\Persistence\Content\UrlWildcard');

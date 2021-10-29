@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Location;
+namespace Ibexa\Core\Persistence\Legacy\Content\Location;
 
-use eZ\Publish\SPI\Persistence\Content\Location;
-use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
 
 /**
  * Mapper for Location objects.
@@ -23,9 +23,9 @@ class Mapper
      *
      * @param array $data
      * @param string $prefix
-     * @param \eZ\Publish\SPI\Persistence\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Location|null $location
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location
      */
     public function createLocationFromRow(array $data, $prefix = '', ?Location $location = null)
     {
@@ -56,9 +56,9 @@ class Mapper
      *
      * @param array $rows
      * @param string $prefix
-     * @param \eZ\Publish\SPI\Persistence\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Location|null $location
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location[]
      */
     public function createLocationsFromRows(array $rows, $prefix = '', ?Location $location = null)
     {
@@ -79,7 +79,7 @@ class Mapper
      *
      * @param array $data
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location\CreateStruct
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct
      */
     public function getLocationCreateStruct(array $data)
     {
@@ -100,3 +100,5 @@ class Mapper
         return $struct;
     }
 }
+
+class_alias(Mapper::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper');

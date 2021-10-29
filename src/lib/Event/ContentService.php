@@ -6,46 +6,46 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Event;
+namespace Ibexa\Core\Event;
 
-use eZ\Publish\API\Repository\ContentService as ContentServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\ContentMetadataUpdateStruct;
-use eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\Relation;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Events\Content\AddRelationEvent;
-use eZ\Publish\API\Repository\Events\Content\BeforeAddRelationEvent;
-use eZ\Publish\API\Repository\Events\Content\BeforeCopyContentEvent;
-use eZ\Publish\API\Repository\Events\Content\BeforeCreateContentDraftEvent;
-use eZ\Publish\API\Repository\Events\Content\BeforeCreateContentEvent;
-use eZ\Publish\API\Repository\Events\Content\BeforeDeleteContentEvent;
-use eZ\Publish\API\Repository\Events\Content\BeforeDeleteRelationEvent;
-use eZ\Publish\API\Repository\Events\Content\BeforeDeleteTranslationEvent;
-use eZ\Publish\API\Repository\Events\Content\BeforeDeleteVersionEvent;
-use eZ\Publish\API\Repository\Events\Content\BeforeHideContentEvent;
-use eZ\Publish\API\Repository\Events\Content\BeforePublishVersionEvent;
-use eZ\Publish\API\Repository\Events\Content\BeforeRevealContentEvent;
-use eZ\Publish\API\Repository\Events\Content\BeforeUpdateContentEvent;
-use eZ\Publish\API\Repository\Events\Content\BeforeUpdateContentMetadataEvent;
-use eZ\Publish\API\Repository\Events\Content\CopyContentEvent;
-use eZ\Publish\API\Repository\Events\Content\CreateContentDraftEvent;
-use eZ\Publish\API\Repository\Events\Content\CreateContentEvent;
-use eZ\Publish\API\Repository\Events\Content\DeleteContentEvent;
-use eZ\Publish\API\Repository\Events\Content\DeleteRelationEvent;
-use eZ\Publish\API\Repository\Events\Content\DeleteTranslationEvent;
-use eZ\Publish\API\Repository\Events\Content\DeleteVersionEvent;
-use eZ\Publish\API\Repository\Events\Content\HideContentEvent;
-use eZ\Publish\API\Repository\Events\Content\PublishVersionEvent;
-use eZ\Publish\API\Repository\Events\Content\RevealContentEvent;
-use eZ\Publish\API\Repository\Events\Content\UpdateContentEvent;
-use eZ\Publish\API\Repository\Events\Content\UpdateContentMetadataEvent;
-use eZ\Publish\SPI\Repository\Decorator\ContentServiceDecorator;
+use Ibexa\Contracts\Core\Repository\ContentService as ContentServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Events\Content\AddRelationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\BeforeAddRelationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\BeforeCopyContentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\BeforeCreateContentDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\BeforeCreateContentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\BeforeDeleteContentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\BeforeDeleteRelationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\BeforeDeleteTranslationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\BeforeDeleteVersionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\BeforeHideContentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\BeforePublishVersionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\BeforeRevealContentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\BeforeUpdateContentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\BeforeUpdateContentMetadataEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\CopyContentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\CreateContentDraftEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\CreateContentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\DeleteContentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\DeleteRelationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\DeleteTranslationEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\DeleteVersionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\HideContentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\PublishVersionEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\RevealContentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\UpdateContentEvent;
+use Ibexa\Contracts\Core\Repository\Events\Content\UpdateContentMetadataEvent;
+use Ibexa\Contracts\Core\Repository\Decorator\ContentServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ContentService extends ContentServiceDecorator
@@ -381,3 +381,5 @@ class ContentService extends ContentServiceDecorator
         );
     }
 }
+
+class_alias(ContentService::class, 'eZ\Publish\Core\Event\ContentService');

@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\IO;
+namespace Ibexa\Contracts\Core\IO;
 
 /**
  * Create struct for BinaryFile objects.
@@ -66,3 +66,5 @@ class BinaryFileCreateStruct
         $this->inputStream = $inputStream;
     }
 }
+
+class_alias(BinaryFileCreateStruct::class, 'eZ\Publish\SPI\IO\BinaryFileCreateStruct');

@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\ObjectState;
+namespace Ibexa\Contracts\Core\Repository\Values\ObjectState;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class represents a value for updating object state groups.
@@ -43,3 +43,5 @@ class ObjectStateGroupUpdateStruct extends ValueObject
      */
     public $descriptions;
 }
+
+class_alias(ObjectStateGroupUpdateStruct::class, 'eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct');

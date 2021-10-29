@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\EventListener;
+namespace Ibexa\Bundle\Core\EventListener;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\Core\Search\Common\BackgroundIndexer as BackgroundIndexerInterface;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content\Location;
-use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
-use eZ\Publish\SPI\Search\Handler as SearchHandler;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Core\Search\Common\BackgroundIndexer as BackgroundIndexerInterface;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
+use Ibexa\Contracts\Core\Search\Handler as SearchHandler;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\ConsoleEvents;
@@ -25,16 +25,16 @@ class BackgroundIndexingTerminateListener implements BackgroundIndexerInterface,
 {
     use LoggerAwareTrait;
 
-    /** @var \eZ\Publish\SPI\Persistence\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Handler */
     protected $persistenceHandler;
 
-    /** @var \eZ\Publish\SPI\Search\Handler */
+    /** @var \Ibexa\Contracts\Core\Search\Handler */
     protected $searchHandler;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\ContentInfo[] */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\ContentInfo[] */
     protected $contentInfo = [];
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Location[] */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Location[] */
     protected $locations = [];
 
     public function __construct(PersistenceHandler $persistenceHandler, SearchHandler $searchHandler)
@@ -136,3 +136,5 @@ class BackgroundIndexingTerminateListener implements BackgroundIndexerInterface,
         }
     }
 }
+
+class_alias(BackgroundIndexingTerminateListener::class, 'eZ\Bundle\EzPublishCoreBundle\EventListener\BackgroundIndexingTerminateListener');

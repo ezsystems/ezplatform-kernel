@@ -6,10 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\SiteAccessAware;
+namespace Ibexa\Core\Repository\SiteAccessAware;
 
-use eZ\Publish\SPI\Repository\Decorator\SettingServiceDecorator;
+use Ibexa\Contracts\Core\Repository\Decorator\SettingServiceDecorator;
 
 class SettingService extends SettingServiceDecorator
 {
 }
+
+class_alias(SettingService::class, 'eZ\Publish\Core\Repository\SiteAccessAware\SettingService');

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\SiteAccess;
+namespace Ibexa\Core\MVC\Symfony\SiteAccess;
 
-use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 
 /**
  * Siteaccess matcher builder, based on class names.
@@ -16,13 +16,13 @@ class MatcherBuilder implements MatcherBuilderInterface
     /**
      * Builds siteaccess matcher.
      * In the siteaccess configuration, if the matcher class begins with a "\" (FQ class name), it will be used as is, passing the matching configuration in the constructor.
-     * Otherwise, given matching class will be relative to eZ\Publish\Core\MVC\Symfony\SiteAccess namespace.
+     * Otherwise, given matching class will be relative to {@see \Ibexa\Core\MVC\Symfony\SiteAccess} namespace.
      *
      * @param string $matcherIdentifier "Identifier" of the matcher to build (i.e. its FQ class name).
      * @param mixed $matchingConfiguration Configuration to pass to the matcher. Can be anything the matcher supports.
-     * @param \eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest $request The request to match against.
+     * @param \Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest $request The request to match against.
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher
+     * @return \Ibexa\Core\MVC\Symfony\SiteAccess\Matcher
      */
     public function buildMatcher($matcherIdentifier, $matchingConfiguration, SimplifiedRequest $request)
     {
@@ -32,10 +32,12 @@ class MatcherBuilder implements MatcherBuilderInterface
             $matcherIdentifier = __NAMESPACE__ . "\\Matcher\\$matcherIdentifier";
         }
 
-        /** @var $matcher \eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher */
+        /** @var $matcher \Ibexa\Core\MVC\Symfony\SiteAccess\Matcher */
         $matcher = new $matcherIdentifier($matchingConfiguration);
         $matcher->setRequest($request);
 
         return $matcher;
     }
 }
+
+class_alias(MatcherBuilder::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccess\MatcherBuilder');

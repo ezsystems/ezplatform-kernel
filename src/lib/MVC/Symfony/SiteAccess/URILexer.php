@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\SiteAccess;
+namespace Ibexa\Core\MVC\Symfony\SiteAccess;
 
 /**
  * Interface for SiteAccess matchers that need to alter the URI after matching.
@@ -30,3 +30,5 @@ interface URILexer
      */
     public function analyseLink($linkUri);
 }
+
+class_alias(URILexer::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccess\URILexer');

@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\SiteAccessAware\Config;
+namespace Ibexa\Core\Repository\SiteAccessAware\Config;
 
-use eZ\Publish\Core\IO\IOConfigProvider;
+use Ibexa\Core\IO\IOConfigProvider;
 
 /**
  * @internal
@@ -49,3 +49,5 @@ final class IOConfigResolver implements IOConfigProvider
         return $this->urlPrefix;
     }
 }
+
+class_alias(IOConfigResolver::class, 'eZ\Publish\Core\Repository\SiteAccessAware\Config\IOConfigResolver');

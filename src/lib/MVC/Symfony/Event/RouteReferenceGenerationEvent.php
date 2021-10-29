@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Event;
+namespace Ibexa\Core\MVC\Symfony\Event;
 
-use eZ\Publish\Core\MVC\Symfony\Routing\RouteReference;
+use Ibexa\Core\MVC\Symfony\Routing\RouteReference;
 use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class RouteReferenceGenerationEvent extends Event
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Routing\RouteReference */
+    /** @var \Ibexa\Core\MVC\Symfony\Routing\RouteReference */
     private $routeReference;
 
     /** @var \Symfony\Component\HttpFoundation\Request */
@@ -36,7 +36,7 @@ class RouteReferenceGenerationEvent extends Event
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\Routing\RouteReference
+     * @return \Ibexa\Core\MVC\Symfony\Routing\RouteReference
      */
     public function getRouteReference()
     {
@@ -44,10 +44,12 @@ class RouteReferenceGenerationEvent extends Event
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\Routing\RouteReference $routeReference
+     * @param \Ibexa\Core\MVC\Symfony\Routing\RouteReference $routeReference
      */
     public function setRouteReference($routeReference)
     {
         $this->routeReference = $routeReference;
     }
 }
+
+class_alias(RouteReferenceGenerationEvent::class, 'eZ\Publish\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent');

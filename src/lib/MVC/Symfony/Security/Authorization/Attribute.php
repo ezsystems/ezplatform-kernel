@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Security\Authorization;
+namespace Ibexa\Core\MVC\Symfony\Security\Authorization;
 
 /**
  * Authorization attribute class to be used with SecurityContextInterface::isGranted().
@@ -18,7 +18,7 @@ namespace eZ\Publish\Core\MVC\Symfony\Security\Authorization;
  *
  * Usage example:
  * <code>
- * use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute as AuthorizationAttribute;
+ * use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute as AuthorizationAttribute;
  *
  * // From inside a controller
  * // Will check if current user can assign a content to a section, $section being a Section value object.
@@ -55,3 +55,5 @@ class Attribute
         return "EZ_ROLE_{$this->module}_{$this->function}";
     }
 }
+
+class_alias(Attribute::class, 'eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute');

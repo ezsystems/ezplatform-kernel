@@ -4,19 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\IO\IOMetadataHandler;
+namespace Ibexa\Core\IO\IOMetadataHandler;
 
 use DateTime;
-use eZ\Publish\Core\IO\IOMetadataHandler;
+use Ibexa\Core\IO\IOMetadataHandler;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException;
-use eZ\Publish\Core\IO\Exception\InvalidBinaryFileIdException;
-use eZ\Publish\Core\IO\UrlDecorator;
-use eZ\Publish\SPI\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
-use eZ\Publish\SPI\IO\BinaryFile as SPIBinaryFile;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
+use Ibexa\Core\IO\Exception\InvalidBinaryFileIdException;
+use Ibexa\Core\IO\UrlDecorator;
+use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
+use Ibexa\Contracts\Core\IO\BinaryFile as SPIBinaryFile;
 use RuntimeException;
 
 /**
@@ -52,7 +52,7 @@ class LegacyDFSCluster implements IOMetadataHandler
      * @throws InvalidArgumentException if the $binaryFileCreateStruct is invalid
      * @throws RuntimeException if a DBAL error occurs
      *
-     * @return \eZ\Publish\SPI\IO\BinaryFile
+     * @return \Ibexa\Contracts\Core\IO\BinaryFile
      */
     public function create(SPIBinaryFileCreateStruct $binaryFileCreateStruct)
     {
@@ -290,3 +290,5 @@ SQL
         return $spiBinaryFile;
     }
 }
+
+class_alias(LegacyDFSCluster::class, 'eZ\Publish\Core\IO\IOMetadataHandler\LegacyDFSCluster');

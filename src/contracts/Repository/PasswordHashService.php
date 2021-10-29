@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository;
+namespace Ibexa\Contracts\Core\Repository;
 
 interface PasswordHashService
 {
@@ -43,3 +43,5 @@ interface PasswordHashService
      */
     public function isValidPassword(string $plainPassword, string $passwordHash, ?int $hashType = null): bool;
 }
+
+class_alias(PasswordHashService::class, 'eZ\Publish\API\Repository\PasswordHashService');

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\URL\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
 
 /**
  * Matches URLs which used by content placed in specified section ids.
@@ -28,3 +28,5 @@ class SectionId extends Matcher
         $this->sectionIds = $sectionIds;
     }
 }
+
+class_alias(SectionId::class, 'eZ\Publish\API\Repository\Values\URL\Query\Criterion\SectionId');

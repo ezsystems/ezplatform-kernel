@@ -6,29 +6,29 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository;
+namespace Ibexa\Core\Repository;
 
 use Exception;
-use eZ\Publish\API\Repository\UserPreferenceService as UserPreferenceServiceInterface;
-use eZ\Publish\API\Repository\Values\UserPreference\UserPreference as APIUserPreference;
-use eZ\Publish\API\Repository\Values\UserPreference\UserPreferenceList;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct;
-use eZ\Publish\SPI\Persistence\UserPreference\Handler as UserPreferenceHandler;
-use eZ\Publish\SPI\Persistence\UserPreference\UserPreference;
-use eZ\Publish\API\Repository\Repository as RepositoryInterface;
+use Ibexa\Contracts\Core\Repository\UserPreferenceService as UserPreferenceServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreference as APIUserPreference;
+use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreferenceList;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
+use Ibexa\Contracts\Core\Persistence\UserPreference\Handler as UserPreferenceHandler;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
 
 class UserPreferenceService implements UserPreferenceServiceInterface
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
-    /** @var \eZ\Publish\SPI\Persistence\UserPreference\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\UserPreference\Handler */
     private $userPreferenceHandler;
 
     /**
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\SPI\Persistence\UserPreference\Handler $userPreferenceHandler
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Persistence\UserPreference\Handler $userPreferenceHandler
      */
     public function __construct(RepositoryInterface $repository, UserPreferenceHandler $userPreferenceHandler)
     {
@@ -126,9 +126,9 @@ class UserPreferenceService implements UserPreferenceServiceInterface
     /**
      * Builds UserPreference domain object from ValueObject returned by Persistence API.
      *
-     * @param \eZ\Publish\SPI\Persistence\UserPreference\UserPreference $spiUserPreference
+     * @param \Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference $spiUserPreference
      *
-     * @return \eZ\Publish\API\Repository\Values\UserPreference\UserPreference
+     * @return \Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreference
      */
     protected function buildDomainObject(UserPreference $spiUserPreference): APIUserPreference
     {
@@ -146,3 +146,5 @@ class UserPreferenceService implements UserPreferenceServiceInterface
             ->getUserId();
     }
 }
+
+class_alias(UserPreferenceService::class, 'eZ\Publish\Core\Repository\UserPreferenceService');

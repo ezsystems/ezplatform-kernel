@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Language;
+namespace Ibexa\Core\Persistence\Legacy\Content\Language;
 
-use eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache;
+use Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache;
 use Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface;
-use eZ\Publish\SPI\Persistence\Content\Language;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as BaseLanguageHandler;
-use eZ\Publish\SPI\Persistence\Content\Language\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Language;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as BaseLanguageHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct;
 
 /**
  * Language Handler.
@@ -24,14 +24,14 @@ class CachingHandler implements BaseLanguageHandler
     /**
      * Inner Language handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Language\Handler
      */
     protected $innerHandler;
 
     /**
      * Language cache.
      *
-     * @var \eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache
+     * @var \Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache
      */
     protected $cache;
 
@@ -41,8 +41,8 @@ class CachingHandler implements BaseLanguageHandler
     /**
      * Creates a caching handler around $innerHandler.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Language\Handler $innerHandler
-     * @param \eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache $cache
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Language\Handler $innerHandler
+     * @param \Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache $cache
      * @param \Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface $cacheIdentifierGenerator
      */
     public function __construct(
@@ -58,9 +58,9 @@ class CachingHandler implements BaseLanguageHandler
     /**
      * Create a new language.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Language\CreateStruct $struct
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct $struct
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language
      */
     public function create(CreateStruct $struct)
     {
@@ -73,7 +73,7 @@ class CachingHandler implements BaseLanguageHandler
     /**
      * Update language.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Language $language
      */
     public function update(Language $language)
     {
@@ -86,9 +86,9 @@ class CachingHandler implements BaseLanguageHandler
      *
      * @param mixed $id
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If language could not be found by $id
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If language could not be found by $id
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language
      */
     public function load($id)
     {
@@ -146,9 +146,9 @@ class CachingHandler implements BaseLanguageHandler
      *
      * @param string $languageCode
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If language could not be found by $languageCode
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If language could not be found by $languageCode
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language
      */
     public function loadByLanguageCode($languageCode)
     {
@@ -192,7 +192,7 @@ class CachingHandler implements BaseLanguageHandler
     /**
      * Get all languages.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Language[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Language[]
      */
     public function loadAll()
     {
@@ -252,3 +252,5 @@ class CachingHandler implements BaseLanguageHandler
         );
     }
 }
+
+class_alias(CachingHandler::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler');

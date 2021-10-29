@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\IO;
+namespace Ibexa\Core\IO;
 
 /**
  * Resolves IO complex settings.
@@ -21,3 +21,5 @@ interface IOConfigProvider
 
     public function getUrlPrefix(): string;
 }
+
+class_alias(IOConfigProvider::class, 'eZ\Publish\Core\IO\IOConfigProvider');

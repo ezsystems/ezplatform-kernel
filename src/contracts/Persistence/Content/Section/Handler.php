@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content\Section;
+namespace Ibexa\Contracts\Core\Persistence\Content\Section;
 
 interface Handler
 {
@@ -14,7 +14,7 @@ interface Handler
      * @param string $name
      * @param string $identifier
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Section
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Section
      *
      * @todo Should validate that $identifier is unique??
      * @todo What about translatable $name?
@@ -28,7 +28,7 @@ interface Handler
      * @param string $name
      * @param string $identifier
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Section
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Section
      */
     public function update($id, $name, $identifier);
 
@@ -37,16 +37,16 @@ interface Handler
      *
      * @param mixed $id
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If section is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If section is not found
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Section
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Section
      */
     public function load($id);
 
     /**
      * Get all section data.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Section[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Section[]
      */
     public function loadAll();
 
@@ -55,9 +55,9 @@ interface Handler
      *
      * @param string $identifier
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If section is not found
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If section is not found
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Section
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Section
      */
     public function loadByIdentifier($identifier);
 
@@ -107,3 +107,5 @@ interface Handler
      */
     public function countRoleAssignmentsUsingSection($sectionId);
 }
+
+class_alias(Handler::class, 'eZ\Publish\SPI\Persistence\Content\Section\Handler');

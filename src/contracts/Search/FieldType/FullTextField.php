@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Search\FieldType;
+namespace Ibexa\Contracts\Core\Search\FieldType;
 
-use eZ\Publish\SPI\Search\FieldType;
+use Ibexa\Contracts\Core\Search\FieldType;
 
 /**
  * Full text document field.
@@ -42,3 +42,5 @@ class FullTextField extends FieldType
         parent::__construct();
     }
 }
+
+class_alias(FullTextField::class, 'eZ\Publish\SPI\Search\FieldType\FullTextField');

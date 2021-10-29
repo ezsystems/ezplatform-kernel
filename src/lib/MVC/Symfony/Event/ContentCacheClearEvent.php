@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Event;
+namespace Ibexa\Core\MVC\Symfony\Event;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
@@ -69,3 +69,5 @@ class ContentCacheClearEvent extends Event
         $this->locationsToClear = $locationsToClear;
     }
 }
+
+class_alias(ContentCacheClearEvent::class, 'eZ\Publish\Core\MVC\Symfony\Event\ContentCacheClearEvent');

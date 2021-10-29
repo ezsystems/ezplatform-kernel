@@ -4,13 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Converter;
+namespace Ibexa\Bundle\Core\Converter;
 
-use eZ\Publish\API\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 
 class ContentParamConverter extends RepositoryParamConverter
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
     public function __construct(ContentService $contentService)
@@ -20,7 +21,7 @@ class ContentParamConverter extends RepositoryParamConverter
 
     protected function getSupportedClass()
     {
-        return 'eZ\Publish\API\Repository\Values\Content\Content';
+        return Content::class;
     }
 
     protected function getPropertyName()
@@ -33,3 +34,5 @@ class ContentParamConverter extends RepositoryParamConverter
         return $this->contentService->loadContent($id);
     }
 }
+
+class_alias(ContentParamConverter::class, 'eZ\Bundle\EzPublishCoreBundle\Converter\ContentParamConverter');

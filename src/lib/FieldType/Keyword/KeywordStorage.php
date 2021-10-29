@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Keyword;
+namespace Ibexa\Core\FieldType\Keyword;
 
-use eZ\Publish\SPI\FieldType\GatewayBasedStorage;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\Field;
+use Ibexa\Contracts\Core\FieldType\GatewayBasedStorage;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
 
 /**
  * Converter for Keyword field type external storage.
@@ -19,14 +19,14 @@ use eZ\Publish\SPI\Persistence\Content\Field;
  */
 class KeywordStorage extends GatewayBasedStorage
 {
-    /** @var \eZ\Publish\Core\FieldType\Keyword\KeywordStorage\Gateway */
+    /** @var \Ibexa\Core\FieldType\Keyword\KeywordStorage\Gateway */
     protected $gateway;
 
     /**
-     * @see \eZ\Publish\SPI\FieldType\FieldStorage
+     * @see \Ibexa\Contracts\Core\FieldType\FieldStorage
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      * @param array $context
      *
      * @return mixed
@@ -38,15 +38,6 @@ class KeywordStorage extends GatewayBasedStorage
         return $this->gateway->storeFieldData($field, $contentTypeId);
     }
 
-    /**
-     * Populates $field value property based on the external data.
-     * $field->value is a {@link eZ\Publish\SPI\Persistence\Content\FieldValue} object.
-     * This value holds the data as a {@link eZ\Publish\Core\FieldType\Value} based object,
-     * according to the field type (e.g. for TextLine, it will be a {@link eZ\Publish\Core\FieldType\TextLine\Value} object).
-     *
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
-     * @param array $context
-     */
     public function getFieldData(VersionInfo $versionInfo, Field $field, array $context)
     {
         // @todo: This should already retrieve the ContentType ID
@@ -54,7 +45,7 @@ class KeywordStorage extends GatewayBasedStorage
     }
 
     /**
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
      * @param array $fieldIds
      * @param array $context
      *
@@ -80,14 +71,16 @@ class KeywordStorage extends GatewayBasedStorage
     }
 
     /**
-     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
-     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      * @param array $context
      *
-     * @return \eZ\Publish\SPI\Search\Field[]|null
+     * @return \Ibexa\Contracts\Core\Search\Field[]|null
      */
     public function getIndexData(VersionInfo $versionInfo, Field $field, array $context)
     {
         return null;
     }
 }
+
+class_alias(KeywordStorage::class, 'eZ\Publish\Core\FieldType\Keyword\KeywordStorage');

@@ -6,46 +6,46 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Limitation;
+namespace Ibexa\Core\Limitation;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\CriterionInterface;
-use eZ\Publish\API\Repository\Values\User\Limitation as APILimitationValue;
-use eZ\Publish\API\Repository\Values\User\Limitation\LanguageLimitation as APILanguageLimitation;
-use eZ\Publish\API\Repository\Values\User\UserReference as APIUserReference;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\SPI\Limitation\Target;
-use eZ\Publish\SPI\Limitation\TargetAwareType as SPITargetAwareLimitationType;
-use eZ\Publish\SPI\Persistence\Content\Handler as SPIPersistenceContentHandler;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as SPIPersistenceLanguageHandler;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo as SPIVersionInfo;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitationValue;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation as APILanguageLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Limitation\TargetAwareType as SPITargetAwareLimitationType;
+use Ibexa\Contracts\Core\Persistence\Content\Handler as SPIPersistenceContentHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as SPIPersistenceLanguageHandler;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo as SPIVersionInfo;
 
 /**
  * LanguageLimitation is a Content limitation.
  */
 class LanguageLimitationType implements SPITargetAwareLimitationType
 {
-    /** @var \eZ\Publish\SPI\Persistence\Content\Language\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Language\Handler */
     private $persistenceLanguageHandler;
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Handler */
     private $persistenceContentHandler;
 
-    /** @var \eZ\Publish\Core\Limitation\LanguageLimitation\VersionTargetEvaluator[] */
+    /** @var \Ibexa\Core\Limitation\LanguageLimitation\VersionTargetEvaluator[] */
     private $versionTargetEvaluators;
 
     /**
-     * @param \eZ\Publish\SPI\Persistence\Content\Language\Handler $persistenceLanguageHandler
-     * @param \eZ\Publish\SPI\Persistence\Content\Handler $persistenceContentHandler
-     * @param \eZ\Publish\Core\Limitation\LanguageLimitation\VersionTargetEvaluator[] $versionTargetEvaluators
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Language\Handler $persistenceLanguageHandler
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Handler $persistenceContentHandler
+     * @param \Ibexa\Core\Limitation\LanguageLimitation\VersionTargetEvaluator[] $versionTargetEvaluators
      */
     public function __construct(
         SPIPersistenceLanguageHandler $persistenceLanguageHandler,
@@ -62,9 +62,9 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
      *
      * Makes sure LimitationValue object and ->limitationValues is of correct type.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitationValue
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitationValue
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If the value does not match the expected type/structure
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException If the value does not match the expected type/structure
      */
     public function acceptValue(APILimitationValue $limitationValue): void
     {
@@ -98,9 +98,9 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
      *
      * Make sure {@link acceptValue()} is checked first!
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitationValue
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitationValue
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      */
     public function validate(APILimitationValue $limitationValue): array
     {
@@ -130,7 +130,7 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
      *
      * @param array[] $limitationValues
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Limitation
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation
      */
     public function buildValue(array $limitationValues): APILimitationValue
     {
@@ -173,8 +173,8 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $object
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $object
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $value
      *
      * @return bool|null
      */
@@ -212,8 +212,8 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
     /**
      * Evaluate language codes of allowed translations for ContentCreateStruct.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentCreateStruct $object
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct $object
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $value
      *
      * @return bool|null
      */
@@ -232,8 +232,8 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
     /**
      * Evaluate permissions to create new Version.
      *
-     * @param \eZ\Publish\SPI\Limitation\Target\Version $version
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $value
+     * @param \Ibexa\Contracts\Core\Limitation\Target\Version $version
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $value
      *
      * @return bool|null
      */
@@ -258,7 +258,7 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
     /**
      * Get unique list of language codes for all used translations, including mainLanguageCode.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentCreateStruct $contentCreateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct $contentCreateStruct
      *
      * @return string[]
      */
@@ -276,12 +276,12 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
     /**
      * Returns Criterion for use in find() query.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $value
-     * @param \eZ\Publish\API\Repository\Values\User\UserReference $currentUser
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserReference $currentUser
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Query\CriterionInterface
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function getCriterion(
         APILimitationValue $value,
@@ -309,3 +309,5 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
         return [];
     }
 }
+
+class_alias(LanguageLimitationType::class, 'eZ\Publish\Core\Limitation\LanguageLimitationType');

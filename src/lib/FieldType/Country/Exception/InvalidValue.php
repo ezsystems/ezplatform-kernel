@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Country\Exception;
+namespace Ibexa\Core\FieldType\Country\Exception;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * Exception thrown if an invalid identifier is used for a country.
@@ -23,3 +23,5 @@ class InvalidValue extends InvalidArgumentException
         parent::__construct('$value', "'" . var_export($value, true) . "' is not a valid country identifier");
     }
 }
+
+class_alias(InvalidValue::class, 'eZ\Publish\Core\FieldType\Country\Exception\InvalidValue');

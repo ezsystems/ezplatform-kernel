@@ -6,26 +6,26 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Values\ContentType;
+namespace Ibexa\Core\Repository\Values\ContentType;
 
 use ArrayIterator;
 use BadMethodCallException;
 use Closure;
 use Iterator;
-use eZ\Publish\API\Repository\Exceptions\OutOfBoundsException;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCollection as FieldDefinitionCollectionInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\OutOfBoundsException;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection as FieldDefinitionCollectionInterface;
 
 final class FieldDefinitionCollection implements FieldDefinitionCollectionInterface
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[] */
     private $fieldDefinitions;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[] */
     private $fieldDefinitionsByIdentifier;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition[]
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[]
      */
     public function __construct(iterable $fieldDefinitions = [])
     {
@@ -193,3 +193,5 @@ final class FieldDefinitionCollection implements FieldDefinitionCollectionInterf
         throw new BadMethodCallException(self::class . ' is read-only!');
     }
 }
+
+class_alias(FieldDefinitionCollection::class, 'eZ\Publish\Core\Repository\Values\ContentType\FieldDefinitionCollection');

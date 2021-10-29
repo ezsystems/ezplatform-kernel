@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Locale;
+namespace Ibexa\Core\MVC\Symfony\Locale;
 
 use Psr\Log\LoggerInterface;
 
@@ -73,3 +73,5 @@ class LocaleConverter implements LocaleConverterInterface
         return $this->reverseConversionMap[$posixLocale];
     }
 }
+
+class_alias(LocaleConverter::class, 'eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverter');

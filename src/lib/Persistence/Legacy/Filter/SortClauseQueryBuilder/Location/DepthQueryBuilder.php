@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\SortClauseQueryBuilder\Location;
+namespace Ibexa\Core\Persistence\Legacy\Filter\SortClauseQueryBuilder\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
 
 /**
  * @internal
@@ -26,3 +26,5 @@ final class DepthQueryBuilder extends BaseLocationSortClauseQueryBuilder
         return 'location.depth';
     }
 }
+
+class_alias(DepthQueryBuilder::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\SortClauseQueryBuilder\Location\DepthQueryBuilder');

@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Content;
+namespace Ibexa\Core\Search\Legacy\Content;
 
 use Doctrine\DBAL\Connection;
 use Exception;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\Core\Search\Common\IncrementalIndexer;
-use eZ\Publish\Core\Search\Legacy\Content\Handler as LegacySearchHandler;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Core\Search\Common\IncrementalIndexer;
+use Ibexa\Core\Search\Legacy\Content\Handler as LegacySearchHandler;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
 use Psr\Log\LoggerInterface;
 
 class Indexer extends IncrementalIndexer
@@ -61,3 +61,5 @@ class Indexer extends IncrementalIndexer
         $this->searchHandler->purgeIndex();
     }
 }
+
+class_alias(Indexer::class, 'eZ\Publish\Core\Search\Legacy\Content\Indexer');

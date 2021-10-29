@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Values\ContentType;
 
 /**
  * This class represents a draft of a content type.
@@ -14,3 +14,5 @@ namespace eZ\Publish\API\Repository\Values\ContentType;
 abstract class ContentTypeDraft extends ContentType
 {
 }
+
+class_alias(ContentTypeDraft::class, 'eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft');

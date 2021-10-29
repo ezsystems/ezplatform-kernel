@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Event;
+namespace Ibexa\Core\MVC\Symfony\Event;
 
 use Symfony\Component\Console\Event\ConsoleEvent;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,3 +20,5 @@ class ConsoleInitEvent extends ConsoleEvent
         parent::__construct(null, $input, $output);
     }
 }
+
+class_alias(ConsoleInitEvent::class, 'eZ\Publish\Core\MVC\Symfony\Event\ConsoleInitEvent');

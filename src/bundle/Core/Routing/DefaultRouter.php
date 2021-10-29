@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Routing;
+namespace Ibexa\Bundle\Core\Routing;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\URILexer;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess\URILexer;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
@@ -27,10 +27,10 @@ class DefaultRouter extends Router implements RequestMatcherInterface, SiteAcces
 
     protected $nonSiteAccessAwareRoutes = [];
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     protected $configResolver;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface */
     protected $siteAccessRouter;
 
     public function setConfigResolver(ConfigResolverInterface $configResolver)
@@ -55,7 +55,7 @@ class DefaultRouter extends Router implements RequestMatcherInterface, SiteAcces
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface $siteAccessRouter
+     * @param \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface $siteAccessRouter
      */
     public function setSiteAccessRouter(SiteAccessRouterInterface $siteAccessRouter)
     {
@@ -144,7 +144,7 @@ class DefaultRouter extends Router implements RequestMatcherInterface, SiteAcces
     /**
      * Merges context from $simplifiedRequest into a clone of the current context.
      *
-     * @param \eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest $simplifiedRequest
+     * @param \Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest $simplifiedRequest
      *
      * @return \Symfony\Component\Routing\RequestContext
      */
@@ -177,3 +177,5 @@ class DefaultRouter extends Router implements RequestMatcherInterface, SiteAcces
         return $context;
     }
 }
+
+class_alias(DefaultRouter::class, 'eZ\Bundle\EzPublishCoreBundle\Routing\DefaultRouter');

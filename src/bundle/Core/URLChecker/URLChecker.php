@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\URLChecker;
+namespace Ibexa\Bundle\Core\URLChecker;
 
-use eZ\Publish\API\Repository\URLService as URLServiceInterface;
-use eZ\Publish\API\Repository\Values\URL\SearchResult;
-use eZ\Publish\API\Repository\Values\URL\URLQuery;
+use Ibexa\Contracts\Core\Repository\URLService as URLServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\URL\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
@@ -16,17 +16,17 @@ class URLChecker implements URLCheckerInterface
 {
     use LoggerAwareTrait;
 
-    /** @var \eZ\Publish\API\Repository\URLService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLService */
     protected $urlService;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\URLChecker\URLHandlerRegistryInterface */
+    /** @var \Ibexa\Bundle\Core\URLChecker\URLHandlerRegistryInterface */
     protected $handlerRegistry;
 
     /**
      * URLChecker constructor.
      *
-     * @param \eZ\Publish\API\Repository\URLService $urlService
-     * @param \eZ\Bundle\EzPublishCoreBundle\URLChecker\URLHandlerRegistryInterface $handlerRegistry
+     * @param \Ibexa\Contracts\Core\Repository\URLService $urlService
+     * @param \Ibexa\Bundle\Core\URLChecker\URLHandlerRegistryInterface $handlerRegistry
      */
     public function __construct(
         URLServiceInterface $urlService,
@@ -57,7 +57,7 @@ class URLChecker implements URLCheckerInterface
     /**
      * Fetch URLs to check.
      *
-     * @param \eZ\Publish\API\Repository\Values\URL\URLQuery $query
+     * @param \Ibexa\Contracts\Core\Repository\Values\URL\URLQuery $query
      *
      * @return array
      */
@@ -71,7 +71,7 @@ class URLChecker implements URLCheckerInterface
     /**
      * Group URLs by schema.
      *
-     * @param \eZ\Publish\API\Repository\Values\URL\SearchResult $urls
+     * @param \Ibexa\Contracts\Core\Repository\Values\URL\SearchResult $urls
      *
      * @return array
      */
@@ -95,3 +95,5 @@ class URLChecker implements URLCheckerInterface
         return $grouped;
     }
 }
+
+class_alias(URLChecker::class, 'eZ\Bundle\EzPublishCoreBundle\URLChecker\URLChecker');

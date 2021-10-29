@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Notification\Renderer;
+namespace Ibexa\Core\Notification\Renderer;
 
 class Registry
 {
-    /** @var \eZ\Publish\Core\Notification\Renderer\NotificationRenderer[] */
+    /** @var \Ibexa\Core\Notification\Renderer\NotificationRenderer[] */
     protected $registry = [];
 
     /**
      * @param string $alias
-     * @param \eZ\Publish\Core\Notification\Renderer\NotificationRenderer $notificationRenderer
+     * @param \Ibexa\Core\Notification\Renderer\NotificationRenderer $notificationRenderer
      */
     public function addRenderer(string $alias, NotificationRenderer $notificationRenderer): void
     {
@@ -25,7 +25,7 @@ class Registry
     /**
      * @param string $alias
      *
-     * @return \eZ\Publish\Core\Notification\Renderer\NotificationRenderer
+     * @return \Ibexa\Core\Notification\Renderer\NotificationRenderer
      */
     public function getRenderer(string $alias): NotificationRenderer
     {
@@ -42,3 +42,5 @@ class Registry
         return isset($this->registry[$alias]);
     }
 }
+
+class_alias(Registry::class, 'eZ\Publish\Core\Notification\Renderer\Registry');

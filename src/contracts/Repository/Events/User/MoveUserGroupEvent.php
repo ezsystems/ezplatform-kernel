@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\User;
+namespace Ibexa\Contracts\Core\Repository\Events\User;
 
-use eZ\Publish\API\Repository\Values\User\UserGroup;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class MoveUserGroupEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\UserGroup */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroup */
     private $userGroup;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\UserGroup */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroup */
     private $newParent;
 
     public function __construct(
@@ -37,3 +37,5 @@ final class MoveUserGroupEvent extends AfterEvent
         return $this->newParent;
     }
 }
+
+class_alias(MoveUserGroupEvent::class, 'eZ\Publish\API\Repository\Events\User\MoveUserGroupEvent');

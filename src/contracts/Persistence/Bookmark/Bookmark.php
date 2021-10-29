@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Persistence\Bookmark;
+namespace Ibexa\Contracts\Core\Persistence\Bookmark;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 class Bookmark extends ValueObject
 {
@@ -42,3 +42,5 @@ class Bookmark extends ValueObject
      */
     public $userId;
 }
+
+class_alias(Bookmark::class, 'eZ\Publish\SPI\Persistence\Bookmark\Bookmark');

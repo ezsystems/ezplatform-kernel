@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\URLChecker;
+namespace Ibexa\Bundle\Core\URLChecker;
 
 interface URLHandlerRegistryInterface
 {
@@ -12,7 +12,7 @@ interface URLHandlerRegistryInterface
      * Adds scheme handler.
      *
      * @param string $scheme
-     * @param \eZ\Bundle\EzPublishCoreBundle\URLChecker\URLHandlerInterface $handler
+     * @param \Ibexa\Bundle\Core\URLChecker\URLHandlerInterface $handler
      */
     public function addHandler($scheme, URLHandlerInterface $handler);
 
@@ -30,9 +30,11 @@ interface URLHandlerRegistryInterface
      *
      * @param string $scheme
      *
-     * @return \eZ\Bundle\EzPublishCoreBundle\URLChecker\URLHandlerInterface
+     * @return \Ibexa\Bundle\Core\URLChecker\URLHandlerInterface
      *
      * @throw \InvalidArgumentException When scheme isn't supported
      */
     public function getHandler($scheme);
 }
+
+class_alias(URLHandlerRegistryInterface::class, 'eZ\Bundle\EzPublishCoreBundle\URLChecker\URLHandlerRegistryInterface');

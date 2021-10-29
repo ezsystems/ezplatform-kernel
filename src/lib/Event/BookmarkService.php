@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Event;
+namespace Ibexa\Core\Event;
 
-use eZ\Publish\API\Repository\BookmarkService as BookmarkServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Events\Bookmark\BeforeCreateBookmarkEvent;
-use eZ\Publish\API\Repository\Events\Bookmark\BeforeDeleteBookmarkEvent;
-use eZ\Publish\API\Repository\Events\Bookmark\CreateBookmarkEvent;
-use eZ\Publish\API\Repository\Events\Bookmark\DeleteBookmarkEvent;
-use eZ\Publish\SPI\Repository\Decorator\BookmarkServiceDecorator;
+use Ibexa\Contracts\Core\Repository\BookmarkService as BookmarkServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Events\Bookmark\BeforeCreateBookmarkEvent;
+use Ibexa\Contracts\Core\Repository\Events\Bookmark\BeforeDeleteBookmarkEvent;
+use Ibexa\Contracts\Core\Repository\Events\Bookmark\CreateBookmarkEvent;
+use Ibexa\Contracts\Core\Repository\Events\Bookmark\DeleteBookmarkEvent;
+use Ibexa\Contracts\Core\Repository\Decorator\BookmarkServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class BookmarkService extends BookmarkServiceDecorator
@@ -63,3 +63,5 @@ class BookmarkService extends BookmarkServiceDecorator
         $this->eventDispatcher->dispatch(new DeleteBookmarkEvent(...$eventData));
     }
 }
+
+class_alias(BookmarkService::class, 'eZ\Publish\Core\Event\BookmarkService');

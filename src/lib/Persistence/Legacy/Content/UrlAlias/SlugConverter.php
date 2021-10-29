@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias;
+namespace Ibexa\Core\Persistence\Legacy\Content\UrlAlias;
 
-use eZ\Publish\Core\Persistence\TransformationProcessor;
+use Ibexa\Core\Persistence\TransformationProcessor;
 
 /**
  * URL slug converter.
@@ -174,7 +174,7 @@ class SlugConverter
     /**
      * Transformation processor to normalize URL strings.
      *
-     * @var \eZ\Publish\Core\Persistence\TransformationProcessor
+     * @var \Ibexa\Core\Persistence\TransformationProcessor
      */
     protected $transformationProcessor;
 
@@ -184,7 +184,7 @@ class SlugConverter
     /**
      * Creates a new URL slug converter.
      *
-     * @param \eZ\Publish\Core\Persistence\TransformationProcessor $transformationProcessor
+     * @param \Ibexa\Core\Persistence\TransformationProcessor $transformationProcessor
      * @param array $configuration
      */
     public function __construct(
@@ -380,3 +380,5 @@ class SlugConverter
         return '-';
     }
 }
+
+class_alias(SlugConverter::class, 'eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter');

@@ -6,8 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Values\Trash\Query;
+namespace Ibexa\Contracts\Core\Repository\Values\Trash\Query;
 
 interface SortClause
 {
 }
+
+class_alias(SortClause::class, 'eZ\Publish\SPI\Repository\Values\Trash\Query\SortClause');

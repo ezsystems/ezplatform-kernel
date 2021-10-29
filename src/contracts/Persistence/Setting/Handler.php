@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Persistence\Setting;
+namespace Ibexa\Contracts\Core\Persistence\Setting;
 
 /**
  * @internal
@@ -35,3 +35,5 @@ interface Handler
         string $identifier
     ): void;
 }
+
+class_alias(Handler::class, 'eZ\Publish\SPI\Persistence\Setting\Handler');

@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Common\FieldValueMapper;
+namespace Ibexa\Core\Search\Common\FieldValueMapper;
 
-use eZ\Publish\SPI\Search\FieldType\MultipleIdentifierField;
-use eZ\Publish\SPI\Search\Field;
+use Ibexa\Contracts\Core\Search\FieldType\MultipleIdentifierField;
+use Ibexa\Contracts\Core\Search\Field;
 
 /**
  * Common multiple identifier field value mapper implementation.
@@ -17,7 +17,7 @@ class MultipleIdentifierMapper extends IdentifierMapper
     /**
      * Check if field can be mapped.
      *
-     * @param \eZ\Publish\SPI\Search\Field $field
+     * @param \Ibexa\Contracts\Core\Search\Field $field
      *
      * @return bool
      */
@@ -29,7 +29,7 @@ class MultipleIdentifierMapper extends IdentifierMapper
     /**
      * Map field value to a proper search engine representation.
      *
-     * @param \eZ\Publish\SPI\Search\Field $field
+     * @param \Ibexa\Contracts\Core\Search\Field $field
      *
      * @return mixed
      */
@@ -48,3 +48,5 @@ class MultipleIdentifierMapper extends IdentifierMapper
         return $values;
     }
 }
+
+class_alias(MultipleIdentifierMapper::class, 'eZ\Publish\Core\Search\Common\FieldValueMapper\MultipleIdentifierMapper');

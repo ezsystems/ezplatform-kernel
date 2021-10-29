@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Routing\JsRouting;
+namespace Ibexa\Bundle\Core\Routing\JsRouting;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use FOS\JsRoutingBundle\Extractor\ExposedRoutesExtractorInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Route;
@@ -95,3 +95,5 @@ class ExposedRoutesExtractor implements ExposedRoutesExtractorInterface
         return $this->innerExtractor->isRouteExposed($route, $name);
     }
 }
+
+class_alias(ExposedRoutesExtractor::class, 'eZ\Bundle\EzPublishCoreBundle\Routing\JsRouting\ExposedRoutesExtractor');

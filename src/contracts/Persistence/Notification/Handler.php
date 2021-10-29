@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Persistence\Notification;
+namespace Ibexa\Contracts\Core\Persistence\Notification;
 
-use eZ\Publish\API\Repository\Values\Notification\Notification as APINotification;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification as APINotification;
 
 interface Handler
 {
     /**
      * Store Notification ValueObject in persistent storage.
      *
-     * @param \eZ\Publish\SPI\Persistence\Notification\CreateStruct $createStruct
+     * @param \Ibexa\Contracts\Core\Persistence\Notification\CreateStruct $createStruct
      *
-     * @return \eZ\Publish\SPI\Persistence\Notification\Notification
+     * @return \Ibexa\Contracts\Core\Persistence\Notification\Notification
      */
     public function createNotification(CreateStruct $createStruct): Notification;
 
@@ -25,10 +25,10 @@ interface Handler
      * Update Notification ValueObject in persistent storage.
      * There's no edit feature but it's essential to mark Notification as read.
      *
-     * @param \eZ\Publish\API\Repository\Values\Notification\Notification $notification
-     * @param \eZ\Publish\SPI\Persistence\Notification\UpdateStruct $updateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\Notification\Notification $notification
+     * @param \Ibexa\Contracts\Core\Persistence\Notification\UpdateStruct $updateStruct
      *
-     * @return \eZ\Publish\SPI\Persistence\Notification\Notification
+     * @return \Ibexa\Contracts\Core\Persistence\Notification\Notification
      */
     public function updateNotification(APINotification $notification, UpdateStruct $updateStruct): Notification;
 
@@ -46,7 +46,7 @@ interface Handler
      *
      * @param int $notificationId
      *
-     * @return \eZ\Publish\SPI\Persistence\Notification\Notification
+     * @return \Ibexa\Contracts\Core\Persistence\Notification\Notification
      */
     public function getNotificationById(int $notificationId): Notification;
 
@@ -55,7 +55,7 @@ interface Handler
      * @param int $offset
      * @param int $limit
      *
-     * @return \eZ\Publish\SPI\Persistence\Notification\Notification[]
+     * @return \Ibexa\Contracts\Core\Persistence\Notification\Notification[]
      */
     public function loadUserNotifications(int $userId, int $offset, int $limit): array;
 
@@ -67,7 +67,9 @@ interface Handler
     public function countNotifications(int $currentUserId): int;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Notification\Notification $notification
+     * @param \Ibexa\Contracts\Core\Repository\Values\Notification\Notification $notification
      */
     public function delete(APINotification $notification): void;
 }
+
+class_alias(Handler::class, 'eZ\Publish\SPI\Persistence\Notification\Handler');

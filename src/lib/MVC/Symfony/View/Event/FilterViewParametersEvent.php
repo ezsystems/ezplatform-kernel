@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View\Event;
+namespace Ibexa\Core\MVC\Symfony\View\Event;
 
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Symfony\View\View;
 use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -20,7 +20,7 @@ class FilterViewParametersEvent extends Event
     /**
      * Copy of the view object that is being built.
      *
-     * @var \eZ\Publish\Core\MVC\Symfony\View\View
+     * @var \Ibexa\Core\MVC\Symfony\View\View
      */
     private $view;
 
@@ -85,3 +85,5 @@ class FilterViewParametersEvent extends Event
         return $this->view;
     }
 }
+
+class_alias(FilterViewParametersEvent::class, 'eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewParametersEvent');

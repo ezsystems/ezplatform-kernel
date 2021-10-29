@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Decorator;
+namespace Ibexa\Contracts\Core\Repository\Decorator;
 
-use eZ\Publish\API\Repository\TrashService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\TrashItem;
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResultList;
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult;
-use eZ\Publish\API\Repository\Values\Content\Trash\SearchResult;
+use Ibexa\Contracts\Core\Repository\TrashService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\SearchResult;
 
 abstract class TrashServiceDecorator implements TrashService
 {
-    /** @var \eZ\Publish\API\Repository\TrashService */
+    /** @var \Ibexa\Contracts\Core\Repository\TrashService */
     protected $innerService;
 
     public function __construct(TrashService $innerService)
@@ -58,3 +58,5 @@ abstract class TrashServiceDecorator implements TrashService
         return $this->innerService->findTrashItems($query);
     }
 }
+
+class_alias(TrashServiceDecorator::class, 'eZ\Publish\SPI\Repository\Decorator\TrashServiceDecorator');

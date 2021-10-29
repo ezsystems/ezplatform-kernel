@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishLegacySearchEngineBundle;
+namespace Ibexa\Bundle\LegacySearchEngine;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use eZ\Publish\Core\Base\Container\Compiler\Search\Legacy\CriteriaConverterPass;
-use eZ\Publish\Core\Base\Container\Compiler\Search\Legacy\CriterionFieldValueHandlerRegistryPass;
-use eZ\Publish\Core\Base\Container\Compiler\Search\Legacy\SortClauseConverterPass;
-use eZ\Publish\Core\Base\Container\Compiler\Search\FieldRegistryPass;
+use Ibexa\Core\Base\Container\Compiler\Search\Legacy\CriteriaConverterPass;
+use Ibexa\Core\Base\Container\Compiler\Search\Legacy\CriterionFieldValueHandlerRegistryPass;
+use Ibexa\Core\Base\Container\Compiler\Search\Legacy\SortClauseConverterPass;
+use Ibexa\Core\Base\Container\Compiler\Search\FieldRegistryPass;
 
 class EzPublishLegacySearchEngineBundle extends Bundle
 {
@@ -34,3 +34,5 @@ class EzPublishLegacySearchEngineBundle extends Bundle
         return $this->extension;
     }
 }
+
+class_alias(EzPublishLegacySearchEngineBundle::class, 'eZ\Bundle\EzPublishLegacySearchEngineBundle\EzPublishLegacySearchEngineBundle');

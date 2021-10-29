@@ -4,25 +4,25 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\URL\Query;
+namespace Ibexa\Core\Persistence\Legacy\URL\Query;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
 
 class CriteriaConverter
 {
     /**
      * Criterion handlers.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler[]
+     * @var \Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler[]
      */
     protected $handlers;
 
     /**
      * Construct from an optional array of Criterion handlers.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler[] $handlers
+     * @param \Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler[] $handlers
      */
     public function __construct(array $handlers = [])
     {
@@ -32,7 +32,7 @@ class CriteriaConverter
     /**
      * Adds handler.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler $handler
+     * @param \Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler $handler
      */
     public function addHandler(CriterionHandler $handler)
     {
@@ -42,7 +42,7 @@ class CriteriaConverter
     /**
      * Generic converter of criteria into query fragments.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException if Criterion is not applicable to its target
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException if Criterion is not applicable to its target
      *
      * @return \Doctrine\DBAL\Query\Expression\CompositeExpression|string
      */
@@ -59,3 +59,5 @@ class CriteriaConverter
         );
     }
 }
+
+class_alias(CriteriaConverter::class, 'eZ\Publish\Core\Persistence\Legacy\URL\Query\CriteriaConverter');

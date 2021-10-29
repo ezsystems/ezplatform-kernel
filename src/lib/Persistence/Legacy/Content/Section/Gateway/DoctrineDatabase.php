@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\Content\Section\Gateway;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
-use eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway;
+use Ibexa\Core\Persistence\Legacy\Content\Section\Gateway;
 
 /**
  * @internal Gateway implementation is considered internal. Use Persistence Section Handler instead.
  *
- * @see \eZ\Publish\SPI\Persistence\Content\Section\Handler
+ * @see \Ibexa\Contracts\Core\Persistence\Content\Section\Handler
  */
 final class DoctrineDatabase extends Gateway
 {
@@ -232,3 +232,5 @@ final class DoctrineDatabase extends Gateway
         $query->execute();
     }
 }
+
+class_alias(DoctrineDatabase::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase');

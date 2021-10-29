@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Component\Serializer;
+namespace Ibexa\Core\MVC\Symfony\Component\Serializer;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\URIElement;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\URIElement;
 
 final class URIElementNormalizer extends AbstractPropertyWhitelistNormalizer
 {
@@ -18,10 +18,12 @@ final class URIElementNormalizer extends AbstractPropertyWhitelistNormalizer
     }
 
     /**
-     * @see \eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\URIElement::__sleep
+     * @see \Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\URIElement::__sleep
      */
     protected function getAllowedProperties(): array
     {
         return ['elementNumber', 'uriElements'];
     }
 }
+
+class_alias(URIElementNormalizer::class, 'eZ\Publish\Core\MVC\Symfony\Component\Serializer\URIElementNormalizer');

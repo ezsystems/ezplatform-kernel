@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias;
+namespace Ibexa\Core\Persistence\Legacy\Content\UrlAlias;
 
 /**
  * UrlAlias Gateway.
@@ -52,7 +52,7 @@ abstract class Gateway
     /**
      * Load paged list of global aliases.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the given language doesn't exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the given language doesn't exist
      */
     abstract public function listGlobalEntries(
         ?string $languageCode = null,
@@ -128,7 +128,7 @@ abstract class Gateway
     /**
      * Load path data identified by given $id.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     abstract public function loadPathData(int $id): array;
 
@@ -244,3 +244,5 @@ abstract class Gateway
      */
     abstract public function repairBrokenUrlAliasesForLocation(int $locationId): void;
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway');

@@ -10,26 +10,26 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Decorator;
+namespace Ibexa\Contracts\Core\Repository\Decorator;
 
-use eZ\Publish\API\Repository\RoleService;
-use eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation;
-use eZ\Publish\API\Repository\Values\User\PolicyCreateStruct;
-use eZ\Publish\API\Repository\Values\User\PolicyDraft;
-use eZ\Publish\API\Repository\Values\User\PolicyUpdateStruct;
-use eZ\Publish\API\Repository\Values\User\Role;
-use eZ\Publish\API\Repository\Values\User\RoleAssignment;
-use eZ\Publish\API\Repository\Values\User\RoleCopyStruct;
-use eZ\Publish\API\Repository\Values\User\RoleCreateStruct;
-use eZ\Publish\API\Repository\Values\User\RoleDraft;
-use eZ\Publish\API\Repository\Values\User\RoleUpdateStruct;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Values\User\UserGroup;
-use eZ\Publish\SPI\Limitation\Type;
+use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\PolicyCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft;
+use Ibexa\Contracts\Core\Repository\Values\User\PolicyUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleCopyStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleDraft;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
+use Ibexa\Contracts\Core\Limitation\Type;
 
 abstract class RoleServiceDecorator implements RoleService
 {
-    /** @var \eZ\Publish\API\Repository\RoleService */
+    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
     protected $innerService;
 
     public function __construct(RoleService $innerService)
@@ -205,3 +205,5 @@ abstract class RoleServiceDecorator implements RoleService
         return $this->innerService->getLimitationTypesByModuleFunction($module, $function);
     }
 }
+
+class_alias(RoleServiceDecorator::class, 'eZ\Publish\SPI\Repository\Decorator\RoleServiceDecorator');

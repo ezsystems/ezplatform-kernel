@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\User;
+namespace Ibexa\Contracts\Core\Repository\Events\User;
 
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Values\User\UserGroup;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 
 final class BeforeAssignUserToUserGroupEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\User */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User */
     private $user;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\UserGroup */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroup */
     private $userGroup;
 
     public function __construct(User $user, UserGroup $userGroup)
@@ -36,3 +36,5 @@ final class BeforeAssignUserToUserGroupEvent extends BeforeEvent
         return $this->userGroup;
     }
 }
+
+class_alias(BeforeAssignUserToUserGroupEvent::class, 'eZ\Publish\API\Repository\Events\User\BeforeAssignUserToUserGroupEvent');

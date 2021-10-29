@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\PlatformInstallerBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\Installer\DependencyInjection\Compiler;
 
-use EzSystems\PlatformInstallerBundle\Command\InstallPlatformCommand;
+use Ibexa\Bundle\Installer\Command\InstallPlatformCommand;
 use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -47,3 +47,5 @@ class InstallerTagPass implements CompilerPassInterface
         $installCommandDef->replaceArgument('$installers', $installers);
     }
 }
+
+class_alias(InstallerTagPass::class, 'EzSystems\PlatformInstallerBundle\DependencyInjection\Compiler\InstallerTagPass');

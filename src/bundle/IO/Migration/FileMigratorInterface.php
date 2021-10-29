@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Migration;
+namespace Ibexa\Bundle\IO\Migration;
 
-use eZ\Publish\SPI\IO\BinaryFile;
+use Ibexa\Contracts\Core\IO\BinaryFile;
 
 /**
  * Interface for file migrators, mandates the migrateFile method.
@@ -22,3 +22,5 @@ interface FileMigratorInterface extends MigrationHandlerInterface
      */
     public function migrateFile(BinaryFile $binaryFile);
 }
+
+class_alias(FileMigratorInterface::class, 'eZ\Bundle\EzPublishIOBundle\Migration\FileMigratorInterface');

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Locale;
+namespace Ibexa\Core\MVC\Symfony\Locale;
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -31,3 +31,5 @@ interface UserLanguagePreferenceProviderInterface
      */
     public function getPreferredLanguages(): array;
 }
+
+class_alias(UserLanguagePreferenceProviderInterface::class, 'eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface');

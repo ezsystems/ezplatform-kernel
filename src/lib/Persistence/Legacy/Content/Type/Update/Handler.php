@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Type\Update;
+namespace Ibexa\Core\Persistence\Legacy\Content\Type\Update;
 
-use eZ\Publish\SPI\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
 
 /**
  * Base class for update handlers.
@@ -32,3 +32,5 @@ abstract class Handler
      */
     abstract public function publishNewType(Type $toType, int $newStatus): void;
 }
+
+class_alias(Handler::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler');

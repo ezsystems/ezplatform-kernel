@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\SortClauseQueryBuilder\Location;
+namespace Ibexa\Core\Persistence\Legacy\Filter\SortClauseQueryBuilder\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
 
 class VisibilityQueryBuilder extends BaseLocationSortClauseQueryBuilder
 {
@@ -23,3 +23,5 @@ class VisibilityQueryBuilder extends BaseLocationSortClauseQueryBuilder
         return 'location.is_invisible';
     }
 }
+
+class_alias(VisibilityQueryBuilder::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\SortClauseQueryBuilder\Location\VisibilityQueryBuilder');

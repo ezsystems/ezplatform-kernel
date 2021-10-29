@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\SortClause\Trash;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Trash;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\SPI\Repository\Values\Trash\Query\SortClause as TrashSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Trash\Query\SortClause as TrashSortClause;
 
 class DateTrashed extends SortClause implements TrashSortClause
 {
@@ -19,3 +19,5 @@ class DateTrashed extends SortClause implements TrashSortClause
         parent::__construct('trashed', $sortDirection);
     }
 }
+
+class_alias(DateTrashed::class, 'eZ\Publish\API\Repository\Values\Content\Query\SortClause\Trash\DateTrashed');

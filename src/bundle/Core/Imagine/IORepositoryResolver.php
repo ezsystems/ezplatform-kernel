@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine;
+namespace Ibexa\Bundle\Core\Imagine;
 
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\Core\IO\Values\MissingBinaryFile;
-use eZ\Publish\SPI\Variation\VariationPurger;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\Values\MissingBinaryFile;
+use Ibexa\Contracts\Core\Variation\VariationPurger;
 use Liip\ImagineBundle\Binary\BinaryInterface;
 use Liip\ImagineBundle\Exception\Imagine\Cache\Resolver\NotResolvableException;
 use Liip\ImagineBundle\Imagine\Cache\Resolver\ResolverInterface;
@@ -23,7 +23,7 @@ class IORepositoryResolver implements ResolverInterface
 {
     const VARIATION_ORIGINAL = 'original';
 
-    /** @var \eZ\Publish\Core\IO\IOServiceInterface */
+    /** @var \Ibexa\Core\IO\IOServiceInterface */
     private $ioService;
 
     /** @var \Symfony\Component\Routing\RequestContext */
@@ -31,10 +31,10 @@ class IORepositoryResolver implements ResolverInterface
 
     /** @var FilterConfiguration */
     private $filterConfiguration;
-    /** @var \eZ\Publish\SPI\Variation\VariationPurger */
+    /** @var \Ibexa\Contracts\Core\Variation\VariationPurger */
     private $variationPurger;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator */
+    /** @var \Ibexa\Bundle\Core\Imagine\VariationPathGenerator */
     private $variationPathGenerator;
 
     public function __construct(
@@ -175,3 +175,5 @@ class IORepositoryResolver implements ResolverInterface
         );
     }
 }
+
+class_alias(IORepositoryResolver::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\IORepositoryResolver');

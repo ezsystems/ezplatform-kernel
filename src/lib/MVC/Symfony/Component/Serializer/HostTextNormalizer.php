@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Component\Serializer;
+namespace Ibexa\Core\MVC\Symfony\Component\Serializer;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\HostText;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\HostText;
 
 final class HostTextNormalizer extends AbstractPropertyWhitelistNormalizer
 {
@@ -22,3 +22,5 @@ final class HostTextNormalizer extends AbstractPropertyWhitelistNormalizer
         return $data instanceof HostText;
     }
 }
+
+class_alias(HostTextNormalizer::class, 'eZ\Publish\Core\MVC\Symfony\Component\Serializer\HostTextNormalizer');

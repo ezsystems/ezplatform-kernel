@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\User;
+namespace Ibexa\Contracts\Core\Repository\Events\User;
 
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Values\User\UserCreateStruct;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\User\UserCreateStruct;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class CreateUserEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\UserCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserCreateStruct */
     private $userCreateStruct;
 
     /** @var array */
     private $parentGroups;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\User */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User */
     private $user;
 
     public function __construct(
@@ -48,3 +48,5 @@ final class CreateUserEvent extends AfterEvent
         return $this->user;
     }
 }
+
+class_alias(CreateUserEvent::class, 'eZ\Publish\API\Repository\Events\User\CreateUserEvent');

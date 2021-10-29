@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\IO\Exception;
+namespace Ibexa\Core\IO\Exception;
 
 use Exception;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException as BaseNotFoundException;
+use Ibexa\Core\Base\Exceptions\NotFoundException as BaseNotFoundException;
 
 class BinaryFileNotFoundException extends BaseNotFoundException
 {
@@ -16,3 +16,5 @@ class BinaryFileNotFoundException extends BaseNotFoundException
         parent::__construct('BinaryFile', $path, $previous);
     }
 }
+
+class_alias(BinaryFileNotFoundException::class, 'eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException');

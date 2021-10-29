@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\SiteAccess;
+namespace Ibexa\Contracts\Core\SiteAccess;
 
 /**
  * @internal
@@ -17,3 +17,5 @@ interface ConfigProcessor
 
     public function processSettingValue(string $value): string;
 }
+
+class_alias(ConfigProcessor::class, 'eZ\Publish\SPI\SiteAccess\ConfigProcessor');

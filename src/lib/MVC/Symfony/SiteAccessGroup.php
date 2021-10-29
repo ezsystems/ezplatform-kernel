@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony;
+namespace Ibexa\Core\MVC\Symfony;
 
 final class SiteAccessGroup
 {
@@ -28,3 +28,5 @@ final class SiteAccessGroup
         return $this->name;
     }
 }
+
+class_alias(SiteAccessGroup::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccessGroup');

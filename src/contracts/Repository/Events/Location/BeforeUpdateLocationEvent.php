@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Location;
+namespace Ibexa\Contracts\Core\Repository\Events\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\LocationUpdateStruct;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeUpdateLocationEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
     private $location;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\LocationUpdateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct */
     private $locationUpdateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
     private $updatedLocation;
 
     public function __construct(Location $location, LocationUpdateStruct $locationUpdateStruct)
@@ -59,3 +59,5 @@ final class BeforeUpdateLocationEvent extends BeforeEvent
         return $this->updatedLocation instanceof Location;
     }
 }
+
+class_alias(BeforeUpdateLocationEvent::class, 'eZ\Publish\API\Repository\Events\Location\BeforeUpdateLocationEvent');

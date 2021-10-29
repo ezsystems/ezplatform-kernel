@@ -4,26 +4,26 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\ApiLoader;
+namespace Ibexa\Bundle\Core\ApiLoader;
 
-use eZ\Publish\API\Repository\LanguageResolver;
-use eZ\Publish\API\Repository\PasswordHashService;
-use eZ\Publish\API\Repository\PermissionService;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\Core\FieldType\FieldTypeRegistry;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\Repository\Permission\LimitationService;
-use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
-use eZ\Publish\Core\Repository\Helper\RelationProcessor;
-use eZ\Publish\Core\Repository\Mapper;
-use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
-use eZ\Publish\Core\Search\Common\BackgroundIndexer;
-use eZ\Publish\SPI\Persistence\Filter\Content\Handler as ContentFilteringHandler;
-use eZ\Publish\SPI\Persistence\Filter\Location\Handler as LocationFilteringHandler;
-use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
-use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
-use eZ\Publish\SPI\Repository\Validator\ContentValidator;
-use eZ\Publish\SPI\Search\Handler as SearchHandler;
+use Ibexa\Contracts\Core\Repository\LanguageResolver;
+use Ibexa\Contracts\Core\Repository\PasswordHashService;
+use Ibexa\Contracts\Core\Repository\PermissionService;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\Repository\Permission\LimitationService;
+use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
+use Ibexa\Core\Repository\Helper\RelationProcessor;
+use Ibexa\Core\Repository\Mapper;
+use Ibexa\Core\Repository\User\PasswordValidatorInterface;
+use Ibexa\Core\Search\Common\BackgroundIndexer;
+use Ibexa\Contracts\Core\Persistence\Filter\Content\Handler as ContentFilteringHandler;
+use Ibexa\Contracts\Core\Persistence\Filter\Location\Handler as LocationFilteringHandler;
+use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
+use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
+use Ibexa\Contracts\Core\Search\Handler as SearchHandler;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -33,7 +33,7 @@ class RepositoryFactory implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     /** @var string */
@@ -49,7 +49,7 @@ class RepositoryFactory implements ContainerAwareInterface
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    /** @var \eZ\Publish\API\Repository\LanguageResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageResolver */
     private $languageResolver;
 
     public function __construct(
@@ -128,3 +128,5 @@ class RepositoryFactory implements ContainerAwareInterface
         );
     }
 }
+
+class_alias(RepositoryFactory::class, 'eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryFactory');

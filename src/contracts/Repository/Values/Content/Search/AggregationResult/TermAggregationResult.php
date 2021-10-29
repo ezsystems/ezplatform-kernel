@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Search\AggregationResult;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult;
 
 use ArrayIterator;
 use Countable;
-use eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
-use eZ\Publish\API\Repository\Values\Content\Search\AggregationResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult;
 use Iterator;
 use IteratorAggregate;
 
 class TermAggregationResult extends AggregationResult implements IteratorAggregate, Countable
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Search\AggregationResult\TermAggregationResultEntry[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\TermAggregationResultEntry[] */
     private $entries;
 
     public function __construct(string $name, iterable $entries = [])
@@ -33,7 +33,7 @@ class TermAggregationResult extends AggregationResult implements IteratorAggrega
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Search\AggregationResult\TermAggregationResultEntry[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\TermAggregationResultEntry[]
      */
     public function getEntries(): iterable
     {
@@ -83,3 +83,5 @@ class TermAggregationResult extends AggregationResult implements IteratorAggrega
         return new self($aggregation->getName(), $entries);
     }
 }
+
+class_alias(TermAggregationResult::class, 'eZ\Publish\API\Repository\Values\Content\Search\AggregationResult\TermAggregationResult');

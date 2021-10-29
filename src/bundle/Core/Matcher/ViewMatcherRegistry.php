@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Bundle\EzPublishCoreBundle\Matcher;
+namespace Ibexa\Bundle\Core\Matcher;
 
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\MVC\Symfony\Matcher\ViewMatcherInterface;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\MVC\Symfony\Matcher\ViewMatcherInterface;
 
 final class ViewMatcherRegistry
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Matcher\ViewMatcherInterface[] */
+    /** @var \Ibexa\Core\MVC\Symfony\Matcher\ViewMatcherInterface[] */
     private $matchers;
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\Matcher\ViewMatcherInterface[] $matchers
+     * @param \Ibexa\Core\MVC\Symfony\Matcher\ViewMatcherInterface[] $matchers
      */
     public function __construct(array $matchers = [])
     {
@@ -32,9 +32,9 @@ final class ViewMatcherRegistry
     /**
      * @param string $matcherIdentifier
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\Matcher\ViewMatcherInterface
+     * @return \Ibexa\Core\MVC\Symfony\Matcher\ViewMatcherInterface
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function getMatcher(string $matcherIdentifier): ViewMatcherInterface
     {
@@ -45,3 +45,5 @@ final class ViewMatcherRegistry
         return $this->matchers[$matcherIdentifier];
     }
 }
+
+class_alias(ViewMatcherRegistry::class, 'eZ\Bundle\EzPublishCoreBundle\Matcher\ViewMatcherRegistry');

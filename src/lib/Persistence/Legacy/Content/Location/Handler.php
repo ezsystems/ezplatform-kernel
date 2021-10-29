@@ -4,21 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Location;
+namespace Ibexa\Core\Persistence\Legacy\Content\Location;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\Location;
-use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Location\Handler as BaseLocationHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Handler as ContentHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\TreeHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler as ObjectStateHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
-use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Location\Trashed;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as BaseLocationHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Handler as ContentHandler;
+use Ibexa\Core\Persistence\Legacy\Content\TreeHandler;
+use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Handler as ObjectStateHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
+use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Trashed;
 
 /**
  * The Location Handler interface defines operations on Location elements in the storage engine.
@@ -28,49 +28,38 @@ class Handler implements BaseLocationHandler
     /**
      * Gateway for handling location data.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway
      */
     protected $locationGateway;
 
     /**
      * Location locationMapper.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Location\Mapper
      */
     protected $locationMapper;
 
     /**
      * Content handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Handler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\Handler
      */
     protected $contentHandler;
 
     /**
      * Object state handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Handler
      */
     protected $objectStateHandler;
 
     /**
      * Tree handler.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\TreeHandler
+     * @var \Ibexa\Core\Persistence\Legacy\Content\TreeHandler
      */
     protected $treeHandler;
 
-    /**
-     * Construct from userGateway.
-     *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway $locationGateway
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper $locationMapper
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\Handler $contentHandler
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler $objectStateHandler
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\TreeHandler $treeHandler
-     *
-     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Location\Handler
-     */
     public function __construct(
         LocationGateway $locationGateway,
         LocationMapper $locationMapper,
@@ -152,7 +141,7 @@ class Handler implements BaseLocationHandler
      * @param int $contentId
      * @param int $rootLocationId
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location[]
      */
     public function loadLocationsByContent($contentId, $rootLocationId = null)
     {
@@ -171,9 +160,6 @@ class Handler implements BaseLocationHandler
         return $this->locationMapper->createLocationsFromRows($rows, '', new Trashed());
     }
 
-    /**
-     * @see \eZ\Publish\SPI\Persistence\Content\Location\Handler::loadParentLocationsForDraftContent
-     */
     public function loadParentLocationsForDraftContent($contentId)
     {
         $rows = $this->locationGateway->loadParentLocationsDataForDraftContent($contentId);
@@ -184,7 +170,7 @@ class Handler implements BaseLocationHandler
     /**
      * Returns an array of default content states with content state group id as key.
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\ObjectState[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\ObjectState[]
      */
     protected function getDefaultContentStates()
     {
@@ -203,7 +189,7 @@ class Handler implements BaseLocationHandler
 
     /**
      * @param Content $content
-     * @param \eZ\Publish\SPI\Persistence\Content\ObjectState[] $contentStates
+     * @param \Ibexa\Contracts\Core\Persistence\Content\ObjectState[] $contentStates
      */
     protected function setContentStates(Content $content, array $contentStates)
     {
@@ -233,7 +219,7 @@ class Handler implements BaseLocationHandler
      *
      * @return Location the newly created Location.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function copySubtree($sourceId, $destinationParentId, $newOwnerId = null)
     {
@@ -516,7 +502,7 @@ class Handler implements BaseLocationHandler
     /**
      * Updates an existing location.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct $location
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct $location
      * @param int $locationId
      */
     public function update(UpdateStruct $location, $locationId)
@@ -595,7 +581,7 @@ class Handler implements BaseLocationHandler
      * @param int $offset
      * @param int $limit
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location[]
      */
     public function loadAllLocations($offset, $limit)
     {
@@ -604,3 +590,5 @@ class Handler implements BaseLocationHandler
         return $this->locationMapper->createLocationsFromRows($rows);
     }
 }
+
+class_alias(Handler::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Location\Handler');

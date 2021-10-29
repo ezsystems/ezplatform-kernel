@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator;
+namespace Ibexa\Bundle\Core\Imagine\VariationPathGenerator;
 
-use eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator;
+use Ibexa\Bundle\Core\Imagine\VariationPathGenerator;
 
 /**
  * Puts variations in the an _alias/<aliasName> subfolder.
@@ -29,3 +29,5 @@ class AliasDirectoryVariationPathGenerator implements VariationPathGenerator
         );
     }
 }
+
+class_alias(AliasDirectoryVariationPathGenerator::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator\AliasDirectoryVariationPathGenerator');

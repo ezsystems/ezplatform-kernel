@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence\Content;
+namespace Ibexa\Contracts\Core\Persistence\Content;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 /**
  * SPI Persistence Content\Type value object.
@@ -104,12 +104,12 @@ class Type extends ValueObject
 
     /**
      * URL alias schema
-     * Same as {@link \eZ\Publish\SPI\Persistence\Content\Type::$nameSchema}.
+     * Same as {@link \Ibexa\Contracts\Core\Persistence\Content\Type::$nameSchema}.
      * If nothing is provided, $nameSchema will be used instead.
      *
      * @var string
      *
-     * @see \eZ\Publish\SPI\Persistence\Content\Type::$nameSchema
+     * @see \Ibexa\Contracts\Core\Persistence\Content\Type::$nameSchema
      */
     public $urlAliasSchema;
 
@@ -167,7 +167,7 @@ class Type extends ValueObject
     /**
      * Definitions for Content fields in this type.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition[]
+     * @var \Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition[]
      */
     public $fieldDefinitions = [];
 
@@ -188,3 +188,5 @@ class Type extends ValueObject
      */
     public $languageCodes = [];
 }
+
+class_alias(Type::class, 'eZ\Publish\SPI\Persistence\Content\Type');

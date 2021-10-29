@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Exception;
+namespace Ibexa\Core\Persistence\Legacy\Exception;
 
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 
 /**
  * Exception thrown when a Type to be loaded is not found.
@@ -22,8 +22,10 @@ class TypeNotFound extends NotFoundException
     public function __construct($typeId, $status)
     {
         parent::__construct(
-            'eZ\\Publish\\SPI\\Persistence\\Content\\Type',
+            'Persistence Content Type',
             sprintf('ID: %s, Status: %s', $typeId, $status)
         );
     }
 }
+
+class_alias(TypeNotFound::class, 'eZ\Publish\Core\Persistence\Legacy\Exception\TypeNotFound');

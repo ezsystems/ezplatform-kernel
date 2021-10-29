@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Target;
 
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Target;
 
 final class CustomFieldTarget extends Target
 {
@@ -20,3 +20,5 @@ final class CustomFieldTarget extends Target
         $this->fieldName = $fieldName;
     }
 }
+
+class_alias(CustomFieldTarget::class, 'eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target\CustomFieldTarget');

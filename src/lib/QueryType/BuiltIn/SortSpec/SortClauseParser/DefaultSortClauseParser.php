@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParser;
+namespace Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParser;
 
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Exception\UnsupportedSortClauseException;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface;
-use eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortSpecParserInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\Exception\UnsupportedSortClauseException;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParserInterface;
+use Ibexa\Core\QueryType\BuiltIn\SortSpec\SortSpecParserInterface;
 
 /**
  * Parser for sort clauses which expect only sort direction in constructor parameter.
@@ -42,3 +42,5 @@ final class DefaultSortClauseParser implements SortClauseParserInterface
         return isset($this->valueObjectClassMap[$name]);
     }
 }
+
+class_alias(DefaultSortClauseParser::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\DefaultSortClauseParser');

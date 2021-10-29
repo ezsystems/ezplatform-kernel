@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Common;
+namespace Ibexa\Core\Search\Common;
 
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
-use eZ\Publish\API\Repository\Values\Content\Query\CustomFieldInterface;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\CustomFieldInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use RuntimeException;
 
 /**
@@ -21,30 +21,30 @@ class FieldNameResolver
     /**
      * Field registry.
      *
-     * @var \eZ\Publish\Core\Search\Common\FieldRegistry
+     * @var \Ibexa\Core\Search\Common\FieldRegistry
      */
     protected $fieldRegistry;
 
     /**
      * Content type handler.
      *
-     * @var \eZ\Publish\SPI\Persistence\Content\Type\Handler
+     * @var \Ibexa\Contracts\Core\Persistence\Content\Type\Handler
      */
     protected $contentTypeHandler;
 
     /**
      * Field name generator.
      *
-     * @var \eZ\Publish\Core\Search\Common\FieldNameGenerator
+     * @var \Ibexa\Core\Search\Common\FieldNameGenerator
      */
     protected $nameGenerator;
 
     /**
      * Create from search field registry, content type handler and field name generator.
      *
-     * @param \eZ\Publish\Core\Search\Common\FieldRegistry $fieldRegistry
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\Handler $contentTypeHandler
-     * @param \eZ\Publish\Core\Search\Common\FieldNameGenerator $nameGenerator
+     * @param \Ibexa\Core\Search\Common\FieldRegistry $fieldRegistry
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\Handler $contentTypeHandler
+     * @param \Ibexa\Core\Search\Common\FieldNameGenerator $nameGenerator
      */
     public function __construct(
         FieldRegistry $fieldRegistry,
@@ -90,10 +90,10 @@ class FieldNameResolver
      * can be targeted.
      *
      * @deprecated since 6.2, use getFieldTypes instead
-     * @see \eZ\Publish\API\Repository\Values\Content\Query\CustomFieldInterface
-     * @see \eZ\Publish\SPI\FieldType\Indexable
+     * @see \Ibexa\Contracts\Core\Repository\Values\Content\Query\CustomFieldInterface
+     * @see \Ibexa\Contracts\Core\FieldType\Indexable
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterion
      * @param string $fieldDefinitionIdentifier
      * @param string|null $fieldTypeIdentifier
      * @param string|null $name
@@ -119,15 +119,15 @@ class FieldNameResolver
      * $name specific field type and field from its Indexable implementation
      * can be targeted.
      *
-     * @see \eZ\Publish\API\Repository\Values\Content\Query\CustomFieldInterface
-     * @see \eZ\Publish\SPI\FieldType\Indexable
+     * @see \Ibexa\Contracts\Core\Repository\Values\Content\Query\CustomFieldInterface
+     * @see \Ibexa\Contracts\Core\FieldType\Indexable
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterion
      * @param string $fieldDefinitionIdentifier
      * @param string|null $fieldTypeIdentifier
      * @param string|null $name
      *
-     * @return array<string, \eZ\Publish\SPI\Search\FieldType>
+     * @return array<string, \Ibexa\Contracts\Core\Search\FieldType>
      */
     public function getFieldTypes(
         Criterion $criterion,
@@ -180,10 +180,10 @@ class FieldNameResolver
      *
      * Will return null if no sortable field is found.
      *
-     * @see \eZ\Publish\API\Repository\Values\Content\Query\CustomFieldInterface
-     * @see \eZ\Publish\SPI\FieldType\Indexable
+     * @see \Ibexa\Contracts\Core\Repository\Values\Content\Query\CustomFieldInterface
+     * @see \Ibexa\Contracts\Core\FieldType\Indexable
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\SortClause $sortClause
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause $sortClause
      * @param string $contentTypeIdentifier
      * @param string $fieldDefinitionIdentifier
      * @param string|null $name
@@ -307,3 +307,5 @@ class FieldNameResolver
         return reset($fieldName);
     }
 }
+
+class_alias(FieldNameResolver::class, 'eZ\Publish\Core\Search\Common\FieldNameResolver');

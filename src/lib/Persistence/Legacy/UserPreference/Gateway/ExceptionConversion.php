@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway;
+namespace Ibexa\Core\Persistence\Legacy\UserPreference\Gateway;
 
 use Doctrine\DBAL\DBALException;
-use eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway;
-use eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct;
+use Ibexa\Core\Persistence\Legacy\UserPreference\Gateway;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
 use PDOException;
 use RuntimeException;
 
@@ -19,14 +19,14 @@ class ExceptionConversion extends Gateway
     /**
      * The wrapped gateway.
      *
-     * @var \eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\UserPreference\Gateway
      */
     protected $innerGateway;
 
     /**
      * ExceptionConversion constructor.
      *
-     * @param \eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway $innerGateway
+     * @param \Ibexa\Core\Persistence\Legacy\UserPreference\Gateway $innerGateway
      */
     public function __construct(Gateway $innerGateway)
     {
@@ -81,3 +81,5 @@ class ExceptionConversion extends Gateway
         }
     }
 }
+
+class_alias(ExceptionConversion::class, 'eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway\ExceptionConversion');

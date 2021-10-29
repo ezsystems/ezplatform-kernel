@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\Content\Location;
+namespace Ibexa\Core\Persistence\Legacy\Content\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\SPI\Persistence\Content\Location;
-use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
 
 /**
  * Base class for location gateways.
@@ -40,7 +40,7 @@ abstract class Gateway
     /**
      * Returns an array with basic node data.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      *
      * @param string[]|null $translations
      * @param bool $useAlwaysAvailable Respect always available flag on content when filtering on $translations.
@@ -62,7 +62,7 @@ abstract class Gateway
      *
      * @return array
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     abstract public function getNodeDataList(
         array $locationIds,
@@ -73,7 +73,7 @@ abstract class Gateway
     /**
      * Returns an array with basic node data for the node with $remoteId.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      *
      * @param string[]|null $translations
      * @param bool $useAlwaysAvailable Respect always available flag on content when filtering on $translations.
@@ -154,7 +154,7 @@ abstract class Gateway
      *
      * Convert existing node assignments into real locations.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if parent Location does not exist
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if parent Location does not exist
      */
     abstract public function createLocationsFromNodeAssignments(
         int $contentId,
@@ -232,7 +232,7 @@ abstract class Gateway
     /**
      * Updates path identification string for given $locationId.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     abstract public function updatePathIdentificationString(
         int $locationId,
@@ -259,7 +259,7 @@ abstract class Gateway
      *
      * The associated content object is left untouched.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     abstract public function trashLocation(int $locationId): void;
 
@@ -271,14 +271,14 @@ abstract class Gateway
      * at the old position. If this is not possible ( because the old location
      * does not exist any more) and exception is thrown.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     abstract public function untrashLocation(int $locationId, ?int $newParentId = null): Location;
 
     /**
      * Loads trash data specified by location ID.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     abstract public function loadTrashByLocation(int $locationId): array;
 
@@ -295,8 +295,8 @@ abstract class Gateway
      *
      * @param int $offset
      * @param int|null $limit
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\SortClause[] $sort
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion|null $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause[] $sort
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion|null $criterion
      *
      * @return array entries from ezcontentobject_trash.
      */
@@ -366,3 +366,5 @@ abstract class Gateway
      */
     abstract public function loadAllLocationsData(int $offset, int $limit): array;
 }
+
+class_alias(Gateway::class, 'eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway');

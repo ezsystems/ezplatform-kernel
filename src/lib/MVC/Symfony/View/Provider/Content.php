@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\View\Provider;
+namespace Ibexa\Core\MVC\Symfony\View\Provider;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 /**
  * Interface for content view providers.
@@ -20,10 +20,12 @@ interface Content
     /**
      * Returns a ContentView object corresponding to $contentInfo, or null if not applicable.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      * @param string $viewType Variation of display for your content
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\View\ContentView|null
+     * @return \Ibexa\Core\MVC\Symfony\View\ContentView|null
      */
     public function getView(ContentInfo $contentInfo, $viewType);
 }
+
+class_alias(Content::class, 'eZ\Publish\Core\MVC\Symfony\View\Provider\Content');

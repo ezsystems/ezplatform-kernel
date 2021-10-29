@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\Random;
+namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\Random;
 
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\AbstractRandom;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\AbstractRandom;
 
 class SqlLiteRandom extends AbstractRandom
 {
@@ -22,3 +22,5 @@ class SqlLiteRandom extends AbstractRandom
         return 'random()';
     }
 }
+
+class_alias(SqlLiteRandom::class, 'eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\Random\SqlLiteRandom');

@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\IO\FilePathNormalizer;
+namespace Ibexa\Core\IO\FilePathNormalizer;
 
-use eZ\Publish\Core\IO\FilePathNormalizerInterface;
+use Ibexa\Core\IO\FilePathNormalizerInterface;
 use League\Flysystem\Util;
 
 final class Flysystem implements FilePathNormalizerInterface
@@ -18,3 +18,5 @@ final class Flysystem implements FilePathNormalizerInterface
         return Util::normalizePath($filePath);
     }
 }
+
+class_alias(Flysystem::class, 'eZ\Publish\Core\IO\FilePathNormalizer\Flysystem');

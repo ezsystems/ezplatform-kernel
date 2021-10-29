@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\PlatformInstallerBundle\Command;
+namespace Ibexa\Bundle\Installer\Command;
 
 use Doctrine\DBAL\Connection;
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider;
-use eZ\Bundle\EzPublishCoreBundle\Command\BackwardCompatibleCommand;
+use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
+use Ibexa\Bundle\Core\Command\BackwardCompatibleCommand;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -33,10 +33,10 @@ final class InstallPlatformCommand extends Command implements BackwardCompatible
     /** @var string */
     private $environment;
 
-    /** @var \EzSystems\PlatformInstallerBundle\Installer\Installer[] */
+    /** @var \Ibexa\Bundle\Installer\Installer\Installer[] */
     private $installers = [];
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider */
+    /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */
     private $repositoryConfigurationProvider;
 
     const EXIT_GENERAL_DATABASE_ERROR = 4;
@@ -195,7 +195,7 @@ final class InstallPlatformCommand extends Command implements BackwardCompatible
     /**
      * @param $type
      *
-     * @return \EzSystems\PlatformInstallerBundle\Installer\Installer
+     * @return \Ibexa\Bundle\Installer\Installer\Installer
      */
     private function getInstaller($type)
     {
@@ -270,3 +270,5 @@ final class InstallPlatformCommand extends Command implements BackwardCompatible
         return ['ezplatform:install'];
     }
 }
+
+class_alias(InstallPlatformCommand::class, 'EzSystems\PlatformInstallerBundle\Command\InstallPlatformCommand');

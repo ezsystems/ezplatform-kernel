@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\User;
+namespace Ibexa\Contracts\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class represents a Limitation applied to a policy.
@@ -51,3 +51,5 @@ abstract class Limitation extends ValueObject
      */
     abstract public function getIdentifier(): string;
 }
+
+class_alias(Limitation::class, 'eZ\Publish\API\Repository\Values\User\Limitation');

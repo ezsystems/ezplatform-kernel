@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
 /**
  * This is the base class for Location criterions.
@@ -16,3 +16,5 @@ use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 abstract class Location extends Criterion
 {
 }
+
+class_alias(Location::class, 'eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location');

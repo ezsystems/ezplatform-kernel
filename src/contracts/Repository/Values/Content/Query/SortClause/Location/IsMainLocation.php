@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location;
 
 /**
  * Sets sort direction on the Location main status for a Location query.
@@ -26,3 +26,5 @@ class IsMainLocation extends Location
         parent::__construct('location_is_main', $sortDirection);
     }
 }
+
+class_alias(IsMainLocation::class, 'eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location\IsMainLocation');

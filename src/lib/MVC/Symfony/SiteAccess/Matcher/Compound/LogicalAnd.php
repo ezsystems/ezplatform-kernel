@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Compound;
+namespace Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Compound;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Compound;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\VersatileMatcher;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Compound;
+use Ibexa\Core\MVC\Symfony\SiteAccess\VersatileMatcher;
 
 /**
  * Siteaccess matcher that allows a combination of matchers, with a logical AND.
@@ -59,3 +59,5 @@ class LogicalAnd extends Compound implements VersatileMatcher
         }
     }
 }
+
+class_alias(LogicalAnd::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Compound\LogicalAnd');

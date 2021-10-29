@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter;
+namespace Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter;
-use eZ\Publish\API\Repository\Values\Filter\Filter;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 use Iterator;
 
 final class ContentFilteringAdapter implements BatchIteratorAdapter
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\Values\Filter\Filter */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Filter\Filter */
     private $filter;
 
     /** @var string[]|null */
@@ -39,3 +39,5 @@ final class ContentFilteringAdapter implements BatchIteratorAdapter
         return $this->contentService->find($filter, $this->languages)->getIterator();
     }
 }
+
+class_alias(ContentFilteringAdapter::class, 'eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter\ContentFilteringAdapter');

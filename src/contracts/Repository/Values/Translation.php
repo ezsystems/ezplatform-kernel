@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values;
+namespace Ibexa\Contracts\Core\Repository\Values;
 
 /**
  * Base class fro translation messages.
@@ -16,3 +16,5 @@ namespace eZ\Publish\API\Repository\Values;
 abstract class Translation extends ValueObject
 {
 }
+
+class_alias(Translation::class, 'eZ\Publish\API\Repository\Values\Translation');

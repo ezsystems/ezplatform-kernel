@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Common\EventSubscriber;
+namespace Ibexa\Core\Search\Common\EventSubscriber;
 
-use eZ\Publish\API\Repository\Events\Trash\RecoverEvent;
-use eZ\Publish\API\Repository\Events\Trash\TrashEvent;
-use eZ\Publish\API\Repository\Values\Content\TrashItem;
+use Ibexa\Contracts\Core\Repository\Events\Trash\RecoverEvent;
+use Ibexa\Contracts\Core\Repository\Events\Trash\TrashEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class TrashEventSubscriber extends AbstractSearchEventSubscriber implements EventSubscriberInterface
@@ -40,3 +40,5 @@ class TrashEventSubscriber extends AbstractSearchEventSubscriber implements Even
         );
     }
 }
+
+class_alias(TrashEventSubscriber::class, 'eZ\Publish\Core\Search\Common\EventSubscriber\TrashEventSubscriber');

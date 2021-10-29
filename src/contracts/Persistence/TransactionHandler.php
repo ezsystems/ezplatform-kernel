@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\SPI\Persistence;
+namespace Ibexa\Contracts\Core\Persistence;
 
 /**
  * The Persistence Transaction handler for Storage Engine.
@@ -39,3 +39,5 @@ interface TransactionHandler
      */
     public function rollback();
 }
+
+class_alias(TransactionHandler::class, 'eZ\Publish\SPI\Persistence\TransactionHandler');

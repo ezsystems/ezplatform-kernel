@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Exceptions;
+namespace Ibexa\Contracts\Core\Repository\Exceptions;
 
 use Exception;
 
@@ -29,3 +29,5 @@ class NotImplementedException extends ForbiddenException
         parent::__construct("Intentionally not implemented: {$feature}", $code, $previous);
     }
 }
+
+class_alias(NotImplementedException::class, 'eZ\Publish\API\Repository\Exceptions\NotImplementedException');

@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Language;
+namespace Ibexa\Contracts\Core\Repository\Events\Language;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeUpdateLanguageNameEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
     private $language;
 
     /** @var string */
     private $newName;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
     private $updatedLanguage;
 
     public function __construct(Language $language, string $newName)
@@ -58,3 +58,5 @@ final class BeforeUpdateLanguageNameEvent extends BeforeEvent
         return $this->updatedLanguage instanceof Language;
     }
 }
+
+class_alias(BeforeUpdateLanguageNameEvent::class, 'eZ\Publish\API\Repository\Events\Language\BeforeUpdateLanguageNameEvent');

@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Language;
+namespace Ibexa\Contracts\Core\Repository\Events\Language;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class CreateLanguageEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
     private $language;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct */
     private $languageCreateStruct;
 
     public function __construct(
@@ -38,3 +38,5 @@ final class CreateLanguageEvent extends AfterEvent
         return $this->languageCreateStruct;
     }
 }
+
+class_alias(CreateLanguageEvent::class, 'eZ\Publish\API\Repository\Events\Language\CreateLanguageEvent');

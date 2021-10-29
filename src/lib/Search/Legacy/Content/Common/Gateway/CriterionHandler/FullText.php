@@ -4,18 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
+namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
-use eZ\Publish\Core\Persistence\TransformationProcessor;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
+use Ibexa\Core\Persistence\TransformationProcessor;
 
 /**
  * Full text criterion handler.
@@ -77,17 +77,17 @@ class FullText extends CriterionHandler
     /**
      * Transformation processor to normalize search strings.
      *
-     * @var \eZ\Publish\Core\Persistence\TransformationProcessor
+     * @var \Ibexa\Core\Persistence\TransformationProcessor
      */
     protected $processor;
 
-    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator */
     private $languageMaskGenerator;
 
     /**
      * @param array $configuration
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException On invalid $configuration values
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException On invalid $configuration values
      * @throws \Doctrine\DBAL\DBALException
      */
     public function __construct(
@@ -116,7 +116,7 @@ class FullText extends CriterionHandler
     /**
      * Check if this criterion handler accepts to handle the given criterion.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterion
      *
      * @return bool
      */
@@ -279,3 +279,5 @@ class FullText extends CriterionHandler
         return $this->stopWordThresholdValue = (int)($count * $this->configuration['stopWordThresholdFactor']);
     }
 }
+
+class_alias(FullText::class, 'eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FullText');

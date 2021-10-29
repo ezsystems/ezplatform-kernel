@@ -4,19 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Features\Context;
+namespace Ibexa\Bundle\Core\Features\Context;
 
 use Behat\Behat\Context\Context;
 use PHPUnit\Framework\Assert as Assertion;
-use eZ\Publish\API\Repository\RoleService;
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
+use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 
 /**
  * Sentences for Roles.
  */
 class RoleContext implements Context
 {
-    /** @var \eZ\Publish\API\Repository\roleService */
+    /** @var \Ibexa\Contracts\Core\Repository\roleService */
     protected $roleService;
 
     public function __construct(RoleService $roleService)
@@ -29,7 +29,7 @@ class RoleContext implements Context
      *
      * @param string $name Role identifier
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Role
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role
      */
     public function ensureRoleExists($name)
     {
@@ -50,7 +50,7 @@ class RoleContext implements Context
      *
      * @param string $identifier Role identifier
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Role
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role
      */
     public function getRole($identifier)
     {
@@ -69,7 +69,7 @@ class RoleContext implements Context
      *
      * Ensures a role exists with name ':name', creating a new one if necessary.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Role
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role
      */
     public function iHaveRole($name)
     {
@@ -132,3 +132,5 @@ class RoleContext implements Context
         );
     }
 }
+
+class_alias(RoleContext::class, 'eZ\Bundle\EzPublishCoreBundle\Features\Context\RoleContext');

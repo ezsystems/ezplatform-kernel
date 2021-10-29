@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Tests\Persistence;
+namespace Ibexa\Contracts\Core\Test\Persistence;
 
 /**
  * Represents database fixture.
@@ -22,3 +22,5 @@ interface Fixture
      */
     public function load(): array;
 }
+
+class_alias(Fixture::class, 'eZ\Publish\SPI\Tests\Persistence\Fixture');

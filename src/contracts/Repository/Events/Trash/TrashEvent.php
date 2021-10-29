@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Trash;
+namespace Ibexa\Contracts\Core\Repository\Events\Trash;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\TrashItem;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class TrashEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
     private $location;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\TrashItem|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem|null */
     private $trashItem;
 
     public function __construct(
@@ -38,3 +38,5 @@ final class TrashEvent extends AfterEvent
         return $this->trashItem;
     }
 }
+
+class_alias(TrashEvent::class, 'eZ\Publish\API\Repository\Events\Trash\TrashEvent');

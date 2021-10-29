@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\URLWildcard;
+namespace Ibexa\Contracts\Core\Repository\Events\URLWildcard;
 
-use eZ\Publish\API\Repository\Values\Content\URLWildcardTranslationResult;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardTranslationResult;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeTranslateEvent extends BeforeEvent
 {
     private $url;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\URLWildcardTranslationResult|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardTranslationResult|null */
     private $result;
 
     public function __construct($url)
@@ -48,3 +48,5 @@ final class BeforeTranslateEvent extends BeforeEvent
         return $this->result instanceof URLWildcardTranslationResult;
     }
 }
+
+class_alias(BeforeTranslateEvent::class, 'eZ\Publish\API\Repository\Events\URLWildcard\BeforeTranslateEvent');

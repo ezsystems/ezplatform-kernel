@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway;
+namespace Ibexa\Core\FieldType\Url\UrlStorage\Gateway;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
-use eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\URL\Gateway\DoctrineDatabase;
+use Ibexa\Core\FieldType\Url\UrlStorage\Gateway;
+use Ibexa\Core\Persistence\Legacy\URL\Gateway\DoctrineDatabase;
 use PDO;
 
 class DoctrineStorage extends Gateway
@@ -274,3 +274,5 @@ class DoctrineStorage extends Gateway
         $deleteQuery->execute();
     }
 }
+
+class_alias(DoctrineStorage::class, 'eZ\Publish\Core\FieldType\Url\UrlStorage\Gateway\DoctrineStorage');

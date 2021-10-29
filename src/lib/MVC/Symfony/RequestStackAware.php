@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony;
+namespace Ibexa\Core\MVC\Symfony;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -41,3 +41,5 @@ trait RequestStackAware
         return $this->requestStack->getCurrentRequest();
     }
 }
+
+class_alias(RequestStackAware::class, 'eZ\Publish\Core\MVC\Symfony\RequestStackAware');

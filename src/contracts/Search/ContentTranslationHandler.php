@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Search;
+namespace Ibexa\Contracts\Core\Search;
 
 /**
  * The Search Content translation handler.
@@ -18,3 +18,5 @@ interface ContentTranslationHandler
      */
     public function deleteTranslation(int $contentId, string $languageCode): void;
 }
+
+class_alias(ContentTranslationHandler::class, 'eZ\Publish\SPI\Search\ContentTranslationHandler');

@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Persistence\UserPreference;
+namespace Ibexa\Contracts\Core\Persistence\UserPreference;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 class UserPreferenceSetStruct extends ValueObject
 {
@@ -21,3 +21,5 @@ class UserPreferenceSetStruct extends ValueObject
     /** @var string */
     public $value;
 }
+
+class_alias(UserPreferenceSetStruct::class, 'eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct');

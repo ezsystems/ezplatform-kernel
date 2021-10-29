@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Values\Filter;
+namespace Ibexa\Contracts\Core\Repository\Values\Filter;
 
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
 
 /**
  * Extension point to build filtering query for a given Criterion.
@@ -26,3 +26,5 @@ interface CriterionQueryBuilder
      */
     public function buildQueryConstraint(FilteringQueryBuilder $queryBuilder, FilteringCriterion $criterion): ?string;
 }
+
+class_alias(CriterionQueryBuilder::class, 'eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder');

@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler;
+namespace Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler;
 
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway;
+use Ibexa\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
 
 class VisibleOnly extends Base
 {
@@ -49,3 +49,5 @@ class VisibleOnly extends Base
         );
     }
 }
+
+class_alias(VisibleOnly::class, 'eZ\Publish\Core\Persistence\Legacy\URL\Query\CriterionHandler\VisibleOnly');

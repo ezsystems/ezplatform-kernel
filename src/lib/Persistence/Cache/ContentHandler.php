@@ -4,20 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Persistence\Cache;
+namespace Ibexa\Core\Persistence\Cache;
 
-use eZ\Publish\API\Repository\Values\Content\Relation as APIRelation;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Handler as ContentHandlerInterface;
-use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation as APIRelation;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Handler as ContentHandlerInterface;
+use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 
 /**
- * @see \eZ\Publish\SPI\Persistence\Content\Handler
+ * @covers \Ibexa\Core\Persistence\Cache\ContentHandler
  */
 class ContentHandler extends AbstractInMemoryPersistenceHandler implements ContentHandlerInterface
 {
@@ -580,3 +580,5 @@ class ContentHandler extends AbstractInMemoryPersistenceHandler implements Conte
         return $getContentInfoTagsFn($contentInfo, $tags);
     }
 }
+
+class_alias(ContentHandler::class, 'eZ\Publish\Core\Persistence\Cache\ContentHandler');

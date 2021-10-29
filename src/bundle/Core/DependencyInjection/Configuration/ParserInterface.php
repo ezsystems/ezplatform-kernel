@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration;
+namespace Ibexa\Bundle\Core\DependencyInjection\Configuration;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\HookableConfigurationMapperInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\HookableConfigurationMapperInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 interface ParserInterface extends HookableConfigurationMapperInterface
@@ -18,3 +18,5 @@ interface ParserInterface extends HookableConfigurationMapperInterface
      */
     public function addSemanticConfig(NodeBuilder $nodeBuilder);
 }
+
+class_alias(ParserInterface::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface');

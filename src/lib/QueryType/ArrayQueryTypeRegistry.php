@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\QueryType;
+namespace Ibexa\Core\QueryType;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * A QueryType registry based on an array.
@@ -35,3 +35,5 @@ class ArrayQueryTypeRegistry implements QueryTypeRegistry
         return $this->registry[$name];
     }
 }
+
+class_alias(ArrayQueryTypeRegistry::class, 'eZ\Publish\Core\QueryType\ArrayQueryTypeRegistry');

@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Events\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCopyContentTypeEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
     private $contentType;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\User */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User */
     private $creator;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null */
     private $contentTypeCopy;
 
     public function __construct(ContentType $contentType, ?User $creator = null)
@@ -59,3 +59,5 @@ final class BeforeCopyContentTypeEvent extends BeforeEvent
         return $this->contentTypeCopy instanceof ContentType;
     }
 }
+
+class_alias(BeforeCopyContentTypeEvent::class, 'eZ\Publish\API\Repository\Events\ContentType\BeforeCopyContentTypeEvent');

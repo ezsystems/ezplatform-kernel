@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\ObjectState;
+namespace Ibexa\Contracts\Core\Repository\Events\ObjectState;
 
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
-use eZ\Publish\SPI\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class UpdateObjectStateGroupEvent extends AfterEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup */
     private $updatedObjectStateGroup;
 
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup */
     private $objectStateGroup;
 
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct */
     private $objectStateGroupUpdateStruct;
 
     public function __construct(
@@ -48,3 +48,5 @@ final class UpdateObjectStateGroupEvent extends AfterEvent
         return $this->objectStateGroupUpdateStruct;
     }
 }
+
+class_alias(UpdateObjectStateGroupEvent::class, 'eZ\Publish\API\Repository\Events\ObjectState\UpdateObjectStateGroupEvent');

@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\API;
+namespace Ibexa\Contracts\Core;
 
 /**
  * Container interface.
@@ -18,7 +18,9 @@ interface Container
      *
      * Public API for
      *
-     * @return \eZ\Publish\API\Repository\Repository
+     * @return \Ibexa\Contracts\Core\Repository\Repository
      */
     public function getRepository();
 }
+
+class_alias(Container::class, 'eZ\Publish\API\Container');

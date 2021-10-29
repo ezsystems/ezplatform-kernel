@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\URLWildcard;
+namespace Ibexa\Contracts\Core\Repository\Events\URLWildcard;
 
-use eZ\Publish\API\Repository\Values\Content\URLWildcard;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 
 final class BeforeRemoveEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\URLWildcard */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard */
     private $urlWildcard;
 
     public function __construct(URLWildcard $urlWildcard)
@@ -26,3 +26,5 @@ final class BeforeRemoveEvent extends BeforeEvent
         return $this->urlWildcard;
     }
 }
+
+class_alias(BeforeRemoveEvent::class, 'eZ\Publish\API\Repository\Events\URLWildcard\BeforeRemoveEvent');

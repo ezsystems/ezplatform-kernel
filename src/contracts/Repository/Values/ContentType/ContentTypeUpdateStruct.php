@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\ContentType;
+namespace Ibexa\Contracts\Core\Repository\Values\ContentType;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class is used for updating a content type.
@@ -106,3 +106,5 @@ class ContentTypeUpdateStruct extends ValueObject
      */
     public $descriptions;
 }
+
+class_alias(ContentTypeUpdateStruct::class, 'eZ\Publish\API\Repository\Values\ContentType\ContentTypeUpdateStruct');

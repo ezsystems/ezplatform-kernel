@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\SiteAccess;
+namespace Ibexa\Core\MVC\Symfony\SiteAccess;
 
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use function iterator_to_array;
 
 class SiteAccessService implements SiteAccessServiceInterface, SiteAccessAware
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface */
     private $provider;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess */
     private $siteAccess;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -66,7 +66,7 @@ class SiteAccessService implements SiteAccessServiceInterface, SiteAccessAware
         $siteAccess = $siteAccess ?? $this->siteAccess;
         $saRelationMap = [];
 
-        /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess[] $saList */
+        /** @var \Ibexa\Core\MVC\Symfony\SiteAccess[] $saList */
         $saList = iterator_to_array($this->provider->getSiteAccesses());
         // First build the SiteAccess relation map, indexed by repository and rootLocationId.
         foreach ($saList as $sa) {
@@ -92,3 +92,5 @@ class SiteAccessService implements SiteAccessServiceInterface, SiteAccessAware
         return $saRelationMap[$repository][$rootLocationId];
     }
 }
+
+class_alias(SiteAccessService::class, 'eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessService');

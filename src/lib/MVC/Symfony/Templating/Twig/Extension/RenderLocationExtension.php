@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension;
+namespace Ibexa\Core\MVC\Symfony\Templating\Twig\Extension;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\MVC\Symfony\Event\ResolveRenderOptionsEvent;
-use eZ\Publish\Core\MVC\Symfony\Templating\RenderLocationStrategy;
-use eZ\Publish\Core\MVC\Symfony\Templating\RenderOptions;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\Symfony\Event\ResolveRenderOptionsEvent;
+use Ibexa\Core\MVC\Symfony\Templating\RenderLocationStrategy;
+use Ibexa\Core\MVC\Symfony\Templating\RenderOptions;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -21,7 +21,7 @@ use Twig\TwigFunction;
  */
 final class RenderLocationExtension extends AbstractExtension
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Templating\RenderLocationStrategy */
+    /** @var \Ibexa\Core\MVC\Symfony\Templating\RenderLocationStrategy */
     private $renderLocationStrategy;
 
     /** @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface */
@@ -56,3 +56,5 @@ final class RenderLocationExtension extends AbstractExtension
         return $this->renderLocationStrategy->render($location, $event->getRenderOptions());
     }
 }
+
+class_alias(RenderLocationExtension::class, 'eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\RenderLocationExtension');

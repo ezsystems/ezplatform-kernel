@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Repository\Decorator;
+namespace Ibexa\Contracts\Core\Repository\Decorator;
 
-use eZ\Publish\API\Repository\SettingService;
-use eZ\Publish\API\Repository\Values\Setting\Setting;
-use eZ\Publish\API\Repository\Values\Setting\SettingCreateStruct;
-use eZ\Publish\API\Repository\Values\Setting\SettingUpdateStruct;
+use Ibexa\Contracts\Core\Repository\SettingService;
+use Ibexa\Contracts\Core\Repository\Values\Setting\Setting;
+use Ibexa\Contracts\Core\Repository\Values\Setting\SettingCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Setting\SettingUpdateStruct;
 
 abstract class SettingServiceDecorator implements SettingService
 {
-    /** @var \eZ\Publish\API\Repository\SettingService */
+    /** @var \Ibexa\Contracts\Core\Repository\SettingService */
     protected $innerService;
 
     public function __construct(
@@ -54,3 +54,5 @@ abstract class SettingServiceDecorator implements SettingService
         return $this->innerService->newSettingUpdateStruct($properties);
     }
 }
+
+class_alias(SettingServiceDecorator::class, 'eZ\Publish\SPI\Repository\Decorator\SettingServiceDecorator');

@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Locale;
+namespace Ibexa\Core\MVC\Symfony\Locale;
 
 /**
  * Interface for locale converters.
@@ -35,3 +35,5 @@ interface LocaleConverterInterface
      */
     public function convertToEz($posixLocale);
 }
+
+class_alias(LocaleConverterInterface::class, 'eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface');

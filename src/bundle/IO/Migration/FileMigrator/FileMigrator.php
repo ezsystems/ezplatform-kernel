@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishIOBundle\Migration\FileMigrator;
+namespace Ibexa\Bundle\IO\Migration\FileMigrator;
 
-use eZ\Bundle\EzPublishIOBundle\Migration\FileMigratorInterface;
-use eZ\Bundle\EzPublishIOBundle\Migration\MigrationHandler;
-use eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException;
-use eZ\Publish\SPI\IO\BinaryFile;
-use eZ\Publish\SPI\IO\BinaryFileCreateStruct;
+use Ibexa\Bundle\IO\Migration\FileMigratorInterface;
+use Ibexa\Bundle\IO\Migration\MigrationHandler;
+use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
+use Ibexa\Contracts\Core\IO\BinaryFile;
+use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct;
 
 final class FileMigrator extends MigrationHandler implements FileMigratorInterface
 {
@@ -55,3 +55,5 @@ final class FileMigrator extends MigrationHandler implements FileMigratorInterfa
         return true;
     }
 }
+
+class_alias(FileMigrator::class, 'eZ\Bundle\EzPublishIOBundle\Migration\FileMigrator\FileMigrator');

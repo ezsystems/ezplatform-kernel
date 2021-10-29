@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\Core\DependencyInjection\Compiler;
 
-use eZ\Bundle\EzPublishCoreBundle\Routing\DefaultRouter;
+use Ibexa\Bundle\Core\Routing\DefaultRouter;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -29,3 +29,5 @@ class RouterPass implements CompilerPassInterface
             ->setClass(DefaultRouter::class);
     }
 }
+
+class_alias(RouterPass::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\RouterPass');

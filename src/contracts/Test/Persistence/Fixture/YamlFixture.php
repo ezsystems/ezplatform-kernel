@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Tests\Persistence;
+namespace Ibexa\Contracts\Core\Test\Persistence\Fixture;
 
 use Symfony\Component\Yaml\Yaml;
 
@@ -22,3 +22,5 @@ final class YamlFixture extends BaseInMemoryCachedFileFixture
         return Yaml::parseFile($this->getFilePath());
     }
 }
+
+class_alias(YamlFixture::class, 'eZ\Publish\SPI\Tests\Persistence\YamlFixture');

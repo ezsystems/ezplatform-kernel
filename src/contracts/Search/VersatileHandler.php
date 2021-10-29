@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Search;
+namespace Ibexa\Contracts\Core\Search;
 
 /**
  * @internal for internal use by Symfony DI configuration. Inject Handler and use instance of for
@@ -17,3 +17,5 @@ namespace eZ\Publish\SPI\Search;
 interface VersatileHandler extends Handler, Capable, ContentTranslationHandler
 {
 }
+
+class_alias(VersatileHandler::class, 'eZ\Publish\SPI\Search\VersatileHandler');

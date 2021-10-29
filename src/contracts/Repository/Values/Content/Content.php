@@ -6,33 +6,34 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\FieldType\Value;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
 /**
  * this class represents a content object in a specific version.
  *
- * @property-read \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo convenience getter for getVersionInfo()->getContentInfo()
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo convenience getter for getVersionInfo()->getContentInfo()
  * @property-read int $id convenience getter for retrieving the contentId: $versionInfo->contentInfo->id
- * @property-read \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo calls getVersionInfo()
- * @property-read \eZ\Publish\API\Repository\Values\Content\Field[] $fields access fields, calls getFields()
- * @property-read \eZ\Publish\API\Repository\Values\Content\Thumbnail|null $thumbnail calls getThumbnail()
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo calls getVersionInfo()
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $fields access fields, calls getFields()
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail|null $thumbnail calls getThumbnail()
  */
 abstract class Content extends ValueObject
 {
     /**
      * Returns the VersionInfo for this version.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo
      */
     abstract public function getVersionInfo(): VersionInfo;
 
     /**
      * Shorthand method for getVersionInfo()->getName().
      *
-     * @see \eZ\Publish\API\Repository\Values\Content\VersionInfo::getName()
+     * @see \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo::getName()
      *
      * @param string|null $languageCode
      *
@@ -58,14 +59,14 @@ abstract class Content extends ValueObject
      * @param string $fieldDefIdentifier
      * @param string|null $languageCode
      *
-     * @return \eZ\Publish\SPI\FieldType\Value|null a primitive type or a field type Value object depending on the field type.
+     * @return \Ibexa\Contracts\Core\FieldType\Value|null a primitive type or a field type Value object depending on the field type.
      */
-    abstract public function getFieldValue(string $fieldDefIdentifier, ?string $languageCode = null): ?\eZ\Publish\SPI\FieldType\Value;
+    abstract public function getFieldValue(string $fieldDefIdentifier, ?string $languageCode = null): ?Value;
 
     /**
      * This method returns the complete fields collection.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Field[] An array of {@link Field}
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field[] An array of {@link Field}
      */
     abstract public function getFields(): iterable;
 
@@ -78,7 +79,7 @@ abstract class Content extends ValueObject
      *
      * @param string|null $languageCode
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Field[] An array of {@link Field} with field identifier as keys
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field[] An array of {@link Field} with field identifier as keys
      */
     abstract public function getFieldsByLanguage(?string $languageCode = null): iterable;
 
@@ -96,16 +97,18 @@ abstract class Content extends ValueObject
      * @param string $fieldDefIdentifier
      * @param string|null $languageCode
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Field|null A {@link Field} or null if nothing is found
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field|null A {@link Field} or null if nothing is found
      */
     abstract public function getField(string $fieldDefIdentifier, ?string $languageCode = null): ?Field;
 
     /**
      * Returns the ContentType for this content.
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
      */
     abstract public function getContentType(): ContentType;
 
     abstract public function getThumbnail(): ?Thumbnail;
 }
+
+class_alias(Content::class, 'eZ\Publish\API\Repository\Values\Content\Content');

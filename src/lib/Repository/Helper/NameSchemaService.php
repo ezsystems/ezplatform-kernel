@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Repository\Helper;
+namespace Ibexa\Core\Repository\Helper;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\Core\FieldType\FieldTypeRegistry;
-use eZ\Publish\Core\Repository\Mapper\ContentTypeDomainMapper;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\SPI\Persistence\Content\Type as SPIContentType;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Core\Repository\Mapper\ContentTypeDomainMapper;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Persistence\Content\Type as SPIContentType;
 
 /**
  * NameSchemaService is internal service for resolving content name and url alias patterns.
@@ -47,13 +47,13 @@ class NameSchemaService
      */
     const META_STRING = 'EZMETAGROUP_';
 
-    /** @var \eZ\Publish\SPI\Persistence\Content\Type\Handler */
+    /** @var \Ibexa\Contracts\Core\Persistence\Content\Type\Handler */
     protected $contentTypeHandler;
 
-    /** @var \eZ\Publish\Core\Repository\Mapper\ContentTypeDomainMapper */
+    /** @var \Ibexa\Core\Repository\Mapper\ContentTypeDomainMapper */
     protected $contentTypeDomainMapper;
 
-    /** @var \eZ\Publish\Core\Repository\Helper\FieldTypeRegistry */
+    /** @var \Ibexa\Core\FieldType\FieldTypeRegistry */
     protected $fieldTypeRegistry;
 
     /** @var array */
@@ -62,9 +62,9 @@ class NameSchemaService
     /**
      * Constructs a object to resolve $nameSchema with $contentVersion fields values.
      *
-     * @param \eZ\Publish\SPI\Persistence\Content\Type\Handler $contentTypeHandler
-     * @param \eZ\Publish\Core\Repository\Mapper\ContentTypeDomainMapper $contentTypeDomainMapper
-     * @param \eZ\Publish\Core\FieldType\FieldTypeRegistry $fieldTypeRegistry
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type\Handler $contentTypeHandler
+     * @param \Ibexa\Core\Repository\Mapper\ContentTypeDomainMapper $contentTypeDomainMapper
+     * @param \Ibexa\Core\FieldType\FieldTypeRegistry $fieldTypeRegistry
      * @param array $settings
      */
     public function __construct(
@@ -86,8 +86,8 @@ class NameSchemaService
     /**
      * Convenience method for resolving URL alias schema.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType|null $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
      *
      * @return array
      */
@@ -108,10 +108,10 @@ class NameSchemaService
     /**
      * Convenience method for resolving name schema.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param array $fieldMap
      * @param array $languageCodes
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType|null $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
      *
      * @return array
      */
@@ -138,7 +138,7 @@ class NameSchemaService
     /**
      * Convenience method for resolving name schema.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param array $fieldMap
      * @param array $languageCodes
      *
@@ -167,7 +167,7 @@ class NameSchemaService
      * Returns the real name for a content name pattern.
      *
      * @param string $nameSchema
-     * @param \eZ\Publish\SPI\Persistence\Content\Type|\eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type|\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      * @param array $fieldMap
      * @param array $languageCodes
      *
@@ -207,14 +207,14 @@ class NameSchemaService
      * Fetches the list of available Field identifiers in the token and returns
      * an array of their current title value.
      *
-     * @see \eZ\Publish\Core\Repository\FieldType::getName()
+     * @see \Ibexa\Core\Repository\Values\ContentType\FieldType::getName()
      *
      * @param string[] $schemaIdentifiers
-     * @param \eZ\Publish\SPI\Persistence\Content\Type|\eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Type|\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      * @param array $fieldMap
      * @param string $languageCode
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      *
      * @return string[] Key is the field identifier, value is the title value
      */
@@ -442,3 +442,5 @@ class NameSchemaService
         return $retArray;
     }
 }
+
+class_alias(NameSchemaService::class, 'eZ\Publish\Core\Repository\Helper\NameSchemaService');

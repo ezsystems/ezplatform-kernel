@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\MVC\Templating;
+namespace Ibexa\Contracts\Core\MVC\Templating;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface;
 
@@ -21,7 +21,7 @@ abstract class BaseRenderStrategy implements RenderStrategy
     /** @var string */
     protected $defaultRenderer;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess */
     protected $siteAccess;
 
     /** @var \Symfony\Component\HttpFoundation\RequestStack */
@@ -53,3 +53,5 @@ abstract class BaseRenderStrategy implements RenderStrategy
         return $this->fragmentRenderers[$name];
     }
 }
+
+class_alias(BaseRenderStrategy::class, 'eZ\Publish\SPI\MVC\Templating\BaseRenderStrategy');

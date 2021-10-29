@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Trash;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Trash;
 
 use ArrayIterator;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Traversable;
 
 class SearchResult extends ValueObject implements \IteratorAggregate
@@ -42,7 +42,7 @@ class SearchResult extends ValueObject implements \IteratorAggregate
     /**
      * The Trash items found for the query.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\TrashItem[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[]
      */
     public $items = [];
 
@@ -51,3 +51,5 @@ class SearchResult extends ValueObject implements \IteratorAggregate
         return new ArrayIterator($this->items);
     }
 }
+
+class_alias(SearchResult::class, 'eZ\Publish\API\Repository\Values\Content\Trash\SearchResult');

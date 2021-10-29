@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content;
+namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 class URLWildcardStruct extends ValueObject
 {
@@ -21,3 +21,5 @@ class URLWildcardStruct extends ValueObject
     /** @var bool */
     public $forward;
 }
+
+class_alias(URLWildcardStruct::class, 'eZ\Publish\API\Repository\Values\Content\URLWildcardStruct');

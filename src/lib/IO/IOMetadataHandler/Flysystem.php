@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\IO\IOMetadataHandler;
+namespace Ibexa\Core\IO\IOMetadataHandler;
 
 use DateTime;
-use eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException;
-use eZ\Publish\Core\IO\IOMetadataHandler;
-use eZ\Publish\SPI\IO\BinaryFile as SPIBinaryFile;
-use eZ\Publish\SPI\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
+use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
+use Ibexa\Core\IO\IOMetadataHandler;
+use Ibexa\Contracts\Core\IO\BinaryFile as SPIBinaryFile;
+use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FilesystemInterface;
 
@@ -79,3 +79,5 @@ class Flysystem implements IOMetadataHandler
     {
     }
 }
+
+class_alias(Flysystem::class, 'eZ\Publish\Core\IO\IOMetadataHandler\Flysystem');

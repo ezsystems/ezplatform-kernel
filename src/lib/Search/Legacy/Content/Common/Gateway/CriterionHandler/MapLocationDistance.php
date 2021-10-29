@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
+namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Value\MapLocationValue;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Value\MapLocationValue;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use RuntimeException;
 
 /**
@@ -32,7 +32,7 @@ class MapLocationDistance extends FieldBase
     /**
      * Check if this criterion handler accepts to handle the given criterion.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion $criterion
      *
      * @return bool
      */
@@ -48,7 +48,7 @@ class MapLocationDistance extends FieldBase
      *
      * @return array
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException If no searchable fields are found for the given $fieldIdentifier.
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException If no searchable fields are found for the given $fieldIdentifier.
      */
     protected function getFieldDefinitionIds($fieldIdentifier)
     {
@@ -93,7 +93,7 @@ class MapLocationDistance extends FieldBase
         $fieldDefinitionIds = $this->getFieldDefinitionIds($criterion->target);
         $subSelect = $this->connection->createQueryBuilder();
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion\Value\MapLocationValue $location */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Value\MapLocationValue $location */
         $location = $criterion->valueData;
 
         // note: avoid using literal names for parameters to account for multiple visits of the same Criterion
@@ -242,7 +242,7 @@ class MapLocationDistance extends FieldBase
      *
      * Credits: http://janmatuschek.de/LatitudeLongitudeBoundingCoordinates
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion\Value\MapLocationValue $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Value\MapLocationValue $location
      * @param float $distance
      *
      * @return array
@@ -284,3 +284,5 @@ class MapLocationDistance extends FieldBase
         return $boundingCoordinates;
     }
 }
+
+class_alias(MapLocationDistance::class, 'eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\MapLocationDistance');

@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\Exception;
+namespace Ibexa\Contracts\Core\Exception;
 
 use Exception;
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException as APIInvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException as APIInvalidArgumentException;
 
 /**
  * Invalid Argument Type Exception implementation.
@@ -32,3 +32,5 @@ class InvalidArgumentException extends APIInvalidArgumentException
         parent::__construct($message, 0, $previous);
     }
 }
+
+class_alias(InvalidArgumentException::class, 'eZ\Publish\SPI\Exception\InvalidArgumentException');

@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Permission;
+namespace Ibexa\Core\Repository\Permission;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\Core\Base\Exceptions\NotFound\LimitationNotFoundException;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\SPI\Limitation\Type;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Base\Exceptions\NotFound\LimitationNotFoundException;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Limitation\Type;
 use Traversable;
 
 /**
@@ -21,7 +21,7 @@ use Traversable;
  */
 class LimitationService
 {
-    /** @var \eZ\Publish\SPI\Limitation\Type[] */
+    /** @var \Ibexa\Contracts\Core\Limitation\Type[] */
     private $limitationTypes;
 
     public function __construct(?Traversable $limitationTypes = null)
@@ -37,7 +37,7 @@ class LimitationService
      * Returns the correct implementation of API Limitation value object
      * based on provided identifier
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFound\LimitationNotFoundException
+     * @throws \Ibexa\Core\Base\Exceptions\NotFound\LimitationNotFoundException
      */
     public function getLimitationType(string $identifier): Type
     {
@@ -51,12 +51,12 @@ class LimitationService
     /**
      * Validates an array of Limitations.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation[] $limitations
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] $limitations
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[][]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function validateLimitations(array $limitations): array
     {
@@ -74,10 +74,10 @@ class LimitationService
     /**
      * Validates single Limitation.
      *
-     * @return \eZ\Publish\SPI\FieldType\ValidationError[]
+     * @return \Ibexa\Contracts\Core\FieldType\ValidationError[]
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException If the Role settings is in a bad state*@throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException If the Role settings is in a bad state*@throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function validateLimitation(Limitation $limitation): array
     {
@@ -98,3 +98,5 @@ class LimitationService
         return $type->validate($limitation);
     }
 }
+
+class_alias(LimitationService::class, 'eZ\Publish\Core\Repository\Permission\LimitationService');

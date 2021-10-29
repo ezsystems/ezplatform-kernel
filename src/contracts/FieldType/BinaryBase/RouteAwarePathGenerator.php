@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\FieldType\BinaryBase;
+namespace Ibexa\Contracts\Core\FieldType\BinaryBase;
 
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 
 /**
  * A variant of PathGenerator that uses Symfony routes for generating URIs.
@@ -22,3 +22,5 @@ interface RouteAwarePathGenerator extends PathGeneratorInterface
 
     public function generate(string $route, array $parameters = []): string;
 }
+
+class_alias(RouteAwarePathGenerator::class, 'eZ\Publish\SPI\FieldType\BinaryBase\RouteAwarePathGenerator');

@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
 /**
  * Sorts search results by relevance score.
@@ -21,3 +21,5 @@ class Score extends SortClause
         parent::__construct('score', $sortDirection);
     }
 }
+
+class_alias(Score::class, 'eZ\Publish\API\Repository\Values\Content\Query\SortClause\Score');

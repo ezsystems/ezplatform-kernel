@@ -4,28 +4,28 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\MVC\Symfony\Controller\Content;
+namespace Ibexa\Core\MVC\Symfony\Controller\Content;
 
-use eZ\Bundle\EzPublishIOBundle\BinaryStreamResponse;
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Helper\TranslationHelper;
-use eZ\Publish\Core\IO\IOServiceInterface;
-use eZ\Publish\Core\MVC\Symfony\Controller\Controller;
+use Ibexa\Bundle\IO\BinaryStreamResponse;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Helper\TranslationHelper;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\MVC\Symfony\Controller\Controller;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class DownloadController extends Controller
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\Core\IO\IOServiceInterface */
+    /** @var \Ibexa\Core\IO\IOServiceInterface */
     private $ioService;
 
-    /** @var \eZ\Publish\Core\Helper\TranslationHelper */
+    /** @var \Ibexa\Core\Helper\TranslationHelper */
     private $translationHelper;
 
     public function __construct(ContentService $contentService, IOServiceInterface $ioService, TranslationHelper $translationHelper)
@@ -41,8 +41,8 @@ class DownloadController extends Controller
      * @param string $filename
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \eZ\Bundle\EzPublishIOBundle\BinaryStreamResponse
-     * @return \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @return \Ibexa\Bundle\IO\BinaryStreamResponse
+     * @return \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function downloadBinaryFileAction($contentId, $fieldIdentifier, $filename, Request $request)
     {
@@ -73,3 +73,5 @@ class DownloadController extends Controller
         return $response;
     }
 }
+
+class_alias(DownloadController::class, 'eZ\Publish\Core\MVC\Symfony\Controller\Content\DownloadController');

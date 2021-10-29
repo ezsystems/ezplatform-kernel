@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Content;
+namespace Ibexa\Core\Persistence\Legacy\Filter\Gateway\Content;
 
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
 
 /**
  * @internal for internal use by Repository Filtering Handlers
@@ -23,3 +23,5 @@ interface GatewayDataMapper
 
     public function mapContentMetadataToPersistenceContentInfo(array $row): ContentInfo;
 }
+
+class_alias(GatewayDataMapper::class, 'eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Content\GatewayDataMapper');

@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\Cache;
+namespace Ibexa\Bundle\Core\Imagine\Cache;
 
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
-use eZ\Publish\SPI\Variation\VariationHandler;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
+use Ibexa\Contracts\Core\Variation\VariationHandler;
 use Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface;
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 use Symfony\Component\Routing\RequestContext;
@@ -28,13 +28,13 @@ class AliasGeneratorDecorator implements VariationHandler, SiteAccessAware
     private const CONTENT_IDENTIFIER = 'content';
     private const CONTENT_VERSION_IDENTIFIER = 'content_version';
 
-    /** @var \eZ\Publish\SPI\Variation\VariationHandler */
+    /** @var \Ibexa\Contracts\Core\Variation\VariationHandler */
     private $aliasGenerator;
 
     /** @var \Symfony\Component\Cache\Adapter\TagAwareAdapterInterface */
     private $cache;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess */
     private $siteAccess;
 
     /** @var \Symfony\Component\Routing\RequestContext */
@@ -44,7 +44,7 @@ class AliasGeneratorDecorator implements VariationHandler, SiteAccessAware
     private $cacheIdentifierGenerator;
 
     /**
-     * @param \eZ\Publish\SPI\Variation\VariationHandler $aliasGenerator
+     * @param \Ibexa\Contracts\Core\Variation\VariationHandler $aliasGenerator
      * @param \Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $cache
      * @param \Symfony\Component\Routing\RequestContext $requestContext
      * @param \Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface $cacheIdentifierGenerator
@@ -62,12 +62,12 @@ class AliasGeneratorDecorator implements VariationHandler, SiteAccessAware
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      * @param string $variationName
      * @param array $parameters
      *
-     * @return \eZ\Publish\SPI\Variation\Values\Variation
+     * @return \Ibexa\Contracts\Core\Variation\Values\Variation
      *
      * @throws \Psr\Cache\InvalidArgumentException
      */
@@ -86,7 +86,7 @@ class AliasGeneratorDecorator implements VariationHandler, SiteAccessAware
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\SiteAccess $siteAccess
+     * @param \Ibexa\Core\MVC\Symfony\SiteAccess|null $siteAccess
      */
     public function setSiteAccess(SiteAccess $siteAccess = null)
     {
@@ -94,8 +94,8 @@ class AliasGeneratorDecorator implements VariationHandler, SiteAccessAware
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      * @param string $variationName
      *
      * @return string
@@ -130,3 +130,5 @@ class AliasGeneratorDecorator implements VariationHandler, SiteAccessAware
         ];
     }
 }
+
+class_alias(AliasGeneratorDecorator::class, 'eZ\Bundle\EzPublishCoreBundle\Imagine\Cache\AliasGeneratorDecorator');

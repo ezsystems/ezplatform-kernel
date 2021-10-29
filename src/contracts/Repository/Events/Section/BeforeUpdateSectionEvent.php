@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Events\Section;
+namespace Ibexa\Contracts\Core\Repository\Events\Section;
 
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\API\Repository\Values\Content\SectionUpdateStruct;
-use eZ\Publish\SPI\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeUpdateSectionEvent extends BeforeEvent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Section */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section */
     private $section;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\SectionUpdateStruct */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct */
     private $sectionUpdateStruct;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Section|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null */
     private $updatedSection;
 
     public function __construct(Section $section, SectionUpdateStruct $sectionUpdateStruct)
@@ -59,3 +59,5 @@ final class BeforeUpdateSectionEvent extends BeforeEvent
         return $this->updatedSection instanceof Section;
     }
 }
+
+class_alias(BeforeUpdateSectionEvent::class, 'eZ\Publish\API\Repository\Events\Section\BeforeUpdateSectionEvent');

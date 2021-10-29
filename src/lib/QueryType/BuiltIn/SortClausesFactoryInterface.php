@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\QueryType\BuiltIn;
+namespace Ibexa\Core\QueryType\BuiltIn;
 
 /**
  * @internal
@@ -14,9 +14,11 @@ namespace eZ\Publish\Core\QueryType\BuiltIn;
 interface SortClausesFactoryInterface
 {
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Query\SortClause[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause[]
      *
-     * @throws \eZ\Publish\Core\QueryType\BuiltIn\SortSpec\Exception\SyntaxErrorException
+     * @throws \Ibexa\Core\QueryType\BuiltIn\SortSpec\Exception\SyntaxErrorException
      */
     public function createFromSpecification(string $specification): array;
 }
+
+class_alias(SortClausesFactoryInterface::class, 'eZ\Publish\Core\QueryType\BuiltIn\SortClausesFactoryInterface');

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\PlatformInstallerBundle\Installer;
+namespace Ibexa\Bundle\Installer\Installer;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -40,7 +40,7 @@ class CoreInstaller extends DbBasedInstaller implements Installer
      * If you wish to extend schema, implement your own EventSubscriber
      *
      * @see \EzSystems\DoctrineSchema\API\Event\SchemaBuilderEvent
-     * @see \EzSystems\PlatformInstallerBundle\Event\Subscriber\BuildSchemaSubscriber
+     * @see \Ibexa\Bundle\Installer\Event\Subscriber\BuildSchemaSubscriber
      *
      * @throws \Doctrine\DBAL\DBALException
      */
@@ -88,7 +88,7 @@ class CoreInstaller extends DbBasedInstaller implements Installer
 
     /**
      * @throws \Doctrine\DBAL\DBALException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function importData()
     {
@@ -133,3 +133,5 @@ class CoreInstaller extends DbBasedInstaller implements Installer
     {
     }
 }
+
+class_alias(CoreInstaller::class, 'EzSystems\PlatformInstallerBundle\Installer\CoreInstaller');

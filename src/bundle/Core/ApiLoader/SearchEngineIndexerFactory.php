@@ -4,24 +4,24 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\ApiLoader;
+namespace Ibexa\Bundle\Core\ApiLoader;
 
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\Exception\InvalidSearchEngineIndexer;
-use eZ\Publish\Core\Search\Common\Indexer as SearchEngineIndexer;
+use Ibexa\Bundle\Core\ApiLoader\Exception\InvalidSearchEngineIndexer;
+use Ibexa\Core\Search\Common\Indexer as SearchEngineIndexer;
 
 /**
  * The search engine indexer factory.
  */
 class SearchEngineIndexerFactory
 {
-    /** @var \eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider */
+    /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */
     private $repositoryConfigurationProvider;
 
     /**
      * Hash of registered search engine indexers.
      * Key is the search engine identifier, value indexer itself.
      *
-     * @var \eZ\Publish\Core\Search\Common\Indexer[]
+     * @var \Ibexa\Core\Search\Common\Indexer[]
      */
     protected $searchEngineIndexers = [];
 
@@ -35,7 +35,7 @@ class SearchEngineIndexerFactory
      *
      * note: It is strongly recommended to register indexer as a lazy service.
      *
-     * @param \eZ\Publish\Core\Search\Common\Indexer $searchEngineIndexer
+     * @param \Ibexa\Core\Search\Common\Indexer $searchEngineIndexer
      * @param string $searchEngineIdentifier
      */
     public function registerSearchEngineIndexer(SearchEngineIndexer $searchEngineIndexer, $searchEngineIdentifier)
@@ -46,7 +46,7 @@ class SearchEngineIndexerFactory
     /**
      * Returns registered search engine indexers.
      *
-     * @return \eZ\Publish\Core\Search\Common\Indexer[]
+     * @return \Ibexa\Core\Search\Common\Indexer[]
      */
     public function getSearchEngineIndexers()
     {
@@ -57,9 +57,9 @@ class SearchEngineIndexerFactory
      * Build search engine indexer identified by its identifier (the "alias" attribute in the service tag),
      * resolved for current siteaccess.
      *
-     * @throws \eZ\Bundle\EzPublishCoreBundle\ApiLoader\Exception\InvalidSearchEngineIndexer
+     * @throws \Ibexa\Bundle\Core\ApiLoader\Exception\InvalidSearchEngineIndexer
      *
-     * @return \eZ\Publish\Core\Search\Common\Indexer
+     * @return \Ibexa\Core\Search\Common\Indexer
      */
     public function buildSearchEngineIndexer()
     {
@@ -81,3 +81,5 @@ class SearchEngineIndexerFactory
         return $this->searchEngineIndexers[$repositoryConfig['search']['engine']];
     }
 }
+
+class_alias(SearchEngineIndexerFactory::class, 'eZ\Bundle\EzPublishCoreBundle\ApiLoader\SearchEngineIndexerFactory');

@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base\Container\Compiler;
+namespace Ibexa\Core\Base\Container\Compiler;
 
-use eZ\Publish\Core\FieldType\FieldTypeRegistry;
-use eZ\Publish\Core\FieldType\Null\Type;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Core\FieldType\Null\Type;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
@@ -50,3 +50,5 @@ class FieldTypeRegistryPass extends AbstractFieldTypeBasedPass
         }
     }
 }
+
+class_alias(FieldTypeRegistryPass::class, 'eZ\Publish\Core\Base\Container\Compiler\FieldTypeRegistryPass');

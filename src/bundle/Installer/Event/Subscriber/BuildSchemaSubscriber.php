@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\PlatformInstallerBundle\Event\Subscriber;
+namespace Ibexa\Bundle\Installer\Event\Subscriber;
 
 use EzSystems\DoctrineSchema\API\Event\SchemaBuilderEvent;
 use EzSystems\DoctrineSchema\API\Event\SchemaBuilderEvents;
@@ -47,3 +47,5 @@ class BuildSchemaSubscriber implements EventSubscriberInterface
             ->importSchemaFromFile($this->schemaFilePath);
     }
 }
+
+class_alias(BuildSchemaSubscriber::class, 'EzSystems\PlatformInstallerBundle\Event\Subscriber\BuildSchemaSubscriber');

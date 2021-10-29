@@ -6,29 +6,29 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Values\Content;
+namespace Ibexa\Core\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\Thumbnail;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\SPI\FieldType\Value;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\FieldType\Value;
 
 /**
  * this class represents a content object in a specific version.
  *
- * @property-read \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo convenience getter for $versionInfo->contentInfo
- * @property-read \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType convenience getter for $versionInfo->contentInfo->contentType
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo convenience getter for $versionInfo->contentInfo
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType convenience getter for $versionInfo->contentInfo->contentType
  * @property-read int $id convenience getter for retrieving the contentId: $versionInfo->content->id
- * @property-read \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo calls getVersionInfo()
- * @property-read \eZ\Publish\API\Repository\Values\Content\Field[] $fields Access fields, calls getFields()
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo calls getVersionInfo()
+ * @property-read \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $fields Access fields, calls getFields()
  *
  * @internal Meant for internal use by Repository, type hint against API object instead.
  */
 class Content extends APIContent
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Thumbnail|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail|null */
     protected $thumbnail;
 
     /** @var mixed[][] An array of array of field values like[$fieldDefIdentifier][$languageCode] */
@@ -37,7 +37,7 @@ class Content extends APIContent
     /** @var APIVersionInfo */
     protected $versionInfo;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
     protected $contentType;
 
     /** @var Field[] An array of {@link Field} */
@@ -193,3 +193,5 @@ class Content extends APIContent
         return parent::__isset($property);
     }
 }
+
+class_alias(Content::class, 'eZ\Publish\Core\Repository\Values\Content\Content');

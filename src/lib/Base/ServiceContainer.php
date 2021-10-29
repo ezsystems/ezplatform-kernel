@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\Base;
+namespace Ibexa\Core\Base;
 
-use eZ\Publish\API\Container;
+use Ibexa\Contracts\Core\Container;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 use Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper;
@@ -86,7 +86,7 @@ class ServiceContainer implements Container
      *
      * Public API for
      *
-     * @return \eZ\Publish\API\Repository\Repository
+     * @return \Ibexa\Contracts\Core\Repository\Repository
      */
     public function getRepository()
     {
@@ -243,3 +243,5 @@ class ServiceContainer implements Container
         }
     }
 }
+
+class_alias(ServiceContainer::class, 'eZ\Publish\Core\Base\ServiceContainer');

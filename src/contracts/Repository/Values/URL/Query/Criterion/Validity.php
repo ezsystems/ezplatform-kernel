@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\URL\Query\Criterion;
+namespace Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
 
 /**
  * Matches URLs based on validity flag.
@@ -30,3 +30,5 @@ class Validity extends Matcher
         $this->isValid = $isValid;
     }
 }
+
+class_alias(Validity::class, 'eZ\Publish\API\Repository\Values\URL\Query\Criterion\Validity');

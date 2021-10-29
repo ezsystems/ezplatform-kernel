@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\SPI\FieldType;
+namespace Ibexa\Contracts\Core\FieldType;
 
 interface ValueSerializerInterface
 {
     /**
      * Normalizes an object into a hash.
      *
-     * @param \eZ\Publish\SPI\FieldType\Value $value
+     * @param \Ibexa\Contracts\Core\FieldType\Value $value
      * @param array $context
      *
      * @return array|null
@@ -27,7 +27,7 @@ interface ValueSerializerInterface
      * @param string $valueClass
      * @param array $context
      *
-     * @return \eZ\Publish\SPI\FieldType\Value
+     * @return \Ibexa\Contracts\Core\FieldType\Value
      */
     public function denormalize(?array $data, string $valueClass, array $context = []): Value;
 
@@ -51,3 +51,5 @@ interface ValueSerializerInterface
      */
     public function decode(?string $data, array $context = []): ?array;
 }
+
+class_alias(ValueSerializerInterface::class, 'eZ\Publish\SPI\FieldType\ValueSerializerInterface');

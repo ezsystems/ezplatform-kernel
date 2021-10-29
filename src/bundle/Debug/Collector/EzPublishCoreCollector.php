@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishDebugBundle\Collector;
+namespace Ibexa\Bundle\Debug\Collector;
 
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
@@ -111,3 +111,5 @@ class EzPublishCoreCollector extends DataCollector
         ];
     }
 }
+
+class_alias(EzPublishCoreCollector::class, 'eZ\Bundle\EzPublishDebugBundle\Collector\EzPublishCoreCollector');

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Field;
+namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\Field;
 
 trait FieldAggregationTrait
 {
@@ -26,3 +26,5 @@ trait FieldAggregationTrait
         return $this->fieldDefinitionIdentifier;
     }
 }
+
+class_alias(FieldAggregationTrait::class, 'eZ\Publish\API\Repository\Values\Content\Query\Aggregation\Field\FieldAggregationTrait');

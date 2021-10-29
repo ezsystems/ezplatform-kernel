@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Publish\Core\QueryType;
+namespace Ibexa\Core\QueryType;
 
-use eZ\Publish\Core\MVC\Symfony\View\ContentView;
+use Ibexa\Core\MVC\Symfony\View\ContentView;
 use InvalidArgumentException;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
@@ -102,3 +102,5 @@ class QueryParameterContentViewQueryTypeMapper implements ContentViewQueryTypeMa
         return $queryParameterValue;
     }
 }
+
+class_alias(QueryParameterContentViewQueryTypeMapper::class, 'eZ\Publish\Core\QueryType\QueryParameterContentViewQueryTypeMapper');
