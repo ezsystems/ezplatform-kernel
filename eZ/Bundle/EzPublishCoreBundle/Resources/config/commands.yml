@@ -54,7 +54,7 @@ services:
         tags:
             - { name: console.command }
 
-    Ibexa\Bundle\Command\SetSystemContentTypeGroupCommand:
+    Ibexa\Bundle\Core\Command\SetSystemContentTypeGroupCommand:
         autowire: true
         autoconfigure: true
         tags:
