@@ -229,11 +229,11 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         // Loads the "System" group
         $systemGroup = $contentTypeService->loadContentTypeGroup($this->generateId('typegroup', 5));
 
-        $this->assertSame(
+        self::assertSame(
             'System',
             $systemGroup->identifier
         );
-        $this->assertTrue(
+        self::assertTrue(
             $systemGroup->isSystem
         );
     }
@@ -357,7 +357,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         $loadedGroups = $contentTypeService->loadContentTypeGroups();
         /* END: Use Case */
 
-        $this->assertIsArray($loadedGroups);
+        self::assertIsArray($loadedGroups);
 
         foreach ($loadedGroups as $loadedGroup) {
             $this->assertStructPropertiesCorrect(
