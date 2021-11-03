@@ -87,7 +87,17 @@
             "Ibexa\\Bundle\\Installer\\": "src/bundle/Installer",
             "Ibexa\\Bundle\\LegacySearchEngine\\": "src/bundle/LegacySearchEngine",
             "Ibexa\\Contracts\\Core\\": "src/contracts",
-            "Ibexa\\Core\\": "src/lib"
+            "Ibexa\\Core\\": "src/lib",
+            "eZ\\Publish\\API\\Repository\\Tests\\": "src/contracts/Test/Repository",
+            "eZ\\Publish\\SPI\\Tests\\": "src/contracts/Test",
+            "eZ\\Publish\\API\\": "src/contracts",
+            "eZ\\Publish\\SPI\\": "src/contracts",
+            "eZ\\Publish\\Core\\": "src/lib",
+            "eZ\\Bundle\\EzPublishCoreBundle\\": "src/bundle/Core",
+            "eZ\\Bundle\\EzPublishDebugBundle\\": "src/bundle/Debug",
+            "eZ\\Bundle\\EzPublishIOBundle\\": "src/bundle/IO",
+            "eZ\\Bundle\\EzPublishLegacySearchEngineBundle\\": "src/bundle/LegacySearchEngine",
+            "EzSystems\\PlatformInstallerBundle\\": "src/bundle/Installer"
         }
     },
     "autoload-dev": {
