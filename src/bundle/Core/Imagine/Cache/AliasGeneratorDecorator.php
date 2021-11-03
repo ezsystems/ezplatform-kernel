@@ -11,7 +11,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use Ibexa\Contracts\Core\Variation\VariationHandler;
-use Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface;
+use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 use Symfony\Component\Routing\RequestContext;
 
@@ -40,14 +40,14 @@ class AliasGeneratorDecorator implements VariationHandler, SiteAccessAware
     /** @var \Symfony\Component\Routing\RequestContext */
     private $requestContext;
 
-    /** @var \Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface */
+    /** @var \Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface */
     private $cacheIdentifierGenerator;
 
     /**
      * @param \Ibexa\Contracts\Core\Variation\VariationHandler $aliasGenerator
      * @param \Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $cache
      * @param \Symfony\Component\Routing\RequestContext $requestContext
-     * @param \Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface $cacheIdentifierGenerator
+     * @param \Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface $cacheIdentifierGenerator
      */
     public function __construct(
         VariationHandler $aliasGenerator,

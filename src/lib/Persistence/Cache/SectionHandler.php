@@ -83,7 +83,7 @@ class SectionHandler extends AbstractHandler implements SectionHandlerInterface
         $cacheItem = $this->cache->getItem(
             $this->cacheIdentifierGenerator->generateKey(
                 self::SECTION_WITH_BY_ID_IDENTIFIER,
-                [$this->escapeForCacheKey($identifier)],
+                [$this->cacheIdentifierSanitizer->escapeForCacheKey($identifier)],
                 true
             )
         );

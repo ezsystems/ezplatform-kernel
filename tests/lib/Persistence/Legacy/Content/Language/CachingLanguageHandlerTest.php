@@ -12,9 +12,9 @@ use Ibexa\Contracts\Core\Persistence\Content\Language;
 use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct as SPILanguageCreateStruct;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as SPILanguageHandler;
-use Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface;
 use Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler;
 use Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache;
+use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler
@@ -42,7 +42,7 @@ class CachingLanguageHandlerTest extends TestCase
      */
     protected $languageCacheMock;
 
-    /** @var \Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface */
+    /** @var \Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface */
     protected $cacheIdentifierGeneratorMock;
 
     public function testCreate()
@@ -323,7 +323,7 @@ class CachingLanguageHandlerTest extends TestCase
     }
 
     /**
-     * @return \Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getCacheIdentifierGeneratorMock()
     {

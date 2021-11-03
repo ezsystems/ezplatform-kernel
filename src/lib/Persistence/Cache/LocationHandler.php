@@ -36,7 +36,9 @@ class LocationHandler extends AbstractInMemoryPersistenceHandler implements Loca
                 $this->cacheIdentifierGenerator->generateTag(self::CONTENT_IDENTIFIER, [$location->contentId]),
                 $this->cacheIdentifierGenerator->generateTag(self::LOCATION_IDENTIFIER, [$location->id]),
             ];
-            foreach (explode('/', trim($location->pathString, '/')) as $pathId) {
+
+            $pathIds = $this->locationPathConverter->convertToPathIds($location->pathString);
+            foreach ($pathIds as $pathId) {
                 $tags[] = $this->cacheIdentifierGenerator->generateTag(self::LOCATION_PATH_IDENTIFIER, [$pathId]);
             }
 
@@ -48,7 +50,7 @@ class LocationHandler extends AbstractInMemoryPersistenceHandler implements Loca
                 $this->cacheIdentifierGenerator->generateKey(self::LOCATION_IDENTIFIER, [$location->id], true) . $keySuffix,
                 $this->cacheIdentifierGenerator->generateKey(
                     self::LOCATION_REMOTE_ID_IDENTIFIER,
-                    [$this->escapeForCacheKey($location->remoteId)],
+                    [$this->cacheIdentifierSanitizer->escapeForCacheKey($location->remoteId)],
                     true
                 ) . $keySuffix,
             ];
@@ -226,7 +228,7 @@ class LocationHandler extends AbstractInMemoryPersistenceHandler implements Loca
         $getLocationKeysFn = $this->getLocationKeys;
 
         return $this->getCacheValue(
-            $this->escapeForCacheKey($remoteId),
+            $this->cacheIdentifierSanitizer->escapeForCacheKey($remoteId),
             $this->cacheIdentifierGenerator->generateKey(self::LOCATION_REMOTE_ID_IDENTIFIER, [], true) . '-',
             function () use ($remoteId, $translations, $useAlwaysAvailable) {
                 return $this->persistenceHandler->locationHandler()->loadByRemoteId($remoteId, $translations, $useAlwaysAvailable);
@@ -469,7 +471,8 @@ class LocationHandler extends AbstractInMemoryPersistenceHandler implements Loca
         $tags[] = $this->cacheIdentifierGenerator->generateTag(self::CONTENT_IDENTIFIER, [$location->contentId]);
         $tags[] = $this->cacheIdentifierGenerator->generateTag(self::LOCATION_IDENTIFIER, [$location->id]);
 
-        foreach (explode('/', trim($location->pathString, '/')) as $pathId) {
+        $pathIds = $this->locationPathConverter->convertToPathIds($location->pathString);
+        foreach ($pathIds as $pathId) {
             $tags[] = $this->cacheIdentifierGenerator->generateTag(self::LOCATION_PATH_IDENTIFIER, [$pathId]);
         }
 

@@ -127,9 +127,6 @@
         "test": "Run all tests (unit & integration, not functional), might not work on Windows."
     },
     "extra": {
-        "_ci_branch-comment_": "Keep ci branch up-to-date with master or branch if on stable. ci is never on github but convention used for ci behat testing!",
-        "_ezplatform_branch_for_behat_tests_comment_": "Ibexa branch to use to run Behat tests",
-        "_ezplatform_branch_for_behat_tests": "main",
         "branch-alias": {
             "dev-main": "4.0.x-dev"
         },

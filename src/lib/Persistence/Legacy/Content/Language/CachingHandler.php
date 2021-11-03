@@ -7,7 +7,7 @@
 namespace Ibexa\Core\Persistence\Legacy\Content\Language;
 
 use Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache;
-use Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface;
+use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
 use Ibexa\Contracts\Core\Persistence\Content\Language;
 use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as BaseLanguageHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct;
@@ -35,7 +35,7 @@ class CachingHandler implements BaseLanguageHandler
      */
     protected $cache;
 
-    /** @var \Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface */
+    /** @var \Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface */
     protected $cacheIdentifierGenerator;
 
     /**
@@ -43,7 +43,7 @@ class CachingHandler implements BaseLanguageHandler
      *
      * @param \Ibexa\Contracts\Core\Persistence\Content\Language\Handler $innerHandler
      * @param \Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache $cache
-     * @param \Ibexa\Core\Persistence\Cache\Tag\CacheIdentifierGeneratorInterface $cacheIdentifierGenerator
+     * @param \Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface $cacheIdentifierGenerator
      */
     public function __construct(
         BaseLanguageHandler $innerHandler,

@@ -73,7 +73,7 @@ class ObjectStateHandler extends AbstractInMemoryPersistenceHandler implements O
      */
     public function loadGroupByIdentifier($identifier)
     {
-        $escapedIdentifier = $this->escapeForCacheKey($identifier);
+        $escapedIdentifier = $this->cacheIdentifierSanitizer->escapeForCacheKey($identifier);
 
         return $this->getCacheValue(
             $identifier,
@@ -233,7 +233,7 @@ class ObjectStateHandler extends AbstractInMemoryPersistenceHandler implements O
      */
     public function loadByIdentifier($identifier, $groupId)
     {
-        $escapedIdentifier = $this->escapeForCacheKey($identifier);
+        $escapedIdentifier = $this->cacheIdentifierSanitizer->escapeForCacheKey($identifier);
 
         return $this->getCacheValue(
             $identifier,
