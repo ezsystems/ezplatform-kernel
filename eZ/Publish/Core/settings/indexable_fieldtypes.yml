@@ -110,6 +110,11 @@ services:
         tags:
             - {name: ezplatform.field_type.indexable, alias: ezurl}
 
+    ezpublish.fieldType.indexable.ezuser:
+        class: eZ\Publish\Core\FieldType\User\SearchField
+        tags:
+            - { name: ezplatform.field_type.indexable, alias: ezuser }
+
     ezpublish.fieldType.indexable.ezimageasset:
         class: eZ\Publish\Core\FieldType\ImageAsset\SearchField
         tags:
@@ -119,7 +124,6 @@ services:
     ezpublish.fieldType.indexable.unindexed:
         class: eZ\Publish\Core\FieldType\Unindexed
         tags:
-            - {name: ezplatform.field_type.indexable, alias: ezuser}
             - {name: ezplatform.field_type.indexable, alias: ezenum}
             - {name: ezplatform.field_type.indexable, alias: ezidentifier}
             - {name: ezplatform.field_type.indexable, alias: ezinisetting}

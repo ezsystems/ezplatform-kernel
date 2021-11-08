@@ -178,6 +178,11 @@ class Type extends FieldType
         // Does nothing
     }
 
+    public function isSearchable()
+    {
+        return true;
+    }
+
     /**
      * {@inheritdoc}
      */
