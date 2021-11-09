@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Repository\Mapper\ContentLocationMapper;
 
-use eZ\Publish\API\Repository\LocationService as ApiLocationService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\LocationList;
-use eZ\Publish\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\LocationService as ApiLocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
+use Ibexa\Core\Repository\Values\Content\Location;
 use Ibexa\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper;
 use Ibexa\Core\Repository\Mapper\ContentLocationMapper\DecoratedLocationService;
 use PHPUnit\Framework\TestCase;

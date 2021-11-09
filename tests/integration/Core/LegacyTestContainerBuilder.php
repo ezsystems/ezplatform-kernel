@@ -84,6 +84,7 @@ final class LegacyTestContainerBuilder extends ContainerBuilder
         $loader->load('policies.yml');
         $loader->load('events.yml');
         $loader->load('thumbnails.yml');
+        $loader->load('content_location_mapper.yml');
 
         // tests/integration/Core/Resources/settings/common.yml
         $loader->load('common.yml');
