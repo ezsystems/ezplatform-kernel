@@ -18,6 +18,11 @@ abstract class ContentTypeGroupStruct extends ValueObject
      * @var string
      */
     public $identifier;
+
+    /**
+     * @var bool
+     */
+    public $isSystem = false;
 }
 
 class_alias(ContentTypeGroupStruct::class, 'eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroupStruct');

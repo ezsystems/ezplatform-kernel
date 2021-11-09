@@ -55,6 +55,11 @@ class UpdateStruct extends ValueObject
      * @var mixed
      */
     public $modifierId;
+
+    /**
+     * @var bool
+     */
+    public $isSystem = false;
 }
 
 class_alias(UpdateStruct::class, 'eZ\Publish\SPI\Persistence\Content\Type\Group\UpdateStruct');

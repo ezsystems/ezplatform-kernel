@@ -71,6 +71,13 @@ class Group extends ValueObject
      * @var mixed
      */
     public $modifierId;
+
+    /**
+     * The flag indicates if ContentTypeGroup is system specific.
+     *
+     * @var bool
+     */
+    public $isSystem;
 }
 
 class_alias(Group::class, 'eZ\Publish\SPI\Persistence\Content\Type\Group');

@@ -107,7 +107,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
         $this->assertQueryResult(
             [
-                ['3'],
+                ['4'],
             ],
             $this->getDatabaseConnection()->createQueryBuilder()
                 ->select('COUNT(*)')
@@ -151,6 +151,14 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
                     'modified' => 1033922120,
                     'modifier_id' => 14,
                     'name' => 'Media',
+                ],
+                [
+                    'id' => 4,
+                    'created' => 1634895910,
+                    'creator_id' => 14,
+                    'modified' => 1634895910,
+                    'modifier_id' => 14,
+                    'name' => 'System',
                 ],
             ],
             $q
@@ -232,6 +240,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
             [
                 ['1'],
                 ['3'],
+                ['4'],
             ],
             $this->getDatabaseConnection()->createQueryBuilder()
                 ->select('id')
@@ -257,6 +266,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
                     'modified' => '1033922113',
                     'modifier_id' => '14',
                     'name' => 'Users',
+                    'is_system' => '0',
                 ],
             ],
             $data
@@ -281,6 +291,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
                     'modified' => '1033922113',
                     'modifier_id' => '14',
                     'name' => 'Users',
+                    'is_system' => '0',
                 ],
             ],
             $data
@@ -309,6 +320,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
                 'modified' => '1033922113',
                 'modifier_id' => '14',
                 'name' => 'Users',
+                'is_system' => '0',
             ],
             $data[1]
         );

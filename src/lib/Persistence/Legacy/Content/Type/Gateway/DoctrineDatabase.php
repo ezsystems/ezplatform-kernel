@@ -177,6 +177,10 @@ final class DoctrineDatabase extends Gateway
             ->set(
                 'name',
                 $query->createPositionalParameter($group->identifier, ParameterType::STRING)
+            )
+            ->set(
+                'is_system',
+                $query->createPositionalParameter($group->isSystem, ParameterType::BOOLEAN)
             )->where(
                 $query->expr()->eq(
                     'id',
@@ -470,10 +474,8 @@ final class DoctrineDatabase extends Gateway
 
     public function loadGroupData(array $groupIds): array
     {
-        $query = $this->connection->createQueryBuilder();
+        $query = $this->createGroupLoadQuery();
         $query
-            ->select('created', 'creator_id', 'id', 'modified', 'modifier_id', 'name')
-            ->from(self::CONTENT_TYPE_GROUP_TABLE)
             ->where($query->expr()->in('id', ':ids'))
             ->setParameter('ids', $groupIds, Connection::PARAM_INT_ARRAY);
 
@@ -497,6 +499,13 @@ final class DoctrineDatabase extends Gateway
     {
         $query = $this->createGroupLoadQuery();
 
+        $query->andWhere(
+            $query->expr()->eq(
+                'is_system',
+                $query->createPositionalParameter(false, ParameterType::BOOLEAN)
+            )
+        );
+
         return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
@@ -512,7 +521,8 @@ final class DoctrineDatabase extends Gateway
             'id',
             'modified',
             'modifier_id',
-            'name'
+            'name',
+            'is_system'
         )->from(self::CONTENT_TYPE_GROUP_TABLE);
 
         return $query;

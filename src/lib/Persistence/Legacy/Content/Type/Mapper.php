@@ -68,6 +68,7 @@ class Mapper
         $group->modified = $struct->modified;
         $group->creatorId = $struct->creatorId;
         $group->modifierId = $struct->modifierId;
+        $group->isSystem = $struct->isSystem;
 
         return $group;
     }
@@ -91,6 +92,7 @@ class Mapper
             $group->modified = (int)$row['modified'];
             $group->modifierId = (int)$row['modifier_id'];
             $group->identifier = $row['name'];
+            $group->isSystem = (bool)$row['is_system'];
 
             $groups[] = $group;
         }

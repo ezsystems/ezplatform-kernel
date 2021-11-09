@@ -155,6 +155,7 @@ class ContentTypeService implements ContentTypeServiceInterface
                 'modified' => $timestamp,
                 'creatorId' => $userId,
                 'modifierId' => $userId,
+                'isSystem' => $contentTypeGroupCreateStruct->isSystem,
             ]
         );
 
@@ -189,15 +190,15 @@ class ContentTypeService implements ContentTypeServiceInterface
      */
     public function loadContentTypeGroupByIdentifier(string $contentTypeGroupIdentifier, array $prioritizedLanguages = []): APIContentTypeGroup
     {
-        $groups = $this->loadContentTypeGroups($prioritizedLanguages);
-
-        foreach ($groups as $group) {
-            if ($group->identifier === $contentTypeGroupIdentifier) {
-                return $group;
-            }
+        try {
+            $spiGroup = $this->contentTypeHandler->loadGroupByIdentifier(
+                $contentTypeGroupIdentifier
+            );
+        } catch (APINotFoundException $e) {
+            throw new NotFoundException('ContentTypeGroup', $contentTypeGroupIdentifier);
         }
 
-        throw new NotFoundException('ContentTypeGroup', $contentTypeGroupIdentifier);
+        return $this->contentTypeDomainMapper->buildContentTypeGroupDomainObject($spiGroup, $prioritizedLanguages);
     }
 
     /**
@@ -262,6 +263,7 @@ class ContentTypeService implements ContentTypeServiceInterface
                 'modifierId' => $contentTypeGroupUpdateStruct->modifierId === null ?
                     $this->permissionResolver->getCurrentUserReference()->getUserId() :
                     $contentTypeGroupUpdateStruct->modifierId,
+                'isSystem' => $contentTypeGroupUpdateStruct->isSystem,
             ]
         );
 

@@ -113,7 +113,7 @@ final class InstallPlatformCommand extends Command implements BackwardCompatible
     {
         // @todo should take var-dir etc. from composer config or fallback to flex directory scheme
         if (!is_writable('public') && !is_writable('public/var')) {
-            $this->output->writeln('[web/ | web/var] is not writable');
+            $this->output->writeln('[public/ | public/var] is not writable');
             exit(self::EXIT_MISSING_PERMISSIONS);
         }
     }
