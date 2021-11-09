@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
 namespace eZ\Publish\Core\FieldType\User;
 
 use eZ\Publish\SPI\FieldType\Indexable as IndexableInterface;
@@ -41,11 +45,11 @@ final class SearchField implements IndexableInterface
 
     public function getDefaultMatchField(): string
     {
-        return '';
+        return 'user_login';
     }
 
     public function getDefaultSortField(): string
     {
-        return '';
+        return $this->getDefaultMatchField();
     }
 }
