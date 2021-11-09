@@ -1,0 +1,67 @@
+parameters:
+    # Helpers
+    ezpublish.config_resolver.resettable_services: []
+    ezpublish.config_resolver.updateable_services: []
+
+services:
+    # Helpers
+    ezpublish.translation_helper:
+        class: Ibexa\Core\Helper\TranslationHelper
+        arguments:
+            - "@ezpublish.config.resolver"
+            - "@ezpublish.api.service.content"
+            - "%ezpublish.siteaccesses_by_language%"
+            - "@?logger"
+
+    ezpublish.field_helper:
+        class: Ibexa\Core\Helper\FieldHelper
+        arguments: ["@ezpublish.translation_helper", "@ezpublish.api.service.content_type", "@ezpublish.api.service.field_type"]
+
+    ezpublish.content_preview_helper:
+        class: Ibexa\Core\Helper\ContentPreviewHelper
+        arguments: ["@event_dispatcher", "@ezpublish.siteaccess_router"]
+        calls:
+            - [setSiteAccess, ["@ezpublish.siteaccess"]]
+
+    ezpublish.config_scope_listener:
+        class: Ibexa\Bundle\Core\EventListener\ConfigScopeListener
+        arguments:
+            $configResolvers: !tagged ezpublish.config.resolver
+            $viewManager: '@ezpublish.view_manager'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ezpublish.content_preview.location_provider:
+        class: Ibexa\Core\Helper\PreviewLocationProvider
+        arguments:
+            - "@ezpublish.api.service.location"
+            - "@ezpublish.api.service.content"
+            - "@ezpublish.spi.persistence.cache.locationHandler"
+
+    ezpublish.content_info_location_loader.main:
+        class: 'Ibexa\Core\Helper\ContentInfoLocationLoader\SudoMainLocationLoader'
+        arguments:
+            - "@ezpublish.api.repository"
+
+    Ibexa\Bundle\Core\SiteAccess\LanguageResolver:
+        parent: Ibexa\Core\Repository\SiteAccessAware\Language\AbstractLanguageResolver
+        arguments:
+            $configResolver: '@ezpublish.config.resolver'
+
+    Ibexa\Contracts\Core\Repository\LanguageResolver:
+        alias: Ibexa\Bundle\Core\SiteAccess\LanguageResolver
+
+    Ibexa\Core\IO\IOConfigProvider:
+        alias: Ibexa\Bundle\Core\SiteAccess\Config\IOConfigResolver
+
+    Ibexa\Bundle\Core\SiteAccess\Config\ComplexConfigProcessor:
+        arguments:
+            $configResolver: '@ezpublish.config.resolver'
+            $siteAccessService: '@ezpublish.siteaccess_service'
+
+    Ibexa\Contracts\Core\SiteAccess\ConfigProcessor:
+        alias: Ibexa\Bundle\Core\SiteAccess\Config\ComplexConfigProcessor
+
+    Ibexa\Bundle\Core\SiteAccess\Config\IOConfigResolver:
+        arguments:
+            $complexConfigProcessor: '@Ibexa\Bundle\Core\SiteAccess\Config\ComplexConfigProcessor'

@@ -1,6 +1,0 @@
-services:
-    # Note: services tagged with:
-    #  - ezpublish.search.legacy.gateway.sort_clause_handler.content
-    # are registered to this one using compilation pass
-    ezpublish.search.legacy.gateway.sort_clause_converter.content:
-        class: eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter

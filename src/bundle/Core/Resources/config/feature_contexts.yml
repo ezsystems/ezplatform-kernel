@@ -1,0 +1,52 @@
+services:
+    Ibexa\Bundle\Core\Features\Context\ContentContext:
+        public: true
+        arguments:
+            $repository: '@ezpublish.api.repository'
+
+    Ibexa\Bundle\Core\Features\Context\ConsoleContext:
+        public: true
+        arguments:
+            $configResolver: '@ezpublish.config.resolver'
+            $siteaccessList: '%ezpublish.siteaccess.list%'
+            $defaultSiteaccess: '%ezpublish.siteaccess.default%'
+
+    Ibexa\Bundle\Core\Features\Context\YamlConfigurationContext:
+        public: true
+        arguments:
+            $kernel: '@kernel'
+
+    Ibexa\Bundle\Core\Features\Context\QueryControllerContext:
+        public: true
+        arguments:
+            $repository: '@ezpublish.api.repository'
+
+    Ibexa\Bundle\Core\Features\Context\ContentTypeContext:
+        public: true
+        arguments:
+            $contentTypeService: '@ezpublish.api.service.content_type'
+
+    Ibexa\Bundle\Core\Features\Context\BasicContentContext:
+        public: true
+        arguments:
+            $repository: '@ezpublish.api.repository'
+            $contentTypeService: '@ezpublish.api.service.content_type'
+            $contentService: '@ezpublish.api.service.content'
+
+    Ibexa\Bundle\Core\Features\Context\FieldTypeContext:
+        public: true
+        arguments:
+            $contentTypeService: '@ezpublish.api.service.content_type'
+            $contentService: '@ezpublish.api.service.content'
+            $locationService: '@ezpublish.api.service.location'
+
+    Ibexa\Bundle\Core\Features\Context\RoleContext:
+        public: true
+        arguments:
+            $roleService: '@ezpublish.api.service.role'
+
+    Ibexa\Bundle\Core\Features\Context\UserContext:
+        public: true
+        arguments:
+            $userService: '@ezpublish.api.service.user'
+            $searchService: '@ezpublish.api.service.search'

@@ -1,0 +1,73 @@
+services:
+    ezpublish.search.common.field_value_mapper.boolean:
+        class: Ibexa\Core\Search\Common\FieldValueMapper\BooleanMapper
+        tags:
+            - {name: ezpublish.search.common.field_value_mapper}
+
+    ezpublish.search.common.field_value_mapper.date:
+        class: Ibexa\Core\Search\Common\FieldValueMapper\DateMapper
+        tags:
+            - {name: ezpublish.search.common.field_value_mapper}
+
+    ezpublish.search.common.field_value_mapper.document:
+        class: Ibexa\Core\Search\Common\FieldValueMapper\DocumentMapper
+        tags:
+            - {name: ezpublish.search.common.field_value_mapper}
+
+    ezpublish.search.common.field_value_mapper.geo_location:
+        class: Ibexa\Core\Search\Common\FieldValueMapper\GeoLocationMapper
+        tags:
+            - {name: ezpublish.search.common.field_value_mapper}
+
+    ezpublish.search.common.field_value_mapper.float:
+        class: Ibexa\Core\Search\Common\FieldValueMapper\FloatMapper
+        tags:
+            - {name: ezpublish.search.common.field_value_mapper}
+
+    ezpublish.search.common.field_value_mapper.identifier:
+        class: Ibexa\Core\Search\Common\FieldValueMapper\IdentifierMapper
+        tags:
+            - {name: ezpublish.search.common.field_value_mapper}
+
+    ezpublish.search.common.field_value_mapper.multiple_integer:
+        class: Ibexa\Core\Search\Common\FieldValueMapper\MultipleIntegerMapper
+        tags:
+            - {name: ezpublish.search.common.field_value_mapper}
+
+    ezpublish.search.common.field_value_mapper.integer:
+        class: Ibexa\Core\Search\Common\FieldValueMapper\IntegerMapper
+        tags:
+            - {name: ezpublish.search.common.field_value_mapper}
+
+    ezpublish.search.common.field_value_mapper.multiple_boolean:
+        class: Ibexa\Core\Search\Common\FieldValueMapper\MultipleBooleanMapper
+        tags:
+            - {name: ezpublish.search.common.field_value_mapper}
+
+    ezpublish.search.common.field_value_mapper.multiple_identifier:
+        class: Ibexa\Core\Search\Common\FieldValueMapper\MultipleIdentifierMapper
+        tags:
+            - {name: ezpublish.search.common.field_value_mapper}
+
+    ezpublish.search.common.field_value_mapper.multiple_string:
+        class: Ibexa\Core\Search\Common\FieldValueMapper\MultipleStringMapper
+        tags:
+            - {name: ezpublish.search.common.field_value_mapper}
+
+    ezpublish.search.common.field_value_mapper.price:
+        class: Ibexa\Core\Search\Common\FieldValueMapper\PriceMapper
+        tags:
+            - {name: ezpublish.search.common.field_value_mapper}
+
+    ezpublish.search.common.field_value_mapper.string:
+        class: Ibexa\Core\Search\Common\FieldValueMapper\StringMapper
+        tags:
+            - {name: ezpublish.search.common.field_value_mapper}
+
+    Ibexa\Core\Search\Common\FieldValueMapper\RemoteIdentifierMapper:
+        tags:
+            - {name: ezpublish.search.common.field_value_mapper}
+
+    Ibexa\Core\Search\Common\FieldValueMapper\MultipleRemoteIdentifierMapper:
+        tags:
+            - {name: ezpublish.search.common.field_value_mapper}

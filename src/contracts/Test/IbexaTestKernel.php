@@ -10,10 +10,10 @@ namespace Ibexa\Contracts\Core\Test;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\DBAL\Connection;
-use eZ\Bundle\EzPublishCoreBundle\EzPublishCoreBundle;
-use eZ\Bundle\EzPublishLegacySearchEngineBundle\EzPublishLegacySearchEngineBundle;
-use eZ\Publish\API\Repository;
-use eZ\Publish\SPI\Persistence\TransactionHandler;
+use Ibexa\Bundle\Core\EzPublishCoreBundle;
+use Ibexa\Bundle\LegacySearchEngine\EzPublishLegacySearchEngineBundle;
+use Ibexa\Contracts\Core\Repository;
+use Ibexa\Contracts\Core\Persistence\TransactionHandler;
 use FOS\JsRoutingBundle\FOSJsRoutingBundle;
 use JMS\TranslationBundle\JMSTranslationBundle;
 use Liip\ImagineBundle\LiipImagineBundle;
@@ -175,7 +175,7 @@ class IbexaTestKernel extends Kernel
 
     private static function getResourcesPath(): string
     {
-        return dirname(__DIR__, 3) . '/eZ/Bundle/EzPublishCoreBundle/Tests/Resources';
+        return dirname(__DIR__, 3) . '/tests/bundle/Core/Resources';
     }
 
     private static function createPublicAliasesForServicesUnderTest(ContainerBuilder $container): void

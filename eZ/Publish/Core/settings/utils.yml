@@ -1,3 +1,0 @@
-services:
-    ezpublish.utils.deprecation_warner:
-        class: eZ\Publish\Core\Base\Utils\DeprecationWarner

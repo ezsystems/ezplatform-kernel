@@ -1,0 +1,87 @@
+imports:
+    - {resource: search_engines/legacy/criterion_handlers_common.yml}
+    - {resource: search_engines/legacy/criterion_handlers_content.yml}
+    - {resource: search_engines/legacy/criterion_handlers_location.yml}
+    - {resource: search_engines/legacy/indexer.yml}
+    - {resource: search_engines/legacy/sort_clause_handlers_common.yml}
+    - {resource: search_engines/legacy/sort_clause_handlers_content.yml}
+    - {resource: search_engines/legacy/sort_clause_handlers_location.yml}
+    - {resource: search_engines/common.yml}
+
+services:
+    # Aliasing storage connection in order to support sqlite://:memory:
+    # Otherwise it should be possible to use a separate database and/or database connection
+    ezpublish.api.search_engine.legacy.connection:
+        alias: ezpublish.api.storage_engine.legacy.connection
+
+    ezpublish.search.legacy.gateway.content.inner:
+        class: Ibexa\Core\Search\Legacy\Content\Gateway\DoctrineDatabase
+        arguments:
+            $connection: '@ezpublish.persistence.connection'
+            $criteriaConverter: '@ezpublish.search.legacy.gateway.criteria_converter.content'
+            $sortClauseConverter: '@ezpublish.search.legacy.gateway.sort_clause_converter.content'
+            $languageHandler: '@ezpublish.spi.persistence.language_handler'
+
+    ezpublish.search.legacy.gateway.content.exception_conversion:
+        class: Ibexa\Core\Search\Legacy\Content\Gateway\ExceptionConversion
+        arguments:
+            - "@ezpublish.search.legacy.gateway.content.inner"
+
+    # To disable exception conversion layer override this alias so that it points to inner gateway
+    ezpublish.search.legacy.gateway.content:
+        alias: ezpublish.search.legacy.gateway.content.exception_conversion
+
+    ezpublish.search.legacy.gateway.location.inner:
+        class: Ibexa\Core\Search\Legacy\Content\Location\Gateway\DoctrineDatabase
+        arguments:
+            $connection: "@ezpublish.persistence.connection"
+            $criteriaConverter: "@ezpublish.search.legacy.gateway.criteria_converter.location"
+            $sortClauseConverter: "@ezpublish.search.legacy.gateway.sort_clause_converter.location"
+            $languageHandler: "@ezpublish.spi.persistence.language_handler"
+
+    ezpublish.search.legacy.gateway.location.exception_conversion:
+        class: Ibexa\Core\Search\Legacy\Content\Location\Gateway\ExceptionConversion
+        arguments:
+            - "@ezpublish.search.legacy.gateway.location.inner"
+
+    # To disable exception conversion layer override this alias so that it points to inner gateway
+    ezpublish.search.legacy.gateway.location:
+        alias: ezpublish.search.legacy.gateway.location.exception_conversion
+
+    ezpublish.search.legacy.mapper.fulltext:
+        class: Ibexa\Core\Search\Legacy\Content\Mapper\FullTextMapper
+        arguments:
+            - "@ezpublish.search.common.field_registry"
+            - "@ezpublish.spi.persistence.content_type_handler"
+
+    ezpublish.search.legacy.fulltext_mapper:
+        alias: ezpublish.search.legacy.mapper.fulltext
+
+    ezpublish.spi.search.legacy:
+        class: Ibexa\Core\Search\Legacy\Content\Handler
+        arguments:
+            $gateway: '@ezpublish.search.legacy.gateway.content'
+            $locationGateway: '@ezpublish.search.legacy.gateway.location'
+            $indexerGateway: '@Ibexa\Core\Search\Legacy\Content\WordIndexer\Gateway\DoctrineDatabase'
+            $contentMapper: '@ezpublish.persistence.legacy.content.mapper'
+            $locationMapper: '@ezpublish.persistence.legacy.location.mapper'
+            $languageHandler: '@ezpublish.spi.persistence.language_handler'
+            $mapper: '@ezpublish.search.legacy.fulltext_mapper'
+        tags:
+            - {name: ezplatform.search_engine, alias: legacy}
+        lazy: true
+
+    ezpublish.spi.search.legacy.indexer:
+        class: Ibexa\Core\Search\Legacy\Content\Indexer
+        arguments:
+            $logger: '@logger'
+            $persistenceHandler: '@ezpublish.api.storage_engine'
+            $connection: '@ezpublish.persistence.connection'
+            $searchHandler: "@ezpublish.spi.search.legacy"
+        tags:
+            - {name: ezplatform.search_engine.indexer, alias: legacy}
+        lazy: true
+
+    Ibexa\Core\Search\Legacy\Content\IndexerGateway:
+        arguments:
+            $connection: '@ezpublish.persistence.connection'

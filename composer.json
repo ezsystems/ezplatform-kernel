@@ -1,13 +1,13 @@
 {
-    "name": "ezsystems/ezplatform-kernel",
-    "description": "Kernel used by ezsystems/ezplatform and derivatives. Provides the Content Repository, its APIs, and the application's Symfony framework integration.",
-    "homepage": "https://ezplatform.com",
-    "license": "GPL-2.0-only",
+    "name": "ibexa/core",
+    "description": "Ibexa DXP and Open Source core. Provides the Content Repository, its APIs, and the application's Symfony framework integration.",
+    "homepage": "https://ibexa.co",
+    "license": "(GPL-2.0-only or proprietary)",
     "suggest": {
         "php-64bit": "For support of more than 30 languages, a 64bit php installation on all involved prod/dev machines is required"
     },
     "require": {
-        "php": "^7.3",
+        "php": "^7.4",
         "ext-ctype": "*",
         "ext-fileinfo": "*",
         "ext-intl": "*",
@@ -77,24 +77,31 @@
         "phpunit/phpunit": "8.4.0"
     },
     "replace": {
-        "ezsystems/ezpublish-kernel": "*"
+        "ezsystems/ezplatform-kernel": "*"
     },
     "autoload": {
         "psr-4": {
-            "EzSystems\\PlatformInstallerBundle\\": "eZ/Bundle/PlatformInstallerBundle/src",
-            "eZ\\": "eZ",
             "Ibexa\\Bundle\\Core\\": "src/bundle/Core",
             "Ibexa\\Bundle\\Debug\\": "src/bundle/Debug",
             "Ibexa\\Bundle\\IO\\": "src/bundle/IO",
             "Ibexa\\Bundle\\Installer\\": "src/bundle/Installer",
             "Ibexa\\Bundle\\LegacySearchEngine\\": "src/bundle/LegacySearchEngine",
             "Ibexa\\Contracts\\Core\\": "src/contracts",
-            "Ibexa\\Core\\": "src/lib"
+            "Ibexa\\Core\\": "src/lib",
+            "eZ\\Publish\\API\\Repository\\Tests\\": "src/contracts/Test/Repository",
+            "eZ\\Publish\\SPI\\Tests\\": "src/contracts/Test",
+            "eZ\\Publish\\API\\": "src/contracts",
+            "eZ\\Publish\\SPI\\": "src/contracts",
+            "eZ\\Publish\\Core\\": "src/lib",
+            "eZ\\Bundle\\EzPublishCoreBundle\\": "src/bundle/Core",
+            "eZ\\Bundle\\EzPublishDebugBundle\\": "src/bundle/Debug",
+            "eZ\\Bundle\\EzPublishIOBundle\\": "src/bundle/IO",
+            "eZ\\Bundle\\EzPublishLegacySearchEngineBundle\\": "src/bundle/LegacySearchEngine",
+            "EzSystems\\PlatformInstallerBundle\\": "src/bundle/Installer"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "EzSystems\\PlatformInstallerBundleTests\\": "eZ/Bundle/PlatformInstallerBundle/tests",
             "Ibexa\\Tests\\Bundle\\Core\\": "tests/bundle/Core",
             "Ibexa\\Tests\\Bundle\\Debug\\": "tests/bundle/Debug",
             "Ibexa\\Tests\\Bundle\\IO\\": "tests/bundle/IO",
@@ -131,7 +138,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "4.0.x-dev"
+            "dev-main": "4.0.x-dev"
         },
         "thanks": {
             "name": "ezsystems/ezplatform",

@@ -1,0 +1,185 @@
+<?php
+
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+namespace Ibexa\Core\FieldType\Image;
+
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\Value as BaseValue;
+
+/**
+ * Value for Image field type.
+ *
+ * @property string $path @deprecated BC with 5.0 (EZP-20948). Equivalent to $id or $inputUri, depending on which one is set
+ * .
+ *
+ * @todo Mime type?
+ * @todo Dimensions?
+ */
+class Value extends BaseValue
+{
+    /**
+     * Image id.
+     *
+     * Required.
+     *
+     * @var mixed|null
+     */
+    public $id;
+
+    /**
+     * The alternative image text (for example "Picture of an apple.").
+     *
+     * @var string|null
+     */
+    public $alternativeText;
+
+    /**
+     * Display file name of the image.
+     *
+     * Required.
+     *
+     * @var string|null
+     */
+    public $fileName;
+
+    /**
+     * Size of the image file.
+     *
+     * Required.
+     *
+     * @var int|null
+     */
+    public $fileSize;
+
+    /**
+     * The image's HTTP URI.
+     *
+     * @var string|null
+     */
+    public $uri;
+
+    /**
+     * External image ID (required by REST for now, see https://jira.ez.no/browse/EZP-20831).
+     *
+     * @var mixed|null
+     */
+    public $imageId;
+
+    /**
+     * Input image file URI.
+     *
+     * @var string|null
+     */
+    public $inputUri;
+
+    /**
+     * Original image width.
+     *
+     * @var int|null
+     */
+    public $width;
+
+    /**
+     * Original image height.
+     *
+     * @var int|null
+     */
+    public $height;
+
+    /** @var string[] */
+    public $additionalData = [];
+
+    /**
+     * Construct a new Value object.
+     */
+    public function __construct(array $imageData = [])
+    {
+        foreach ($imageData as $key => $value) {
+            try {
+                $this->$key = $value;
+            } catch (PropertyNotFoundException $e) {
+                throw new InvalidArgumentType(
+                    sprintf('Image\Value::$%s', $key),
+                    'Existing property',
+                    $value
+                );
+            }
+        }
+    }
+
+    public function isAlternativeTextEmpty(): bool
+    {
+        return $this->alternativeText === null || trim($this->alternativeText) === '';
+    }
+
+    /**
+     * Creates a value only from a file path.
+     *
+     * @param string $path
+     *
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
+     *
+     * @return Value
+     *
+     * @deprecated Starting with 5.3.3, handled by Image\Type::acceptValue()
+     */
+    public static function fromString($path)
+    {
+        if (!file_exists($path)) {
+            throw new InvalidArgumentType(
+                '$path',
+                'existing file',
+                $path
+            );
+        }
+
+        return new static(
+            [
+                'inputUri' => $path,
+                'fileName' => basename($path),
+                'fileSize' => filesize($path),
+            ]
+        );
+    }
+
+    /**
+     * Returns the image file size in byte.
+     *
+     * @return int
+     */
+    public function getFileSize()
+    {
+        return $this->fileSize;
+    }
+
+    public function __toString()
+    {
+        return (string)$this->fileName;
+    }
+
+    public function __get($propertyName)
+    {
+        if ($propertyName === 'path') {
+            return $this->inputUri ?: $this->id;
+        }
+
+        throw new PropertyNotFoundException($propertyName, static::class);
+    }
+
+    public function __set($propertyName, $propertyValue)
+    {
+        if ($propertyName === 'path') {
+            $this->inputUri = $propertyValue;
+
+            return;
+        }
+
+        throw new PropertyNotFoundException($propertyName, static::class);
+    }
+}
+
+class_alias(Value::class, 'eZ\Publish\Core\FieldType\Image\Value');

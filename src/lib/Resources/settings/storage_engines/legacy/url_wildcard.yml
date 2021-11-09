@@ -1,0 +1,24 @@
+services:
+    ezpublish.persistence.legacy.url_wildcard.gateway.inner:
+        class: Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase
+        arguments:
+            - '@ezpublish.api.storage_engine.legacy.connection'
+
+    ezpublish.persistence.legacy.url_wildcard.gateway.exception_conversion:
+        class: Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\ExceptionConversion
+        arguments:
+            - "@ezpublish.persistence.legacy.url_wildcard.gateway.inner"
+
+    # To disable exception conversion layer override this alias so that it points to inner gateway
+    ezpublish.persistence.legacy.url_wildcard.gateway:
+        alias: ezpublish.persistence.legacy.url_wildcard.gateway.exception_conversion
+
+    ezpublish.persistence.legacy.url_wildcard.mapper:
+        class: Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Mapper
+
+    ezpublish.spi.persistence.legacy.url_wildcard.handler:
+        class: Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Handler
+        arguments:
+            - "@ezpublish.persistence.legacy.url_wildcard.gateway"
+            - "@ezpublish.persistence.legacy.url_wildcard.mapper"
+        lazy: true

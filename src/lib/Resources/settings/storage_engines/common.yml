@@ -1,0 +1,70 @@
+parameters:
+    # Using definition files:
+
+    # Transformation rules resources
+    ezpublish.api.storage_engine.transformation_rules.resources:
+        - "%ezpublish.kernel.root_dir%/tests/lib/Persistence/TransformationProcessor/_fixtures/transformations/ascii.tr"
+        - "%ezpublish.kernel.root_dir%/tests/lib/Persistence/TransformationProcessor/_fixtures/transformations/basic.tr"
+        - "%ezpublish.kernel.root_dir%/tests/lib/Persistence/TransformationProcessor/_fixtures/transformations/cyrillic.tr"
+        - "%ezpublish.kernel.root_dir%/tests/lib/Persistence/TransformationProcessor/_fixtures/transformations/greek.tr"
+        - "%ezpublish.kernel.root_dir%/tests/lib/Persistence/TransformationProcessor/_fixtures/transformations/hebrew.tr"
+        - "%ezpublish.kernel.root_dir%/tests/lib/Persistence/TransformationProcessor/_fixtures/transformations/latin.tr"
+        - "%ezpublish.kernel.root_dir%/tests/lib/Persistence/TransformationProcessor/_fixtures/transformations/search.tr"
+
+    # Using preprocessed files:
+
+    ezpublish.api.storage_engine.preprocessed_transformation_rules.resources:
+        - "%ezpublish.kernel.root_dir%/tests/lib/Persistence/TransformationProcessor/_fixtures/transformations/ascii.tr.result"
+        - "%ezpublish.kernel.root_dir%/tests/lib/Persistence/TransformationProcessor/_fixtures/transformations/basic.tr.result"
+        - "%ezpublish.kernel.root_dir%/tests/lib/Persistence/TransformationProcessor/_fixtures/transformations/cyrillic.tr.result"
+        - "%ezpublish.kernel.root_dir%/tests/lib/Persistence/TransformationProcessor/_fixtures/transformations/greek.tr.result"
+        - "%ezpublish.kernel.root_dir%/tests/lib/Persistence/TransformationProcessor/_fixtures/transformations/hebrew.tr.result"
+        - "%ezpublish.kernel.root_dir%/tests/lib/Persistence/TransformationProcessor/_fixtures/transformations/latin.tr.result"
+        - "%ezpublish.kernel.root_dir%/tests/lib/Persistence/TransformationProcessor/_fixtures/transformations/search.tr.result"
+
+services:
+    ezpublish.persistence.field_type_registry:
+        class: Ibexa\Core\Persistence\FieldTypeRegistry
+
+    ezpublish.persistence.external_storage_registry:
+        class: Ibexa\Core\Persistence\Legacy\Content\StorageRegistry
+
+    ezpublish.persistence.slug_converter:
+        class: Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter
+        arguments:
+            - '@ezpublish.api.storage_engine.transformation_processor'
+            - []
+
+    ezpublish.api.storage_engine.transformation_parser:
+        class: Ibexa\Core\Persistence\TransformationProcessor\DefinitionBased\Parser
+
+    ezpublish.api.storage_engine.pcre_compiler:
+        class: Ibexa\Core\Persistence\TransformationProcessor\PcreCompiler
+        arguments: ["@ezpublish.api.storage_engine.transformation_converter"]
+
+    ezpublish.api.storage_engine.transformation_converter:
+        class: Ibexa\Core\Persistence\Utf8Converter
+
+    ezpublish.api.storage_engine.transformation_processor:
+        class: Ibexa\Core\Persistence\TransformationProcessor\PreprocessedBased
+        arguments:
+            # Using definition files:
+            #
+            # - "@ezpublish.api.storage_engine.transformation_parser"
+            # - "@ezpublish.api.storage_engine.pcre_compiler"
+            # - "%ezpublish.api.storage_engine.transformation_rules.resources%"
+
+            # Using preprocessed files:
+            - "@ezpublish.api.storage_engine.pcre_compiler"
+            - "%ezpublish.api.storage_engine.preprocessed_transformation_rules.resources%"
+
+    ezpublish.persistence.connection:
+        public: true # @todo should be private
+        alias: ezpublish.api.storage_engine.legacy.connection
+
+    ibexa.repository.transaction_handler:
+        alias: ezpublish.spi.persistence.cache.transactionhandler
+
+    Ibexa\Contracts\Core\Persistence\TransactionHandler:
+        alias: ibexa.repository.transaction_handler
+

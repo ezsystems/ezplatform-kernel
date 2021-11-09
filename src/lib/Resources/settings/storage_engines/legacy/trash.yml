@@ -1,0 +1,18 @@
+services:
+    ezpublish.spi.persistence.legacy.trash.handler:
+        class: Ibexa\Core\Persistence\Legacy\Content\Location\Trash\Handler
+        arguments:
+            - "@ezpublish.spi.persistence.legacy.location.handler"
+            - "@ezpublish.persistence.legacy.location.gateway.exception_conversion"
+            - "@ezpublish.persistence.legacy.location.mapper"
+            - "@ezpublish.spi.persistence.legacy.content.handler"
+        lazy: true
+
+    # reusing parts of LSE
+    ezplatform.trash.search.legacy.gateway.criteria_converter:
+        class: Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter
+        lazy: true
+
+    ezplatform.trash.search.legacy.gateway.sort_clause_converter:
+        class: Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter
+        lazy: true

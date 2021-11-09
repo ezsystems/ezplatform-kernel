@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Persistence\Cache\Identifier;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGenerator;
 use PHPUnit\Framework\TestCase;
 

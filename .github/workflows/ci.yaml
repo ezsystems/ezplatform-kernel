@@ -18,7 +18,6 @@ jobs:
             matrix:
                 experimental: [ false ]
                 php:
-                    - '7.3'
                     - '7.4'
                 composer_options: [ "" ]
 
@@ -79,7 +78,6 @@ jobs:
             matrix:
                 experimental: [ false ]
                 php:
-                    - '7.3'
                     - '7.4'
                 composer_options: [ "" ]
 

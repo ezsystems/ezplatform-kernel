@@ -1,0 +1,71 @@
+services:
+    # Deprecated since 5.4. Use ezpublish.fieldType.ezimage.io_service.
+    ezpublish.fieldType.ezimage.io:
+        alias: ezpublish.fieldType.ezimage.io_service
+
+    # Custom IOService with a proxy that handles the legacy prefix (images-versioned)
+    ezpublish.fieldType.ezimage.io_service:
+        class: Ibexa\Core\FieldType\Image\IO\Legacy
+        arguments:
+            - "@ezpublish.fieldType.ezimage.io_service.published"
+            - "@ezpublish.fieldType.ezimage.io_service.draft"
+            - "@ezpublish.fieldType.ezimage.io_service.options_provider"
+
+    ezpublish.fieldType.ezimage.io_service.options_provider:
+        class: Ibexa\Core\FieldType\Image\IO\OptionsProvider
+        arguments:
+            $configResolver: '@ezpublish.config.resolver'
+
+    ezpublish.fieldType.ezimage.io_service.published:
+        parent: ezpublish.core.io.service
+        calls:
+            - [ setPrefix, [ "%image_storage_prefix%" ] ]
+
+    # Used to manipulate images with a legacy 'images-versioned' path
+    ezpublish.fieldType.ezimage.io_service.draft:
+        parent: ezpublish.core.io.service
+        calls:
+            - [ setPrefix, [ "%image_draft_storage_prefix%" ] ]
+
+    ezpublish.fieldType.ezimage.pathGenerator:
+        class: Ibexa\Core\FieldType\Image\PathGenerator\LegacyPathGenerator
+
+    Ibexa\Core\FieldType\Image\NullAliasCleaner: ~
+    Ibexa\Core\FieldType\Image\AliasCleanerInterface: '@Ibexa\Core\FieldType\Image\NullAliasCleaner'
+
+    # BinaryFile
+    ezpublish.fieldType.ezbinaryfile.io_service:
+        parent: ezpublish.core.io.service
+        calls:
+            - [ setPrefix, [ "%binaryfile_storage_prefix%" ] ]
+
+    ezpublish.fieldType.ezbinaryfile.pathGenerator:
+        class: Ibexa\Core\FieldType\BinaryBase\PathGenerator\LegacyPathGenerator
+
+    ezpublish.fieldType.validator.black_list:
+        class: Ibexa\Core\FieldType\Validator\FileExtensionBlackListValidator
+        arguments:
+            - '@ezpublish.config.resolver'
+
+    ezpublish.fieldType.validator.image:
+        class: Ibexa\Core\FieldType\Validator\ImageValidator
+
+    # Symfony 3.4+ service definitions:
+    Ibexa\Core\FieldType\ImageAsset\AssetMapper:
+        arguments:
+            $contentService: '@ezpublish.api.service.content'
+            $locationService: '@ezpublish.api.service.location'
+            $contentTypeService: '@ezpublish.api.service.content_type'
+            $configResolver: '@ezpublish.config.resolver'
+
+    Ibexa\Core\FieldType\FieldTypeRegistry: ~
+
+    Ibexa\Core\Repository\User\PasswordHashService: ~
+
+    Ibexa\Contracts\Core\Repository\PasswordHashService:
+        alias: Ibexa\Core\Repository\User\PasswordHashService
+
+    Ibexa\Core\Repository\User\PasswordValidator: ~
+
+    Ibexa\Core\Repository\User\PasswordValidatorInterface:
+        alias: Ibexa\Core\Repository\User\PasswordValidator

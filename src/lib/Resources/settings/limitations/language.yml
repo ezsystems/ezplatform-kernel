@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+    _instanceof:
+        Ibexa\Core\Limitation\LanguageLimitation\VersionTargetEvaluator:
+            tags:
+                - { name: ezplatform.limitation.language.version_target_evaluator }
+
+    Ibexa\Core\Limitation\LanguageLimitation\:
+        resource: '../../../Limitation/LanguageLimitation/*'
