@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autoconfigure: true
+        autowire: true
+        public: true
+
+    Ibexa\Core\Repository\Mapper\ContentLocationMapper\InMemoryContentLocationMapper: ~
+
+    Ibexa\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper: '@Ibexa\Core\Repository\Mapper\ContentLocationMapper\InMemoryContentLocationMapper'
+
+    Ibexa\Core\Repository\Mapper\ContentLocationMapper\DecoratedLocationService:
+        decorates: ezpublish.api.service.inner_location
+        arguments:
+            $innerService: '@.inner'
