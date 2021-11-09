@@ -40,7 +40,7 @@ return [
             'modified' => 1634895910,
             'modifier_id' => 14,
             'name' => 'System',
-            'is_system' => 1
+            'is_system' => 1,
         ],
     ],
 ];
