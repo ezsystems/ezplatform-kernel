@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Mapper\ContentLocationMapper;
+namespace Ibexa\Core\Repository\Mapper\ContentLocationMapper;
 
 /**
  * @internal For internal use by Ibexa packages only

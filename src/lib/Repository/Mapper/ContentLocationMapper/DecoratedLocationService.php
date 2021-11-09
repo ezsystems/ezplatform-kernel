@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Mapper\ContentLocationMapper;
+namespace Ibexa\Core\Repository\Mapper\ContentLocationMapper;
 
 use eZ\Publish\API\Repository\LocationService as RepositoryLocationService;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
@@ -21,7 +21,7 @@ use eZ\Publish\SPI\Repository\Decorator\LocationServiceDecorator;
  */
 final class DecoratedLocationService extends LocationServiceDecorator
 {
-    /** @var \eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper */
+    /** @var \Ibexa\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper */
     private $contentLocationMapper;
 
     public function __construct(

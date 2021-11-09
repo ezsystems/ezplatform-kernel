@@ -4,11 +4,11 @@ services:
         autowire: true
         public: true
 
-    eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\InMemoryContentLocationMapper: ~
+    Ibexa\Core\Repository\Mapper\ContentLocationMapper\InMemoryContentLocationMapper: ~
 
-    eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper: '@eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\InMemoryContentLocationMapper'
+    Ibexa\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper: '@Ibexa\Core\Repository\Mapper\ContentLocationMapper\InMemoryContentLocationMapper'
 
-    eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\DecoratedLocationService:
+    Ibexa\Core\Repository\Mapper\ContentLocationMapper\DecoratedLocationService:
         decorates: ezpublish.api.service.inner_location
         arguments:
             $innerService: '@.inner'

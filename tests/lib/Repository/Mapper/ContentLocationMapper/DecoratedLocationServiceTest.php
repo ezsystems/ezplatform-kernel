@@ -6,25 +6,25 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Tests\Mapper\ContentLocationMapper;
+namespace Ibexa\Tests\Core\Repository\Mapper\ContentLocationMapper;
 
 use eZ\Publish\API\Repository\LocationService as ApiLocationService;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\LocationList;
-use eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper;
-use eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\DecoratedLocationService;
 use eZ\Publish\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper;
+use Ibexa\Core\Repository\Mapper\ContentLocationMapper\DecoratedLocationService;
 use PHPUnit\Framework\TestCase;
 
 class DecoratedLocationServiceTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\DecoratedLocationService */
+    /** @var DecoratedLocationService */
     private $locationService;
 
     /** @var ApiLocationService */
     private $innerLocationService;
 
-    /** @var \eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper */
+    /** @var ContentLocationMapper */
     private $mapper;
 
     protected function setUp(): void

@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace eZ\Publish\Core\Repository\Tests\Mapper\ContentLocationMapper;
+namespace Ibexa\Tests\Core\Repository\Mapper\ContentLocationMapper;
 
-use eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\InMemoryContentLocationMapper;
+use Ibexa\Core\Repository\Mapper\ContentLocationMapper\InMemoryContentLocationMapper;
 use PHPUnit\Framework\TestCase;
 
 class InMemoryContentLocationMapperTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper */
+    /** @var \Ibexa\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper */
     private $mapper;
 
     protected function setUp(): void
