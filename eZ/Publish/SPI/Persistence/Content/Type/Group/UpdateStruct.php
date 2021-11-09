@@ -55,4 +55,9 @@ class UpdateStruct extends ValueObject
      * @var mixed
      */
     public $modifierId;
+
+    /**
+     * @var bool
+     */
+    public $isSystem = false;
 }

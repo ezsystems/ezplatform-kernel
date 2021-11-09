@@ -203,6 +203,7 @@ class ContentTypeDomainMapper extends ProxyAwareDomainMapper
                 'names' => $spiGroup->name,
                 'descriptions' => $spiGroup->description,
                 'prioritizedLanguages' => $prioritizedLanguages,
+                'isSystem' => $spiGroup->isSystem,
             ]
         );
     }
