@@ -1,0 +1,45 @@
+services:
+    ezpublish.url_checker:
+        class: 'Ibexa\Bundle\Core\URLChecker\URLChecker'
+        arguments:
+            - '@ezpublish.api.service.inner_url'
+            - '@ezpublish.url_checker.handler_registry'
+        calls:
+            - ['setLogger', ['@?logger']]
+        lazy: true
+
+    ezpublish.url_checker.handler_registry:
+        class: 'Ibexa\Bundle\Core\URLChecker\URLHandlerRegistry'
+
+    ezpublish.url_checker.handler.base:
+        abstract: true
+        arguments:
+            - '@ezpublish.api.service.inner_url'
+        calls:
+            - ['setLogger', ['@?logger']]
+
+    ezpublish.url_checker.handler.http:
+        class: 'Ibexa\Bundle\Core\URLChecker\Handler\HTTPHandler'
+        parent: ezpublish.url_checker.handler.base
+        arguments:
+            $configResolver: '@ezpublish.config.resolver'
+            $parameterName: url_handler.http.options
+        tags:
+            - { name: ezpublish.url_handler, scheme: http }
+
+    ezpublish.url_checker.handler.https:
+        class: 'Ibexa\Bundle\Core\URLChecker\Handler\HTTPHandler'
+        parent: ezpublish.url_checker.handler.base
+        arguments:
+            $configResolver: '@ezpublish.config.resolver'
+            $parameterName: url_handler.https.options
+        tags:
+            - { name: ezpublish.url_handler, scheme: https }
+
+    ezpublish.url_checker.handler.mailto:
+        class: 'Ibexa\Bundle\Core\URLChecker\Handler\MailToHandler'
+        parent: ezpublish.url_checker.handler.base
+        arguments:
+            $configResolver: '@ezpublish.config.resolver'
+        tags:
+            - { name: ezpublish.url_handler, scheme: mailto }

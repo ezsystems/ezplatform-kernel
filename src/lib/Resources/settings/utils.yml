@@ -1,0 +1,3 @@
+services:
+    ezpublish.utils.deprecation_warner:
+        class: Ibexa\Core\Base\Utils\DeprecationWarner

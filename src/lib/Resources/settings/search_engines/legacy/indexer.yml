@@ -1,0 +1,13 @@
+services:
+    Ibexa\Core\Search\Legacy\Content\WordIndexer\Gateway\DoctrineDatabase:
+        arguments:
+            $connection: '@ezpublish.persistence.connection'
+            $typeHandler: '@ezpublish.spi.persistence.content_type_handler'
+            $transformationProcessor: '@ezpublish.api.storage_engine.transformation_processor'
+            $searchIndex: '@Ibexa\Core\Search\Legacy\Content\WordIndexer\Repository\SearchIndex'
+            $languageMaskGenerator: '@ezpublish.persistence.legacy.language.mask_generator'
+            $fullTextSearchConfiguration: '%ezpublish.search.legacy.criterion_handler.full_text.configuration%'
+
+    Ibexa\Core\Search\Legacy\Content\WordIndexer\Repository\SearchIndex:
+        arguments:
+            $connection: '@ezpublish.persistence.connection'

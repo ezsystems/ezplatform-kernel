@@ -1,0 +1,81 @@
+parameters:
+    ezsettings.default.io.file_storage.file_type_blacklist:
+        - php
+        - php3
+        - phar
+        - phpt
+        - pht
+        - phtml
+        - pgif
+
+services:
+    logger:
+        class: Psr\Log\NullLogger
+
+    Symfony\Component\EventDispatcher\EventDispatcher: ~
+    Symfony\Contracts\EventDispatcher\EventDispatcherInterface: '@Symfony\Component\EventDispatcher\EventDispatcher'
+
+    # By default use in-memory cache for tests to avoid disk IO but still make sure we tests cache clearing works
+    ezpublish.cache_pool.driver:
+        class: Symfony\Component\Cache\Adapter\ArrayAdapter
+        arguments: [120, false]
+
+    # Override Slug Converter service to expose mutating Service configuration
+    ezpublish.persistence.slug_converter:
+        class: Ibexa\Tests\Integration\Core\Repository\Common\SlugConverter
+        arguments:
+            - '@ezpublish.api.storage_engine.transformation_processor'
+            - []
+
+    # Configure serializer required  Generic Field Type
+    ezpublish.field_type.ezgeneric.value_serializer.symfony.normalizer:
+        class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
+
+    ezpublish.field_type.ezgeneric.value_serializer.symfony.encoder:
+        class: Symfony\Component\Serializer\Encoder\JsonEncoder
+
+    ezpublish.field_type.ezgeneric.value_serializer.symfony.serializer:
+        class: Symfony\Component\Serializer\Serializer
+        arguments:
+            - [ '@ezpublish.field_type.ezgeneric.value_serializer.symfony.normalizer' ]
+            - [ '@ezpublish.field_type.ezgeneric.value_serializer.symfony.encoder' ]
+
+    serializer:
+        alias: ezpublish.field_type.ezgeneric.value_serializer.symfony.serializer
+
+    Ibexa\Tests\Integration\Core\Persistence\Variation\InMemoryVariationHandler: ~
+    Ibexa\Contracts\Core\Variation\VariationHandler: '@Ibexa\Tests\Integration\Core\Persistence\Variation\InMemoryVariationHandler'
+
+    ezpublish.config.resolver:
+        class: Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver
+        arguments:
+            - '@logger'
+            - []
+            - 'ezsettings'
+        calls:
+            - [setSiteAccess, ['@ezpublish.siteaccess']]
+            - [setContainer, ['@service_container']]
+            - [setDefaultScope, ['default']]
+
+    ezpublish.siteaccess:
+        class: Ibexa\Core\MVC\Symfony\SiteAccess
+        arguments: ['default', 'uninitialized']
+
+    ezpublish.siteaccess_service:
+        class: Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService
+        arguments:
+            - '@ezpublish.siteaccess.provider'
+            - '@ezpublish.config.resolver'
+        calls:
+            - [setSiteAccess, ['@ezpublish.siteaccess']]
+
+    Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface:
+        alias: 'ezpublish.siteaccess_service'
+
+    ezpublish.siteaccess.provider.chain:
+        class: Ibexa\Core\MVC\Symfony\SiteAccess\Provider\ChainSiteAccessProvider
+        arguments:
+            $providers: !tagged ezplatform.siteaccess.provider
+
+    ezpublish.siteaccess.provider:
+        alias: ezpublish.siteaccess.provider.chain

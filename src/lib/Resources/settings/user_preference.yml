@@ -1,0 +1,3 @@
+services:
+    Ibexa\Contracts\Core\Repository\UserPreferenceService:
+        alias: Ibexa\Core\Event\UserPreferenceService

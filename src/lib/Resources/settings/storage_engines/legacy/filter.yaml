@@ -1,0 +1,58 @@
+imports:
+    - { resource: filter/query_builders.yaml }
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    # injectables:
+    Ibexa\Contracts\Core\Persistence\Filter\Content\Handler:
+        alias: Ibexa\Core\Persistence\Legacy\Filter\Handler\ContentFilteringHandler
+
+    Ibexa\Contracts\Core\Persistence\Filter\Location\Handler:
+        alias: Ibexa\Core\Persistence\Legacy\Filter\Handler\LocationFilteringHandler
+
+    Ibexa\Core\Persistence\Legacy\Filter\Gateway\Content\GatewayDataMapper:
+        alias: Ibexa\Core\Persistence\Legacy\Filter\Gateway\Content\Mapper\DoctrineGatewayDataMapper
+
+    Ibexa\Contracts\Core\Persistence\Filter\CriterionVisitor:
+        alias: Ibexa\Core\Persistence\Legacy\Filter\CriterionVisitor
+
+    Ibexa\Contracts\Core\Persistence\Filter\SortClauseVisitor:
+        alias: Ibexa\Core\Persistence\Legacy\Filter\SortClauseVisitor
+
+    # implementations:
+    Ibexa\Core\Persistence\Legacy\Filter\Gateway\Content\Mapper\DoctrineGatewayDataMapper:
+        arguments:
+            $languageHandler: '@ezpublish.spi.persistence.language_handler'
+            $languageMaskGenerator: '@ezpublish.persistence.legacy.language.mask_generator'
+            $contentTypeHandler: '@ezpublish.spi.persistence.content_type_handler'
+            $converterRegistry: '@ezpublish.persistence.legacy.field_value_converter.registry'
+
+    Ibexa\Core\Persistence\Legacy\Filter\CriterionVisitor:
+        arguments:
+            $criterionQueryBuilders: !tagged_iterator ezplatform.filter.criterion.query_builder
+
+    Ibexa\Core\Persistence\Legacy\Filter\SortClauseVisitor:
+        arguments:
+            $sortClauseQueryBuilders: !tagged_iterator ezplatform.filter.sort_clause.query_builder
+
+    Ibexa\Core\Persistence\Legacy\Filter\Gateway\Content\Doctrine\DoctrineGateway:
+        arguments:
+            $connection: '@ezpublish.persistence.connection'
+
+    Ibexa\Core\Persistence\Legacy\Filter\Handler\ContentFilteringHandler:
+        arguments:
+            $gateway: '@Ibexa\Core\Persistence\Legacy\Filter\Gateway\Content\Doctrine\DoctrineGateway'
+            $fieldHandler: '@ezpublish.persistence.legacy.field_handler'
+
+    Ibexa\Core\Persistence\Legacy\Filter\Gateway\Location\Doctrine\DoctrineGateway:
+        arguments:
+            $connection: '@ezpublish.persistence.connection'
+
+    Ibexa\Core\Persistence\Legacy\Filter\Handler\LocationFilteringHandler:
+        arguments:
+            $gateway: '@Ibexa\Core\Persistence\Legacy\Filter\Gateway\Location\Doctrine\DoctrineGateway'
+            $locationMapper: '@ezpublish.persistence.legacy.location.mapper'

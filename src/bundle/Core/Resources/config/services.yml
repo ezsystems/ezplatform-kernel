@@ -1,0 +1,356 @@
+imports:
+    - { resource: commands.yml }
+
+parameters:
+    ezpublish.siteaccess.default.name: default
+    ezpublish.config.default_scope: ezsettings
+
+    # Param converters
+    ezpublish.param_converter.content.priority: -2
+    ezpublish.param_converter.location.priority: -2
+
+services:
+    # Siteaccess is injected in the container at runtime
+    ezpublish.siteaccess:
+        class: Ibexa\Core\MVC\Symfony\SiteAccess
+        arguments: ["%ezpublish.siteaccess.default.name%", 'uninitialized']
+
+    Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver\DefaultScopeConfigResolver:
+        arguments:
+            - '%ezpublish.config.default_scope%'
+        calls:
+            - [setContainer, ['@service_container']]
+        lazy: true
+        tags:
+            - { name: ezpublish.config.resolver, priority: 0 }
+
+    Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver\SiteAccessGroupConfigResolver:
+        arguments:
+            - '@ezpublish.siteaccess.provider'
+            - '%ezpublish.config.default_scope%'
+            - '%ezpublish.siteaccess.groups%'
+        calls:
+            - [setSiteAccess, ['@ezpublish.siteaccess']]
+            - [setContainer, ['@service_container']]
+        lazy: true
+        tags:
+            - { name: ezpublish.config.resolver, priority: 50 }
+
+    Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver\StaticSiteAccessConfigResolver:
+        arguments:
+            - '@ezpublish.siteaccess.provider'
+            - '%ezpublish.config.default_scope%'
+        calls:
+            - [setSiteAccess, ['@ezpublish.siteaccess']]
+            - [setContainer, ['@service_container']]
+        lazy: true
+        tags:
+            - { name: ezpublish.config.resolver, priority: 100 }
+
+    Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver\GlobalScopeConfigResolver:
+        arguments:
+            - '%ezpublish.config.default_scope%'
+        calls:
+            - [setContainer, ['@service_container']]
+        lazy: true
+        tags:
+            - { name: ezpublish.config.resolver, priority: 255 }
+
+    Ibexa\Bundle\Core\DependencyInjection\Configuration\ChainConfigResolver:
+        public: true # @todo should be private
+
+    ezpublish.config.resolver:
+        public: true # @todo should be private
+        alias: Ibexa\Bundle\Core\DependencyInjection\Configuration\ChainConfigResolver
+
+    ezpublish.config.dynamic_setting.parser:
+        class: Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\DynamicSettingParser
+
+    ezpublish.config.complex_setting_value.resolver:
+        class: Ibexa\Bundle\Core\DependencyInjection\Configuration\ComplexSettings\ComplexSettingValueResolver
+
+    ezpublish.console_event_listener:
+        class: Ibexa\Bundle\Core\EventListener\ConsoleCommandListener
+        arguments:
+            - "%ezpublish.siteaccess.default%"
+            - '@ezpublish.siteaccess.provider'
+            - "@event_dispatcher"
+            - "%kernel.debug%"
+        calls:
+            - [setSiteAccess, ["@ezpublish.siteaccess"]]
+        tags:
+            - { name: kernel.event_subscriber }
+
+    Ibexa\Bundle\Core\EventListener\BackwardCompatibleCommandListener:
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ezpublish.controller.base:
+        class: Ibexa\Core\MVC\Symfony\Controller\Controller
+        abstract: true
+        calls:
+            - [ setContainer, ["@service_container"] ]
+
+    ezpublish.controller.content.view:
+        class: Ibexa\Core\MVC\Symfony\Controller\Content\ViewController
+        arguments:
+            - "@ezpublish.view_manager"
+            - "@security.authorization_checker"
+        parent: ezpublish.controller.base
+        tags:
+            - { name: controller.service_arguments }
+
+    ezpublish.controller.content.preview.core:
+        class: Ibexa\Core\MVC\Symfony\Controller\Content\PreviewController
+        arguments:
+            - "@ezpublish.api.service.content"
+            - "@http_kernel"
+            - "@ezpublish.content_preview_helper"
+            - "@security.authorization_checker"
+            - "@ezpublish.content_preview.location_provider"
+            - "@ezpublish.view.custom_location_controller_checker"
+        tags:
+            - { name: controller.service_arguments }
+
+    ezpublish.controller.content.preview:
+        alias: ezpublish.controller.content.preview.core
+        public: true
+
+    ezpublish.controller.content.download:
+        class: Ibexa\Core\MVC\Symfony\Controller\Content\DownloadController
+        arguments:
+            - "@ezpublish.api.service.content"
+            - "@ezpublish.fieldType.ezbinaryfile.io_service"
+            - "@ezpublish.translation_helper"
+            - "@router"
+            - "@ezpublish.route_reference.generator"
+        parent: ezpublish.controller.base
+        tags:
+              - { name: controller.service_arguments }
+
+    ezpublish.controller.content.download_redirection:
+        class: Ibexa\Core\MVC\Symfony\Controller\Content\DownloadRedirectionController
+        arguments:
+            - "@ezpublish.api.service.content"
+            - "@router"
+            - "@ezpublish.route_reference.generator"
+        parent: ezpublish.controller.base
+        tags:
+              - { name: controller.service_arguments }
+
+    # This alias allows easier management for subrequests
+    # {{ render( controller( "ez_content:viewAction", {"contentId": 12, "locationId": 123, "viewType": "line"} ) ) }
+    ez_content:
+        public: true
+        alias: ezpublish.controller.content.view
+
+    ezpublish.view_controller_listener:
+        class: Ibexa\Bundle\Core\EventListener\ViewControllerListener
+        arguments:
+            - "@controller_resolver"
+            - "@ezpublish.view_builder.registry"
+            - "@event_dispatcher"
+            - "@logger"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ezpublish.fragment_listener.factory:
+        class: Ibexa\Bundle\Core\Fragment\FragmentListenerFactory
+        arguments: ["%fragment.path%"]
+        calls:
+            - [setRequestStack, ["@request_stack"]]
+
+    ezpublish.decorated_fragment_renderer:
+        class: Ibexa\Bundle\Core\Fragment\DecoratedFragmentRenderer
+        # Arguments replaced at compile time
+        arguments: []
+        calls:
+            - [setFragmentPath, ["%fragment.path%"]]
+            - [setSiteAccess, ["@ezpublish.siteaccess"]]
+        abstract: true
+
+    Ibexa\Bundle\Core\Fragment\DirectFragmentRenderer:
+        arguments:
+            $kernel: '@kernel'
+            $controllerListener: '@ezpublish.view_controller_listener'
+            $controllerResolver: '@controller_resolver'
+            $argumentMetadataFactory: '@argument_metadata_factory'
+            $argumentValueResolver: '@argument_resolver.request_attribute'
+            $viewTemplateRenderer: '@ezpublish.view.template_renderer'
+        tags:
+            - { name: kernel.fragment_renderer, alias: !php/const Ibexa\Bundle\Core\Fragment\DirectFragmentRenderer::NAME }
+
+    ezpublish.param_converter.content:
+        class: Ibexa\Bundle\Core\Converter\ContentParamConverter
+        arguments:
+            - "@ezpublish.siteaccessaware.service.content"
+        tags:
+            - { name: request.param_converter, priority: "%ezpublish.param_converter.content.priority%", converter: ez_content_converter }
+
+    ezpublish.param_converter.location:
+        class: Ibexa\Bundle\Core\Converter\LocationParamConverter
+        arguments:
+            - "@ezpublish.siteaccessaware.service.location"
+        tags:
+            - { name: request.param_converter, priority: "%ezpublish.param_converter.location.priority%", converter: ez_location_converter }
+
+    ezpublish.exception_listener:
+        class: Ibexa\Bundle\Core\EventListener\ExceptionListener
+        arguments: ["@translator"]
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ezpublish.query_type.registry:
+        class: Ibexa\Core\QueryType\ArrayQueryTypeRegistry
+
+    Ibexa\Core\Query\QueryFactory:
+        arguments:
+            $queryTypeRegistry: '@ezpublish.query_type.registry'
+
+    Ibexa\Core\Query\QueryFactoryInterface:
+        alias: Ibexa\Core\Query\QueryFactory
+
+    Ibexa\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactory:
+        arguments:
+            $searchService: '@ezpublish.api.service.search'
+
+    Ibexa\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactoryInterface:
+        alias: Ibexa\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactory
+
+    ezpublish.fields_groups.list:
+        class: Ibexa\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList
+        factory: ["@ezpublish.fields_groups.list.repository_settings_factory", "build"]
+        arguments:
+            - "@translator"
+
+    ezpublish.fields_groups.list.repository_settings_factory:
+        class: Ibexa\Core\Helper\FieldsGroups\RepositoryConfigFieldsGroupsListFactory
+        arguments:
+            - "@ezpublish.api.repository_configuration_provider"
+
+    ezpublish.query_type_content_view_mapper:
+        class: Ibexa\Core\QueryType\QueryParameterContentViewQueryTypeMapper
+        arguments:
+            - "@ezpublish.query_type.registry"
+
+    ezpublish.controller.query:
+        class: Ibexa\Core\MVC\Symfony\Controller\Content\QueryController
+        arguments:
+            - "@ezpublish.query_type_content_view_mapper"
+            - "@ezpublish.api.service.search"
+        tags:
+            - { name: controller.service_arguments }
+
+    Ibexa\Core\MVC\Symfony\Controller\QueryRenderController:
+        arguments:
+            $queryFactory: '@Ibexa\Core\Query\QueryFactoryInterface'
+            $searchHitAdapterFactory: '@Ibexa\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactoryInterface'
+        tags:
+            - { name: controller.service_arguments }
+
+    ez_query:
+        alias: ezpublish.controller.query
+        public: true
+
+    ez_query_render:
+        alias: 'Ibexa\Core\MVC\Symfony\Controller\QueryRenderController'
+        public: true
+
+    ezplatform.core.jms_translation.catalog_mapper_file_writer:
+        class: Ibexa\Core\MVC\Symfony\Translation\CatalogueMapperFileWriter
+        decorates: jms_translation.file_writer
+        arguments:
+            - "@ezplatform.core.jms_translation.catalog_mapper_file_writer.inner"
+            - "@jms_translation.loader_manager"
+        public: false
+
+    ezplatform.core.translation.extractor.fieldtypes:
+        class: Ibexa\Core\MVC\Symfony\Translation\FieldTypesTranslationExtractor
+        arguments:
+            - '@Ibexa\Core\FieldType\FieldTypeRegistry'
+        tags:
+            - { name: jms_translation.extractor, alias: ez_fieldtypes }
+
+    ezplatform.core.translation.file_visitor.exception_message_template:
+        parent: jms_translation.extractor.file.default_php_extractor
+        class: Ibexa\Core\MVC\Symfony\Translation\ExceptionMessageTemplateFileVisitor
+        tags:
+            - { name: jms_translation.file_visitor, alias: ez_exception_message_template }
+
+    ezplatform.core.translation.file_visitor.translatable_exceptions:
+        parent: jms_translation.extractor.file.default_php_extractor
+        class: Ibexa\Core\MVC\Symfony\Translation\TranslatableExceptionsFileVisitor
+        tags:
+            - { name: jms_translation.file_visitor, alias: ez_translatable_exception }
+
+    ezplatform.core.translation.file_visitor.validation_errors:
+        parent: jms_translation.extractor.file.default_php_extractor
+        class: Ibexa\Core\MVC\Symfony\Translation\ValidationErrorFileVisitor
+        tags:
+            - { name: jms_translation.file_visitor, alias: ez_validation_error }
+
+    ezplatform.core.translation.event_subscriber.crowdin_request_locale:
+        class: Ibexa\Bundle\Core\EventSubscriber\CrowdinRequestLocaleSubscriber
+        tags:
+            - {name: kernel.event_subscriber}
+
+    ezplatform.core.command.delete_content_translation:
+        class: Ibexa\Bundle\Core\Command\DeleteContentTranslationCommand
+        arguments:
+            - '@ezpublish.api.repository'
+        tags:
+            - { name: console.command }
+
+    ezplatform.core.command.cleanup_versions:
+        class: Ibexa\Bundle\Core\Command\CleanupVersionsCommand
+        arguments:
+            - '@Ibexa\Core\Event\Repository'
+            - "@ezpublish.api.repository_configuration_provider"
+            - "@ezpublish.persistence.connection"
+        tags:
+            - { name: console.command }
+
+    ezplatform.core.session.handler.native_redis:
+        class: Ibexa\Bundle\Core\Session\Handler\NativeSessionHandler
+        arguments:
+         - '%session.save_path%'
+         - 'redis'
+
+    ezplatform.core.command.copy_subtree:
+        class: Ibexa\Bundle\Core\Command\CopySubtreeCommand
+        autowire: true
+        autoconfigure: true
+        arguments:
+            $locationService: '@ezpublish.api.service.location'
+            $permissionResolver: '@Ibexa\Contracts\Core\Repository\PermissionResolver'
+            $userService: '@ezpublish.api.service.user'
+            $contentTypeService: '@ezpublish.api.service.content_type'
+            $searchService: '@ezpublish.api.service.search'
+        tags:
+            - { name: console.command }
+
+    ezplatform.core.command.resize_original_images:
+        class: Ibexa\Bundle\Core\Command\ResizeOriginalImagesCommand
+        autowire: true
+        autoconfigure: true
+        arguments:
+            $ioService: '@ezpublish.fieldType.ezimage.io_service.published'
+            $imagine: '@liip_imagine'
+            $filterManager: '@liip_imagine.filter.manager'
+            $permissionResolver: '@Ibexa\Contracts\Core\Repository\PermissionResolver'
+            $userService: '@ezpublish.api.service.user'
+            $mimeTypes: '@mime_types'
+        tags:
+            - { name: console.command }
+
+    ibexa.doctrine.orm.entity_manager:
+        class: Doctrine\ORM\EntityManager
+        lazy: true
+        factory: ['@ibexa.doctrine.orm.entity_manager_factory', 'getEntityManager']
+
+    ibexa.doctrine.orm.entity_manager_factory:
+        class: Ibexa\Bundle\Core\Entity\EntityManagerFactory
+        arguments:
+            $repositoryConfigurationProvider: '@ezpublish.api.repository_configuration_provider'
+            $defaultConnection: '%doctrine.default_connection%'
+            $entityManagers: '%doctrine.entity_managers%'

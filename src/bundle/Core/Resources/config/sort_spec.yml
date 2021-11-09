@@ -1,0 +1,45 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParserDispatcher:
+        arguments:
+            $parsers: !tagged_iterator ezplatform.query_type.sort_clause_parser
+
+    Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\CustomFieldSortClauseParser:
+        tags:
+            - { name: ezplatform.query_type.sort_clause_parser }
+
+    Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\FieldSortClauseParser:
+        tags:
+            - { name: ezplatform.query_type.sort_clause_parser }
+
+    Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\MapDistanceSortClauseParser:
+        tags:
+            - { name: ezplatform.query_type.sort_clause_parser }
+
+    Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\RandomSortClauseParser:
+        tags:
+            - { name: ezplatform.query_type.sort_clause_parser }
+
+    Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParser\DefaultSortClauseParser:
+        arguments:
+            $valueObjectClassMap:
+                content_id: \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\ContentId
+                content_name: \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\ContentName
+                content_translated_name: \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\ContentTranslatedName
+                date_modified: \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\DateModified
+                date_published: \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\DatePublished
+                section_identifier: \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\SectionIdentifier
+                section_name: \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\SectionName
+                score: \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Score
+                location_depth: \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\Depth
+                location_id: \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\Id
+                location_is_main: \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\IsMainLocation
+                location_path: \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\Path
+                location_priority: \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\Priority
+                location_visibility: \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\Visibility
+        tags:
+            - { name: ezplatform.query_type.sort_clause_parser }

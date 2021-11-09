@@ -1,0 +1,24 @@
+services:
+    ezpublish.api.repository_configuration_provider:
+        public: true # @todo should be private
+        class: Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider
+        arguments:
+            - "@ezpublish.config.resolver"
+            - "%ezpublish.repositories%"
+
+    ezpublish.persistence.connection.factory:
+        class: Ibexa\Bundle\Core\ApiLoader\StorageConnectionFactory
+        arguments:
+            - "@ezpublish.api.repository_configuration_provider"
+        calls:
+            - [setContainer, ["@service_container"]]
+
+    ezpublish.persistence.connection:
+        public: true # @todo should be private
+        class: Doctrine\DBAL\Connection
+        factory: ["@ezpublish.persistence.connection.factory", getConnection]
+        lazy: true
+
+    # Legacy storage engine
+    ezpublish.api.storage_engine.legacy:
+        alias: ezpublish.spi.persistence.legacy

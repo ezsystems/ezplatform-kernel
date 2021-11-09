@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Cache\Identifier;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * @internal
@@ -34,7 +34,7 @@ final class CacheIdentifierGenerator implements CacheIdentifierGeneratorInterfac
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function generateTag(string $patternName, array $values = [], bool $withPrefix = false): string
     {
@@ -50,7 +50,7 @@ final class CacheIdentifierGenerator implements CacheIdentifierGeneratorInterfac
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function generateKey(string $patternName, array $values = [], bool $withPrefix = false): string
     {

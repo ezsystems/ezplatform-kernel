@@ -1,0 +1,10 @@
+services:
+    Ibexa\Core\Notification\Renderer\Registry:
+        autowire: true
+        autoconfigure: false
+        public: false
+
+    notification.renderer.registry: '@Ibexa\Core\Notification\Renderer\Registry'
+
+    Ibexa\Contracts\Core\Repository\NotificationService:
+        alias: Ibexa\Core\Event\NotificationService

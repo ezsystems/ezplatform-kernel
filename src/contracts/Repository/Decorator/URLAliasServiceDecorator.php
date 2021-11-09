@@ -1,0 +1,111 @@
+<?php
+
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+declare(strict_types=1);
+
+namespace Ibexa\Contracts\Core\Repository\Decorator;
+
+use Ibexa\Contracts\Core\Repository\URLAliasService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
+
+abstract class URLAliasServiceDecorator implements URLAliasService
+{
+    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
+    protected $innerService;
+
+    public function __construct(URLAliasService $innerService)
+    {
+        $this->innerService = $innerService;
+    }
+
+    public function createUrlAlias(
+        Location $location,
+        string $path,
+        string $languageCode,
+        bool $forwarding = false,
+        bool $alwaysAvailable = false
+    ): URLAlias {
+        return $this->innerService->createUrlAlias($location, $path, $languageCode, $forwarding, $alwaysAvailable);
+    }
+
+    public function createGlobalUrlAlias(
+        string $resource,
+        string $path,
+        string $languageCode,
+        bool $forwarding = false,
+        bool $alwaysAvailable = false
+    ): URLAlias {
+        return $this->innerService->createGlobalUrlAlias($resource, $path, $languageCode, $forwarding, $alwaysAvailable);
+    }
+
+    public function listLocationAliases(
+        Location $location,
+        bool $custom = true,
+        ?string $languageCode = null,
+        ?bool $showAllTranslations = null,
+        ?array $prioritizedLanguages = null
+    ): iterable {
+        return $this->innerService->listLocationAliases(
+            $location,
+            $custom,
+            $languageCode,
+            $showAllTranslations,
+            $prioritizedLanguages
+        );
+    }
+
+    public function listGlobalAliases(
+        ?string $languageCode = null,
+        int $offset = 0,
+        int $limit = -1
+    ): iterable {
+        return $this->innerService->listGlobalAliases($languageCode, $offset, $limit);
+    }
+
+    public function removeAliases(array $aliasList): void
+    {
+        $this->innerService->removeAliases($aliasList);
+    }
+
+    public function lookup(
+        string $url,
+        ?string $languageCode = null
+    ): URLAlias {
+        return $this->innerService->lookup($url, $languageCode);
+    }
+
+    public function reverseLookup(
+        Location $location,
+        ?string $languageCode = null,
+        ?bool $showAllTranslations = null,
+        ?array $prioritizedLanguages = null
+    ): URLAlias {
+        return $this->innerService->reverseLookup(
+            $location,
+            $languageCode,
+            $showAllTranslations,
+            $prioritizedLanguages
+        );
+    }
+
+    public function load(string $id): URLAlias
+    {
+        return $this->innerService->load($id);
+    }
+
+    public function refreshSystemUrlAliasesForLocation(Location $location): void
+    {
+        $this->innerService->refreshSystemUrlAliasesForLocation($location);
+    }
+
+    public function deleteCorruptedUrlAliases(): int
+    {
+        return $this->innerService->deleteCorruptedUrlAliases();
+    }
+}
+
+class_alias(URLAliasServiceDecorator::class, 'eZ\Publish\SPI\Repository\Decorator\URLAliasServiceDecorator');

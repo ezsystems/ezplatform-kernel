@@ -1,0 +1,12 @@
+services:
+    ezpublish.search.legacy.connection.factory:
+        class: Ibexa\Bundle\LegacySearchEngine\ApiLoader\ConnectionFactory
+        arguments:
+            - "@ezpublish.api.repository_configuration_provider"
+        calls:
+            - [setContainer, ["@service_container"]]
+
+    ezpublish.api.search_engine.legacy.connection:
+        class: Doctrine\DBAL\Connection
+        factory: ["@ezpublish.search.legacy.connection.factory", getConnection]
+        lazy: true

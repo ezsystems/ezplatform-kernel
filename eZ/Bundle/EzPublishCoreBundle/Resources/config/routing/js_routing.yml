@@ -1,7 +1,0 @@
-services:
-    ezpublish.js_routing.extractor:
-        class: eZ\Bundle\EzPublishCoreBundle\Routing\JsRouting\ExposedRoutesExtractor
-        decorates: 'fos_js_routing.extractor'
-        arguments:
-            - '@ezpublish.js_routing.extractor.inner'
-            - '@request_stack'

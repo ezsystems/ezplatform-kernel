@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\Core\DependencyInjection\Configuration;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 final class RepositoryConfigParser implements RepositoryConfigParserInterface

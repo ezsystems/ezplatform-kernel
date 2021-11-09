@@ -40,7 +40,6 @@ install:
 
 test_script:
     - cd c:\projects\ezplatform-kernel
-    - copy /Y config.php-DEVELOPMENT config.php
     - SET X=0
     - vendor/bin/phpunit --colors=never -c phpunit.xml || SET X=!errorlevel!
     - vendor/bin/phpunit --colors=never -c phpunit-integration-legacy.xml || SET X=!errorlevel!

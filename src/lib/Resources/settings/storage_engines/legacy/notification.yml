@@ -1,0 +1,19 @@
+services:
+    Ibexa\Core\Persistence\Legacy\Notification\Gateway\DoctrineDatabase:
+        arguments:
+            $connection: '@ezpublish.persistence.connection'
+
+    Ibexa\Core\Persistence\Legacy\Notification\Gateway\ExceptionConversion:
+        arguments:
+            $innerGateway: '@Ibexa\Core\Persistence\Legacy\Notification\Gateway\DoctrineDatabase'
+
+    Ibexa\Core\Persistence\Legacy\Notification\Mapper: ~
+
+    Ibexa\Core\Persistence\Legacy\Notification\Handler:
+        arguments:
+            $gateway: '@Ibexa\Core\Persistence\Legacy\Notification\Gateway\ExceptionConversion'
+            $mapper: '@Ibexa\Core\Persistence\Legacy\Notification\Mapper'
+        lazy: true
+
+    ezpublish.spi.persistence.legacy.notification.handler:
+        alias: 'Ibexa\Core\Persistence\Legacy\Notification\Handler'

@@ -1,0 +1,61 @@
+services:
+    ezpublish.persistence.legacy.content_type.gateway.inner:
+        class: Ibexa\Core\Persistence\Legacy\Content\Type\Gateway\DoctrineDatabase
+        arguments:
+            - '@ezpublish.api.storage_engine.legacy.connection'
+            - '@Ibexa\Core\Persistence\Legacy\SharedGateway\Gateway'
+            - '@ezpublish.persistence.legacy.language.mask_generator'
+
+    ezpublish.persistence.legacy.content_type.gateway.exception_conversion:
+        class: Ibexa\Core\Persistence\Legacy\Content\Type\Gateway\ExceptionConversion
+        arguments:
+            - "@ezpublish.persistence.legacy.content_type.gateway.inner"
+
+    # To disable exception conversion layer override this alias so that it points to inner gateway
+    ezpublish.persistence.legacy.content_type.gateway:
+        alias: ezpublish.persistence.legacy.content_type.gateway.exception_conversion
+
+    ezpublish.persistence.legacy.content_type.mapper:
+        class: Ibexa\Core\Persistence\Legacy\Content\Type\Mapper
+        arguments:
+            - "@ezpublish.persistence.legacy.field_value_converter.registry"
+            - '@ezpublish.persistence.legacy.language.mask_generator'
+
+    ezpublish.persistence.legacy.content_type.content_updater:
+        class: Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater
+        arguments:
+            - "@ezpublish.persistence.legacy.content.gateway"
+            - "@ezpublish.persistence.legacy.field_value_converter.registry"
+            - "@ezpublish.persistence.legacy.external_storage_handler"
+            - "@ezpublish.persistence.legacy.content.mapper"
+
+    ezpublish.persistence.legacy.content_type.update_handler.base:
+        abstract: true
+        class: Ibexa\Core\Persistence\Legacy\Content\Type\Update\Handler
+
+    ezpublish.persistence.legacy.content_type.update_handler.basic:
+        parent: ezpublish.persistence.legacy.content_type.update_handler.base
+        class: Ibexa\Core\Persistence\Legacy\Content\Type\Update\Handler\DoctrineDatabase
+        arguments:
+            - "@ezpublish.persistence.legacy.content_type.gateway"
+            - "@ezpublish.persistence.legacy.content_type.content_updater"
+
+    ezpublish.persistence.legacy.content_type.update_handler:
+        alias: ezpublish.persistence.legacy.content_type.update_handler.basic
+
+    ezpublish.spi.persistence.legacy.content_type.handler.inner:
+        class: Ibexa\Core\Persistence\Legacy\Content\Type\Handler
+        arguments:
+            - "@ezpublish.persistence.legacy.content_type.gateway"
+            - "@ezpublish.persistence.legacy.content_type.mapper"
+            - "@ezpublish.persistence.legacy.content_type.update_handler"
+
+    ezpublish.spi.persistence.legacy.content_type.handler.caching:
+        class: Ibexa\Core\Persistence\Legacy\Content\Type\MemoryCachingHandler
+        lazy: true
+        arguments:
+            - "@ezpublish.spi.persistence.legacy.content_type.handler.inner"
+            - "@ezpublish.spi.persistence.cache.inmemory"
+
+    ezpublish.spi.persistence.legacy.content_type.handler:
+        alias: ezpublish.spi.persistence.legacy.content_type.handler.caching
