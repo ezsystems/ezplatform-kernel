@@ -33,7 +33,7 @@ use Symfony\Component\Config\FileLocator;
 use InvalidArgumentException;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface;
 
-class EzPublishCoreExtension extends Extension implements PrependExtensionInterface
+class IbexaCoreExtension extends Extension implements PrependExtensionInterface
 {
     private const ENTITY_MANAGER_TEMPLATE = [
         'connection' => null,
@@ -706,4 +706,4 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
     }
 }
 
-class_alias(EzPublishCoreExtension::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension');
+class_alias(IbexaCoreExtension::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension');

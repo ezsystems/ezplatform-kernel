@@ -40,7 +40,7 @@ use Ibexa\Core\Base\Container\Compiler\Persistence\FieldTypeRegistryPass as Pers
 use Ibexa\Core\Base\Container\Compiler\Storage\ExternalStorageRegistryPass;
 use Ibexa\Core\Base\Container\Compiler\Storage\Legacy\FieldValueConverterRegistryPass;
 use Ibexa\Core\Base\Container\Compiler\Storage\Legacy\RoleLimitationConverterPass;
-use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser as ConfigParser;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Repository as RepositoryConfigParser;
 use Ibexa\Bundle\Core\DependencyInjection\Security\HttpBasicFactory;
@@ -50,7 +50,7 @@ use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class EzPublishCoreBundle extends Bundle
+class IbexaCoreBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {
@@ -102,7 +102,7 @@ class EzPublishCoreBundle extends Bundle
     public function getContainerExtension()
     {
         if (!isset($this->extension)) {
-            $this->extension = new EzPublishCoreExtension(
+            $this->extension = new IbexaCoreExtension(
                 [
                     // LocationView config parser needs to be specified AFTER ContentView config
                     // parser since it is used to convert location view override rules to content
@@ -136,4 +136,4 @@ class EzPublishCoreBundle extends Bundle
     }
 }
 
-class_alias(EzPublishCoreBundle::class, 'eZ\Bundle\EzPublishCoreBundle\EzPublishCoreBundle');
+class_alias(IbexaCoreBundle::class, 'eZ\Bundle\EzPublishCoreBundle\EzPublishCoreBundle');
