@@ -111,7 +111,7 @@ services:
             - {name: ezplatform.field_type.indexable, alias: ezurl}
 
     ezpublish.fieldType.indexable.ezuser:
-        class: eZ\Publish\Core\FieldType\User\SearchField
+        class: Ibexa\Bundle\Core\FieldType\User\SearchField
         tags:
             - { name: ezplatform.field_type.indexable, alias: ezuser }
 
