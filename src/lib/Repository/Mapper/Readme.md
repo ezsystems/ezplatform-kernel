@@ -1,7 +1,6 @@
 # Mappers
 
-Collection of light mappers meant for internal use in Repository
-and/or RepositoryServices.
+Collection of light mappers meant for internal use by Ibexa packages only.
 
-Given their use they can not rely on Repository or RepositoryServices as
-that will lead to cyclic dependencies, they can only rely on SPI and other helpers.
+Given their use they should not rely on Repository or RepositoryServices as
+that will lead to cyclic dependencies, they should only rely on SPI and other helpers.
