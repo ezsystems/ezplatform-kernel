@@ -8,7 +8,7 @@ namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Parser;
 
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\IO;
-use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension;
 use Symfony\Component\Yaml\Yaml;
 
 class IOTest extends AbstractParserTestCase
@@ -26,7 +26,7 @@ class IOTest extends AbstractParserTestCase
     protected function getContainerExtensions(): array
     {
         return [
-            new EzPublishCoreExtension([new IO(new ComplexSettingParser())]),
+            new IbexaCoreExtension([new IO(new ComplexSettingParser())]),
         ];
     }
 

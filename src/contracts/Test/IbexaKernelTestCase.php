@@ -49,7 +49,7 @@ abstract class IbexaKernelTestCase extends KernelTestCase
      */
     protected static function getSchemaFiles(): iterable
     {
-        yield self::$kernel->locateResource('@EzPublishCoreBundle/Resources/config/storage/legacy/schema.yaml');
+        yield self::$kernel->locateResource('@IbexaCoreBundle/Resources/config/storage/legacy/schema.yaml');
     }
 
     final protected static function loadFixtures(): void

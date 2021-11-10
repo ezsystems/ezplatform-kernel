@@ -10,8 +10,8 @@ namespace Ibexa\Contracts\Core\Test;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\DBAL\Connection;
-use Ibexa\Bundle\Core\EzPublishCoreBundle;
-use Ibexa\Bundle\LegacySearchEngine\EzPublishLegacySearchEngineBundle;
+use Ibexa\Bundle\Core\IbexaCoreBundle;
+use Ibexa\Bundle\LegacySearchEngine\IbexaLegacySearchEngineBundle;
 use Ibexa\Contracts\Core\Repository;
 use Ibexa\Contracts\Core\Persistence\TransactionHandler;
 use FOS\JsRoutingBundle\FOSJsRoutingBundle;
@@ -110,8 +110,8 @@ class IbexaTestKernel extends Kernel
     public function registerBundles(): iterable
     {
         yield new SecurityBundle();
-        yield new EzPublishCoreBundle();
-        yield new EzPublishLegacySearchEngineBundle();
+        yield new IbexaCoreBundle();
+        yield new IbexaLegacySearchEngineBundle();
         yield new JMSTranslationBundle();
         yield new FOSJsRoutingBundle();
         yield new FrameworkBundle();

@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use InvalidArgumentException;
 use Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
 
-class EzPublishCoreCollector extends DataCollector
+class IbexaCoreCollector extends DataCollector
 {
     public function __construct()
     {
@@ -112,4 +112,4 @@ class EzPublishCoreCollector extends DataCollector
     }
 }
 
-class_alias(EzPublishCoreCollector::class, 'eZ\Bundle\EzPublishDebugBundle\Collector\EzPublishCoreCollector');
+class_alias(IbexaCoreCollector::class, 'eZ\Bundle\EzPublishDebugBundle\Collector\EzPublishCoreCollector');

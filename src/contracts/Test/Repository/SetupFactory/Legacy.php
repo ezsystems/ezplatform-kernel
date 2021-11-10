@@ -361,7 +361,7 @@ class Legacy extends SetupFactory
      * Apply automatic configuration to needed Symfony Services.
      *
      * Note: Based on
-     * {@see \Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension::registerForAutoConfiguration},
+     * {@see \Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension::registerForAutoConfiguration},
      * but only for services needed by integration test setup.
      *
      * @see

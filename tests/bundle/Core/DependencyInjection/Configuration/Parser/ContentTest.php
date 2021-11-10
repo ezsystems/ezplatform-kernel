@@ -6,7 +6,7 @@
  */
 namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Parser;
 
-use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Content as ContentConfigParser;
 use Symfony\Component\Yaml\Yaml;
 
@@ -15,7 +15,7 @@ class ContentTest extends AbstractParserTestCase
     protected function getContainerExtensions(): array
     {
         return [
-            new EzPublishCoreExtension([new ContentConfigParser()]),
+            new IbexaCoreExtension([new ContentConfigParser()]),
         ];
     }
 

@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Exception;
 use Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
 
-class EzPublishCoreCollectorTest extends TestCase
+class IbexaCoreCollectorTest extends TestCase
 {
     /** @var IbexaCoreCollector */
     private $mainCollector;
@@ -167,4 +167,4 @@ class EzPublishCoreCollectorTest extends TestCase
     }
 }
 
-class_alias(EzPublishCoreCollectorTest::class, 'eZ\Bundle\EzPublishDebugBundle\Tests\Collector\EzPublishCoreCollectorTest');
+class_alias(IbexaCoreCollectorTest::class, 'eZ\Bundle\EzPublishDebugBundle\Tests\Collector\EzPublishCoreCollectorTest');

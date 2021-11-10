@@ -15,19 +15,19 @@ parameters:
     ezsettings.default.twig_variables: {}
 
     # Default view templates
-    ezplatform.default_view_templates.content.full: '@@EzPublishCore/default/content/full.html.twig'
-    ezplatform.default_view_templates.content.line: '@@EzPublishCore/default/content/line.html.twig'
-    ezplatform.default_view_templates.content.text_linked: '@@EzPublishCore/default/content/text_linked.html.twig'
-    ezplatform.default_view_templates.content.embed: '@@EzPublishCore/default/content/embed.html.twig'
-    ezplatform.default_view_templates.content.embed_inline: '@@EzPublishCore/default/content/embed_inline.html.twig'
-    ezplatform.default_view_templates.content.embed_image: '@@EzPublishCore/default/content/embed_image.html.twig'
-    ezplatform.default_view_templates.content.asset_image: '@@EzPublishCore/default/content/asset_image.html.twig'
-    ezplatform.default_view_templates.block: '@@EzPublishCore/default/block/block.html.twig'
+    ezplatform.default_view_templates.content.full: '@@IbexaCore/default/content/full.html.twig'
+    ezplatform.default_view_templates.content.line: '@@IbexaCore/default/content/line.html.twig'
+    ezplatform.default_view_templates.content.text_linked: '@@IbexaCore/default/content/text_linked.html.twig'
+    ezplatform.default_view_templates.content.embed: '@@IbexaCore/default/content/embed.html.twig'
+    ezplatform.default_view_templates.content.embed_inline: '@@IbexaCore/default/content/embed_inline.html.twig'
+    ezplatform.default_view_templates.content.embed_image: '@@IbexaCore/default/content/embed_image.html.twig'
+    ezplatform.default_view_templates.content.asset_image: '@@IbexaCore/default/content/asset_image.html.twig'
+    ezplatform.default_view_templates.block: '@@IbexaCore/default/block/block.html.twig'
 
     # Default templates
-    ezplatform.default_templates.pagelayout: '@@EzPublishCore/pagelayout.html.twig'
-    ezplatform.default_templates.field_templates: '@@EzPublishCore/content_fields.html.twig'
-    ezplatform.default_templates.fielddefinition_settings_templates: '@@EzPublishCore/fielddefinition_settings.html.twig'
+    ezplatform.default_templates.pagelayout: '@@IbexaCore/pagelayout.html.twig'
+    ezplatform.default_templates.field_templates: '@@IbexaCore/content_fields.html.twig'
+    ezplatform.default_templates.fielddefinition_settings_templates: '@@IbexaCore/fielddefinition_settings.html.twig'
 
     # Image Asset mappings
     ezsettings.default.fieldtypes.ezimageasset.mappings:
@@ -162,7 +162,7 @@ parameters:
     ezsettings.default.fielddefinition_edit_templates: []
 
     # Security settings
-    ezsettings.default.security.login_template: "@@EzPublishCore/Security/login.html.twig"
+    ezsettings.default.security.login_template: "@@IbexaCore/Security/login.html.twig"
     ezsettings.default.security.base_layout: "%ezsettings.default.page_layout%"
 
     # Image settings

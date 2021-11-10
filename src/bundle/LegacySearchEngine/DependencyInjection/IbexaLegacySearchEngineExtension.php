@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Config\FileLocator;
 
-class EzPublishLegacySearchEngineExtension extends Extension
+class IbexaLegacySearchEngineExtension extends Extension
 {
     public function getAlias()
     {
@@ -35,4 +35,4 @@ class EzPublishLegacySearchEngineExtension extends Extension
     }
 }
 
-class_alias(EzPublishLegacySearchEngineExtension::class, 'eZ\Bundle\EzPublishLegacySearchEngineBundle\DependencyInjection\EzPublishLegacySearchEngineExtension');
+class_alias(IbexaLegacySearchEngineExtension::class, 'eZ\Bundle\EzPublishLegacySearchEngineBundle\DependencyInjection\EzPublishLegacySearchEngineExtension');

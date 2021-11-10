@@ -13,7 +13,7 @@ use Ibexa\Core\Base\Container\Compiler\Search\Legacy\CriterionFieldValueHandlerR
 use Ibexa\Core\Base\Container\Compiler\Search\Legacy\SortClauseConverterPass;
 use Ibexa\Core\Base\Container\Compiler\Search\FieldRegistryPass;
 
-class EzPublishLegacySearchEngineBundle extends Bundle
+class IbexaLegacySearchEngineBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {
@@ -28,11 +28,11 @@ class EzPublishLegacySearchEngineBundle extends Bundle
     public function getContainerExtension()
     {
         if (!isset($this->extension)) {
-            $this->extension = new DependencyInjection\EzPublishLegacySearchEngineExtension();
+            $this->extension = new DependencyInjection\IbexaLegacySearchEngineExtension();
         }
 
         return $this->extension;
     }
 }
 
-class_alias(EzPublishLegacySearchEngineBundle::class, 'eZ\Bundle\EzPublishLegacySearchEngineBundle\EzPublishLegacySearchEngineBundle');
+class_alias(IbexaLegacySearchEngineBundle::class, 'eZ\Bundle\EzPublishLegacySearchEngineBundle\EzPublishLegacySearchEngineBundle');

@@ -7,14 +7,14 @@
 namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Parser;
 
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Languages;
-use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension;
 use Symfony\Component\Yaml\Yaml;
 
 class LanguagesTest extends AbstractParserTestCase
 {
     protected function getContainerExtensions(): array
     {
-        return [new EzPublishCoreExtension([new Languages()])];
+        return [new IbexaCoreExtension([new Languages()])];
     }
 
     protected function getMinimalConfiguration(): array

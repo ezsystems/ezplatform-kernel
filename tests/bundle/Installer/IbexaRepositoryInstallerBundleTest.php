@@ -16,14 +16,14 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 
-class EzSystemsPlatformInstallerBundleTest extends TestCase
+class IbexaRepositoryInstallerBundleTest extends TestCase
 {
     /** @var \Ibexa\Bundle\Installer\IbexaRepositoryInstallerBundle */
     private $bundle;
 
     public function setUp(): void
     {
-        $this->bundle = new EzSystemsPlatformInstallerBundle();
+        $this->bundle = new IbexaRepositoryInstallerBundle();
     }
 
     /**
@@ -59,4 +59,4 @@ class EzSystemsPlatformInstallerBundleTest extends TestCase
     }
 }
 
-class_alias(EzSystemsPlatformInstallerBundleTest::class, 'EzSystems\PlatformInstallerBundleTests\EzSystemsPlatformInstallerBundleTest');
+class_alias(IbexaRepositoryInstallerBundleTest::class, 'EzSystems\PlatformInstallerBundleTests\EzSystemsPlatformInstallerBundleTest');

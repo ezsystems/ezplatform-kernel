@@ -8,7 +8,7 @@ namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Parser;
 
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\ContentView;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\LocationView;
-use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension;
 use Symfony\Component\Yaml\Yaml;
 
 class ViewTest extends AbstractParserTestCase
@@ -18,7 +18,7 @@ class ViewTest extends AbstractParserTestCase
     protected function getContainerExtensions(): array
     {
         return [
-            new EzPublishCoreExtension([new LocationView(), new ContentView()]),
+            new IbexaCoreExtension([new LocationView(), new ContentView()]),
         ];
     }
 

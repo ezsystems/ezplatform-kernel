@@ -13,7 +13,7 @@ use Ibexa\Contracts\Core\Repository\Values\Filter\CriterionQueryBuilder;
 use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 
 /**
- * Stub for {@see \Ibexa\Tests\Bundle\Core\DependencyInjection\EzPublishCoreExtensionTest::testFilteringQueryBuildersAutomaticConfiguration}.
+ * Stub for {@see \Ibexa\Tests\Bundle\Core\DependencyInjection\IbexaCoreExtensionTest::testFilteringQueryBuildersAutomaticConfiguration}.
  */
 class CustomCriterionQueryBuilder implements CriterionQueryBuilder
 {

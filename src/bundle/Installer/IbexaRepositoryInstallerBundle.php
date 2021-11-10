@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class EzSystemsPlatformInstallerBundle extends Bundle
+class IbexaRepositoryInstallerBundle extends Bundle
 {
     /**
      * @throws \RuntimeException
@@ -33,4 +33,4 @@ class EzSystemsPlatformInstallerBundle extends Bundle
     }
 }
 
-class_alias(EzSystemsPlatformInstallerBundle::class, 'EzSystems\PlatformInstallerBundle\EzSystemsPlatformInstallerBundle');
+class_alias(IbexaRepositoryInstallerBundle::class, 'EzSystems\PlatformInstallerBundle\EzSystemsPlatformInstallerBundle');

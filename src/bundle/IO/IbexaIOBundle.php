@@ -8,13 +8,13 @@ namespace Ibexa\Bundle\IO;
 
 use Ibexa\Bundle\IO\DependencyInjection\Compiler;
 use Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory;
-use Ibexa\Bundle\IO\DependencyInjection\EzPublishIOExtension;
+use Ibexa\Bundle\IO\DependencyInjection\IbexaIOExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class EzPublishIOBundle extends Bundle
+class IbexaIOBundle extends Bundle
 {
-    /** @var \Ibexa\Bundle\IO\DependencyInjection\EzPublishIOExtension */
+    /** @var \Ibexa\Bundle\IO\DependencyInjection\IbexaIOExtension */
     protected $extension;
 
     public function build(ContainerBuilder $container)
@@ -33,7 +33,7 @@ class EzPublishIOBundle extends Bundle
     public function getContainerExtension()
     {
         if (!isset($this->extension)) {
-            $this->extension = new EzPublishIOExtension();
+            $this->extension = new IbexaIOExtension();
             $this->extension->addMetadataHandlerFactory('flysystem', new ConfigurationFactory\MetadataHandler\Flysystem());
             $this->extension->addMetadataHandlerFactory('legacy_dfs_cluster', new ConfigurationFactory\MetadataHandler\LegacyDFSCluster());
             $this->extension->addBinarydataHandlerFactory('flysystem', new ConfigurationFactory\BinarydataHandler\Flysystem());
@@ -43,4 +43,4 @@ class EzPublishIOBundle extends Bundle
     }
 }
 
-class_alias(EzPublishIOBundle::class, 'eZ\Bundle\EzPublishIOBundle\EzPublishIOBundle');
+class_alias(IbexaIOBundle::class, 'eZ\Bundle\EzPublishIOBundle\EzPublishIOBundle');

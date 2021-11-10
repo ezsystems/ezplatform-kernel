@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class EzPublishIOExtension extends Extension
+class IbexaIOExtension extends Extension
 {
     /** @var \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|\ArrayObject */
     private $metadataHandlerFactories;
@@ -126,4 +126,4 @@ class EzPublishIOExtension extends Extension
     }
 }
 
-class_alias(EzPublishIOExtension::class, 'eZ\Bundle\EzPublishIOBundle\DependencyInjection\EzPublishIOExtension');
+class_alias(IbexaIOExtension::class, 'eZ\Bundle\EzPublishIOBundle\DependencyInjection\EzPublishIOExtension');

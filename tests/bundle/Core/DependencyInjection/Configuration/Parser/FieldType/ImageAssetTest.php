@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Parser\FieldType;
 
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\FieldType\ImageAsset as ImageAssetConfigParser;
-use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension;
 use Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Parser\AbstractParserTestCase;
 
 class ImageAssetTest extends AbstractParserTestCase
@@ -20,7 +20,7 @@ class ImageAssetTest extends AbstractParserTestCase
     protected function getContainerExtensions(): array
     {
         return [
-            new EzPublishCoreExtension([new ImageAssetConfigParser()]),
+            new IbexaCoreExtension([new ImageAssetConfigParser()]),
         ];
     }
 

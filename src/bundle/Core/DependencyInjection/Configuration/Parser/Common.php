@@ -137,7 +137,7 @@ class Common extends AbstractParser implements SuggestionCollectorAwareInterface
                         ->example('pagelayout.html.twig')
                     ->end()
                     ->scalarNode('login_template')
-                        ->info('Template to use for login form. Defaults to EzPublishCoreBundle:security:login.html.twig')
+                        ->info('Template to use for login form. Defaults to @IbexaCore/Security/login.html.twig')
                         ->example('login.html.twig')
                     ->end()
                 ->end()

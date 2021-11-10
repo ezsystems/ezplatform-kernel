@@ -13,7 +13,7 @@ use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
 use Ibexa\Contracts\Core\Repository\Values\Filter\SortClauseQueryBuilder;
 
 /**
- * Stub for {@see \Ibexa\Tests\Bundle\Core\DependencyInjection\EzPublishCoreExtensionTest::testFilteringQueryBuildersAutomaticConfiguration}.
+ * Stub for {@see \Ibexa\Tests\Bundle\Core\DependencyInjection\IbexaCoreExtensionTest::testFilteringQueryBuildersAutomaticConfiguration}.
  */
 class CustomSortClauseQueryBuilder implements SortClauseQueryBuilder
 {

@@ -1,6 +1,6 @@
 services:
     ezpublish_debug.data_collector:
-        class: Ibexa\Bundle\Debug\Collector\EzPublishCoreCollector
+        class: Ibexa\Bundle\Debug\Collector\IbexaCoreCollector
         tags:
             -
                 name: data_collector

@@ -8,7 +8,7 @@ namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Parser;
 
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\FieldDefinitionSettingsTemplates;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\FieldTemplates;
-use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider;
 use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessProviderInterface;
 use Symfony\Component\Yaml\Yaml;
@@ -20,7 +20,7 @@ class TemplatesTest extends AbstractParserTestCase
     protected function getContainerExtensions(): array
     {
         return [
-            new EzPublishCoreExtension(
+            new IbexaCoreExtension(
                 [new FieldTemplates(), new FieldDefinitionSettingsTemplates()]
             ),
         ];

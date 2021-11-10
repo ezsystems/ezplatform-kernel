@@ -4,7 +4,7 @@ parameters:
 
     ezpublish.view.matcher_factory.class: Ibexa\Bundle\Core\Matcher\ServiceAwareMatcherFactory
 
-    ezpublish.content_view.viewbase_layout: "@@EzPublishCore/viewbase_layout.html.twig"
+    ezpublish.content_view.viewbase_layout: "@@IbexaCore/viewbase_layout.html.twig"
     ezpublish.content_view.content_block_name: "content"
 
     ezpublish.twig.extension.filesize.suffixes: ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB']

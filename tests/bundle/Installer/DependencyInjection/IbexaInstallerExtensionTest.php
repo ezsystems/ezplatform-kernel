@@ -18,7 +18,7 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 /**
  * @covers \Ibexa\Bundle\Installer\DependencyInjection\IbexaRepositoryInstallerExtension
  */
-class EzSystemsPlatformInstallerExtensionTest extends AbstractExtensionTestCase
+class IbexaInstallerExtensionTest extends AbstractExtensionTestCase
 {
     /**
      * @covers \Ibexa\Bundle\Installer\DependencyInjection\IbexaRepositoryInstallerExtension::load
@@ -57,4 +57,4 @@ class EzSystemsPlatformInstallerExtensionTest extends AbstractExtensionTestCase
     }
 }
 
-class_alias(EzSystemsPlatformInstallerExtensionTest::class, 'EzSystems\PlatformInstallerBundleTests\DependencyInjection\EzSystemsPlatformInstallerExtensionTest');
+class_alias(IbexaInstallerExtensionTest::class, 'EzSystems\PlatformInstallerBundleTests\DependencyInjection\EzSystemsPlatformInstallerExtensionTest');

@@ -9,14 +9,14 @@ namespace Ibexa\Tests\Bundle\IO\DependencyInjection;
 use Ibexa\Bundle\Core\DependencyInjection\Compiler\ChainConfigResolverPass;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser;
-use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension;
 use Ibexa\Bundle\IO\DependencyInjection\IbexaIOExtension;
 use Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory;
 use Ibexa\Tests\Integration\Core\Repository\Container\Compiler\SetAllServicesPublicPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Symfony\Component\Yaml\Yaml;
 
-class EzPublishIOExtensionTest extends AbstractExtensionTestCase
+class IbexaIOExtensionTest extends AbstractExtensionTestCase
 {
     private const FIXTURES_DIR = __DIR__ . '/../_fixtures';
 
@@ -72,7 +72,7 @@ class EzPublishIOExtensionTest extends AbstractExtensionTestCase
     public function testUrlPrefixConfigurationIsUsedToDecorateUrl(): void
     {
         $this->container->registerExtension(
-            new EzPublishCoreExtension(
+            new IbexaCoreExtension(
                 [
                     new Parser\IO(new ComplexSettingParser()),
                 ]
@@ -107,4 +107,4 @@ class EzPublishIOExtensionTest extends AbstractExtensionTestCase
     }
 }
 
-class_alias(EzPublishIOExtensionTest::class, 'eZ\Bundle\EzPublishIOBundle\Tests\DependencyInjection\EzPublishIOExtensionTest');
+class_alias(IbexaIOExtensionTest::class, 'eZ\Bundle\EzPublishIOBundle\Tests\DependencyInjection\EzPublishIOExtensionTest');

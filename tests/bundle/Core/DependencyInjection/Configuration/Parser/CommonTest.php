@@ -7,7 +7,7 @@
 namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Parser;
 
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Common;
-use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollectorInterface;
 use Symfony\Component\Yaml\Yaml;
 
@@ -22,7 +22,7 @@ class CommonTest extends AbstractParserTestCase
     {
         $this->suggestionCollector = $this->createMock(SuggestionCollectorInterface::class);
 
-        return [new EzPublishCoreExtension([new Common()])];
+        return [new IbexaCoreExtension([new Common()])];
     }
 
     protected function getMinimalConfiguration(): array
@@ -216,7 +216,7 @@ class CommonTest extends AbstractParserTestCase
         );
         $this->assertConfigResolverParameterValue(
             'security.login_template',
-            '@EzPublishCore/Security/login.html.twig',
+            '@IbexaCore/Security/login.html.twig',
             'ezdemo_site'
         );
     }

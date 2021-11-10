@@ -7,7 +7,7 @@
 namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Parser;
 
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Image;
-use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension;
 use Symfony\Component\Yaml\Yaml;
 
 class ImageTest extends AbstractParserTestCase
@@ -39,7 +39,7 @@ class ImageTest extends AbstractParserTestCase
     protected function getContainerExtensions(): array
     {
         return [
-            new EzPublishCoreExtension([new Image()]),
+            new IbexaCoreExtension([new Image()]),
         ];
     }
 

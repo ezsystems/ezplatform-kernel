@@ -3,7 +3,7 @@ services:
         autoconfigure: true
         public: false
         arguments:
-            - '@=service("kernel").locateResource("@EzPublishCoreBundle/Resources/config/storage/legacy/schema.yaml")'
+            - '@=service("kernel").locateResource("@IbexaCoreBundle/Resources/config/storage/legacy/schema.yaml")'
 
     Ibexa\Bundle\Installer\Installer\DbBasedInstaller:
         abstract: true

@@ -242,7 +242,7 @@ class Configuration extends SiteAccessConfiguration
                     ->end()
                 ->end()
                 ->arrayNode('locale_conversion')
-                    ->info('Locale conversion map between eZ Publish format (i.e. fre-FR) to POSIX (i.e. fr_FR). The key is the eZ Publish locale. Check locale.yml in EzPublishCoreBundle to see natively supported locales.')
+                    ->info('Locale conversion map between Ibexa format (i.e. fre-FR) to POSIX (i.e. fr_FR). The key is the Ibexa locale. Check locale.yml in IbexaCoreBundle to see natively supported locales.')
                     ->example(['fre-FR' => 'fr_FR'])
                     ->useAttributeAsKey('key')
                     ->normalizeKeys(false)
@@ -487,7 +487,7 @@ EOT;
      * ezpublish:
      *     orm:
      *         entity_mappings:
-     *              EzPublishCoreBundle:
+     *              IbexaCoreBundle:
      *                  is_bundle: true
      *                  type: annotation
      *                  dir: Entity

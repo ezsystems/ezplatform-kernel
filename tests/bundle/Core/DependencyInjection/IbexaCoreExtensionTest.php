@@ -9,7 +9,7 @@ namespace Ibexa\Tests\Bundle\Core\DependencyInjection;
 use Ibexa\Bundle\Core\DependencyInjection\Compiler\QueryTypePass;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Common;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Content;
-use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
+use Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension;
 use Ibexa\Bundle\Core\DependencyInjection\ServiceTags;
 use Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\Filter\CustomCriterionQueryBuilder;
 use Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\Filter\CustomSortClauseQueryBuilder;
@@ -28,13 +28,13 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Yaml\Yaml;
 
-class EzPublishCoreExtensionTest extends AbstractExtensionTestCase
+class IbexaCoreExtensionTest extends AbstractExtensionTestCase
 {
     private $minimalConfig = [];
 
     private $siteaccessConfig = [];
 
-    /** @var \Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension */
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension */
     private $extension;
 
     protected function setUp(): void
@@ -76,7 +76,7 @@ class EzPublishCoreExtensionTest extends AbstractExtensionTestCase
 
     protected function getContainerExtensions(): array
     {
-        return [EzPublishCoreExtension::class => $this->getCoreExtension()];
+        return [IbexaCoreExtension::class => $this->getCoreExtension()];
     }
 
     protected function getMinimalConfiguration(): array
@@ -883,13 +883,13 @@ class EzPublishCoreExtensionTest extends AbstractExtensionTestCase
         );
     }
 
-    protected function getCoreExtension(): EzPublishCoreExtension
+    protected function getCoreExtension(): IbexaCoreExtension
     {
         if (null !== $this->extension) {
             return $this->extension;
         }
 
-        $this->extension = new EzPublishCoreExtension(
+        $this->extension = new IbexaCoreExtension(
             [
                 new Common(),
                 new Content(),
@@ -906,4 +906,4 @@ class EzPublishCoreExtensionTest extends AbstractExtensionTestCase
     }
 }
 
-class_alias(EzPublishCoreExtensionTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\EzPublishCoreExtensionTest');
+class_alias(IbexaCoreExtensionTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\EzPublishCoreExtensionTest');
