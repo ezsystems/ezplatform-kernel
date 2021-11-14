@@ -10,7 +10,7 @@ use Ibexa\Bundle\Debug\DependencyInjection\Compiler\DataCollectorPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class EzPublishDebugBundle extends Bundle
+class IbexaDebugBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {
@@ -19,4 +19,4 @@ class EzPublishDebugBundle extends Bundle
     }
 }
 
-class_alias(EzPublishDebugBundle::class, 'eZ\Bundle\EzPublishDebugBundle\EzPublishDebugBundle');
+class_alias(IbexaDebugBundle::class, 'eZ\Bundle\EzPublishDebugBundle\EzPublishDebugBundle');

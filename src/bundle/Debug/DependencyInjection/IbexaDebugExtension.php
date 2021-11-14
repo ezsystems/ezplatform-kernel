@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\Config\FileLocator;
 
-class EzPublishDebugExtension extends Extension implements PrependExtensionInterface
+class IbexaDebugExtension extends Extension implements PrependExtensionInterface
 {
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -40,4 +40,4 @@ class EzPublishDebugExtension extends Extension implements PrependExtensionInter
     }
 }
 
-class_alias(EzPublishDebugExtension::class, 'eZ\Bundle\EzPublishDebugBundle\DependencyInjection\EzPublishDebugExtension');
+class_alias(IbexaDebugExtension::class, 'eZ\Bundle\EzPublishDebugBundle\DependencyInjection\EzPublishDebugExtension');
