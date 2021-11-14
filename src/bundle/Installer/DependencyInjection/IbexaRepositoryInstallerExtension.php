@@ -20,4 +20,4 @@ class EzSystemsPlatformInstallerExtension extends Extension
     }
 }
 
-class_alias(EzSystemsPlatformInstallerExtension::class, 'EzSystems\PlatformInstallerBundle\DependencyInjection\EzSystemsPlatformInstallerExtension');
+class_alias(IbexaRepositoryInstallerExtension::class, 'EzSystems\PlatformInstallerBundle\DependencyInjection\EzSystemsPlatformInstallerExtension');

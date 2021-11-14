@@ -10,18 +10,18 @@ namespace Ibexa\Tests\Bundle\Installer\DependencyInjection;
 
 use Ibexa\Bundle\Installer\Command\InstallPlatformCommand;
 use Ibexa\Bundle\Installer\DependencyInjection\Compiler\InstallerTagPass;
-use Ibexa\Bundle\Installer\DependencyInjection\EzSystemsPlatformInstallerExtension;
+use Ibexa\Bundle\Installer\DependencyInjection\IbexaRepositoryInstallerExtension;
 use Ibexa\Bundle\Installer\Installer\CoreInstaller;
 use Ibexa\Bundle\Installer\Installer\DbBasedInstaller;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
 /**
- * @covers \Ibexa\Bundle\Installer\DependencyInjection\EzSystemsPlatformInstallerExtension
+ * @covers \Ibexa\Bundle\Installer\DependencyInjection\IbexaRepositoryInstallerExtension
  */
 class EzSystemsPlatformInstallerExtensionTest extends AbstractExtensionTestCase
 {
     /**
-     * @covers \Ibexa\Bundle\Installer\DependencyInjection\EzSystemsPlatformInstallerExtension::load
+     * @covers \Ibexa\Bundle\Installer\DependencyInjection\IbexaRepositoryInstallerExtension::load
      */
     public function testLoadLoadsTaggedCoreInstaller(): void
     {
@@ -38,7 +38,7 @@ class EzSystemsPlatformInstallerExtensionTest extends AbstractExtensionTestCase
     }
 
     /**
-     * @covers \Ibexa\Bundle\Installer\DependencyInjection\EzSystemsPlatformInstallerExtension::load
+     * @covers \Ibexa\Bundle\Installer\DependencyInjection\IbexaRepositoryInstallerExtension::load
      */
     public function testLoadLoadsTaggedInstallerCommand(): void
     {
@@ -52,7 +52,7 @@ class EzSystemsPlatformInstallerExtensionTest extends AbstractExtensionTestCase
     protected function getContainerExtensions(): array
     {
         return [
-            new EzSystemsPlatformInstallerExtension(),
+            new IbexaRepositoryInstallerExtension(),
         ];
     }
 }
