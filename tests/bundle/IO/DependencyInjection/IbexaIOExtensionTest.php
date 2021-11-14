@@ -10,7 +10,7 @@ use Ibexa\Bundle\Core\DependencyInjection\Compiler\ChainConfigResolverPass;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser;
 use Ibexa\Bundle\Core\DependencyInjection\EzPublishCoreExtension;
-use Ibexa\Bundle\IO\DependencyInjection\EzPublishIOExtension;
+use Ibexa\Bundle\IO\DependencyInjection\IbexaIOExtension;
 use Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory;
 use Ibexa\Tests\Integration\Core\Repository\Container\Compiler\SetAllServicesPublicPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
@@ -22,7 +22,7 @@ class EzPublishIOExtensionTest extends AbstractExtensionTestCase
 
     protected function getContainerExtensions(): array
     {
-        $extension = new EzPublishIOExtension();
+        $extension = new IbexaIOExtension();
         $extension->addMetadataHandlerFactory('flysystem', new ConfigurationFactory\MetadataHandler\Flysystem());
         $extension->addBinarydataHandlerFactory('flysystem', new ConfigurationFactory\BinarydataHandler\Flysystem());
 
