@@ -6,7 +6,7 @@
  */
 namespace Ibexa\Tests\Bundle\Debug\Collector;
 
-use Ibexa\Bundle\Debug\Collector\EzPublishCoreCollector;
+use Ibexa\Bundle\Debug\Collector\IbexaCoreCollector;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,13 +15,13 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
 
 class EzPublishCoreCollectorTest extends TestCase
 {
-    /** @var EzPublishCoreCollector */
+    /** @var IbexaCoreCollector */
     private $mainCollector;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->mainCollector = new EzPublishCoreCollector();
+        $this->mainCollector = new IbexaCoreCollector();
     }
 
     public function testAddGetCollector()
