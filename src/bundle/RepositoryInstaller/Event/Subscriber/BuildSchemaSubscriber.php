@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Bundle\Installer\Event\Subscriber;
+namespace Ibexa\Bundle\RepositoryInstaller\Event\Subscriber;
 
 use EzSystems\DoctrineSchema\API\Event\SchemaBuilderEvent;
 use EzSystems\DoctrineSchema\API\Event\SchemaBuilderEvents;

@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Bundle\Installer\DependencyInjection;
+namespace Ibexa\Tests\Bundle\RepositoryInstaller\DependencyInjection;
 
-use Ibexa\Bundle\Installer\Command\InstallPlatformCommand;
-use Ibexa\Bundle\Installer\DependencyInjection\Compiler\InstallerTagPass;
-use Ibexa\Bundle\Installer\DependencyInjection\IbexaRepositoryInstallerExtension;
-use Ibexa\Bundle\Installer\Installer\CoreInstaller;
-use Ibexa\Bundle\Installer\Installer\DbBasedInstaller;
+use Ibexa\Bundle\RepositoryInstaller\Command\InstallPlatformCommand;
+use Ibexa\Bundle\RepositoryInstaller\DependencyInjection\Compiler\InstallerTagPass;
+use Ibexa\Bundle\RepositoryInstaller\DependencyInjection\IbexaRepositoryInstallerExtension;
+use Ibexa\Bundle\RepositoryInstaller\Installer\CoreInstaller;
+use Ibexa\Bundle\RepositoryInstaller\Installer\DbBasedInstaller;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
 /**
- * @covers \Ibexa\Bundle\Installer\DependencyInjection\IbexaRepositoryInstallerExtension
+ * @covers \Ibexa\Bundle\RepositoryInstaller\DependencyInjection\IbexaRepositoryInstallerExtension
  */
 class IbexaInstallerExtensionTest extends AbstractExtensionTestCase
 {
     /**
-     * @covers \Ibexa\Bundle\Installer\DependencyInjection\IbexaRepositoryInstallerExtension::load
+     * @covers \Ibexa\Bundle\RepositoryInstaller\DependencyInjection\IbexaRepositoryInstallerExtension::load
      */
     public function testLoadLoadsTaggedCoreInstaller(): void
     {
@@ -38,7 +38,7 @@ class IbexaInstallerExtensionTest extends AbstractExtensionTestCase
     }
 
     /**
-     * @covers \Ibexa\Bundle\Installer\DependencyInjection\IbexaRepositoryInstallerExtension::load
+     * @covers \Ibexa\Bundle\RepositoryInstaller\DependencyInjection\IbexaRepositoryInstallerExtension::load
      */
     public function testLoadLoadsTaggedInstallerCommand(): void
     {

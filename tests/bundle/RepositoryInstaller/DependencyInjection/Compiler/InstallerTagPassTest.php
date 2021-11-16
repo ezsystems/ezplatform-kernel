@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Bundle\Installer\DependencyInjection\Compiler;
+namespace Ibexa\Tests\Bundle\RepositoryInstaller\DependencyInjection\Compiler;
 
-use Ibexa\Bundle\Installer\Command\InstallPlatformCommand;
-use Ibexa\Bundle\Installer\DependencyInjection\Compiler\InstallerTagPass;
+use Ibexa\Bundle\RepositoryInstaller\Command\InstallPlatformCommand;
+use Ibexa\Bundle\RepositoryInstaller\DependencyInjection\Compiler\InstallerTagPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * @covers \Ibexa\Bundle\Installer\DependencyInjection\Compiler\InstallerTagPass
+ * @covers \Ibexa\Bundle\RepositoryInstaller\DependencyInjection\Compiler\InstallerTagPass
  */
 class InstallerTagPassTest extends AbstractCompilerPassTestCase
 {
     /**
-     * @covers \Ibexa\Bundle\Installer\DependencyInjection\Compiler\InstallerTagPass::process
+     * @covers \Ibexa\Bundle\RepositoryInstaller\DependencyInjection\Compiler\InstallerTagPass::process
      */
     public function testProcessInjectsInstallersIntoCommand(): void
     {

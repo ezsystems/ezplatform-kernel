@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace Ibexa\Bundle\Installer\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\RepositoryInstaller\DependencyInjection\Compiler;
 
-use Ibexa\Bundle\Installer\Command\InstallPlatformCommand;
+use Ibexa\Bundle\RepositoryInstaller\Command\InstallPlatformCommand;
 use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

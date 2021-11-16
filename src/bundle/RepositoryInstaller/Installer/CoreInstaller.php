@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Bundle\Installer\Installer;
+namespace Ibexa\Bundle\RepositoryInstaller\Installer;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -40,7 +40,7 @@ class CoreInstaller extends DbBasedInstaller implements Installer
      * If you wish to extend schema, implement your own EventSubscriber
      *
      * @see \EzSystems\DoctrineSchema\API\Event\SchemaBuilderEvent
-     * @see \Ibexa\Bundle\Installer\Event\Subscriber\BuildSchemaSubscriber
+     * @see \Ibexa\Bundle\RepositoryInstaller\Event\Subscriber\BuildSchemaSubscriber
      *
      * @throws \Doctrine\DBAL\DBALException
      */

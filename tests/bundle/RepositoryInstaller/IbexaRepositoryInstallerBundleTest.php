@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Bundle\Installer;
+namespace Ibexa\Tests\Bundle\RepositoryInstaller;
 
 use EzSystems\DoctrineSchemaBundle\DependencyInjection\DoctrineSchemaExtension;
-use Ibexa\Bundle\Installer\DependencyInjection\Compiler\InstallerTagPass;
-use Ibexa\Bundle\Installer\IbexaRepositoryInstallerBundle;
+use Ibexa\Bundle\RepositoryInstaller\DependencyInjection\Compiler\InstallerTagPass;
+use Ibexa\Bundle\RepositoryInstaller\IbexaRepositoryInstallerBundle;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 
 class IbexaRepositoryInstallerBundleTest extends TestCase
 {
-    /** @var \Ibexa\Bundle\Installer\IbexaRepositoryInstallerBundle */
+    /** @var \Ibexa\Bundle\RepositoryInstaller\IbexaRepositoryInstallerBundle */
     private $bundle;
 
     public function setUp(): void
@@ -27,7 +27,7 @@ class IbexaRepositoryInstallerBundleTest extends TestCase
     }
 
     /**
-     * @covers \Ibexa\Bundle\Installer\IbexaRepositoryInstallerBundle::build
+     * @covers \Ibexa\Bundle\RepositoryInstaller\IbexaRepositoryInstallerBundle::build
      */
     public function testBuild(): void
     {
@@ -47,7 +47,7 @@ class IbexaRepositoryInstallerBundleTest extends TestCase
     }
 
     /**
-     * @covers \Ibexa\Bundle\Installer\IbexaRepositoryInstallerBundle::build
+     * @covers \Ibexa\Bundle\RepositoryInstaller\IbexaRepositoryInstallerBundle::build
      */
     public function testBuildFailsWithoutDoctrineSchemaBundle(): void
     {

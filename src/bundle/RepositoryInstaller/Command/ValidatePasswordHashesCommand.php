@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace Ibexa\Bundle\Installer\Command;
+namespace Ibexa\Bundle\RepositoryInstaller\Command;
 
 use Ibexa\Bundle\Core\Command\BackwardCompatibleCommand;
 use Ibexa\Contracts\Core\Repository\PasswordHashService;

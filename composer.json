@@ -84,7 +84,7 @@
             "Ibexa\\Bundle\\Core\\": "src/bundle/Core",
             "Ibexa\\Bundle\\Debug\\": "src/bundle/Debug",
             "Ibexa\\Bundle\\IO\\": "src/bundle/IO",
-            "Ibexa\\Bundle\\Installer\\": "src/bundle/Installer",
+            "Ibexa\\Bundle\\RepositoryInstaller\\": "src/bundle/RepositoryInstaller",
             "Ibexa\\Bundle\\LegacySearchEngine\\": "src/bundle/LegacySearchEngine",
             "Ibexa\\Contracts\\Core\\": "src/contracts",
             "Ibexa\\Core\\": "src/lib",
@@ -97,7 +97,7 @@
             "eZ\\Bundle\\EzPublishDebugBundle\\": "src/bundle/Debug",
             "eZ\\Bundle\\EzPublishIOBundle\\": "src/bundle/IO",
             "eZ\\Bundle\\EzPublishLegacySearchEngineBundle\\": "src/bundle/LegacySearchEngine",
-            "EzSystems\\PlatformInstallerBundle\\": "src/bundle/Installer"
+            "EzSystems\\PlatformInstallerBundle\\": "src/bundle/RepositoryInstaller"
         }
     },
     "autoload-dev": {
@@ -105,12 +105,12 @@
             "Ibexa\\Tests\\Bundle\\Core\\": "tests/bundle/Core",
             "Ibexa\\Tests\\Bundle\\Debug\\": "tests/bundle/Debug",
             "Ibexa\\Tests\\Bundle\\IO\\": "tests/bundle/IO",
-            "Ibexa\\Tests\\Bundle\\Installer\\": "tests/bundle/Installer",
+            "Ibexa\\Tests\\Bundle\\RepositoryInstaller\\": "tests/bundle/RepositoryInstaller",
             "Ibexa\\Tests\\Bundle\\LegacySearchEngine\\": "tests/bundle/LegacySearchEngine",
             "Ibexa\\Tests\\Integration\\Core\\": "tests/integration/Core",
             "Ibexa\\Tests\\Integration\\Debug\\": "tests/integration/Debug",
             "Ibexa\\Tests\\Integration\\IO\\": "tests/integration/IO",
-            "Ibexa\\Tests\\Integration\\Installer\\": "tests/integration/Installer",
+            "Ibexa\\Tests\\Integration\\RepositoryInstaller\\": "tests/integration/RepositoryInstaller",
             "Ibexa\\Tests\\Integration\\LegacySearchEngine\\": "tests/integration/LegacySearchEngine",
             "Ibexa\\Tests\\Core\\": "tests/lib"
         }

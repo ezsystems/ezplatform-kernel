@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace Ibexa\Bundle\Installer\Command;
+namespace Ibexa\Bundle\RepositoryInstaller\Command;
 
 use Doctrine\DBAL\Connection;
 use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
@@ -33,7 +33,7 @@ final class InstallPlatformCommand extends Command implements BackwardCompatible
     /** @var string */
     private $environment;
 
-    /** @var \Ibexa\Bundle\Installer\Installer\Installer[] */
+    /** @var \Ibexa\Bundle\RepositoryInstaller\Installer\Installer[] */
     private $installers = [];
 
     /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */
@@ -195,7 +195,7 @@ final class InstallPlatformCommand extends Command implements BackwardCompatible
     /**
      * @param $type
      *
-     * @return \Ibexa\Bundle\Installer\Installer\Installer
+     * @return \Ibexa\Bundle\RepositoryInstaller\Installer\Installer
      */
     private function getInstaller($type)
     {

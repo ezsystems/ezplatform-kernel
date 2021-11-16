@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace Ibexa\Bundle\Installer;
+namespace Ibexa\Bundle\RepositoryInstaller;
 
 use EzSystems\DoctrineSchemaBundle\DoctrineSchemaBundle;
-use Ibexa\Bundle\Installer\DependencyInjection\Compiler\InstallerTagPass;
+use Ibexa\Bundle\RepositoryInstaller\DependencyInjection\Compiler\InstallerTagPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
