@@ -17,7 +17,7 @@ use Ibexa\Contracts\Core\Persistence\TransactionHandler;
 use FOS\JsRoutingBundle\FOSJsRoutingBundle;
 use JMS\TranslationBundle\JMSTranslationBundle;
 use Liip\ImagineBundle\LiipImagineBundle;
-use Psr\Log\Test\TestLogger;
+use Psr\Log\NullLogger;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
@@ -193,6 +193,6 @@ class IbexaTestKernel extends Kernel
 
     private static function setUpTestLogger(ContainerBuilder $container): void
     {
-        $container->setDefinition('logger', new Definition(TestLogger::class));
+        $container->setDefinition('logger', new Definition(NullLogger::class));
     }
 }
