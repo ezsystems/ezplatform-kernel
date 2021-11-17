@@ -54,7 +54,7 @@ class IbexaRepositoryInstallerBundleTest extends TestCase
         $container = new ContainerBuilder();
 
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('eZ Platform Installer requires Doctrine Schema Bundle');
+        $this->expectExceptionMessage('Ibexa Installer requires Doctrine Schema Bundle');
         $this->bundle->build($container);
     }
 }

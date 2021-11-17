@@ -22,7 +22,7 @@ class IbexaRepositoryInstallerBundle extends Bundle
         if (!$container->hasExtension('ez_doctrine_schema')) {
             throw new RuntimeException(
                 sprintf(
-                    'eZ Platform Installer requires Doctrine Schema Bundle (enable %s)',
+                    'Ibexa Installer requires Doctrine Schema Bundle (enable %s)',
                     DoctrineSchemaBundle::class
                 )
             );
