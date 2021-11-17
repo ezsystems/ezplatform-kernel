@@ -25,7 +25,7 @@ class DbBasedInstaller
     {
         $this->db = $db;
         // parametrized so other installer implementations can override this
-        $this->baseDataDir = __DIR__ . '/../../../../../data';
+        $this->baseDataDir = __DIR__ . '/../../../../data';
     }
 
     /**
