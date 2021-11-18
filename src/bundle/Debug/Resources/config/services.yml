@@ -4,7 +4,7 @@ services:
         tags:
             -
                 name: data_collector
-                template: '@IbexaDebugBundle/Profiler/layout.html.twig'
+                template: '@IbexaDebug/Profiler/layout.html.twig'
                 id: "ezpublish.debug.toolbar"
 
     ezpublish_debug.siteaccess_collector:
@@ -13,8 +13,8 @@ services:
             -
                 name: ezpublish_data_collector
                 id: "ezpublish.debug.siteaccess"
-                panelTemplate: '@IbexaDebugBundle/Profiler/siteaccess/panel.html.twig'
-                toolbarTemplate: '@IbexaDebugBundle/Profiler/siteaccess/toolbar.html.twig'
+                panelTemplate: '@IbexaDebug/Profiler/siteaccess/panel.html.twig'
+                toolbarTemplate: '@IbexaDebug/Profiler/siteaccess/toolbar.html.twig'
 
     ezpublish_debug.persistence_collector:
         class: Ibexa\Bundle\Debug\Collector\PersistenceCacheCollector
@@ -23,5 +23,5 @@ services:
             -
                 name: ezpublish_data_collector
                 id: "ezpublish.debug.persistence"
-                panelTemplate: '@IbexaDebugBundle/Profiler/persistence/panel.html.twig'
-                toolbarTemplate: '@IbexaDebugBundle/Profiler/persistence/toolbar.html.twig'
+                panelTemplate: '@IbexaDebug/Profiler/persistence/panel.html.twig'
+                toolbarTemplate: '@IbexaDebug/Profiler/persistence/toolbar.html.twig'
