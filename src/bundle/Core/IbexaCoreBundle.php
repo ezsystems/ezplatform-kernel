@@ -12,6 +12,7 @@ use Ibexa\Bundle\Core\DependencyInjection\Compiler\ConsoleCommandPass;
 use Ibexa\Bundle\Core\DependencyInjection\Compiler\EntityManagerFactoryServiceLocatorPass;
 use Ibexa\Bundle\Core\DependencyInjection\Compiler\FieldTypeParameterProviderRegistryPass;
 use Ibexa\Bundle\Core\DependencyInjection\Compiler\FragmentPass;
+use Ibexa\Bundle\Core\DependencyInjection\Compiler\SessionConfigurationPass;
 use Ibexa\Bundle\Core\DependencyInjection\Compiler\ViewMatcherRegistryPass;
 use Ibexa\Bundle\Core\DependencyInjection\Compiler\InjectEntityManagerMappingsPass;
 use Ibexa\Bundle\Core\DependencyInjection\Compiler\LazyDoctrineRepositoriesPass;
@@ -83,6 +84,7 @@ class IbexaCoreBundle extends Bundle
         $container->addCompilerPass(new LazyDoctrineRepositoriesPass(), PassConfig::TYPE_BEFORE_REMOVING);
         $container->addCompilerPass(new EntityManagerFactoryServiceLocatorPass());
         $container->addCompilerPass(new InjectEntityManagerMappingsPass());
+        $container->addCompilerPass(new SessionConfigurationPass());
 
         // Storage passes
         $container->addCompilerPass(new ExternalStorageRegistryPass());

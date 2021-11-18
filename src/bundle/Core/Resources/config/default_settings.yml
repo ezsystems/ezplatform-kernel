@@ -252,3 +252,10 @@ parameters:
     # Siteaccess aware Entity Manager
     ##
     ibexa.orm.entity_mappings: []
+
+    ibexa.platform.io.nfs.adapter.config:
+        root: './'
+        path: '$var_dir$/$storage_dir$/'
+        writeFlags: ~
+        linkHandling: ~
+        permissions: [ ]
