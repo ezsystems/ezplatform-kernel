@@ -88,6 +88,8 @@
             "Ibexa\\Bundle\\LegacySearchEngine\\": "src/bundle/LegacySearchEngine",
             "Ibexa\\Contracts\\Core\\": "src/contracts",
             "Ibexa\\Core\\": "src/lib",
+            "Ibexa\\Tests\\Core\\": "tests/lib",
+            "Ibexa\\Tests\\Integration\\Core\\": "tests/integration/Core",
             "eZ\\Publish\\API\\Repository\\Tests\\": "src/contracts/Test/Repository",
             "eZ\\Publish\\SPI\\Tests\\": "src/contracts/Test",
             "eZ\\Publish\\API\\": "src/contracts",
@@ -97,6 +99,9 @@
             "eZ\\Bundle\\EzPublishDebugBundle\\": "src/bundle/Debug",
             "eZ\\Bundle\\EzPublishIOBundle\\": "src/bundle/IO",
             "eZ\\Bundle\\EzPublishLegacySearchEngineBundle\\": "src/bundle/LegacySearchEngine",
+            "eZ\\Bundle\\EzPublishCoreBundle\\Tests\\": "tests/bundle/Core",
+            "eZ\\Publish\\Core\\MVC\\Symfony\\Templating\\Tests\\": "tests/lib/MVC/Symfony/Templating",
+            "eZ\\Publish\\Core\\Persistence\\Legacy\\Tests\\": "tests/lib/Persistence/Legacy",
             "EzSystems\\PlatformInstallerBundle\\": "src/bundle/RepositoryInstaller"
         }
     },
