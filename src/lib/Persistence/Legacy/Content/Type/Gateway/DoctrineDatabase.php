@@ -154,6 +154,10 @@ final class DoctrineDatabase extends Gateway
                         $group->identifier,
                         ParameterType::STRING
                     ),
+                    'is_system' => $query->createPositionalParameter(
+                        $group->isSystem ?? false,
+                        ParameterType::BOOLEAN
+                    ),
                 ]
             );
         $query->execute();

@@ -121,9 +121,11 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
             $group
         );
 
+        $reloadedGroup = $contentTypeService->loadContentTypeGroup($group->id);
+
         return [
             'createStruct' => $groupCreate,
-            'group' => $group,
+            'group' => $reloadedGroup,
         ];
     }
 
