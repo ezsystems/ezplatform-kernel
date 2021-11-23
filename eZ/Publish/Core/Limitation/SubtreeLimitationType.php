@@ -74,7 +74,7 @@ class SubtreeLimitationType extends AbstractPersistenceLimitationType implements
             } catch (APINotFoundException $e) {
             }
 
-            if (!isset($spiLocation) || strpos($spiLocation->pathString, $path) !== 0) {
+            if (!isset($spiLocation) || $spiLocation->pathString !== $path) {
                 $validationErrors[] = new ValidationError(
                     "limitationValues[%key%] => '%value%' does not exist in the backend",
                     null,
