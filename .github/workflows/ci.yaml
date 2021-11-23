@@ -21,6 +21,9 @@ jobs:
                     - '7.3'
                     - '7.4'
                 composer_options: [ "" ]
+                include:
+                    -   php: '8.0'
+                        composer_options: "--ignore-platform-req php"
 
         steps:
             - uses: actions/checkout@v2
@@ -82,6 +85,9 @@ jobs:
                     - '7.3'
                     - '7.4'
                 composer_options: [ "" ]
+                include:
+                    -   php: '8.0'
+                        composer_options: "--ignore-platform-req php"
 
         steps:
             -   uses: actions/checkout@v2
@@ -108,3 +114,60 @@ jobs:
                     DATABASE_URL: "pgsql://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/testdb?server_version=10"
                     # Required by old repository tests
                     DATABASE: "pgsql://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/testdb"
+
+    integration-tests-mysql:
+        name: MySQL integration tests
+        needs: tests
+        services:
+            mysql:
+                image: mysql:8.0
+                ports:
+                    - 3306/tcp
+                env:
+                    MYSQL_RANDOM_ROOT_PASSWORD: true
+                    MYSQL_USER: mysql
+                    MYSQL_PASSWORD: mysql
+                    MYSQL_DATABASE: testdb
+                options: >-
+                    --health-cmd="mysqladmin ping"
+                    --health-interval=10s
+                    --health-timeout=5s
+                    --health-retries=5
+                    --tmpfs=/var/lib/mysql
+        runs-on: "ubuntu-20.04"
+        timeout-minutes: 20
+
+        strategy:
+            matrix:
+                php:
+                    - '7.3'
+                    - '7.4'
+                composer_options: [ "" ]
+                include:
+                    -   php: '8.0'
+                        composer_options: "--ignore-platform-req php"
+
+        steps:
+            -   uses: actions/checkout@v2
+
+            -   name: Setup PHP Action
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php }}
+                    coverage: none
+                    extensions: pdo_mysql, gd
+                    tools: cs2pr
+
+            -   uses: "ramsey/composer-install@v1"
+                with:
+                    dependency-versions: "highest"
+                    composer-options: "${{ matrix.composer_options }}"
+
+            -   name: Setup problem matchers for PHPUnit
+                run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+            -   name: Run integration test suite vs MySQL
+                run: composer run-script integration
+                env:
+                    DATABASE_URL: "mysql://mysql:mysql@127.0.0.1:${{ job.services.mysql.ports[3306] }}/testdb"
+                    DATABASE: "mysql://mysql:mysql@127.0.0.1:${{ job.services.mysql.ports[3306] }}/testdb"
