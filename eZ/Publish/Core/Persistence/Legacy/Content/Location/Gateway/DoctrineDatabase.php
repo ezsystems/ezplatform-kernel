@@ -231,7 +231,7 @@ final class DoctrineDatabase extends Gateway
         $results = $statement->fetchAll($onlyIds ? (FetchMode::COLUMN | PDO::FETCH_GROUP) : FetchMode::ASSOCIATIVE);
         // array_map() is used to map all elements stored as $results[$i][0] to $results[$i]
         return $onlyIds
-            ? array_map(static function ($result) {
+            ? array_map(static function (array $result) {
                 return $result[0];
             }, $results)
             : $results;
