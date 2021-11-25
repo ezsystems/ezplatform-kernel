@@ -63,7 +63,7 @@
         "jenner/simple_fork": "^1.2",
         "friends-of-behat/mink-extension": "^2.4",
         "ibexa/ci-scripts": "^0.1@dev",
-        "ezsystems/ezplatform-code-style": "^0.2",
+        "ezsystems/ezplatform-code-style": "^2.0",
         "phpunit/phpunit": "^8.2",
         "matthiasnoback/symfony-dependency-injection-test": "^4.1",
         "symfony/phpunit-bridge": "^5.1",
@@ -113,7 +113,7 @@
     },
     "scripts": {
         "check-cs": "@fix-cs --dry-run",
-        "fix-cs": "php-cs-fixer fix -v --show-progress=estimating",
+        "fix-cs": "php-cs-fixer fix -v --show-progress=dots",
         "unit": "phpunit -c phpunit.xml",
         "integration": [
             "Composer\\Config::disableProcessTimeout",
