@@ -33,7 +33,7 @@ class Ancestor extends Criterion implements FilteringCriterion
         foreach ((array)$value as $pathString) {
             if (preg_match('/^(\/\w+)+\/$/', $pathString) !== 1) {
                 throw new InvalidArgumentException(
-                    "'$pathString' value must follow the pathString format, e.g. /1/2/"
+                    "'$pathString' value must follow the pathString format, e.g. '/1/2/'"
                 );
             }
         }
