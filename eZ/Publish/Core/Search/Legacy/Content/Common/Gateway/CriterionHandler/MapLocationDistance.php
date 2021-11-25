@@ -8,10 +8,10 @@ namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Value\MapLocationValue;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
 use RuntimeException;
 
 /**
@@ -22,12 +22,12 @@ class MapLocationDistance extends FieldBase
     /**
      * Distance in kilometers of one degree longitude at the Equator.
      */
-    const DEGREE_KM = 111.195;
+    public const DEGREE_KM = 111.195;
 
     /**
      * Radius of the planet in kilometers.
      */
-    const EARTH_RADIUS = 6371.01;
+    public const EARTH_RADIUS = 6371.01;
 
     /**
      * Check if this criterion handler accepts to handle the given criterion.

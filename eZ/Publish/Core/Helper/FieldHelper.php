@@ -54,7 +54,7 @@ class FieldHelper
      *
      * @deprecated If you have Content you can instead do: $content->getContentType()->getFieldDefinition($identifier)
      *
-     * @param ContentInfo $contentInfo
+     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
      * @param string $fieldDefIdentifier
      *
      * @return \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition

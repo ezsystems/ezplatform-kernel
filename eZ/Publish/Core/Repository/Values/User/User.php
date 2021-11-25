@@ -11,8 +11,8 @@ namespace eZ\Publish\Core\Repository\Values\User;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\API\Repository\Values\Content\Thumbnail;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use eZ\Publish\API\Repository\Values\User\User as APIUser;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
+use eZ\Publish\API\Repository\Values\User\User as APIUser;
 use eZ\Publish\SPI\FieldType\Value;
 
 /**
@@ -78,7 +78,7 @@ class User extends APIUser
      *
      * @param string $languageCode
      *
-     * @return Field[] with field identifier as keys
+     * @return \eZ\Publish\API\Repository\Values\Content\Field[] with field identifier as keys
      */
     public function getFieldsByLanguage(?string $languageCode = null): iterable
     {

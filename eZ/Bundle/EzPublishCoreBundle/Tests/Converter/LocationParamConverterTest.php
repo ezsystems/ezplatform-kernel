@@ -6,16 +6,16 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\Converter;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\LocationService;
 use eZ\Bundle\EzPublishCoreBundle\Converter\LocationParamConverter;
+use eZ\Publish\API\Repository\LocationService;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use Symfony\Component\HttpFoundation\Request;
 
 class LocationParamConverterTest extends AbstractParamConverterTest
 {
-    const PROPERTY_NAME = 'locationId';
+    public const PROPERTY_NAME = 'locationId';
 
-    const LOCATION_CLASS = Location::class;
+    public const LOCATION_CLASS = Location::class;
 
     /** @var \eZ\Bundle\EzPublishCoreBundle\Converter\LocationParamConverter */
     private $converter;

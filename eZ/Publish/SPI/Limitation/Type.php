@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\SPI\Limitation;
 
-use eZ\Publish\API\Repository\Values\ValueObject as APIValueObject;
 use eZ\Publish\API\Repository\Values\User\Limitation as APILimitationValue;
 use eZ\Publish\API\Repository\Values\User\UserReference as APIUserReference;
+use eZ\Publish\API\Repository\Values\ValueObject as APIValueObject;
 
 /**
  * This interface represent the Limitation Type.
@@ -30,9 +30,9 @@ interface Type
      *
      * @since 5.3.2
      */
-    const ACCESS_GRANTED = true;
-    const ACCESS_ABSTAIN = null;
-    const ACCESS_DENIED = false;
+    public const ACCESS_GRANTED = true;
+    public const ACCESS_ABSTAIN = null;
+    public const ACCESS_DENIED = false;
 
     /**
      * Constants for valueSchema() return values.
@@ -40,8 +40,8 @@ interface Type
      * Used in cases where a certain value is accepted but the options are to many to return as a hash of options.
      * GUI should typically present option to browse content tree to select limitation value(s).
      */
-    const VALUE_SCHEMA_LOCATION_ID = 1;
-    const VALUE_SCHEMA_LOCATION_PATH = 2;
+    public const VALUE_SCHEMA_LOCATION_ID = 1;
+    public const VALUE_SCHEMA_LOCATION_PATH = 2;
 
     /**
      * Accepts a Limitation value and checks for structural validity.

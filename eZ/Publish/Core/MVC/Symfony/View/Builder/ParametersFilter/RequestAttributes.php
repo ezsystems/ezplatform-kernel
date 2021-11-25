@@ -7,8 +7,8 @@
 namespace eZ\Publish\Core\MVC\Symfony\View\Builder\ParametersFilter;
 
 use eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use eZ\Publish\Core\MVC\Symfony\View\ViewEvents;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Collects parameters for the ViewBuilder from the Request.

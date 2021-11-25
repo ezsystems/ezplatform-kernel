@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\FieldType\Keyword\KeywordStorage;
 
-use eZ\Publish\SPI\Persistence\Content\Field;
 use eZ\Publish\SPI\FieldType\StorageGateway;
+use eZ\Publish\SPI\Persistence\Content\Field;
 
 /**
  * Keyword Field Type external storage gateway.
@@ -22,7 +22,7 @@ abstract class Gateway extends StorageGateway
     /**
      * Sets the list of assigned keywords into $field->value->externalData.
      *
-     * @param Field $field
+     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
      */
     abstract public function getFieldData(Field $field);
 

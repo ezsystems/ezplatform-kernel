@@ -21,7 +21,7 @@ use Symfony\Component\Routing\RequestContext;
  */
 class IORepositoryResolver implements ResolverInterface
 {
-    const VARIATION_ORIGINAL = 'original';
+    public const VARIATION_ORIGINAL = 'original';
 
     /** @var \eZ\Publish\Core\IO\IOServiceInterface */
     private $ioService;
@@ -29,8 +29,9 @@ class IORepositoryResolver implements ResolverInterface
     /** @var \Symfony\Component\Routing\RequestContext */
     private $requestContext;
 
-    /** @var FilterConfiguration */
+    /** @var \Liip\ImagineBundle\Imagine\Filter\FilterConfiguration */
     private $filterConfiguration;
+
     /** @var \eZ\Publish\SPI\Variation\VariationPurger */
     private $variationPurger;
 

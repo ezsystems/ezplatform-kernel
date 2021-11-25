@@ -7,10 +7,10 @@
 namespace eZ\Publish\Core\Base\Container\Compiler\Storage;
 
 use eZ\Publish\Core\Base\Container\Compiler\TaggedServiceIdsIterator\BackwardCompatibleIterator;
+use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use LogicException;
 
 /**
  * This compiler pass will register eZ Publish external storage handlers and gateways.

@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace eZ\Publish\API\Repository\Values\Content;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
+use eZ\Publish\API\Repository\Values\ValueObject;
 
 /**
  * this class represents a content object in a specific version.

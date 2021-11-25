@@ -7,10 +7,10 @@
 namespace eZ\Publish\Core\Persistence\Legacy\User;
 
 use eZ\Publish\SPI\Persistence\User;
-use eZ\Publish\SPI\Persistence\User\Role;
-use eZ\Publish\SPI\Persistence\User\RoleCreateStruct;
 use eZ\Publish\SPI\Persistence\User\Policy;
+use eZ\Publish\SPI\Persistence\User\Role;
 use eZ\Publish\SPI\Persistence\User\RoleAssignment;
+use eZ\Publish\SPI\Persistence\User\RoleCreateStruct;
 
 /**
  * mapper for User related objects.
@@ -198,7 +198,7 @@ class Mapper
         $roleAssignments = [];
         array_walk_recursive(
             $roleAssignmentData,
-            function ($roleAssignment) use (&$roleAssignments) {
+            static function ($roleAssignment) use (&$roleAssignments) {
                 $roleAssignments[] = $roleAssignment;
             }
         );

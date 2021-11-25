@@ -6,14 +6,14 @@
  */
 namespace eZ\Publish\Core\Repository\Tests\Permission;
 
+use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\User\Limitation;
 use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\Core\Limitation\TargetOnlyLimitationType;
+use eZ\Publish\Core\Repository\Permission\LimitationService;
 use eZ\Publish\Core\Repository\Permission\PermissionCriterionResolver;
 use eZ\Publish\Core\Repository\Values\User\Policy;
-use eZ\Publish\Core\Repository\Permission\LimitationService;
 use eZ\Publish\SPI\Limitation\Type;
 use PHPUnit\Framework\TestCase;
 

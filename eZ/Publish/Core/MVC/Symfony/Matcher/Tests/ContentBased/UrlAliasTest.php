@@ -6,11 +6,11 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased;
 
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\URLAliasService;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\URLAlias;
 use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\UrlAlias as UrlAliasMatcher;
-use eZ\Publish\API\Repository\Repository;
 
 class UrlAliasTest extends BaseTest
 {

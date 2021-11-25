@@ -6,12 +6,12 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests\Image\IO;
 
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\FieldType\Image\IO\Legacy as LegacyIOService;
 use eZ\Publish\Core\FieldType\Image\IO\OptionsProvider;
 use eZ\Publish\Core\IO\IOServiceInterface;
 use eZ\Publish\Core\IO\Values\BinaryFile;
 use eZ\Publish\Core\IO\Values\BinaryFileCreateStruct;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use PHPUnit\Framework\TestCase;
 

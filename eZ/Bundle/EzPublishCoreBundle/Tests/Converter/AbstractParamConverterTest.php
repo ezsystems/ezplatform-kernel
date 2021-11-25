@@ -6,8 +6,8 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\Converter;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use PHPUnit\Framework\TestCase;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 abstract class AbstractParamConverterTest extends TestCase
 {

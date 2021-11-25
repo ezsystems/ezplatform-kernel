@@ -6,10 +6,10 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration;
 
+use eZ\Publish\Core\MVC\Exception\ParameterNotFoundException;
 use eZ\Publish\Core\MVC\Symfony\Configuration\VersatileScopeInterface;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
-use eZ\Publish\Core\MVC\Exception\ParameterNotFoundException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -37,11 +37,11 @@ class ConfigResolver implements VersatileScopeInterface, SiteAccessAware, Contai
 {
     use ContainerAwareTrait;
 
-    const SCOPE_GLOBAL = 'global';
-    const SCOPE_DEFAULT = 'default';
+    public const SCOPE_GLOBAL = 'global';
+    public const SCOPE_DEFAULT = 'default';
 
-    const UNDEFINED_STRATEGY_EXCEPTION = 1;
-    const UNDEFINED_STRATEGY_NULL = 2;
+    public const UNDEFINED_STRATEGY_EXCEPTION = 1;
+    public const UNDEFINED_STRATEGY_NULL = 2;
 
     /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess */
     protected $siteAccess;

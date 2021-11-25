@@ -9,15 +9,15 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\UserPreference;
 
 use eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\UserPreference\Mapper;
 use eZ\Publish\Core\Persistence\Legacy\UserPreference\Handler;
-use eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct;
+use eZ\Publish\Core\Persistence\Legacy\UserPreference\Mapper;
 use eZ\Publish\SPI\Persistence\UserPreference\UserPreference;
+use eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct;
 use PHPUnit\Framework\TestCase;
 
 class HandlerTest extends TestCase
 {
-    const USER_PREFERENCE_ID = 1;
+    public const USER_PREFERENCE_ID = 1;
 
     /** @var \eZ\Publish\Core\Persistence\Legacy\UserPreference\Gateway|\PHPUnit\Framework\MockObject\MockObject */
     private $gateway;

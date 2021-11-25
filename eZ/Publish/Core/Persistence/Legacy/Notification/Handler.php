@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Legacy\Notification;
 
+use eZ\Publish\API\Repository\Values\Notification\Notification as APINotification;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\SPI\Persistence\Notification\CreateStruct;
 use eZ\Publish\SPI\Persistence\Notification\Handler as HandlerInterface;
 use eZ\Publish\SPI\Persistence\Notification\Notification;
 use eZ\Publish\SPI\Persistence\Notification\UpdateStruct;
-use eZ\Publish\API\Repository\Values\Notification\Notification as APINotification;
 
 class Handler implements HandlerInterface
 {

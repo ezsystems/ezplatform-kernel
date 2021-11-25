@@ -7,9 +7,9 @@
 namespace eZ\Publish\Core\MVC\Symfony\View\ParametersInjector;
 
 use eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewParametersEvent;
-use eZ\Publish\Core\MVC\Symfony\View\ViewEvents;
 use eZ\Publish\Core\MVC\Symfony\View\ParametersInjector;
 use eZ\Publish\Core\MVC\Symfony\View\View;
+use eZ\Publish\Core\MVC\Symfony\View\ViewEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**

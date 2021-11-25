@@ -9,10 +9,10 @@ declare(strict_types=1);
 namespace eZ\Publish\API\Repository\Values\Content\Search;
 
 use ArrayIterator;
+use Countable;
 use eZ\Publish\API\Repository\Exceptions\OutOfBoundsException;
 use Iterator;
 use IteratorAggregate;
-use Countable;
 
 final class AggregationResultCollection implements Countable, IteratorAggregate
 {

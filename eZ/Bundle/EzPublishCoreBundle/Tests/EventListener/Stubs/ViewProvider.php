@@ -6,8 +6,8 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\EventListener\Stubs;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use eZ\Publish\Core\MVC\Symfony\View\View;
 use eZ\Publish\Core\MVC\Symfony\View\ViewProvider as ViewProviderInterface;
 
@@ -21,7 +21,7 @@ class ViewProvider implements ViewProviderInterface, SiteAccessAware
     }
 
     /**
-     * @return View
+     * @return \eZ\Publish\Core\MVC\Symfony\View\View
      */
     public function getView(View $view)
     {

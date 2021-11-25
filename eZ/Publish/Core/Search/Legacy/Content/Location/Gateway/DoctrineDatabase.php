@@ -9,11 +9,11 @@ namespace eZ\Publish\Core\Search\Legacy\Content\Location\Gateway;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
 use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
 use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
 use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
 use RuntimeException;
 
@@ -26,7 +26,7 @@ final class DoctrineDatabase extends Gateway
      * 2^30, since PHP_INT_MAX can cause overflows in DB systems, if PHP is run
      * on 64 bit systems.
      */
-    const MAX_LIMIT = 1073741824;
+    public const MAX_LIMIT = 1073741824;
 
     /** @var \Doctrine\DBAL\Connection */
     private $connection;

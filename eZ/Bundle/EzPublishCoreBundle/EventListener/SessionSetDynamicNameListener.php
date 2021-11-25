@@ -7,8 +7,8 @@
 namespace eZ\Bundle\EzPublishCoreBundle\EventListener;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 use eZ\Publish\Core\MVC\Symfony\Event\PostSiteAccessMatchEvent;
+use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
@@ -22,12 +22,12 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  */
 class SessionSetDynamicNameListener implements EventSubscriberInterface
 {
-    const MARKER = '{siteaccess_hash}';
+    public const MARKER = '{siteaccess_hash}';
 
     /**
      * Prefix for session name.
      */
-    const SESSION_NAME_PREFIX = 'eZSESSID';
+    public const SESSION_NAME_PREFIX = 'eZSESSID';
 
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;

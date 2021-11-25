@@ -10,19 +10,19 @@ namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
 
 use Exception;
 use eZ\Publish\API\Repository\PermissionResolver;
+use eZ\Publish\API\Repository\Values\UserPreference\UserPreference as APIUserPreference;
+use eZ\Publish\API\Repository\Values\UserPreference\UserPreferenceSetStruct as APIUserPreferenceSetStruct;
 use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
 use eZ\Publish\Core\Repository\UserPreferenceService;
 use eZ\Publish\Core\Repository\Values\User\UserReference;
 use eZ\Publish\SPI\Persistence\UserPreference\UserPreference;
 use eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct;
-use eZ\Publish\API\Repository\Values\UserPreference\UserPreferenceSetStruct as APIUserPreferenceSetStruct;
-use eZ\Publish\API\Repository\Values\UserPreference\UserPreference as APIUserPreference;
 
 class UserPreferenceTest extends BaseServiceMockTest
 {
-    const CURRENT_USER_ID = 14;
-    const USER_PREFERENCE_NAME = 'setting';
-    const USER_PREFERENCE_VALUE = 'value';
+    public const CURRENT_USER_ID = 14;
+    public const USER_PREFERENCE_NAME = 'setting';
+    public const USER_PREFERENCE_VALUE = 'value';
 
     /** @var \eZ\Publish\SPI\Persistence\UserPreference\Handler|\PHPUnit\Framework\MockObject\MockObject */
     private $userSPIPreferenceHandler;
@@ -156,7 +156,7 @@ class UserPreferenceTest extends BaseServiceMockTest
             ->expects($this->once())
             ->method('loadUserPreferences')
             ->with(self::CURRENT_USER_ID, $offset, $limit)
-            ->willReturn(array_map(function ($locationId) {
+            ->willReturn(array_map(static function ($locationId) {
                 return new UserPreference([
                     'name' => 'setting',
                     'value' => 'value',

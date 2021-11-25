@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\Search\Common\FieldValueMapper;
 
+use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
 use eZ\Publish\Core\Search\Common\FieldValueMapper;
 use eZ\Publish\SPI\Search\Field;
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
 
 /**
  * Common aggregate mapper implementation.

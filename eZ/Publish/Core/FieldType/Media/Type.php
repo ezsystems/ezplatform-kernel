@@ -6,12 +6,12 @@
  */
 namespace eZ\Publish\Core\FieldType\Media;
 
-use eZ\Publish\Core\FieldType\BinaryBase\Type as BaseType;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
+use eZ\Publish\Core\FieldType\BinaryBase\Type as BaseType;
 use eZ\Publish\Core\FieldType\ValidationError;
 use eZ\Publish\Core\FieldType\Value as BaseValue;
 use eZ\Publish\SPI\fieldType\Value as SPIValue;
+use eZ\Publish\SPI\Persistence\Content\FieldValue;
 
 /**
  * The TextLine field type.
@@ -23,13 +23,13 @@ class Type extends BaseType
     /**
      * List of possible media type settings.
      */
-    const TYPE_FLASH = 'flash';
-    const TYPE_QUICKTIME = 'quick_time';
-    const TYPE_REALPLAYER = 'real_player';
-    const TYPE_SILVERLIGHT = 'silverlight';
-    const TYPE_WINDOWSMEDIA = 'windows_media_player';
-    const TYPE_HTML5_VIDEO = 'html5_video';
-    const TYPE_HTML5_AUDIO = 'html5_audio';
+    public const TYPE_FLASH = 'flash';
+    public const TYPE_QUICKTIME = 'quick_time';
+    public const TYPE_REALPLAYER = 'real_player';
+    public const TYPE_SILVERLIGHT = 'silverlight';
+    public const TYPE_WINDOWSMEDIA = 'windows_media_player';
+    public const TYPE_HTML5_VIDEO = 'html5_video';
+    public const TYPE_HTML5_AUDIO = 'html5_audio';
 
     /**
      * Type constants for validation.

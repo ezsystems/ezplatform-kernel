@@ -7,12 +7,12 @@
 namespace eZ\Publish\Core\Base;
 
 use eZ\Publish\API\Container;
-use Symfony\Component\Config\ConfigCache;
-use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
+use RuntimeException;
 use Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper;
+use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use RuntimeException;
+use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 
 /**
  * Container implementation wrapping Symfony container component.
@@ -63,7 +63,7 @@ class ServiceContainer implements Container
     protected $bypassCache;
 
     /**
-     * @param string|ContainerInterface $container Path to the container file or container instance
+     * @param string|\Symfony\Component\DependencyInjection\ContainerInterface $container Path to the container file or container instance
      * @param string $installDir Installation directory, required by default 'containerBuilder.php' file
      * @param string $cacheDir Directory where PHP container cache will be stored
      * @param bool $debug Default false should be used for production, if true resources will be checked

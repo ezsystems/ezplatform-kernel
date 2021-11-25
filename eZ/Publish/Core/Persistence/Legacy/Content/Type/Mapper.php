@@ -6,16 +6,16 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Content\Type;
 
+use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
 use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
 use eZ\Publish\Core\Persistence\Legacy\Content\MultilingualStorageFieldDefinition;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 use eZ\Publish\SPI\Persistence\Content\Type;
 use eZ\Publish\SPI\Persistence\Content\Type\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
 use eZ\Publish\SPI\Persistence\Content\Type\Group;
 use eZ\Publish\SPI\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
+use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct;
 
 /**
  * Mapper for Content Type Handler.
@@ -53,7 +53,7 @@ class Mapper
      *
      * @todo $description is not supported by database, yet
      *
-     * @return Group
+     * @return \eZ\Publish\SPI\Persistence\Content\Type\Group
      */
     public function createGroupFromCreateStruct(GroupCreateStruct $struct)
     {
@@ -120,7 +120,7 @@ class Mapper
             $fieldId = (int)$row['ezcontentclass_attribute_id'];
 
             if ($fieldId && !isset($fields[$fieldId])) {
-                $fieldDataRows = array_filter($rows, function (array $row) use ($fieldId) {
+                $fieldDataRows = array_filter($rows, static function (array $row) use ($fieldId) {
                     return (int) $row['ezcontentclass_attribute_id'] === (int) $fieldId;
                 });
 
@@ -149,7 +149,7 @@ class Mapper
 
     public function extractMultilingualData(array $fieldDefinitionRows): array
     {
-        return array_map(function (array $fieldData) {
+        return array_map(static function (array $fieldData) {
             return [
                 'ezcontentclass_attribute_multilingual_name' => $fieldData['ezcontentclass_attribute_multilingual_name'] ?? null,
                 'ezcontentclass_attribute_multilingual_description' => $fieldData['ezcontentclass_attribute_multilingual_description'] ?? null,
@@ -165,7 +165,7 @@ class Mapper
      *
      * @param array $row
      *
-     * @return Type
+     * @return \eZ\Publish\SPI\Persistence\Content\Type
      */
     protected function extractTypeFromRow(array $row)
     {

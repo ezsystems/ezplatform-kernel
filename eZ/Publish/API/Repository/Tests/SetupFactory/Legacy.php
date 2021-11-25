@@ -8,22 +8,21 @@ namespace eZ\Publish\API\Repository\Tests\SetupFactory;
 
 use Doctrine\DBAL\Connection;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\ServiceTags;
+use eZ\Publish\API\Repository\Tests\IdManager;
 use eZ\Publish\API\Repository\Tests\LegacySchemaImporter;
+use eZ\Publish\API\Repository\Tests\SetupFactory;
+use eZ\Publish\Core\Base\Container\Compiler;
 use eZ\Publish\Core\Base\ServiceContainer;
+use eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler as CachingLanguageHandler;
+use eZ\Publish\Core\Persistence\Legacy\Content\Type\MemoryCachingHandler as CachingContentTypeHandler;
+use eZ\Publish\Core\Repository\Values\User\UserReference;
 use eZ\Publish\SPI\Repository\Values\Filter\CriterionQueryBuilder as FilteringCriterionQueryBuilder;
 use eZ\Publish\SPI\Repository\Values\Filter\SortClauseQueryBuilder as FilteringSortClauseQueryBuilder;
 use eZ\Publish\SPI\Tests\Persistence\Fixture;
 use eZ\Publish\SPI\Tests\Persistence\FixtureImporter;
 use eZ\Publish\SPI\Tests\Persistence\YamlFixture;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use eZ\Publish\API\Repository\Tests\SetupFactory;
-use eZ\Publish\API\Repository\Tests\IdManager;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\MemoryCachingHandler as CachingContentTypeHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler as CachingLanguageHandler;
-use Exception;
-use eZ\Publish\Core\Repository\Values\User\UserReference;
 use Symfony\Component\Filesystem\Filesystem;
-use eZ\Publish\Core\Base\Container\Compiler;
 
 /**
  * A Test Factory is used to setup the infrastructure for a tests, based on a
@@ -168,7 +167,7 @@ class Legacy extends SetupFactory
      *
      * @param string $configKey
      *
-     * @throws Exception if $configKey could not be found.
+     * @throws \Exception if $configKey could not be found.
      *
      * @return mixed
      */

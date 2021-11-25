@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Search\Legacy\Content\WordIndexer;
 
-use eZ\Publish\SPI\Persistence\Content;
 use eZ\Publish\Core\Search\Legacy\Content\FullTextData;
+use eZ\Publish\SPI\Persistence\Content;
 
 /**
  * The WordIndexer Gateway abstracts indexing of content full text data.

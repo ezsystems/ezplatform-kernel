@@ -8,10 +8,10 @@ namespace eZ\Publish\Core\Search\Legacy\Content\WordIndexer\Gateway;
 
 use Doctrine\DBAL\Connection;
 use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
-use eZ\Publish\Core\Search\Legacy\Content\WordIndexer\Gateway;
 use eZ\Publish\Core\Persistence\TransformationProcessor;
-use eZ\Publish\Core\Search\Legacy\Content\WordIndexer\Repository\SearchIndex;
 use eZ\Publish\Core\Search\Legacy\Content\FullTextData;
+use eZ\Publish\Core\Search\Legacy\Content\WordIndexer\Gateway;
+use eZ\Publish\Core\Search\Legacy\Content\WordIndexer\Repository\SearchIndex;
 use eZ\Publish\SPI\Persistence\Content\Type\Handler as SPITypeHandler;
 
 /**
@@ -24,7 +24,7 @@ class DoctrineDatabase extends Gateway
      *
      * Note: 2^31-1 seems to be the most reasonable value that should work in any setup.
      */
-    const DB_INT_MAX = 2147483647;
+    public const DB_INT_MAX = 2147483647;
 
     /** @var \Doctrine\DBAL\Connection */
     protected $connection;

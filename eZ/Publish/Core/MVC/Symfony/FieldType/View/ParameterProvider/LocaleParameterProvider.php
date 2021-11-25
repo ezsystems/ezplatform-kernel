@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProvider;
 
-use eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderInterface;
 use eZ\Publish\API\Repository\Values\Content\Field;
+use eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderInterface;
 use eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 use eZ\Publish\Core\MVC\Symfony\RequestStackAware;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +33,7 @@ class LocaleParameterProvider implements ParameterProviderInterface
      * Locale from request object will be used as locale if set, otherwise field language code
      * will be converted to locale string.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      *
      * @return array
      */

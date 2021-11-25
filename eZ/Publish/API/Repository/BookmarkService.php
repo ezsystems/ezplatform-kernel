@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace eZ\Publish\API\Repository;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Bookmark\BookmarkList;
+use eZ\Publish\API\Repository\Values\Content\Location;
 
 /**
  * Bookmark Service.

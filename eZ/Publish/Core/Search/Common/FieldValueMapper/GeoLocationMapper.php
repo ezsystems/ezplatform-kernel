@@ -7,8 +7,8 @@
 namespace eZ\Publish\Core\Search\Common\FieldValueMapper;
 
 use eZ\Publish\Core\Search\Common\FieldValueMapper;
-use eZ\Publish\SPI\Search\FieldType\GeoLocationField;
 use eZ\Publish\SPI\Search\Field;
+use eZ\Publish\SPI\Search\FieldType\GeoLocationField;
 
 /**
  * Common geo location field value mapper implementation.

@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace eZ\Publish\SPI\Repository\Decorator;
 
-use eZ\Publish\API\Repository\FieldTypeService;
 use eZ\Publish\API\Repository\FieldType;
+use eZ\Publish\API\Repository\FieldTypeService;
 
 abstract class FieldTypeServiceDecorator implements FieldTypeService
 {

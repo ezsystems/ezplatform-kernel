@@ -6,16 +6,16 @@
  */
 namespace eZ\Publish\Core\Search\Legacy\Tests\Content;
 
-use eZ\Publish\Core\Search\Legacy\Content;
+use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Query;
+use eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
-use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway as LocationGateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
 use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler;
+use eZ\Publish\Core\Search\Legacy\Content;
+use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway as LocationGateway;
+use eZ\Publish\SPI\Persistence\Content\ContentInfo;
 
 /**
  * Content Search test case for ContentSearchHandler.
@@ -110,7 +110,7 @@ class HandlerContentSortTest extends AbstractTestCase
             ->with($this->isType('array'))
             ->will(
                 $this->returnCallback(
-                    function ($rows) {
+                    static function ($rows) {
                         $contentInfoObjs = [];
                         foreach ($rows as $row) {
                             $contentId = (int)$row['id'];
@@ -174,7 +174,7 @@ class HandlerContentSortTest extends AbstractTestCase
         );
 
         $ids = array_map(
-            function ($hit) {
+            static function ($hit) {
                 return $hit->valueObject->id;
             },
             $result->searchHits
@@ -205,7 +205,7 @@ class HandlerContentSortTest extends AbstractTestCase
         $this->assertEquals(
             [4, 12, 13, 42, 10, 14, 11, 226],
             array_map(
-                function ($hit) {
+                static function ($hit) {
                     return $hit->valueObject->id;
                 },
                 $result->searchHits
@@ -233,7 +233,7 @@ class HandlerContentSortTest extends AbstractTestCase
         $this->assertEquals(
             [4, 10, 11, 12, 13, 14, 226, 42],
             array_map(
-                function ($hit) {
+                static function ($hit) {
                     return $hit->valueObject->id;
                 },
                 $result->searchHits
@@ -269,7 +269,7 @@ class HandlerContentSortTest extends AbstractTestCase
             6 => [154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164],
         ];
         $contentIds = array_map(
-            function ($hit) {
+            static function ($hit) {
                 return $hit->valueObject->id;
             },
             $result->searchHits
@@ -315,7 +315,7 @@ class HandlerContentSortTest extends AbstractTestCase
             'users' => [4, 10, 11, 12, 13, 14, 42, 226],
         ];
         $contentIds = array_map(
-            function ($hit) {
+            static function ($hit) {
                 return $hit->valueObject->id;
             },
             $result->searchHits
@@ -359,7 +359,7 @@ class HandlerContentSortTest extends AbstractTestCase
         $this->assertEquals(
             [226, 14, 12, 10, 42, 57, 13, 50, 49, 41, 11, 51, 62, 4, 58, 59, 61, 60, 64, 63, 200, 66, 201],
             array_map(
-                function ($hit) {
+                static function ($hit) {
                     return $hit->valueObject->id;
                 },
                 $result->searchHits
@@ -419,7 +419,7 @@ class HandlerContentSortTest extends AbstractTestCase
             'tutorials for' => [106],
         ];
         $contentIds = array_map(
-            function ($hit) {
+            static function ($hit) {
                 return $hit->valueObject->id;
             },
             $result->searchHits
@@ -461,7 +461,7 @@ class HandlerContentSortTest extends AbstractTestCase
         $this->assertEquals(
             [73, 71, 72, 69],
             array_map(
-                function ($hit) {
+                static function ($hit) {
                     return $hit->valueObject->id;
                 },
                 $result->searchHits

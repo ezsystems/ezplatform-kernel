@@ -6,13 +6,13 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\FieldType\Tests\View\ParameterProvider;
 
-use eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProvider\LocaleParameterProvider;
 use eZ\Publish\API\Repository\Values\Content\Field;
+use eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProvider\LocaleParameterProvider;
 use eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\ParameterBag;
 
 class LocaleParameterProviderTest extends TestCase
 {

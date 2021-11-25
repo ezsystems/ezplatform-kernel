@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\API\Repository\Tests\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\SubtreeLimitation;
 use eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation;
 use eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation;
+use eZ\Publish\API\Repository\Values\User\Limitation\SubtreeLimitation;
 
 /**
  * Test case for the {@link \eZ\Publish\API\Repository\Values\User\Limitation\SubtreeLimitation}

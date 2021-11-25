@@ -6,23 +6,23 @@
  */
 namespace eZ\Publish\Core\FieldType\DateAndTime;
 
+use DateInterval;
+use DateTime;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
 use eZ\Publish\Core\FieldType\FieldType;
 use eZ\Publish\Core\FieldType\ValidationError;
 use eZ\Publish\Core\FieldType\Value as BaseValue;
 use eZ\Publish\SPI\FieldType\Value as SPIValue;
-use DateInterval;
-use DateTime;
 
 class Type extends FieldType
 {
     /**
      * Default value types.
      */
-    const DEFAULT_EMPTY = 0;
-    const DEFAULT_CURRENT_DATE = 1;
-    const DEFAULT_CURRENT_DATE_ADJUSTED = 2;
+    public const DEFAULT_EMPTY = 0;
+    public const DEFAULT_CURRENT_DATE = 1;
+    public const DEFAULT_CURRENT_DATE_ADJUSTED = 2;
 
     protected $settingsSchema = [
         'useSeconds' => [
@@ -80,7 +80,7 @@ class Type extends FieldType
     /**
      * Inspects given $inputValue and potentially converts it into a dedicated value object.
      *
-     * @param string|int|DateTime|\eZ\Publish\Core\FieldType\DateAndTime\Value $inputValue
+     * @param string|int|\DateTime|\eZ\Publish\Core\FieldType\DateAndTime\Value $inputValue
      *
      * @return \eZ\Publish\Core\FieldType\DateAndTime\Value The potentially converted and structurally plausible value.
      */

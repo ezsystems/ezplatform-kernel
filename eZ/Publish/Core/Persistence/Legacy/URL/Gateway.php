@@ -7,7 +7,6 @@
 namespace eZ\Publish\Core\Persistence\Legacy\URL;
 
 use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
-use eZ\Publish\API\Repository\Values\URL\Query\SortClause;
 use eZ\Publish\SPI\Persistence\URL\URL;
 
 abstract class Gateway
@@ -25,7 +24,7 @@ abstract class Gateway
      * @param \eZ\Publish\API\Repository\Values\URL\Query\Criterion $criterion
      * @param int $offset
      * @param int $limit
-     * @param SortClause[] $sortClauses
+     * @param \eZ\Publish\API\Repository\Values\URL\Query\SortClause[] $sortClauses
      * @param bool $doCount
      *
      * @return array{

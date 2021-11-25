@@ -10,16 +10,16 @@ namespace eZ\Publish\Core\MVC\Symfony\EventListener;
 use eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessMatcherRegistryInterface;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\MVC\Symfony\Component\Serializer\SerializerTrait;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\KernelEvents;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Router as SiteAccessRouter;
 use eZ\Publish\Core\MVC\Symfony\Event\PostSiteAccessMatchEvent;
 use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\Router as SiteAccessRouter;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
@@ -70,7 +70,7 @@ class SiteAccessMatchListener implements EventSubscriberInterface
         // We have a serialized siteaccess object from a fragment (sub-request), we need to get it back.
         if ($request->attributes->has('serialized_siteaccess')) {
             $serializer = $this->getSerializer();
-            /** @var SiteAccess $siteAccess */
+            /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess $siteAccess */
             $siteAccess = $serializer->deserialize($request->attributes->get('serialized_siteaccess'), SiteAccess::class, 'json');
             if ($siteAccess->matcher !== null) {
                 $siteAccess->matcher = $this->deserializeMatcher(
@@ -103,9 +103,9 @@ class SiteAccessMatchListener implements EventSubscriberInterface
     }
 
     /**
-     * @param Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return SiteAccess
+     * @return \eZ\Publish\Core\MVC\Symfony\SiteAccess
      */
     private function getSiteAccessFromRequest(Request $request)
     {

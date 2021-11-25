@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Section;
 
+use eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway;
+use eZ\Publish\Core\Persistence\Legacy\Content\Section\Handler;
 use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\SPI\Persistence\Content\Section;
-use eZ\Publish\Core\Persistence\Legacy\Content\Section\Handler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway;
 
 /**
  * Test case for Section Handler.

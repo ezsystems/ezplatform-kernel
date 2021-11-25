@@ -26,7 +26,7 @@ class EntityManagerFactory
     /** @var string */
     private $defaultConnection;
 
-    /** @var Array<string, string> */
+    /** @var array<string, string> */
     private $entityManagers;
 
     public function __construct(

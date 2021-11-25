@@ -16,7 +16,7 @@ interface FileMigratorInterface extends MigrationHandlerInterface
     /**
      * Migrate a file.
      *
-     * @param BinaryFile $binaryFile Information about the file
+     * @param \eZ\Publish\SPI\IO\BinaryFile $binaryFile Information about the file
      *
      * @return bool Success or failure
      */

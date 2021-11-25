@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\FieldType\Float\Type as FloatType;
 use eZ\Publish\Core\FieldType\Float\Value as FloatValue;
 use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * @group fieldType
@@ -70,7 +70,7 @@ class FloatTest extends FieldTypeTest
     /**
      * Returns the empty value expected from the field type.
      *
-     * @return FloatValue
+     * @return \eZ\Publish\Core\FieldType\Float\Value
      */
     protected function getEmptyValueExpectation()
     {

@@ -7,11 +7,11 @@
 namespace eZ\Bundle\EzPublishCoreBundle\Features\Context;
 
 use Behat\Behat\Context\Context;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Yaml\Yaml;
-use RuntimeException;
 
 /**
  * Adds extra YAML configuration through ezplatform_behat.yml.
@@ -44,10 +44,10 @@ class YamlConfigurationContext implements Context
             if (false === @mkdir($configurationDir)) {
                 $error = error_get_last();
                 throw new RuntimeException(sprintf(
-                        'Unable to create the configuration directory "%s": %s',
-                        $configurationDir,
-                        $error['message']
-                    ));
+                    'Unable to create the configuration directory "%s": %s',
+                    $configurationDir,
+                    $error['message']
+                ));
             }
         }
 

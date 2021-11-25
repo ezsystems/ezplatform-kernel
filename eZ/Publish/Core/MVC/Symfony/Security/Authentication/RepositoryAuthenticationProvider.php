@@ -46,7 +46,7 @@ class RepositoryAuthenticationProvider extends DaoAuthenticationProvider
         $apiUser = $user->getAPIUser();
 
         // $currentUser can either be an instance of UserInterface or just the username (e.g. during form login).
-        /** @var EzUserInterface|string $currentUser */
+        /** @var \eZ\Publish\Core\MVC\Symfony\Security\UserInterface|string $currentUser */
         $currentUser = $token->getUser();
         if ($currentUser instanceof UserInterface) {
             if ($currentUser->getAPIUser()->passwordHash !== $apiUser->passwordHash) {

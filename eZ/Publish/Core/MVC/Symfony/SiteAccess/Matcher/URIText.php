@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\VersatileMatcher;
 use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\URILexer;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\VersatileMatcher;
 
 class URIText extends Regex implements VersatileMatcher, URILexer
 {

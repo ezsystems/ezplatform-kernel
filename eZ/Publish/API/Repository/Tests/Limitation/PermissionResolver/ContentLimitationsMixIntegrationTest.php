@@ -16,7 +16,7 @@ use eZ\Publish\API\Repository\Values\User\Limitation;
  */
 class ContentLimitationsMixIntegrationTest extends BaseLimitationIntegrationTest
 {
-    const LIMITATION_VALUES = 'limitationValues';
+    public const LIMITATION_VALUES = 'limitationValues';
 
     /**
      * Provides lists of:.

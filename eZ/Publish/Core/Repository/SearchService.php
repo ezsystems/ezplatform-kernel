@@ -8,24 +8,24 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository;
 
-use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
 use eZ\Publish\API\Repository\PermissionCriterionResolver;
+use eZ\Publish\API\Repository\Repository as RepositoryInterface;
+use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Content;
+use eZ\Publish\API\Repository\Values\Content\LocationQuery;
+use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location as LocationCriterion;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalOperator;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Location as LocationCriterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location as LocationSortClause;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Repository as RepositoryInterface;
 use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
+use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\Repository\Mapper\ContentDomainMapper;
-use eZ\Publish\SPI\Search\Capable;
 use eZ\Publish\Core\Search\Common\BackgroundIndexer;
+use eZ\Publish\SPI\Search\Capable;
 use eZ\Publish\SPI\Search\Handler;
 
 /**

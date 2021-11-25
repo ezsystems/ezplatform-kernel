@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Base\Exceptions;
 
-use eZ\Publish\API\Repository\Exceptions\BadStateException as APIBadStateException;
 use Exception;
+use eZ\Publish\API\Repository\Exceptions\BadStateException as APIBadStateException;
 use eZ\Publish\Core\Base\Translatable;
 use eZ\Publish\Core\Base\TranslatableBase;
 

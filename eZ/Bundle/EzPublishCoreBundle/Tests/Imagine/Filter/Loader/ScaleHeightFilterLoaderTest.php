@@ -16,7 +16,7 @@ class ScaleHeightFilterLoaderTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $innerLoader;
 
-    /** @var ScaleHeightFilterLoader */
+    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader\ScaleHeightFilterLoader */
     private $loader;
 
     protected function setUp(): void

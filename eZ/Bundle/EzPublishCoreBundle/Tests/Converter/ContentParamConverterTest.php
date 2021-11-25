@@ -6,16 +6,16 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\Converter;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\ContentService;
 use eZ\Bundle\EzPublishCoreBundle\Converter\ContentParamConverter;
+use eZ\Publish\API\Repository\ContentService;
+use eZ\Publish\API\Repository\Values\Content\Content;
 use Symfony\Component\HttpFoundation\Request;
 
 class ContentParamConverterTest extends AbstractParamConverterTest
 {
-    const PROPERTY_NAME = 'contentId';
+    public const PROPERTY_NAME = 'contentId';
 
-    const CONTENT_CLASS = Content::class;
+    public const CONTENT_CLASS = Content::class;
 
     /** @var \eZ\Bundle\EzPublishCoreBundle\Converter\ContentParamConverter */
     private $converter;

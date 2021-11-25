@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\Event\Tests;
 
-use eZ\Publish\Core\MVC\Symfony\Event\InteractiveLoginEvent;
 use eZ\Publish\API\Repository\Values\User\User;
+use eZ\Publish\Core\MVC\Symfony\Event\InteractiveLoginEvent;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

@@ -10,6 +10,7 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\DBAL\ParameterType;
+use Exception;
 use eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
@@ -19,17 +20,16 @@ use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use eZ\Publish\API\Repository\Values\User\Limitation\SubtreeLimitation;
 use eZ\Publish\API\Repository\Values\User\PasswordInfo;
 use eZ\Publish\API\Repository\Values\User\PasswordValidationContext;
+use eZ\Publish\API\Repository\Values\User\User;
 use eZ\Publish\API\Repository\Values\User\UserGroupUpdateStruct;
 use eZ\Publish\API\Repository\Values\User\UserTokenUpdateStruct;
 use eZ\Publish\API\Repository\Values\User\UserUpdateStruct;
-use eZ\Publish\API\Repository\Values\User\User;
 use eZ\Publish\Core\FieldType\User\Type;
 use eZ\Publish\Core\FieldType\ValidationError;
 use eZ\Publish\Core\Persistence\Legacy\User\Gateway;
 use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use eZ\Publish\Core\Repository\Values\User\UserGroup;
-use Exception;
 
 /**
  * Test case for operations in the UserService using in memory storage.
@@ -590,7 +590,7 @@ class UserServiceTest extends BaseTest
         /* END: Use Case */
 
         $subUserGroupIds = array_map(
-            function ($content) {
+            static function ($content) {
                 return $content->id;
             },
             $subUserGroups

@@ -6,11 +6,11 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
-use eZ\Publish\Core\FieldType\Date\Type as Date;
-use eZ\Publish\Core\FieldType\Date\Value as DateValue;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use DateTime;
 use DateTimeZone;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use eZ\Publish\Core\FieldType\Date\Type as Date;
+use eZ\Publish\Core\FieldType\Date\Value as DateValue;
 
 /**
  * @group fieldType

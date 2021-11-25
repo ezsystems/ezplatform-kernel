@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository;
 
+use function array_filter;
 use Exception;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
 use eZ\Publish\API\Repository\PermissionCriterionResolver;
@@ -29,7 +30,6 @@ use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
 use eZ\Publish\SPI\Persistence\Content\Location\Handler as LocationHandler;
 use eZ\Publish\SPI\Persistence\Content\Section as SPISection;
 use eZ\Publish\SPI\Persistence\Content\Section\Handler as SectionHandler;
-use function array_filter;
 
 /**
  * Section service, used for section operations.
@@ -336,7 +336,9 @@ class SectionService implements SectionServiceInterface
          * @var bool|\eZ\Publish\API\Repository\Values\Content\Query\Criterion
          */
         $sectionAssignCriterion = $this->permissionCriterionResolver->getPermissionsCriterion(
-            'section', 'assign', [$loadedSection]
+            'section',
+            'assign',
+            [$loadedSection]
         );
         if ($sectionAssignCriterion === false) {
             throw new UnauthorizedException('section', 'assign', [

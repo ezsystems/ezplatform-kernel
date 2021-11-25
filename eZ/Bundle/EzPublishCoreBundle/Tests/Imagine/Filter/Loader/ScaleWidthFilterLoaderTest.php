@@ -16,7 +16,7 @@ class ScaleWidthFilterLoaderTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $innerLoader;
 
-    /** @var ScaleWidthFilterLoader */
+    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader\ScaleWidthFilterLoader */
     private $loader;
 
     protected function setUp(): void

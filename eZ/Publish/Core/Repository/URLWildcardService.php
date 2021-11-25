@@ -8,18 +8,18 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository;
 
+use Exception;
 use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\URLWildcardService as URLWildcardServiceInterface;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
-use eZ\Publish\API\Repository\Values\Content\URLWildcardUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler;
+use eZ\Publish\API\Repository\URLWildcardService as URLWildcardServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\URLWildcard;
 use eZ\Publish\API\Repository\Values\Content\URLWildcardTranslationResult;
-use eZ\Publish\SPI\Persistence\Content\UrlWildcard as SPIUrlWildcard;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use eZ\Publish\API\Repository\Values\Content\URLWildcardUpdateStruct;
 use eZ\Publish\Core\Base\Exceptions\ContentValidationException;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
-use Exception;
+use eZ\Publish\SPI\Persistence\Content\UrlWildcard as SPIUrlWildcard;
+use eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler;
 
 /**
  * URLAlias service.

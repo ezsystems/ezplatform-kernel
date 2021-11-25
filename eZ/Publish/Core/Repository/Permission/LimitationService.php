@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\Repository\Permission;
 
 use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\Core\Base\Exceptions\NotFound\LimitationNotFoundException;
 use eZ\Publish\Core\Base\Exceptions\BadStateException;
+use eZ\Publish\Core\Base\Exceptions\NotFound\LimitationNotFoundException;
 use eZ\Publish\SPI\Limitation\Type;
 use Traversable;
 

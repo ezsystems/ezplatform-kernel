@@ -6,12 +6,12 @@
  */
 namespace eZ\Publish\API\Repository\Tests;
 
+use Exception;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Values\Content\Section;
-use Exception;
-use eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation;
 use eZ\Publish\API\Repository\Values\Content\SectionCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\SectionUpdateStruct;
+use eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation;
 
 /**
  * Test case for operations in the SectionService using in memory storage.

@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\MVC\Symfony\Locale\Tests;
 
+use eZ\Publish\API\Repository\UserPreferenceService;
+use eZ\Publish\API\Repository\Values\UserPreference\UserPreference;
+use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Yaml\Yaml;
-use eZ\Publish\API\Repository\UserPreferenceService;
-use eZ\Publish\API\Repository\Values\UserPreference\UserPreference;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 
 class UserLanguagePreferenceProviderTest extends TestCase
 {

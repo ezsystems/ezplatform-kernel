@@ -47,7 +47,7 @@ class ValueObjectVoter implements VoterInterface
      *
      * @see \eZ\Publish\API\Repository\PermissionResolver::canUser()
      *
-     * @param TokenInterface $token      A TokenInterface instance
+     * @param \Symfony\Component\Security\Core\Authentication\Token\TokenInterface $token      A TokenInterface instance
      * @param object         $object     The object to secure
      * @param array          $attributes An array of attributes associated with the method being invoked
      *

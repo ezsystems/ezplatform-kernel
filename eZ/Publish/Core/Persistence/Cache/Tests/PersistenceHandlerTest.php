@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Persistence\Cache\Tests;
 
-use eZ\Publish\SPI\Persistence as SPIPersistence;
 use eZ\Publish\Core\Persistence\Cache;
+use eZ\Publish\SPI\Persistence as SPIPersistence;
 
 /**
  * Test case for Persistence\Cache\Handler.

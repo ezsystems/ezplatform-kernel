@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\Persistence;
 
+use eZ\Publish\SPI\FieldType\FieldType as SPIFieldType;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
 use eZ\Publish\SPI\Persistence\FieldType as FieldTypeInterface;
-use eZ\Publish\SPI\FieldType\FieldType as SPIFieldType;
 
 /**
  * This class represents a FieldType available to SPI users.

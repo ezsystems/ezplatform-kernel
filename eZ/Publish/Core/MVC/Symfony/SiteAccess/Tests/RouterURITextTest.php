@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\URIText;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Router;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\URIText as URITextMatcher;
 use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\URIText;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\URIText as URITextMatcher;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\Router;
 use Psr\Log\LoggerInterface;
 
 class RouterURITextTest extends RouterBaseTest

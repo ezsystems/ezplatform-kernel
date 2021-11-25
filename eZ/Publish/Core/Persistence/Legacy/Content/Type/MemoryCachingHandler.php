@@ -8,13 +8,13 @@ namespace eZ\Publish\Core\Persistence\Legacy\Content\Type;
 
 use eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache;
 use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as BaseContentTypeHandler;
 use eZ\Publish\SPI\Persistence\Content\Type\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
 use eZ\Publish\SPI\Persistence\Content\Type\Group;
 use eZ\Publish\SPI\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
 use eZ\Publish\SPI\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
+use eZ\Publish\SPI\Persistence\Content\Type\Handler as BaseContentTypeHandler;
+use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct;
 
 class MemoryCachingHandler implements BaseContentTypeHandler
 {

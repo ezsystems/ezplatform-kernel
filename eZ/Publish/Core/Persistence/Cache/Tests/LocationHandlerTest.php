@@ -8,8 +8,8 @@ namespace eZ\Publish\Core\Persistence\Cache\Tests;
 
 use eZ\Publish\SPI\Persistence\Content\Location;
 use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
 use eZ\Publish\SPI\Persistence\Content\Location\Handler as SPILocationHandler;
+use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
 
 /**
  * Test case for Persistence\Cache\LocationHandler.

@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Identifier;
 
-use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued;
 use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Location;
+use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued;
 use eZ\Publish\Core\MVC\Symfony\View\ContentValueView;
 use eZ\Publish\Core\MVC\Symfony\View\View;
 
@@ -25,7 +25,7 @@ class Section extends MultipleValued
     public function matchLocation(Location $location)
     {
         $section = $this->repository->sudo(
-            function (Repository $repository) use ($location) {
+            static function (Repository $repository) use ($location) {
                 return $repository->getSectionService()->loadSection(
                     $location->getContentInfo()->sectionId
                 );
@@ -45,7 +45,7 @@ class Section extends MultipleValued
     public function matchContentInfo(ContentInfo $contentInfo)
     {
         $section = $this->repository->sudo(
-            function (Repository $repository) use ($contentInfo) {
+            static function (Repository $repository) use ($contentInfo) {
                 return $repository->getSectionService()->loadSection(
                     $contentInfo->sectionId
                 );
@@ -63,7 +63,7 @@ class Section extends MultipleValued
 
         $contentInfo = $view->getContent()->contentInfo;
         $section = $this->repository->sudo(
-            function (Repository $repository) use ($contentInfo) {
+            static function (Repository $repository) use ($contentInfo) {
                 return $repository->getSectionService()->loadSection(
                     $contentInfo->sectionId
                 );

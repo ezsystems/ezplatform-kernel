@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace eZ\Publish\API\Repository\Exceptions;
 
-use eZ\Publish\API\Repository\Exceptions\Exception as RepositoryException;
 use Exception;
+use eZ\Publish\API\Repository\Exceptions\Exception as RepositoryException;
 
 /**
  * This Exception is thrown if an accessed property in a value object was not found.

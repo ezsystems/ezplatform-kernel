@@ -6,11 +6,11 @@
  */
 namespace eZ\Publish\SPI\FieldType\Tests;
 
-use PHPUnit\Framework\TestCase;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
-use eZ\Publish\SPI\FieldType\ValidationError;
 use eZ\Publish\SPI\FieldType\FieldType;
+use eZ\Publish\SPI\FieldType\ValidationError;
+use eZ\Publish\SPI\FieldType\Value as SPIValue;
+use PHPUnit\Framework\TestCase;
 
 abstract class FieldTypeTest extends TestCase
 {
@@ -37,7 +37,7 @@ abstract class FieldTypeTest extends TestCase
      * NOT take care for test case wide caching of the field type, just return
      * a new instance from this method!
      *
-     * @return FieldType
+     * @return \eZ\Publish\SPI\FieldType\FieldType
      */
     abstract protected function createFieldTypeUnderTest();
 
@@ -695,7 +695,8 @@ abstract class FieldTypeTest extends TestCase
 
         $validationResult = $fieldType->validateFieldSettings($inputSettings);
 
-        $this->assertIsArray($validationResult,
+        $this->assertIsArray(
+            $validationResult,
             'The method validateFieldSettings() must return an array.'
         );
         $this->assertEquals(
@@ -716,7 +717,8 @@ abstract class FieldTypeTest extends TestCase
 
         $validationResult = $fieldType->validateFieldSettings($inputSettings);
 
-        $this->assertIsArray($validationResult,
+        $this->assertIsArray(
+            $validationResult,
             'The method validateFieldSettings() must return an array.'
         );
 
@@ -746,7 +748,8 @@ abstract class FieldTypeTest extends TestCase
 
         $validationResult = $fieldType->validateValidatorConfiguration($inputConfiguration);
 
-        $this->assertIsArray($validationResult,
+        $this->assertIsArray(
+            $validationResult,
             'The method validateValidatorConfiguration() must return an array.'
         );
         $this->assertEquals(
@@ -767,7 +770,8 @@ abstract class FieldTypeTest extends TestCase
 
         $validationResult = $fieldType->validateValidatorConfiguration($inputConfiguration);
 
-        $this->assertIsArray($validationResult,
+        $this->assertIsArray(
+            $validationResult,
             'The method validateValidatorConfiguration() must return an array.'
         );
 

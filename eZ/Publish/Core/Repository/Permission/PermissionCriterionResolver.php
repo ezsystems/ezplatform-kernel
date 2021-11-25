@@ -9,12 +9,12 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\Repository\Permission;
 
 use eZ\Publish\API\Repository\PermissionCriterionResolver as APIPermissionCriterionResolver;
+use eZ\Publish\API\Repository\PermissionResolver as PermissionResolverInterface;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalAnd;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LogicalOr;
 use eZ\Publish\API\Repository\Values\Content\Query\CriterionInterface;
 use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\API\Repository\PermissionResolver as PermissionResolverInterface;
 use eZ\Publish\API\Repository\Values\User\UserReference;
 use eZ\Publish\Core\Limitation\TargetOnlyLimitationType;
 use RuntimeException;
@@ -115,7 +115,9 @@ class PermissionCriterionResolver implements APIPermissionCriterionResolver
                     );
                 } else {
                     $roleAssignmentOrCriteria[] = $this->getCriterionForLimitation(
-                        $permissionSet['limitation'], $currentUserRef, $targets
+                        $permissionSet['limitation'],
+                        $currentUserRef,
+                        $targets
                     );
                 }
             } elseif (!empty($policyOrCriteria)) {

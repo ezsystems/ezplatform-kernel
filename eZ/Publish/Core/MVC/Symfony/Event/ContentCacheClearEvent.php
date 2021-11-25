@@ -18,10 +18,10 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class ContentCacheClearEvent extends Event
 {
-    /** @var ContentInfo */
+    /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo */
     private $contentInfo;
 
-    /** @var Location[] */
+    /** @var \eZ\Publish\API\Repository\Values\Content\Location[] */
     private $locationsToClear = [];
 
     public function __construct(ContentInfo $contentInfo)
@@ -32,7 +32,7 @@ class ContentCacheClearEvent extends Event
     /**
      * Returns ContentInfo object we're clearing the cache for.
      *
-     * @return ContentInfo
+     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo
      */
     public function getContentInfo()
     {
@@ -42,7 +42,7 @@ class ContentCacheClearEvent extends Event
     /**
      * Returns all location objects registered to the cache clear process.
      *
-     * @return Location[]
+     * @return \eZ\Publish\API\Repository\Values\Content\Location[]
      */
     public function getLocationsToClear()
     {
@@ -52,7 +52,7 @@ class ContentCacheClearEvent extends Event
     /**
      * Adds a location that needs to be cleared.
      *
-     * @param Location $location
+     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
      */
     public function addLocationToClear(Location $location)
     {
@@ -62,7 +62,7 @@ class ContentCacheClearEvent extends Event
     /**
      * Replaces the list of locations to clear.
      *
-     * @param Location[] $locationsToClear
+     * @param \eZ\Publish\API\Repository\Values\Content\Location[] $locationsToClear
      */
     public function setLocationsToClear(array $locationsToClear)
     {

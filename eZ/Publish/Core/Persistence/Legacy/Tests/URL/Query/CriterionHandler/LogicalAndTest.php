@@ -53,7 +53,9 @@ class LogicalAndTest extends CriterionHandlerTest
 
         $handler = new LogicalAndHandler();
         $actual = (string)$handler->handle(
-            $converter, $queryBuilder, new LogicalAnd([$foo, $bar])
+            $converter,
+            $queryBuilder,
+            new LogicalAnd([$foo, $bar])
         );
 
         $this->assertEquals($expected, $actual);

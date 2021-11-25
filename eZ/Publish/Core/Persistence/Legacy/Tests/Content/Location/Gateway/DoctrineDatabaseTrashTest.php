@@ -7,10 +7,10 @@
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Location\Gateway;
 
 use Doctrine\DBAL\ParameterType;
-use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use eZ\Publish\API\Repository\Values\Content\Query;
+use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase;
+use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
 
 /**
  * Test case for eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase.
@@ -352,7 +352,7 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
                 '/1/2/69/',
             ],
             array_map(
-                function ($trashItem) {
+                static function ($trashItem) {
                     return $trashItem['path_string'];
                 },
                 $trashList = $handler->listTrashed(
@@ -387,7 +387,7 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
                 '/1/2/69/70/71/',
             ],
             array_map(
-                function ($trashItem) {
+                static function ($trashItem) {
                     return $trashItem['path_string'];
                 },
                 $trashList = $handler->listTrashed(

@@ -15,7 +15,7 @@ class FilterConfigurationTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $configResolver;
 
-    /** @var FilterConfiguration */
+    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\FilterConfiguration */
     private $filterConfiguration;
 
     protected function setUp(): void

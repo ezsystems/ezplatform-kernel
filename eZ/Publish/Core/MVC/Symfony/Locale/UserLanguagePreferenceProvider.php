@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\MVC\Symfony\Locale;
 
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use eZ\Publish\API\Repository\UserPreferenceService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use eZ\Publish\API\Repository\UserPreferenceService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 
 class UserLanguagePreferenceProvider implements UserLanguagePreferenceProviderInterface
 {

@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\FieldType;
 
-use eZ\Publish\SPI\FieldType\FieldType as SPIFieldType;
 use eZ\Publish\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
+use eZ\Publish\SPI\FieldType\FieldType as SPIFieldType;
 
 /**
  * Registry for SPI FieldTypes.

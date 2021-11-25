@@ -14,8 +14,8 @@ use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
 use eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway;
 use eZ\Publish\SPI\Persistence\User\Policy;
-use eZ\Publish\SPI\Persistence\User\RoleUpdateStruct;
 use eZ\Publish\SPI\Persistence\User\Role;
+use eZ\Publish\SPI\Persistence\User\RoleUpdateStruct;
 
 /**
  * User Role gateway implementation using the Doctrine database.
@@ -641,7 +641,7 @@ final class DoctrineDatabase extends Gateway
         $nodeIds = array_unique(
             array_reduce(
                 array_map(
-                    function ($pathString) {
+                    static function ($pathString) {
                         return array_filter(explode('/', $pathString));
                     },
                     $paths

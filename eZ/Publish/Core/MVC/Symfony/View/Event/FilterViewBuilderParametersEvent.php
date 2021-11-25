@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\View\Event;
 
-use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * An event that collects the parameters the ViewBuilder will be provided to build View objects.
@@ -21,7 +21,7 @@ class FilterViewBuilderParametersEvent extends Event
     /**
      * Parameters the ViewBuilder will use.
      *
-     * @var ParameterBag
+     * @var \Symfony\Component\HttpFoundation\ParameterBag
      */
     private $parameters;
 
@@ -32,7 +32,7 @@ class FilterViewBuilderParametersEvent extends Event
     }
 
     /**
-     * @return Request
+     * @return \Symfony\Component\HttpFoundation\Request
      */
     public function getRequest()
     {

@@ -6,16 +6,16 @@
  */
 namespace eZ\Publish\Core\Helper\Tests\ContentInfoLocationLoader;
 
+use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\Helper\ContentInfoLocationLoader\SudoMainLocationLoader;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\Core\Repository\Repository;
-use eZ\Publish\Core\Repository\Permission\PermissionResolver;
 use eZ\Publish\Core\Repository\Mapper\RoleDomainMapper;
 use eZ\Publish\Core\Repository\Permission\LimitationService;
+use eZ\Publish\Core\Repository\Permission\PermissionResolver;
+use eZ\Publish\Core\Repository\Repository;
+use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\SPI\Persistence\User\Handler as SPIUserHandler;
 use PHPUnit\Framework\TestCase;
 

@@ -9,16 +9,16 @@ namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
 use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Values\User\Limitation;
 use eZ\Publish\API\Repository\Values\ValueObject;
+use eZ\Publish\Core\Base\Exceptions\NotFound\LimitationNotFoundException;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\Repository\Permission\PermissionResolver;
-use eZ\Publish\Core\Repository\Values\User\UserReference;
 use eZ\Publish\Core\Repository\Repository as CoreRepository;
-use eZ\Publish\Core\Base\Exceptions\NotFound\LimitationNotFoundException;
 use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
+use eZ\Publish\Core\Repository\Values\User\UserReference;
 use eZ\Publish\SPI\Limitation\Type;
-use eZ\Publish\SPI\Persistence\User\RoleAssignment;
-use eZ\Publish\SPI\Persistence\User\Role;
 use eZ\Publish\SPI\Persistence\User\Policy;
+use eZ\Publish\SPI\Persistence\User\Role;
+use eZ\Publish\SPI\Persistence\User\RoleAssignment;
 
 /**
  * Mock test case for PermissionResolver.
@@ -216,7 +216,7 @@ class PermissionTest extends BaseServiceMockTest
             ->method($this->anything());
 
         $result = $service->sudo(
-            function (Repository $repo) {
+            static function (Repository $repo) {
                 return $repo->getPermissionResolver()->hasAccess('dummy-module', 'dummy-function');
             },
             $repositoryMock

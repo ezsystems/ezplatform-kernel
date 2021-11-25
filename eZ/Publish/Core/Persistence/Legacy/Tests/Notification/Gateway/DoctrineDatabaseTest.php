@@ -16,8 +16,8 @@ use eZ\Publish\SPI\Persistence\Notification\Notification;
 
 class DoctrineDatabaseTest extends TestCase
 {
-    const EXISTING_NOTIFICATION_ID = 1;
-    const EXISTING_NOTIFICATION_DATA = [
+    public const EXISTING_NOTIFICATION_ID = 1;
+    public const EXISTING_NOTIFICATION_DATA = [
         'id' => 1,
         'owner_id' => 14,
         'is_pending' => 1,
@@ -113,8 +113,11 @@ class DoctrineDatabaseTest extends TestCase
      */
     public function testCountUserPendingNotifications()
     {
-        $this->assertEquals(3, $this->getGateway()->countUserPendingNotifications(
-            self::EXISTING_NOTIFICATION_DATA['owner_id'])
+        $this->assertEquals(
+            3,
+            $this->getGateway()->countUserPendingNotifications(
+            self::EXISTING_NOTIFICATION_DATA['owner_id']
+        )
         );
     }
 

@@ -10,8 +10,8 @@ use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ChainConfigResolv
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension;
-use eZ\Bundle\EzPublishIOBundle\DependencyInjection\EzPublishIOExtension;
 use eZ\Bundle\EzPublishIOBundle\DependencyInjection\ConfigurationFactory;
+use eZ\Bundle\EzPublishIOBundle\DependencyInjection\EzPublishIOExtension;
 use eZ\Publish\API\Repository\Tests\Container\Compiler\SetAllServicesPublicPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Symfony\Component\Yaml\Yaml;

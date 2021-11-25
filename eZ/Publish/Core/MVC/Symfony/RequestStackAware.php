@@ -14,11 +14,11 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 trait RequestStackAware
 {
-    /** @var RequestStack */
+    /** @var \Symfony\Component\HttpFoundation\RequestStack */
     private $requestStack;
 
     /**
-     * @return RequestStack
+     * @return \Symfony\Component\HttpFoundation\RequestStack
      */
     public function getRequestStack()
     {
@@ -26,7 +26,7 @@ trait RequestStackAware
     }
 
     /**
-     * @param RequestStack $requestStack
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      */
     public function setRequestStack(RequestStack $requestStack)
     {

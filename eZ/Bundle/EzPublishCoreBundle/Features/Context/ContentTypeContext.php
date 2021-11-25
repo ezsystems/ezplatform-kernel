@@ -7,9 +7,9 @@
 namespace eZ\Bundle\EzPublishCoreBundle\Features\Context;
 
 use Behat\Behat\Context\Context;
+use Behat\Gherkin\Node\TableNode;
 use eZ\Publish\API\Repository\ContentTypeService;
 use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
-use Behat\Gherkin\Node\TableNode;
 use PHPUnit\Framework\Assert as Assertion;
 
 /**
@@ -20,12 +20,12 @@ class ContentTypeContext implements Context
     /**
      * Default ContentTypeGroup.
      */
-    const DEFAULT_GROUP = 'Content';
+    public const DEFAULT_GROUP = 'Content';
 
     /**
      * Default language code.
      */
-    const DEFAULT_LANGUAGE = 'eng-GB';
+    public const DEFAULT_LANGUAGE = 'eng-GB';
 
     /** @var \eZ\Publish\API\Repository\ContentTypeService */
     protected $contentTypeService;

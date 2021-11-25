@@ -8,14 +8,14 @@ namespace eZ\Publish\Core\Search\Tests;
 
 use ArrayObject;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion as APICriterion;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause as APISortClause;
 use eZ\Publish\API\Repository\Values\Content\Query\CustomFieldInterface;
-use eZ\Publish\SPI\Search\FieldType as SPIFieldType;
+use eZ\Publish\API\Repository\Values\Content\Query\SortClause as APISortClause;
+use eZ\Publish\Core\Search\Common\FieldNameGenerator;
 use eZ\Publish\Core\Search\Common\FieldNameResolver;
 use eZ\Publish\Core\Search\Common\FieldRegistry;
 use eZ\Publish\SPI\FieldType\Indexable;
 use eZ\Publish\SPI\Persistence\Content\Type\Handler as SPIContentTypeHandler;
-use eZ\Publish\Core\Search\Common\FieldNameGenerator;
+use eZ\Publish\SPI\Search\FieldType as SPIFieldType;
 
 /**
  * Test case for FieldNameResolver.

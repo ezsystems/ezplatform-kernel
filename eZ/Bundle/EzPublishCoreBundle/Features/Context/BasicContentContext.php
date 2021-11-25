@@ -7,8 +7,8 @@
 namespace eZ\Bundle\EzPublishCoreBundle\Features\Context;
 
 use Behat\Behat\Context\Context;
-use eZ\Publish\API\Repository\ContentTypeService;
 use eZ\Publish\API\Repository\ContentService;
+use eZ\Publish\API\Repository\ContentTypeService;
 use eZ\Publish\API\Repository\Repository;
 
 /**
@@ -19,20 +19,20 @@ class BasicContentContext implements Context
     /**
      * Default language.
      */
-    const DEFAULT_LANGUAGE = 'eng-GB';
+    public const DEFAULT_LANGUAGE = 'eng-GB';
 
     /**
      * Content path mapping.
      */
     private $contentPaths = [];
 
-    /** @var eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \eZ\Publish\API\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var eZ\Publish\API\Repository\ContentService */
+    /** @var \eZ\Publish\API\Repository\ContentService */
     private $contentService;
 
-    /** @var eZ\Publish\API\Repository\Repository */
+    /** @var \eZ\Publish\API\Repository\Repository */
     private $repository;
 
     public function __construct(

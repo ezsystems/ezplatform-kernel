@@ -8,8 +8,6 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Event;
 
-use eZ\Publish\API\Repository\URLAliasService as URLAliasServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Events\URLAlias\BeforeCreateGlobalUrlAliasEvent;
 use eZ\Publish\API\Repository\Events\URLAlias\BeforeCreateUrlAliasEvent;
 use eZ\Publish\API\Repository\Events\URLAlias\BeforeRefreshSystemUrlAliasesForLocationEvent;
@@ -18,6 +16,8 @@ use eZ\Publish\API\Repository\Events\URLAlias\CreateGlobalUrlAliasEvent;
 use eZ\Publish\API\Repository\Events\URLAlias\CreateUrlAliasEvent;
 use eZ\Publish\API\Repository\Events\URLAlias\RefreshSystemUrlAliasesForLocationEvent;
 use eZ\Publish\API\Repository\Events\URLAlias\RemoveAliasesEvent;
+use eZ\Publish\API\Repository\URLAliasService as URLAliasServiceInterface;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\URLAlias;
 use eZ\Publish\SPI\Repository\Decorator\URLAliasServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;

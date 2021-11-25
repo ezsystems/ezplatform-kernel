@@ -9,12 +9,12 @@ namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
+use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
+use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
+use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
 
 /**
  * Content locator gateway implementation using the DoctrineDatabase.
@@ -187,8 +187,8 @@ class Field extends SortClauseHandler
         );
 
         for ($index = count(
-                $languageSettings['languages']
-            ) - 1, $multiplier = 2; $index >= 0; $index--, $multiplier *= 2) {
+            $languageSettings['languages']
+        ) - 1, $multiplier = 2; $index >= 0; $index--, $multiplier *= 2) {
             $languageId = $this->languageHandler
                 ->loadByLanguageCode($languageSettings['languages'][$index])->id;
 

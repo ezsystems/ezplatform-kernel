@@ -14,7 +14,7 @@ use eZ\Publish\Core\MVC\Symfony\View\View;
  */
 class NoViewTemplateException extends Exception
 {
-    /** @var View */
+    /** @var \eZ\Publish\Core\MVC\Symfony\View\View */
     private $view;
 
     public function __construct(View $view)

@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target\RandomTarget;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target\RandomTarget;
 
 /**
  * Sets sort random on a content query.

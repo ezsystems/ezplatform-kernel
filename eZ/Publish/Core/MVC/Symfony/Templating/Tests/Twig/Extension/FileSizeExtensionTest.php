@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension;
 
-use eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\FileSizeExtension;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface;
+use eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\FileSizeExtension;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Test\IntegrationTestCase;
 
@@ -28,17 +28,17 @@ class FileSizeExtensionTest extends IntegrationTestCase
     protected $suffixes = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB'];
 
     /**
-     * @param TranslatorInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @param \Symfony\Contracts\Translation\TranslatorInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $translatorMock;
 
     /**
-     * @param ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $configResolverInterfaceMock;
 
     /**
-     * @param LocaleConverterInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @param \eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $localeConverterInterfaceMock;
 
@@ -79,7 +79,7 @@ class FileSizeExtensionTest extends IntegrationTestCase
     }
 
     /**
-     * @return ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @return \eZ\Publish\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getConfigResolverInterfaceMock()
     {
@@ -93,7 +93,7 @@ class FileSizeExtensionTest extends IntegrationTestCase
     }
 
     /**
-     * @return LocaleConverterInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @return \eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getLocaleConverterInterfaceMock()
     {
@@ -113,7 +113,7 @@ class FileSizeExtensionTest extends IntegrationTestCase
     }
 
     /**
-     * @return TranslatorInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Symfony\Contracts\Translation\TranslatorInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getTranslatorInterfaceMock()
     {
@@ -122,7 +122,7 @@ class FileSizeExtensionTest extends IntegrationTestCase
         $this->translatorMock
             ->expects($this->any())->method('trans')->will(
                 $this->returnCallback(
-                    function ($suffixes) use ($that) {
+                    static function ($suffixes) use ($that) {
                         foreach ($that->getLocale() as $value) {
                             if ($value === 'fre-FR') {
                                 return $suffixes . ' French version';

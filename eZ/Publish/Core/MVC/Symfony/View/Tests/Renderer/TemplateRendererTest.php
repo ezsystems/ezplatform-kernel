@@ -6,12 +6,12 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\View\Tests\Renderer;
 
+use eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent;
 use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 use eZ\Publish\Core\MVC\Symfony\View\ContentView;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use eZ\Publish\Core\MVC\Symfony\View\Renderer\TemplateRenderer;
-use eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 
 class TemplateRendererTest extends TestCase

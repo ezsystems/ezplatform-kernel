@@ -8,62 +8,62 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository;
 
+use function count;
+use Exception;
 use eZ\Publish\API\Repository\ContentService as ContentServiceInterface;
+use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
 use eZ\Publish\API\Repository\PermissionService;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LanguageCode;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\FieldType\FieldTypeRegistry;
+use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
+use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct as APIContentCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\ContentDraftList;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\ContentList;
+use eZ\Publish\API\Repository\Values\Content\ContentMetadataUpdateStruct;
+use eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct as APIContentUpdateStruct;
 use eZ\Publish\API\Repository\Values\Content\DraftList\Item\ContentDraftListItem;
 use eZ\Publish\API\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem;
+use eZ\Publish\API\Repository\Values\Content\Language;
+use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LanguageCode;
+use eZ\Publish\API\Repository\Values\Content\Relation as APIRelation;
 use eZ\Publish\API\Repository\Values\Content\RelationList;
 use eZ\Publish\API\Repository\Values\Content\RelationList\Item\RelationListItem;
 use eZ\Publish\API\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem;
+use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use eZ\Publish\API\Repository\Values\ContentType\ContentType;
+use eZ\Publish\API\Repository\Values\Filter\Filter;
+use eZ\Publish\API\Repository\Values\User\User;
 use eZ\Publish\API\Repository\Values\User\UserReference;
+use eZ\Publish\API\Repository\Values\ValueObject;
+use eZ\Publish\Core\Base\Exceptions\BadStateException;
+use eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use eZ\Publish\Core\Base\Exceptions\NotFoundException;
+use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
+use eZ\Publish\Core\FieldType\FieldTypeRegistry;
 use eZ\Publish\Core\Repository\Mapper\ContentDomainMapper;
 use eZ\Publish\Core\Repository\Mapper\ContentMapper;
 use eZ\Publish\Core\Repository\Values\Content\Content;
+use eZ\Publish\Core\Repository\Values\Content\ContentCreateStruct;
+use eZ\Publish\Core\Repository\Values\Content\ContentUpdateStruct;
 use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\SPI\Persistence\Filter\Content\Handler as ContentFilteringHandler;
+use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use eZ\Publish\SPI\FieldType\Comparable;
 use eZ\Publish\SPI\FieldType\FieldType;
 use eZ\Publish\SPI\FieldType\Value;
-use eZ\Publish\SPI\Persistence\Handler;
-use eZ\Publish\API\Repository\Values\Content\ContentUpdateStruct as APIContentUpdateStruct;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct as APIContentCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\ContentMetadataUpdateStruct;
-use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\Relation as APIRelation;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException;
-use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Repository\Values\Content\ContentCreateStruct;
-use eZ\Publish\Core\Repository\Values\Content\ContentUpdateStruct;
 use eZ\Publish\SPI\Limitation\Target;
-use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct as SPIMetadataUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\CreateStruct as SPIContentCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct as SPIContentUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Field as SPIField;
-use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as SPIRelationCreateStruct;
 use eZ\Publish\SPI\Persistence\Content\ContentInfo as SPIContentInfo;
-use Exception;
+use eZ\Publish\SPI\Persistence\Content\CreateStruct as SPIContentCreateStruct;
+use eZ\Publish\SPI\Persistence\Content\Field as SPIField;
+use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct as SPIMetadataUpdateStruct;
+use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as SPIRelationCreateStruct;
+use eZ\Publish\SPI\Persistence\Content\UpdateStruct as SPIContentUpdateStruct;
+use eZ\Publish\SPI\Persistence\Filter\Content\Handler as ContentFilteringHandler;
+use eZ\Publish\SPI\Persistence\Handler;
 use eZ\Publish\SPI\Repository\Validator\ContentValidator;
-use eZ\Publish\API\Repository\Values\Content\ContentList;
-use eZ\Publish\API\Repository\Values\Filter\Filter;
 use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
-use function count;
 use function sprintf;
 
 /**
@@ -1448,7 +1448,9 @@ class ContentService implements ContentServiceInterface
             $targets
         )) {
             throw new UnauthorizedException(
-                'content', 'publish', ['contentId' => $content->id]
+                'content',
+                'publish',
+                ['contentId' => $content->id]
             );
         }
 
@@ -1616,7 +1618,8 @@ class ContentService implements ContentServiceInterface
         }
 
         $errors = $this->validate(
-            $versionInfo, [
+            $versionInfo,
+            [
                 'content' => $this->internalLoadContentById(
                     $versionInfo->getContentInfo()->id,
                     null,
@@ -1768,8 +1771,12 @@ class ContentService implements ContentServiceInterface
                 'status',
                 sprintf(
                     'available statuses are: %d (draft), %d (published), %d (archived), %d given',
-                    VersionInfo::STATUS_DRAFT, VersionInfo::STATUS_PUBLISHED, VersionInfo::STATUS_ARCHIVED, $status
-                ));
+                    VersionInfo::STATUS_DRAFT,
+                    VersionInfo::STATUS_PUBLISHED,
+                    VersionInfo::STATUS_ARCHIVED,
+                    $status
+                )
+            );
         }
 
         $spiVersionInfoList = $this->persistenceHandler->contentHandler()->listVersions($contentInfo->id, $status);
@@ -2193,7 +2200,7 @@ class ContentService implements ContentServiceInterface
                 $languageCode
             );
             $locationIds = array_map(
-                function (Location $location) {
+                static function (Location $location) {
                     return $location->id;
                 },
                 $this->repository->getLocationService()->loadLocations($contentInfo)
@@ -2255,7 +2262,9 @@ class ContentService implements ContentServiceInterface
 
         if (!$this->permissionResolver->canUser('content', 'edit', $versionInfo->contentInfo)) {
             throw new UnauthorizedException(
-                'content', 'edit', ['contentId' => $versionInfo->contentInfo->id]
+                'content',
+                'edit',
+                ['contentId' => $versionInfo->contentInfo->id]
             );
         }
 

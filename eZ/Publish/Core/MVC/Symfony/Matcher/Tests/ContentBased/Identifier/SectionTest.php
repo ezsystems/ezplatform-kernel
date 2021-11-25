@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\Identifier;
 
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\SectionService;
 use eZ\Publish\API\Repository\Values\Content\Section;
 use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Identifier\Section as SectionIdentifierMatcher;
 use eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\BaseTest;
-use eZ\Publish\API\Repository\Repository;
 
 class SectionTest extends BaseTest
 {

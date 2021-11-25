@@ -7,9 +7,9 @@
 namespace eZ\Publish\Core\MVC\Symfony\Security\Authorization\Voter;
 
 use eZ\Publish\API\Repository\PermissionResolver;
-use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute as AuthorizationAttribute;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 class CoreVoter implements VoterInterface
 {
@@ -51,7 +51,7 @@ class CoreVoter implements VoterInterface
      * This method must return one of the following constants:
      * ACCESS_GRANTED, ACCESS_DENIED, or ACCESS_ABSTAIN.
      *
-     * @param TokenInterface $token A TokenInterface instance
+     * @param \Symfony\Component\Security\Core\Authentication\Token\TokenInterface $token A TokenInterface instance
      * @param object $object The object to secure
      * @param array $attributes An array of attributes associated with the method being invoked
      *

@@ -9,9 +9,9 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\Persistence\Legacy\UserPreference;
 
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct;
 use eZ\Publish\SPI\Persistence\UserPreference\Handler as HandlerInterface;
 use eZ\Publish\SPI\Persistence\UserPreference\UserPreference;
+use eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct;
 
 class Handler implements HandlerInterface
 {

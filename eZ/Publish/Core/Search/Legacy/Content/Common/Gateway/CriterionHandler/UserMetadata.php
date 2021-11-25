@@ -9,10 +9,10 @@ namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
+use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
 use RuntimeException;
 
 /**
@@ -52,7 +52,8 @@ class UserMetadata extends CriterionHandler
                     ->select(
                         't1.contentobject_id'
                     )->from(
-                        LocationGateway::CONTENT_TREE_TABLE, 't1'
+                        LocationGateway::CONTENT_TREE_TABLE,
+                        't1'
                     )->innerJoin(
                         't1',
                         LocationGateway::CONTENT_TREE_TABLE,

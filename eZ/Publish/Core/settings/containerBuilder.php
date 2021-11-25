@@ -6,14 +6,14 @@
  */
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ConsoleCommandPass;
 use eZ\Publish\API\Repository\Tests\Container\Compiler\SetAllServicesPublicPass;
+use eZ\Publish\Core\Base\Container\Compiler;
+use Symfony\Component\Cache\Adapter\RedisAdapter;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\Config\FileLocator;
-use eZ\Publish\Core\Base\Container\Compiler;
-use Symfony\Component\Cache\Adapter\RedisAdapter;
-use Symfony\Component\Config\Resource\FileResource;
 
 if (!isset($installDir)) {
     throw new \RuntimeException('$installDir not provided to ' . __FILE__);

@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Persistence\Tests\TransformationProcessor;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\Core\Persistence;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 
 /**
  * Test case for LocationHandlerTest.
@@ -17,7 +17,7 @@ class TransformationProcessorDefinitionBasedParserTest extends TestCase
     public static function getTestFiles()
     {
         return array_map(
-            function ($file) {
+            static function ($file) {
                 return [realpath($file)];
             },
             glob(__DIR__ . '/_fixtures/transformations/*.tr')

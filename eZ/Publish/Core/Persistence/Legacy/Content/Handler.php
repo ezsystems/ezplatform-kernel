@@ -7,19 +7,19 @@
 namespace eZ\Publish\Core\Persistence\Legacy\Content;
 
 use Exception;
+use eZ\Publish\Core\Base\Exceptions\NotFoundException as NotFound;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\Handler as BaseContentHandler;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
 use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway as UrlAliasGateway;
+use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
 use eZ\Publish\SPI\Persistence\Content;
 use eZ\Publish\SPI\Persistence\Content\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
+use eZ\Publish\SPI\Persistence\Content\Field;
+use eZ\Publish\SPI\Persistence\Content\Handler as BaseContentHandler;
 use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException as NotFound;
+use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
+use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -484,7 +484,7 @@ class Handler implements BaseContentHandler
         }
 
         $idVersionPairs = array_map(
-            function ($row) {
+            static function ($row) {
                 return [
                     'id' => $row['ezcontentobject_version_contentobject_id'],
                     'version' => $row['ezcontentobject_version_version'],
@@ -886,7 +886,7 @@ class Handler implements BaseContentHandler
         // get all [languageCode => name] entries except the removed Translation
         $names = array_filter(
             $versionInfo->names,
-            function ($lang) use ($languageCode) {
+            static function ($lang) use ($languageCode) {
                 return $lang !== $languageCode;
             },
             ARRAY_FILTER_USE_KEY

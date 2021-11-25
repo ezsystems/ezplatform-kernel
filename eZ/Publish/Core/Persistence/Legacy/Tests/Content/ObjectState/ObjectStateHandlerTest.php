@@ -6,14 +6,14 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\ObjectState;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
+use eZ\Publish\API\Repository\Tests\BaseTest as APIBaseTest;
+use eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler;
 use eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Mapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway;
+use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
 use eZ\Publish\SPI\Persistence\Content\ObjectState;
 use eZ\Publish\SPI\Persistence\Content\ObjectState\Group;
 use eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct;
-use eZ\Publish\API\Repository\Tests\BaseTest as APIBaseTest;
 
 /**
  * Test case for Object state Handler.

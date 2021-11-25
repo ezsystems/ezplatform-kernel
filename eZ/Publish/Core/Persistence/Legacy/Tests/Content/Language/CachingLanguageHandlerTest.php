@@ -7,14 +7,14 @@
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Language;
 
 use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
-use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
+use eZ\Publish\Core\Base\Exceptions\NotFoundException;
+use eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache;
+use eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler;
 use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\SPI\Persistence\Content\Language;
 use eZ\Publish\SPI\Persistence\Content\Language\CreateStruct as SPILanguageCreateStruct;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\SPI\Persistence\Content\Language\Handler as SPILanguageHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler;
-use eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache;
+use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
 
 /**
  * Test case for caching Language Handler.

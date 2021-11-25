@@ -6,15 +6,15 @@
  */
 namespace eZ\Publish\SPI\Tests\FieldType;
 
-use eZ\Publish\Core\Persistence\Legacy;
 use eZ\Publish\Core\FieldType;
+use eZ\Publish\Core\IO\MimeTypeDetector\FileInfo;
+use eZ\Publish\Core\Persistence\Legacy;
 use eZ\Publish\SPI\Persistence\Content;
 use eZ\Publish\SPI\Persistence\Content\Field;
 use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
 use FileSystemIterator;
-use eZ\Publish\Core\IO\MimeTypeDetector\FileInfo;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
 /**
  * Integration test for legacy storage field types.
@@ -241,7 +241,7 @@ class BinaryFileIntegrationTest extends FileBaseIntegrationTest
     /**
      * Can be overwritten to assert that additional data has been deleted.
      *
-     * @param Content $content
+     * @param \eZ\Publish\SPI\Persistence\Content $content
      */
     public function assertDeletedFieldDataCorrect(Content $content)
     {

@@ -39,7 +39,11 @@ final class ImageThumbnailProxyStrategy implements FieldTypeBasedThumbnailStrate
     public function getThumbnail(Field $field, ?VersionInfo $versionInfo = null): ?Thumbnail
     {
         $initializer = function (
-            &$wrappedObject, LazyLoadingInterface $proxy, $method, array $parameters, &$initializer
+            &$wrappedObject,
+            LazyLoadingInterface $proxy,
+            $method,
+            array $parameters,
+            &$initializer
         ) use ($field, $versionInfo): bool {
             $initializer = null;
 

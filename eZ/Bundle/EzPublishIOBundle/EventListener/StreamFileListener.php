@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 class StreamFileListener implements EventSubscriberInterface
 {
-    /** @var IOServiceInterface */
+    /** @var \eZ\Publish\Core\IO\IOServiceInterface */
     private $ioService;
 
     /** @var \eZ\Publish\Core\IO\IOConfigProvider */

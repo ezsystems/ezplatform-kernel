@@ -10,13 +10,13 @@ use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\API\Repository\URLAliasService;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\URLAlias;
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
-use eZ\Publish\Core\Repository\Permission\PermissionResolver;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\Repository\Permission\LimitationService;
 use eZ\Publish\Core\Repository\Mapper\RoleDomainMapper;
+use eZ\Publish\Core\Repository\Permission\LimitationService;
+use eZ\Publish\Core\Repository\Permission\PermissionResolver;
 use eZ\Publish\Core\Repository\Repository;
 use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\SPI\Persistence\User\Handler as SPIUserHandler;
@@ -41,7 +41,7 @@ class UrlAliasGeneratorTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $logger;
 
-    /** @var UrlAliasGenerator */
+    /** @var \eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator */
     private $urlAliasGenerator;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject */
@@ -256,7 +256,7 @@ class UrlAliasGeneratorTest extends TestCase
             ->method('loadLocation')
             ->will(
                 $this->returnCallback(
-                    function ($locationId) {
+                    static function ($locationId) {
                         return new Location(['id' => $locationId]);
                     }
                 )
@@ -266,7 +266,7 @@ class UrlAliasGeneratorTest extends TestCase
             ->method('reverseLookup')
             ->will(
                 $this->returnCallback(
-                    function ($location) use ($treeRootUrlAlias) {
+                    static function ($location) use ($treeRootUrlAlias) {
                         return $treeRootUrlAlias[$location->id];
                     }
                 )

@@ -8,9 +8,9 @@ namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser
 
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\AbstractParser;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\ConfigSuggestion;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollectorAwareInterface;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollectorInterface;
+use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\ConfigSuggestion;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 /**
@@ -221,7 +221,7 @@ class Common extends AbstractParser implements SuggestionCollectorAwareInterface
     /**
      * Injects SuggestionCollector.
      *
-     * @param SuggestionCollectorInterface $suggestionCollector
+     * @param \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollectorInterface $suggestionCollector
      */
     public function setSuggestionCollector(SuggestionCollectorInterface $suggestionCollector)
     {
@@ -231,7 +231,7 @@ class Common extends AbstractParser implements SuggestionCollectorAwareInterface
     private function addDatabaseConfigSuggestion($sa, array $databaseConfig)
     {
         $suggestion = new ConfigSuggestion(
-<<<EOT
+            <<<EOT
 Database configuration has changed for eZ Content repository.
 Please define:
  - An entry in ezpublish.repositories

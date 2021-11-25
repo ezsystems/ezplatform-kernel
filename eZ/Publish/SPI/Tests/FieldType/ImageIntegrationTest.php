@@ -6,17 +6,17 @@
  */
 namespace eZ\Publish\SPI\Tests\FieldType;
 
-use eZ\Publish\Core\Persistence\Legacy;
-use eZ\Publish\Core\IO;
-use eZ\Publish\Core\FieldType;
 use eZ\Publish\Core\Base\Utils\DeprecationWarnerInterface;
+use eZ\Publish\Core\FieldType;
 use eZ\Publish\Core\FieldType\Image\AliasCleanerInterface;
+use eZ\Publish\Core\IO;
+use eZ\Publish\Core\Persistence\Legacy;
 use eZ\Publish\SPI\Persistence\Content;
 use eZ\Publish\SPI\Persistence\Content\Field;
-use PHPUnit\Framework\MockObject\MockObject;
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
 use FileSystemIterator;
+use PHPUnit\Framework\MockObject\MockObject;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
 /**
  * Integration test for legacy storage field types.
@@ -277,7 +277,7 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
     /**
      * Can be overwritten to assert that additional data has been deleted.
      *
-     * @param Content $content
+     * @param \eZ\Publish\SPI\Persistence\Content $content
      */
     public function assertDeletedFieldDataCorrect(Content $content)
     {

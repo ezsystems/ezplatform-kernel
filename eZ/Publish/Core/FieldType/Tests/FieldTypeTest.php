@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
-use eZ\Publish\SPI\FieldType\Tests\FieldTypeTest as BaseFieldTypeTest;
 use eZ\Publish\Core\Persistence\TransformationProcessor;
+use eZ\Publish\SPI\FieldType\Tests\FieldTypeTest as BaseFieldTypeTest;
 use eZ\Publish\SPI\FieldType\Value as SPIValue;
 
 abstract class FieldTypeTest extends BaseFieldTypeTest

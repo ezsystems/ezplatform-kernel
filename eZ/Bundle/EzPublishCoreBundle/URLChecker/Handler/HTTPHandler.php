@@ -107,7 +107,7 @@ class HTTPHandler extends AbstractConfigResolverBasedURLHandler
     /**
      * Initialize and return a cURL session for given URL.
      *
-     * @param URL $url
+     * @param \eZ\Publish\API\Repository\Values\URL\URL $url
      * @param array $handlers
      * @param int $connectionTimeout
      * @param int $timeout
@@ -144,7 +144,7 @@ class HTTPHandler extends AbstractConfigResolverBasedURLHandler
     /**
      * Validate single response.
      *
-     * @param URL $url
+     * @param \eZ\Publish\API\Repository\Values\URL\URL $url
      * @param resource $handler CURL handler
      */
     private function doValidate(URL $url, $handler)

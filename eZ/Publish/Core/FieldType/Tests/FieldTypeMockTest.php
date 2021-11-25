@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
-use PHPUnit\Framework\TestCase;
 use eZ\Publish\Core\FieldType\FieldType;
+use PHPUnit\Framework\TestCase;
 
 class FieldTypeMockTest extends TestCase
 {

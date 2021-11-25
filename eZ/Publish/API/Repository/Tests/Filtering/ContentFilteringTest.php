@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace eZ\Publish\API\Repository\Tests\Filtering;
 
+use function array_map;
+use function count;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\ContentList;
 use eZ\Publish\API\Repository\Values\Content\Query;
@@ -18,8 +20,6 @@ use eZ\Publish\API\Repository\Values\Filter\Filter;
 use eZ\Publish\Core\FieldType\Keyword;
 use eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause;
 use IteratorAggregate;
-use function array_map;
-use function count;
 use function sprintf;
 
 /**

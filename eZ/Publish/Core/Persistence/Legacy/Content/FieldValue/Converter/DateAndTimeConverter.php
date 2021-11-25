@@ -6,16 +6,16 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
+use DateInterval;
+use DateTime;
+use DOMDocument;
+use eZ\Publish\Core\FieldType\DateAndTime\Type as DateAndTimeType;
+use eZ\Publish\Core\FieldType\FieldSettings;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\FieldType\DateAndTime\Type as DateAndTimeType;
-use eZ\Publish\Core\FieldType\FieldSettings;
-use DateTime;
-use DateInterval;
-use DOMDocument;
 use SimpleXMLElement;
 
 class DateAndTimeConverter implements Converter

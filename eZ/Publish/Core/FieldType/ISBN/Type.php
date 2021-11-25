@@ -6,12 +6,12 @@
  */
 namespace eZ\Publish\Core\FieldType\ISBN;
 
-use eZ\Publish\Core\FieldType\FieldType;
-use eZ\Publish\Core\FieldType\ValidationError;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
+use eZ\Publish\Core\FieldType\FieldType;
+use eZ\Publish\Core\FieldType\ValidationError;
 use eZ\Publish\Core\FieldType\Value as BaseValue;
+use eZ\Publish\SPI\FieldType\Value as SPIValue;
 
 /**
  * The ISBN field type.
@@ -20,11 +20,11 @@ use eZ\Publish\Core\FieldType\Value as BaseValue;
  */
 class Type extends FieldType
 {
-    const ISBN13_PREFIX_LENGTH = 3;
-    const ISBN13_CHECK_LENGTH = 1;
-    const ISBN13_LENGTH = 13;
-    const ISBN13_PREFIX_978 = '978';
-    const ISBN13_PREFIX_979 = '979';
+    public const ISBN13_PREFIX_LENGTH = 3;
+    public const ISBN13_CHECK_LENGTH = 1;
+    public const ISBN13_LENGTH = 13;
+    public const ISBN13_PREFIX_978 = '978';
+    public const ISBN13_PREFIX_979 = '979';
 
     protected $settingsSchema = [
         'isISBN13' => [

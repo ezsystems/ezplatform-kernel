@@ -8,19 +8,21 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository;
 
-use eZ\Publish\API\Repository\LanguageResolver;
-use eZ\Publish\API\Repository\PermissionCriterionResolver as PermissionCriterionResolverInterface;
-use eZ\Publish\API\Repository\PermissionService;
-use eZ\Publish\API\Repository\Repository as RepositoryInterface;
-use eZ\Publish\API\Repository\NotificationService as NotificationServiceInterface;
+use Exception;
 use eZ\Publish\API\Repository\BookmarkService as BookmarkServiceInterface;
 use eZ\Publish\API\Repository\ContentService as ContentServiceInterface;
 use eZ\Publish\API\Repository\ContentTypeService as ContentTypeServiceInterface;
 use eZ\Publish\API\Repository\FieldTypeService as FieldTypeServiceInterface;
+use eZ\Publish\API\Repository\LanguageResolver;
 use eZ\Publish\API\Repository\LanguageService as LanguageServiceInterface;
 use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
+use eZ\Publish\API\Repository\NotificationService as NotificationServiceInterface;
 use eZ\Publish\API\Repository\ObjectStateService as ObjectStateServiceInterface;
+use eZ\Publish\API\Repository\PasswordHashService;
+use eZ\Publish\API\Repository\PermissionCriterionResolver as PermissionCriterionResolverInterface;
 use eZ\Publish\API\Repository\PermissionResolver as PermissionResolverInterface;
+use eZ\Publish\API\Repository\PermissionService;
+use eZ\Publish\API\Repository\Repository as RepositoryInterface;
 use eZ\Publish\API\Repository\RoleService as RoleServiceInterface;
 use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
 use eZ\Publish\API\Repository\SectionService as SectionServiceInterface;
@@ -30,13 +32,12 @@ use eZ\Publish\API\Repository\URLService as URLServiceInterface;
 use eZ\Publish\API\Repository\URLWildcardService as URLWildcardServiceInterface;
 use eZ\Publish\API\Repository\UserPreferenceService as UserPreferenceServiceInterface;
 use eZ\Publish\API\Repository\UserService as UserServiceInterface;
-use eZ\Publish\API\Repository\PasswordHashService;
 use eZ\Publish\Core\FieldType\FieldTypeRegistry;
 use eZ\Publish\Core\Repository\Helper\NameSchemaService;
+use eZ\Publish\Core\Repository\Helper\RelationProcessor;
 use eZ\Publish\Core\Repository\Permission\LimitationService;
 use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
 use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
-use eZ\Publish\Core\Repository\Helper\RelationProcessor;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
 use eZ\Publish\Core\Search\Common\BackgroundIndexer;
 use eZ\Publish\SPI\Persistence\Filter\Content\Handler as ContentFilteringHandler;
@@ -45,7 +46,6 @@ use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
 use eZ\Publish\SPI\Repository\Validator\ContentValidator;
 use eZ\Publish\SPI\Search\Handler as SearchHandler;
-use Exception;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use RuntimeException;
@@ -260,7 +260,7 @@ class Repository implements RepositoryInterface
     /** @var \eZ\Publish\SPI\Persistence\Filter\Location\Handler */
     private $locationFilteringHandler;
 
-    /** @var PasswordValidatorInterface */
+    /** @var \eZ\Publish\Core\Repository\User\PasswordValidatorInterface */
     private $passwordValidator;
 
     public function __construct(

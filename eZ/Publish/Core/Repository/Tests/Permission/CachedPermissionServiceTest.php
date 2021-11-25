@@ -22,12 +22,12 @@ function time()
 
 namespace eZ\Publish\Core\Repository\Tests\Permission;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\API\Repository\PermissionCriterionResolver;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use eZ\Publish\API\Repository\PermissionResolver;
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\User\UserReference;
+use eZ\Publish\API\Repository\Values\ValueObject;
 use eZ\Publish\Core\Repository\Permission\CachedPermissionService;
 use PHPUnit\Framework\TestCase;
 
@@ -58,7 +58,7 @@ class CachedPermissionServiceTest extends TestCase
             ['setCurrentUserReference', [$userRef], null],
             ['hasAccess', ['content', 'remove', $userRef], false],
             ['canUser', ['content', 'remove', $valueObject, [new \stdClass()]], true],
-            ['sudo', [function () {}, $repository], null],
+            ['sudo', [static function () {}, $repository], null],
         ];
     }
 

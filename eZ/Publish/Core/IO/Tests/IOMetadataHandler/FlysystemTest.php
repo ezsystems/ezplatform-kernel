@@ -6,13 +6,13 @@
  */
 namespace eZ\Publish\Core\IO\Tests\IOMetadataHandler;
 
+use DateTime;
 use eZ\Publish\Core\IO\IOMetadataHandler\Flysystem;
 use eZ\Publish\SPI\IO\BinaryFile as SPIBinaryFile;
 use eZ\Publish\SPI\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FilesystemInterface;
 use PHPUnit\Framework\TestCase;
-use DateTime;
 
 class FlysystemTest extends TestCase
 {

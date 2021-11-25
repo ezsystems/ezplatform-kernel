@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\User;
 
 use Doctrine\DBAL\Connection;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\UserLogin;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion\UserLogin;
 use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
 use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
 

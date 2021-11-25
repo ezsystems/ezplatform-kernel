@@ -16,7 +16,7 @@ interface ContentInfoLocationLoader
     /**
      * Loads a location from a ContentInfo.
      *
-     * @param ContentInfo $contentInfo
+     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Location
      *

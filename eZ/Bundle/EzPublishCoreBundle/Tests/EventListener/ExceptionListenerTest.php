@@ -27,12 +27,12 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ExceptionListenerTest extends TestCase
@@ -40,7 +40,7 @@ class ExceptionListenerTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
 
-    /** @var ExceptionListener */
+    /** @var \eZ\Bundle\EzPublishCoreBundle\EventListener\ExceptionListener */
     private $listener;
 
     protected function setUp(): void
@@ -59,9 +59,9 @@ class ExceptionListenerTest extends TestCase
     }
 
     /**
-     * @param Exception $exception
+     * @param \Exception $exception
      *
-     * @return ExceptionEvent
+     * @return \Symfony\Component\HttpKernel\Event\ExceptionEvent
      */
     private function generateExceptionEvent(Exception $exception)
     {
@@ -122,7 +122,7 @@ class ExceptionListenerTest extends TestCase
     /**
      * @dataProvider badRequestExceptionProvider
      *
-     * @param Exception|\eZ\Publish\Core\Base\Translatable $exception
+     * @param \Exception|\eZ\Publish\Core\Base\Translatable $exception
      */
     public function testBadRequestException(Exception $exception)
     {
@@ -159,7 +159,7 @@ class ExceptionListenerTest extends TestCase
     /**
      * @dataProvider otherExceptionProvider
      *
-     * @param Exception|\eZ\Publish\Core\Base\Translatable $exception
+     * @param \Exception|\eZ\Publish\Core\Base\Translatable $exception
      */
     public function testOtherRepositoryException(Exception $exception)
     {

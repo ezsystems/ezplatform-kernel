@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests\Provider;
 
+use function array_map;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccessGroup;
-use PHPUnit\Framework\TestCase;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\Provider\ChainSiteAccessProvider;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider;
-use function array_map;
+use eZ\Publish\Core\MVC\Symfony\SiteAccessGroup;
+use PHPUnit\Framework\TestCase;
 
 final class ChainSiteAccessProviderTest extends TestCase
 {
@@ -86,14 +86,16 @@ final class ChainSiteAccessProviderTest extends TestCase
 
         foreach ($expectedSiteAccessNames as $key => $saData) {
             $expectedSiteAccess = $this->createSiteAcccess(
-                $saData['name'], $saData['groups']
+                $saData['name'],
+                $saData['groups']
             );
 
             $this->assertEquals($expectedSiteAccess, $siteAccesses[$key]);
         }
 
         $undefinedSiteAccess = $this->createSiteAcccess(
-            self::UNDEFINED_SA_NAME, [self::SA_GROUP]
+            self::UNDEFINED_SA_NAME,
+            [self::SA_GROUP]
         );
 
         $this->assertNotContains(

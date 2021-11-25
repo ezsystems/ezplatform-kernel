@@ -6,8 +6,8 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Imagine\Cache\Resolver;
 
-use Liip\ImagineBundle\Imagine\Cache\Resolver\ResolverInterface;
 use Liip\ImagineBundle\Imagine\Cache\Resolver\ProxyResolver as ImagineProxyResolver;
+use Liip\ImagineBundle\Imagine\Cache\Resolver\ResolverInterface;
 
 /**
  * Relative resolver, omits host info.

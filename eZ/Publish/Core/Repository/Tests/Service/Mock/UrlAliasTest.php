@@ -8,19 +8,19 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
 
+use Exception;
 use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException as ApiNotFoundException;
 use eZ\Publish\API\Repository\LanguageResolver;
+use eZ\Publish\API\Repository\Values\Content\URLAlias;
+use eZ\Publish\Core\Base\Exceptions\ForbiddenException;
+use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\Repository\Helper\NameSchemaService;
 use eZ\Publish\Core\Repository\LocationService;
-use eZ\Publish\Core\Repository\URLAliasService;
 use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
-use eZ\Publish\SPI\Persistence\Content\UrlAlias as SPIUrlAlias;
-use eZ\Publish\API\Repository\Values\Content\URLAlias;
+use eZ\Publish\Core\Repository\URLAliasService;
 use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Base\Exceptions\ForbiddenException;
-use Exception;
+use eZ\Publish\SPI\Persistence\Content\UrlAlias as SPIUrlAlias;
 
 /**
  * Mock test case for UrlAlias Service.
@@ -2398,7 +2398,7 @@ class UrlAliasTest extends BaseServiceMockTest
             $this->equalTo(0),
             $this->equalTo(-1)
         )->willReturn(
-                [
+            [
                     new SPIUrlAlias(
                         [
                             'pathData' => [
@@ -2438,7 +2438,7 @@ class UrlAliasTest extends BaseServiceMockTest
             $this->equalTo(0),
             $this->equalTo(-1)
         )->willReturn(
-                [
+            [
                     new SPIUrlAlias(
                         [
                             'pathData' => [
@@ -2546,7 +2546,7 @@ class UrlAliasTest extends BaseServiceMockTest
         )->with(
             $this->equalTo($url)
         )->willReturn(
-                new SPIUrlAlias(
+            new SPIUrlAlias(
                     [
                         'pathData' => [
                             [
@@ -2602,7 +2602,7 @@ class UrlAliasTest extends BaseServiceMockTest
         )->with(
             $this->equalTo('jedan/dva')
         )->willReturn(
-                new SPIUrlAlias(
+            new SPIUrlAlias(
                     [
                         'pathData' => [
                             [
@@ -2676,7 +2676,7 @@ class UrlAliasTest extends BaseServiceMockTest
         )->with(
             $this->equalTo('jedan/two')
         )->willReturn(
-                new SPIUrlAlias(
+            new SPIUrlAlias(
                     [
                         'pathData' => [
                             [
@@ -2755,7 +2755,7 @@ class UrlAliasTest extends BaseServiceMockTest
             $this->equalTo(false),
             $this->equalTo($languageCode)
         )->willReturn(
-                [
+            [
                     new UrlAlias(
                         [
                             'languageCodes' => ['eng-GB'],
@@ -3397,7 +3397,7 @@ class UrlAliasTest extends BaseServiceMockTest
     }
 
     /**
-     * @param SPIUrlAlias[] $spiUrlAliases
+     * @param \eZ\Publish\SPI\Persistence\Content\UrlAlias[] $spiUrlAliases
      */
     private function configureListURLAliasesForLocation(array $spiUrlAliases): void
     {

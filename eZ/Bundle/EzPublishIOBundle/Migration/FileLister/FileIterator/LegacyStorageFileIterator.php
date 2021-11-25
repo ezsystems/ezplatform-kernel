@@ -6,8 +6,8 @@
  */
 namespace eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileIterator;
 
-use eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileRowReaderInterface;
 use eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileIteratorInterface;
+use eZ\Bundle\EzPublishIOBundle\Migration\FileLister\FileRowReaderInterface;
 
 /**
  * Iterator for entries in legacy's file tables.

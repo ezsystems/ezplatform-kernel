@@ -10,8 +10,8 @@ use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\Core\MVC\Symfony\Event\ScopeChangeEvent;
 use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -61,7 +61,7 @@ class ContentPreviewHelper implements SiteAccessAware
      *
      * @param string $siteAccessName
      *
-     * @return SiteAccess
+     * @return \eZ\Publish\Core\MVC\Symfony\SiteAccess
      */
     public function changeConfigScope($siteAccessName)
     {
@@ -74,7 +74,7 @@ class ContentPreviewHelper implements SiteAccessAware
     /**
      * Restores original config scope.
      *
-     * @return SiteAccess
+     * @return \eZ\Publish\Core\MVC\Symfony\SiteAccess
      */
     public function restoreConfigScope()
     {

@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace eZ\Publish\API\Repository\Values\ContentType;
 
 use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\SPI\Repository\Values\MultiLanguageName;
 use eZ\Publish\SPI\Repository\Values\MultiLanguageDescription;
+use eZ\Publish\SPI\Repository\Values\MultiLanguageName;
 
 /**
  * This class represents a field definition.

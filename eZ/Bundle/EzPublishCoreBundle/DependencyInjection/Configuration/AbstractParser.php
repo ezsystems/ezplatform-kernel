@@ -18,7 +18,7 @@ abstract class AbstractParser implements ParserInterface
      * @see ContextualizerInterface::mapConfigArray()
      *
      * @param array $config Complete parsed semantic configuration
-     * @param ContextualizerInterface $contextualizer
+     * @param \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface $contextualizer
      *
      * @return mixed
      */
@@ -34,7 +34,7 @@ abstract class AbstractParser implements ParserInterface
      * @see ContextualizerInterface::mapConfigArray()
      *
      * @param array $config Complete parsed semantic configuration
-     * @param ContextualizerInterface $contextualizer
+     * @param \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface $contextualizer
      *
      * @return mixed
      */

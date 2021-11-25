@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\MVC\Symfony\FieldType\Tests\ImageAsset;
 
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\FieldType;
 use eZ\Publish\API\Repository\FieldTypeService;
 use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\Core\FieldType\ImageAsset\Value as ImageAssetValue;
 use eZ\Publish\Core\MVC\Symfony\FieldType\ImageAsset\ParameterProvider;
 use eZ\Publish\Core\Repository\SiteAccessAware\Repository;
@@ -76,7 +76,7 @@ class ParameterProviderTest extends TestCase
             ->method('isEmptyValue')
             ->willReturn(false);
 
-        $closure = function (Repository $repository) use ($destinationContentId) {
+        $closure = static function (Repository $repository) use ($destinationContentId) {
             return $repository->getContentService()->loadContentInfo($destinationContentId);
         };
 
@@ -104,7 +104,7 @@ class ParameterProviderTest extends TestCase
             ->method('isEmptyValue')
             ->willReturn(false);
 
-        $closure = function (Repository $repository) use ($destinationContentId) {
+        $closure = static function (Repository $repository) use ($destinationContentId) {
             return $repository->getContentService()->loadContentInfo($destinationContentId);
         };
 

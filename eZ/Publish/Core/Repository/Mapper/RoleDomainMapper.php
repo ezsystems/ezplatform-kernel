@@ -6,21 +6,21 @@
  */
 namespace eZ\Publish\Core\Repository\Mapper;
 
+use eZ\Publish\API\Repository\Values\User\Role as APIRole;
+use eZ\Publish\API\Repository\Values\User\RoleCopyStruct as APIRoleCopyStruct;
+use eZ\Publish\API\Repository\Values\User\RoleCreateStruct as APIRoleCreateStruct;
+use eZ\Publish\API\Repository\Values\User\User;
+use eZ\Publish\API\Repository\Values\User\UserGroup;
 use eZ\Publish\Core\Repository\Permission\LimitationService;
 use eZ\Publish\Core\Repository\Values\User\Policy;
 use eZ\Publish\Core\Repository\Values\User\PolicyDraft;
 use eZ\Publish\Core\Repository\Values\User\Role;
-use eZ\Publish\API\Repository\Values\User\Role as APIRole;
 use eZ\Publish\Core\Repository\Values\User\RoleDraft;
-use eZ\Publish\API\Repository\Values\User\RoleCopyStruct as APIRoleCopyStruct;
-use eZ\Publish\API\Repository\Values\User\RoleCreateStruct as APIRoleCreateStruct;
-use eZ\Publish\Core\Repository\Values\User\UserRoleAssignment;
 use eZ\Publish\Core\Repository\Values\User\UserGroupRoleAssignment;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Values\User\UserGroup;
+use eZ\Publish\Core\Repository\Values\User\UserRoleAssignment;
 use eZ\Publish\SPI\Persistence\User\Policy as SPIPolicy;
-use eZ\Publish\SPI\Persistence\User\RoleAssignment as SPIRoleAssignment;
 use eZ\Publish\SPI\Persistence\User\Role as SPIRole;
+use eZ\Publish\SPI\Persistence\User\RoleAssignment as SPIRoleAssignment;
 use eZ\Publish\SPI\Persistence\User\RoleCopyStruct as SPIRoleCopyStruct;
 use eZ\Publish\SPI\Persistence\User\RoleCreateStruct as SPIRoleCreateStruct;
 

@@ -8,14 +8,14 @@ namespace eZ\Publish\API\Repository\Tests;
 
 use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
 use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
-use EzSystems\EzPlatformSolrSearchEngine\Tests\SetupFactory\LegacySetupFactory as LegacySolrSetupFactory;
 use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
 use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
+use eZ\Publish\Core\Repository\Values\Content\Location;
+use EzSystems\EzPlatformSolrSearchEngine\Tests\SetupFactory\LegacySetupFactory as LegacySolrSetupFactory;
 
 /**
  * Test case for Location operations in the SearchService.
@@ -26,7 +26,7 @@ use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
  */
 class SearchServiceLocationTest extends BaseTest
 {
-    const QUERY_CLASS = LocationQuery::class;
+    public const QUERY_CLASS = LocationQuery::class;
 
     use Common\FacetedSearchProvider;
 
@@ -454,7 +454,7 @@ class SearchServiceLocationTest extends BaseTest
     protected function mapResultLocationIds(SearchResult $result)
     {
         return array_map(
-            function (SearchHit $searchHit) {
+            static function (SearchHit $searchHit) {
                 return $searchHit->valueObject->id;
             },
             $result->searchHits

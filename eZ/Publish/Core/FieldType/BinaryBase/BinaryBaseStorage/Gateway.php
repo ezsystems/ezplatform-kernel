@@ -6,17 +6,17 @@
  */
 namespace eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage;
 
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\Field;
 use eZ\Publish\SPI\FieldType\StorageGateway;
+use eZ\Publish\SPI\Persistence\Content\Field;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
 abstract class Gateway extends StorageGateway
 {
     /**
      * Stores the file reference in $field for $versionNo.
      *
-     * @param VersionInfo $versionInfo
-     * @param Field $field
+     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
+     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
      */
     abstract public function storeFileReference(VersionInfo $versionInfo, Field $field);
 

@@ -8,11 +8,11 @@ namespace eZ\Bundle\EzPublishCoreBundle\Tests\Fragment;
 
 use eZ\Bundle\EzPublishCoreBundle\Fragment\FragmentListenerFactory;
 use PHPUnit\Framework\TestCase;
+use ReflectionObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\UriSigner;
 use Symfony\Component\HttpKernel\EventListener\FragmentListener;
-use ReflectionObject;
+use Symfony\Component\HttpKernel\UriSigner;
 
 class FragmentListenerFactoryTest extends TestCase
 {

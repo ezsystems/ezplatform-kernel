@@ -9,31 +9,31 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\Persistence\Cache\Tests;
 
 use eZ\Publish\Core\Persistence\Cache\Adapter\TransactionalInMemoryCacheAdapter;
-use eZ\Publish\Core\Persistence\Cache\Handler as CacheHandler;
-use eZ\Publish\Core\Persistence\Cache\SectionHandler as CacheSectionHandler;
-use eZ\Publish\Core\Persistence\Cache\LocationHandler as CacheLocationHandler;
+use eZ\Publish\Core\Persistence\Cache\BookmarkHandler as CacheBookmarkHandler;
 use eZ\Publish\Core\Persistence\Cache\ContentHandler as CacheContentHandler;
 use eZ\Publish\Core\Persistence\Cache\ContentLanguageHandler as CacheContentLanguageHandler;
 use eZ\Publish\Core\Persistence\Cache\ContentTypeHandler as CacheContentTypeHandler;
-use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
-use eZ\Publish\Core\Persistence\Cache\UserHandler as CacheUserHandler;
+use eZ\Publish\Core\Persistence\Cache\Handler as CacheHandler;
+use eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache;
+use eZ\Publish\Core\Persistence\Cache\LocationHandler as CacheLocationHandler;
+use eZ\Publish\Core\Persistence\Cache\NotificationHandler as CacheNotificationHandler;
+use eZ\Publish\Core\Persistence\Cache\ObjectStateHandler as CacheObjectStateHandler;
+use eZ\Publish\Core\Persistence\Cache\PersistenceLogger;
+use eZ\Publish\Core\Persistence\Cache\SectionHandler as CacheSectionHandler;
+use eZ\Publish\Core\Persistence\Cache\SettingHandler as CacheSettingHandler;
 use eZ\Publish\Core\Persistence\Cache\TransactionHandler as CacheTransactionHandler;
 use eZ\Publish\Core\Persistence\Cache\TrashHandler as CacheTrashHandler;
 use eZ\Publish\Core\Persistence\Cache\UrlAliasHandler as CacheUrlAliasHandler;
-use eZ\Publish\Core\Persistence\Cache\ObjectStateHandler as CacheObjectStateHandler;
 use eZ\Publish\Core\Persistence\Cache\URLHandler as CacheUrlHandler;
-use eZ\Publish\Core\Persistence\Cache\BookmarkHandler as CacheBookmarkHandler;
-use eZ\Publish\Core\Persistence\Cache\NotificationHandler as CacheNotificationHandler;
-use eZ\Publish\Core\Persistence\Cache\UserPreferenceHandler as CacheUserPreferenceHandler;
 use eZ\Publish\Core\Persistence\Cache\UrlWildcardHandler as CacheUrlWildcardHandler;
-use eZ\Publish\Core\Persistence\Cache\SettingHandler as CacheSettingHandler;
-use eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache;
-use eZ\Publish\Core\Persistence\Cache\PersistenceLogger;
+use eZ\Publish\Core\Persistence\Cache\UserHandler as CacheUserHandler;
+use eZ\Publish\Core\Persistence\Cache\UserPreferenceHandler as CacheUserPreferenceHandler;
 use eZ\Publish\SPI\Persistence\Handler;
+use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
 use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierSanitizer;
 use Ibexa\Core\Persistence\Cache\LocationPathConverter;
-use Symfony\Component\Cache\CacheItem;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Cache\CacheItem;
 
 /**
  * Abstract test case for spi cache impl.
@@ -147,7 +147,7 @@ abstract class AbstractBaseHandlerTest extends TestCase
      * @param null $value If null the cache item will be assumed to be a cache miss here.
      * @param int $defaultLifetime
      *
-     * @return CacheItem
+     * @return \Symfony\Component\Cache\CacheItem
      */
     final protected function getCacheItem($key, $value = null, $defaultLifetime = 0)
     {

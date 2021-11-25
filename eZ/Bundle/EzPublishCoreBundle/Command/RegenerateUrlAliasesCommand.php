@@ -25,9 +25,9 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
  */
 class RegenerateUrlAliasesCommand extends Command implements BackwardCompatibleCommand
 {
-    const DEFAULT_ITERATION_COUNT = 1000;
+    public const DEFAULT_ITERATION_COUNT = 1000;
 
-    const BEFORE_RUNNING_HINTS = <<<EOT
+    public const BEFORE_RUNNING_HINTS = <<<EOT
 <error>Before you continue:</error>
 - Make sure to back up your database.
 - If you are regenerating URL aliases for all Locations, take the installation offline. The database should not be modified while the script is being executed.
@@ -117,7 +117,7 @@ EOT
             $locationsCount = count($locationIds);
         } else {
             $locationsCount = $this->repository->sudo(
-                function (Repository $repository) {
+                static function (Repository $repository) {
                     return $repository->getLocationService()->getAllLocationsCount();
                 }
             );
@@ -150,7 +150,7 @@ EOT
 
         $output->writeln('<info>Cleaning up corrupted URL aliases...</info>');
         $corruptedAliasesCount = $this->repository->sudo(
-            function (Repository $repository) {
+            static function (Repository $repository) {
                 return $repository->getURLAliasService()->deleteCorruptedUrlAliases();
             }
         );
@@ -187,9 +187,9 @@ EOT
     private function processLocations(array $locations, ProgressBar $progressBar)
     {
         $contentList = $this->repository->sudo(
-            function (Repository $repository) use ($locations) {
+            static function (Repository $repository) use ($locations) {
                 $contentInfoList = array_map(
-                    function (Location $location) {
+                    static function (Location $location) {
                         return $location->contentInfo;
                     },
                     $locations
@@ -211,7 +211,7 @@ EOT
                 }
 
                 $this->repository->sudo(
-                    function (Repository $repository) use ($location) {
+                    static function (Repository $repository) use ($location) {
                         $repository->getURLAliasService()->refreshSystemUrlAliasesForLocation(
                             $location
                         );
@@ -247,7 +247,7 @@ EOT
     private function loadAllLocations(int $offset, int $iterationCount): array
     {
         return $this->repository->sudo(
-            function (Repository $repository) use ($offset, $iterationCount) {
+            static function (Repository $repository) use ($offset, $iterationCount) {
                 return $repository->getLocationService()->loadAllLocations($offset, $iterationCount);
             }
         );
@@ -267,7 +267,7 @@ EOT
         $locationIds = array_slice($locationIds, $offset, $iterationCount);
 
         return $this->repository->sudo(
-            function (Repository $repository) use ($locationIds) {
+            static function (Repository $repository) use ($locationIds) {
                 return $repository->getLocationService()->loadLocationList($locationIds);
             }
         );
@@ -283,7 +283,7 @@ EOT
     private function getFilteredLocationList(array $locationIds): array
     {
         $locations = $this->repository->sudo(
-            function (Repository $repository) use ($locationIds) {
+            static function (Repository $repository) use ($locationIds) {
                 $locationService = $repository->getLocationService();
 
                 return $locationService->loadLocationList($locationIds);
@@ -291,7 +291,7 @@ EOT
         );
 
         return array_map(
-            function (Location $location) {
+            static function (Location $location) {
                 return $location->id;
             },
             $locations

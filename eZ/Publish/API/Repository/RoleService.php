@@ -134,7 +134,7 @@ interface RoleService
      * @since 6.0
      *
      * @param \eZ\Publish\API\Repository\Values\User\RoleDraft $roleDraft
-     * @param PolicyDraft $policyDraft the policy to remove from the RoleDraft
+     * @param \eZ\Publish\API\Repository\Values\User\PolicyDraft $policyDraft the policy to remove from the RoleDraft
      *
      * @return \eZ\Publish\API\Repository\Values\User\RoleDraft
      *

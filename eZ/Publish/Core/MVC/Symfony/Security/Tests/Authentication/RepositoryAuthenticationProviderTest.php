@@ -11,14 +11,14 @@ use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\API\Repository\UserService;
 use eZ\Publish\API\Repository\Values\User\User as APIUser;
 use eZ\Publish\Core\MVC\Symfony\Security\Authentication\RepositoryAuthenticationProvider;
+use eZ\Publish\Core\MVC\Symfony\Security\User;
 use eZ\Publish\Core\Repository\User\Exception\UnsupportedPasswordHashType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\User;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class RepositoryAuthenticationProviderTest extends TestCase
 {
@@ -27,14 +27,14 @@ class RepositoryAuthenticationProviderTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface */
     private $encoderFactory;
 
-    /** @var RepositoryAuthenticationProvider */
+    /** @var \eZ\Publish\Core\MVC\Symfony\Security\Authentication\RepositoryAuthenticationProvider */
     private $authProvider;
 
     /** @var \eZ\Publish\API\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
     private $permissionResolver;
 
     /**
-     * @var UserProviderInterface
+     * @var \Symfony\Component\Security\Core\User\UserProviderInterface
      */
     private $userProvider;
 

@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as ContentLanguageHandlerInterface;
 use eZ\Publish\SPI\Persistence\Content\Language;
 use eZ\Publish\SPI\Persistence\Content\Language\CreateStruct;
+use eZ\Publish\SPI\Persistence\Content\Language\Handler as ContentLanguageHandlerInterface;
 
 /**
  * @see \eZ\Publish\SPI\Persistence\Content\Language\Handler

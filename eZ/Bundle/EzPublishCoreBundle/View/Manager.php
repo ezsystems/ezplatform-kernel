@@ -6,8 +6,8 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\View;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use eZ\Publish\Core\MVC\Symfony\View\Manager as BaseManager;
 
 class Manager extends BaseManager implements SiteAccessAware
@@ -17,7 +17,7 @@ class Manager extends BaseManager implements SiteAccessAware
      * Passed SiteAccess will be injected in all location/content/block view providers
      * to allow them to change their internal configuration based on this new SiteAccess.
      *
-     * @param SiteAccess $siteAccess
+     * @param \eZ\Publish\Core\MVC\Symfony\SiteAccess $siteAccess
      */
     public function setSiteAccess(SiteAccess $siteAccess = null)
     {

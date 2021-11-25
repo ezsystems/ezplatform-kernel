@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location;
 
-use Doctrine\DBAL\Connection;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Ancestor;
-use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
-use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
 use function array_filter;
 use function array_map;
 use function array_unique;
 use function array_values;
+use Doctrine\DBAL\Connection;
 use function explode;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Ancestor;
+use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
 use function trim;
 
 /**

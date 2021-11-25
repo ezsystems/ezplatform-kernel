@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\Limitation\Tests;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
 use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\SiteAccessLimitation;
 use eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation;
+use eZ\Publish\API\Repository\Values\User\Limitation\SiteAccessLimitation;
+use eZ\Publish\API\Repository\Values\ValueObject;
 use eZ\Publish\Core\Limitation\SiteAccessLimitationType;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 

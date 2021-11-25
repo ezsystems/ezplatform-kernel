@@ -6,12 +6,12 @@
  */
 namespace eZ\Publish\Core\FieldType\Selection;
 
-use eZ\Publish\Core\FieldType\FieldType;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
+use eZ\Publish\Core\FieldType\FieldType;
 use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
 use eZ\Publish\Core\FieldType\Value as BaseValue;
+use eZ\Publish\SPI\FieldType\Value as SPIValue;
 
 /**
  * The Selection field type.
@@ -240,7 +240,7 @@ class Type extends FieldType
 
         //@todo: find a way to include selection language
         if (isset($fieldSettings['multilingualOptions'])) {
-            $possibleOptionIndexesByLanguage = array_map(function ($languageOptionIndexes) {
+            $possibleOptionIndexesByLanguage = array_map(static function ($languageOptionIndexes) {
                 return array_keys($languageOptionIndexes);
             }, $fieldSettings['multilingualOptions']);
 

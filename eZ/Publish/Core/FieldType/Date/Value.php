@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\FieldType\Date;
 
-use eZ\Publish\Core\FieldType\Value as BaseValue;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
-use Exception;
 use DateTime;
+use Exception;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
+use eZ\Publish\Core\FieldType\Value as BaseValue;
 
 /**
  * Value for Date field type.

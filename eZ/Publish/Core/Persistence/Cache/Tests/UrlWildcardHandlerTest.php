@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Persistence\Cache\Tests;
 
-use eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler as SpiUrlWildcardHandler;
 use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
+use eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler as SpiUrlWildcardHandler;
 
 class UrlWildcardHandlerTest extends AbstractCacheHandlerTest
 {

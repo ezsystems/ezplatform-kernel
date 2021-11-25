@@ -7,13 +7,15 @@
 namespace eZ\Publish\Core\Base\Container\ApiLoader;
 
 use eZ\Publish\API\Repository\LanguageResolver;
-use eZ\Publish\API\Repository\PermissionService;
 use eZ\Publish\API\Repository\PasswordHashService;
+use eZ\Publish\API\Repository\PermissionService;
+use eZ\Publish\API\Repository\Repository;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\FieldType\FieldTypeRegistry;
-use eZ\Publish\Core\Repository\Permission\LimitationService;
-use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
 use eZ\Publish\Core\Repository\Helper\RelationProcessor;
 use eZ\Publish\Core\Repository\Mapper;
+use eZ\Publish\Core\Repository\Permission\LimitationService;
+use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
 use eZ\Publish\Core\Search\Common\BackgroundIndexer;
 use eZ\Publish\SPI\Persistence\Filter\Content\Handler as ContentFilteringHandler;
@@ -22,10 +24,8 @@ use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
 use eZ\Publish\SPI\Repository\Validator\ContentValidator;
 use eZ\Publish\SPI\Search\Handler as SearchHandler;
-use eZ\Publish\API\Repository\Repository;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 
 class RepositoryFactory implements ContainerAwareInterface
 {

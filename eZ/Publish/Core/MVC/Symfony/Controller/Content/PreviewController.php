@@ -14,21 +14,21 @@ use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\Core\Helper\ContentPreviewHelper;
 use eZ\Publish\Core\Helper\PreviewLocationProvider;
+use eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
 use eZ\Publish\Core\MVC\Symfony\Routing\UrlAliasRouter;
+use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute as AuthorizationAttribute;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use eZ\Publish\Core\MVC\Symfony\View\CustomLocationControllerChecker;
 use eZ\Publish\Core\MVC\Symfony\View\ViewManagerInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute as AuthorizationAttribute;
-use eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class PreviewController
 {
-    const PREVIEW_PARAMETER_NAME = 'isPreview';
-    const CONTENT_VIEW_ROUTE = '_ez_content_view';
+    public const PREVIEW_PARAMETER_NAME = 'isPreview';
+    public const CONTENT_VIEW_ROUTE = '_ez_content_view';
 
     /** @var \eZ\Publish\API\Repository\ContentService */
     private $contentService;
@@ -62,7 +62,7 @@ class PreviewController
     }
 
     /**
-     * @throws NotImplementedException If Content is missing location as this is not supported in current version
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException If Content is missing location as this is not supported in current version
      */
     public function previewContentAction(Request $request, $contentId, $versionNo, $language, $siteAccessName = null)
     {
@@ -126,7 +126,7 @@ EOF;
      * @param \eZ\Publish\API\Repository\Values\Content\Location $location
      * @param \eZ\Publish\API\Repository\Values\Content\Content $content
      * @param \eZ\Publish\Core\MVC\Symfony\SiteAccess $previewSiteAccess
-     * @param Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $language
      *
      * @return \Symfony\Component\HttpFoundation\Request

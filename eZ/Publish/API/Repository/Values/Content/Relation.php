@@ -26,35 +26,35 @@ abstract class Relation extends ValueObject
      *
      * @var int
      */
-    const COMMON = 1;
+    public const COMMON = 1;
 
     /**
      * the relation type EMBED is set for a relation which is anchored as embedded link in an attribute value.
      *
      * @var int
      */
-    const EMBED = 2;
+    public const EMBED = 2;
 
     /**
      * the relation type LINK is set for a relation which is anchored as link in an attribute value.
      *
      * @var int
      */
-    const LINK = 4;
+    public const LINK = 4;
 
     /**
      * the relation type FIELD is set for a relation which is part of an relation attribute value.
      *
      * @var int
      */
-    const FIELD = 8;
+    public const FIELD = 8;
 
     /**
      * the relation type ASSET is set for a relation to asset in an attribute value.
      *
      * @var int
      */
-    const ASSET = 16;
+    public const ASSET = 16;
 
     /**
      * Id of the relation.

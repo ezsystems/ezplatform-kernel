@@ -47,7 +47,9 @@ class LogicalNotTest extends CriterionHandlerTest
 
         $handler = new LogicalNotHandler();
         $actual = $handler->handle(
-            $converter, $queryBuilder, new LogicalNot($foo)
+            $converter,
+            $queryBuilder,
+            new LogicalNot($foo)
         );
 
         $this->assertEquals($expected, $actual);

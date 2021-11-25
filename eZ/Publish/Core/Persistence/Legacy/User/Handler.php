@@ -7,18 +7,18 @@
 namespace eZ\Publish\Core\Persistence\Legacy\User;
 
 use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
+use eZ\Publish\Core\Base\Exceptions\NotFoundException as NotFound;
+use eZ\Publish\Core\Persistence\Legacy\Exception\RoleNotFound;
+use eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway as RoleGateway;
+use eZ\Publish\Core\Persistence\Legacy\User\Role\LimitationConverter;
 use eZ\Publish\SPI\Persistence\User;
-use eZ\Publish\SPI\Persistence\User\UserTokenUpdateStruct;
 use eZ\Publish\SPI\Persistence\User\Handler as BaseUserHandler;
+use eZ\Publish\SPI\Persistence\User\Policy;
 use eZ\Publish\SPI\Persistence\User\Role;
 use eZ\Publish\SPI\Persistence\User\RoleCopyStruct;
 use eZ\Publish\SPI\Persistence\User\RoleCreateStruct;
 use eZ\Publish\SPI\Persistence\User\RoleUpdateStruct;
-use eZ\Publish\SPI\Persistence\User\Policy;
-use eZ\Publish\Core\Persistence\Legacy\Exception\RoleNotFound;
-use eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway as RoleGateway;
-use eZ\Publish\Core\Persistence\Legacy\User\Role\LimitationConverter;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException as NotFound;
+use eZ\Publish\SPI\Persistence\User\UserTokenUpdateStruct;
 use LogicException;
 
 /**

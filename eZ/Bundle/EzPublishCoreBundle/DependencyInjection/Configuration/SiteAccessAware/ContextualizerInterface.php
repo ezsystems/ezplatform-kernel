@@ -14,7 +14,7 @@ interface ContextualizerInterface
      * With this option, mapConfigArray() will call array_unique() at the end of the merge process.
      * This will only work with normal arrays (i.e. not hashes) containing scalar values.
      */
-    const UNIQUE = 1;
+    public const UNIQUE = 1;
 
     /**
      * With this option, mapConfigArray() will merge the hashes from the second level.
@@ -22,7 +22,7 @@ interface ContextualizerInterface
      * array( 'full' => array( 1, 2, 3 ) ) and array( 'full' => array( 4, 5 ) )
      * will result in array( 'full' => array( 1, 2, 3, 4, 5 ) ).
      */
-    const MERGE_FROM_SECOND_LEVEL = 2;
+    public const MERGE_FROM_SECOND_LEVEL = 2;
 
     /**
      * Defines a contextual parameter in the container for given scope in current namespace.

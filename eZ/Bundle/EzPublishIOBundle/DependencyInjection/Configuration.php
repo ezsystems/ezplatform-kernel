@@ -13,10 +13,10 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
-    /** @var ConfigurationFactory[]|ArrayObject */
+    /** @var ConfigurationFactory[]|\ArrayObject */
     private $metadataHandlerFactories = [];
 
-    /** @var ConfigurationFactory[]|ArrayObject */
+    /** @var ConfigurationFactory[]|\ArrayObject */
     private $binarydataHandlerFactories = [];
 
     public function setMetadataHandlerFactories(ArrayObject $factories)
@@ -54,10 +54,10 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param NodeDefinition $node
+     * @param \Symfony\Component\Config\Definition\Builder\NodeDefinition $node
      * @param string $name
      * @param string $info block info line
-     * @param ConfigurationFactory[]|ArrayObject $factories
+     * @param ConfigurationFactory[]|\ArrayObject $factories
      */
     private function addHandlersSection(NodeDefinition $node, $name, $info, ArrayObject $factories)
     {

@@ -6,11 +6,11 @@
  */
 namespace eZ\Publish\Core\Helper\ContentInfoLocationLoader;
 
+use Exception;
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\Helper\ContentInfoLocationLoader;
-use eZ\Publish\API\Repository\Repository;
-use Exception;
 
 /**
  * Loads the main location of a given ContentInfo using sudo().
@@ -33,7 +33,7 @@ class SudoMainLocationLoader implements ContentInfoLocationLoader
 
         try {
             return $this->repository->sudo(
-                function (Repository $repository) use ($contentInfo) {
+                static function (Repository $repository) use ($contentInfo) {
                     return $repository->getLocationService()->loadLocation($contentInfo->mainLocationId);
                 }
             );

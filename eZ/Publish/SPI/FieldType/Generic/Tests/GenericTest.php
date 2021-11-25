@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace eZ\Publish\SPI\FieldType\Generic\Tests;
 
-use eZ\Publish\SPI\FieldType\Tests\FieldTypeTest;
-use eZ\Publish\SPI\FieldType\ValueSerializerInterface;
+use eZ\Publish\SPI\Exception\InvalidArgumentException;
 use eZ\Publish\SPI\FieldType\Generic\Tests\Stubs\Type as GenericFieldTypeStub;
 use eZ\Publish\SPI\FieldType\Generic\Tests\Stubs\Value as GenericFieldValueStub;
+use eZ\Publish\SPI\FieldType\Tests\FieldTypeTest;
 use eZ\Publish\SPI\FieldType\ValidationError;
-use eZ\Publish\SPI\Exception\InvalidArgumentException;
+use eZ\Publish\SPI\FieldType\ValueSerializerInterface;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
@@ -53,7 +53,7 @@ class GenericTest extends FieldTypeTest
      */
     public function testValidateInvalid($fieldDefinitionData, $value, $errors): void
     {
-        $constraintViolationList = new ConstraintViolationList(array_map(function (ValidationError $error) {
+        $constraintViolationList = new ConstraintViolationList(array_map(static function (ValidationError $error) {
             return new ConstraintViolation((string) $error->getTranslatableMessage());
         }, $errors));
 
@@ -159,13 +159,13 @@ class GenericTest extends FieldTypeTest
 
         $serializer
             ->method('decode')
-            ->willReturnCallback(function (string $json) {
+            ->willReturnCallback(static function (string $json) {
                 return json_decode($json, true);
             });
 
         $serializer
             ->method('normalize')
-            ->willReturnCallback(function (GenericFieldValueStub $value) {
+            ->willReturnCallback(static function (GenericFieldValueStub $value) {
                 return [
                     'value' => $value->getValue(),
                 ];

@@ -11,9 +11,9 @@ use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\Core\Helper\TranslationHelper;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistryInterface;
 use eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\FieldRenderingExtension;
 use eZ\Publish\Core\MVC\Symfony\Templating\Twig\FieldBlockRenderer;
-use eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistryInterface;
 use eZ\Publish\Core\MVC\Symfony\Templating\Twig\ResourceProviderInterface;
 use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
@@ -76,7 +76,7 @@ class FieldRenderingExtensionIntegrationTest extends FileSystemTwigIntegrationTe
      * @param array $fieldsData
      * @param array $namesData
      *
-     * @return Content
+     * @return \eZ\Publish\Core\Repository\Values\Content\Content
      */
     protected function getContent($contentTypeIdentifier, array $fieldsData, array $namesData = [])
     {
@@ -107,7 +107,8 @@ class FieldRenderingExtensionIntegrationTest extends FileSystemTwigIntegrationTe
                     'mainLanguageCode' => 'fre-FR',
                     'fieldDefinitions' => new FieldDefinitionCollection(
                         $this->fieldDefinitions[$contentTypeIdentifier
-                    ]),
+                    ]
+                    ),
                 ]),
                 'versionInfo' => new VersionInfo(
                     [

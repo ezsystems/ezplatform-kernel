@@ -9,9 +9,9 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer;
 
 use eZ\Publish\Core\MVC\Symfony\Component\Serializer\RegexNormalizer;
+use eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer\Stubs\RegexMatcher as RegexMatcherStub;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Regex as RegexMatcher;
-use eZ\Publish\Core\MVC\Symfony\Component\Tests\Serializer\Stubs\RegexMatcher as RegexMatcherStub;
 use PHPUnit\Framework\TestCase;
 
 final class RegexNormalizerTest extends TestCase

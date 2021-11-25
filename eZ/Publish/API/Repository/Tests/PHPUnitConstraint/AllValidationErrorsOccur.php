@@ -67,7 +67,7 @@ class AllValidationErrorsOccur extends AbstractPHPUnitConstraint
                 $allFieldErrors = array_merge(
                     $allFieldErrors,
                     array_map(
-                        function (Translatable $translatableFieldError) {
+                        static function (Translatable $translatableFieldError) {
                             return $translatableFieldError->getTranslatableMessage()->message;
                         },
                         $fieldErrors

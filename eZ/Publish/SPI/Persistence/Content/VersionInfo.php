@@ -18,14 +18,14 @@ class VersionInfo extends ValueObject
      *
      * @var int
      */
-    const STATUS_DRAFT = 0;
-    const STATUS_PUBLISHED = 1;
-    const STATUS_PENDING = 2;
-    const STATUS_ARCHIVED = 3;
-    const STATUS_REJECTED = 4;
-    const STATUS_INTERNAL_DRAFT = 5;
-    const STATUS_REPEAT = 6;
-    const STATUS_QUEUED = 7;
+    public const STATUS_DRAFT = 0;
+    public const STATUS_PUBLISHED = 1;
+    public const STATUS_PENDING = 2;
+    public const STATUS_ARCHIVED = 3;
+    public const STATUS_REJECTED = 4;
+    public const STATUS_INTERNAL_DRAFT = 5;
+    public const STATUS_REPEAT = 6;
+    public const STATUS_QUEUED = 7;
 
     /**
      * Version ID.

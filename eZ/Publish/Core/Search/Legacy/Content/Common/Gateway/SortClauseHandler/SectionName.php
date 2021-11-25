@@ -7,8 +7,8 @@
 namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
 
 /**
  * Content locator gateway implementation using the DoctrineDatabase.

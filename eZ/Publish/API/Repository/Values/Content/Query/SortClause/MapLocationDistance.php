@@ -9,9 +9,9 @@ declare(strict_types=1);
 namespace eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 
 use eZ\Publish\API\Repository\Values\Content\Query;
+use eZ\Publish\API\Repository\Values\Content\Query\CustomFieldInterface;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target\MapLocationTarget;
-use eZ\Publish\API\Repository\Values\Content\Query\CustomFieldInterface;
 
 /**
  * Sets sort direction on the MapLocation distance for a content query.

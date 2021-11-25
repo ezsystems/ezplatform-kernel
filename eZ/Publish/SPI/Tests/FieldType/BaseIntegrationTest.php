@@ -8,17 +8,17 @@ namespace eZ\Publish\SPI\Tests\FieldType;
 
 use eZ\Publish\API\Repository\Tests\Container\Compiler\SetAllServicesPublicPass;
 use eZ\Publish\Core\Persistence;
-use eZ\Publish\Core\Persistence\TransformationProcessor\DefinitionBased;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\Core\Persistence\Legacy;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
+use eZ\Publish\Core\Persistence\TransformationProcessor\DefinitionBased;
 use eZ\Publish\SPI\Persistence\Content;
 use eZ\Publish\SPI\Persistence\Content\Field;
 use eZ\Publish\SPI\Persistence\Content\Type;
 use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
 use eZ\Publish\SPI\Tests\Persistence\FixtureImporter;
 use eZ\Publish\SPI\Tests\Persistence\YamlFixture;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
@@ -185,7 +185,7 @@ abstract class BaseIntegrationTest extends TestCase
      * user).
      *
      * @param Legacy\Handler $handler
-     * @param Content $content
+     * @param \eZ\Publish\SPI\Persistence\Content $content
      */
     public function postCreationHook(Legacy\Handler $handler, Content $content)
     {
@@ -195,7 +195,7 @@ abstract class BaseIntegrationTest extends TestCase
     /**
      * Can be overwritten to assert that additional data has been deleted.
      *
-     * @param Content $content
+     * @param \eZ\Publish\SPI\Persistence\Content $content
      */
     public function assertDeletedFieldDataCorrect(Content $content)
     {
@@ -352,11 +352,11 @@ abstract class BaseIntegrationTest extends TestCase
      * Creates content of the given $contentType with $fieldValue in
      * $languageCode.
      *
-     * @param Type $contentType
+     * @param \eZ\Publish\SPI\Persistence\Content\Type $contentType
      * @param mixed $fieldValue
      * @param string $languageCode
      *
-     * @return Content
+     * @return \eZ\Publish\SPI\Persistence\Content
      */
     protected function createContent(Type $contentType, $fieldValue, $languageCode = 'eng-GB')
     {
@@ -474,9 +474,9 @@ abstract class BaseIntegrationTest extends TestCase
      *
      * @param mixed $contentId
      * @param mixed $contentVersion
-     * @param Field $field
+     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
      *
-     * @return Content
+     * @return \eZ\Publish\SPI\Persistence\Content
      */
     protected function updateContent($contentId, $contentVersion, Field $field)
     {
@@ -543,7 +543,7 @@ abstract class BaseIntegrationTest extends TestCase
     /**
      * Deletes the given $content.
      *
-     * @param Content $content
+     * @param \eZ\Publish\SPI\Persistence\Content $content
      */
     protected function deleteContent(Content $content)
     {

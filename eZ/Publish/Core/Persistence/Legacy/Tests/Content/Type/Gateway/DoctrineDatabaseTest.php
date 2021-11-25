@@ -6,15 +6,15 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Type\Gateway;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 use eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway\DoctrineDatabase;
 // For SORT_ORDER_* constants
+use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
 use eZ\Publish\SPI\Persistence\Content\Location;
 use eZ\Publish\SPI\Persistence\Content\Type;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
 use eZ\Publish\SPI\Persistence\Content\Type\Group;
 use eZ\Publish\SPI\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 
 /**
  * Test case for eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway\DoctrineDatabase.
@@ -73,7 +73,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a Group fixture.
      *
-     * @return Group
+     * @return \eZ\Publish\SPI\Persistence\Content\Type\Group
      */
     protected function getGroupFixture()
     {
@@ -518,7 +518,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
         $this->assertQueryResult(
             array_map(
-                function ($value) {
+                static function ($value) {
                     return [$value];
                 },
                 $expectation
@@ -533,7 +533,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a Type fixture.
      *
-     * @return Type
+     * @return \eZ\Publish\SPI\Persistence\Content\Type
      */
     protected function getTypeFixture()
     {
@@ -649,7 +649,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a FieldDefinition fixture.
      *
-     * @return FieldDefinition
+     * @return \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition
      */
     protected function getFieldDefinitionFixture()
     {
@@ -682,7 +682,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a StorageFieldDefinition fixture.
      *
-     * @return StorageFieldDefinition
+     * @return \eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition
      */
     protected function getStorageFieldDefinitionFixture()
     {

@@ -7,14 +7,14 @@
 namespace eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 
 class EmailAddressConverter implements Converter
 {
-    const VALIDATOR_IDENTIFIER = 'EmailAddressValidator';
+    public const VALIDATOR_IDENTIFIER = 'EmailAddressValidator';
 
     /**
      * Factory for current class.

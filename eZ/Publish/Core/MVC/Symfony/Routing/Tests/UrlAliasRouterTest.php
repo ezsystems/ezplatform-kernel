@@ -47,7 +47,7 @@ class UrlAliasRouterTest extends TestCase
 
     protected $requestContext;
 
-    /** @var UrlAliasRouter */
+    /** @var \eZ\Publish\Core\MVC\Symfony\Routing\UrlAliasRouter */
     protected $router;
 
     protected function setUp(): void
@@ -86,10 +86,10 @@ class UrlAliasRouterTest extends TestCase
      * @param \eZ\Publish\API\Repository\LocationService $locationService
      * @param \eZ\Publish\API\Repository\URLAliasService $urlAliasService
      * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param UrlAliasGenerator $urlAliasGenerator
-     * @param RequestContext $requestContext
+     * @param \eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator $urlAliasGenerator
+     * @param \Symfony\Component\Routing\RequestContext $requestContext
      *
-     * @return UrlAliasRouter
+     * @return \eZ\Publish\Core\MVC\Symfony\Routing\UrlAliasRouter
      */
     protected function getRouter(LocationService $locationService, URLAliasService $urlAliasService, ContentService $contentService, UrlAliasGenerator $urlAliasGenerator, RequestContext $requestContext)
     {
@@ -141,7 +141,7 @@ class UrlAliasRouterTest extends TestCase
     /**
      * @param $pathInfo
      *
-     * @return Request
+     * @return \Symfony\Component\HttpFoundation\Request
      */
     protected function getRequestByPathInfo($pathInfo)
     {

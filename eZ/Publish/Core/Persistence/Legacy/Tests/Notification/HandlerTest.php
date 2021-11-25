@@ -10,8 +10,8 @@ namespace eZ\Publish\Core\Persistence\Legacy\Tests\Notification;
 
 use eZ\Publish\API\Repository\Values\Notification\Notification as APINotification;
 use eZ\Publish\Core\Persistence\Legacy\Notification\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\Notification\Mapper;
 use eZ\Publish\Core\Persistence\Legacy\Notification\Handler;
+use eZ\Publish\Core\Persistence\Legacy\Notification\Mapper;
 use eZ\Publish\SPI\Persistence\Notification\CreateStruct;
 use eZ\Publish\SPI\Persistence\Notification\Notification;
 use eZ\Publish\SPI\Persistence\Notification\UpdateStruct;
@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 
 class HandlerTest extends TestCase
 {
-    const NOTIFICATION_ID = 1;
+    public const NOTIFICATION_ID = 1;
 
     /** @var \eZ\Publish\Core\Persistence\Legacy\Notification\Gateway|\PHPUnit\Framework\MockObject\MockObject */
     private $gateway;

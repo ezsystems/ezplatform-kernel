@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\API\Repository\Tests;
 
+use Exception;
 use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use Exception;
 use eZ\Publish\API\Repository\Values\Content\Language;
 use eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct;
 

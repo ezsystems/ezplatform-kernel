@@ -81,7 +81,7 @@ class LocationLimitationIntegrationTest extends BaseLimitationIntegrationTest
         $this->loginAsEditorUserWithLimitations('content', 'read', $limitations);
 
         $trashItem = $repository->sudo(
-            function (Repository $repository) use ($location) {
+            static function (Repository $repository) use ($location) {
                 return $repository->getTrashService()->trash($location);
             }
         );

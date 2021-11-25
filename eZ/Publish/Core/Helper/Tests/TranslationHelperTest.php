@@ -9,12 +9,11 @@ namespace eZ\Publish\Core\Helper\Tests;
 use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use eZ\Publish\Core\Helper\TranslationHelper;
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\Core\Helper\TranslationHelper;
 use Psr\Log\LoggerInterface;
 
 class TranslationHelperTest extends TestCase
@@ -33,7 +32,7 @@ class TranslationHelperTest extends TestCase
 
     private $siteAccessByLanguages;
 
-    /** @var Field[] */
+    /** @var \eZ\Publish\API\Repository\Values\Content\Field[] */
     private $translatedFields;
 
     /** @var string[] */
@@ -72,7 +71,7 @@ class TranslationHelperTest extends TestCase
     }
 
     /**
-     * @return Content
+     * @return \eZ\Publish\Core\Repository\Values\Content\Content
      */
     private function generateContent()
     {
@@ -85,7 +84,7 @@ class TranslationHelperTest extends TestCase
     }
 
     /**
-     * @return APIVersionInfo
+     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo
      */
     private function generateVersionInfo()
     {

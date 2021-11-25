@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace eZ\Publish\SPI\Repository\Tests\Decorator;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
 use eZ\Publish\API\Repository\UserPreferenceService;
 use eZ\Publish\SPI\Repository\Decorator\UserPreferenceServiceDecorator;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 class UserPreferenceServiceDecoratorTest extends TestCase
 {

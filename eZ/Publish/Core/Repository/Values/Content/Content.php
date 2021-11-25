@@ -34,13 +34,13 @@ class Content extends APIContent
     /** @var mixed[][] An array of array of field values like[$fieldDefIdentifier][$languageCode] */
     protected $fields;
 
-    /** @var APIVersionInfo */
+    /** @var \eZ\Publish\API\Repository\Values\Content\VersionInfo */
     protected $versionInfo;
 
     /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType */
     protected $contentType;
 
-    /** @var Field[] An array of {@link Field} */
+    /** @var \eZ\Publish\API\Repository\Values\Content\Field[] An array of {@link Field} */
     private $internalFields = [];
 
     /**

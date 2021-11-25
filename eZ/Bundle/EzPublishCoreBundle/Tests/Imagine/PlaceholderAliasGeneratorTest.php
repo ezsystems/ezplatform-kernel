@@ -14,8 +14,8 @@ use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
 use eZ\Publish\Core\FieldType\Image\Value as ImageValue;
 use eZ\Publish\Core\FieldType\Null\Value as NullValue;
-use eZ\Publish\Core\FieldType\Value as FieldTypeValue;
 use eZ\Publish\Core\FieldType\Value;
+use eZ\Publish\Core\FieldType\Value as FieldTypeValue;
 use eZ\Publish\Core\IO\IOServiceInterface;
 use eZ\Publish\Core\IO\Values\BinaryFile;
 use eZ\Publish\Core\IO\Values\BinaryFileCreateStruct;
@@ -102,7 +102,10 @@ class PlaceholderAliasGeneratorTest extends TestCase
             ->willReturn($expectedVariation);
 
         $actualVariation = $this->aliasGenerator->getVariation(
-            $field, $versionInfo, $variationName, $parameters
+            $field,
+            $versionInfo,
+            $variationName,
+            $parameters
         );
 
         $this->assertEquals($expectedVariation, $actualVariation);
@@ -132,7 +135,10 @@ class PlaceholderAliasGeneratorTest extends TestCase
         );
 
         $actualVariation = $this->aliasGenerator->getVariation(
-            $field, $versionInfo, $variationName, $parameters
+            $field,
+            $versionInfo,
+            $variationName,
+            $parameters
         );
 
         $this->assertEquals($expectedVariation, $actualVariation);
@@ -182,7 +188,10 @@ class PlaceholderAliasGeneratorTest extends TestCase
             ->willReturn($expectedVariation);
 
         $actualVariation = $this->aliasGenerator->getVariation(
-            $field, $versionInfo, $variationName, $parameters
+            $field,
+            $versionInfo,
+            $variationName,
+            $parameters
         );
 
         $this->assertEquals($field->value->id, $binaryCreateStruct->id);
@@ -250,7 +259,10 @@ class PlaceholderAliasGeneratorTest extends TestCase
             ->willReturn($expectedVariation);
 
         $actualVariation = $this->aliasGenerator->getVariation(
-            $field, $versionInfo, $variationName, $parameters
+            $field,
+            $versionInfo,
+            $variationName,
+            $parameters
         );
 
         $this->assertEquals($field->value->id, $binaryCreateStruct->id);

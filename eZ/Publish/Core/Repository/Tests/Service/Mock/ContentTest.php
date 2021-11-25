@@ -6,54 +6,54 @@
  */
 namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
 
-use eZ\Publish\API\Repository\Exceptions\BadStateException;
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
+use Exception;
 use eZ\Publish\API\Repository\ContentTypeService as APIContentTypeService;
-use eZ\Publish\API\Repository\LocationService as APILocationService;
+use eZ\Publish\API\Repository\Exceptions\BadStateException;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo as APIContentInfo;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType as APIContentType;
-use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
+use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
+use eZ\Publish\API\Repository\LocationService as APILocationService;
+use eZ\Publish\API\Repository\Repository;
+use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
 use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct as APIContentCreateStruct;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo as APIContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Field;
+use eZ\Publish\API\Repository\Values\Content\Language;
+use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
+use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
+use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use eZ\Publish\API\Repository\Values\ContentType\ContentType as APIContentType;
+use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
 use eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException;
 use eZ\Publish\Core\Base\Exceptions\ContentValidationException;
-use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
+use eZ\Publish\Core\Base\Exceptions\NotFoundException;
+use eZ\Publish\Core\FieldType\Value;
 use eZ\Publish\Core\Repository\ContentService;
-use eZ\Publish\Core\Repository\Values\Content\Location;
+use eZ\Publish\Core\Repository\Helper\NameSchemaService;
+use eZ\Publish\Core\Repository\Helper\RelationProcessor;
+use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
 use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\ContentCreateStruct;
 use eZ\Publish\Core\Repository\Values\Content\ContentUpdateStruct;
+use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Repository\Helper\RelationProcessor;
-use eZ\Publish\Core\Repository\Helper\NameSchemaService;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\FieldType\Value;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
 use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
 use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinitionCollection;
+use eZ\Publish\Core\Repository\Values\User\UserReference;
 use eZ\Publish\SPI\FieldType\FieldType;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
 use eZ\Publish\SPI\FieldType\FieldType as SPIFieldType;
+use eZ\Publish\SPI\FieldType\Value as SPIValue;
 use eZ\Publish\SPI\Persistence\Content as SPIContent;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct as SPIContentUpdateStruct;
+use eZ\Publish\SPI\Persistence\Content\ContentInfo as SPIContentInfo;
 use eZ\Publish\SPI\Persistence\Content\CreateStruct as SPIContentCreateStruct;
 use eZ\Publish\SPI\Persistence\Content\Field as SPIField;
 use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\Group as SPIObjectStateGroup;
-use eZ\Publish\SPI\Persistence\Content\ObjectState as SPIObjectState;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo as SPIVersionInfo;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo as SPIContentInfo;
 use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct as SPIMetadataUpdateStruct;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Repository\Values\User\UserReference;
-use Exception;
+use eZ\Publish\SPI\Persistence\Content\ObjectState as SPIObjectState;
+use eZ\Publish\SPI\Persistence\Content\ObjectState\Group as SPIObjectStateGroup;
+use eZ\Publish\SPI\Persistence\Content\UpdateStruct as SPIContentUpdateStruct;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo as SPIVersionInfo;
 
 /**
  * Mock test case for Content service.
@@ -720,7 +720,7 @@ class ContentTest extends BaseServiceMockTest
         $contentServiceMock
             ->method(
                 'internalLoadContentById'
-        )->with(
+            )->with(
             $this->equalTo(42),
             $this->equalTo(['cro-HR']),
             $this->equalTo(7),
@@ -1355,7 +1355,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($this->isType('string'))
             ->will(
                 $this->returnCallback(
-                    function () {
+                    static function () {
                         return new Language(['id' => 4242]);
                     }
                 )
@@ -1382,7 +1382,7 @@ class ContentTest extends BaseServiceMockTest
                 $this->equalTo($locationCreateStructs)
             )->will(
                 $this->returnCallback(
-                    function () use ($that, $contentCreateStruct) {
+                    static function () use ($that, $contentCreateStruct) {
                         $that->assertEquals($contentCreateStruct, func_get_arg(2));
 
                         return true;
@@ -1395,7 +1395,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($this->isInstanceOf(APIContentCreateStruct::class))
             ->will(
                 $this->returnCallback(
-                    function ($object) use ($that, $contentCreateStruct) {
+                    static function ($object) use ($that, $contentCreateStruct) {
                         $that->assertEquals($contentCreateStruct, $object);
 
                         return 'hash';
@@ -1407,7 +1407,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('acceptValue')
             ->will(
                 $this->returnCallback(
-                    function ($valueString) {
+                    static function ($valueString) {
                         return new ValueStub($valueString);
                     }
                 )
@@ -1415,7 +1415,7 @@ class ContentTest extends BaseServiceMockTest
 
         $fieldTypeMock
             ->method('toHash')
-            ->willReturnCallback(function (SPIValue $value) {
+            ->willReturnCallback(static function (SPIValue $value) {
                 return ['value' => $value->value];
             });
 
@@ -1423,7 +1423,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('toPersistenceValue')
             ->will(
                 $this->returnCallback(
-                    function (ValueStub $value) {
+                    static function (ValueStub $value) {
                         return (string)$value;
                     }
                 )
@@ -1434,7 +1434,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('isEmptyValue')
             ->will(
                 $this->returnCallback(
-                    function (ValueStub $value) use ($emptyValue) {
+                    static function (ValueStub $value) use ($emptyValue) {
                         return (string)$emptyValue === (string)$value;
                     }
                 )
@@ -1975,7 +1975,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('acceptValue')
             ->will(
                 $this->returnCallback(
-                    function ($valueString) {
+                    static function ($valueString) {
                         return new ValueStub($valueString);
                     }
                 )
@@ -1983,7 +1983,7 @@ class ContentTest extends BaseServiceMockTest
 
         $fieldTypeMock
             ->method('toHash')
-            ->willReturnCallback(function (SPIValue $value) {
+            ->willReturnCallback(static function (SPIValue $value) {
                 return ['value' => $value->value];
             });
 
@@ -2022,7 +2022,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($this->isType('string'))
             ->will(
                 $this->returnCallback(
-                    function ($languageCode) {
+                    static function ($languageCode) {
                         if ($languageCode === 'Klingon') {
                             throw new NotFoundException('Language', 'Klingon');
                         }
@@ -2051,7 +2051,7 @@ class ContentTest extends BaseServiceMockTest
                 $this->equalTo([])
             )->will(
                 $this->returnCallback(
-                    function () use ($that, $contentCreateStruct) {
+                    static function () use ($that, $contentCreateStruct) {
                         $that->assertEquals($contentCreateStruct, func_get_arg(2));
 
                         return true;
@@ -2064,7 +2064,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($this->isInstanceOf(APIContentCreateStruct::class))
             ->will(
                 $this->returnCallback(
-                    function ($object) use ($that, $contentCreateStruct) {
+                    static function ($object) use ($that, $contentCreateStruct) {
                         $that->assertEquals($contentCreateStruct, $object);
 
                         return 'hash';
@@ -2090,7 +2090,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('acceptValue')
             ->will(
                 $this->returnCallback(
-                    function ($valueString) {
+                    static function ($valueString) {
                         return new ValueStub($valueString);
                     }
                 )
@@ -2098,7 +2098,7 @@ class ContentTest extends BaseServiceMockTest
 
         $fieldTypeMock
             ->method('toHash')
-            ->willReturnCallback(function (SPIValue $value) {
+            ->willReturnCallback(static function (SPIValue $value) {
                 return ['value' => $value->value];
             });
 
@@ -2286,7 +2286,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($this->isType('string'))
             ->will(
                 $this->returnCallback(
-                    function () {
+                    static function () {
                         return new Language(['id' => 4242]);
                     }
                 )
@@ -2311,7 +2311,7 @@ class ContentTest extends BaseServiceMockTest
                 $this->equalTo([])
             )->will(
                 $this->returnCallback(
-                    function () use ($that, $contentCreateStruct) {
+                    static function () use ($that, $contentCreateStruct) {
                         $that->assertEquals($contentCreateStruct, func_get_arg(2));
 
                         return true;
@@ -2324,7 +2324,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($this->isInstanceOf(APIContentCreateStruct::class))
             ->will(
                 $this->returnCallback(
-                    function ($object) use ($that, $contentCreateStruct) {
+                    static function ($object) use ($that, $contentCreateStruct) {
                         $that->assertEquals($contentCreateStruct, $object);
 
                         return 'hash';
@@ -2336,7 +2336,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('acceptValue')
             ->will(
                 $this->returnCallback(
-                    function ($valueString) {
+                    static function ($valueString) {
                         return new ValueStub($valueString);
                     }
                 )
@@ -2344,7 +2344,7 @@ class ContentTest extends BaseServiceMockTest
 
         $fieldTypeMock
             ->method('toHash')
-            ->willReturnCallback(function (SPIValue $value) {
+            ->willReturnCallback(static function (SPIValue $value) {
                 return ['value' => $value->value];
             });
 
@@ -2353,7 +2353,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('isEmptyValue')
             ->will(
                 $this->returnCallback(
-                    function (ValueStub $value) use ($emptyValue) {
+                    static function (ValueStub $value) use ($emptyValue) {
                         return (string)$emptyValue === (string)$value;
                     }
                 )
@@ -2486,7 +2486,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($this->isType('string'))
             ->will(
                 $this->returnCallback(
-                    function () {
+                    static function () {
                         return new Language(['id' => 4242]);
                     }
                 )
@@ -2511,7 +2511,7 @@ class ContentTest extends BaseServiceMockTest
                 $this->equalTo([])
             )->will(
                 $this->returnCallback(
-                    function () use ($that, $contentCreateStruct) {
+                    static function () use ($that, $contentCreateStruct) {
                         $that->assertEquals($contentCreateStruct, func_get_arg(2));
 
                         return true;
@@ -2524,7 +2524,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($this->isInstanceOf(APIContentCreateStruct::class))
             ->will(
                 $this->returnCallback(
-                    function ($object) use ($that, $contentCreateStruct) {
+                    static function ($object) use ($that, $contentCreateStruct) {
                         $that->assertEquals($contentCreateStruct, $object);
 
                         return 'hash';
@@ -2560,7 +2560,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('acceptValue')
             ->will(
                 $this->returnCallback(
-                    function ($value) {
+                    static function ($value) {
                         return $value instanceof SPIValue
                             ? $value
                             : new ValueStub($value);
@@ -2572,7 +2572,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('isEmptyValue')
             ->will(
                 $this->returnCallback(
-                    function (ValueStub $value) use ($emptyValue) {
+                    static function (ValueStub $value) use ($emptyValue) {
                         return (string)$emptyValue === (string)$value;
                     }
                 )
@@ -2580,7 +2580,7 @@ class ContentTest extends BaseServiceMockTest
 
         $fieldTypeMock
             ->method('toHash')
-            ->willReturnCallback(function (SPIValue $value) {
+            ->willReturnCallback(static function (SPIValue $value) {
                 return ['value' => $value->value];
             });
 
@@ -2845,7 +2845,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($this->isType('string'))
             ->will(
                 $this->returnCallback(
-                    function () {
+                    static function () {
                         return new Language(['id' => 4242]);
                     }
                 )
@@ -2856,7 +2856,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('acceptValue')
             ->will(
                 $this->returnCallback(
-                    function ($valueString) {
+                    static function ($valueString) {
                         return new ValueStub($valueString);
                     }
                 )
@@ -2864,7 +2864,7 @@ class ContentTest extends BaseServiceMockTest
 
         $fieldTypeMock
             ->method('toHash')
-            ->willReturnCallback(function (SPIValue $value) {
+            ->willReturnCallback(static function (SPIValue $value) {
                 return ['value' => $value->value];
             });
 
@@ -2891,7 +2891,7 @@ class ContentTest extends BaseServiceMockTest
                 $this->equalTo($locationCreateStructs)
             )->will(
                 $this->returnCallback(
-                    function () use ($that, $contentCreateStruct) {
+                    static function () use ($that, $contentCreateStruct) {
                         $that->assertEquals($contentCreateStruct, func_get_arg(2));
 
                         return true;
@@ -2904,7 +2904,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($this->isInstanceOf(APIContentCreateStruct::class))
             ->will(
                 $this->returnCallback(
-                    function ($object) use ($that, $contentCreateStruct) {
+                    static function ($object) use ($that, $contentCreateStruct) {
                         $that->assertEquals($contentCreateStruct, $object);
 
                         return 'hash';
@@ -2937,7 +2937,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('acceptValue')
             ->will(
                 $this->returnCallback(
-                    function ($valueString) {
+                    static function ($valueString) {
                         return new ValueStub($valueString);
                     }
                 )
@@ -3390,7 +3390,7 @@ class ContentTest extends BaseServiceMockTest
         $nameSchemaServiceMock = $this->getNameSchemaServiceMock();
         $fieldTypeMock = $this->createMock(SPIFieldType::class);
         $existingLanguageCodes = array_map(
-            function (Field $field) {
+            static function (Field $field) {
                 return $field->languageCode;
             },
             $existingFields
@@ -3432,7 +3432,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($this->isType('string'))
             ->will(
                 $this->returnCallback(
-                    function () {
+                    static function () {
                         return new Language(['id' => 4242]);
                     }
                 )
@@ -3467,7 +3467,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('acceptValue')
             ->will(
                 $this->returnCallback(
-                    function ($value) {
+                    static function ($value) {
                         return $value instanceof SPIValue
                             ? $value
                             : new ValueStub($value);
@@ -3477,7 +3477,7 @@ class ContentTest extends BaseServiceMockTest
 
         $fieldTypeMock
             ->method('toHash')
-            ->willReturnCallback(function (SPIValue $value) {
+            ->willReturnCallback(static function (SPIValue $value) {
                 return ['value' => $value->value];
             });
 
@@ -3486,7 +3486,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('toPersistenceValue')
             ->will(
                 $this->returnCallback(
-                    function (ValueStub $value) {
+                    static function (ValueStub $value) {
                         return (string)$value;
                     }
                 )
@@ -3496,7 +3496,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('isEmptyValue')
             ->will(
                 $this->returnCallback(
-                    function (SPIValue $value) use ($emptyValue) {
+                    static function (SPIValue $value) use ($emptyValue) {
                         return (string)$emptyValue === (string)$value;
                     }
                 )
@@ -4945,7 +4945,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($this->isType('string'))
             ->will(
                 $this->returnCallback(
-                    function ($languageCode) {
+                    static function ($languageCode) {
                         if ($languageCode === 'Klingon') {
                             throw new NotFoundException('Language', 'Klingon');
                         }
@@ -5030,7 +5030,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('acceptValue')
             ->will(
                 $this->returnCallback(
-                    function ($value) {
+                    static function ($value) {
                         return $value instanceof SPIValue
                             ? $value
                             : new ValueStub($value);
@@ -5040,7 +5040,7 @@ class ContentTest extends BaseServiceMockTest
 
         $fieldTypeMock
             ->method('toHash')
-            ->willReturnCallback(function (SPIValue $value) {
+            ->willReturnCallback(static function (SPIValue $value) {
                 return ['value' => $value->value];
             });
 
@@ -5052,7 +5052,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($this->isType('string'))
             ->will(
                 $this->returnCallback(
-                    function ($languageCode) {
+                    static function ($languageCode) {
                         if ($languageCode === 'Klingon') {
                             throw new NotFoundException('Language', 'Klingon');
                         }
@@ -5207,7 +5207,7 @@ class ContentTest extends BaseServiceMockTest
         $contentTypeServiceMock = $this->getContentTypeServiceMock();
         $fieldTypeMock = $this->createMock(SPIFieldType::class);
         $existingLanguageCodes = array_map(
-            function (Field $field) {
+            static function (Field $field) {
                 return $field->languageCode;
             },
             $existingFields
@@ -5242,7 +5242,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($this->isType('string'))
             ->will(
                 $this->returnCallback(
-                    function () {
+                    static function () {
                         return new Language(['id' => 4242]);
                     }
                 )
@@ -5277,7 +5277,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('acceptValue')
             ->will(
                 $this->returnCallback(
-                    function ($valueString) {
+                    static function ($valueString) {
                         return new ValueStub($valueString);
                     }
                 )
@@ -5288,7 +5288,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('isEmptyValue')
             ->will(
                 $this->returnCallback(
-                    function (ValueStub $value) use ($emptyValue) {
+                    static function (ValueStub $value) use ($emptyValue) {
                         return (string)$emptyValue === (string)$value;
                     }
                 )
@@ -5407,7 +5407,7 @@ class ContentTest extends BaseServiceMockTest
         $contentTypeServiceMock = $this->getContentTypeServiceMock();
         $fieldTypeMock = $this->createMock(SPIFieldType::class);
         $existingLanguageCodes = array_map(
-            function (Field $field) {
+            static function (Field $field) {
                 return $field->languageCode;
             },
             $existingFields
@@ -5447,7 +5447,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($this->isType('string'))
             ->will(
                 $this->returnCallback(
-                    function () {
+                    static function () {
                         return new Language(['id' => 4242]);
                     }
                 )
@@ -5488,7 +5488,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('acceptValue')
             ->will(
                 $this->returnCallback(
-                    function ($value) {
+                    static function ($value) {
                         return $value instanceof SPIValue
                             ? $value
                             : new ValueStub($value);
@@ -5500,7 +5500,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('isEmptyValue')
             ->will(
                 $this->returnCallback(
-                    function (ValueStub $value) use ($emptyValue) {
+                    static function (ValueStub $value) use ($emptyValue) {
                         return (string)$emptyValue === (string)$value;
                     }
                 )

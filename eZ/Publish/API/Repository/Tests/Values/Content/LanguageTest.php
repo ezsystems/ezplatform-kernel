@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\API\Repository\Tests\Values\Content;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
 use eZ\Publish\API\Repository\Tests\Values\ValueObjectTestTrait;
+use eZ\Publish\API\Repository\Values\Content\Language;
 use PHPUnit\Framework\TestCase;
 
 class LanguageTest extends TestCase

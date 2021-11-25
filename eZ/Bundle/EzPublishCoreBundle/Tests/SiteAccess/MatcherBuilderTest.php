@@ -6,11 +6,11 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\SiteAccess;
 
+use eZ\Bundle\EzPublishCoreBundle\SiteAccess\Matcher as CoreMatcher;
 use eZ\Bundle\EzPublishCoreBundle\SiteAccess\MatcherBuilder;
 use eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessMatcherRegistryInterface;
 use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
-use eZ\Bundle\EzPublishCoreBundle\SiteAccess\Matcher as CoreMatcher;
 use PHPUnit\Framework\TestCase;
 
 class MatcherBuilderTest extends TestCase

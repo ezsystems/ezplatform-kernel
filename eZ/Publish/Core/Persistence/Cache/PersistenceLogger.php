@@ -13,7 +13,7 @@ namespace eZ\Publish\Core\Persistence\Cache;
  */
 class PersistenceLogger
 {
-    const NAME = 'PersistenceLogger';
+    public const NAME = 'PersistenceLogger';
 
     /** @var int[] */
     protected $stats = [

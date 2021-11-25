@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Identifier;
 
-use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued;
-use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Location;
+use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued;
 use eZ\Publish\Core\MVC\Symfony\View\ContentValueView;
 use eZ\Publish\Core\MVC\Symfony\View\View;
 

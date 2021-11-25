@@ -6,25 +6,25 @@
  */
 namespace eZ\Publish\Core\FieldType\Date;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\FieldType\FieldType;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
 use DateTime;
+use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
+use eZ\Publish\Core\FieldType\FieldType;
+use eZ\Publish\Core\FieldType\ValidationError;
+use eZ\Publish\Core\FieldType\Value as BaseValue;
+use eZ\Publish\SPI\FieldType\Value as SPIValue;
 
 class Type extends FieldType
 {
     /**
      * Default value type empty.
      */
-    const DEFAULT_EMPTY = 0;
+    public const DEFAULT_EMPTY = 0;
 
     /**
      * Default value type current date.
      */
-    const DEFAULT_CURRENT_DATE = 1;
+    public const DEFAULT_CURRENT_DATE = 1;
 
     protected $settingsSchema = [
         // One of the DEFAULT_* class constants

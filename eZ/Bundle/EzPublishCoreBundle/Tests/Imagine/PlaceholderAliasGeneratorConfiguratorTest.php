@@ -15,9 +15,9 @@ use PHPUnit\Framework\TestCase;
 
 class PlaceholderAliasGeneratorConfiguratorTest extends TestCase
 {
-    const BINARY_HANDLER_NAME = 'default';
-    const PROVIDER_TYPE = 'generic';
-    const PROVIDER_OPTIONS = [
+    public const BINARY_HANDLER_NAME = 'default';
+    public const PROVIDER_TYPE = 'generic';
+    public const PROVIDER_OPTIONS = [
         'a' => 'A',
         'b' => 'B',
         'c' => 'C',

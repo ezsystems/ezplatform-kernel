@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\API\Repository\Tests\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
 use DateTime;
+use eZ\Publish\API\Repository\Tests\BaseTest;
 
 /**
  * Test case for issue EZP-21089.

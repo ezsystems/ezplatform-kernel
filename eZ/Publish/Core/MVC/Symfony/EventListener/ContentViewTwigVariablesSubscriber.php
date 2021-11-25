@@ -9,9 +9,9 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\MVC\Symfony\EventListener;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent;
 use eZ\Publish\Core\MVC\Symfony\ExpressionLanguage\ExpressionLanguage;
 use eZ\Publish\Core\MVC\Symfony\ExpressionLanguage\TwigVariableProviderExtension;
-use eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent;
 use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 use eZ\Publish\Core\MVC\Symfony\View\VariableProviderRegistry;
 use eZ\Publish\Core\MVC\Symfony\View\View;

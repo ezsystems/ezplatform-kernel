@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\SPI\Tests\FieldType;
 
-use eZ\Publish\Core\Persistence\Legacy;
-use eZ\Publish\Core\FieldType\FieldSettings;
 use eZ\Publish\Core\FieldType;
+use eZ\Publish\Core\FieldType\FieldSettings;
+use eZ\Publish\Core\Persistence\Legacy;
 use eZ\Publish\SPI\Persistence\Content;
 
 /**

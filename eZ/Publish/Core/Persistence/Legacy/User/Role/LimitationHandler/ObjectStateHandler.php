@@ -19,7 +19,7 @@ use eZ\Publish\SPI\Persistence\User\Policy;
  */
 class ObjectStateHandler extends LimitationHandler
 {
-    const STATE_GROUP = 'StateGroup_';
+    public const STATE_GROUP = 'StateGroup_';
 
     /**
      * Translate API STATE limitation to Legacy StateGroup_<identifier> limitations.

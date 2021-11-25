@@ -6,12 +6,12 @@
  */
 namespace eZ\Publish\API\Repository\Tests;
 
+use DateTime;
 use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
 use eZ\Publish\API\Repository\Values\URL\Query\SortClause;
 use eZ\Publish\API\Repository\Values\URL\URL;
 use eZ\Publish\API\Repository\Values\URL\URLQuery;
 use eZ\Publish\API\Repository\Values\URL\URLUpdateStruct;
-use DateTime;
 use eZ\Publish\API\Repository\Values\URL\UsageSearchResult;
 
 /**

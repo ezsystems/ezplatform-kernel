@@ -6,14 +6,14 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests\Compound;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\MatcherBuilderInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Compound\LogicalAnd;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Compound;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\VersatileMatcher;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
 use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Compound;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Compound\LogicalAnd;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\MatcherBuilder;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\MatcherBuilderInterface;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\VersatileMatcher;
 use PHPUnit\Framework\TestCase;
 
 class CompoundAndTest extends TestCase

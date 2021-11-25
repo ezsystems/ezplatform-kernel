@@ -18,20 +18,20 @@ use Twig\Template;
 
 class FieldBlockRenderer implements FieldBlockRendererInterface
 {
-    const VIEW = 1;
-    const EDIT = 2;
+    public const VIEW = 1;
+    public const EDIT = 2;
 
-    const FIELD_VIEW_SUFFIX = '_field';
-    const FIELD_EDIT_SUFFIX = '_field_edit';
-    const FIELD_DEFINITION_VIEW_SUFFIX = '_settings';
-    const FIELD_DEFINITION_EDIT_SUFFIX = '_field_definition_edit';
+    public const FIELD_VIEW_SUFFIX = '_field';
+    public const FIELD_EDIT_SUFFIX = '_field_edit';
+    public const FIELD_DEFINITION_VIEW_SUFFIX = '_settings';
+    public const FIELD_DEFINITION_EDIT_SUFFIX = '_field_definition_edit';
 
-    const FIELD_RESOURCES_MAP = [
+    public const FIELD_RESOURCES_MAP = [
         self::VIEW => 'fieldViewResources',
         self::EDIT => 'fieldEditResources',
     ];
 
-    const FIELD_DEFINITION_RESOURCES_MAP = [
+    public const FIELD_DEFINITION_RESOURCES_MAP = [
         self::VIEW => 'fieldDefinitionViewResources',
         self::EDIT => 'fieldDefinitionEditResources',
     ];
@@ -93,12 +93,12 @@ class FieldBlockRenderer implements FieldBlockRendererInterface
     }
 
     /**
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      * @param string $fieldTypeIdentifier
      * @param array $params
      * @param int $type Either self::VIEW or self::EDIT
      *
-     * @throws MissingFieldBlockException If no template block can be found for $field
+     * @throws \eZ\Publish\Core\MVC\Symfony\Templating\Exception\MissingFieldBlockException If no template block can be found for $field
      *
      * @return string
      */
@@ -143,7 +143,7 @@ class FieldBlockRenderer implements FieldBlockRendererInterface
     }
 
     /**
-     * @param FieldDefinition $fieldDefinition
+     * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition $fieldDefinition
      * @param array $params
      * @param int $type Either self::VIEW or self::EDIT
      *

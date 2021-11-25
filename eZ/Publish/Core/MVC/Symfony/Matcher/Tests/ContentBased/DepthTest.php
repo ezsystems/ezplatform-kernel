@@ -7,9 +7,9 @@
 namespace eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased;
 
 use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Depth as DepthMatcher;
-use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Repository;
+use eZ\Publish\API\Repository\Values\Content\Location;
+use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Depth as DepthMatcher;
 
 class DepthTest extends BaseTest
 {

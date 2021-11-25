@@ -32,13 +32,13 @@ class ViewControllerListenerTest extends TestCase
     /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $logger;
 
-    /** @var ViewControllerListener */
+    /** @var \eZ\Bundle\EzPublishCoreBundle\EventListener\ViewControllerListener */
     private $controllerListener;
 
     /** @var \Symfony\Component\HttpKernel\Event\FilterControllerEvent|\PHPUnit\Framework\MockObject\MockObject */
     private $event;
 
-    /** @var Request */
+    /** @var \Symfony\Component\HttpFoundation\Request */
     private $request;
 
     /** @var \eZ\Publish\Core\MVC\Symfony\View\Builder\ViewBuilderRegistry|\PHPUnit\Framework\MockObject\MockObject */
@@ -97,7 +97,7 @@ class ViewControllerListenerTest extends TestCase
 
     public function testGetControllerWithClosure()
     {
-        $initialController = function () {};
+        $initialController = static function () {};
         $this->request->attributes->set('_controller', $initialController);
 
         $this->viewBuilderRegistry
@@ -143,7 +143,7 @@ class ViewControllerListenerTest extends TestCase
         $this->controllerResolver
             ->expects($this->once())
             ->method('getController')
-            ->will($this->returnValue(function () {}));
+            ->will($this->returnValue(static function () {}));
 
         $this->controllerListener->getController($this->event);
         $this->assertEquals($customController, $this->request->attributes->get('_controller'));
@@ -177,17 +177,19 @@ class ViewControllerListenerTest extends TestCase
                 [
                     $this->isInstanceOf(FilterViewBuilderParametersEvent::class),
                     $this->identicalTo(ViewEvents::FILTER_BUILDER_PARAMETERS),
-                ], [
+                ],
+                [
                     $this->isInstanceOf(PostBuildViewEvent::class),
                     $this->isNull(),
-                ])
+                ]
+            )
             ->willReturnArgument(0);
 
         $this->controllerListener->getController($this->event);
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|ControllerEvent
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpKernel\Event\ControllerEvent
      */
     protected function createEvent()
     {

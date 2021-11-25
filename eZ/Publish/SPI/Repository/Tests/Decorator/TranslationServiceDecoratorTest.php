@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace eZ\Publish\SPI\Repository\Tests\Decorator;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
 use eZ\Publish\API\Repository\TranslationService;
 use eZ\Publish\API\Repository\Values\Translation;
 use eZ\Publish\SPI\Repository\Decorator\TranslationServiceDecorator;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 class TranslationServiceDecoratorTest extends TestCase
 {

@@ -8,9 +8,9 @@ namespace eZ\Publish\Core\FieldType\Tests\Url;
 
 use eZ\Publish\Core\FieldType\Url\UrlStorage;
 use eZ\Publish\SPI\FieldType\StorageGateway;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 use eZ\Publish\SPI\Persistence\Content\Field;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 

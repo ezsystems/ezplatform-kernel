@@ -186,7 +186,9 @@ class ImageStorage extends GatewayBasedStorage
     {
         return sprintf(
             '%s-%s-%s',
-            $versionInfo->contentInfo->id, $field->id, $versionInfo->versionNo
+            $versionInfo->contentInfo->id,
+            $field->id,
+            $versionInfo->versionNo
         );
     }
 }

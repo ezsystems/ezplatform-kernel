@@ -7,8 +7,8 @@
 namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 
 /**
  * Content locator gateway implementation using the DoctrineDatabase.

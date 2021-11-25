@@ -17,7 +17,7 @@ class UrlAliasRouter extends BaseUrlAliasRouter
     protected $configResolver;
 
     /**
-     * @param ConfigResolverInterface $configResolver
+     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
      */
     public function setConfigResolver(ConfigResolverInterface $configResolver)
     {

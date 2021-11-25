@@ -13,8 +13,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class PlaceholderProviderPass implements CompilerPassInterface
 {
-    const TAG_NAME = 'ezpublish.placeholder_provider';
-    const REGISTRY_DEFINITION_ID = 'ezpublish.image_alias.imagine.placeholder_provider.registry';
+    public const TAG_NAME = 'ezpublish.placeholder_provider';
+    public const REGISTRY_DEFINITION_ID = 'ezpublish.image_alias.imagine.placeholder_provider.registry';
 
     public function process(ContainerBuilder $container)
     {

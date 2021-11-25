@@ -7,9 +7,9 @@
 namespace eZ\Publish\Core\FieldType\BinaryFile;
 
 use eZ\Publish\Core\FieldType\BinaryBase\Type as BinaryBaseType;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
 use eZ\Publish\Core\FieldType\Value as BaseValue;
+use eZ\Publish\SPI\FieldType\Value as SPIValue;
+use eZ\Publish\SPI\Persistence\Content\FieldValue;
 
 /**
  * The TextLine field type.

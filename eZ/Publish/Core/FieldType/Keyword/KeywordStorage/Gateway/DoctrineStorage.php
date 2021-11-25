@@ -15,8 +15,8 @@ use RuntimeException;
 
 class DoctrineStorage extends Gateway
 {
-    const KEYWORD_TABLE = 'ezkeyword';
-    const KEYWORD_ATTRIBUTE_LINK_TABLE = 'ezkeyword_attribute_link';
+    public const KEYWORD_TABLE = 'ezkeyword';
+    public const KEYWORD_ATTRIBUTE_LINK_TABLE = 'ezkeyword_attribute_link';
 
     /** @var \Doctrine\DBAL\Connection */
     protected $connection;

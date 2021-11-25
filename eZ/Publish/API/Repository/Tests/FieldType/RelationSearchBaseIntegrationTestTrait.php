@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\API\Repository\Tests\FieldType;
 
+use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
 use eZ\Publish\Core\Repository\Values\Content\Relation;
-use eZ\Publish\API\Repository\Values\Content\Content;
 
 /**
  * Base integration test for field types handling content relations.
@@ -80,7 +80,7 @@ trait RelationSearchBaseIntegrationTestTrait
     {
         usort(
             $relations,
-            function (Relation $a, Relation $b) {
+            static function (Relation $a, Relation $b) {
                 if ($a->type == $b->type) {
                     return $a->destinationContentInfo->id < $b->destinationContentInfo->id ? 1 : -1;
                 }
@@ -89,7 +89,7 @@ trait RelationSearchBaseIntegrationTestTrait
             }
         );
         $normalized = array_map(
-            function (Relation $relation) {
+            static function (Relation $relation) {
                 $newRelation = new Relation(
                     [
                         'id' => null,

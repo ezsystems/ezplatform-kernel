@@ -10,7 +10,6 @@ use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\User\Limitation\LanguageLimitation;
 use eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation;
-use eZ\Publish\Core\Repository\Repository;
 use eZ\Publish\Core\Repository\TrashService;
 
 /**
@@ -294,7 +293,7 @@ class TrashServiceAuthorizationTest extends BaseTrashServiceTest
             'Publishers',
             'Publisher'
         );
-        /** @var Repository $repository */
+        /** @var \eZ\Publish\Core\Repository\Repository $repository */
         $repository = $this->getRepository();
         $repository->getPermissionResolver()->setCurrentUserReference($publisherUser);
         $trashService = $repository->getTrashService();

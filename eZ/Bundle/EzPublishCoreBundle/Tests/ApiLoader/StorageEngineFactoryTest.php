@@ -6,10 +6,10 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\ApiLoader;
 
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\StorageEngineFactory;
 use eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider;
-use eZ\Publish\SPI\Persistence\Handler;
+use eZ\Bundle\EzPublishCoreBundle\ApiLoader\StorageEngineFactory;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use eZ\Publish\SPI\Persistence\Handler;
 use PHPUnit\Framework\TestCase;
 
 class StorageEngineFactoryTest extends TestCase

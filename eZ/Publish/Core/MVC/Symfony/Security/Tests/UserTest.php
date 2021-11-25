@@ -9,9 +9,9 @@ namespace eZ\Publish\Core\MVC\Symfony\Security\Tests;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\User\User as APIUser;
 use eZ\Publish\Core\MVC\Symfony\Security\ReferenceUserInterface;
+use eZ\Publish\Core\MVC\Symfony\Security\User;
 use eZ\Publish\Core\Repository\Values\User\UserReference;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\Core\MVC\Symfony\Security\User;
 
 class UserTest extends TestCase
 {

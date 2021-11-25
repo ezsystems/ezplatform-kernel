@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\FieldType\Author;
 
+use eZ\Publish\SPI\FieldType\Indexable;
 use eZ\Publish\SPI\Persistence\Content\Field;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\SPI\FieldType\Indexable;
 use eZ\Publish\SPI\Search;
 use eZ\Publish\SPI\Search\FieldType\MultipleIdentifierField;
 

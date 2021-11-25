@@ -13,11 +13,11 @@ use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 class ContentSearchAdapterTest extends ContentSearchHitAdapterTest
 {
     /**
-     * @param Query $query
-     * @param SearchService $searchService
+     * @param \eZ\Publish\API\Repository\Values\Content\Query $query
+     * @param \eZ\Publish\API\Repository\SearchService $searchService
      * @param array $languageFilter
      *
-     * @return ContentSearchAdapter
+     * @return \eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchAdapter
      */
     protected function getAdapter(Query $query, SearchService $searchService, array $languageFilter = [])
     {

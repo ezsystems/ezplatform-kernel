@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\Repository\SiteAccessAware\Tests;
 
+use Closure;
 use eZ\Publish\API\Repository\LanguageResolver;
 use PHPUnit\Framework\TestCase;
-use Closure;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -28,7 +28,7 @@ abstract class AbstractServiceTest extends TestCase
      * language argument instead of either askingproviders to use 0, or a valid language array which would then not be
      * used.
      */
-    const LANG_ARG = 0;
+    public const LANG_ARG = 0;
 
     /** @var \object|\PHPUnit\Framework\MockObject\MockObject */
     protected $innerApiServiceMock;

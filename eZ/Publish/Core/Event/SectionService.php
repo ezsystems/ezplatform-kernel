@@ -8,12 +8,6 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Event;
 
-use eZ\Publish\API\Repository\SectionService as SectionServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\API\Repository\Values\Content\SectionCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\SectionUpdateStruct;
 use eZ\Publish\API\Repository\Events\Section\AssignSectionEvent;
 use eZ\Publish\API\Repository\Events\Section\AssignSectionToSubtreeEvent;
 use eZ\Publish\API\Repository\Events\Section\BeforeAssignSectionEvent;
@@ -24,6 +18,12 @@ use eZ\Publish\API\Repository\Events\Section\BeforeUpdateSectionEvent;
 use eZ\Publish\API\Repository\Events\Section\CreateSectionEvent;
 use eZ\Publish\API\Repository\Events\Section\DeleteSectionEvent;
 use eZ\Publish\API\Repository\Events\Section\UpdateSectionEvent;
+use eZ\Publish\API\Repository\SectionService as SectionServiceInterface;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Location;
+use eZ\Publish\API\Repository\Values\Content\Section;
+use eZ\Publish\API\Repository\Values\Content\SectionCreateStruct;
+use eZ\Publish\API\Repository\Values\Content\SectionUpdateStruct;
 use eZ\Publish\SPI\Repository\Decorator\SectionServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 

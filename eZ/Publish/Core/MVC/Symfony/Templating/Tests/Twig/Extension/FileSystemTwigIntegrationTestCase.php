@@ -6,6 +6,7 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension;
 
+use Exception;
 use PHPUnit\Framework\Constraint\Exception as PHPUnitException;
 use Twig\Environment;
 use Twig\Error\Error;
@@ -14,7 +15,6 @@ use Twig\Loader\ArrayLoader;
 use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
 use Twig\Test\IntegrationTestCase;
-use Exception;
 
 /**
  * Class FileSystemTwigIntegrationTestCase

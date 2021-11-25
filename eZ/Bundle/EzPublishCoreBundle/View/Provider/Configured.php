@@ -6,8 +6,8 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\View\Provider;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use eZ\Publish\Core\MVC\Symfony\View\Provider\Configured as BaseConfigured;
 
 class Configured extends BaseConfigured implements SiteAccessAware
@@ -15,7 +15,7 @@ class Configured extends BaseConfigured implements SiteAccessAware
     /**
      * Changes SiteAccess.
      *
-     * @param SiteAccess $siteAccess
+     * @param \eZ\Publish\Core\MVC\Symfony\SiteAccess $siteAccess
      */
     public function setSiteAccess(SiteAccess $siteAccess = null)
     {

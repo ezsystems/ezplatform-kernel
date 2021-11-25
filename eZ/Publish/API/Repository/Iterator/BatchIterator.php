@@ -17,7 +17,7 @@ final class BatchIterator implements Iterator
     /** @var \eZ\Publish\API\Repository\Iterator\BatchIteratorAdapter */
     private $adapter;
 
-    /** @var Iterator|null */
+    /** @var \Iterator|null */
     private $innerIterator;
 
     /** @var int */

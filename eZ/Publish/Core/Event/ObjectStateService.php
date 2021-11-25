@@ -8,14 +8,6 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Event;
 
-use eZ\Publish\API\Repository\ObjectStateService as ObjectStateServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateCreateStruct;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateUpdateStruct;
 use eZ\Publish\API\Repository\Events\ObjectState\BeforeCreateObjectStateEvent;
 use eZ\Publish\API\Repository\Events\ObjectState\BeforeCreateObjectStateGroupEvent;
 use eZ\Publish\API\Repository\Events\ObjectState\BeforeDeleteObjectStateEvent;
@@ -32,6 +24,14 @@ use eZ\Publish\API\Repository\Events\ObjectState\SetContentStateEvent;
 use eZ\Publish\API\Repository\Events\ObjectState\SetPriorityOfObjectStateEvent;
 use eZ\Publish\API\Repository\Events\ObjectState\UpdateObjectStateEvent;
 use eZ\Publish\API\Repository\Events\ObjectState\UpdateObjectStateGroupEvent;
+use eZ\Publish\API\Repository\ObjectStateService as ObjectStateServiceInterface;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
+use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateCreateStruct;
+use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
+use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
+use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
+use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateUpdateStruct;
 use eZ\Publish\SPI\Repository\Decorator\ObjectStateServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 

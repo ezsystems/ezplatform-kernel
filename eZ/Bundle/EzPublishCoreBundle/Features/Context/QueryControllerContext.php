@@ -9,7 +9,6 @@ namespace eZ\Bundle\EzPublishCoreBundle\Features\Context;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\PyStringNode;
-use Behat\Mink\Element\NodeElement;
 use Behat\MinkExtension\Context\RawMinkContext;
 use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Values\Content\Content;
@@ -25,7 +24,7 @@ class QueryControllerContext extends RawMinkContext implements Context
     /**
      * Content item matched by the view configuration.
      *
-     * @var Content
+     * @var \eZ\Publish\API\Repository\Values\Content\Content
      */
     private $matchedContent;
 
@@ -135,7 +134,7 @@ class QueryControllerContext extends RawMinkContext implements Context
     }
 
     /**
-     * @return Content
+     * @return \eZ\Publish\API\Repository\Values\Content\Content
      */
     private function createFolder(Repository $repository)
     {
@@ -348,14 +347,14 @@ class QueryControllerContext extends RawMinkContext implements Context
         $maxPerPage = $page->findAll('css', 'div#maxPerPage');
         $currentPage = $page->findAll('css', 'div#currentPage');
 
-        /** @var NodeElement $variableNode */
+        /** @var \Behat\Mink\Element\NodeElement $variableNode */
         foreach ($maxPerPage as $variableNode) {
             if ($variableNode->getText() === $pageLimit) {
                 $pageLimitFound = true;
             }
         }
 
-        /** @var NodeElement $valueNodes */
+        /** @var \Behat\Mink\Element\NodeElement $valueNodes */
         foreach ($currentPage as $valueNode) {
             if ($valueNode->getText() === $pageValue) {
                 $currentPageFound = true;

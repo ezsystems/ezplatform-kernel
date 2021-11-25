@@ -17,15 +17,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentDownloadRouteReferenceListener implements EventSubscriberInterface
 {
-    const ROUTE_NAME = 'ez_content_download';
-    const OPT_FIELD_IDENTIFIER = 'fieldIdentifier';
-    const OPT_CONTENT = 'content';
-    const OPT_CONTENT_ID = 'contentId';
-    const OPT_DOWNLOAD_NAME = 'filename';
-    const OPT_DOWNLOAD_LANGUAGE = 'inLanguage';
-    const OPT_SITEACCESS_LANGUAGE = 'language';
-    const OPT_SITEACCESS = 'siteaccess';
-    const OPT_VERSION = 'version';
+    public const ROUTE_NAME = 'ez_content_download';
+    public const OPT_FIELD_IDENTIFIER = 'fieldIdentifier';
+    public const OPT_CONTENT = 'content';
+    public const OPT_CONTENT_ID = 'contentId';
+    public const OPT_DOWNLOAD_NAME = 'filename';
+    public const OPT_DOWNLOAD_LANGUAGE = 'inLanguage';
+    public const OPT_SITEACCESS_LANGUAGE = 'language';
+    public const OPT_SITEACCESS = 'siteaccess';
+    public const OPT_VERSION = 'version';
 
     /** @var \eZ\Publish\Core\Helper\TranslationHelper */
     private $translationHelper;
@@ -92,7 +92,7 @@ class ContentDownloadRouteReferenceListener implements EventSubscriberInterface
 
         $resolver->setDefault(
             self::OPT_CONTENT_ID,
-            function (Options $options) {
+            static function (Options $options) {
                 return $options[self::OPT_CONTENT]->id;
             }
         );

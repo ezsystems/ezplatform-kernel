@@ -12,11 +12,11 @@ use Liip\ImagineBundle\Imagine\Filter\FilterConfiguration as BaseFilterConfigura
 
 class FilterConfiguration extends BaseFilterConfiguration
 {
-    /** @var ConfigResolverInterface */
+    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     /**
-     * @param ConfigResolverInterface $configResolver
+     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
      */
     public function setConfigResolver(ConfigResolverInterface $configResolver)
     {
@@ -55,7 +55,7 @@ class FilterConfiguration extends BaseFilterConfiguration
      * @param string $variationName
      * @param array $configuredVariations Variations set in eZ.
      *
-     * @throws InvalidVariationException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidVariationException
      *
      * @return array
      */

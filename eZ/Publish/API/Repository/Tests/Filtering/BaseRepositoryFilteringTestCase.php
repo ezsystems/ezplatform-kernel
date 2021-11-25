@@ -218,7 +218,8 @@ abstract class BaseRepositoryFilteringTestCase extends BaseTest
             'not_locked'
         );
         yield 'ObjectStateIdentifier=ez_lock(not_locked)' => new Criterion\ObjectStateIdentifier(
-            ['not_locked'], 'ez_lock'
+            ['not_locked'],
+            'ez_lock'
         );
         yield 'ParentLocationId=1' => new Criterion\ParentLocationId(1);
         yield 'RemoteId=8a9c9c761004866fb458d89910f52bee' => new Criterion\RemoteId(
@@ -234,13 +235,18 @@ abstract class BaseRepositoryFilteringTestCase extends BaseTest
         yield 'UserLogin=admin' => new Criterion\UserLogin('admin');
         yield 'UserLogin=a*' => new Criterion\UserLogin('a*', Criterion\Operator::LIKE);
         yield 'UserMetadata=OWNER IN (10, 14)' => new Criterion\UserMetadata(
-            Criterion\UserMetadata::OWNER, Criterion\Operator::IN, [10, 14]
+            Criterion\UserMetadata::OWNER,
+            Criterion\Operator::IN,
+            [10, 14]
         );
         yield 'UserMetadata=GROUP IN (12)' => new Criterion\UserMetadata(
-            Criterion\UserMetadata::GROUP, Criterion\Operator::EQ, 12
+            Criterion\UserMetadata::GROUP,
+            Criterion\Operator::EQ,
+            12
         );
         yield 'UserMetadata=MODIFIER IN (14)' => new Criterion\UserMetadata(
-            Criterion\UserMetadata::MODIFIER, Criterion\Operator::EQ,
+            Criterion\UserMetadata::MODIFIER,
+            Criterion\Operator::EQ,
             14
         );
         yield 'Visibility=VISIBLE' => new Criterion\Visibility(Criterion\Visibility::VISIBLE);

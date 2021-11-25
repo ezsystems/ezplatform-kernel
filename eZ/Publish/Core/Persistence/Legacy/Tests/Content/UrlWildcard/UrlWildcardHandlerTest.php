@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\UrlWildcard;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Handler;
 use eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase;
+use eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Handler;
 use eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Mapper;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
 
 /**
@@ -106,7 +106,10 @@ class UrlWildcardHandlerTest extends TestCase
         $urlWildcard = $handler->load(1);
 
         $urlWildcardUpdated = $handler->update(
-            $urlWildcard->id, 'amber-updated', 'pattern-updated', true
+            $urlWildcard->id,
+            'amber-updated',
+            'pattern-updated',
+            true
         );
 
         self::assertEquals(

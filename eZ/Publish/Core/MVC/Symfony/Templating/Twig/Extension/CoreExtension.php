@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension;
 
-use Twig\Extension\AbstractExtension;
 use eZ\Publish\Core\MVC\Symfony\Templating\GlobalHelper;
+use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 
 class CoreExtension extends AbstractExtension implements GlobalsInterface

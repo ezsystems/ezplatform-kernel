@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace eZ\Publish\API\Repository\Exceptions;
 
-use eZ\Publish\API\Repository\Exceptions\Exception as RepositoryException;
 use Exception;
+use eZ\Publish\API\Repository\Exceptions\Exception as RepositoryException;
 
 /**
  * An Exception which is thrown if an operation cannot be performed by a service

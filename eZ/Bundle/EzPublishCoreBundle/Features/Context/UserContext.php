@@ -6,32 +6,32 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Features\Context;
 
-use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Context\Context;
-use PHPUnit\Framework\Assert as Assertion;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\SearchService;
+use Behat\Gherkin\Node\TableNode;
 use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use eZ\Publish\API\Repository\SearchService;
+use eZ\Publish\API\Repository\UserService;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use PHPUnit\Framework\Assert as Assertion;
 
 /**
  * Sentences for Users.
  */
 class UserContext implements Context
 {
-    const DEFAULT_LANGUAGE = 'eng-GB';
+    public const DEFAULT_LANGUAGE = 'eng-GB';
 
     /**
      * These values are set by the default eZ Publish installation.
      */
-    const USER_IDENTIFIER = 'user';
+    public const USER_IDENTIFIER = 'user';
 
-    const USERGROUP_ROOT_CONTENT_ID = 4;
-    const USERGROUP_ROOT_LOCATION = 5;
-    const USERGROUP_ROOT_SUBTREE = '/1/5/';
-    const USERGROUP_CONTENT_IDENTIFIER = 'user_group';
+    public const USERGROUP_ROOT_CONTENT_ID = 4;
+    public const USERGROUP_ROOT_LOCATION = 5;
+    public const USERGROUP_ROOT_SUBTREE = '/1/5/';
+    public const USERGROUP_CONTENT_IDENTIFIER = 'user_group';
 
     /** @var \eZ\Publish\API\Repository\UserService */
     protected $userService;

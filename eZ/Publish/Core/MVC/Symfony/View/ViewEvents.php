@@ -18,7 +18,7 @@ final class ViewEvents
      * The default listener will add all the request attributes. Extra listeners could for instance add custom builder
      * attributes based on the request headers.
      */
-    const FILTER_BUILDER_PARAMETERS = 'view.builder_parameter_collection';
+    public const FILTER_BUILDER_PARAMETERS = 'view.builder_parameter_collection';
 
     /**
      * Dispatched before ViewParameters are injected into a View to collect the view parameters.
@@ -27,5 +27,5 @@ final class ViewEvents
      * Listeners can modify the parameters that will be injected as view parameters, and made available in controller
      * and templates.
      */
-    const FILTER_VIEW_PARAMETERS = 'view.parameters_injection';
+    public const FILTER_VIEW_PARAMETERS = 'view.parameters_injection';
 }

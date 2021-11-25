@@ -15,9 +15,9 @@ use eZ\Publish\SPI\Persistence\ValueObject;
  */
 class UrlAlias extends ValueObject
 {
-    const LOCATION = 0;
-    const RESOURCE = 1;
-    const VIRTUAL = 2;
+    public const LOCATION = 0;
+    public const RESOURCE = 1;
+    public const VIRTUAL = 2;
 
     /**
      * A unique identifier for the alias

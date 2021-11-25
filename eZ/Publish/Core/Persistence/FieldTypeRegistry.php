@@ -37,7 +37,7 @@ class FieldTypeRegistry
      * The FieldType object must comply to the {@link \eZ\Publish\SPI\FieldType\FieldType} interface.
      *
      * @param \eZ\Publish\Core\Persistence\FieldType[] $coreFieldTypes
-     * @param SPIFieldType[] $fieldTypes A map where key is field type identifier and value is
+     * @param \eZ\Publish\SPI\FieldType\FieldType[] $fieldTypes A map where key is field type identifier and value is
      *                                                          a callable factory to get FieldType OR FieldType object.
      */
     public function __construct(array $coreFieldTypes = [], array $fieldTypes = [])

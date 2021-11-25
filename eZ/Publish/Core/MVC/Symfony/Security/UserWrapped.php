@@ -79,7 +79,7 @@ class UserWrapped implements ReferenceUserInterface, EquatableInterface
     /**
      * @param \Symfony\Component\Security\Core\User\UserInterface $wrappedUser
      *
-     * @throws InvalidArgumentException If $wrappedUser is instance of self or User to avoid duplicated APIUser in
+     * @throws \InvalidArgumentException If $wrappedUser is instance of self or User to avoid duplicated APIUser in
      *     session.
      */
     public function setWrappedUser(CoreUserInterface $wrappedUser)

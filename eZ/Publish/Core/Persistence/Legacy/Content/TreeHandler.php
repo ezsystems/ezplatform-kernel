@@ -7,9 +7,9 @@
 namespace eZ\Publish\Core\Persistence\Legacy\Content;
 
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
 
 /**
@@ -135,7 +135,7 @@ class TreeHandler
         }
 
         $idVersionPairs = array_map(
-            function ($row) use ($contentId) {
+            static function ($row) use ($contentId) {
                 return [
                     'id' => $contentId,
                     'version' => $row['ezcontentobject_version_version'],

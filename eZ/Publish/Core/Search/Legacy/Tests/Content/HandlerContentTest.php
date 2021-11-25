@@ -7,18 +7,18 @@
 namespace eZ\Publish\Core\Search\Legacy\Tests\Content;
 
 use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Persistence;
-use eZ\Publish\Core\Search\Legacy\Content;
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway as LocationGateway;
+use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use eZ\Publish\Core\Persistence;
+use eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
 use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler;
+use eZ\Publish\Core\Search\Legacy\Content;
+use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway as LocationGateway;
+use eZ\Publish\SPI\Persistence\Content\ContentInfo;
 use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 
 /**
  * Content Search test case for ContentSearchHandler.
@@ -209,7 +209,7 @@ class HandlerContentTest extends AbstractTestCase
             ->with($this->isType('array'))
             ->will(
                 $this->returnCallback(
-                    function ($rows) {
+                    static function ($rows) {
                         $contentInfoObjs = [];
                         foreach ($rows as $row) {
                             $contentId = (int)$row['id'];
@@ -1030,9 +1030,8 @@ class HandlerContentTest extends AbstractTestCase
 
         $this->assertCount(
             10,
-
-                array_map(
-                    function ($hit) {
+            array_map(
+                    static function ($hit) {
                         return $hit->valueObject->id;
                     },
                     $result->searchHits

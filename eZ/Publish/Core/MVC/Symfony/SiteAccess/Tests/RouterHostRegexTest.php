@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Router;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Regex\Host as HostRegexMatcher;
 use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Regex\Host as HostRegexMatcher;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\Router;
 use Psr\Log\LoggerInterface;
 
 class RouterHostRegexTest extends RouterBaseTest

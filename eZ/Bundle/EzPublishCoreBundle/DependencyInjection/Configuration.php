@@ -9,17 +9,17 @@ namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\Configuration as SiteAccessConfiguration;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollectorInterface;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class Configuration extends SiteAccessConfiguration
 {
-    const CUSTOM_TAG_ATTRIBUTE_TYPES = ['number', 'string', 'boolean', 'choice'];
+    public const CUSTOM_TAG_ATTRIBUTE_TYPES = ['number', 'string', 'boolean', 'choice'];
 
     /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface */
     private $mainConfigParser;
 
-    /** @var Configuration\Suggestion\Collector\SuggestionCollectorInterface */
+    /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollectorInterface */
     private $suggestionCollector;
 
     /** @var \eZ\Bundle\EzPublishCoreBundle\SiteAccess\SiteAccessConfigurationFilter[] */
@@ -84,7 +84,7 @@ class Configuration extends SiteAccessConfiguration
                         ->beforeNormalization()
                             ->always(
                                 // Handling deprecated structure by mapping it to new one
-                                function ($v) {
+                                static function ($v) {
                                     if (isset($v['storage'])) {
                                         return $v;
                                     }
@@ -111,7 +111,7 @@ class Configuration extends SiteAccessConfiguration
                         ->beforeNormalization()
                             ->always(
                                 // Setting default values
-                                function ($v) {
+                                static function ($v) {
                                     if ($v === null) {
                                         $v = [];
                                     }
@@ -248,7 +248,7 @@ class Configuration extends SiteAccessConfiguration
                                 ->useAttributeAsKey('key')
                                 ->beforeNormalization()
                                     ->always(
-                                        function ($v) {
+                                        static function ($v) {
                                             // Value passed to the matcher should always be an array.
                                             // If value is not an array, we transform it to a hash, with 'value' as key.
                                             if (!is_array($v)) {
@@ -320,7 +320,7 @@ EOT;
                             ->info('Absolute path of ImageMagick / GraphicsMagick "convert" binary.')
                             ->beforeNormalization()
                                 ->ifTrue(
-                                    function ($v) {
+                                    static function ($v) {
                                         $basename = basename($v);
                                         // If there is a space in the basename, just drop it and everything after it.
                                         if (($wsPos = strpos($basename, ' ')) !== false) {
@@ -374,14 +374,14 @@ EOT;
                             ->defaultValue('local')
                             ->beforeNormalization()
                                 ->ifTrue(
-                                    function ($v) {
+                                    static function ($v) {
                                         $http = ['multiple_http' => true, 'single_http' => true];
 
                                         return isset($http[$v]);
                                     }
                                 )
                                 ->then(
-                                    function () {
+                                    static function () {
                                         return 'http';
                                     }
                                 )

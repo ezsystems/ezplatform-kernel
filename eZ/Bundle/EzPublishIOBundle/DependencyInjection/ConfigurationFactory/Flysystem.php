@@ -53,7 +53,7 @@ abstract class Flysystem implements ConfigurationFactory, ContainerAwareInterfac
     /**
      * Creates a flysystem filesystem $name service.
      *
-     * @param ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param string $name filesystem name (nfs, local...)
      * @param string $adapter adapter name
      *

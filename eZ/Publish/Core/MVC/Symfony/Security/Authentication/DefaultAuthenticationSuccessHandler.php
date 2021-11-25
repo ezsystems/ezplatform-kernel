@@ -14,7 +14,7 @@ class DefaultAuthenticationSuccessHandler extends BaseSuccessHandler
     /**
      * Injects the ConfigResolver to potentially override default_target_path for redirections after authentication success.
      *
-     * @param ConfigResolverInterface $configResolver
+     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
      */
     public function setConfigResolver(ConfigResolverInterface $configResolver)
     {

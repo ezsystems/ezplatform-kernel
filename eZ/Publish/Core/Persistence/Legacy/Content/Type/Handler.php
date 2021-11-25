@@ -6,20 +6,20 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Content\Type;
 
+use eZ\Publish\Core\Base\Exceptions\BadStateException;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use eZ\Publish\Core\Base\Exceptions\NotFoundException;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler as UpdateHandler;
+use eZ\Publish\Core\Persistence\Legacy\Exception;
 use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as BaseContentTypeHandler;
 use eZ\Publish\SPI\Persistence\Content\Type\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
 use eZ\Publish\SPI\Persistence\Content\Type\Group;
 use eZ\Publish\SPI\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
 use eZ\Publish\SPI\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler as UpdateHandler;
-use eZ\Publish\Core\Persistence\Legacy\Exception;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use eZ\Publish\SPI\Persistence\Content\Type\Handler as BaseContentTypeHandler;
+use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct;
 
 class Handler implements BaseContentTypeHandler
 {
@@ -60,7 +60,7 @@ class Handler implements BaseContentTypeHandler
     /**
      * @param \eZ\Publish\SPI\Persistence\Content\Type\Group\CreateStruct $createStruct
      *
-     * @return Group
+     * @return \eZ\Publish\SPI\Persistence\Content\Type\Group
      */
     public function createGroup(GroupCreateStruct $createStruct)
     {
@@ -108,7 +108,7 @@ class Handler implements BaseContentTypeHandler
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If type group with $groupId is not found
      *
-     * @return Group
+     * @return \eZ\Publish\SPI\Persistence\Content\Type\Group
      */
     public function loadGroup($groupId)
     {
@@ -161,7 +161,7 @@ class Handler implements BaseContentTypeHandler
     }
 
     /**
-     * @return Group[]
+     * @return \eZ\Publish\SPI\Persistence\Content\Type\Group[]
      */
     public function loadAllGroups()
     {
@@ -174,7 +174,7 @@ class Handler implements BaseContentTypeHandler
      * @param mixed $groupId
      * @param int $status
      *
-     * @return Type[]
+     * @return \eZ\Publish\SPI\Persistence\Content\Type[]
      */
     public function loadContentTypes($groupId, $status = 0)
     {
@@ -336,7 +336,7 @@ class Handler implements BaseContentTypeHandler
      * @param int $status
      * @param \eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct $contentType
      *
-     * @return Type
+     * @return \eZ\Publish\SPI\Persistence\Content\Type
      */
     public function update($typeId, $status, UpdateStruct $updateStruct)
     {
@@ -400,7 +400,7 @@ class Handler implements BaseContentTypeHandler
      * @param mixed $contentTypeId
      * @param int $status One of Type::STATUS_DEFINED|Type::STATUS_DRAFT|Type::STATUS_MODIFIED
      *
-     * @return Type
+     * @return \eZ\Publish\SPI\Persistence\Content\Type
      */
     public function copy($userId, $contentTypeId, $status)
     {

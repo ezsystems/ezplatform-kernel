@@ -22,7 +22,7 @@ class EZP21109EzIntegerTest extends BaseTest
      */
     protected $classShortName;
 
-    /** @var ContentType */
+    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType */
     protected $contentType;
 
     protected function setUp(): void
@@ -87,7 +87,7 @@ class EZP21109EzIntegerTest extends BaseTest
     /**
      * Creates a Test ContentType for this test holding an ezintegerfield.
      *
-     * @return ContentType
+     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType
      */
     protected function createTestContentType()
     {

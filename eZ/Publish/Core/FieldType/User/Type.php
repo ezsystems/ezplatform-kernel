@@ -8,16 +8,16 @@ namespace eZ\Publish\Core\FieldType\User;
 
 use DateTimeImmutable;
 use DateTimeInterface;
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use eZ\Publish\API\Repository\PasswordHashService;
+use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\Core\FieldType\FieldType;
 use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\SPI\Persistence\User\Handler as SPIUserHandler;
+use eZ\Publish\Core\FieldType\Value as BaseValue;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
 use eZ\Publish\SPI\FieldType\Value as SPIValue;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\PasswordHashService;
+use eZ\Publish\SPI\Persistence\User\Handler as SPIUserHandler;
 use LogicException;
 
 /**

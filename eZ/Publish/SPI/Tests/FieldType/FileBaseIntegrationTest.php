@@ -7,14 +7,13 @@
 namespace eZ\Publish\SPI\Tests\FieldType;
 
 use eZ\Publish\API\Repository\Tests\Container\Compiler\SetAllServicesPublicPass;
-use eZ\Publish\Core\IO\IOServiceInterface;
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
 use FileSystemIterator;
-use Symfony\Component\Filesystem\Filesystem as FilesystemComponent;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\Filesystem\Filesystem as FilesystemComponent;
 
 abstract class FileBaseIntegrationTest extends BaseIntegrationTest
 {
@@ -25,7 +24,7 @@ abstract class FileBaseIntegrationTest extends BaseIntegrationTest
      */
     protected static $tmpDir;
 
-    /** @var IOServiceInterface */
+    /** @var \eZ\Publish\Core\IO\IOServiceInterface */
     protected $ioService;
 
     /**

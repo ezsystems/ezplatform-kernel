@@ -6,11 +6,11 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\EventListener\Tests;
 
+use eZ\Publish\Core\Helper\TranslationHelper;
 use eZ\Publish\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent;
 use eZ\Publish\Core\MVC\Symfony\EventListener\LanguageSwitchListener;
 use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 use eZ\Publish\Core\MVC\Symfony\Routing\RouteReference;
-use eZ\Publish\Core\Helper\TranslationHelper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 

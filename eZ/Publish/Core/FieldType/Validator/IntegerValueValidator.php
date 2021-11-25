@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\FieldType\Validator;
 
-use eZ\Publish\Core\FieldType\Validator;
 use eZ\Publish\Core\FieldType\ValidationError;
+use eZ\Publish\Core\FieldType\Validator;
 use eZ\Publish\Core\FieldType\Value as BaseValue;
 
 /**

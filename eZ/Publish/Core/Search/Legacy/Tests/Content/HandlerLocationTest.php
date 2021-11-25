@@ -6,21 +6,21 @@
  */
 namespace eZ\Publish\Core\Search\Legacy\Tests\Content;
 
-use eZ\Publish\Core\Persistence;
-use eZ\Publish\Core\Search\Legacy\Content;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
-use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway\CriterionHandler as LocationCriterionHandler;
+use eZ\Publish\Core\Persistence;
+use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
+use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use eZ\Publish\Core\Search\Legacy\Content;
+use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
 use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler as CommonCriterionHandler;
-use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway\SortClauseHandler as LocationSortClauseHandler;
+use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
 use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler as CommonSortClauseHandler;
 use eZ\Publish\Core\Search\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
+use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway\CriterionHandler as LocationCriterionHandler;
+use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway\SortClauseHandler as LocationSortClauseHandler;
+use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
 
 /**
  * Location Search test case for ContentSearchHandler.
@@ -180,7 +180,7 @@ class HandlerLocationTest extends AbstractTestCase
             ->with($this->isType('array'))
             ->will(
                 $this->returnCallback(
-                    function ($rows) {
+                    static function ($rows) {
                         $locations = [];
                         foreach ($rows as $row) {
                             $locationId = (int)$row['node_id'];
@@ -1150,9 +1150,8 @@ class HandlerLocationTest extends AbstractTestCase
         $this->assertCount(10, $result->searchHits);
         $this->assertCount(
             10,
-
-                array_map(
-                    function ($hit) {
+            array_map(
+                    static function ($hit) {
                         return $hit->valueObject->id;
                     },
                     $result->searchHits

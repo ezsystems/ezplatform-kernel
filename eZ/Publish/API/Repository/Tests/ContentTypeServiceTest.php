@@ -6,17 +6,17 @@
  */
 namespace eZ\Publish\API\Repository\Tests;
 
+use Exception;
+use eZ\Publish\API\Repository\Exceptions\ContentTypeFieldDefinitionValidationException;
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Values\Content\Language;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Exceptions\ContentTypeFieldDefinitionValidationException;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCollection as APIFieldDefinitionCollection;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct;
 use eZ\Publish\API\Repository\Values\Translation\Message;
-use Exception;
 use eZ\Publish\Core\FieldType\TextLine\Value as TextLineValue;
 
 /**
@@ -337,7 +337,8 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         $loadedGroups = $contentTypeService->loadContentTypeGroups();
         /* END: Use Case */
 
-        $this->assertIsArray($loadedGroups
+        $this->assertIsArray(
+            $loadedGroups
         );
 
         foreach ($loadedGroups as $loadedGroup) {
@@ -874,7 +875,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
             'Count of field definition creates did not match count of field definitions.'
         );
 
-        $sorter = function ($a, $b) {
+        $sorter = static function ($a, $b) {
             return strcmp($a->identifier, $b->identifier);
         };
 
@@ -916,7 +917,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      */
     protected function assertContentTypeGroupsCorrect($expectedGroups, $actualGroups)
     {
-        $sorter = function ($a, $b) {
+        $sorter = static function ($a, $b) {
             return strcmp($a->id, $b->id);
         };
 
@@ -2591,7 +2592,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
             self::assertNotContains(
                 $contentTypeDraft->id,
                 array_map(
-                    function (ContentType $contentType) {
+                    static function (ContentType $contentType) {
                         return $contentType->id;
                     },
                     $contentTypes
@@ -2612,7 +2613,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
             self::assertContains(
                 $contentTypeDraft->id,
                 array_map(
-                    function (ContentType $contentType) {
+                    static function (ContentType $contentType) {
                         return $contentType->id;
                     },
                     $contentTypes
@@ -2884,7 +2885,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
                     implode(
                         ',',
                         array_map(
-                            function ($fieldDefinition) {
+                            static function ($fieldDefinition) {
                                 return $fieldDefinition->identifier;
                             },
                             $fieldDefinitions
@@ -3109,7 +3110,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
 
         usort(
             $types,
-            function ($a, $b) {
+            static function ($a, $b) {
                 if ($a->id == $b->id) {
                     return 0;
                 }

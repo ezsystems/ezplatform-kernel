@@ -8,7 +8,8 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Legacy;
 
-use eZ\Publish\SPI\Persistence\Handler as HandlerInterface;
+use eZ\Publish\Core\Persistence\Legacy\URL\Handler as UrlHandler;
+use eZ\Publish\SPI\Persistence\Bookmark\Handler as BookmarkHandler;
 use eZ\Publish\SPI\Persistence\Content\Handler as ContentHandler;
 use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
 use eZ\Publish\SPI\Persistence\Content\Location\Handler as LocationHandler;
@@ -18,13 +19,12 @@ use eZ\Publish\SPI\Persistence\Content\Section\Handler as SectionHandler;
 use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
 use eZ\Publish\SPI\Persistence\Content\UrlAlias\Handler as UrlAliasHandler;
 use eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler as UrlWildcardHandler;
-use eZ\Publish\SPI\Persistence\User\Handler as UserHandler;
-use eZ\Publish\SPI\Persistence\TransactionHandler as SPITransactionHandler;
-use eZ\Publish\Core\Persistence\Legacy\URL\Handler as UrlHandler;
-use eZ\Publish\SPI\Persistence\Bookmark\Handler as BookmarkHandler;
+use eZ\Publish\SPI\Persistence\Handler as HandlerInterface;
 use eZ\Publish\SPI\Persistence\Notification\Handler as NotificationHandler;
-use eZ\Publish\SPI\Persistence\UserPreference\Handler as UserPreferenceHandler;
 use eZ\Publish\SPI\Persistence\Setting\Handler as SettingHandler;
+use eZ\Publish\SPI\Persistence\TransactionHandler as SPITransactionHandler;
+use eZ\Publish\SPI\Persistence\User\Handler as UserHandler;
+use eZ\Publish\SPI\Persistence\UserPreference\Handler as UserPreferenceHandler;
 
 /**
  * The main handler for Legacy Storage Engine.
