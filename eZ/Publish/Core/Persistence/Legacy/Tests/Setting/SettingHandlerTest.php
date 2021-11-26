@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Setting;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Setting\Handler;
 use eZ\Publish\Core\Persistence\Legacy\Setting\Gateway;
+use eZ\Publish\Core\Persistence\Legacy\Setting\Handler;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\SPI\Persistence\Setting\Setting;
 use PHPUnit\Framework\MockObject\MockObject;
 

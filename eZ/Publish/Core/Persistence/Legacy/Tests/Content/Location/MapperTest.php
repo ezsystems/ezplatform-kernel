@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Location;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper;
-use eZ\Publish\SPI\Persistence\Content\Location\Trashed;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
+use eZ\Publish\SPI\Persistence\Content\Location\Trashed;
 
 /**
  * Test case for Location\Mapper.

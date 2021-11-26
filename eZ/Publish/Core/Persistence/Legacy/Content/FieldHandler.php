@@ -6,14 +6,14 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Content;
 
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
 use eZ\Publish\Core\Persistence\FieldTypeRegistry;
+use eZ\Publish\SPI\Persistence\Content;
+use eZ\Publish\SPI\Persistence\Content\Field;
 use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
+use eZ\Publish\SPI\Persistence\Content\Type;
+use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
+use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
 /**
  * Field Handler.
@@ -267,8 +267,8 @@ class FieldHandler
      * By default copying falls back to storing, it is upon external storage implementation to override
      * the behaviour as needed.
      *
-     * @param Field $field
-     * @param Content $content
+     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
+     * @param \eZ\Publish\SPI\Persistence\Content $content
      */
     protected function createExistingFieldInNewVersion(Field $field, Content $content)
     {
@@ -295,7 +295,7 @@ class FieldHandler
     /**
      * Performs external loads for the fields in $content.
      *
-     * @param Content $content
+     * @param \eZ\Publish\SPI\Persistence\Content $content
      */
     public function loadExternalFieldData(Content $content)
     {

@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\FieldType\Time;
 
-use eZ\Publish\Core\FieldType\Value as BaseValue;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
-use Exception;
 use DateTime;
+use Exception;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
+use eZ\Publish\Core\FieldType\Value as BaseValue;
 
 /**
  * Value for Time field type.
@@ -43,7 +43,7 @@ class Value extends BaseValue
     /**
      * Creates a Value from the given $dateTime.
      *
-     * @param DateTime $dateTime
+     * @param \DateTime $dateTime
      *
      * @return \eZ\Publish\Core\FieldType\Time\Value
      */

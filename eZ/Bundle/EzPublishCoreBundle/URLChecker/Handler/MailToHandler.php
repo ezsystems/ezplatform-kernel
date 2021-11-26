@@ -12,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MailToHandler extends AbstractConfigResolverBasedURLHandler
 {
-    const MAILTO_PATTERN = '/^mailto:(.+)@([^?]+)(\\?.*)?$/';
+    public const MAILTO_PATTERN = '/^mailto:(.+)@([^?]+)(\\?.*)?$/';
 
     public function __construct(
         URLService $urlService,

@@ -7,8 +7,8 @@
 namespace eZ\Publish\Core\Search\Common\FieldValueMapper;
 
 use eZ\Publish\Core\Search\Common\FieldValueMapper;
-use eZ\Publish\SPI\Search\FieldType\FloatField;
 use eZ\Publish\SPI\Search\Field;
+use eZ\Publish\SPI\Search\FieldType\FloatField;
 
 /**
  * Common float field value mapper implementation.

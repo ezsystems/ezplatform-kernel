@@ -7,8 +7,8 @@
 namespace eZ\Publish\Core\Repository\Values\ContentType;
 
 use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft as APIContentTypeDraft;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCollection as APIFieldDefinitionCollection;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
+use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCollection as APIFieldDefinitionCollection;
 use eZ\Publish\Core\Repository\Values\MultiLanguageTrait;
 
 /**

@@ -7,15 +7,15 @@
 namespace eZ\Publish\Core\FieldType\Relation;
 
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Relation;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
 use eZ\Publish\Core\FieldType\FieldType;
 use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\API\Repository\Values\Content\Relation;
+use eZ\Publish\Core\FieldType\Value as BaseValue;
 use eZ\Publish\SPI\FieldType\Value as SPIValue;
 use eZ\Publish\SPI\Persistence\Content\Handler as SPIContentHandler;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
 
 /**
  * The Relation field type.
@@ -29,8 +29,8 @@ use eZ\Publish\Core\FieldType\Value as BaseValue;
  */
 class Type extends FieldType
 {
-    const SELECTION_BROWSE = 0;
-    const SELECTION_DROPDOWN = 1;
+    public const SELECTION_BROWSE = 0;
+    public const SELECTION_DROPDOWN = 1;
 
     protected $settingsSchema = [
         'selectionMethod' => [

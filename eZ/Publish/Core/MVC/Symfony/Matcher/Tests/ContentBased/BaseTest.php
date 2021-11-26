@@ -9,12 +9,12 @@ namespace eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\Repository\Permission\PermissionResolver;
-use eZ\Publish\Core\Repository\Mapper\RoleDomainMapper;
-use eZ\Publish\SPI\Persistence\User\Handler as SPIUserHandler;
-use eZ\Publish\Core\Repository\Permission\LimitationService;
 use eZ\Publish\Core\MVC\Symfony\View\Provider\Location\Configured;
+use eZ\Publish\Core\Repository\Mapper\RoleDomainMapper;
+use eZ\Publish\Core\Repository\Permission\LimitationService;
+use eZ\Publish\Core\Repository\Permission\PermissionResolver;
 use eZ\Publish\Core\Repository\Repository;
+use eZ\Publish\SPI\Persistence\User\Handler as SPIUserHandler;
 use PHPUnit\Framework\TestCase;
 
 abstract class BaseTest extends TestCase

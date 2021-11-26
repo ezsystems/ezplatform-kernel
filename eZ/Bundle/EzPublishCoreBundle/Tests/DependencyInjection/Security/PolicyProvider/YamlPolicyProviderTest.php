@@ -6,8 +6,8 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Security\PolicyProvider;
 
-use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\StubYamlPolicyProvider;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigBuilderInterface;
+use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\StubYamlPolicyProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Resource\FileResource;
 

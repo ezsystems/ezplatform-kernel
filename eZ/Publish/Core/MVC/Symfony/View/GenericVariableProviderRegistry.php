@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\MVC\Symfony\View;
 
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use Traversable;
 use eZ\Publish\SPI\MVC\View\VariableProvider;
+use Traversable;
 
 final class GenericVariableProviderRegistry implements VariableProviderRegistry
 {

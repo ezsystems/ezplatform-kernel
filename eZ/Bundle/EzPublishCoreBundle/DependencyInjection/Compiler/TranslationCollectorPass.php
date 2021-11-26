@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class TranslationCollectorPass implements CompilerPassInterface
 {
-    const ORIGINAL_TRANSLATION = 'en';
+    public const ORIGINAL_TRANSLATION = 'en';
 
     /** @var array */
     public const LOCALES_MAP = [

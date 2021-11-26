@@ -13,11 +13,11 @@ use eZ\Publish\API\Repository\Exceptions\ContentValidationException;
 use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
 use eZ\Publish\API\Repository\Values\Content\URLWildcard;
+use eZ\Publish\API\Repository\Values\Content\URLWildcardTranslationResult;
+use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
 use eZ\Publish\Core\Repository\URLWildcardService;
 use eZ\Publish\SPI\Persistence\Content\UrlWildcard as SPIURLWildcard;
-use eZ\Publish\API\Repository\Values\Content\URLWildcardTranslationResult;
 
 /**
  * Mock Test case for UrlWildcard Service.

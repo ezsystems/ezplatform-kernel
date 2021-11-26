@@ -6,11 +6,13 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway;
 
-use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use eZ\Publish\Core\Base\Exceptions\NotFoundException as NotFound;
 use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway;
@@ -18,12 +20,10 @@ use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
 use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
 use eZ\Publish\SPI\Persistence\Content\ContentInfo;
 use eZ\Publish\SPI\Persistence\Content\Location;
-use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
 use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException as NotFound;
-use RuntimeException;
+use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
 use PDO;
+use RuntimeException;
 use function time;
 
 /**
@@ -444,7 +444,8 @@ final class DoctrineDatabase extends Gateway
             ->set(
                 'modified_subnode',
                 $query->createPositionalParameter(
-                    $timestamp ?: time(), ParameterType::INTEGER
+                    $timestamp ?: time(),
+                    ParameterType::INTEGER
                 )
             )
             ->where(
@@ -1452,7 +1453,8 @@ final class DoctrineDatabase extends Gateway
                 ),
                 // Root location doesn't have language mask
                 $expr->eq(
-                    't.node_id', 't.parent_node_id'
+                    't.node_id',
+                    't.parent_node_id'
                 )
             )
         );

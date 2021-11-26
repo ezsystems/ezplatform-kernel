@@ -6,28 +6,28 @@
  */
 namespace eZ\Publish\API\Repository\Tests;
 
+use Exception;
 use eZ\Publish\API\Repository\Exceptions\BadStateException;
 use eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException;
 use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException as APIInvalidArgumentException;
-use eZ\Publish\API\Repository\Values\Content\Content;
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
+use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\ContentMetadataUpdateStruct;
+use eZ\Publish\API\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\API\Repository\Values\Content\Language;
 use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem;
+use eZ\Publish\API\Repository\Values\Content\Relation;
 use eZ\Publish\API\Repository\Values\Content\Section;
 use eZ\Publish\API\Repository\Values\Content\URLAlias;
-use eZ\Publish\API\Repository\Values\Content\Relation;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\LocationLimitation;
 use eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use Exception;
+use eZ\Publish\API\Repository\Values\User\Limitation\LocationLimitation;
+use eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation;
 use eZ\Publish\API\Repository\Values\User\User;
 use eZ\Publish\Core\Base\Exceptions\UnauthorizedException as CoreUnauthorizedException;
 use eZ\Publish\Core\Repository\Values\Content\ContentUpdateStruct;
@@ -2581,7 +2581,7 @@ class ContentServiceTest extends BaseContentServiceTest
      */
     public function testLoadVersionInfoByIdWithSecondParameterSetsExpectedVersionInfo(array $data)
     {
-        /** @var VersionInfo $versionInfo */
+        /** @var \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo */
         $versionInfo = $data['versionInfo'];
         /** @var \eZ\Publish\API\Repository\Values\Content\Content $draftContent */
         $draftContent = $data['draftContent'];
@@ -2689,7 +2689,7 @@ class ContentServiceTest extends BaseContentServiceTest
         }
         usort(
             $actual,
-            function ($field1, $field2) {
+            static function ($field1, $field2) {
                 if (0 === ($return = strcasecmp($field1->fieldDefIdentifier, $field2->fieldDefIdentifier))) {
                     return strcasecmp($field1->languageCode, $field2->languageCode);
                 }
@@ -3141,7 +3141,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @see \eZ\Publish\API\Repository\ContentService::loadVersions()
      * @depends eZ\Publish\API\Repository\Tests\ContentServiceTest::testPublishVersion
      *
-     * @return VersionInfo[]
+     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo[]
      */
     public function testLoadVersions()
     {
@@ -3572,7 +3572,7 @@ class ContentServiceTest extends BaseContentServiceTest
 
         usort(
             $relations,
-            function ($rel1, $rel2) {
+            static function ($rel1, $rel2) {
                 return strcasecmp(
                     $rel2->getDestinationContentInfo()->remoteId,
                     $rel1->getDestinationContentInfo()->remoteId
@@ -3811,7 +3811,7 @@ class ContentServiceTest extends BaseContentServiceTest
 
         usort(
             $reverseRelations,
-            function ($rel1, $rel2) {
+            static function ($rel1, $rel2) {
                 return strcasecmp(
                     $rel2->getSourceContentInfo()->remoteId,
                     $rel1->getSourceContentInfo()->remoteId
@@ -5765,7 +5765,7 @@ class ContentServiceTest extends BaseContentServiceTest
     {
         $allLocationsCount = $this->locationService->getAllLocationsCount();
         $contentInfoList = array_map(
-            function (Location $location) {
+            static function (Location $location) {
                 return $location->contentInfo;
             },
             $this->locationService->loadAllLocations(0, $allLocationsCount)
@@ -5963,7 +5963,7 @@ class ContentServiceTest extends BaseContentServiceTest
         }
         usort(
             $normalized,
-            function ($field1, $field2) {
+            static function ($field1, $field2) {
                 if (0 === ($return = strcasecmp($field1->fieldDefIdentifier, $field2->fieldDefIdentifier))) {
                     return strcasecmp($field1->languageCode, $field2->languageCode);
                 }
@@ -6201,7 +6201,7 @@ class ContentServiceTest extends BaseContentServiceTest
             $this->generateId('location', 2)
         );
 
-        /** @var Content[] $contents */
+        /** @var \eZ\Publish\API\Repository\Values\Content\Content[] $contents */
         $contents = [];
 
         foreach ($contentNames as $contentName) {
@@ -6259,7 +6259,7 @@ class ContentServiceTest extends BaseContentServiceTest
             $this->generateId('location', 2)
         );
 
-        /** @var Content[] $contents */
+        /** @var \eZ\Publish\API\Repository\Values\Content\Content[] $contents */
         $contents = [];
 
         foreach ($contentNames as $contentName) {
@@ -6558,7 +6558,7 @@ class ContentServiceTest extends BaseContentServiceTest
         return array_values(
             array_filter(
                 $locations,
-                function (Location $location) {
+                static function (Location $location) {
                     return $location->hidden;
                 }
             )

@@ -7,9 +7,9 @@
 namespace eZ\Bundle\EzPublishCoreBundle\Features\Context;
 
 use Behat\Behat\Context\Context;
-use PHPUnit\Framework\Assert as Assertion;
-use eZ\Publish\API\Repository\RoleService;
 use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
+use eZ\Publish\API\Repository\RoleService;
+use PHPUnit\Framework\Assert as Assertion;
 
 /**
  * Sentences for Roles.

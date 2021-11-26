@@ -22,7 +22,7 @@ class BinaryLoaderTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $ioService;
 
-    /** @var BinaryLoader */
+    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\BinaryLoader */
     private $binaryLoader;
 
     protected function setUp(): void

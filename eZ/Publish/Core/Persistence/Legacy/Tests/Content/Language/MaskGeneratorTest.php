@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Language;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
 use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
 use eZ\Publish\SPI\Persistence\Content\Language;
 use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
 
@@ -296,7 +296,7 @@ class MaskGeneratorTest extends LanguageAwareTestCase
                                   ->method($this->anything())// loadByLanguageCode && loadListByLanguageCodes
                                   ->will(
                                       $this->returnCallback(
-                                          function ($languageCodes) {
+                                          static function ($languageCodes) {
                                               if (is_string($languageCodes)) {
                                                   $language = $languageCodes;
                                                   $languageCodes = [$language];
@@ -315,12 +315,12 @@ class MaskGeneratorTest extends LanguageAwareTestCase
 
                                               if (in_array('eng-GB', $languageCodes, true)) {
                                                   $languages['eng-GB'] = new Language(
-                                                       [
+                                                      [
                                                            'id' => 4,
                                                            'languageCode' => 'eng-GB',
                                                            'name' => 'British english',
                                                        ]
-                                                   );
+                                                  );
                                               }
 
                                               return isset($language) ? $languages[$language] : $languages;

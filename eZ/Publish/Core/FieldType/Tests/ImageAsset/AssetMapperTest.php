@@ -13,20 +13,20 @@ use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Field;
+use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
+use eZ\Publish\Core\FieldType\Image;
 use eZ\Publish\Core\FieldType\ImageAsset\AssetMapper;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\Repository\ContentTypeService;
 use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\Core\FieldType\Image;
 use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
 use PHPUnit\Framework\TestCase;
 
 class AssetMapperTest extends TestCase
 {
-    const EXAMPLE_CONTENT_ID = 487;
+    public const EXAMPLE_CONTENT_ID = 487;
 
     /** @var \eZ\Publish\API\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject */
     private $contentService;

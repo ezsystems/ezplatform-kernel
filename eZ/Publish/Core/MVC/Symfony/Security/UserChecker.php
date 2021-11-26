@@ -9,11 +9,11 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\MVC\Symfony\Security;
 
 use eZ\Publish\API\Repository\UserService;
+use eZ\Publish\Core\MVC\Symfony\Security\UserInterface as EzUserInterface;
 use Symfony\Component\Security\Core\Exception\CredentialsExpiredException;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\UserInterface as EzUserInterface;
 
 final class UserChecker implements UserCheckerInterface
 {

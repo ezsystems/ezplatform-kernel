@@ -9,10 +9,10 @@ namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
 use RuntimeException;
 
 /**

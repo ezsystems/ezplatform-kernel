@@ -7,21 +7,21 @@
 namespace eZ\Publish\Core\Persistence\Legacy\Tests;
 
 use eZ\Publish\Core\Base\ServiceContainer;
-use eZ\Publish\Core\Persistence\Legacy\Handler;
 use eZ\Publish\Core\Persistence\Legacy\Content\Handler as ContentHandler;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Handler as LocationHandler;
-use eZ\Publish\Core\Persistence\Legacy\User\Handler as UserHandler;
 use eZ\Publish\Core\Persistence\Legacy\Content\Section\Handler as SectionHandler;
 use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler as UrlAliasHandler;
+use eZ\Publish\Core\Persistence\Legacy\Handler;
 use eZ\Publish\Core\Persistence\Legacy\TransactionHandler;
+use eZ\Publish\Core\Persistence\Legacy\User\Handler as UserHandler;
 use eZ\Publish\SPI\Persistence\Content\Handler as SPIContentHandler;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as SPIContentTypeHandler;
 use eZ\Publish\SPI\Persistence\Content\Language\Handler as SPILanguageHandler;
 use eZ\Publish\SPI\Persistence\Content\Location\Handler as SPILocationHandler;
-use eZ\Publish\SPI\Persistence\User\Handler as SPIUserHandler;
 use eZ\Publish\SPI\Persistence\Content\Section\Handler as SPISectionHandler;
+use eZ\Publish\SPI\Persistence\Content\Type\Handler as SPIContentTypeHandler;
 use eZ\Publish\SPI\Persistence\Content\UrlAlias\Handler as SPIUrlAliasHandler;
 use eZ\Publish\SPI\Persistence\TransactionHandler as SPITransactionHandler;
+use eZ\Publish\SPI\Persistence\User\Handler as SPIUserHandler;
 
 /**
  * Test case for Repository Handler.
@@ -273,7 +273,7 @@ class HandlerTest extends TestCase
     /**
      * Returns the Handler.
      *
-     * @return Handler
+     * @return \eZ\Publish\Core\Persistence\Legacy\Handler
      */
     protected function getHandlerFixture()
     {

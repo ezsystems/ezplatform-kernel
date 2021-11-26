@@ -7,11 +7,11 @@
 namespace eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\Id;
 
 use eZ\Publish\API\Repository\ContentTypeService;
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
 use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Id\ContentTypeGroup as ContentTypeGroupIdMatcher;
 use eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\BaseTest;
-use eZ\Publish\API\Repository\Repository;
 
 class ContentTypeGroupTest extends BaseTest
 {

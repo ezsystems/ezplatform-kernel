@@ -10,9 +10,9 @@ namespace eZ\Publish\Core\MVC\Symfony\FieldType\ImageAsset;
 
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Repository;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderInterface;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 
 class ParameterProvider implements ParameterProviderInterface
 {
@@ -73,7 +73,7 @@ class ParameterProvider implements ParameterProviderInterface
     private function loadContentInfo(int $id): ContentInfo
     {
         return $this->repository->sudo(
-            function (Repository $repository) use ($id) {
+            static function (Repository $repository) use ($id) {
                 return $repository->getContentService()->loadContentInfo($id);
             }
         );

@@ -6,11 +6,11 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\URL\Gateway;
 
+use Doctrine\DBAL\DBALException;
 use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
 use eZ\Publish\Core\Base\Exceptions\DatabaseException;
 use eZ\Publish\Core\Persistence\Legacy\URL\Gateway;
 use eZ\Publish\SPI\Persistence\URL\URL;
-use Doctrine\DBAL\DBALException;
 use PDOException;
 
 class ExceptionConversion extends Gateway

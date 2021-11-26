@@ -8,13 +8,13 @@ namespace eZ\Bundle\EzPublishCoreBundle\Features\Context;
 
 use Behat\Behat\Context\Context;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use PHPUnit\Framework\Assert as Assertion;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
-use PHPUnit\Framework\Assert as Assertion;
 
 class ConsoleContext implements Context
 {
-    /** @var ConfigResolverInterface */
+    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     /** @var string[] */
@@ -33,7 +33,7 @@ class ConsoleContext implements Context
     private $it = [];
 
     /**
-     * @param ConfigResolverInterface $configResolver
+     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
      * @param string[] $siteaccessList
      * @param string $defaultSiteaccess
      */
@@ -196,7 +196,7 @@ class ConsoleContext implements Context
     }
 
     /**
-     * @return ConfigResolverInterface
+     * @return \eZ\Publish\Core\MVC\ConfigResolverInterface
      */
     private function getConfigResolver()
     {

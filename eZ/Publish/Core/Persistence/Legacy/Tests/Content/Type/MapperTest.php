@@ -6,12 +6,12 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Type;
 
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
+use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 // Needed for $sortOrder and $sortField properties
 use eZ\Publish\SPI\Persistence\Content\Location;
 use eZ\Publish\SPI\Persistence\Content\Type;
@@ -210,7 +210,7 @@ class MapperTest extends TestCase
     /**
      * Returns a Type fixture.
      *
-     * @return Type
+     * @return \eZ\Publish\SPI\Persistence\Content\Type
      */
     protected function getContentTypeFixture()
     {
@@ -430,7 +430,7 @@ class MapperTest extends TestCase
     /**
      * Returns a Mapper with conversion methods mocked.
      *
-     * @return Mapper
+     * @return \eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper
      */
     protected function getNonConvertingMapper()
     {
@@ -448,7 +448,7 @@ class MapperTest extends TestCase
                 )
             )->will(
                 $this->returnCallback(
-                    function () {
+                    static function () {
                         return new FieldDefinition();
                     }
                 )

@@ -7,16 +7,16 @@
 namespace eZ\Publish\Core\Persistence\Cache\Tests;
 
 use eZ\Publish\API\Repository\Values\Content\Relation as APIRelation;
-use eZ\Publish\SPI\Persistence\Content\Relation as SPIRelation;
 use eZ\Publish\Core\Persistence\Cache\ContentHandler;
 use eZ\Publish\SPI\Persistence\Content;
 use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 use eZ\Publish\SPI\Persistence\Content\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
 use eZ\Publish\SPI\Persistence\Content\Handler as SPIContentHandler;
+use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
+use eZ\Publish\SPI\Persistence\Content\Relation as SPIRelation;
+use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
 /**
  * Test case for Persistence\Cache\ContentHandler.

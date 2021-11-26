@@ -14,15 +14,15 @@ use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Persistence\Legacy\Content\MultilingualStorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use eZ\Publish\Core\Persistence\Legacy\Content\MultilingualStorageFieldDefinition;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway;
 use eZ\Publish\Core\Persistence\Legacy\SharedGateway\Gateway as SharedGateway;
 use eZ\Publish\SPI\Persistence\Content\Type;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
 use eZ\Publish\SPI\Persistence\Content\Type\Group;
 use eZ\Publish\SPI\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 use function sprintf;
 
 /**

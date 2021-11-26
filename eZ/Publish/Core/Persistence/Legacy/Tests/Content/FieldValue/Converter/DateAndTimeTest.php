@@ -6,20 +6,20 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter;
 
+use DateInterval;
+use DateTime;
+use DOMDocument;
 use eZ\Publish\Core\FieldType\DateAndTime\Type as DateAndTimeType;
 use eZ\Publish\Core\FieldType\FieldSettings;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\DateAndTimeConverter;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
 use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
+use eZ\Publish\SPI\Persistence\Content\FieldValue;
+use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
 use PHPUnit\Framework\TestCase;
-use DateTime;
-use DateInterval;
-use SimpleXMLElement;
-use DOMDocument;
 use ReflectionObject;
+use SimpleXMLElement;
 
 /**
  * Test case for DateAndTime converter in Legacy storage.

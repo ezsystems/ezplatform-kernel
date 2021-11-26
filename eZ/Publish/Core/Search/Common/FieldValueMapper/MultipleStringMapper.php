@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Search\Common\FieldValueMapper;
 
-use eZ\Publish\SPI\Search\FieldType;
 use eZ\Publish\SPI\Search\Field;
+use eZ\Publish\SPI\Search\FieldType;
 
 /**
  * Common multiple string field value mapper implementation.

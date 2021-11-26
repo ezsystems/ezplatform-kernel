@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway;
 
+use Doctrine\DBAL\DBALException;
 use eZ\Publish\Core\Base\Exceptions\DatabaseException;
 use eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway;
 use eZ\Publish\SPI\Persistence\Content\ObjectState;
 use eZ\Publish\SPI\Persistence\Content\ObjectState\Group;
-use Doctrine\DBAL\DBALException;
 use PDOException;
 
 /**

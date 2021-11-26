@@ -6,15 +6,15 @@
  */
 namespace eZ\Publish\Core\IO\Tests\IOMetadataHandler;
 
-use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\IO\IOMetadataHandler\LegacyDFSCluster;
-use eZ\Publish\SPI\IO\BinaryFile as SPIBinaryFile;
-use eZ\Publish\SPI\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
+use DateTime;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Statement;
+use Doctrine\DBAL\Query\QueryBuilder;
+use eZ\Publish\Core\IO\IOMetadataHandler\LegacyDFSCluster;
 use eZ\Publish\Core\IO\UrlDecorator;
+use eZ\Publish\SPI\IO\BinaryFile as SPIBinaryFile;
+use eZ\Publish\SPI\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
 use PHPUnit\Framework\TestCase;
-use DateTime;
 
 class LegacyDFSClusterTest extends TestCase
 {

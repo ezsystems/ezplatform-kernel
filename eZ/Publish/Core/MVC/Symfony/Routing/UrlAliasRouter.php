@@ -6,33 +6,33 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\Routing;
 
+use eZ\Publish\API\Repository\ContentService;
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\API\Repository\URLAliasService;
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\URLAlias;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\MVC\Symfony\View\Manager as ViewManager;
+use eZ\Publish\API\Repository\Values\Content\URLAlias;
 use eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
-use Symfony\Cmf\Component\Routing\ChainedRouterInterface;
-use Symfony\Cmf\Component\Routing\RouteObjectInterface;
-use Symfony\Component\Routing\Matcher\RequestMatcherInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RequestContext;
-use Psr\Log\LoggerInterface;
-use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\Route as SymfonyRoute;
-use Symfony\Component\Routing\Exception\RouteNotFoundException;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use eZ\Publish\Core\MVC\Symfony\View\Manager as ViewManager;
 use InvalidArgumentException;
 use LogicException;
+use Psr\Log\LoggerInterface;
+use Symfony\Cmf\Component\Routing\ChainedRouterInterface;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\Matcher\RequestMatcherInterface;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\Route as SymfonyRoute;
+use Symfony\Component\Routing\RouteCollection;
 
 class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
 {
-    const URL_ALIAS_ROUTE_NAME = 'ez_urlalias';
+    public const URL_ALIAS_ROUTE_NAME = 'ez_urlalias';
 
-    const VIEW_ACTION = 'ez_content:viewAction';
+    public const VIEW_ACTION = 'ez_content:viewAction';
 
     /** @var \Symfony\Component\Routing\RequestContext */
     protected $requestContext;
@@ -91,7 +91,7 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
      * If the matcher can not find information, it must throw one of the exceptions documented
      * below.
      *
-     * @param Request $request The request to match
+     * @param \Symfony\Component\HttpFoundation\Request $request The request to match
      *
      * @return array An array of parameters
      *
@@ -250,7 +250,7 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the path does not exist or is not valid for the given language
      *
-     * @return URLAlias
+     * @return \eZ\Publish\API\Repository\Values\Content\URLAlias
      */
     protected function getUrlAlias($pathinfo)
     {
@@ -260,7 +260,7 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
     /**
      * Gets the RouteCollection instance associated with this Router.
      *
-     * @return RouteCollection A RouteCollection instance
+     * @return \Symfony\Component\Routing\RouteCollection A RouteCollection instance
      */
     public function getRouteCollection()
     {

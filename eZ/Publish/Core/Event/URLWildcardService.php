@@ -8,17 +8,17 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Event;
 
+use eZ\Publish\API\Repository\Events\URLWildcard\BeforeCreateEvent;
+use eZ\Publish\API\Repository\Events\URLWildcard\BeforeRemoveEvent;
+use eZ\Publish\API\Repository\Events\URLWildcard\BeforeTranslateEvent;
 use eZ\Publish\API\Repository\Events\URLWildcard\BeforeUpdateEvent;
+use eZ\Publish\API\Repository\Events\URLWildcard\CreateEvent;
+use eZ\Publish\API\Repository\Events\URLWildcard\RemoveEvent;
+use eZ\Publish\API\Repository\Events\URLWildcard\TranslateEvent;
 use eZ\Publish\API\Repository\Events\URLWildcard\UpdateEvent;
 use eZ\Publish\API\Repository\URLWildcardService as URLWildcardServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\URLWildcard;
 use eZ\Publish\API\Repository\Values\Content\URLWildcardTranslationResult;
-use eZ\Publish\API\Repository\Events\URLWildcard\BeforeCreateEvent;
-use eZ\Publish\API\Repository\Events\URLWildcard\BeforeRemoveEvent;
-use eZ\Publish\API\Repository\Events\URLWildcard\BeforeTranslateEvent;
-use eZ\Publish\API\Repository\Events\URLWildcard\CreateEvent;
-use eZ\Publish\API\Repository\Events\URLWildcard\RemoveEvent;
-use eZ\Publish\API\Repository\Events\URLWildcard\TranslateEvent;
 use eZ\Publish\API\Repository\Values\Content\URLWildcardUpdateStruct;
 use eZ\Publish\SPI\Repository\Decorator\URLWildcardServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;

@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Repository\Tests\Values\ContentType;
 
-use eZ\Publish\Core\Repository\Values\ContentType\ContentTypeDraft;
 use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
+use eZ\Publish\Core\Repository\Values\ContentType\ContentTypeDraft;
 use PHPUnit\Framework\TestCase;
 
 class ContentTypeDraftTest extends TestCase

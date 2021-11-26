@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\URL\Query\CriterionHandler;
 
-use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\ParameterType;
+use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\Query\QueryBuilder;
 use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
 use eZ\Publish\API\Repository\Values\URL\Query\Criterion\Pattern;

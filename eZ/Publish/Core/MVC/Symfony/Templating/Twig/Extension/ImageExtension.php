@@ -18,7 +18,7 @@ use Twig\TwigFunction;
 
 class ImageExtension extends AbstractExtension
 {
-    /** @var VariationHandler */
+    /** @var \eZ\Publish\SPI\Variation\VariationHandler */
     private $imageVariationService;
 
     /** @var \eZ\Publish\Core\FieldType\ImageAsset\AssetMapper */

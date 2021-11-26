@@ -7,10 +7,10 @@
 namespace eZ\Publish\Core\Persistence\Legacy;
 
 use Doctrine\DBAL\Connection;
-use eZ\Publish\SPI\Persistence\TransactionHandler as TransactionHandlerInterface;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\MemoryCachingHandler as CachingContentTypeHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler as CachingLanguageHandler;
 use Exception;
+use eZ\Publish\Core\Persistence\Legacy\Content\Language\CachingHandler as CachingLanguageHandler;
+use eZ\Publish\Core\Persistence\Legacy\Content\Type\MemoryCachingHandler as CachingContentTypeHandler;
+use eZ\Publish\SPI\Persistence\TransactionHandler as TransactionHandlerInterface;
 use RuntimeException;
 
 /**

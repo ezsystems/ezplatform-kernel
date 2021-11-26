@@ -7,8 +7,8 @@
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Section\Gateway;
 
 use eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 
 /**
  * Test case for eZ\Publish\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase.

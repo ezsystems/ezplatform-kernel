@@ -6,7 +6,6 @@
  */
 namespace eZ\Publish\API\Repository\Tests;
 
-use eZ\Publish\SPI\Limitation\Target\Builder\VersionBuilder;
 use function array_filter;
 use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
@@ -15,6 +14,7 @@ use eZ\Publish\API\Repository\Values\User\LookupLimitationResult;
 use eZ\Publish\API\Repository\Values\User\LookupPolicyLimitations;
 use eZ\Publish\API\Repository\Values\ValueObject;
 use eZ\Publish\Core\Repository\Values\User\UserReference;
+use eZ\Publish\SPI\Limitation\Target\Builder\VersionBuilder;
 
 /**
  *  Test case for operations in the PermissionResolver.
@@ -248,7 +248,8 @@ class PermissionResolverTest extends BaseTest
         $permissionSets = $permissionResolver->hasAccess('content', 'read');
         /* END: Use Case */
 
-        $this->assertIsArray($permissionSets
+        $this->assertIsArray(
+            $permissionSets
         );
         $this->assertNotEmpty($permissionSets);
     }
@@ -1175,7 +1176,7 @@ class PermissionResolverTest extends BaseTest
         $permissionResolver->setCurrentUserReference($user);
         /* END: Use Case */
 
-        $expectedPolicy = current(array_filter($role->getPolicies(), function ($policy) use ($module, $function) {
+        $expectedPolicy = current(array_filter($role->getPolicies(), static function ($policy) use ($module, $function) {
             return $policy->module === $module && $policy->function === $function;
         }));
 

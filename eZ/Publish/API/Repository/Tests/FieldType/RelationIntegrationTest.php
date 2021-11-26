@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\API\Repository\Tests\FieldType;
 
-use eZ\Publish\Core\FieldType\Relation\Value as RelationValue;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\Repository\Values\Content\Relation;
 use eZ\Publish\API\Repository\Values\Content\Content;
+use eZ\Publish\API\Repository\Values\Content\Field;
+use eZ\Publish\Core\FieldType\Relation\Value as RelationValue;
+use eZ\Publish\Core\Repository\Values\Content\Relation;
 
 /**
  * Integration test for use field type.
@@ -195,7 +195,7 @@ class RelationIntegrationTest extends SearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     public function assertFieldDataLoadedCorrect(Field $field)
     {
@@ -309,7 +309,7 @@ class RelationIntegrationTest extends SearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was copied and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {

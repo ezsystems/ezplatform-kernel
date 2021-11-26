@@ -6,12 +6,12 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use eZ\Publish\Core\FieldType\Author\Author;
+use eZ\Publish\Core\FieldType\Author\AuthorCollection;
 use eZ\Publish\Core\FieldType\Author\Type as AuthorType;
 use eZ\Publish\Core\FieldType\Author\Value as AuthorValue;
-use eZ\Publish\Core\FieldType\Author\AuthorCollection;
-use eZ\Publish\Core\FieldType\Author\Author;
 use eZ\Publish\Core\FieldType\Value;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * @group fieldType

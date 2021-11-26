@@ -280,7 +280,7 @@ class RelationListConverter implements Converter
                 't.node_id',
                 't.parent_node_id',
                 'ct.identifier',
-                )
+            )
             ->from(ContentGateway::CONTENT_ITEM_TABLE, 'c')
             ->leftJoin(
                 'c',

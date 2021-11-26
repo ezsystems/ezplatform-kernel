@@ -6,14 +6,14 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
+use DOMDocument;
 use eZ\Publish\API\Repository\LanguageService;
 use eZ\Publish\Core\FieldType\FieldSettings;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
 use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use DOMDocument;
 
 class SelectionConverter implements Converter
 {
@@ -140,7 +140,8 @@ class SelectionConverter implements Converter
             }
         }
 
-        $fieldDef->fieldTypeConstraints->fieldSettings = new FieldSettings([
+        $fieldDef->fieldTypeConstraints->fieldSettings = new FieldSettings(
+            [
                 'isMultiple' => !empty($storageDef->dataInt1) ? (bool)$storageDef->dataInt1 : false,
                 'options' => $options,
                 'multilingualOptions' => $multiLingualOptions,

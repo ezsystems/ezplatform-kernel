@@ -16,8 +16,8 @@ use PDO;
 
 class DoctrineDatabaseTest extends TestCase
 {
-    const EXISTING_BOOKMARK_ID = 1;
-    const EXISTING_BOOKMARK_DATA = [
+    public const EXISTING_BOOKMARK_ID = 1;
+    public const EXISTING_BOOKMARK_DATA = [
         'id' => 1,
         'name' => 'Lorem ipsum dolor',
         'node_id' => 5,
@@ -108,12 +108,12 @@ class DoctrineDatabaseTest extends TestCase
     {
         $fixtures = (require __DIR__ . '/../_fixtures/bookmarks.php')[DoctrineDatabase::TABLE_BOOKMARKS];
 
-        $expectedRows = function ($userId) use ($fixtures) {
-            $rows = array_filter($fixtures, function (array $row) use ($userId) {
+        $expectedRows = static function ($userId) use ($fixtures) {
+            $rows = array_filter($fixtures, static function (array $row) use ($userId) {
                 return $row['user_id'] == $userId;
             });
 
-            usort($rows, function ($a, $b) {
+            usort($rows, static function ($a, $b) {
                 return $a['id'] < $b['id'];
             });
 

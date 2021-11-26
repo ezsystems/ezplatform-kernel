@@ -30,7 +30,7 @@ final class VersionBuilder
     }
 
     /**
-     * @param Field[] $updatedFields
+     * @param \eZ\Publish\API\Repository\Values\Content\Field[] $updatedFields
      */
     public function updateFields(array $updatedFields): self
     {
@@ -124,7 +124,7 @@ final class VersionBuilder
     public function updateFieldsTo(?string $initialLanguageCode, array $fields): self
     {
         $languageCodes = array_map(
-            function (Field $field) {
+            static function (Field $field) {
                 return $field->languageCode;
             },
             $fields

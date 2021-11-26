@@ -7,8 +7,8 @@
 namespace eZ\Publish\Core\Persistence\Cache\Tests;
 
 use eZ\Publish\SPI\Persistence\Content\ObjectState as SPIObjectState;
-use eZ\Publish\SPI\Persistence\Content\ObjectState\Handler as SPIObjectStateHandler;
 use eZ\Publish\SPI\Persistence\Content\ObjectState\Group as SPIObjectStateGroup;
+use eZ\Publish\SPI\Persistence\Content\ObjectState\Handler as SPIObjectStateHandler;
 use eZ\Publish\SPI\Persistence\Content\ObjectState\InputStruct as SPIInputStruct;
 
 /**

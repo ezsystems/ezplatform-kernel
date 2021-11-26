@@ -7,36 +7,36 @@
 namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
 
 use eZ\Publish\API\Repository\LanguageResolver;
+use eZ\Publish\API\Repository\PasswordHashService;
 use eZ\Publish\API\Repository\PermissionService;
+use eZ\Publish\API\Repository\Repository as APIRepository;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\Core\FieldType\FieldTypeRegistry;
+use eZ\Publish\Core\Repository\FieldTypeService;
+use eZ\Publish\Core\Repository\Helper\RelationProcessor;
 use eZ\Publish\Core\Repository\Mapper\ContentDomainMapper;
 use eZ\Publish\Core\Repository\Mapper\ContentMapper;
+use eZ\Publish\Core\Repository\Mapper\ContentTypeDomainMapper;
 use eZ\Publish\Core\Repository\Mapper\RoleDomainMapper;
 use eZ\Publish\Core\Repository\Permission\LimitationService;
 use eZ\Publish\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
+use eZ\Publish\Core\Repository\Repository;
 use eZ\Publish\Core\Repository\Strategy\ContentValidator\ContentValidatorStrategy;
-use eZ\Publish\API\Repository\PasswordHashService;
-use eZ\Publish\Core\FieldType\FieldTypeRegistry;
-use eZ\Publish\Core\Repository\Helper\RelationProcessor;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
 use eZ\Publish\Core\Repository\Validator\ContentCreateStructValidator;
 use eZ\Publish\Core\Repository\Validator\ContentUpdateStructValidator;
 use eZ\Publish\Core\Repository\Validator\VersionValidator;
+use eZ\Publish\Core\Repository\Values\Content\Content;
+use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
+use eZ\Publish\Core\Repository\Values\User\User;
 use eZ\Publish\Core\Search\Common\BackgroundIndexer\NullIndexer;
 use eZ\Publish\SPI\Persistence\Filter\Content\Handler as ContentFilteringHandler;
 use eZ\Publish\SPI\Persistence\Filter\Location\Handler as LocationFilteringHandler;
+use eZ\Publish\SPI\Persistence\Handler;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
 use eZ\Publish\SPI\Repository\Validator\ContentValidator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use eZ\Publish\Core\Repository\Repository;
-use eZ\Publish\Core\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Repository as APIRepository;
-use eZ\Publish\Core\Repository\Values\User\User;
-use eZ\Publish\Core\Repository\FieldTypeService;
-use eZ\Publish\Core\Repository\Mapper\ContentTypeDomainMapper;
-use eZ\Publish\SPI\Persistence\Handler;
 
 /**
  * Base test case for tests on services using Mock testing.

@@ -8,12 +8,12 @@ namespace eZ\Publish\Core\Persistence\Cache\Tests;
 
 use eZ\Publish\SPI\Persistence\Content\Type as SPIType;
 use eZ\Publish\SPI\Persistence\Content\Type\CreateStruct as SPITypeCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct as SPITypeUpdateStruct;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as SPITypeFieldDefinition;
 use eZ\Publish\SPI\Persistence\Content\Type\Group as SPITypeGroup;
 use eZ\Publish\SPI\Persistence\Content\Type\Group\CreateStruct as SPITypeGroupCreateStruct;
 use eZ\Publish\SPI\Persistence\Content\Type\Group\UpdateStruct as SPITypeGroupUpdateStruct;
 use eZ\Publish\SPI\Persistence\Content\Type\Handler as SPIContentTypeHandler;
+use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct as SPITypeUpdateStruct;
 
 /**
  * Test case for Persistence\Cache\ContentTypeHandler.

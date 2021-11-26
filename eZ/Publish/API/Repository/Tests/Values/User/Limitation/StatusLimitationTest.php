@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\API\Repository\Tests\Values\User\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\StatusLimitation;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
+use eZ\Publish\API\Repository\Values\User\Limitation\StatusLimitation;
 
 /**
  * Test case for the {@link \eZ\Publish\API\Repository\Values\User\Limitation\StatusLimitation}

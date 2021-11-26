@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\Search\Legacy\Content\Gateway;
 
+use Doctrine\DBAL\DBALException;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\Core\Base\Exceptions\DatabaseException;
 use eZ\Publish\Core\Search\Legacy\Content\Gateway;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use Doctrine\DBAL\DBALException;
 use PDOException;
 
 /**

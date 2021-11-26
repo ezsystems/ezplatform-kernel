@@ -6,13 +6,13 @@
  */
 namespace eZ\Publish\Core\Repository\Helper;
 
+use eZ\Publish\API\Repository\Values\Content\Content;
+use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
 use eZ\Publish\Core\FieldType\FieldTypeRegistry;
 use eZ\Publish\Core\Repository\Mapper\ContentTypeDomainMapper;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use eZ\Publish\SPI\Persistence\Content\Type as SPIContentType;
+use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
 
 /**
  * NameSchemaService is internal service for resolving content name and url alias patterns.
@@ -45,7 +45,7 @@ class NameSchemaService
      *
      * @var string
      */
-    const META_STRING = 'EZMETAGROUP_';
+    public const META_STRING = 'EZMETAGROUP_';
 
     /** @var \eZ\Publish\SPI\Persistence\Content\Type\Handler */
     protected $contentTypeHandler;
@@ -71,8 +71,8 @@ class NameSchemaService
         ContentTypeHandler $contentTypeHandler,
         ContentTypeDomainMapper $contentTypeDomainMapper,
         FieldTypeRegistry $fieldTypeRegistry,
-        array $settings = [])
-    {
+        array $settings = []
+    ) {
         $this->contentTypeHandler = $contentTypeHandler;
         $this->contentTypeDomainMapper = $contentTypeDomainMapper;
         $this->fieldTypeRegistry = $fieldTypeRegistry;

@@ -6,11 +6,11 @@
  */
 namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
 
-use eZ\Publish\API\Repository\Values\User\User as APIUser;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo as APIContentInfo;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
 use eZ\Publish\API\Repository\ContentService as APIContentService;
 use eZ\Publish\API\Repository\PasswordHashService;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo as APIContentInfo;
+use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use eZ\Publish\API\Repository\Values\User\User as APIUser;
 use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
 use eZ\Publish\Core\Repository\UserService;

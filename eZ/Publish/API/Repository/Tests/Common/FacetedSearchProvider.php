@@ -8,8 +8,8 @@ namespace eZ\Publish\API\Repository\Tests\Common;
 
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use eZ\Publish\API\Repository\Values\Content\Query\FacetBuilder;
+use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 
 /**
  * Provider for facet tests against SearchService.

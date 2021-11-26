@@ -6,12 +6,12 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Language;
 
+use eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway as LanguageGateway;
+use eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler;
+use eZ\Publish\Core\Persistence\Legacy\Content\Language\Mapper as LanguageMapper;
 use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\SPI\Persistence\Content\Language;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler;
 use eZ\Publish\SPI\Persistence\Content\Language\CreateStruct as SPILanguageCreateStruct;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\Mapper as LanguageMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway as LanguageGateway;
 
 /**
  * Test case for Language Handler.
@@ -237,7 +237,8 @@ class LanguageHandlerTest extends TestCase
 
         $result = $handler->loadAll();
 
-        $this->assertIsArray($result
+        $this->assertIsArray(
+            $result
         );
     }
 

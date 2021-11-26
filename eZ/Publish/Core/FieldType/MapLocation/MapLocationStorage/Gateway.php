@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\FieldType\MapLocation\MapLocationStorage;
 
+use eZ\Publish\SPI\FieldType\StorageGateway;
 use eZ\Publish\SPI\Persistence\Content\Field;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\FieldType\StorageGateway;
 
 /**
  * MapLocation Field Type external storage gateway.
@@ -21,8 +21,8 @@ abstract class Gateway extends StorageGateway
      * Potentially rewrites data in $field and returns true, if the $field
      * needs to be updated in the database.
      *
-     * @param VersionInfo $versionInfo
-     * @param Field $field
+     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
+     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
      *
      * @return bool If restoring of the internal field data is required
      */
@@ -31,8 +31,8 @@ abstract class Gateway extends StorageGateway
     /**
      * Sets the loaded field data into $field->externalData.
      *
-     * @param VersionInfo $versionInfo
-     * @param Field $field
+     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
+     * @param \eZ\Publish\SPI\Persistence\Content\Field $field
      *
      * @return array
      */
@@ -41,7 +41,7 @@ abstract class Gateway extends StorageGateway
     /**
      * Deletes the data for all given $fieldIds.
      *
-     * @param VersionInfo $versionInfo
+     * @param \eZ\Publish\SPI\Persistence\Content\VersionInfo $versionInfo
      * @param array $fieldIds
      */
     abstract public function deleteFieldData(VersionInfo $versionInfo, array $fieldIds);

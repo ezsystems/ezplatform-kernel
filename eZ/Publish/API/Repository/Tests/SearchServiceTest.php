@@ -6,20 +6,20 @@
  */
 namespace eZ\Publish\API\Repository\Tests;
 
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator;
-use EzSystems\EzPlatformSolrSearchEngine\Tests\SetupFactory\LegacySetupFactory as LegacySolrSetupFactory;
-use InvalidArgumentException;
+use function count;
+use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
+use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
 use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
-use function count;
+use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
+use EzSystems\EzPlatformSolrSearchEngine\Tests\SetupFactory\LegacySetupFactory as LegacySolrSetupFactory;
+use InvalidArgumentException;
 
 /**
  * Test case for operations in the SearchService.
@@ -30,12 +30,12 @@ use function count;
  */
 class SearchServiceTest extends BaseTest
 {
-    const QUERY_CLASS = Query::class;
+    public const QUERY_CLASS = Query::class;
 
-    const FIND_CONTENT_METHOD = 'findContent';
-    const FIND_LOCATION_METHOD = 'findLocations';
+    public const FIND_CONTENT_METHOD = 'findContent';
+    public const FIND_LOCATION_METHOD = 'findLocations';
 
-    const AVAILABLE_FIND_METHODS = [
+    public const AVAILABLE_FIND_METHODS = [
         self::FIND_CONTENT_METHOD,
         self::FIND_LOCATION_METHOD,
     ];
@@ -444,10 +444,10 @@ class SearchServiceTest extends BaseTest
                 ],
                 $fixtureDir . 'Status.php',
                 // Result having the same sort level should be sorted between them to be system independent
-                function (&$data) {
+                static function (&$data) {
                     usort(
                         $data->searchHits,
-                        function ($a, $b) {
+                        static function ($a, $b) {
                             if ($a->score == $b->score) {
                                 if ($a->valueObject['id'] == $b->valueObject['id']) {
                                     return 0;
@@ -1891,7 +1891,7 @@ class SearchServiceTest extends BaseTest
                 ],
                 $fixtureDir . 'SortLocationDepth.php',
                 // Result having the same sort level should be sorted between them to be system independent
-                function (&$data) {
+                static function (&$data) {
                     // Result with ids:
                     //     4 has depth = 1
                     //     11, 12, 13, 42, 59 have depth = 2
@@ -1908,7 +1908,7 @@ class SearchServiceTest extends BaseTest
                     ];
                     usort(
                         $data->searchHits,
-                        function ($a, $b) use ($map) {
+                        static function ($a, $b) use ($map) {
                             return ($map[$a->valueObject['id']] < $map[$b->valueObject['id']]) ? -1 : 1;
                         }
                     );
@@ -1989,7 +1989,7 @@ class SearchServiceTest extends BaseTest
      * @param string $mainLanguageCode
      * @param bool $alwaysAvailable
      *
-     * @return Content
+     * @return \eZ\Publish\API\Repository\Values\Content\Content
      */
     protected function createMultilingualContent(
         $contentType,
@@ -2758,7 +2758,7 @@ class SearchServiceTest extends BaseTest
     protected function mapResultContentIds(SearchResult $result)
     {
         return array_map(
-            function (SearchHit $searchHit) {
+            static function (SearchHit $searchHit) {
                 if ($searchHit->valueObject instanceof Location) {
                     return $searchHit->valueObject->contentInfo->id;
                 }
@@ -4751,7 +4751,7 @@ class SearchServiceTest extends BaseTest
     /**
      * Show a simplified view of the search result for manual introspection.
      *
-     * @param SearchResult $result
+     * @param \eZ\Publish\API\Repository\Values\Content\Search\SearchResult $result
      *
      * @return string
      */
@@ -4771,7 +4771,7 @@ class SearchServiceTest extends BaseTest
      * This leads to saner comparisons of results, since we do not get the full
      * content objects every time.
      *
-     * @param SearchResult $result
+     * @param \eZ\Publish\API\Repository\Values\Content\Search\SearchResult $result
      */
     protected function simplifySearchResult(SearchResult $result)
     {
@@ -4820,7 +4820,7 @@ class SearchServiceTest extends BaseTest
     private function getContentInfoFixtureClosure($closure = null)
     {
         /** @var $data \eZ\Publish\API\Repository\Values\Content\Search\SearchResult */
-        return function (&$data) use ($closure) {
+        return static function (&$data) use ($closure) {
             foreach ($data->searchHits as $searchHit) {
                 if ($searchHit->valueObject instanceof Content) {
                     $searchHit->valueObject = $searchHit->valueObject->getVersionInfo()->getContentInfo();
@@ -5159,10 +5159,10 @@ class SearchServiceTest extends BaseTest
     private function sortSearchHitsById(array &$searchHits): void
     {
         usort(
-           $searchHits,
-           static function (SearchHit $a, SearchHit $b): int {
-               return $a->valueObject->id <=> $b->valueObject->id;
-           }
+            $searchHits,
+            static function (SearchHit $a, SearchHit $b): int {
+                return $a->valueObject->id <=> $b->valueObject->id;
+            }
         );
     }
 

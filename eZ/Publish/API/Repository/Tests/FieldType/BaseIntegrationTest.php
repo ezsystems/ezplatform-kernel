@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\API\Repository\Tests\FieldType;
 
+use eZ\Publish\API\Repository;
 use eZ\Publish\API\Repository\Exceptions\ContentTypeFieldDefinitionValidationException;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Tests;
-use eZ\Publish\API\Repository;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
@@ -47,7 +47,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
      * Content version archive limit (default).
      * Note: currently there is no way to retrieve this setting from the ContentService.
      */
-    const VERSION_ARCHIVE_LIMIT = 5;
+    public const VERSION_ARCHIVE_LIMIT = 5;
 
     /**
      * Identifier of the custom field.
@@ -125,7 +125,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     abstract public function assertFieldDataLoadedCorrect(Field $field);
 
@@ -165,7 +165,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
      * Asserts that the data provided by {@link getValidUpdateFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     abstract public function assertUpdatedFieldDataLoadedCorrect(Field $field);
 
@@ -198,7 +198,7 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was copied and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     abstract public function assertCopiedFieldDataLoadedCorrectly(Field $field);
 
@@ -255,8 +255,8 @@ abstract class BaseIntegrationTest extends Tests\BaseTest
      * We cannot just overwrite the testCreateContent method, since this messes
      * up PHPUnits @depends sorting of tests, so everything will be skipped.
      *
-     * @param Repository\Repository $repository
-     * @param Repository\Values\Content\Content $content
+     * @param \eZ\Publish\API\Repository $repository
+     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
      */
     public function postCreationHook(Repository\Repository $repository, Repository\Values\Content\Content $content)
     {

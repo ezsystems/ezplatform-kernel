@@ -7,7 +7,6 @@
 namespace eZ\Bundle\EzPublishIOBundle\Migration\FileLister;
 
 use eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator;
-use eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPurger\ImageFileList;
 use eZ\Bundle\EzPublishIOBundle\ApiLoader\HandlerRegistry;
 use eZ\Bundle\EzPublishIOBundle\Migration\FileListerInterface;
 use eZ\Bundle\EzPublishIOBundle\Migration\MigrationHandler;
@@ -19,7 +18,7 @@ use Psr\Log\LoggerInterface;
 
 class ImageFileLister extends MigrationHandler implements FileListerInterface
 {
-    /** @var ImageFileList */
+    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPurger\ImageFileList */
     private $imageFileList;
 
     /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator */

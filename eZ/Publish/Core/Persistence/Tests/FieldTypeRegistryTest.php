@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Persistence\Tests;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\Core\Persistence\FieldTypeRegistry;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\SPI\FieldType\FieldType as SPIFieldType;
 use eZ\Publish\SPI\Persistence\FieldType as SPIPersistenceFieldType;
 

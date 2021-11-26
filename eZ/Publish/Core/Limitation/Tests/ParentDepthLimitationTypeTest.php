@@ -7,16 +7,16 @@
 namespace eZ\Publish\Core\Limitation\Tests;
 
 use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use eZ\Publish\API\Repository\Values\ValueObject;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
+use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
 use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\ParentDepthLimitation;
 use eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation;
+use eZ\Publish\API\Repository\Values\User\Limitation\ParentDepthLimitation;
+use eZ\Publish\API\Repository\Values\ValueObject;
 use eZ\Publish\Core\Limitation\ParentDepthLimitationType;
-use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\Core\Repository\Values\Content\ContentCreateStruct;
+use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\SPI\Persistence\Content\Location\Handler as SPILocationHandler;
 
 /**
@@ -137,7 +137,7 @@ class ParentDepthLimitationTypeTest extends Base
         $value = $limitationType->buildValue($expected);
 
         self::assertInstanceOf(
-           ParentDepthLimitation::class,
+            ParentDepthLimitation::class,
             $value
         );
         self::assertIsArray($value->limitationValues);

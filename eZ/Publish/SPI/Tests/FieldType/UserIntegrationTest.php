@@ -7,8 +7,8 @@
 namespace eZ\Publish\SPI\Tests\FieldType;
 
 use eZ\Publish\API\Repository\PasswordHashService;
-use eZ\Publish\Core\Persistence\Legacy;
 use eZ\Publish\Core\FieldType;
+use eZ\Publish\Core\Persistence\Legacy;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
 use eZ\Publish\SPI\Persistence\Content;
 use eZ\Publish\SPI\Persistence\Content\Field;

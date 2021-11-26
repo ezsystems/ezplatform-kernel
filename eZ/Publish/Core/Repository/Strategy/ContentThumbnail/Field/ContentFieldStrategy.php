@@ -22,7 +22,7 @@ final class ContentFieldStrategy implements ThumbnailStrategy
     private $strategies = [];
 
     /**
-     * @param \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy[]|Traversable $strategies
+     * @param \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy[]|\Traversable $strategies
      */
     public function __construct(Traversable $strategies)
     {
@@ -44,7 +44,7 @@ final class ContentFieldStrategy implements ThumbnailStrategy
 
         $fieldStrategies = $this->strategies[$field->fieldTypeIdentifier];
 
-        /** @var FieldTypeBasedThumbnailStrategy $fieldStrategy */
+        /** @var \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy $fieldStrategy */
         foreach ($fieldStrategies as $fieldStrategy) {
             $thumbnail = $fieldStrategy->getThumbnail($field, $versionInfo);
 
@@ -67,7 +67,7 @@ final class ContentFieldStrategy implements ThumbnailStrategy
     }
 
     /**
-     * @param \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy[]|Traversable $thumbnailStrategies
+     * @param \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy[]|\Traversable $thumbnailStrategies
      */
     public function setStrategies(array $thumbnailStrategies): void
     {

@@ -52,7 +52,7 @@ class ViewControllerListener implements EventSubscriberInterface
     /**
      * Configures the View for eZ View controllers.
      *
-     * @param ControllerEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\ControllerEvent $event
      *
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */

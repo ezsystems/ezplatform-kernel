@@ -6,13 +6,13 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Relation;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\FieldType\RelationList\Type as RelationList;
 use eZ\Publish\Core\FieldType\RelationList\Value;
-use eZ\Publish\API\Repository\Values\Content\Relation;
 use eZ\Publish\Core\FieldType\ValidationError;
 use eZ\Publish\SPI\FieldType\Value as SPIValue;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\SPI\Persistence\Content\Handler as SPIContentHandler;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
@@ -137,7 +137,7 @@ class RelationListTest extends FieldTypeTest
     /**
      * Returns the empty value expected from the field type.
      *
-     * @return Value
+     * @return \eZ\Publish\Core\FieldType\RelationList\Value
      */
     protected function getEmptyValueExpectation()
     {

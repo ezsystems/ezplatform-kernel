@@ -12,8 +12,8 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Gateway;
 use eZ\Publish\SPI\Persistence\Content\ObjectState;
 use eZ\Publish\SPI\Persistence\Content\ObjectState\Group;
 
@@ -294,7 +294,7 @@ final class DoctrineDatabase extends Gateway
                     'id',
                     $query->createPositionalParameter($stateId, ParameterType::INTEGER)
                 )
-        );
+            );
 
         $query->execute();
     }
@@ -366,7 +366,7 @@ final class DoctrineDatabase extends Gateway
                     'contentobject_state_id',
                     $query->createPositionalParameter($stateId, ParameterType::INTEGER)
                 )
-        );
+            );
 
         $query->execute();
     }
@@ -548,7 +548,7 @@ final class DoctrineDatabase extends Gateway
                 self::OBJECT_STATE_LANGUAGE_TABLE,
                 'lang',
                 'state.id = lang.contentobject_state_id',
-                );
+            );
 
         return $query;
     }
@@ -637,7 +637,7 @@ final class DoctrineDatabase extends Gateway
                     'contentobject_state_id',
                     $query->createPositionalParameter($stateId, ParameterType::INTEGER)
                 )
-        );
+            );
 
         $query->execute();
     }
@@ -691,7 +691,7 @@ final class DoctrineDatabase extends Gateway
                     'contentobject_state_group_id',
                     $query->createPositionalParameter($groupId, ParameterType::INTEGER)
                 )
-        );
+            );
 
         $query->execute();
     }

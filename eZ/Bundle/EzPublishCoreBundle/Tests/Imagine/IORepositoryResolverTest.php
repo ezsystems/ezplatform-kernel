@@ -32,7 +32,7 @@ class IORepositoryResolverTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $configResolver;
 
-    /** @var IORepositoryResolver */
+    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\IORepositoryResolver */
     private $imageResolver;
 
     /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\FilterConfiguration */

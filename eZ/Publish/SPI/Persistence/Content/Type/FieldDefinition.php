@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\SPI\Persistence\Content\Type;
 
-use eZ\Publish\SPI\Persistence\ValueObject;
 use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
+use eZ\Publish\SPI\Persistence\ValueObject;
 
 /**
  * @todo Do we need a FieldDefinitionCreateStruct?

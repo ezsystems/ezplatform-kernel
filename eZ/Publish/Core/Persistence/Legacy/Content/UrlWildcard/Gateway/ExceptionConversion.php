@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway;
 
+use Doctrine\DBAL\DBALException;
 use eZ\Publish\Core\Base\Exceptions\DatabaseException;
 use eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway;
 use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
-use Doctrine\DBAL\DBALException;
 use PDOException;
 
 /**

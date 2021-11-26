@@ -6,12 +6,12 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\ComplexSettings;
 
-use PHPUnit\Framework\TestCase;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser;
+use PHPUnit\Framework\TestCase;
 
 class ComplexSettingParserTest extends TestCase
 {
-    /** @var ComplexSettingParser */
+    /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser */
     private $parser;
 
     protected function setUp(): void

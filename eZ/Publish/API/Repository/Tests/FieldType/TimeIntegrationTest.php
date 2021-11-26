@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\API\Repository\Tests\FieldType;
 
-use eZ\Publish\Core\FieldType\Time\Value as TimeValue;
-use eZ\Publish\API\Repository\Values\Content\Field;
 use DateTime;
+use eZ\Publish\API\Repository\Values\Content\Field;
+use eZ\Publish\Core\FieldType\Time\Value as TimeValue;
 
 /**
  * Integration test for use field type.
@@ -142,7 +142,7 @@ class TimeIntegrationTest extends SearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     public function assertFieldDataLoadedCorrect(Field $field)
     {
@@ -193,7 +193,7 @@ class TimeIntegrationTest extends SearchBaseIntegrationTest
     /**
      * Get update field externals data.
      *
-     * @return TimeValue
+     * @return \eZ\Publish\Core\FieldType\Time\Value
      */
     public function getValidUpdateFieldData()
     {
@@ -273,7 +273,7 @@ class TimeIntegrationTest extends SearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was copied and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {

@@ -6,24 +6,24 @@
  */
 namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
 
-use eZ\Publish\Core\Repository\ContentService;
-use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
-use eZ\Publish\Core\Repository\SearchService;
-use eZ\Publish\Core\Repository\Permission\PermissionCriterionResolver;
+use Exception;
+use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
+use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
 use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
+use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
+use eZ\Publish\Core\Repository\ContentService;
+use eZ\Publish\Core\Repository\Permission\PermissionCriterionResolver;
+use eZ\Publish\Core\Repository\SearchService;
+use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
 use eZ\Publish\Core\Search\Common\BackgroundIndexer;
 use eZ\Publish\Core\Search\Common\BackgroundIndexer\NullIndexer;
 use eZ\Publish\SPI\Persistence\Content\ContentInfo as SPIContentInfo;
 use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
-use Exception;
 
 /**
  * Mock test case for Search service.
@@ -241,7 +241,7 @@ class SearchTest extends BaseServiceMockTest
         $mapper->expects($this->once())
             ->method('buildContentDomainObjectsOnSearchResult')
             ->with($this->equalTo($result), $this->equalTo([]))
-            ->willReturnCallback(function (SearchResult $spiResult) use ($info) {
+            ->willReturnCallback(static function (SearchResult $spiResult) use ($info) {
                 unset($spiResult->searchHits[0]);
                 --$spiResult->totalCount;
 
@@ -300,7 +300,7 @@ class SearchTest extends BaseServiceMockTest
         $mapper->expects($this->once())
             ->method('buildContentDomainObjectsOnSearchResult')
             ->with($this->isInstanceOf(SearchResult::class), $this->equalTo([]))
-            ->willReturnCallback(function (SearchResult $spiResult) use ($contentMock) {
+            ->willReturnCallback(static function (SearchResult $spiResult) use ($contentMock) {
                 $spiResult->searchHits[0]->valueObject = $contentMock;
 
                 return [];
@@ -373,7 +373,7 @@ class SearchTest extends BaseServiceMockTest
             ->expects($this->once())
             ->method('buildContentDomainObjectsOnSearchResult')
             ->with($this->isInstanceOf(SearchResult::class), $this->equalTo([]))
-            ->willReturnCallback(function (SearchResult $spiResult) use ($contentMock) {
+            ->willReturnCallback(static function (SearchResult $spiResult) use ($contentMock) {
                 $spiResult->searchHits[0]->valueObject = $contentMock;
 
                 return [];
@@ -488,7 +488,7 @@ class SearchTest extends BaseServiceMockTest
             ->expects($this->once())
             ->method('buildContentDomainObjectsOnSearchResult')
             ->with($this->isInstanceOf(SearchResult::class), $this->equalTo([]))
-            ->willReturnCallback(function (SearchResult $spiResult) use ($contentMock) {
+            ->willReturnCallback(static function (SearchResult $spiResult) use ($contentMock) {
                 $spiResult->searchHits[0]->valueObject = $contentMock;
 
                 return [];
@@ -707,7 +707,7 @@ class SearchTest extends BaseServiceMockTest
         $domainMapperMock->expects($this->once())
             ->method('buildLocationDomainObjectsOnSearchResult')
             ->with($this->equalTo($spiResult))
-            ->willReturnCallback(function (SearchResult $spiResult) use ($endResult) {
+            ->willReturnCallback(static function (SearchResult $spiResult) use ($endResult) {
                 $spiResult->searchHits[0] = $endResult->searchHits[0];
 
                 return [];
@@ -774,7 +774,7 @@ class SearchTest extends BaseServiceMockTest
         $domainMapperMock->expects($this->once())
             ->method('buildLocationDomainObjectsOnSearchResult')
             ->with($this->equalTo($spiResult))
-            ->willReturnCallback(function (SearchResult $spiResult) use ($endResult) {
+            ->willReturnCallback(static function (SearchResult $spiResult) use ($endResult) {
                 $spiResult->searchHits[0] = $endResult->searchHits[0];
 
                 return [];
@@ -825,7 +825,7 @@ class SearchTest extends BaseServiceMockTest
         $mapper->expects($this->once())
             ->method('buildLocationDomainObjectsOnSearchResult')
             ->with($this->equalTo($result))
-            ->willReturnCallback(function (SearchResult $spiResult) use ($location) {
+            ->willReturnCallback(static function (SearchResult $spiResult) use ($location) {
                 unset($spiResult->searchHits[0]);
                 --$spiResult->totalCount;
 
@@ -929,7 +929,7 @@ class SearchTest extends BaseServiceMockTest
         $domainMapperMock->expects($this->once())
             ->method('buildLocationDomainObjectsOnSearchResult')
             ->with($this->equalTo($spiResult))
-            ->willReturnCallback(function (SearchResult $spiResult) use ($endResult) {
+            ->willReturnCallback(static function (SearchResult $spiResult) use ($endResult) {
                 $spiResult->searchHits[0] = $endResult->searchHits[0];
 
                 return [];

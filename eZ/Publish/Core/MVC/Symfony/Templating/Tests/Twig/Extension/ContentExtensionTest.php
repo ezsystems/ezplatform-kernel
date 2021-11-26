@@ -9,16 +9,16 @@ namespace eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension;
 use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\ContentTypeService;
 use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\ContentExtension;
-use eZ\Publish\Core\Helper\TranslationHelper;
-use eZ\Publish\Core\Helper\FieldHelper;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Field;
+use eZ\Publish\Core\Helper\FieldHelper;
+use eZ\Publish\Core\Helper\TranslationHelper;
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\ContentExtension;
+use eZ\Publish\Core\Repository\Values\Content\Content;
+use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
+use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
+use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinitionCollection;
 use Psr\Log\LoggerInterface;
 
@@ -69,7 +69,7 @@ class ContentExtensionTest extends FileSystemTwigIntegrationTestCase
      * @param array $fieldsData
      * @param array $namesData
      *
-     * @return Content
+     * @return \eZ\Publish\Core\Repository\Values\Content\Content
      */
     protected function getContent(string $contentTypeIdentifier, array $fieldsData, array $namesData = [])
     {

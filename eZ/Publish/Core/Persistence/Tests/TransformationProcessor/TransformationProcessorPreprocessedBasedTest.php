@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Persistence\Tests\TransformationProcessor;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\Core\Persistence;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\Core\Persistence\TransformationProcessor\PreprocessedBased;
 
 /**

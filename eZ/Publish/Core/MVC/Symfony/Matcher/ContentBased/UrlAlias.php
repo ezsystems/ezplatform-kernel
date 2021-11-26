@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\Core\MVC\Symfony\View\LocationValueView;
 use eZ\Publish\Core\MVC\Symfony\View\View;
 
@@ -61,7 +61,7 @@ class UrlAlias extends MultipleValued
 
         array_walk(
             $matchingConfig,
-            function (&$item) {
+            static function (&$item) {
                 $item = trim($item, '/ ');
             }
         );

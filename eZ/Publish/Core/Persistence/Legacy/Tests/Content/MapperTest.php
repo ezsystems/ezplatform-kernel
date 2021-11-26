@@ -7,21 +7,21 @@
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content;
 
 use function count;
-use eZ\Publish\Core\Persistence\Legacy\Content\Mapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry as Registry;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
 use eZ\Publish\API\Repository\Values\Content\Relation as RelationValue;
-use eZ\Publish\SPI\Persistence\Content\Relation as SPIRelation;
+use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry as Registry;
+use eZ\Publish\Core\Persistence\Legacy\Content\Mapper;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
 use eZ\Publish\SPI\Persistence\Content;
 use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use eZ\Publish\SPI\Persistence\Content\CreateStruct;
 use eZ\Publish\SPI\Persistence\Content\Field;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
 use eZ\Publish\SPI\Persistence\Content\Language;
-use eZ\Publish\SPI\Persistence\Content\CreateStruct;
 use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct as LocationCreateStruct;
+use eZ\Publish\SPI\Persistence\Content\Relation as SPIRelation;
 use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
 /**
  * Test case for Mapper.
@@ -99,7 +99,7 @@ class MapperTest extends LanguageAwareTestCase
     /**
      * Returns a Content fixture.
      *
-     * @return Content
+     * @return \eZ\Publish\SPI\Persistence\Content
      */
     protected function getFullContentFixture()
     {
@@ -478,7 +478,7 @@ class MapperTest extends LanguageAwareTestCase
      *
      * Fixture is stored in _fixtures/extract_content_from_rows_result.php
      *
-     * @return Content
+     * @return \eZ\Publish\SPI\Persistence\Content
      */
     protected function getContentExtractReference()
     {
@@ -524,7 +524,7 @@ class MapperTest extends LanguageAwareTestCase
      *
      * Fixture is stored in _fixtures/relations_results.php
      *
-     * @return Content
+     * @return \eZ\Publish\SPI\Persistence\Content
      */
     protected function getRelationExtractReference()
     {
@@ -608,7 +608,7 @@ class MapperTest extends LanguageAwareTestCase
                 ->method('load')
                 ->will(
                     $this->returnCallback(
-                        function ($id) use ($languages) {
+                        static function ($id) use ($languages) {
                             foreach ($languages as $language) {
                                 if ($language->id == $id) {
                                     return $language;
@@ -621,7 +621,7 @@ class MapperTest extends LanguageAwareTestCase
                 ->method('loadByLanguageCode')
                 ->will(
                     $this->returnCallback(
-                        function ($languageCode) use ($languages) {
+                        static function ($languageCode) use ($languages) {
                             foreach ($languages as $language) {
                                 if ($language->languageCode == $languageCode) {
                                     return $language;

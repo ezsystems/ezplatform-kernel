@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\FieldType\BinaryBase;
 
-use eZ\Publish\SPI\FieldType\BinaryBase\RouteAwarePathGenerator;
-use eZ\Publish\SPI\FieldType\GatewayBasedStorage;
 use eZ\Publish\Core\IO\IOServiceInterface;
 use eZ\Publish\SPI\FieldType\BinaryBase\PathGenerator;
+use eZ\Publish\SPI\FieldType\BinaryBase\RouteAwarePathGenerator;
+use eZ\Publish\SPI\FieldType\GatewayBasedStorage;
 use eZ\Publish\SPI\FieldType\StorageGateway;
 use eZ\Publish\SPI\IO\MimeTypeDetector;
 use eZ\Publish\SPI\Persistence\Content\Field;

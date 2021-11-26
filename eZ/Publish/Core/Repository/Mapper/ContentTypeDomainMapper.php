@@ -8,9 +8,10 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository\Mapper;
 
+use DateTime;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType as APIContentType;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup as APIContentTypeGroup;
 use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft as APIContentTypeDraft;
+use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup as APIContentTypeGroup;
 use eZ\Publish\API\Repository\Values\ContentType\ContentTypeUpdateStruct as APIContentTypeUpdateStruct;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct as APIFieldDefinitionCreateStruct;
@@ -26,13 +27,12 @@ use eZ\Publish\Core\Repository\Values\ContentType\ContentTypeGroup;
 use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinitionCollection;
 use eZ\Publish\SPI\FieldType\FieldType as SPIFieldType;
+use eZ\Publish\SPI\Persistence\Content\Language\Handler as SPILanguageHandler;
 use eZ\Publish\SPI\Persistence\Content\Type as SPIContentType;
+use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as SPIFieldDefinition;
 use eZ\Publish\SPI\Persistence\Content\Type\Group as SPIContentTypeGroup;
 use eZ\Publish\SPI\Persistence\Content\Type\Handler as SPITypeHandler;
 use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct as SPIContentTypeUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as SPIFieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as SPILanguageHandler;
-use DateTime;
 
 /**
  * ContentTypeDomainMapper is an internal service.

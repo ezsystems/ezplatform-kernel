@@ -11,10 +11,10 @@ namespace eZ\Publish\SPI\Repository\Decorator;
 use eZ\Publish\API\Repository\TrashService;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\TrashItem;
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResultList;
-use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult;
 use eZ\Publish\API\Repository\Values\Content\Trash\SearchResult;
+use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult;
+use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResultList;
+use eZ\Publish\API\Repository\Values\Content\TrashItem;
 
 abstract class TrashServiceDecorator implements TrashService
 {

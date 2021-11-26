@@ -110,14 +110,14 @@ interface View
     public function setControllerReference(ControllerReference $controllerReference);
 
     /**
-     * @return ControllerReference
+     * @return \Symfony\Component\HttpKernel\Controller\ControllerReference
      */
     public function getControllerReference();
 
     /**
      * Sets a pre-configured Response that will be used to render the View.
      *
-     * @param Response $response
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function setResponse(Response $response);
 

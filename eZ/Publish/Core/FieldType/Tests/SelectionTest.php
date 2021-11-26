@@ -6,11 +6,11 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\FieldType\Selection\Type as Selection;
 use eZ\Publish\Core\FieldType\Selection\Value as SelectionValue;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
 use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use eZ\Publish\SPI\FieldType\Value as SPIValue;
 
 /**
  * @group fieldType
@@ -73,7 +73,7 @@ class SelectionTest extends FieldTypeTest
     /**
      * Returns the empty value expected from the field type.
      *
-     * @return SelectionValue
+     * @return \eZ\Publish\Core\FieldType\Selection\Value
      */
     protected function getEmptyValueExpectation()
     {

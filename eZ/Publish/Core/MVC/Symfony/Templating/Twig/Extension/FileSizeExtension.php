@@ -6,13 +6,13 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension;
 
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 use Locale;
 use NumberFormatter;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 
 /**
  * Class FileSizeExtension.
@@ -20,7 +20,7 @@ use eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 class FileSizeExtension extends AbstractExtension
 {
     /**
-     * @param TranslatorInterface $translator
+     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
      */
     protected $translator;
 
@@ -30,19 +30,19 @@ class FileSizeExtension extends AbstractExtension
     protected $suffixes;
 
     /**
-     * @param ConfigResolverInterface $configResolver
+     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
      */
     protected $configResolver;
 
     /**
-     * @param  LocaleConverterInterface $localeConverter
+     * @param  \eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface $localeConverter
      */
     protected $localeConverter;
 
     /**
-     * @param TranslatorInterface $translator
-     * @param ConfigResolverInterface $configResolver
-     * @param LocaleConverterInterface $localeConverter
+     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
+     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface $localeConverter
      * @param array $suffixes
      */
     public function __construct(TranslatorInterface $translator, array $suffixes, ConfigResolverInterface $configResolver, LocaleConverterInterface $localeConverter)

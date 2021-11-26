@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace eZ\Publish\SPI\Repository\Tests\Decorator;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
 use eZ\Publish\API\Repository\SettingService;
 use eZ\Publish\API\Repository\Values\Setting\Setting;
 use eZ\Publish\API\Repository\Values\Setting\SettingCreateStruct;
 use eZ\Publish\API\Repository\Values\Setting\SettingUpdateStruct;
 use eZ\Publish\SPI\Repository\Decorator\SettingServiceDecorator;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 class SettingServiceDecoratorTest extends TestCase
 {

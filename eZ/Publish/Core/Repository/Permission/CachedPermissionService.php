@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository\Permission;
 
-use eZ\Publish\API\Repository\PermissionResolver as APIPermissionResolver;
+use Exception;
 use eZ\Publish\API\Repository\PermissionCriterionResolver as APIPermissionCriterionResolver;
+use eZ\Publish\API\Repository\PermissionResolver as APIPermissionResolver;
 use eZ\Publish\API\Repository\PermissionService;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\User\LookupLimitationResult;
 use eZ\Publish\API\Repository\Values\User\UserReference;
 use eZ\Publish\API\Repository\Values\ValueObject;
-use Exception;
 
 /**
  * Cache implementation of PermissionResolver and PermissionCriterionResolver interface.

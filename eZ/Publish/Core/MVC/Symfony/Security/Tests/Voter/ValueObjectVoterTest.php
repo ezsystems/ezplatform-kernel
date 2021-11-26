@@ -11,9 +11,9 @@ use eZ\Publish\Core\MVC\Symfony\Controller\Content\ViewController;
 use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
 use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Voter\ValueObjectVoter;
 use eZ\Publish\Core\Repository\Permission\PermissionResolver;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
-use PHPUnit\Framework\TestCase;
 
 class ValueObjectVoterTest extends TestCase
 {

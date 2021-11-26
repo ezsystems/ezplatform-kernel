@@ -301,7 +301,7 @@ class IOService implements IOServiceInterface
     /**
      * @param string $binaryFileId
      *
-     * @throws InvalidBinaryFileIdException If the id is invalid
+     * @throws \eZ\Publish\Core\IO\Exception\InvalidBinaryFileIdException If the id is invalid
      */
     protected function checkBinaryFileId($binaryFileId)
     {

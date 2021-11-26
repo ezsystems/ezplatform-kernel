@@ -16,14 +16,14 @@ abstract class LogicalOperator extends Criterion
     /**
      * The set of criteria combined by the logical operator.
      *
-     * @var Criterion[]
+     * @var \eZ\Publish\API\Repository\Values\URL\Query\Criterion[]
      */
     public $criteria = [];
 
     /**
      * Creates a Logic operation with the given criteria.
      *
-     * @param Criterion[] $criteria
+     * @param \eZ\Publish\API\Repository\Values\URL\Query\Criterion[] $criteria
      *
      * @throws \InvalidArgumentException
      */

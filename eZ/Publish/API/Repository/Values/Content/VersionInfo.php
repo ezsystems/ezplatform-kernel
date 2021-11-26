@@ -28,9 +28,9 @@ use eZ\Publish\SPI\Repository\Values\MultiLanguageName;
  */
 abstract class VersionInfo extends ValueObject implements MultiLanguageName
 {
-    const STATUS_DRAFT = 0;
-    const STATUS_PUBLISHED = 1;
-    const STATUS_ARCHIVED = 3;
+    public const STATUS_DRAFT = 0;
+    public const STATUS_PUBLISHED = 1;
+    public const STATUS_ARCHIVED = 3;
 
     /**
      * Version ID.

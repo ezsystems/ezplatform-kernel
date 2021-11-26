@@ -72,7 +72,8 @@ class BookmarkService implements BookmarkServiceInterface
         $loadedLocation = $this->repository->getLocationService()->loadLocation($location->id);
 
         $bookmarks = $this->bookmarkHandler->loadByUserIdAndLocationId(
-            $this->getCurrentUserId(), [$loadedLocation->id]
+            $this->getCurrentUserId(),
+            [$loadedLocation->id]
         );
 
         if (empty($bookmarks)) {
@@ -115,7 +116,8 @@ class BookmarkService implements BookmarkServiceInterface
     public function isBookmarked(Location $location): bool
     {
         $bookmarks = $this->bookmarkHandler->loadByUserIdAndLocationId(
-            $this->getCurrentUserId(), [$location->id]
+            $this->getCurrentUserId(),
+            [$location->id]
         );
 
         return !empty($bookmarks);

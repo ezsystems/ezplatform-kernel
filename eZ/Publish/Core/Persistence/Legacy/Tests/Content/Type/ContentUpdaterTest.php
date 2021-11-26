@@ -6,13 +6,13 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Type;
 
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Mapper;
 use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
+use eZ\Publish\Core\Persistence\Legacy\Content\Mapper;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler;
+use eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater;
+use eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
 use eZ\Publish\SPI\Persistence\Content\Type;
 use PHPUnit\Framework\TestCase;
 

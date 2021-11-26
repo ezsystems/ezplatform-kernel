@@ -27,7 +27,7 @@ final class TwigVariableProviderExtension implements ExpressionFunctionProviderI
         return [
             new ExpressionFunction(
                 'twig_variable_provider',
-                function (string $identifier) {
+                static function (string $identifier) {
                     return 'Not implemented: Not a Dependency Injection expression';
                 },
                 function (array $variables, string $identifier) {

@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository\SiteAccessAware;
 
+use eZ\Publish\API\Repository\LanguageResolver;
 use eZ\Publish\API\Repository\URLAliasService as URLAliasServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\LanguageResolver;
 use eZ\Publish\API\Repository\Values\Content\URLAlias;
 
 /**

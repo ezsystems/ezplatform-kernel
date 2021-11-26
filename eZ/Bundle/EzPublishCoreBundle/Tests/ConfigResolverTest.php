@@ -6,10 +6,10 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Tests;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ConfigResolverTest extends TestCase
 {

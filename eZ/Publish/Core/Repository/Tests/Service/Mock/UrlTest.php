@@ -7,19 +7,19 @@
 namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
 
 use DateTime;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use eZ\Publish\API\Repository\Values\URL\UsageSearchResult;
-use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
-use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
 use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion as ContentCriterion;
 use eZ\Publish\API\Repository\Values\Content\Query as ContentQuery;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion as ContentCriterion;
+use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
 use eZ\Publish\API\Repository\Values\Content\Search\SearchResult as ContentSearchResults;
 use eZ\Publish\API\Repository\Values\URL\SearchResult;
 use eZ\Publish\API\Repository\Values\URL\URL;
 use eZ\Publish\API\Repository\Values\URL\URLQuery;
 use eZ\Publish\API\Repository\Values\URL\URLUpdateStruct;
+use eZ\Publish\API\Repository\Values\URL\UsageSearchResult;
+use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
+use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
 use eZ\Publish\Core\Repository\URLService;
 use eZ\Publish\SPI\Persistence\URL\URL as SpiUrl;
 
@@ -353,7 +353,7 @@ class UrlTest extends BaseServiceMockTest
                     $this->assertEquals($expectedQuery, $query);
 
                     return new ContentSearchResults([
-                        'searchHits' => array_map(function ($id) {
+                        'searchHits' => array_map(static function ($id) {
                             return new SearchHit([
                                 'valueObject' => new ContentInfo([
                                     'id' => $id,

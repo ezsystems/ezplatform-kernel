@@ -44,7 +44,10 @@ class ImageValidator extends Validator
         // note that file extension checking is done using other validation which should be called before this one
         if (!@getimagesize($filePath)) {
             $this->errors[] = new ValidationError(
-                'A valid image file is required.', null, [], 'id'
+                'A valid image file is required.',
+                null,
+                [],
+                'id'
             );
 
             return false;

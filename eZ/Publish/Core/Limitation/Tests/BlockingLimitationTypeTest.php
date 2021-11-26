@@ -6,15 +6,15 @@
  */
 namespace eZ\Publish\Core\Limitation\Tests;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion\MatchNone;
 use eZ\Publish\API\Repository\Values\User\Limitation;
 use eZ\Publish\API\Repository\Values\User\Limitation\BlockingLimitation;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\MatchNone;
 use eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation;
+use eZ\Publish\API\Repository\Values\ValueObject;
 use eZ\Publish\Core\Limitation\BlockingLimitationType;
-use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\Core\Repository\Values\Content\ContentCreateStruct;
+use eZ\Publish\Core\Repository\Values\Content\Location;
 
 /**
  * Test Case for LimitationType.

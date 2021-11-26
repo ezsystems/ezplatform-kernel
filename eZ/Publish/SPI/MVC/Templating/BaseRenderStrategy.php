@@ -46,7 +46,8 @@ abstract class BaseRenderStrategy implements RenderStrategy
     {
         if (empty($this->fragmentRenderers[$name])) {
             throw new InvalidArgumentException('method', sprintf(
-                'Fragment renderer "%s" does not exist.', $name
+                'Fragment renderer "%s" does not exist.',
+                $name
             ));
         }
 

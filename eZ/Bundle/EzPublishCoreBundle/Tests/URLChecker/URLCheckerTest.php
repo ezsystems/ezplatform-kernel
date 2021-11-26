@@ -6,14 +6,14 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\URLChecker;
 
+use eZ\Bundle\EzPublishCoreBundle\URLChecker\URLChecker;
+use eZ\Bundle\EzPublishCoreBundle\URLChecker\URLHandlerInterface;
+use eZ\Bundle\EzPublishCoreBundle\URLChecker\URLHandlerRegistryInterface;
 use eZ\Publish\API\Repository\URLService;
 use eZ\Publish\API\Repository\Values\URL\SearchResult;
 use eZ\Publish\API\Repository\Values\URL\URL;
 use eZ\Publish\API\Repository\Values\URL\URLQuery;
 use eZ\Publish\API\Repository\Values\URL\URLUpdateStruct;
-use eZ\Bundle\EzPublishCoreBundle\URLChecker\URLChecker;
-use eZ\Bundle\EzPublishCoreBundle\URLChecker\URLHandlerInterface;
-use eZ\Bundle\EzPublishCoreBundle\URLChecker\URLHandlerRegistryInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -34,7 +34,7 @@ class URLCheckerTest extends TestCase
         $this->urlService
             ->expects($this->any())
             ->method('createUpdateStruct')
-            ->willReturnCallback(function () {
+            ->willReturnCallback(static function () {
                 return new URLUpdateStruct();
             });
 
@@ -112,13 +112,13 @@ class URLCheckerTest extends TestCase
     {
         $this->handlerRegistry
             ->method('supported')
-            ->willReturnCallback(function ($scheme) use ($schemes) {
+            ->willReturnCallback(static function ($scheme) use ($schemes) {
                 return isset($schemes[$scheme]);
             });
 
         $this->handlerRegistry
             ->method('getHandler')
-            ->willReturnCallback(function ($scheme) use ($schemes) {
+            ->willReturnCallback(static function ($scheme) use ($schemes) {
                 return $schemes[$scheme];
             });
     }

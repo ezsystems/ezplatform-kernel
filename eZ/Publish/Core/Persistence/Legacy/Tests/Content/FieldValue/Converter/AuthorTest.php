@@ -6,16 +6,16 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter;
 
+use DOMDocument;
 use eZ\Publish\Core\FieldType\Author\Type as AuthorType;
 use eZ\Publish\Core\FieldType\FieldSettings;
+use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\AuthorConverter;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
 use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\AuthorConverter;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as SPIFieldDefinition;
 use PHPUnit\Framework\TestCase;
-use DOMDocument;
 
 /**
  * Test case for Author converter in Legacy storage.

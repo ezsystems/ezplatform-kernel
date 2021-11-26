@@ -6,15 +6,15 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\View;
 
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent;
-use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent;
+use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use RuntimeException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 
 class Manager implements ViewManagerInterface
@@ -59,7 +59,7 @@ class Manager implements ViewManagerInterface
      */
     protected $viewBaseLayout;
 
-    /** @var ConfigResolverInterface */
+    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     protected $configResolver;
 
     /** @var \eZ\Publish\Core\MVC\Symfony\View\Configurator */

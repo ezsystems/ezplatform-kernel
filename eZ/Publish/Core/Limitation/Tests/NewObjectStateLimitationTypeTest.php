@@ -6,16 +6,16 @@
  */
 namespace eZ\Publish\Core\Limitation\Tests;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation;
 use eZ\Publish\API\Repository\Values\User\Limitation\NewObjectStateLimitation;
+use eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation;
+use eZ\Publish\API\Repository\Values\ValueObject;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\Limitation\NewObjectStateLimitationType;
 use eZ\Publish\Core\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use eZ\Publish\Core\Repository\Values\Content\Location;
+use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use eZ\Publish\Core\Repository\Values\ObjectState\ObjectState;
 use eZ\Publish\SPI\Persistence\Content\ObjectState\Handler as SPIHandler;
 

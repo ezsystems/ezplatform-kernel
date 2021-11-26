@@ -7,16 +7,14 @@
 namespace eZ\Publish\Core\IO\IOMetadataHandler;
 
 use DateTime;
-use eZ\Publish\Core\IO\IOMetadataHandler;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException;
-use eZ\Publish\Core\IO\Exception\InvalidBinaryFileIdException;
+use eZ\Publish\Core\IO\IOMetadataHandler;
 use eZ\Publish\Core\IO\UrlDecorator;
-use eZ\Publish\SPI\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
 use eZ\Publish\SPI\IO\BinaryFile as SPIBinaryFile;
+use eZ\Publish\SPI\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
 use RuntimeException;
 
 /**
@@ -26,15 +24,15 @@ use RuntimeException;
  */
 class LegacyDFSCluster implements IOMetadataHandler
 {
-    /** @var Connection */
+    /** @var \Doctrine\DBAL\Connection */
     private $db;
 
-    /** @var UrlDecorator */
+    /** @var \eZ\Publish\Core\IO\UrlDecorator */
     private $urlDecorator;
 
     /**
-     * @param Connection $connection Doctrine DBAL connection
-     * @param UrlDecorator $urlDecorator The URL decorator used to add a prefix to files path
+     * @param \Doctrine\DBAL\Connection $connection Doctrine DBAL connection
+     * @param \eZ\Publish\Core\IO\UrlDecorator $urlDecorator The URL decorator used to add a prefix to files path
      */
     public function __construct(Connection $connection, UrlDecorator $urlDecorator = null)
     {
@@ -47,10 +45,10 @@ class LegacyDFSCluster implements IOMetadataHandler
      *
      * @since 6.10 The mtime of the $binaryFileCreateStruct must be a DateTime, as specified in the struct doc.
      *
-     * @param SPIBinaryFileCreateStruct $binaryFileCreateStruct
+     * @param \eZ\Publish\SPI\IO\BinaryFileCreateStruct $binaryFileCreateStruct
      *
-     * @throws InvalidArgumentException if the $binaryFileCreateStruct is invalid
-     * @throws RuntimeException if a DBAL error occurs
+     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException if the $binaryFileCreateStruct is invalid
+     * @throws \RuntimeException if a DBAL error occurs
      *
      * @return \eZ\Publish\SPI\IO\BinaryFile
      */
@@ -67,7 +65,8 @@ class LegacyDFSCluster implements IOMetadataHandler
              * @todo what might go wrong here ? Can another process be trying to insert the same image ?
              *       what happens if somebody did ?
              **/
-            $stmt = $this->db->prepare(<<<SQL
+            $stmt = $this->db->prepare(
+                <<<SQL
 INSERT INTO ezdfsfile
   (name, name_hash, name_trunk, mtime, size, scope, datatype)
   VALUES (:name, :name_hash, :name_trunk, :mtime, :size, :scope, :datatype)
@@ -94,7 +93,7 @@ SQL
     /**
      * Deletes file $spiBinaryFileId.
      *
-     * @throws BinaryFileNotFoundException If $spiBinaryFileId is not found
+     * @throws \eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException If $spiBinaryFileId is not found
      *
      * @param string $spiBinaryFileId
      */
@@ -118,10 +117,10 @@ SQL
      *
      * @param string $spiBinaryFileId
      *
-     * @return SPIBinaryFile
+     * @return \eZ\Publish\SPI\IO\BinaryFile
      *
-     * @throws BinaryFileNotFoundException if no row is found for $spiBinaryFileId
-     * @throws DBALException Any unhandled DBAL exception
+     * @throws \eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException if no row is found for $spiBinaryFileId
+     * @throws \Doctrine\DBAL\DBALException Any unhandled DBAL exception
      */
     public function load($spiBinaryFileId)
     {
@@ -145,8 +144,8 @@ SQL
      *
      * @param string $spiBinaryFileId
      *
-     * @throws NotFoundException
-     * @throws DBALException Any unhandled DBAL exception
+     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \Doctrine\DBAL\DBALException Any unhandled DBAL exception
      *
      * @return bool
      */
@@ -162,7 +161,7 @@ SQL
     }
 
     /**
-     * @param SPIBinaryFileCreateStruct $binaryFileCreateStruct
+     * @param \eZ\Publish\SPI\IO\BinaryFileCreateStruct $binaryFileCreateStruct
      *
      * @return mixed
      */
@@ -177,7 +176,7 @@ SQL
      * Note that this is slightly incorrect, as it will return binaryfile for media files as well. It is a bit
      * of an issue, but shouldn't be a blocker given that this meta field isn't used that much.
      *
-     * @param SPIBinaryFileCreateStruct $binaryFileCreateStruct
+     * @param \eZ\Publish\SPI\IO\BinaryFileCreateStruct $binaryFileCreateStruct
      *
      * @return string
      */
@@ -215,7 +214,7 @@ SQL
      *
      * @return string the id without the prefix
      *
-     * @throws InvalidBinaryFileIdException if the prefix isn't found in $prefixedId
+     * @throws \eZ\Publish\Core\IO\Exception\InvalidBinaryFileIdException if the prefix isn't found in $prefixedId
      */
     protected function removePrefix($prefixedId)
     {
@@ -261,7 +260,7 @@ SQL
      *
      * @param array $properties database properties array
      *
-     * @return SPIBinaryFile
+     * @return \eZ\Publish\SPI\IO\BinaryFile
      */
     protected function mapArrayToSPIBinaryFile(array $properties)
     {
@@ -275,9 +274,9 @@ SQL
     }
 
     /**
-     * @param SPIBinaryFileCreateStruct $binaryFileCreateStruct
+     * @param \eZ\Publish\SPI\IO\BinaryFileCreateStruct $binaryFileCreateStruct
      *
-     * @return SPIBinaryFile
+     * @return \eZ\Publish\SPI\IO\BinaryFile
      */
     protected function mapSPIBinaryFileCreateStructToSPIBinaryFile(SPIBinaryFileCreateStruct $binaryFileCreateStruct)
     {

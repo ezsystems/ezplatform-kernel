@@ -6,13 +6,13 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway;
 
+use Doctrine\DBAL\DBALException;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\Core\Base\Exceptions\DatabaseException;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway;
 use eZ\Publish\SPI\Persistence\Content\Location;
-use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
 use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct;
-use Doctrine\DBAL\DBALException;
+use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
 use PDOException;
 
 /**

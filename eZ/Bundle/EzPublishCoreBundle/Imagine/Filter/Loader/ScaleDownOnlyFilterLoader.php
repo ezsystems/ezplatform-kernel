@@ -6,8 +6,8 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader;
 
-use Imagine\Image\ImageInterface;
 use Imagine\Exception\InvalidArgumentException;
+use Imagine\Image\ImageInterface;
 
 /**
  * Filter loader for geometry/scaledownonly filter.
@@ -18,12 +18,12 @@ class ScaleDownOnlyFilterLoader extends FilterLoaderWrapped
     /**
      * Loads and applies a filter on the given image.
      *
-     * @param ImageInterface $image
+     * @param \Imagine\Image\ImageInterface $image
      * @param array $options Numerically indexed array. First entry is width, second is height.
      *
      * @throws \Imagine\Exception\InvalidArgumentException
      *
-     * @return ImageInterface
+     * @return \Imagine\Image\ImageInterface
      */
     public function load(ImageInterface $image, array $options = [])
     {

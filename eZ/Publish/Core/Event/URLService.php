@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Event;
 
+use eZ\Publish\API\Repository\Events\URL\BeforeUpdateUrlEvent;
+use eZ\Publish\API\Repository\Events\URL\UpdateUrlEvent;
 use eZ\Publish\API\Repository\URLService as URLServiceInterface;
 use eZ\Publish\API\Repository\Values\URL\URL;
 use eZ\Publish\API\Repository\Values\URL\URLUpdateStruct;
-use eZ\Publish\API\Repository\Events\URL\BeforeUpdateUrlEvent;
-use eZ\Publish\API\Repository\Events\URL\UpdateUrlEvent;
 use eZ\Publish\SPI\Repository\Decorator\URLServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 

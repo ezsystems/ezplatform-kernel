@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace eZ\Publish\API\Repository\Values\UserPreference;
 
 use ArrayIterator;
-use IteratorAggregate;
 use eZ\Publish\API\Repository\Values\ValueObject;
+use IteratorAggregate;
 
 /**
  * List of user preferences.

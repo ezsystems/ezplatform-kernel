@@ -10,9 +10,9 @@ namespace eZ\Publish\Core\Persistence\Cache\Tests\Adapter;
 
 use eZ\Publish\Core\Persistence\Cache\Adapter\TransactionalInMemoryCacheAdapter;
 use eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 use Symfony\Component\Cache\CacheItem;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Test case for Adapter decorator.

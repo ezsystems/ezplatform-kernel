@@ -22,13 +22,13 @@ use Twig\TwigFunction;
  */
 class FieldRenderingExtension extends AbstractExtension
 {
-    /** @var FieldBlockRendererInterface|\eZ\Publish\Core\MVC\Symfony\Templating\Twig\FieldBlockRenderer */
+    /** @var \eZ\Publish\Core\MVC\Symfony\Templating\FieldBlockRendererInterface|\eZ\Publish\Core\MVC\Symfony\Templating\Twig\FieldBlockRenderer */
     private $fieldBlockRenderer;
 
-    /** @var ParameterProviderRegistryInterface */
+    /** @var \eZ\Publish\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistryInterface */
     private $parameterProviderRegistry;
 
-    /** @var TranslationHelper */
+    /** @var \eZ\Publish\Core\Helper\TranslationHelper */
     private $translationHelper;
 
     /**
@@ -99,7 +99,7 @@ class FieldRenderingExtension extends AbstractExtension
      *
      * @return string The HTML markup
      *
-     * @throws InvalidArgumentException
+     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
      */
     public function renderField(Content $content, $fieldIdentifier, array $params = [])
     {

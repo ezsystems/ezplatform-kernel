@@ -6,13 +6,13 @@
  */
 namespace eZ\Publish\Core\Search\Legacy\Tests\Content;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
+use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
 use eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway\DoctrineDatabase as ContentTypeGateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler as ContentTypeHandler;
 use eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper as ContentTypeMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
 use eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler as ContentTypeUpdateHandler;
+use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
 use eZ\Publish\SPI\Persistence\Content\Type\Handler as SPIContentTypeHandler;
 
 /**
@@ -61,7 +61,7 @@ class AbstractTestCase extends LanguageAwareTestCase
     protected function getIds($searchResult)
     {
         $ids = array_map(
-            function ($hit) {
+            static function ($hit) {
                 return $hit->valueObject->id;
             },
             $searchResult->searchHits

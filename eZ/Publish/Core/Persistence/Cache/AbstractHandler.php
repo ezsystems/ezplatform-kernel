@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Persistence\Cache;
 
-use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
 use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
+use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
 use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierSanitizer;
 use Ibexa\Core\Persistence\Cache\LocationPathConverter;
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;

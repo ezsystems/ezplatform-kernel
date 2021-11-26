@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
 
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
 use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler;
 use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler;
+use eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
 
 /**
@@ -66,7 +66,7 @@ class RemoveField extends Action
 
         $nameRows = $this->contentGateway->loadVersionedNameData(
             array_map(
-                function ($versionNo) use ($contentId) {
+                static function ($versionNo) use ($contentId) {
                     return ['id' => $contentId, 'version' => $versionNo];
                 },
                 $versionNumbers

@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\Id;
 
-use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Id\Section as SectionIdMatcher;
-use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Location;
+use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Id\Section as SectionIdMatcher;
 use eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\BaseTest;
 
 class SectionTest extends BaseTest

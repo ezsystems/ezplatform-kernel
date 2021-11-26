@@ -130,7 +130,7 @@ class ContentServiceAuthorizationTest extends BaseContentServiceTest
         $contentId = $this->generateId('object', 10);
         $this->setRestrictedEditorUser();
 
-        $contentInfo = $repository->sudo(function (Repository $repository) use ($contentId) {
+        $contentInfo = $repository->sudo(static function (Repository $repository) use ($contentId) {
             return $repository->getContentService()->loadContentInfo($contentId);
         });
 

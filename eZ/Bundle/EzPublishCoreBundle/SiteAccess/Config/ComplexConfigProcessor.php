@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace eZ\Bundle\EzPublishCoreBundle\SiteAccess\Config;
 
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser;
-use eZ\Publish\Core\MVC\Exception\ParameterNotFoundException;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use eZ\Publish\Core\MVC\Exception\ParameterNotFoundException;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessService;
 use eZ\Publish\SPI\SiteAccess\ConfigProcessor;
 use function str_replace;

@@ -8,11 +8,6 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Event;
 
-use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\LocationUpdateStruct;
 use eZ\Publish\API\Repository\Events\Location\BeforeCopySubtreeEvent;
 use eZ\Publish\API\Repository\Events\Location\BeforeCreateLocationEvent;
 use eZ\Publish\API\Repository\Events\Location\BeforeDeleteLocationEvent;
@@ -29,6 +24,11 @@ use eZ\Publish\API\Repository\Events\Location\MoveSubtreeEvent;
 use eZ\Publish\API\Repository\Events\Location\SwapLocationEvent;
 use eZ\Publish\API\Repository\Events\Location\UnhideLocationEvent;
 use eZ\Publish\API\Repository\Events\Location\UpdateLocationEvent;
+use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Location;
+use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
+use eZ\Publish\API\Repository\Values\Content\LocationUpdateStruct;
 use eZ\Publish\SPI\Repository\Decorator\LocationServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 

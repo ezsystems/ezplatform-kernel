@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Base\Exceptions;
 
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException as APIUnauthorizedException;
 use Exception;
+use eZ\Publish\API\Repository\Exceptions\UnauthorizedException as APIUnauthorizedException;
 use eZ\Publish\Core\Base\Translatable;
 use eZ\Publish\Core\Base\TranslatableBase;
 

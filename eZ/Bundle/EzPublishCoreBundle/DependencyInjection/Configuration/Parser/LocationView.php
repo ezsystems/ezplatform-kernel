@@ -11,8 +11,8 @@ use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAw
 
 class LocationView extends View
 {
-    const NODE_KEY = 'location_view';
-    const INFO = 'Template selection settings when displaying a location. Deprecated from 5.4.5/2015.09, use content_view instead.';
+    public const NODE_KEY = 'location_view';
+    public const INFO = 'Template selection settings when displaying a location. Deprecated from 5.4.5/2015.09, use content_view instead.';
 
     public function preMap(array $config, ContextualizerInterface $contextualizer)
     {

@@ -6,13 +6,13 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\View\Renderer;
 
+use Closure;
 use eZ\Publish\Core\MVC\Exception\NoViewTemplateException;
+use eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent;
+use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 use eZ\Publish\Core\MVC\Symfony\View\Renderer;
 use eZ\Publish\Core\MVC\Symfony\View\View;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent;
-use Closure;
 use Twig\Environment;
 
 class TemplateRenderer implements Renderer
@@ -32,7 +32,7 @@ class TemplateRenderer implements Renderer
     /**
      * @param \eZ\Publish\Core\MVC\Symfony\View\View $view
      *
-     * @throws NoViewTemplateException
+     * @throws \eZ\Publish\Core\MVC\Exception\NoViewTemplateException
      *
      * @return string
      */

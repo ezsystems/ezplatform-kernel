@@ -8,19 +8,19 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository\SiteAccessAware;
 
+use eZ\Publish\API\Repository\LanguageResolver;
 use eZ\Publish\API\Repository\UserService as UserServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use eZ\Publish\API\Repository\Values\User\PasswordInfo;
 use eZ\Publish\API\Repository\Values\User\PasswordValidationContext;
-use eZ\Publish\API\Repository\Values\User\UserGroupCreateStruct;
-use eZ\Publish\API\Repository\Values\User\UserGroupUpdateStruct;
+use eZ\Publish\API\Repository\Values\User\User;
 use eZ\Publish\API\Repository\Values\User\UserCreateStruct;
 use eZ\Publish\API\Repository\Values\User\UserGroup;
-use eZ\Publish\API\Repository\Values\User\User;
+use eZ\Publish\API\Repository\Values\User\UserGroupCreateStruct;
+use eZ\Publish\API\Repository\Values\User\UserGroupUpdateStruct;
 use eZ\Publish\API\Repository\Values\User\UserTokenUpdateStruct;
 use eZ\Publish\API\Repository\Values\User\UserUpdateStruct;
-use eZ\Publish\API\Repository\LanguageResolver;
 
 /**
  * UserService for SiteAccessAware layer.

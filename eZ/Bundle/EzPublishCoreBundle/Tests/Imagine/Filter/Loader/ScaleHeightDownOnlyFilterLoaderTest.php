@@ -7,8 +7,8 @@
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\Loader;
 
 use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader\ScaleHeightDownOnlyFilterLoader;
-use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
 use Imagine\Image\ImageInterface;
+use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
 use PHPUnit\Framework\TestCase;
 
 class ScaleHeightDownOnlyFilterLoaderTest extends TestCase
@@ -16,7 +16,7 @@ class ScaleHeightDownOnlyFilterLoaderTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $innerLoader;
 
-    /** @var ScaleHeightDownOnlyFilterLoader */
+    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader\ScaleHeightDownOnlyFilterLoader */
     private $loader;
 
     protected function setUp(): void

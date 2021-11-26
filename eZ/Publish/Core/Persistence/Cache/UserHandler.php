@@ -6,15 +6,15 @@
  */
 namespace eZ\Publish\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\User\UserTokenUpdateStruct;
-use eZ\Publish\SPI\Persistence\User\Handler as UserHandlerInterface;
 use eZ\Publish\SPI\Persistence\User;
+use eZ\Publish\SPI\Persistence\User\Handler as UserHandlerInterface;
+use eZ\Publish\SPI\Persistence\User\Policy;
 use eZ\Publish\SPI\Persistence\User\Role;
 use eZ\Publish\SPI\Persistence\User\RoleAssignment;
 use eZ\Publish\SPI\Persistence\User\RoleCopyStruct;
 use eZ\Publish\SPI\Persistence\User\RoleCreateStruct;
 use eZ\Publish\SPI\Persistence\User\RoleUpdateStruct;
-use eZ\Publish\SPI\Persistence\User\Policy;
+use eZ\Publish\SPI\Persistence\User\UserTokenUpdateStruct;
 
 /**
  * Cache handler for user module.

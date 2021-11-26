@@ -6,9 +6,9 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader;
 
+use Imagine\Exception\InvalidArgumentException;
 use Imagine\Filter\Advanced\Border;
 use Imagine\Image\ImageInterface;
-use Imagine\Exception\InvalidArgumentException;
 use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
 
 /**
@@ -19,7 +19,7 @@ use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
  */
 class BorderFilterLoader implements LoaderInterface
 {
-    const DEFAULT_BORDER_COLOR = '#000';
+    public const DEFAULT_BORDER_COLOR = '#000';
 
     public function load(ImageInterface $image, array $options = [])
     {

@@ -8,8 +8,8 @@ namespace eZ\Publish\Core\FieldType\Null;
 
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\Core\FieldType\FieldType;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
 use eZ\Publish\Core\FieldType\Value as BaseValue;
+use eZ\Publish\SPI\FieldType\Value as SPIValue;
 
 /**
  * ATTENTION: For testing purposes only!

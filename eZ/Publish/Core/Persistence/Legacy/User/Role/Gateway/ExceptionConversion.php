@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway;
 
+use Doctrine\DBAL\DBALException;
 use eZ\Publish\Core\Base\Exceptions\DatabaseException;
 use eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway;
 use eZ\Publish\SPI\Persistence\User\Policy;
-use eZ\Publish\SPI\Persistence\User\RoleUpdateStruct;
 use eZ\Publish\SPI\Persistence\User\Role;
-use Doctrine\DBAL\DBALException;
+use eZ\Publish\SPI\Persistence\User\RoleUpdateStruct;
 use PDOException;
 
 /**
@@ -24,14 +24,14 @@ final class ExceptionConversion extends Gateway
     /**
      * The wrapped gateway.
      *
-     * @var Gateway
+     * @var \eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway
      */
     private $innerGateway;
 
     /**
      * Creates a new exception conversion gateway around $innerGateway.
      *
-     * @param Gateway $innerGateway
+     * @param \eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway $innerGateway
      */
     public function __construct(Gateway $innerGateway)
     {

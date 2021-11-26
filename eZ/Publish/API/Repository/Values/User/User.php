@@ -33,13 +33,13 @@ abstract class User extends Content implements UserReference
     ];
 
     /** @var int Passwords in bcrypt */
-    const PASSWORD_HASH_BCRYPT = 6;
+    public const PASSWORD_HASH_BCRYPT = 6;
 
     /** @var int Passwords hashed by PHPs default algorithm, which may change over time */
-    const PASSWORD_HASH_PHP_DEFAULT = 7;
+    public const PASSWORD_HASH_PHP_DEFAULT = 7;
 
     /** @var int Default password hash, used when none is specified, may change over time */
-    const DEFAULT_PASSWORD_HASH = self::PASSWORD_HASH_PHP_DEFAULT;
+    public const DEFAULT_PASSWORD_HASH = self::PASSWORD_HASH_PHP_DEFAULT;
 
     /**
      * User login.

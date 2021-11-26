@@ -7,8 +7,8 @@
 namespace eZ\Publish\Core\Search\Legacy\Content\Location\Gateway\SortClauseHandler\Location;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
 
 /**
  * Content locator gateway implementation using the DoctrineDatabase.
@@ -28,7 +28,8 @@ class Depth extends SortClauseHandler
     }
 
     public function applySelect(
-        QueryBuilder $query, SortClause $sortClause,
+        QueryBuilder $query,
+        SortClause $sortClause,
         int $number
     ): array {
         $query

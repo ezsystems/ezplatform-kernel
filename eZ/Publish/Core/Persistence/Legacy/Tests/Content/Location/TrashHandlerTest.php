@@ -8,11 +8,11 @@ namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Location;
 
 use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult;
 use eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResultList;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
+use eZ\Publish\Core\Persistence\Legacy\Content as CoreContent;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Trash\Handler;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\SPI\Persistence\Content\Location\Trash\TrashResult;
 use eZ\Publish\SPI\Persistence\Content\Location\Trashed;
-use eZ\Publish\Core\Persistence\Legacy\Content as CoreContent;
 
 /**
  * Test case for TrashHandlerTest.

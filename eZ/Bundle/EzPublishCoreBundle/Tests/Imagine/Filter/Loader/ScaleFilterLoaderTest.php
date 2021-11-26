@@ -7,9 +7,9 @@
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\Loader;
 
 use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader\ScaleFilterLoader;
+use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
-use Imagine\Image\Box;
 use PHPUnit\Framework\TestCase;
 
 class ScaleFilterLoaderTest extends TestCase
@@ -17,7 +17,7 @@ class ScaleFilterLoaderTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $innerLoader;
 
-    /** @var ScaleFilterLoader */
+    /** @var \eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\Loader\ScaleFilterLoader */
     private $loader;
 
     protected function setUp(): void

@@ -9,9 +9,9 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\Repository\Strategy\ContentThumbnail;
 
 use eZ\Publish\API\Repository\Values\Content\Thumbnail;
+use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 
 final class StaticStrategy implements ThumbnailStrategy
 {

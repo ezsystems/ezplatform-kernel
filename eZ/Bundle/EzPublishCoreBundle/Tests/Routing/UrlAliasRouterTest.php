@@ -6,19 +6,19 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\Routing;
 
+use eZ\Bundle\EzPublishCoreBundle\Routing\UrlAliasRouter;
+use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\API\Repository\URLAliasService;
-use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Routing\RequestContext;
-use eZ\Bundle\EzPublishCoreBundle\Routing\UrlAliasRouter;
 use eZ\Publish\API\Repository\Values\Content\URLAlias;
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
 use eZ\Publish\Core\MVC\Symfony\Routing\Tests\UrlAliasRouterTest as BaseUrlAliasRouterTest;
 use eZ\Publish\Core\MVC\Symfony\View\Manager as ViewManager;
+use eZ\Publish\Core\Repository\Values\Content\Location;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Routing\RequestContext;
 
 class UrlAliasRouterTest extends BaseUrlAliasRouterTest
 {

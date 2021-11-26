@@ -14,13 +14,13 @@ use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
 use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\Core\Search\Common\EventSubscriber\LocationEventSubscriber;
 use eZ\Publish\Core\Search\Legacy\Content\Handler as SearchHandler;
-use eZ\Publish\SPI\Persistence\Content\Location\Handler as LocationHandler;
-use eZ\Publish\SPI\Persistence\Content\Handler as ContentHandler;
-use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
-use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo as SPIVersionInfo;
 use eZ\Publish\SPI\Persistence\Content as SPIContent;
 use eZ\Publish\SPI\Persistence\Content\ContentInfo as SPIContentInfo;
+use eZ\Publish\SPI\Persistence\Content\Handler as ContentHandler;
+use eZ\Publish\SPI\Persistence\Content\Location as SPILocation;
+use eZ\Publish\SPI\Persistence\Content\Location\Handler as LocationHandler;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo as SPIVersionInfo;
+use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
 use PHPUnit\Framework\TestCase;
 
 final class LocationEventSubscriberTest extends TestCase

@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Id;
 
-use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued;
 use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
+use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\MultipleValued;
 use eZ\Publish\Core\MVC\Symfony\View\LocationValueView;
 use eZ\Publish\Core\MVC\Symfony\View\View;
 
@@ -25,7 +25,7 @@ class ParentContentType extends MultipleValued
     public function matchLocation(APILocation $location)
     {
         $parent = $this->repository->sudo(
-            function (Repository $repository) use ($location) {
+            static function (Repository $repository) use ($location) {
                 return $repository->getLocationService()->loadLocation($location->parentLocationId);
             }
         );
@@ -43,7 +43,7 @@ class ParentContentType extends MultipleValued
     public function matchContentInfo(ContentInfo $contentInfo)
     {
         $location = $this->repository->sudo(
-            function (Repository $repository) use ($contentInfo) {
+            static function (Repository $repository) use ($contentInfo) {
                 return $repository->getLocationService()->loadLocation($contentInfo->mainLocationId);
             }
         );
@@ -69,7 +69,7 @@ class ParentContentType extends MultipleValued
     private function loadParentLocation($locationId)
     {
         return $this->repository->sudo(
-            function (Repository $repository) use ($locationId) {
+            static function (Repository $repository) use ($locationId) {
                 return $repository->getLocationService()->loadLocation($locationId);
             }
         );

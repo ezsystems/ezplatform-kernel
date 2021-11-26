@@ -9,12 +9,12 @@ namespace eZ\Publish\API\Repository\Tests\FieldType;
 use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
 use eZ\Publish\API\Repository\Exceptions\BadStateException;
 use eZ\Publish\API\Repository\Exceptions\ForbiddenException;
+use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\Core\FieldType\User\Type;
 use eZ\Publish\Core\FieldType\User\Value as UserValue;
 use eZ\Publish\Core\Repository\Values\User\User;
-use eZ\Publish\API\Repository\Values\Content\Field;
 
 /**
  * Integration test for use field type.
@@ -189,7 +189,7 @@ class UserIntegrationTest extends BaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     public function assertFieldDataLoadedCorrect(Field $field)
     {
@@ -334,7 +334,7 @@ class UserIntegrationTest extends BaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()};
      * was copied and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {

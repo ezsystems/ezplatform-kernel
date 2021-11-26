@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry as Registry;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry as Registry;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 
 /**
  * Test case for FieldValue Converter Registry.

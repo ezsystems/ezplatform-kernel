@@ -6,8 +6,8 @@
  */
 namespace eZ\Bundle\EzPublishIOBundle\Migration\FileLister;
 
-use Iterator;
 use Countable;
+use Iterator;
 
 /**
  * Iterates over BinaryFile id entries.

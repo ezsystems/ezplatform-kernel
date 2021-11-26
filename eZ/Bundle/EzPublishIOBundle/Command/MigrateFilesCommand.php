@@ -10,9 +10,9 @@ use eZ\Bundle\EzPublishCoreBundle\Command\BackwardCompatibleCommand;
 use eZ\Bundle\EzPublishIOBundle\Migration\FileListerRegistry;
 use eZ\Bundle\EzPublishIOBundle\Migration\FileMigratorInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
@@ -188,7 +188,7 @@ EOT
     /**
      * Output the configured meta/binary data handlers.
      *
-     * @param OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     protected function outputConfiguredHandlers(OutputInterface $output)
     {
@@ -205,7 +205,7 @@ EOT
      *
      * @param mixed $fromHandlers
      * @param mixed $toHandlers
-     * @param OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @return bool
      */
@@ -252,7 +252,7 @@ EOT
      * @param int|null $totalFileCount Total count of files, null if unknown
      * @param int $bulkCount Number of files to process in each batch
      * @param bool $dryRun
-     * @param OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     protected function migrateFiles(
         $totalFileCount = null,

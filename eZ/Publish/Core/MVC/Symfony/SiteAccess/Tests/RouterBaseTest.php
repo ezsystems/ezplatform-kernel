@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use PHPUnit\Framework\TestCase;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Router;
 use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\MatcherBuilder;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\Router;
+use PHPUnit\Framework\TestCase;
 
 abstract class RouterBaseTest extends TestCase
 {

@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Matcher\RequestMatcherInterface;
  */
 class DefaultRouter extends Router implements RequestMatcherInterface, SiteAccessAware
 {
-    /** @var SiteAccess */
+    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess */
     protected $siteAccess;
 
     protected $nonSiteAccessAwareRoutes = [];

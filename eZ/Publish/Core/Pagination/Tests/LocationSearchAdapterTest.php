@@ -13,10 +13,10 @@ use eZ\Publish\Core\Pagination\Pagerfanta\LocationSearchAdapter;
 class LocationSearchAdapterTest extends LocationSearchHitAdapterTest
 {
     /**
-     * @param LocationQuery $query
-     * @param SearchService $searchService
+     * @param \eZ\Publish\API\Repository\Values\Content\LocationQuery $query
+     * @param \eZ\Publish\API\Repository\SearchService $searchService
      *
-     * @return LocationSearchAdapter
+     * @return \eZ\Publish\Core\Pagination\Pagerfanta\LocationSearchAdapter
      */
     protected function getAdapter(LocationQuery $query, SearchService $searchService, array $languageFilter = [])
     {

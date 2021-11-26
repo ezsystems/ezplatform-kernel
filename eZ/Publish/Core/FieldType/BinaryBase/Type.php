@@ -6,15 +6,15 @@
  */
 namespace eZ\Publish\Core\FieldType\BinaryBase;
 
-use eZ\Publish\Core\FieldType\FieldType;
+use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
+use eZ\Publish\Core\FieldType\FieldType;
 use eZ\Publish\Core\FieldType\Media\Value;
 use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
+use eZ\Publish\Core\FieldType\Value as BaseValue;
 use eZ\Publish\SPI\FieldType\BinaryBase\RouteAwarePathGenerator;
 use eZ\Publish\SPI\FieldType\Value as SPIValue;
 use eZ\Publish\SPI\Persistence\Content\FieldValue as PersistenceValue;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
 
 /**
  * Base FileType class for Binary field types (i.e. BinaryBase & Media).
@@ -53,7 +53,7 @@ abstract class Type extends FieldType
      *
      * @param array $inputValue
      *
-     * @return Value
+     * @return \eZ\Publish\Core\FieldType\Media\Value
      */
     abstract protected function createValue(array $inputValue);
 

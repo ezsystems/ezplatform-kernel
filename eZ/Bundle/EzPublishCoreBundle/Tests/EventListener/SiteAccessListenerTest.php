@@ -9,13 +9,13 @@ namespace eZ\Bundle\EzPublishCoreBundle\Tests\EventListener;
 use eZ\Bundle\EzPublishCoreBundle\EventListener\SiteAccessListener;
 use eZ\Bundle\EzPublishCoreBundle\Routing\DefaultRouter;
 use eZ\Publish\Core\MVC\Symfony\Event\PostSiteAccessMatchEvent;
-use eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
 use eZ\Publish\Core\MVC\Symfony\MVCEvents;
+use eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class SiteAccessListenerTest extends TestCase
 {

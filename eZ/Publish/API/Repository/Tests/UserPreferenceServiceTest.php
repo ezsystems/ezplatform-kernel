@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace eZ\Publish\API\Repository\Tests;
 
-use eZ\Publish\API\Repository\Values\UserPreference\UserPreferenceSetStruct;
 use eZ\Publish\API\Repository\Values\UserPreference\UserPreference;
 use eZ\Publish\API\Repository\Values\UserPreference\UserPreferenceList;
+use eZ\Publish\API\Repository\Values\UserPreference\UserPreferenceSetStruct;
 
 /**
  * Test case for the UserPreferenceService.

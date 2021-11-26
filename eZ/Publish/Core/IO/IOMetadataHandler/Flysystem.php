@@ -16,7 +16,7 @@ use League\Flysystem\FilesystemInterface;
 
 class Flysystem implements IOMetadataHandler
 {
-    /** @var FilesystemInterface */
+    /** @var \League\Flysystem\FilesystemInterface */
     private $filesystem;
 
     public function __construct(FilesystemInterface $filesystem)
@@ -27,7 +27,7 @@ class Flysystem implements IOMetadataHandler
     /**
      * Only reads & return metadata, since the binarydata handler took care of creating the file already.
      *
-     * @throws BinaryFileNotFoundException
+     * @throws \eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException
      */
     public function create(SPIBinaryFileCreateStruct $spiBinaryFileCreateStruct)
     {

@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\UrlWildcard\Gateway;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
 
 /**

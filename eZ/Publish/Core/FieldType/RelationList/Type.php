@@ -7,15 +7,15 @@
 namespace eZ\Publish\Core\FieldType\RelationList;
 
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Relation;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
 use eZ\Publish\Core\FieldType\FieldType;
 use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\API\Repository\Values\Content\Relation;
+use eZ\Publish\Core\FieldType\Value as BaseValue;
 use eZ\Publish\SPI\FieldType\Value as SPIValue;
 use eZ\Publish\SPI\Persistence\Content\Handler as SPIContentHandler;
-use eZ\Publish\Core\FieldType\Value as BaseValue;
 
 /**
  * The RelationList field type.
@@ -27,17 +27,17 @@ use eZ\Publish\Core\FieldType\Value as BaseValue;
  */
 class Type extends FieldType
 {
-    const SELECTION_BROWSE = 0;
+    public const SELECTION_BROWSE = 0;
     /**
      * @todo following selection methods comes from legacy and may be interpreted as SELECTION_BROWSE by UI.
      * UI support will be evaluated on a case by case basis for future versions.
      */
-    const SELECTION_DROPDOWN = 1;
-    const SELECTION_LIST_WITH_RADIO_BUTTONS = 2;
-    const SELECTION_LIST_WITH_CHECKBOXES = 3;
-    const SELECTION_MULTIPLE_SELECTION_LIST = 4;
-    const SELECTION_TEMPLATE_BASED_MULTIPLE = 5;
-    const SELECTION_TEMPLATE_BASED_SINGLE = 6;
+    public const SELECTION_DROPDOWN = 1;
+    public const SELECTION_LIST_WITH_RADIO_BUTTONS = 2;
+    public const SELECTION_LIST_WITH_CHECKBOXES = 3;
+    public const SELECTION_MULTIPLE_SELECTION_LIST = 4;
+    public const SELECTION_TEMPLATE_BASED_MULTIPLE = 5;
+    public const SELECTION_TEMPLATE_BASED_SINGLE = 6;
 
     protected $settingsSchema = [
         'selectionMethod' => [

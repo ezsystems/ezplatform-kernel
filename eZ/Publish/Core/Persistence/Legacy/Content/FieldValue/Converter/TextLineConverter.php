@@ -7,14 +7,14 @@
 namespace eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 
 class TextLineConverter implements Converter
 {
-    const STRING_LENGTH_VALIDATOR_IDENTIFIER = 'StringLengthValidator';
+    public const STRING_LENGTH_VALIDATOR_IDENTIFIER = 'StringLengthValidator';
 
     /**
      * Factory for current class.

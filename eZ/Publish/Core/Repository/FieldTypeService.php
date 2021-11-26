@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository;
 
-use eZ\Publish\API\Repository\FieldTypeService as FieldTypeServiceInterface;
 use eZ\Publish\API\Repository\FieldType as APIFieldType;
+use eZ\Publish\API\Repository\FieldTypeService as FieldTypeServiceInterface;
 use eZ\Publish\Core\FieldType\FieldTypeRegistry;
 use eZ\Publish\Core\Repository\Values\ContentType\FieldType;
 

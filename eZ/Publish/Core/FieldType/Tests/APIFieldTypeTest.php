@@ -6,11 +6,11 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
-use eZ\Publish\Core\Repository\Values\ContentType\FieldType;
+use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
 use eZ\Publish\Core\FieldType\Value;
+use eZ\Publish\Core\Repository\Values\ContentType\FieldType;
 use eZ\Publish\SPI\FieldType\FieldType as SPIFieldType;
 use eZ\Publish\SPI\FieldType\ValidationError;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
 use PHPUnit\Framework\TestCase;
 
 class APIFieldTypeTest extends TestCase
@@ -18,7 +18,7 @@ class APIFieldTypeTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $innerFieldType;
 
-    /** @var FieldType */
+    /** @var \eZ\Publish\Core\Repository\Values\ContentType\FieldType */
     private $fieldType;
 
     protected function setUp(): void

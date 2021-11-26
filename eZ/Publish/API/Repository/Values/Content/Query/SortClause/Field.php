@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target\FieldTarget;
 use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use eZ\Publish\API\Repository\Values\Content\Query\CustomFieldInterface;
+use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Target\FieldTarget;
 
 /**
  * Sets sort direction on a field value for a content query.

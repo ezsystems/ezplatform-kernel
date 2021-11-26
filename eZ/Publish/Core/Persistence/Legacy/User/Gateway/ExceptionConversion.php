@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Legacy\User\Gateway;
 
+use Doctrine\DBAL\DBALException;
 use eZ\Publish\Core\Base\Exceptions\DatabaseException;
 use eZ\Publish\Core\Persistence\Legacy\User\Gateway;
-use Doctrine\DBAL\DBALException;
 use eZ\Publish\SPI\Persistence\User;
 use eZ\Publish\SPI\Persistence\User\UserTokenUpdateStruct;
 use PDOException;
@@ -30,7 +30,7 @@ final class ExceptionConversion extends Gateway
     /**
      * Create a new exception conversion gateway around $innerGateway.
      *
-     * @param Gateway $innerGateway
+     * @param \eZ\Publish\Core\Persistence\Legacy\User\Gateway $innerGateway
      */
     public function __construct(Gateway $innerGateway)
     {

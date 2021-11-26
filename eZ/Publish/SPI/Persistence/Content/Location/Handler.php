@@ -106,7 +106,7 @@ interface Handler
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException If $sourceId or $destinationParentId are invalid
      *
-     * @return Location the newly created Location.
+     * @return \eZ\Publish\SPI\Persistence\Content\Location the newly created Location.
      */
     public function copySubtree($sourceId, $destinationParentId);
 

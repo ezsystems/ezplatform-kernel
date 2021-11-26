@@ -9,14 +9,14 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\Repository;
 
 use Exception;
+use eZ\Publish\API\Repository\Repository as RepositoryInterface;
 use eZ\Publish\API\Repository\UserPreferenceService as UserPreferenceServiceInterface;
 use eZ\Publish\API\Repository\Values\UserPreference\UserPreference as APIUserPreference;
 use eZ\Publish\API\Repository\Values\UserPreference\UserPreferenceList;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct;
 use eZ\Publish\SPI\Persistence\UserPreference\Handler as UserPreferenceHandler;
 use eZ\Publish\SPI\Persistence\UserPreference\UserPreference;
-use eZ\Publish\API\Repository\Repository as RepositoryInterface;
+use eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct;
 
 class UserPreferenceService implements UserPreferenceServiceInterface
 {

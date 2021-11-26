@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\Base\Exceptions\NotFound;
 
-use eZ\Publish\Core\Base\Exceptions\Httpable;
 use Exception;
-use eZ\Publish\Core\Base\TranslatableBase;
+use eZ\Publish\Core\Base\Exceptions\Httpable;
 use eZ\Publish\Core\Base\Translatable;
+use eZ\Publish\Core\Base\TranslatableBase;
 use eZ\Publish\Core\FieldType\Null\Type as NullType;
 use RuntimeException;
 

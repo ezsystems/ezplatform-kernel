@@ -6,13 +6,13 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Configuration\SiteAccessAware;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ConfigurationProcessor;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ConfigurationMapperInterface;
+use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ConfigurationProcessor;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\HookableConfigurationMapperInterface;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use stdClass;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ConfigurationProcessorTest extends TestCase
 {
@@ -102,7 +102,7 @@ class ConfigurationProcessorTest extends TestCase
             ],
         ];
 
-        $mapperClosure = function (array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer) use ($config, $availableSAs, $saNodeName, $expectedContextualizer) {
+        $mapperClosure = static function (array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer) use ($config, $availableSAs, $saNodeName, $expectedContextualizer) {
             self::assertTrue(isset($availableSAs[$currentScope]));
             self::assertTrue(isset($config[$saNodeName][$currentScope]));
             self::assertSame($config[$saNodeName][$currentScope], $scopeSettings);

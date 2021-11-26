@@ -7,11 +7,11 @@
 namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests;
 
 use eZ\Publish\Core\MVC\Exception\InvalidSiteAccessException;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Router;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\MatcherBuilderInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
 use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\MatcherBuilderInterface;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\Router;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\VersatileMatcher;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;

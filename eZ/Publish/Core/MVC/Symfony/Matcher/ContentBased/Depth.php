@@ -7,8 +7,8 @@
 namespace eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased;
 
 use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\Core\MVC\Symfony\View\ContentValueView;
 use eZ\Publish\Core\MVC\Symfony\View\LocationValueView;
 use eZ\Publish\Core\MVC\Symfony\View\View;
@@ -37,7 +37,7 @@ class Depth extends MultipleValued
     public function matchContentInfo(ContentInfo $contentInfo)
     {
         $location = $this->repository->sudo(
-            function (Repository $repository) use ($contentInfo) {
+            static function (Repository $repository) use ($contentInfo) {
                 return $repository->getLocationService()->loadLocation($contentInfo->mainLocationId);
             }
         );

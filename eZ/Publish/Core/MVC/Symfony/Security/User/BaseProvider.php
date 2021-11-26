@@ -11,14 +11,14 @@ namespace eZ\Publish\Core\MVC\Symfony\Security\User;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\API\Repository\UserService;
+use eZ\Publish\API\Repository\Values\User\User as APIUser;
+use eZ\Publish\Core\MVC\Symfony\Security\ReferenceUserInterface;
 use eZ\Publish\Core\MVC\Symfony\Security\User;
 use eZ\Publish\Core\MVC\Symfony\Security\UserInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\ReferenceUserInterface;
-use eZ\Publish\API\Repository\Values\User\User as APIUser;
 use eZ\Publish\Core\Repository\Values\User\UserReference;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\UserInterface as CoreUserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\UserInterface as CoreUserInterface;
 
 abstract class BaseProvider implements APIUserProviderInterface
 {

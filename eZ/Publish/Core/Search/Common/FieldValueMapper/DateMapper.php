@@ -6,12 +6,12 @@
  */
 namespace eZ\Publish\Core\Search\Common\FieldValueMapper;
 
-use eZ\Publish\Core\Search\Common\FieldValueMapper;
-use eZ\Publish\SPI\Search\FieldType\DateField;
-use eZ\Publish\SPI\Search\Field;
 use DateTime;
-use InvalidArgumentException;
 use Exception;
+use eZ\Publish\Core\Search\Common\FieldValueMapper;
+use eZ\Publish\SPI\Search\Field;
+use eZ\Publish\SPI\Search\FieldType\DateField;
+use InvalidArgumentException;
 
 /**
  * Common date field value mapper implementation.

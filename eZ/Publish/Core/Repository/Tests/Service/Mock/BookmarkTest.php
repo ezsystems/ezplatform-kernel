@@ -22,9 +22,9 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 class BookmarkTest extends BaseServiceMockTest
 {
-    const BOOKMARK_ID = 2;
-    const CURRENT_USER_ID = 7;
-    const LOCATION_ID = 1;
+    public const BOOKMARK_ID = 2;
+    public const CURRENT_USER_ID = 7;
+    public const LOCATION_ID = 1;
 
     /** @var \eZ\Publish\SPI\Persistence\Bookmark\Handler|\PHPUnit\Framework\MockObject\MockObject */
     private $bookmarkHandler;
@@ -230,7 +230,7 @@ class BookmarkTest extends BaseServiceMockTest
             ->expects($this->once())
             ->method('loadUserBookmarks')
             ->with(self::CURRENT_USER_ID, $offset, $limit)
-            ->willReturn(array_map(function ($locationId) {
+            ->willReturn(array_map(static function ($locationId) {
                 return new Bookmark(['locationId' => $locationId]);
             }, range(1, $expectedTotalCount)));
 

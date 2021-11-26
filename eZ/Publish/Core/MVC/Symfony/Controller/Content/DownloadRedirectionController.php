@@ -77,9 +77,9 @@ class DownloadRedirectionController extends Controller
      * Finds the field with id $fieldId in $content.
      *
      * @param int $fieldId
-     * @param Content $content
+     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
      *
-     * @return Field
+     * @return \eZ\Publish\API\Repository\Values\Content\Field
      */
     protected function findFieldInContent($fieldId, Content $content)
     {

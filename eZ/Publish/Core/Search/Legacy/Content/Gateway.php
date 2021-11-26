@@ -17,7 +17,7 @@ abstract class Gateway
     /**
      * Returns a list of object satisfying the $criterion.
      *
-     * @param Criterion $criterion
+     * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $criterion
      * @param int $offset
      * @param int $limit
      * @param \eZ\Publish\API\Repository\Values\Content\Query\SortClause[] $sort

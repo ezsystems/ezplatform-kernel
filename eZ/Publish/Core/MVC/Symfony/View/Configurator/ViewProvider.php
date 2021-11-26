@@ -18,7 +18,7 @@ use eZ\Publish\Core\MVC\Symfony\View\View;
  */
 class ViewProvider implements Configurator
 {
-    /** @var Registry */
+    /** @var \eZ\Publish\Core\MVC\Symfony\View\Provider\Registry */
     private $providerRegistry;
 
     /**

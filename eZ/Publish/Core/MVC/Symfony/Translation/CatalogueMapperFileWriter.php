@@ -19,10 +19,10 @@ use JMS\TranslationBundle\Translation\LoaderManager;
  */
 class CatalogueMapperFileWriter extends FileWriter
 {
-    /** @var LoaderManager */
+    /** @var \JMS\TranslationBundle\Translation\LoaderManager */
     private $loaderManager;
 
-    /** @var FileWriter */
+    /** @var \JMS\TranslationBundle\Translation\FileWriter */
     private $innerFileWriter;
 
     public function __construct(FileWriter $innerFileWriter, LoaderManager $loaderManager)
@@ -42,7 +42,7 @@ class CatalogueMapperFileWriter extends FileWriter
             }
 
             $domainMessageCollection = $catalogue->getDomain($catalogueDomainString);
-            /** @var Message $message */
+            /** @var \JMS\TranslationBundle\Model\Message $message */
             foreach ($domainMessageCollection->all() as $message) {
                 if ($message->getDomain() !== $domain) {
                     continue;
@@ -88,7 +88,7 @@ class CatalogueMapperFileWriter extends FileWriter
      * @param $domain
      * @param $format
      *
-     * @return MessageCatalogue
+     * @return \JMS\TranslationBundle\Model\MessageCatalogue
      */
     private function loadEnglishCatalogue($foreignFilePath, $domain, $format)
     {

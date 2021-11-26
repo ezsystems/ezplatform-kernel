@@ -9,9 +9,9 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\Trash;
 
 use Doctrine\DBAL\Query\QueryBuilder;
+use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use eZ\Publish\Core\Persistence\Legacy\User\Gateway as UserGateway;
 use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 
 /**
  * @internal
@@ -46,7 +46,10 @@ final class UserLogin extends SortClauseHandler
         array $languageSettings
     ): void {
         $query->leftJoin(
-            'c', UserGateway::USER_TABLE, 'u', 'c.owner_id = u.contentobject_id'
+            'c',
+            UserGateway::USER_TABLE,
+            'u',
+            'c.owner_id = u.contentobject_id'
         );
     }
 }

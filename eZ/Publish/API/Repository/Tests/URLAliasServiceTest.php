@@ -7,13 +7,13 @@
 namespace eZ\Publish\API\Repository\Tests;
 
 use Doctrine\DBAL\Connection;
+use Exception;
 use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Tests\Common\SlugConverter as TestSlugConverter;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\URLAlias;
-use Exception;
 use PDO;
 use RuntimeException;
 
@@ -1343,7 +1343,7 @@ class URLAliasServiceTest extends BaseTest
 
         // corrupt database by removing original entry, keeping its history
         $this->performRawDatabaseOperation(
-            function (Connection $connection) use ($folderLocation) {
+            static function (Connection $connection) use ($folderLocation) {
                 $queryBuilder = $connection->createQueryBuilder();
                 $expr = $queryBuilder->expr();
                 $queryBuilder
@@ -1425,7 +1425,7 @@ class URLAliasServiceTest extends BaseTest
 
         // corrupt database by breaking link to the original URL alias
         $this->performRawDatabaseOperation(
-            function (Connection $connection) use ($nestedFolderLocation) {
+            static function (Connection $connection) use ($nestedFolderLocation) {
                 $queryBuilder = $connection->createQueryBuilder();
                 $expr = $queryBuilder->expr();
                 $queryBuilder

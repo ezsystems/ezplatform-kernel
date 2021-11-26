@@ -6,9 +6,9 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler;
 
+use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use LogicException;
 
 /**
  * This compiler pass will create aliases for storage engine database handler connections

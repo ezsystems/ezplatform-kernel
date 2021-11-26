@@ -39,7 +39,7 @@ class EzSystemsPlatformInstallerBundleTest extends TestCase
         self::assertNotEmpty(
             array_filter(
                 $container->getCompilerPassConfig()->getPasses(),
-                function (CompilerPassInterface $compilerPass) {
+                static function (CompilerPassInterface $compilerPass) {
                     return $compilerPass instanceof InstallerTagPass;
                 }
             )

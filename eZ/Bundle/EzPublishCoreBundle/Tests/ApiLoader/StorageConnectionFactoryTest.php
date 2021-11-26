@@ -6,11 +6,11 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\ApiLoader;
 
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\StorageConnectionFactory;
 use eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider;
+use eZ\Bundle\EzPublishCoreBundle\ApiLoader\StorageConnectionFactory;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class StorageConnectionFactoryTest extends TestCase
 {

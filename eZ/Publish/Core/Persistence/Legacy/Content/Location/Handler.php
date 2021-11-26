@@ -7,18 +7,18 @@
 namespace eZ\Publish\Core\Persistence\Legacy\Content\Location;
 
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use eZ\Publish\Core\Persistence\Legacy\Content\Handler as ContentHandler;
+use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
+use eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler as ObjectStateHandler;
+use eZ\Publish\Core\Persistence\Legacy\Content\TreeHandler;
 use eZ\Publish\SPI\Persistence\Content;
 use eZ\Publish\SPI\Persistence\Content\Location;
 use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
 use eZ\Publish\SPI\Persistence\Content\Location\Handler as BaseLocationHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Handler as ContentHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\TreeHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\ObjectState\Handler as ObjectStateHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
-use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
 use eZ\Publish\SPI\Persistence\Content\Location\Trashed;
+use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
+use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
 
 /**
  * The Location Handler interface defines operations on Location elements in the storage engine.
@@ -202,7 +202,7 @@ class Handler implements BaseLocationHandler
     }
 
     /**
-     * @param Content $content
+     * @param \eZ\Publish\SPI\Persistence\Content $content
      * @param \eZ\Publish\SPI\Persistence\Content\ObjectState[] $contentStates
      */
     protected function setContentStates(Content $content, array $contentStates)
@@ -231,7 +231,7 @@ class Handler implements BaseLocationHandler
      * @param mixed $destinationParentId
      * @param int|null $newOwnerId
      *
-     * @return Location the newly created Location.
+     * @return \eZ\Publish\SPI\Persistence\Content\Location the newly created Location.
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
@@ -369,7 +369,7 @@ class Handler implements BaseLocationHandler
     /**
      * If the location is the main location for its content, updates subtree section.
      *
-     * @param Location $location
+     * @param \eZ\Publish\SPI\Persistence\Content\Location $location
      * @param int $sectionId
      */
     private function updateSubtreeSectionIfNecessary(Location $location, $sectionId)
@@ -382,7 +382,7 @@ class Handler implements BaseLocationHandler
     /**
      * Checks if the location is the main location for its content.
      *
-     * @param Location $location
+     * @param \eZ\Publish\SPI\Persistence\Content\Location $location
      *
      * @return bool
      */

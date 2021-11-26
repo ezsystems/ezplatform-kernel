@@ -42,7 +42,9 @@ final class RenderStrategy implements SPIRenderStrategy
         }
 
         throw new InvalidArgumentException('valueObject', sprintf(
-            "Method '%s' is not supported for %s.", $options->get('method'), get_class($valueObject)
+            "Method '%s' is not supported for %s.",
+            $options->get('method'),
+            get_class($valueObject)
         ));
     }
 }

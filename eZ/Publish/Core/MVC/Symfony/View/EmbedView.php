@@ -16,7 +16,7 @@ interface EmbedView
      *
      * @var string
      */
-    const DEFAULT_VIEW_TYPE = 'embed';
+    public const DEFAULT_VIEW_TYPE = 'embed';
 
     /**
      * Sets the value as embed / not embed.

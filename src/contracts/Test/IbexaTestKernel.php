@@ -99,12 +99,12 @@ class IbexaTestKernel extends Kernel
 
     public function getCacheDir(): string
     {
-        return sys_get_temp_dir() . '/ibexa-test-kernel/' . md5(serialize(getenv())) . md5(get_class($this));
+        return sys_get_temp_dir() . '/ibexa-test-kernel/' . md5(serialize(getenv())) . md5(static::class);
     }
 
     public function getBuildDir(): string
     {
-        return sys_get_temp_dir() . '/ibexa-test-kernel-build/' . md5(serialize(getenv())) . md5(get_class($this));
+        return sys_get_temp_dir() . '/ibexa-test-kernel-build/' . md5(serialize(getenv())) . md5(static::class);
     }
 
     public function registerBundles(): iterable

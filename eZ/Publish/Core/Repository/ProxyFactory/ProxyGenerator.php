@@ -47,7 +47,7 @@ final class ProxyGenerator implements ProxyGeneratorInterface
     public function warmUp(iterable $classes): void
     {
         foreach ($classes as $class) {
-            $this->createProxy($class, function () {});
+            $this->createProxy($class, static function () {});
         }
     }
 

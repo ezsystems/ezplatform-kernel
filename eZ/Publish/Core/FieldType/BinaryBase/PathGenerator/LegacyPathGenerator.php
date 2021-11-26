@@ -7,8 +7,8 @@
 namespace eZ\Publish\Core\FieldType\BinaryBase\PathGenerator;
 
 use eZ\Publish\SPI\FieldType\BinaryBase\PathGenerator;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 use eZ\Publish\SPI\Persistence\Content\Field;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
 class LegacyPathGenerator extends PathGenerator
 {

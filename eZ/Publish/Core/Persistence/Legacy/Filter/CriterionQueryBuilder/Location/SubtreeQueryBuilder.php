@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location;
 
+use function array_map;
 use Doctrine\DBAL\ParameterType;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Subtree;
 use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
 use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
-use function array_map;
 
 /**
  * @internal for internal use by Repository Filtering

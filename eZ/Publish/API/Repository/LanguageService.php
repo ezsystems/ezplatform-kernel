@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\API\Repository;
 
-use eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\Language;
+use eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct;
 
 /**
  * Language service, used for language operations.

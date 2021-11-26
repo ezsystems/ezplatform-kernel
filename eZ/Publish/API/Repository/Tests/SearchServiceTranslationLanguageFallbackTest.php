@@ -6,13 +6,13 @@
  */
 namespace eZ\Publish\API\Repository\Tests;
 
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use EzSystems\EzPlatformSolrSearchEngine\Tests\SetupFactory\LegacySetupFactory as LegacySolrSetupFactory;
+use DateTime;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use DateTime;
+use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
+use EzSystems\EzPlatformSolrSearchEngine\Tests\SetupFactory\LegacySetupFactory as LegacySolrSetupFactory;
 use RuntimeException;
 
 /**
@@ -25,10 +25,10 @@ use RuntimeException;
  */
 class SearchServiceTranslationLanguageFallbackTest extends BaseTest
 {
-    const SETUP_DEDICATED = 'dedicated';
-    const SETUP_SHARED = 'shared';
-    const SETUP_SINGLE = 'single';
-    const SETUP_CLOUD = 'cloud';
+    public const SETUP_DEDICATED = 'dedicated';
+    public const SETUP_SHARED = 'shared';
+    public const SETUP_SINGLE = 'single';
+    public const SETUP_CLOUD = 'cloud';
 
     /**
      * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType

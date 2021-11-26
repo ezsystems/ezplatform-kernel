@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Persistence\Cache\Tests;
 
-use eZ\Publish\SPI\Persistence\Setting\Setting;
 use eZ\Publish\SPI\Persistence\Setting\Handler as SettingHandler;
+use eZ\Publish\SPI\Persistence\Setting\Setting;
 
 /**
  * Test case for Persistence\Cache\SettingHandler.

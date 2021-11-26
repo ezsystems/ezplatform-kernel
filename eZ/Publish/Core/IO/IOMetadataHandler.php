@@ -6,7 +6,6 @@
  */
 namespace eZ\Publish\Core\IO;
 
-use eZ\Publish\SPI\IO\BinaryFile;
 use eZ\Publish\SPI\IO\BinaryFileCreateStruct;
 
 /**
@@ -17,9 +16,9 @@ interface IOMetadataHandler
     /**
      * Stores the file from $binaryFileCreateStruct.
      *
-     * @param BinaryFileCreateStruct $spiBinaryFileCreateStruct
+     * @param \eZ\Publish\SPI\IO\BinaryFileCreateStruct $spiBinaryFileCreateStruct
      *
-     * @return BinaryFile
+     * @return \eZ\Publish\SPI\IO\BinaryFile
      *
      * @throws \RuntimeException if an error occured creating the file
      */
@@ -39,7 +38,7 @@ interface IOMetadataHandler
      *
      * @param string $spiBinaryFileId
      *
-     * @return BinaryFile
+     * @return \eZ\Publish\SPI\IO\BinaryFile
      */
     public function load($spiBinaryFileId);
 

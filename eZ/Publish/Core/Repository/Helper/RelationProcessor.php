@@ -7,12 +7,12 @@
 namespace eZ\Publish\Core\Repository\Helper;
 
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\SPI\Persistence\Handler;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use eZ\Publish\Core\Repository\Values\Content\Relation;
-use eZ\Publish\SPI\FieldType\Value as BaseValue;
 use eZ\Publish\SPI\FieldType\FieldType as SPIFieldType;
+use eZ\Publish\SPI\FieldType\Value as BaseValue;
 use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as SPIRelationCreateStruct;
+use eZ\Publish\SPI\Persistence\Handler;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 

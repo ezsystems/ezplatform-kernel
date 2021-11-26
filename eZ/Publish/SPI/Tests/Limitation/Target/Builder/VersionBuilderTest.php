@@ -10,8 +10,8 @@ namespace eZ\Publish\SPI\Tests\Limitation\Target\Builder;
 
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\SPI\Limitation\Target\Builder\VersionBuilder;
 use eZ\Publish\SPI\Limitation\Target;
+use eZ\Publish\SPI\Limitation\Target\Builder\VersionBuilder;
 use PHPUnit\Framework\TestCase;
 
 /**

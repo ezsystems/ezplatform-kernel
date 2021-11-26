@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class HandlerTest extends TestCase
 {
-    const BOOKMARK_ID = 7;
+    public const BOOKMARK_ID = 7;
 
     /** @var \eZ\Publish\Core\Persistence\Legacy\Bookmark\Gateway|\PHPUnit\Framework\MockObject\MockObject */
     private $gateway;

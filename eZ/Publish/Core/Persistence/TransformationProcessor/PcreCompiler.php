@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Persistence\TransformationProcessor;
 
-use eZ\Publish\Core\Persistence\Utf8Converter;
 use eZ\Publish\Core\Persistence\TransformationProcessor;
+use eZ\Publish\Core\Persistence\Utf8Converter;
 use RuntimeException;
 
 /**
@@ -192,14 +192,14 @@ class PcreCompiler
      * @param string $operator
      * @param string $value
      *
-     * @return callback
+     * @return callable
      */
     protected function getTransposeClosure($operator, $value)
     {
         $value = $this->hexdec($value) * ($operator === '-' ? -1 : 1);
         $converter = $this->converter;
 
-        return function ($matches) use ($value, $converter) {
+        return static function ($matches) use ($value, $converter) {
             return $converter->toUTF8Character(
                 $converter->toUnicodeCodepoint($matches[0]) + $value
             );
@@ -212,18 +212,18 @@ class PcreCompiler
      *
      * @param string $char
      *
-     * @return callback
+     * @return callable
      */
     protected function compileTargetCharacter($char)
     {
         switch (true) {
             case $char === 'remove':
-                return function ($matches) {
+                return static function ($matches) {
                     return '';
                 };
 
             case $char === 'keep':
-                return function ($matches) {
+                return static function ($matches) {
                     return $matches[0];
                 };
 
@@ -234,14 +234,14 @@ class PcreCompiler
                     substr($char, 1, -1)
                 );
 
-                return function ($matches) use ($string) {
+                return static function ($matches) use ($string) {
                     return $string;
                 };
 
             default:
                 $char = $this->compileCharacter($char);
 
-                return function ($matches) use ($char) {
+                return static function ($matches) use ($char) {
                     return $char;
                 };
         }

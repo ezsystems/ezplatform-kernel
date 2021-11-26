@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Content\Language;
 
-use eZ\Publish\SPI\Persistence\Content\Language;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as BaseLanguageHandler;
-use eZ\Publish\SPI\Persistence\Content\Language\CreateStruct;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
+use eZ\Publish\SPI\Persistence\Content\Language;
+use eZ\Publish\SPI\Persistence\Content\Language\CreateStruct;
+use eZ\Publish\SPI\Persistence\Content\Language\Handler as BaseLanguageHandler;
 use LogicException;
 
 /**
@@ -152,7 +152,7 @@ class Handler implements BaseLanguageHandler
      *
      * @param mixed $id
      *
-     * @throws LogicException If language could not be deleted
+     * @throws \LogicException If language could not be deleted
      */
     public function delete($id)
     {

@@ -6,10 +6,10 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\Imagine;
 
+use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException as APIInvalidArgumentException;
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException as APIInvalidArgumentException;
 use eZ\Publish\Core\FieldType\Image\Value as ImageValue;
 use eZ\Publish\Core\FieldType\Value;
 use eZ\Publish\Core\IO\IOServiceInterface;

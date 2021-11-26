@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\MVC\Symfony\Security\Tests;
 
+use DateTimeImmutable;
 use eZ\Publish\API\Repository\UserService;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\User\PasswordInfo;
@@ -15,12 +16,11 @@ use eZ\Publish\Core\MVC\Symfony\Security\User;
 use eZ\Publish\Core\MVC\Symfony\Security\UserChecker;
 use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
+use eZ\Publish\Core\Repository\Values\User\User as APIUser;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Exception\CredentialsExpiredException;
 use Symfony\Component\Security\Core\Exception\DisabledException;
-use eZ\Publish\Core\Repository\Values\User\User as APIUser;
 use Throwable;
-use DateTimeImmutable;
 
 final class UserCheckerTest extends TestCase
 {

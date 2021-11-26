@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\UrlAlias;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\Core\Persistence\TransformationProcessor;
 use eZ\Publish\Core\Persistence\TransformationProcessor\PcreCompiler;
 use eZ\Publish\Core\Persistence\TransformationProcessor\PreprocessedBased;
@@ -321,7 +321,7 @@ class SlugConverterTest extends TestCase
     /**
      * Returns the test suite with all tests declared in this class.
      *
-     * @return TestSuite
+     * @return \PHPUnit\Framework\TestSuite
      */
     public static function suite()
     {

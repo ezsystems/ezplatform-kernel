@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\Limitation\Tests;
 
-use PHPUnit\Framework\TestCase;
 use eZ\Publish\API\Repository\Values\User\User as APIUser;
 use eZ\Publish\SPI\Persistence\Handler as SPIHandler;
+use PHPUnit\Framework\TestCase;
 
 abstract class Base extends TestCase
 {

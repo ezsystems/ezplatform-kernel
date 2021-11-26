@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Helper\Tests\FieldsGroups;
 
-use eZ\Publish\Core\Helper\FieldsGroups\RepositoryConfigFieldsGroupsListFactory;
 use eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider;
+use eZ\Publish\Core\Helper\FieldsGroups\RepositoryConfigFieldsGroupsListFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Repository\Tests\Values\Content;
 
-use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
+use eZ\Publish\Core\Repository\Values\Content\Content;
 use PHPUnit\Framework\TestCase;
 
 class ContentTest extends TestCase

@@ -7,8 +7,8 @@
 namespace EzSystems\PlatformInstallerBundle\Installer;
 
 use Doctrine\DBAL\Connection;
-use Symfony\Component\Filesystem\Filesystem;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Symfony\Component\Filesystem\Filesystem;
 
 class DbBasedInstaller
 {

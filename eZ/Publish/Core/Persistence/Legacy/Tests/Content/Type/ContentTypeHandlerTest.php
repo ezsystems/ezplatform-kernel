@@ -6,19 +6,19 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Type;
 
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway;
+use eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler;
+use eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper;
+use eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler as UpdateHandler;
+use eZ\Publish\Core\Persistence\Legacy\Exception;
 use eZ\Publish\SPI\Persistence\Content\Type;
 use eZ\Publish\SPI\Persistence\Content\Type\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
 use eZ\Publish\SPI\Persistence\Content\Type\Group;
 use eZ\Publish\SPI\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
 use eZ\Publish\SPI\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
-use eZ\Publish\Core\Persistence\Legacy\Exception;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler as UpdateHandler;
+use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct;
 use PHPUnit\Framework\TestCase;
 
 /**

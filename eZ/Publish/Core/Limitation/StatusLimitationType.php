@@ -6,17 +6,17 @@
  */
 namespace eZ\Publish\Core\Limitation;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\API\Repository\Values\User\UserReference as APIUserReference;
+use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
+use eZ\Publish\API\Repository\Values\User\Limitation as APILimitationValue;
+use eZ\Publish\API\Repository\Values\User\Limitation\StatusLimitation as APIStatusLimitation;
+use eZ\Publish\API\Repository\Values\User\UserReference as APIUserReference;
+use eZ\Publish\API\Repository\Values\ValueObject;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\API\Repository\Values\User\Limitation\StatusLimitation as APIStatusLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation as APILimitationValue;
-use eZ\Publish\SPI\Limitation\Type as SPILimitationTypeInterface;
 use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
+use eZ\Publish\SPI\Limitation\Type as SPILimitationTypeInterface;
 
 /**
  * StatusLimitation is a Content Limitation.

@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\API\Repository\Tests\FieldType;
 
-use eZ\Publish\Core\FieldType\Date\Value as DateValue;
+use DateTime;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\Core\FieldType\Date\Type;
-use DateTime;
+use eZ\Publish\Core\FieldType\Date\Value as DateValue;
 
 /**
  * Integration test for use field type.
@@ -138,7 +138,7 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     public function assertFieldDataLoadedCorrect(Field $field)
     {
@@ -208,7 +208,7 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidUpdateFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     public function assertUpdatedFieldDataLoadedCorrect(Field $field)
     {
@@ -260,7 +260,7 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was copied and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {

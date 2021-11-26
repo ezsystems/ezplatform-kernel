@@ -6,27 +6,27 @@
  */
 namespace eZ\Publish\API\Repository\Tests;
 
+use ArrayObject;
+use DateTime;
 use Doctrine\DBAL\Connection;
 use ErrorException;
+use Exception;
 use eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException;
 use eZ\Publish\API\Repository\Exceptions\ForbiddenException;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Tests\SetupFactory\Legacy as LegacySetupFactory;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\User\User;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use PHPUnit\Framework\TestCase;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\ValueObject;
 use eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation;
 use eZ\Publish\API\Repository\Values\User\Limitation\SubtreeLimitation;
+use eZ\Publish\API\Repository\Values\User\User;
 use eZ\Publish\API\Repository\Values\User\UserGroup;
-use DateTime;
-use ArrayObject;
-use Exception;
+use eZ\Publish\API\Repository\Values\ValueObject;
 use PDOException;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Base class for api specific tests.
@@ -36,7 +36,7 @@ abstract class BaseTest extends TestCase
     /**
      * Maximum integer number accepted by the different backends.
      */
-    const DB_INT_MAX = 2147483647;
+    public const DB_INT_MAX = 2147483647;
 
     /** @var \eZ\Publish\API\Repository\Tests\SetupFactory */
     private $setupFactory;
@@ -368,7 +368,7 @@ abstract class BaseTest extends TestCase
      *
      * @param string $userGroupName Name of the new user group to create
      * @param string $roleIdentifier Role identifier to assign to the new group
-     * @param RoleLimitation|null $roleLimitation
+     * @param \eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation|null $roleLimitation
      *
      * @return \eZ\Publish\API\Repository\Values\User\User
      */
@@ -390,7 +390,7 @@ abstract class BaseTest extends TestCase
      * @param string $email User e-mail
      * @param string $userGroupName Name of the new user group to create
      * @param string $roleIdentifier Role identifier to assign to the new group
-     * @param RoleLimitation|null $roleLimitation
+     * @param \eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation|null $roleLimitation
      *
      * @return \eZ\Publish\API\Repository\Values\User\User
      */

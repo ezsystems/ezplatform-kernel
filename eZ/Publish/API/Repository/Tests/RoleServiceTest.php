@@ -6,6 +6,8 @@
  */
 namespace eZ\Publish\API\Repository\Tests;
 
+use Exception;
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Values\User\Limitation;
 use eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation;
 use eZ\Publish\API\Repository\Values\User\Limitation\LanguageLimitation;
@@ -13,10 +15,8 @@ use eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation;
 use eZ\Publish\API\Repository\Values\User\Limitation\SubtreeLimitation;
 use eZ\Publish\API\Repository\Values\User\Policy;
 use eZ\Publish\API\Repository\Values\User\Role;
-use eZ\Publish\API\Repository\Values\User\RoleCreateStruct;
 use eZ\Publish\API\Repository\Values\User\RoleCopyStruct;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use Exception;
+use eZ\Publish\API\Repository\Values\User\RoleCreateStruct;
 
 /**
  * Test case for operations in the RoleService using in memory storage.
@@ -1167,7 +1167,7 @@ class RoleServiceTest extends BaseTest
         }
         usort(
             $actual,
-            function ($p1, $p2) {
+            static function ($p1, $p2) {
                 return strcasecmp($p1['function'], $p2['function']);
             }
         );
@@ -2907,7 +2907,7 @@ class RoleServiceTest extends BaseTest
         }
         usort(
             $actual,
-            function ($p1, $p2) {
+            static function ($p1, $p2) {
                 return strcasecmp($p1['function'], $p2['function']);
             }
         );

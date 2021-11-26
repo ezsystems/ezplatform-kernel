@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\FieldType\Author;
 
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
 use ArrayObject;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
 
 /**
  * Author collection.
@@ -31,7 +31,7 @@ class AuthorCollection extends ArrayObject
     /**
      * Adds a new author to the collection.
      *
-     * @throws InvalidArgumentType When $value is not of type Author
+     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType When $value is not of type Author
      *
      * @param int $offset
      * @param \eZ\Publish\Core\FieldType\Author\Author $value

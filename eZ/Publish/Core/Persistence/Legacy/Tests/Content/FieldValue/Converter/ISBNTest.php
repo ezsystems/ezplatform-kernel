@@ -6,7 +6,6 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter;
 
-use eZ\Publish\Core\FieldType\FieldSettings;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\ISBNConverter;
 use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
@@ -39,7 +38,7 @@ class ISBNTest extends TestCase
 
         $this->converter->toFieldDefinition($storageDefinition, $fieldDef);
 
-        /** @var FieldSettings $fieldSettings */
+        /** @var \eZ\Publish\Core\FieldType\FieldSettings $fieldSettings */
         $fieldSettings = $fieldDef->fieldTypeConstraints->fieldSettings;
         self::assertSame($excpectedIsbn13Value, $fieldSettings['isISBN13']);
     }

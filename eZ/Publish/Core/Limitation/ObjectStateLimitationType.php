@@ -7,20 +7,20 @@
 namespace eZ\Publish\Core\Limitation;
 
 use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\API\Repository\Values\User\UserReference as APIUserReference;
 use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
+use eZ\Publish\API\Repository\Values\User\Limitation as APILimitationValue;
+use eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation as APIObjectStateLimitation;
+use eZ\Publish\API\Repository\Values\User\UserReference as APIUserReference;
+use eZ\Publish\API\Repository\Values\ValueObject;
+use eZ\Publish\Core\Base\Exceptions\BadStateException;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation as APIObjectStateLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation as APILimitationValue;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\SPI\Limitation\Type as SPILimitationTypeInterface;
 use eZ\Publish\Core\FieldType\ValidationError;
+use eZ\Publish\SPI\Limitation\Type as SPILimitationTypeInterface;
 
 /**
  * ObjectStateLimitation is a Content limitation.
@@ -272,7 +272,7 @@ class ObjectStateLimitationType extends AbstractPersistenceLimitationType implem
         $groupedLimitationValues = [];
         foreach ($stateGroups as $stateGroup) {
             $states = $objectStateHandler->loadObjectStates($stateGroup->id);
-            $stateIds = array_map(function ($state) {
+            $stateIds = array_map(static function ($state) {
                 return $state->id;
             }, $states);
             $limitationValuesGroup = array_intersect($stateIds, $limitationValues);

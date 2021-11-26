@@ -9,8 +9,8 @@ namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\FieldValue\Converter;
 use eZ\Publish\Core\FieldType\RelationList\Type;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\RelationConverter;
 use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
 use eZ\Publish\SPI\Persistence\Content\FieldTypeConstraints;
+use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -7,10 +7,10 @@
 namespace eZ\Publish\Core\Persistence\Legacy\Content\Language;
 
 use eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache;
-use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
 use eZ\Publish\SPI\Persistence\Content\Language;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as BaseLanguageHandler;
 use eZ\Publish\SPI\Persistence\Content\Language\CreateStruct;
+use eZ\Publish\SPI\Persistence\Content\Language\Handler as BaseLanguageHandler;
+use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
 
 /**
  * Language Handler.

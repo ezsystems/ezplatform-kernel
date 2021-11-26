@@ -6,11 +6,11 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use eZ\Publish\Core\FieldType\Country\Exception\InvalidValue;
 use eZ\Publish\Core\FieldType\Country\Type as Country;
 use eZ\Publish\Core\FieldType\Country\Value as CountryValue;
 use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\FieldType\Country\Exception\InvalidValue;
 
 /**
  * @group fieldType

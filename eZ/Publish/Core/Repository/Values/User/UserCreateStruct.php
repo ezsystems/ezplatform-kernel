@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository\Values\User;
 
-use eZ\Publish\API\Repository\Values\User\UserCreateStruct as APIUserCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\Field;
+use eZ\Publish\API\Repository\Values\User\UserCreateStruct as APIUserCreateStruct;
 
 /**
  * This class is used to create a new user in the repository.

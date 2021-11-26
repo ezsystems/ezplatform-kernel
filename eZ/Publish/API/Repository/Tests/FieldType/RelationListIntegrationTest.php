@@ -6,11 +6,11 @@
  */
 namespace eZ\Publish\API\Repository\Tests\FieldType;
 
-use eZ\Publish\Core\FieldType\RelationList\Value as RelationListValue;
-use eZ\Publish\Core\FieldType\RelationList\Type as RelationListType;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\Repository\Values\Content\Relation;
 use eZ\Publish\API\Repository\Values\Content\Content;
+use eZ\Publish\API\Repository\Values\Content\Field;
+use eZ\Publish\Core\FieldType\RelationList\Type as RelationListType;
+use eZ\Publish\Core\FieldType\RelationList\Value as RelationListValue;
+use eZ\Publish\Core\Repository\Values\Content\Relation;
 
 /**
  * Integration test for use field type.
@@ -228,7 +228,7 @@ class RelationListIntegrationTest extends SearchMultivaluedBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     public function assertFieldDataLoadedCorrect(Field $field)
     {
@@ -342,7 +342,7 @@ class RelationListIntegrationTest extends SearchMultivaluedBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was copied and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {

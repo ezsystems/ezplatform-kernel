@@ -13,10 +13,10 @@ use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\URL\Query\SortClause as URLQuerySortClause;
 use eZ\Publish\API\Repository\Values\Filter\Filter;
-use PHPUnit\Framework\TestCase;
+use eZ\Publish\API\Repository\Values\URL\Query\SortClause as URLQuerySortClause;
 use function md5;
+use PHPUnit\Framework\TestCase;
 use function sprintf;
 
 final class FilterTest extends TestCase

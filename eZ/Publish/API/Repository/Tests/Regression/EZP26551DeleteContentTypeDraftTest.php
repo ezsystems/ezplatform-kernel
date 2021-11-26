@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\API\Repository\Tests\Regression;
 
-use eZ\Publish\API\Repository\Tests\BaseTest;
 use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
+use eZ\Publish\API\Repository\Tests\BaseTest;
 
 /**
  * @issue https://jira.ez.no/browse/EZP-26551

@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\Search\Legacy\Content\Location\Gateway;
 
+use Doctrine\DBAL\DBALException;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\Core\Base\Exceptions\DatabaseException;
 use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway;
-use Doctrine\DBAL\DBALException;
 use PDOException;
 
 /**
@@ -20,14 +20,14 @@ class ExceptionConversion extends Gateway
     /**
      * The wrapped gateway.
      *
-     * @var Gateway
+     * @var \eZ\Publish\Core\Search\Legacy\Content\Location\Gateway
      */
     protected $innerGateway;
 
     /**
      * Creates a new exception conversion gateway around $innerGateway.
      *
-     * @param Gateway $innerGateway
+     * @param \eZ\Publish\Core\Search\Legacy\Content\Location\Gateway $innerGateway
      */
     public function __construct(Gateway $innerGateway)
     {

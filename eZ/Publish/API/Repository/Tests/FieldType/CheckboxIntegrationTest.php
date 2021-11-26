@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\API\Repository\Tests\FieldType;
 
-use eZ\Publish\Core\FieldType\Checkbox\Value as CheckboxValue;
 use eZ\Publish\API\Repository\Values\Content\Field;
+use eZ\Publish\Core\FieldType\Checkbox\Value as CheckboxValue;
 
 /**
  * Integration test for use field type.
@@ -117,7 +117,7 @@ class CheckboxIntegrationTest extends SearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     public function assertFieldDataLoadedCorrect(Field $field)
     {
@@ -231,7 +231,7 @@ class CheckboxIntegrationTest extends SearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was copied and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {

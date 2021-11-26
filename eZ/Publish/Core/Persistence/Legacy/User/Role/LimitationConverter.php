@@ -39,7 +39,7 @@ class LimitationConverter
     }
 
     /**
-     * @param Policy $policy
+     * @param \eZ\Publish\SPI\Persistence\User\Policy $policy
      */
     public function toLegacy(Policy $policy)
     {
@@ -49,7 +49,7 @@ class LimitationConverter
     }
 
     /**
-     * @param Policy $policy
+     * @param \eZ\Publish\SPI\Persistence\User\Policy $policy
      */
     public function toSPI(Policy $policy)
     {

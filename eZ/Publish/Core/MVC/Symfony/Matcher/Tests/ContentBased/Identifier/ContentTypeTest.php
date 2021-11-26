@@ -7,10 +7,10 @@
 namespace eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\Identifier;
 
 use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\BaseTest;
-use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Identifier\ContentType as ContentTypeIdentifierMatcher;
 use eZ\Publish\API\Repository\Repository;
+use eZ\Publish\API\Repository\Values\ContentType\ContentType;
+use eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased\Identifier\ContentType as ContentTypeIdentifierMatcher;
+use eZ\Publish\Core\MVC\Symfony\Matcher\Tests\ContentBased\BaseTest;
 
 class ContentTypeTest extends BaseTest
 {

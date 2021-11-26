@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
+use DateTime;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\FieldType\Time\Type as Time;
 use eZ\Publish\Core\FieldType\Time\Value as TimeValue;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use DateTime;
 
 /**
  * @group fieldType

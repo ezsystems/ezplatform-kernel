@@ -8,11 +8,11 @@ namespace eZ\Publish\Core\Helper\Tests;
 
 use eZ\Publish\API\Repository\ContentTypeService;
 use eZ\Publish\API\Repository\FieldTypeService;
+use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
 use eZ\Publish\Core\FieldType\TextLine\Type as TextLineType;
 use eZ\Publish\Core\FieldType\TextLine\Value;
 use eZ\Publish\Core\Helper\FieldHelper;
@@ -22,13 +22,13 @@ use PHPUnit\Framework\TestCase;
 
 class FieldHelperTest extends TestCase
 {
-    /** @var FieldHelper */
+    /** @var \eZ\Publish\Core\Helper\FieldHelper */
     private $fieldHelper;
 
-    /** @var FieldTypeService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \eZ\Publish\API\Repository\FieldTypeService|\PHPUnit\Framework\MockObject\MockObject */
     private $fieldTypeServiceMock;
 
-    /** @var ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \eZ\Publish\API\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
     private $contentTypeServiceMock;
 
     /** @var \eZ\Publish\Core\Helper\TranslationHelper|\PHPUnit\Framework\MockObject\MockObject */

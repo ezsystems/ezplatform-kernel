@@ -6,13 +6,13 @@
  */
 namespace eZ\Publish\Core\Persistence\Cache;
 
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandlerInterface;
 use eZ\Publish\SPI\Persistence\Content\Type;
 use eZ\Publish\SPI\Persistence\Content\Type\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
 use eZ\Publish\SPI\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
 use eZ\Publish\SPI\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
+use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandlerInterface;
+use eZ\Publish\SPI\Persistence\Content\Type\UpdateStruct;
 
 /**
  * ContentType cache.

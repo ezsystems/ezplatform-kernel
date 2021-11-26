@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Event;
 
-use eZ\Publish\API\Repository\NotificationService as NotificationServiceInterface;
-use eZ\Publish\API\Repository\Values\Notification\CreateStruct;
-use eZ\Publish\API\Repository\Values\Notification\Notification;
 use eZ\Publish\API\Repository\Events\Notification\BeforeCreateNotificationEvent;
 use eZ\Publish\API\Repository\Events\Notification\BeforeDeleteNotificationEvent;
 use eZ\Publish\API\Repository\Events\Notification\BeforeMarkNotificationAsReadEvent;
 use eZ\Publish\API\Repository\Events\Notification\CreateNotificationEvent;
 use eZ\Publish\API\Repository\Events\Notification\DeleteNotificationEvent;
 use eZ\Publish\API\Repository\Events\Notification\MarkNotificationAsReadEvent;
+use eZ\Publish\API\Repository\NotificationService as NotificationServiceInterface;
+use eZ\Publish\API\Repository\Values\Notification\CreateStruct;
+use eZ\Publish\API\Repository\Values\Notification\Notification;
 use eZ\Publish\SPI\Repository\Decorator\NotificationServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 

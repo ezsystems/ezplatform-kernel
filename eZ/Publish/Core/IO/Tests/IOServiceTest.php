@@ -7,9 +7,9 @@
 namespace eZ\Publish\Core\IO\Tests;
 
 use eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException;
-use eZ\Publish\Core\IO\IOService;
 use eZ\Publish\Core\IO\IOBinarydataHandler;
 use eZ\Publish\Core\IO\IOMetadataHandler;
+use eZ\Publish\Core\IO\IOService;
 use eZ\Publish\Core\IO\Values\BinaryFile;
 use eZ\Publish\Core\IO\Values\BinaryFileCreateStruct;
 use eZ\Publish\SPI\IO\BinaryFile as SPIBinaryFile;
@@ -21,9 +21,9 @@ use PHPUnit\Framework\TestCase;
  */
 class IOServiceTest extends TestCase
 {
-    const PREFIX = 'test-prefix';
+    public const PREFIX = 'test-prefix';
 
-    /** @var IOService */
+    /** @var \eZ\Publish\Core\IO\IOService */
     protected $IOService;
 
     /** @var \eZ\Publish\Core\IO\IOMetadataHandler|\PHPUnit\Framework\MockObject\MockObject */
@@ -32,7 +32,7 @@ class IOServiceTest extends TestCase
     /** @var \eZ\Publish\Core\IO\IOBinarydataHandler|\PHPUnit\Framework\MockObject\MockObject */
     protected $binarydataHandlerMock;
 
-    /** @var MimeTypeDetector|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \eZ\Publish\SPI\IO\MimeTypeDetector|\PHPUnit\Framework\MockObject\MockObject */
     protected $mimeTypeDetectorMock;
 
     protected function setUp(): void
@@ -134,7 +134,7 @@ class IOServiceTest extends TestCase
             ->method('create')
             ->with(
                 $this->callback(
-                    function ($subject) use ($id) {
+                    static function ($subject) use ($id) {
                         if (!$subject instanceof \eZ\Publish\SPI\IO\BinaryFileCreateStruct) {
                             return false;
                         }
@@ -425,7 +425,7 @@ class IOServiceTest extends TestCase
      */
     private function getSPIBinaryFileCreateStructCallback($spiId)
     {
-        return function ($subject) use ($spiId) {
+        return static function ($subject) use ($spiId) {
             if (!$subject instanceof \eZ\Publish\SPI\IO\BinaryFileCreateStruct) {
                 return false;
             }

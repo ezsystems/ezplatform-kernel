@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\FieldType\EmailAddress\Type as EmailAddressType;
 use eZ\Publish\Core\FieldType\EmailAddress\Value as EmailAddressValue;
 use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * @group fieldType
@@ -37,7 +37,7 @@ class EmailAddressTest extends FieldTypeTest
             ->with($this->anything(), 'lowercase')
             ->will(
                 $this->returnCallback(
-                    function ($value, $group) {
+                    static function ($value, $group) {
                         return strtolower($value);
                     }
                 )

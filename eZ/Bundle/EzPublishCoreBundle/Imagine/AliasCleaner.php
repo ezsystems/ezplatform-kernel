@@ -11,7 +11,7 @@ use Liip\ImagineBundle\Imagine\Cache\Resolver\ResolverInterface;
 
 class AliasCleaner implements AliasCleanerInterface
 {
-    /** @var ResolverInterface */
+    /** @var \Liip\ImagineBundle\Imagine\Cache\Resolver\ResolverInterface */
     private $aliasResolver;
 
     public function __construct(ResolverInterface $aliasResolver)

@@ -29,7 +29,7 @@ abstract class BaseParallelTestCase extends BaseTest
     {
         $connection = $this->getRawDatabaseConnection();
 
-        $process = new Process(function () use ($callback, $connection) {
+        $process = new Process(static function () use ($callback, $connection) {
             $connection->connect();
             $callback();
             $connection->close();

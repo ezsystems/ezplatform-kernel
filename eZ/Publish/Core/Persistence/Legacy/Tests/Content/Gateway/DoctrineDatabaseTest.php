@@ -7,18 +7,18 @@
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\Gateway;
 
 use Doctrine\DBAL\ParameterType;
-use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
+use eZ\Publish\API\Repository\Values\Content\Relation as RelationValue;
 use eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase;
 use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
+use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
 use eZ\Publish\SPI\Persistence\Content;
 use eZ\Publish\SPI\Persistence\Content\ContentInfo;
 use eZ\Publish\SPI\Persistence\Content\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
 use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\Content\Relation as RelationValue;
+use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
 use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
 /**
  * Test case for eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase.
@@ -1999,7 +1999,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a Field fixture.
      *
-     * @return Field
+     * @return \eZ\Publish\SPI\Persistence\Content\Field
      */
     protected function getFieldFixture()
     {
@@ -2016,7 +2016,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a Field fixture in a different language.
      *
-     * @return Field
+     * @return \eZ\Publish\SPI\Persistence\Content\Field
      */
     protected function getOtherLanguageFieldFixture()
     {
@@ -2029,7 +2029,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a StorageFieldValue fixture.
      *
-     * @return StorageFieldValue
+     * @return \eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue
      */
     protected function getStorageValueFixture()
     {

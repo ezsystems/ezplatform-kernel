@@ -18,14 +18,14 @@ use eZ\Publish\API\Repository\Values\User\RoleCreateStruct;
 use eZ\Publish\API\Repository\Values\User\RoleDraft;
 use eZ\Publish\API\Repository\Values\User\User;
 use eZ\Publish\API\Repository\Values\User\UserGroup;
+use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\Repository\Mapper\RoleDomainMapper;
 use eZ\Publish\Core\Repository\Permission\LimitationService;
 use eZ\Publish\Core\Repository\RoleService;
 use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
+use eZ\Publish\SPI\Limitation\Type as SPIType;
 use eZ\Publish\SPI\Persistence\User as SPIUser;
 use eZ\Publish\SPI\Persistence\User\Role as SPIRole;
-use eZ\Publish\SPI\Limitation\Type as SPIType;
 
 /**
  * Mock test case for Role service.
@@ -211,7 +211,7 @@ class RoleTest extends BaseServiceMockTest
             ->method('__get')
             ->will(
                 $this->returnCallback(
-                    function ($propertyName) {
+                    static function ($propertyName) {
                         switch ($propertyName) {
                             case 'module':
                                 return 'mockModule';

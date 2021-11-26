@@ -11,26 +11,26 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder as DoctrineQueryBuilder;
+use DOMDocument;
+use DOMXPath;
 use eZ\Publish\API\Repository\Values\Content\Relation;
+use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
 use eZ\Publish\Core\Base\Exceptions\BadStateException;
+use eZ\Publish\Core\Base\Exceptions\NotFoundException as NotFound;
 use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase\QueryBuilder;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
 use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
 use eZ\Publish\Core\Persistence\Legacy\SharedGateway\Gateway as SharedGateway;
 use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
 use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use eZ\Publish\SPI\Persistence\Content\CreateStruct;
 use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
 use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException as NotFound;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use DOMXPath;
-use DOMDocument;
+use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
+use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
 /**
  * Doctrine database based content gateway.
@@ -516,7 +516,8 @@ final class DoctrineDatabase extends Gateway
         $query->andWhere($notExistPublishedVersion);
         if (0 === $query->execute()) {
             throw new BadStateException(
-                '$contentId', "Someone just published another version of Content item {$contentId}"
+                '$contentId',
+                "Someone just published another version of Content item {$contentId}"
             );
         }
         $this->markContentAsPublished($contentId, $versionNo);

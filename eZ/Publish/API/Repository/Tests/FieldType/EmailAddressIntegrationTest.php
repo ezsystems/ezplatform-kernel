@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\API\Repository\Tests\FieldType;
 
-use eZ\Publish\Core\FieldType\EmailAddress\Value as EmailAddressValue;
 use eZ\Publish\API\Repository\Values\Content\Field;
+use eZ\Publish\Core\FieldType\EmailAddress\Value as EmailAddressValue;
 
 /**
  * Integration test for use field type.
@@ -123,7 +123,7 @@ class EmailAddressIntegrationTest extends SearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     public function assertFieldDataLoadedCorrect(Field $field)
     {
@@ -257,7 +257,7 @@ class EmailAddressIntegrationTest extends SearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was copied and loaded correctly.
      *
-     * @param Field $field
+     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
      */
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {

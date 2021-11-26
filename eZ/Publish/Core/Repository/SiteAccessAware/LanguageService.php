@@ -7,8 +7,8 @@
 namespace eZ\Publish\Core\Repository\SiteAccessAware;
 
 use eZ\Publish\API\Repository\LanguageService as LanguageServiceInterface;
-use eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\Language;
+use eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct;
 
 /**
  * LanguageService for SiteAccessAware layer.

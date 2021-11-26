@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
 use eZ\Publish\Core\FieldType\BinaryFile\Type as BinaryFileType;
 use eZ\Publish\Core\FieldType\BinaryFile\Value as BinaryFileValue;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
 use eZ\Publish\Core\FieldType\FieldType;
 use eZ\Publish\Core\FieldType\ValidationError;
 use eZ\Publish\SPI\FieldType\BinaryBase\RouteAwarePathGenerator;

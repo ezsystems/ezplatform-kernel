@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\UrlAlias;
 
+use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
+use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Mapper;
 use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
 use eZ\Publish\SPI\Persistence\Content\UrlAlias;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Mapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
 
 /**
  * Test case for UrlAliasMapper.

@@ -8,12 +8,12 @@ namespace eZ\Publish\Core\Search\Legacy\Content\Mapper;
 
 use eZ\Publish\Core\Search\Common\FieldRegistry;
 use eZ\Publish\Core\Search\Legacy\Content\FullTextData;
+use eZ\Publish\Core\Search\Legacy\Content\FullTextValue;
 use eZ\Publish\SPI\Persistence\Content;
 use eZ\Publish\SPI\Persistence\Content\Type;
+use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
 use eZ\Publish\SPI\Search\Field;
 use eZ\Publish\SPI\Search\FieldType;
-use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
-use eZ\Publish\Core\Search\Legacy\Content\FullTextValue;
 
 /**
  * FullTextMapper maps Content object fields to FullTextValue objects which are searchable and
@@ -82,7 +82,8 @@ class FullTextMapper
         $fullTextValues = [];
         foreach ($content->fields as $field) {
             $fieldDefinition = $this->contentTypeHandler->getFieldDefinition(
-                $field->fieldDefinitionId, Content\Type::STATUS_DEFINED
+                $field->fieldDefinitionId,
+                Content\Type::STATUS_DEFINED
             );
             if (!$fieldDefinition->isSearchable) {
                 continue;

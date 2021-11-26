@@ -7,27 +7,27 @@
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content\UrlAlias;
 
 use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway as UrlAliasGateway;
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Mapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway\DoctrineDatabase;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
+use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase as DoctrineDatabaseLocation;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler as LanguageHandler;
 use eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase as LanguageGateway;
+use eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler as LanguageHandler;
 use eZ\Publish\Core\Persistence\Legacy\Content\Language\Mapper as LanguageMapper;
 use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
+use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase as DoctrineDatabaseLocation;
+use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway as UrlAliasGateway;
+use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway\DoctrineDatabase;
+use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Handler;
+use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Mapper;
+use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\Core\Persistence\TransformationProcessor\DefinitionBased;
 use eZ\Publish\Core\Persistence\TransformationProcessor\DefinitionBased\Parser;
 use eZ\Publish\Core\Persistence\TransformationProcessor\PcreCompiler;
 use eZ\Publish\Core\Persistence\Utf8Converter;
 use eZ\Publish\Core\Search\Legacy\Content;
 use eZ\Publish\SPI\Persistence\Content\UrlAlias;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\SPI\Persistence\TransactionHandler;
 
 /**

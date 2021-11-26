@@ -6,11 +6,11 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
-use eZ\Publish\Core\FieldType\Float\Value as FloatValue;
-use eZ\Publish\Core\FieldType\Validator\FloatValueValidator;
-use eZ\Publish\Core\FieldType\Validator;
-use eZ\Publish\SPI\FieldType\ValidationError;
 use eZ\Publish\API\Repository\Values\Translation\Message;
+use eZ\Publish\Core\FieldType\Float\Value as FloatValue;
+use eZ\Publish\Core\FieldType\Validator;
+use eZ\Publish\Core\FieldType\Validator\FloatValueValidator;
+use eZ\Publish\SPI\FieldType\ValidationError;
 use PHPUnit\Framework\TestCase;
 
 /**

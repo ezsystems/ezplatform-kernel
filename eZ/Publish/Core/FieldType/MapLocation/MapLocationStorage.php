@@ -7,8 +7,8 @@
 namespace eZ\Publish\Core\FieldType\MapLocation;
 
 use eZ\Publish\SPI\FieldType\GatewayBasedStorage;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 use eZ\Publish\SPI\Persistence\Content\Field;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
 /**
  * Storage for the MapLocation field type.

@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository\Permission;
 
+use Exception;
 use eZ\Publish\API\Repository\PermissionResolver as PermissionResolverInterface;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
 use eZ\Publish\API\Repository\Values\User\Limitation;
@@ -16,14 +17,13 @@ use eZ\Publish\API\Repository\Values\User\LookupPolicyLimitations;
 use eZ\Publish\API\Repository\Values\User\UserReference as APIUserReference;
 use eZ\Publish\API\Repository\Values\ValueObject;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
-use eZ\Publish\Core\Repository\Mapper\RoleDomainMapper;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use eZ\Publish\Core\Repository\Mapper\RoleDomainMapper;
 use eZ\Publish\Core\Repository\Values\User\UserReference;
 use eZ\Publish\SPI\Limitation\Target;
 use eZ\Publish\SPI\Limitation\TargetAwareType;
 use eZ\Publish\SPI\Limitation\Type as LimitationType;
 use eZ\Publish\SPI\Persistence\User\Handler as UserHandler;
-use Exception;
 
 /**
  * Core implementation of PermissionResolver interface.
@@ -306,7 +306,7 @@ class PermissionResolver implements PermissionResolverInterface
                     $possibleLimitations[] = $limitation;
                 }
 
-                $limitationFilter = function (Limitation $limitation) use ($limitationsIdentifiers) {
+                $limitationFilter = static function (Limitation $limitation) use ($limitationsIdentifiers) {
                     return \in_array($limitation->getIdentifier(), $limitationsIdentifiers, true);
                 };
 
@@ -448,7 +448,7 @@ class PermissionResolver implements PermissionResolverInterface
         // BC: for TargetAware Limitations return only instances of Target, for others return only non-Target instances
         $targets = array_filter(
             $targets,
-            function ($target) use ($isTargetAware) {
+            static function ($target) use ($isTargetAware) {
                 $isTarget = $target instanceof Target;
 
                 return $isTargetAware ? $isTarget : !$isTarget;

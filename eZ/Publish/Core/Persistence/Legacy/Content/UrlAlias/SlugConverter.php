@@ -13,7 +13,7 @@ use eZ\Publish\Core\Persistence\TransformationProcessor;
  */
 class SlugConverter
 {
-    const DEFAULT_CONFIGURATION = [
+    public const DEFAULT_CONFIGURATION = [
         'wordSeparatorName' => 'dash',
         'urlAliasNameLimit' => 255,
         'transformation' => 'urlalias',

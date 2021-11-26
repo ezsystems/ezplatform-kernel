@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
-use eZ\Publish\Core\FieldType\Value;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\FieldType\Validator\FileExtensionBlackListValidator;
+use eZ\Publish\Core\FieldType\Value;
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
 
 /**
  * Base class for binary field types.

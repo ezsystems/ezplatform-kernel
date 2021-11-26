@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Pagination\Tests;
 
-use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
 use eZ\Publish\API\Repository\SearchService;
+use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
 use eZ\Publish\API\Repository\Values\Content\Query\CriterionInterface;
@@ -42,11 +42,11 @@ class ContentSearchHitAdapterTest extends TestCase
     /**
      * Returns the adapter to test.
      *
-     * @param Query $query
-     * @param SearchService $searchService
+     * @param \eZ\Publish\API\Repository\Values\Content\Query $query
+     * @param \eZ\Publish\API\Repository\SearchService $searchService
      * @param array $languageFilter
      *
-     * @return ContentSearchHitAdapter
+     * @return \eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchHitAdapter
      */
     protected function getAdapter(Query $query, SearchService $searchService, array $languageFilter = [])
     {

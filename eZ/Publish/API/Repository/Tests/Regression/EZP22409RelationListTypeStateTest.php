@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\API\Repository\Tests\Regression;
 
+use DateTime;
 use eZ\Publish\API\Repository\Tests\BaseTest;
 use eZ\Publish\Core\FieldType\RelationList;
-use DateTime;
 
 /**
  * Test case for RelationList using alterate ContentType states issue in EZP-22409.

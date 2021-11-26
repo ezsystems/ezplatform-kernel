@@ -6,13 +6,13 @@
  */
 namespace eZ\Publish\Core\FieldType;
 
-use eZ\Publish\SPI\FieldType\Comparable;
-use eZ\Publish\SPI\FieldType\FieldType as SPIFieldType;
-use eZ\Publish\Core\Persistence\TransformationProcessor;
-use eZ\Publish\SPI\FieldType\Value as SPIValue;
-use eZ\Publish\SPI\Persistence\Content\FieldValue as PersistenceValue;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
+use eZ\Publish\Core\Persistence\TransformationProcessor;
+use eZ\Publish\SPI\FieldType\Comparable;
+use eZ\Publish\SPI\FieldType\FieldType as SPIFieldType;
+use eZ\Publish\SPI\FieldType\Value as SPIValue;
+use eZ\Publish\SPI\Persistence\Content\FieldValue as PersistenceValue;
 
 /**
  * Base class for field types, the most basic storage unit of data inside eZ Publish.

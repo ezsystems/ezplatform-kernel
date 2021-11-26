@@ -14,7 +14,7 @@ use eZ\Publish\Core\MVC\Symfony\SiteAccess\VersatileMatcher;
  */
 class LogicalAnd extends Compound implements VersatileMatcher
 {
-    const NAME = 'logicalAnd';
+    public const NAME = 'logicalAnd';
 
     public function match()
     {

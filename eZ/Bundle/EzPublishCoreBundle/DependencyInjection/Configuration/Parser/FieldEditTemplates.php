@@ -8,7 +8,7 @@ namespace eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser
 
 class FieldEditTemplates extends Templates
 {
-    const NODE_KEY = 'field_edit_templates';
-    const INFO = 'Settings for field edit templates';
-    const INFO_TEMPLATE_KEY = 'Template file where to find block definition to display fields';
+    public const NODE_KEY = 'field_edit_templates';
+    public const INFO = 'Settings for field edit templates';
+    public const INFO_TEMPLATE_KEY = 'Template file where to find block definition to display fields';
 }

@@ -6,12 +6,12 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
 use eZ\Publish\Core\Persistence;
-use eZ\Publish\Core\Search\Legacy\Content\Mapper\FullTextMapper;
+use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\Core\Search\Common\FieldNameGenerator;
 use eZ\Publish\Core\Search\Common\FieldRegistry;
+use eZ\Publish\Core\Search\Legacy\Content\Mapper\FullTextMapper;
 
 /**
  * Test case for Language aware classes.

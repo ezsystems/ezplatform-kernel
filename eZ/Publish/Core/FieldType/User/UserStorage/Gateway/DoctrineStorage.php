@@ -20,8 +20,8 @@ use PDO;
  */
 class DoctrineStorage extends Gateway
 {
-    const USER_TABLE = 'ezuser';
-    const USER_SETTING_TABLE = 'ezuser_setting';
+    public const USER_TABLE = 'ezuser';
+    public const USER_SETTING_TABLE = 'ezuser_setting';
 
     /** @var \Doctrine\DBAL\Connection */
     protected $connection;
@@ -83,7 +83,7 @@ class DoctrineStorage extends Gateway
         return [
             'has_stored_login' => [
                 'name' => 'hasStoredlogin',
-                'cast' => function ($input) {
+                'cast' => static function ($input) {
                     return $input == '1';
                 },
             ],
@@ -109,13 +109,13 @@ class DoctrineStorage extends Gateway
             ],
             'password_updated_at' => [
                 'name' => 'passwordUpdatedAt',
-                'cast' => function ($timestamp) {
+                'cast' => static function ($timestamp) {
                     return $timestamp ? (int)$timestamp : null;
                 },
             ],
             'is_enabled' => [
                 'name' => 'enabled',
-                'cast' => function ($input) {
+                'cast' => static function ($input) {
                     return $input == '1';
                 },
             ],

@@ -7,8 +7,8 @@
 namespace eZ\Publish\Core\FieldType;
 
 use eZ\Publish\SPI\FieldType\FieldStorage;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 use eZ\Publish\SPI\Persistence\Content\Field;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
 /**
  * Description of NullStorage.

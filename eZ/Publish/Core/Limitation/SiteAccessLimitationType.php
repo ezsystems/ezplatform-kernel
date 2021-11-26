@@ -6,12 +6,12 @@
  */
 namespace eZ\Publish\Core\Limitation;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use eZ\Publish\API\Repository\Values\User\Limitation as APILimitationValue;
+use eZ\Publish\API\Repository\Values\User\Limitation\SiteAccessLimitation as APISiteAccessLimitation;
 use eZ\Publish\API\Repository\Values\User\UserReference as APIUserReference;
+use eZ\Publish\API\Repository\Values\ValueObject;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
-use eZ\Publish\API\Repository\Values\User\Limitation\SiteAccessLimitation as APISiteAccessLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation as APILimitationValue;
 use eZ\Publish\Core\FieldType\ValidationError;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use eZ\Publish\SPI\Limitation\Type as SPILimitationTypeInterface;

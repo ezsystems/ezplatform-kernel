@@ -6,23 +6,23 @@
  */
 namespace eZ\Publish\Core\Search\Legacy\Content;
 
+use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
+use eZ\Publish\API\Repository\Values\Content\LocationQuery;
+use eZ\Publish\API\Repository\Values\Content\Query;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
+use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use eZ\Publish\Core\Base\Exceptions\NotFoundException;
+use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
+use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway as LocationGateway;
+use eZ\Publish\Core\Search\Legacy\Content\Mapper\FullTextMapper;
+use eZ\Publish\Core\Search\Legacy\Content\WordIndexer\Gateway as WordIndexerGateway;
 use eZ\Publish\SPI\Persistence\Content;
+use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
 use eZ\Publish\SPI\Persistence\Content\Location;
 use eZ\Publish\SPI\Search\VersatileHandler as SearchHandlerInterface;
-use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
-use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway as LocationGateway;
-use eZ\Publish\Core\Search\Legacy\Content\WordIndexer\Gateway as WordIndexerGateway;
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
-use eZ\Publish\Core\Search\Legacy\Content\Mapper\FullTextMapper;
 
 /**
  * The Content Search handler retrieves sets of of Content objects, based on a
@@ -309,7 +309,7 @@ class Handler implements SearchHandlerInterface
      * @param int $limit
      * @param \eZ\Publish\API\Repository\Values\Content\Query\Criterion $filter
      *
-     * @throws NotImplementedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
      */
     public function suggest($prefix, $fieldPaths = [], $limit = 10, Criterion $filter = null)
     {

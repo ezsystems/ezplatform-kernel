@@ -7,17 +7,17 @@
 namespace eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 
 class IntegerConverter implements Converter
 {
-    const FLOAT_VALIDATOR_IDENTIFIER = 'IntegerValueValidator';
+    public const FLOAT_VALIDATOR_IDENTIFIER = 'IntegerValueValidator';
 
-    const HAS_MIN_VALUE = 1;
-    const HAS_MAX_VALUE = 2;
+    public const HAS_MIN_VALUE = 1;
+    public const HAS_MAX_VALUE = 2;
 
     /**
      * Factory for current class.

@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Tests;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Map\URI as URIMapMatcher;
 use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Map\URI as URIMapMatcher;
 use PHPUnit\Framework\TestCase;
 
 class RouterMapURITest extends TestCase

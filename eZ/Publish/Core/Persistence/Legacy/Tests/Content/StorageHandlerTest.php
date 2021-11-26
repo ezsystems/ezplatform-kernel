@@ -6,13 +6,13 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler;
 use eZ\Publish\Core\Persistence\Legacy\Content\StorageRegistry;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
+use eZ\Publish\SPI\FieldType\FieldStorage;
 use eZ\Publish\SPI\Persistence\Content\Field;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\SPI\FieldType\FieldStorage;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
 /**
  * Test case for Content Handler.

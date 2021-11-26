@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace eZ\Publish\SPI\Repository\Tests\Decorator;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
 use eZ\Publish\API\Repository\TrashService;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\TrashItem;
 use eZ\Publish\SPI\Repository\Decorator\TrashServiceDecorator;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 class TrashServiceDecoratorTest extends TestCase
 {

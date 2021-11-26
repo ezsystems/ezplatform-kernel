@@ -12,10 +12,10 @@ use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use eZ\Publish\Core\FieldType\ImageAsset\AssetMapper;
+use eZ\Publish\Core\FieldType\ImageAsset\Value as ImageAssetValue;
 use eZ\Publish\SPI\FieldType\Value;
 use eZ\Publish\SPI\Variation\Values\Variation;
 use eZ\Publish\SPI\Variation\VariationHandler;
-use eZ\Publish\Core\FieldType\ImageAsset\Value as ImageAssetValue;
 
 /**
  * Alias Generator Decorator allowing generate variations based on passed ImageAsset\Value.
@@ -39,8 +39,8 @@ class AliasGenerator implements VariationHandler
     public function __construct(
         VariationHandler $innerAliasGenerator,
         ContentService $contentService,
-        AssetMapper $assetMapper)
-    {
+        AssetMapper $assetMapper
+    ) {
         $this->innerAliasGenerator = $innerAliasGenerator;
         $this->contentService = $contentService;
         $this->assetMapper = $assetMapper;

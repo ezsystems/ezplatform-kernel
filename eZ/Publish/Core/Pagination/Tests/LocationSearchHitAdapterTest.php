@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\Pagination\Tests;
 
-use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
 use eZ\Publish\API\Repository\SearchService;
+use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Aggregation;
@@ -43,11 +43,11 @@ class LocationSearchHitAdapterTest extends TestCase
     /**
      * Returns the adapter to test.
      *
-     * @param LocationQuery $query
-     * @param SearchService $searchService
+     * @param \eZ\Publish\API\Repository\Values\Content\LocationQuery $query
+     * @param \eZ\Publish\API\Repository\SearchService $searchService
      * @param array $languageFilter
      *
-     * @return LocationSearchHitAdapter
+     * @return \eZ\Publish\Core\Pagination\Pagerfanta\LocationSearchHitAdapter
      */
     protected function getAdapter(LocationQuery $query, SearchService $searchService, array $languageFilter = [])
     {

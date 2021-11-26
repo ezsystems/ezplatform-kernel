@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\FieldType\BinaryFile\Value as BinaryFileValue;
 use eZ\Publish\Core\FieldType\Media\Type as MediaType;
 use eZ\Publish\Core\FieldType\Media\Value as MediaValue;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\FieldType\ValidationError;
 
 /**

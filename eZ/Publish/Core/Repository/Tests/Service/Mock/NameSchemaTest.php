@@ -6,14 +6,14 @@
  */
 namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
 
+use eZ\Publish\API\Repository\Values\Content\Field;
+use eZ\Publish\Core\FieldType\TextLine\Value as TextLineValue;
 use eZ\Publish\Core\Repository\Helper\NameSchemaService;
 use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
 use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
 use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\FieldType\TextLine\Value as TextLineValue;
 
 /**
  * Mock Test case for NameSchema service.

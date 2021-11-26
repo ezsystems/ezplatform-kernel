@@ -14,7 +14,7 @@ use PDO;
 
 class DoctrineStorage extends Gateway
 {
-    const MAP_LOCATION_TABLE = 'ezgmaplocation';
+    public const MAP_LOCATION_TABLE = 'ezgmaplocation';
 
     /** @var \Doctrine\DBAL\Connection */
     protected $connection;

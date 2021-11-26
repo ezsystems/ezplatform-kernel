@@ -153,7 +153,8 @@ final class DeleteTranslationTest extends BaseTest
                 'ger-DE' => 'Kontakt',
                 'eng-US' => 'Contact',
             ],
-            2);
+            2
+        );
 
         $user = $this->provideUserWithContentRemovePolicies();
         $repository->getPermissionResolver()->setCurrentUserReference($user);

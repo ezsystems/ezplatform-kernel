@@ -6,12 +6,12 @@
  */
 namespace eZ\Bundle\EzPublishLegacySearchEngineBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use eZ\Publish\Core\Base\Container\Compiler\Search\FieldRegistryPass;
 use eZ\Publish\Core\Base\Container\Compiler\Search\Legacy\CriteriaConverterPass;
 use eZ\Publish\Core\Base\Container\Compiler\Search\Legacy\CriterionFieldValueHandlerRegistryPass;
 use eZ\Publish\Core\Base\Container\Compiler\Search\Legacy\SortClauseConverterPass;
-use eZ\Publish\Core\Base\Container\Compiler\Search\FieldRegistryPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class EzPublishLegacySearchEngineBundle extends Bundle
 {

@@ -6,6 +6,8 @@
  */
 namespace eZ\Publish\API\Repository\Tests;
 
+use DateTime;
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\URLAliasService;
 use eZ\Publish\API\Repository\Values\Content\Content;
@@ -15,13 +17,11 @@ use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Values\Content\Trash\SearchResult;
 use eZ\Publish\API\Repository\Values\Content\TrashItem as APITrashItem;
 use eZ\Publish\API\Repository\Values\User\Limitation\SubtreeLimitation;
-use eZ\Publish\Core\Repository\Values\Content\TrashItem;
 use eZ\Publish\Core\Repository\Values\Content\Location;
-use DateTime;
+use eZ\Publish\Core\Repository\Values\Content\TrashItem;
 
 /**
  * Test case for operations in the TrashService using in memory storage.
@@ -1006,7 +1006,7 @@ class TrashServiceTest extends BaseTrashServiceTest
         /* END: Use Case */
 
         $foundIds = array_map(
-            function ($trashItem) {
+            static function ($trashItem) {
                 return $trashItem->id;
             },
             $searchResult->items
@@ -1254,7 +1254,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     }
 
     /**
-     * @param Repository $repository
+     * @param \eZ\Publish\API\Repository\Repository $repository
      * @param int $parentLocationId
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Content
@@ -1277,7 +1277,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     }
 
     /**
-     * @param URLAliasService $urlAliasService
+     * @param \eZ\Publish\API\Repository\URLAliasService $urlAliasService
      * @param string $urlPath Url alias path
      *
      * @return \eZ\Publish\API\Repository\Values\Content\URLAlias
@@ -1292,7 +1292,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     }
 
     /**
-     * @param URLAliasService $urlAliasService
+     * @param \eZ\Publish\API\Repository\URLAliasService $urlAliasService
      * @param string $urlPath Url alias path
      */
     private function assertAliasNotExists(URLAliasService $urlAliasService, $urlPath)

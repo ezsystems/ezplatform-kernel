@@ -10,8 +10,8 @@ namespace eZ\Publish\Core\Persistence\Legacy\Filter\Handler;
 
 use eZ\Publish\API\Repository\Values\Filter\Filter;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler;
-use eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Gateway as FilteringGateway;
 use eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Content\GatewayDataMapper;
+use eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Gateway as FilteringGateway;
 use eZ\Publish\SPI\Persistence\Content\ContentItem;
 use eZ\Publish\SPI\Persistence\Filter\Content\Handler;
 use eZ\Publish\SPI\Persistence\Filter\Content\LazyContentItemListIterator;

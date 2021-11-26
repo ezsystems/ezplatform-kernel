@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageRegistry;
-use eZ\Publish\SPI\FieldType\FieldStorage;
 use eZ\Publish\Core\FieldType\NullStorage;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageRegistry;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
+use eZ\Publish\SPI\FieldType\FieldStorage;
 
 /**
  * Test case for StorageRegistry.

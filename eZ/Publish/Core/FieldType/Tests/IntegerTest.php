@@ -6,10 +6,10 @@
  */
 namespace eZ\Publish\Core\FieldType\Tests;
 
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\FieldType\Integer\Type as Integer;
 use eZ\Publish\Core\FieldType\Integer\Value as IntegerValue;
 use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * @group fieldType

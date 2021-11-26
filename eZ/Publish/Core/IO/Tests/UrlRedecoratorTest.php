@@ -6,13 +6,13 @@
  */
 namespace eZ\Publish\Core\IO\Tests;
 
-use PHPUnit\Framework\TestCase;
-use eZ\Publish\Core\IO\UrlRedecorator;
 use eZ\Publish\Core\IO\UrlDecorator;
+use eZ\Publish\Core\IO\UrlRedecorator;
+use PHPUnit\Framework\TestCase;
 
 class UrlRedecoratorTest extends TestCase
 {
-    /** @var UrlRedecorator|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \eZ\Publish\Core\IO\UrlRedecorator|\PHPUnit\Framework\MockObject\MockObject */
     private $redecorator;
 
     /** @var \eZ\Publish\Core\IO\UrlDecorator|\PHPUnit\Framework\MockObject\MockObject */

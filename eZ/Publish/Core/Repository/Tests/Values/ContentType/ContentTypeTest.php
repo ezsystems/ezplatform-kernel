@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\Repository\Tests\Values\ContentType;
 
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCollection as APIFieldDefinitionCollection;
+use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
 use PHPUnit\Framework\TestCase;
 
 class ContentTypeTest extends TestCase

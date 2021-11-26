@@ -128,9 +128,9 @@ class ChainConfigResolverTest extends TestCase
              ->willReturn($expectedValue);
 
         $this->assertSame(
-             $expectedValue,
-             $this->getChainConfigResolver()->getParameter($paramName, self::DEFAULT_NAMESPACE, self::FIRST_SA_NAME)
-         );
+            $expectedValue,
+            $this->getChainConfigResolver()->getParameter($paramName, self::DEFAULT_NAMESPACE, self::FIRST_SA_NAME)
+        );
     }
 
     /**
@@ -157,12 +157,12 @@ class ChainConfigResolverTest extends TestCase
      * @dataProvider hasParameterProvider
      */
     public function testHasParameterNoNamespace(
-         bool $defaultMatch,
-         bool $groupMatch,
-         bool $scopeMatch,
-         bool $globalMatch,
-         bool $expectedResult
-     ): void {
+        bool $defaultMatch,
+        bool $groupMatch,
+        bool $scopeMatch,
+        bool $globalMatch,
+        bool $expectedResult
+    ): void {
         $paramName = 'foo.bar';
         $groupName = self::SA_GROUP;
 
@@ -186,12 +186,12 @@ class ChainConfigResolverTest extends TestCase
      * @dataProvider hasParameterProvider
      */
     public function testHasParameterWithNamespaceAndScope(
-         bool $defaultMatch,
-         bool $groupMatch,
-         bool $scopeMatch,
-         bool $globalMatch,
-         bool $expectedResult
-     ): void {
+        bool $defaultMatch,
+        bool $groupMatch,
+        bool $scopeMatch,
+        bool $globalMatch,
+        bool $expectedResult
+    ): void {
         $paramName = 'foo.bar';
         $namespace = 'my.namespace';
         $scope = self::SECOND_SA_NAME;
@@ -216,8 +216,8 @@ class ChainConfigResolverTest extends TestCase
     private function getGlobalConfigResolver(string $defaultNamespace = self::DEFAULT_NAMESPACE): ConfigResolverInterface
     {
         $configResolver = new GlobalScopeConfigResolver(
-             $defaultNamespace
-         );
+            $defaultNamespace
+        );
         $configResolver->setContainer($this->containerMock);
 
         return $configResolver;
@@ -226,8 +226,8 @@ class ChainConfigResolverTest extends TestCase
     private function getDefaultConfigResolver(string $defaultNamespace = self::DEFAULT_NAMESPACE): ConfigResolverInterface
     {
         $configResolver = new DefaultScopeConfigResolver(
-             $defaultNamespace
-         );
+            $defaultNamespace
+        );
         $configResolver->setContainer($this->containerMock);
 
         return $configResolver;
@@ -236,13 +236,13 @@ class ChainConfigResolverTest extends TestCase
     protected function getSiteAccessGroupConfigResolver(string $defaultNamespace = self::DEFAULT_NAMESPACE): ConfigResolverInterface
     {
         $siteAccess = new SiteAccess(
-             self::FIRST_SA_NAME,
-         );
+            self::FIRST_SA_NAME,
+        );
         $configResolver = new SiteAccessGroupConfigResolver(
-             $this->getStaticSiteAccessProvider(),
-             $defaultNamespace,
-             []
-         );
+            $this->getStaticSiteAccessProvider(),
+            $defaultNamespace,
+            []
+        );
         $configResolver->setContainer($this->containerMock);
         $configResolver->setSiteAccess($siteAccess);
 
@@ -252,12 +252,12 @@ class ChainConfigResolverTest extends TestCase
     protected function getSiteAccessConfigResolver(string $defaultNamespace = self::DEFAULT_NAMESPACE): ConfigResolverInterface
     {
         $siteAccess = new SiteAccess(
-             self::FIRST_SA_NAME,
-         );
+            self::FIRST_SA_NAME,
+        );
         $configResolver = new StaticSiteAccessConfigResolver(
-             $this->getStaticSiteAccessProvider(),
-             $defaultNamespace
-         );
+            $this->getStaticSiteAccessProvider(),
+            $defaultNamespace
+        );
         $configResolver->setContainer($this->containerMock);
         $configResolver->setSiteAccess($siteAccess);
 
@@ -267,15 +267,15 @@ class ChainConfigResolverTest extends TestCase
     private function getStaticSiteAccessProvider(): StaticSiteAccessProvider
     {
         return new StaticSiteAccessProvider(
-             [
+            [
                  self::FIRST_SA_NAME,
                  self::SECOND_SA_NAME,
              ],
-             [
+            [
                  self::FIRST_SA_NAME => [self::SA_GROUP],
                  self::SECOND_SA_NAME => [self::SA_GROUP],
              ],
-         );
+        );
     }
 
     public function parameterProvider(): array
@@ -334,7 +334,7 @@ class ChainConfigResolverTest extends TestCase
         string $paramName,
         string $scope,
         string $namespace = self::DEFAULT_NAMESPACE
-     ): string {
+    ): string {
         return sprintf('%s.%s.%s', $namespace, $scope, $paramName);
     }
 }

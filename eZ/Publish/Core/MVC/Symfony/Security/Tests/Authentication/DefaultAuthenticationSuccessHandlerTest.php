@@ -6,9 +6,9 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\Security\Tests\Authentication;
 
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\MVC\Symfony\Security\Authentication\DefaultAuthenticationSuccessHandler;
 use eZ\Publish\Core\MVC\Symfony\Security\HttpUtils;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 

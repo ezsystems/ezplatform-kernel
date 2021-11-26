@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Content\Doctrine;
 
+use function array_filter;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\FetchMode;
@@ -21,10 +22,9 @@ use eZ\Publish\SPI\Persistence\Filter\CriterionVisitor;
 use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
 use eZ\Publish\SPI\Persistence\Filter\SortClauseVisitor;
 use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
-use Traversable;
-use function array_filter;
 use function iterator_to_array;
 use function sprintf;
+use Traversable;
 
 /**
  * @internal for internal use by Legacy Storage

@@ -8,19 +8,19 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository;
 
+use Exception;
+use eZ\Publish\API\Repository\Exceptions\ForbiddenException;
 use eZ\Publish\API\Repository\LanguageResolver;
 use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\URLAliasService as URLAliasServiceInterface;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
-use eZ\Publish\SPI\Persistence\Content\UrlAlias\Handler;
+use eZ\Publish\API\Repository\URLAliasService as URLAliasServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\URLAlias;
-use eZ\Publish\SPI\Persistence\Content\URLAlias as SPIURLAlias;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\Exceptions\ForbiddenException;
-use Exception;
+use eZ\Publish\SPI\Persistence\Content\URLAlias as SPIURLAlias;
+use eZ\Publish\SPI\Persistence\Content\UrlAlias\Handler;
 
 /**
  * @internal Type-hint \eZ\Publish\API\Repository\URLAliasService instead.

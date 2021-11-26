@@ -7,18 +7,18 @@
 namespace eZ\Publish\Core\FieldType\Tests;
 
 use DateTimeImmutable;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\API\Repository\PasswordHashService;
+use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\FieldType\User\Type;
 use eZ\Publish\Core\FieldType\User\Type as UserType;
 use eZ\Publish\Core\FieldType\User\Value as UserValue;
-use eZ\Publish\Core\Repository\Values\User\User as RepositoryUser;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\FieldType\ValidationError;
 use eZ\Publish\Core\Persistence\Cache\UserHandler;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
 use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition as CoreFieldDefinition;
+use eZ\Publish\Core\Repository\Values\User\User as RepositoryUser;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
 use eZ\Publish\SPI\Persistence\User;
 use PHPUnit\Framework\MockObject\Builder\InvocationMocker;
@@ -606,7 +606,8 @@ class UserTest extends FieldTypeTest
                 'data' => null,
                 'externalData' => $expectedFieldValueExternalData,
                 'sortKey' => null,
-            ]);
+            ]
+        );
         self::assertEquals($expected, $fieldValue);
     }
 
@@ -734,7 +735,7 @@ class UserTest extends FieldTypeTest
                         'email'
                     ),
                 ],
-                function (InvocationMocker $loadByLoginInvocationMocker) {
+                static function (InvocationMocker $loadByLoginInvocationMocker) {
                     $loadByLoginInvocationMocker->willThrowException(
                         new NotFoundException('user', 'user')
                     );

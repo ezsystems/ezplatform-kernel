@@ -18,8 +18,8 @@ use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
 use eZ\Publish\API\Repository\UserService as UserServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
-use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\Field;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ContentTypeId as CriterionContentTypeId;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\LocationId as CriterionLocationId;
@@ -30,27 +30,27 @@ use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\API\Repository\Values\User\PasswordInfo;
 use eZ\Publish\API\Repository\Values\User\PasswordValidationContext;
-use eZ\Publish\API\Repository\Values\User\UserTokenUpdateStruct;
-use eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException;
-use eZ\Publish\Core\Base\Exceptions\MissingUserFieldTypeException;
-use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
-use eZ\Publish\Core\Repository\Validator\UserPasswordValidator;
-use eZ\Publish\Core\Repository\User\Exception\UnsupportedPasswordHashType;
-use eZ\Publish\Core\Repository\Values\User\UserCreateStruct;
-use eZ\Publish\API\Repository\Values\User\UserCreateStruct as APIUserCreateStruct;
-use eZ\Publish\API\Repository\Values\User\UserUpdateStruct;
 use eZ\Publish\API\Repository\Values\User\User as APIUser;
+use eZ\Publish\API\Repository\Values\User\UserCreateStruct as APIUserCreateStruct;
 use eZ\Publish\API\Repository\Values\User\UserGroup as APIUserGroup;
 use eZ\Publish\API\Repository\Values\User\UserGroupCreateStruct as APIUserGroupCreateStruct;
 use eZ\Publish\API\Repository\Values\User\UserGroupUpdateStruct;
+use eZ\Publish\API\Repository\Values\User\UserTokenUpdateStruct;
+use eZ\Publish\API\Repository\Values\User\UserUpdateStruct;
 use eZ\Publish\Core\Base\Exceptions\BadStateException;
+use eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
+use eZ\Publish\Core\Base\Exceptions\MissingUserFieldTypeException;
 use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
-use eZ\Publish\Core\FieldType\User\Value as UserValue;
 use eZ\Publish\Core\FieldType\User\Type as UserType;
+use eZ\Publish\Core\FieldType\User\Value as UserValue;
 use eZ\Publish\Core\FieldType\ValidationError;
+use eZ\Publish\Core\Repository\User\Exception\UnsupportedPasswordHashType;
+use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
+use eZ\Publish\Core\Repository\Validator\UserPasswordValidator;
 use eZ\Publish\Core\Repository\Values\User\User;
+use eZ\Publish\Core\Repository\Values\User\UserCreateStruct;
 use eZ\Publish\Core\Repository\Values\User\UserGroup;
 use eZ\Publish\Core\Repository\Values\User\UserGroupCreateStruct;
 use eZ\Publish\SPI\Persistence\Content\Location\Handler as LocationHandler;
@@ -87,7 +87,7 @@ class UserService implements UserServiceInterface
     /** @var \eZ\Publish\API\Repository\PasswordHashService */
     private $passwordHashService;
 
-    /** @var PasswordValidatorInterface */
+    /** @var \eZ\Publish\Core\Repository\User\PasswordValidatorInterface */
     private $passwordValidator;
 
     public function setLogger(LoggerInterface $logger = null)
@@ -345,7 +345,7 @@ class UserService implements UserServiceInterface
      * and publishes the draft. If a draft is explicitly required, the user group can be updated via the content service methods.
      *
      * @param \eZ\Publish\API\Repository\Values\User\UserGroup $userGroup
-     * @param UserGroupUpdateStruct $userGroupUpdateStruct
+     * @param \eZ\Publish\API\Repository\Values\User\UserGroupUpdateStruct $userGroupUpdateStruct
      *
      * @return \eZ\Publish\API\Repository\Values\User\UserGroup
      *
@@ -398,7 +398,7 @@ class UserService implements UserServiceInterface
     /**
      * Create a new user. The created user is published by this method.
      *
-     * @param APIUserCreateStruct $userCreateStruct the data used for creating the user
+     * @param \eZ\Publish\API\Repository\Values\User\UserCreateStruct $userCreateStruct the data used for creating the user
      * @param \eZ\Publish\API\Repository\Values\User\UserGroup[] $parentGroups the groups which are assigned to the user after creation
      *
      * @return \eZ\Publish\API\Repository\Values\User\User
@@ -640,7 +640,7 @@ class UserService implements UserServiceInterface
      * and publishes the draft. If a draft is explicitly required, the user group can be updated via the content service methods.
      *
      * @param \eZ\Publish\API\Repository\Values\User\User $user
-     * @param UserUpdateStruct $userUpdateStruct
+     * @param \eZ\Publish\API\Repository\Values\User\UserUpdateStruct $userUpdateStruct
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException if a field in the $userUpdateStruct is not valid
      * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException if a required field is set empty
@@ -1378,7 +1378,7 @@ class UserService implements UserServiceInterface
     /**
      * Return true if any of the UserUpdateStruct properties refers to User Profile (Content) update.
      *
-     * @param UserUpdateStruct $userUpdateStruct
+     * @param \eZ\Publish\API\Repository\Values\User\UserUpdateStruct $userUpdateStruct
      *
      * @return bool
      */

@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace eZ\Publish\API\Repository\Values\Notification;
 
 use ArrayIterator;
-use IteratorAggregate;
 use eZ\Publish\API\Repository\Values\ValueObject;
+use IteratorAggregate;
 use Traversable;
 
 class NotificationList extends ValueObject implements IteratorAggregate

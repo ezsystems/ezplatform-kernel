@@ -6,31 +6,31 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content;
 
-use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
-use eZ\Publish\SPI\Persistence\Content;
-use eZ\Publish\SPI\Persistence\Content\Type;
-use eZ\Publish\SPI\Persistence\Content\ContentInfo;
-use eZ\Publish\SPI\Persistence\Content\Field;
-use eZ\Publish\SPI\Persistence\Content\FieldValue;
-use eZ\Publish\SPI\Persistence\Content\VersionInfo;
-use eZ\Publish\SPI\Persistence\Content\CreateStruct;
-use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Relation;
-use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
-use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct as LocationCreateStruct;
-use eZ\Publish\Core\Persistence\Legacy\Content\TreeHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Handler;
 use eZ\Publish\API\Repository\Values\Content\Relation as RelationValue;
-use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway as UrlAliasGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
+use eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler;
 use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway as ContentTypeGateway;
+use eZ\Publish\Core\Persistence\Legacy\Content\Handler;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Mapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler;
+use eZ\Publish\Core\Persistence\Legacy\Content\TreeHandler;
+use eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway as ContentTypeGateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler as ContentTypeHandler;
+use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\Gateway as UrlAliasGateway;
+use eZ\Publish\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
+use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
+use eZ\Publish\SPI\Persistence\Content;
+use eZ\Publish\SPI\Persistence\Content\ContentInfo;
+use eZ\Publish\SPI\Persistence\Content\CreateStruct;
+use eZ\Publish\SPI\Persistence\Content\Field;
+use eZ\Publish\SPI\Persistence\Content\FieldValue;
+use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct as LocationCreateStruct;
+use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
+use eZ\Publish\SPI\Persistence\Content\Relation;
+use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use eZ\Publish\SPI\Persistence\Content\Type;
+use eZ\Publish\SPI\Persistence\Content\UpdateStruct;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 use ReflectionException;
 
 /**

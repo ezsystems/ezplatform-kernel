@@ -11,10 +11,10 @@ namespace eZ\Publish\Core\Repository\Values\ContentType;
 use ArrayIterator;
 use BadMethodCallException;
 use Closure;
-use Iterator;
 use eZ\Publish\API\Repository\Exceptions\OutOfBoundsException;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCollection as FieldDefinitionCollectionInterface;
+use Iterator;
 
 final class FieldDefinitionCollection implements FieldDefinitionCollectionInterface
 {

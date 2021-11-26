@@ -6,13 +6,13 @@
  */
 namespace eZ\Publish\API\Repository;
 
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateUpdateStruct;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateCreateStruct;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
+use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateCreateStruct;
+use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
 use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
+use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
+use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateUpdateStruct;
 
 /**
  * ObjectStateService service.

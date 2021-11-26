@@ -6,8 +6,8 @@
  */
 namespace eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Map;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Map;
 use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\Matcher\Map;
 
 class Port extends Map
 {

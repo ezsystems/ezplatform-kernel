@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Cache\Tests;
 
-use eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct;
 use eZ\Publish\SPI\Persistence\UserPreference\Handler as SPIUserPreferenceHandler;
 use eZ\Publish\SPI\Persistence\UserPreference\UserPreference as SPIUserPreference;
+use eZ\Publish\SPI\Persistence\UserPreference\UserPreferenceSetStruct;
 
 /**
  * Test case for Persistence\Cache\UserPreferenceHandler.

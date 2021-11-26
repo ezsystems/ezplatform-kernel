@@ -8,8 +8,8 @@ namespace eZ\Publish\Core\Persistence\Cache;
 
 use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\SPI\Persistence\Content\UrlAlias\Handler as UrlAliasHandlerInterface;
 use eZ\Publish\SPI\Persistence\Content\UrlAlias;
+use eZ\Publish\SPI\Persistence\Content\UrlAlias\Handler as UrlAliasHandlerInterface;
 
 /**
  * @see \eZ\Publish\SPI\Persistence\Content\UrlAlias\Handler
@@ -29,7 +29,7 @@ class UrlAliasHandler extends AbstractInMemoryPersistenceHandler implements UrlA
     /**
      * Constant used for storing not found results for lookup().
      */
-    const NOT_FOUND = 0;
+    public const NOT_FOUND = 0;
 
     /**
      * {@inheritdoc}

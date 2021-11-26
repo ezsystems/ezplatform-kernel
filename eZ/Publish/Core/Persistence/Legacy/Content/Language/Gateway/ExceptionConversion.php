@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway;
 
+use Doctrine\DBAL\DBALException;
 use eZ\Publish\Core\Base\Exceptions\DatabaseException;
 use eZ\Publish\Core\Persistence\Legacy\Content\Language\Gateway;
 use eZ\Publish\SPI\Persistence\Content\Language;
-use Doctrine\DBAL\DBALException;
 use PDOException;
 
 /**

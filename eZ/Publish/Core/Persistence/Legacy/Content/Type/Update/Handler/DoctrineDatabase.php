@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler;
 
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Type\ContentUpdater;
+use eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway;
+use eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler;
 use eZ\Publish\SPI\Persistence\Content\Type;
 
 /**

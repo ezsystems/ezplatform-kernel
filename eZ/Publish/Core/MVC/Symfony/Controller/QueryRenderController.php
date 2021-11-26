@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\MVC\Symfony\Controller;
 
 use eZ\Publish\Core\MVC\Symfony\View\QueryView;
-use eZ\Publish\Core\Pagination\Pagerfanta\Pagerfanta;
 use eZ\Publish\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactoryInterface;
+use eZ\Publish\Core\Pagination\Pagerfanta\Pagerfanta;
 use eZ\Publish\Core\Pagination\Pagerfanta\SearchResultAdapter;
 use eZ\Publish\Core\Query\QueryFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
