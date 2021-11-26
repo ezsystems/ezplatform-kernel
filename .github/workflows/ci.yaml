@@ -17,6 +17,7 @@ jobs:
             fail-fast: false
             matrix:
                 experimental: [ false ]
+                code_style_check: [ true ]
                 php:
                     - '7.3'
                     - '7.4'
@@ -26,6 +27,7 @@ jobs:
                         composer_options: "--ignore-platform-req php"
                     -   php: '8.1'
                         composer_options: "--ignore-platform-req php"
+                        code_style_check: false
 
         steps:
             - uses: actions/checkout@v2
@@ -50,6 +52,7 @@ jobs:
             #   run: composer run-script phpstan
 
             - name: Run code style check
+              if: matrix.code_style_check
               run: composer run-script check-cs -- --format=checkstyle | cs2pr
 
             - name: Run unit test suite
