@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\Section;
 
-use Ibexa\Contracts\Core\Persistence\Content\Section\Handler as BaseSectionHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Section;
+use Ibexa\Contracts\Core\Persistence\Content\Section\Handler as BaseSectionHandler;
 use Ibexa\Core\Base\Exceptions\NotFoundException as NotFound;
 use RuntimeException;
 

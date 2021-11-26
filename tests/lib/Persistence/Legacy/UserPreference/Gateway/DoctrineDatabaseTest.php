@@ -10,18 +10,18 @@ namespace Ibexa\Tests\Core\Persistence\Legacy\UserPreference\Gateway;
 
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
 use Ibexa\Core\Persistence\Legacy\UserPreference\Gateway;
 use Ibexa\Core\Persistence\Legacy\UserPreference\Gateway\DoctrineDatabase;
 use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
-use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\UserPreference\Gateway
  */
 class DoctrineDatabaseTest extends TestCase
 {
-    const EXISTING_USER_PREFERENCE_ID = 1;
-    const EXISTING_USER_PREFERENCE_DATA = [
+    public const EXISTING_USER_PREFERENCE_ID = 1;
+    public const EXISTING_USER_PREFERENCE_DATA = [
         'id' => 1,
         'user_id' => 14,
         'name' => 'timezone',

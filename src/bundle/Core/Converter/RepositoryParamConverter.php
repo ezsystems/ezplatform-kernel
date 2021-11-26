@@ -30,8 +30,8 @@ abstract class RepositoryParamConverter implements ParamConverterInterface
     abstract protected function loadValueObject($id);
 
     /**
-     * @param Request $request
-     * @param ParamConverter $configuration
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter $configuration
      *
      * @return bool
      */

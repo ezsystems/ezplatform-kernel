@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Core\Repository\Values\ContentType;
 
-use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use PHPUnit\Framework\TestCase;
 
 /**

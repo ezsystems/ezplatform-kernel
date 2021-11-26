@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\Location;
 
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class UpdateLocationEvent extends AfterEvent
 {

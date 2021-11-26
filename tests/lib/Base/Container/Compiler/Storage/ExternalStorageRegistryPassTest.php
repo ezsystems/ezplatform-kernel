@@ -7,8 +7,8 @@
 namespace Ibexa\Tests\Core\Base\Container\Compiler\Storage;
 
 use Ibexa\Core\Base\Container\Compiler\Storage\ExternalStorageRegistryPass;
-use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Ibexa\Tests\Core\Base\Container\Compiler\Stubs\GatewayBasedStorageHandler;
+use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;

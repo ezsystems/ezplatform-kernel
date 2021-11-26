@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Persistence\Legacy\UserPreference;
 
-use Ibexa\Core\Persistence\Legacy\UserPreference\Mapper;
 use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference;
+use Ibexa\Core\Persistence\Legacy\UserPreference\Mapper;
 use PHPUnit\Framework\TestCase;
 
 /**

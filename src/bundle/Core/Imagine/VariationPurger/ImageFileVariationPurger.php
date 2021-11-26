@@ -7,8 +7,8 @@
 namespace Ibexa\Bundle\Core\Imagine\VariationPurger;
 
 use Ibexa\Bundle\Core\Imagine\VariationPathGenerator;
-use Ibexa\Core\IO\IOServiceInterface;
 use Ibexa\Contracts\Core\Variation\VariationPurger;
+use Ibexa\Core\IO\IOServiceInterface;
 use Iterator;
 
 /**

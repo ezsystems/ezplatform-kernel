@@ -7,6 +7,9 @@
 namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
 use ArrayIterator;
+use Ibexa\Contracts\Core\Limitation\Type as SPIType;
+use Ibexa\Contracts\Core\Persistence\User as SPIUser;
+use Ibexa\Contracts\Core\Persistence\User\Role as SPIRole;
 use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
 use Ibexa\Contracts\Core\Repository\Exceptions\LimitationValidationException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
@@ -21,14 +24,11 @@ use Ibexa\Contracts\Core\Repository\Values\User\RoleCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleDraft;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\Repository\Mapper\RoleDomainMapper;
 use Ibexa\Core\Repository\Permission\LimitationService;
 use Ibexa\Core\Repository\RoleService;
 use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Persistence\User as SPIUser;
-use Ibexa\Contracts\Core\Persistence\User\Role as SPIRole;
-use Ibexa\Contracts\Core\Limitation\Type as SPIType;
 
 /**
  * @covers \Ibexa\Contracts\Core\Repository\RoleService
@@ -203,7 +203,7 @@ class RoleTest extends BaseServiceMockTest
             ->method('__get')
             ->will(
                 $this->returnCallback(
-                    function ($propertyName) {
+                    static function ($propertyName) {
                         switch ($propertyName) {
                             case 'module':
                                 return 'mockModule';

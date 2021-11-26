@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Core\Base\Exceptions;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
 use Exception;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
 use Ibexa\Core\Base\Translatable;
 use Ibexa\Core\Base\TranslatableBase;
 

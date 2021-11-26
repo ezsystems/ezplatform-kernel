@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Core\FieldType\Url;
 
-use Ibexa\Core\FieldType\Url\UrlStorage;
 use Ibexa\Contracts\Core\FieldType\StorageGateway;
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
 use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Core\FieldType\Url\UrlStorage;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 

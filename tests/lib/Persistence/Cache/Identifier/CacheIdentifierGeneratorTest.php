@@ -22,7 +22,8 @@ final class CacheIdentifierGeneratorTest extends TestCase
 
     public function setUp(): void
     {
-        $this->cacheIdentifierGenerator = new CacheIdentifierGenerator('ibx-',
+        $this->cacheIdentifierGenerator = new CacheIdentifierGenerator(
+            'ibx-',
             [
                 'content' => 'c-%s',
                 'content_version' => 'c-%s-v-%s',

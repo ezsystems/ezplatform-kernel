@@ -6,22 +6,22 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content;
 
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Handler;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway;
-use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Location;
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
-use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
 use Ibexa\Contracts\Core\Persistence\Content;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper;
-use Ibexa\Core\Persistence\Legacy\Content\TreeHandler;
-use Ibexa\Core\Persistence\Legacy\Content\Handler as ContentHandler;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\ObjectState;
-use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Handler as ObjectStateHandler;
 use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group as ObjectStateGroup;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Core\Persistence\Legacy\Content\Handler as ContentHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Handler;
 use Ibexa\Core\Persistence\Legacy\Content\Location\Handler as LocationHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper;
+use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Handler as ObjectStateHandler;
+use Ibexa\Core\Persistence\Legacy\Content\TreeHandler;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\Location\Handler

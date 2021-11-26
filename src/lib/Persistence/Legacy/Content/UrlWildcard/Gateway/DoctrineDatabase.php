@@ -12,8 +12,8 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Gateway;
 use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard;
+use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Gateway;
 
 /**
  * URL wildcard gateway implementation using the Doctrine database.

@@ -6,6 +6,9 @@
  */
 namespace Ibexa\Tests\Core\Limitation;
 
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Handler as SPIHandler;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ObjectStateId;
@@ -14,9 +17,6 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ObjectStateLimitation
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Limitation\ObjectStateLimitationType;
 use Ibexa\Core\Repository\Values\Content\ContentCreateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\ObjectState;
-use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group;
-use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Handler as SPIHandler;
 
 /**
  * Test Case for LimitationType.

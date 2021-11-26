@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Core\MVC\Symfony\EventListener;
 
 use ArrayIterator;
+use Ibexa\Contracts\Core\MVC\View\VariableProvider;
 use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
 use Ibexa\Core\MVC\Symfony\EventListener\ContentViewTwigVariablesSubscriber;
@@ -17,7 +18,6 @@ use Ibexa\Core\MVC\Symfony\View\GenericVariableProviderRegistry;
 use Ibexa\Core\MVC\Symfony\View\View;
 use Ibexa\Core\Repository\Values\Content\Content;
 use Ibexa\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\MVC\View\VariableProvider;
 use PHPUnit\Framework\TestCase;
 
 final class ContentViewTwigVariablesSubscriberTest extends TestCase

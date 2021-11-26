@@ -9,23 +9,23 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
 use Exception;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
+use Ibexa\Contracts\Core\Persistence\Bookmark\CreateStruct;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Core\Repository\BookmarkService;
-use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
 use Ibexa\Core\Repository\Values\Content\Location;
 use Ibexa\Core\Repository\Values\User\UserReference;
-use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
-use Ibexa\Contracts\Core\Persistence\Bookmark\CreateStruct;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class BookmarkTest extends BaseServiceMockTest
 {
-    const BOOKMARK_ID = 2;
-    const CURRENT_USER_ID = 7;
-    const LOCATION_ID = 1;
+    public const BOOKMARK_ID = 2;
+    public const CURRENT_USER_ID = 7;
+    public const LOCATION_ID = 1;
 
     /** @var \Ibexa\Contracts\Core\Persistence\Bookmark\Handler|\PHPUnit\Framework\MockObject\MockObject */
     private $bookmarkHandler;
@@ -231,7 +231,7 @@ class BookmarkTest extends BaseServiceMockTest
             ->expects($this->once())
             ->method('loadUserBookmarks')
             ->with(self::CURRENT_USER_ID, $offset, $limit)
-            ->willReturn(array_map(function ($locationId) {
+            ->willReturn(array_map(static function ($locationId) {
                 return new Bookmark(['locationId' => $locationId]);
             }, range(1, $expectedTotalCount)));
 

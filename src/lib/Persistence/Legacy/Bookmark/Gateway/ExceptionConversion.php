@@ -9,9 +9,9 @@ declare(strict_types=1);
 namespace Ibexa\Core\Persistence\Legacy\Bookmark\Gateway;
 
 use Doctrine\DBAL\DBALException;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
 use Ibexa\Core\Base\Exceptions\DatabaseException;
 use Ibexa\Core\Persistence\Legacy\Bookmark\Gateway;
-use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
 use PDOException;
 
 class ExceptionConversion extends Gateway

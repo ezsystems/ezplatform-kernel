@@ -6,17 +6,17 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\Gateway;
 
+use Doctrine\DBAL\DBALException;
+use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Ibexa\Core\Base\Exceptions\DatabaseException;
 use Ibexa\Core\Persistence\Legacy\Content\Gateway;
 use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
-use Ibexa\Contracts\Core\Persistence\Content;
-use Ibexa\Contracts\Core\Persistence\Content\CreateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
-use Ibexa\Contracts\Core\Persistence\Content\Field;
-use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
-use Doctrine\DBAL\DBALException;
 use PDOException;
 
 /**

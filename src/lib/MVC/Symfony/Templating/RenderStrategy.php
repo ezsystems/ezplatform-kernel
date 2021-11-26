@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\MVC\Symfony\Templating;
 
+use Ibexa\Contracts\Core\MVC\Templating\RenderStrategy as SPIRenderStrategy;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Contracts\Core\MVC\Templating\RenderStrategy as SPIRenderStrategy;
 
 final class RenderStrategy implements SPIRenderStrategy
 {
@@ -42,7 +42,9 @@ final class RenderStrategy implements SPIRenderStrategy
         }
 
         throw new InvalidArgumentException('valueObject', sprintf(
-            "Method '%s' is not supported for %s.", $options->get('method'), get_class($valueObject)
+            "Method '%s' is not supported for %s.",
+            $options->get('method'),
+            get_class($valueObject)
         ));
     }
 }

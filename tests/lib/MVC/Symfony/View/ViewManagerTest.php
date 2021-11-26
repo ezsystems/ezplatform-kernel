@@ -10,10 +10,10 @@ use Ibexa\Contracts\Core\Repository\ContentService as APIContentService;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\View\Configurator;
 use Ibexa\Core\MVC\Symfony\View\Manager;
 use Ibexa\Core\MVC\Symfony\View\View;
 use Ibexa\Core\MVC\Symfony\View\ViewProvider;
-use Ibexa\Core\MVC\Symfony\View\Configurator;
 use Ibexa\Core\Repository\ContentService;
 use Ibexa\Core\Repository\Values\Content\Content;
 use Ibexa\Core\Repository\Values\Content\Location;
@@ -118,7 +118,7 @@ class ViewManagerTest extends TestCase
             ->method('configure')
             ->will(
                 $this->returnCallback(
-                    function (View $view) use ($templateIdentifier) {
+                    static function (View $view) use ($templateIdentifier) {
                         $view->setTemplateIdentifier($templateIdentifier);
                     }
                 )
@@ -131,7 +131,8 @@ class ViewManagerTest extends TestCase
             ->method('render')
             ->with(
                 $templateIdentifier,
-                $params + ['content' => $content, 'view_base_layout' => $this->viewBaseLayout])
+                $params + ['content' => $content, 'view_base_layout' => $this->viewBaseLayout]
+            )
             ->will($this->returnValue($expectedTemplateResult));
 
         self::assertSame($expectedTemplateResult, $this->viewManager->renderContent($content, 'customViewType', $params));
@@ -144,7 +145,7 @@ class ViewManagerTest extends TestCase
         );
 
         // Configuring view provider behaviour
-        $closure = function ($params) {
+        $closure = static function ($params) {
             return serialize(array_keys($params));
         };
         $params = ['foo' => 'bar'];
@@ -153,7 +154,7 @@ class ViewManagerTest extends TestCase
             ->method('configure')
             ->will(
                 $this->returnCallback(
-                    function (View $view) use ($closure) {
+                    static function (View $view) use ($closure) {
                         $view->setTemplateIdentifier($closure);
                     }
                 )
@@ -184,7 +185,7 @@ class ViewManagerTest extends TestCase
             ->method('configure')
             ->will(
                 $this->returnCallback(
-                    function (View $view) use ($templateIdentifier) {
+                    static function (View $view) use ($templateIdentifier) {
                         $view->setTemplateIdentifier($templateIdentifier);
                     }
                 )
@@ -233,7 +234,7 @@ class ViewManagerTest extends TestCase
             ->method('configure')
             ->will(
                 $this->returnCallback(
-                    function (View $view) use ($templateIdentifier) {
+                    static function (View $view) use ($templateIdentifier) {
                         $view->setTemplateIdentifier($templateIdentifier);
                     }
                 )
@@ -264,7 +265,8 @@ class ViewManagerTest extends TestCase
             ->method('render')
             ->with(
                 $templateIdentifier,
-                $params + ['location' => $location, 'content' => $content, 'view_base_layout' => $this->viewBaseLayout])
+                $params + ['location' => $location, 'content' => $content, 'view_base_layout' => $this->viewBaseLayout]
+            )
             ->will($this->returnValue($expectedTemplateResult));
 
         self::assertSame($expectedTemplateResult, $this->viewManager->renderLocation($location, 'customViewType', $params));
@@ -276,7 +278,7 @@ class ViewManagerTest extends TestCase
         $location = new Location(['contentInfo' => new ContentInfo()]);
 
         // Configuring view provider behaviour
-        $closure = function ($params) {
+        $closure = static function ($params) {
             return serialize(array_keys($params));
         };
         $params = ['foo' => 'bar'];
@@ -285,7 +287,7 @@ class ViewManagerTest extends TestCase
             ->method('configure')
             ->will(
                 $this->returnCallback(
-                    function (View $view) use ($closure) {
+                    static function (View $view) use ($closure) {
                         $view->setTemplateIdentifier($closure);
                     }
                 )

@@ -11,23 +11,23 @@ namespace Ibexa\Bundle\Core\Command;
 use DateTime;
 use DateTimeZone;
 use Doctrine\DBAL\Connection;
+use PDO;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Process\PhpExecutableFinder;
-use PDO;
+use Symfony\Component\Process\Process;
 
 class UpdateTimestampsToUTCCommand extends Command implements BackwardCompatibleCommand
 {
-    const MAX_TIMESTAMP_VALUE = 2147483647;
-    const DEFAULT_ITERATION_COUNT = 100;
-    const MODES = [
+    public const MAX_TIMESTAMP_VALUE = 2147483647;
+    public const DEFAULT_ITERATION_COUNT = 100;
+    public const MODES = [
         'date' => ['ezdate'],
         'datetime' => ['ezdatetime'],
         'all' => ['ezdate', 'ezdatetime'],
@@ -384,7 +384,7 @@ EOT
 
     /**
      * @param string $dateTimeString
-     * @param OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @return bool
      */
@@ -403,7 +403,7 @@ EOT
 
     /**
      * @param string $timezone
-     * @param OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @return string
      */

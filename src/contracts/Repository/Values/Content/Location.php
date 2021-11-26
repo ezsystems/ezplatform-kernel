@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class represents a location in the repository.

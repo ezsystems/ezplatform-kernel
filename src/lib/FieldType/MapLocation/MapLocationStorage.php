@@ -7,8 +7,8 @@
 namespace Ibexa\Core\FieldType\MapLocation;
 
 use Ibexa\Contracts\Core\FieldType\GatewayBasedStorage;
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 
 /**
  * Storage for the MapLocation field type.

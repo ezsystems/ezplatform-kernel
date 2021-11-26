@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Visibility;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 /**
  * Test case for Visibility issues in EZP-20018.

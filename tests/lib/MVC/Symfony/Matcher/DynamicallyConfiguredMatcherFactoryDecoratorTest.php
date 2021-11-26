@@ -35,8 +35,11 @@ class DynamicallyConfiguredMatcherFactoryDecoratorTest extends TestCase
     public function testMatch($parameterName, $namespace, $scope, $viewsConfiguration, $matchedConfig): void
     {
         $view = $this->createMock(ContentView::class);
-        $this->configResolver->expects($this->atLeastOnce())->method('getParameter')->with($parameterName, $namespace,
-            $scope)->willReturn($viewsConfiguration);
+        $this->configResolver->expects($this->atLeastOnce())->method('getParameter')->with(
+            $parameterName,
+            $namespace,
+            $scope
+        )->willReturn($viewsConfiguration);
         $this->innerMatcherFactory->expects($this->once())->method('match')->with($view)->willReturn($matchedConfig);
 
         $matcherFactory = new DynamicallyConfiguredMatcherFactoryDecorator(

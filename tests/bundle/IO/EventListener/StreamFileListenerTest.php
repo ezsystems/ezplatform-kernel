@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class StreamFileListenerTest extends TestCase
 {
-    /** @var StreamFileListener */
+    /** @var \Ibexa\Bundle\IO\EventListener\StreamFileListener */
     private $eventListener;
 
     /** @var \Ibexa\Core\IO\IOServiceInterface|\PHPUnit\Framework\MockObject\MockObject */
@@ -137,7 +137,7 @@ class StreamFileListenerTest extends TestCase
     }
 
     /**
-     * @return Request
+     * @return \Symfony\Component\HttpFoundation\Request
      */
     protected function createRequest($semanticPath, $host = 'localhost')
     {
@@ -150,7 +150,7 @@ class StreamFileListenerTest extends TestCase
     /**
      * @param $request
      *
-     * @return RequestEvent
+     * @return \Symfony\Component\HttpKernel\Event\RequestEvent
      */
     protected function createEvent($request)
     {

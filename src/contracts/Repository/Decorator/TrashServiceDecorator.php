@@ -11,10 +11,10 @@ namespace Ibexa\Contracts\Core\Repository\Decorator;
 use Ibexa\Contracts\Core\Repository\TrashService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
-use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
-use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList;
-use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
 use Ibexa\Contracts\Core\Repository\Values\Content\Trash\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
 
 abstract class TrashServiceDecorator implements TrashService
 {

@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\FieldType\Image;
 
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Repository\ProxyFactory\ProxyGeneratorInterface;
-use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
 use ProxyManager\Proxy\LazyLoadingInterface;
 
 final class ImageThumbnailProxyStrategy implements FieldTypeBasedThumbnailStrategy
@@ -39,7 +39,11 @@ final class ImageThumbnailProxyStrategy implements FieldTypeBasedThumbnailStrate
     public function getThumbnail(Field $field, ?VersionInfo $versionInfo = null): ?Thumbnail
     {
         $initializer = function (
-            &$wrappedObject, LazyLoadingInterface $proxy, $method, array $parameters, &$initializer
+            &$wrappedObject,
+            LazyLoadingInterface $proxy,
+            $method,
+            array $parameters,
+            &$initializer
         ) use ($field, $versionInfo): bool {
             $initializer = null;
 

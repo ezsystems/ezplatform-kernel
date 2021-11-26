@@ -8,18 +8,18 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository;
 
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\URLWildcardService as URLWildcardServiceInterface;
-use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct;
+use Exception;
+use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard as SPIUrlWildcard;
 use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard\Handler;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
+use Ibexa\Contracts\Core\Repository\URLWildcardService as URLWildcardServiceInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardTranslationResult;
-use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard as SPIUrlWildcard;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct;
 use Ibexa\Core\Base\Exceptions\ContentValidationException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Base\Exceptions\UnauthorizedException;
-use Exception;
 
 /**
  * URLAlias service.

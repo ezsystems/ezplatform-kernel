@@ -9,10 +9,10 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Core\MVC\Symfony\View;
 
 use ArrayIterator;
+use Ibexa\Contracts\Core\MVC\View\VariableProvider;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\MVC\Symfony\View\GenericVariableProviderRegistry;
 use Ibexa\Core\MVC\Symfony\View\View;
-use Ibexa\Contracts\Core\MVC\View\VariableProvider;
 use PHPUnit\Framework\TestCase;
 
 final class VariableProviderRegistryTest extends TestCase

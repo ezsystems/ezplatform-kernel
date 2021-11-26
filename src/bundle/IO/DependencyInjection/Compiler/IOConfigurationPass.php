@@ -22,10 +22,10 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class IOConfigurationPass implements CompilerPassInterface
 {
-    /** @var \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|ArrayObject */
+    /** @var \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|\ArrayObject */
     private $metadataHandlerFactories;
 
-    /** @var \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|ArrayObject */
+    /** @var \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|\ArrayObject */
     private $binarydataHandlerFactories;
 
     public function __construct(
@@ -69,10 +69,10 @@ class IOConfigurationPass implements CompilerPassInterface
     }
 
     /**
-     * @param ContainerBuilder $container
-     * @param Definition $factory The factory service that should receive the list of handlers
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\Definition $factory The factory service that should receive the list of handlers
      * @param array $configuredHandlers Handlers configuration declared via semantic config
-     * @param \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|ArrayObject $factories Map of alias => handler service id
+     * @param \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|\ArrayObject $factories Map of alias => handler service id
      * @param string $defaultHandler default handler id
      *
      * @internal param $HandlerTypesMap
@@ -105,8 +105,8 @@ class IOConfigurationPass implements CompilerPassInterface
     /**
      * Returns from $factories the factory for handler $type.
      *
-     * @param ContainerBuilder $container
-     * @param \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|ArrayObject $factories
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|\ArrayObject $factories
      * @param string $type
      *
      * @return \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory

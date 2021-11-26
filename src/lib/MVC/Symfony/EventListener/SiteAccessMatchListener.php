@@ -10,16 +10,16 @@ namespace Ibexa\Core\MVC\Symfony\EventListener;
 use Ibexa\Bundle\Core\SiteAccess\SiteAccessMatcherRegistryInterface;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\MVC\Symfony\Component\Serializer\SerializerTrait;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\KernelEvents;
-use Ibexa\Core\MVC\Symfony\SiteAccess;
-use Ibexa\Core\MVC\Symfony\SiteAccess\Router as SiteAccessRouter;
 use Ibexa\Core\MVC\Symfony\Event\PostSiteAccessMatchEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Router as SiteAccessRouter;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
@@ -70,7 +70,7 @@ class SiteAccessMatchListener implements EventSubscriberInterface
         // We have a serialized siteaccess object from a fragment (sub-request), we need to get it back.
         if ($request->attributes->has('serialized_siteaccess')) {
             $serializer = $this->getSerializer();
-            /** @var SiteAccess $siteAccess */
+            /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteAccess */
             $siteAccess = $serializer->deserialize($request->attributes->get('serialized_siteaccess'), SiteAccess::class, 'json');
             if ($siteAccess->matcher !== null) {
                 $siteAccess->matcher = $this->deserializeMatcher(
@@ -103,9 +103,9 @@ class SiteAccessMatchListener implements EventSubscriberInterface
     }
 
     /**
-     * @param Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return SiteAccess
+     * @return \Ibexa\Core\MVC\Symfony\SiteAccess
      */
     private function getSiteAccessFromRequest(Request $request)
     {

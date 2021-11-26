@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\Mapper\ContentLocationMapper;
 
+use Ibexa\Contracts\Core\Repository\Decorator\LocationServiceDecorator;
 use Ibexa\Contracts\Core\Repository\LocationService as RepositoryLocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
-use Ibexa\Contracts\Core\Repository\Decorator\LocationServiceDecorator;
 
 /**
  * Service decorator hooking ContentLocationMapper to load* calls.

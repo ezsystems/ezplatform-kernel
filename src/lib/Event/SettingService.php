@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Event;
 
+use Ibexa\Contracts\Core\Repository\Decorator\SettingServiceDecorator;
 use Ibexa\Contracts\Core\Repository\Events\Setting\BeforeCreateSettingEvent;
 use Ibexa\Contracts\Core\Repository\Events\Setting\BeforeDeleteSettingEvent;
 use Ibexa\Contracts\Core\Repository\Events\Setting\BeforeUpdateSettingEvent;
@@ -18,7 +19,6 @@ use Ibexa\Contracts\Core\Repository\SettingService as SettingServiceInterface;
 use Ibexa\Contracts\Core\Repository\Values\Setting\Setting;
 use Ibexa\Contracts\Core\Repository\Values\Setting\SettingCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Setting\SettingUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Decorator\SettingServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final class SettingService extends SettingServiceDecorator

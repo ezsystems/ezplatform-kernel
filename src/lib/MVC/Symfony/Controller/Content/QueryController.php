@@ -10,9 +10,9 @@ use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Core\MVC\Symfony\View\ContentView;
-use Ibexa\Core\Pagination\Pagerfanta\Pagerfanta;
 use Ibexa\Core\Pagination\Pagerfanta\ContentSearchHitAdapter;
 use Ibexa\Core\Pagination\Pagerfanta\LocationSearchHitAdapter;
+use Ibexa\Core\Pagination\Pagerfanta\Pagerfanta;
 use Ibexa\Core\QueryType\ContentViewQueryTypeMapper;
 use Pagerfanta\Adapter\AdapterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,9 +41,9 @@ class QueryController
     /**
      * Runs a content search.
      *
-     * @param ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      *
-     * @return ContentView
+     * @return \Ibexa\Core\MVC\Symfony\View\ContentView
      */
     public function contentQueryAction(ContentView $view)
     {
@@ -55,9 +55,9 @@ class QueryController
     /**
      * Runs a location search.
      *
-     * @param ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      *
-     * @return ContentView
+     * @return \Ibexa\Core\MVC\Symfony\View\ContentView
      */
     public function locationQueryAction(ContentView $view)
     {
@@ -69,9 +69,9 @@ class QueryController
     /**
      * Runs a contentInfo search.
      *
-     * @param ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      *
-     * @return ContentView
+     * @return \Ibexa\Core\MVC\Symfony\View\ContentView
      */
     public function contentInfoQueryAction(ContentView $view)
     {
@@ -83,7 +83,7 @@ class QueryController
     /**
      * Runs the Query defined in $view using $method on SearchService.
      *
-     * @param ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      * @param string $method Name of the SearchService method to run.
      */
     private function runQuery(ContentView $view, $method)

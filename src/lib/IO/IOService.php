@@ -7,6 +7,9 @@
 namespace Ibexa\Core\IO;
 
 use Exception;
+use Ibexa\Contracts\Core\IO\BinaryFile as SPIBinaryFile;
+use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
+use Ibexa\Contracts\Core\IO\MimeTypeDetector;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
 use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
@@ -15,9 +18,6 @@ use Ibexa\Core\IO\Exception\InvalidBinaryPrefixException;
 use Ibexa\Core\IO\Exception\IOException;
 use Ibexa\Core\IO\Values\BinaryFile;
 use Ibexa\Core\IO\Values\BinaryFileCreateStruct;
-use Ibexa\Contracts\Core\IO\BinaryFile as SPIBinaryFile;
-use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
-use Ibexa\Contracts\Core\IO\MimeTypeDetector;
 
 /**
  * The io service for managing binary files.
@@ -301,7 +301,7 @@ class IOService implements IOServiceInterface
     /**
      * @param string $binaryFileId
      *
-     * @throws InvalidBinaryFileIdException If the id is invalid
+     * @throws \Ibexa\Core\IO\Exception\InvalidBinaryFileIdException If the id is invalid
      */
     protected function checkBinaryFileId($binaryFileId)
     {

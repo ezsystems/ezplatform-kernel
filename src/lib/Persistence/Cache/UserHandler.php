@@ -6,15 +6,15 @@
  */
 namespace Ibexa\Core\Persistence\Cache;
 
-use Ibexa\Contracts\Core\Persistence\User\UserTokenUpdateStruct;
-use Ibexa\Contracts\Core\Persistence\User\Handler as UserHandlerInterface;
 use Ibexa\Contracts\Core\Persistence\User;
+use Ibexa\Contracts\Core\Persistence\User\Handler as UserHandlerInterface;
+use Ibexa\Contracts\Core\Persistence\User\Policy;
 use Ibexa\Contracts\Core\Persistence\User\Role;
 use Ibexa\Contracts\Core\Persistence\User\RoleAssignment;
 use Ibexa\Contracts\Core\Persistence\User\RoleCopyStruct;
 use Ibexa\Contracts\Core\Persistence\User\RoleCreateStruct;
 use Ibexa\Contracts\Core\Persistence\User\RoleUpdateStruct;
-use Ibexa\Contracts\Core\Persistence\User\Policy;
+use Ibexa\Contracts\Core\Persistence\User\UserTokenUpdateStruct;
 
 /**
  * Cache handler for user module.

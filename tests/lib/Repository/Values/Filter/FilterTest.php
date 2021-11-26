@@ -13,10 +13,10 @@ use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
-use Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause as URLQuerySortClause;
 use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
-use PHPUnit\Framework\TestCase;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause as URLQuerySortClause;
 use function md5;
+use PHPUnit\Framework\TestCase;
 use function sprintf;
 
 /**

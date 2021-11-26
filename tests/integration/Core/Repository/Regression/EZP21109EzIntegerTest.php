@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use Ibexa\Core\FieldType\Integer\Value;
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\FieldType\Integer\Value;
 use Ibexa\Core\Persistence\Legacy\Exception\TypeNotFound as TypeNotFoundException;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 /**
  * Regression tests for the issue EZP-21109.
@@ -23,7 +23,7 @@ class EZP21109EzIntegerTest extends BaseTest
      */
     protected $classShortName;
 
-    /** @var ContentType */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
     protected $contentType;
 
     protected function setUp(): void
@@ -88,7 +88,7 @@ class EZP21109EzIntegerTest extends BaseTest
     /**
      * Creates a Test ContentType for this test holding an ezintegerfield.
      *
-     * @return ContentType
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
      */
     protected function createTestContentType()
     {

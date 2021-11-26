@@ -14,13 +14,13 @@ use Ibexa\Contracts\Core\Persistence\ValueObject;
 class Type extends ValueObject
 {
     /** @var int Status constant for defined (aka "published") Type */
-    const STATUS_DEFINED = 0;
+    public const STATUS_DEFINED = 0;
 
     /** @var int Status constant for draft (aka "temporary") Type */
-    const STATUS_DRAFT = 1;
+    public const STATUS_DRAFT = 1;
 
     /** @var int Status constant for modified (aka "deferred for publishing") Type */
-    const STATUS_MODIFIED = 2;
+    public const STATUS_MODIFIED = 2;
 
     /**
      * Primary key: Content type ID.

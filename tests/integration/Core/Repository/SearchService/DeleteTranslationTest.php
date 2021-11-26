@@ -9,13 +9,13 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Integration\Core\Repository\SearchService;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 /**
  * Test case for delete content translation with the SearchService.
@@ -153,7 +153,8 @@ final class DeleteTranslationTest extends BaseTest
                 'ger-DE' => 'Kontakt',
                 'eng-US' => 'Contact',
             ],
-            2);
+            2
+        );
 
         $user = $this->provideUserWithContentRemovePolicies();
         $repository->getPermissionResolver()->setCurrentUserReference($user);

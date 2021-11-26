@@ -13,13 +13,17 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Exception;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as LocationHandler;
+use Ibexa\Contracts\Core\Persistence\User as SPIUser;
+use Ibexa\Contracts\Core\Persistence\User\Handler;
+use Ibexa\Contracts\Core\Persistence\User\UserTokenUpdateStruct as SPIUserTokenUpdateStruct;
 use Ibexa\Contracts\Core\Repository\PasswordHashService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
 use Ibexa\Contracts\Core\Repository\UserService as UserServiceInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeId as CriterionContentTypeId;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LocationId as CriterionLocationId;
@@ -30,33 +34,29 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Contracts\Core\Repository\Values\User\PasswordInfo;
 use Ibexa\Contracts\Core\Repository\Values\User\PasswordValidationContext;
-use Ibexa\Contracts\Core\Repository\Values\User\UserTokenUpdateStruct;
-use Ibexa\Core\Base\Exceptions\ContentFieldValidationException;
-use Ibexa\Core\Base\Exceptions\MissingUserFieldTypeException;
-use Ibexa\Core\Repository\User\PasswordValidatorInterface;
-use Ibexa\Core\Repository\Validator\UserPasswordValidator;
-use Ibexa\Core\Repository\User\Exception\UnsupportedPasswordHashType;
-use Ibexa\Core\Repository\Values\User\UserCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\User\UserCreateStruct as APIUserCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\User\UserUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
+use Ibexa\Contracts\Core\Repository\Values\User\UserCreateStruct as APIUserCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\UserGroup as APIUserGroup;
 use Ibexa\Contracts\Core\Repository\Values\User\UserGroupCreateStruct as APIUserGroupCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\UserGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\UserTokenUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\UserUpdateStruct;
 use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\ContentFieldValidationException;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\Base\Exceptions\MissingUserFieldTypeException;
 use Ibexa\Core\Base\Exceptions\UnauthorizedException;
-use Ibexa\Core\FieldType\User\Value as UserValue;
 use Ibexa\Core\FieldType\User\Type as UserType;
+use Ibexa\Core\FieldType\User\Value as UserValue;
 use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Core\Repository\User\Exception\UnsupportedPasswordHashType;
+use Ibexa\Core\Repository\User\PasswordValidatorInterface;
+use Ibexa\Core\Repository\Validator\UserPasswordValidator;
 use Ibexa\Core\Repository\Values\User\User;
+use Ibexa\Core\Repository\Values\User\UserCreateStruct;
 use Ibexa\Core\Repository\Values\User\UserGroup;
 use Ibexa\Core\Repository\Values\User\UserGroupCreateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as LocationHandler;
-use Ibexa\Contracts\Core\Persistence\User as SPIUser;
-use Ibexa\Contracts\Core\Persistence\User\Handler;
-use Ibexa\Contracts\Core\Persistence\User\UserTokenUpdateStruct as SPIUserTokenUpdateStruct;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -87,7 +87,7 @@ class UserService implements UserServiceInterface
     /** @var \Ibexa\Contracts\Core\Repository\PasswordHashService */
     private $passwordHashService;
 
-    /** @var PasswordValidatorInterface */
+    /** @var \Ibexa\Core\Repository\User\PasswordValidatorInterface */
     private $passwordValidator;
 
     public function setLogger(LoggerInterface $logger = null)
@@ -345,7 +345,7 @@ class UserService implements UserServiceInterface
      * and publishes the draft. If a draft is explicitly required, the user group can be updated via the content service methods.
      *
      * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup $userGroup
-     * @param UserGroupUpdateStruct $userGroupUpdateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroupUpdateStruct $userGroupUpdateStruct
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\User\UserGroup
      *
@@ -398,7 +398,7 @@ class UserService implements UserServiceInterface
     /**
      * Create a new user. The created user is published by this method.
      *
-     * @param APIUserCreateStruct $userCreateStruct the data used for creating the user
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserCreateStruct $userCreateStruct the data used for creating the user
      * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[] $parentGroups the groups which are assigned to the user after creation
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\User\User
@@ -640,7 +640,7 @@ class UserService implements UserServiceInterface
      * and publishes the draft. If a draft is explicitly required, the user group can be updated via the content service methods.
      *
      * @param \Ibexa\Contracts\Core\Repository\Values\User\User $user
-     * @param UserUpdateStruct $userUpdateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserUpdateStruct $userUpdateStruct
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException if a field in the $userUpdateStruct is not valid
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException if a required field is set empty
@@ -1378,7 +1378,7 @@ class UserService implements UserServiceInterface
     /**
      * Return true if any of the UserUpdateStruct properties refers to User Profile (Content) update.
      *
-     * @param UserUpdateStruct $userUpdateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserUpdateStruct $userUpdateStruct
      *
      * @return bool
      */

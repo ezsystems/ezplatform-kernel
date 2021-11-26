@@ -6,8 +6,6 @@
  */
 namespace Ibexa\Core\IO;
 
-use Ibexa\Core\IO\Exception\InvalidBinaryFileIdException;
-
 /**
  * Converts an URL from one decorator to another.
  *
@@ -33,7 +31,7 @@ interface UrlRedecoratorInterface
      *
      * @return string
      *
-     * @throws InvalidBinaryFileIdException If $uri couldn't be interpreted b y the target decorator
+     * @throws \Ibexa\Core\IO\Exception\InvalidBinaryFileIdException If $uri couldn't be interpreted b y the target decorator
      */
     public function redecorateFromSource($uri);
 
@@ -44,7 +42,7 @@ interface UrlRedecoratorInterface
      *
      * @return string
      *
-     * @throws InvalidBinaryFileIdException If $uri couldn't be interpreted b y the target decorator
+     * @throws \Ibexa\Core\IO\Exception\InvalidBinaryFileIdException If $uri couldn't be interpreted b y the target decorator
      */
     public function redecorateFromTarget($uri);
 }

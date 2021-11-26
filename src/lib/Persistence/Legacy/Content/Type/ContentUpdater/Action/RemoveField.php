@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
 
-use Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
-use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
-use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
 use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
 
 /**
  * Action to remove a field from content objects.
@@ -66,7 +66,7 @@ class RemoveField extends Action
 
         $nameRows = $this->contentGateway->loadVersionedNameData(
             array_map(
-                function ($versionNo) use ($contentId) {
+                static function ($versionNo) use ($contentId) {
                     return ['id' => $contentId, 'version' => $versionNo];
                 },
                 $versionNumbers

@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Persistence\Legacy\UserPreference;
 
-use Ibexa\Core\Persistence\Legacy\UserPreference\Gateway;
-use Ibexa\Core\Persistence\Legacy\UserPreference\Mapper;
-use Ibexa\Core\Persistence\Legacy\UserPreference\Handler;
-use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
 use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
+use Ibexa\Core\Persistence\Legacy\UserPreference\Gateway;
+use Ibexa\Core\Persistence\Legacy\UserPreference\Handler;
+use Ibexa\Core\Persistence\Legacy\UserPreference\Mapper;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
  */
 class HandlerTest extends TestCase
 {
-    const USER_PREFERENCE_ID = 1;
+    public const USER_PREFERENCE_ID = 1;
 
     /** @var \Ibexa\Core\Persistence\Legacy\UserPreference\Gateway|\PHPUnit\Framework\MockObject\MockObject */
     private $gateway;

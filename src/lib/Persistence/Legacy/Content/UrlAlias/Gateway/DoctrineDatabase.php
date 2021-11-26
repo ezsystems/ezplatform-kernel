@@ -687,7 +687,7 @@ final class DoctrineDatabase extends Gateway
             $query
                 ->addSelect(
                     array_map(
-                        function (string $columnName) use ($tableAlias) {
+                        static function (string $columnName) use ($tableAlias) {
                             // do not alias data for top level url part
                             $columnAlias = 'u' === $tableAlias
                                 ? $columnName
@@ -929,7 +929,7 @@ final class DoctrineDatabase extends Gateway
                         'is_alias',
                         $query->createPositionalParameter(0, ParameterType::INTEGER)
                     ),
-                    )
+                )
                 ->andWhere(
                     $expr->eq(
                         'id',
@@ -959,7 +959,7 @@ final class DoctrineDatabase extends Gateway
                         ParameterType::INTEGER
                     )
                 ),
-                )
+            )
             ->andWhere(
                 $expr->eq(
                     'action_type',
@@ -1057,7 +1057,7 @@ final class DoctrineDatabase extends Gateway
             $rowLanguageMask = (int)$row['lang_mask'];
             $languageIdsToBeRemoved = array_filter(
                 $languageIds,
-                function ($languageId) use ($rowLanguageMask) {
+                static function ($languageId) use ($rowLanguageMask) {
                     return $languageId & $rowLanguageMask;
                 }
             );
@@ -1300,7 +1300,8 @@ final class DoctrineDatabase extends Gateway
         $wrapperQueryBuilder
             ->select('inner_id')
             ->from(
-                sprintf('(%s)', $selectQueryBuilder), 'wrapper'
+                sprintf('(%s)', $selectQueryBuilder),
+                'wrapper'
             )
             ->where('id = inner_id');
 
@@ -1351,7 +1352,7 @@ final class DoctrineDatabase extends Gateway
     {
         $originalUrlAliases = array_filter(
             $urlAliasesData,
-            function ($urlAliasData) {
+            static function ($urlAliasData) {
                 // filter is_original=true ignoring broken parent records (cleaned up elsewhere)
                 return (bool)$urlAliasData['is_original'] && $urlAliasData['existing_parent'] !== null;
             }

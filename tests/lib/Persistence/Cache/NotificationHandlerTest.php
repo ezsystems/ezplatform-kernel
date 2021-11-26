@@ -10,9 +10,9 @@ namespace Ibexa\Tests\Core\Persistence\Cache;
 
 use Ibexa\Contracts\Core\Persistence\Notification\CreateStruct;
 use Ibexa\Contracts\Core\Persistence\Notification\Handler as SPINotificationHandler;
-use Ibexa\Contracts\Core\Repository\Values\Notification\Notification;
 use Ibexa\Contracts\Core\Persistence\Notification\Notification as SPINotification;
 use Ibexa\Contracts\Core\Persistence\Notification\UpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification;
 
 /**
  * Test case for Persistence\Cache\NotificationHandler.

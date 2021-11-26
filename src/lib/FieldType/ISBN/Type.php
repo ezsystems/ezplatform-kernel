@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Core\FieldType\ISBN;
 
-use Ibexa\Core\FieldType\FieldType;
-use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
-use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Core\FieldType\FieldType;
+use Ibexa\Core\FieldType\ValidationError;
 use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
@@ -20,11 +20,11 @@ use Ibexa\Core\FieldType\Value as BaseValue;
  */
 class Type extends FieldType
 {
-    const ISBN13_PREFIX_LENGTH = 3;
-    const ISBN13_CHECK_LENGTH = 1;
-    const ISBN13_LENGTH = 13;
-    const ISBN13_PREFIX_978 = '978';
-    const ISBN13_PREFIX_979 = '979';
+    public const ISBN13_PREFIX_LENGTH = 3;
+    public const ISBN13_CHECK_LENGTH = 1;
+    public const ISBN13_LENGTH = 13;
+    public const ISBN13_PREFIX_978 = '978';
+    public const ISBN13_PREFIX_979 = '979';
 
     protected $settingsSchema = [
         'isISBN13' => [

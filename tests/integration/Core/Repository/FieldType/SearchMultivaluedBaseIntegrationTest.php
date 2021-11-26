@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalNot;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator;
 use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
 
 /**

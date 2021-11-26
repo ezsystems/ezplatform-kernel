@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Core\Repository\Helper;
 
-use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
-use Ibexa\Core\FieldType\FieldTypeRegistry;
-use Ibexa\Core\Repository\Mapper\ContentTypeDomainMapper;
+use Ibexa\Contracts\Core\Persistence\Content\Type as SPIContentType;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\Contracts\Core\Persistence\Content\Type as SPIContentType;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Core\Repository\Mapper\ContentTypeDomainMapper;
 
 /**
  * NameSchemaService is internal service for resolving content name and url alias patterns.
@@ -45,7 +45,7 @@ class NameSchemaService
      *
      * @var string
      */
-    const META_STRING = 'EZMETAGROUP_';
+    public const META_STRING = 'EZMETAGROUP_';
 
     /** @var \Ibexa\Contracts\Core\Persistence\Content\Type\Handler */
     protected $contentTypeHandler;
@@ -71,8 +71,8 @@ class NameSchemaService
         ContentTypeHandler $contentTypeHandler,
         ContentTypeDomainMapper $contentTypeDomainMapper,
         FieldTypeRegistry $fieldTypeRegistry,
-        array $settings = [])
-    {
+        array $settings = []
+    ) {
         $this->contentTypeHandler = $contentTypeHandler;
         $this->contentTypeDomainMapper = $contentTypeDomainMapper;
         $this->fieldTypeRegistry = $fieldTypeRegistry;

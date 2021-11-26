@@ -6,9 +6,8 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\URL;
 
-use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
-use Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause;
 use Ibexa\Contracts\Core\Persistence\URL\URL;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
 
 abstract class Gateway
 {
@@ -25,7 +24,7 @@ abstract class Gateway
      * @param \Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion $criterion
      * @param int $offset
      * @param int $limit
-     * @param SortClause[] $sortClauses
+     * @param \Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause[] $sortClauses
      * @param bool $doCount
      *
      * @return array{

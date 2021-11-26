@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Core\FieldType\Author;
 
-use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use ArrayObject;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 
 /**
  * Author collection.
@@ -31,7 +31,7 @@ class AuthorCollection extends ArrayObject
     /**
      * Adds a new author to the collection.
      *
-     * @throws InvalidArgumentType When $value is not of type Author
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType When $value is not of type Author
      *
      * @param int $offset
      * @param \Ibexa\Core\FieldType\Author\Author $value

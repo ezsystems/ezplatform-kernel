@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Repository\Decorator;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
+use Ibexa\Contracts\Core\Repository\Decorator\SettingServiceDecorator;
 use Ibexa\Contracts\Core\Repository\SettingService;
 use Ibexa\Contracts\Core\Repository\Values\Setting\Setting;
 use Ibexa\Contracts\Core\Repository\Values\Setting\SettingCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Setting\SettingUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Decorator\SettingServiceDecorator;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 class SettingServiceDecoratorTest extends TestCase
 {

@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation;
 
-use Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation\DataSetBuilder\TermAggregationDataSetBuilder;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\LanguageTermAggregation;
+use Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation\DataSetBuilder\TermAggregationDataSetBuilder;
 
 final class LanguageTermAggregationTest extends AbstractAggregationTest
 {

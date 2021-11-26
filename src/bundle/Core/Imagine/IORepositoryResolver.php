@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Bundle\Core\Imagine;
 
+use Ibexa\Contracts\Core\Variation\VariationPurger;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\IO\IOServiceInterface;
 use Ibexa\Core\IO\Values\MissingBinaryFile;
-use Ibexa\Contracts\Core\Variation\VariationPurger;
 use Liip\ImagineBundle\Binary\BinaryInterface;
 use Liip\ImagineBundle\Exception\Imagine\Cache\Resolver\NotResolvableException;
 use Liip\ImagineBundle\Imagine\Cache\Resolver\ResolverInterface;
@@ -21,7 +21,7 @@ use Symfony\Component\Routing\RequestContext;
  */
 class IORepositoryResolver implements ResolverInterface
 {
-    const VARIATION_ORIGINAL = 'original';
+    public const VARIATION_ORIGINAL = 'original';
 
     /** @var \Ibexa\Core\IO\IOServiceInterface */
     private $ioService;
@@ -29,8 +29,9 @@ class IORepositoryResolver implements ResolverInterface
     /** @var \Symfony\Component\Routing\RequestContext */
     private $requestContext;
 
-    /** @var FilterConfiguration */
+    /** @var \Liip\ImagineBundle\Imagine\Filter\FilterConfiguration */
     private $filterConfiguration;
+
     /** @var \Ibexa\Contracts\Core\Variation\VariationPurger */
     private $variationPurger;
 

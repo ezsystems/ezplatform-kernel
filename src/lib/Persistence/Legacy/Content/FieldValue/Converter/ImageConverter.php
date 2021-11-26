@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
+use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 use Ibexa\Core\IO\IOServiceInterface;
 use Ibexa\Core\IO\UrlRedecoratorInterface;
 use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
-use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
-use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
-use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
 use SimpleXMLElement;
 
 class ImageConverter extends BinaryFileConverter

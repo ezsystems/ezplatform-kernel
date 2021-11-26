@@ -66,7 +66,7 @@ class URLWildcardServiceTest extends AbstractServiceTest
 
         $innerServiceMock = $this->createMock(URLWildcardServiceInterface::class);
 
-        $traceableEventDispatcher->addListener(BeforeRemoveEvent::class, function (BeforeRemoveEvent $event) {
+        $traceableEventDispatcher->addListener(BeforeRemoveEvent::class, static function (BeforeRemoveEvent $event) {
             $event->stopPropagation();
         }, 10);
 
@@ -131,7 +131,8 @@ class URLWildcardServiceTest extends AbstractServiceTest
             BeforeUpdateEvent::class,
             static function (BeforeUpdateEvent $event) {
                 $event->stopPropagation();
-            }, 10
+            },
+            10
         );
 
         $service = new URLWildcardService($innerServiceMock, $traceableEventDispatcher);
@@ -205,7 +206,7 @@ class URLWildcardServiceTest extends AbstractServiceTest
         $innerServiceMock = $this->createMock(URLWildcardServiceInterface::class);
         $innerServiceMock->method('create')->willReturn($urlWildcard);
 
-        $traceableEventDispatcher->addListener(BeforeCreateEvent::class, function (BeforeCreateEvent $event) use ($eventUrlWildcard) {
+        $traceableEventDispatcher->addListener(BeforeCreateEvent::class, static function (BeforeCreateEvent $event) use ($eventUrlWildcard) {
             $event->setUrlWildcard($eventUrlWildcard);
         }, 10);
 
@@ -241,7 +242,7 @@ class URLWildcardServiceTest extends AbstractServiceTest
         $innerServiceMock = $this->createMock(URLWildcardServiceInterface::class);
         $innerServiceMock->method('create')->willReturn($urlWildcard);
 
-        $traceableEventDispatcher->addListener(BeforeCreateEvent::class, function (BeforeCreateEvent $event) use ($eventUrlWildcard) {
+        $traceableEventDispatcher->addListener(BeforeCreateEvent::class, static function (BeforeCreateEvent $event) use ($eventUrlWildcard) {
             $event->setUrlWildcard($eventUrlWildcard);
             $event->stopPropagation();
         }, 10);
@@ -306,7 +307,7 @@ class URLWildcardServiceTest extends AbstractServiceTest
         $innerServiceMock = $this->createMock(URLWildcardServiceInterface::class);
         $innerServiceMock->method('translate')->willReturn($result);
 
-        $traceableEventDispatcher->addListener(BeforeTranslateEvent::class, function (BeforeTranslateEvent $event) use ($eventResult) {
+        $traceableEventDispatcher->addListener(BeforeTranslateEvent::class, static function (BeforeTranslateEvent $event) use ($eventResult) {
             $event->setResult($eventResult);
         }, 10);
 
@@ -340,7 +341,7 @@ class URLWildcardServiceTest extends AbstractServiceTest
         $innerServiceMock = $this->createMock(URLWildcardServiceInterface::class);
         $innerServiceMock->method('translate')->willReturn($result);
 
-        $traceableEventDispatcher->addListener(BeforeTranslateEvent::class, function (BeforeTranslateEvent $event) use ($eventResult) {
+        $traceableEventDispatcher->addListener(BeforeTranslateEvent::class, static function (BeforeTranslateEvent $event) use ($eventResult) {
             $event->setResult($eventResult);
             $event->stopPropagation();
         }, 10);

@@ -9,10 +9,10 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\Core\Repository\Values\Content\Search;
 
 use ArrayIterator;
+use Countable;
 use Ibexa\Contracts\Core\Repository\Exceptions\OutOfBoundsException;
 use Iterator;
 use IteratorAggregate;
-use Countable;
 
 final class AggregationResultCollection implements Countable, IteratorAggregate
 {

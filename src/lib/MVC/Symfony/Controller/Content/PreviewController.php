@@ -14,21 +14,21 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Core\Helper\ContentPreviewHelper;
 use Ibexa\Core\Helper\PreviewLocationProvider;
+use Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
 use Ibexa\Core\MVC\Symfony\Routing\UrlAliasRouter;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute as AuthorizationAttribute;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Core\MVC\Symfony\View\CustomLocationControllerChecker;
 use Ibexa\Core\MVC\Symfony\View\ViewManagerInterface;
-use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute as AuthorizationAttribute;
-use Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class PreviewController
 {
-    const PREVIEW_PARAMETER_NAME = 'isPreview';
-    const CONTENT_VIEW_ROUTE = '_ez_content_view';
+    public const PREVIEW_PARAMETER_NAME = 'isPreview';
+    public const CONTENT_VIEW_ROUTE = '_ez_content_view';
 
     /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
@@ -62,7 +62,7 @@ class PreviewController
     }
 
     /**
-     * @throws NotImplementedException If Content is missing location as this is not supported in current version
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException If Content is missing location as this is not supported in current version
      */
     public function previewContentAction(Request $request, $contentId, $versionNo, $language, $siteAccessName = null)
     {
@@ -126,7 +126,7 @@ EOF;
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param \Ibexa\Core\MVC\Symfony\SiteAccess $previewSiteAccess
-     * @param Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $language
      *
      * @return \Symfony\Component\HttpFoundation\Request

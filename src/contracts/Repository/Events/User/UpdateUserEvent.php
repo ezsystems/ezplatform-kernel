@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\User;
 
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Core\Repository\Values\User\UserUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class UpdateUserEvent extends AfterEvent
 {

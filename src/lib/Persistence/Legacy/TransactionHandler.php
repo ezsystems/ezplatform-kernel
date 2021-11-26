@@ -7,10 +7,10 @@
 namespace Ibexa\Core\Persistence\Legacy;
 
 use Doctrine\DBAL\Connection;
-use Ibexa\Contracts\Core\Persistence\TransactionHandler as TransactionHandlerInterface;
-use Ibexa\Core\Persistence\Legacy\Content\Type\MemoryCachingHandler as CachingContentTypeHandler;
-use Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler as CachingLanguageHandler;
 use Exception;
+use Ibexa\Contracts\Core\Persistence\TransactionHandler as TransactionHandlerInterface;
+use Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler as CachingLanguageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Type\MemoryCachingHandler as CachingContentTypeHandler;
 use RuntimeException;
 
 /**

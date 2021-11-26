@@ -21,7 +21,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 abstract class OptionsResolverBasedQueryType implements QueryType
 {
-    /** @var OptionsResolver */
+    /** @var \Symfony\Component\OptionsResolver\OptionsResolver */
     private $resolver;
 
     /**
@@ -35,7 +35,7 @@ abstract class OptionsResolverBasedQueryType implements QueryType
      * $resolver->setDefault('limit', 10);
      * ```
      *
-     * @param OptionsResolver $optionsResolver
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
      */
     abstract protected function configureOptions(OptionsResolver $optionsResolver);
 
@@ -47,7 +47,7 @@ abstract class OptionsResolverBasedQueryType implements QueryType
      *
      * @param array $parameters The QueryType parameters, pre-processed by the OptionsResolver
      *
-     * @return Query
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Query
      */
     abstract protected function doGetQuery(array $parameters);
 
@@ -66,7 +66,7 @@ abstract class OptionsResolverBasedQueryType implements QueryType
     /**
      * Builds the resolver, and configures it using configureOptions().
      *
-     * @return OptionsResolver
+     * @return \Symfony\Component\OptionsResolver\OptionsResolver
      */
     private function getResolver()
     {

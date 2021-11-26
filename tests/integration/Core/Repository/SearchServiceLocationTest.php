@@ -28,7 +28,7 @@ use Ibexa\Tests\Core\Repository\Common;
  */
 class SearchServiceLocationTest extends BaseTest
 {
-    const QUERY_CLASS = LocationQuery::class;
+    public const QUERY_CLASS = LocationQuery::class;
 
     use Common\FacetedSearchProvider;
 
@@ -456,7 +456,7 @@ class SearchServiceLocationTest extends BaseTest
     protected function mapResultLocationIds(SearchResult $result)
     {
         return array_map(
-            function (SearchHit $searchHit) {
+            static function (SearchHit $searchHit) {
                 return $searchHit->valueObject->id;
             },
             $result->searchHits

@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\FieldType\TextBlock\Type as TextBlockType;
 use Ibexa\Core\FieldType\TextBlock\Value as TextBlockValue;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * @group fieldType

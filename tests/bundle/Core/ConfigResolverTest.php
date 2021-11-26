@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Bundle\Core;
 
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver;
 use Ibexa\Core\MVC\Exception\ParameterNotFoundException;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
-use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ConfigResolverTest extends TestCase
 {

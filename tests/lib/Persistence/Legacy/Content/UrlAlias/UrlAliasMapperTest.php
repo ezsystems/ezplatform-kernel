@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\UrlAlias;
 
-use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
 use Ibexa\Contracts\Core\Persistence\Content\UrlAlias;
-use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Mapper;
 use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Mapper;
+use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Mapper

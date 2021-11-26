@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Legacy;
 
-use Ibexa\Contracts\Core\Persistence\Handler as HandlerInterface;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Handler as BookmarkHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Handler as ContentHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as LocationHandler;
@@ -18,13 +18,13 @@ use Ibexa\Contracts\Core\Persistence\Content\Section\Handler as SectionHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
 use Ibexa\Contracts\Core\Persistence\Content\UrlAlias\Handler as UrlAliasHandler;
 use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard\Handler as UrlWildcardHandler;
-use Ibexa\Contracts\Core\Persistence\User\Handler as UserHandler;
-use Ibexa\Contracts\Core\Persistence\TransactionHandler as SPITransactionHandler;
-use Ibexa\Core\Persistence\Legacy\URL\Handler as UrlHandler;
-use Ibexa\Contracts\Core\Persistence\Bookmark\Handler as BookmarkHandler;
+use Ibexa\Contracts\Core\Persistence\Handler as HandlerInterface;
 use Ibexa\Contracts\Core\Persistence\Notification\Handler as NotificationHandler;
-use Ibexa\Contracts\Core\Persistence\UserPreference\Handler as UserPreferenceHandler;
 use Ibexa\Contracts\Core\Persistence\Setting\Handler as SettingHandler;
+use Ibexa\Contracts\Core\Persistence\TransactionHandler as SPITransactionHandler;
+use Ibexa\Contracts\Core\Persistence\User\Handler as UserHandler;
+use Ibexa\Contracts\Core\Persistence\UserPreference\Handler as UserPreferenceHandler;
+use Ibexa\Core\Persistence\Legacy\URL\Handler as UrlHandler;
 
 /**
  * The main handler for Legacy Storage Engine.

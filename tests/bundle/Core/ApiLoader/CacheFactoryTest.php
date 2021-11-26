@@ -8,10 +8,10 @@ namespace Ibexa\Tests\Bundle\Core\ApiLoader;
 
 use Ibexa\Bundle\Core\ApiLoader\CacheFactory;
 use Ibexa\Core\MVC\ConfigResolverInterface;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\Adapter\TagAwareAdapter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use PHPUnit\Framework\TestCase;
 
 class CacheFactoryTest extends TestCase
 {

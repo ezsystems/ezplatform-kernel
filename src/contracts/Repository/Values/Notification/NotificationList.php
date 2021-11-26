@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\Core\Repository\Values\Notification;
 
 use ArrayIterator;
-use IteratorAggregate;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use IteratorAggregate;
 use Traversable;
 
 class NotificationList extends ValueObject implements IteratorAggregate

@@ -6,6 +6,7 @@
  */
 namespace Ibexa\Tests\Core\Helper;
 
+use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as SPILocationHandler;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo as APIContentInfo;
@@ -14,7 +15,6 @@ use Ibexa\Core\Helper\PreviewLocationProvider;
 use Ibexa\Core\Repository\Values\Content\Content;
 use Ibexa\Core\Repository\Values\Content\Location;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as SPILocationHandler;
 use PHPUnit\Framework\TestCase;
 
 class PreviewLocationProviderTest extends TestCase

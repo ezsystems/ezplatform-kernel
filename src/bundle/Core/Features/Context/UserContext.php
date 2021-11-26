@@ -6,32 +6,32 @@
  */
 namespace Ibexa\Bundle\Core\Features\Context;
 
-use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Context\Context;
-use PHPUnit\Framework\Assert as Assertion;
-use Ibexa\Contracts\Core\Repository\UserService;
-use Ibexa\Contracts\Core\Repository\SearchService;
+use Behat\Gherkin\Node\TableNode;
 use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use PHPUnit\Framework\Assert as Assertion;
 
 /**
  * Sentences for Users.
  */
 class UserContext implements Context
 {
-    const DEFAULT_LANGUAGE = 'eng-GB';
+    public const DEFAULT_LANGUAGE = 'eng-GB';
 
     /**
      * These values are set by the default eZ Publish installation.
      */
-    const USER_IDENTIFIER = 'user';
+    public const USER_IDENTIFIER = 'user';
 
-    const USERGROUP_ROOT_CONTENT_ID = 4;
-    const USERGROUP_ROOT_LOCATION = 5;
-    const USERGROUP_ROOT_SUBTREE = '/1/5/';
-    const USERGROUP_CONTENT_IDENTIFIER = 'user_group';
+    public const USERGROUP_ROOT_CONTENT_ID = 4;
+    public const USERGROUP_ROOT_LOCATION = 5;
+    public const USERGROUP_ROOT_SUBTREE = '/1/5/';
+    public const USERGROUP_CONTENT_IDENTIFIER = 'user_group';
 
     /** @var \Ibexa\Contracts\Core\Repository\UserService */
     protected $userService;

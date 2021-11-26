@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\MVC\Symfony\Event;
 
-use Symfony\Contracts\EventDispatcher\Event;
-use Ibexa\Core\MVC\Symfony\View\View;
 use Exception;
+use Ibexa\Core\MVC\Symfony\View\View;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * This event is dispatched when an Exception from eZ Publish API is thrown and could not be caught before.

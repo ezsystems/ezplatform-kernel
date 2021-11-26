@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\Role;
 
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
-use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class AssignRoleToUserEvent extends AfterEvent
 {

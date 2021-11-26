@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\ContentType;
 
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
-use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCreateContentTypeEvent extends BeforeEvent

@@ -7,23 +7,23 @@
 namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
 use DateTime;
+use Ibexa\Contracts\Core\Persistence\URL\URL as SpiUrl;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
-use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
-use Ibexa\Contracts\Core\Repository\Values\URL\UsageSearchResult;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
-use Ibexa\Core\Base\Exceptions\UnauthorizedException;
-use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion as ContentCriterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query as ContentQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion as ContentCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult as ContentSearchResults;
 use Ibexa\Contracts\Core\Repository\Values\URL\SearchResult;
 use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
 use Ibexa\Contracts\Core\Repository\Values\URL\URLUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\URL\UsageSearchResult;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
 use Ibexa\Core\Repository\URLService;
-use Ibexa\Contracts\Core\Persistence\URL\URL as SpiUrl;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
 
 class UrlTest extends BaseServiceMockTest
 {
@@ -355,7 +355,7 @@ class UrlTest extends BaseServiceMockTest
                     $this->assertEquals($expectedQuery, $query);
 
                     return new ContentSearchResults([
-                        'searchHits' => array_map(function ($id) {
+                        'searchHits' => array_map(static function ($id) {
                             return new SearchHit([
                                 'valueObject' => new ContentInfo([
                                     'id' => $id,

@@ -7,9 +7,9 @@
 namespace Ibexa\Core\MVC\Symfony\View\ParametersInjector;
 
 use Ibexa\Core\MVC\Symfony\View\Event\FilterViewParametersEvent;
-use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Ibexa\Core\MVC\Symfony\View\ParametersInjector;
 use Ibexa\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**

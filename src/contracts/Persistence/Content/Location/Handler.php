@@ -106,7 +106,7 @@ interface Handler
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If $sourceId or $destinationParentId are invalid
      *
-     * @return Location the newly created Location.
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location the newly created Location.
      */
     public function copySubtree($sourceId, $destinationParentId);
 

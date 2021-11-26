@@ -8,9 +8,9 @@ namespace Ibexa\Bundle\Core\Features\Context;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Contracts\Core\Repository\ContentService;
 
 /**
  * Sentences for Fields.
@@ -20,17 +20,17 @@ class FieldTypeContext implements Context
     /**
      * Defines the state of the Construction object, if it's not published, partialy or completely published.
      */
-    const FIELD_TYPE_NOT_CREATED = -1;
-    const FIELD_TYPE_CREATED = 0;
-    const CONTENT_TYPE_CREATED = 1;
-    const FIELD_TYPE_ASSOCIATED = 2;
-    const CONTENT_TYPE_PUBLISHED = 3;
-    const CONTENT_PUBLISHED = 4;
+    public const FIELD_TYPE_NOT_CREATED = -1;
+    public const FIELD_TYPE_CREATED = 0;
+    public const CONTENT_TYPE_CREATED = 1;
+    public const FIELD_TYPE_ASSOCIATED = 2;
+    public const CONTENT_TYPE_PUBLISHED = 3;
+    public const CONTENT_PUBLISHED = 4;
 
     /**
      * Default language.
      */
-    const DEFAULT_LANGUAGE = 'eng-GB';
+    public const DEFAULT_LANGUAGE = 'eng-GB';
 
     /**
      * @var array Stores the values needed to build the contentType with the desired fieldTypes,

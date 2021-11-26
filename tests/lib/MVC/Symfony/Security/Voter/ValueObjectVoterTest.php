@@ -11,9 +11,9 @@ use Ibexa\Core\MVC\Symfony\Controller\Content\ViewController;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Voter\ValueObjectVoter;
 use Ibexa\Core\Repository\Permission\PermissionResolver;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
-use PHPUnit\Framework\TestCase;
 
 class ValueObjectVoterTest extends TestCase
 {

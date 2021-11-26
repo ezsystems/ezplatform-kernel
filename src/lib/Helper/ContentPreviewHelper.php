@@ -10,8 +10,8 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Core\MVC\Symfony\Event\ScopeChangeEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
-use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -61,7 +61,7 @@ class ContentPreviewHelper implements SiteAccessAware
      *
      * @param string $siteAccessName
      *
-     * @return SiteAccess
+     * @return \Ibexa\Core\MVC\Symfony\SiteAccess
      */
     public function changeConfigScope($siteAccessName)
     {
@@ -74,7 +74,7 @@ class ContentPreviewHelper implements SiteAccessAware
     /**
      * Restores original config scope.
      *
-     * @return SiteAccess
+     * @return \Ibexa\Core\MVC\Symfony\SiteAccess
      */
     public function restoreConfigScope()
     {

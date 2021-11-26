@@ -7,8 +7,8 @@
 namespace Ibexa\Core\Persistence\Legacy\Content\Language;
 
 use Ibexa\Contracts\Core\Persistence\Content\Language;
-use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as BaseLanguageHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as BaseLanguageHandler;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
 use LogicException;
 
@@ -152,7 +152,7 @@ class Handler implements BaseLanguageHandler
      *
      * @param mixed $id
      *
-     * @throws LogicException If language could not be deleted
+     * @throws \LogicException If language could not be deleted
      */
     public function delete($id)
     {

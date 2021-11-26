@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Core\Persistence;
 
-use Ibexa\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
-use Ibexa\Core\Persistence\FieldTypeRegistry;
 use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
 use Ibexa\Contracts\Core\Persistence\FieldType as SPIPersistenceFieldType;
+use Ibexa\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
+use Ibexa\Core\Persistence\FieldTypeRegistry;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\FieldTypeRegistry

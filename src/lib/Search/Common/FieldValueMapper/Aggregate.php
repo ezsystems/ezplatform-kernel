@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\Search\Common\FieldValueMapper;
 
-use Ibexa\Core\Search\Common\FieldValueMapper;
-use Ibexa\Contracts\Core\Search\Field;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Search\Field;
+use Ibexa\Core\Search\Common\FieldValueMapper;
 
 /**
  * Common aggregate mapper implementation.

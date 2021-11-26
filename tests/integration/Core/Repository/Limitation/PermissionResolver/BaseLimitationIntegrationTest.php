@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\Core\Repository\Limitation\PermissionResolver;
 
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 /**
  * Base class for all Limitation integration tests.

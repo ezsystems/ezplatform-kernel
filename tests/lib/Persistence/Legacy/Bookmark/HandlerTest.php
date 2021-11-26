@@ -8,16 +8,16 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Persistence\Legacy\Bookmark;
 
+use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
+use Ibexa\Contracts\Core\Persistence\Bookmark\CreateStruct;
 use Ibexa\Core\Persistence\Legacy\Bookmark\Gateway;
 use Ibexa\Core\Persistence\Legacy\Bookmark\Handler;
 use Ibexa\Core\Persistence\Legacy\Bookmark\Mapper;
-use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
-use Ibexa\Contracts\Core\Persistence\Bookmark\CreateStruct;
 use PHPUnit\Framework\TestCase;
 
 class HandlerTest extends TestCase
 {
-    const BOOKMARK_ID = 7;
+    public const BOOKMARK_ID = 7;
 
     /** @var \Ibexa\Core\Persistence\Legacy\Bookmark\Gateway|\PHPUnit\Framework\MockObject\MockObject */
     private $gateway;

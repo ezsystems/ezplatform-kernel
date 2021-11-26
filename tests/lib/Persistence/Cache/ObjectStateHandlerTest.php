@@ -7,8 +7,8 @@
 namespace Ibexa\Tests\Core\Persistence\Cache;
 
 use Ibexa\Contracts\Core\Persistence\Content\ObjectState as SPIObjectState;
-use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Handler as SPIObjectStateHandler;
 use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group as SPIObjectStateGroup;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Handler as SPIObjectStateHandler;
 use Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct as SPIInputStruct;
 
 /**

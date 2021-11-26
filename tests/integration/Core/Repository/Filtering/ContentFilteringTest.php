@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\Core\Repository\Filtering;
 
+use function array_map;
+use function count;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentList;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
@@ -15,12 +17,10 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
 use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
-use Ibexa\Core\FieldType\Keyword;
 use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Core\FieldType\Keyword;
 use Ibexa\Tests\Core\Repository\Filtering\TestContentProvider;
 use IteratorAggregate;
-use function array_map;
-use function count;
 use function sprintf;
 
 /**

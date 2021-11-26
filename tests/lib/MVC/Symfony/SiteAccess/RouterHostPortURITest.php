@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Core\MVC\Symfony\SiteAccess;
 
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Map\Host;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Map\Port;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
-use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use Psr\Log\LoggerInterface;
 
 class RouterHostPortURITest extends RouterBaseTest

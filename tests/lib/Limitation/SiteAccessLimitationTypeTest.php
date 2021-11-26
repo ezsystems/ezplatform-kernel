@@ -8,10 +8,10 @@ namespace Ibexa\Tests\Core\Limitation;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SiteAccessLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ObjectStateLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SiteAccessLimitation;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Limitation\SiteAccessLimitationType;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 

@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\User;
 
-use Ibexa\Core\FieldType\User\UserStorage\Gateway\DoctrineStorage;
-use Ibexa\Core\Persistence\TransformationProcessor;
 use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
 use Ibexa\Contracts\Core\Repository\Values\Filter\CriterionQueryBuilder;
 use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Core\FieldType\User\UserStorage\Gateway\DoctrineStorage;
+use Ibexa\Core\Persistence\TransformationProcessor;
 
 /**
  * @internal for internal use by Repository Filtering

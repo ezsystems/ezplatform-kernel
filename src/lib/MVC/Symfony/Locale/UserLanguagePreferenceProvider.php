@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\MVC\Symfony\Locale;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\UserPreferenceService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Ibexa\Contracts\Core\Repository\UserPreferenceService;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 
 class UserLanguagePreferenceProvider implements UserLanguagePreferenceProviderInterface
 {

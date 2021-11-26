@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use Ibexa\Core\FieldType\Media\Type as MediaType;
-use Ibexa\Core\FieldType\FieldSettings;
-use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\MediaConverter;
-use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
 use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
+use Ibexa\Core\FieldType\FieldSettings;
+use Ibexa\Core\FieldType\Media\Type as MediaType;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\MediaConverter;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 use PHPUnit\Framework\TestCase;
 
 /**

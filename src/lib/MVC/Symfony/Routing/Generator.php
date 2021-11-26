@@ -55,7 +55,7 @@ abstract class Generator implements SiteAccessAware
     }
 
     /**
-     * @param LoggerInterface $logger
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function setLogger(LoggerInterface $logger = null)
     {
@@ -141,7 +141,7 @@ abstract class Generator implements SiteAccessAware
      *
      * @param SimplifiedRequest $simplifiedRequest
      *
-     * @return RequestContext
+     * @return \Symfony\Component\Routing\RequestContext
      */
     private function getContextBySimplifiedRequest(SimplifiedRequest $simplifiedRequest)
     {

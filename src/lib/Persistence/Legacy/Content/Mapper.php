@@ -6,17 +6,17 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content;
 
-use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Persistence\Content;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
 use Ibexa\Contracts\Core\Persistence\Content\CreateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
 use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Relation;
 use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
-use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry as Registry;
-use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
-use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
 use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry as Registry;
 
 /**
  * Mapper for Content Handler.
@@ -433,7 +433,7 @@ class Mapper
      *
      * @param array $row
      *
-     * @return Field
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Field
      */
     protected function extractFieldFromRow(array $row)
     {

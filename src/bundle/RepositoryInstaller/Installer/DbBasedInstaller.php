@@ -7,8 +7,8 @@
 namespace Ibexa\Bundle\RepositoryInstaller\Installer;
 
 use Doctrine\DBAL\Connection;
-use Symfony\Component\Filesystem\Filesystem;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Symfony\Component\Filesystem\Filesystem;
 
 class DbBasedInstaller
 {

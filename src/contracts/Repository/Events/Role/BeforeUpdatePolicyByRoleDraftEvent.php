@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\Role;
 
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft;
 use Ibexa\Contracts\Core\Repository\Values\User\PolicyUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleDraft;
-use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeUpdatePolicyByRoleDraftEvent extends BeforeEvent

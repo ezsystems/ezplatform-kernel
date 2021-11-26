@@ -6,25 +6,25 @@
  */
 namespace Ibexa\Tests\Core\Limitation;
 
+use Ibexa\Contracts\Core\Limitation\Type as LimitationType;
+use Ibexa\Contracts\Core\Persistence\Content\Section as SPISection;
+use Ibexa\Contracts\Core\Persistence\Content\Section\Handler as SPISectionHandler;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
-use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\SectionId;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\SectionId;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ObjectStateLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\Limitation\SectionLimitationType;
-use Ibexa\Core\Repository\Values\Content\Location;
 use Ibexa\Core\Repository\Values\Content\ContentCreateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Section as SPISection;
-use Ibexa\Contracts\Core\Limitation\Type as LimitationType;
-use Ibexa\Contracts\Core\Persistence\Content\Section\Handler as SPISectionHandler;
+use Ibexa\Core\Repository\Values\Content\Location;
 
 /**
  * Test Case for LimitationType.

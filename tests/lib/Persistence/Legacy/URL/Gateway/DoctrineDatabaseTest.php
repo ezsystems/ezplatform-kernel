@@ -9,10 +9,10 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Core\Persistence\Legacy\URL\Gateway;
 
 use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion\MatchAll as MatchAllCriterion;
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 use Ibexa\Core\Persistence\Legacy\URL\Gateway\DoctrineDatabase;
 use Ibexa\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
 use Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler\MatchAll;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\URL\Gateway\DoctrineDatabase

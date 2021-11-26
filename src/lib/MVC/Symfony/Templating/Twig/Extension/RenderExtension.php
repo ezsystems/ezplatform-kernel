@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\MVC\Symfony\Templating\Twig\Extension;
 
+use Ibexa\Contracts\Core\MVC\Templating\RenderStrategy;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\MVC\Symfony\Event\ResolveRenderOptionsEvent;
 use Ibexa\Core\MVC\Symfony\Templating\RenderOptions;
-use Ibexa\Contracts\Core\MVC\Templating\RenderStrategy;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;

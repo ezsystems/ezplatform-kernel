@@ -24,8 +24,8 @@ namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware;
  */
 interface DynamicSettingParserInterface
 {
-    const BOUNDARY_DELIMITER = '$';
-    const INNER_DELIMITER = ';';
+    public const BOUNDARY_DELIMITER = '$';
+    public const INNER_DELIMITER = ';';
 
     /**
      * Checks if $setting is considered to be dynamic.

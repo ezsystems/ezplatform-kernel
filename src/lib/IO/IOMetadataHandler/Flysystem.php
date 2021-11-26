@@ -7,16 +7,16 @@
 namespace Ibexa\Core\IO\IOMetadataHandler;
 
 use DateTime;
-use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
-use Ibexa\Core\IO\IOMetadataHandler;
 use Ibexa\Contracts\Core\IO\BinaryFile as SPIBinaryFile;
 use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
+use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
+use Ibexa\Core\IO\IOMetadataHandler;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FilesystemInterface;
 
 class Flysystem implements IOMetadataHandler
 {
-    /** @var FilesystemInterface */
+    /** @var \League\Flysystem\FilesystemInterface */
     private $filesystem;
 
     public function __construct(FilesystemInterface $filesystem)
@@ -27,7 +27,7 @@ class Flysystem implements IOMetadataHandler
     /**
      * Only reads & return metadata, since the binarydata handler took care of creating the file already.
      *
-     * @throws BinaryFileNotFoundException
+     * @throws \Ibexa\Core\IO\Exception\BinaryFileNotFoundException
      */
     public function create(SPIBinaryFileCreateStruct $spiBinaryFileCreateStruct)
     {

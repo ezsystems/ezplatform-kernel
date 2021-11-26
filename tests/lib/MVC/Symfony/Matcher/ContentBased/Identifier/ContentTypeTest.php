@@ -7,10 +7,10 @@
 namespace Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased\Identifier;
 
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased\BaseTest;
-use Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Identifier\ContentType as ContentTypeIdentifierMatcher;
 use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Identifier\ContentType as ContentTypeIdentifierMatcher;
+use Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased\BaseTest;
 
 class ContentTypeTest extends BaseTest
 {

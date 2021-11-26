@@ -6,8 +6,10 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository;
 
+use Exception;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Exceptions\LimitationValidationException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
@@ -18,10 +20,8 @@ use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\PolicyCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\PolicyUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
-use Ibexa\Contracts\Core\Repository\Values\User\RoleCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleCopyStruct;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Exception;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleDraft;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\UserGroupRoleAssignment;
@@ -1175,7 +1175,7 @@ class RoleServiceTest extends BaseTest
         }
         usort(
             $actual,
-            function ($p1, $p2) {
+            static function ($p1, $p2) {
                 return strcasecmp($p1['function'], $p2['function']);
             }
         );
@@ -2912,7 +2912,7 @@ class RoleServiceTest extends BaseTest
         }
         usort(
             $actual,
-            function ($p1, $p2) {
+            static function ($p1, $p2) {
                 return strcasecmp($p1['function'], $p2['function']);
             }
         );

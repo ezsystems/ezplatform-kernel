@@ -7,8 +7,8 @@
 namespace Ibexa\Core\FieldType;
 
 use ArrayObject;
-use Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException;
 use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException;
 
 /**
  * Container for field type specific properties.

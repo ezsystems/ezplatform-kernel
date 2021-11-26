@@ -6,20 +6,20 @@
  */
 namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
+use Ibexa\Contracts\Core\Limitation\Type;
+use Ibexa\Contracts\Core\Persistence\User\Policy;
+use Ibexa\Contracts\Core\Persistence\User\Role;
+use Ibexa\Contracts\Core\Persistence\User\RoleAssignment;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\Base\Exceptions\NotFound\LimitationNotFoundException;
 use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\Repository\Permission\PermissionResolver;
-use Ibexa\Core\Repository\Values\User\UserReference;
 use Ibexa\Core\Repository\Repository as CoreRepository;
-use Ibexa\Core\Base\Exceptions\NotFound\LimitationNotFoundException;
+use Ibexa\Core\Repository\Values\User\UserReference;
 use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
-use Ibexa\Contracts\Core\Limitation\Type;
-use Ibexa\Contracts\Core\Persistence\User\RoleAssignment;
-use Ibexa\Contracts\Core\Persistence\User\Role;
-use Ibexa\Contracts\Core\Persistence\User\Policy;
 
 /**
  * Mock test case for PermissionResolver.
@@ -217,7 +217,7 @@ class PermissionTest extends BaseServiceMockTest
             ->method($this->anything());
 
         $result = $service->sudo(
-            function (Repository $repo) {
+            static function (Repository $repo) {
                 return $repo->getPermissionResolver()->hasAccess('dummy-module', 'dummy-function');
             },
             $repositoryMock

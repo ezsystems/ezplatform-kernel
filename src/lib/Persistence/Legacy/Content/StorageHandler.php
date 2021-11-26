@@ -44,7 +44,7 @@ class StorageHandler
      * Stores data from $field in its corresponding external storage.
      *
      * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      */
     public function storeFieldData(VersionInfo $versionInfo, Field $field)
     {
@@ -74,7 +74,7 @@ class StorageHandler
      * Fetches external data for $field from its corresponding external storage.
      *
      * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      */
     public function getFieldData(VersionInfo $versionInfo, Field $field)
     {

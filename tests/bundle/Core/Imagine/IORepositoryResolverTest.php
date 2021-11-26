@@ -9,13 +9,13 @@ namespace Ibexa\Tests\Bundle\Core\Imagine;
 use Ibexa\Bundle\Core\Imagine\Filter\FilterConfiguration;
 use Ibexa\Bundle\Core\Imagine\IORepositoryResolver;
 use Ibexa\Bundle\Core\Imagine\VariationPathGenerator;
+use Ibexa\Contracts\Core\Variation\VariationPurger;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\IO\IOServiceInterface;
 use Ibexa\Core\IO\Values\BinaryFile;
 use Ibexa\Core\IO\Values\BinaryFileCreateStruct;
 use Ibexa\Core\IO\Values\MissingBinaryFile;
 use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\Contracts\Core\Variation\VariationPurger;
 use Liip\ImagineBundle\Model\Binary;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +32,7 @@ class IORepositoryResolverTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $configResolver;
 
-    /** @var IORepositoryResolver */
+    /** @var \Ibexa\Bundle\Core\Imagine\IORepositoryResolver */
     private $imageResolver;
 
     /** @var \Ibexa\Bundle\Core\Imagine\Filter\FilterConfiguration */

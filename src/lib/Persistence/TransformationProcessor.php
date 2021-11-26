@@ -13,13 +13,13 @@ use Ibexa\Core\Persistence\TransformationProcessor\PcreCompiler;
  */
 abstract class TransformationProcessor
 {
-    const T_COMMENT = 1;
-    const T_WHITESPACE = 2;
-    const T_SECTION = 10;
-    const T_MAP = 11;
-    const T_REPLACE = 12;
-    const T_TRANSPOSE = 13;
-    const T_TRANSPOSE_MODULO = 14;
+    public const T_COMMENT = 1;
+    public const T_WHITESPACE = 2;
+    public const T_SECTION = 10;
+    public const T_MAP = 11;
+    public const T_REPLACE = 12;
+    public const T_TRANSPOSE = 13;
+    public const T_TRANSPOSE_MODULO = 14;
 
     /**
      * Parsed rule files.

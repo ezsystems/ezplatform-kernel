@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\Core\Repository\Values\UserPreference;
 
 use ArrayIterator;
-use IteratorAggregate;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use IteratorAggregate;
 
 /**
  * List of user preferences.

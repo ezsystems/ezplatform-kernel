@@ -12,18 +12,18 @@ use Doctrine\DBAL\ConnectionException;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Query\QueryBuilder;
+use EzSystems\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform;
+use Ibexa\Contracts\Core\Test\Persistence\Fixture\FileFixtureFactory;
+use Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter;
+use Ibexa\Contracts\Core\Test\Persistence\Fixture\YamlFixture;
 use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
-use Ibexa\Tests\Core\Repository\LegacySchemaImporter;
 use Ibexa\Core\Persistence\Legacy\SharedGateway;
-use Ibexa\Tests\Core\Persistence\DatabaseConnectionFactory;
 use Ibexa\Core\Search\Legacy\Content;
 use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
 use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
 use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
-use Ibexa\Contracts\Core\Test\Persistence\Fixture\FileFixtureFactory;
-use Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter;
-use Ibexa\Contracts\Core\Test\Persistence\Fixture\YamlFixture;
-use EzSystems\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform;
+use Ibexa\Tests\Core\Persistence\DatabaseConnectionFactory;
+use Ibexa\Tests\Core\Repository\LegacySchemaImporter;
 use InvalidArgumentException;
 use PDOException;
 use PHPUnit\Framework\TestCase as BaseTestCase;
@@ -164,7 +164,7 @@ abstract class TestCase extends BaseTestCase
         return implode(
             "\n",
             array_map(
-                function ($row) {
+                static function ($row) {
                     return implode(', ', $row);
                 },
                 $result
@@ -296,7 +296,7 @@ abstract class TestCase extends BaseTestCase
         $refl = new ReflectionObject($object);
 
         return array_map(
-            function ($prop) {
+            static function ($prop) {
                 return $prop->getName();
             },
             $refl->getProperties(ReflectionProperty::IS_PUBLIC)

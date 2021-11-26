@@ -7,18 +7,18 @@
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Gateway;
 
 use Doctrine\DBAL\ParameterType;
-use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
-use Ibexa\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase;
-use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
 use Ibexa\Contracts\Core\Persistence\Content;
 use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
 use Ibexa\Contracts\Core\Persistence\Content\CreateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Relation as RelationValue;
-use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase::insertContentObject
@@ -1845,7 +1845,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a Field fixture.
      *
-     * @return Field
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Field
      */
     protected function getFieldFixture()
     {
@@ -1862,7 +1862,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a Field fixture in a different language.
      *
-     * @return Field
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Field
      */
     protected function getOtherLanguageFieldFixture()
     {
@@ -1875,7 +1875,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a StorageFieldValue fixture.
      *
-     * @return StorageFieldValue
+     * @return \Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue
      */
     protected function getStorageValueFixture()
     {

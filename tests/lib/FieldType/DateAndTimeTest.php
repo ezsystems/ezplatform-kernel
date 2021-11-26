@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
+use DateInterval;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\FieldType\DateAndTime\Type as DateAndTime;
 use Ibexa\Core\FieldType\DateAndTime\Value as DateAndTimeValue;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use DateInterval;
 use stdClass;
 
 /**

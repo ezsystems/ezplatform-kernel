@@ -7,14 +7,14 @@
 namespace Ibexa\Core\FieldType\MapLocation\MapLocationStorage\Gateway;
 
 use Doctrine\DBAL\Connection;
-use Ibexa\Core\FieldType\MapLocation\MapLocationStorage\Gateway;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
 use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Core\FieldType\MapLocation\MapLocationStorage\Gateway;
 use PDO;
 
 class DoctrineStorage extends Gateway
 {
-    const MAP_LOCATION_TABLE = 'ezgmaplocation';
+    public const MAP_LOCATION_TABLE = 'ezgmaplocation';
 
     /** @var \Doctrine\DBAL\Connection */
     protected $connection;

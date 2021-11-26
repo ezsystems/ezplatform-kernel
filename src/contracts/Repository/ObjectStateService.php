@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Contracts\Core\Repository;
 
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateUpdateStruct;
 
 /**
  * ObjectStateService service.

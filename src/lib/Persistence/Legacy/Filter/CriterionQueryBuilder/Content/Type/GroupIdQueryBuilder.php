@@ -9,10 +9,10 @@ declare(strict_types=1);
 namespace Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content\Type;
 
 use Doctrine\DBAL\Connection;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeGroupId;
-use Ibexa\Core\Persistence\Legacy\Content\Type\Gateway as ContentTypeGateway;
 use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeGroupId;
 use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Gateway as ContentTypeGateway;
 
 /**
  * Content Type Group ID Criterion visitor query builder.

@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\Section;
 
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct;
-use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCreateSectionEvent extends BeforeEvent

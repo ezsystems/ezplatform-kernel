@@ -6,16 +6,16 @@
  */
 namespace Ibexa\Tests\Bundle\Core\Converter;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Bundle\Core\Converter\LocationParamConverter;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\HttpFoundation\Request;
 
 class LocationParamConverterTest extends AbstractParamConverterTest
 {
-    const PROPERTY_NAME = 'locationId';
+    public const PROPERTY_NAME = 'locationId';
 
-    const LOCATION_CLASS = Location::class;
+    public const LOCATION_CLASS = Location::class;
 
     /** @var \Ibexa\Bundle\Core\Converter\LocationParamConverter */
     private $converter;

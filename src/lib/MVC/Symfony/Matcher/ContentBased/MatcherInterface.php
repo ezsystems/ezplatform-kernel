@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Core\MVC\Symfony\Matcher\ContentBased;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Core\MVC\Symfony\Matcher\ViewMatcherInterface;
 
 /**

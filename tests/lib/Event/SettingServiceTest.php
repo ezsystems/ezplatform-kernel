@@ -56,7 +56,7 @@ class SettingServiceTest extends AbstractServiceTest
 
         $traceableEventDispatcher->addListener(
             BeforeUpdateSettingEvent::class,
-            function (BeforeUpdateSettingEvent $event) use ($eventUpdatedSetting) {
+            static function (BeforeUpdateSettingEvent $event) use ($eventUpdatedSetting) {
                 $event->setUpdatedSetting($eventUpdatedSetting);
             },
             10
@@ -90,7 +90,7 @@ class SettingServiceTest extends AbstractServiceTest
         $eventUpdatedSetting = $this->createMock(Setting::class);
         $traceableEventDispatcher->addListener(
             BeforeUpdateSettingEvent::class,
-            function (BeforeUpdateSettingEvent $event) use ($eventUpdatedSetting) {
+            static function (BeforeUpdateSettingEvent $event) use ($eventUpdatedSetting) {
                 $event->setUpdatedSetting($eventUpdatedSetting);
                 $event->stopPropagation();
             },
@@ -168,7 +168,7 @@ class SettingServiceTest extends AbstractServiceTest
 
         $traceableEventDispatcher->addListener(
             BeforeDeleteSettingEvent::class,
-            function (BeforeDeleteSettingEvent $event) {
+            static function (BeforeDeleteSettingEvent $event) {
                 $event->stopPropagation();
             },
             10
@@ -234,7 +234,7 @@ class SettingServiceTest extends AbstractServiceTest
         $setting = $this->createMock(Setting::class);
         $traceableEventDispatcher->addListener(
             BeforeCreateSettingEvent::class,
-            function (BeforeCreateSettingEvent $event) use ($eventSetting) {
+            static function (BeforeCreateSettingEvent $event) use ($eventSetting) {
                 $event->setSetting($eventSetting);
             },
             10
@@ -268,7 +268,7 @@ class SettingServiceTest extends AbstractServiceTest
         $setting = $this->createMock(Setting::class);
         $traceableEventDispatcher->addListener(
             BeforeCreateSettingEvent::class,
-            function (BeforeCreateSettingEvent $event) use ($eventSetting) {
+            static function (BeforeCreateSettingEvent $event) use ($eventSetting) {
                 $event->setSetting($eventSetting);
                 $event->stopPropagation();
             },

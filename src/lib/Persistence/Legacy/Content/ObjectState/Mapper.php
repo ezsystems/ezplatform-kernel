@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\ObjectState;
 
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
 use Ibexa\Contracts\Core\Persistence\Content\ObjectState;
 use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group;
 use Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
 
 /**
  * Mapper for ObjectState and object state Group objects.

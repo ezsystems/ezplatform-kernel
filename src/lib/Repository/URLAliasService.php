@@ -8,19 +8,19 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository;
 
+use Exception;
+use Ibexa\Contracts\Core\Persistence\Content\URLAlias as SPIURLAlias;
+use Ibexa\Contracts\Core\Persistence\Content\UrlAlias\Handler;
+use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
 use Ibexa\Contracts\Core\Repository\LanguageResolver;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\URLAliasService as URLAliasServiceInterface;
 use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
-use Ibexa\Contracts\Core\Persistence\Content\UrlAlias\Handler;
+use Ibexa\Contracts\Core\Repository\URLAliasService as URLAliasServiceInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
-use Ibexa\Contracts\Core\Persistence\Content\URLAlias as SPIURLAlias;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\Base\Exceptions\UnauthorizedException;
-use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
-use Exception;
 
 /**
  * @internal Type-hint \Ibexa\Contracts\Core\Repository\URLAliasService instead.

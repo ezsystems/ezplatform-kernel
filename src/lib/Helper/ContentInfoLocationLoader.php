@@ -16,7 +16,7 @@ interface ContentInfoLocationLoader
     /**
      * Loads a location from a ContentInfo.
      *
-     * @param ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
      *

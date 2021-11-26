@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Persistence\Limitation\Target\Builder;
 
+use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
-use Ibexa\Contracts\Core\Limitation\Target;
 use PHPUnit\Framework\TestCase;
 
 /**

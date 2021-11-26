@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Core\FieldType\Selection;
 
-use Ibexa\Core\FieldType\FieldType;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\FieldType;
 use Ibexa\Core\FieldType\ValidationError;
-use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
 use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
@@ -240,7 +240,7 @@ class Type extends FieldType
 
         //@todo: find a way to include selection language
         if (isset($fieldSettings['multilingualOptions'])) {
-            $possibleOptionIndexesByLanguage = array_map(function ($languageOptionIndexes) {
+            $possibleOptionIndexesByLanguage = array_map(static function ($languageOptionIndexes) {
                 return array_keys($languageOptionIndexes);
             }, $fieldSettings['multilingualOptions']);
 

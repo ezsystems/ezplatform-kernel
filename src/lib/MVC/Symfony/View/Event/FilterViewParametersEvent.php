@@ -7,8 +7,8 @@
 namespace Ibexa\Core\MVC\Symfony\View\Event;
 
 use Ibexa\Core\MVC\Symfony\View\View;
-use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Dispatched when the parameters injected into a view are collected.
@@ -68,7 +68,7 @@ class FilterViewParametersEvent extends Event
     /**
      * Returns the ParameterBag used to manipulate the view parameters.
      *
-     * @return ParameterBag
+     * @return \Symfony\Component\HttpFoundation\ParameterBag
      */
     public function getParameterBag()
     {
@@ -78,7 +78,7 @@ class FilterViewParametersEvent extends Event
     /**
      * Returns the copy of the View object.
      *
-     * @return View
+     * @return \Ibexa\Core\MVC\Symfony\View\View
      */
     public function getView()
     {

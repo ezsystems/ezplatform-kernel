@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\Location;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Persistence\Content\Location;
-use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
 /**
  * Base class for location gateways.
@@ -23,16 +23,16 @@ abstract class Gateway
     /**
      * Constants for node assignment op codes.
      */
-    const NODE_ASSIGNMENT_OP_CODE_NOP = 0;
-    const NODE_ASSIGNMENT_OP_CODE_EXECUTE = 1;
-    const NODE_ASSIGNMENT_OP_CODE_CREATE_NOP = 2;
-    const NODE_ASSIGNMENT_OP_CODE_CREATE = 3;
-    const NODE_ASSIGNMENT_OP_CODE_MOVE_NOP = 4;
-    const NODE_ASSIGNMENT_OP_CODE_MOVE = 5;
-    const NODE_ASSIGNMENT_OP_CODE_REMOVE_NOP = 6;
-    const NODE_ASSIGNMENT_OP_CODE_REMOVE = 7;
-    const NODE_ASSIGNMENT_OP_CODE_SET_NOP = 8;
-    const NODE_ASSIGNMENT_OP_CODE_SET = 9;
+    public const NODE_ASSIGNMENT_OP_CODE_NOP = 0;
+    public const NODE_ASSIGNMENT_OP_CODE_EXECUTE = 1;
+    public const NODE_ASSIGNMENT_OP_CODE_CREATE_NOP = 2;
+    public const NODE_ASSIGNMENT_OP_CODE_CREATE = 3;
+    public const NODE_ASSIGNMENT_OP_CODE_MOVE_NOP = 4;
+    public const NODE_ASSIGNMENT_OP_CODE_MOVE = 5;
+    public const NODE_ASSIGNMENT_OP_CODE_REMOVE_NOP = 6;
+    public const NODE_ASSIGNMENT_OP_CODE_REMOVE = 7;
+    public const NODE_ASSIGNMENT_OP_CODE_SET_NOP = 8;
+    public const NODE_ASSIGNMENT_OP_CODE_SET = 9;
 
     public const CONTENT_TREE_TABLE = 'ezcontentobject_tree';
     public const CONTENT_TREE_SEQ = 'ezcontentobject_tree_node_id_seq';

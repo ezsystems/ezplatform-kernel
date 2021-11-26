@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Limitation\Target\Builder;
 
+use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Contracts\Core\Limitation\Target;
 
 /**
  * Builder of {@see \Ibexa\Contracts\Core\Limitation\Target\Version} instance.
@@ -28,7 +28,7 @@ final class VersionBuilder
     }
 
     /**
-     * @param Field[] $updatedFields
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $updatedFields
      */
     public function updateFields(array $updatedFields): self
     {
@@ -122,7 +122,7 @@ final class VersionBuilder
     public function updateFieldsTo(?string $initialLanguageCode, array $fields): self
     {
         $languageCodes = array_map(
-            function (Field $field) {
+            static function (Field $field) {
                 return $field->languageCode;
             },
             $fields

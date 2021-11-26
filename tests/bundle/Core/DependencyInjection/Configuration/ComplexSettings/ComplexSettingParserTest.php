@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\ComplexSettings;
 
-use PHPUnit\Framework\TestCase;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser;
+use PHPUnit\Framework\TestCase;
 
 class ComplexSettingParserTest extends TestCase
 {
-    /** @var ComplexSettingParser */
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParser */
     private $parser;
 
     protected function setUp(): void

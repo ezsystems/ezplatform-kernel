@@ -6,6 +6,8 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository;
 
+use DateTime;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\URLAliasService;
@@ -16,13 +18,11 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Trash\SearchResult;
 use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem as APITrashItem;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
-use Ibexa\Core\Repository\Values\Content\TrashItem;
 use Ibexa\Core\Repository\Values\Content\Location;
-use DateTime;
+use Ibexa\Core\Repository\Values\Content\TrashItem;
 
 /**
  * Test case for operations in the TrashService using in memory storage.
@@ -982,7 +982,7 @@ class TrashServiceTest extends BaseTrashServiceTest
         /* END: Use Case */
 
         $foundIds = array_map(
-            function ($trashItem) {
+            static function ($trashItem) {
                 return $trashItem->id;
             },
             $searchResult->items
@@ -1228,7 +1228,7 @@ class TrashServiceTest extends BaseTrashServiceTest
     }
 
     /**
-     * @param Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
      * @param int $parentLocationId
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content

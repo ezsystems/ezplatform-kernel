@@ -40,7 +40,7 @@ class QueryParameterContentViewQueryTypeMapper implements ContentViewQueryTypeMa
     }
 
     /**
-     * @param ContentView $contentView
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $contentView
      *
      * @return array
      */
@@ -59,7 +59,7 @@ class QueryParameterContentViewQueryTypeMapper implements ContentViewQueryTypeMa
     }
 
     /**
-     * @param ContentView $contentView
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $contentView
      * @param array $queryParameterValue
      *
      * @return array|string
@@ -79,7 +79,7 @@ class QueryParameterContentViewQueryTypeMapper implements ContentViewQueryTypeMa
     }
 
     /**
-     * @param ContentView $contentView
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $contentView
      * @param string $queryParameterValue
      *
      * @return mixed

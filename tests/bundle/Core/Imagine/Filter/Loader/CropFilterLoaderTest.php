@@ -16,7 +16,7 @@ class CropFilterLoaderTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $innerLoader;
 
-    /** @var CropFilterLoader */
+    /** @var \Ibexa\Bundle\Core\Imagine\Filter\Loader\CropFilterLoader */
     private $loader;
 
     protected function setUp(): void

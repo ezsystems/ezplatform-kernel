@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
+use Ibexa\Contracts\Core\Repository;
 use Ibexa\Contracts\Core\Repository\Exceptions\ContentTypeFieldDefinitionValidationException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
-use Ibexa\Contracts\Core\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 /**
  * Integration test for legacy storage field types.
@@ -47,7 +47,7 @@ abstract class BaseIntegrationTest extends BaseTest
      * Content version archive limit (default).
      * Note: currently there is no way to retrieve this setting from the ContentService.
      */
-    const VERSION_ARCHIVE_LIMIT = 5;
+    public const VERSION_ARCHIVE_LIMIT = 5;
 
     /**
      * Identifier of the custom field.
@@ -125,7 +125,7 @@ abstract class BaseIntegrationTest extends BaseTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      */
     abstract public function assertFieldDataLoadedCorrect(Field $field);
 
@@ -165,7 +165,7 @@ abstract class BaseIntegrationTest extends BaseTest
      * Asserts that the data provided by {@link getValidUpdateFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      */
     abstract public function assertUpdatedFieldDataLoadedCorrect(Field $field);
 
@@ -198,7 +198,7 @@ abstract class BaseIntegrationTest extends BaseTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was copied and loaded correctly.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      */
     abstract public function assertCopiedFieldDataLoadedCorrectly(Field $field);
 
@@ -255,8 +255,8 @@ abstract class BaseIntegrationTest extends BaseTest
      * We cannot just overwrite the testCreateContent method, since this messes
      * up PHPUnits @depends sorting of tests, so everything will be skipped.
      *
-     * @param Repository\Repository $repository
-     * @param Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      */
     public function postCreationHook(Repository\Repository $repository, Repository\Values\Content\Content $content)
     {

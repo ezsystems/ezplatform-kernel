@@ -34,7 +34,7 @@ class ParameterProviderTest extends TestCase
         $contentServiceMock
             ->method('loadContentInfoList')
             ->with($desinationContentIds)
-            ->will($this->returnCallback(function ($arg) {
+            ->will($this->returnCallback(static function ($arg) {
                 $return = [];
                 if (in_array(123, $arg)) {
                     $return[123] = new ContentInfo(['status' => ContentInfo::STATUS_DRAFT]);

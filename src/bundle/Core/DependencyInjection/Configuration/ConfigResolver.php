@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Bundle\Core\DependencyInjection\Configuration;
 
+use Ibexa\Core\MVC\Exception\ParameterNotFoundException;
 use Ibexa\Core\MVC\Symfony\Configuration\VersatileScopeInterface;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
-use Ibexa\Core\MVC\Exception\ParameterNotFoundException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -37,11 +37,11 @@ class ConfigResolver implements VersatileScopeInterface, SiteAccessAware, Contai
 {
     use ContainerAwareTrait;
 
-    const SCOPE_GLOBAL = 'global';
-    const SCOPE_DEFAULT = 'default';
+    public const SCOPE_GLOBAL = 'global';
+    public const SCOPE_DEFAULT = 'default';
 
-    const UNDEFINED_STRATEGY_EXCEPTION = 1;
-    const UNDEFINED_STRATEGY_NULL = 2;
+    public const UNDEFINED_STRATEGY_EXCEPTION = 1;
+    public const UNDEFINED_STRATEGY_NULL = 2;
 
     /** @var \Ibexa\Core\MVC\Symfony\SiteAccess */
     protected $siteAccess;

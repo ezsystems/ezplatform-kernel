@@ -41,7 +41,7 @@ final class DirectFragmentRendererTest extends TestCase
 
                 return true;
             }))
-            ->willReturn(function () {
+            ->willReturn(static function () {
                 return 'rendered_response';
             });
 
@@ -58,7 +58,7 @@ final class DirectFragmentRendererTest extends TestCase
 
         $controllerResolver
             ->method('getController')
-            ->willReturn(function () {
+            ->willReturn(static function () {
                 return new Response('response_body');
             });
 
@@ -75,7 +75,7 @@ final class DirectFragmentRendererTest extends TestCase
 
         $controllerResolver
             ->method('getController')
-            ->willReturn(function () {
+            ->willReturn(static function () {
                 return new Response('response_body');
             });
 
@@ -94,7 +94,7 @@ final class DirectFragmentRendererTest extends TestCase
         $controllerResolverMock = $this->getControllerResolverInterfaceMock();
         $controllerResolverMock
             ->method('getController')
-            ->willReturn(function (...$args) use ($contentView) {
+            ->willReturn(static function (...$args) use ($contentView) {
                 $contentView->setParameters($args);
 
                 return $contentView;
@@ -123,7 +123,7 @@ final class DirectFragmentRendererTest extends TestCase
 
         $controllerResolver
             ->method('getController')
-            ->willReturn(function () {
+            ->willReturn(static function () {
                 return 'some_prerendered_response';
             });
 
@@ -140,7 +140,7 @@ final class DirectFragmentRendererTest extends TestCase
 
         $controllerResolver
             ->method('getController')
-            ->willReturn(function (...$args) {
+            ->willReturn(static function (...$args) {
                 return ['some_array' => $args];
             });
 

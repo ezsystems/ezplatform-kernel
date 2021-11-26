@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Persistence\Legacy\Notification;
 
-use Ibexa\Contracts\Core\Repository\Values\Notification\Notification as APINotification;
-use Ibexa\Core\Persistence\Legacy\Notification\Gateway;
-use Ibexa\Core\Persistence\Legacy\Notification\Mapper;
-use Ibexa\Core\Persistence\Legacy\Notification\Handler;
 use Ibexa\Contracts\Core\Persistence\Notification\CreateStruct;
 use Ibexa\Contracts\Core\Persistence\Notification\Notification;
 use Ibexa\Contracts\Core\Persistence\Notification\UpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification as APINotification;
+use Ibexa\Core\Persistence\Legacy\Notification\Gateway;
+use Ibexa\Core\Persistence\Legacy\Notification\Handler;
+use Ibexa\Core\Persistence\Legacy\Notification\Mapper;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
  */
 class HandlerTest extends TestCase
 {
-    const NOTIFICATION_ID = 1;
+    public const NOTIFICATION_ID = 1;
 
     /** @var \Ibexa\Core\Persistence\Legacy\Notification\Gateway|\PHPUnit\Framework\MockObject\MockObject */
     private $gateway;

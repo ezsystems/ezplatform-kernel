@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Contracts\Core\Persistence\Content\Type;
 
-use Ibexa\Contracts\Core\Persistence\ValueObject;
 use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
 use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 /**
  * @todo Do we need a FieldDefinitionCreateStruct?

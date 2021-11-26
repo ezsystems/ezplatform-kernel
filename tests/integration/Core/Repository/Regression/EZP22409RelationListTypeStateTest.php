@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
-use Ibexa\Core\FieldType\RelationList;
 use DateTime;
+use Ibexa\Core\FieldType\RelationList;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 /**
  * Test case for RelationList using alterate ContentType states issue in EZP-22409.

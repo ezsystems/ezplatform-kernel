@@ -96,7 +96,7 @@ abstract class ConfigurationFactoryTest extends AbstractContainerBuilderTestCase
      * Provides the parent service definition, as defined in the bundle's services definition.
      * Required so that getArguments / replaceCalls work correctly.
      *
-     * @return Definition
+     * @return \Symfony\Component\DependencyInjection\Definition
      */
     abstract public function provideParentServiceDefinition();
 
@@ -106,7 +106,7 @@ abstract class ConfigurationFactoryTest extends AbstractContainerBuilderTestCase
      *
      * The method can also configure the container via $this->container.
      *
-     * @param ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     abstract public function provideHandlerConfiguration();
 

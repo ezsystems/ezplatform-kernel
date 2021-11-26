@@ -42,7 +42,7 @@ class Configured implements ViewProvider
      *
      * @param array $viewConfig
      *
-     * @return ContentView
+     * @return \Ibexa\Core\MVC\Symfony\View\ContentView
      */
     protected function buildContentView(array $viewConfig)
     {

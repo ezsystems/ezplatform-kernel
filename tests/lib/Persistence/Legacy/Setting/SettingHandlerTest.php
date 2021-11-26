@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Setting;
 
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
-use Ibexa\Core\Persistence\Legacy\Setting\Handler;
-use Ibexa\Core\Persistence\Legacy\Setting\Gateway;
 use Ibexa\Contracts\Core\Persistence\Setting\Setting;
+use Ibexa\Core\Persistence\Legacy\Setting\Gateway;
+use Ibexa\Core\Persistence\Legacy\Setting\Handler;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**

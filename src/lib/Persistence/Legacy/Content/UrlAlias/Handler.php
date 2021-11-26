@@ -6,21 +6,21 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\UrlAlias;
 
-use Ibexa\Core\Base\Exceptions\BadStateException;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
-use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\DTO\SwappedLocationProperties;
-use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\DTO\UrlAliasForSwappedLocation;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Ibexa\Contracts\Core\Persistence\Content\Language;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
 use Ibexa\Contracts\Core\Persistence\Content\UrlAlias;
 use Ibexa\Contracts\Core\Persistence\Content\UrlAlias\Handler as UrlAliasHandlerInterface;
-use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
-use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
-use Ibexa\Core\Base\Exceptions\ForbiddenException;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Ibexa\Contracts\Core\Persistence\TransactionHandler;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\ForbiddenException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\DTO\SwappedLocationProperties;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\DTO\UrlAliasForSwappedLocation;
 
 /**
  * The UrlAlias Handler provides nice urls management.
@@ -30,7 +30,7 @@ use Ibexa\Contracts\Core\Persistence\TransactionHandler;
  */
 class Handler implements UrlAliasHandlerInterface
 {
-    const ROOT_LOCATION_ID = 1;
+    public const ROOT_LOCATION_ID = 1;
 
     /**
      * This is intentionally hardcoded for now as:
@@ -39,12 +39,12 @@ class Handler implements UrlAliasHandlerInterface
      *
      * @deprecated
      */
-    const CONTENT_REPOSITORY_ROOT_LOCATION_ID = 2;
+    public const CONTENT_REPOSITORY_ROOT_LOCATION_ID = 2;
 
     /**
      * The maximum level of alias depth.
      */
-    const MAX_URL_ALIAS_DEPTH_LEVEL = 60;
+    public const MAX_URL_ALIAS_DEPTH_LEVEL = 60;
 
     /**
      * UrlAlias Gateway.
@@ -886,14 +886,14 @@ class Handler implements UrlAliasHandlerInterface
             );
 
             if (isset($location1->name) && $this->shouldUrlAliasForSecondLocationBePublishedFirst(
-                    $location1->entries,
-                    $location1->parentId,
-                    $location1->name,
-                    $location2->entries,
-                    $location2->parentId,
-                    $location2->name,
-                    $language->id
-                )) {
+                $location1->entries,
+                $location1->parentId,
+                $location1->name,
+                $location2->entries,
+                $location2->parentId,
+                $location2->name,
+                $language->id
+            )) {
                 $urlAliases = array_reverse($urlAliases);
             }
         }
@@ -911,7 +911,7 @@ class Handler implements UrlAliasHandlerInterface
     {
         $entries = array_filter(
             $locationEntries,
-            function (array $row) use ($languageId) {
+            static function (array $row) use ($languageId) {
                 return (bool) ($row['lang_mask'] & $languageId);
             }
         );

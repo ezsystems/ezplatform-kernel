@@ -10,20 +10,20 @@ use Ibexa\Contracts\Core\Repository\ContentService as APIService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentDraftList;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentList;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentId;
 use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
 use Ibexa\Contracts\Core\Repository\Values\Content\RelationList;
-use Ibexa\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 use Ibexa\Core\Repository\SiteAccessAware\ContentService;
 use Ibexa\Core\Repository\Values\Content\ContentCreateStruct;
 use Ibexa\Core\Repository\Values\Content\ContentUpdateStruct;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentList;
-use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\User\User;
 
 /**
  * @property \Ibexa\Contracts\Core\Repository\ContentService $service

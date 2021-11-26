@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Core\Limitation;
 
-use PHPUnit\Framework\TestCase;
-use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
 use Ibexa\Contracts\Core\Persistence\Handler as SPIHandler;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
+use PHPUnit\Framework\TestCase;
 
 abstract class Base extends TestCase
 {

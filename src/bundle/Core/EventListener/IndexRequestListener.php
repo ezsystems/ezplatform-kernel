@@ -8,9 +8,9 @@ namespace Ibexa\Bundle\Core\EventListener;
 
 use Ibexa\Core\MVC\ConfigResolverInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 class IndexRequestListener implements EventSubscriberInterface
 {
@@ -35,7 +35,7 @@ class IndexRequestListener implements EventSubscriberInterface
     /**
      * Checks if the IndexPage is configured and which page must be shown.
      *
-     * @param RequestEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
     public function onKernelRequestIndex(RequestEvent $event)
     {

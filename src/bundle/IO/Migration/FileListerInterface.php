@@ -6,8 +6,6 @@
  */
 namespace Ibexa\Bundle\IO\Migration;
 
-use Ibexa\Contracts\Core\IO\BinaryFile;
-
 interface FileListerInterface extends MigrationHandlerInterface
 {
     /**
@@ -23,7 +21,7 @@ interface FileListerInterface extends MigrationHandlerInterface
      * @param int|null $limit The number of files to load data for, or null
      * @param int|null $offset The offset used when loading in batches, or null
      *
-     * @return BinaryFile[]
+     * @return \Ibexa\Contracts\Core\IO\BinaryFile[]
      */
     public function loadMetadataList($limit = null, $offset = null);
 }

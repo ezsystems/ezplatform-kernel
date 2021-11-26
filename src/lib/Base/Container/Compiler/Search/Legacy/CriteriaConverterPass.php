@@ -8,8 +8,8 @@ namespace Ibexa\Core\Base\Container\Compiler\Search\Legacy;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * This compiler pass will register Legacy Search Engine criterion handlers.

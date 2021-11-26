@@ -8,14 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Event;
 
-use Ibexa\Contracts\Core\Repository\ObjectStateService as ObjectStateServiceInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Decorator\ObjectStateServiceDecorator;
 use Ibexa\Contracts\Core\Repository\Events\ObjectState\BeforeCreateObjectStateEvent;
 use Ibexa\Contracts\Core\Repository\Events\ObjectState\BeforeCreateObjectStateGroupEvent;
 use Ibexa\Contracts\Core\Repository\Events\ObjectState\BeforeDeleteObjectStateEvent;
@@ -32,7 +25,14 @@ use Ibexa\Contracts\Core\Repository\Events\ObjectState\SetContentStateEvent;
 use Ibexa\Contracts\Core\Repository\Events\ObjectState\SetPriorityOfObjectStateEvent;
 use Ibexa\Contracts\Core\Repository\Events\ObjectState\UpdateObjectStateEvent;
 use Ibexa\Contracts\Core\Repository\Events\ObjectState\UpdateObjectStateGroupEvent;
-use Ibexa\Contracts\Core\Repository\Decorator\ObjectStateServiceDecorator;
+use Ibexa\Contracts\Core\Repository\ObjectStateService as ObjectStateServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateUpdateStruct;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ObjectStateService extends ObjectStateServiceDecorator

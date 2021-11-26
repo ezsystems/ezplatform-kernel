@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Repository\Decorator;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
+use Ibexa\Contracts\Core\Repository\Decorator\TranslationServiceDecorator;
 use Ibexa\Contracts\Core\Repository\TranslationService;
 use Ibexa\Contracts\Core\Repository\Values\Translation;
-use Ibexa\Contracts\Core\Repository\Decorator\TranslationServiceDecorator;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 class TranslationServiceDecoratorTest extends TestCase
 {

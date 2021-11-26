@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Event;
 
-use Ibexa\Contracts\Core\Repository\UserPreferenceService as UserPreferenceServiceInterface;
+use Ibexa\Contracts\Core\Repository\Decorator\UserPreferenceServiceDecorator;
 use Ibexa\Contracts\Core\Repository\Events\UserPreference\BeforeSetUserPreferenceEvent;
 use Ibexa\Contracts\Core\Repository\Events\UserPreference\SetUserPreferenceEvent;
-use Ibexa\Contracts\Core\Repository\Decorator\UserPreferenceServiceDecorator;
+use Ibexa\Contracts\Core\Repository\UserPreferenceService as UserPreferenceServiceInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class UserPreferenceService extends UserPreferenceServiceDecorator

@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\Core\Command;
 
+use Exception;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
@@ -31,15 +32,14 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Mime\MimeTypesInterface;
-use Exception;
 
 /**
  * This command resizes original images stored in ezimage FieldType in given ContentType using the selected filter.
  */
 class ResizeOriginalImagesCommand extends Command implements BackwardCompatibleCommand
 {
-    const DEFAULT_ITERATION_COUNT = 25;
-    const DEFAULT_REPOSITORY_USER = 'admin';
+    public const DEFAULT_ITERATION_COUNT = 25;
+    public const DEFAULT_REPOSITORY_USER = 'admin';
 
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;

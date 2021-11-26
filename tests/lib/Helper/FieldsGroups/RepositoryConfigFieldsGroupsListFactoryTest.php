@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Core\Helper\FieldsGroups;
 
-use Ibexa\Core\Helper\FieldsGroups\RepositoryConfigFieldsGroupsListFactory;
 use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
+use Ibexa\Core\Helper\FieldsGroups\RepositoryConfigFieldsGroupsListFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

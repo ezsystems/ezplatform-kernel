@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\MVC\Symfony\SiteAccess;
 
-use Ibexa\Core\MVC\Symfony\SiteAccess;
-use PHPUnit\Framework\TestCase;
-use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
 use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilder;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
+use PHPUnit\Framework\TestCase;
 
 abstract class RouterBaseTest extends TestCase
 {

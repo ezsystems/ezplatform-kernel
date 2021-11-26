@@ -12,12 +12,12 @@ use Ibexa\Bundle\Core\Command\BackwardCompatibleCommand;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Process;
 use Symfony\Component\Process\PhpExecutableFinder;
+use Symfony\Component\Process\Process;
 
 final class InstallPlatformCommand extends Command implements BackwardCompatibleCommand
 {
@@ -39,10 +39,10 @@ final class InstallPlatformCommand extends Command implements BackwardCompatible
     /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */
     private $repositoryConfigurationProvider;
 
-    const EXIT_GENERAL_DATABASE_ERROR = 4;
-    const EXIT_PARAMETERS_NOT_FOUND = 5;
-    const EXIT_UNKNOWN_INSTALL_TYPE = 6;
-    const EXIT_MISSING_PERMISSIONS = 7;
+    public const EXIT_GENERAL_DATABASE_ERROR = 4;
+    public const EXIT_PARAMETERS_NOT_FOUND = 5;
+    public const EXIT_UNKNOWN_INSTALL_TYPE = 6;
+    public const EXIT_MISSING_PERMISSIONS = 7;
 
     public function __construct(
         Connection $connection,
@@ -159,7 +159,7 @@ final class InstallPlatformCommand extends Command implements BackwardCompatible
     /**
      * Clear all content related cache (persistence cache).
      *
-     * @param OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     private function cacheClear(OutputInterface $output)
     {
@@ -175,7 +175,7 @@ final class InstallPlatformCommand extends Command implements BackwardCompatible
      *
      * IMPORTANT: This is done using a command because config has change, so container and all services are different.
      *
-     * @param OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param string|null $siteaccess
      */
     private function indexData(OutputInterface $output, $siteaccess = null)
@@ -213,7 +213,7 @@ final class InstallPlatformCommand extends Command implements BackwardCompatible
      *
      * Based on {@see \Sensio\Bundle\DistributionBundle\Composer\ScriptHandler::executeCommand}.
      *
-     * @param OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param string $cmd eZ Platform command to execute, like 'ezplatform:solr_create_index'
      *               Escape any user provided arguments, like: 'assets:install '.escapeshellarg($webDir)
      * @param int $timeout
@@ -259,7 +259,7 @@ final class InstallPlatformCommand extends Command implements BackwardCompatible
             $timeout
         );
 
-        $process->run(function ($type, $buffer) use ($output) { $output->write($buffer, false); });
+        $process->run(static function ($type, $buffer) use ($output) { $output->write($buffer, false); });
         if (!$process->getExitCode() === 1) {
             throw new \RuntimeException(sprintf('An error occurred when executing the "%s" command.', escapeshellarg($cmd)));
         }

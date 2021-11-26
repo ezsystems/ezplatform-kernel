@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Contracts\Core\FieldType\BinaryBase;
 
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 
 /**
  * @deprecated use \Ibexa\Contracts\Core\FieldType\BinaryBase\PathGeneratorInterface instead.

@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\Trash;
 
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
-use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class RecoverEvent extends AfterEvent
 {

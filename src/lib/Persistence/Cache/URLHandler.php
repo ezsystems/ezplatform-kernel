@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\Persistence\Cache;
 
-use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
 use Ibexa\Contracts\Core\Persistence\URL\Handler as URLHandlerInterface;
 use Ibexa\Contracts\Core\Persistence\URL\URLUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
 
 class URLHandler extends AbstractHandler implements URLHandlerInterface
 {

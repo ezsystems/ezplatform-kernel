@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\Values\User;
 
+use Ibexa\Contracts\Core\FieldType\Value;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\Contracts\Core\FieldType\Value;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
 
 /**
  * This class represents a user value.
@@ -78,7 +78,7 @@ class User extends APIUser
      *
      * @param string $languageCode
      *
-     * @return Field[] with field identifier as keys
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field[] with field identifier as keys
      */
     public function getFieldsByLanguage(?string $languageCode = null): iterable
     {

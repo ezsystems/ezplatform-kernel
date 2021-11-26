@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\Search\Common\FieldValueMapper;
 
-use Ibexa\Core\Search\Common\FieldValueMapper;
-use Ibexa\Contracts\Core\Search\FieldType\IntegerField;
 use Ibexa\Contracts\Core\Search\Field;
+use Ibexa\Contracts\Core\Search\FieldType\IntegerField;
+use Ibexa\Core\Search\Common\FieldValueMapper;
 
 /**
  * Common integer field value mapper implementation.

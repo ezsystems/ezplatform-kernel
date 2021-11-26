@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\UrlAlias;
 
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
 use Ibexa\Core\Persistence\TransformationProcessor;
 use Ibexa\Core\Persistence\TransformationProcessor\PcreCompiler;
 use Ibexa\Core\Persistence\TransformationProcessor\PreprocessedBased;
 use Ibexa\Core\Persistence\Utf8Converter;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 use PHPUnit\Framework\TestSuite;
 
 /**
@@ -313,7 +313,7 @@ class SlugConverterTest extends TestCase
     /**
      * Returns the test suite with all tests declared in this class.
      *
-     * @return TestSuite
+     * @return \PHPUnit\Framework\TestSuite
      */
     public static function suite()
     {

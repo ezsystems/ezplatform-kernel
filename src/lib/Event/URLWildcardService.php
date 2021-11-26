@@ -8,19 +8,19 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Event;
 
+use Ibexa\Contracts\Core\Repository\Decorator\URLWildcardServiceDecorator;
+use Ibexa\Contracts\Core\Repository\Events\URLWildcard\BeforeCreateEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLWildcard\BeforeRemoveEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLWildcard\BeforeTranslateEvent;
 use Ibexa\Contracts\Core\Repository\Events\URLWildcard\BeforeUpdateEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLWildcard\CreateEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLWildcard\RemoveEvent;
+use Ibexa\Contracts\Core\Repository\Events\URLWildcard\TranslateEvent;
 use Ibexa\Contracts\Core\Repository\Events\URLWildcard\UpdateEvent;
 use Ibexa\Contracts\Core\Repository\URLWildcardService as URLWildcardServiceInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardTranslationResult;
-use Ibexa\Contracts\Core\Repository\Events\URLWildcard\BeforeCreateEvent;
-use Ibexa\Contracts\Core\Repository\Events\URLWildcard\BeforeRemoveEvent;
-use Ibexa\Contracts\Core\Repository\Events\URLWildcard\BeforeTranslateEvent;
-use Ibexa\Contracts\Core\Repository\Events\URLWildcard\CreateEvent;
-use Ibexa\Contracts\Core\Repository\Events\URLWildcard\RemoveEvent;
-use Ibexa\Contracts\Core\Repository\Events\URLWildcard\TranslateEvent;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Decorator\URLWildcardServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class URLWildcardService extends URLWildcardServiceDecorator

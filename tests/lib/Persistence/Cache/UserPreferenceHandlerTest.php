@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
 use Ibexa\Contracts\Core\Persistence\UserPreference\Handler as SPIUserPreferenceHandler;
 use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference as SPIUserPreference;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
 
 /**
  * Test case for Persistence\Cache\UserPreferenceHandler.

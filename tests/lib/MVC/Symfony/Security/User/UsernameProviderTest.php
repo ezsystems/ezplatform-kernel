@@ -9,16 +9,16 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Core\MVC\Symfony\Security\User;
 
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\MVC\Symfony\Security\User as MVCUser;
 use Ibexa\Core\MVC\Symfony\Security\User\UsernameProvider;
 use Ibexa\Core\MVC\Symfony\Security\UserInterface;
 use Ibexa\Core\Repository\Values\Content\Content;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Repository\Values\User\User;
-use Ibexa\Core\MVC\Symfony\Security\User as MVCUser;
 use Ibexa\Core\Repository\Values\User\UserReference;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;

@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Limitation;
 
-use Ibexa\Contracts\Core\Repository\Values\ValueObject as APIValueObject;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitationValue;
 use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject as APIValueObject;
 
 /**
  * Represents Limitation type.

@@ -8,9 +8,9 @@ namespace Ibexa\Bundle\IO\Migration\FileMigrator;
 
 use Ibexa\Bundle\IO\Migration\FileMigratorInterface;
 use Ibexa\Bundle\IO\Migration\MigrationHandler;
-use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
 use Ibexa\Contracts\Core\IO\BinaryFile;
 use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct;
+use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
 
 final class FileMigrator extends MigrationHandler implements FileMigratorInterface
 {

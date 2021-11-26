@@ -6,19 +6,19 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\User;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
 use Ibexa\Contracts\Core\Persistence\User;
-use Ibexa\Contracts\Core\Persistence\User\UserTokenUpdateStruct;
 use Ibexa\Contracts\Core\Persistence\User\Handler as BaseUserHandler;
+use Ibexa\Contracts\Core\Persistence\User\Policy;
 use Ibexa\Contracts\Core\Persistence\User\Role;
 use Ibexa\Contracts\Core\Persistence\User\RoleCopyStruct;
 use Ibexa\Contracts\Core\Persistence\User\RoleCreateStruct;
 use Ibexa\Contracts\Core\Persistence\User\RoleUpdateStruct;
-use Ibexa\Contracts\Core\Persistence\User\Policy;
+use Ibexa\Contracts\Core\Persistence\User\UserTokenUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Core\Base\Exceptions\NotFoundException as NotFound;
 use Ibexa\Core\Persistence\Legacy\Exception\RoleNotFound;
 use Ibexa\Core\Persistence\Legacy\User\Role\Gateway as RoleGateway;
 use Ibexa\Core\Persistence\Legacy\User\Role\LimitationConverter;
-use Ibexa\Core\Base\Exceptions\NotFoundException as NotFound;
 use LogicException;
 
 /**

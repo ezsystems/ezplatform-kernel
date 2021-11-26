@@ -7,8 +7,8 @@
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Section\Gateway;
 
 use Ibexa\Core\Persistence\Legacy\Content\Section\Gateway;
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 use Ibexa\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\Section\Gateway\DoctrineDatabase::insertSection

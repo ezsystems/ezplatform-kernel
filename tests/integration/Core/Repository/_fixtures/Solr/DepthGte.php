@@ -86,7 +86,8 @@ return SearchResult::__set_state(
                     'score' => 1.9200476,
                     'index' => null,
                     'highlight' => null,
-                ]),
+                ]
+            ),
             7 => SearchHit::__set_state(
                 [
                     'valueObject' => [

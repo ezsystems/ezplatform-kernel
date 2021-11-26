@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Core\Repository\Values\Content;
 
-use Ibexa\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Repository\Values\Content\Content;
 use PHPUnit\Framework\TestCase;
 
 /**

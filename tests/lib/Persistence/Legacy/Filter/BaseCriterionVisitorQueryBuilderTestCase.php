@@ -10,10 +10,10 @@ namespace Ibexa\Tests\Core\Persistence\Legacy\Filter;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
-use Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder;
-use Ibexa\Core\Persistence\Legacy\Filter\CriterionVisitor;
 use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
 use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder;
+use Ibexa\Core\Persistence\Legacy\Filter\CriterionVisitor;
 use PHPUnit\Framework\TestCase;
 
 abstract class BaseCriterionVisitorQueryBuilderTestCase extends TestCase

@@ -8,9 +8,9 @@ namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser;
 
 class FieldTemplates extends Templates
 {
-    const NODE_KEY = 'field_templates';
-    const INFO = 'Template settings for fields rendered by the ez_render_field() Twig function';
-    const INFO_TEMPLATE_KEY = 'Template file where to find block definition to display fields';
+    public const NODE_KEY = 'field_templates';
+    public const INFO = 'Template settings for fields rendered by the ez_render_field() Twig function';
+    public const INFO_TEMPLATE_KEY = 'Template file where to find block definition to display fields';
 }
 
 class_alias(FieldTemplates::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\FieldTemplates');

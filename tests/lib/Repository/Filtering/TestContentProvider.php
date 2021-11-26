@@ -10,9 +10,9 @@ namespace Ibexa\Tests\Core\Repository\Filtering;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Repository;
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 class TestContentProvider
 {

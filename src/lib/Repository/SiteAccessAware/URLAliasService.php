@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\SiteAccessAware;
 
+use Ibexa\Contracts\Core\Repository\LanguageResolver;
 use Ibexa\Contracts\Core\Repository\URLAliasService as URLAliasServiceInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\LanguageResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 
 /**

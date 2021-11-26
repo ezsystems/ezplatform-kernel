@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 /**
  * @see https://jira.ez.no/browse/EZP-28799

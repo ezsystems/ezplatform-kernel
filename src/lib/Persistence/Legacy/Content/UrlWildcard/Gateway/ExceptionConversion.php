@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Gateway;
 
+use Doctrine\DBAL\DBALException;
+use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard;
 use Ibexa\Core\Base\Exceptions\DatabaseException;
 use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Gateway;
-use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard;
-use Doctrine\DBAL\DBALException;
 use PDOException;
 
 /**

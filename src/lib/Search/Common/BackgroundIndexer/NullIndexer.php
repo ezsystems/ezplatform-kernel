@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\Search\Common\BackgroundIndexer;
 
-use Ibexa\Core\Search\Common\BackgroundIndexer as BackgroundIndexerInterface;
 use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
 use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Core\Search\Common\BackgroundIndexer as BackgroundIndexerInterface;
 
 /**
  * Null indexer, does nothing, for default use when non has been configured.

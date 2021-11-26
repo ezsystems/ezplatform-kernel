@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
-use Ibexa\Core\FieldType\Value;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\FieldType\Validator\FileExtensionBlackListValidator;
+use Ibexa\Core\FieldType\Value;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 
 /**
  * Base class for binary field types.

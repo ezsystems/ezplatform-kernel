@@ -9,14 +9,14 @@ declare(strict_types=1);
 namespace Ibexa\Core\Repository;
 
 use Exception;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
+use Ibexa\Contracts\Core\Persistence\Bookmark\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Bookmark\Handler as BookmarkHandler;
 use Ibexa\Contracts\Core\Repository\BookmarkService as BookmarkServiceInterface;
 use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
 use Ibexa\Contracts\Core\Repository\Values\Bookmark\BookmarkList;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
-use Ibexa\Contracts\Core\Persistence\Bookmark\CreateStruct;
-use Ibexa\Contracts\Core\Persistence\Bookmark\Handler as BookmarkHandler;
 
 class BookmarkService implements BookmarkServiceInterface
 {
@@ -72,7 +72,8 @@ class BookmarkService implements BookmarkServiceInterface
         $loadedLocation = $this->repository->getLocationService()->loadLocation($location->id);
 
         $bookmarks = $this->bookmarkHandler->loadByUserIdAndLocationId(
-            $this->getCurrentUserId(), [$loadedLocation->id]
+            $this->getCurrentUserId(),
+            [$loadedLocation->id]
         );
 
         if (empty($bookmarks)) {
@@ -115,7 +116,8 @@ class BookmarkService implements BookmarkServiceInterface
     public function isBookmarked(Location $location): bool
     {
         $bookmarks = $this->bookmarkHandler->loadByUserIdAndLocationId(
-            $this->getCurrentUserId(), [$location->id]
+            $this->getCurrentUserId(),
+            [$location->id]
         );
 
         return !empty($bookmarks);

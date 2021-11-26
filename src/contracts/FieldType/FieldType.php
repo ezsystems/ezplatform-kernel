@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Contracts\Core\FieldType;
 
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 
 /**
  * The field type interface which all field types have to implement.

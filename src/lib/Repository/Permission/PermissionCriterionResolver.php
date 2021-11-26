@@ -9,12 +9,12 @@ declare(strict_types=1);
 namespace Ibexa\Core\Repository\Permission;
 
 use Ibexa\Contracts\Core\Repository\PermissionCriterionResolver as APIPermissionCriterionResolver;
+use Ibexa\Contracts\Core\Repository\PermissionResolver as PermissionResolverInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalOr;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\Contracts\Core\Repository\PermissionResolver as PermissionResolverInterface;
 use Ibexa\Contracts\Core\Repository\Values\User\UserReference;
 use Ibexa\Core\Limitation\TargetOnlyLimitationType;
 use RuntimeException;
@@ -115,7 +115,9 @@ class PermissionCriterionResolver implements APIPermissionCriterionResolver
                     );
                 } else {
                     $roleAssignmentOrCriteria[] = $this->getCriterionForLimitation(
-                        $permissionSet['limitation'], $currentUserRef, $targets
+                        $permissionSet['limitation'],
+                        $currentUserRef,
+                        $targets
                     );
                 }
             } elseif (!empty($policyOrCriteria)) {

@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\UrlWildcard;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
-use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Handler;
-use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase;
-use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Mapper;
 use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase;
+use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Handler;
+use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Mapper;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Handler
@@ -99,7 +99,10 @@ class UrlWildcardHandlerTest extends TestCase
         $urlWildcard = $handler->load(1);
 
         $urlWildcardUpdated = $handler->update(
-            $urlWildcard->id, 'amber-updated', 'pattern-updated', true
+            $urlWildcard->id,
+            'amber-updated',
+            'pattern-updated',
+            true
         );
 
         self::assertEquals(

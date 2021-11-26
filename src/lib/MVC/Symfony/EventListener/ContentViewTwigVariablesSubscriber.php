@@ -9,9 +9,9 @@ declare(strict_types=1);
 namespace Ibexa\Core\MVC\Symfony\EventListener;
 
 use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
 use Ibexa\Core\MVC\Symfony\ExpressionLanguage\ExpressionLanguage;
 use Ibexa\Core\MVC\Symfony\ExpressionLanguage\TwigVariableProviderExtension;
-use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\View\VariableProviderRegistry;
 use Ibexa\Core\MVC\Symfony\View\View;

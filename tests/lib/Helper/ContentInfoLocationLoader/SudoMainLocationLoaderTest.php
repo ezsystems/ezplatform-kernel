@@ -6,17 +6,17 @@
  */
 namespace Ibexa\Tests\Core\Helper\ContentInfoLocationLoader;
 
+use Ibexa\Contracts\Core\Persistence\User\Handler as SPIUserHandler;
+use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\Helper\ContentInfoLocationLoader\SudoMainLocationLoader;
 use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Core\Repository\Repository;
-use Ibexa\Core\Repository\Permission\PermissionResolver;
 use Ibexa\Core\Repository\Mapper\RoleDomainMapper;
 use Ibexa\Core\Repository\Permission\LimitationService;
-use Ibexa\Contracts\Core\Persistence\User\Handler as SPIUserHandler;
+use Ibexa\Core\Repository\Permission\PermissionResolver;
+use Ibexa\Core\Repository\Repository;
+use Ibexa\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
 
 class SudoMainLocationLoaderTest extends TestCase

@@ -6,15 +6,15 @@
  */
 namespace Ibexa\Core\MVC\Symfony\View;
 
+use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Core\MVC\Symfony\MVCEvents;
-use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
-use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use RuntimeException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 
 class Manager implements ViewManagerInterface
@@ -59,7 +59,7 @@ class Manager implements ViewManagerInterface
      */
     protected $viewBaseLayout;
 
-    /** @var ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     protected $configResolver;
 
     /** @var \Ibexa\Core\MVC\Symfony\View\Configurator */

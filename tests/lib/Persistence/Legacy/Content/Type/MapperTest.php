@@ -6,20 +6,20 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Type;
 
-use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
-use Ibexa\Core\Persistence\Legacy\Content\Type\Mapper;
-use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
-use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
-// Needed for $sortOrder and $sortField properties
 use Ibexa\Contracts\Core\Persistence\Content\Location;
 use Ibexa\Contracts\Core\Persistence\Content\Type;
 use Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
+// Needed for $sortOrder and $sortField properties
 use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Mapper;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\Type\Mapper
@@ -198,7 +198,7 @@ class MapperTest extends TestCase
     /**
      * Returns a Type fixture.
      *
-     * @return Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     protected function getContentTypeFixture()
     {
@@ -411,7 +411,7 @@ class MapperTest extends TestCase
     /**
      * Returns a Mapper with conversion methods mocked.
      *
-     * @return Mapper
+     * @return \Ibexa\Core\Persistence\Legacy\Content\Type\Mapper
      */
     protected function getNonConvertingMapper()
     {
@@ -429,7 +429,7 @@ class MapperTest extends TestCase
                 )
             )->will(
                 $this->returnCallback(
-                    function () {
+                    static function () {
                         return new FieldDefinition();
                     }
                 )

@@ -10,9 +10,9 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use DOMDocument;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Ibexa\Core\FieldType\Image\ImageStorage\Gateway;
 use Ibexa\Core\IO\UrlRedecoratorInterface;
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use PDO;
 
 /**
@@ -20,7 +20,7 @@ use PDO;
  */
 class DoctrineStorage extends Gateway
 {
-    const IMAGE_FILE_TABLE = 'ezimagefile';
+    public const IMAGE_FILE_TABLE = 'ezimagefile';
 
     /** @var \Doctrine\DBAL\Connection */
     protected $connection;

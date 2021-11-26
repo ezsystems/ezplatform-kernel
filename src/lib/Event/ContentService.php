@@ -9,16 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Core\Event;
 
 use Ibexa\Contracts\Core\Repository\ContentService as ContentServiceInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\Content;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\Language;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
-use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Decorator\ContentServiceDecorator;
 use Ibexa\Contracts\Core\Repository\Events\Content\AddRelationEvent;
 use Ibexa\Contracts\Core\Repository\Events\Content\BeforeAddRelationEvent;
 use Ibexa\Contracts\Core\Repository\Events\Content\BeforeCopyContentEvent;
@@ -45,7 +36,16 @@ use Ibexa\Contracts\Core\Repository\Events\Content\PublishVersionEvent;
 use Ibexa\Contracts\Core\Repository\Events\Content\RevealContentEvent;
 use Ibexa\Contracts\Core\Repository\Events\Content\UpdateContentEvent;
 use Ibexa\Contracts\Core\Repository\Events\Content\UpdateContentMetadataEvent;
-use Ibexa\Contracts\Core\Repository\Decorator\ContentServiceDecorator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ContentService extends ContentServiceDecorator

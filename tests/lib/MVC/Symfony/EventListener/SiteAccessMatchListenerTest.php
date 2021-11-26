@@ -15,10 +15,10 @@ use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
@@ -32,7 +32,7 @@ class SiteAccessMatchListenerTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $eventDispatcher;
 
-    /** @var SiteAccessMatchListener */
+    /** @var \Ibexa\Core\MVC\Symfony\EventListener\SiteAccessMatchListener */
     private $listener;
 
     protected function setUp(): void

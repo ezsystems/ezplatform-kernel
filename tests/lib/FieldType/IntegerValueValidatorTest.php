@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
-use Ibexa\Core\FieldType\Integer\Value as IntegerValue;
-use Ibexa\Core\FieldType\Validator\IntegerValueValidator;
-use Ibexa\Core\FieldType\Validator;
 use Ibexa\Contracts\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Translation\Message;
+use Ibexa\Core\FieldType\Integer\Value as IntegerValue;
+use Ibexa\Core\FieldType\Validator;
+use Ibexa\Core\FieldType\Validator\IntegerValueValidator;
 use PHPUnit\Framework\TestCase;
 
 /**

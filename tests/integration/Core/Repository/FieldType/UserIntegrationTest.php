@@ -9,12 +9,12 @@ namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
 use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
 use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\FieldType\User\Type;
 use Ibexa\Core\FieldType\User\Value as UserValue;
 use Ibexa\Core\Repository\Values\User\User;
-use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 
 /**
  * Integration test for use field type.
@@ -189,7 +189,7 @@ class UserIntegrationTest extends BaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      */
     public function assertFieldDataLoadedCorrect(Field $field)
     {
@@ -292,7 +292,7 @@ class UserIntegrationTest extends BaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()};
      * was copied and loaded correctly.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      */
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {

@@ -13,10 +13,10 @@ use Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter;
 class LocationSearchAdapterTest extends LocationSearchHitAdapterTest
 {
     /**
-     * @param LocationQuery $query
-     * @param SearchService $searchService
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery $query
+     * @param \Ibexa\Contracts\Core\Repository\SearchService $searchService
      *
-     * @return LocationSearchAdapter
+     * @return \Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter
      */
     protected function getAdapter(LocationQuery $query, SearchService $searchService, array $languageFilter = [])
     {

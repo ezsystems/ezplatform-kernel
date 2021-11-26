@@ -8,11 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Event;
 
-use Ibexa\Contracts\Core\Repository\TrashService as TrashServiceInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
-use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
-use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList;
+use Ibexa\Contracts\Core\Repository\Decorator\TrashServiceDecorator;
 use Ibexa\Contracts\Core\Repository\Events\Trash\BeforeDeleteTrashItemEvent;
 use Ibexa\Contracts\Core\Repository\Events\Trash\BeforeEmptyTrashEvent;
 use Ibexa\Contracts\Core\Repository\Events\Trash\BeforeRecoverEvent;
@@ -21,7 +17,11 @@ use Ibexa\Contracts\Core\Repository\Events\Trash\DeleteTrashItemEvent;
 use Ibexa\Contracts\Core\Repository\Events\Trash\EmptyTrashEvent;
 use Ibexa\Contracts\Core\Repository\Events\Trash\RecoverEvent;
 use Ibexa\Contracts\Core\Repository\Events\Trash\TrashEvent;
-use Ibexa\Contracts\Core\Repository\Decorator\TrashServiceDecorator;
+use Ibexa\Contracts\Core\Repository\TrashService as TrashServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class TrashService extends TrashServiceDecorator

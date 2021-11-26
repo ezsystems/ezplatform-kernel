@@ -18,7 +18,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  */
 class Image extends AbstractParser implements SuggestionCollectorAwareInterface
 {
-    /** @var SuggestionCollectorInterface */
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollectorInterface */
     private $suggestionCollector;
 
     public function setSuggestionCollector(SuggestionCollectorInterface $suggestionCollector)
@@ -86,13 +86,13 @@ class Image extends AbstractParser implements SuggestionCollectorAwareInterface
                                 ->useAttributeAsKey('options')
                                 ->beforeNormalization()
                                     ->ifTrue(
-                                        function ($v) {
+                                        static function ($v) {
                                             // Check if passed array only contains a "params" key (BC with <=5.3).
                                             return is_array($v) && count($v) === 1 && isset($v['params']);
                                         }
                                     )
                                     ->then(
-                                        function ($v) {
+                                        static function ($v) {
                                             // If we have the "params" key, just use the value.
                                             return $v['params'];
                                         }

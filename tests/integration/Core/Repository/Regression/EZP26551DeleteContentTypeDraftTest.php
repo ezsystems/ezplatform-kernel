@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 /**
  * @issue https://jira.ez.no/browse/EZP-26551

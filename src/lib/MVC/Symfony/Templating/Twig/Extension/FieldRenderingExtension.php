@@ -25,10 +25,10 @@ class FieldRenderingExtension extends AbstractExtension
     /** @var \Ibexa\Core\MVC\Symfony\Templating\FieldBlockRendererInterface */
     private $fieldBlockRenderer;
 
-    /** @var ParameterProviderRegistryInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistryInterface */
     private $parameterProviderRegistry;
 
-    /** @var TranslationHelper */
+    /** @var \Ibexa\Core\Helper\TranslationHelper */
     private $translationHelper;
 
     /**
@@ -99,7 +99,7 @@ class FieldRenderingExtension extends AbstractExtension
      *
      * @return string The HTML markup
      *
-     * @throws InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      */
     public function renderField(Content $content, $fieldIdentifier, array $params = [])
     {

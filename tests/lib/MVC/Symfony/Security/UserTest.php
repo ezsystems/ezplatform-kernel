@@ -9,9 +9,9 @@ namespace Ibexa\Tests\Core\MVC\Symfony\Security;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
 use Ibexa\Core\MVC\Symfony\Security\ReferenceUserInterface;
+use Ibexa\Core\MVC\Symfony\Security\User;
 use Ibexa\Core\Repository\Values\User\UserReference;
 use PHPUnit\Framework\TestCase;
-use Ibexa\Core\MVC\Symfony\Security\User;
 
 class UserTest extends TestCase
 {

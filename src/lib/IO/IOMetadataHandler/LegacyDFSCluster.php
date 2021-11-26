@@ -7,16 +7,14 @@
 namespace Ibexa\Core\IO\IOMetadataHandler;
 
 use DateTime;
-use Ibexa\Core\IO\IOMetadataHandler;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
-use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
-use Ibexa\Core\IO\Exception\InvalidBinaryFileIdException;
-use Ibexa\Core\IO\UrlDecorator;
-use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
 use Ibexa\Contracts\Core\IO\BinaryFile as SPIBinaryFile;
+use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
+use Ibexa\Core\IO\IOMetadataHandler;
+use Ibexa\Core\IO\UrlDecorator;
 use RuntimeException;
 
 /**
@@ -26,15 +24,15 @@ use RuntimeException;
  */
 class LegacyDFSCluster implements IOMetadataHandler
 {
-    /** @var Connection */
+    /** @var \Doctrine\DBAL\Connection */
     private $db;
 
-    /** @var UrlDecorator */
+    /** @var \Ibexa\Core\IO\UrlDecorator */
     private $urlDecorator;
 
     /**
-     * @param Connection $connection Doctrine DBAL connection
-     * @param UrlDecorator $urlDecorator The URL decorator used to add a prefix to files path
+     * @param \Doctrine\DBAL\Connection $connection Doctrine DBAL connection
+     * @param \Ibexa\Core\IO\UrlDecorator $urlDecorator The URL decorator used to add a prefix to files path
      */
     public function __construct(Connection $connection, UrlDecorator $urlDecorator = null)
     {
@@ -47,10 +45,10 @@ class LegacyDFSCluster implements IOMetadataHandler
      *
      * @since 6.10 The mtime of the $binaryFileCreateStruct must be a DateTime, as specified in the struct doc.
      *
-     * @param SPIBinaryFileCreateStruct $binaryFileCreateStruct
+     * @param \Ibexa\Contracts\Core\IO\BinaryFileCreateStruct $binaryFileCreateStruct
      *
-     * @throws InvalidArgumentException if the $binaryFileCreateStruct is invalid
-     * @throws RuntimeException if a DBAL error occurs
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException if the $binaryFileCreateStruct is invalid
+     * @throws \RuntimeException if a DBAL error occurs
      *
      * @return \Ibexa\Contracts\Core\IO\BinaryFile
      */
@@ -67,7 +65,8 @@ class LegacyDFSCluster implements IOMetadataHandler
              * @todo what might go wrong here ? Can another process be trying to insert the same image ?
              *       what happens if somebody did ?
              **/
-            $stmt = $this->db->prepare(<<<SQL
+            $stmt = $this->db->prepare(
+                <<<SQL
 INSERT INTO ezdfsfile
   (name, name_hash, name_trunk, mtime, size, scope, datatype)
   VALUES (:name, :name_hash, :name_trunk, :mtime, :size, :scope, :datatype)
@@ -94,7 +93,7 @@ SQL
     /**
      * Deletes file $spiBinaryFileId.
      *
-     * @throws BinaryFileNotFoundException If $spiBinaryFileId is not found
+     * @throws \Ibexa\Core\IO\Exception\BinaryFileNotFoundException If $spiBinaryFileId is not found
      *
      * @param string $spiBinaryFileId
      */
@@ -118,10 +117,10 @@ SQL
      *
      * @param string $spiBinaryFileId
      *
-     * @return SPIBinaryFile
+     * @return \Ibexa\Contracts\Core\IO\BinaryFile
      *
-     * @throws BinaryFileNotFoundException if no row is found for $spiBinaryFileId
-     * @throws DBALException Any unhandled DBAL exception
+     * @throws \Ibexa\Core\IO\Exception\BinaryFileNotFoundException if no row is found for $spiBinaryFileId
+     * @throws \Doctrine\DBAL\DBALException Any unhandled DBAL exception
      */
     public function load($spiBinaryFileId)
     {
@@ -145,8 +144,8 @@ SQL
      *
      * @param string $spiBinaryFileId
      *
-     * @throws NotFoundException
-     * @throws DBALException Any unhandled DBAL exception
+     * @throws \Ibexa\Core\Base\Exceptions\NotFoundException
+     * @throws \Doctrine\DBAL\DBALException Any unhandled DBAL exception
      *
      * @return bool
      */
@@ -162,7 +161,7 @@ SQL
     }
 
     /**
-     * @param SPIBinaryFileCreateStruct $binaryFileCreateStruct
+     * @param \Ibexa\Contracts\Core\IO\BinaryFileCreateStruct $binaryFileCreateStruct
      *
      * @return mixed
      */
@@ -177,7 +176,7 @@ SQL
      * Note that this is slightly incorrect, as it will return binaryfile for media files as well. It is a bit
      * of an issue, but shouldn't be a blocker given that this meta field isn't used that much.
      *
-     * @param SPIBinaryFileCreateStruct $binaryFileCreateStruct
+     * @param \Ibexa\Contracts\Core\IO\BinaryFileCreateStruct $binaryFileCreateStruct
      *
      * @return string
      */
@@ -215,7 +214,7 @@ SQL
      *
      * @return string the id without the prefix
      *
-     * @throws InvalidBinaryFileIdException if the prefix isn't found in $prefixedId
+     * @throws \Ibexa\Core\IO\Exception\InvalidBinaryFileIdException if the prefix isn't found in $prefixedId
      */
     protected function removePrefix($prefixedId)
     {
@@ -261,7 +260,7 @@ SQL
      *
      * @param array $properties database properties array
      *
-     * @return SPIBinaryFile
+     * @return \Ibexa\Contracts\Core\IO\BinaryFile
      */
     protected function mapArrayToSPIBinaryFile(array $properties)
     {
@@ -275,9 +274,9 @@ SQL
     }
 
     /**
-     * @param SPIBinaryFileCreateStruct $binaryFileCreateStruct
+     * @param \Ibexa\Contracts\Core\IO\BinaryFileCreateStruct $binaryFileCreateStruct
      *
-     * @return SPIBinaryFile
+     * @return \Ibexa\Contracts\Core\IO\BinaryFile
      */
     protected function mapSPIBinaryFileCreateStructToSPIBinaryFile(SPIBinaryFileCreateStruct $binaryFileCreateStruct)
     {

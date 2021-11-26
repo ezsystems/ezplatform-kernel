@@ -8,16 +8,16 @@ namespace Ibexa\Core\FieldType\User;
 
 use DateTimeImmutable;
 use DateTimeInterface;
-use Ibexa\Core\FieldType\FieldType;
-use Ibexa\Core\FieldType\ValidationError;
-use Ibexa\Contracts\Core\Persistence\User\Handler as SPIUserHandler;
-use Ibexa\Core\Repository\User\PasswordValidatorInterface;
 use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
 use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
-use Ibexa\Core\FieldType\Value as BaseValue;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Persistence\User\Handler as SPIUserHandler;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\PasswordHashService;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\FieldType\FieldType;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Core\FieldType\Value as BaseValue;
+use Ibexa\Core\Repository\User\PasswordValidatorInterface;
 use LogicException;
 
 /**

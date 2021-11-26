@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
-use PHPUnit\Framework\TestCase;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
-use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
-use Ibexa\Contracts\Core\FieldType\ValidationError;
 use Ibexa\Contracts\Core\FieldType\FieldType;
+use Ibexa\Contracts\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
+use PHPUnit\Framework\TestCase;
 
 abstract class BaseFieldTypeTest extends TestCase
 {
@@ -695,7 +695,8 @@ abstract class BaseFieldTypeTest extends TestCase
 
         $validationResult = $fieldType->validateFieldSettings($inputSettings);
 
-        $this->assertIsArray($validationResult,
+        $this->assertIsArray(
+            $validationResult,
             'The method validateFieldSettings() must return an array.'
         );
         $this->assertEquals(
@@ -716,7 +717,8 @@ abstract class BaseFieldTypeTest extends TestCase
 
         $validationResult = $fieldType->validateFieldSettings($inputSettings);
 
-        $this->assertIsArray($validationResult,
+        $this->assertIsArray(
+            $validationResult,
             'The method validateFieldSettings() must return an array.'
         );
 
@@ -746,7 +748,8 @@ abstract class BaseFieldTypeTest extends TestCase
 
         $validationResult = $fieldType->validateValidatorConfiguration($inputConfiguration);
 
-        $this->assertIsArray($validationResult,
+        $this->assertIsArray(
+            $validationResult,
             'The method validateValidatorConfiguration() must return an array.'
         );
         $this->assertEquals(
@@ -767,7 +770,8 @@ abstract class BaseFieldTypeTest extends TestCase
 
         $validationResult = $fieldType->validateValidatorConfiguration($inputConfiguration);
 
-        $this->assertIsArray($validationResult,
+        $this->assertIsArray(
+            $validationResult,
             'The method validateValidatorConfiguration() must return an array.'
         );
 

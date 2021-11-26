@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Core\FieldType\Date;
 
-use Ibexa\Core\FieldType\Value as BaseValue;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
-use Exception;
 use DateTime;
+use Exception;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * Value for Date field type.

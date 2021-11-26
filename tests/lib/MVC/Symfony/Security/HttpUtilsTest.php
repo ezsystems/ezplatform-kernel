@@ -8,8 +8,8 @@ namespace Ibexa\Tests\Core\MVC\Symfony\Security;
 
 use Ibexa\Core\MVC\Symfony\Security\HttpUtils;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
-use Symfony\Component\HttpFoundation\Request;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class HttpUtilsTest extends TestCase

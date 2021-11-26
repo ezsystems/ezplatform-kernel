@@ -10,8 +10,8 @@ namespace Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location;
 
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Visibility;
 use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Visibility;
 use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 
 /**

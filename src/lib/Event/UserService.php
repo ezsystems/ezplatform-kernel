@@ -8,16 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Event;
 
-use Ibexa\Contracts\Core\Repository\Events\User\BeforeUpdateUserPasswordEvent;
-use Ibexa\Contracts\Core\Repository\Events\User\UpdateUserPasswordEvent;
-use Ibexa\Contracts\Core\Repository\UserService as UserServiceInterface;
-use Ibexa\Contracts\Core\Repository\Values\User\User;
-use Ibexa\Contracts\Core\Repository\Values\User\UserCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
-use Ibexa\Contracts\Core\Repository\Values\User\UserGroupCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\User\UserGroupUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\User\UserTokenUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\User\UserUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Decorator\UserServiceDecorator;
 use Ibexa\Contracts\Core\Repository\Events\User\AssignUserToUserGroupEvent;
 use Ibexa\Contracts\Core\Repository\Events\User\BeforeAssignUserToUserGroupEvent;
 use Ibexa\Contracts\Core\Repository\Events\User\BeforeCreateUserEvent;
@@ -28,6 +19,7 @@ use Ibexa\Contracts\Core\Repository\Events\User\BeforeMoveUserGroupEvent;
 use Ibexa\Contracts\Core\Repository\Events\User\BeforeUnAssignUserFromUserGroupEvent;
 use Ibexa\Contracts\Core\Repository\Events\User\BeforeUpdateUserEvent;
 use Ibexa\Contracts\Core\Repository\Events\User\BeforeUpdateUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\BeforeUpdateUserPasswordEvent;
 use Ibexa\Contracts\Core\Repository\Events\User\BeforeUpdateUserTokenEvent;
 use Ibexa\Contracts\Core\Repository\Events\User\CreateUserEvent;
 use Ibexa\Contracts\Core\Repository\Events\User\CreateUserGroupEvent;
@@ -37,8 +29,16 @@ use Ibexa\Contracts\Core\Repository\Events\User\MoveUserGroupEvent;
 use Ibexa\Contracts\Core\Repository\Events\User\UnAssignUserFromUserGroupEvent;
 use Ibexa\Contracts\Core\Repository\Events\User\UpdateUserEvent;
 use Ibexa\Contracts\Core\Repository\Events\User\UpdateUserGroupEvent;
+use Ibexa\Contracts\Core\Repository\Events\User\UpdateUserPasswordEvent;
 use Ibexa\Contracts\Core\Repository\Events\User\UpdateUserTokenEvent;
-use Ibexa\Contracts\Core\Repository\Decorator\UserServiceDecorator;
+use Ibexa\Contracts\Core\Repository\UserService as UserServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\User\UserCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\UserTokenUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\UserUpdateStruct;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class UserService extends UserServiceDecorator

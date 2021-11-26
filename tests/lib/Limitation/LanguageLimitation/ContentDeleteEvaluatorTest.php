@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Limitation\LanguageLimitation;
 
+use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Core\Limitation\LanguageLimitation\ContentDeleteEvaluator;
-use Ibexa\Contracts\Core\Limitation\Target;
 use PHPUnit\Framework\TestCase;
 
 final class ContentDeleteEvaluatorTest extends TestCase

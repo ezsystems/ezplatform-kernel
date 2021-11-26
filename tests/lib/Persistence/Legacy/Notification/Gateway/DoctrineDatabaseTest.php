@@ -9,18 +9,18 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Core\Persistence\Legacy\Notification\Gateway;
 
 use Doctrine\DBAL\FetchMode;
-use Ibexa\Core\Persistence\Legacy\Notification\Gateway\DoctrineDatabase;
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 use Ibexa\Contracts\Core\Persistence\Notification\CreateStruct;
 use Ibexa\Contracts\Core\Persistence\Notification\Notification;
+use Ibexa\Core\Persistence\Legacy\Notification\Gateway\DoctrineDatabase;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Notification\Gateway\DoctrineDatabase::insert
  */
 class DoctrineDatabaseTest extends TestCase
 {
-    const EXISTING_NOTIFICATION_ID = 1;
-    const EXISTING_NOTIFICATION_DATA = [
+    public const EXISTING_NOTIFICATION_ID = 1;
+    public const EXISTING_NOTIFICATION_DATA = [
         'id' => 1,
         'owner_id' => 14,
         'is_pending' => 1,
@@ -101,8 +101,11 @@ class DoctrineDatabaseTest extends TestCase
 
     public function testCountUserPendingNotifications()
     {
-        $this->assertEquals(3, $this->getGateway()->countUserPendingNotifications(
-            self::EXISTING_NOTIFICATION_DATA['owner_id'])
+        $this->assertEquals(
+            3,
+            $this->getGateway()->countUserPendingNotifications(
+                self::EXISTING_NOTIFICATION_DATA['owner_id']
+            )
         );
     }
 

@@ -7,11 +7,11 @@
 namespace Ibexa\Tests\Core\MVC\Symfony\SiteAccess;
 
 use Ibexa\Core\MVC\Exception\InvalidSiteAccessException;
-use Ibexa\Core\MVC\Symfony\SiteAccess;
-use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
-use Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilderInterface;
-use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
 use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
+use Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilderInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
 use Ibexa\Core\MVC\Symfony\SiteAccess\VersatileMatcher;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;

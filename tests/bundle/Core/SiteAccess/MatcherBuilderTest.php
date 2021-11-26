@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Bundle\Core\SiteAccess;
 
+use Ibexa\Bundle\Core\SiteAccess\Matcher as CoreMatcher;
 use Ibexa\Bundle\Core\SiteAccess\MatcherBuilder;
 use Ibexa\Bundle\Core\SiteAccess\SiteAccessMatcherRegistryInterface;
 use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
-use Ibexa\Bundle\Core\SiteAccess\Matcher as CoreMatcher;
 use PHPUnit\Framework\TestCase;
 
 /**

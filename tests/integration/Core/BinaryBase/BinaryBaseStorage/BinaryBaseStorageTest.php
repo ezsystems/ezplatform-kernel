@@ -8,19 +8,19 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\Core\BinaryBase\BinaryBaseStorage;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage;
-use Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway;
-use Ibexa\Core\FieldType\BinaryFile\BinaryFileStorage\Gateway\DoctrineStorage;
-use Ibexa\Tests\Integration\Core\BaseCoreFieldTypeIntegrationTest;
-use Ibexa\Core\IO\IOServiceInterface;
-use Ibexa\Core\IO\Values\BinaryFile;
-use Ibexa\Core\IO\Values\BinaryFileCreateStruct;
 use Ibexa\Contracts\Core\FieldType\BinaryBase\PathGenerator;
 use Ibexa\Contracts\Core\IO\MimeTypeDetector;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
 use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
 use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage;
+use Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway;
+use Ibexa\Core\FieldType\BinaryFile\BinaryFileStorage\Gateway\DoctrineStorage;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\Values\BinaryFile;
+use Ibexa\Core\IO\Values\BinaryFileCreateStruct;
+use Ibexa\Tests\Integration\Core\BaseCoreFieldTypeIntegrationTest;
 
 class BinaryBaseStorageTest extends BaseCoreFieldTypeIntegrationTest
 {

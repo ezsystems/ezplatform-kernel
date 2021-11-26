@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Contracts\Core\Repository;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
 
 /**
  * Language service, used for language operations.

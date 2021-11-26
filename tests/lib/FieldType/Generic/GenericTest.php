@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\FieldType\Generic;
 
+use Ibexa\Contracts\Core\FieldType\ValidationError;
 use Ibexa\Contracts\Core\FieldType\ValueSerializerInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Tests\Core\FieldType\BaseFieldTypeTest;
 use Ibexa\Tests\Core\FieldType\Generic\Stubs\Type as GenericFieldTypeStub;
 use Ibexa\Tests\Core\FieldType\Generic\Stubs\Value as GenericFieldValueStub;
-use Ibexa\Contracts\Core\FieldType\ValidationError;
-use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
@@ -53,7 +53,7 @@ class GenericTest extends BaseFieldTypeTest
      */
     public function testValidateInvalid($fieldDefinitionData, $value, $errors): void
     {
-        $constraintViolationList = new ConstraintViolationList(array_map(function (ValidationError $error) {
+        $constraintViolationList = new ConstraintViolationList(array_map(static function (ValidationError $error) {
             return new ConstraintViolation((string) $error->getTranslatableMessage());
         }, $errors));
 
@@ -159,13 +159,13 @@ class GenericTest extends BaseFieldTypeTest
 
         $serializer
             ->method('decode')
-            ->willReturnCallback(function (string $json) {
+            ->willReturnCallback(static function (string $json) {
                 return json_decode($json, true);
             });
 
         $serializer
             ->method('normalize')
-            ->willReturnCallback(function (GenericFieldValueStub $value) {
+            ->willReturnCallback(static function (GenericFieldValueStub $value) {
                 return [
                     'value' => $value->getValue(),
                 ];

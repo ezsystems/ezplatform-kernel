@@ -6,19 +6,19 @@
  */
 namespace Ibexa\Tests\Core\Search\Legacy\Content;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
-use Ibexa\Core\Persistence;
-use Ibexa\Core\Search\Legacy\Content;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
-use Ibexa\Core\Search\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Core\Persistence;
+use Ibexa\Core\Persistence\Legacy\Content\FieldHandler;
 use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
 use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
-use Ibexa\Core\Persistence\Legacy\Content\FieldHandler;
-use Ibexa\Contracts\Core\Persistence\Content\Type;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Core\Search\Legacy\Content;
+use Ibexa\Core\Search\Legacy\Content\Location\Gateway as LocationGateway;
 
 /**
  * Content Search test case for ContentSearchHandler.
@@ -209,7 +209,7 @@ class HandlerContentTest extends AbstractTestCase
             ->with($this->isType('array'))
             ->will(
                 $this->returnCallback(
-                    function ($rows) {
+                    static function ($rows) {
                         $contentInfoObjs = [];
                         foreach ($rows as $row) {
                             $contentId = (int)$row['id'];
@@ -1030,13 +1030,12 @@ class HandlerContentTest extends AbstractTestCase
 
         $this->assertCount(
             10,
-
-                array_map(
-                    function ($hit) {
-                        return $hit->valueObject->id;
-                    },
-                    $result->searchHits
-                )
+            array_map(
+                static function ($hit) {
+                    return $hit->valueObject->id;
+                },
+                $result->searchHits
+            )
         );
     }
 

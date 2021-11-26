@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\Strategy\ContentValidator;
 
+use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
 
 /**
  * @internal Meant for internal use by Repository
@@ -60,7 +60,8 @@ final class ContentValidatorStrategy implements ContentValidator
         }
 
         throw new InvalidArgumentException('$object', sprintf(
-            'Validator for %s type not found.', get_class($object)
+            'Validator for %s type not found.',
+            get_class($object)
         ));
     }
 

@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Legacy\User\Role\Gateway;
 
+use Doctrine\DBAL\DBALException;
+use Ibexa\Contracts\Core\Persistence\User\Policy;
+use Ibexa\Contracts\Core\Persistence\User\Role;
+use Ibexa\Contracts\Core\Persistence\User\RoleUpdateStruct;
 use Ibexa\Core\Base\Exceptions\DatabaseException;
 use Ibexa\Core\Persistence\Legacy\User\Role\Gateway;
-use Ibexa\Contracts\Core\Persistence\User\Policy;
-use Ibexa\Contracts\Core\Persistence\User\RoleUpdateStruct;
-use Ibexa\Contracts\Core\Persistence\User\Role;
-use Doctrine\DBAL\DBALException;
 use PDOException;
 
 /**
@@ -24,14 +24,14 @@ final class ExceptionConversion extends Gateway
     /**
      * The wrapped gateway.
      *
-     * @var Gateway
+     * @var \Ibexa\Core\Persistence\Legacy\User\Role\Gateway
      */
     private $innerGateway;
 
     /**
      * Creates a new exception conversion gateway around $innerGateway.
      *
-     * @param Gateway $innerGateway
+     * @param \Ibexa\Core\Persistence\Legacy\User\Role\Gateway $innerGateway
      */
     public function __construct(Gateway $innerGateway)
     {

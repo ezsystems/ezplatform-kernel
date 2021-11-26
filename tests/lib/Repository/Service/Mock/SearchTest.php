@@ -6,25 +6,25 @@
  */
 namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Core\Repository\ContentService;
-use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
-use Ibexa\Core\Repository\SearchService;
-use Ibexa\Core\Repository\Permission\PermissionCriterionResolver;
-use Ibexa\Contracts\Core\Repository\Values\Content\Content;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
-use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
-use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
-use Ibexa\Core\Search\Common\BackgroundIndexer;
-use Ibexa\Core\Search\Common\BackgroundIndexer\NullIndexer;
+use Exception;
 use Ibexa\Contracts\Core\Persistence\Content\ContentInfo as SPIContentInfo;
 use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
-use Exception;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Core\Repository\ContentService;
+use Ibexa\Core\Repository\Permission\PermissionCriterionResolver;
+use Ibexa\Core\Repository\SearchService;
+use Ibexa\Core\Search\Common\BackgroundIndexer;
+use Ibexa\Core\Search\Common\BackgroundIndexer\NullIndexer;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
 
 /**
  * Mock test case for Search service.
@@ -242,7 +242,7 @@ class SearchTest extends BaseServiceMockTest
         $mapper->expects($this->once())
             ->method('buildContentDomainObjectsOnSearchResult')
             ->with($this->equalTo($result), $this->equalTo([]))
-            ->willReturnCallback(function (SearchResult $spiResult) use ($info) {
+            ->willReturnCallback(static function (SearchResult $spiResult) use ($info) {
                 unset($spiResult->searchHits[0]);
                 --$spiResult->totalCount;
 
@@ -301,7 +301,7 @@ class SearchTest extends BaseServiceMockTest
         $mapper->expects($this->once())
             ->method('buildContentDomainObjectsOnSearchResult')
             ->with($this->isInstanceOf(SearchResult::class), $this->equalTo([]))
-            ->willReturnCallback(function (SearchResult $spiResult) use ($contentMock) {
+            ->willReturnCallback(static function (SearchResult $spiResult) use ($contentMock) {
                 $spiResult->searchHits[0]->valueObject = $contentMock;
 
                 return [];
@@ -374,7 +374,7 @@ class SearchTest extends BaseServiceMockTest
             ->expects($this->once())
             ->method('buildContentDomainObjectsOnSearchResult')
             ->with($this->isInstanceOf(SearchResult::class), $this->equalTo([]))
-            ->willReturnCallback(function (SearchResult $spiResult) use ($contentMock) {
+            ->willReturnCallback(static function (SearchResult $spiResult) use ($contentMock) {
                 $spiResult->searchHits[0]->valueObject = $contentMock;
 
                 return [];
@@ -489,7 +489,7 @@ class SearchTest extends BaseServiceMockTest
             ->expects($this->once())
             ->method('buildContentDomainObjectsOnSearchResult')
             ->with($this->isInstanceOf(SearchResult::class), $this->equalTo([]))
-            ->willReturnCallback(function (SearchResult $spiResult) use ($contentMock) {
+            ->willReturnCallback(static function (SearchResult $spiResult) use ($contentMock) {
                 $spiResult->searchHits[0]->valueObject = $contentMock;
 
                 return [];
@@ -708,7 +708,7 @@ class SearchTest extends BaseServiceMockTest
         $domainMapperMock->expects($this->once())
             ->method('buildLocationDomainObjectsOnSearchResult')
             ->with($this->equalTo($spiResult))
-            ->willReturnCallback(function (SearchResult $spiResult) use ($endResult) {
+            ->willReturnCallback(static function (SearchResult $spiResult) use ($endResult) {
                 $spiResult->searchHits[0] = $endResult->searchHits[0];
 
                 return [];
@@ -775,7 +775,7 @@ class SearchTest extends BaseServiceMockTest
         $domainMapperMock->expects($this->once())
             ->method('buildLocationDomainObjectsOnSearchResult')
             ->with($this->equalTo($spiResult))
-            ->willReturnCallback(function (SearchResult $spiResult) use ($endResult) {
+            ->willReturnCallback(static function (SearchResult $spiResult) use ($endResult) {
                 $spiResult->searchHits[0] = $endResult->searchHits[0];
 
                 return [];
@@ -826,7 +826,7 @@ class SearchTest extends BaseServiceMockTest
         $mapper->expects($this->once())
             ->method('buildLocationDomainObjectsOnSearchResult')
             ->with($this->equalTo($result))
-            ->willReturnCallback(function (SearchResult $spiResult) use ($location) {
+            ->willReturnCallback(static function (SearchResult $spiResult) use ($location) {
                 unset($spiResult->searchHits[0]);
                 --$spiResult->totalCount;
 
@@ -930,7 +930,7 @@ class SearchTest extends BaseServiceMockTest
         $domainMapperMock->expects($this->once())
             ->method('buildLocationDomainObjectsOnSearchResult')
             ->with($this->equalTo($spiResult))
-            ->willReturnCallback(function (SearchResult $spiResult) use ($endResult) {
+            ->willReturnCallback(static function (SearchResult $spiResult) use ($endResult) {
                 $spiResult->searchHits[0] = $endResult->searchHits[0];
 
                 return [];

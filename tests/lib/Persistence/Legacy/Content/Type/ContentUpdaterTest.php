@@ -6,14 +6,14 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Type;
 
-use Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater;
-use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
-use Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
-use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
-use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
-use Ibexa\Core\Persistence\Legacy\Content\Mapper;
-use Ibexa\Core\Persistence\Legacy\Content\Gateway;
 use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper;
+use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater;
+use Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
 use PHPUnit\Framework\TestCase;
 
 /**

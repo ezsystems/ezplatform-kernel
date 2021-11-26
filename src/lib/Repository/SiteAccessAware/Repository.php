@@ -8,16 +8,16 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\SiteAccessAware;
 
-use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
-use Ibexa\Contracts\Core\Repository\NotificationService as NotificationServiceInterface;
 use Ibexa\Contracts\Core\Repository\BookmarkService as BookmarkServiceInterface;
 use Ibexa\Contracts\Core\Repository\ContentService as ContentServiceInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService as ContentTypeServiceInterface;
 use Ibexa\Contracts\Core\Repository\FieldTypeService as FieldTypeServiceInterface;
 use Ibexa\Contracts\Core\Repository\LanguageService as LanguageServiceInterface;
 use Ibexa\Contracts\Core\Repository\LocationService as LocationServiceInterface;
+use Ibexa\Contracts\Core\Repository\NotificationService as NotificationServiceInterface;
 use Ibexa\Contracts\Core\Repository\ObjectStateService as ObjectStateServiceInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver as PermissionResolverInterface;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
 use Ibexa\Contracts\Core\Repository\RoleService as RoleServiceInterface;
 use Ibexa\Contracts\Core\Repository\SearchService as SearchServiceInterface;
 use Ibexa\Contracts\Core\Repository\SectionService as SectionServiceInterface;

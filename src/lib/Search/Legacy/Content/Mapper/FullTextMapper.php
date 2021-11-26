@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Core\Search\Legacy\Content\Mapper;
 
-use Ibexa\Core\Search\Common\FieldRegistry;
-use Ibexa\Core\Search\Legacy\Content\FullTextData;
 use Ibexa\Contracts\Core\Persistence\Content;
 use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
 use Ibexa\Contracts\Core\Search\Field;
 use Ibexa\Contracts\Core\Search\FieldType;
-use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
+use Ibexa\Core\Search\Common\FieldRegistry;
+use Ibexa\Core\Search\Legacy\Content\FullTextData;
 use Ibexa\Core\Search\Legacy\Content\FullTextValue;
 
 /**
@@ -82,7 +82,8 @@ class FullTextMapper
         $fullTextValues = [];
         foreach ($content->fields as $field) {
             $fieldDefinition = $this->contentTypeHandler->getFieldDefinition(
-                $field->fieldDefinitionId, Content\Type::STATUS_DEFINED
+                $field->fieldDefinitionId,
+                Content\Type::STATUS_DEFINED
             );
             if (!$fieldDefinition->isSearchable) {
                 continue;

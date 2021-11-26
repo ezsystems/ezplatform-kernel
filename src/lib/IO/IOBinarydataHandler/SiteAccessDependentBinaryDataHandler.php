@@ -7,9 +7,9 @@
 namespace Ibexa\Core\IO\IOBinarydataHandler;
 
 use Ibexa\Bundle\IO\ApiLoader\HandlerRegistry;
+use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct;
 use Ibexa\Core\IO\IOBinarydataHandler;
 use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct;
 
 /**
  * @internal

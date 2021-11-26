@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Bundle\Core\EventListener;
 
-use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\Event\PostSiteAccessMatchEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
  * Initializes the session id by looking at a POST variable named like the

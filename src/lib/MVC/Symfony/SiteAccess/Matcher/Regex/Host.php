@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Regex;
 
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Regex;
-use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 
 /**
  * @deprecated since 5.3 as it cannot be reverted.

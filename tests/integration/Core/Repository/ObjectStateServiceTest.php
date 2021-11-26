@@ -7,14 +7,14 @@
 namespace Ibexa\Tests\Integration\Core\Repository;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 
 /**
  * Test case for operations in the ObjectStateService using in memory storage.
@@ -578,7 +578,7 @@ class ObjectStateServiceTest extends BaseTest
     protected function getGroupIdentifierMap(array $groups)
     {
         $existingGroupIdentifiers = array_map(
-            function ($group) {
+            static function ($group) {
                 return $group->identifier;
             },
             $groups
@@ -643,7 +643,8 @@ class ObjectStateServiceTest extends BaseTest
         $loadedObjectStates = $objectStateService->loadObjectStates($objectStateGroup);
         /* END: Use Case */
 
-        $this->assertIsArray($loadedObjectStates
+        $this->assertIsArray(
+            $loadedObjectStates
         );
         $this->assertObjectsLoadedByIdentifiers(
             ['not_locked' => true, 'locked' => true],

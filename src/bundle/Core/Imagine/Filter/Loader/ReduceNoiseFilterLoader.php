@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Bundle\Core\Imagine\Filter\Loader;
 
-use Imagine\Exception\NotSupportedException;
 use Ibexa\Bundle\Core\Imagine\Filter\FilterInterface;
-use Imagine\Image\ImageInterface;
+use Imagine\Exception\NotSupportedException;
 use Imagine\Gmagick\Image as GmagickImage;
+use Imagine\Image\ImageInterface;
 use Imagine\Imagick\Image as ImagickImage;
 use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
 
@@ -19,7 +19,7 @@ use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
  */
 class ReduceNoiseFilterLoader implements LoaderInterface
 {
-    /** @var FilterInterface */
+    /** @var \Ibexa\Bundle\Core\Imagine\Filter\FilterInterface */
     private $filter;
 
     public function __construct(FilterInterface $filter)

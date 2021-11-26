@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\MVC\Symfony\View;
 
+use Ibexa\Contracts\Core\MVC\View\VariableProvider;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Traversable;
-use Ibexa\Contracts\Core\MVC\View\VariableProvider;
 
 final class GenericVariableProviderRegistry implements VariableProviderRegistry
 {

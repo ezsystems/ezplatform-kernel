@@ -14,8 +14,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class PlaceholderProviderPassTest extends AbstractCompilerPassTestCase
 {
-    const PROVIDER_ID = 'provider.id';
-    const PROVIDER_TYPE = 'provider.test';
+    public const PROVIDER_ID = 'provider.id';
+    public const PROVIDER_TYPE = 'provider.test';
 
     protected function setUp(): void
     {

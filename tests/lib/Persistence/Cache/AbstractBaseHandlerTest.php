@@ -8,32 +8,32 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Persistence\Cache;
 
+use Ibexa\Contracts\Core\Persistence\Handler;
 use Ibexa\Core\Persistence\Cache\Adapter\TransactionalInMemoryCacheAdapter;
-use Ibexa\Core\Persistence\Cache\Handler as CacheHandler;
-use Ibexa\Core\Persistence\Cache\SectionHandler as CacheSectionHandler;
-use Ibexa\Core\Persistence\Cache\LocationHandler as CacheLocationHandler;
+use Ibexa\Core\Persistence\Cache\BookmarkHandler as CacheBookmarkHandler;
 use Ibexa\Core\Persistence\Cache\ContentHandler as CacheContentHandler;
 use Ibexa\Core\Persistence\Cache\ContentLanguageHandler as CacheContentLanguageHandler;
 use Ibexa\Core\Persistence\Cache\ContentTypeHandler as CacheContentTypeHandler;
+use Ibexa\Core\Persistence\Cache\Handler as CacheHandler;
 use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
-use Ibexa\Core\Persistence\Cache\UserHandler as CacheUserHandler;
+use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierSanitizer;
+use Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache;
+use Ibexa\Core\Persistence\Cache\LocationHandler as CacheLocationHandler;
+use Ibexa\Core\Persistence\Cache\LocationPathConverter;
+use Ibexa\Core\Persistence\Cache\NotificationHandler as CacheNotificationHandler;
+use Ibexa\Core\Persistence\Cache\ObjectStateHandler as CacheObjectStateHandler;
+use Ibexa\Core\Persistence\Cache\PersistenceLogger;
+use Ibexa\Core\Persistence\Cache\SectionHandler as CacheSectionHandler;
+use Ibexa\Core\Persistence\Cache\SettingHandler as CacheSettingHandler;
 use Ibexa\Core\Persistence\Cache\TransactionHandler as CacheTransactionHandler;
 use Ibexa\Core\Persistence\Cache\TrashHandler as CacheTrashHandler;
 use Ibexa\Core\Persistence\Cache\UrlAliasHandler as CacheUrlAliasHandler;
-use Ibexa\Core\Persistence\Cache\ObjectStateHandler as CacheObjectStateHandler;
 use Ibexa\Core\Persistence\Cache\URLHandler as CacheUrlHandler;
-use Ibexa\Core\Persistence\Cache\BookmarkHandler as CacheBookmarkHandler;
-use Ibexa\Core\Persistence\Cache\NotificationHandler as CacheNotificationHandler;
-use Ibexa\Core\Persistence\Cache\UserPreferenceHandler as CacheUserPreferenceHandler;
 use Ibexa\Core\Persistence\Cache\UrlWildcardHandler as CacheUrlWildcardHandler;
-use Ibexa\Core\Persistence\Cache\SettingHandler as CacheSettingHandler;
-use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierSanitizer;
-use Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache;
-use Ibexa\Core\Persistence\Cache\LocationPathConverter;
-use Ibexa\Core\Persistence\Cache\PersistenceLogger;
-use Ibexa\Contracts\Core\Persistence\Handler;
-use Symfony\Component\Cache\CacheItem;
+use Ibexa\Core\Persistence\Cache\UserHandler as CacheUserHandler;
+use Ibexa\Core\Persistence\Cache\UserPreferenceHandler as CacheUserPreferenceHandler;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Cache\CacheItem;
 
 /**
  * Abstract test case for spi cache impl.
@@ -147,7 +147,7 @@ abstract class AbstractBaseHandlerTest extends TestCase
      * @param null $value If null the cache item will be assumed to be a cache miss here.
      * @param int $defaultLifetime
      *
-     * @return CacheItem
+     * @return \Symfony\Component\Cache\CacheItem
      */
     final protected function getCacheItem($key, $value = null, $defaultLifetime = 0)
     {

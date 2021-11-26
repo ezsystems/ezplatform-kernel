@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Exceptions;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\Exception as RepositoryException;
 use Exception;
+use Ibexa\Contracts\Core\Repository\Exceptions\Exception as RepositoryException;
 
 /**
  * This Exception is thrown if an object referenced by an id or identifier

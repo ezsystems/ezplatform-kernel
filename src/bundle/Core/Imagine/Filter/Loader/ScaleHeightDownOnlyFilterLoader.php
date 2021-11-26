@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Bundle\Core\Imagine\Filter\Loader;
 
-use Imagine\Image\ImageInterface;
 use Imagine\Exception\InvalidArgumentException;
+use Imagine\Image\ImageInterface;
 
 /**
  * Filter loader for geometry/scaleheightdownonly filter.

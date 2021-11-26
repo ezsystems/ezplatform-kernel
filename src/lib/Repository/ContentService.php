@@ -8,62 +8,62 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository;
 
-use Ibexa\Contracts\Core\Repository\ContentService as ContentServiceInterface;
-use Ibexa\Contracts\Core\Repository\PermissionService;
-use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LanguageCode;
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
-use Ibexa\Core\FieldType\FieldTypeRegistry;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentDraftList;
-use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\ContentDraftListItem;
-use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem;
-use Ibexa\Contracts\Core\Repository\Values\Content\RelationList;
-use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem;
-use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem;
-use Ibexa\Contracts\Core\Repository\Values\User\UserReference;
-use Ibexa\Core\Repository\Mapper\ContentDomainMapper;
-use Ibexa\Core\Repository\Mapper\ContentMapper;
-use Ibexa\Core\Repository\Values\Content\Content;
-use Ibexa\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\Content\Language;
-use Ibexa\Contracts\Core\Persistence\Filter\Content\Handler as ContentFilteringHandler;
+use function count;
+use Exception;
 use Ibexa\Contracts\Core\FieldType\Comparable;
 use Ibexa\Contracts\Core\FieldType\FieldType;
 use Ibexa\Contracts\Core\FieldType\Value;
-use Ibexa\Contracts\Core\Persistence\Handler;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct as APIContentUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct as APIContentCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
-use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Contracts\Core\Repository\Values\User\User;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\Relation as APIRelation;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
-use Ibexa\Core\Base\Exceptions\BadStateException;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Core\Base\Exceptions\ContentFieldValidationException;
-use Ibexa\Core\Base\Exceptions\UnauthorizedException;
-use Ibexa\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Core\Repository\Values\Content\ContentCreateStruct;
-use Ibexa\Core\Repository\Values\Content\ContentUpdateStruct;
 use Ibexa\Contracts\Core\Limitation\Target;
-use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct as SPIMetadataUpdateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\CreateStruct as SPIContentCreateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct as SPIContentUpdateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Field as SPIField;
-use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as SPIRelationCreateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\ContentInfo as SPIContentInfo;
-use Exception;
+use Ibexa\Contracts\Core\Persistence\Content\CreateStruct as SPIContentCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Field as SPIField;
+use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct as SPIMetadataUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as SPIRelationCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct as SPIContentUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Filter\Content\Handler as ContentFilteringHandler;
+use Ibexa\Contracts\Core\Persistence\Handler;
+use Ibexa\Contracts\Core\Repository\ContentService as ContentServiceInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Contracts\Core\Repository\PermissionService;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
 use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct as APIContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentDraftList;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentList;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct as APIContentUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\ContentDraftListItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LanguageCode;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation as APIRelation;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
-use function count;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\ContentFieldValidationException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Core\Repository\Mapper\ContentDomainMapper;
+use Ibexa\Core\Repository\Mapper\ContentMapper;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Core\Repository\Values\Content\ContentUpdateStruct;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use function sprintf;
 
 /**
@@ -1448,7 +1448,9 @@ class ContentService implements ContentServiceInterface
             $targets
         )) {
             throw new UnauthorizedException(
-                'content', 'publish', ['contentId' => $content->id]
+                'content',
+                'publish',
+                ['contentId' => $content->id]
             );
         }
 
@@ -1616,7 +1618,8 @@ class ContentService implements ContentServiceInterface
         }
 
         $errors = $this->validate(
-            $versionInfo, [
+            $versionInfo,
+            [
                 'content' => $this->internalLoadContentById(
                     $versionInfo->getContentInfo()->id,
                     null,
@@ -1768,8 +1771,12 @@ class ContentService implements ContentServiceInterface
                 'status',
                 sprintf(
                     'available statuses are: %d (draft), %d (published), %d (archived), %d given',
-                    VersionInfo::STATUS_DRAFT, VersionInfo::STATUS_PUBLISHED, VersionInfo::STATUS_ARCHIVED, $status
-                ));
+                    VersionInfo::STATUS_DRAFT,
+                    VersionInfo::STATUS_PUBLISHED,
+                    VersionInfo::STATUS_ARCHIVED,
+                    $status
+                )
+            );
         }
 
         $spiVersionInfoList = $this->persistenceHandler->contentHandler()->listVersions($contentInfo->id, $status);
@@ -2193,7 +2200,7 @@ class ContentService implements ContentServiceInterface
                 $languageCode
             );
             $locationIds = array_map(
-                function (Location $location) {
+                static function (Location $location) {
                     return $location->id;
                 },
                 $this->repository->getLocationService()->loadLocations($contentInfo)
@@ -2255,7 +2262,9 @@ class ContentService implements ContentServiceInterface
 
         if (!$this->permissionResolver->canUser('content', 'edit', $versionInfo->contentInfo)) {
             throw new UnauthorizedException(
-                'content', 'edit', ['contentId' => $versionInfo->contentInfo->id]
+                'content',
+                'edit',
+                ['contentId' => $versionInfo->contentInfo->id]
             );
         }
 

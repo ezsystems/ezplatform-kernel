@@ -9,10 +9,10 @@ namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
-use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
 use RuntimeException;
 
 /**
@@ -52,7 +52,8 @@ class UserMetadata extends CriterionHandler
                     ->select(
                         't1.contentobject_id'
                     )->from(
-                        LocationGateway::CONTENT_TREE_TABLE, 't1'
+                        LocationGateway::CONTENT_TREE_TABLE,
+                        't1'
                     )->innerJoin(
                         't1',
                         LocationGateway::CONTENT_TREE_TABLE,

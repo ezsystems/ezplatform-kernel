@@ -7,8 +7,8 @@
 namespace Ibexa\Bundle\Core\Features\Context;
 
 use Behat\Behat\Context\Context;
-use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Core\Repository\Values\Content\Content;
 
@@ -20,7 +20,7 @@ class BasicContentContext implements Context
     /**
      * Default language.
      */
-    const DEFAULT_LANGUAGE = 'eng-GB';
+    public const DEFAULT_LANGUAGE = 'eng-GB';
 
     /**
      * Content path mapping.

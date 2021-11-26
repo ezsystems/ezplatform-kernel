@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\FieldType\MapLocation\MapLocationStorage;
 
+use Ibexa\Contracts\Core\FieldType\StorageGateway;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
 use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
-use Ibexa\Contracts\Core\FieldType\StorageGateway;
 
 /**
  * MapLocation Field Type external storage gateway.
@@ -21,8 +21,8 @@ abstract class Gateway extends StorageGateway
      * Potentially rewrites data in $field and returns true, if the $field
      * needs to be updated in the database.
      *
-     * @param VersionInfo $versionInfo
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      *
      * @return bool If restoring of the internal field data is required
      */
@@ -31,8 +31,8 @@ abstract class Gateway extends StorageGateway
     /**
      * Sets the loaded field data into $field->externalData.
      *
-     * @param VersionInfo $versionInfo
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      *
      * @return array
      */
@@ -41,7 +41,7 @@ abstract class Gateway extends StorageGateway
     /**
      * Deletes the data for all given $fieldIds.
      *
-     * @param VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
      * @param array $fieldIds
      */
     abstract public function deleteFieldData(VersionInfo $versionInfo, array $fieldIds);

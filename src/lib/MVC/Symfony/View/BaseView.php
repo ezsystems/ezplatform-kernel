@@ -24,7 +24,7 @@ abstract class BaseView implements View
     /** @var string */
     private $viewType = 'full';
 
-    /** @var ControllerReference */
+    /** @var \Symfony\Component\HttpKernel\Controller\ControllerReference */
     private $controllerReference;
 
     /** @var \Symfony\Component\HttpFoundation\Response */

@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\URL;
 
-use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Persistence\URL\Handler as HandlerInterface;
 use Ibexa\Contracts\Core\Persistence\URL\URLUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 
 /**
  * Storage Engine handler for URLs.

@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\Pagination\Pagerfanta;
 
+use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
-use Ibexa\Contracts\Core\Repository\SearchService;
 
 /**
  * Pagerfanta adapter for eZ Publish content search.

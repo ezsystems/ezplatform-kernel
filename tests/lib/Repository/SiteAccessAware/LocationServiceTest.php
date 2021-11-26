@@ -12,10 +12,10 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LocationId;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 use Ibexa\Core\Repository\SiteAccessAware\LocationService;
 use Ibexa\Core\Repository\Values\Content\Location;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 
 class LocationServiceTest extends AbstractServiceTest
 {

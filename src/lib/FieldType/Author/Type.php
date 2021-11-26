@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Core\FieldType\Author;
 
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\Core\FieldType\FieldType;
-use Ibexa\Core\FieldType\Value as BaseValue;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\FieldType;
 use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * Author field type.
@@ -25,13 +25,13 @@ class Type extends FieldType
      * Flag which stands for setting Author FieldType empty by default.
      * It is used in a Content Type edit view.
      */
-    const DEFAULT_VALUE_EMPTY = 0;
+    public const DEFAULT_VALUE_EMPTY = 0;
 
     /**
      * Flag which stands for prefilling Author FieldType with current user by default.
      * It is used in a Content Type edit view.
      */
-    const DEFAULT_CURRENT_USER = 1;
+    public const DEFAULT_CURRENT_USER = 1;
 
     protected $settingsSchema = [
         'defaultAuthor' => [
@@ -130,7 +130,7 @@ class Type extends FieldType
     {
         return new Value(
             array_map(
-                function ($author) {
+                static function ($author) {
                     return new Author($author);
                 },
                 $hash
@@ -148,7 +148,7 @@ class Type extends FieldType
     public function toHash(SPIValue $value)
     {
         return array_map(
-            function ($author) {
+            static function ($author) {
                 return (array)$author;
             },
             $value->authors->getArrayCopy()

@@ -6,23 +6,23 @@
  */
 namespace Ibexa\Core\Repository\Mapper;
 
+use Ibexa\Contracts\Core\Persistence\User\Policy as SPIPolicy;
+use Ibexa\Contracts\Core\Persistence\User\Role as SPIRole;
+use Ibexa\Contracts\Core\Persistence\User\RoleAssignment as SPIRoleAssignment;
+use Ibexa\Contracts\Core\Persistence\User\RoleCopyStruct as SPIRoleCopyStruct;
+use Ibexa\Contracts\Core\Persistence\User\RoleCreateStruct as SPIRoleCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\Role as APIRole;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleCopyStruct as APIRoleCopyStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleCreateStruct as APIRoleCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
 use Ibexa\Core\Repository\Permission\LimitationService;
 use Ibexa\Core\Repository\Values\User\Policy;
 use Ibexa\Core\Repository\Values\User\PolicyDraft;
 use Ibexa\Core\Repository\Values\User\Role;
-use Ibexa\Contracts\Core\Repository\Values\User\Role as APIRole;
 use Ibexa\Core\Repository\Values\User\RoleDraft;
-use Ibexa\Contracts\Core\Repository\Values\User\RoleCopyStruct as APIRoleCopyStruct;
-use Ibexa\Contracts\Core\Repository\Values\User\RoleCreateStruct as APIRoleCreateStruct;
-use Ibexa\Core\Repository\Values\User\UserRoleAssignment;
 use Ibexa\Core\Repository\Values\User\UserGroupRoleAssignment;
-use Ibexa\Contracts\Core\Repository\Values\User\User;
-use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
-use Ibexa\Contracts\Core\Persistence\User\Policy as SPIPolicy;
-use Ibexa\Contracts\Core\Persistence\User\RoleAssignment as SPIRoleAssignment;
-use Ibexa\Contracts\Core\Persistence\User\Role as SPIRole;
-use Ibexa\Contracts\Core\Persistence\User\RoleCopyStruct as SPIRoleCopyStruct;
-use Ibexa\Contracts\Core\Persistence\User\RoleCreateStruct as SPIRoleCreateStruct;
+use Ibexa\Core\Repository\Values\User\UserRoleAssignment;
 
 /**
  * Internal service to map Role objects between API and SPI values.

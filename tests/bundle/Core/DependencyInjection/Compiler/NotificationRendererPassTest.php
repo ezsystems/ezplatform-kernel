@@ -16,8 +16,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class NotificationRendererPassTest extends AbstractCompilerPassTestCase
 {
-    const NOTIFICATION_RENDERER_ID = 'notification.renderer.id';
-    const NOTIFICATION_ALIAS = 'example';
+    public const NOTIFICATION_RENDERER_ID = 'notification.renderer.id';
+    public const NOTIFICATION_ALIAS = 'example';
 
     protected function setUp(): void
     {

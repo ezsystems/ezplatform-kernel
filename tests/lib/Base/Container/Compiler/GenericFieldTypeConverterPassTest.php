@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Base\Container\Compiler;
 
-use Ibexa\Core\Base\Container\Compiler\FieldTypeRegistryPass;
 use Ibexa\Contracts\Core\FieldType\Generic\Type;
+use Ibexa\Core\Base\Container\Compiler\FieldTypeRegistryPass;
 use Ibexa\Core\Base\Container\Compiler\GenericFieldTypeConverterPass;
 use Ibexa\Core\Base\Container\Compiler\Storage\Legacy\FieldValueConverterRegistryPass;
 use Ibexa\Tests\Core\Base\Container\Compiler\Stubs\GenericFieldType;

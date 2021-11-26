@@ -6,20 +6,20 @@
  */
 namespace Ibexa\Tests\Core\MVC\Symfony\Routing;
 
+use Ibexa\Contracts\Core\Persistence\User\Handler as SPIUserHandler;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\URLAliasService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
-use Ibexa\Core\Repository\Permission\PermissionResolver;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface;
-use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\Core\Repository\Permission\LimitationService;
 use Ibexa\Core\Repository\Mapper\RoleDomainMapper;
+use Ibexa\Core\Repository\Permission\LimitationService;
+use Ibexa\Core\Repository\Permission\PermissionResolver;
 use Ibexa\Core\Repository\Repository;
 use Ibexa\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Persistence\User\Handler as SPIUserHandler;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -41,7 +41,7 @@ class UrlAliasGeneratorTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $logger;
 
-    /** @var UrlAliasGenerator */
+    /** @var \Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator */
     private $urlAliasGenerator;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject */
@@ -256,7 +256,7 @@ class UrlAliasGeneratorTest extends TestCase
             ->method('loadLocation')
             ->will(
                 $this->returnCallback(
-                    function ($locationId) {
+                    static function ($locationId) {
                         return new Location(['id' => $locationId]);
                     }
                 )
@@ -266,7 +266,7 @@ class UrlAliasGeneratorTest extends TestCase
             ->method('reverseLookup')
             ->will(
                 $this->returnCallback(
-                    function ($location) use ($treeRootUrlAlias) {
+                    static function ($location) use ($treeRootUrlAlias) {
                         return $treeRootUrlAlias[$location->id];
                     }
                 )

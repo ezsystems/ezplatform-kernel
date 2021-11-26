@@ -72,7 +72,8 @@ abstract class BaseURLServiceTest extends BaseTest
     }
 
     protected function createContentWithLink(
-        string $name, string $url,
+        string $name,
+        string $url,
         string $languageCode = 'eng-GB',
         int $parentLocationId = 2
     ): Content {

@@ -6,15 +6,15 @@
  */
 namespace Ibexa\Core\FieldType\RelationList;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\Core\FieldType\FieldType;
-use Ibexa\Core\FieldType\ValidationError;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
-use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
 use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
 use Ibexa\Contracts\Core\Persistence\Content\Handler as SPIContentHandler;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\FieldType;
+use Ibexa\Core\FieldType\ValidationError;
 use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
@@ -27,17 +27,17 @@ use Ibexa\Core\FieldType\Value as BaseValue;
  */
 class Type extends FieldType
 {
-    const SELECTION_BROWSE = 0;
+    public const SELECTION_BROWSE = 0;
     /**
      * @todo following selection methods comes from legacy and may be interpreted as SELECTION_BROWSE by UI.
      * UI support will be evaluated on a case by case basis for future versions.
      */
-    const SELECTION_DROPDOWN = 1;
-    const SELECTION_LIST_WITH_RADIO_BUTTONS = 2;
-    const SELECTION_LIST_WITH_CHECKBOXES = 3;
-    const SELECTION_MULTIPLE_SELECTION_LIST = 4;
-    const SELECTION_TEMPLATE_BASED_MULTIPLE = 5;
-    const SELECTION_TEMPLATE_BASED_SINGLE = 6;
+    public const SELECTION_DROPDOWN = 1;
+    public const SELECTION_LIST_WITH_RADIO_BUTTONS = 2;
+    public const SELECTION_LIST_WITH_CHECKBOXES = 3;
+    public const SELECTION_MULTIPLE_SELECTION_LIST = 4;
+    public const SELECTION_TEMPLATE_BASED_MULTIPLE = 5;
+    public const SELECTION_TEMPLATE_BASED_SINGLE = 6;
 
     protected $settingsSchema = [
         'selectionMethod' => [

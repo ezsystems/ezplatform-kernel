@@ -7,22 +7,22 @@
 namespace Ibexa\Core\Search\Legacy\Content;
 
 use Ibexa\Contracts\Core\Persistence\Content;
-use Ibexa\Contracts\Core\Persistence\Content\Location;
-use Ibexa\Contracts\Core\Search\VersatileHandler as SearchHandlerInterface;
-use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
-use Ibexa\Core\Search\Legacy\Content\Location\Gateway as LocationGateway;
-use Ibexa\Core\Search\Legacy\Content\WordIndexer\Gateway as WordIndexerGateway;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
-use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
-use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Search\VersatileHandler as SearchHandlerInterface;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use Ibexa\Core\Search\Legacy\Content\Location\Gateway as LocationGateway;
 use Ibexa\Core\Search\Legacy\Content\Mapper\FullTextMapper;
+use Ibexa\Core\Search\Legacy\Content\WordIndexer\Gateway as WordIndexerGateway;
 
 /**
  * The Content Search handler retrieves sets of of Content objects, based on a
@@ -295,7 +295,7 @@ class Handler implements SearchHandlerInterface
      * @param int $limit
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion|null $filter
      *
-     * @throws NotImplementedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException
      */
     public function suggest($prefix, $fieldPaths = [], $limit = 10, Criterion $filter = null)
     {

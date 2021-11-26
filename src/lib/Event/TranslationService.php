@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Event;
 
-use Ibexa\Contracts\Core\Repository\TranslationService as TranslationServiceInterface;
 use Ibexa\Contracts\Core\Repository\Decorator\TranslationServiceDecorator;
+use Ibexa\Contracts\Core\Repository\TranslationService as TranslationServiceInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class TranslationService extends TranslationServiceDecorator

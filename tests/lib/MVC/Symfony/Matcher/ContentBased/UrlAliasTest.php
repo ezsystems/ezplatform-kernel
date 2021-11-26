@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased;
 
+use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\URLAliasService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 use Ibexa\Core\MVC\Symfony\Matcher\ContentBased\UrlAlias as UrlAliasMatcher;
-use Ibexa\Contracts\Core\Repository\Repository;
 
 class UrlAliasTest extends BaseTest
 {

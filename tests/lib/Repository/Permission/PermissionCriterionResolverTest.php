@@ -6,15 +6,15 @@
  */
 namespace Ibexa\Tests\Core\Repository\Permission;
 
+use Ibexa\Contracts\Core\Limitation\Type;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Core\Limitation\TargetOnlyLimitationType;
+use Ibexa\Core\Repository\Permission\LimitationService;
 use Ibexa\Core\Repository\Permission\PermissionCriterionResolver;
 use Ibexa\Core\Repository\Values\User\Policy;
-use Ibexa\Core\Repository\Permission\LimitationService;
-use Ibexa\Contracts\Core\Limitation\Type;
 use PHPUnit\Framework\TestCase;
 
 /**

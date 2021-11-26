@@ -25,8 +25,8 @@ class Subtree extends Criterion implements FilteringCriterion
      *
      * @param string|string[] $value an array of subtree path strings, eg: /1/2/
      *
-     * @throws InvalidArgumentException if a non path string is given
-     * @throws InvalidArgumentException if the value type doesn't match the operator
+     * @throws \InvalidArgumentException if a non path string is given
+     * @throws \InvalidArgumentException if the value type doesn't match the operator
      */
     public function __construct($value)
     {

@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\Location\Gateway;
 
+use Doctrine\DBAL\DBALException;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Core\Base\Exceptions\DatabaseException;
 use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway;
-use Ibexa\Contracts\Core\Persistence\Content\Location;
-use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
-use Doctrine\DBAL\DBALException;
 use PDOException;
 
 /**

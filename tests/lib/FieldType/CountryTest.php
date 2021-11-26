@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\FieldType\Country\Exception\InvalidValue;
 use Ibexa\Core\FieldType\Country\Type as Country;
 use Ibexa\Core\FieldType\Country\Value as CountryValue;
 use Ibexa\Core\FieldType\ValidationError;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Core\FieldType\Country\Exception\InvalidValue;
 
 /**
  * @group fieldType

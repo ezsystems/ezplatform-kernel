@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\FieldType\Keyword\Type as KeywordType;
 use Ibexa\Core\FieldType\Keyword\Value as KeywordValue;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * @group fieldType

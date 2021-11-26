@@ -11,14 +11,14 @@ namespace Ibexa\Core\MVC\Symfony\Security\User;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
+use Ibexa\Core\MVC\Symfony\Security\ReferenceUserInterface;
 use Ibexa\Core\MVC\Symfony\Security\User;
 use Ibexa\Core\MVC\Symfony\Security\UserInterface;
-use Ibexa\Core\MVC\Symfony\Security\ReferenceUserInterface;
-use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
 use Ibexa\Core\Repository\Values\User\UserReference;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\UserInterface as CoreUserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\UserInterface as CoreUserInterface;
 
 abstract class BaseProvider implements APIUserProviderInterface
 {

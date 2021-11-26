@@ -14,8 +14,8 @@ use PDO;
 
 class DoctrineStorage extends Gateway
 {
-    const URL_TABLE = DoctrineDatabase::URL_TABLE;
-    const URL_LINK_TABLE = DoctrineDatabase::URL_LINK_TABLE;
+    public const URL_TABLE = DoctrineDatabase::URL_TABLE;
+    public const URL_LINK_TABLE = DoctrineDatabase::URL_LINK_TABLE;
 
     /** @var \Doctrine\DBAL\Connection */
     protected $connection;

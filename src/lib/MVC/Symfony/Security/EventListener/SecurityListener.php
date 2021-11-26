@@ -8,14 +8,14 @@ namespace Ibexa\Core\MVC\Symfony\Security\EventListener;
 
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
 use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Event\InteractiveLoginEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Ibexa\Core\MVC\Symfony\Security\Exception\UnauthorizedSiteAccessException;
 use Ibexa\Core\MVC\Symfony\Security\InteractiveLoginToken;
 use Ibexa\Core\MVC\Symfony\Security\UserInterface as eZUser;
-use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
-use Ibexa\Core\MVC\Symfony\Event\InteractiveLoginEvent;
 use Ibexa\Core\MVC\Symfony\Security\UserWrapped;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -26,9 +26,9 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent as BaseInteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * This security listener listens to security.interactive_login event to:
@@ -160,7 +160,7 @@ class SecurityListener implements EventSubscriberInterface
     /**
      * Throws an UnauthorizedSiteAccessException if current user doesn't have permission to current SiteAccess.
      *
-     * @param BaseInteractiveLoginEvent $event
+     * @param \Symfony\Component\Security\Http\Event\InteractiveLoginEvent $event
      *
      * @throws \Ibexa\Core\MVC\Symfony\Security\Exception\UnauthorizedSiteAccessException
      */
@@ -182,7 +182,7 @@ class SecurityListener implements EventSubscriberInterface
     /**
      * Throws an UnauthorizedSiteAccessException if current user doesn't have access to current SiteAccess.
      *
-     * @param RequestEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      *
      * @throws \Ibexa\Core\MVC\Symfony\Security\Exception\UnauthorizedSiteAccessException
      */
@@ -217,7 +217,7 @@ class SecurityListener implements EventSubscriberInterface
      * Returns true if given request is considered as a master request.
      * Fragments are considered as sub-requests (i.e. ESI, Hinclude...).
      *
-     * @param Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param $requestType
      *
      * @return bool
@@ -237,7 +237,7 @@ class SecurityListener implements EventSubscriberInterface
     /**
      * Returns true if current user has access to given SiteAccess.
      *
-     * @param SiteAccess $siteAccess
+     * @param \Ibexa\Core\MVC\Symfony\SiteAccess $siteAccess
      *
      * @return bool
      */

@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
 use FilesystemIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use UnexpectedValueException;
 
 /**
@@ -204,8 +204,11 @@ abstract class FileSearchBaseIntegrationTest extends SearchBaseIntegrationTest
         $contentService = $repository->getContentService();
 
         $content = $contentService->publishVersion(
-            $this->createContent($this->getValidCreationFieldData(), $type
-            )->getVersionInfo());
+            $this->createContent(
+                $this->getValidCreationFieldData(),
+                $type
+            )->getVersionInfo()
+        );
         $this->testIsNotEmptyValue($content->getFieldValue('data'));
 
         $draft = $contentService->createContentDraft($content->contentInfo, $content->versionInfo);

@@ -6,28 +6,28 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository;
 
+use Exception;
 use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
 use Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException as APIInvalidArgumentException;
-use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
-use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LocationLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Exception;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LocationLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Base\Exceptions\UnauthorizedException as CoreUnauthorizedException;
 use Ibexa\Core\Repository\Values\Content\ContentUpdateStruct;
@@ -2570,7 +2570,7 @@ class ContentServiceTest extends BaseContentServiceTest
      */
     public function testLoadVersionInfoByIdWithSecondParameterSetsExpectedVersionInfo(array $data)
     {
-        /** @var VersionInfo $versionInfo */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo */
         $versionInfo = $data['versionInfo'];
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $draftContent */
         $draftContent = $data['draftContent'];
@@ -2678,7 +2678,7 @@ class ContentServiceTest extends BaseContentServiceTest
         }
         usort(
             $actual,
-            function ($field1, $field2) {
+            static function ($field1, $field2) {
                 if (0 === ($return = strcasecmp($field1->fieldDefIdentifier, $field2->fieldDefIdentifier))) {
                     return strcasecmp($field1->languageCode, $field2->languageCode);
                 }
@@ -3130,7 +3130,7 @@ class ContentServiceTest extends BaseContentServiceTest
      * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersions()
      * @depends testPublishVersion
      *
-     * @return VersionInfo[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
      */
     public function testLoadVersions()
     {
@@ -3561,7 +3561,7 @@ class ContentServiceTest extends BaseContentServiceTest
 
         usort(
             $relations,
-            function ($rel1, $rel2) {
+            static function ($rel1, $rel2) {
                 return strcasecmp(
                     $rel2->getDestinationContentInfo()->remoteId,
                     $rel1->getDestinationContentInfo()->remoteId
@@ -3800,7 +3800,7 @@ class ContentServiceTest extends BaseContentServiceTest
 
         usort(
             $reverseRelations,
-            function ($rel1, $rel2) {
+            static function ($rel1, $rel2) {
                 return strcasecmp(
                     $rel2->getSourceContentInfo()->remoteId,
                     $rel1->getSourceContentInfo()->remoteId
@@ -5748,7 +5748,7 @@ class ContentServiceTest extends BaseContentServiceTest
     {
         $allLocationsCount = $this->locationService->getAllLocationsCount();
         $contentInfoList = array_map(
-            function (Location $location) {
+            static function (Location $location) {
                 return $location->contentInfo;
             },
             $this->locationService->loadAllLocations(0, $allLocationsCount)
@@ -5946,7 +5946,7 @@ class ContentServiceTest extends BaseContentServiceTest
         }
         usort(
             $normalized,
-            function ($field1, $field2) {
+            static function ($field1, $field2) {
                 if (0 === ($return = strcasecmp($field1->fieldDefIdentifier, $field2->fieldDefIdentifier))) {
                     return strcasecmp($field1->languageCode, $field2->languageCode);
                 }
@@ -6184,7 +6184,7 @@ class ContentServiceTest extends BaseContentServiceTest
             $this->generateId('location', 2)
         );
 
-        /** @var Content[] $contents */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content[] $contents */
         $contents = [];
 
         foreach ($contentNames as $contentName) {
@@ -6242,7 +6242,7 @@ class ContentServiceTest extends BaseContentServiceTest
             $this->generateId('location', 2)
         );
 
-        /** @var Content[] $contents */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content[] $contents */
         $contents = [];
 
         foreach ($contentNames as $contentName) {
@@ -6541,7 +6541,7 @@ class ContentServiceTest extends BaseContentServiceTest
         return array_values(
             array_filter(
                 $locations,
-                function (Location $location) {
+                static function (Location $location) {
                     return $location->hidden;
                 }
             )

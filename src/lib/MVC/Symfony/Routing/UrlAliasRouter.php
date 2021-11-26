@@ -6,33 +6,33 @@
  */
 namespace Ibexa\Core\MVC\Symfony\Routing;
 
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\URLAliasService;
-use Ibexa\Contracts\Core\Repository\ContentService;
-use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Core\MVC\Symfony\View\Manager as ViewManager;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 use Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
-use Symfony\Cmf\Component\Routing\ChainedRouterInterface;
-use Symfony\Cmf\Component\Routing\RouteObjectInterface;
-use Symfony\Component\Routing\Matcher\RequestMatcherInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RequestContext;
-use Psr\Log\LoggerInterface;
-use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\Route as SymfonyRoute;
-use Symfony\Component\Routing\Exception\RouteNotFoundException;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Ibexa\Core\MVC\Symfony\View\Manager as ViewManager;
 use InvalidArgumentException;
 use LogicException;
+use Psr\Log\LoggerInterface;
+use Symfony\Cmf\Component\Routing\ChainedRouterInterface;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\Matcher\RequestMatcherInterface;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\Route as SymfonyRoute;
+use Symfony\Component\Routing\RouteCollection;
 
 class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
 {
-    const URL_ALIAS_ROUTE_NAME = 'ez_urlalias';
+    public const URL_ALIAS_ROUTE_NAME = 'ez_urlalias';
 
-    const VIEW_ACTION = 'ez_content:viewAction';
+    public const VIEW_ACTION = 'ez_content:viewAction';
 
     /** @var \Symfony\Component\Routing\RequestContext */
     protected $requestContext;
@@ -91,7 +91,7 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
      * If the matcher can not find information, it must throw one of the exceptions documented
      * below.
      *
-     * @param Request $request The request to match
+     * @param \Symfony\Component\HttpFoundation\Request $request The request to match
      *
      * @return array An array of parameters
      *
@@ -250,7 +250,7 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException if the path does not exist or is not valid for the given language
      *
-     * @return URLAlias
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\URLAlias
      */
     protected function getUrlAlias($pathinfo)
     {
@@ -260,7 +260,7 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
     /**
      * Gets the RouteCollection instance associated with this Router.
      *
-     * @return RouteCollection A RouteCollection instance
+     * @return \Symfony\Component\Routing\RouteCollection A RouteCollection instance
      */
     public function getRouteCollection()
     {

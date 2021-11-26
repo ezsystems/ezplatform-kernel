@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Map;
 
-use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Map;
 use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Map;
 
 class Host extends Map
 {

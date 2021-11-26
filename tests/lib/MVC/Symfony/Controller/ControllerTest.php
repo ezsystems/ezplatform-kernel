@@ -7,10 +7,10 @@
 namespace Ibexa\Tests\Core\MVC\Symfony\Controller;
 
 use Ibexa\Core\MVC\Symfony\Controller\Controller;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Templating\EngineInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Ibexa\Core\MVC\Symfony\Controller\Controller::render

@@ -6,17 +6,17 @@
  */
 namespace Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage;
 
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
-use Ibexa\Contracts\Core\Persistence\Content\Field;
 use Ibexa\Contracts\Core\FieldType\StorageGateway;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 
 abstract class Gateway extends StorageGateway
 {
     /**
      * Stores the file reference in $field for $versionNo.
      *
-     * @param VersionInfo $versionInfo
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      */
     abstract public function storeFileReference(VersionInfo $versionInfo, Field $field);
 

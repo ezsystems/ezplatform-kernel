@@ -6,29 +6,29 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\UrlAlias;
 
+use Ibexa\Contracts\Core\Persistence\Content\UrlAlias;
+use Ibexa\Contracts\Core\Persistence\TransactionHandler;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
-use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway as UrlAliasGateway;
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
-use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Handler;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Mapper;
-use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway\DoctrineDatabase;
-use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\Persistence\Legacy\Content\Gateway;
 use Ibexa\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase as ContentGateway;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase as DoctrineDatabaseLocation;
-use Ibexa\Core\Persistence\Legacy\Content\Language\Handler as LanguageHandler;
 use Ibexa\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase as LanguageGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Language\Handler as LanguageHandler;
 use Ibexa\Core\Persistence\Legacy\Content\Language\Mapper as LanguageMapper;
 use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase as DoctrineDatabaseLocation;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway as UrlAliasGateway;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway\DoctrineDatabase;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Handler;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Mapper;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
 use Ibexa\Core\Persistence\TransformationProcessor\DefinitionBased;
 use Ibexa\Core\Persistence\TransformationProcessor\DefinitionBased\Parser;
 use Ibexa\Core\Persistence\TransformationProcessor\PcreCompiler;
 use Ibexa\Core\Persistence\Utf8Converter;
 use Ibexa\Core\Search\Legacy\Content;
-use Ibexa\Contracts\Core\Persistence\Content\UrlAlias;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Persistence\TransactionHandler;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Handler

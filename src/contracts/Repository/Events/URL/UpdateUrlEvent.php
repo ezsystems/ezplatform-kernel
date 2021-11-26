@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\URL;
 
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use Ibexa\Contracts\Core\Repository\Values\URL\URLUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class UpdateUrlEvent extends AfterEvent
 {

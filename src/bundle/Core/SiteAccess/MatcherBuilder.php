@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Bundle\Core\SiteAccess;
 
-use Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilder as BaseMatcherBuilder;
 use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilder as BaseMatcherBuilder;
 
 /**
  * Siteaccess matcher builder based on services.

@@ -6,15 +6,15 @@
  */
 namespace Ibexa\Core\FieldType\Relation;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\Core\FieldType\FieldType;
-use Ibexa\Core\FieldType\ValidationError;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
-use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
 use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
 use Ibexa\Contracts\Core\Persistence\Content\Handler as SPIContentHandler;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\FieldType;
+use Ibexa\Core\FieldType\ValidationError;
 use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
@@ -29,8 +29,8 @@ use Ibexa\Core\FieldType\Value as BaseValue;
  */
 class Type extends FieldType
 {
-    const SELECTION_BROWSE = 0;
-    const SELECTION_DROPDOWN = 1;
+    public const SELECTION_BROWSE = 0;
+    public const SELECTION_DROPDOWN = 1;
 
     protected $settingsSchema = [
         'selectionMethod' => [

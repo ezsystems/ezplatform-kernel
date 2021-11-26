@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content;
 
-use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Language;
 use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
 
 /**
  * Simple mock for a Language\Handler.

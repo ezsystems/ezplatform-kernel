@@ -16,7 +16,7 @@ class SwirlFilterLoaderTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $filter;
 
-    /** @var SwirlFilterLoader */
+    /** @var \Ibexa\Bundle\Core\Imagine\Filter\Loader\SwirlFilterLoader */
     private $loader;
 
     protected function setUp(): void

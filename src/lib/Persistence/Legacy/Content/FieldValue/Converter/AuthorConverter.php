@@ -6,14 +6,14 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use Ibexa\Core\FieldType\Author\Type as AuthorType;
-use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
-use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
-use Ibexa\Core\FieldType\FieldSettings;
+use DOMDocument;
 use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
 use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Core\FieldType\Author\Type as AuthorType;
+use Ibexa\Core\FieldType\FieldSettings;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
 use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use DOMDocument;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
 
 class AuthorConverter implements Converter
 {

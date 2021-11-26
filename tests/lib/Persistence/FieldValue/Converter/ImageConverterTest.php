@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Persistence\FieldValue\Converter;
 
+use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 use Ibexa\Core\IO\IOServiceInterface;
 use Ibexa\Core\IO\UrlRedecoratorInterface;
 use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\ImageConverter;
 use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
-use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class ImageConverterTest extends TestCase

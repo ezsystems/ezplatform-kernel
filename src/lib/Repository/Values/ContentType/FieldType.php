@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\Values\ContentType;
 
-use Ibexa\Contracts\Core\Repository\FieldType as FieldTypeInterface;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
 use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldTypeInterface;
 use Ibexa\Contracts\Core\FieldType\Value;
+use Ibexa\Contracts\Core\Repository\FieldType as FieldTypeInterface;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
 
 /**
  * This class represents a FieldType available to Public API users.

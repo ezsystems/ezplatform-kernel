@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\User\Role;
 
+use Ibexa\Contracts\Core\Persistence\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 use Ibexa\Core\Persistence\Legacy\User\Role\LimitationConverter;
 use Ibexa\Core\Persistence\Legacy\User\Role\LimitationHandler\ObjectStateHandler as ObjectStateLimitationHandler;
-use Ibexa\Contracts\Core\Persistence\User\Policy;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * Test case for LimitationConverter.

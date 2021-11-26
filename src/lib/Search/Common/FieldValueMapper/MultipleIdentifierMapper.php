@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Core\Search\Common\FieldValueMapper;
 
-use Ibexa\Contracts\Core\Search\FieldType\MultipleIdentifierField;
 use Ibexa\Contracts\Core\Search\Field;
+use Ibexa\Contracts\Core\Search\FieldType\MultipleIdentifierField;
 
 /**
  * Common multiple identifier field value mapper implementation.

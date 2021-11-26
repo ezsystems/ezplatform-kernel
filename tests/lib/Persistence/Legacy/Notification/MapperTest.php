@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Persistence\Legacy\Notification;
 
-use Ibexa\Core\Persistence\Legacy\Notification\Mapper;
 use Ibexa\Contracts\Core\Persistence\Notification\Notification;
 use Ibexa\Contracts\Core\Persistence\Notification\UpdateStruct;
+use Ibexa\Core\Persistence\Legacy\Notification\Mapper;
 use PHPUnit\Framework\TestCase;
 
 /**

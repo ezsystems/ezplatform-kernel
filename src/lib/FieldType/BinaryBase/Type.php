@@ -6,14 +6,14 @@
  */
 namespace Ibexa\Core\FieldType\BinaryBase;
 
-use Ibexa\Core\FieldType\FieldType;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
-use Ibexa\Core\FieldType\Media\Value;
-use Ibexa\Core\FieldType\ValidationError;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Contracts\Core\FieldType\BinaryBase\RouteAwarePathGenerator;
 use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
 use Ibexa\Contracts\Core\Persistence\Content\FieldValue as PersistenceValue;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\FieldType\FieldType;
+use Ibexa\Core\FieldType\Media\Value;
+use Ibexa\Core\FieldType\ValidationError;
 use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
@@ -50,7 +50,7 @@ abstract class Type extends FieldType
      *
      * @param array $inputValue
      *
-     * @return Value
+     * @return \Ibexa\Core\FieldType\Media\Value
      */
     abstract protected function createValue(array $inputValue);
 

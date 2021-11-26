@@ -9,11 +9,11 @@ declare(strict_types=1);
 namespace Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\User\Metadata;
 
 use Doctrine\DBAL\Connection;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\UserMetadata;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
 use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\UserMetadata;
 use Ibexa\Contracts\Core\Repository\Values\Filter\CriterionQueryBuilder;
 use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
 
 /**
  * @internal for internal use by Repository Filtering

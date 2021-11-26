@@ -8,8 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Event;
 
-use Ibexa\Contracts\Core\Repository\URLAliasService as URLAliasServiceInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Decorator\URLAliasServiceDecorator;
 use Ibexa\Contracts\Core\Repository\Events\URLAlias\BeforeCreateGlobalUrlAliasEvent;
 use Ibexa\Contracts\Core\Repository\Events\URLAlias\BeforeCreateUrlAliasEvent;
 use Ibexa\Contracts\Core\Repository\Events\URLAlias\BeforeRefreshSystemUrlAliasesForLocationEvent;
@@ -18,8 +17,9 @@ use Ibexa\Contracts\Core\Repository\Events\URLAlias\CreateGlobalUrlAliasEvent;
 use Ibexa\Contracts\Core\Repository\Events\URLAlias\CreateUrlAliasEvent;
 use Ibexa\Contracts\Core\Repository\Events\URLAlias\RefreshSystemUrlAliasesForLocationEvent;
 use Ibexa\Contracts\Core\Repository\Events\URLAlias\RemoveAliasesEvent;
+use Ibexa\Contracts\Core\Repository\URLAliasService as URLAliasServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
-use Ibexa\Contracts\Core\Repository\Decorator\URLAliasServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class URLAliasService extends URLAliasServiceDecorator

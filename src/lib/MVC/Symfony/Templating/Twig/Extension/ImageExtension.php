@@ -9,16 +9,16 @@ namespace Ibexa\Core\MVC\Symfony\Templating\Twig\Extension;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidVariationException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Variation\VariationHandler;
 use Ibexa\Core\FieldType\ImageAsset\AssetMapper;
 use Ibexa\Core\MVC\Exception\SourceImageNotFoundException;
-use Ibexa\Contracts\Core\Variation\VariationHandler;
 use InvalidArgumentException;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class ImageExtension extends AbstractExtension
 {
-    /** @var VariationHandler */
+    /** @var \Ibexa\Contracts\Core\Variation\VariationHandler */
     private $imageVariationService;
 
     /** @var \Ibexa\Core\FieldType\ImageAsset\AssetMapper */

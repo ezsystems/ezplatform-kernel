@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Bundle\Core\EventListener\Stubs;
 
-use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use Ibexa\Core\MVC\Symfony\View\View;
 use Ibexa\Core\MVC\Symfony\View\ViewProvider as ViewProviderInterface;
 
@@ -21,7 +21,7 @@ class ViewProvider implements ViewProviderInterface, SiteAccessAware
     }
 
     /**
-     * @return View
+     * @return \Ibexa\Core\MVC\Symfony\View\View
      */
     public function getView(View $view)
     {

@@ -6,15 +6,15 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Language;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 use Ibexa\Contracts\Core\Persistence\Content\Language;
 use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct as SPILanguageCreateStruct;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as SPILanguageHandler;
-use Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler;
-use Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
+use Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache;
+use Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler

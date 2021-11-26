@@ -6,29 +6,29 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository;
 
+use ArrayObject;
+use DateTime;
 use Doctrine\DBAL\Connection;
 use ErrorException;
+use Exception;
 use Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException;
 use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
-use Ibexa\Contracts\Core\Test\Repository\SetupFactory;
-use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy as LegacySetupFactory;
+use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
-use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use PHPUnit\Framework\TestCase;
-use Ibexa\Contracts\Core\Repository\Repository;
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Test\Repository\SetupFactory;
+use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy as LegacySetupFactory;
 use Ibexa\Tests\Core\Repository\PHPUnitConstraint;
-use DateTime;
-use ArrayObject;
-use Exception;
 use PDOException;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Base class for api specific tests.
@@ -38,7 +38,7 @@ abstract class BaseTest extends TestCase
     /**
      * Maximum integer number accepted by the different backends.
      */
-    const DB_INT_MAX = 2147483647;
+    public const DB_INT_MAX = 2147483647;
 
     /** @var \Ibexa\Contracts\Core\Test\Repository\SetupFactory */
     private $setupFactory;
@@ -370,7 +370,7 @@ abstract class BaseTest extends TestCase
      *
      * @param string $userGroupName Name of the new user group to create
      * @param string $roleIdentifier Role identifier to assign to the new group
-     * @param RoleLimitation|null $roleLimitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation|null $roleLimitation
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
@@ -392,7 +392,7 @@ abstract class BaseTest extends TestCase
      * @param string $email User e-mail
      * @param string $userGroupName Name of the new user group to create
      * @param string $roleIdentifier Role identifier to assign to the new group
-     * @param RoleLimitation|null $roleLimitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation|null $roleLimitation
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */

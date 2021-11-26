@@ -7,8 +7,8 @@
 namespace Ibexa\Core\Repository\SiteAccessAware;
 
 use Ibexa\Contracts\Core\Repository\LanguageService as LanguageServiceInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
 
 /**
  * LanguageService for SiteAccessAware layer.

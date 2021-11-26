@@ -8,17 +8,17 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\Core\Repository\Filtering;
 
-use Ibexa\Tests\Core\Repository\Filtering\TestContentProvider;
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ParentLocationId;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Tests\Core\Repository\Filtering\TestContentProvider;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use IteratorAggregate;
 
 /**
@@ -219,7 +219,8 @@ abstract class BaseRepositoryFilteringTestCase extends BaseTest
             'not_locked'
         );
         yield 'ObjectStateIdentifier=ez_lock(not_locked)' => new Criterion\ObjectStateIdentifier(
-            ['not_locked'], 'ez_lock'
+            ['not_locked'],
+            'ez_lock'
         );
         yield 'ParentLocationId=1' => new Criterion\ParentLocationId(1);
         yield 'RemoteId=8a9c9c761004866fb458d89910f52bee' => new Criterion\RemoteId(
@@ -235,13 +236,18 @@ abstract class BaseRepositoryFilteringTestCase extends BaseTest
         yield 'UserLogin=admin' => new Criterion\UserLogin('admin');
         yield 'UserLogin=a*' => new Criterion\UserLogin('a*', Criterion\Operator::LIKE);
         yield 'UserMetadata=OWNER IN (10, 14)' => new Criterion\UserMetadata(
-            Criterion\UserMetadata::OWNER, Criterion\Operator::IN, [10, 14]
+            Criterion\UserMetadata::OWNER,
+            Criterion\Operator::IN,
+            [10, 14]
         );
         yield 'UserMetadata=GROUP IN (12)' => new Criterion\UserMetadata(
-            Criterion\UserMetadata::GROUP, Criterion\Operator::EQ, 12
+            Criterion\UserMetadata::GROUP,
+            Criterion\Operator::EQ,
+            12
         );
         yield 'UserMetadata=MODIFIER IN (14)' => new Criterion\UserMetadata(
-            Criterion\UserMetadata::MODIFIER, Criterion\Operator::EQ,
+            Criterion\UserMetadata::MODIFIER,
+            Criterion\Operator::EQ,
             14
         );
         yield 'Visibility=VISIBLE' => new Criterion\Visibility(Criterion\Visibility::VISIBLE);

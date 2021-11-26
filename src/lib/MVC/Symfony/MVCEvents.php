@@ -14,7 +14,7 @@ final class MVCEvents
      *
      * The event listener method receives a {@see \Ibexa\Core\MVC\Symfony\Event\PostSiteAccessMatchEvent}
      */
-    const SITEACCESS = 'ezpublish.siteaccess';
+    public const SITEACCESS = 'ezpublish.siteaccess';
 
     /**
      * The PRE_CONTENT_VIEW event occurs right before a view is rendered for a content, via the content view controller.
@@ -24,7 +24,7 @@ final class MVCEvents
      *
      * @see \Ibexa\Core\MVC\Symfony\View\Manager
      */
-    const PRE_CONTENT_VIEW = 'ezpublish.pre_content_view';
+    public const PRE_CONTENT_VIEW = 'ezpublish.pre_content_view';
 
     /**
      * The API_CONTENT_EXCEPTION event occurs when the API throws an exception that could not be caught internally
@@ -33,14 +33,14 @@ final class MVCEvents
      *
      * The event listener method receives an {@see \Ibexa\Core\MVC\Symfony\Event\APIContentExceptionEvent}.
      */
-    const API_CONTENT_EXCEPTION = 'ezpublish.api.contentException';
+    public const API_CONTENT_EXCEPTION = 'ezpublish.api.contentException';
 
     /**
      * CONFIG_SCOPE_CHANGE event occurs when configuration scope is changed (e.g. for content preview in a given siteaccess).
      *
      * The event listener method receives a {@see \Ibexa\Core\MVC\Symfony\Event\ScopeChangeEvent} instance.
      */
-    const CONFIG_SCOPE_CHANGE = 'ezpublish.config.scope_change';
+    public const CONFIG_SCOPE_CHANGE = 'ezpublish.config.scope_change';
 
     /**
      * CONFIG_SCOPE_RESTORE event occurs when original configuration scope is restored.
@@ -48,7 +48,7 @@ final class MVCEvents
      *
      * The event listener method receives a {@see \Ibexa\Core\MVC\Symfony\Event\ScopeChangeEvent} instance.
      */
-    const CONFIG_SCOPE_RESTORE = 'ezpublish.config.scope_restore';
+    public const CONFIG_SCOPE_RESTORE = 'ezpublish.config.scope_restore';
 
     /**
      * INTERACTIVE_LOGIN event occurs when a user has been authenticated by a foreign user provider.
@@ -56,7 +56,7 @@ final class MVCEvents
      *
      * The event listener method receives a {@see \Ibexa\Core\MVC\Symfony\Event\InteractiveLoginEvent} instance.
      */
-    const INTERACTIVE_LOGIN = 'ezpublish.security.interactive_login';
+    public const INTERACTIVE_LOGIN = 'ezpublish.security.interactive_login';
 
     /**
      * ROUTE_REFERENCE_GENERATION event occurs when a RouteReference is generated, and gives an opportunity to
@@ -64,7 +64,7 @@ final class MVCEvents
      *
      * The event listener method receives a {@see \Ibexa\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent} instance.
      */
-    const ROUTE_REFERENCE_GENERATION = 'ezpublish.routing.reference_generation';
+    public const ROUTE_REFERENCE_GENERATION = 'ezpublish.routing.reference_generation';
 
     /**
      * CACHE_CLEAR_CONTENT event occurs when cache needs to be cleared for a content.
@@ -74,7 +74,7 @@ final class MVCEvents
      *
      * @deprecated Since 6.12, not triggered anymore when using ezplatform-http-cache package.
      */
-    const CACHE_CLEAR_CONTENT = 'ezpublish.cache_clear.content';
+    public const CACHE_CLEAR_CONTENT = 'ezpublish.cache_clear.content';
 }
 
 class_alias(MVCEvents::class, 'eZ\Publish\Core\MVC\Symfony\MVCEvents');

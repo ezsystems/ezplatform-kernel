@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
-use Ibexa\Core\Repository\Values\ContentType\FieldType;
-use Ibexa\Core\FieldType\Value;
 use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
 use Ibexa\Contracts\Core\FieldType\ValidationError;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
+use Ibexa\Core\FieldType\Value;
+use Ibexa\Core\Repository\Values\ContentType\FieldType;
 use PHPUnit\Framework\TestCase;
 
 class APIFieldTypeTest extends TestCase
@@ -18,7 +18,7 @@ class APIFieldTypeTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $innerFieldType;
 
-    /** @var FieldType */
+    /** @var \Ibexa\Core\Repository\Values\ContentType\FieldType */
     private $fieldType;
 
     protected function setUp(): void

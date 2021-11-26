@@ -42,7 +42,11 @@ final class ProxyDomainMapper implements ProxyDomainMapperInterface
         bool $useAlwaysAvailable = true
     ): Content {
         $initializer = function (
-            &$wrappedObject, LazyLoadingInterface $proxy, $method, array $parameters, &$initializer
+            &$wrappedObject,
+            LazyLoadingInterface $proxy,
+            $method,
+            array $parameters,
+            &$initializer
         ) use ($contentId, $prioritizedLanguages, $useAlwaysAvailable): bool {
             $initializer = null;
             $wrappedObject = $this->repository->getContentService()->loadContent(
@@ -61,7 +65,11 @@ final class ProxyDomainMapper implements ProxyDomainMapperInterface
     public function createContentInfoProxy(int $contentId): ContentInfo
     {
         $initializer = function (
-            &$wrappedObject, LazyLoadingInterface $proxy, $method, array $parameters, &$initializer
+            &$wrappedObject,
+            LazyLoadingInterface $proxy,
+            $method,
+            array $parameters,
+            &$initializer
         ) use ($contentId): bool {
             $initializer = null;
             $wrappedObject = $this->repository->getContentService()->loadContentInfo(
@@ -79,7 +87,11 @@ final class ProxyDomainMapper implements ProxyDomainMapperInterface
         array $prioritizedLanguages = Language::ALL
     ): ContentType {
         $initializer = function (
-            &$wrappedObject, LazyLoadingInterface $proxy, $method, array $parameters, &$initializer
+            &$wrappedObject,
+            LazyLoadingInterface $proxy,
+            $method,
+            array $parameters,
+            &$initializer
         ) use ($contentTypeId, $prioritizedLanguages): bool {
             $initializer = null;
             $wrappedObject = $this->repository->getContentTypeService()->loadContentType(
@@ -98,7 +110,11 @@ final class ProxyDomainMapper implements ProxyDomainMapperInterface
         array $prioritizedLanguages = Language::ALL
     ): ContentTypeGroup {
         $initializer = function (
-            &$wrappedObject, LazyLoadingInterface $proxy, $method, array $parameters, &$initializer
+            &$wrappedObject,
+            LazyLoadingInterface $proxy,
+            $method,
+            array $parameters,
+            &$initializer
         ) use ($contentTypeGroupId, $prioritizedLanguages): bool {
             $initializer = null;
             $wrappedObject = $this->repository->getContentTypeService()->loadContentTypeGroup(
@@ -127,7 +143,11 @@ final class ProxyDomainMapper implements ProxyDomainMapperInterface
     public function createLanguageProxy(string $languageCode): Language
     {
         $initializer = function (
-            &$wrappedObject, LazyLoadingInterface $proxy, $method, array $parameters, &$initializer
+            &$wrappedObject,
+            LazyLoadingInterface $proxy,
+            $method,
+            array $parameters,
+            &$initializer
         ) use ($languageCode): bool {
             $initializer = null;
             $wrappedObject = $this->repository->getContentLanguageService()->loadLanguage($languageCode);
@@ -153,7 +173,11 @@ final class ProxyDomainMapper implements ProxyDomainMapperInterface
         array $prioritizedLanguages = Language::ALL
     ): Location {
         $initializer = function (
-            &$wrappedObject, LazyLoadingInterface $proxy, $method, array $parameters, &$initializer
+            &$wrappedObject,
+            LazyLoadingInterface $proxy,
+            $method,
+            array $parameters,
+            &$initializer
         ) use ($locationId, $prioritizedLanguages): bool {
             $initializer = null;
             $wrappedObject = $this->repository->getLocationService()->loadLocation(
@@ -170,7 +194,11 @@ final class ProxyDomainMapper implements ProxyDomainMapperInterface
     public function createSectionProxy(int $sectionId): Section
     {
         $initializer = function (
-            &$wrappedObject, LazyLoadingInterface $proxy, $method, array $parameters, &$initializer
+            &$wrappedObject,
+            LazyLoadingInterface $proxy,
+            $method,
+            array $parameters,
+            &$initializer
         ) use ($sectionId): bool {
             $initializer = null;
             $wrappedObject = $this->repository->getSectionService()->loadSection($sectionId);
@@ -184,7 +212,11 @@ final class ProxyDomainMapper implements ProxyDomainMapperInterface
     public function createUserProxy(int $userId, array $prioritizedLanguages = Language::ALL): User
     {
         $initializer = function (
-            &$wrappedObject, LazyLoadingInterface $proxy, $method, array $parameters, &$initializer
+            &$wrappedObject,
+            LazyLoadingInterface $proxy,
+            $method,
+            array $parameters,
+            &$initializer
         ) use ($userId, $prioritizedLanguages): bool {
             $initializer = null;
             $wrappedObject = $this->repository->getUserService()->loadUser($userId, $prioritizedLanguages);

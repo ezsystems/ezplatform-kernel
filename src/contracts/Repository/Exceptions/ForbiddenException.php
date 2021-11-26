@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Exceptions;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\Exception as RepositoryException;
 use Exception;
+use Ibexa\Contracts\Core\Repository\Exceptions\Exception as RepositoryException;
 
 /**
  * An Exception which is thrown if an operation cannot be performed by a service

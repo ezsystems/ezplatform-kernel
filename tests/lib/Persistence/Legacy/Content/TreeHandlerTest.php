@@ -6,16 +6,16 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content;
 
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
-use Ibexa\Core\Persistence\Legacy\Content\TreeHandler;
 use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
 use Ibexa\Contracts\Core\Persistence\Content\Location;
 use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Ibexa\Core\Persistence\Legacy\Content\FieldHandler;
-use Ibexa\Core\Persistence\Legacy\Content\Mapper;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
 use Ibexa\Core\Persistence\Legacy\Content\Gateway;
 use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper;
+use Ibexa\Core\Persistence\Legacy\Content\TreeHandler;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * Test case for Tree Handler.

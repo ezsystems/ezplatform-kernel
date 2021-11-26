@@ -9,12 +9,11 @@ namespace Ibexa\Tests\Core\Helper;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
-use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Core\Helper\TranslationHelper;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\Repository\Values\Content\Content;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Core\MVC\ConfigResolverInterface;
 use PHPUnit\Framework\TestCase;
-use Ibexa\Core\Helper\TranslationHelper;
 use Psr\Log\LoggerInterface;
 
 class TranslationHelperTest extends TestCase
@@ -33,7 +32,7 @@ class TranslationHelperTest extends TestCase
 
     private $siteAccessByLanguages;
 
-    /** @var Field[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Field[] */
     private $translatedFields;
 
     /** @var string[] */
@@ -72,7 +71,7 @@ class TranslationHelperTest extends TestCase
     }
 
     /**
-     * @return Content
+     * @return \Ibexa\Core\Repository\Values\Content\Content
      */
     private function generateContent()
     {
@@ -85,7 +84,7 @@ class TranslationHelperTest extends TestCase
     }
 
     /**
-     * @return APIVersionInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo
      */
     private function generateVersionInfo()
     {

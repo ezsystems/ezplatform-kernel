@@ -8,14 +8,14 @@ namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Location\Gateway;
 
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway;
-use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
-use Ibexa\Core\Search\Legacy\Content;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Ibexa\Contracts\Core\Persistence\Content\Location;
 use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
-use Doctrine\DBAL\Query\QueryBuilder;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase;
+use Ibexa\Core\Search\Legacy\Content;
+use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase

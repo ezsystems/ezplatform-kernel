@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Integration\Core\User\UserStorage;
 
-use Ibexa\Tests\Integration\Core\BaseCoreFieldTypeIntegrationTest;
-use Ibexa\Core\FieldType\User\UserStorage\Gateway;
-use Ibexa\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter;
 use Ibexa\Contracts\Core\Test\Persistence\Fixture\YamlFixture;
+use Ibexa\Core\FieldType\User\UserStorage\Gateway;
+use Ibexa\Core\Repository\Values\User\User;
+use Ibexa\Tests\Integration\Core\BaseCoreFieldTypeIntegrationTest;
 
 /**
  * User Field Type external storage gateway tests.

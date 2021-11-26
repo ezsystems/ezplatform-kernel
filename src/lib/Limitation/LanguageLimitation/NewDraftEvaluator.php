@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Limitation\LanguageLimitation;
 
+use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Core\Limitation\LanguageLimitationType;
-use Ibexa\Contracts\Core\Limitation\Target;
 
 /**
  * @internal for internal use by LanguageLimitation

@@ -6,28 +6,28 @@
  */
 namespace Ibexa\Core\Repository;
 
+use Exception;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState as SPIObjectState;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group as SPIObjectStateGroup;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Handler;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
 use Ibexa\Contracts\Core\Repository\ObjectStateService as ObjectStateServiceInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
-use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Handler;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState as APIObjectState;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup as APIObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateUpdateStruct;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
 use Ibexa\Core\Repository\Values\ObjectState\ObjectState;
 use Ibexa\Core\Repository\Values\ObjectState\ObjectStateGroup;
-use Ibexa\Contracts\Core\Persistence\Content\ObjectState as SPIObjectState;
-use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group as SPIObjectStateGroup;
-use Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Core\Base\Exceptions\UnauthorizedException;
-use Exception;
 
 /**
  * ObjectStateService service.

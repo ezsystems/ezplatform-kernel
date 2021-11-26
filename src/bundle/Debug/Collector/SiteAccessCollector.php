@@ -31,7 +31,7 @@ class SiteAccessCollector extends DataCollector
     /**
      * Returns siteAccess.
      *
-     * @return SiteAccess
+     * @return \Ibexa\Core\MVC\Symfony\SiteAccess
      */
     public function getSiteAccess()
     {

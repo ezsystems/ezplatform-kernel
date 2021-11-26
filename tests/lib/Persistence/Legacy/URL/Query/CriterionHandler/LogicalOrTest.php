@@ -53,7 +53,9 @@ class LogicalOrTest extends CriterionHandlerTest
 
         $handler = new LogicalOrHandler();
         $actual = (string)$handler->handle(
-            $converter, $queryBuilder, new LogicalOr([$foo, $bar])
+            $converter,
+            $queryBuilder,
+            new LogicalOr([$foo, $bar])
         );
 
         $this->assertEquals($expected, $actual);

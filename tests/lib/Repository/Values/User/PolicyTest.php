@@ -8,8 +8,8 @@ namespace Ibexa\Tests\Core\Repository\Values\User;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException;
-use Ibexa\Tests\Core\Repository\Values\ValueObjectTestTrait;
 use Ibexa\Core\Repository\Values\User\Policy;
+use Ibexa\Tests\Core\Repository\Values\ValueObjectTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class PolicyTest extends TestCase

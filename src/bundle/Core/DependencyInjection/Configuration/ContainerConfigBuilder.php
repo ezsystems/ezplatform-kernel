@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 abstract class ContainerConfigBuilder implements ConfigBuilderInterface
 {
-    /** @var ContainerBuilder */
+    /** @var \Symfony\Component\DependencyInjection\ContainerBuilder */
     protected $containerBuilder;
 
     public function __construct(ContainerBuilder $containerBuilder)

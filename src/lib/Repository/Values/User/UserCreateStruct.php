@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\Values\User;
 
-use Ibexa\Contracts\Core\Repository\Values\User\UserCreateStruct as APIUserCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\User\UserCreateStruct as APIUserCreateStruct;
 
 /**
  * This class is used to create a new user in the repository.

@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Core\MVC\Symfony\Event;
 
-use Ibexa\Core\MVC\Symfony\Event\InteractiveLoginEvent;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Core\MVC\Symfony\Event\InteractiveLoginEvent;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

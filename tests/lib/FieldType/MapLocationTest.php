@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
-use Ibexa\Core\FieldType\MapLocation;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\FieldType\MapLocation;
 
 class MapLocationTest extends FieldTypeTest
 {

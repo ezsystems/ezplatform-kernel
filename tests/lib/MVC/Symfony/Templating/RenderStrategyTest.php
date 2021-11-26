@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\MVC\Symfony\Templating;
 
+use Ibexa\Contracts\Core\MVC\Templating\RenderStrategy as SPIRenderStrategy;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\MVC\Symfony\Templating\RenderOptions;
 use Ibexa\Core\MVC\Symfony\Templating\RenderStrategy;
-use Ibexa\Contracts\Core\MVC\Templating\RenderStrategy as SPIRenderStrategy;
 use PHPUnit\Framework\TestCase;
 
 class RenderStrategyTest extends TestCase

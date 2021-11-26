@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Core\Search\Common\FieldValueMapper;
 
-use Ibexa\Core\Search\Common\FieldValueMapper;
-use Ibexa\Contracts\Core\Search\FieldType\DateField;
-use Ibexa\Contracts\Core\Search\Field;
 use DateTime;
-use InvalidArgumentException;
 use Exception;
+use Ibexa\Contracts\Core\Search\Field;
+use Ibexa\Contracts\Core\Search\FieldType\DateField;
+use Ibexa\Core\Search\Common\FieldValueMapper;
+use InvalidArgumentException;
 
 /**
  * Common date field value mapper implementation.

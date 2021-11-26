@@ -6,14 +6,14 @@
  */
 namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
-use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo as APIContentInfo;
-use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
 use Ibexa\Contracts\Core\Repository\ContentService as APIContentService;
 use Ibexa\Contracts\Core\Repository\PasswordHashService;
-use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo as APIContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
 use Ibexa\Core\Repository\User\PasswordValidatorInterface;
 use Ibexa\Core\Repository\UserService;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
 
 /**
  * Mock test case for User Service.

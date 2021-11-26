@@ -7,6 +7,10 @@
 namespace Ibexa\Core\Repository;
 
 use Exception;
+use Ibexa\Contracts\Core\Limitation\Type;
+use Ibexa\Contracts\Core\Persistence\User\Handler;
+use Ibexa\Contracts\Core\Persistence\User\Role as SPIRole;
+use Ibexa\Contracts\Core\Persistence\User\RoleUpdateStruct as SPIRoleUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
 use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
 use Ibexa\Contracts\Core\Repository\RoleService as RoleServiceInterface;
@@ -34,10 +38,6 @@ use Ibexa\Core\Repository\Values\User\PolicyUpdateStruct;
 use Ibexa\Core\Repository\Values\User\Role;
 use Ibexa\Core\Repository\Values\User\RoleCopyStruct;
 use Ibexa\Core\Repository\Values\User\RoleCreateStruct;
-use Ibexa\Contracts\Core\Limitation\Type;
-use Ibexa\Contracts\Core\Persistence\User\Handler;
-use Ibexa\Contracts\Core\Persistence\User\Role as SPIRole;
-use Ibexa\Contracts\Core\Persistence\User\RoleUpdateStruct as SPIRoleUpdateStruct;
 
 /**
  * This service provides methods for managing Roles and Policies.

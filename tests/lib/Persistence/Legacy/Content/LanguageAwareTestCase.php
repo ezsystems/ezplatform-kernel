@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content;
 
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
-use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
 use Ibexa\Core\Persistence;
-use Ibexa\Core\Search\Legacy\Content\Mapper\FullTextMapper;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
 use Ibexa\Core\Search\Common\FieldNameGenerator;
 use Ibexa\Core\Search\Common\FieldRegistry;
+use Ibexa\Core\Search\Legacy\Content\Mapper\FullTextMapper;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * Test case for Language aware classes.

@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\Trash;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
 
 /**
  * @internal

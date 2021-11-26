@@ -6,23 +6,23 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy;
 
-use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
-use Ibexa\Core\Base\ServiceContainer;
-use Ibexa\Core\Persistence\Legacy\Handler;
-use Ibexa\Core\Persistence\Legacy\Content\Handler as ContentHandler;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Handler as LocationHandler;
-use Ibexa\Core\Persistence\Legacy\User\Handler as UserHandler;
-use Ibexa\Core\Persistence\Legacy\Content\Section\Handler as SectionHandler;
-use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Handler as UrlAliasHandler;
-use Ibexa\Core\Persistence\Legacy\TransactionHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Handler as SPIContentHandler;
-use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as SPIContentTypeHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as SPILanguageHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as SPILocationHandler;
-use Ibexa\Contracts\Core\Persistence\User\Handler as SPIUserHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Section\Handler as SPISectionHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as SPIContentTypeHandler;
 use Ibexa\Contracts\Core\Persistence\Content\UrlAlias\Handler as SPIUrlAliasHandler;
 use Ibexa\Contracts\Core\Persistence\TransactionHandler as SPITransactionHandler;
+use Ibexa\Contracts\Core\Persistence\User\Handler as SPIUserHandler;
+use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
+use Ibexa\Core\Base\ServiceContainer;
+use Ibexa\Core\Persistence\Legacy\Content\Handler as ContentHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Handler as LocationHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Section\Handler as SectionHandler;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Handler as UrlAliasHandler;
+use Ibexa\Core\Persistence\Legacy\Handler;
+use Ibexa\Core\Persistence\Legacy\TransactionHandler;
+use Ibexa\Core\Persistence\Legacy\User\Handler as UserHandler;
 use Ibexa\Tests\Integration\Core\LegacyTestContainerBuilder;
 
 /**

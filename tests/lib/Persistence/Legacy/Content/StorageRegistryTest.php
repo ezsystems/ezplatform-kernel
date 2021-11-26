@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content;
 
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
-use Ibexa\Core\Persistence\Legacy\Content\StorageRegistry;
 use Ibexa\Contracts\Core\FieldType\FieldStorage;
 use Ibexa\Core\FieldType\NullStorage;
+use Ibexa\Core\Persistence\Legacy\Content\StorageRegistry;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\StorageRegistry

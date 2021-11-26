@@ -24,7 +24,7 @@ interface TranslationService
      *
      * Translate a Translation value object.
      *
-     * @param Translation $translation
+     * @param \Ibexa\Contracts\Core\Repository\Values\Translation $translation
      * @param string $locale
      *
      * @return string

@@ -21,10 +21,10 @@ class BinaryStreamResponse extends Response
 {
     protected static $trustXSendfileTypeHeader = false;
 
-    /** @var BinaryFile */
+    /** @var \Ibexa\Core\IO\Values\BinaryFile */
     protected $file;
 
-    /** @var IOServiceInterface */
+    /** @var \Ibexa\Core\IO\IOServiceInterface */
     protected $ioService;
 
     protected $offset;
@@ -34,8 +34,8 @@ class BinaryStreamResponse extends Response
     /**
      * Constructor.
      *
-     * @param BinaryFile          $binaryFile         The name of the file to stream
-     * @param IOServiceInterface  $ioService          The name of the file to stream
+     * @param \Ibexa\Core\IO\Values\BinaryFile          $binaryFile         The name of the file to stream
+     * @param \Ibexa\Core\IO\IOServiceInterface  $ioService          The name of the file to stream
      * @param int                 $status             The response status code
      * @param array               $headers            An array of response headers
      * @param bool                $public             Files are public by default
@@ -64,7 +64,7 @@ class BinaryStreamResponse extends Response
      * @param bool $autoEtag
      * @param bool $autoLastModified
      *
-     * @return BinaryFileResponse
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function setFile($file, $contentDisposition = null, $autoLastModified = true)
     {
@@ -84,7 +84,7 @@ class BinaryStreamResponse extends Response
     /**
      * Gets the file.
      *
-     * @return BinaryFile The file to stream
+     * @return \Ibexa\Core\IO\Values\BinaryFile The file to stream
      */
     public function getFile()
     {
@@ -211,7 +211,7 @@ class BinaryStreamResponse extends Response
     /**
      * {@inheritdoc}
      *
-     * @throws LogicException when the content is not null
+     * @throws \LogicException when the content is not null
      */
     public function setContent($content)
     {
