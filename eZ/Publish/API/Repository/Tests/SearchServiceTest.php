@@ -5161,8 +5161,8 @@ class SearchServiceTest extends BaseTest
         usort(
             $searchHits,
             static function (SearchHit $a, SearchHit $b): int {
-               return $a->valueObject->id <=> $b->valueObject->id;
-           }
+                return $a->valueObject->id <=> $b->valueObject->id;
+            }
         );
     }
 

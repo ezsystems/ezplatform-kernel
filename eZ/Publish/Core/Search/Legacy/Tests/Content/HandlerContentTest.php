@@ -1031,11 +1031,11 @@ class HandlerContentTest extends AbstractTestCase
         $this->assertCount(
             10,
             array_map(
-                    static function ($hit) {
-                        return $hit->valueObject->id;
-                    },
-                    $result->searchHits
-                )
+                static function ($hit) {
+                    return $hit->valueObject->id;
+                },
+                $result->searchHits
+            )
         );
     }
 

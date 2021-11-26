@@ -2547,7 +2547,7 @@ class UrlAliasTest extends BaseServiceMockTest
             $this->equalTo($url)
         )->willReturn(
             new SPIUrlAlias(
-                    [
+                [
                         'pathData' => [
                             [
                                 'always-available' => false,
@@ -2564,7 +2564,7 @@ class UrlAliasTest extends BaseServiceMockTest
                         'languageCodes' => ['eng-GB', 'cro-HR'],
                         'alwaysAvailable' => false,
                     ]
-                )
+            )
         );
 
         $urlAliasService->lookup($url, $languageCode);
@@ -2603,7 +2603,7 @@ class UrlAliasTest extends BaseServiceMockTest
             $this->equalTo('jedan/dva')
         )->willReturn(
             new SPIUrlAlias(
-                    [
+                [
                         'pathData' => [
                             [
                                 'always-available' => $alwaysAvailable,
@@ -2620,7 +2620,7 @@ class UrlAliasTest extends BaseServiceMockTest
                         'languageCodes' => ['eng-GB', 'cro-HR'],
                         'alwaysAvailable' => $alwaysAvailable,
                     ]
-                )
+            )
         );
 
         $urlAlias = $urlAliasService->lookup('jedan/dva', $languageCode);
@@ -2677,7 +2677,7 @@ class UrlAliasTest extends BaseServiceMockTest
             $this->equalTo('jedan/two')
         )->willReturn(
             new SPIUrlAlias(
-                    [
+                [
                         'pathData' => [
                             [
                                 'always-available' => $alwaysAvailable,
@@ -2697,7 +2697,7 @@ class UrlAliasTest extends BaseServiceMockTest
                         'languageCodes' => ['eng-GB', 'cro-HR'],
                         'alwaysAvailable' => $alwaysAvailable,
                     ]
-                )
+            )
         );
 
         $urlAlias = $urlAliasService->lookup('jedan/two', $languageCode);

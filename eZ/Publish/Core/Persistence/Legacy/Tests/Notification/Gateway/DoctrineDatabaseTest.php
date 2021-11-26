@@ -116,8 +116,8 @@ class DoctrineDatabaseTest extends TestCase
         $this->assertEquals(
             3,
             $this->getGateway()->countUserPendingNotifications(
-            self::EXISTING_NOTIFICATION_DATA['owner_id']
-        )
+                self::EXISTING_NOTIFICATION_DATA['owner_id']
+            )
         );
     }
 

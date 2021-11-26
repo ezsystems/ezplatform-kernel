@@ -40,8 +40,7 @@ class AliasGenerator implements VariationHandler
         VariationHandler $innerAliasGenerator,
         ContentService $contentService,
         AssetMapper $assetMapper
-    )
-    {
+    ) {
         $this->innerAliasGenerator = $innerAliasGenerator;
         $this->contentService = $contentService;
         $this->assetMapper = $assetMapper;

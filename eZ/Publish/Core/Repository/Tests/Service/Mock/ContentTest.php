@@ -721,13 +721,13 @@ class ContentTest extends BaseServiceMockTest
             ->method(
                 'internalLoadContentById'
             )->with(
-            $this->equalTo(42),
-            $this->equalTo(['cro-HR']),
-            $this->equalTo(7),
-            $this->equalTo(false)
-        )->will(
-            $this->returnValue($content)
-        );
+                $this->equalTo(42),
+                $this->equalTo(['cro-HR']),
+                $this->equalTo(7),
+                $this->equalTo(false)
+            )->will(
+                $this->returnValue($content)
+            );
 
         $result = $contentServiceMock->loadContentByContentInfo(
             new ContentInfo(['id' => 42]),

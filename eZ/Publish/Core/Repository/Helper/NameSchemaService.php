@@ -72,8 +72,7 @@ class NameSchemaService
         ContentTypeDomainMapper $contentTypeDomainMapper,
         FieldTypeRegistry $fieldTypeRegistry,
         array $settings = []
-    )
-    {
+    ) {
         $this->contentTypeHandler = $contentTypeHandler;
         $this->contentTypeDomainMapper = $contentTypeDomainMapper;
         $this->fieldTypeRegistry = $fieldTypeRegistry;

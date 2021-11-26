@@ -40,8 +40,7 @@ class AssetMapper
         LocationService $locationService,
         ContentTypeService $contentTypeService,
         ConfigResolverInterface $configResolver
-    )
-    {
+    ) {
         $this->contentService = $contentService;
         $this->locationService = $locationService;
         $this->contentTypeService = $contentTypeService;
