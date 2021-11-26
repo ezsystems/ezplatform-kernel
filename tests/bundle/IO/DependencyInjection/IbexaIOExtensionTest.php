@@ -79,8 +79,8 @@ class IbexaIOExtensionTest extends AbstractExtensionTestCase
             )
         );
         $this->container->prependExtensionConfig(
-            'ezpublish',
-            Yaml::parseFile(self::FIXTURES_DIR . '/url_prefix_test_config.yaml')['ezplatform']
+            'ibexa',
+            Yaml::parseFile(self::FIXTURES_DIR . '/url_prefix_test_config.yaml')['ibexa']
         );
         $this->buildMinimalContainerForUrlPrefixTest();
 

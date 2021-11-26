@@ -102,8 +102,8 @@ class FilterConfigurationTest extends TestCase
 
         $this->assertSame(
             [
-                'cache' => 'ezpublish',
-                'data_loader' => 'ezpublish',
+                'cache' => 'ibexa',
+                'data_loader' => 'ibexa',
                 'reference' => null,
                 'filters' => $filters,
                 'post_processors' => [],
@@ -132,8 +132,8 @@ class FilterConfigurationTest extends TestCase
 
         $this->assertSame(
             [
-                'cache' => 'ezpublish',
-                'data_loader' => 'ezpublish',
+                'cache' => 'ibexa',
+                'data_loader' => 'ibexa',
                 'reference' => $reference,
                 'filters' => $filters,
                 'post_processors' => [],
@@ -160,8 +160,8 @@ class FilterConfigurationTest extends TestCase
 
         $this->assertSame(
             [
-                'cache' => 'ezpublish',
-                'data_loader' => 'ezpublish',
+                'cache' => 'ibexa',
+                'data_loader' => 'ibexa',
                 'reference' => $reference,
                 'filters' => $filters,
                 'post_processors' => [],
@@ -191,8 +191,8 @@ class FilterConfigurationTest extends TestCase
 
         $this->assertSame(
             [
-                'cache' => 'ezpublish',
-                'data_loader' => 'ezpublish',
+                'cache' => 'ibexa',
+                'data_loader' => 'ibexa',
                 'reference' => $reference,
                 'filters' => $filters,
                 'post_processors' => [],

@@ -44,7 +44,7 @@ class RepositoryConfigurationProvider
 
         if (empty($repositoryAlias) || !isset($this->repositories[$repositoryAlias])) {
             throw new InvalidRepositoryException(
-                "Undefined Repository '$repositoryAlias'. Check if the Repository is configured in ezpublish_*.yml."
+                "Undefined Repository '$repositoryAlias'. Check if the Repository is configured in your project's ibexa.yaml."
             );
         }
 

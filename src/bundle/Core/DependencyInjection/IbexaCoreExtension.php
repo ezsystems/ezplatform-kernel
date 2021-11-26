@@ -78,7 +78,7 @@ class IbexaCoreExtension extends Extension implements PrependExtensionInterface
 
     public function getAlias()
     {
-        return 'ezpublish';
+        return 'ibexa';
     }
 
     /**
@@ -508,8 +508,8 @@ class IbexaCoreExtension extends Extension implements PrependExtensionInterface
      * ```php
      * public function build(ContainerBuilder $container)
      * {
-     *     $ezExtension = $container->getExtension('ezpublish');
-     *     $ezExtension->addPolicyProvider($myPolicyProvider);
+     *     $ibexaExtension = $container->getExtension('ibexa');
+     *     $ibexaExtension->addPolicyProvider($myPolicyProvider);
      * }
      * ```
      *
@@ -529,8 +529,8 @@ class IbexaCoreExtension extends Extension implements PrependExtensionInterface
      * ```php
      * public function build(ContainerBuilder $container)
      * {
-     *     $ezExtension = $container->getExtension('ezpublish');
-     *     $ezExtension->addConfigParser($myConfigParser);
+     *     $ibexaExtension = $container->getExtension('ibexa');
+     *     $ibexaExtension->addConfigParser($myConfigParser);
      * }
      * ```
      *
@@ -555,8 +555,8 @@ class IbexaCoreExtension extends Extension implements PrependExtensionInterface
      * ```php
      * public function build(ContainerBuilder $container)
      * {
-     *     $ezExtension = $container->getExtension('ezpublish');
-     *     $ezExtension->addDefaultSettings(
+     *     $ibexaExtension = $container->getExtension('ibexa');
+     *     $ibexaExtension->addDefaultSettings(
      *         __DIR__ . '/Resources/config',
      *         ['default_settings.yml']
      *     );
@@ -614,10 +614,7 @@ class IbexaCoreExtension extends Extension implements PrependExtensionInterface
             return;
         }
 
-        $kernelConfigs = array_merge(
-            $container->getExtensionConfig('ezpublish'),
-            $container->getExtensionConfig('ezplatform')
-        );
+        $kernelConfigs = $container->getExtensionConfig('ibexa');
         $entityMappings = [];
 
         $repositoryConnections = [];

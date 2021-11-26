@@ -1,4 +1,4 @@
-ezplatform:
+ibexa:
     siteaccess:
         list: [site]
         default_siteaccess: site

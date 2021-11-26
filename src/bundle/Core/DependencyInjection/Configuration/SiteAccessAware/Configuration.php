@@ -17,7 +17,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  * Key is the context name.
  *
  * <code>
- * ezpublish:
+ * ibexa:
  *     system:
  *         eng:
  *             languages:

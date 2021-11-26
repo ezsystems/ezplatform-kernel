@@ -1,7 +1,7 @@
 parameters:
     env(SEARCH_ENGINE): 'legacy'
 
-ezpublish:
+ibexa:
     siteaccess:
           default_siteaccess: '__default_site_access__'
           list:

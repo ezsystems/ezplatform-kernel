@@ -24,16 +24,16 @@ class Common extends AbstractParser implements SuggestionCollectorAwareInterface
     /**
      * Adds semantic configuration definition.
      *
-     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $nodeBuilder Node just under ezpublish.system.<siteaccess>
+     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $nodeBuilder Node just under ibexa.system.<siteaccess>
      */
     public function addSemanticConfig(NodeBuilder $nodeBuilder)
     {
         $nodeBuilder
-            ->scalarNode('repository')->info('The repository to use. Choose among ezpublish.repositories.')->end()
+            ->scalarNode('repository')->info('The repository to use. Choose among ibexa.repositories.')->end()
             // @deprecated
-            // Use ezpublish.repositories / repository settings instead.
+            // Use ibexa.repositories / repository settings instead.
             ->arrayNode('database')
-                ->info('DEPRECATED. Use ezpublish.repositories / repository settings instead.')
+                ->info('DEPRECATED. Use ibexa.repositories / repository settings instead.')
                 ->children()
                     ->enumNode('type')->values(['mysql', 'pgsql', 'sqlite'])->info('The database driver. Can be mysql, pgsql or sqlite.')->end()
                     ->scalarNode('server')->end()
@@ -118,7 +118,7 @@ class Common extends AbstractParser implements SuggestionCollectorAwareInterface
                 ->info('Settings related to Http cache')
                 ->children()
                     ->arrayNode('purge_servers')
-                        ->info('Servers to use for Http PURGE (will NOT be used if ezpublish.http_cache.purge_type is "local").')
+                        ->info('Servers to use for Http PURGE (will NOT be used if ibexa.http_cache.purge_type is "local").')
                         ->example(['http://localhost/', 'http://another.server/'])
                         ->requiresAtLeastOneElement()
                         ->prototype('scalar')->end()
@@ -232,11 +232,11 @@ class Common extends AbstractParser implements SuggestionCollectorAwareInterface
     {
         $suggestion = new ConfigSuggestion(
 <<<EOT
-Database configuration has changed for eZ Content repository.
+Database configuration has changed for Ibexa Content repository.
 Please define:
- - An entry in ezpublish.repositories
+ - An entry in ibexa.repositories
  - A Doctrine connection (You may check configuration reference for Doctrine "config:dump-reference doctrine" console command.)
- - A reference to configured repository in ezpublish.system.$sa.repository
+ - A reference to configured repository in ibexa.system.$sa.repository
 EOT
         );
         $suggestion->setMandatory(true);
@@ -278,7 +278,7 @@ EOT
                         ],
                     ],
                 ],
-                'ezpublish' => [
+                'ibexa' => [
                     'repositories' => [
                         'my_repository' => [
                             'storage' => [

@@ -413,7 +413,7 @@ class ContextualizerTest extends TestCase
 
     public function testGetSetNamespace()
     {
-        $ns = 'ezpublish';
+        $ns = 'ibexa';
         $this->assertSame($this->namespace, $this->contextualizer->getNamespace());
         $this->contextualizer->setNamespace($ns);
         $this->assertSame($ns, $this->contextualizer->getNamespace());

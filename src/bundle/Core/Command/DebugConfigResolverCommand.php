@@ -74,7 +74,7 @@ However, you can also manually set <comment>--scope[=NAME]</comment> yourself if
 set by the system. You can also override the namespace to get something other than the default "ezsettings" namespace by using
 the <comment>--namespace[=NS]</comment> option.
 
-NOTE: To see *all* compiled SiteAccess settings, use: <comment>debug:config ezpublish [system.default]</comment>
+NOTE: To see *all* compiled SiteAccess settings, use: <comment>debug:config ibexa [system.default]</comment>
 
 EOM
         );

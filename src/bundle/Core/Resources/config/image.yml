@@ -33,7 +33,7 @@ services:
         class: Ibexa\Bundle\Core\Imagine\BinaryLoader
         arguments: ["@ezpublish.fieldType.ezimage.io_service", "@mime_types"]
         tags:
-            - { name: liip_imagine.binary.loader, loader: ezpublish }
+            - { name: liip_imagine.binary.loader, loader: ibexa }
 
     ezpublish.image_alias.imagine.cache_resolver:
         class: Ibexa\Bundle\Core\Imagine\IORepositoryResolver
@@ -44,7 +44,7 @@ services:
             - "@ezpublish.image_alias.variation_purger"
             - "@ezpublish.image_alias.variation_path_generator"
         tags:
-            - { name: liip_imagine.cache.resolver, resolver: ezpublish }
+            - { name: liip_imagine.cache.resolver, resolver: ibexa }
 
     ezpublish.image_alias.imagine.cache_resolver_decorator_factory:
         class: Ibexa\Bundle\Core\Imagine\Cache\ResolverFactory

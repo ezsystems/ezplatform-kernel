@@ -33,8 +33,8 @@ class FilterConfiguration extends BaseFilterConfiguration
         $filterConfig = isset($this->filters[$filter]) ? parent::get($filter) : [];
 
         return [
-            'cache' => 'ezpublish',
-            'data_loader' => 'ezpublish',
+            'cache' => 'ibexa',
+            'data_loader' => 'ibexa',
             'reference' => isset($configuredVariations[$filter]['reference']) ? $configuredVariations[$filter]['reference'] : null,
             'filters' => $this->getVariationFilters($filter, $configuredVariations),
             'post_processors' => $this->getVariationPostProcessors($filter, $configuredVariations),

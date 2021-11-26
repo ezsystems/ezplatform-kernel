@@ -38,7 +38,7 @@ EOT;
                     ],
                 ],
             ],
-            'ezpublish' => [
+            'ibexa' => [
                 'repositories' => [
                     'my_repository' => ['engine' => 'legacy', 'connection' => 'default'],
                 ],
@@ -72,7 +72,7 @@ doctrine:
                 user: my_user
                 password: some_password
                 charset: UTF8
-ezpublish:
+ibexa:
     repositories:
         my_repository:
             engine: legacy

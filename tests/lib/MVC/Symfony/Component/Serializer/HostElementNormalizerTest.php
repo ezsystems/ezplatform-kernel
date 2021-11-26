@@ -24,14 +24,14 @@ final class HostElementNormalizerTest extends TestCase
 
         $matcher = new HostElement(2);
         // Set request and invoke match to initialize HostElement::$hostElements
-        $matcher->setRequest(SimplifiedRequest::fromUrl('http://ezpublish.dev/foo/bar'));
+        $matcher->setRequest(SimplifiedRequest::fromUrl('http://ibexa.dev/foo/bar'));
         $matcher->match();
 
         $this->assertEquals(
             [
                 'elementNumber' => 2,
                 'hostElements' => [
-                    'ezpublish',
+                    'ibexa',
                     'dev',
                 ],
             ],
