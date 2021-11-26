@@ -203,7 +203,9 @@ abstract class DoctrineStorage extends Gateway
      */
     public function removeMimeFromPath($path)
     {
-        return substr($path, strpos((string)$path, '/') + 1);
+        $path = (string)$path;
+
+        return substr($path, strpos($path, '/') + 1);
     }
 
     /**
