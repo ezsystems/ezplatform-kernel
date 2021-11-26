@@ -96,7 +96,7 @@ class LegacyStorageImageFileList implements ImageFileList
         ++$this->cursor;
         $imageId = $this->rowReader->getRow();
 
-        if (substr($imageId, 0, strlen($prefix)) === $prefix) {
+        if (strpos((string)$imageId, $prefix) === 0) {
             $imageId = ltrim(substr($imageId, strlen($prefix)), '/');
         }
 

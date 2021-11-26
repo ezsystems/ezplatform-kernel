@@ -842,7 +842,7 @@ class ContentDomainMapper extends ProxyAwareDomainMapper
     public function getDateTime($timestamp)
     {
         $dateTime = new DateTime();
-        $dateTime->setTimestamp($timestamp);
+        $dateTime->setTimestamp((int)$timestamp);
 
         return $dateTime;
     }

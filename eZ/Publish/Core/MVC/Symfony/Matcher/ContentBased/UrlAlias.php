@@ -30,7 +30,7 @@ class UrlAlias extends MultipleValued
 
         foreach ($this->values as $pattern => $val) {
             foreach ($locationUrls as $urlAlias) {
-                if (strpos($urlAlias->path, "/$pattern") === 0) {
+                if (strpos((string)$urlAlias->path, "/$pattern") === 0) {
                     return true;
                 }
             }
