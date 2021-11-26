@@ -67,16 +67,9 @@ class CoreInstaller extends DbBasedInstaller implements Installer
         $progressBar = new ProgressBar($this->output);
         $progressBar->start($queriesCount);
 
-        try {
-            $this->db->beginTransaction();
-            foreach ($queries as $query) {
-                $this->db->exec($query);
-                $progressBar->advance(1);
-            }
-            $this->db->commit();
-        } catch (DBALException $e) {
-            $this->db->rollBack();
-            throw $e;
+        foreach ($queries as $query) {
+            $this->db->exec($query);
+            $progressBar->advance(1);
         }
 
         $progressBar->finish();
