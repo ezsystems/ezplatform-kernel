@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace EzSystems\PlatformInstallerBundle\Installer;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Schema\Schema;
 use EzSystems\DoctrineSchema\API\Builder\SchemaBuilder;
