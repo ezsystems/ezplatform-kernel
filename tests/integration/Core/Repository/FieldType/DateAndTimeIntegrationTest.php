@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
+use DateTime;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
 use Ibexa\Core\FieldType\DateAndTime\Value as DateAndTimeValue;
-use Ibexa\Contracts\Core\Repository\Values\Content\Field;
-use DateTime;
 
 /**
  * Integration test for use field type.
@@ -149,7 +149,7 @@ class DateAndTimeIntegrationTest extends SearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      */
     public function assertFieldDataLoadedCorrect(Field $field)
     {
@@ -237,7 +237,7 @@ class DateAndTimeIntegrationTest extends SearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was copied and loaded correctly.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      */
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {

@@ -8,22 +8,22 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\FieldType\ImageAsset;
 
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Contracts\Core\Persistence\Content\Handler as SPIContentHandler;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\Core\FieldType\FieldType;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\FieldType;
 use Ibexa\Core\FieldType\ValidationError;
-use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
-use Ibexa\Contracts\Core\Persistence\Content\Handler as SPIContentHandler;
 use Ibexa\Core\FieldType\Value as BaseValue;
 
 class Type extends FieldType
 {
-    const FIELD_TYPE_IDENTIFIER = 'ezimageasset';
+    public const FIELD_TYPE_IDENTIFIER = 'ezimageasset';
 
     /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;

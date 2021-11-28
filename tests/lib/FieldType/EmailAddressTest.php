@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\FieldType\EmailAddress\Type as EmailAddressType;
 use Ibexa\Core\FieldType\EmailAddress\Value as EmailAddressValue;
 use Ibexa\Core\FieldType\ValidationError;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * @group fieldType
@@ -37,7 +37,7 @@ class EmailAddressTest extends FieldTypeTest
             ->with($this->anything(), 'lowercase')
             ->will(
                 $this->returnCallback(
-                    function ($value, $group) {
+                    static function ($value, $group) {
                         return strtolower($value);
                     }
                 )

@@ -7,12 +7,12 @@
 namespace Ibexa\Core\Search\Legacy\Content\WordIndexer\Gateway;
 
 use Doctrine\DBAL\Connection;
-use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
-use Ibexa\Core\Search\Legacy\Content\WordIndexer\Gateway;
-use Ibexa\Core\Persistence\TransformationProcessor;
-use Ibexa\Core\Search\Legacy\Content\WordIndexer\Repository\SearchIndex;
-use Ibexa\Core\Search\Legacy\Content\FullTextData;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as SPITypeHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use Ibexa\Core\Persistence\TransformationProcessor;
+use Ibexa\Core\Search\Legacy\Content\FullTextData;
+use Ibexa\Core\Search\Legacy\Content\WordIndexer\Gateway;
+use Ibexa\Core\Search\Legacy\Content\WordIndexer\Repository\SearchIndex;
 
 /**
  * WordIndexer gateway implementation using the Doctrine database.
@@ -24,7 +24,7 @@ class DoctrineDatabase extends Gateway
      *
      * Note: 2^31-1 seems to be the most reasonable value that should work in any setup.
      */
-    const DB_INT_MAX = 2147483647;
+    public const DB_INT_MAX = 2147483647;
 
     /** @var \Doctrine\DBAL\Connection */
     protected $connection;

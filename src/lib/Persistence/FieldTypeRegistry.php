@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\Persistence;
 
-use Ibexa\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
 use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
 use Ibexa\Contracts\Core\Persistence\FieldType as FieldTypeInterface;
+use Ibexa\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
 
 /**
  * Registry for field types available to storage engines.

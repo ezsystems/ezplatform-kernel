@@ -7,12 +7,12 @@
 namespace Ibexa\Tests\Core\MVC\Symfony\View\Renderer;
 
 use Ibexa\Core\MVC\Exception\NoViewTemplateException;
+use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\View\ContentView;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Ibexa\Core\MVC\Symfony\View\Renderer\TemplateRenderer;
-use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 
 class TemplateRendererTest extends TestCase

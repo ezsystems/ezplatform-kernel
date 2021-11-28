@@ -9,16 +9,16 @@ namespace Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Repository;
-use Ibexa\Core\MVC\Symfony\Templating\Twig\Extension\ContentExtension;
-use Ibexa\Core\Helper\TranslationHelper;
-use Ibexa\Core\Helper\FieldHelper;
-use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\Core\Repository\Values\Content\Content;
-use Ibexa\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Core\Helper\FieldHelper;
+use Ibexa\Core\Helper\TranslationHelper;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Templating\Twig\Extension\ContentExtension;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
 use Psr\Log\LoggerInterface;
 
@@ -69,7 +69,7 @@ class ContentExtensionTest extends FileSystemTwigIntegrationTestCase
      * @param array $fieldsData
      * @param array $namesData
      *
-     * @return Content
+     * @return \Ibexa\Core\Repository\Values\Content\Content
      */
     protected function getContent(string $contentTypeIdentifier, array $fieldsData, array $namesData = [])
     {

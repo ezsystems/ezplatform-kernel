@@ -7,12 +7,12 @@
 namespace Ibexa\Tests\Bundle\Core\EventListener;
 
 use Ibexa\Bundle\Core\EventListener\ConfigScopeListener;
-use Ibexa\Tests\Bundle\Core\EventListener\Stubs\ViewManager;
-use Ibexa\Tests\Bundle\Core\EventListener\Stubs\ViewProvider;
 use Ibexa\Core\MVC\Symfony\Configuration\VersatileScopeInterface;
 use Ibexa\Core\MVC\Symfony\Event\ScopeChangeEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Tests\Bundle\Core\EventListener\Stubs\ViewManager;
+use Ibexa\Tests\Bundle\Core\EventListener\Stubs\ViewProvider;
 use PHPUnit\Framework\TestCase;
 
 class ConfigScopeListenerTest extends TestCase

@@ -8,9 +8,9 @@ namespace Ibexa\Core\Search\Legacy\Content\Location\Gateway\CriterionHandler;
 
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
-use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
 use RuntimeException;
 
 /**

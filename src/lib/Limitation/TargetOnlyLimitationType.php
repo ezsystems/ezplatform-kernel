@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Limitation;
 
+use Ibexa\Contracts\Core\Limitation\Type as LimitationTypeInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitationValue;
 use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
-use Ibexa\Contracts\Core\Limitation\Type as LimitationTypeInterface;
 
 /**
  * Limitation type which doesn't take $object into consideration while evaluation.

@@ -8,9 +8,17 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\Mapper;
 
+use DateTime;
+use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as SPILanguageHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type as SPIContentType;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as SPIFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Group as SPIContentTypeGroup;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as SPITypeHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct as SPIContentTypeUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType as APIContentType;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup as APIContentTypeGroup;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft as APIContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup as APIContentTypeGroup;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeUpdateStruct as APIContentTypeUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct as APIFieldDefinitionCreateStruct;
@@ -25,14 +33,6 @@ use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
-use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
-use Ibexa\Contracts\Core\Persistence\Content\Type as SPIContentType;
-use Ibexa\Contracts\Core\Persistence\Content\Type\Group as SPIContentTypeGroup;
-use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as SPITypeHandler;
-use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct as SPIContentTypeUpdateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as SPIFieldDefinition;
-use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as SPILanguageHandler;
-use DateTime;
 
 /**
  * ContentTypeDomainMapper is an internal service.

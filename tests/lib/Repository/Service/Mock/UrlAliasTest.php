@@ -8,20 +8,20 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
+use Exception;
+use Ibexa\Contracts\Core\Persistence\Content\UrlAlias as SPIUrlAlias;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as ApiNotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LanguageResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
+use Ibexa\Core\Base\Exceptions\ForbiddenException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\Repository\Helper\NameSchemaService;
 use Ibexa\Core\Repository\LocationService;
 use Ibexa\Core\Repository\URLAliasService;
-use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
-use Ibexa\Contracts\Core\Persistence\Content\UrlAlias as SPIUrlAlias;
-use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 use Ibexa\Core\Repository\Values\Content\Location;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
-use Ibexa\Core\Base\Exceptions\ForbiddenException;
-use Exception;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
 
 /**
  * Mock test case for UrlAlias Service.
@@ -2399,7 +2399,7 @@ class UrlAliasTest extends BaseServiceMockTest
             $this->equalTo(0),
             $this->equalTo(-1)
         )->willReturn(
-                [
+            [
                     new SPIUrlAlias(
                         [
                             'pathData' => [
@@ -2439,7 +2439,7 @@ class UrlAliasTest extends BaseServiceMockTest
             $this->equalTo(0),
             $this->equalTo(-1)
         )->willReturn(
-                [
+            [
                     new SPIUrlAlias(
                         [
                             'pathData' => [
@@ -2547,8 +2547,8 @@ class UrlAliasTest extends BaseServiceMockTest
         )->with(
             $this->equalTo($url)
         )->willReturn(
-                new SPIUrlAlias(
-                    [
+            new SPIUrlAlias(
+                [
                         'pathData' => [
                             [
                                 'always-available' => false,
@@ -2565,7 +2565,7 @@ class UrlAliasTest extends BaseServiceMockTest
                         'languageCodes' => ['eng-GB', 'cro-HR'],
                         'alwaysAvailable' => false,
                     ]
-                )
+            )
         );
 
         $urlAliasService->lookup($url, $languageCode);
@@ -2603,8 +2603,8 @@ class UrlAliasTest extends BaseServiceMockTest
         )->with(
             $this->equalTo('jedan/dva')
         )->willReturn(
-                new SPIUrlAlias(
-                    [
+            new SPIUrlAlias(
+                [
                         'pathData' => [
                             [
                                 'always-available' => $alwaysAvailable,
@@ -2621,7 +2621,7 @@ class UrlAliasTest extends BaseServiceMockTest
                         'languageCodes' => ['eng-GB', 'cro-HR'],
                         'alwaysAvailable' => $alwaysAvailable,
                     ]
-                )
+            )
         );
 
         $urlAlias = $urlAliasService->lookup('jedan/dva', $languageCode);
@@ -2677,8 +2677,8 @@ class UrlAliasTest extends BaseServiceMockTest
         )->with(
             $this->equalTo('jedan/two')
         )->willReturn(
-                new SPIUrlAlias(
-                    [
+            new SPIUrlAlias(
+                [
                         'pathData' => [
                             [
                                 'always-available' => $alwaysAvailable,
@@ -2698,7 +2698,7 @@ class UrlAliasTest extends BaseServiceMockTest
                         'languageCodes' => ['eng-GB', 'cro-HR'],
                         'alwaysAvailable' => $alwaysAvailable,
                     ]
-                )
+            )
         );
 
         $urlAlias = $urlAliasService->lookup('jedan/two', $languageCode);
@@ -2756,7 +2756,7 @@ class UrlAliasTest extends BaseServiceMockTest
             $this->equalTo(false),
             $this->equalTo($languageCode)
         )->willReturn(
-                [
+            [
                     new UrlAlias(
                         [
                             'languageCodes' => ['eng-GB'],
@@ -3398,7 +3398,7 @@ class UrlAliasTest extends BaseServiceMockTest
     }
 
     /**
-     * @param SPIUrlAlias[] $spiUrlAliases
+     * @param \Ibexa\Contracts\Core\Persistence\Content\UrlAlias[] $spiUrlAliases
      */
     private function configureListURLAliasesForLocation(array $spiUrlAliases): void
     {

@@ -9,10 +9,10 @@ declare(strict_types=1);
 namespace Ibexa\Core\Persistence\Legacy\Notification\Gateway;
 
 use Doctrine\DBAL\DBALException;
-use Ibexa\Core\Base\Exceptions\DatabaseException;
-use Ibexa\Core\Persistence\Legacy\Notification\Gateway;
 use Ibexa\Contracts\Core\Persistence\Notification\CreateStruct;
 use Ibexa\Contracts\Core\Persistence\Notification\Notification;
+use Ibexa\Core\Base\Exceptions\DatabaseException;
+use Ibexa\Core\Persistence\Legacy\Notification\Gateway;
 use PDOException;
 
 class ExceptionConversion extends Gateway

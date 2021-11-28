@@ -7,11 +7,11 @@
 namespace Ibexa\Core\FieldType\Time;
 
 use DateTime;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\Core\FieldType\FieldType;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
-use Ibexa\Core\FieldType\ValidationError;
 use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\FieldType;
+use Ibexa\Core\FieldType\ValidationError;
 use Ibexa\Core\FieldType\Value as BaseValue;
 
 class Type extends FieldType
@@ -19,12 +19,12 @@ class Type extends FieldType
     /**
      * Default value type empty.
      */
-    const DEFAULT_EMPTY = 0;
+    public const DEFAULT_EMPTY = 0;
 
     /**
      * Default value type current date.
      */
-    const DEFAULT_CURRENT_TIME = 1;
+    public const DEFAULT_CURRENT_TIME = 1;
 
     protected $settingsSchema = [
         'useSeconds' => [

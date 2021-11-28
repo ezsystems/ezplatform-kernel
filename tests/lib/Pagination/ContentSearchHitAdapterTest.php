@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Core\Pagination;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
 use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
@@ -42,11 +42,11 @@ class ContentSearchHitAdapterTest extends TestCase
     /**
      * Returns the adapter to test.
      *
-     * @param Query $query
-     * @param SearchService $searchService
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query $query
+     * @param \Ibexa\Contracts\Core\Repository\SearchService $searchService
      * @param array $languageFilter
      *
-     * @return ContentSearchHitAdapter
+     * @return \Ibexa\Core\Pagination\Pagerfanta\ContentSearchHitAdapter
      */
     protected function getAdapter(Query $query, SearchService $searchService, array $languageFilter = [])
     {

@@ -6,19 +6,19 @@
  */
 namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
+use Ibexa\Contracts\Core\FieldType\FieldType;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\FieldType\Value;
 use Ibexa\Core\Repository\FieldTypeService;
 use Ibexa\Core\Repository\Helper\RelationProcessor;
 use Ibexa\Core\Repository\Values\Content\Relation as RelationValue;
-use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\Core\FieldType\Value;
-use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Contracts\Core\FieldType\FieldType;
-use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
 use Psr\Log\LoggerInterface;
 
 /**

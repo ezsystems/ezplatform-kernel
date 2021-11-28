@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Section;
 
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 use Ibexa\Contracts\Core\Persistence\Content\Section;
-use Ibexa\Core\Persistence\Legacy\Content\Section\Handler;
 use Ibexa\Core\Persistence\Legacy\Content\Section\Gateway;
+use Ibexa\Core\Persistence\Legacy\Content\Section\Handler;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\Section\Handler

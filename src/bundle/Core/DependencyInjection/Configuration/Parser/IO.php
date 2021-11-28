@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class IO extends AbstractParser
 {
-    /** @var ComplexSettingParserInterface */
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\ComplexSettings\ComplexSettingParserInterface */
     private $complexSettingParser;
 
     public function __construct(ComplexSettingParserInterface $complexSettingParser)

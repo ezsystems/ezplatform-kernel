@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Core\FieldType\Date;
 
+use DateTime;
+use Ibexa\Contracts\Core\FieldType\Indexable;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
 use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
-use Ibexa\Contracts\Core\FieldType\Indexable;
 use Ibexa\Contracts\Core\Search;
-use DateTime;
 
 /**
  * Indexable definition for Date field type.

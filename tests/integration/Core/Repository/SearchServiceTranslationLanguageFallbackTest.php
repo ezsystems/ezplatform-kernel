@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
+use DateTime;
 use EzSystems\EzPlatformSolrSearchEngine\Tests\SetupFactory\LegacySetupFactory as LegacySolrSetupFactory;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
-use DateTime;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
 use RuntimeException;
 
 /**
@@ -25,10 +25,10 @@ use RuntimeException;
  */
 class SearchServiceTranslationLanguageFallbackTest extends BaseTest
 {
-    const SETUP_DEDICATED = 'dedicated';
-    const SETUP_SHARED = 'shared';
-    const SETUP_SINGLE = 'single';
-    const SETUP_CLOUD = 'cloud';
+    public const SETUP_DEDICATED = 'dedicated';
+    public const SETUP_SHARED = 'shared';
+    public const SETUP_SINGLE = 'single';
+    public const SETUP_CLOUD = 'cloud';
 
     /**
      * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType

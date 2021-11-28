@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Legacy\Filter\Handler;
 
+use Ibexa\Contracts\Core\Persistence\Content\LocationWithContentInfo;
+use Ibexa\Contracts\Core\Persistence\Filter\Location\Handler;
+use Ibexa\Contracts\Core\Persistence\Filter\Location\LazyLocationListIterator;
 use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationLegacyMapper;
 use Ibexa\Core\Persistence\Legacy\Filter\Gateway\Content\GatewayDataMapper as ContentGatewayDataMapper;
 use Ibexa\Core\Persistence\Legacy\Filter\Gateway\Gateway;
-use Ibexa\Contracts\Core\Persistence\Content\LocationWithContentInfo;
-use Ibexa\Contracts\Core\Persistence\Filter\Location\Handler;
-use Ibexa\Contracts\Core\Persistence\Filter\Location\LazyLocationListIterator;
 
 class LocationFilteringHandler implements Handler
 {

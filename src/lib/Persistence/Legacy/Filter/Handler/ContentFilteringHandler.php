@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Legacy\Filter\Handler;
 
-use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
-use Ibexa\Core\Persistence\Legacy\Content\FieldHandler;
-use Ibexa\Core\Persistence\Legacy\Filter\Gateway\Gateway as FilteringGateway;
-use Ibexa\Core\Persistence\Legacy\Filter\Gateway\Content\GatewayDataMapper;
 use Ibexa\Contracts\Core\Persistence\Content\ContentItem;
 use Ibexa\Contracts\Core\Persistence\Filter\Content\Handler;
 use Ibexa\Contracts\Core\Persistence\Filter\Content\LazyContentItemListIterator;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
+use Ibexa\Core\Persistence\Legacy\Content\FieldHandler;
+use Ibexa\Core\Persistence\Legacy\Filter\Gateway\Content\GatewayDataMapper;
+use Ibexa\Core\Persistence\Legacy\Filter\Gateway\Gateway as FilteringGateway;
 
 /**
  * @internal for internal use by Repository Storage abstraction

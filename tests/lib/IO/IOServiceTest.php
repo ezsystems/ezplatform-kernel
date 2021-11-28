@@ -6,15 +6,15 @@
  */
 namespace Ibexa\Tests\Core\IO;
 
+use Ibexa\Contracts\Core\IO\BinaryFile as SPIBinaryFile;
 use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
+use Ibexa\Contracts\Core\IO\MimeTypeDetector;
 use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
-use Ibexa\Core\IO\IOService;
 use Ibexa\Core\IO\IOBinarydataHandler;
 use Ibexa\Core\IO\IOMetadataHandler;
+use Ibexa\Core\IO\IOService;
 use Ibexa\Core\IO\Values\BinaryFile;
 use Ibexa\Core\IO\Values\BinaryFileCreateStruct;
-use Ibexa\Contracts\Core\IO\BinaryFile as SPIBinaryFile;
-use Ibexa\Contracts\Core\IO\MimeTypeDetector;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
  */
 class IOServiceTest extends TestCase
 {
-    const PREFIX = 'test-prefix';
+    public const PREFIX = 'test-prefix';
 
     /** @var \Ibexa\Core\IO\IOService */
     protected $IOService;
@@ -127,7 +127,7 @@ class IOServiceTest extends TestCase
             ->method('create')
             ->with(
                 $this->callback(
-                    function ($subject) use ($id) {
+                    static function ($subject) use ($id) {
                         if (!$subject instanceof SPIBinaryFileCreateStruct) {
                             return false;
                         }

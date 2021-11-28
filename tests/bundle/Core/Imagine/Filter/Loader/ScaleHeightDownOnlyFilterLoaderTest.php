@@ -7,8 +7,8 @@
 namespace Ibexa\Tests\Bundle\Core\Imagine\Filter\Loader;
 
 use Ibexa\Bundle\Core\Imagine\Filter\Loader\ScaleHeightDownOnlyFilterLoader;
-use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
 use Imagine\Image\ImageInterface;
+use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
 use PHPUnit\Framework\TestCase;
 
 class ScaleHeightDownOnlyFilterLoaderTest extends TestCase
@@ -16,7 +16,7 @@ class ScaleHeightDownOnlyFilterLoaderTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $innerLoader;
 
-    /** @var ScaleHeightDownOnlyFilterLoader */
+    /** @var \Ibexa\Bundle\Core\Imagine\Filter\Loader\ScaleHeightDownOnlyFilterLoader */
     private $loader;
 
     protected function setUp(): void

@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\FieldType\Selection\Type as Selection;
 use Ibexa\Core\FieldType\Selection\Value as SelectionValue;
-use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
 use Ibexa\Core\FieldType\ValidationError;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * @group fieldType
@@ -73,7 +73,7 @@ class SelectionTest extends FieldTypeTest
     /**
      * Returns the empty value expected from the field type.
      *
-     * @return SelectionValue
+     * @return \Ibexa\Core\FieldType\Selection\Value
      */
     protected function getEmptyValueExpectation()
     {

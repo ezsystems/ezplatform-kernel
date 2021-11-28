@@ -6,18 +6,18 @@
  */
 namespace Ibexa\Tests\Core\MVC\Symfony\Controller\Controller\Content;
 
+use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Core\Base\Exceptions\UnauthorizedException;
-use Ibexa\Core\Helper\PreviewLocationProvider;
 use Ibexa\Core\Helper\ContentPreviewHelper;
+use Ibexa\Core\Helper\PreviewLocationProvider;
 use Ibexa\Core\MVC\Symfony\Controller\Content\PreviewController;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute as AuthorizationAttribute;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Core\MVC\Symfony\View\CustomLocationControllerChecker;
 use Ibexa\Core\MVC\Symfony\View\ViewManagerInterface;
-use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute as AuthorizationAttribute;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,7 +38,7 @@ class PreviewControllerTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     protected $authorizationChecker;
 
-    /** @var PreviewLocationProvider|\PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\MVC\Symfony\View\CustomLocationControllerChecker */
+    /** @var \Ibexa\Core\Helper\PreviewLocationProvider|\PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\MVC\Symfony\View\CustomLocationControllerChecker */
     protected $locationProvider;
 
     protected $controllerChecker;
@@ -56,7 +56,7 @@ class PreviewControllerTest extends TestCase
     }
 
     /**
-     * @return PreviewController
+     * @return \Ibexa\Core\MVC\Symfony\Controller\Content\PreviewController
      */
     protected function getPreviewController()
     {
@@ -280,7 +280,7 @@ class PreviewControllerTest extends TestCase
      * @param $content
      * @param $previewSiteAccess
      *
-     * @return Request
+     * @return \Symfony\Component\HttpFoundation\Request
      */
     protected function getDuplicatedRequest(Location $location, Content $content, SiteAccess $previewSiteAccess)
     {

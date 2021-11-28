@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\Notification;
 
-use Ibexa\Contracts\Core\Repository\Values\Notification\Notification;
 use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification;
 
 final class MarkNotificationAsReadEvent extends AfterEvent
 {

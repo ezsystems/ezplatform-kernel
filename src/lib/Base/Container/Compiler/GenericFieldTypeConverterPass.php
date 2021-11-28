@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Base\Container\Compiler;
 
+use Ibexa\Contracts\Core\FieldType\Generic\Type as GenericType;
 use Ibexa\Core\Base\Container\Compiler\Storage\Legacy\FieldValueConverterRegistryPass;
 use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\SerializableConverter;
-use Ibexa\Contracts\Core\FieldType\Generic\Type as GenericType;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\LogicException;

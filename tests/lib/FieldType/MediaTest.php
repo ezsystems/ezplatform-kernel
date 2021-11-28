@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\FieldType\BinaryFile\Value as BinaryFileValue;
 use Ibexa\Core\FieldType\Media\Type as MediaType;
 use Ibexa\Core\FieldType\Media\Value as MediaValue;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\FieldType\ValidationError;
 
 /**

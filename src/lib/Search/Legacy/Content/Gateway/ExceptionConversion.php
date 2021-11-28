@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Core\Search\Legacy\Content\Gateway;
 
+use Doctrine\DBAL\DBALException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Core\Base\Exceptions\DatabaseException;
 use Ibexa\Core\Search\Legacy\Content\Gateway;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
-use Doctrine\DBAL\DBALException;
 use PDOException;
 
 /**

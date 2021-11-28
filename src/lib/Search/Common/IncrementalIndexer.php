@@ -7,8 +7,8 @@
 namespace Ibexa\Core\Search\Common;
 
 use Doctrine\DBAL\FetchMode;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Base class for the Search Engine Indexer Service aimed to recreate Search Engine Index.

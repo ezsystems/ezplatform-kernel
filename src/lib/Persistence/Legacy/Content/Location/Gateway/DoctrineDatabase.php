@@ -6,24 +6,24 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\Location\Gateway;
 
-use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Core\Base\Exceptions\NotFoundException as NotFound;
 use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
 use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
 use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway;
 use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
 use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
-use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
-use Ibexa\Contracts\Core\Persistence\Content\Location;
-use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
-use Ibexa\Core\Base\Exceptions\NotFoundException as NotFound;
-use RuntimeException;
 use PDO;
+use RuntimeException;
 use function time;
 
 /**
@@ -444,7 +444,8 @@ final class DoctrineDatabase extends Gateway
             ->set(
                 'modified_subnode',
                 $query->createPositionalParameter(
-                    $timestamp ?: time(), ParameterType::INTEGER
+                    $timestamp ?: time(),
+                    ParameterType::INTEGER
                 )
             )
             ->where(
@@ -1452,7 +1453,8 @@ final class DoctrineDatabase extends Gateway
                 ),
                 // Root location doesn't have language mask
                 $expr->eq(
-                    't.node_id', 't.parent_node_id'
+                    't.node_id',
+                    't.parent_node_id'
                 )
             )
         );

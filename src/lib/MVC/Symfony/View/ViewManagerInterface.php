@@ -11,8 +11,8 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 interface ViewManagerInterface
 {
-    const VIEW_TYPE_FULL = 'full';
-    const VIEW_TYPE_LINE = 'line';
+    public const VIEW_TYPE_FULL = 'full';
+    public const VIEW_TYPE_LINE = 'line';
 
     /**
      * Renders $content by selecting the right template.

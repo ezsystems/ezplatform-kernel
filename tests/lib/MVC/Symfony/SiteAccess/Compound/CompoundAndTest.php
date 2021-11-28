@@ -6,14 +6,14 @@
  */
 namespace Ibexa\Tests\Core\MVC\Symfony\SiteAccess\Compound;
 
-use Ibexa\Core\MVC\Symfony\SiteAccess;
-use Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilderInterface;
-use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Compound\LogicalAnd;
-use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Compound;
-use Ibexa\Core\MVC\Symfony\SiteAccess\VersatileMatcher;
-use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
 use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Compound;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Compound\LogicalAnd;
 use Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilder;
+use Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilderInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess\VersatileMatcher;
 use PHPUnit\Framework\TestCase;
 
 class CompoundAndTest extends TestCase

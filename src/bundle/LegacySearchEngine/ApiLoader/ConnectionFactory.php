@@ -7,9 +7,9 @@
 namespace Ibexa\Bundle\LegacySearchEngine\ApiLoader;
 
 use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
+use InvalidArgumentException;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use InvalidArgumentException;
 
 class ConnectionFactory implements ContainerAwareInterface
 {

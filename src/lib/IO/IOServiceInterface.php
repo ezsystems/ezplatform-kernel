@@ -39,7 +39,7 @@ interface IOServiceInterface
      *
      * @param string $localFile Path to local file
      *
-     * @return BinaryFileCreateStruct
+     * @return \Ibexa\Core\IO\Values\BinaryFileCreateStruct
      */
     public function newBinaryCreateStructFromLocalFile($localFile);
 
@@ -70,7 +70,7 @@ interface IOServiceInterface
      *
      * @param string $binaryFileId
      *
-     * @return BinaryFile the file, or false if it doesn't exist
+     * @return \Ibexa\Core\IO\Values\BinaryFile the file, or false if it doesn't exist
      *
      * @throws \Ibexa\Core\Base\Exceptions\NotFoundException If no file identified by $binaryFileId exists
      * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue If $binaryFileId is invalid
@@ -84,7 +84,7 @@ interface IOServiceInterface
      *
      * @param string $binaryFileUri
      *
-     * @return BinaryFile the file, or false if it doesn't exist
+     * @return \Ibexa\Core\IO\Values\BinaryFile the file, or false if it doesn't exist
      *
      * @throws \Ibexa\Core\Base\Exceptions\NotFoundException If no file identified by $binaryFileId exists
      */
@@ -93,7 +93,7 @@ interface IOServiceInterface
     /**
      * Returns the content of the binary file.
      *
-     * @param BinaryFile $binaryFile
+     * @param \Ibexa\Core\IO\Values\BinaryFile $binaryFile
      *
      * @throws \Ibexa\Core\Base\Exceptions\NotFoundException If $binaryFile isn't found
      * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue
@@ -105,11 +105,11 @@ interface IOServiceInterface
     /**
      * Creates a binary file in the repository.
      *
-     * @param BinaryFileCreateStruct $binaryFileCreateStruct
+     * @param \Ibexa\Core\IO\Values\BinaryFileCreateStruct $binaryFileCreateStruct
      *
      * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue
      *
-     * @return BinaryFile The created BinaryFile object
+     * @return \Ibexa\Core\IO\Values\BinaryFile The created BinaryFile object
      */
     public function createBinaryFile(BinaryFileCreateStruct $binaryFileCreateStruct);
 
@@ -136,7 +136,7 @@ interface IOServiceInterface
     /**
      * Returns a read (mode: rb) file resource to the binary file identified by $path.
      *
-     * @param BinaryFile $binaryFile
+     * @param \Ibexa\Core\IO\Values\BinaryFile $binaryFile
      *
      * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue
      *
@@ -147,7 +147,7 @@ interface IOServiceInterface
     /**
      * Deletes the BinaryFile with $id.
      *
-     * @param BinaryFile $binaryFile
+     * @param \Ibexa\Core\IO\Values\BinaryFile $binaryFile
      *
      * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue
      */
@@ -160,7 +160,7 @@ interface IOServiceInterface
      *
      * @param array $uploadedFile The $_POST hash of an uploaded file
      *
-     * @return BinaryFileCreateStruct
+     * @return \Ibexa\Core\IO\Values\BinaryFileCreateStruct
      */
     public function newBinaryCreateStructFromUploadedFile(array $uploadedFile);
 

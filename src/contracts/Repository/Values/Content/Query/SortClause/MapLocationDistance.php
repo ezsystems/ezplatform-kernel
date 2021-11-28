@@ -9,9 +9,9 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\CustomFieldInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Target\MapLocationTarget;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\CustomFieldInterface;
 
 /**
  * Sets sort direction on the MapLocation distance for a content query.

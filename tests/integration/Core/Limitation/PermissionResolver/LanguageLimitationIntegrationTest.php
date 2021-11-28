@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\Core\Limitation\PermissionResolver;
 
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation;
 use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation;
 use Ibexa\Tests\Integration\Core\Repository\Limitation\PermissionResolver\BaseLimitationIntegrationTest;
 
 /**

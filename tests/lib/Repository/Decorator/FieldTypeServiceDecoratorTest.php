@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Repository\Decorator;
 
+use Ibexa\Contracts\Core\Repository\Decorator\FieldTypeServiceDecorator;
+use Ibexa\Contracts\Core\Repository\FieldTypeService;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ibexa\Contracts\Core\Repository\FieldTypeService;
-use Ibexa\Contracts\Core\Repository\Decorator\FieldTypeServiceDecorator;
 
 class FieldTypeServiceDecoratorTest extends TestCase
 {

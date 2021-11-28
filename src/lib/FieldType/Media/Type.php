@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Core\FieldType\Media;
 
-use Ibexa\Core\FieldType\BinaryBase\Type as BaseType;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
 use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\BinaryBase\Type as BaseType;
 use Ibexa\Core\FieldType\ValidationError;
 use Ibexa\Core\FieldType\Value as BaseValue;
-use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
 
 /**
  * The TextLine field type.
@@ -23,13 +23,13 @@ class Type extends BaseType
     /**
      * List of possible media type settings.
      */
-    const TYPE_FLASH = 'flash';
-    const TYPE_QUICKTIME = 'quick_time';
-    const TYPE_REALPLAYER = 'real_player';
-    const TYPE_SILVERLIGHT = 'silverlight';
-    const TYPE_WINDOWSMEDIA = 'windows_media_player';
-    const TYPE_HTML5_VIDEO = 'html5_video';
-    const TYPE_HTML5_AUDIO = 'html5_audio';
+    public const TYPE_FLASH = 'flash';
+    public const TYPE_QUICKTIME = 'quick_time';
+    public const TYPE_REALPLAYER = 'real_player';
+    public const TYPE_SILVERLIGHT = 'silverlight';
+    public const TYPE_WINDOWSMEDIA = 'windows_media_player';
+    public const TYPE_HTML5_VIDEO = 'html5_video';
+    public const TYPE_HTML5_AUDIO = 'html5_audio';
 
     /**
      * Type constants for validation.

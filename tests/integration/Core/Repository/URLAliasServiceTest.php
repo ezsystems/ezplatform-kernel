@@ -7,13 +7,13 @@
 namespace Ibexa\Tests\Integration\Core\Repository;
 
 use Doctrine\DBAL\Connection;
+use Exception;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Tests\Integration\Core\Repository\Common\SlugConverter as TestSlugConverter;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
-use Exception;
+use Ibexa\Tests\Integration\Core\Repository\Common\SlugConverter as TestSlugConverter;
 use PDO;
 use RuntimeException;
 
@@ -1343,7 +1343,7 @@ class URLAliasServiceTest extends BaseTest
 
         // corrupt database by removing original entry, keeping its history
         $this->performRawDatabaseOperation(
-            function (Connection $connection) use ($folderLocation) {
+            static function (Connection $connection) use ($folderLocation) {
                 $queryBuilder = $connection->createQueryBuilder();
                 $expr = $queryBuilder->expr();
                 $queryBuilder
@@ -1425,7 +1425,7 @@ class URLAliasServiceTest extends BaseTest
 
         // corrupt database by breaking link to the original URL alias
         $this->performRawDatabaseOperation(
-            function (Connection $connection) use ($nestedFolderLocation) {
+            static function (Connection $connection) use ($nestedFolderLocation) {
                 $queryBuilder = $connection->createQueryBuilder();
                 $expr = $queryBuilder->expr();
                 $queryBuilder

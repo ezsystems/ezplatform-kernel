@@ -13,9 +13,9 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
 use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
-use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
-use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
 use Ibexa\Core\Persistence\TransformationProcessor;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
 
 /**
  * Full text criterion handler.

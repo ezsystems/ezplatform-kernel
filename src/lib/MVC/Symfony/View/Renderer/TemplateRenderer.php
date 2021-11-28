@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Core\MVC\Symfony\View\Renderer;
 
+use Closure;
 use Ibexa\Core\MVC\Exception\NoViewTemplateException;
+use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\View\Renderer;
 use Ibexa\Core\MVC\Symfony\View\View;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Ibexa\Core\MVC\Symfony\MVCEvents;
-use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
-use Closure;
 use Twig\Environment;
 
 class TemplateRenderer implements Renderer
@@ -32,7 +32,7 @@ class TemplateRenderer implements Renderer
     /**
      * @param \Ibexa\Core\MVC\Symfony\View\View $view
      *
-     * @throws NoViewTemplateException
+     * @throws \Ibexa\Core\MVC\Exception\NoViewTemplateException
      *
      * @return string
      */

@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Core\Base\Exceptions\NotFound;
 
-use Ibexa\Core\Base\Exceptions\Httpable;
 use Exception;
-use Ibexa\Core\Base\TranslatableBase;
+use Ibexa\Core\Base\Exceptions\Httpable;
 use Ibexa\Core\Base\Translatable;
+use Ibexa\Core\Base\TranslatableBase;
 use Ibexa\Core\FieldType\Null\Type as NullType;
 use RuntimeException;
 

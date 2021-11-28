@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\Language;
 
-use Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache;
-use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
 use Ibexa\Contracts\Core\Persistence\Content\Language;
-use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as BaseLanguageHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as BaseLanguageHandler;
+use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
+use Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache;
 
 /**
  * Language Handler.

@@ -8,14 +8,14 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\SiteAccessAware;
 
-use Ibexa\Contracts\Core\Repository\LocationService as LocationServiceInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
-use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct;
 use Ibexa\Contracts\Core\Repository\LanguageResolver;
+use Ibexa\Contracts\Core\Repository\LocationService as LocationServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 
 /**

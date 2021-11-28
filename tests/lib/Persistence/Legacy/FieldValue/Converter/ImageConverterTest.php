@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Persistence\Legacy\FieldValue\Converter;
 
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
 use Ibexa\Core\IO\IOServiceInterface;
 use Ibexa\Core\IO\UrlRedecoratorInterface;
 use Ibexa\Core\IO\Values\BinaryFile;
 use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\ImageConverter;
 use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
-use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\PhpUnit\ClockMock;
 

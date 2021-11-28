@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Legacy\Setting\Gateway;
 
+use Doctrine\DBAL\DBALException;
 use Ibexa\Core\Base\Exceptions\DatabaseException;
 use Ibexa\Core\Persistence\Legacy\Setting\Gateway;
-use Doctrine\DBAL\DBALException;
 use PDOException;
 
 /**

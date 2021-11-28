@@ -21,10 +21,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CleanupVersionsCommand extends Command implements BackwardCompatibleCommand
 {
-    const DEFAULT_REPOSITORY_USER = 'admin';
-    const DEFAULT_EXCLUDED_CONTENT_TYPES = 'user';
+    public const DEFAULT_REPOSITORY_USER = 'admin';
+    public const DEFAULT_EXCLUDED_CONTENT_TYPES = 'user';
 
-    const BEFORE_RUNNING_HINTS = <<<EOT
+    public const BEFORE_RUNNING_HINTS = <<<EOT
 <error>Before you continue:</error>
 - Make sure to back up your database.
 - Take the installation offline. The database should not be modified while the script is being executed.
@@ -32,12 +32,12 @@ class CleanupVersionsCommand extends Command implements BackwardCompatibleComman
 - Run this command in production environment using <info>--env=prod</info>
 EOT;
 
-    const VERSION_DRAFT = 'draft';
-    const VERSION_ARCHIVED = 'archived';
-    const VERSION_PUBLISHED = 'published';
-    const VERSION_ALL = 'all';
+    public const VERSION_DRAFT = 'draft';
+    public const VERSION_ARCHIVED = 'archived';
+    public const VERSION_PUBLISHED = 'published';
+    public const VERSION_ALL = 'all';
 
-    const VERSION_STATUS = [
+    public const VERSION_STATUS = [
         self::VERSION_DRAFT => VersionInfo::STATUS_DRAFT,
         self::VERSION_ARCHIVED => VersionInfo::STATUS_ARCHIVED,
         self::VERSION_PUBLISHED => VersionInfo::STATUS_PUBLISHED,

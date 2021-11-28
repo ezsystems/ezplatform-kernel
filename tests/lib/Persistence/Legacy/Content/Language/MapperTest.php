@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Language;
 
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
-use Ibexa\Core\Persistence\Legacy\Content\Language\Mapper;
 use Ibexa\Contracts\Core\Persistence\Content\Language;
 use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct;
+use Ibexa\Core\Persistence\Legacy\Content\Language\Mapper;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\Language\Mapper

@@ -7,9 +7,9 @@
 namespace Ibexa\Core\Search\Common;
 
 use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\CustomFieldInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use RuntimeException;
 
 /**

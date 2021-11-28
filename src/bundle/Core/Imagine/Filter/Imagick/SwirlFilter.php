@@ -12,9 +12,9 @@ use Imagine\Image\ImageInterface;
 class SwirlFilter extends AbstractFilter
 {
     /**
-     * @param ImageInterface|\Imagine\Imagick\Image $image
+     * @param \Imagine\Image\ImageInterface|\Imagine\Imagick\Image $image
      *
-     * @return ImageInterface
+     * @return \Imagine\Image\ImageInterface
      */
     public function apply(ImageInterface $image)
     {

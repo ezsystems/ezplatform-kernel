@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\ObjectState\Gateway;
 
-use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
-use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase;
 use Ibexa\Contracts\Core\Persistence\Content\ObjectState;
 use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group;
+use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase;
+use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase

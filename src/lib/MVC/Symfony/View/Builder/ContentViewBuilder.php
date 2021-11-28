@@ -200,14 +200,15 @@ class ContentViewBuilder implements ViewBuilder
     private function loadEmbeddedContent($contentId, Location $location = null, ?string $languageCode = null)
     {
         $content = $this->repository->sudo(
-            function (Repository $repository) use ($contentId, $languageCode) {
+            static function (Repository $repository) use ($contentId, $languageCode) {
                 return $repository->getContentService()->loadContent($contentId, $languageCode ? [$languageCode] : null);
             }
         );
 
         if (!$this->canRead($content, $location)) {
             throw new UnauthorizedException(
-                'content', 'read|view_embed',
+                'content',
+                'read|view_embed',
                 ['contentId' => $contentId, 'locationId' => $location !== null ? $location->id : 'n/a']
             );
         }
@@ -233,7 +234,7 @@ class ContentViewBuilder implements ViewBuilder
     private function loadLocation($locationId)
     {
         $location = $this->repository->sudo(
-            function (Repository $repository) use ($locationId) {
+            static function (Repository $repository) use ($locationId) {
                 return $repository->getLocationService()->loadLocation($locationId);
             }
         );

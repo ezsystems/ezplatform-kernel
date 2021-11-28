@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Core\FieldType;
 
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Contracts\Core\FieldType\Value as ValueInterface;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * Abstract class for all field value classes.

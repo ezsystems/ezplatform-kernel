@@ -22,12 +22,12 @@ class IsMainLocation extends Location implements FilteringCriterion
     /**
      * Main constant: is main.
      */
-    const MAIN = 0;
+    public const MAIN = 0;
 
     /**
      * Main constant: is not main.
      */
-    const NOT_MAIN = 1;
+    public const NOT_MAIN = 1;
 
     /**
      * Creates a new IsMainLocation criterion.

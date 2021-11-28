@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Bundle\IO\Migration\FileLister\FileIterator;
 
-use Ibexa\Bundle\IO\Migration\FileLister\FileRowReaderInterface;
 use Ibexa\Bundle\IO\Migration\FileLister\FileIteratorInterface;
+use Ibexa\Bundle\IO\Migration\FileLister\FileRowReaderInterface;
 
 /**
  * Iterator for entries in legacy's file tables.

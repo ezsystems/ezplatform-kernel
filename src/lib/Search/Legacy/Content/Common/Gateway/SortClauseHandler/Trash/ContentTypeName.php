@@ -9,9 +9,9 @@ declare(strict_types=1);
 namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler\Trash;
 
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 use Ibexa\Core\Persistence\Legacy\Content\Type\Gateway as ContentTypeGateway;
 use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
 /**
  * @internal
@@ -46,9 +46,15 @@ final class ContentTypeName extends SortClauseHandler
         array $languageSettings
     ): void {
         $query->innerJoin(
-            'c', ContentTypeGateway::CONTENT_TYPE_TABLE, 'ct', 'c.contentclass_id = ct.id'
+            'c',
+            ContentTypeGateway::CONTENT_TYPE_TABLE,
+            'ct',
+            'c.contentclass_id = ct.id'
         )->innerJoin(
-            'ct', ContentTypeGateway::CONTENT_TYPE_NAME_TABLE, 'ctn', 'ctn.contentclass_id = ct.id'
+            'ct',
+            ContentTypeGateway::CONTENT_TYPE_NAME_TABLE,
+            'ctn',
+            'ctn.contentclass_id = ct.id'
         );
     }
 }

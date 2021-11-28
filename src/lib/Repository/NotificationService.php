@@ -9,6 +9,10 @@ declare(strict_types=1);
 namespace Ibexa\Core\Repository;
 
 use DateTime;
+use Ibexa\Contracts\Core\Persistence\Notification\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Notification\Handler;
+use Ibexa\Contracts\Core\Persistence\Notification\Notification;
+use Ibexa\Contracts\Core\Persistence\Notification\UpdateStruct;
 use Ibexa\Contracts\Core\Repository\NotificationService as NotificationServiceInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Notification\CreateStruct as APICreateStruct;
@@ -17,10 +21,6 @@ use Ibexa\Contracts\Core\Repository\Values\Notification\NotificationList;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\Base\Exceptions\UnauthorizedException;
-use Ibexa\Contracts\Core\Persistence\Notification\CreateStruct;
-use Ibexa\Contracts\Core\Persistence\Notification\Handler;
-use Ibexa\Contracts\Core\Persistence\Notification\Notification;
-use Ibexa\Contracts\Core\Persistence\Notification\UpdateStruct;
 
 class NotificationService implements NotificationServiceInterface
 {

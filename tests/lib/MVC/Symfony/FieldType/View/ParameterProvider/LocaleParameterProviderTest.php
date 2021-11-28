@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Tests\Core\MVC\Symfony\FieldType\View\ParameterProvider;
 
-use Ibexa\Core\MVC\Symfony\FieldType\View\ParameterProvider\LocaleParameterProvider;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Core\MVC\Symfony\FieldType\View\ParameterProvider\LocaleParameterProvider;
 use Ibexa\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\ParameterBag;
 
 class LocaleParameterProviderTest extends TestCase
 {

@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\Core;
 
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 abstract class BaseGatewayTest extends BaseTest
 {

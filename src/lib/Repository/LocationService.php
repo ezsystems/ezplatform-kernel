@@ -8,44 +8,44 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository;
 
-use Ibexa\Contracts\Core\Repository\ContentTypeService;
-use Ibexa\Contracts\Core\Repository\PermissionCriterionResolver;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\Values\Content\Language;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LanguageCode;
-use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Core\Repository\Mapper\ContentDomainMapper;
+use function count;
+use Exception;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
 use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
-use Ibexa\Contracts\Core\Repository\LocationService as LocationServiceInterface;
-use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
 use Ibexa\Contracts\Core\Persistence\Filter\Location\Handler as LocationFilteringHandler;
 use Ibexa\Contracts\Core\Persistence\Handler;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Contracts\Core\Repository\LocationService as LocationServiceInterface;
+use Ibexa\Contracts\Core\Repository\PermissionCriterionResolver;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LanguageCode;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd as CriterionLogicalAnd;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalNot as CriterionLogicalNot;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Subtree as CriterionSubtree;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Core\Base\Exceptions\BadStateException;
-use Ibexa\Core\Base\Exceptions\UnauthorizedException;
-use Exception;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
+use Ibexa\Core\Repository\Mapper\ContentDomainMapper;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use function count;
 
 /**
  * Location service, used for complex subtree operations.
@@ -687,7 +687,8 @@ class LocationService implements LocationServiceInterface
 
         if ($newParentLocation->id === $location->parentLocationId) {
             throw new InvalidArgumentException(
-                '$newParentLocation', 'new parent Location is the same as the current one'
+                '$newParentLocation',
+                'new parent Location is the same as the current one'
             );
         }
         if (strpos($newParentLocation->pathString, $location->pathString) === 0) {
@@ -882,7 +883,7 @@ class LocationService implements LocationServiceInterface
         );
         $contentIds = array_unique(
             array_map(
-                function (SPILocation $spiLocation) {
+                static function (SPILocation $spiLocation) {
                     return $spiLocation->contentId;
                 },
                 $spiLocations

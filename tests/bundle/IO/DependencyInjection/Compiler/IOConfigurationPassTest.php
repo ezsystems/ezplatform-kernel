@@ -12,14 +12,13 @@ use Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use PHPUnit\Framework\MockObject\MockObject;
 
 class IOConfigurationPassTest extends AbstractCompilerPassTestCase
 {
-    /** @var ConfigurationFactory|MockObject */
+    /** @var \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory|\PHPUnit\Framework\MockObject\MockObject */
     protected $metadataConfigurationFactoryMock;
 
-    /** @var ConfigurationFactory|MockObject */
+    /** @var \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory|\PHPUnit\Framework\MockObject\MockObject */
     protected $binarydataConfigurationFactoryMock;
 
     protected function setUp(): void

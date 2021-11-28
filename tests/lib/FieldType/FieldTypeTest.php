@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
-use Ibexa\Tests\Core\FieldType\BaseFieldTypeTest as BaseFieldTypeTest;
-use Ibexa\Core\Persistence\TransformationProcessor;
 use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Core\Persistence\TransformationProcessor;
+use Ibexa\Tests\Core\FieldType\BaseFieldTypeTest as BaseFieldTypeTest;
 
 abstract class FieldTypeTest extends BaseFieldTypeTest
 {

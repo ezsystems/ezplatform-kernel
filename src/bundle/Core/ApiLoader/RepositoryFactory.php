@@ -6,24 +6,24 @@
  */
 namespace Ibexa\Bundle\Core\ApiLoader;
 
+use Ibexa\Contracts\Core\Persistence\Filter\Content\Handler as ContentFilteringHandler;
+use Ibexa\Contracts\Core\Persistence\Filter\Location\Handler as LocationFilteringHandler;
+use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
 use Ibexa\Contracts\Core\Repository\LanguageResolver;
 use Ibexa\Contracts\Core\Repository\PasswordHashService;
 use Ibexa\Contracts\Core\Repository\PermissionService;
 use Ibexa\Contracts\Core\Repository\Repository;
-use Ibexa\Core\FieldType\FieldTypeRegistry;
-use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\Core\Repository\Permission\LimitationService;
-use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
-use Ibexa\Core\Repository\Helper\RelationProcessor;
-use Ibexa\Core\Repository\Mapper;
-use Ibexa\Core\Repository\User\PasswordValidatorInterface;
-use Ibexa\Core\Search\Common\BackgroundIndexer;
-use Ibexa\Contracts\Core\Persistence\Filter\Content\Handler as ContentFilteringHandler;
-use Ibexa\Contracts\Core\Persistence\Filter\Location\Handler as LocationFilteringHandler;
-use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
 use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
 use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
 use Ibexa\Contracts\Core\Search\Handler as SearchHandler;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\Repository\Helper\RelationProcessor;
+use Ibexa\Core\Repository\Mapper;
+use Ibexa\Core\Repository\Permission\LimitationService;
+use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
+use Ibexa\Core\Repository\User\PasswordValidatorInterface;
+use Ibexa\Core\Search\Common\BackgroundIndexer;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;

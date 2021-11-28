@@ -13,11 +13,11 @@ use Ibexa\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 class ContentSearchAdapterTest extends ContentSearchHitAdapterTest
 {
     /**
-     * @param Query $query
-     * @param SearchService $searchService
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query $query
+     * @param \Ibexa\Contracts\Core\Repository\SearchService $searchService
      * @param array $languageFilter
      *
-     * @return ContentSearchAdapter
+     * @return \Ibexa\Core\Pagination\Pagerfanta\ContentSearchAdapter
      */
     protected function getAdapter(Query $query, SearchService $searchService, array $languageFilter = [])
     {

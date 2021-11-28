@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Tests\Core\IO\IOBinarydataHandler;
 
+use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
 use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
 use Ibexa\Core\IO\IOBinarydataHandler\Flysystem;
 use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FilesystemInterface;
 use PHPUnit\Framework\TestCase;
-use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
 
 class FlysystemTest extends TestCase
 {

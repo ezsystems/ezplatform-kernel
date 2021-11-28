@@ -7,19 +7,19 @@
 namespace Ibexa\Core\Persistence\Legacy\Content;
 
 use Exception;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use Ibexa\Contracts\Core\Persistence\Content\Field;
-use Ibexa\Contracts\Core\Persistence\Content\Handler as BaseContentHandler;
-use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
-use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
-use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway as UrlAliasGateway;
 use Ibexa\Contracts\Core\Persistence\Content;
 use Ibexa\Contracts\Core\Persistence\Content\CreateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\Handler as BaseContentHandler;
 use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Ibexa\Core\Base\Exceptions\NotFoundException as NotFound;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway as UrlAliasGateway;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -484,7 +484,7 @@ class Handler implements BaseContentHandler
         }
 
         $idVersionPairs = array_map(
-            function ($row) {
+            static function ($row) {
                 return [
                     'id' => $row['ezcontentobject_version_contentobject_id'],
                     'version' => $row['ezcontentobject_version_version'],
@@ -886,7 +886,7 @@ class Handler implements BaseContentHandler
         // get all [languageCode => name] entries except the removed Translation
         $names = array_filter(
             $versionInfo->names,
-            function ($lang) use ($languageCode) {
+            static function ($lang) use ($languageCode) {
                 return $lang !== $languageCode;
             },
             ARRAY_FILTER_USE_KEY

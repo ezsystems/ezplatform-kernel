@@ -8,12 +8,12 @@ namespace Ibexa\Tests\Core\Persistence\Cache;
 
 use Ibexa\Contracts\Core\Persistence\Content\Type as SPIType;
 use Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct as SPITypeCreateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct as SPITypeUpdateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as SPITypeFieldDefinition;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group as SPITypeGroup;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group\CreateStruct as SPITypeGroupCreateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group\UpdateStruct as SPITypeGroupUpdateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as SPIContentTypeHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct as SPITypeUpdateStruct;
 
 /**
  * Test case for Persistence\Cache\ContentTypeHandler.

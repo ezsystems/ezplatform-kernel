@@ -8,8 +8,8 @@ namespace Ibexa\Tests\Bundle\Core\EventListener\Stubs;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use Ibexa\Core\MVC\Symfony\View\View;
 use Ibexa\Core\MVC\Symfony\View\ViewManagerInterface;
 

@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration\Parser;
 
-use Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Content as ContentConfigParser;
+use Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension;
 use Symfony\Component\Yaml\Yaml;
 
 class ContentTest extends AbstractParserTestCase

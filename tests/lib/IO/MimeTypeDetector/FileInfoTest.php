@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class FileInfoTest extends TestCase
 {
-    /** @var MimeTypeDetector */
+    /** @var \Ibexa\Core\IO\MimeTypeDetector\FileInfo */
     protected $mimeTypeDetector;
 
     protected function setUp(): void

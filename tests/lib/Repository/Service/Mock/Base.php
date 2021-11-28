@@ -6,37 +6,37 @@
  */
 namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
+use Ibexa\Contracts\Core\Persistence\Filter\Content\Handler as ContentFilteringHandler;
+use Ibexa\Contracts\Core\Persistence\Filter\Location\Handler as LocationFilteringHandler;
+use Ibexa\Contracts\Core\Persistence\Handler;
 use Ibexa\Contracts\Core\Repository\LanguageResolver;
+use Ibexa\Contracts\Core\Repository\PasswordHashService;
 use Ibexa\Contracts\Core\Repository\PermissionService;
+use Ibexa\Contracts\Core\Repository\Repository as APIRepository;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
+use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Core\Repository\FieldTypeService;
+use Ibexa\Core\Repository\Helper\RelationProcessor;
 use Ibexa\Core\Repository\Mapper\ContentDomainMapper;
 use Ibexa\Core\Repository\Mapper\ContentMapper;
+use Ibexa\Core\Repository\Mapper\ContentTypeDomainMapper;
 use Ibexa\Core\Repository\Mapper\RoleDomainMapper;
 use Ibexa\Core\Repository\Permission\LimitationService;
 use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
+use Ibexa\Core\Repository\Repository;
 use Ibexa\Core\Repository\Strategy\ContentValidator\ContentValidatorStrategy;
-use Ibexa\Contracts\Core\Repository\PasswordHashService;
-use Ibexa\Core\FieldType\FieldTypeRegistry;
-use Ibexa\Core\Repository\Helper\RelationProcessor;
 use Ibexa\Core\Repository\User\PasswordValidatorInterface;
 use Ibexa\Core\Repository\Validator\ContentCreateStructValidator;
 use Ibexa\Core\Repository\Validator\ContentUpdateStructValidator;
 use Ibexa\Core\Repository\Validator\VersionValidator;
-use Ibexa\Core\Search\Common\BackgroundIndexer\NullIndexer;
-use Ibexa\Contracts\Core\Persistence\Filter\Content\Handler as ContentFilteringHandler;
-use Ibexa\Contracts\Core\Persistence\Filter\Location\Handler as LocationFilteringHandler;
-use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
-use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
-use Ibexa\Core\Repository\Repository;
 use Ibexa\Core\Repository\Values\Content\Content;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Contracts\Core\Repository\Repository as APIRepository;
 use Ibexa\Core\Repository\Values\User\User;
-use Ibexa\Core\Repository\FieldTypeService;
-use Ibexa\Core\Repository\Mapper\ContentTypeDomainMapper;
-use Ibexa\Contracts\Core\Persistence\Handler;
+use Ibexa\Core\Search\Common\BackgroundIndexer\NullIndexer;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Base test case for tests on services using Mock testing.

@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Core\Persistence\Legacy\User\Gateway;
 
 use Doctrine\DBAL\ParameterType;
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 use Ibexa\Core\Persistence\Legacy\User\Gateway\DoctrineDatabase;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\User\Gateway\DoctrineDatabase

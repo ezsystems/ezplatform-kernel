@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\FieldType\Relation;
 
+use Ibexa\Contracts\Core\FieldType\Indexable;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
 use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
-use Ibexa\Contracts\Core\FieldType\Indexable;
 use Ibexa\Contracts\Core\Search;
 
 /**

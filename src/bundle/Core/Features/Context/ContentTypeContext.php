@@ -7,9 +7,9 @@
 namespace Ibexa\Bundle\Core\Features\Context;
 
 use Behat\Behat\Context\Context;
+use Behat\Gherkin\Node\TableNode;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
-use Behat\Gherkin\Node\TableNode;
 use PHPUnit\Framework\Assert as Assertion;
 
 /**
@@ -20,12 +20,12 @@ class ContentTypeContext implements Context
     /**
      * Default ContentTypeGroup.
      */
-    const DEFAULT_GROUP = 'Content';
+    public const DEFAULT_GROUP = 'Content';
 
     /**
      * Default language code.
      */
-    const DEFAULT_LANGUAGE = 'eng-GB';
+    public const DEFAULT_LANGUAGE = 'eng-GB';
 
     /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     protected $contentTypeService;

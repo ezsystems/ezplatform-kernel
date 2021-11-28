@@ -7,8 +7,8 @@
 namespace Ibexa\Tests\Bundle\Core\ApiLoader;
 
 use Ibexa\Bundle\Core\ApiLoader\Exception\InvalidStorageEngine;
-use Ibexa\Bundle\Core\ApiLoader\StorageEngineFactory;
 use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
+use Ibexa\Bundle\Core\ApiLoader\StorageEngineFactory;
 use Ibexa\Contracts\Core\Persistence\Handler;
 use Ibexa\Core\MVC\ConfigResolverInterface;
 use PHPUnit\Framework\TestCase;

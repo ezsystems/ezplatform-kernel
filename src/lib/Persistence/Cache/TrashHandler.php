@@ -7,8 +7,8 @@
 namespace Ibexa\Core\Persistence\Cache;
 
 use Ibexa\Contracts\Core\Persistence\Content\Location\Trash\Handler as TrashHandlerInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Persistence\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
 class TrashHandler extends AbstractHandler implements TrashHandlerInterface
 {

@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\Content;
 
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class UpdateContentMetadataEvent extends AfterEvent
 {

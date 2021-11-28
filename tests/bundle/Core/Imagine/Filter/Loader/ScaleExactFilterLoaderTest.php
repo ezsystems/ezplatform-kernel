@@ -16,7 +16,7 @@ class ScaleExactFilterLoaderTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $innerLoader;
 
-    /** @var ScaleExactFilterLoader */
+    /** @var \Ibexa\Bundle\Core\Imagine\Filter\Loader\ScaleExactFilterLoader */
     private $loader;
 
     protected function setUp(): void

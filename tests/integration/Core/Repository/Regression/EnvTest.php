@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use Ibexa\Core\Persistence\Cache\Adapter\TransactionalInMemoryCacheAdapter;
-use Symfony\Component\Cache\Adapter\TagAwareAdapter;
-use Symfony\Component\Cache\Adapter\RedisAdapter;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
+use Symfony\Component\Cache\Adapter\RedisAdapter;
+use Symfony\Component\Cache\Adapter\TagAwareAdapter;
 
 /**
  * Test case to verify Integration tests are setup with the right instances.

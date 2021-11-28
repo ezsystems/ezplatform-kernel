@@ -15,12 +15,12 @@ use Ibexa\Contracts\Core\Persistence\ValueObject;
  */
 class ContentInfo extends ValueObject
 {
-    const STATUS_DRAFT = 0;
-    const STATUS_PUBLISHED = 1;
-    const STATUS_TRASHED = 2;
+    public const STATUS_DRAFT = 0;
+    public const STATUS_PUBLISHED = 1;
+    public const STATUS_TRASHED = 2;
 
     /** @deprecated Use ContentInfo::STATUS_TRASHED */
-    const STATUS_ARCHIVED = self::STATUS_TRASHED;
+    public const STATUS_ARCHIVED = self::STATUS_TRASHED;
 
     /**
      * Content's unique ID.

@@ -11,10 +11,10 @@ namespace Ibexa\Core\Repository\Values\ContentType;
 use ArrayIterator;
 use BadMethodCallException;
 use Closure;
-use Iterator;
 use Ibexa\Contracts\Core\Repository\Exceptions\OutOfBoundsException;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection as FieldDefinitionCollectionInterface;
+use Iterator;
 
 final class FieldDefinitionCollection implements FieldDefinitionCollectionInterface
 {

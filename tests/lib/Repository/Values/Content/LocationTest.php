@@ -8,8 +8,8 @@ namespace Ibexa\Tests\Core\Repository\Values\Content;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException;
-use Ibexa\Tests\Core\Repository\Values\ValueObjectTestTrait;
 use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Tests\Core\Repository\Values\ValueObjectTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**

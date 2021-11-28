@@ -6,15 +6,15 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
 
-use Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
 use Ibexa\Contracts\Core\Persistence\Content;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
-use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
-use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
-use Ibexa\Core\Persistence\Legacy\Content\Gateway;
-use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
-use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
 use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
 
 /**
  * Action to add a field to content objects.
@@ -80,7 +80,7 @@ class AddField extends Action
 
         $nameRows = $this->contentGateway->loadVersionedNameData(
             array_map(
-                function ($versionNo) use ($contentId) {
+                static function ($versionNo) use ($contentId) {
                     return ['id' => $contentId, 'version' => $versionNo];
                 },
                 $versionNumbers

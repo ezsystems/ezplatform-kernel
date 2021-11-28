@@ -7,9 +7,9 @@
 namespace Ibexa\Tests\Bundle\Core\Imagine\Filter\Loader;
 
 use Ibexa\Bundle\Core\Imagine\Filter\Loader\ScalePercentFilterLoader;
+use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
-use Imagine\Image\Box;
 use PHPUnit\Framework\TestCase;
 
 class ScalePercentFilterLoaderTest extends TestCase
@@ -17,7 +17,7 @@ class ScalePercentFilterLoaderTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $innerLoader;
 
-    /** @var ScalePercentFilterLoader */
+    /** @var \Ibexa\Bundle\Core\Imagine\Filter\Loader\ScalePercentFilterLoader */
     private $loader;
 
     protected function setUp(): void

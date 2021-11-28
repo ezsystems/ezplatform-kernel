@@ -14,8 +14,8 @@ use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
-use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -141,7 +141,7 @@ class TranslationHelper
      * @param string $property Specifies if 'name' or 'description' should be used
      * @param string $forcedLanguage Locale we want the field definition name translated in in (e.g. "fre-FR"). Null by default (takes current locale)
      *
-     * @throws InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      *
      * @return string|null
      */
@@ -185,7 +185,7 @@ class TranslationHelper
      * @param string $property Property name, example 'names', 'descriptions'
      * @param string $forcedLanguage Locale we want the content name translation in (e.g. "fre-FR"). Null by default (takes current locale)
      *
-     * @throws InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      *
      * @return string|null
      */
@@ -224,7 +224,7 @@ class TranslationHelper
      * @param string $method Method name, example 'getName', 'description'
      * @param string $forcedLanguage Locale we want the content name translation in (e.g. "fre-FR"). Null by default (takes current locale)
      *
-     * @throws InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      *
      * @return string|null
      */

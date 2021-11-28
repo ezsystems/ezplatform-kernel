@@ -8,16 +8,16 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Event;
 
-use Ibexa\Contracts\Core\Repository\NotificationService as NotificationServiceInterface;
-use Ibexa\Contracts\Core\Repository\Values\Notification\CreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Notification\Notification;
+use Ibexa\Contracts\Core\Repository\Decorator\NotificationServiceDecorator;
 use Ibexa\Contracts\Core\Repository\Events\Notification\BeforeCreateNotificationEvent;
 use Ibexa\Contracts\Core\Repository\Events\Notification\BeforeDeleteNotificationEvent;
 use Ibexa\Contracts\Core\Repository\Events\Notification\BeforeMarkNotificationAsReadEvent;
 use Ibexa\Contracts\Core\Repository\Events\Notification\CreateNotificationEvent;
 use Ibexa\Contracts\Core\Repository\Events\Notification\DeleteNotificationEvent;
 use Ibexa\Contracts\Core\Repository\Events\Notification\MarkNotificationAsReadEvent;
-use Ibexa\Contracts\Core\Repository\Decorator\NotificationServiceDecorator;
+use Ibexa\Contracts\Core\Repository\NotificationService as NotificationServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Notification\CreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class NotificationService extends NotificationServiceDecorator

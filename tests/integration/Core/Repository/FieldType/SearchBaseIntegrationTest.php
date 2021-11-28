@@ -7,20 +7,20 @@
 namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
 use Ibexa\Contracts\Core\Repository\Repository;
-use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalNot;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalOperator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\CustomFieldInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Field as FieldSortClause;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
 
 /**
  * Integration test for searching and sorting with Field criterion and Field sort clause.

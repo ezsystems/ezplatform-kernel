@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Legacy\UserPreference;
 
-use Ibexa\Core\Base\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
 use Ibexa\Contracts\Core\Persistence\UserPreference\Handler as HandlerInterface;
 use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 
 class Handler implements HandlerInterface
 {

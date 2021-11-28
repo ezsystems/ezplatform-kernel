@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\IO;
 
+use Ibexa\Contracts\Core\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
 use Ibexa\Core\IO\Values\BinaryFile;
 use Ibexa\Core\IO\Values\BinaryFileCreateStruct;
 use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
-use Ibexa\Contracts\Core\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
 
 class ConfigScopeChangeAwareIOService implements IOServiceInterface, ConfigScopeChangeSubscriber
 {

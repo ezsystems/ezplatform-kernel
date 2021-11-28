@@ -10,11 +10,11 @@ namespace Ibexa\Tests\Core\Repository\ContentThumbnail;
 
 use ArrayIterator;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Repository\Strategy\ContentThumbnail\Field\ContentFieldStrategy;
-use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
 use PHPUnit\Framework\TestCase;
 
 class ContentFieldStrategyTest extends TestCase

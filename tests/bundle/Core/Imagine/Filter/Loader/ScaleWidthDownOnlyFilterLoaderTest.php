@@ -7,8 +7,8 @@
 namespace Ibexa\Tests\Bundle\Core\Imagine\Filter\Loader;
 
 use Ibexa\Bundle\Core\Imagine\Filter\Loader\ScaleWidthDownOnlyFilterLoader;
-use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
 use Imagine\Image\ImageInterface;
+use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
 use PHPUnit\Framework\TestCase;
 
 class ScaleWidthDownOnlyFilterLoaderTest extends TestCase
@@ -16,7 +16,7 @@ class ScaleWidthDownOnlyFilterLoaderTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $innerLoader;
 
-    /** @var ScaleWidthDownOnlyFilterLoader */
+    /** @var \Ibexa\Bundle\Core\Imagine\Filter\Loader\ScaleWidthDownOnlyFilterLoader */
     private $loader;
 
     protected function setUp(): void

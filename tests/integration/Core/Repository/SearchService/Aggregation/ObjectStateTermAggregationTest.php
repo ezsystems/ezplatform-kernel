@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation;
 
-use Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation\DataSetBuilder\TermAggregationDataSetBuilder;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\ObjectStateTermAggregation;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation\DataSetBuilder\TermAggregationDataSetBuilder;
 
 final class ObjectStateTermAggregationTest extends AbstractAggregationTest
 {

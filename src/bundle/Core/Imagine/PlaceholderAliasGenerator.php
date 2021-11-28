@@ -6,14 +6,14 @@
  */
 namespace Ibexa\Bundle\Core\Imagine;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException as APIInvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException as APIInvalidArgumentException;
+use Ibexa\Contracts\Core\Variation\VariationHandler;
 use Ibexa\Core\FieldType\Image\Value as ImageValue;
 use Ibexa\Core\FieldType\Value;
 use Ibexa\Core\IO\IOServiceInterface;
-use Ibexa\Contracts\Core\Variation\VariationHandler;
 use InvalidArgumentException;
 use Liip\ImagineBundle\Exception\Imagine\Cache\Resolver\NotResolvableException;
 use Liip\ImagineBundle\Imagine\Cache\Resolver\ResolverInterface;

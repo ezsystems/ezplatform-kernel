@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\FieldType\Url\Type as UrlType;
 use Ibexa\Core\FieldType\Url\Value as UrlValue;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * @group fieldType

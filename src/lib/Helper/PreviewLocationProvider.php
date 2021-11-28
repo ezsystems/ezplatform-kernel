@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Core\Helper;
 
+use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as PersistenceLocationHandler;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
 use Ibexa\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as PersistenceLocationHandler;
 
 /**
  * Provides location(s) for a content. Handles unpublished content that does not have an actual location yet.

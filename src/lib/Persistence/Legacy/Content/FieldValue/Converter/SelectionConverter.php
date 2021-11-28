@@ -6,14 +6,14 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
+use DOMDocument;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Core\FieldType\FieldSettings;
 use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
-use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
 use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
-use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
-use DOMDocument;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
 
 class SelectionConverter implements Converter
 {
@@ -140,7 +140,8 @@ class SelectionConverter implements Converter
             }
         }
 
-        $fieldDef->fieldTypeConstraints->fieldSettings = new FieldSettings([
+        $fieldDef->fieldTypeConstraints->fieldSettings = new FieldSettings(
+            [
                 'isMultiple' => !empty($storageDef->dataInt1) ? (bool)$storageDef->dataInt1 : false,
                 'options' => $options,
                 'multilingualOptions' => $multiLingualOptions,

@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\User;
 
-use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
 use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
 use UnexpectedValueException;
 
 final class BeforeDeleteUserGroupEvent extends BeforeEvent

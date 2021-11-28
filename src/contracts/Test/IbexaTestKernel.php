@@ -10,11 +10,11 @@ namespace Ibexa\Contracts\Core\Test;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\DBAL\Connection;
+use FOS\JsRoutingBundle\FOSJsRoutingBundle;
 use Ibexa\Bundle\Core\IbexaCoreBundle;
 use Ibexa\Bundle\LegacySearchEngine\IbexaLegacySearchEngineBundle;
-use Ibexa\Contracts\Core\Repository;
 use Ibexa\Contracts\Core\Persistence\TransactionHandler;
-use FOS\JsRoutingBundle\FOSJsRoutingBundle;
+use Ibexa\Contracts\Core\Repository;
 use JMS\TranslationBundle\JMSTranslationBundle;
 use Liip\ImagineBundle\LiipImagineBundle;
 use Psr\Log\NullLogger;
@@ -99,12 +99,12 @@ class IbexaTestKernel extends Kernel
 
     public function getCacheDir(): string
     {
-        return sys_get_temp_dir() . '/ibexa-test-kernel/' . md5(serialize(getenv())) . md5(get_class($this));
+        return sys_get_temp_dir() . '/ibexa-test-kernel/' . md5(serialize(getenv())) . md5(static::class);
     }
 
     public function getBuildDir(): string
     {
-        return sys_get_temp_dir() . '/ibexa-test-kernel-build/' . md5(serialize(getenv())) . md5(get_class($this));
+        return sys_get_temp_dir() . '/ibexa-test-kernel-build/' . md5(serialize(getenv())) . md5(static::class);
     }
 
     public function registerBundles(): iterable

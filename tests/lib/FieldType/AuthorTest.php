@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\FieldType\Author\Author;
+use Ibexa\Core\FieldType\Author\AuthorCollection;
 use Ibexa\Core\FieldType\Author\Type as AuthorType;
 use Ibexa\Core\FieldType\Author\Value as AuthorValue;
-use Ibexa\Core\FieldType\Author\AuthorCollection;
-use Ibexa\Core\FieldType\Author\Author;
 use Ibexa\Core\FieldType\Value;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * @group fieldType

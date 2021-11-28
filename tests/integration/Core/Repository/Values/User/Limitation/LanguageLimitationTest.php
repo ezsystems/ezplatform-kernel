@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\Core\Repository\Values\User\Limitation;
 
+use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
-use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 /**
  * Test cases for ContentService APIs calls made by user with LanguageLimitation on chosen policies.

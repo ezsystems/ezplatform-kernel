@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use DateTime;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 /**
  * Test case for issue EZP-21089.

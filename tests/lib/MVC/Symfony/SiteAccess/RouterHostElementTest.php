@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Core\MVC\Symfony\SiteAccess;
 
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\HostElement;
-use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Map\Host as HostMapMatcher;
-use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
 use Psr\Log\LoggerInterface;
 
 class RouterHostElementTest extends RouterBaseTest

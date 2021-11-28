@@ -8,27 +8,27 @@ namespace Ibexa\Tests\Bundle\Core\EventListener;
 
 use Ibexa\Bundle\Core\EventListener\IndexRequestListener;
 use Ibexa\Core\MVC\ConfigResolverInterface;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use PHPUnit\Framework\TestCase;
 
 class IndexRequestListenerTest extends TestCase
 {
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $configResolver;
 
-    /** @var IndexRequestListener */
+    /** @var \Ibexa\Bundle\Core\EventListener\IndexRequestListener */
     private $indexRequestEventListener;
 
-    /** @var Request */
+    /** @var \Symfony\Component\HttpFoundation\Request */
     private $request;
 
-    /** @var RequestEvent */
+    /** @var \Symfony\Component\HttpKernel\Event\RequestEvent */
     private $event;
 
-    /** @var HttpKernelInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Symfony\Component\HttpKernel\HttpKernelInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $httpKernel;
 
     protected function setUp(): void

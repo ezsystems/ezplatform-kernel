@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Event;
 
-use Ibexa\Contracts\Core\Repository\FieldTypeService as FieldTypeServiceInterface;
 use Ibexa\Contracts\Core\Repository\Decorator\FieldTypeServiceDecorator;
+use Ibexa\Contracts\Core\Repository\FieldTypeService as FieldTypeServiceInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class FieldTypeService extends FieldTypeServiceDecorator

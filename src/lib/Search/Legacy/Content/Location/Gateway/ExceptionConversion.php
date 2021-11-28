@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Core\Search\Legacy\Content\Location\Gateway;
 
+use Doctrine\DBAL\DBALException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Core\Base\Exceptions\DatabaseException;
 use Ibexa\Core\Search\Legacy\Content\Location\Gateway;
-use Doctrine\DBAL\DBALException;
 use PDOException;
 
 /**
@@ -20,14 +20,14 @@ class ExceptionConversion extends Gateway
     /**
      * The wrapped gateway.
      *
-     * @var Gateway
+     * @var \Ibexa\Core\Search\Legacy\Content\Location\Gateway
      */
     protected $innerGateway;
 
     /**
      * Creates a new exception conversion gateway around $innerGateway.
      *
-     * @param Gateway $innerGateway
+     * @param \Ibexa\Core\Search\Legacy\Content\Location\Gateway $innerGateway
      */
     public function __construct(Gateway $innerGateway)
     {

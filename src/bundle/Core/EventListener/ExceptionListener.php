@@ -6,6 +6,7 @@
  */
 namespace Ibexa\Bundle\Core\EventListener;
 
+use Exception;
 use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
@@ -14,17 +15,16 @@ use Ibexa\Core\Base\Translatable;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Exception;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ExceptionListener implements EventSubscriberInterface
 {
-    /** @var TranslatorInterface */
+    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
 
     public function __construct(TranslatorInterface $translator)
@@ -63,7 +63,7 @@ class ExceptionListener implements EventSubscriberInterface
     /**
      * Translates the exception message if it is translatable.
      *
-     * @param Exception $exception
+     * @param \Exception $exception
      *
      * @return string
      */

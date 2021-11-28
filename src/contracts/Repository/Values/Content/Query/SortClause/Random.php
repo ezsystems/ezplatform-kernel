@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Target\RandomTarget;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Target\RandomTarget;
 
 /**
  * Sets sort random on a content query.

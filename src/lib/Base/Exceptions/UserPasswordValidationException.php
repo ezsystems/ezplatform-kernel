@@ -18,11 +18,11 @@ class UserPasswordValidationException extends InvalidArgumentException
      *
      * @param string $argumentName
      * @param array $errors
-     * @param Exception|null $previous
+     * @param \Exception|null $previous
      */
     public function __construct(string $argumentName, array $errors, Exception $previous = null)
     {
-        $rules = array_map(function (ValidationError $error) {
+        $rules = array_map(static function (ValidationError $error) {
             return (string) $error->getTranslatableMessage();
         }, $errors);
 

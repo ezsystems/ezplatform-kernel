@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\Persistence;
 
+use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
 use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
 use Ibexa\Contracts\Core\Persistence\FieldType as FieldTypeInterface;
-use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
 
 /**
  * This class represents a FieldType available to SPI users.

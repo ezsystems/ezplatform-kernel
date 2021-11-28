@@ -6,19 +6,19 @@
  */
 namespace Ibexa\Tests\Bundle\Core\Routing;
 
+use Ibexa\Bundle\Core\Routing\UrlAliasRouter;
+use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\URLAliasService;
-use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
+use Ibexa\Core\MVC\Symfony\View\Manager as ViewManager;
 use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Tests\Core\MVC\Symfony\Routing\UrlAliasRouterTest as BaseUrlAliasRouterTest;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\RequestContext;
-use Ibexa\Bundle\Core\Routing\UrlAliasRouter;
-use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
-use Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
-use Ibexa\Tests\Core\MVC\Symfony\Routing\UrlAliasRouterTest as BaseUrlAliasRouterTest;
-use Ibexa\Core\MVC\Symfony\View\Manager as ViewManager;
 
 class UrlAliasRouterTest extends BaseUrlAliasRouterTest
 {

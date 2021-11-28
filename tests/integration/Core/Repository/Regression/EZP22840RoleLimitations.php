@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\NewObjectStateLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 /**
  * Issue EZP-22840.

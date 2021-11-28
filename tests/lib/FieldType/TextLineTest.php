@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\FieldType\TextLine\Type as TextLineType;
 use Ibexa\Core\FieldType\TextLine\Value as TextLineValue;
 use Ibexa\Core\FieldType\ValidationError;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * @group fieldType

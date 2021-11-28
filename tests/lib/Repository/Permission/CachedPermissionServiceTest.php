@@ -22,12 +22,12 @@ function time()
 
 namespace Ibexa\Tests\Core\Repository\Permission;
 
-use Ibexa\Contracts\Core\Repository\Repository;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\PermissionCriterionResolver;
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\User\UserReference;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Repository\Permission\CachedPermissionService;
 use PHPUnit\Framework\TestCase;
 
@@ -58,7 +58,7 @@ class CachedPermissionServiceTest extends TestCase
             ['setCurrentUserReference', [$userRef], null],
             ['hasAccess', ['content', 'remove', $userRef], false],
             ['canUser', ['content', 'remove', $valueObject, [new \stdClass()]], true],
-            ['sudo', [function () {}, $repository], null],
+            ['sudo', [static function () {}, $repository], null],
         ];
     }
 

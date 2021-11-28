@@ -6,21 +6,21 @@
  */
 namespace Ibexa\Core\MVC\Symfony\Translation;
 
-use JMS\TranslationBundle\Exception\RuntimeException;
 use Doctrine\Common\Annotations\DocParser;
-use JMS\TranslationBundle\Model\Message;
-use JMS\TranslationBundle\Annotation\Meaning;
 use JMS\TranslationBundle\Annotation\Desc;
 use JMS\TranslationBundle\Annotation\Ignore;
-use JMS\TranslationBundle\Translation\Extractor\FileVisitorInterface;
-use JMS\TranslationBundle\Model\MessageCatalogue;
+use JMS\TranslationBundle\Annotation\Meaning;
+use JMS\TranslationBundle\Exception\RuntimeException;
 use JMS\TranslationBundle\Logger\LoggerAwareInterface;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Model\MessageCatalogue;
+use JMS\TranslationBundle\Translation\Extractor\FileVisitorInterface;
 use JMS\TranslationBundle\Translation\FileSourceFactory;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
+use PhpParser\Node\Scalar\String_;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
-use PhpParser\Node\Scalar\String_;
 use Psr\Log\LoggerInterface;
 use Twig\Node\Node as TwigNode;
 
@@ -29,25 +29,25 @@ use Twig\Node\Node as TwigNode;
  */
 class TranslatableExceptionsFileVisitor implements LoggerAwareInterface, FileVisitorInterface, NodeVisitor
 {
-    /** @var FileSourceFactory */
+    /** @var \JMS\TranslationBundle\Translation\FileSourceFactory */
     private $fileSourceFactory;
 
-    /** @var NodeTraverser */
+    /** @var \PhpParser\NodeTraverser */
     private $traverser;
 
-    /** @var MessageCatalogue */
+    /** @var \JMS\TranslationBundle\Model\MessageCatalogue */
     private $catalogue;
 
     /** @var \SplFileInfo */
     private $file;
 
-    /** @var DocParser */
+    /** @var \Doctrine\Common\Annotations\DocParser */
     private $docParser;
 
-    /** @var LoggerInterface */
+    /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    /** @var Node */
+    /** @var \PhpParser\Node */
     private $previousNode;
 
     /** @var string */
@@ -66,8 +66,8 @@ class TranslatableExceptionsFileVisitor implements LoggerAwareInterface, FileVis
     /**
      * DefaultPhpFileExtractor constructor.
      *
-     * @param DocParser $docParser
-     * @param FileSourceFactory $fileSourceFactory
+     * @param \Doctrine\Common\Annotations\DocParser $docParser
+     * @param \JMS\TranslationBundle\Translation\FileSourceFactory $fileSourceFactory
      */
     public function __construct(DocParser $docParser, FileSourceFactory $fileSourceFactory)
     {
@@ -78,7 +78,7 @@ class TranslatableExceptionsFileVisitor implements LoggerAwareInterface, FileVis
     }
 
     /**
-     * @param LoggerInterface $logger
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function setLogger(LoggerInterface $logger)
     {
@@ -86,7 +86,7 @@ class TranslatableExceptionsFileVisitor implements LoggerAwareInterface, FileVis
     }
 
     /**
-     * @param Node $node
+     * @param \PhpParser\Node $node
      */
     public function enterNode(Node $node)
     {
@@ -149,7 +149,7 @@ class TranslatableExceptionsFileVisitor implements LoggerAwareInterface, FileVis
 
     /**
      * @param \SplFileInfo $file
-     * @param MessageCatalogue $catalogue
+     * @param \JMS\TranslationBundle\Model\MessageCatalogue $catalogue
      * @param array $ast
      */
     public function visitPhpFile(\SplFileInfo $file, MessageCatalogue $catalogue, array $ast)
@@ -167,7 +167,7 @@ class TranslatableExceptionsFileVisitor implements LoggerAwareInterface, FileVis
     }
 
     /**
-     * @param Node $node
+     * @param \PhpParser\Node $node
      */
     public function leaveNode(Node $node)
     {
@@ -182,7 +182,7 @@ class TranslatableExceptionsFileVisitor implements LoggerAwareInterface, FileVis
 
     /**
      * @param \SplFileInfo $file
-     * @param MessageCatalogue $catalogue
+     * @param \JMS\TranslationBundle\Model\MessageCatalogue $catalogue
      */
     public function visitFile(\SplFileInfo $file, MessageCatalogue $catalogue)
     {
@@ -190,7 +190,7 @@ class TranslatableExceptionsFileVisitor implements LoggerAwareInterface, FileVis
 
     /**
      * @param \SplFileInfo $file
-     * @param MessageCatalogue $catalogue
+     * @param \JMS\TranslationBundle\Model\MessageCatalogue $catalogue
      * @param \Twig\Node\Node $ast
      */
     public function visitTwigFile(\SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast)
@@ -198,7 +198,7 @@ class TranslatableExceptionsFileVisitor implements LoggerAwareInterface, FileVis
     }
 
     /**
-     * @param Node $node
+     * @param \PhpParser\Node $node
      *
      * @return string|null
      */

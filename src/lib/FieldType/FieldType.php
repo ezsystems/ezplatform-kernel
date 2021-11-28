@@ -8,11 +8,11 @@ namespace Ibexa\Core\FieldType;
 
 use Ibexa\Contracts\Core\FieldType\Comparable;
 use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
-use Ibexa\Core\Persistence\TransformationProcessor;
 use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
 use Ibexa\Contracts\Core\Persistence\Content\FieldValue as PersistenceValue;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\Persistence\TransformationProcessor;
 
 /**
  * Base class for field types, the most basic storage unit of data inside eZ Publish.

@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Bundle\Core\Fragment;
 
-use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface;
@@ -52,8 +52,8 @@ class DecoratedFragmentRenderer implements FragmentRendererInterface, SiteAccess
     /**
      * Renders a URI and returns the Response content.
      *
-     * @param string|ControllerReference $uri A URI as a string or a ControllerReference instance
-     * @param Request $request A Request instance
+     * @param string|\Symfony\Component\HttpKernel\Controller\ControllerReference $uri A URI as a string or a ControllerReference instance
+     * @param \Symfony\Component\HttpFoundation\Request $request A Request instance
      * @param array $options An array of options
      *
      * @return \Symfony\Component\HttpFoundation\Response A Response instance

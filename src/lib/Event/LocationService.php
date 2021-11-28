@@ -8,11 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Event;
 
-use Ibexa\Contracts\Core\Repository\LocationService as LocationServiceInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Decorator\LocationServiceDecorator;
 use Ibexa\Contracts\Core\Repository\Events\Location\BeforeCopySubtreeEvent;
 use Ibexa\Contracts\Core\Repository\Events\Location\BeforeCreateLocationEvent;
 use Ibexa\Contracts\Core\Repository\Events\Location\BeforeDeleteLocationEvent;
@@ -29,7 +25,11 @@ use Ibexa\Contracts\Core\Repository\Events\Location\MoveSubtreeEvent;
 use Ibexa\Contracts\Core\Repository\Events\Location\SwapLocationEvent;
 use Ibexa\Contracts\Core\Repository\Events\Location\UnhideLocationEvent;
 use Ibexa\Contracts\Core\Repository\Events\Location\UpdateLocationEvent;
-use Ibexa\Contracts\Core\Repository\Decorator\LocationServiceDecorator;
+use Ibexa\Contracts\Core\Repository\LocationService as LocationServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class LocationService extends LocationServiceDecorator

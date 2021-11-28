@@ -11,12 +11,12 @@ namespace Ibexa\Tests\Bundle\Core\Imagine\ImageAsset;
 use Ibexa\Bundle\Core\Imagine\ImageAsset\AliasGenerator;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
-use Ibexa\Core\FieldType\ImageAsset;
-use Ibexa\Core\FieldType\Image;
-use Ibexa\Core\Repository\Values\Content\Content;
-use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\Core\Variation\Values\Variation;
 use Ibexa\Contracts\Core\Variation\VariationHandler;
+use Ibexa\Core\FieldType\Image;
+use Ibexa\Core\FieldType\ImageAsset;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use PHPUnit\Framework\TestCase;
 
 class AliasGeneratorTest extends TestCase

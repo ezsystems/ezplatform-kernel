@@ -7,7 +7,6 @@
 namespace Ibexa\Bundle\IO\Migration\FileLister;
 
 use Ibexa\Bundle\Core\Imagine\VariationPathGenerator;
-use Ibexa\Bundle\Core\Imagine\VariationPurger\ImageFileList;
 use Ibexa\Bundle\IO\ApiLoader\HandlerRegistry;
 use Ibexa\Bundle\IO\Migration\FileListerInterface;
 use Ibexa\Bundle\IO\Migration\MigrationHandler;
@@ -19,7 +18,7 @@ use Psr\Log\LoggerInterface;
 
 class ImageFileLister extends MigrationHandler implements FileListerInterface
 {
-    /** @var ImageFileList */
+    /** @var \Ibexa\Bundle\Core\Imagine\VariationPurger\ImageFileList */
     private $imageFileList;
 
     /** @var \Ibexa\Bundle\Core\Imagine\VariationPathGenerator */

@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\UrlAlias\Gateway;
 
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
-use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway\DoctrineDatabase;
-use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
+use Ibexa\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase as LanguageGateway;
 use Ibexa\Core\Persistence\Legacy\Content\Language\Handler as LanguageHandler;
 use Ibexa\Core\Persistence\Legacy\Content\Language\Mapper as LanguageMapper;
-use Ibexa\Core\Persistence\Legacy\Content\Language\Gateway\DoctrineDatabase as LanguageGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator as LanguageMaskGenerator;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway\DoctrineDatabase;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway\DoctrineDatabase

@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
 use Ibexa\Contracts\Core\Persistence\URL\Handler as SpiURLHandler;
 use Ibexa\Contracts\Core\Persistence\URL\URL;
 use Ibexa\Contracts\Core\Persistence\URL\URLUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
 
 class URLHandlerTest extends AbstractCacheHandlerTest
 {

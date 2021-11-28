@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Setting;
 
-use Ibexa\Core\Base\Exceptions\NotFoundException as NotFound;
 use Ibexa\Contracts\Core\Persistence\Setting\Handler as BaseSettingHandler;
 use Ibexa\Contracts\Core\Persistence\Setting\Setting;
+use Ibexa\Core\Base\Exceptions\NotFoundException as NotFound;
 
 class Handler implements BaseSettingHandler
 {

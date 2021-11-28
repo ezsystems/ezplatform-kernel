@@ -6,19 +6,19 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\Location;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Persistence\Content;
 use Ibexa\Contracts\Core\Persistence\Content\Location;
 use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as BaseLocationHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Trashed;
+use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Core\Persistence\Legacy\Content\Handler as ContentHandler;
-use Ibexa\Core\Persistence\Legacy\Content\TreeHandler;
-use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Handler as ObjectStateHandler;
 use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
 use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
-use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Location\Trashed;
+use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Handler as ObjectStateHandler;
+use Ibexa\Core\Persistence\Legacy\Content\TreeHandler;
 
 /**
  * The Location Handler interface defines operations on Location elements in the storage engine.
@@ -188,7 +188,7 @@ class Handler implements BaseLocationHandler
     }
 
     /**
-     * @param Content $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content $content
      * @param \Ibexa\Contracts\Core\Persistence\Content\ObjectState[] $contentStates
      */
     protected function setContentStates(Content $content, array $contentStates)
@@ -217,7 +217,7 @@ class Handler implements BaseLocationHandler
      * @param mixed $destinationParentId
      * @param int|null $newOwnerId
      *
-     * @return Location the newly created Location.
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Location the newly created Location.
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
@@ -355,7 +355,7 @@ class Handler implements BaseLocationHandler
     /**
      * If the location is the main location for its content, updates subtree section.
      *
-     * @param Location $location
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Location $location
      * @param int $sectionId
      */
     private function updateSubtreeSectionIfNecessary(Location $location, $sectionId)
@@ -368,7 +368,7 @@ class Handler implements BaseLocationHandler
     /**
      * Checks if the location is the main location for its content.
      *
-     * @param Location $location
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Location $location
      *
      * @return bool
      */

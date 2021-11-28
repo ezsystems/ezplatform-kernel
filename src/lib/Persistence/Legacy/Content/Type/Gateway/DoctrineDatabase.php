@@ -13,16 +13,16 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
-use Ibexa\Core\Persistence\Legacy\Content\MultilingualStorageFieldDefinition;
-use Ibexa\Core\Persistence\Legacy\Content\Type\Gateway;
-use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
-use Ibexa\Core\Persistence\Legacy\SharedGateway\Gateway as SharedGateway;
 use Ibexa\Contracts\Core\Persistence\Content\Type;
 use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use Ibexa\Core\Persistence\Legacy\Content\MultilingualStorageFieldDefinition;
 use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Gateway;
+use Ibexa\Core\Persistence\Legacy\SharedGateway\Gateway as SharedGateway;
 use function sprintf;
 
 /**

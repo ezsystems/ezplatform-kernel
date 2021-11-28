@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\Role;
 
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleCopyStruct;
-use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class CopyRoleEvent extends AfterEvent
 {

@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\MVC\Symfony\Templating;
 
+use Ibexa\Contracts\Core\MVC\Templating\RenderStrategy;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
@@ -16,7 +17,6 @@ use Ibexa\Core\Repository\Values\Content\Content;
 use Ibexa\Core\Repository\Values\Content\Location;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Tests\Core\Search\TestCase;
-use Ibexa\Contracts\Core\MVC\Templating\RenderStrategy;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;

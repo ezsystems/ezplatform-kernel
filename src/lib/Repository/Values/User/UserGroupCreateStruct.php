@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\Values\User;
 
-use Ibexa\Contracts\Core\Repository\Values\User\UserGroupCreateStruct as APIUserGroupCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroupCreateStruct as APIUserGroupCreateStruct;
 
 /**
  * This class is used to create a new user group in the repository.

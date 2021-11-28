@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\URLAlias;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 use UnexpectedValueException;
 
 final class BeforeCreateGlobalUrlAliasEvent extends BeforeEvent

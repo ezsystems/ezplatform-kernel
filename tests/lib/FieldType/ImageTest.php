@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
+use Ibexa\Contracts\Core\IO\MimeTypeDetector;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\FieldType\Image\Type as ImageType;
 use Ibexa\Core\FieldType\Image\Value as ImageValue;
 use Ibexa\Core\FieldType\ValidationError;
-use Ibexa\Contracts\Core\IO\MimeTypeDetector;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\FieldType\Validator\FileExtensionBlackListValidator;
 use Ibexa\Core\FieldType\Validator\ImageValidator;
 use Ibexa\Core\MVC\ConfigResolverInterface;
@@ -138,7 +138,7 @@ class ImageTest extends FieldTypeTest
     /**
      * Returns the empty value expected from the field type.
      *
-     * @return ImageValue
+     * @return \Ibexa\Core\FieldType\Image\Value
      */
     protected function getEmptyValueExpectation()
     {
@@ -694,7 +694,10 @@ class ImageTest extends FieldTypeTest
                         'fileExtensionBlackList'
                     ),
                     new ValidationError(
-                        'A valid image file is required.', null, [], 'id'
+                        'A valid image file is required.',
+                        null,
+                        [],
+                        'id'
                     ),
                 ],
             ],
@@ -758,7 +761,10 @@ class ImageTest extends FieldTypeTest
                         'fileExtensionBlackList'
                     ),
                     new ValidationError(
-                        'A valid image file is required.', null, [], 'id'
+                        'A valid image file is required.',
+                        null,
+                        [],
+                        'id'
                     ),
                 ],
             ],
@@ -787,7 +793,10 @@ class ImageTest extends FieldTypeTest
                         'fileExtensionBlackList'
                     ),
                     new ValidationError(
-                        'A valid image file is required.', null, [], 'id'
+                        'A valid image file is required.',
+                        null,
+                        [],
+                        'id'
                     ),
                 ],
             ],
@@ -810,7 +819,10 @@ class ImageTest extends FieldTypeTest
                 ),
                 [
                     new ValidationError(
-                        'Alternative text is required.', null, [], 'alternativeText'
+                        'Alternative text is required.',
+                        null,
+                        [],
+                        'alternativeText'
                     ),
                 ],
             ],
@@ -833,7 +845,10 @@ class ImageTest extends FieldTypeTest
                 ),
                 [
                     new ValidationError(
-                        'Alternative text is required.', null, [], 'alternativeText'
+                        'Alternative text is required.',
+                        null,
+                        [],
+                        'alternativeText'
                     ),
                 ],
             ],

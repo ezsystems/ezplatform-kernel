@@ -10,8 +10,8 @@ namespace Ibexa\Tests\Integration\Core\Persistence\Filter\Doctrine;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
-use Ibexa\Core\Base\Exceptions\DatabaseException;
 use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Core\Base\Exceptions\DatabaseException;
 use PHPUnit\Framework\TestCase;
 
 class FilteringQueryBuilderTest extends TestCase

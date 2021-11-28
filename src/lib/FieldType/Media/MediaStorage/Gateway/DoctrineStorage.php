@@ -8,8 +8,8 @@ namespace Ibexa\Core\FieldType\Media\MediaStorage\Gateway;
 
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway\DoctrineStorage as BaseDoctrineStorage;
 use PDO;
 
@@ -34,19 +34,19 @@ class DoctrineStorage extends BaseDoctrineStorage
         $propertyMap = parent::getPropertyMapping();
         $propertyMap['has_controller'] = [
             'name' => 'hasController',
-            'cast' => function ($val) {
+            'cast' => static function ($val) {
                 return (bool)$val;
             },
         ];
         $propertyMap['is_autoplay'] = [
             'name' => 'autoplay',
-            'cast' => function ($val) {
+            'cast' => static function ($val) {
                 return (bool)$val;
             },
         ];
         $propertyMap['is_loop'] = [
             'name' => 'loop',
-            'cast' => function ($val) {
+            'cast' => static function ($val) {
                 return (bool)$val;
             },
         ];

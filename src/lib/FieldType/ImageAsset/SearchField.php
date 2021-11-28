@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\FieldType\ImageAsset;
 
+use Ibexa\Contracts\Core\FieldType\Indexable;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
 use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
-use Ibexa\Contracts\Core\FieldType\Indexable;
 use Ibexa\Contracts\Core\Search;
 
 /**

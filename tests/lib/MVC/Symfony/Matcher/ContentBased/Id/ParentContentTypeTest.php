@@ -7,9 +7,9 @@
 namespace Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased\Id;
 
 use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Id\ParentContentType as ParentContentTypeMatcher;
 use Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased\BaseTest;
-use Ibexa\Contracts\Core\Repository\Repository;
 
 class ParentContentTypeTest extends BaseTest
 {

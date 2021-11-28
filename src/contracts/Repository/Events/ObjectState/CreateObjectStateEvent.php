@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\ObjectState;
 
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
-use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class CreateObjectStateEvent extends AfterEvent
 {

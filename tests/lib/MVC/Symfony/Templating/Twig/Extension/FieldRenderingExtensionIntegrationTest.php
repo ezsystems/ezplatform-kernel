@@ -11,9 +11,9 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Core\Helper\TranslationHelper;
 use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistryInterface;
 use Ibexa\Core\MVC\Symfony\Templating\Twig\Extension\FieldRenderingExtension;
 use Ibexa\Core\MVC\Symfony\Templating\Twig\FieldBlockRenderer;
-use Ibexa\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistryInterface;
 use Ibexa\Core\MVC\Symfony\Templating\Twig\ResourceProviderInterface;
 use Ibexa\Core\Repository\Values\Content\Content;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
@@ -76,7 +76,7 @@ class FieldRenderingExtensionIntegrationTest extends FileSystemTwigIntegrationTe
      * @param array $fieldsData
      * @param array $namesData
      *
-     * @return Content
+     * @return \Ibexa\Core\Repository\Values\Content\Content
      */
     protected function getContent($contentTypeIdentifier, array $fieldsData, array $namesData = [])
     {
@@ -107,7 +107,8 @@ class FieldRenderingExtensionIntegrationTest extends FileSystemTwigIntegrationTe
                     'mainLanguageCode' => 'fre-FR',
                     'fieldDefinitions' => new FieldDefinitionCollection(
                         $this->fieldDefinitions[$contentTypeIdentifier
-                    ]),
+                    ]
+                    ),
                 ]),
                 'versionInfo' => new VersionInfo(
                     [

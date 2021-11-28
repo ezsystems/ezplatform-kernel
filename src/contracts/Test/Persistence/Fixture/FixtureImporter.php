@@ -45,7 +45,7 @@ final class FixtureImporter
 
         $nonEmptyTablesData = array_filter(
             $data,
-            function ($tableData) {
+            static function ($tableData) {
                 return !empty($tableData);
             }
         );
@@ -64,7 +64,7 @@ final class FixtureImporter
                             $columns
                         ),
                         array_map(
-                            function (string $columnName) {
+                            static function (string $columnName) {
                                 return ":{$columnName}";
                             },
                             $columns

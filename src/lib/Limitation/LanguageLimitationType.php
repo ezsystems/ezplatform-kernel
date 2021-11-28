@@ -8,12 +8,18 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Limitation;
 
+use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Limitation\TargetAwareType as SPITargetAwareLimitationType;
+use Ibexa\Contracts\Core\Persistence\Content\Handler as SPIPersistenceContentHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as SPIPersistenceLanguageHandler;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo as SPIVersionInfo;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitationValue;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation as APILanguageLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
@@ -21,12 +27,6 @@ use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Base\Exceptions\BadStateException;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use Ibexa\Core\FieldType\ValidationError;
-use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Contracts\Core\Limitation\Target;
-use Ibexa\Contracts\Core\Limitation\TargetAwareType as SPITargetAwareLimitationType;
-use Ibexa\Contracts\Core\Persistence\Content\Handler as SPIPersistenceContentHandler;
-use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as SPIPersistenceLanguageHandler;
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo as SPIVersionInfo;
 
 /**
  * LanguageLimitation is a Content limitation.

@@ -9,6 +9,7 @@ namespace Ibexa\Tests\Bundle\Core\EventListener;
 use Ibexa\Bundle\Core\EventListener\RequestEventListener;
 use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Bridge\PhpUnit\ClockMock;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,7 +19,6 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\RouterInterface;
-use PHPUnit\Framework\TestCase;
 
 class RequestEventListenerTest extends TestCase
 {
@@ -28,19 +28,19 @@ class RequestEventListenerTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $router;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|LoggerInterface */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\Psr\Log\LoggerInterface */
     private $logger;
 
-    /** @var RequestEventListener */
+    /** @var \Ibexa\Bundle\Core\EventListener\RequestEventListener */
     private $requestEventListener;
 
-    /** @var Request */
+    /** @var \Symfony\Component\HttpFoundation\Request */
     private $request;
 
-    /** @var RequestEvent */
+    /** @var \Symfony\Component\HttpKernel\Event\RequestEvent */
     private $event;
 
-    /** @var HttpKernelInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Symfony\Component\HttpKernel\HttpKernelInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $httpKernel;
 
     protected function setUp(): void
@@ -140,7 +140,7 @@ class RequestEventListenerTest extends TestCase
         $event = new RequestEvent($this->httpKernel, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->requestEventListener->onKernelRequestRedirect($event);
         $this->assertTrue($event->hasResponse());
-        /** @var RedirectResponse $response */
+        /** @var \Symfony\Component\HttpFoundation\RedirectResponse $response */
         $response = $event->getResponse();
         $this->assertInstanceOf(RedirectResponse::class, $response);
         $this->assertSame("$semanticPathinfo?some=thing", $response->getTargetUrl());
@@ -162,7 +162,7 @@ class RequestEventListenerTest extends TestCase
         $event = new RequestEvent($this->httpKernel, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->requestEventListener->onKernelRequestRedirect($event);
         $this->assertTrue($event->hasResponse());
-        /** @var RedirectResponse $response */
+        /** @var \Symfony\Component\HttpFoundation\RedirectResponse $response */
         $response = $event->getResponse();
         $this->assertInstanceOf(RedirectResponse::class, $response);
         $this->assertSame("$semanticPathinfo?some=thing", $response->getTargetUrl());
@@ -195,7 +195,7 @@ class RequestEventListenerTest extends TestCase
         $event = new RequestEvent($this->httpKernel, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->requestEventListener->onKernelRequestRedirect($event);
         $this->assertTrue($event->hasResponse());
-        /** @var RedirectResponse $response */
+        /** @var \Symfony\Component\HttpFoundation\RedirectResponse $response */
         $response = $event->getResponse();
         $this->assertInstanceOf(RedirectResponse::class, $response);
         $this->assertSame("$expectedURI?some=thing", $response->getTargetUrl());

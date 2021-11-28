@@ -8,12 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Event;
 
-use Ibexa\Contracts\Core\Repository\SectionService as SectionServiceInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\Content\Section;
-use Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Decorator\SectionServiceDecorator;
 use Ibexa\Contracts\Core\Repository\Events\Section\AssignSectionEvent;
 use Ibexa\Contracts\Core\Repository\Events\Section\AssignSectionToSubtreeEvent;
 use Ibexa\Contracts\Core\Repository\Events\Section\BeforeAssignSectionEvent;
@@ -24,7 +19,12 @@ use Ibexa\Contracts\Core\Repository\Events\Section\BeforeUpdateSectionEvent;
 use Ibexa\Contracts\Core\Repository\Events\Section\CreateSectionEvent;
 use Ibexa\Contracts\Core\Repository\Events\Section\DeleteSectionEvent;
 use Ibexa\Contracts\Core\Repository\Events\Section\UpdateSectionEvent;
-use Ibexa\Contracts\Core\Repository\Decorator\SectionServiceDecorator;
+use Ibexa\Contracts\Core\Repository\SectionService as SectionServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class SectionService extends SectionServiceDecorator

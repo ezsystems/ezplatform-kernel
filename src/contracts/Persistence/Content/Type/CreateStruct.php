@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Contracts\Core\Persistence\Content\Type;
 
-use Ibexa\Contracts\Core\Persistence\ValueObject;
 use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\ValueObject;
 
 class CreateStruct extends ValueObject
 {

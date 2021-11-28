@@ -8,19 +8,19 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Search\Common\LocationEventSubscriber;
 
+use Ibexa\Contracts\Core\Persistence\Content as SPIContent;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo as SPIContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Handler as ContentHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as LocationHandler;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo as SPIVersionInfo;
+use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
 use Ibexa\Contracts\Core\Repository\Events\Location\CreateLocationEvent;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use Ibexa\Core\Repository\Values\Content\Location;
 use Ibexa\Core\Search\Common\EventSubscriber\LocationEventSubscriber;
 use Ibexa\Core\Search\Legacy\Content\Handler as SearchHandler;
-use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as LocationHandler;
-use Ibexa\Contracts\Core\Persistence\Content\Handler as ContentHandler;
-use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
-use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo as SPIVersionInfo;
-use Ibexa\Contracts\Core\Persistence\Content as SPIContent;
-use Ibexa\Contracts\Core\Persistence\Content\ContentInfo as SPIContentInfo;
 use PHPUnit\Framework\TestCase;
 
 final class LocationEventSubscriberTest extends TestCase

@@ -9,22 +9,22 @@ declare(strict_types=1);
 namespace Ibexa\Core\Repository\SiteAccessAware;
 
 use Ibexa\Contracts\Core\Repository\ContentService as ContentServiceInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentDraftList;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct;
+use Ibexa\Contracts\Core\Repository\LanguageResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
-use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentDraftList;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentList;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
 use Ibexa\Contracts\Core\Repository\Values\Content\RelationList;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Contracts\Core\Repository\LanguageResolver;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentList;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**

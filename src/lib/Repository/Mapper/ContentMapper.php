@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\Mapper;
 
+use Ibexa\Contracts\Core\FieldType\Value;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentUpdateStruct;
@@ -16,8 +18,6 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Base\Exceptions\ContentValidationException;
 use Ibexa\Core\FieldType\FieldTypeRegistry;
-use Ibexa\Contracts\Core\FieldType\Value;
-use Ibexa\Contracts\Core\Persistence\Content\Language\Handler;
 
 /**
  * @internal Meant for internal use by Repository

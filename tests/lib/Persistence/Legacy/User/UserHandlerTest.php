@@ -8,16 +8,16 @@ namespace Ibexa\Tests\Core\Persistence\Legacy\User;
 
 use DateInterval;
 use DateTime;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
-use Ibexa\Contracts\Core\Repository\Values\User\Role as APIRole;
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
-use Ibexa\Core\Persistence\Legacy\User;
-use Ibexa\Core\Persistence\Legacy\User\Role\LimitationConverter;
-use Ibexa\Core\Persistence\Legacy\User\Role\LimitationHandler\ObjectStateHandler as ObjectStateLimitationHandler;
 use Ibexa\Contracts\Core\Persistence;
 use Ibexa\Contracts\Core\Persistence\User\Handler;
 use Ibexa\Contracts\Core\Persistence\User\Role;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Values\User\Role as APIRole;
+use Ibexa\Core\Persistence\Legacy\User;
+use Ibexa\Core\Persistence\Legacy\User\Role\LimitationConverter;
+use Ibexa\Core\Persistence\Legacy\User\Role\LimitationHandler\ObjectStateHandler as ObjectStateLimitationHandler;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 use LogicException;
 
 /**
@@ -922,12 +922,12 @@ class UserHandlerTest extends TestCase
         $this->assertTrue(
             array_reduce(
                 array_map(
-                    function ($policy) {
+                    static function ($policy) {
                         return $policy instanceof Persistence\User\Policy;
                     },
                     $policies
                 ),
-                function ($a, $b) {
+                static function ($a, $b) {
                     return $a && $b;
                 },
                 true

@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Bundle\Core\EventListener;
 
-use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\Event\PostSiteAccessMatchEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Core\MVC\Symfony\SiteAccess\URILexer;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

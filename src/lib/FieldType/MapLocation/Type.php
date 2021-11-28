@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Core\FieldType\MapLocation;
 
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\Core\FieldType\FieldType;
-use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\FieldType;
 use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**

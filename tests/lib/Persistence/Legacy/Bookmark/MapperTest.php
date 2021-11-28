@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Persistence\Legacy\Bookmark;
 
-use Ibexa\Core\Persistence\Legacy\Bookmark\Mapper;
 use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
 use Ibexa\Contracts\Core\Persistence\Bookmark\CreateStruct;
+use Ibexa\Core\Persistence\Legacy\Bookmark\Mapper;
 use PHPUnit\Framework\TestCase;
 
 /**

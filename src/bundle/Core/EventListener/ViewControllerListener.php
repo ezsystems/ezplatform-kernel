@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Bundle\Core\EventListener;
 
+use Ibexa\Contracts\Core\Event\View\PostBuildViewEvent;
 use Ibexa\Core\MVC\Symfony\View\Builder\ViewBuilderRegistry;
 use Ibexa\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
 use Ibexa\Core\MVC\Symfony\View\ViewEvents;
-use Ibexa\Contracts\Core\Event\View\PostBuildViewEvent;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -52,7 +52,7 @@ class ViewControllerListener implements EventSubscriberInterface
     /**
      * Configures the View for eZ View controllers.
      *
-     * @param ControllerEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\ControllerEvent $event
      *
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */

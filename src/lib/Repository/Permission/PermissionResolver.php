@@ -8,6 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\Permission;
 
+use Exception;
+use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Limitation\TargetAwareType;
+use Ibexa\Contracts\Core\Limitation\Type as LimitationType;
+use Ibexa\Contracts\Core\Persistence\User\Handler as UserHandler;
 use Ibexa\Contracts\Core\Repository\PermissionResolver as PermissionResolverInterface;
 use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
@@ -16,14 +21,9 @@ use Ibexa\Contracts\Core\Repository\Values\User\LookupPolicyLimitations;
 use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
-use Ibexa\Core\Repository\Mapper\RoleDomainMapper;
 use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\Repository\Mapper\RoleDomainMapper;
 use Ibexa\Core\Repository\Values\User\UserReference;
-use Ibexa\Contracts\Core\Limitation\Target;
-use Ibexa\Contracts\Core\Limitation\TargetAwareType;
-use Ibexa\Contracts\Core\Limitation\Type as LimitationType;
-use Ibexa\Contracts\Core\Persistence\User\Handler as UserHandler;
-use Exception;
 
 /**
  * Core implementation of PermissionResolver interface.
@@ -306,7 +306,7 @@ class PermissionResolver implements PermissionResolverInterface
                     $possibleLimitations[] = $limitation;
                 }
 
-                $limitationFilter = function (Limitation $limitation) use ($limitationsIdentifiers) {
+                $limitationFilter = static function (Limitation $limitation) use ($limitationsIdentifiers) {
                     return \in_array($limitation->getIdentifier(), $limitationsIdentifiers, true);
                 };
 
@@ -448,7 +448,7 @@ class PermissionResolver implements PermissionResolverInterface
         // BC: for TargetAware Limitations return only instances of Target, for others return only non-Target instances
         $targets = array_filter(
             $targets,
-            function ($target) use ($isTargetAware) {
+            static function ($target) use ($isTargetAware) {
                 $isTarget = $target instanceof Target;
 
                 return $isTargetAware ? $isTarget : !$isTarget;

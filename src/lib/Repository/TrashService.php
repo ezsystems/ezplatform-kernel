@@ -8,33 +8,33 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository;
 
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\TrashService as TrashServiceInterface;
-use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\Content;
-use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException as APIUnauthorizedException;
-use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
+use DateTime;
+use Exception;
 use Ibexa\Contracts\Core\Limitation\Target;
-use Ibexa\Contracts\Core\Persistence\Handler;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Core\Repository\Values\Content\TrashItem;
-use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem as APITrashItem;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Persistence\Content\Location\Trashed;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
-use Ibexa\Core\Base\Exceptions\UnauthorizedException;
-use Ibexa\Contracts\Core\Repository\Values\Content\Trash\SearchResult;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Persistence\Handler;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException as APIUnauthorizedException;
 use Ibexa\Contracts\Core\Repository\PermissionCriterionResolver;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
+use Ibexa\Contracts\Core\Repository\TrashService as TrashServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd as CriterionLogicalAnd;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalNot as CriterionLogicalNot;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Subtree as CriterionSubtree;
-use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\SearchResult;
 use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
-use DateTime;
-use Exception;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem as APITrashItem;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
+use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
+use Ibexa\Core\Repository\Values\Content\TrashItem;
 
 /**
  * Trash service, used for managing trashed content.

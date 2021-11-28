@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Event;
 
+use Ibexa\Contracts\Core\Repository\Decorator\URLServiceDecorator;
+use Ibexa\Contracts\Core\Repository\Events\URL\BeforeUpdateUrlEvent;
+use Ibexa\Contracts\Core\Repository\Events\URL\UpdateUrlEvent;
 use Ibexa\Contracts\Core\Repository\URLService as URLServiceInterface;
 use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use Ibexa\Contracts\Core\Repository\Values\URL\URLUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Events\URL\BeforeUpdateUrlEvent;
-use Ibexa\Contracts\Core\Repository\Events\URL\UpdateUrlEvent;
-use Ibexa\Contracts\Core\Repository\Decorator\URLServiceDecorator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class URLService extends URLServiceDecorator

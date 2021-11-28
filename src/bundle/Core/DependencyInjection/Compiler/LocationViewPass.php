@@ -17,9 +17,9 @@ use Ibexa\Core\MVC\Symfony\View\ContentView;
  */
 class LocationViewPass extends ViewManagerPass
 {
-    const VIEW_PROVIDER_IDENTIFIER = 'ezpublish.location_view_provider';
-    const ADD_VIEW_PROVIDER_METHOD = 'addLocationViewProvider';
-    const VIEW_TYPE = ContentView::DEFAULT_VIEW_TYPE;
+    public const VIEW_PROVIDER_IDENTIFIER = 'ezpublish.location_view_provider';
+    public const ADD_VIEW_PROVIDER_METHOD = 'addLocationViewProvider';
+    public const VIEW_TYPE = ContentView::DEFAULT_VIEW_TYPE;
 }
 
 class_alias(LocationViewPass::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\LocationViewPass');

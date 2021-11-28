@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Core\FieldType\Checkbox;
 
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\Core\FieldType\FieldType;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\FieldType;
 use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**

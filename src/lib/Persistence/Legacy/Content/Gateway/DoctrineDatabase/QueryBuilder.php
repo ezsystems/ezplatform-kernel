@@ -59,7 +59,8 @@ final class QueryBuilder
                 'l.to_contentobject_id AS ezcontentobject_link_to_contentobject_id'
             )
             ->from(
-                Gateway::CONTENT_RELATION_TABLE, 'l'
+                Gateway::CONTENT_RELATION_TABLE,
+                'l'
             );
 
         return $query;

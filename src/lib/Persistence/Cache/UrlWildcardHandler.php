@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Core\Persistence\Cache;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard;
 use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard\Handler as UrlWildcardHandlerInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 
 class UrlWildcardHandler extends AbstractHandler implements UrlWildcardHandlerInterface
 {

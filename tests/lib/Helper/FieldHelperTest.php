@@ -8,11 +8,11 @@ namespace Ibexa\Tests\Core\Helper;
 
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\FieldTypeService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\Contracts\Core\Repository\Values\Content\Field;
-use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
 use Ibexa\Core\FieldType\TextLine\Type as TextLineType;
 use Ibexa\Core\FieldType\TextLine\Value;
 use Ibexa\Core\Helper\FieldHelper;
@@ -22,13 +22,13 @@ use PHPUnit\Framework\TestCase;
 
 class FieldHelperTest extends TestCase
 {
-    /** @var FieldHelper */
+    /** @var \Ibexa\Core\Helper\FieldHelper */
     private $fieldHelper;
 
-    /** @var FieldTypeService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\FieldTypeService|\PHPUnit\Framework\MockObject\MockObject */
     private $fieldTypeServiceMock;
 
-    /** @var ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
     private $contentTypeServiceMock;
 
     /** @var \Ibexa\Core\Helper\TranslationHelper|\PHPUnit\Framework\MockObject\MockObject */

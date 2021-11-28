@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\Search\Common\FieldValueMapper;
 
-use Ibexa\Core\Search\Common\FieldValueMapper;
-use Ibexa\Contracts\Core\Search\FieldType\DocumentField;
 use Ibexa\Contracts\Core\Search\Field;
+use Ibexa\Contracts\Core\Search\FieldType\DocumentField;
+use Ibexa\Core\Search\Common\FieldValueMapper;
 
 /**
  * Common document field value mapper implementation.

@@ -8,7 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository;
 
+use function array_filter;
 use Exception;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as LocationHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Section as SPISection;
+use Ibexa\Contracts\Core\Persistence\Content\Section\Handler as SectionHandler;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
 use Ibexa\Contracts\Core\Repository\PermissionCriterionResolver;
 use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
@@ -26,10 +30,6 @@ use Ibexa\Core\Base\Exceptions\BadStateException;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
 use Ibexa\Core\Base\Exceptions\UnauthorizedException;
-use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as LocationHandler;
-use Ibexa\Contracts\Core\Persistence\Content\Section as SPISection;
-use Ibexa\Contracts\Core\Persistence\Content\Section\Handler as SectionHandler;
-use function array_filter;
 
 /**
  * Section service, used for section operations.
@@ -336,7 +336,9 @@ class SectionService implements SectionServiceInterface
          * @var bool|\Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion
          */
         $sectionAssignCriterion = $this->permissionCriterionResolver->getPermissionsCriterion(
-            'section', 'assign', [$loadedSection]
+            'section',
+            'assign',
+            [$loadedSection]
         );
         if ($sectionAssignCriterion === false) {
             throw new UnauthorizedException('section', 'assign', [

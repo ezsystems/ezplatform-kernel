@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Core\Repository\Helper;
 
+use Ibexa\Contracts\Core\FieldType\FieldType;
 use Ibexa\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
 use Ibexa\Core\FieldType\FieldTypeRegistry;
-use Ibexa\Contracts\Core\FieldType\FieldType;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -10,6 +10,7 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\DBAL\ParameterType;
+use Exception;
 use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
 use Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
@@ -21,19 +22,18 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\PasswordInfo;
 use Ibexa\Contracts\Core\Repository\Values\User\PasswordValidationContext;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Core\Repository\Values\User\UserCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\UserGroupCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\UserGroupUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\UserTokenUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\UserUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\FieldType\User\Type;
 use Ibexa\Core\FieldType\ValidationError;
 use Ibexa\Core\Persistence\Legacy\User\Gateway;
 use Ibexa\Core\Repository\Values\Content\Content;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Repository\Values\User\UserGroup;
-use Exception;
 
 /**
  * Test case for operations in the UserService using in memory storage.
@@ -592,7 +592,7 @@ class UserServiceTest extends BaseTest
         /* END: Use Case */
 
         $subUserGroupIds = array_map(
-            function ($content) {
+            static function ($content) {
                 return $content->id;
             },
             $subUserGroups

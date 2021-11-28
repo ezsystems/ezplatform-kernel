@@ -9,11 +9,11 @@ declare(strict_types=1);
 namespace Ibexa\Core\Repository\SiteAccessAware;
 
 use Ibexa\Contracts\Core\Repository\SectionService as SectionServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\Section;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 /**
  * SectionService for SiteAccessAware layer.

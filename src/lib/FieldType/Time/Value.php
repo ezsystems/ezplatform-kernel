@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Core\FieldType\Time;
 
-use Ibexa\Core\FieldType\Value as BaseValue;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
-use Exception;
 use DateTime;
+use Exception;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**
  * Value for Time field type.
@@ -43,7 +43,7 @@ class Value extends BaseValue
     /**
      * Creates a Value from the given $dateTime.
      *
-     * @param DateTime $dateTime
+     * @param \DateTime $dateTime
      *
      * @return \Ibexa\Core\FieldType\Time\Value
      */

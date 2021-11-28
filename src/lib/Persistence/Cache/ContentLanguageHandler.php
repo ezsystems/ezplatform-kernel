@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\Persistence\Cache;
 
-use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as ContentLanguageHandlerInterface;
 use Ibexa\Contracts\Core\Persistence\Content\Language;
 use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as ContentLanguageHandlerInterface;
 
 class ContentLanguageHandler extends AbstractInMemoryPersistenceHandler implements ContentLanguageHandlerInterface
 {

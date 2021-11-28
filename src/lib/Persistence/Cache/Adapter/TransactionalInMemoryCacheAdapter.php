@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Cache\Adapter;
 
-use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 use Psr\Cache\CacheItemInterface;
+use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 use Symfony\Component\Cache\CacheItem;
 use Symfony\Contracts\Cache\ItemInterface;
 

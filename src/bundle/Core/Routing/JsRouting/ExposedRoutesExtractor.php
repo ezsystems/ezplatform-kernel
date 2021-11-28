@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Bundle\Core\Routing\JsRouting;
 
-use Ibexa\Core\MVC\Symfony\SiteAccess;
 use FOS\JsRoutingBundle\Extractor\ExposedRoutesExtractorInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;

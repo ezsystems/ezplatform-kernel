@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Event;
 
-use Ibexa\Contracts\Core\Repository\SearchService as SearchServiceInterface;
 use Ibexa\Contracts\Core\Repository\Decorator\SearchServiceDecorator;
+use Ibexa\Contracts\Core\Repository\SearchService as SearchServiceInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class SearchService extends SearchServiceDecorator

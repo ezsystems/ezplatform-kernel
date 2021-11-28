@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\MVC\Symfony\Locale;
 
+use Ibexa\Contracts\Core\Repository\UserPreferenceService;
+use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreference;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Yaml\Yaml;
-use Ibexa\Contracts\Core\Repository\UserPreferenceService;
-use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreference;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
 
 class UserLanguagePreferenceProviderTest extends TestCase
 {

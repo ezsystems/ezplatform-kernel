@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\URL\Query\CriterionHandler;
 
-use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\ParameterType;
+use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion\Pattern;

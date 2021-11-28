@@ -27,7 +27,7 @@ interface ViewBuilder
      *
      * @param array $parameters
      *
-     * @return View An implementation of the View interface
+     * @return \Ibexa\Core\MVC\Symfony\View\View An implementation of the View interface
      */
     public function buildView(array $parameters);
 }

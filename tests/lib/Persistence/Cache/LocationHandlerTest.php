@@ -8,8 +8,8 @@ namespace Ibexa\Tests\Core\Persistence\Cache;
 
 use Ibexa\Contracts\Core\Persistence\Content\Location;
 use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as SPILocationHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Location\UpdateStruct;
 
 /**
  * Test case for Persistence\Cache\LocationHandler.

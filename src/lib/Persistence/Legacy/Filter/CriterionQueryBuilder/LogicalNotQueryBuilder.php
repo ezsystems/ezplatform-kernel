@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalNot;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Persistence\Filter\CriterionVisitor;
 use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalNot;
 use Ibexa\Contracts\Core\Repository\Values\Filter\CriterionQueryBuilder;
 use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * @internal for internal use by Repository Filtering

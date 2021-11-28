@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\MVC\Symfony\FieldType\ImageAsset;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\FieldType;
 use Ibexa\Contracts\Core\Repository\FieldTypeService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Core\FieldType\ImageAsset\Value as ImageAssetValue;
 use Ibexa\Core\MVC\Symfony\FieldType\ImageAsset\ParameterProvider;
 use Ibexa\Core\Repository\SiteAccessAware\Repository;
@@ -76,7 +76,7 @@ class ParameterProviderTest extends TestCase
             ->method('isEmptyValue')
             ->willReturn(false);
 
-        $closure = function (Repository $repository) use ($destinationContentId) {
+        $closure = static function (Repository $repository) use ($destinationContentId) {
             return $repository->getContentService()->loadContentInfo($destinationContentId);
         };
 
@@ -104,7 +104,7 @@ class ParameterProviderTest extends TestCase
             ->method('isEmptyValue')
             ->willReturn(false);
 
-        $closure = function (Repository $repository) use ($destinationContentId) {
+        $closure = static function (Repository $repository) use ($destinationContentId) {
             return $repository->getContentService()->loadContentInfo($destinationContentId);
         };
 

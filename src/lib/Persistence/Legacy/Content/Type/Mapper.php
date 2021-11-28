@@ -6,16 +6,16 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\Type;
 
-use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
-use Ibexa\Core\Persistence\Legacy\Content\MultilingualStorageFieldDefinition;
 use Ibexa\Contracts\Core\Persistence\Content\Type;
 use Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
-use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct;
 use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use Ibexa\Core\Persistence\Legacy\Content\MultilingualStorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 
 /**
  * Mapper for Content Type Handler.
@@ -53,7 +53,7 @@ class Mapper
      *
      * @todo $description is not supported by database, yet
      *
-     * @return Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\Group
      */
     public function createGroupFromCreateStruct(GroupCreateStruct $struct)
     {
@@ -122,7 +122,7 @@ class Mapper
             $fieldId = (int)$row['ezcontentclass_attribute_id'];
 
             if ($fieldId && !isset($fields[$fieldId])) {
-                $fieldDataRows = array_filter($rows, function (array $row) use ($fieldId) {
+                $fieldDataRows = array_filter($rows, static function (array $row) use ($fieldId) {
                     return (int) $row['ezcontentclass_attribute_id'] === (int) $fieldId;
                 });
 
@@ -151,7 +151,7 @@ class Mapper
 
     public function extractMultilingualData(array $fieldDefinitionRows): array
     {
-        return array_map(function (array $fieldData) {
+        return array_map(static function (array $fieldData) {
             return [
                 'ezcontentclass_attribute_multilingual_name' => $fieldData['ezcontentclass_attribute_multilingual_name'] ?? null,
                 'ezcontentclass_attribute_multilingual_description' => $fieldData['ezcontentclass_attribute_multilingual_description'] ?? null,
@@ -167,7 +167,7 @@ class Mapper
      *
      * @param array $row
      *
-     * @return Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     protected function extractTypeFromRow(array $row)
     {

@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\MVC\Symfony\Security;
 
+use DateTimeImmutable;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\User\PasswordInfo;
@@ -15,12 +16,11 @@ use Ibexa\Core\MVC\Symfony\Security\User;
 use Ibexa\Core\MVC\Symfony\Security\UserChecker;
 use Ibexa\Core\Repository\Values\Content\Content;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Repository\Values\User\User as APIUser;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Exception\CredentialsExpiredException;
 use Symfony\Component\Security\Core\Exception\DisabledException;
-use Ibexa\Core\Repository\Values\User\User as APIUser;
 use Throwable;
-use DateTimeImmutable;
 
 final class UserCheckerTest extends TestCase
 {

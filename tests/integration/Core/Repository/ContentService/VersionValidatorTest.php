@@ -9,13 +9,13 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Integration\Core\Repository\ContentService;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException;
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\FieldType\FieldTypeRegistry;
 use Ibexa\Core\Repository\Validator\VersionValidator;
 use Ibexa\Core\Repository\Values\Content\TrashItem;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 /**
  * @internal

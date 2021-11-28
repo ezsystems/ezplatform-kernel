@@ -6,6 +6,7 @@
  */
 namespace Ibexa\Bundle\Core\Command;
 
+use Exception;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
@@ -16,7 +17,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
-use Exception;
 
 /**
  * Console Command which deletes a given Translation from all the Versions of a given Content Item.
@@ -167,7 +167,7 @@ class DeleteContentTranslationCommand extends Command implements BackwardCompati
         // get main Translation candidates w/o Translation being removed
         $mainTranslationCandidates = array_filter(
             $lastVersionLanguageCodes,
-            function ($versionLanguageCode) use ($languageCode) {
+            static function ($versionLanguageCode) use ($languageCode) {
                 return $versionLanguageCode !== $languageCode;
             }
         );

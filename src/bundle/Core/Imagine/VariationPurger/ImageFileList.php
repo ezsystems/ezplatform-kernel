@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Bundle\Core\Imagine\VariationPurger;
 
-use Iterator;
 use Countable;
+use Iterator;
 
 /**
  * Iterates over BinaryFile id entries for original images.

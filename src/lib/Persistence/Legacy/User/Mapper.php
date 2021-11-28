@@ -7,10 +7,10 @@
 namespace Ibexa\Core\Persistence\Legacy\User;
 
 use Ibexa\Contracts\Core\Persistence\User;
-use Ibexa\Contracts\Core\Persistence\User\Role;
-use Ibexa\Contracts\Core\Persistence\User\RoleCreateStruct;
 use Ibexa\Contracts\Core\Persistence\User\Policy;
+use Ibexa\Contracts\Core\Persistence\User\Role;
 use Ibexa\Contracts\Core\Persistence\User\RoleAssignment;
+use Ibexa\Contracts\Core\Persistence\User\RoleCreateStruct;
 
 /**
  * mapper for User related objects.
@@ -198,7 +198,7 @@ class Mapper
         $roleAssignments = [];
         array_walk_recursive(
             $roleAssignmentData,
-            function ($roleAssignment) use (&$roleAssignments) {
+            static function ($roleAssignment) use (&$roleAssignments) {
                 $roleAssignments[] = $roleAssignment;
             }
         );

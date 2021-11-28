@@ -8,11 +8,11 @@ namespace Ibexa\Core\Search\Legacy\Content;
 
 use Doctrine\DBAL\Connection;
 use Exception;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Core\Search\Common\IncrementalIndexer;
 use Ibexa\Core\Search\Legacy\Content\Handler as LegacySearchHandler;
-use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
-use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
 use Psr\Log\LoggerInterface;
 
 class Indexer extends IncrementalIndexer

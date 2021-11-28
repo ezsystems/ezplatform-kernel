@@ -11,17 +11,17 @@ namespace Ibexa\Core\Persistence\Legacy\UserPreference\Gateway;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
-use Ibexa\Core\Persistence\Legacy\UserPreference\Gateway;
 use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
+use Ibexa\Core\Persistence\Legacy\UserPreference\Gateway;
 
 class DoctrineDatabase extends Gateway
 {
-    const TABLE_USER_PREFERENCES = 'ezpreferences';
+    public const TABLE_USER_PREFERENCES = 'ezpreferences';
 
-    const COLUMN_ID = 'id';
-    const COLUMN_NAME = 'name';
-    const COLUMN_USER_ID = 'user_id';
-    const COLUMN_VALUE = 'value';
+    public const COLUMN_ID = 'id';
+    public const COLUMN_NAME = 'name';
+    public const COLUMN_USER_ID = 'user_id';
+    public const COLUMN_VALUE = 'value';
 
     /** @var \Doctrine\DBAL\Connection */
     protected $connection;

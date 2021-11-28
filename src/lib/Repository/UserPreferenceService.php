@@ -9,14 +9,14 @@ declare(strict_types=1);
 namespace Ibexa\Core\Repository;
 
 use Exception;
+use Ibexa\Contracts\Core\Persistence\UserPreference\Handler as UserPreferenceHandler;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
 use Ibexa\Contracts\Core\Repository\UserPreferenceService as UserPreferenceServiceInterface;
 use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreference as APIUserPreference;
 use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreferenceList;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
-use Ibexa\Contracts\Core\Persistence\UserPreference\Handler as UserPreferenceHandler;
-use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference;
-use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
 
 class UserPreferenceService implements UserPreferenceServiceInterface
 {

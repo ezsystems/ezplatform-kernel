@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Repository\Decorator;
 
+use Ibexa\Contracts\Core\Repository\Decorator\UserPreferenceServiceDecorator;
+use Ibexa\Contracts\Core\Repository\UserPreferenceService;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ibexa\Contracts\Core\Repository\UserPreferenceService;
-use Ibexa\Contracts\Core\Repository\Decorator\UserPreferenceServiceDecorator;
 
 class UserPreferenceServiceDecoratorTest extends TestCase
 {

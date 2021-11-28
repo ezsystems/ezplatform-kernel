@@ -107,9 +107,11 @@ final class InjectEntityManagerMappingsPass implements CompilerPassInterface
                 }
 
                 if (null === $bundle) {
-                    throw new \InvalidArgumentException(sprintf(
-                        'Bundle "%s" does not exist or it is not enabled.',
-                        $mappingName)
+                    throw new \InvalidArgumentException(
+                        sprintf(
+                            'Bundle "%s" does not exist or it is not enabled.',
+                            $mappingName
+                        )
                     );
                 }
 

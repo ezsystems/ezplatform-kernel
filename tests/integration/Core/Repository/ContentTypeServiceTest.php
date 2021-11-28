@@ -6,10 +6,13 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository;
 
+use Exception;
 use Ibexa\Contracts\Core\FieldType\ValidationError;
 use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\ContentTypeFieldDefinitionValidationException;
 use Ibexa\Contracts\Core\Repository\Exceptions\ContentTypeValidationException;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
@@ -17,8 +20,6 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Repository\Exceptions\ContentTypeFieldDefinitionValidationException;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeUpdateStruct;
@@ -27,7 +28,6 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Translation\Message;
-use Exception;
 use Ibexa\Core\FieldType\TextLine\Value as TextLineValue;
 
 /**
@@ -951,7 +951,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
      */
     protected function assertContentTypeGroupsCorrect($expectedGroups, $actualGroups)
     {
-        $sorter = function ($a, $b) {
+        $sorter = static function ($a, $b) {
             return strcmp($a->id, $b->id);
         };
 
@@ -2624,7 +2624,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
             self::assertNotContains(
                 $contentTypeDraft->id,
                 array_map(
-                    function (ContentType $contentType) {
+                    static function (ContentType $contentType) {
                         return $contentType->id;
                     },
                     $contentTypes
@@ -2645,7 +2645,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
             self::assertContains(
                 $contentTypeDraft->id,
                 array_map(
-                    function (ContentType $contentType) {
+                    static function (ContentType $contentType) {
                         return $contentType->id;
                     },
                     $contentTypes
@@ -2917,7 +2917,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
                     implode(
                         ',',
                         array_map(
-                            function ($fieldDefinition) {
+                            static function ($fieldDefinition) {
                                 return $fieldDefinition->identifier;
                             },
                             $fieldDefinitions
@@ -3142,7 +3142,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
 
         usort(
             $types,
-            function ($a, $b) {
+            static function ($a, $b) {
                 if ($a->id == $b->id) {
                     return 0;
                 }

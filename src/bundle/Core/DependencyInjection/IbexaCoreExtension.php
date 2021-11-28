@@ -8,6 +8,9 @@ namespace Ibexa\Bundle\Core\DependencyInjection;
 
 use Ibexa\Bundle\Core\DependencyInjection\Compiler\QueryTypePass;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParserInterface;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ConfigurationProcessor;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollector;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollectorAwareInterface;
@@ -15,23 +18,20 @@ use Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\Formatter\Yam
 use Ibexa\Bundle\Core\DependencyInjection\Security\PolicyProvider\PoliciesConfigBuilder;
 use Ibexa\Bundle\Core\DependencyInjection\Security\PolicyProvider\PolicyProviderInterface;
 use Ibexa\Bundle\Core\SiteAccess\SiteAccessConfigurationFilter;
-use Ibexa\Core\MVC\Symfony\MVCEvents;
-use Ibexa\Core\QueryType\QueryType;
 use Ibexa\Contracts\Core\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
 use Ibexa\Contracts\Core\Repository\Values\Filter\CriterionQueryBuilder as FilteringCriterionQueryBuilder;
 use Ibexa\Contracts\Core\Repository\Values\Filter\SortClauseQueryBuilder as FilteringSortClauseQueryBuilder;
-use Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParser;
-use Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParserInterface;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\QueryType\QueryType;
+use InvalidArgumentException;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Loader\FileLoader;
-use Symfony\Component\Config\FileLocator;
-use InvalidArgumentException;
-use Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class IbexaCoreExtension extends Extension implements PrependExtensionInterface
 {
@@ -55,7 +55,7 @@ class IbexaCoreExtension extends Extension implements PrependExtensionInterface
     /** @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\RepositoryConfigParserInterface[] */
     private $repositoryConfigParsers = [];
 
-    /** @var PolicyProviderInterface[] */
+    /** @var \Ibexa\Bundle\Core\DependencyInjection\Security\PolicyProvider\PolicyProviderInterface[] */
     private $policyProviders = [];
 
     /**
@@ -515,7 +515,7 @@ class IbexaCoreExtension extends Extension implements PrependExtensionInterface
      *
      * @since 6.0
      *
-     * @param PolicyProviderInterface $policyProvider
+     * @param \Ibexa\Bundle\Core\DependencyInjection\Security\PolicyProvider\PolicyProviderInterface $policyProvider
      */
     public function addPolicyProvider(PolicyProviderInterface $policyProvider)
     {

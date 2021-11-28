@@ -6,6 +6,7 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository;
 
+use DateTime;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
@@ -13,7 +14,6 @@ use Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
 use Ibexa\Contracts\Core\Repository\Values\URL\URLUpdateStruct;
-use DateTime;
 use Ibexa\Contracts\Core\Repository\Values\URL\UsageSearchResult;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
 

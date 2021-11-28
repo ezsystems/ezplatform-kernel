@@ -6,15 +6,15 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\Location\Trash;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
-use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Trash\Handler as BaseTrashHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Location\Trash\TrashResult;
 use Ibexa\Contracts\Core\Persistence\Content\Location\Trashed;
-use Ibexa\Contracts\Core\Persistence\Content\Location\Trash\Handler as BaseTrashHandler;
-use Ibexa\Core\Persistence\Legacy\Content\Handler as ContentHandler;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Handler as LocationHandler;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList;
+use Ibexa\Core\Persistence\Legacy\Content\Handler as ContentHandler;
 use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Handler as LocationHandler;
 use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
 
 /**

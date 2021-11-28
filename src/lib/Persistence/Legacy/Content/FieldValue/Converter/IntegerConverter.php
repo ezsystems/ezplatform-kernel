@@ -6,18 +6,18 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
-use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
 use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
 use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
 use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
 
 class IntegerConverter implements Converter
 {
-    const FLOAT_VALIDATOR_IDENTIFIER = 'IntegerValueValidator';
+    public const FLOAT_VALIDATOR_IDENTIFIER = 'IntegerValueValidator';
 
-    const HAS_MIN_VALUE = 1;
-    const HAS_MAX_VALUE = 2;
+    public const HAS_MIN_VALUE = 1;
+    public const HAS_MAX_VALUE = 2;
 
     /**
      * Factory for current class.

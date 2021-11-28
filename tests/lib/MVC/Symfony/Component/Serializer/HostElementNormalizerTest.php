@@ -9,10 +9,10 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Core\MVC\Symfony\Component\Serializer;
 
 use Ibexa\Core\MVC\Symfony\Component\Serializer\HostElementNormalizer;
-use Ibexa\Tests\Core\MVC\Symfony\Component\Serializer\Stubs\SerializerStub;
 use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\HostElement;
+use Ibexa\Tests\Core\MVC\Symfony\Component\Serializer\Stubs\SerializerStub;
 use PHPUnit\Framework\TestCase;
 
 final class HostElementNormalizerTest extends TestCase

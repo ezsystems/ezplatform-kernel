@@ -6,16 +6,16 @@
  */
 namespace Ibexa\Tests\Bundle\Core\Converter;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Content;
-use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Bundle\Core\Converter\ContentParamConverter;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Symfony\Component\HttpFoundation\Request;
 
 class ContentParamConverterTest extends AbstractParamConverterTest
 {
-    const PROPERTY_NAME = 'contentId';
+    public const PROPERTY_NAME = 'contentId';
 
-    const CONTENT_CLASS = Content::class;
+    public const CONTENT_CLASS = Content::class;
 
     /** @var \Ibexa\Bundle\Core\Converter\ContentParamConverter */
     private $converter;

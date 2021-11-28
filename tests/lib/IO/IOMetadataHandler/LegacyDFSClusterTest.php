@@ -6,17 +6,17 @@
  */
 namespace Ibexa\Tests\Core\IO\IOMetadataHandler;
 
+use DateTime;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Driver\Statement;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ibexa\Contracts\Core\IO\BinaryFile as SPIBinaryFile;
+use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
 use Ibexa\Core\IO\IOMetadataHandler\LegacyDFSCluster;
-use Ibexa\Contracts\Core\IO\BinaryFile as SPIBinaryFile;
-use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
-use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Driver\Statement;
 use Ibexa\Core\IO\UrlDecorator;
 use PHPUnit\Framework\TestCase;
-use DateTime;
 
 class LegacyDFSClusterTest extends TestCase
 {

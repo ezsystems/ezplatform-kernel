@@ -8,44 +8,44 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository;
 
-use Ibexa\Contracts\Core\Repository\LanguageResolver;
-use Ibexa\Contracts\Core\Repository\PermissionCriterionResolver as PermissionCriterionResolverInterface;
-use Ibexa\Contracts\Core\Repository\PermissionService;
-use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
-use Ibexa\Contracts\Core\Repository\NotificationService as NotificationServiceInterface;
+use Exception;
+use Ibexa\Contracts\Core\Persistence\Filter\Content\Handler as ContentFilteringHandler;
+use Ibexa\Contracts\Core\Persistence\Filter\Location\Handler as LocationFilteringHandler;
+use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
 use Ibexa\Contracts\Core\Repository\BookmarkService as BookmarkServiceInterface;
 use Ibexa\Contracts\Core\Repository\ContentService as ContentServiceInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService as ContentTypeServiceInterface;
 use Ibexa\Contracts\Core\Repository\FieldTypeService as FieldTypeServiceInterface;
+use Ibexa\Contracts\Core\Repository\LanguageResolver;
 use Ibexa\Contracts\Core\Repository\LanguageService as LanguageServiceInterface;
 use Ibexa\Contracts\Core\Repository\LocationService as LocationServiceInterface;
+use Ibexa\Contracts\Core\Repository\NotificationService as NotificationServiceInterface;
 use Ibexa\Contracts\Core\Repository\ObjectStateService as ObjectStateServiceInterface;
+use Ibexa\Contracts\Core\Repository\PasswordHashService;
+use Ibexa\Contracts\Core\Repository\PermissionCriterionResolver as PermissionCriterionResolverInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver as PermissionResolverInterface;
+use Ibexa\Contracts\Core\Repository\PermissionService;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
 use Ibexa\Contracts\Core\Repository\RoleService as RoleServiceInterface;
 use Ibexa\Contracts\Core\Repository\SearchService as SearchServiceInterface;
 use Ibexa\Contracts\Core\Repository\SectionService as SectionServiceInterface;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
 use Ibexa\Contracts\Core\Repository\TrashService as TrashServiceInterface;
 use Ibexa\Contracts\Core\Repository\URLAliasService as URLAliasServiceInterface;
 use Ibexa\Contracts\Core\Repository\URLService as URLServiceInterface;
 use Ibexa\Contracts\Core\Repository\URLWildcardService as URLWildcardServiceInterface;
 use Ibexa\Contracts\Core\Repository\UserPreferenceService as UserPreferenceServiceInterface;
 use Ibexa\Contracts\Core\Repository\UserService as UserServiceInterface;
-use Ibexa\Contracts\Core\Repository\PasswordHashService;
+use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
+use Ibexa\Contracts\Core\Search\Handler as SearchHandler;
 use Ibexa\Core\FieldType\FieldTypeRegistry;
 use Ibexa\Core\Repository\Helper\NameSchemaService;
+use Ibexa\Core\Repository\Helper\RelationProcessor;
 use Ibexa\Core\Repository\Permission\LimitationService;
 use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperFactoryInterface;
 use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
-use Ibexa\Core\Repository\Helper\RelationProcessor;
 use Ibexa\Core\Repository\User\PasswordValidatorInterface;
 use Ibexa\Core\Search\Common\BackgroundIndexer;
-use Ibexa\Contracts\Core\Persistence\Filter\Content\Handler as ContentFilteringHandler;
-use Ibexa\Contracts\Core\Persistence\Filter\Location\Handler as LocationFilteringHandler;
-use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
-use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
-use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
-use Ibexa\Contracts\Core\Search\Handler as SearchHandler;
-use Exception;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use RuntimeException;
@@ -260,7 +260,7 @@ class Repository implements RepositoryInterface
     /** @var \Ibexa\Contracts\Core\Persistence\Filter\Location\Handler */
     private $locationFilteringHandler;
 
-    /** @var PasswordValidatorInterface */
+    /** @var \Ibexa\Core\Repository\User\PasswordValidatorInterface */
     private $passwordValidator;
 
     public function __construct(

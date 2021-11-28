@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\MVC\Symfony\Templating;
 
+use Ibexa\Contracts\Core\MVC\Templating\BaseRenderStrategy;
+use Ibexa\Contracts\Core\MVC\Templating\RenderStrategy;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Contracts\Core\MVC\Templating\BaseRenderStrategy;
-use Ibexa\Contracts\Core\MVC\Templating\RenderStrategy;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
 final class RenderLocationStrategy extends BaseRenderStrategy implements RenderStrategy

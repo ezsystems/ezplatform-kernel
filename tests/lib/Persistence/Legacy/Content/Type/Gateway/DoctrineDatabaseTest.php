@@ -6,15 +6,15 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Type\Gateway;
 
-use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
-use Ibexa\Core\Persistence\Legacy\Content\Type\Gateway\DoctrineDatabase;
-// For SORT_ORDER_* constants
 use Ibexa\Contracts\Core\Persistence\Content\Location;
 use Ibexa\Contracts\Core\Persistence\Content\Type;
+// For SORT_ORDER_* constants
 use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
 use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Gateway\DoctrineDatabase;
+use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\Type\Gateway\DoctrineDatabase
@@ -70,7 +70,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a Group fixture.
      *
-     * @return Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\Group
      */
     protected function getGroupFixture()
     {
@@ -482,7 +482,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
         $this->assertQueryResult(
             array_map(
-                function ($value) {
+                static function ($value) {
                     return [$value];
                 },
                 $expectation
@@ -497,7 +497,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a Type fixture.
      *
-     * @return Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     protected function getTypeFixture()
     {
@@ -609,7 +609,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a FieldDefinition fixture.
      *
-     * @return FieldDefinition
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition
      */
     protected function getFieldDefinitionFixture()
     {
@@ -642,7 +642,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     /**
      * Returns a StorageFieldDefinition fixture.
      *
-     * @return StorageFieldDefinition
+     * @return \Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition
      */
     protected function getStorageFieldDefinitionFixture()
     {

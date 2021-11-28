@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\ObjectState;
 
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeUpdateObjectStateEvent extends BeforeEvent

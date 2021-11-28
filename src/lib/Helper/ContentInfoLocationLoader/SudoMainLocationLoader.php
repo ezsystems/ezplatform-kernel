@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Core\Helper\ContentInfoLocationLoader;
 
+use Exception;
+use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\Helper\ContentInfoLocationLoader;
-use Ibexa\Contracts\Core\Repository\Repository;
-use Exception;
 
 /**
  * Loads the main location of a given ContentInfo using sudo().
@@ -33,7 +33,7 @@ class SudoMainLocationLoader implements ContentInfoLocationLoader
 
         try {
             return $this->repository->sudo(
-                function (Repository $repository) use ($contentInfo) {
+                static function (Repository $repository) use ($contentInfo) {
                     return $repository->getLocationService()->loadLocation($contentInfo->mainLocationId);
                 }
             );

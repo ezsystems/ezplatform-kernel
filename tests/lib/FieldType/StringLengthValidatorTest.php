@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
+use Ibexa\Contracts\Core\FieldType\ValidationError;
 use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Translation\Message;
-use Ibexa\Core\FieldType\TextLine\Value as TextLineValue;
-use Ibexa\Core\FieldType\Validator\StringLengthValidator;
-use Ibexa\Core\FieldType\Validator;
 use Ibexa\Contracts\Core\Repository\Values\Translation\Plural;
-use Ibexa\Contracts\Core\FieldType\ValidationError;
+use Ibexa\Core\FieldType\TextLine\Value as TextLineValue;
+use Ibexa\Core\FieldType\Validator;
+use Ibexa\Core\FieldType\Validator\StringLengthValidator;
 use PHPUnit\Framework\TestCase;
 
 /**

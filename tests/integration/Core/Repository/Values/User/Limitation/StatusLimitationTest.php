@@ -7,8 +7,8 @@
 namespace Ibexa\Tests\Integration\Core\Repository\Values\User\Limitation;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation\StatusLimitation;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\StatusLimitation;
 
 /**
  * @covers \Ibexa\Contracts\Core\Repository\Values\User\Limitation\StatusLimitation

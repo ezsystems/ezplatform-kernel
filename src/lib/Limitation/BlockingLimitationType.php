@@ -6,16 +6,16 @@
  */
 namespace Ibexa\Core\Limitation;
 
+use Ibexa\Contracts\Core\Limitation\Type as SPILimitationTypeInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
-use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitationValue;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\BlockingLimitation as APIBlockingLimitation;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use Ibexa\Core\FieldType\ValidationError;
-use Ibexa\Contracts\Core\Limitation\Type as SPILimitationTypeInterface;
 
 /**
  * BlockingLimitationType is a limitation type that always says no to the permission system.

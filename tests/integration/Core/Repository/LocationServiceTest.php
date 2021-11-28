@@ -1140,7 +1140,7 @@ class LocationServiceTest extends BaseTest
                 $this->generateId('location', 61),
             ],
             array_map(
-                function (Location $location) {
+                static function (Location $location) {
                     return $location->id;
                 },
                 $locations->locations
@@ -1202,7 +1202,7 @@ class LocationServiceTest extends BaseTest
                 $this->generateId('location', 61),
             ],
             array_map(
-                function (Location $location) {
+                static function (Location $location) {
                     return $location->id;
                 },
                 $locations->locations
@@ -1257,7 +1257,7 @@ class LocationServiceTest extends BaseTest
                 $this->generateId('location', 44),
             ],
             array_map(
-                function (Location $location) {
+                static function (Location $location) {
                     return $location->id;
                 },
                 $locations->locations
@@ -1674,14 +1674,14 @@ class LocationServiceTest extends BaseTest
         $locationService = $repository->getLocationService();
 
         $expectedLocationIds = array_map(
-            function (Location $location) {
+            static function (Location $location) {
                 return (int)$location->id;
             },
             $expectedLocations
         );
 
         $actualLocationsIds = array_map(
-            function (Location $location) {
+            static function (Location $location) {
                 return $location->id;
             },
             $locationService->loadLocations($content->contentInfo)
@@ -1716,7 +1716,7 @@ class LocationServiceTest extends BaseTest
         $this->refreshSearch($repository);
 
         $contentIds = array_map(
-            function (Content $content) {
+            static function (Content $content) {
                 return $content->id;
             },
             $contentItems
@@ -1734,7 +1734,7 @@ class LocationServiceTest extends BaseTest
             'Total count of search result hits does not match the actual number of found results'
         );
         $foundContentIds = array_map(
-            function (SearchHit $searchHit) {
+            static function (SearchHit $searchHit) {
                 return $searchHit->valueObject->id;
             },
             $searchResult->searchHits
@@ -1816,7 +1816,8 @@ class LocationServiceTest extends BaseTest
         $secondaryLocationId = 43;
 
         $publishedContent = $this->publishContentWithParentLocation(
-            'Content for Swap Location Test', $mainLocationParentId
+            'Content for Swap Location Test',
+            $mainLocationParentId
         );
 
         // sanity check
@@ -1920,7 +1921,7 @@ class LocationServiceTest extends BaseTest
      * Assert that $expectedValues are set in the subtree starting at $location.
      *
      * @param array $expectedValues
-     * @param Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      */
     protected function assertSubtreeProperties(array $expectedValues, Location $location, $stopId = null)
     {

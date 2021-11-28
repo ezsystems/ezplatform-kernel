@@ -8,9 +8,9 @@ namespace Ibexa\Tests\Core\Repository\Values\ObjectState;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\PropertyReadOnlyException;
-use Ibexa\Tests\Core\Repository\Values\ValueObjectTestTrait;
-use Ibexa\Tests\Core\Repository\Values\MultiLanguageTestTrait;
 use Ibexa\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Tests\Core\Repository\Values\MultiLanguageTestTrait;
+use Ibexa\Tests\Core\Repository\Values\ValueObjectTestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**

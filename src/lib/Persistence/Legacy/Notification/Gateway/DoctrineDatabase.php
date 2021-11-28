@@ -9,21 +9,21 @@ declare(strict_types=1);
 namespace Ibexa\Core\Persistence\Legacy\Notification\Gateway;
 
 use Doctrine\DBAL\Connection;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Core\Persistence\Legacy\Notification\Gateway;
 use Ibexa\Contracts\Core\Persistence\Notification\CreateStruct;
 use Ibexa\Contracts\Core\Persistence\Notification\Notification;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Persistence\Legacy\Notification\Gateway;
 use PDO;
 
 class DoctrineDatabase extends Gateway
 {
-    const TABLE_NOTIFICATION = 'eznotification';
-    const COLUMN_ID = 'id';
-    const COLUMN_OWNER_ID = 'owner_id';
-    const COLUMN_IS_PENDING = 'is_pending';
-    const COLUMN_TYPE = 'type';
-    const COLUMN_CREATED = 'created';
-    const COLUMN_DATA = 'data';
+    public const TABLE_NOTIFICATION = 'eznotification';
+    public const COLUMN_ID = 'id';
+    public const COLUMN_OWNER_ID = 'owner_id';
+    public const COLUMN_IS_PENDING = 'is_pending';
+    public const COLUMN_TYPE = 'type';
+    public const COLUMN_CREATED = 'created';
+    public const COLUMN_DATA = 'data';
 
     /** @var \Doctrine\DBAL\Connection */
     private $connection;

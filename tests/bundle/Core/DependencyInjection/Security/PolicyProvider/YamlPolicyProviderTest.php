@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Security\PolicyProvider;
 
-use Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\StubYamlPolicyProvider;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigBuilderInterface;
+use Ibexa\Tests\Bundle\Core\DependencyInjection\Stub\StubYamlPolicyProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Resource\FileResource;
 

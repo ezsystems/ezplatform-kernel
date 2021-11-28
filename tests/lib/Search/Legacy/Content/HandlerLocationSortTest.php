@@ -6,20 +6,20 @@
  */
 namespace Ibexa\Tests\Core\Search\Legacy\Content;
 
-use Ibexa\Core\Search\Legacy\Content;
 use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use Ibexa\Core\Search\Legacy\Content;
 use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
 use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler as CommonCriterionHandler;
-use Ibexa\Core\Search\Legacy\Content\Location\Gateway\CriterionHandler as LocationCriterionHandler;
 use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
 use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler as CommonSortClauseHandler;
-use Ibexa\Core\Search\Legacy\Content\Location\Gateway\SortClauseHandler as LocationSortClauseHandler;
 use Ibexa\Core\Search\Legacy\Content\Gateway as ContentGateway;
-use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
+use Ibexa\Core\Search\Legacy\Content\Location\Gateway\CriterionHandler as LocationCriterionHandler;
+use Ibexa\Core\Search\Legacy\Content\Location\Gateway\SortClauseHandler as LocationSortClauseHandler;
 
 /**
  * Location Search test case for ContentSearchHandler.
@@ -29,7 +29,7 @@ class HandlerLocationSortTest extends AbstractTestCase
     protected function getIds($searchResult)
     {
         $ids = array_map(
-            function ($hit) {
+            static function ($hit) {
                 return $hit->valueObject->id;
             },
             $searchResult->searchHits
@@ -120,7 +120,7 @@ class HandlerLocationSortTest extends AbstractTestCase
             ->with($this->isType('array'))
             ->will(
                 $this->returnCallback(
-                    function ($rows) {
+                    static function ($rows) {
                         $locations = [];
                         foreach ($rows as $row) {
                             $locationId = (int)$row['node_id'];
@@ -481,7 +481,7 @@ class HandlerLocationSortTest extends AbstractTestCase
             'users' => [5, 12, 13, 14, 15, 44, 45, 228],
         ];
         $locationIds = array_map(
-            function ($hit) {
+            static function ($hit) {
                 return $hit->valueObject->id;
             },
             $result->searchHits
@@ -557,7 +557,7 @@ class HandlerLocationSortTest extends AbstractTestCase
             'tutorials for' => [108],
         ];
         $locationIds = array_map(
-            function ($hit) {
+            static function ($hit) {
                 return $hit->valueObject->id;
             },
             $result->searchHits
@@ -599,7 +599,7 @@ class HandlerLocationSortTest extends AbstractTestCase
         $this->assertEquals(
             [75, 73, 74, 71],
             array_map(
-                function ($hit) {
+                static function ($hit) {
                     return $hit->valueObject->id;
                 },
                 $result->searchHits

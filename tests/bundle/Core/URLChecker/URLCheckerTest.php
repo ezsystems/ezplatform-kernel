@@ -6,14 +6,14 @@
  */
 namespace Ibexa\Tests\Bundle\Core\URLChecker;
 
+use Ibexa\Bundle\Core\URLChecker\URLChecker;
+use Ibexa\Bundle\Core\URLChecker\URLHandlerInterface;
+use Ibexa\Bundle\Core\URLChecker\URLHandlerRegistryInterface;
 use Ibexa\Contracts\Core\Repository\URLService;
 use Ibexa\Contracts\Core\Repository\Values\URL\SearchResult;
 use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
 use Ibexa\Contracts\Core\Repository\Values\URL\URLUpdateStruct;
-use Ibexa\Bundle\Core\URLChecker\URLChecker;
-use Ibexa\Bundle\Core\URLChecker\URLHandlerInterface;
-use Ibexa\Bundle\Core\URLChecker\URLHandlerRegistryInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -34,7 +34,7 @@ class URLCheckerTest extends TestCase
         $this->urlService
             ->expects($this->any())
             ->method('createUpdateStruct')
-            ->willReturnCallback(function () {
+            ->willReturnCallback(static function () {
                 return new URLUpdateStruct();
             });
 
@@ -112,13 +112,13 @@ class URLCheckerTest extends TestCase
     {
         $this->handlerRegistry
             ->method('supported')
-            ->willReturnCallback(function ($scheme) use ($schemes) {
+            ->willReturnCallback(static function ($scheme) use ($schemes) {
                 return isset($schemes[$scheme]);
             });
 
         $this->handlerRegistry
             ->method('getHandler')
-            ->willReturnCallback(function ($scheme) use ($schemes) {
+            ->willReturnCallback(static function ($scheme) use ($schemes) {
                 return $schemes[$scheme];
             });
     }

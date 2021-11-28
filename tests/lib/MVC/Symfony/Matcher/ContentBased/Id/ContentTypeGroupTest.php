@@ -7,11 +7,11 @@
 namespace Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased\Id;
 
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Id\ContentTypeGroup as ContentTypeGroupIdMatcher;
 use Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased\BaseTest;
-use Ibexa\Contracts\Core\Repository\Repository;
 
 class ContentTypeGroupTest extends BaseTest
 {

@@ -9,16 +9,16 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
 use Exception;
+use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard as SPIURLWildcard;
 use Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
-use Ibexa\Core\Base\Exceptions\NotFoundException as APINotFoundException;
-use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
-use Ibexa\Core\Repository\URLWildcardService;
-use Ibexa\Contracts\Core\Persistence\Content\UrlWildcard as SPIURLWildcard;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardTranslationResult;
+use Ibexa\Core\Base\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Core\Repository\URLWildcardService;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
 
 /**
  * Mock Test case for UrlWildcard Service.

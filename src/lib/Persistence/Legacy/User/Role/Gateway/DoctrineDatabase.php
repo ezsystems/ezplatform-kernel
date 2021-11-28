@@ -12,10 +12,10 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ibexa\Core\Persistence\Legacy\User\Role\Gateway;
 use Ibexa\Contracts\Core\Persistence\User\Policy;
-use Ibexa\Contracts\Core\Persistence\User\RoleUpdateStruct;
 use Ibexa\Contracts\Core\Persistence\User\Role;
+use Ibexa\Contracts\Core\Persistence\User\RoleUpdateStruct;
+use Ibexa\Core\Persistence\Legacy\User\Role\Gateway;
 
 /**
  * User Role gateway implementation using the Doctrine database.
@@ -641,7 +641,7 @@ final class DoctrineDatabase extends Gateway
         $nodeIds = array_unique(
             array_reduce(
                 array_map(
-                    function ($pathString) {
+                    static function ($pathString) {
                         return array_filter(explode('/', $pathString));
                     },
                     $paths

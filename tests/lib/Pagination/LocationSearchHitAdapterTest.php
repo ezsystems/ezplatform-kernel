@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Core\Pagination;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
 use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
@@ -43,11 +43,11 @@ class LocationSearchHitAdapterTest extends TestCase
     /**
      * Returns the adapter to test.
      *
-     * @param LocationQuery $query
-     * @param SearchService $searchService
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery $query
+     * @param \Ibexa\Contracts\Core\Repository\SearchService $searchService
      * @param array $languageFilter
      *
-     * @return LocationSearchHitAdapter
+     * @return \Ibexa\Core\Pagination\Pagerfanta\LocationSearchHitAdapter
      */
     protected function getAdapter(LocationQuery $query, SearchService $searchService, array $languageFilter = [])
     {

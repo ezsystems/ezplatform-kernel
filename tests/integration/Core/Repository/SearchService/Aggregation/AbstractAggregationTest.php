@@ -9,12 +9,12 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation;
 
 use Ibexa\Contracts\Core\Repository\SearchService;
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\MatchAll;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 abstract class AbstractAggregationTest extends BaseTest
 {

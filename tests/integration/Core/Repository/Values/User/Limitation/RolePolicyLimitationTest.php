@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\Values\User\Limitation;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;

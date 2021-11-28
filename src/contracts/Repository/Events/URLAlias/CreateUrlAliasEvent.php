@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\URLAlias;
 
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
-use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class CreateUrlAliasEvent extends AfterEvent
 {

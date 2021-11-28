@@ -6,31 +6,31 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content;
 
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 use Ibexa\Contracts\Core\Persistence\Content;
-use Ibexa\Contracts\Core\Persistence\Content\Type;
 use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\CreateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
 use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
-use Ibexa\Contracts\Core\Persistence\Content\CreateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Relation;
-use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct as LocationCreateStruct;
-use Ibexa\Core\Persistence\Legacy\Content\TreeHandler;
-use Ibexa\Core\Persistence\Legacy\Content\Handler;
-use Ibexa\Contracts\Core\Repository\Values\Content\Relation as RelationValue;
+use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Relation;
 use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation as RelationValue;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
-use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway as UrlAliasGateway;
-use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
+use Ibexa\Core\Persistence\Legacy\Content\FieldHandler;
 use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use Ibexa\Core\Persistence\Legacy\Content\Type\Gateway as ContentTypeGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Handler;
 use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
 use Ibexa\Core\Persistence\Legacy\Content\Mapper;
-use Ibexa\Core\Persistence\Legacy\Content\FieldHandler;
+use Ibexa\Core\Persistence\Legacy\Content\TreeHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Gateway as ContentTypeGateway;
 use Ibexa\Core\Persistence\Legacy\Content\Type\Handler as ContentTypeHandler;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\Gateway as UrlAliasGateway;
+use Ibexa\Core\Persistence\Legacy\Content\UrlAlias\SlugConverter;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 use ReflectionException;
 
 /**

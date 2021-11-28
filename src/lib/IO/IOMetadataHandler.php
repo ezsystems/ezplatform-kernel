@@ -6,7 +6,6 @@
  */
 namespace Ibexa\Core\IO;
 
-use Ibexa\Contracts\Core\IO\BinaryFile;
 use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct;
 
 /**
@@ -17,9 +16,9 @@ interface IOMetadataHandler
     /**
      * Stores the file from $binaryFileCreateStruct.
      *
-     * @param BinaryFileCreateStruct $spiBinaryFileCreateStruct
+     * @param \Ibexa\Contracts\Core\IO\BinaryFileCreateStruct $spiBinaryFileCreateStruct
      *
-     * @return BinaryFile
+     * @return \Ibexa\Contracts\Core\IO\BinaryFile
      *
      * @throws \RuntimeException if an error occured creating the file
      */
@@ -39,7 +38,7 @@ interface IOMetadataHandler
      *
      * @param string $spiBinaryFileId
      *
-     * @return BinaryFile
+     * @return \Ibexa\Contracts\Core\IO\BinaryFile
      */
     public function load($spiBinaryFileId);
 

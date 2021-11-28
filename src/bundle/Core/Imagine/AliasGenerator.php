@@ -6,15 +6,16 @@
  */
 namespace Ibexa\Bundle\Core\Imagine;
 
+use Ibexa\Contracts\Core\FieldType\Value;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidVariationException;
-use Ibexa\Core\MVC\Exception\SourceImageNotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\Core\Variation\Values\ImageVariation;
 use Ibexa\Contracts\Core\Variation\VariationHandler;
-use Ibexa\Contracts\Core\FieldType\Value;
 use Ibexa\Core\FieldType\Image\Value as ImageValue;
+use Ibexa\Core\MVC\Exception\SourceImageNotFoundException;
 use Imagine\Exception\RuntimeException;
+use InvalidArgumentException;
 use Liip\ImagineBundle\Binary\BinaryInterface;
 use Liip\ImagineBundle\Binary\Loader\LoaderInterface;
 use Liip\ImagineBundle\Exception\Binary\Loader\NotLoadableException;
@@ -23,7 +24,6 @@ use Liip\ImagineBundle\Imagine\Cache\Resolver\ResolverInterface;
 use Liip\ImagineBundle\Imagine\Filter\FilterConfiguration;
 use Liip\ImagineBundle\Imagine\Filter\FilterManager;
 use Psr\Log\LoggerInterface;
-use InvalidArgumentException;
 use Psr\Log\NullLogger;
 use SplFileInfo;
 
@@ -33,7 +33,7 @@ use SplFileInfo;
  */
 class AliasGenerator implements VariationHandler
 {
-    const ALIAS_ORIGINAL = 'original';
+    public const ALIAS_ORIGINAL = 'original';
 
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
@@ -49,7 +49,7 @@ class AliasGenerator implements VariationHandler
     /** @var \Liip\ImagineBundle\Imagine\Filter\FilterManager */
     private $filterManager;
 
-    /** @var FilterConfiguration */
+    /** @var \Liip\ImagineBundle\Imagine\Filter\FilterConfiguration */
     private $filterConfiguration;
 
     /** @var \Liip\ImagineBundle\Imagine\Cache\Resolver\ResolverInterface */
@@ -144,7 +144,7 @@ class AliasGenerator implements VariationHandler
      * In that case, reference's filters are applied first, recursively (a reference may also have another reference).
      * Reference must be a valid variation name, configured in eZ or in LiipImagineBundle.
      *
-     * @param BinaryInterface $image
+     * @param \Liip\ImagineBundle\Binary\BinaryInterface $image
      * @param string $variationName
      *
      * @return \Liip\ImagineBundle\Binary\BinaryInterface

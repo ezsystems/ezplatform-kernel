@@ -9,8 +9,8 @@ namespace Ibexa\Core\MVC\Symfony\Matcher;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Core\MVC\RepositoryAwareInterface;
 use Ibexa\Core\MVC\Symfony\View\View;
-use SplObjectStorage;
 use InvalidArgumentException;
+use SplObjectStorage;
 
 /**
  * A matcher factory based on namespaces: matchers will be searched for as classes.
@@ -64,7 +64,7 @@ class ClassNameMatcherFactory implements ConfigurableMatcherFactoryInterface
      *                                  If it does not and a relative namespace is set, it is searched inside the
      *                                  relative namespace if set.
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      *
      * @return \Ibexa\Core\MVC\Symfony\Matcher\ViewMatcherInterface
      */

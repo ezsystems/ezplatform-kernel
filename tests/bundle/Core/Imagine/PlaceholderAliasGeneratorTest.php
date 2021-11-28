@@ -12,16 +12,16 @@ use Ibexa\Bundle\Core\Imagine\PlaceholderProvider;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Contracts\Core\Variation\Values\ImageVariation;
+use Ibexa\Contracts\Core\Variation\VariationHandler;
 use Ibexa\Core\FieldType\Image\Value as ImageValue;
 use Ibexa\Core\FieldType\Null\Value as NullValue;
-use Ibexa\Core\FieldType\Value as FieldTypeValue;
 use Ibexa\Core\FieldType\Value;
+use Ibexa\Core\FieldType\Value as FieldTypeValue;
 use Ibexa\Core\IO\IOServiceInterface;
 use Ibexa\Core\IO\Values\BinaryFile;
 use Ibexa\Core\IO\Values\BinaryFileCreateStruct;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Contracts\Core\Variation\Values\ImageVariation;
-use Ibexa\Contracts\Core\Variation\VariationHandler;
 use Liip\ImagineBundle\Exception\Imagine\Cache\Resolver\NotResolvableException;
 use PHPUnit\Framework\TestCase;
 
@@ -102,7 +102,10 @@ class PlaceholderAliasGeneratorTest extends TestCase
             ->willReturn($expectedVariation);
 
         $actualVariation = $this->aliasGenerator->getVariation(
-            $field, $versionInfo, $variationName, $parameters
+            $field,
+            $versionInfo,
+            $variationName,
+            $parameters
         );
 
         $this->assertEquals($expectedVariation, $actualVariation);
@@ -132,7 +135,10 @@ class PlaceholderAliasGeneratorTest extends TestCase
         );
 
         $actualVariation = $this->aliasGenerator->getVariation(
-            $field, $versionInfo, $variationName, $parameters
+            $field,
+            $versionInfo,
+            $variationName,
+            $parameters
         );
 
         $this->assertEquals($expectedVariation, $actualVariation);
@@ -182,7 +188,10 @@ class PlaceholderAliasGeneratorTest extends TestCase
             ->willReturn($expectedVariation);
 
         $actualVariation = $this->aliasGenerator->getVariation(
-            $field, $versionInfo, $variationName, $parameters
+            $field,
+            $versionInfo,
+            $variationName,
+            $parameters
         );
 
         $this->assertEquals($field->value->id, $binaryCreateStruct->id);
@@ -250,7 +259,10 @@ class PlaceholderAliasGeneratorTest extends TestCase
             ->willReturn($expectedVariation);
 
         $actualVariation = $this->aliasGenerator->getVariation(
-            $field, $versionInfo, $variationName, $parameters
+            $field,
+            $versionInfo,
+            $variationName,
+            $parameters
         );
 
         $this->assertEquals($field->value->id, $binaryCreateStruct->id);

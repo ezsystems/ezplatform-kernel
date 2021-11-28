@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use Ibexa\Core\FieldType\TextBlock\Value as TextBlockValue;
-use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 
 /**
  * Integration test for use field type.
@@ -125,7 +125,7 @@ class TextBlockIntegrationTest extends SearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      */
     public function assertFieldDataLoadedCorrect(Field $field)
     {
@@ -197,7 +197,7 @@ class TextBlockIntegrationTest extends SearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was copied and loaded correctly.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      */
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {

@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\Content;
 
+use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
-use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
 use UnexpectedValueException;
 
 final class BeforeCreateContentDraftEvent extends BeforeEvent

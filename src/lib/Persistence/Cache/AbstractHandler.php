@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Core\Persistence\Cache;
 
-use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
 use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
+use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
 use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierSanitizer;
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 

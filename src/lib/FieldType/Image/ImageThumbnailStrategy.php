@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\FieldType\Image;
 
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail;
-use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
 use Ibexa\Contracts\Core\Variation\VariationHandler;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
 
 class ImageThumbnailStrategy implements FieldTypeBasedThumbnailStrategy
 {

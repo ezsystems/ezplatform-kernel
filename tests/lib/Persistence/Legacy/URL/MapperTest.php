@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\URL;
 
-use Ibexa\Core\Persistence\Legacy\URL\Mapper;
 use Ibexa\Contracts\Core\Persistence\URL\URL;
 use Ibexa\Contracts\Core\Persistence\URL\URLUpdateStruct;
+use Ibexa\Core\Persistence\Legacy\URL\Mapper;
 use PHPUnit\Framework\TestCase;
 
 class MapperTest extends TestCase

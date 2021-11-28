@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Repository\Decorator;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
+use Ibexa\Contracts\Core\Repository\Decorator\TrashServiceDecorator;
 use Ibexa\Contracts\Core\Repository\TrashService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
-use Ibexa\Contracts\Core\Repository\Decorator\TrashServiceDecorator;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 class TrashServiceDecoratorTest extends TestCase
 {

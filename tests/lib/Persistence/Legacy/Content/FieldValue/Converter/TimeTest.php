@@ -6,16 +6,16 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use Ibexa\Core\FieldType\Time\Type as TimeType;
-use Ibexa\Core\FieldType\FieldSettings;
-use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
-use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
-use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\TimeConverter;
-use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
-use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
-use PHPUnit\Framework\TestCase;
 use DateTime;
+use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
+use Ibexa\Core\FieldType\FieldSettings;
+use Ibexa\Core\FieldType\Time\Type as TimeType;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\TimeConverter;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\DateAndTimeConverter

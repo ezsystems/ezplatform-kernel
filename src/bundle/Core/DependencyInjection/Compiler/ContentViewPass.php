@@ -17,9 +17,9 @@ use Ibexa\Core\MVC\Symfony\View\ContentView;
  */
 class ContentViewPass extends ViewManagerPass
 {
-    const VIEW_PROVIDER_IDENTIFIER = 'ezpublish.content_view_provider';
-    const ADD_VIEW_PROVIDER_METHOD = 'addContentViewProvider';
-    const VIEW_TYPE = ContentView::class;
+    public const VIEW_PROVIDER_IDENTIFIER = 'ezpublish.content_view_provider';
+    public const ADD_VIEW_PROVIDER_METHOD = 'addContentViewProvider';
+    public const VIEW_TYPE = ContentView::class;
 }
 
 class_alias(ContentViewPass::class, 'eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\ContentViewPass');

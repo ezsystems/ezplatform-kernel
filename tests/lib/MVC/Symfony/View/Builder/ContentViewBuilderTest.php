@@ -25,8 +25,8 @@ use Ibexa\Core\Repository\Repository;
 use Ibexa\Core\Repository\Values\Content\Content;
 use Ibexa\Core\Repository\Values\Content\Location;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
-use Symfony\Component\HttpFoundation\RequestStack;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @group mvc

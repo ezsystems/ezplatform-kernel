@@ -13,9 +13,9 @@ use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class SessionInitByPostListenerTest extends TestCase
 {

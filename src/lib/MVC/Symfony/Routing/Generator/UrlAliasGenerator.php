@@ -19,7 +19,7 @@ use Symfony\Component\Routing\RouterInterface;
  */
 class UrlAliasGenerator extends Generator
 {
-    const INTERNAL_CONTENT_VIEW_ROUTE = '_ez_content_view';
+    public const INTERNAL_CONTENT_VIEW_ROUTE = '_ez_content_view';
 
     /** @var \Ibexa\Core\Repository\Repository */
     private $repository;
@@ -163,7 +163,7 @@ class UrlAliasGenerator extends Generator
     public function loadLocation($locationId)
     {
         return $this->repository->sudo(
-            function (Repository $repository) use ($locationId) {
+            static function (Repository $repository) use ($locationId) {
                 /* @var $repository \Ibexa\Core\Repository\Repository */
                 return $repository->getLocationService()->loadLocation($locationId);
             }

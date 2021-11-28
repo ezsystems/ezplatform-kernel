@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
+use Ibexa\Contracts\Core\FieldType\BinaryBase\RouteAwarePathGenerator;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
 use Ibexa\Core\FieldType\BinaryFile\Type as BinaryFileType;
 use Ibexa\Core\FieldType\BinaryFile\Value as BinaryFileValue;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
 use Ibexa\Core\FieldType\FieldType;
 use Ibexa\Core\FieldType\ValidationError;
-use Ibexa\Contracts\Core\FieldType\BinaryBase\RouteAwarePathGenerator;
 
 /**
  * @group fieldType

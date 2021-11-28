@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Core\MVC\Symfony\SiteAccess;
 
-use Ibexa\Core\MVC\Symfony\SiteAccess;
-use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
-use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Regex\URI as RegexMatcher;
 use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Regex\URI as RegexMatcher;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
 use Psr\Log\LoggerInterface;
 
 class RouterURIRegexTest extends RouterBaseTest

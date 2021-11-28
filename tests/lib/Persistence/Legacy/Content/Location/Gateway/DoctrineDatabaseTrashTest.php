@@ -8,10 +8,10 @@ namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Location\Gateway;
 
 use Doctrine\DBAL\ParameterType;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase;
+use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\Location\Gateway\DoctrineDatabase
@@ -318,7 +318,7 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
                 '/1/2/69/',
             ],
             array_map(
-                function ($trashItem) {
+                static function ($trashItem) {
                     return $trashItem['path_string'];
                 },
                 $trashList = $handler->listTrashed(
@@ -350,7 +350,7 @@ class DoctrineDatabaseTrashTest extends LanguageAwareTestCase
                 '/1/2/69/70/71/',
             ],
             array_map(
-                function ($trashItem) {
+                static function ($trashItem) {
                     return $trashItem['path_string'];
                 },
                 $trashList = $handler->listTrashed(

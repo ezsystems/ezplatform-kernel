@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Core\Search\Common\FieldValueMapper;
 
-use Ibexa\Contracts\Core\Search\FieldType;
 use Ibexa\Contracts\Core\Search\Field;
+use Ibexa\Contracts\Core\Search\FieldType;
 
 /**
  * Common multiple string field value mapper implementation.

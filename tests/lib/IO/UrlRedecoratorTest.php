@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Tests\Core\IO;
 
-use PHPUnit\Framework\TestCase;
-use Ibexa\Core\IO\UrlRedecorator;
 use Ibexa\Core\IO\UrlDecorator;
+use Ibexa\Core\IO\UrlRedecorator;
+use PHPUnit\Framework\TestCase;
 
 class UrlRedecoratorTest extends TestCase
 {
-    /** @var UrlRedecorator|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\IO\UrlRedecorator|\PHPUnit\Framework\MockObject\MockObject */
     private $redecorator;
 
     /** @var \Ibexa\Core\IO\UrlDecorator|\PHPUnit\Framework\MockObject\MockObject */

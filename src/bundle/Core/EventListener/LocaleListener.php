@@ -8,10 +8,10 @@ namespace Ibexa\Bundle\Core\EventListener;
 
 use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Locale\LocaleConverterInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\EventListener\LocaleListener as BaseLocaleListener;
 
 /**

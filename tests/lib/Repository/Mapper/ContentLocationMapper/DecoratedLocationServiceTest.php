@@ -11,20 +11,20 @@ namespace Ibexa\Tests\Core\Repository\Mapper\ContentLocationMapper;
 use Ibexa\Contracts\Core\Repository\LocationService as ApiLocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
-use Ibexa\Core\Repository\Values\Content\Location;
 use Ibexa\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper;
 use Ibexa\Core\Repository\Mapper\ContentLocationMapper\DecoratedLocationService;
+use Ibexa\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
 
 class DecoratedLocationServiceTest extends TestCase
 {
-    /** @var DecoratedLocationService */
+    /** @var \Ibexa\Core\Repository\Mapper\ContentLocationMapper\DecoratedLocationService */
     private $locationService;
 
-    /** @var ApiLocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $innerLocationService;
 
-    /** @var ContentLocationMapper */
+    /** @var \Ibexa\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper */
     private $mapper;
 
     protected function setUp(): void

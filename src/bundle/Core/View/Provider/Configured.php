@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Bundle\Core\View\Provider;
 
-use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use Ibexa\Core\MVC\Symfony\View\Provider\Configured as BaseConfigured;
 
 class Configured extends BaseConfigured implements SiteAccessAware
@@ -15,7 +15,7 @@ class Configured extends BaseConfigured implements SiteAccessAware
     /**
      * Changes SiteAccess.
      *
-     * @param SiteAccess $siteAccess
+     * @param \Ibexa\Core\MVC\Symfony\SiteAccess $siteAccess
      */
     public function setSiteAccess(SiteAccess $siteAccess = null)
     {

@@ -8,8 +8,8 @@ namespace Ibexa\Tests\Bundle\Core\EventListener;
 
 use Ibexa\Bundle\Core\EventListener\ConsoleCommandListener;
 use Ibexa\Core\MVC\Exception\InvalidSiteAccessException;
-use Ibexa\Tests\Bundle\Core\EventListener\Stubs\TestOutput;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Tests\Bundle\Core\EventListener\Stubs\TestOutput;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\ConsoleEvents;

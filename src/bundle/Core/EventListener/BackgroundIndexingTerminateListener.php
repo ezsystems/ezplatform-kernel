@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Bundle\Core\EventListener;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Core\Search\Common\BackgroundIndexer as BackgroundIndexerInterface;
 use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
 use Ibexa\Contracts\Core\Persistence\Content\Location;
 use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Search\Handler as SearchHandler;
+use Ibexa\Core\Search\Common\BackgroundIndexer as BackgroundIndexerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\ConsoleEvents;

@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\URLWildcard;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardTranslationResult;
 use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardTranslationResult;
 
 final class TranslateEvent extends AfterEvent
 {

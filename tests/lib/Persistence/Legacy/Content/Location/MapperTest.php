@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Location;
 
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper;
-use Ibexa\Contracts\Core\Persistence\Content\Location\Trashed;
 use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Trashed;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Mapper;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\Location\Mapper

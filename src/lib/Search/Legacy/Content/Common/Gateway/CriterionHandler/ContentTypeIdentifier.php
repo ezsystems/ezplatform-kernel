@@ -8,11 +8,11 @@ namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
-use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 

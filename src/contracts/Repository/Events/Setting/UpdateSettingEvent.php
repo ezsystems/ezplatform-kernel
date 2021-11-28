@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\Setting;
 
+use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 use Ibexa\Contracts\Core\Repository\Values\Setting\Setting;
 use Ibexa\Contracts\Core\Repository\Values\Setting\SettingUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
 
 final class UpdateSettingEvent extends AfterEvent
 {

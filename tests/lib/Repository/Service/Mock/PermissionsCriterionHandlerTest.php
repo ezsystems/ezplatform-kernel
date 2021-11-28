@@ -7,13 +7,13 @@
 namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
 use Ibexa\Contracts\Core\Limitation\Type;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitation;
+use Ibexa\Core\Repository\PermissionsCriterionHandler;
+use Ibexa\Core\Repository\Values\User\Policy;
 use Ibexa\Core\Repository\Values\User\User;
 use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
-use Ibexa\Core\Repository\PermissionsCriterionHandler;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitation;
-use Ibexa\Core\Repository\Values\User\Policy;
 
 /**
  * Mock test case for PermissionCriterionHandler.

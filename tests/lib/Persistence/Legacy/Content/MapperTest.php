@@ -7,21 +7,21 @@
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content;
 
 use function count;
-use Ibexa\Core\Persistence\Legacy\Content\Mapper;
-use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry as Registry;
-use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
-use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
-use Ibexa\Contracts\Core\Repository\Values\Content\Relation as RelationValue;
-use Ibexa\Contracts\Core\Persistence\Content\Relation as SPIRelation;
 use Ibexa\Contracts\Core\Persistence\Content;
 use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Persistence\Content\CreateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
 use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
 use Ibexa\Contracts\Core\Persistence\Content\Language;
-use Ibexa\Contracts\Core\Persistence\Content\CreateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct as LocationCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Relation as SPIRelation;
 use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation as RelationValue;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry as Registry;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\Mapper
@@ -94,7 +94,7 @@ class MapperTest extends LanguageAwareTestCase
     /**
      * Returns a Content fixture.
      *
-     * @return Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content
      */
     protected function getFullContentFixture()
     {
@@ -446,7 +446,7 @@ class MapperTest extends LanguageAwareTestCase
      *
      * Fixture is stored in _fixtures/extract_content_from_rows_result.php
      *
-     * @return Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content
      */
     protected function getContentExtractReference()
     {
@@ -492,7 +492,7 @@ class MapperTest extends LanguageAwareTestCase
      *
      * Fixture is stored in _fixtures/relations_results.php
      *
-     * @return Content
+     * @return \Ibexa\Contracts\Core\Persistence\Content
      */
     protected function getRelationExtractReference()
     {
@@ -574,7 +574,7 @@ class MapperTest extends LanguageAwareTestCase
                 ->method('load')
                 ->will(
                     $this->returnCallback(
-                        function ($id) use ($languages) {
+                        static function ($id) use ($languages) {
                             foreach ($languages as $language) {
                                 if ($language->id == $id) {
                                     return $language;
@@ -587,7 +587,7 @@ class MapperTest extends LanguageAwareTestCase
                 ->method('loadByLanguageCode')
                 ->will(
                     $this->returnCallback(
-                        function ($languageCode) use ($languages) {
+                        static function ($languageCode) use ($languages) {
                             foreach ($languages as $language) {
                                 if ($language->languageCode == $languageCode) {
                                     return $language;

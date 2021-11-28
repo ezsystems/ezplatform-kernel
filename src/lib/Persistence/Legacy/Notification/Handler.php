@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Legacy\Notification;
 
-use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Persistence\Notification\CreateStruct;
 use Ibexa\Contracts\Core\Persistence\Notification\Handler as HandlerInterface;
 use Ibexa\Contracts\Core\Persistence\Notification\Notification;
 use Ibexa\Contracts\Core\Persistence\Notification\UpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Notification\Notification as APINotification;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 
 class Handler implements HandlerInterface
 {

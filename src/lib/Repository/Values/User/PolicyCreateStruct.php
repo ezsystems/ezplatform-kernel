@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\Values\User;
 
-use Ibexa\Contracts\Core\Repository\Values\User\PolicyCreateStruct as APIPolicyCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\PolicyCreateStruct as APIPolicyCreateStruct;
 
 /**
  * This class is used to create a policy.

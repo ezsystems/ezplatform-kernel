@@ -6,23 +6,23 @@
  */
 namespace Ibexa\Core\Limitation;
 
+use Ibexa\Contracts\Core\Limitation\Type as SPILimitationTypeInterface;
+use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
-use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitationValue;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LocationLimitation as APILocationLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LocationLimitation as APILocationLimitation;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitationValue;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
-use Ibexa\Contracts\Core\Limitation\Type as SPILimitationTypeInterface;
 use Ibexa\Core\FieldType\ValidationError;
-use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
 
 /**
  * LocationLimitation is a Content limitation.
@@ -141,7 +141,7 @@ class LocationLimitationType extends AbstractPersistenceLimitationType implement
             }
         }
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[]|\Ibexa\Contracts\Core\Persistence\Content\Location[] $targets */
-        $targets = array_filter($targets, function ($target) {
+        $targets = array_filter($targets, static function ($target) {
             return $target instanceof Location || $target instanceof SPILocation;
         });
 

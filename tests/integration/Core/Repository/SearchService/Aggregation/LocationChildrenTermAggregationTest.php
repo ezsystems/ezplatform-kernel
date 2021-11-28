@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation;
 
-use Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation\DataSetBuilder\TermAggregationDataSetBuilder;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\Location\LocationChildrenTermAggregation;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult;
+use Ibexa\Tests\Integration\Core\Repository\SearchService\Aggregation\DataSetBuilder\TermAggregationDataSetBuilder;
 
 final class LocationChildrenTermAggregationTest extends AbstractAggregationTest
 {

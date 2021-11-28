@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Cache;
 
-use Ibexa\Contracts\Core\Persistence\Setting\Setting;
 use Ibexa\Contracts\Core\Persistence\Setting\Handler as SettingHandler;
+use Ibexa\Contracts\Core\Persistence\Setting\Setting;
 
 /**
  * Test case for Persistence\Cache\SettingHandler.

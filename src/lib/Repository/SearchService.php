@@ -8,25 +8,25 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository;
 
-use Ibexa\Contracts\Core\Repository\SearchService as SearchServiceInterface;
 use Ibexa\Contracts\Core\Repository\PermissionCriterionResolver;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
+use Ibexa\Contracts\Core\Repository\SearchService as SearchServiceInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Location as LocationCriterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalOperator;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Location as LocationCriterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location as LocationSortClause;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
-use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Search\Capable;
+use Ibexa\Contracts\Core\Search\Handler;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\Repository\Mapper\ContentDomainMapper;
-use Ibexa\Contracts\Core\Search\Capable;
 use Ibexa\Core\Search\Common\BackgroundIndexer;
-use Ibexa\Contracts\Core\Search\Handler;
 
 /**
  * Search service.

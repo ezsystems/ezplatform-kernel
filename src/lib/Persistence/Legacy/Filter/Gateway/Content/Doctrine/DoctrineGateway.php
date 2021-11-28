@@ -8,23 +8,23 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Legacy\Filter\Gateway\Content\Doctrine;
 
+use function array_filter;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ibexa\Core\Base\Exceptions\DatabaseException;
-use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use Ibexa\Core\Persistence\Legacy\Filter\Gateway\Gateway;
 use Ibexa\Contracts\Core\Persistence\Filter\CriterionVisitor;
 use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
 use Ibexa\Contracts\Core\Persistence\Filter\SortClauseVisitor;
 use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
-use Traversable;
-use function array_filter;
+use Ibexa\Core\Base\Exceptions\DatabaseException;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Persistence\Legacy\Filter\Gateway\Gateway;
 use function iterator_to_array;
 use function sprintf;
+use Traversable;
 
 /**
  * @internal for internal use by Legacy Storage

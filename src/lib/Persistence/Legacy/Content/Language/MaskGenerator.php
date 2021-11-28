@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\Language;
 
-use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 
 /**
  * Language MaskGenerator.

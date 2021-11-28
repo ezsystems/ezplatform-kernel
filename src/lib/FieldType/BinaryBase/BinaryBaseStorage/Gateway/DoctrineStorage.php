@@ -9,8 +9,8 @@ namespace Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway;
 use PDO;
 

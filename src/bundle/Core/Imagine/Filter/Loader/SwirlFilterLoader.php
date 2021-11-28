@@ -12,7 +12,7 @@ use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
 
 class SwirlFilterLoader implements LoaderInterface
 {
-    /** @var FilterInterface */
+    /** @var \Ibexa\Bundle\Core\Imagine\Filter\FilterInterface */
     private $filter;
 
     public function __construct(FilterInterface $filter)

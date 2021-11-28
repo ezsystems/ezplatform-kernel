@@ -159,7 +159,8 @@ class Handler implements BaseUrlWildcardHandler
         // can't find UrlWildcard by simple lookup, continue and try to translate
 
         $rows = $this->gateway->loadUrlWildcardsData();
-        uasort($rows,
+        uasort(
+            $rows,
             static function ($row1, $row2) {
                 return strlen($row2['source_url']) - strlen($row1['source_url']);
             }

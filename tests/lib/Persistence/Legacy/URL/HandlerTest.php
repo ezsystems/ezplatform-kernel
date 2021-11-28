@@ -6,6 +6,8 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\URL;
 
+use Ibexa\Contracts\Core\Persistence\URL\URL;
+use Ibexa\Contracts\Core\Persistence\URL\URLUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause;
@@ -13,8 +15,6 @@ use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
 use Ibexa\Core\Persistence\Legacy\URL\Gateway;
 use Ibexa\Core\Persistence\Legacy\URL\Handler;
 use Ibexa\Core\Persistence\Legacy\URL\Mapper;
-use Ibexa\Contracts\Core\Persistence\URL\URL;
-use Ibexa\Contracts\Core\Persistence\URL\URLUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
 class HandlerTest extends TestCase

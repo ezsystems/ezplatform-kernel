@@ -8,12 +8,12 @@ namespace Ibexa\Tests\Core\Persistence\Cache;
 
 use Ibexa\Contracts\Core\Persistence\Content\Location;
 use Ibexa\Contracts\Core\Persistence\User;
+use Ibexa\Contracts\Core\Persistence\User\Handler as SPIUserHandler;
+use Ibexa\Contracts\Core\Persistence\User\Policy;
 use Ibexa\Contracts\Core\Persistence\User\Role;
 use Ibexa\Contracts\Core\Persistence\User\RoleAssignment;
-use Ibexa\Contracts\Core\Persistence\User\RoleUpdateStruct;
 use Ibexa\Contracts\Core\Persistence\User\RoleCreateStruct;
-use Ibexa\Contracts\Core\Persistence\User\Policy;
-use Ibexa\Contracts\Core\Persistence\User\Handler as SPIUserHandler;
+use Ibexa\Contracts\Core\Persistence\User\RoleUpdateStruct;
 use Ibexa\Core\Persistence\Legacy\Content\Location\Handler as SPILocationHandler;
 
 /**

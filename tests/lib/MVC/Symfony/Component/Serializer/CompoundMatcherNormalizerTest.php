@@ -9,11 +9,11 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Core\MVC\Symfony\Component\Serializer;
 
 use Ibexa\Core\MVC\Symfony\Component\Serializer\CompoundMatcherNormalizer;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Compound;
 use Ibexa\Tests\Core\MVC\Symfony\Component\Serializer\Stubs\CompoundStub;
 use Ibexa\Tests\Core\MVC\Symfony\Component\Serializer\Stubs\MatcherStub;
 use Ibexa\Tests\Core\MVC\Symfony\Component\Serializer\Stubs\SerializerStub;
-use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
-use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Compound;
 use PHPUnit\Framework\TestCase;
 
 final class CompoundMatcherNormalizerTest extends TestCase

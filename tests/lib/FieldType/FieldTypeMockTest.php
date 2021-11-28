@@ -7,8 +7,8 @@
 namespace Ibexa\Tests\Core\FieldType;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
 use Ibexa\Core\FieldType\FieldType;
+use PHPUnit\Framework\TestCase;
 
 class FieldTypeMockTest extends TestCase
 {

@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 use EzSystems\EzPlatformSolrSearchEngine\Tests\SetupFactory\LegacySetupFactory;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LanguageCode;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 /**
  * Test case for language issues in EZP-20018.

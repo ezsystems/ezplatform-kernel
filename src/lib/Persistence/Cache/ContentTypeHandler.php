@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Core\Persistence\Cache;
 
-use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandlerInterface;
 use Ibexa\Contracts\Core\Persistence\Content\Type;
 use Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandlerInterface;
+use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct;
 
 class ContentTypeHandler extends AbstractInMemoryPersistenceHandler implements ContentTypeHandlerInterface
 {

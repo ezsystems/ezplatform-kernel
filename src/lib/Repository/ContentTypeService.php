@@ -8,44 +8,44 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository;
 
-use Ibexa\Contracts\Core\Repository\ContentTypeService as ContentTypeServiceInterface;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
-use Ibexa\Core\FieldType\FieldTypeRegistry;
-use Ibexa\Contracts\Core\Persistence\Content\Type\Handler;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
-use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException as APIBadStateException;
-use Ibexa\Contracts\Core\Repository\Values\User\User;
-use Ibexa\Contracts\Core\Persistence\User\Handler as UserHandler;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType as APIContentType;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft as APIContentTypeDraft;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup as APIContentTypeGroup;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct as APIContentTypeCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
+use DateTime;
+use Exception;
+use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
 use Ibexa\Contracts\Core\Persistence\Content\Type as SPIContentType;
 use Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct as SPIContentTypeCreateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group\CreateStruct as SPIContentTypeGroupCreateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group\UpdateStruct as SPIContentTypeGroupUpdateStruct;
-use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler;
+use Ibexa\Contracts\Core\Persistence\User\Handler as UserHandler;
+use Ibexa\Contracts\Core\Repository\ContentTypeService as ContentTypeServiceInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException as APIBadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType as APIContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct as APIContentTypeCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft as APIContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup as APIContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Base\Exceptions\BadStateException;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Core\Base\Exceptions\ContentTypeValidationException;
 use Ibexa\Core\Base\Exceptions\ContentTypeFieldDefinitionValidationException;
+use Ibexa\Core\Base\Exceptions\ContentTypeValidationException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\Base\Exceptions\UnauthorizedException;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
 use Ibexa\Core\FieldType\ValidationError;
-use DateTime;
-use Exception;
+use Ibexa\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeGroup;
 
 class ContentTypeService implements ContentTypeServiceInterface
@@ -507,7 +507,7 @@ class ContentTypeService implements ContentTypeServiceInterface
      * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue
      *
-     * @param FieldDefinitionCreateStruct $fieldDefinitionCreateStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct $fieldDefinitionCreateStruct
      * @param string $argumentName
      */
     protected function validateInputFieldDefinitionCreateStruct(
@@ -763,7 +763,7 @@ class ContentTypeService implements ContentTypeServiceInterface
         }
 
         $groupIds = array_map(
-            function (APIContentTypeGroup $contentTypeGroup) {
+            static function (APIContentTypeGroup $contentTypeGroup) {
                 return $contentTypeGroup->id;
             },
             $contentTypeGroups

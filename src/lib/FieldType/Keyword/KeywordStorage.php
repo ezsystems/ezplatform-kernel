@@ -7,8 +7,8 @@
 namespace Ibexa\Core\FieldType\Keyword;
 
 use Ibexa\Contracts\Core\FieldType\GatewayBasedStorage;
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 
 /**
  * Converter for Keyword field type external storage.

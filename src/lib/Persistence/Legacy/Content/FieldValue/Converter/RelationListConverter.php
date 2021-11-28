@@ -10,15 +10,15 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use DOMDocument;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Persistence\Content\Type as ContentType;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
 use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
 use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
 use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
 use Ibexa\Core\Persistence\Legacy\Content\Type\Gateway as ContentTypeGateway;
-use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
-use Ibexa\Contracts\Core\Persistence\Content\Type as ContentType;
-use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 
 class RelationListConverter implements Converter
 {
@@ -280,7 +280,7 @@ class RelationListConverter implements Converter
                 't.node_id',
                 't.parent_node_id',
                 'ct.identifier',
-                )
+            )
             ->from(ContentGateway::CONTENT_ITEM_TABLE, 'c')
             ->leftJoin(
                 'c',

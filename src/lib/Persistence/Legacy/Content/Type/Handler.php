@@ -7,19 +7,19 @@
 namespace Ibexa\Core\Persistence\Legacy\Content\Type;
 
 use Ibexa\Contracts\Core\Persistence\Content\Type;
-use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as BaseContentTypeHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Type\CreateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group\CreateStruct as GroupCreateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as BaseContentTypeHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 use Ibexa\Core\Persistence\Legacy\Content\Type\Update\Handler as UpdateHandler;
 use Ibexa\Core\Persistence\Legacy\Exception;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
-use Ibexa\Core\Base\Exceptions\BadStateException;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 class Handler implements BaseContentTypeHandler
 {
@@ -60,7 +60,7 @@ class Handler implements BaseContentTypeHandler
     /**
      * @param \Ibexa\Contracts\Core\Persistence\Content\Type\Group\CreateStruct $createStruct
      *
-     * @return Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\Group
      */
     public function createGroup(GroupCreateStruct $createStruct)
     {
@@ -108,7 +108,7 @@ class Handler implements BaseContentTypeHandler
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException If type group with $groupId is not found
      *
-     * @return Group
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\Group
      */
     public function loadGroup($groupId)
     {
@@ -161,7 +161,7 @@ class Handler implements BaseContentTypeHandler
     }
 
     /**
-     * @return Group[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type\Group[]
      */
     public function loadAllGroups()
     {
@@ -174,7 +174,7 @@ class Handler implements BaseContentTypeHandler
      * @param mixed $groupId
      * @param int $status
      *
-     * @return Type[]
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type[]
      */
     public function loadContentTypes($groupId, $status = 0)
     {
@@ -336,7 +336,7 @@ class Handler implements BaseContentTypeHandler
      * @param int $status
      * @param \Ibexa\Contracts\Core\Persistence\Content\Type\UpdateStruct $updateStruct
      *
-     * @return Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     public function update($typeId, $status, UpdateStruct $updateStruct)
     {
@@ -400,7 +400,7 @@ class Handler implements BaseContentTypeHandler
      * @param mixed $contentTypeId
      * @param int $status One of Type::STATUS_DEFINED|Type::STATUS_DRAFT|Type::STATUS_MODIFIED
      *
-     * @return Type
+     * @return \Ibexa\Contracts\Core\Persistence\Content\Type
      */
     public function copy($userId, $contentTypeId, $status)
     {

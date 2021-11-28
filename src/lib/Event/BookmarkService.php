@@ -9,12 +9,12 @@ declare(strict_types=1);
 namespace Ibexa\Core\Event;
 
 use Ibexa\Contracts\Core\Repository\BookmarkService as BookmarkServiceInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Decorator\BookmarkServiceDecorator;
 use Ibexa\Contracts\Core\Repository\Events\Bookmark\BeforeCreateBookmarkEvent;
 use Ibexa\Contracts\Core\Repository\Events\Bookmark\BeforeDeleteBookmarkEvent;
 use Ibexa\Contracts\Core\Repository\Events\Bookmark\CreateBookmarkEvent;
 use Ibexa\Contracts\Core\Repository\Events\Bookmark\DeleteBookmarkEvent;
-use Ibexa\Contracts\Core\Repository\Decorator\BookmarkServiceDecorator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class BookmarkService extends BookmarkServiceDecorator

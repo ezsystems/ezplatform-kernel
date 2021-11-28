@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Values\ContentType;
 
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * This class is used for creating content types.

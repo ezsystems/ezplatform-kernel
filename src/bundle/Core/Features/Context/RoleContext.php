@@ -7,9 +7,9 @@
 namespace Ibexa\Bundle\Core\Features\Context;
 
 use Behat\Behat\Context\Context;
-use PHPUnit\Framework\Assert as Assertion;
-use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
+use Ibexa\Contracts\Core\Repository\RoleService;
+use PHPUnit\Framework\Assert as Assertion;
 
 /**
  * Sentences for Roles.

@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\Search\Common\FieldValueMapper;
 
-use Ibexa\Core\Search\Common\FieldValueMapper;
-use Ibexa\Contracts\Core\Search\FieldType\BooleanField;
 use Ibexa\Contracts\Core\Search\Field;
+use Ibexa\Contracts\Core\Search\FieldType\BooleanField;
+use Ibexa\Core\Search\Common\FieldValueMapper;
 
 /**
  * Common boolean field value mapper implementation.

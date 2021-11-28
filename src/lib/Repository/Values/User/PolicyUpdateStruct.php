@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Core\Repository\Values\User;
 
-use Ibexa\Contracts\Core\Repository\Values\User\PolicyUpdateStruct as APIPolicyUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\PolicyUpdateStruct as APIPolicyUpdateStruct;
 
 /**
  * This class is used for updating a policy. The limitations of the policy are replaced

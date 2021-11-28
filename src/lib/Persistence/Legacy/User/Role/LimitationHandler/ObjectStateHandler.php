@@ -8,9 +8,9 @@ namespace Ibexa\Core\Persistence\Legacy\User\Role\LimitationHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
+use Ibexa\Contracts\Core\Persistence\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Core\Persistence\Legacy\User\Role\LimitationHandler;
-use Ibexa\Contracts\Core\Persistence\User\Policy;
 
 /**
  * Limitation Handler.
@@ -19,7 +19,7 @@ use Ibexa\Contracts\Core\Persistence\User\Policy;
  */
 class ObjectStateHandler extends LimitationHandler
 {
-    const STATE_GROUP = 'StateGroup_';
+    public const STATE_GROUP = 'StateGroup_';
 
     /**
      * Translate API STATE limitation to Legacy StateGroup_<identifier> limitations.

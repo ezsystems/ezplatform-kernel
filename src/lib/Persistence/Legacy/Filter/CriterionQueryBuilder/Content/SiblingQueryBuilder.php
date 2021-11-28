@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Content;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Sibling;
-use Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\LogicalAndQueryBuilder;
 use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Sibling;
 use Ibexa\Contracts\Core\Repository\Values\Filter\CriterionQueryBuilder;
 use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\LogicalAndQueryBuilder;
 
 /**
  * @internal for internal use by Repository Filtering

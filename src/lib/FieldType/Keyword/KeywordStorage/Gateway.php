@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Core\FieldType\Keyword\KeywordStorage;
 
-use Ibexa\Contracts\Core\Persistence\Content\Field;
 use Ibexa\Contracts\Core\FieldType\StorageGateway;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
 
 /**
  * Keyword Field Type external storage gateway.
@@ -22,7 +22,7 @@ abstract class Gateway extends StorageGateway
     /**
      * Sets the list of assigned keywords into $field->value->externalData.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
      */
     abstract public function getFieldData(Field $field);
 

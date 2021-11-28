@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Bundle\Core\Imagine\VariationPurger;
 
-use Ibexa\Core\IO\IOServiceInterface;
 use Ibexa\Contracts\Core\Variation\VariationPurger;
+use Ibexa\Core\IO\IOServiceInterface;
 
 /**
  * Purges image variations using the IOService.

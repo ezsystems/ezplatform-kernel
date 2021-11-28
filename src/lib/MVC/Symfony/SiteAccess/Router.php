@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Core\MVC\Symfony\SiteAccess;
 
-use Ibexa\Core\MVC\Symfony\SiteAccess;
-use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use Ibexa\Core\MVC\Exception\InvalidSiteAccessException;
-use Psr\Log\LoggerInterface;
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\CompoundInterface;
 use InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 
 class Router implements SiteAccessRouterInterface, SiteAccessAware
 {

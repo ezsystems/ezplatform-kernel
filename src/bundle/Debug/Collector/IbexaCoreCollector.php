@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Bundle\Debug\Collector;
 
-use Symfony\Component\HttpKernel\DataCollector\DataCollector;
+use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use InvalidArgumentException;
+use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
 
 class IbexaCoreCollector extends DataCollector
@@ -21,7 +21,7 @@ class IbexaCoreCollector extends DataCollector
 
     public function collect(Request $request, Response $response, \Throwable $exception = null)
     {
-        /** @var DataCollectorInterface $innerCollector */
+        /** @var \Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface $innerCollector */
         foreach ($this->data['collectors'] as $innerCollector) {
             $innerCollector->collect($request, $response, $exception);
         }
@@ -33,7 +33,7 @@ class IbexaCoreCollector extends DataCollector
     }
 
     /**
-     * @param DataCollectorInterface $collector
+     * @param \Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface $collector
      */
     public function addCollector(DataCollectorInterface $collector, $panelTemplate = null, $toolbarTemplate = null)
     {
@@ -46,7 +46,7 @@ class IbexaCoreCollector extends DataCollector
     /**
      * @param string $name Name of the collector
      *
-     * @return DataCollectorInterface
+     * @return \Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -60,7 +60,7 @@ class IbexaCoreCollector extends DataCollector
     }
 
     /**
-     * @return DataCollectorInterface[]
+     * @return \Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface[]
      */
     public function getAllCollectors()
     {

@@ -6,36 +6,36 @@
  */
 namespace Ibexa\Core\Repository\Mapper;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
-use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
-use Ibexa\Core\FieldType\FieldTypeRegistry;
-use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
-use Ibexa\Contracts\Core\Persistence\Content\Handler as ContentHandler;
-use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as LocationHandler;
-use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
-use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as TypeHandler;
-use Ibexa\Core\Repository\Values\Content\Content;
-use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use Ibexa\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\Contracts\Core\Repository\Values\Content\Field;
-use Ibexa\Core\Repository\Values\Content\Relation;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
-use Ibexa\Core\Repository\Values\Content\Location;
+use DateTime;
 use Ibexa\Contracts\Core\Persistence\Content as SPIContent;
-use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo as SPIVersionInfo;
 use Ibexa\Contracts\Core\Persistence\Content\ContentInfo as SPIContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Handler as ContentHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
+use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct as SPILocationCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Location\Handler as LocationHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Relation as SPIRelation;
 use Ibexa\Contracts\Core\Persistence\Content\Type as SPIContentType;
-use Ibexa\Contracts\Core\Persistence\Content\Location\CreateStruct as SPILocationCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as TypeHandler;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo as SPIVersionInfo;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
-use DateTime;
 use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Repository\Values\Content\Relation;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
 
 /**
  * ContentDomainMapper is an internal service.
@@ -44,8 +44,8 @@ use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
  */
 class ContentDomainMapper extends ProxyAwareDomainMapper
 {
-    const MAX_LOCATION_PRIORITY = 2147483647;
-    const MIN_LOCATION_PRIORITY = -2147483648;
+    public const MAX_LOCATION_PRIORITY = 2147483647;
+    public const MIN_LOCATION_PRIORITY = -2147483648;
 
     /** @var \Ibexa\Contracts\Core\Persistence\Content\Handler */
     protected $contentHandler;
@@ -195,7 +195,7 @@ class ContentDomainMapper extends ProxyAwareDomainMapper
     /**
      * Returns an array of domain fields created from given array of SPI fields.
      *
-     * @throws InvalidArgumentType On invalid $contentType
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType On invalid $contentType
      *
      * @param \Ibexa\Contracts\Core\Persistence\Content\Field[] $spiFields
      * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|\Ibexa\Contracts\Core\Persistence\Content\Type $contentType

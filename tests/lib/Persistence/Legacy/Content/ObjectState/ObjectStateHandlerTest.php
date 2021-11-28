@@ -6,14 +6,14 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\ObjectState;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
-use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Handler;
-use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Mapper;
-use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Gateway;
 use Ibexa\Contracts\Core\Persistence\Content\ObjectState;
 use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group;
 use Ibexa\Contracts\Core\Persistence\Content\ObjectState\InputStruct;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Gateway;
+use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Handler;
+use Ibexa\Core\Persistence\Legacy\Content\ObjectState\Mapper;
+use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
 use Ibexa\Tests\Integration\Core\Repository\BaseTest as APIBaseTest;
 
 /**

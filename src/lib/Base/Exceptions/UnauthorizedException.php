@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Core\Base\Exceptions;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException as APIUnauthorizedException;
 use Exception;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException as APIUnauthorizedException;
 use Ibexa\Core\Base\Translatable;
 use Ibexa\Core\Base\TranslatableBase;
 

@@ -9,12 +9,12 @@ namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ibexa\Core\Persistence\Legacy\Content\Gateway;
 use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
-use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
 
 /**
  * Content locator gateway implementation using the DoctrineDatabase.
@@ -187,8 +187,8 @@ class Field extends SortClauseHandler
         );
 
         for ($index = count(
-                $languageSettings['languages']
-            ) - 1, $multiplier = 2; $index >= 0; $index--, $multiplier *= 2) {
+            $languageSettings['languages']
+        ) - 1, $multiplier = 2; $index >= 0; $index--, $multiplier *= 2) {
             $languageId = $this->languageHandler
                 ->loadByLanguageCode($languageSettings['languages'][$index])->id;
 

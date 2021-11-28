@@ -7,20 +7,20 @@
 namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
 use DateTime;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo as SPIContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\Location;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo as SPIVersionInfo;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
-use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
 use Ibexa\Core\Repository\Mapper\ContentDomainMapper;
+use Ibexa\Core\Repository\ProxyFactory\ProxyDomainMapperInterface;
 use Ibexa\Core\Repository\Values\Content\Content;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Contracts\Core\Persistence\Content\ContentInfo as SPIContentInfo;
-use Ibexa\Contracts\Core\Persistence\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo as SPIVersionInfo;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
 
 /**
  * @covers \Ibexa\Core\Repository\Mapper\ContentDomainMapper
@@ -130,7 +130,8 @@ class DomainMapperTest extends BaseServiceMockTest
                 new SPIVersionInfo(
                     $properties + [
                         'status' => 44,
-                    ]),
+                    ]
+                ),
             ],
             [
                 new SPIVersionInfo(

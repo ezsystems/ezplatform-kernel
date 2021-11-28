@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\Section;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 
 final class DeleteSectionEvent extends AfterEvent
 {

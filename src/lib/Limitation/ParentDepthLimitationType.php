@@ -6,21 +6,21 @@
  */
 namespace Ibexa\Core\Limitation;
 
+use Ibexa\Contracts\Core\Limitation\Type as SPILimitationTypeInterface;
+use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
-use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitationValue;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentDepthLimitation as APIParentDepthLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentDepthLimitation as APIParentDepthLimitation;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitationValue;
-use Ibexa\Contracts\Core\Limitation\Type as SPILimitationTypeInterface;
-use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
 
 /**
  * ParentDepthLimitation is a Content limitation.

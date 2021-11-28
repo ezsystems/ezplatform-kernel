@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Repository\Decorator;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
+use Ibexa\Contracts\Core\Repository\Decorator\URLAliasServiceDecorator;
 use Ibexa\Contracts\Core\Repository\URLAliasService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Decorator\URLAliasServiceDecorator;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 class URLAliasServiceDecoratorTest extends TestCase
 {

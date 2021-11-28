@@ -6,15 +6,12 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\Regression;
 
-use Ibexa\Tests\Integration\Core\Repository\BaseTest;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
-use Ibexa\Core\FieldType\RelationList\Value as RelationListValue;
-use Ibexa\Core\FieldType\Relation\Value as RelationValue;
+use Ibexa\Tests\Integration\Core\Repository\BaseTest;
 
 class EZP22408DeleteRelatedObjectTest extends BaseTest
 {
-    /** @var ContentType */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
     private $testContentType;
 
     protected function setUp(): void
@@ -40,7 +37,7 @@ class EZP22408DeleteRelatedObjectTest extends BaseTest
         $contentService->deleteContent($targetObject1->contentInfo);
 
         $reloadedReferenceObject = $contentService->loadContent($referenceObject->id);
-        /** @var RelationListValue */
+        /** @var \Ibexa\Core\FieldType\RelationList\Value */
         $relationListValue = $reloadedReferenceObject->getFieldValue('relation_list');
         $this->assertSame([$targetObject2->id], $relationListValue->destinationContentIds);
     }
@@ -58,7 +55,7 @@ class EZP22408DeleteRelatedObjectTest extends BaseTest
         $contentService->deleteContent($targetObject->contentInfo);
 
         $reloadedReferenceObject = $contentService->loadContent($referenceObject->id);
-        /** @var RelationValue */
+        /** @var \Ibexa\Core\FieldType\Relation\Value */
         $relationValue = $reloadedReferenceObject->getFieldValue('single_relation');
         $this->assertEmpty($relationValue->destinationContentId);
     }

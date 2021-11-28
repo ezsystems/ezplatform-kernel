@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Core\Base\Exceptions;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException as APIBadStateException;
 use Exception;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException as APIBadStateException;
 use Ibexa\Core\Base\Translatable;
 use Ibexa\Core\Base\TranslatableBase;
 

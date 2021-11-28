@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository;
 
+use Exception;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Exception;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
 

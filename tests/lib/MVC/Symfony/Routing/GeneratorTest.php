@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Core\MVC\Symfony\Routing;
 
+use Ibexa\Core\MVC\Symfony\Routing\Generator;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessRouterInterface;
 use Ibexa\Core\MVC\Symfony\SiteAccess\URILexer;
 use Ibexa\Core\Repository\Values\Content\Location;
-use Ibexa\Core\MVC\Symfony\Routing\Generator;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

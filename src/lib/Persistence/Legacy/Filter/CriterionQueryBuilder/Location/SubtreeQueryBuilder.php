@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Legacy\Filter\CriterionQueryBuilder\Location;
 
-use Doctrine\DBAL\ParameterType;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Subtree;
-use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
-use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 use function array_map;
+use Doctrine\DBAL\ParameterType;
+use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Subtree;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
 
 /**
  * @internal for internal use by Repository Filtering

@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Core\Repository\Helper;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
+use Ibexa\Contracts\Core\FieldType\Value as BaseValue;
+use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as SPIRelationCreateStruct;
 use Ibexa\Contracts\Core\Persistence\Handler;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\Content\Relation;
-use Ibexa\Contracts\Core\FieldType\Value as BaseValue;
-use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
-use Ibexa\Contracts\Core\Persistence\Content\Relation\CreateStruct as SPIRelationCreateStruct;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 

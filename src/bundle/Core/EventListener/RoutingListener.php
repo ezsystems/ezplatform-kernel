@@ -7,10 +7,10 @@
 namespace Ibexa\Bundle\Core\EventListener;
 
 use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\Core\MVC\Symfony\Routing\Generator;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Ibexa\Core\MVC\Symfony\Event\PostSiteAccessMatchEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\MVC\Symfony\Routing\Generator;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 /**

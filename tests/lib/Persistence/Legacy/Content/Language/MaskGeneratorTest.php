@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Language;
 
-use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
-use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
 use Ibexa\Contracts\Core\Persistence\Content\Language;
 use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Language\MaskGenerator;
+use Ibexa\Tests\Core\Persistence\Legacy\Content\LanguageAwareTestCase;
 
 class MaskGeneratorTest extends LanguageAwareTestCase
 {
@@ -279,7 +279,7 @@ class MaskGeneratorTest extends LanguageAwareTestCase
                                   ->method($this->anything())// loadByLanguageCode && loadListByLanguageCodes
                                   ->will(
                                       $this->returnCallback(
-                                          function ($languageCodes) {
+                                          static function ($languageCodes) {
                                               if (is_string($languageCodes)) {
                                                   $language = $languageCodes;
                                                   $languageCodes = [$language];
@@ -298,12 +298,12 @@ class MaskGeneratorTest extends LanguageAwareTestCase
 
                                               if (in_array('eng-GB', $languageCodes, true)) {
                                                   $languages['eng-GB'] = new Language(
-                                                       [
+                                                      [
                                                            'id' => 4,
                                                            'languageCode' => 'eng-GB',
                                                            'name' => 'British english',
                                                        ]
-                                                   );
+                                                  );
                                               }
 
                                               return isset($language) ? $languages[$language] : $languages;

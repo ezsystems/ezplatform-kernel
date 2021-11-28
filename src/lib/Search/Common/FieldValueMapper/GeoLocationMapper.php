@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\Search\Common\FieldValueMapper;
 
-use Ibexa\Core\Search\Common\FieldValueMapper;
-use Ibexa\Contracts\Core\Search\FieldType\GeoLocationField;
 use Ibexa\Contracts\Core\Search\Field;
+use Ibexa\Contracts\Core\Search\FieldType\GeoLocationField;
+use Ibexa\Core\Search\Common\FieldValueMapper;
 
 /**
  * Common geo location field value mapper implementation.

@@ -6,6 +6,7 @@
  */
 namespace  Ibexa\Contracts\Core\Repository;
 
+use Ibexa\Contracts\Core\Limitation\Type;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\PolicyCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft;
@@ -18,7 +19,6 @@ use Ibexa\Contracts\Core\Repository\Values\User\RoleDraft;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
-use Ibexa\Contracts\Core\Limitation\Type;
 
 /**
  * This service provides methods for managing Roles and Policies.
@@ -134,7 +134,7 @@ interface RoleService
      * @since 6.0
      *
      * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft $roleDraft
-     * @param PolicyDraft $policyDraft the policy to remove from the RoleDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft $policyDraft the policy to remove from the RoleDraft
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleDraft
      *

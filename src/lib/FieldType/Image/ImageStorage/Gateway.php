@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Core\FieldType\Image\ImageStorage;
 
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Ibexa\Contracts\Core\FieldType\StorageGateway;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 
 /**
  * Image Field Type external storage gateway.
@@ -17,7 +17,7 @@ abstract class Gateway extends StorageGateway
     /**
      * Returns the node path string of $versionInfo.
      *
-     * @param VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Persistence\Content\VersionInfo $versionInfo
      *
      * @return string
      */

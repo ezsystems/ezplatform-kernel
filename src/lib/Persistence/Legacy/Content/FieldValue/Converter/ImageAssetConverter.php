@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
-use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
-use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
 use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
 use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter;
 use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
 
 class ImageAssetConverter implements Converter
 {

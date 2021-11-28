@@ -7,10 +7,10 @@
 namespace Ibexa\Core\Search\Legacy\Content\Gateway\CriterionHandler;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
-use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
-use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler;
 
 /**
  * Visibility criterion handler.

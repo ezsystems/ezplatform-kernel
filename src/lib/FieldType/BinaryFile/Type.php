@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\FieldType\BinaryFile;
 
-use Ibexa\Core\FieldType\BinaryBase\Type as BinaryBaseType;
-use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
 use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Core\FieldType\BinaryBase\Type as BinaryBaseType;
 use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**

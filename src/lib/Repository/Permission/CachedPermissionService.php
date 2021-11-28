@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\Permission;
 
-use Ibexa\Contracts\Core\Repository\PermissionResolver as APIPermissionResolver;
+use Exception;
 use Ibexa\Contracts\Core\Repository\PermissionCriterionResolver as APIPermissionCriterionResolver;
+use Ibexa\Contracts\Core\Repository\PermissionResolver as APIPermissionResolver;
 use Ibexa\Contracts\Core\Repository\PermissionService;
 use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult;
 use Ibexa\Contracts\Core\Repository\Values\User\UserReference;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
-use Exception;
 
 /**
  * Cache implementation of PermissionResolver and PermissionCriterionResolver interface.

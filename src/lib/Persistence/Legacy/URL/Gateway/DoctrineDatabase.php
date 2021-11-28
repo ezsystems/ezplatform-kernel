@@ -10,13 +10,13 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ibexa\Contracts\Core\Persistence\URL\URL;
 use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
 use Ibexa\Core\Persistence\Legacy\URL\Gateway;
 use Ibexa\Core\Persistence\Legacy\URL\Query\CriteriaConverter;
-use Ibexa\Contracts\Core\Persistence\URL\URL;
 use RuntimeException;
 
 /**
@@ -30,15 +30,15 @@ class DoctrineDatabase extends Gateway
     /** @internal */
     public const URL_LINK_TABLE = 'ezurl_object_link';
 
-    const COLUMN_ID = 'id';
-    const COLUMN_URL = 'url';
-    const COLUMN_ORIGINAL_URL_MD5 = 'original_url_md5';
-    const COLUMN_IS_VALID = 'is_valid';
-    const COLUMN_LAST_CHECKED = 'last_checked';
-    const COLUMN_MODIFIED = 'modified';
-    const COLUMN_CREATED = 'created';
+    public const COLUMN_ID = 'id';
+    public const COLUMN_URL = 'url';
+    public const COLUMN_ORIGINAL_URL_MD5 = 'original_url_md5';
+    public const COLUMN_IS_VALID = 'is_valid';
+    public const COLUMN_LAST_CHECKED = 'last_checked';
+    public const COLUMN_MODIFIED = 'modified';
+    public const COLUMN_CREATED = 'created';
 
-    const SORT_DIRECTION_MAP = [
+    public const SORT_DIRECTION_MAP = [
         SortClause::SORT_ASC => 'ASC',
         SortClause::SORT_DESC => 'DESC',
     ];

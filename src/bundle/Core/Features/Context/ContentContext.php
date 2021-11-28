@@ -62,7 +62,7 @@ class ContentContext implements Context, SnippetAcceptingContext
      * @param string $contentTypeIdentifier
      * @param array $fields Hash of field def identifier => field value
      *
-     * @return Content the created content item.
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content the created content item.
      */
     public function createContentItem($contentTypeIdentifier, array $fields)
     {
@@ -125,7 +125,7 @@ class ContentContext implements Context, SnippetAcceptingContext
      * @param string $contentTypeIdentifier
      * @param array $fields Hash of field def identifier => field value
      *
-     * @return Content the created draft.
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content the created draft.
      */
     public function createDraft($contentTypeIdentifier, array $fields)
     {

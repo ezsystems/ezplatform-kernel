@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Bundle\LegacySearchEngine;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Ibexa\Core\Base\Container\Compiler\Search\FieldRegistryPass;
 use Ibexa\Core\Base\Container\Compiler\Search\Legacy\CriteriaConverterPass;
 use Ibexa\Core\Base\Container\Compiler\Search\Legacy\CriterionFieldValueHandlerRegistryPass;
 use Ibexa\Core\Base\Container\Compiler\Search\Legacy\SortClauseConverterPass;
-use Ibexa\Core\Base\Container\Compiler\Search\FieldRegistryPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class IbexaLegacySearchEngineBundle extends Bundle
 {

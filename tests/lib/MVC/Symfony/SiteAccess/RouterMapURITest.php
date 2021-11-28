@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Core\MVC\Symfony\SiteAccess;
 
-use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Map\URI as URIMapMatcher;
 use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\Map\URI as URIMapMatcher;
 use PHPUnit\Framework\TestCase;
 
 class RouterMapURITest extends TestCase

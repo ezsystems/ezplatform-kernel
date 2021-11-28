@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Core\Base\Exceptions\ContentFieldValidationException;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\FieldType\EmailAddress\Value as EmailAddressValue;
-use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 
 /**
  * Integration test for use field type.
@@ -125,7 +125,7 @@ class EmailAddressIntegrationTest extends SearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      */
     public function assertFieldDataLoadedCorrect(Field $field)
     {
@@ -217,7 +217,7 @@ class EmailAddressIntegrationTest extends SearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was copied and loaded correctly.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      */
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {

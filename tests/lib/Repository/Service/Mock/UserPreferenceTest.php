@@ -9,21 +9,21 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Core\Repository\Service\Mock;
 
 use Exception;
-use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
-use Ibexa\Core\Repository\UserPreferenceService;
-use Ibexa\Core\Repository\Values\User\UserReference;
 use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference;
 use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
-use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreferenceSetStruct as APIUserPreferenceSetStruct;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreference as APIUserPreference;
+use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreferenceSetStruct as APIUserPreferenceSetStruct;
+use Ibexa\Core\Repository\UserPreferenceService;
+use Ibexa\Core\Repository\Values\User\UserReference;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
 
 class UserPreferenceTest extends BaseServiceMockTest
 {
-    const CURRENT_USER_ID = 14;
-    const USER_PREFERENCE_NAME = 'setting';
-    const USER_PREFERENCE_VALUE = 'value';
+    public const CURRENT_USER_ID = 14;
+    public const USER_PREFERENCE_NAME = 'setting';
+    public const USER_PREFERENCE_VALUE = 'value';
 
     /** @var \Ibexa\Contracts\Core\Persistence\UserPreference\Handler|\PHPUnit\Framework\MockObject\MockObject */
     private $userSPIPreferenceHandler;
@@ -157,7 +157,7 @@ class UserPreferenceTest extends BaseServiceMockTest
             ->expects($this->once())
             ->method('loadUserPreferences')
             ->with(self::CURRENT_USER_ID, $offset, $limit)
-            ->willReturn(array_map(function ($locationId) {
+            ->willReturn(array_map(static function ($locationId) {
                 return new UserPreference([
                     'name' => 'setting',
                     'value' => 'value',

@@ -6,7 +6,6 @@
  */
 namespace Ibexa\Core\IO;
 
-use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
 use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct;
 
 /**
@@ -17,7 +16,7 @@ interface IOBinarydataHandler
     /**
      * Creates a new file with data from $binaryFileCreateStruct.
      *
-     * @param BinaryFileCreateStruct $binaryFileCreateStruct
+     * @param \Ibexa\Contracts\Core\IO\BinaryFileCreateStruct $binaryFileCreateStruct
      *
      * @throws \RuntimeException if an error occured creating the file
      */
@@ -28,7 +27,7 @@ interface IOBinarydataHandler
      *
      * @param string $spiBinaryFileId
      *
-     * @throws BinaryFileNotFoundException If the file is not found
+     * @throws \Ibexa\Core\IO\Exception\BinaryFileNotFoundException If the file is not found
      */
     public function delete($spiBinaryFileId);
 
@@ -37,7 +36,7 @@ interface IOBinarydataHandler
      *
      * @param $spiBinaryFileId
      *
-     * @throws BinaryFileNotFoundException If $path is not found
+     * @throws \Ibexa\Core\IO\Exception\BinaryFileNotFoundException If $path is not found
      *
      * @return string
      */

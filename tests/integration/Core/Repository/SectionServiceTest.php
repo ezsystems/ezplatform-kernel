@@ -6,14 +6,14 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository;
 
+use Exception;
 use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section;
-use Exception;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
 use Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
 
 /**
  * Test case for operations in the SectionService using in memory storage.

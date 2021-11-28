@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\Permission;
 
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\Core\Base\Exceptions\NotFound\LimitationNotFoundException;
-use Ibexa\Core\Base\Exceptions\BadStateException;
 use Ibexa\Contracts\Core\Limitation\Type;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\NotFound\LimitationNotFoundException;
 use Traversable;
 
 /**

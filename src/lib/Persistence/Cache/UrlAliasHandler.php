@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Core\Persistence\Cache;
 
+use Ibexa\Contracts\Core\Persistence\Content\UrlAlias;
+use Ibexa\Contracts\Core\Persistence\Content\UrlAlias\Handler as UrlAliasHandlerInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Persistence\Content\UrlAlias\Handler as UrlAliasHandlerInterface;
-use Ibexa\Contracts\Core\Persistence\Content\UrlAlias;
 
 class UrlAliasHandler extends AbstractInMemoryPersistenceHandler implements UrlAliasHandlerInterface
 {
@@ -26,7 +26,7 @@ class UrlAliasHandler extends AbstractInMemoryPersistenceHandler implements UrlA
     /**
      * Constant used for storing not found results for lookup().
      */
-    const NOT_FOUND = 0;
+    public const NOT_FOUND = 0;
 
     /**
      * {@inheritdoc}

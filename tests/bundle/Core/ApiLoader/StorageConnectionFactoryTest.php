@@ -7,11 +7,11 @@
 namespace Ibexa\Tests\Bundle\Core\ApiLoader;
 
 use Ibexa\Bundle\Core\ApiLoader\Exception\InvalidRepositoryException;
-use Ibexa\Bundle\Core\ApiLoader\StorageConnectionFactory;
 use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
+use Ibexa\Bundle\Core\ApiLoader\StorageConnectionFactory;
 use Ibexa\Core\MVC\ConfigResolverInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class StorageConnectionFactoryTest extends TestCase
 {

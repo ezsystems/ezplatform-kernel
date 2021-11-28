@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Bookmark\BookmarkList;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 /**
  * Bookmark Service.

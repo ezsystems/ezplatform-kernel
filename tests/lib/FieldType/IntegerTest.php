@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\FieldType\Integer\Type as Integer;
 use Ibexa\Core\FieldType\Integer\Value as IntegerValue;
 use Ibexa\Core\FieldType\ValidationError;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 
 /**
  * @group fieldType

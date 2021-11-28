@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\IO\Adapter;
 
+use Ibexa\Contracts\Core\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
 use Ibexa\Core\IO\IOConfigProvider;
 use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
-use Ibexa\Contracts\Core\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
 use League\Flysystem\Adapter\Local;
 use LogicException;
 

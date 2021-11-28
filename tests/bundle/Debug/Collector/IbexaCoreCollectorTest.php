@@ -6,16 +6,16 @@
  */
 namespace Ibexa\Tests\Bundle\Debug\Collector;
 
+use Exception;
 use Ibexa\Bundle\Debug\Collector\IbexaCoreCollector;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Exception;
 use Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
 
 class IbexaCoreCollectorTest extends TestCase
 {
-    /** @var IbexaCoreCollector */
+    /** @var \Ibexa\Bundle\Debug\Collector\IbexaCoreCollector */
     private $mainCollector;
 
     protected function setUp(): void

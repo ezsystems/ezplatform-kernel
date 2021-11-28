@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\Setting;
 
-use Ibexa\Contracts\Core\Repository\Values\Setting\Setting;
 use Ibexa\Contracts\Core\Repository\Event\BeforeEvent;
+use Ibexa\Contracts\Core\Repository\Values\Setting\Setting;
 
 final class BeforeDeleteSettingEvent extends BeforeEvent
 {

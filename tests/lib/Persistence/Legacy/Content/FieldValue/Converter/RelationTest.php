@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
+use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
 use Ibexa\Core\FieldType\RelationList\Type;
 use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\RelationConverter;
 use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
-use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
 use PHPUnit\Framework\TestCase;
 
 /**

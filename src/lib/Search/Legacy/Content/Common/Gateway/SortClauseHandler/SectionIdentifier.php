@@ -7,8 +7,8 @@
 namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\SortClauseHandler;
 
 /**
  * Content locator gateway implementation using the DoctrineDatabase.

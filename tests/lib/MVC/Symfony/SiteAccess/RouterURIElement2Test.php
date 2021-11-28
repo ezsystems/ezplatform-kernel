@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Core\MVC\Symfony\SiteAccess;
 
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\URIElement;
-use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\URIElement as URIElementMatcher;
-use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
 use Psr\Log\LoggerInterface;
 
 class RouterURIElement2Test extends RouterBaseTest

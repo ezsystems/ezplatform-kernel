@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Legacy\User\Role;
 
-use Ibexa\Contracts\Core\Persistence\User\RoleUpdateStruct;
 use Ibexa\Contracts\Core\Persistence\User\Policy;
 use Ibexa\Contracts\Core\Persistence\User\Role;
+use Ibexa\Contracts\Core\Persistence\User\RoleUpdateStruct;
 
 /**
  * User Role Gateway.

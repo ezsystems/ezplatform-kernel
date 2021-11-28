@@ -9,9 +9,9 @@ namespace Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\Field
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FieldValue\Handler;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Core\Persistence\TransformationProcessor;
+use Ibexa\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FieldValue\Handler;
 
 /**
  * Content locator gateway implementation using the DoctrineDatabase.

@@ -6,22 +6,22 @@
  */
 namespace Ibexa\Core\Limitation;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
-use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
-use Ibexa\Contracts\Core\Repository\Values\Content\Content;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation as APIContentTypeLimitation;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitationValue;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Limitation\TargetAwareType as SPITargetAwareLimitationType;
-use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation as APILimitationValue;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation as APIContentTypeLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference as APIUserReference;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
+use Ibexa\Core\FieldType\ValidationError;
 
 /**
  * ContentTypeLimitation is a Content limitation.

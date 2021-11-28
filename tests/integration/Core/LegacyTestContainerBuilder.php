@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Integration\Core;
 
 use Ibexa\Bundle\Core\DependencyInjection\Compiler\ConsoleCommandPass;
-use Ibexa\Tests\Integration\Core\Repository\Container\Compiler\SetAllServicesPublicPass;
 use Ibexa\Core\Base\Container\Compiler;
+use Ibexa\Tests\Integration\Core\Repository\Container\Compiler\SetAllServicesPublicPass;
 use Symfony\Component\Cache\Adapter\RedisAdapter;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;

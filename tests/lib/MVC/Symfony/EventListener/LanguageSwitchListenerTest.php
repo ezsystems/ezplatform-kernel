@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Core\MVC\Symfony\EventListener;
 
+use Ibexa\Core\Helper\TranslationHelper;
 use Ibexa\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent;
 use Ibexa\Core\MVC\Symfony\EventListener\LanguageSwitchListener;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\Routing\RouteReference;
-use Ibexa\Core\Helper\TranslationHelper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 

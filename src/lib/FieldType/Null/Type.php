@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Core\FieldType\Null;
 
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\FieldType\FieldType;
-use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
 use Ibexa\Core\FieldType\Value as BaseValue;
 
 /**

@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Legacy\Filter\SortClauseQueryBuilder\Content;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\SectionName;
-use Ibexa\Core\Persistence\Legacy\Content\Section\Gateway as SectionGateway;
 use Ibexa\Contracts\Core\Persistence\Filter\Doctrine\FilteringQueryBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\SectionName;
 use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
 use Ibexa\Contracts\Core\Repository\Values\Filter\SortClauseQueryBuilder;
+use Ibexa\Core\Persistence\Legacy\Content\Section\Gateway as SectionGateway;
 
 class SectionNameSortClauseQueryBuilder implements SortClauseQueryBuilder
 {

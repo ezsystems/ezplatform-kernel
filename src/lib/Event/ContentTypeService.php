@@ -9,17 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Core\Event;
 
 use Ibexa\Contracts\Core\Repository\ContentTypeService as ContentTypeServiceInterface;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Decorator\ContentTypeServiceDecorator;
 use Ibexa\Contracts\Core\Repository\Events\ContentType\AddFieldDefinitionEvent;
 use Ibexa\Contracts\Core\Repository\Events\ContentType\AssignContentTypeGroupEvent;
 use Ibexa\Contracts\Core\Repository\Events\ContentType\BeforeAddFieldDefinitionEvent;
@@ -50,7 +40,17 @@ use Ibexa\Contracts\Core\Repository\Events\ContentType\UnassignContentTypeGroupE
 use Ibexa\Contracts\Core\Repository\Events\ContentType\UpdateContentTypeDraftEvent;
 use Ibexa\Contracts\Core\Repository\Events\ContentType\UpdateContentTypeGroupEvent;
 use Ibexa\Contracts\Core\Repository\Events\ContentType\UpdateFieldDefinitionEvent;
-use Ibexa\Contracts\Core\Repository\Decorator\ContentTypeServiceDecorator;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ContentTypeService extends ContentTypeServiceDecorator

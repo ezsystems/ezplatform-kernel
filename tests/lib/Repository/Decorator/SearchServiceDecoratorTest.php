@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Repository\Decorator;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
+use Ibexa\Contracts\Core\Repository\Decorator\SearchServiceDecorator;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
-use Ibexa\Contracts\Core\Repository\Decorator\SearchServiceDecorator;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 class SearchServiceDecoratorTest extends TestCase
 {

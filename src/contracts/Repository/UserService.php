@@ -12,13 +12,13 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\PasswordInfo;
 use Ibexa\Contracts\Core\Repository\Values\User\PasswordValidationContext;
-use Ibexa\Contracts\Core\Repository\Values\User\UserTokenUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\User\UserCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\User\UserUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\User\UserCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
 use Ibexa\Contracts\Core\Repository\Values\User\UserGroupCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\UserGroupUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\UserTokenUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\UserUpdateStruct;
 
 /**
  * This service provides methods for managing users and user groups.

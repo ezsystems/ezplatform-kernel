@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\Values\Content;
 
+use Ibexa\Contracts\Core\FieldType\Value;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\Contracts\Core\FieldType\Value;
 
 /**
  * this class represents a content object in a specific version.
@@ -34,13 +34,13 @@ class Content extends APIContent
     /** @var mixed[][] An array of array of field values like[$fieldDefIdentifier][$languageCode] */
     protected $fields;
 
-    /** @var APIVersionInfo */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo */
     protected $versionInfo;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
     protected $contentType;
 
-    /** @var Field[] An array of {@link Field} */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Field[] An array of {@link Field} */
     private $internalFields = [];
 
     /**

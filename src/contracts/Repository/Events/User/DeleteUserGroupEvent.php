@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Events\User;
 
-use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
 use Ibexa\Contracts\Core\Repository\Event\AfterEvent;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
 
 final class DeleteUserGroupEvent extends AfterEvent
 {

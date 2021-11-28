@@ -10,9 +10,9 @@ namespace Ibexa\Core\MVC\Symfony\FieldType\ImageAsset;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Core\MVC\Symfony\FieldType\View\ParameterProviderInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 class ParameterProvider implements ParameterProviderInterface
 {
@@ -73,7 +73,7 @@ class ParameterProvider implements ParameterProviderInterface
     private function loadContentInfo(int $id): ContentInfo
     {
         return $this->repository->sudo(
-            function (Repository $repository) use ($id) {
+            static function (Repository $repository) use ($id) {
                 return $repository->getContentService()->loadContentInfo($id);
             }
         );

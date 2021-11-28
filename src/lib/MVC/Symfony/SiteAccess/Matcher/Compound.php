@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
 
-use Ibexa\Core\MVC\Symfony\SiteAccess\URILexer;
+use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
 use Ibexa\Core\MVC\Symfony\SiteAccess\MatcherBuilderInterface;
-use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess\URILexer;
 
 /**
  * Base for Compound siteaccess matchers.

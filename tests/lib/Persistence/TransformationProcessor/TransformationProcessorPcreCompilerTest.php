@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\Core\Persistence\TransformationProcessor;
 
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 use Ibexa\Core\Persistence;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * Test case for LocationHandlerTest.

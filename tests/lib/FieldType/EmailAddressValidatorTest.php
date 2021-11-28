@@ -7,8 +7,8 @@
 namespace Ibexa\Tests\Core\FieldType;
 
 use Ibexa\Core\FieldType\EmailAddress\Value as EmailAddressValue;
-use Ibexa\Core\FieldType\Validator\EmailAddressValidator;
 use Ibexa\Core\FieldType\Validator;
+use Ibexa\Core\FieldType\Validator\EmailAddressValidator;
 use PHPUnit\Framework\TestCase;
 
 /**

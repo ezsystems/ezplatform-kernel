@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Language;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 use Ibexa\Contracts\Core\Persistence\Content\Language;
-use Ibexa\Core\Persistence\Legacy\Content\Language\Handler;
 use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct as SPILanguageCreateStruct;
-use Ibexa\Core\Persistence\Legacy\Content\Language\Mapper as LanguageMapper;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Core\Persistence\Legacy\Content\Language\Gateway as LanguageGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Language\Handler;
+use Ibexa\Core\Persistence\Legacy\Content\Language\Mapper as LanguageMapper;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\Language\Handler
@@ -217,7 +217,8 @@ class LanguageHandlerTest extends TestCase
 
         $result = $handler->loadAll();
 
-        $this->assertIsArray($result
+        $this->assertIsArray(
+            $result
         );
     }
 

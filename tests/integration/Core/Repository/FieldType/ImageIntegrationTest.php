@@ -8,8 +8,8 @@ namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
-use Ibexa\Core\FieldType\Image\Value as ImageValue;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Core\FieldType\Image\Value as ImageValue;
 
 /**
  * Integration test for use field type.
@@ -183,7 +183,7 @@ class ImageIntegrationTest extends FileSearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      */
     public function assertFieldDataLoadedCorrect(Field $field)
     {
@@ -282,7 +282,7 @@ class ImageIntegrationTest extends FileSearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was copied and loaded correctly.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      */
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {
@@ -470,7 +470,7 @@ class ImageIntegrationTest extends FileSearchBaseIntegrationTest
 
         $draft = $this->createContent($this->getValidCreationFieldData(), $type);
 
-        /** @var ImageValue $imageFieldValue */
+        /** @var \Ibexa\Core\FieldType\Image\Value $imageFieldValue */
         $imageFieldValue = $draft->getFieldValue('data');
         $initialValueImageUri = $imageFieldValue->uri;
 
@@ -480,7 +480,7 @@ class ImageIntegrationTest extends FileSearchBaseIntegrationTest
         $updateStruct->setField('data', $imageFieldValue);
         $updatedDraft = $contentService->updateContent($draft->versionInfo, $updateStruct);
 
-        /** @var ImageValue $updatedImageValue */
+        /** @var \Ibexa\Core\FieldType\Image\Value $updatedImageValue */
         $updatedImageValue = $updatedDraft->getFieldValue('data');
 
         self::assertEquals($initialValueImageUri, $updatedImageValue->uri);

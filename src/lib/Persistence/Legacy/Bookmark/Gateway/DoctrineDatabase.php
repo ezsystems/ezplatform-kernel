@@ -9,18 +9,18 @@ declare(strict_types=1);
 namespace Ibexa\Core\Persistence\Legacy\Bookmark\Gateway;
 
 use Doctrine\DBAL\Connection;
-use Ibexa\Core\Persistence\Legacy\Bookmark\Gateway;
 use Ibexa\Contracts\Core\Persistence\Bookmark\Bookmark;
+use Ibexa\Core\Persistence\Legacy\Bookmark\Gateway;
 use PDO;
 
 class DoctrineDatabase extends Gateway
 {
-    const TABLE_BOOKMARKS = 'ezcontentbrowsebookmark';
+    public const TABLE_BOOKMARKS = 'ezcontentbrowsebookmark';
 
-    const COLUMN_ID = 'id';
-    const COLUMN_USER_ID = 'user_id';
-    const COLUMN_LOCATION_ID = 'node_id';
-    const COLUMN_NAME = 'name';
+    public const COLUMN_ID = 'id';
+    public const COLUMN_USER_ID = 'user_id';
+    public const COLUMN_LOCATION_ID = 'node_id';
+    public const COLUMN_NAME = 'name';
 
     /** @var \Doctrine\DBAL\Connection */
     protected $connection;

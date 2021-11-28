@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Bundle\Core\Routing\JsRouting;
 
+use FOS\JsRoutingBundle\Extractor\ExposedRoutesExtractorInterface;
 use Ibexa\Bundle\Core\Routing\JsRouting\ExposedRoutesExtractor;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
-use FOS\JsRoutingBundle\Extractor\ExposedRoutesExtractorInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;

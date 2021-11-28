@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\Core\Repository\Values\Content;
 
 use Ibexa\Contracts\Core\FieldType\Value;
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * this class represents a content object in a specific version.

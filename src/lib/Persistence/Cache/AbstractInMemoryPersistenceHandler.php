@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Core\Persistence\Cache;
 
-use Ibexa\Core\Persistence\Cache\Adapter\TransactionAwareAdapterInterface;
-use Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache;
 use Ibexa\Contracts\Core\Persistence\Handler as PersistenceHandler;
+use Ibexa\Core\Persistence\Cache\Adapter\TransactionAwareAdapterInterface;
 use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
 use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierSanitizer;
+use Ibexa\Core\Persistence\Cache\InMemory\InMemoryCache;
 
 /**
  * Internal abstract handler for use in other SPI Persistence Cache Handlers.

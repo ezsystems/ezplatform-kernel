@@ -9,9 +9,9 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Integration\Core\Repository;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
-use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreferenceSetStruct;
 use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreference;
 use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreferenceList;
+use Ibexa\Contracts\Core\Repository\Values\UserPreference\UserPreferenceSetStruct;
 
 /**
  * Test case for the UserPreferenceService.

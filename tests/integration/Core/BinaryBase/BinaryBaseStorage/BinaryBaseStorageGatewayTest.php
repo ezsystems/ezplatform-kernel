@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\Core\BinaryBase\BinaryBaseStorage;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway as BinaryBaseStorageGateway;
-use Ibexa\Core\FieldType\BinaryFile\BinaryFileStorage\Gateway\DoctrineStorage;
-use Ibexa\Tests\Integration\Core\BaseCoreFieldTypeIntegrationTest;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
 use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
 use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter;
 use Ibexa\Contracts\Core\Test\Persistence\Fixture\YamlFixture;
+use Ibexa\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway as BinaryBaseStorageGateway;
+use Ibexa\Core\FieldType\BinaryFile\BinaryFileStorage\Gateway\DoctrineStorage;
+use Ibexa\Tests\Integration\Core\BaseCoreFieldTypeIntegrationTest;
 
 /**
  * BinaryBase Field Type external storage gateway tests.

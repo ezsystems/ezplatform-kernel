@@ -6,20 +6,20 @@
  */
 namespace Ibexa\Core\Repository;
 
-use Ibexa\Contracts\Core\Repository\LanguageService as LanguageServiceInterface;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Persistence\Content\Language\Handler;
-use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
+use Exception;
 use Ibexa\Contracts\Core\Persistence\Content\Language as SPILanguage;
 use Ibexa\Contracts\Core\Persistence\Content\Language\CreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Contracts\Core\Repository\LanguageService as LanguageServiceInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Repository as RepositoryInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
 use Ibexa\Core\Base\Exceptions\UnauthorizedException;
 use LogicException;
-use Exception;
 
 /**
  * Language service, used for language operations.

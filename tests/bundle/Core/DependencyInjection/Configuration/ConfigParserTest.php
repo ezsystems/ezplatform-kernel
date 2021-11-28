@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Bundle\Core\DependencyInjection\Configuration;
 
-use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigParser;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;

@@ -7,13 +7,13 @@
 namespace Ibexa\Tests\Bundle\Core\EventListener;
 
 use Ibexa\Bundle\Core\EventListener\ViewControllerListener;
+use Ibexa\Contracts\Core\Event\View\PostBuildViewEvent;
 use Ibexa\Core\MVC\Symfony\View\BaseView;
 use Ibexa\Core\MVC\Symfony\View\Builder\ViewBuilder;
 use Ibexa\Core\MVC\Symfony\View\Builder\ViewBuilderRegistry;
 use Ibexa\Core\MVC\Symfony\View\ContentView;
 use Ibexa\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
 use Ibexa\Core\MVC\Symfony\View\ViewEvents;
-use Ibexa\Contracts\Core\Event\View\PostBuildViewEvent;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -32,13 +32,13 @@ class ViewControllerListenerTest extends TestCase
     /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $logger;
 
-    /** @var ViewControllerListener */
+    /** @var \Ibexa\Bundle\Core\EventListener\ViewControllerListener */
     private $controllerListener;
 
     /** @var \Symfony\Component\HttpKernel\Event\ControllerEvent */
     private $event;
 
-    /** @var Request */
+    /** @var \Symfony\Component\HttpFoundation\Request */
     private $request;
 
     /** @var \Ibexa\Core\MVC\Symfony\View\Builder\ViewBuilderRegistry|\PHPUnit\Framework\MockObject\MockObject */
@@ -97,7 +97,7 @@ class ViewControllerListenerTest extends TestCase
 
     public function testGetControllerWithClosure()
     {
-        $initialController = function () {};
+        $initialController = static function () {};
         $this->request->attributes->set('_controller', $initialController);
 
         $this->viewBuilderRegistry
@@ -143,7 +143,7 @@ class ViewControllerListenerTest extends TestCase
         $this->controllerResolver
             ->expects($this->once())
             ->method('getController')
-            ->will($this->returnValue(function () {}));
+            ->will($this->returnValue(static function () {}));
 
         $this->controllerListener->getController($this->event);
         $this->assertEquals($customController, $this->request->attributes->get('_controller'));
@@ -177,10 +177,12 @@ class ViewControllerListenerTest extends TestCase
                 [
                     $this->isInstanceOf(FilterViewBuilderParametersEvent::class),
                     $this->identicalTo(ViewEvents::FILTER_BUILDER_PARAMETERS),
-                ], [
+                ],
+                [
                     $this->isInstanceOf(PostBuildViewEvent::class),
                     $this->isNull(),
-                ])
+                ]
+            )
             ->willReturnArgument(0);
 
         $this->controllerListener->getController($this->event);

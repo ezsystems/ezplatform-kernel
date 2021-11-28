@@ -8,9 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Event;
 
-use Ibexa\Contracts\Core\Repository\LanguageService as LanguageServiceInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\Language;
-use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
+use Ibexa\Contracts\Core\Repository\Decorator\LanguageServiceDecorator;
 use Ibexa\Contracts\Core\Repository\Events\Language\BeforeCreateLanguageEvent;
 use Ibexa\Contracts\Core\Repository\Events\Language\BeforeDeleteLanguageEvent;
 use Ibexa\Contracts\Core\Repository\Events\Language\BeforeDisableLanguageEvent;
@@ -21,7 +19,9 @@ use Ibexa\Contracts\Core\Repository\Events\Language\DeleteLanguageEvent;
 use Ibexa\Contracts\Core\Repository\Events\Language\DisableLanguageEvent;
 use Ibexa\Contracts\Core\Repository\Events\Language\EnableLanguageEvent;
 use Ibexa\Contracts\Core\Repository\Events\Language\UpdateLanguageNameEvent;
-use Ibexa\Contracts\Core\Repository\Decorator\LanguageServiceDecorator;
+use Ibexa\Contracts\Core\Repository\LanguageService as LanguageServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class LanguageService extends LanguageServiceDecorator

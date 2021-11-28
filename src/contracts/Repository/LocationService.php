@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 

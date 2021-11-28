@@ -6,15 +6,15 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
-use Ibexa\Core\FieldType\BinaryFile\Value as BinaryFileValue;
-use Ibexa\Core\FieldType\Validator\FileSizeValidator;
-use Ibexa\Core\IO\Values\BinaryFile;
-use Ibexa\Core\FieldType\Validator;
-use Ibexa\Core\IO\IOServiceInterface;
-use Ibexa\Contracts\Core\Repository\Values\Translation\Message;
 use Ibexa\Contracts\Core\FieldType\ValidationError;
+use Ibexa\Contracts\Core\Repository\Exceptions\PropertyNotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Translation\Message;
 use Ibexa\Contracts\Core\Repository\Values\Translation\Plural;
+use Ibexa\Core\FieldType\BinaryFile\Value as BinaryFileValue;
+use Ibexa\Core\FieldType\Validator;
+use Ibexa\Core\FieldType\Validator\FileSizeValidator;
+use Ibexa\Core\IO\IOServiceInterface;
+use Ibexa\Core\IO\Values\BinaryFile;
 use PHPUnit\Framework\TestCase;
 
 /**

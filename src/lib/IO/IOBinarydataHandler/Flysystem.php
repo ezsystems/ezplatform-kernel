@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Core\IO\IOBinarydataHandler;
 
+use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct;
 use Ibexa\Core\IO\Exception\BinaryFileNotFoundException;
 use Ibexa\Core\IO\IOBinarydataHandler;
 use Ibexa\Core\IO\UrlDecorator;
-use Ibexa\Contracts\Core\IO\BinaryFileCreateStruct;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException as FlysystemNotFoundException;

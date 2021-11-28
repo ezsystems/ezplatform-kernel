@@ -30,8 +30,8 @@ class URLChecker implements URLCheckerInterface
      */
     public function __construct(
         URLServiceInterface $urlService,
-        URLHandlerRegistryInterface $handlerRegistry)
-    {
+        URLHandlerRegistryInterface $handlerRegistry
+    ) {
         $this->urlService = $urlService;
         $this->handlerRegistry = $handlerRegistry;
         $this->logger = new NullLogger();

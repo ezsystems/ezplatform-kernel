@@ -11,8 +11,8 @@ namespace Ibexa\Core\Persistence\Legacy\Content\Language\Gateway;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ibexa\Core\Persistence\Legacy\Content\Language\Gateway;
 use Ibexa\Contracts\Core\Persistence\Content\Language;
+use Ibexa\Core\Persistence\Legacy\Content\Language\Gateway;
 use RuntimeException;
 
 /**

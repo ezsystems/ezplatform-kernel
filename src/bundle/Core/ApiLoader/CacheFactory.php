@@ -22,7 +22,7 @@ class CacheFactory implements ContainerAwareInterface
     use ContainerAwareTrait;
 
     /**
-     * @param ConfigResolverInterface $configResolver
+     * @param \Ibexa\Core\MVC\ConfigResolverInterface $configResolver
      *
      * @return \Symfony\Component\Cache\Adapter\TagAwareAdapterInterface
      */

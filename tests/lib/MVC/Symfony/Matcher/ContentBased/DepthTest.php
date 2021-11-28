@@ -7,9 +7,9 @@
 namespace Ibexa\Tests\Core\MVC\Symfony\Matcher\ContentBased;
 
 use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Depth as DepthMatcher;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\Symfony\Matcher\ContentBased\Depth as DepthMatcher;
 
 class DepthTest extends BaseTest
 {

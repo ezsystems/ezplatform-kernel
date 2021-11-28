@@ -9,9 +9,9 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Core\MVC\Symfony\Component\Serializer;
 
 use Ibexa\Core\MVC\Symfony\Component\Serializer\HostTextNormalizer;
-use Ibexa\Tests\Core\MVC\Symfony\Component\Serializer\Stubs\SerializerStub;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher;
 use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\HostText;
+use Ibexa\Tests\Core\MVC\Symfony\Component\Serializer\Stubs\SerializerStub;
 use Ibexa\Tests\Core\Search\TestCase;
 
 final class HostTextNormalizerTest extends TestCase

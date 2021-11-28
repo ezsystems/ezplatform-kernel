@@ -6,25 +6,25 @@
  */
 namespace Ibexa\Bundle\Core\Command;
 
-use Symfony\Component\Console\Style\SymfonyStyle;
 use function count;
+use DateTime;
 use const DIRECTORY_SEPARATOR;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
-use Ibexa\Core\Search\Common\Indexer;
-use Ibexa\Core\Search\Common\IncrementalIndexer;
-use Ibexa\Contracts\Core\Search\Content\IndexerGateway;
 use Generator;
 use Ibexa\Contracts\Core\Persistence\Content\Location\Handler;
+use Ibexa\Contracts\Core\Search\Content\IndexerGateway;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Search\Common\IncrementalIndexer;
+use Ibexa\Core\Search\Common\Indexer;
 use Psr\Log\LoggerInterface;
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
-use RuntimeException;
-use DateTime;
 
 class ReindexCommand extends Command implements BackwardCompatibleCommand
 {
@@ -83,8 +83,8 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
     /**
      * Initialize objects required by {@see execute()}.
      *
-     * @param InputInterface $input
-     * @param OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     public function initialize(InputInterface $input, OutputInterface $output)
     {

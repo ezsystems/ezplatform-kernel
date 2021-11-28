@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Cache;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
-use Ibexa\Core\Base\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
 use Ibexa\Contracts\Core\Persistence\UserPreference\Handler;
 use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreference;
+use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 
 class UserPreferenceHandler extends AbstractInMemoryPersistenceHandler implements Handler
 {

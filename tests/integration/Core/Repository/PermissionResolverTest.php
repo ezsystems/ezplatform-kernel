@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository;
 
+use function array_filter;
 use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
 use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
-use function array_filter;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
@@ -248,7 +248,8 @@ class PermissionResolverTest extends BaseTest
         $permissionSets = $permissionResolver->hasAccess('content', 'read');
         /* END: Use Case */
 
-        $this->assertIsArray($permissionSets
+        $this->assertIsArray(
+            $permissionSets
         );
         $this->assertNotEmpty($permissionSets);
     }
@@ -1175,7 +1176,7 @@ class PermissionResolverTest extends BaseTest
         $permissionResolver->setCurrentUserReference($user);
         /* END: Use Case */
 
-        $expectedPolicy = current(array_filter($role->getPolicies(), function ($policy) use ($module, $function) {
+        $expectedPolicy = current(array_filter($role->getPolicies(), static function ($policy) use ($module, $function) {
             return $policy->module === $module && $policy->function === $function;
         }));
 

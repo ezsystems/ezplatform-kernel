@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Location;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
-use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList;
-use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
-use Ibexa\Core\Persistence\Legacy\Content\Location\Trash\Handler;
 use Ibexa\Contracts\Core\Persistence\Content\Location\Trash\TrashResult;
 use Ibexa\Contracts\Core\Persistence\Content\Location\Trashed;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\TrashItemDeleteResultList;
 use Ibexa\Core\Persistence\Legacy\Content as CoreContent;
+use Ibexa\Core\Persistence\Legacy\Content\Location\Trash\Handler;
+use Ibexa\Tests\Core\Persistence\Legacy\TestCase;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\Location\Trash\Handler

@@ -6,15 +6,15 @@
  */
 namespace Ibexa\Core\FieldType\Image;
 
+use Ibexa\Contracts\Core\FieldType\GatewayBasedStorage;
+use Ibexa\Contracts\Core\FieldType\StorageGateway;
+use Ibexa\Contracts\Core\Persistence\Content\Field;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Base\Utils\DeprecationWarnerInterface as DeprecationWarner;
 use Ibexa\Core\IO\FilePathNormalizerInterface;
 use Ibexa\Core\IO\IOServiceInterface;
 use Ibexa\Core\IO\MetadataHandler;
-use Ibexa\Contracts\Core\FieldType\GatewayBasedStorage;
-use Ibexa\Contracts\Core\FieldType\StorageGateway;
-use Ibexa\Contracts\Core\Persistence\Content\Field;
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 
 /**
  * Converter for Image field type external storage.
@@ -186,7 +186,9 @@ class ImageStorage extends GatewayBasedStorage
     {
         return sprintf(
             '%s-%s-%s',
-            $versionInfo->contentInfo->id, $field->id, $versionInfo->versionNo
+            $versionInfo->contentInfo->id,
+            $field->id,
+            $versionInfo->versionNo
         );
     }
 }

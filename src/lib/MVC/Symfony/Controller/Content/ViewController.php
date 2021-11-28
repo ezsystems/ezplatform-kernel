@@ -6,19 +6,19 @@
  */
 namespace Ibexa\Core\MVC\Symfony\Controller\Content;
 
+use DateTime;
+use Exception;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Core\MVC\Symfony\Controller\Controller;
-use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\Event\APIContentExceptionEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute as AuthorizationAttribute;
 use Ibexa\Core\MVC\Symfony\View\ContentView;
 use Ibexa\Core\MVC\Symfony\View\ViewManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use DateTime;
-use Exception;
 
 /**
  * This controller provides the content view feature.
@@ -140,7 +140,7 @@ class ViewController extends Controller
     /**
      * Creates the content to be returned when viewing a Location.
      *
-     * @param Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param string $viewType
      * @param bool $layout
      * @param array $params
@@ -155,7 +155,7 @@ class ViewController extends Controller
     /**
      * Creates the content to be returned when viewing a Content.
      *
-     * @param Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param string $viewType
      * @param bool $layout
      * @param array $params

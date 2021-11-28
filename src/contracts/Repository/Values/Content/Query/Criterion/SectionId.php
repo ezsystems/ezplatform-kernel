@@ -10,8 +10,8 @@ namespace Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Operator\Specifications;
-use Ibexa\Contracts\Core\Repository\Values\Trash\Query\Criterion as TrashCriterion;
 use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Repository\Values\Trash\Query\Criterion as TrashCriterion;
 
 /**
  * SectionId Criterion.

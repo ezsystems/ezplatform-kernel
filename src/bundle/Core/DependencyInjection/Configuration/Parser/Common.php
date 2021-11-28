@@ -8,9 +8,9 @@ namespace Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser;
 
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\AbstractParser;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
-use Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\ConfigSuggestion;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollectorAwareInterface;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollectorInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\ConfigSuggestion;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 /**
@@ -221,7 +221,7 @@ class Common extends AbstractParser implements SuggestionCollectorAwareInterface
     /**
      * Injects SuggestionCollector.
      *
-     * @param SuggestionCollectorInterface $suggestionCollector
+     * @param \Ibexa\Bundle\Core\DependencyInjection\Configuration\Suggestion\Collector\SuggestionCollectorInterface $suggestionCollector
      */
     public function setSuggestionCollector(SuggestionCollectorInterface $suggestionCollector)
     {
@@ -231,7 +231,7 @@ class Common extends AbstractParser implements SuggestionCollectorAwareInterface
     private function addDatabaseConfigSuggestion($sa, array $databaseConfig)
     {
         $suggestion = new ConfigSuggestion(
-<<<EOT
+            <<<EOT
 Database configuration has changed for Ibexa Content repository.
 Please define:
  - An entry in ibexa.repositories

@@ -8,10 +8,10 @@ namespace Ibexa\Core\Base\Container\Compiler\Storage;
 
 use Ibexa\Core\Base\Container\Compiler\TaggedServiceIdsIterator\BackwardCompatibleIterator;
 use Ibexa\Core\FieldType\GatewayBasedStorage;
+use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use LogicException;
 
 /**
  * This compiler pass will register eZ Publish external storage handlers and gateways.

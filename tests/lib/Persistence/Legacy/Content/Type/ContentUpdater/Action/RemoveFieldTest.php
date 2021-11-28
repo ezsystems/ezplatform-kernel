@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action;
 
-use Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action\RemoveField;
-use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
-use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
 use Ibexa\Contracts\Core\Persistence\Content;
 use Ibexa\Core\Persistence\Legacy\Content\Gateway;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Type\ContentUpdater\Action\RemoveField;
 use PHPUnit\Framework\TestCase;
 
 /**

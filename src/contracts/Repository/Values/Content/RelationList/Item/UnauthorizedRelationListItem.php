@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item;
 
 use Ibexa\Contracts\Core\Repository\Lists\UnauthorizedListItem;
-use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\RelationListItemInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\RelationListItemInterface;
 
 /**
  * Item of relation list.

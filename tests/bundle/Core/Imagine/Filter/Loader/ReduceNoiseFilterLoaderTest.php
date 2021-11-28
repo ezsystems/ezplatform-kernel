@@ -16,7 +16,7 @@ class ReduceNoiseFilterLoaderTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private $filter;
 
-    /** @var ReduceNoiseFilterLoader */
+    /** @var \Ibexa\Bundle\Core\Imagine\Filter\Loader\ReduceNoiseFilterLoader */
     private $loader;
 
     protected function setUp(): void

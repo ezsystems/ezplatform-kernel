@@ -6,23 +6,23 @@
  */
 namespace Ibexa\Core\FieldType\DateAndTime;
 
+use DateInterval;
+use DateTime;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use Ibexa\Core\FieldType\FieldType;
 use Ibexa\Core\FieldType\ValidationError;
 use Ibexa\Core\FieldType\Value as BaseValue;
-use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
-use DateInterval;
-use DateTime;
 
 class Type extends FieldType
 {
     /**
      * Default value types.
      */
-    const DEFAULT_EMPTY = 0;
-    const DEFAULT_CURRENT_DATE = 1;
-    const DEFAULT_CURRENT_DATE_ADJUSTED = 2;
+    public const DEFAULT_EMPTY = 0;
+    public const DEFAULT_CURRENT_DATE = 1;
+    public const DEFAULT_CURRENT_DATE_ADJUSTED = 2;
 
     protected $settingsSchema = [
         'useSeconds' => [
@@ -80,7 +80,7 @@ class Type extends FieldType
     /**
      * Inspects given $inputValue and potentially converts it into a dedicated value object.
      *
-     * @param string|int|DateTime|\Ibexa\Core\FieldType\DateAndTime\Value $inputValue
+     * @param string|int|\DateTime|\Ibexa\Core\FieldType\DateAndTime\Value $inputValue
      *
      * @return \Ibexa\Core\FieldType\DateAndTime\Value The potentially converted and structurally plausible value.
      */

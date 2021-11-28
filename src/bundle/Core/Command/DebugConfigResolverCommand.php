@@ -65,7 +65,8 @@ class DebugConfigResolverCommand extends Command implements BackwardCompatibleCo
             InputOption::VALUE_REQUIRED,
             'Set a different namespace than the default "ezsettings" used by SiteAccess settings.'
         );
-        $this->setHelp(<<<EOM
+        $this->setHelp(
+            <<<EOM
 Outputs a given config resolver parameter, more commonly known as a SiteAccess setting.
 
 By default it will give value depending on the global <comment>--siteaccess[=SITEACCESS]</comment> (default SiteAccess is used if not set).

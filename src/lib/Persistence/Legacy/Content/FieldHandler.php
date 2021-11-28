@@ -7,13 +7,13 @@
 namespace Ibexa\Core\Persistence\Legacy\Content;
 
 use Ibexa\Contracts\Core\Persistence\Content;
-use Ibexa\Contracts\Core\Persistence\Content\Type;
-use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
-use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
-use Ibexa\Core\Persistence\FieldTypeRegistry;
 use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as LanguageHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Core\Persistence\FieldTypeRegistry;
 
 /**
  * Field Handler.
@@ -267,8 +267,8 @@ class FieldHandler
      * By default copying falls back to storing, it is upon external storage implementation to override
      * the behaviour as needed.
      *
-     * @param Field $field
-     * @param Content $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field $field
+     * @param \Ibexa\Contracts\Core\Persistence\Content $content
      */
     protected function createExistingFieldInNewVersion(Field $field, Content $content)
     {
@@ -295,7 +295,7 @@ class FieldHandler
     /**
      * Performs external loads for the fields in $content.
      *
-     * @param Content $content
+     * @param \Ibexa\Contracts\Core\Persistence\Content $content
      */
     public function loadExternalFieldData(Content $content)
     {

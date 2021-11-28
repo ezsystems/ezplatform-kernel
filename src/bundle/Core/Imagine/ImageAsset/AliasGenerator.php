@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\Core\Imagine\ImageAsset;
 
+use Ibexa\Contracts\Core\FieldType\Value;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Core\FieldType\ImageAsset\AssetMapper;
-use Ibexa\Contracts\Core\FieldType\Value;
 use Ibexa\Contracts\Core\Variation\Values\Variation;
 use Ibexa\Contracts\Core\Variation\VariationHandler;
+use Ibexa\Core\FieldType\ImageAsset\AssetMapper;
 use Ibexa\Core\FieldType\ImageAsset\Value as ImageAssetValue;
 
 /**
@@ -39,8 +39,8 @@ class AliasGenerator implements VariationHandler
     public function __construct(
         VariationHandler $innerAliasGenerator,
         ContentService $contentService,
-        AssetMapper $assetMapper)
-    {
+        AssetMapper $assetMapper
+    ) {
         $this->innerAliasGenerator = $innerAliasGenerator;
         $this->contentService = $contentService;
         $this->assetMapper = $assetMapper;

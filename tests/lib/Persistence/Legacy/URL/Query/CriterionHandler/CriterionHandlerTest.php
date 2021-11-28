@@ -23,7 +23,7 @@ abstract class CriterionHandlerTest extends TestCase
     /**
      * Check if critetion handler accepts specyfied criterion class.
      *
-     * @param CriterionHandler $handler
+     * @param \Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler $handler
      * @param string $criterionClass
      */
     protected function assertHandlerAcceptsCriterion(CriterionHandler $handler, $criterionClass)
@@ -34,7 +34,7 @@ abstract class CriterionHandlerTest extends TestCase
     /**
      * Check if critetion handler rejects specyfied criterion class.
      *
-     * @param CriterionHandler $handler
+     * @param \Ibexa\Core\Persistence\Legacy\URL\Query\CriterionHandler $handler
      * @param string $criterionClass
      */
     protected function assertHandlerRejectsCriterion(CriterionHandler $handler, $criterionClass)

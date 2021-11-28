@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Test\Repository\SetupFactory\Legacy;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
 use Ibexa\Core\FieldType\BinaryFile\Value as BinaryFileValue;
-use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 
 /**
  * Integration test for use field type.
@@ -178,7 +178,7 @@ class BinaryFileIntegrationTest extends FileSearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      */
     public function assertFieldDataLoadedCorrect(Field $field)
     {
@@ -284,7 +284,7 @@ class BinaryFileIntegrationTest extends FileSearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was copied and loaded correctly.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      */
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {

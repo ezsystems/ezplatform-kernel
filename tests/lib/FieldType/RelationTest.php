@@ -6,15 +6,15 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\Core\FieldType\Relation\Type as RelationType;
-use Ibexa\Core\FieldType\Relation\Value;
-use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
 use Ibexa\Contracts\Core\Persistence\Content\Handler as SPIContentHandler;
 use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\FieldType\Relation\Type as RelationType;
+use Ibexa\Core\FieldType\Relation\Value;
 
 class RelationTest extends FieldTypeTest
 {
@@ -109,7 +109,7 @@ class RelationTest extends FieldTypeTest
     /**
      * Returns the empty value expected from the field type.
      *
-     * @return Value
+     * @return \Ibexa\Core\FieldType\Relation\Value
      */
     protected function getEmptyValueExpectation()
     {

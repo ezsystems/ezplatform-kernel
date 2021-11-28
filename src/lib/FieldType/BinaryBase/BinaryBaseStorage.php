@@ -6,14 +6,14 @@
  */
 namespace Ibexa\Core\FieldType\BinaryBase;
 
+use Ibexa\Contracts\Core\FieldType\BinaryBase\PathGenerator;
 use Ibexa\Contracts\Core\FieldType\BinaryBase\RouteAwarePathGenerator;
 use Ibexa\Contracts\Core\FieldType\GatewayBasedStorage;
-use Ibexa\Core\IO\IOServiceInterface;
-use Ibexa\Contracts\Core\FieldType\BinaryBase\PathGenerator;
 use Ibexa\Contracts\Core\FieldType\StorageGateway;
 use Ibexa\Contracts\Core\IO\MimeTypeDetector;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
 use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
+use Ibexa\Core\IO\IOServiceInterface;
 
 /**
  * Storage for binary files.

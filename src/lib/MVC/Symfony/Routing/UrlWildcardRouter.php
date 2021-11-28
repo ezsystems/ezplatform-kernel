@@ -16,8 +16,8 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\Matcher\RequestMatcherInterface;
 use Symfony\Component\Routing\RequestContext;
-use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Route as SymfonyRoute;
+use Symfony\Component\Routing\RouteCollection;
 
 class UrlWildcardRouter implements ChainedRouterInterface, RequestMatcherInterface
 {

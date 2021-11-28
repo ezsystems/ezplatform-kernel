@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Core\FieldType;
 
-use Ibexa\Core\FieldType\Date\Type as Date;
-use Ibexa\Core\FieldType\Date\Value as DateValue;
-use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use DateTime;
 use DateTimeZone;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\FieldType\Date\Type as Date;
+use Ibexa\Core\FieldType\Date\Value as DateValue;
 
 /**
  * @group fieldType

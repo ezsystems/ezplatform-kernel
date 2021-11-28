@@ -10,8 +10,8 @@ namespace Ibexa\Core\MVC\Symfony\Security;
 
 use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
 use Ibexa\Core\Repository\Values\User\UserReference;
-use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
+use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 
 class User implements ReferenceUserInterface, EquatableInterface
 {

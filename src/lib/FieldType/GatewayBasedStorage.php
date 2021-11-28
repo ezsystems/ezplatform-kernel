@@ -7,9 +7,9 @@
 namespace Ibexa\Core\FieldType;
 
 use Ibexa\Contracts\Core\FieldType\FieldStorage;
+use Ibexa\Contracts\Core\FieldType\GatewayBasedStorage as SPIGatewayBasedStorage;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
 use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
-use Ibexa\Contracts\Core\FieldType\GatewayBasedStorage as SPIGatewayBasedStorage;
 
 /**
  * Storage gateway base class to be used by FieldType storages.

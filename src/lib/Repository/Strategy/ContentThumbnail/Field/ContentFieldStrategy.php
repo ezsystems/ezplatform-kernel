@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\Strategy\ContentThumbnail\Field;
 
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
-use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy;
 use Traversable;
 
 final class ContentFieldStrategy implements ThumbnailStrategy
@@ -22,7 +22,7 @@ final class ContentFieldStrategy implements ThumbnailStrategy
     private $strategies = [];
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy[]|Traversable $strategies
+     * @param \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy[]|\Traversable $strategies
      */
     public function __construct(Traversable $strategies)
     {
@@ -44,7 +44,7 @@ final class ContentFieldStrategy implements ThumbnailStrategy
 
         $fieldStrategies = $this->strategies[$field->fieldTypeIdentifier];
 
-        /** @var FieldTypeBasedThumbnailStrategy $fieldStrategy */
+        /** @var \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy $fieldStrategy */
         foreach ($fieldStrategies as $fieldStrategy) {
             $thumbnail = $fieldStrategy->getThumbnail($field, $versionInfo);
 
@@ -67,7 +67,7 @@ final class ContentFieldStrategy implements ThumbnailStrategy
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy[]|Traversable $thumbnailStrategies
+     * @param \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy[]|\Traversable $thumbnailStrategies
      */
     public function setStrategies(array $thumbnailStrategies): void
     {

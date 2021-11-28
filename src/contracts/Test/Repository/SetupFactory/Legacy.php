@@ -8,23 +8,22 @@ namespace Ibexa\Contracts\Core\Test\Repository\SetupFactory;
 
 use Doctrine\DBAL\Connection;
 use Ibexa\Bundle\Core\DependencyInjection\ServiceTags;
-use Ibexa\Tests\Core\Repository\LegacySchemaImporter;
-use Ibexa\Core\Base\ServiceContainer;
 use Ibexa\Contracts\Core\Repository\Values\Filter\CriterionQueryBuilder as FilteringCriterionQueryBuilder;
 use Ibexa\Contracts\Core\Repository\Values\Filter\SortClauseQueryBuilder as FilteringSortClauseQueryBuilder;
 use Ibexa\Contracts\Core\Test\Persistence\Fixture;
 use Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter;
 use Ibexa\Contracts\Core\Test\Persistence\Fixture\YamlFixture;
+use Ibexa\Contracts\Core\Test\Repository\SetupFactory;
+use Ibexa\Core\Base\Container\Compiler;
+use Ibexa\Core\Base\ServiceContainer;
+use Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler as CachingLanguageHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Type\MemoryCachingHandler as CachingContentTypeHandler;
+use Ibexa\Core\Repository\Values\User\UserReference;
+use Ibexa\Tests\Core\Repository\IdManager;
+use Ibexa\Tests\Core\Repository\LegacySchemaImporter;
 use Ibexa\Tests\Integration\Core\LegacyTestContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Ibexa\Contracts\Core\Test\Repository\SetupFactory;
-use Ibexa\Tests\Core\Repository\IdManager;
-use Ibexa\Core\Persistence\Legacy\Content\Type\MemoryCachingHandler as CachingContentTypeHandler;
-use Ibexa\Core\Persistence\Legacy\Content\Language\CachingHandler as CachingLanguageHandler;
-use Exception;
-use Ibexa\Core\Repository\Values\User\UserReference;
 use Symfony\Component\Filesystem\Filesystem;
-use Ibexa\Core\Base\Container\Compiler;
 
 /**
  * A Test Factory is used to setup the infrastructure for a tests, based on a
@@ -169,7 +168,7 @@ class Legacy extends SetupFactory
      *
      * @param string $configKey
      *
-     * @throws Exception if $configKey could not be found.
+     * @throws \Exception if $configKey could not be found.
      *
      * @return mixed
      */

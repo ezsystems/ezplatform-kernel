@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\Integration\Core\Repository\FieldType;
 
-use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
-use Ibexa\Core\FieldType\Media\Value as MediaValue;
-use Ibexa\Core\FieldType\Media\Type as MediaType;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Core\FieldType\Media\Type as MediaType;
+use Ibexa\Core\FieldType\Media\Value as MediaValue;
 
 /**
  * Integration test for use field type.
@@ -190,7 +190,7 @@ class MediaIntegrationTest extends FileSearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was stored and loaded correctly.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      */
     public function assertFieldDataLoadedCorrect(Field $field)
     {
@@ -296,7 +296,7 @@ class MediaIntegrationTest extends FileSearchBaseIntegrationTest
      * Asserts that the data provided by {@link getValidCreationFieldData()}
      * was copied and loaded correctly.
      *
-     * @param Field $field
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field $field
      */
     public function assertCopiedFieldDataLoadedCorrectly(Field $field)
     {

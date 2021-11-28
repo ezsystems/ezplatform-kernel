@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class AliasCleanerTest extends TestCase
 {
-    /** @var AliasCleaner */
+    /** @var \Ibexa\Bundle\Core\Imagine\AliasCleaner */
     private $aliasCleaner;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject */

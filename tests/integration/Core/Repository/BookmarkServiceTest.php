@@ -18,8 +18,8 @@ use Ibexa\Contracts\Core\Repository\Values\Bookmark\BookmarkList;
  */
 class BookmarkServiceTest extends BaseTest
 {
-    const LOCATION_ID_BOOKMARKED = 5;
-    const LOCATION_ID_NOT_BOOKMARKED = 44;
+    public const LOCATION_ID_BOOKMARKED = 5;
+    public const LOCATION_ID_NOT_BOOKMARKED = 44;
 
     /**
      * @covers \Ibexa\Contracts\Core\Repository\BookmarkService::isBookmarked
@@ -146,7 +146,7 @@ class BookmarkServiceTest extends BaseTest
         $this->assertInstanceOf(BookmarkList::class, $bookmarks);
         $this->assertEquals($bookmarks->totalCount, 5);
         // Assert bookmarks order: recently added should be first
-        $this->assertEquals([15, 13, 12], array_map(function ($location) {
+        $this->assertEquals([15, 13, 12], array_map(static function ($location) {
             return $location->id;
         }, $bookmarks->items));
     }

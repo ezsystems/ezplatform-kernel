@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\Type;
 
-use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
-use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
-use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry as Registry;
-use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
 use Ibexa\Contracts\Core\Persistence\Content\Type;
 use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry as Registry;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
+use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
 
 /**
  * Class to update content objects to a new type version.

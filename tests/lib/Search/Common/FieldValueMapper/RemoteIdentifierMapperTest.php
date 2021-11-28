@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Search\Common\FieldValueMapper;
 
-use Ibexa\Core\Search\Common\FieldValueMapper\RemoteIdentifierMapper;
-use Ibexa\Tests\Core\Search\TestCase;
 use Ibexa\Contracts\Core\Search\Field;
 use Ibexa\Contracts\Core\Search\FieldType\IdentifierField;
 use Ibexa\Contracts\Core\Search\FieldType\IntegerField;
 use Ibexa\Contracts\Core\Search\FieldType\RemoteIdentifierField;
 use Ibexa\Contracts\Core\Search\FieldType\StringField;
+use Ibexa\Core\Search\Common\FieldValueMapper\RemoteIdentifierMapper;
+use Ibexa\Tests\Core\Search\TestCase;
 
 /**
  * @covers \Ibexa\Core\Search\Common\FieldValueMapper\RemoteIdentifierMapper

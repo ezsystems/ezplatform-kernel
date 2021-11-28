@@ -6,20 +6,20 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content\FieldValue\Converter;
 
+use DateInterval;
+use DateTime;
+use DOMDocument;
+use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
 use Ibexa\Core\FieldType\DateAndTime\Type as DateAndTimeType;
 use Ibexa\Core\FieldType\FieldSettings;
-use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
-use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
-use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
 use Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\DateAndTimeConverter;
-use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition as PersistenceFieldDefinition;
-use Ibexa\Contracts\Core\Persistence\Content\FieldTypeConstraints;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
 use PHPUnit\Framework\TestCase;
-use DateTime;
-use DateInterval;
-use SimpleXMLElement;
-use DOMDocument;
 use ReflectionObject;
+use SimpleXMLElement;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\FieldValue\Converter\DateAndTimeConverter

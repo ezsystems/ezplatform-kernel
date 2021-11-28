@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Core\MVC\Symfony\SiteAccess;
 
-use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
-use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\HostText as HostTextMatcher;
 use Ibexa\Core\MVC\Symfony\Routing\SimplifiedRequest;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Matcher\HostText as HostTextMatcher;
+use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
 use Psr\Log\LoggerInterface;
 
 class RouterHostTextTest extends RouterBaseTest

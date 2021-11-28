@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\Validator;
 
+use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\FieldType\FieldTypeRegistry;
 use Ibexa\Core\FieldType\ValidationError;
 use Ibexa\Core\Repository\Mapper\ContentMapper;
-use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
 
 /**
  * @internal Meant for internal use by Repository

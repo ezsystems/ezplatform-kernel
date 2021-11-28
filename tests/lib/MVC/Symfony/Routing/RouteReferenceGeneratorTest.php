@@ -12,9 +12,9 @@ use Ibexa\Core\MVC\Symfony\Routing\Generator\RouteReferenceGenerator;
 use Ibexa\Core\MVC\Symfony\Routing\RouteReference;
 use Ibexa\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RouteReferenceGeneratorTest extends TestCase
 {

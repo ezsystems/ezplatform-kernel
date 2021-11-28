@@ -7,10 +7,10 @@
 namespace Ibexa\Tests\Core\Repository\ContentValidator;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Repository\Strategy\ContentValidator\ContentValidatorStrategy;
 use Ibexa\Core\Repository\Values\ObjectState\ObjectState;
-use Ibexa\Contracts\Core\Repository\Validator\ContentValidator;
 use PHPUnit\Framework\TestCase;
 
 class ContentValidatorStrategyTest extends TestCase

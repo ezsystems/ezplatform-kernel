@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Core\Persistence\Legacy\UserPreference\Gateway;
 
 use Doctrine\DBAL\DBALException;
-use Ibexa\Core\Persistence\Legacy\UserPreference\Gateway;
 use Ibexa\Contracts\Core\Persistence\UserPreference\UserPreferenceSetStruct;
+use Ibexa\Core\Persistence\Legacy\UserPreference\Gateway;
 use PDOException;
 use RuntimeException;
 

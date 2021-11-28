@@ -6,21 +6,21 @@
  */
 namespace Ibexa\Tests\Core\Persistence\Legacy\Content;
 
-use Ibexa\Contracts\Core\Persistence\Content\Type;
 use Ibexa\Contracts\Core\Persistence\Content;
 use Ibexa\Contracts\Core\Persistence\Content\ContentInfo;
-use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
-use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 use Ibexa\Contracts\Core\Persistence\Content\Field;
 use Ibexa\Contracts\Core\Persistence\Content\FieldValue;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct;
 use Ibexa\Contracts\Core\Persistence\Content\VersionInfo;
-use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
-use Ibexa\Core\Persistence\Legacy\Content\FieldHandler;
-use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
-use Ibexa\Core\Persistence\Legacy\Content\Mapper;
-use Ibexa\Core\Persistence\FieldTypeRegistry;
-use Ibexa\Core\Persistence\Legacy\Content\Gateway;
 use Ibexa\Contracts\Core\Persistence\FieldType as SPIFieldType;
+use Ibexa\Core\Persistence\FieldTypeRegistry;
+use Ibexa\Core\Persistence\Legacy\Content\FieldHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Gateway;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper;
+use Ibexa\Core\Persistence\Legacy\Content\StorageFieldValue;
+use Ibexa\Core\Persistence\Legacy\Content\StorageHandler;
 
 /**
  * @covers \Ibexa\Core\Persistence\Legacy\Content\FieldHandler

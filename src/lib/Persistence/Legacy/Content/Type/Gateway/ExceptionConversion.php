@@ -8,14 +8,14 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Persistence\Legacy\Content\Type\Gateway;
 
-use Ibexa\Core\Base\Exceptions\DatabaseException;
-use Ibexa\Core\Persistence\Legacy\Content\Type\Gateway;
+use Doctrine\DBAL\DBALException;
 use Ibexa\Contracts\Core\Persistence\Content\Type;
 use Ibexa\Contracts\Core\Persistence\Content\Type\FieldDefinition;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Group\UpdateStruct as GroupUpdateStruct;
+use Ibexa\Core\Base\Exceptions\DatabaseException;
 use Ibexa\Core\Persistence\Legacy\Content\StorageFieldDefinition;
-use Doctrine\DBAL\DBALException;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Gateway;
 use PDOException;
 
 /**
