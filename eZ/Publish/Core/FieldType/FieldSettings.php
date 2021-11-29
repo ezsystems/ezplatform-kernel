@@ -45,6 +45,7 @@ class FieldSettings extends ArrayObject
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($index)
     {
         if (!parent::offsetExists($index)) {

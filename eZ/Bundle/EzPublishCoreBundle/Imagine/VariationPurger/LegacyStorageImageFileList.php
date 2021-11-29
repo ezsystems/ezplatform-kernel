@@ -53,6 +53,7 @@ class LegacyStorageImageFileList implements ImageFileList
         $this->configResolver = $configResolver;
     }
 
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->item;

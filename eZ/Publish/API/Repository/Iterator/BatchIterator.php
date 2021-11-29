@@ -35,6 +35,7 @@ final class BatchIterator implements Iterator
         $this->position = 0;
     }
 
+    #[\ReturnTypeWillChange]
     public function current()
     {
         if (!$this->isInitialized()) {
