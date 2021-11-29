@@ -80,12 +80,10 @@ jobs:
                     --tmpfs /var/lib/postgres
         runs-on: "ubuntu-20.04"
         timeout-minutes: 60
-        continue-on-error: ${{ matrix.experimental }}
 
         strategy:
             fail-fast: false
             matrix:
-                experimental: [ false ]
                 php:
                     - '7.3'
                     - '7.4'
@@ -127,7 +125,7 @@ jobs:
         # needs: tests
         services:
             mysql:
-                image: mysql:8.0
+                image: mysql:5.7
                 ports:
                     - 3306/tcp
                 env:
