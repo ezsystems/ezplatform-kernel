@@ -561,8 +561,8 @@ class AuthorTest extends FieldTypeTest
         );
 
         return [
-            [$this->getEmptyValueExpectation(), [], 'en_GB', ''],
-            [$authorList, [], 'en_GB', 'Boba Fett'],
+            [$this->getEmptyValueExpectation(), '', [], 'en_GB'],
+            [$authorList, 'Boba Fett', [], 'en_GB'],
         ];
     }
 }

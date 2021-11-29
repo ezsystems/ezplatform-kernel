@@ -36,7 +36,7 @@ class AuthorCollection extends ArrayObject
      * @param int $offset
      * @param \eZ\Publish\Core\FieldType\Author\Author $value
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (!$value instanceof Author) {
             throw new InvalidArgumentType(

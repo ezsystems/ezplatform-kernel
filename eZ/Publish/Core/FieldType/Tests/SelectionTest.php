@@ -358,8 +358,12 @@ class SelectionTest extends FieldTypeTest
     /**
      * @dataProvider provideDataForGetName
      */
-    public function testGetName(SPIValue $value, array $fieldSettings = [], string $languageCode = 'en_GB', string $expected)
-    {
+    public function testGetName(
+        SPIValue $value,
+        string $expected,
+        array $fieldSettings = [],
+        string $languageCode = 'en_GB'
+    ): void {
         $fieldDefinitionMock = $this->getFieldDefinitionMock($fieldSettings);
         $fieldDefinitionMock
             ->method('__get')
@@ -374,33 +378,33 @@ class SelectionTest extends FieldTypeTest
     public function provideDataForGetName(): array
     {
         return [
-            'empty_value_and_field_settings' => [$this->getEmptyValueExpectation(), [], 'en_GB', ''],
+            'empty_value_and_field_settings' => [$this->getEmptyValueExpectation(), '', [], 'en_GB'],
             'one_option' => [
                 new SelectionValue(['optionIndex1']),
+                'option_1',
                 ['options' => ['optionIndex1' => 'option_1']],
                 'en_GB',
-                'option_1',
             ],
             'two_options' => [
                 new SelectionValue(['optionIndex1', 'optionIndex2']),
+                'option_1 option_2',
                 ['options' => ['optionIndex1' => 'option_1', 'optionIndex2' => 'option_2']],
                 'en_GB',
-                'option_1 option_2',
             ],
             'multilingual_options' => [
                 new SelectionValue(['optionIndex1', 'optionIndex2']),
+                'option_1 option_2',
                 ['multilingualOptions' => ['en_GB' => ['optionIndex1' => 'option_1', 'optionIndex2' => 'option_2']]],
                 'en_GB',
-                'option_1 option_2',
             ],
             'multilingual_options_with_main_language_code' => [
                 new SelectionValue(['optionIndex3', 'optionIndex4']),
+                'option_3 option_4',
                 ['multilingualOptions' => [
                     'en_GB' => ['optionIndex1' => 'option_1', 'optionIndex2' => 'option_2'],
                     'de_DE' => ['optionIndex3' => 'option_3', 'optionIndex4' => 'option_4'],
                 ]],
                 'de_DE',
-                'option_3 option_4',
             ],
         ];
     }

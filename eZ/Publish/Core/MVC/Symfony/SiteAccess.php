@@ -65,7 +65,7 @@ class SiteAccess extends ValueObject implements JsonSerializable
         return "$this->name (matched by '$this->matchingType')";
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $matcher = is_object($this->matcher) ? get_class($this->matcher) : null;
 

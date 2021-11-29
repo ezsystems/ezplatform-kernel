@@ -94,7 +94,7 @@ class AliasGenerator implements VariationHandler
             try {
                 $originalBinary = $this->dataLoader->find($originalPath);
             } catch (NotLoadableException $e) {
-                throw new SourceImageNotFoundException($originalPath, 0, $e);
+                throw new SourceImageNotFoundException((string)$originalPath, 0, $e);
             }
 
             $this->logger->debug("Generating '$variationName' variation on $originalPath, field #$fieldId ($fieldDefIdentifier)");

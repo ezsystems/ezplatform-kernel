@@ -73,7 +73,7 @@ abstract class Regex implements Matcher
 
         preg_match(
             "@{$this->regex}@",
-            $this->element,
+            (string)$this->element,
             $match
         );
 

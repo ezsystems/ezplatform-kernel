@@ -522,8 +522,12 @@ abstract class FieldTypeTest extends TestCase
     /**
      * @dataProvider provideDataForGetName
      */
-    public function testGetName(SPIValue $value, array $fieldSettings = [], string $languageCode = 'en_GB', string $expected)
-    {
+    public function testGetName(
+        SPIValue $value,
+        string $expected,
+        array $fieldSettings = [],
+        string $languageCode = 'en_GB'
+    ): void {
         $fieldDefinitionMock = $this->getFieldDefinitionMock($fieldSettings);
 
         self::assertSame(

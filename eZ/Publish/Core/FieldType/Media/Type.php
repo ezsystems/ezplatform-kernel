@@ -246,11 +246,11 @@ class Type extends BaseType
 
         $result = parent::fromPersistenceValue($fieldValue);
 
-        $result->hasController = ($fieldValue->externalData['hasController'] ?? false);
-        $result->autoplay = ($fieldValue->externalData['autoplay'] ?? false);
-        $result->loop = ($fieldValue->externalData['loop'] ?? false);
-        $result->height = ($fieldValue->externalData['height'] ?? 0);
-        $result->width = ($fieldValue->externalData['width'] ?? 0);
+        $result->hasController = $fieldValue->externalData['hasController'] ?? false;
+        $result->autoplay = $fieldValue->externalData['autoplay'] ?? false;
+        $result->loop = $fieldValue->externalData['loop'] ?? false;
+        $result->height = $fieldValue->externalData['height'] ?? 0;
+        $result->width = $fieldValue->externalData['width'] ?? 0;
 
         return $result;
     }

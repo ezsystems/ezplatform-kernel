@@ -21,7 +21,7 @@ class GenericProviderTest extends TestCase
     /**
      * @dataProvider getPlaceholderDataProvider
      */
-    public function testGetPlaceholder(ImageValue $value, array $options = [], $expectedText)
+    public function testGetPlaceholder(ImageValue $value, $expectedText, array $options = [])
     {
         $font = $this->createMock(AbstractFont::class);
 
@@ -78,6 +78,7 @@ class GenericProviderTest extends TestCase
                     'width' => 640,
                     'height' => 480,
                 ]),
+                "IMAGE PLACEHOLDER 640x480\n(photo.jpg)",
                 [
                     'background' => '#00FF00',
                     'foreground' => '#FF0000',
@@ -85,7 +86,6 @@ class GenericProviderTest extends TestCase
                     'text' => "IMAGE PLACEHOLDER %width%x%height%\n(%id%)",
                     'fontpath' => '/path/to/font.ttf',
                 ],
-                "IMAGE PLACEHOLDER 640x480\n(photo.jpg)",
             ],
         ];
     }

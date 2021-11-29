@@ -495,12 +495,12 @@ class ImageTest extends FieldTypeTest
     public function provideDataForGetName(): array
     {
         return [
-            [$this->getEmptyValueExpectation(), [], 'en_GB', ''],
+            [$this->getEmptyValueExpectation(), '', [], 'en_GB'],
             [
                 new ImageValue(['fileName' => 'Sindelfingen-Squirrels.jpg']),
+                'Sindelfingen-Squirrels.jpg',
                 [],
                 'en_GB',
-                'Sindelfingen-Squirrels.jpg',
             ],
             // Alternative text has priority
             [
@@ -510,9 +510,9 @@ class ImageTest extends FieldTypeTest
                         'alternativeText' => 'This is so Sindelfingen!',
                     ]
                 ),
+                'This is so Sindelfingen!',
                 [],
                 'en_GB',
-                'This is so Sindelfingen!',
             ],
             [
                 new ImageValue(
@@ -521,9 +521,9 @@ class ImageTest extends FieldTypeTest
                         'alternativeText' => 'This is so Sindelfingen!',
                     ]
                 ),
+                'This is so Sindelfingen!',
                 [],
                 'en_GB',
-                'This is so Sindelfingen!',
             ],
         ];
     }

@@ -337,8 +337,8 @@ class MapLocationTest extends FieldTypeTest
     public function provideDataForGetName(): array
     {
         return [
-            [$this->getEmptyValueExpectation(), [], 'en_GB', ''],
-            [new MapLocation\Value(['address' => 'Bag End, The Shire']), [], 'en_GB', 'Bag End, The Shire'],
+            [$this->getEmptyValueExpectation(), '', [], 'en_GB'],
+            [new MapLocation\Value(['address' => 'Bag End, The Shire']), 'Bag End, The Shire', [], 'en_GB'],
         ];
     }
 }

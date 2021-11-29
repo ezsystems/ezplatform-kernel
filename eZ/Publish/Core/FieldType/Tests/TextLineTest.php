@@ -469,8 +469,8 @@ class TextLineTest extends FieldTypeTest
     public function provideDataForGetName(): array
     {
         return [
-            [$this->getEmptyValueExpectation(), [], 'en_GB', ''],
-            [new TextLineValue('This is a line of text'), [], 'en_GB', 'This is a line of text'],
+            [$this->getEmptyValueExpectation(), '', [], 'en_GB'],
+            [new TextLineValue('This is a line of text'), 'This is a line of text', [], 'en_GB'],
         ];
     }
 

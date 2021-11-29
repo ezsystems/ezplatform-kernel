@@ -58,7 +58,7 @@ class LegacyDFSCluster implements IOMetadataHandler
             throw new InvalidArgumentException('$binaryFileCreateStruct', 'Property \'mtime\' must be a DateTime');
         }
 
-        $path = $this->addPrefix($binaryFileCreateStruct->id);
+        $path = (string)$this->addPrefix($binaryFileCreateStruct->id);
 
         try {
             /*
@@ -99,7 +99,7 @@ SQL
      */
     public function delete($spiBinaryFileId)
     {
-        $path = $this->addPrefix($spiBinaryFileId);
+        $path = (string)$this->addPrefix($spiBinaryFileId);
 
         // Unlike the legacy cluster, the file is directly deleted. It was inherited from the DB cluster anyway
         $stmt = $this->db->prepare('DELETE FROM ezdfsfile WHERE name_hash LIKE :name_hash');
@@ -124,7 +124,7 @@ SQL
      */
     public function load($spiBinaryFileId)
     {
-        $path = $this->addPrefix($spiBinaryFileId);
+        $path = (string)$this->addPrefix($spiBinaryFileId);
 
         $stmt = $this->db->prepare('SELECT * FROM ezdfsfile WHERE name_hash LIKE ? AND expired != 1 AND mtime > 0');
         $stmt->bindValue(1, md5($path));
@@ -151,7 +151,7 @@ SQL
      */
     public function exists($spiBinaryFileId)
     {
-        $path = $this->addPrefix($spiBinaryFileId);
+        $path = (string)$this->addPrefix($spiBinaryFileId);
 
         $stmt = $this->db->prepare('SELECT name FROM ezdfsfile WHERE name_hash LIKE ? and mtime > 0 and expired != 1');
         $stmt->bindValue(1, md5($path));

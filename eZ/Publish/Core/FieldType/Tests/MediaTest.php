@@ -673,15 +673,15 @@ class MediaTest extends BinaryBaseTest
         return [
             [
                 new MediaValue(),
+                '',
                 [],
                 'en_GB',
-                '',
             ],
             [
                 new MediaValue(['fileName' => 'sindelfingen.jpg']),
+                'sindelfingen.jpg',
                 [],
                 'en_GB',
-                'sindelfingen.jpg',
             ],
         ];
     }

@@ -257,8 +257,8 @@ class KeywordTest extends FieldTypeTest
     public function provideDataForGetName(): array
     {
         return [
-            [$this->getEmptyValueExpectation(), [], 'en_GB', ''],
-            [new KeywordValue(['foo', 'bar']), [], 'en_GB', 'foo, bar'],
+            [$this->getEmptyValueExpectation(), '', [], 'en_GB'],
+            [new KeywordValue(['foo', 'bar']), 'foo, bar', [], 'en_GB'],
         ];
     }
 }

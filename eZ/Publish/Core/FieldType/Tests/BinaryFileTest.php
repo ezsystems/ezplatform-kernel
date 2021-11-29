@@ -513,8 +513,8 @@ class BinaryFileTest extends BinaryBaseTest
     public function provideDataForGetName(): array
     {
         return [
-            [new BinaryFileValue(), [], 'en_GB', ''],
-            [new BinaryFileValue(['fileName' => 'sindelfingen.jpg']), [], 'en_GB', 'sindelfingen.jpg'],
+            [new BinaryFileValue(), '', [], 'en_GB'],
+            [new BinaryFileValue(['fileName' => 'sindelfingen.jpg']), 'sindelfingen.jpg', [], 'en_GB'],
         ];
     }
 

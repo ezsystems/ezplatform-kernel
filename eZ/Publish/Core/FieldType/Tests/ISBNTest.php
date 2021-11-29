@@ -261,8 +261,8 @@ class ISBNTest extends FieldTypeTest
     public function provideDataForGetName(): array
     {
         return [
-            [$this->getEmptyValueExpectation(), [], 'en_GB', ''],
-            [new ISBNValue('9789722514095'), [], 'en_GB', '9789722514095'],
+            [$this->getEmptyValueExpectation(), '', [], 'en_GB'],
+            [new ISBNValue('9789722514095'), '9789722514095', [], 'en_GB'],
         ];
     }
 
