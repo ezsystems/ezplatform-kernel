@@ -77,7 +77,7 @@ abstract class Regex implements Matcher
             $match
         );
 
-        $this->matchedSiteAccess = isset($match[$this->itemNumber]) ? $match[$this->itemNumber] : false;
+        $this->matchedSiteAccess = $match[$this->itemNumber] ?? false;
 
         return $this->matchedSiteAccess;
     }
