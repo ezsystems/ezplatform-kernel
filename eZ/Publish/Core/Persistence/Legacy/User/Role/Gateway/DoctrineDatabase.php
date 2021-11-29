@@ -150,7 +150,8 @@ final class DoctrineDatabase extends Gateway
             )
             ->andWhere(
                 $this->buildRoleDraftQueryConstraint($status, $query)
-            );
+            )
+            ->orderBy('p.id', 'ASC');
 
         return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
@@ -169,7 +170,8 @@ final class DoctrineDatabase extends Gateway
             )
             ->andWhere(
                 $this->buildRoleDraftQueryConstraint($status, $query)
-            );
+            )
+            ->orderBy('p.id', 'ASC');
 
         $statement = $query->execute();
 
@@ -186,7 +188,8 @@ final class DoctrineDatabase extends Gateway
                     'r.version',
                     $query->createPositionalParameter($roleId, ParameterType::STRING)
                 )
-            );
+            )
+            ->orderBy('p.id', 'ASC');
 
         $statement = $query->execute();
 
