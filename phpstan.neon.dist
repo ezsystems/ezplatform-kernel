@@ -10,3 +10,4 @@ parameters:
     excludePaths:
         analyse:
             - tests/integration/Core/Repository/var
+            - eZ/Publish/Core/Search/Legacy/Tests/_fixtures/full_dump.php
