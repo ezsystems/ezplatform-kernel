@@ -255,7 +255,7 @@ EOT
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     protected function migrateFiles(
-        $totalFileCount = null,
+        $totalFileCount,
         $bulkCount,
         $dryRun,
         OutputInterface $output

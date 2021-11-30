@@ -38,7 +38,7 @@ final class LegacyStorageFileIterator implements FileIteratorInterface
         return $this->item;
     }
 
-    public function next()
+    public function next(): void
     {
         $this->fetchRow();
     }
@@ -48,19 +48,19 @@ final class LegacyStorageFileIterator implements FileIteratorInterface
         return $this->cursor;
     }
 
-    public function valid()
+    public function valid(): bool
     {
         return $this->cursor < $this->count();
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->cursor = -1;
         $this->rowReader->init();
         $this->fetchRow();
     }
 
-    public function count()
+    public function count(): int
     {
         return $this->rowReader->getCount();
     }

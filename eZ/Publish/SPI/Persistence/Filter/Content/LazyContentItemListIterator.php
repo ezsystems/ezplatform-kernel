@@ -24,6 +24,7 @@ class LazyContentItemListIterator extends LazyListIterator
      *
      * @throws \Exception
      */
+    #[\ReturnTypeWillChange]
     public function getIterator(): iterable
     {
         yield from parent::getIterator();

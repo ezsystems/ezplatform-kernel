@@ -208,7 +208,7 @@ class Type extends BaseType
     /**
      * Converts a $Value to a hash.
      *
-     * @param \eZ\Publish\Core\FieldType\Media\Value $value
+     * @param \eZ\Publish\SPI\FieldType\Value $value
      *
      * @return mixed
      */
