@@ -47,8 +47,8 @@ jobs:
             - name: Setup problem matchers for PHPUnit
               run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-            # - name: Run PHPStan analysis
-            #   run: composer run-script phpstan
+            - name: Run PHPStan analysis
+              run: composer run-script phpstan
 
             - name: Run code style check
               if: matrix.skip_code_style != true

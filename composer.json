@@ -67,7 +67,8 @@
         "phpunit/phpunit": "^8.2",
         "matthiasnoback/symfony-dependency-injection-test": "^4.1",
         "symfony/phpunit-bridge": "^5.1",
-        "symfony/proxy-manager-bridge": "^5.3"
+        "symfony/proxy-manager-bridge": "^5.3",
+        "phpstan/phpstan": "^1.2"
     },
     "conflict": {
         "symfony/dependency-injection": "5.3.7",
@@ -115,6 +116,7 @@
         "check-cs": "@fix-cs --dry-run",
         "fix-cs": "php-cs-fixer fix -v --show-progress=dots",
         "unit": "phpunit -c phpunit.xml",
+        "phpstan": "phpstan analyse",
         "integration": [
             "Composer\\Config::disableProcessTimeout",
             "phpunit -c phpunit-integration-legacy.xml"

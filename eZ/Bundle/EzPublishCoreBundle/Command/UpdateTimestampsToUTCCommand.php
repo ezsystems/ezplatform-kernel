@@ -256,9 +256,9 @@ EOT
                 '',
                 sprintf('Done: %d', $this->done),
             ]);
-
-            return 0;
         }
+
+        return 0;
     }
 
     /**
