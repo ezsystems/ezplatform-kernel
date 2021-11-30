@@ -381,11 +381,6 @@ parameters:
 			path: eZ/Publish/Core/FieldType/MapLocation/MapLocationStorage/Gateway/DoctrineStorage.php
 
 		-
-			message: "#^Interface eZ\\\\Publish\\\\SPI\\\\FieldType\\\\Value referenced with incorrect case\\: eZ\\\\Publish\\\\SPI\\\\fieldType\\\\Value\\.$#"
-			count: 1
-			path: eZ/Publish/Core/FieldType/Media/Type.php
-
-		-
 			message: "#^Class eZ\\\\Publish\\\\Core\\\\FieldType\\\\ISBN\\\\Type does not have a constructor and must be instantiated without any parameters\\.$#"
 			count: 1
 			path: eZ/Publish/Core/FieldType/Tests/ISBNTest.php
