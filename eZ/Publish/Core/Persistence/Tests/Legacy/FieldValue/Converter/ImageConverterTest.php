@@ -48,7 +48,7 @@ final class ImageConverterTest extends TestCase
         ClockMock::withClockMock(true);
 
         $time = ClockMock::time();
-        $expectedXml = str_replace('{timestampToReplace}', (string) $time, $expectedXml);
+        $expectedXml = str_replace('{timestampToReplace}', (string)$time, $expectedXml);
 
         $storageValue = new StorageFieldValue();
 
