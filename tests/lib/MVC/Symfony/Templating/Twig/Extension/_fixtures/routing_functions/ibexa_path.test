@@ -1,0 +1,48 @@
+--TEST--
+"ibexa_path" function
+--TEMPLATE--
+{{ ibexa_path(location) }}
+{{ ibexa_path(location, {}, true) }}
+{{ ibexa_path(location, {'foo': 'foo'}) }}
+{{ ibexa_path(content) }}
+{{ ibexa_path(content, {}, true) }}
+{{ ibexa_path(content, {'foo': 'foo'}) }}
+{{ ibexa_path(content_info) }}
+{{ ibexa_path(content_info, {}, true) }}
+{{ ibexa_path(content_info, {'foo': 'foo'}) }}
+{{ ibexa_path(route_ref) }}
+{{ ibexa_path(route_ref, {}, true) }}
+{{ ibexa_path(route_ref, {'baz': 'baz'}) }}
+{{ ibexa_path(unsupported_object) }}
+{{ ibexa_path(unsupported_object, {}, true) }}
+{{ ibexa_path(unsupported_object, {'baz': 'baz'}) }}
+--DATA--
+return [
+    'location' => $this->getExampleLocation(54),
+    'content' => $this->getExampleContent(2),
+    'content_info' => $this->getExampleContentInfo(2),
+    'route_ref' => $this->getExampleRouteReference(
+        'example_route',
+        [
+            'foo' => 'foo',
+            'bar' => 'bar'
+        ]
+    ),
+    'unsupported_object' => $this->getExampleUnsupportedObject(),
+];
+--EXPECT--
+{"$name":"ez_urlalias","$parameters":{"locationId":54},"$referenceType":1}
+{"$name":"ez_urlalias","$parameters":{"locationId":54},"$referenceType":2}
+{"$name":"ez_urlalias","$parameters":{"foo":"foo","locationId":54},"$referenceType":1}
+{"$name":"ez_urlalias","$parameters":{"contentId":2},"$referenceType":1}
+{"$name":"ez_urlalias","$parameters":{"contentId":2},"$referenceType":2}
+{"$name":"ez_urlalias","$parameters":{"foo":"foo","contentId":2},"$referenceType":1}
+{"$name":"ez_urlalias","$parameters":{"contentId":2},"$referenceType":1}
+{"$name":"ez_urlalias","$parameters":{"contentId":2},"$referenceType":2}
+{"$name":"ez_urlalias","$parameters":{"foo":"foo","contentId":2},"$referenceType":1}
+{"$name":"example_route","$parameters":{"foo":"foo","bar":"bar"},"$referenceType":1}
+{"$name":"example_route","$parameters":{"foo":"foo","bar":"bar"},"$referenceType":2}
+{"$name":"example_route","$parameters":{"baz":"baz","foo":"foo","bar":"bar"},"$referenceType":1}
+{"$name":"","$parameters":{"_route_object":{"foo":"foo","bar":"bar"}},"$referenceType":1}
+{"$name":"","$parameters":{"_route_object":{"foo":"foo","bar":"bar"}},"$referenceType":2}
+{"$name":"","$parameters":{"baz":"baz","_route_object":{"foo":"foo","bar":"bar"}},"$referenceType":1}

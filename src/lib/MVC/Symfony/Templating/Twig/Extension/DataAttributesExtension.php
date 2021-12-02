@@ -27,6 +27,15 @@ class DataAttributesExtension extends AbstractExtension
             new TwigFilter(
                 'ez_data_attributes_serialize',
                 [$this, 'serializeDataAttributes'],
+                [
+                    'is_safe' => ['html'],
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_data_attributes_serialize',
+                ]
+            ),
+            new TwigFilter(
+                'ibexa_data_attributes_serialize',
+                [$this, 'serializeDataAttributes'],
                 ['is_safe' => ['html']]
             ),
         ];

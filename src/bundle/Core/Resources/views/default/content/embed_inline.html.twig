@@ -1,6 +1,6 @@
 {%
     set data_attributes_str = (data_attributes is defined)
-        ? ' ' ~ data_attributes|ez_data_attributes_serialize
+        ? ' ' ~ data_attributes|ibexa_data_attributes_serialize
         : ''
 %}
 
@@ -8,8 +8,8 @@
     <span {% if class is defined %} class="{{ class }}"{% endif %}{{ data_attributes_str|raw }}>{{ content.name }}</span>
 {% else %}
     {% if location is defined %}
-        <a href="{{ ez_path(location) }}"{% if class is defined %} class="{{ class }}"{% endif %}{{ data_attributes_str|raw }}>{{ content.name }}</a>
+        <a href="{{ ibexa_path(location) }}"{% if class is defined %} class="{{ class }}"{% endif %}{{ data_attributes_str|raw }}>{{ content.name }}</a>
     {% else %}
-        <a href="{{ ez_path(content) }}"{% if class is defined %} class="{{ class }}"{% endif %}{{ data_attributes_str|raw }}>{{ content.name }}</a>
+        <a href="{{ ibexa_path(content) }}"{% if class is defined %} class="{{ class }}"{% endif %}{{ data_attributes_str|raw }}>{{ content.name }}</a>
     {% endif %}
 {% endif %}

@@ -1,5 +1,18 @@
 --TEST--
 "twig" filter
+--DEPRECATION--
+Twig Filter "ez_file_size" is deprecated since version 4.0. Use "ibexa_file_size" instead in index.twig at line 2.
+Twig Filter "ez_file_size" is deprecated since version 4.0. Use "ibexa_file_size" instead in index.twig at line 3.
+Twig Filter "ez_file_size" is deprecated since version 4.0. Use "ibexa_file_size" instead in index.twig at line 4.
+Twig Filter "ez_file_size" is deprecated since version 4.0. Use "ibexa_file_size" instead in index.twig at line 5.
+Twig Filter "ez_file_size" is deprecated since version 4.0. Use "ibexa_file_size" instead in index.twig at line 6.
+Twig Filter "ez_file_size" is deprecated since version 4.0. Use "ibexa_file_size" instead in index.twig at line 7.
+Twig Filter "ez_file_size" is deprecated since version 4.0. Use "ibexa_file_size" instead in index.twig at line 8.
+Twig Filter "ez_file_size" is deprecated since version 4.0. Use "ibexa_file_size" instead in index.twig at line 9.
+Twig Filter "ez_file_size" is deprecated since version 4.0. Use "ibexa_file_size" instead in index.twig at line 10.
+Twig Filter "ez_file_size" is deprecated since version 4.0. Use "ibexa_file_size" instead in index.twig at line 11.
+Twig Filter "ez_file_size" is deprecated since version 4.0. Use "ibexa_file_size" instead in index.twig at line 12.
+Twig Filter "ez_file_size" is deprecated since version 4.0. Use "ibexa_file_size" instead in index.twig at line 13.
 --TEMPLATE--
 {{ 10|ez_file_size( 2 ) }}
 {{ 1024|ez_file_size( 0 ) }}

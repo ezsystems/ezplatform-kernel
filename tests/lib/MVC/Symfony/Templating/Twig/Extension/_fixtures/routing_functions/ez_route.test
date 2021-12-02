@@ -1,5 +1,9 @@
 --TEST--
 "twig" filter
+--DEPRECATION--
+Twig Function "ez_route" is deprecated since version 4.0. Use "ibexa_route" instead in index.twig at line 2.
+Twig Function "ez_route" is deprecated since version 4.0. Use "ibexa_route" instead in index.twig at line 3.
+Twig Function "ez_route" is deprecated since version 4.0. Use "ibexa_route" instead in index.twig at line 4.
 --TEMPLATE--
 {% set route_ref1 = ez_route( "foo_route" ) %}
 {% set route_ref2 = ez_route( "bar_route", {"some": "thing"} ) %}

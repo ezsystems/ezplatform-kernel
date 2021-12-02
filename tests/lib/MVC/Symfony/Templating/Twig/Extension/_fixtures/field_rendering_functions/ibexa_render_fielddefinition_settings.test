@@ -1,0 +1,25 @@
+--TEST--
+"ibexa_render_field_definition_settings" function
+--TEMPLATE--
+{{ ibexa_render_field_definition_settings( nooverride ) }}
+{{ ibexa_render_field_definition_settings( overrides ) }}
+{{ ibexa_render_field_definition_settings( notdefault ) }}
+{{ ibexa_render_field_definition_settings( withdata ) }}
+{{ ibexa_render_field_definition_settings( notexisting ) }}
+--DATA--
+return array(
+    'nooverride' => $this->getFieldDefinition( 'eznooverride' ),
+    'overrides' => $this->getFieldDefinition( 'ezoverride' ),
+    'notdefault' => $this->getFieldDefinition( 'eznotdefaulttemplate' ),
+    'withdata' => $this->getFieldDefinition(
+        'ezwithdata', 42,
+        array( 'frameworks' => array( 'YUI3', 'jQuery' ) )
+    ),
+    'notexisting' => $this->getFieldDefinition( 'eznotexisting' )
+)
+--EXPECT--
+default (no override)
+override2
+not default
+42 ezwithdata YUI3, jQuery
+

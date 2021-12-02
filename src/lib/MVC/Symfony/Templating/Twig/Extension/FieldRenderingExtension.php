@@ -48,30 +48,49 @@ class FieldRenderingExtension extends AbstractExtension
         $this->translationHelper = $translationHelper;
     }
 
-    public function getName()
-    {
-        return 'ezpublish.field_rendering';
-    }
-
     public function getFunctions()
     {
+        $renderFieldCallable = function (Environment $environment, Content $content, $fieldIdentifier, array $params = []) {
+            $this->fieldBlockRenderer->setTwig($environment);
+
+            return $this->renderField($content, $fieldIdentifier, $params);
+        };
+
+        $renderFieldDefinitionSettingsCallable = function (Environment $environment, FieldDefinition $fieldDefinition, array $params = []) {
+            $this->fieldBlockRenderer->setTwig($environment);
+
+            return $this->renderFieldDefinitionSettings($fieldDefinition, $params);
+        };
+
         return [
             new TwigFunction(
                 'ez_render_field',
-                function (Environment $environment, Content $content, $fieldIdentifier, array $params = []) {
-                    $this->fieldBlockRenderer->setTwig($environment);
-
-                    return $this->renderField($content, $fieldIdentifier, $params);
-                },
+                $renderFieldCallable,
+                [
+                    'is_safe' => ['html'],
+                    'needs_environment' => true,
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_render_field',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_render_field',
+                $renderFieldCallable,
                 ['is_safe' => ['html'], 'needs_environment' => true]
             ),
             new TwigFunction(
                 'ez_render_field_definition_settings',
-                function (Environment $environment, FieldDefinition $fieldDefinition, array $params = []) {
-                    $this->fieldBlockRenderer->setTwig($environment);
-
-                    return $this->renderFieldDefinitionSettings($fieldDefinition, $params);
-                },
+                $renderFieldDefinitionSettingsCallable,
+                [
+                    'is_safe' => ['html'],
+                    'needs_environment' => true,
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_render_field_definition_settings',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_render_field_definition_settings',
+                $renderFieldDefinitionSettingsCallable,
                 ['is_safe' => ['html'], 'needs_environment' => true]
             ),
         ];

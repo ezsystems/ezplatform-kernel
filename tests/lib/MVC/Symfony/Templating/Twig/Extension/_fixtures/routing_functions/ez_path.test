@@ -1,5 +1,21 @@
 --TEST--
 "ez_path" function
+--DEPRECATION--
+Twig Function "ez_path" is deprecated since version 4.0. Use "ibexa_path" instead in index.twig at line 2.
+Twig Function "ez_path" is deprecated since version 4.0. Use "ibexa_path" instead in index.twig at line 3.
+Twig Function "ez_path" is deprecated since version 4.0. Use "ibexa_path" instead in index.twig at line 4.
+Twig Function "ez_path" is deprecated since version 4.0. Use "ibexa_path" instead in index.twig at line 5.
+Twig Function "ez_path" is deprecated since version 4.0. Use "ibexa_path" instead in index.twig at line 6.
+Twig Function "ez_path" is deprecated since version 4.0. Use "ibexa_path" instead in index.twig at line 7.
+Twig Function "ez_path" is deprecated since version 4.0. Use "ibexa_path" instead in index.twig at line 8.
+Twig Function "ez_path" is deprecated since version 4.0. Use "ibexa_path" instead in index.twig at line 9.
+Twig Function "ez_path" is deprecated since version 4.0. Use "ibexa_path" instead in index.twig at line 10.
+Twig Function "ez_path" is deprecated since version 4.0. Use "ibexa_path" instead in index.twig at line 11.
+Twig Function "ez_path" is deprecated since version 4.0. Use "ibexa_path" instead in index.twig at line 12.
+Twig Function "ez_path" is deprecated since version 4.0. Use "ibexa_path" instead in index.twig at line 13.
+Twig Function "ez_path" is deprecated since version 4.0. Use "ibexa_path" instead in index.twig at line 14.
+Twig Function "ez_path" is deprecated since version 4.0. Use "ibexa_path" instead in index.twig at line 15.
+Twig Function "ez_path" is deprecated since version 4.0. Use "ibexa_path" instead in index.twig at line 16.
 --TEMPLATE--
 {{ ez_path(location) }}
 {{ ez_path(location, {}, true) }}

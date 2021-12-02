@@ -58,43 +58,89 @@ class ContentExtension extends AbstractExtension
         return [
             new TwigFunction(
                 'ez_content_name',
+                [$this, 'getTranslatedContentName'],
+                [
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_content_name',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_content_name',
                 [$this, 'getTranslatedContentName']
             ),
             new TwigFunction(
                 'ez_field_value',
+                [$this, 'getTranslatedFieldValue'],
+                [
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_field_value',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_field_value',
                 [$this, 'getTranslatedFieldValue']
             ),
             new TwigFunction(
                 'ez_field',
+                [$this, 'getTranslatedField'],
+                [
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_field',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_field',
                 [$this, 'getTranslatedField']
             ),
             new TwigFunction(
                 'ez_field_is_empty',
+                [$this, 'isFieldEmpty'],
+                [
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_field_is_empty',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_field_is_empty',
                 [$this, 'isFieldEmpty']
             ),
             new TwigFunction(
                 'ez_field_name',
+                [$this, 'getTranslatedFieldDefinitionName'],
+                [
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_field_name',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_field_name',
                 [$this, 'getTranslatedFieldDefinitionName']
             ),
             new TwigFunction(
                 'ez_field_description',
+                [$this, 'getTranslatedFieldDefinitionDescription'],
+                [
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_field_description',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_field_description',
                 [$this, 'getTranslatedFieldDefinitionDescription']
             ),
             new TwigFunction(
                 'ez_content_field_identifier_first_filled_image',
+                [$this, 'getFirstFilledImageFieldIdentifier'],
+                [
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_content_field_identifier_first_filled_image',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_content_field_identifier_first_filled_image',
                 [$this, 'getFirstFilledImageFieldIdentifier']
             ),
         ];
-    }
-
-    /**
-     * Returns the name of the extension.
-     *
-     * @return string The extension name
-     */
-    public function getName()
-    {
-        return 'ezpublish.content';
     }
 
     /**
@@ -122,7 +168,7 @@ class ContentExtension extends AbstractExtension
 
     /**
      * Returns the translated field, very similar to getTranslatedFieldValue but this returns the whole field.
-     * To be used with ez_image_alias for example, which requires the whole field.
+     * To be used with ibexa_image_alias for example, which requires the whole field.
      *
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param string $fieldDefIdentifier Identifier for the field we want to get.

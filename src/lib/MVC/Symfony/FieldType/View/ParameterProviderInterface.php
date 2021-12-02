@@ -9,7 +9,7 @@ namespace Ibexa\Core\MVC\Symfony\FieldType\View;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 
 /**
- * Interface for services providing additional parameters to a fieldtype's view template (using ez_render_field() helper).
+ * Interface for services providing additional parameters to a fieldtype's view template (using ibexa_render_field() helper).
  * Each instance of this interface needs to be correctly registered in the ParameterProviderRegistry.
  *
  * @see \Ibexa\Core\MVC\Symfony\FieldType\View\ParameterProviderRegistryInterface

@@ -1,7 +1,7 @@
-{% set image_field_identifier = ez_content_field_identifier_image_asset() %}
+{% set image_field_identifier = ibexa_content_field_identifier_image_asset() %}
 
 {% if image_field_identifier is not null %}
-    {{ ez_render_field(content, image_field_identifier, {
+    {{ ibexa_render_field(content, image_field_identifier, {
         template: '@IbexaCore/content_fields.html.twig',
         parameters: parameters
     }) }}

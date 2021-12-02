@@ -21,21 +21,15 @@ class CoreExtension extends AbstractExtension implements GlobalsInterface
     }
 
     /**
-     * Returns the name of the extension.
-     *
-     * @return string The extension name
-     */
-    public function getName()
-    {
-        return 'ezpublish.core';
-    }
-
-    /**
      * @return array
      */
     public function getGlobals(): array
     {
-        return ['ezplatform' => $this->globalHelper];
+        return [
+            /** @deprecated ezplatform is deprecated since 4.0, use ibexa instead */
+            'ezplatform' => $this->globalHelper,
+            'ibexa' => $this->globalHelper,
+        ];
     }
 }
 

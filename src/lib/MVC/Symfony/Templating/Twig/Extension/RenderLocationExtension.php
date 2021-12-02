@@ -41,6 +41,15 @@ final class RenderLocationExtension extends AbstractExtension
             new TwigFunction(
                 'ez_render_location',
                 [$this, 'renderLocation'],
+                [
+                    'is_safe' => ['html'],
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_render_location',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_render_location',
+                [$this, 'renderLocation'],
                 ['is_safe' => ['html']]
             ),
         ];

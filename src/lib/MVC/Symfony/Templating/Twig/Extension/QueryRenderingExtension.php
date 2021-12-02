@@ -28,28 +28,50 @@ class QueryRenderingExtension extends AbstractExtension
 
     public function getFunctions(): array
     {
+        $typeCallable = function (string $type, array $options): ?string {
+            $this->assertTypeIsValid($type);
+
+            return $this->fragmentHandler->render(
+                $this->createControllerReference($options)
+            );
+        };
+
+        $typeAndRendererCallable = function (string $type, string $renderer, array $options): ?string {
+            $this->assertTypeIsValid($type);
+
+            return $this->fragmentHandler->render(
+                $this->createControllerReference($options),
+                $renderer
+            );
+        };
+
         return [
             new TwigFunction(
                 'ez_render_*_query',
-                function (string $type, array $options): ?string {
-                    $this->assertTypeIsValid($type);
-
-                    return $this->fragmentHandler->render(
-                        $this->createControllerReference($options)
-                    );
-                },
+                $typeCallable,
+                [
+                    'is_safe' => ['html'],
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_render_*_query',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_render_*_query',
+                $typeCallable,
                 ['is_safe' => ['html']]
             ),
             new TwigFunction(
                 'ez_render_*_query_*',
-                function (string $type, string $renderer, array $options): ?string {
-                    $this->assertTypeIsValid($type);
-
-                    return $this->fragmentHandler->render(
-                        $this->createControllerReference($options),
-                        $renderer
-                    );
-                },
+                $typeAndRendererCallable,
+                [
+                    'is_safe' => ['html'],
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_render_*_query_',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_render_*_query_*',
+                $typeAndRendererCallable,
                 ['is_safe' => ['html']]
             ),
         ];

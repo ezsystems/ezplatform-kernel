@@ -73,7 +73,18 @@ class FileSizeExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            new TwigFilter('ez_file_size', [$this, 'sizeFilter']),
+            new TwigFilter(
+                'ez_file_size',
+                [$this, 'sizeFilter'],
+                [
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_file_size',
+                ]
+            ),
+            new TwigFilter(
+                'ibexa_file_size',
+                [$this, 'sizeFilter']
+            ),
         ];
     }
 
@@ -103,16 +114,6 @@ class FileSizeExtension extends AbstractExtension
         $formatter->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, $precision);
 
         return $formatter->format($number);
-    }
-
-    /**
-     * Returns the name of the extension.
-     *
-     * @return string The extension name
-     */
-    public function getName()
-    {
-        return 'ezpublish.fileSize';
     }
 }
 

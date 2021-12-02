@@ -30,21 +30,34 @@ class ImageExtension extends AbstractExtension
         $this->assetMapper = $assetMapper;
     }
 
-    public function getName()
-    {
-        return 'ezpublish.image';
-    }
-
     public function getFunctions()
     {
         return [
             new TwigFunction(
                 'ez_image_alias',
                 [$this, 'getImageVariation'],
+                [
+                    'is_safe' => ['html'],
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_image_alias',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_image_alias',
+                [$this, 'getImageVariation'],
                 ['is_safe' => ['html']]
             ),
             new TwigFunction(
                 'ez_content_field_identifier_image_asset',
+                [$this, 'getImageAssetContentFieldIdentifier'],
+                [
+                    'is_safe' => ['html'],
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_content_field_identifier_image_asset',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_content_field_identifier_image_asset',
                 [$this, 'getImageAssetContentFieldIdentifier'],
                 ['is_safe' => ['html']]
             ),

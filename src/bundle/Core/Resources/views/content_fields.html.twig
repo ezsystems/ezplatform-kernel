@@ -66,7 +66,7 @@
 
 {% block ezdatetime_field %}
 {% apply spaceless %}
-    {% if not ez_field_is_empty( content, field ) %}
+    {% if not ibexa_field_is_empty( content, field ) %}
         {% if fieldSettings.useSeconds %}
             {% set field_value = field.value.value|format_datetime( 'short', 'medium', locale=parameters.locale ) %}
         {% else %}
@@ -79,7 +79,7 @@
 
 {% block ezdate_field %}
 {% apply spaceless %}
-    {% if not ez_field_is_empty( content, field ) %}
+    {% if not ibexa_field_is_empty( content, field ) %}
         {% set field_value = field.value.date|format_date( 'short', locale=parameters.locale ) %}
         {{ block( 'simple_block_field' ) }}
     {% endif %}
@@ -88,7 +88,7 @@
 
 {% block eztime_field %}
 {% apply spaceless %}
-    {% if not ez_field_is_empty( content, field ) %}
+    {% if not ibexa_field_is_empty( content, field ) %}
         {% if fieldSettings.useSeconds %}
             {% set field_value = field.value.time|format_time( 'medium', locale=parameters.locale, timezone='UTC' ) %}
         {% else %}
@@ -101,7 +101,7 @@
 
 {% block ezemail_field %}
 {% apply spaceless %}
-    {% if not ez_field_is_empty( content, field ) %}
+    {% if not ibexa_field_is_empty( content, field ) %}
         {% set field_value = field.value.email %}
         <a href="mailto:{{ field.value.email|escape( 'url' ) }}" {{ block( 'field_attributes' ) }}>{{ field.value.email }}</a>
     {% endif %}
@@ -110,7 +110,7 @@
 
 {% block ezinteger_field %}
 {% apply spaceless %}
-    {% if not ez_field_is_empty( content, field ) %}
+    {% if not ibexa_field_is_empty( content, field ) %}
         {% set field_value = field.value.value %}
         {{ block( 'simple_inline_field' ) }}
     {% endif %}
@@ -120,7 +120,7 @@
 {# @todo: handle localization #}
 {% block ezfloat_field %}
 {% apply spaceless %}
-    {% if not ez_field_is_empty( content, field ) %}
+    {% if not ibexa_field_is_empty( content, field ) %}
         {% set field_value = field.value.value %}
         {{ block( 'simple_inline_field' ) }}
     {% endif %}
@@ -129,7 +129,7 @@
 
 {% block ezurl_field %}
 {% apply spaceless %}
-    {% if not ez_field_is_empty( content, field ) %}
+    {% if not ibexa_field_is_empty( content, field ) %}
         <a href="{{ field.value.link }}"
             {{ block( 'field_attributes' ) }}>{{ field.value.text ? field.value.text : field.value.link }}</a>
     {% endif %}
@@ -145,7 +145,7 @@
 
 {% block ezkeyword_field %}
 {% apply spaceless %}
-    {% if not ez_field_is_empty( content, field ) %}
+    {% if not ibexa_field_is_empty( content, field ) %}
         <ul {{ block( 'field_attributes' ) }}>
         {% for keyword in field.value.values %}
             <li>{{ keyword }}</li>
@@ -201,30 +201,30 @@
 
 {% block ezbinaryfile_field %}
 {% apply spaceless %}
-    {% if not ez_field_is_empty( content, field ) %}
-        {% set route_reference = ez_route( 'ez_content_download', {
+    {% if not ibexa_field_is_empty( content, field ) %}
+        {% set route_reference = ibexa_route( 'ez_content_download', {
             'content': content,
             'fieldIdentifier': field.fieldDefIdentifier,
             'inLanguage': content.prioritizedFieldLanguageCode,
             'version': versionInfo.versionNo
         } ) %}
-        <a href="{{ ez_path( route_reference ) }}"
-            {{ block( 'field_attributes' ) }}>{{ field.value.fileName }}</a>&nbsp;({{ field.value.fileSize|ez_file_size( 1 ) }})
+        <a href="{{ ibexa_path( route_reference ) }}"
+            {{ block( 'field_attributes' ) }}>{{ field.value.fileName }}</a>&nbsp;({{ field.value.fileSize|ibexa_file_size( 1 ) }})
     {% endif %}
 {% endapply %}
 {% endblock %}
 
 {% block ezmedia_field %}
-{% if not ez_field_is_empty( content, field ) %}
+{% if not ibexa_field_is_empty( content, field ) %}
 {% apply spaceless %}
     {% set type = fieldSettings.mediaType %}
     {% set value = field.value %}
-    {% set route_reference = ez_route( 'ez_content_download', {
+    {% set route_reference = ibexa_route( 'ez_content_download', {
         'content': content,
         'fieldIdentifier': field.fieldDefIdentifier,
         'version': versionInfo.versionNo
     } ) %}
-    {% set download = ez_path( route_reference ) %}
+    {% set download = ibexa_path( route_reference ) %}
     {% set width = value.width > 0 ? 'width="' ~ value.width ~ '"' : "" %}
     {% set height = value.height > 0 ? 'height="' ~ value.height ~ '"' : "" %}
     <div {{ block( 'field_attributes' ) }}>
@@ -277,7 +277,7 @@
 
 {% block ezobjectrelationlist_field %}
 {% apply spaceless %}
-    {% if not ez_field_is_empty( content, field ) %}
+    {% if not ibexa_field_is_empty( content, field ) %}
     <ul {{ block( 'field_attributes' ) }}>
         {% for contentId in field.value.destinationContentIds %}
             {% if parameters.available[contentId] %}
@@ -431,9 +431,9 @@
  #}
 {% block ezimage_field %}
 {% apply spaceless %}
-{% if not ez_field_is_empty( content, field ) %}
+{% if not ibexa_field_is_empty( content, field ) %}
 <figure {{ block( 'field_attributes' ) }}>
-    {% set imageAlias = ez_image_alias( field, versionInfo, parameters.alias|default( 'original' ) ) %}
+    {% set imageAlias = ibexa_image_alias( field, versionInfo, parameters.alias|default( 'original' ) ) %}
     {% set src = imageAlias ? asset( imageAlias.uri ) : "//:0" %}
     {% set attrs = {
         class: parameters.class|default(''),
@@ -458,7 +458,7 @@
 
 {% block ezimageasset_field %}
     {% apply spaceless %}
-        {% if not ez_field_is_empty(content, field) and parameters.available %}
+        {% if not ibexa_field_is_empty(content, field) and parameters.available %}
             <div {{ block('field_attributes') }}>
                 {{ render(controller('ez_content:embedAction', {
                     contentId: field.value.destinationContentId,
@@ -475,7 +475,7 @@
 
 {% block ezobjectrelation_field %}
 {% apply spaceless %}
-{% if not ez_field_is_empty( content, field ) and parameters.available %}
+{% if not ibexa_field_is_empty( content, field ) and parameters.available %}
     <div {{ block( 'field_attributes' ) }}>
         {{ render( controller( "ez_content:viewAction", {'contentId': field.value.destinationContentId, 'viewType': 'text_linked', 'layout': false} ) ) }}
     </div>

@@ -1,9 +1,7 @@
 --TEST--
-"ez_data_attributes_serialize" filter
---DEPRECATION--
-Twig Filter "ez_data_attributes_serialize" is deprecated since version 4.0. Use "ibexa_data_attributes_serialize" instead in index.twig at line 2.
+"ibexa_data_attributes_serialize" filter
 --TEMPLATE--
-<a href="/article" {{ data_attributes|ez_data_attributes_serialize }}>Article</a>
+<a href="/article" {{ data_attributes|ibexa_data_attributes_serialize }}>Article</a>
 --DATA--
 return [
     'data_attributes' => [

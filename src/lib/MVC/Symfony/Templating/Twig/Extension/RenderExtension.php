@@ -42,6 +42,15 @@ final class RenderExtension extends AbstractExtension
             new TwigFunction(
                 'ez_render',
                 [$this, 'render'],
+                [
+                    'is_safe' => ['html'],
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_render',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_render',
+                [$this, 'render'],
                 ['is_safe' => ['html']]
             ),
         ];
