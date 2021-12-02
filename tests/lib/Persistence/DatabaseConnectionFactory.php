@@ -37,7 +37,7 @@ class DatabaseConnectionFactory
     private static $connectionPool;
 
     /**
-     * @param \EzSystems\DoctrineSchema\Database\DbPlatform\DbPlatform[] $databasePlatforms
+     * @param \Ibexa\DoctrineSchema\Database\DbPlatform\DbPlatformInterface[] $databasePlatforms
      * @param \Doctrine\Common\EventManager $eventManager
      */
     public function __construct(iterable $databasePlatforms, EventManager $eventManager)

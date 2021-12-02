@@ -12,7 +12,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Schema\Schema;
-use EzSystems\DoctrineSchema\API\Builder\SchemaBuilder;
+use Ibexa\Contracts\DoctrineSchema\Builder\SchemaBuilderInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 /**
@@ -20,14 +20,14 @@ use Symfony\Component\Console\Helper\ProgressBar;
  */
 class CoreInstaller extends DbBasedInstaller implements Installer
 {
-    /** @var \EzSystems\DoctrineSchema\API\Builder\SchemaBuilder */
+    /** @var \Ibexa\Contracts\DoctrineSchema\Builder\SchemaBuilderInterface */
     protected $schemaBuilder;
 
     /**
      * @param \Doctrine\DBAL\Connection $db
-     * @param \EzSystems\DoctrineSchema\API\Builder\SchemaBuilder $schemaBuilder
+     * @param \Ibexa\Contracts\DoctrineSchema\Builder\SchemaBuilderInterface $schemaBuilder
      */
-    public function __construct(Connection $db, SchemaBuilder $schemaBuilder)
+    public function __construct(Connection $db, SchemaBuilderInterface $schemaBuilder)
     {
         parent::__construct($db);
 
@@ -39,7 +39,7 @@ class CoreInstaller extends DbBasedInstaller implements Installer
      *
      * If you wish to extend schema, implement your own EventSubscriber
      *
-     * @see \EzSystems\DoctrineSchema\API\Event\SchemaBuilderEvent
+     * @see \Ibexa\Contracts\DoctrineSchema\Event\SchemaBuilderEvent
      * @see \Ibexa\Bundle\RepositoryInstaller\Event\Subscriber\BuildSchemaSubscriber
      *
      * @throws \Doctrine\DBAL\DBALException

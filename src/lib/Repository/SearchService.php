@@ -107,7 +107,7 @@ class SearchService implements SearchServiceInterface
     /**
      * Finds contentInfo objects for the given query.
      *
-     * @see SearchServiceInterface::findContentInfo()
+     * @see \Ibexa\Contracts\Core\Repository\SearchService::findContentInfo()
      * @since 5.4.5
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException if query is not valid

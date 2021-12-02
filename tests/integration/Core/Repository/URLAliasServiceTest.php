@@ -1199,7 +1199,6 @@ class URLAliasServiceTest extends BaseTest
         list($topFolderLocation, $nestedFolderLocation) = $this->testLookupOnMultilingualNestedLocations();
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $topFolderLocation */
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $nestedFolderLocation */
-
         // Default URL Alias schema is <short_name|name> which messes up this test, so:
         $this->changeContentTypeUrlAliasSchema('folder', '<name>');
 

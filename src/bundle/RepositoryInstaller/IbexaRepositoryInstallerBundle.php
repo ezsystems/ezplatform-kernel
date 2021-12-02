@@ -6,7 +6,7 @@
  */
 namespace Ibexa\Bundle\RepositoryInstaller;
 
-use EzSystems\DoctrineSchemaBundle\DoctrineSchemaBundle;
+use Ibexa\Bundle\DoctrineSchema\DoctrineSchemaBundle;
 use Ibexa\Bundle\RepositoryInstaller\DependencyInjection\Compiler\InstallerTagPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\RuntimeException;

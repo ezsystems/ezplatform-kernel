@@ -15,7 +15,7 @@ abstract class AbstractParser implements ParserInterface
      * You may here use $contextualizer->mapConfigArray().
      *
      * @see ConfigurationProcessor::mapConfig()
-     * @see ContextualizerInterface::mapConfigArray()
+     * @see \Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface::mapConfigArray()
      *
      * @param array $config Complete parsed semantic configuration
      * @param \Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface $contextualizer
@@ -31,7 +31,7 @@ abstract class AbstractParser implements ParserInterface
      * You may here use $contextualizer->mapConfigArray().
      *
      * @see ConfigurationProcessor::mapConfig()
-     * @see ContextualizerInterface::mapConfigArray()
+     * @see \Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface::mapConfigArray()
      *
      * @param array $config Complete parsed semantic configuration
      * @param \Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface $contextualizer

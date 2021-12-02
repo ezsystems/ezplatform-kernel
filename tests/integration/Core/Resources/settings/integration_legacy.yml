@@ -22,7 +22,7 @@ services:
 
     # repeat part of DIC setup to avoid loading DoctrineSchemaBundle
     _instanceof:
-        EzSystems\DoctrineSchema\Database\DbPlatform\DbPlatform:
+        Ibexa\DoctrineSchema\Database\DbPlatform\DbPlatformInterface:
             tags: ['doctrine.dbplatform']
 
     Symfony\Component\EventDispatcher\EventDispatcher:
@@ -36,7 +36,7 @@ services:
 
     Doctrine\Common\EventManager: ~
 
-    EzSystems\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform:
+    Ibexa\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform:
         autowire: true
 
     Ibexa\Tests\Core\Persistence\DatabaseConnectionFactory:

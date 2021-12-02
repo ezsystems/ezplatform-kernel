@@ -530,7 +530,7 @@ abstract class BaseTest extends TestCase
         $searchHandlerProperty = new \ReflectionProperty($repository, 'searchHandler');
         $searchHandlerProperty->setAccessible(true);
 
-        /** @var \EzSystems\EzPlatformSolrSearchEngine\Handler $searchHandler */
+        /** @var \Ibexa\Solr\Handler $searchHandler */
         $searchHandler = $searchHandlerProperty->getValue($repository);
 
         $searchHandler->commit();

@@ -92,10 +92,10 @@ final class QueryBuilder
     /**
      * Create a select query to load Content Info data.
      *
-     * @see Gateway::loadContentInfo()
-     * @see Gateway::loadContentInfoList()
-     * @see Gateway::loadContentInfoByRemoteId()
-     * @see Gateway::loadContentInfoByLocationId()
+     * @see \Ibexa\Core\Persistence\Legacy\Content\Gateway::loadContentInfo()
+     * @see \Ibexa\Core\Persistence\Legacy\Content\Gateway::loadContentInfoList()
+     * @see \Ibexa\Core\Persistence\Legacy\Content\Gateway::loadContentInfoByRemoteId()
+     * @see \Ibexa\Core\Persistence\Legacy\Content\Gateway::loadContentInfoByLocationId()
      */
     public function createLoadContentInfoQueryBuilder(
         bool $joinMainLocation = true

@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\RepositoryInstaller\Event\Subscriber;
 
-use EzSystems\DoctrineSchema\API\Event\SchemaBuilderEvent;
-use EzSystems\DoctrineSchema\API\Event\SchemaBuilderEvents;
+use Ibexa\Contracts\DoctrineSchema\Event\SchemaBuilderEvent;
+use Ibexa\Contracts\DoctrineSchema\SchemaBuilderEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class BuildSchemaSubscriber implements EventSubscriberInterface
@@ -38,7 +38,7 @@ class BuildSchemaSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param \EzSystems\DoctrineSchema\API\Event\SchemaBuilderEvent $event
+     * @param \Ibexa\Contracts\DoctrineSchema\Event\SchemaBuilderEvent $event
      */
     public function onBuildSchema(SchemaBuilderEvent $event): void
     {

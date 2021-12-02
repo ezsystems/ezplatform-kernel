@@ -12,8 +12,8 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Schema\Schema as DoctrineSchema;
-use EzSystems\DoctrineSchema\API\Exception\InvalidConfigurationException;
-use EzSystems\DoctrineSchema\Importer\SchemaImporter;
+use Ibexa\Contracts\DoctrineSchema\Exception\InvalidConfigurationException;
+use Ibexa\DoctrineSchema\Importer\SchemaImporter;
 use RuntimeException;
 
 /**

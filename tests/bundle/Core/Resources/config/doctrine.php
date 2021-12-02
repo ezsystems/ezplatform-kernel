@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use EzSystems\DoctrineSchema\Database\DbPlatform\PostgreSqlDbPlatform;
-use EzSystems\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform;
+use Ibexa\DoctrineSchema\Database\DbPlatform\PostgreSqlDbPlatform;
+use Ibexa\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform;
 use RuntimeException;
 
 return static function (ContainerConfigurator $container): void {

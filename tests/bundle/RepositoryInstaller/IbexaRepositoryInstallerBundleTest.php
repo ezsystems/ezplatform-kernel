@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Bundle\RepositoryInstaller;
 
-use EzSystems\DoctrineSchemaBundle\DependencyInjection\DoctrineSchemaExtension;
+use Ibexa\Bundle\DoctrineSchema\DependencyInjection\DoctrineSchemaExtension;
 use Ibexa\Bundle\RepositoryInstaller\DependencyInjection\Compiler\InstallerTagPass;
 use Ibexa\Bundle\RepositoryInstaller\IbexaRepositoryInstallerBundle;
 use PHPUnit\Framework\TestCase;

@@ -11,7 +11,7 @@
          failOnWarning="true"
          >
     <php>
-        <env name="setupFactory" value="EzSystems\EzPlatformSolrSearchEngine\Tests\SetupFactory\LegacySetupFactory" />
+        <env name="setupFactory" value="Ibexa\Solr\LegacySetupFactory" />
         <env name="backendVersion" value="5" />
         <env name="fixtureDir" value="Solr" />
         <env name="solrServer" value="http://localhost:8983/" />
