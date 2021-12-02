@@ -32,7 +32,7 @@ class UserEventSubscriber extends AbstractSearchEventSubscriber implements Event
             UpdateUserGroupEvent::class => 'onUpdateUserGroup',
             AssignUserToUserGroupEvent::class => 'onAssignUserToUserGroup',
             UnAssignUserFromUserGroupEvent::class => 'onUnAssignUserFromUserGroup',
-            BeforeUnAssignUserFromUserGroupEvent::class => 'onBeforeUnAssignUserFromUserGroup'
+            BeforeUnAssignUserFromUserGroupEvent::class => 'onBeforeUnAssignUserFromUserGroup',
         ];
     }
 
