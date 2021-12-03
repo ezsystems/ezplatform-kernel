@@ -161,6 +161,13 @@ class UserEventSubscriber extends AbstractSearchEventSubscriber implements Event
             $userContentInfo->id
         );
 
+        $this->searchHandler->indexContent(
+            $this->persistenceHandler->contentHandler()->load(
+                $userContentInfo->id,
+                $userContentInfo->currentVersionNo
+            )
+        );
+
         foreach ($locations as $location) {
             $this->searchHandler->indexLocation($location);
         }
