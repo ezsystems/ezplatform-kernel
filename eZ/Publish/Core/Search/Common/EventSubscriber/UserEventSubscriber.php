@@ -16,6 +16,7 @@ use eZ\Publish\API\Repository\Events\User\MoveUserGroupEvent;
 use eZ\Publish\API\Repository\Events\User\UnAssignUserFromUserGroupEvent;
 use eZ\Publish\API\Repository\Events\User\UpdateUserEvent;
 use eZ\Publish\API\Repository\Events\User\UpdateUserGroupEvent;
+use eZ\Publish\SPI\Repository\Event\AfterEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class UserEventSubscriber extends AbstractSearchEventSubscriber implements EventSubscriberInterface
@@ -153,6 +154,31 @@ class UserEventSubscriber extends AbstractSearchEventSubscriber implements Event
 
     public function onAssignUserToUserGroup(AssignUserToUserGroupEvent $event): void
     {
+        $this->indexUserContentWithLocation($event);
+    }
+
+    public function onUnAssignUserFromUserGroup(UnAssignUserFromUserGroupEvent $event): void
+    {
+        $this->indexUserContentWithLocation($event);
+    }
+
+    public function onBeforeUnAssignUserFromUserGroup(BeforeUnAssignUserFromUserGroupEvent $event): void
+    {
+        $userContentInfo = $this->persistenceHandler->contentHandler()->loadContentInfo(
+            $event->getUser()->id
+        );
+
+        $locations = $this->persistenceHandler->locationHandler()->loadLocationsByContent(
+            $userContentInfo->id
+        );
+
+        foreach ($locations as $location) {
+            $this->searchHandler->deleteLocation($location->id, $userContentInfo->id);
+        }
+    }
+
+    private function indexUserContentWithLocation(AfterEvent $event): void
+    {
         $userContentInfo = $this->persistenceHandler->contentHandler()->loadContentInfo(
             $event->getUser()->id
         );
@@ -170,36 +196,6 @@ class UserEventSubscriber extends AbstractSearchEventSubscriber implements Event
 
         foreach ($locations as $location) {
             $this->searchHandler->indexLocation($location);
-        }
-    }
-
-    public function onUnAssignUserFromUserGroup(UnAssignUserFromUserGroupEvent $event): void
-    {
-        $userContentInfo = $this->persistenceHandler->contentHandler()->loadContentInfo(
-            $event->getUser()->id
-        );
-
-        $locations = $this->persistenceHandler->locationHandler()->loadLocationsByContent(
-            $userContentInfo->id
-        );
-
-        foreach ($locations as $location) {
-            $this->searchHandler->indexLocation($location);
-        }
-    }
-
-    public function onBeforeUnAssignUserFromUserGroup(BeforeUnAssignUserFromUserGroupEvent $event): void
-    {
-        $userContentInfo = $this->persistenceHandler->contentHandler()->loadContentInfo(
-            $event->getUser()->id
-        );
-
-        $locations = $this->persistenceHandler->locationHandler()->loadLocationsByContent(
-            $userContentInfo->id
-        );
-
-        foreach ($locations as $location) {
-            $this->searchHandler->deleteLocation($location->id, $userContentInfo->id);
         }
     }
 }
