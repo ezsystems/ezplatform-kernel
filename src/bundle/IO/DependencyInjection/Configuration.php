@@ -31,7 +31,7 @@ class Configuration implements ConfigurationInterface
 
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder('ez_io');
+        $treeBuilder = new TreeBuilder(IbexaIOExtension::EXTENSION_NAME);
 
         $rootNode = $treeBuilder->getRootNode();
 

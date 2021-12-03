@@ -15,7 +15,7 @@ class IbexaLegacySearchEngineExtension extends Extension
 {
     public function getAlias()
     {
-        return 'ez_search_engine_legacy';
+        return 'ibexa_legacy_search_engine';
     }
 
     public function load(array $configs, ContainerBuilder $container)

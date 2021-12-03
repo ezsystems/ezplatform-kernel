@@ -20,6 +20,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 class IbexaIOExtension extends Extension
 {
+    public const EXTENSION_NAME = 'ibexa_io';
+
     /** @var \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|\ArrayObject */
     private $metadataHandlerFactories;
 
@@ -72,7 +74,7 @@ class IbexaIOExtension extends Extension
 
     public function getAlias()
     {
-        return 'ez_io';
+        return self::EXTENSION_NAME;
     }
 
     /**
