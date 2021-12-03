@@ -90,6 +90,7 @@
             "Ibexa\\Core\\": "src/lib",
             "Ibexa\\Tests\\Core\\": "tests/lib",
             "Ibexa\\Tests\\Integration\\Core\\": "tests/integration/Core",
+            "Ibexa\\Tests\\Bundle\\Core\\": "tests/bundle/Core",
             "eZ\\Publish\\API\\Repository\\Tests\\": "src/contracts/Test/Repository",
             "eZ\\Publish\\SPI\\Tests\\": "src/contracts/Test",
             "eZ\\Publish\\API\\": "src/contracts",
