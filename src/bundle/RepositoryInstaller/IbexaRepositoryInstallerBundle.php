@@ -19,7 +19,7 @@ class IbexaRepositoryInstallerBundle extends Bundle
      */
     public function build(ContainerBuilder $container)
     {
-        if (!$container->hasExtension('ez_doctrine_schema')) {
+        if (!$container->hasExtension('ibexa_doctrine_schema')) {
             throw new RuntimeException(
                 sprintf(
                     'Ibexa Installer requires Doctrine Schema Bundle (enable %s)',
