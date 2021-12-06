@@ -1,0 +1,98 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ibexa\Core\Event\Repository:
+        arguments:
+            $repository: '@ezpublish.api.inner_repository'
+            $bookmarkService: '@Ibexa\Core\Event\BookmarkService'
+            $contentService: '@Ibexa\Core\Event\ContentService'
+            $contentTypeService: '@Ibexa\Core\Event\ContentTypeService'
+            $fieldTypeService: '@Ibexa\Core\Event\FieldTypeService'
+            $languageService: '@Ibexa\Core\Event\LanguageService'
+            $locationService: '@Ibexa\Core\Event\LocationService'
+            $notificationService: '@Ibexa\Core\Event\NotificationService'
+            $objectStateService: '@Ibexa\Core\Event\ObjectStateService'
+            $roleService: '@Ibexa\Core\Event\RoleService'
+            $searchService: '@Ibexa\Core\Event\SearchService'
+            $sectionService: '@Ibexa\Core\Event\SectionService'
+            $trashService: '@Ibexa\Core\Event\TrashService'
+            $urlAliasService: '@Ibexa\Core\Event\URLAliasService'
+            $urlService: '@Ibexa\Core\Event\URLService'
+            $urlWildcardService: '@Ibexa\Core\Event\URLWildcardService'
+            $userPreferenceService: '@Ibexa\Core\Event\UserPreferenceService'
+            $userService: '@Ibexa\Core\Event\UserService'
+
+    Ibexa\Core\Event\BookmarkService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_bookmark'
+
+    Ibexa\Core\Event\ContentService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_content'
+
+    Ibexa\Core\Event\ContentTypeService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_content_type'
+
+    Ibexa\Core\Event\FieldTypeService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_field_type'
+
+    Ibexa\Core\Event\LanguageService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_language'
+
+    Ibexa\Core\Event\LocationService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_location'
+
+    Ibexa\Core\Event\NotificationService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_notification'
+
+    Ibexa\Core\Event\ObjectStateService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_object_state'
+
+    Ibexa\Core\Event\RoleService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_role'
+
+    Ibexa\Core\Event\SearchService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_search'
+
+    Ibexa\Core\Event\SectionService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_section'
+
+    Ibexa\Core\Event\TrashService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_trash'
+
+    Ibexa\Core\Event\URLAliasService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_url_alias'
+
+    Ibexa\Core\Event\URLService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_url'
+
+    Ibexa\Core\Event\URLWildcardService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_url_wildcard'
+
+    Ibexa\Core\Event\UserPreferenceService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_user_preference'
+
+    Ibexa\Core\Event\UserService:
+        arguments:
+            $innerService: '@ezpublish.api.service.inner_user'
+
+    Ibexa\Core\Event\SettingService:
+        arguments:
+            $innerService: '@Ibexa\Core\Repository\SettingService'

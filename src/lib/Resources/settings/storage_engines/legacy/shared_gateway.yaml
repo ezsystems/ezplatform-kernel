@@ -1,0 +1,21 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $connection: '@ezpublish.persistence.connection'
+
+    Ibexa\Core\Persistence\Legacy\SharedGateway\DatabasePlatform\FallbackGateway: ~
+
+    Ibexa\Core\Persistence\Legacy\SharedGateway\DatabasePlatform\SqliteGateway:
+        tags:
+            - { name: ezplatform.persistence.legacy.gateway.shared, platform: sqlite }
+
+    Ibexa\Core\Persistence\Legacy\SharedGateway\GatewayFactory:
+        arguments:
+            $fallbackGateway: '@Ibexa\Core\Persistence\Legacy\SharedGateway\DatabasePlatform\FallbackGateway'
+            $gateways: !tagged_iterator { tag: ezplatform.persistence.legacy.gateway.shared, index_by: platform }
+
+    Ibexa\Core\Persistence\Legacy\SharedGateway\Gateway:
+        factory: ['@Ibexa\Core\Persistence\Legacy\SharedGateway\GatewayFactory', 'buildSharedGateway']

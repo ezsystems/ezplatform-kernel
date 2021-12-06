@@ -1,0 +1,7 @@
+{% set content_name=ibexa_content_name(content) %}
+
+{% if location is defined %}
+    <a href="{{ ibexa_path(location) }}">{{ content_name }}</a>
+{% else %}
+    <p>{{ content_name }}</p>
+{% endif %}

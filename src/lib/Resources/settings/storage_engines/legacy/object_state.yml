@@ -1,0 +1,27 @@
+services:
+    ezpublish.persistence.legacy.object_state.gateway.inner:
+        class: Ibexa\Core\Persistence\Legacy\Content\ObjectState\Gateway\DoctrineDatabase
+        arguments:
+            - "@ezpublish.api.storage_engine.legacy.connection"
+            - "@ezpublish.persistence.legacy.language.mask_generator"
+
+    ezpublish.persistence.legacy.object_state.gateway.exception_conversion:
+        class: Ibexa\Core\Persistence\Legacy\Content\ObjectState\Gateway\ExceptionConversion
+        arguments:
+            - "@ezpublish.persistence.legacy.object_state.gateway.inner"
+
+    # To disable exception conversion layer override this alias so that it points to inner gateway
+    ezpublish.persistence.legacy.object_state.gateway:
+        alias: ezpublish.persistence.legacy.object_state.gateway.exception_conversion
+
+    ezpublish.persistence.legacy.object_state.mapper:
+        class: Ibexa\Core\Persistence\Legacy\Content\ObjectState\Mapper
+        arguments:
+            - "@ezpublish.spi.persistence.legacy.language.handler"
+
+    ezpublish.spi.persistence.legacy.object_state.handler:
+        class: Ibexa\Core\Persistence\Legacy\Content\ObjectState\Handler
+        arguments:
+            - "@ezpublish.persistence.legacy.object_state.gateway"
+            - "@ezpublish.persistence.legacy.object_state.mapper"
+        lazy: true

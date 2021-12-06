@@ -1,0 +1,49 @@
+--TEST--
+"ibexa_field_name" function
+--TEMPLATE--
+{{ ibexa_field_name( content, 'testfield' ) }}
+{{ ibexa_field_name( content, 'testfield', "eng-GB" ) }}
+
+--DATA--
+return array(
+    'content' => $this->getContent(
+        'article',
+        array(
+            'ezstring' => array(
+                'id' => 5,
+                'fieldDefIdentifier' => 'testfield',
+                'value' => 'foo2',
+                'languageCode' => 'fre-FR',
+                'fieldDefNames' => array(
+                    'eng-US' => 'American name',
+                    'fre-FR' => 'French name',
+                )
+            )
+        )
+    )
+)
+--EXPECT--
+French name
+French name
+
+--DATA--
+return array(
+    'content' => $this->getContent(
+        'article',
+        array(
+            'ezstring' => array(
+                'id' => 5,
+                'fieldDefIdentifier' => 'testfield',
+                'value' => 'foo2',
+                'languageCode' => 'fre-FR',
+                'fieldDefNames' => array(
+                  'eng-GB' => 'British name',
+                  'eng-US' => 'American name',
+                )
+            )
+        )
+    )
+)
+--EXPECT--
+American name
+British name

@@ -1,0 +1,36 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ibexa\Core\QueryType\BuiltIn\AncestorsQueryType:
+        tags:
+            - { name: ezplatform.query_type, alias: 'Ancestors' }
+
+    Ibexa\Core\QueryType\BuiltIn\ChildrenQueryType:
+        tags:
+            - { name: ezplatform.query_type, alias: 'Children' }
+
+    Ibexa\Core\QueryType\BuiltIn\SiblingsQueryType:
+        tags:
+            - { name: ezplatform.query_type, alias: 'Siblings' }
+
+    Ibexa\Core\QueryType\BuiltIn\RelatedToContentQueryType:
+        tags:
+            - { name: ezplatform.query_type, alias: 'RelatedTo' }
+
+    Ibexa\Core\QueryType\BuiltIn\GeoLocationQueryType:
+        tags:
+            - { name: ezplatform.query_type, alias: 'GeoLocation' }
+
+    Ibexa\Core\QueryType\BuiltIn\SubtreeQueryType:
+        tags:
+            - { name: ezplatform.query_type, alias: 'Subtree' }
+
+    Ibexa\Core\QueryType\BuiltIn\SortClausesFactory:
+        arguments:
+            $sortClauseArgsParser: '@Ibexa\Core\QueryType\BuiltIn\SortSpec\SortClauseParserDispatcher'
+
+    Ibexa\Core\QueryType\BuiltIn\SortClausesFactoryInterface:
+        alias: 'Ibexa\Core\QueryType\BuiltIn\SortClausesFactory'

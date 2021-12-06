@@ -1,0 +1,58 @@
+parameters:
+    languages:
+        - eng-US
+        - eng-GB
+    ignored_storage_files:
+        -
+            var/ezdemo_site/storage/images/design/plain-site/172-2-eng-US/eZ-Publish-Demo-Design-without-demo-content1.png
+    # Image Asset mappings
+    ezsettings.default.fieldtypes.ezimageasset.mappings:
+        content_type_identifier: image
+        content_field_identifier: image
+        name_field_identifier: name
+        parent_location_id: 51
+
+services:
+    Ibexa\Core\FieldType\ImageAsset\AssetMapper:
+        arguments:
+            $contentService: '@ezpublish.api.service.content'
+            $locationService: '@ezpublish.api.service.location'
+            $contentTypeService: '@ezpublish.api.service.content_type'
+            $configResolver: '@ezpublish.config.resolver'
+
+    # repeat part of DIC setup to avoid loading DoctrineSchemaBundle
+    _instanceof:
+        Ibexa\DoctrineSchema\Database\DbPlatform\DbPlatformInterface:
+            tags: ['doctrine.dbplatform']
+
+    Symfony\Component\EventDispatcher\EventDispatcher:
+        calls:
+            - ['addSubscriber', ['@Ibexa\Core\Search\Common\EventSubscriber\ContentEventSubscriber']]
+            - ['addSubscriber', ['@Ibexa\Core\Search\Common\EventSubscriber\LocationEventSubscriber']]
+            - ['addSubscriber', ['@Ibexa\Core\Search\Common\EventSubscriber\ObjectStateEventSubscriber']]
+            - ['addSubscriber', ['@Ibexa\Core\Search\Common\EventSubscriber\SectionEventSubscriber']]
+            - ['addSubscriber', ['@Ibexa\Core\Search\Common\EventSubscriber\TrashEventSubscriber']]
+            - ['addSubscriber', ['@Ibexa\Core\Search\Common\EventSubscriber\UserEventSubscriber']]
+
+    Doctrine\Common\EventManager: ~
+
+    Ibexa\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform:
+        autowire: true
+
+    Ibexa\Tests\Core\Persistence\DatabaseConnectionFactory:
+        autowire: true
+        arguments:
+            $databasePlatforms: !tagged 'doctrine.dbplatform'
+
+    # build ezpublish.api.storage_engine.legacy.connection for test purposes
+    ezpublish.api.storage_engine.legacy.connection:
+        class: Doctrine\DBAL\Connection
+        factory: ['@Ibexa\Tests\Core\Persistence\DatabaseConnectionFactory', 'createConnection']
+        arguments:
+            $databaseURL: '%legacy_dsn%'
+
+    Ibexa\Contracts\Core\Repository\SettingService:
+        public: true
+        alias: Ibexa\Core\Event\SettingService
+
+    ezpublish.image_alias.imagine.cache.alias_generator_decorator: '@Ibexa\Tests\Integration\Core\Persistence\Variation\InMemoryVariationHandler'

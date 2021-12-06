@@ -14,86 +14,23 @@
     <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
   </php>
   <testsuites>
-    <testsuite name="eZ\Publish\Core\Base">
-      <directory>eZ/Publish/Core/Base/Tests</directory>
+    <testsuite name="unit_core">
+      <directory>tests/lib</directory>
     </testsuite>
-    <testsuite name="eZ\Publish\Core\Repository">
-      <directory>eZ/Publish/Core/Repository/Tests</directory>
+    <testsuite name="bundle_core">
+      <directory>tests/bundle/Core</directory>
     </testsuite>
-    <testsuite name="eZ\Publish\Core\FieldType">
-      <directory>eZ/Publish/Core/FieldType/Tests</directory>
-      <exclude>eZ/Publish/Core/FieldType/Tests/Integration</exclude>
+    <testsuite name="bundle_debug">
+      <directory>tests/bundle/Debug</directory>
     </testsuite>
-    <testsuite name="eZ\Publish\Core\Limitation">
-      <directory>eZ/Publish/Core/Limitation/Tests</directory>
+    <testsuite name="bundle_installer">
+      <directory>tests/bundle/Installer</directory>
     </testsuite>
-    <testsuite name="eZ\Publish\Core\Persistence">
-      <directory>eZ/Publish/Core/Persistence/Tests</directory>
+    <testsuite name="bundle_io">
+      <directory>tests/bundle/IO</directory>
     </testsuite>
-    <testsuite name="eZ\Publish\Core\Persistence\Cache">
-      <directory>eZ/Publish/Core/Persistence/Cache/Tests</directory>
-    </testsuite>
-    <testsuite name="eZ\Publish\Core\Persistence\Legacy">
-      <directory>eZ/Publish/Core/Persistence/Legacy/Tests</directory>
-    </testsuite>
-    <testsuite name="eZ\Publish\Core\QueryType\BuiltIn">
-      <directory>eZ/Publish/Core/QueryType/BuiltIn/Tests</directory>
-    </testsuite>
-    <testsuite name="eZ\Publish\Core\QueryType\BuiltIn\SortSpec">
-      <directory>eZ/Publish/Core/QueryType/BuiltIn/SortSpec/Tests</directory>
-    </testsuite>
-    <testsuite name="eZ\Publish\Core\Search\Legacy">
-      <directory>eZ/Publish/Core/Search/Legacy/Tests</directory>
-    </testsuite>
-    <testsuite name="eZ\Publish\Core\Search">
-      <directory>eZ/Publish/Core/Search/Tests</directory>
-    </testsuite>
-    <testsuite name="eZ\Publish\Core\IO">
-      <directory>eZ/Publish/Core/IO/Tests</directory>
-    </testsuite>
-    <testsuite name="eZ Publish HMVC test suite">
-      <directory>eZ/Publish/Core/MVC/Symfony</directory>
-      <directory>eZ/Bundle</directory>
-    </testsuite>
-    <testsuite name="eZ Publish SPI test suite">
-        <directory>eZ/Publish/SPI</directory>
-    </testsuite>
-    <testsuite name="eZ Publish Event Repository test suite">
-        <directory>eZ/Publish/Core/Event</directory>
-    </testsuite>
-    <testsuite name="eZ\Publish\Core\Repository\SiteAccessAware">
-        <directory>eZ/Publish/Core/Repository/SiteAccessAware</directory>
-    </testsuite>
-    <testsuite name="eZ\Publish\Core\Pagination">
-        <directory>eZ/Publish/Core/Pagination</directory>
-    </testsuite>
-    <testsuite name="eZ\Publish\Core\Helper">
-        <directory>eZ/Publish/Core/Helper</directory>
-    </testsuite>
-    <testsuite name="eZ\Publish\API\Repository\Values\Content">
-      <directory>eZ/Publish/API/Repository/Tests/Values</directory>
-    </testsuite>
-    <testsuite name="eZ\Publish\API\Repository\Iterator">
-      <directory>eZ/Publish/API/Repository/Tests/Iterator</directory>
+    <testsuite name="bundle_lse">
+      <directory>tests/bundle/LegacySearchEngineBundle</directory>
     </testsuite>
   </testsuites>
-  <filter>
-    <whitelist>
-      <directory suffix=".php">eZ</directory>
-      <exclude>
-          <directory>eZ/Publish/*/Tests</directory>
-          <directory>eZ/Publish/*/*/Tests</directory>
-          <directory>eZ/Publish/*/*/*/Tests</directory>
-          <directory>eZ/Publish/*/*/*/*/Tests</directory>
-          <directory>eZ/Bundle/*/Tests</directory>
-          <directory>eZ/Bundle/*/_fixtures</directory>
-          <directory>eZ/Publish/Core/Persistence/Legacy/docs</directory>
-          <directory>doc</directory>
-          <directory>design</directory>
-          <directory>vendor</directory>
-          <directory>eZ/Publish/API/Repository/Examples</directory>
-          <directory>eZ/Publish/API/Repository/Tutorials</directory>
-      </exclude>
-    </whitelist>
-  </filter>
 </phpunit>

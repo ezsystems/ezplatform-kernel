@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\Core\FieldType\User\UserStorage\Gateway;
 
-use eZ\Publish\Core\FieldType\Tests\Integration\User\UserStorage\UserStorageGatewayTest;
-use eZ\Publish\Core\FieldType\User\UserStorage\Gateway as UserStorageGateway;
-use eZ\Publish\Core\FieldType\User\UserStorage\Gateway\DoctrineStorage;
+use Ibexa\Core\FieldType\User\UserStorage\Gateway as UserStorageGateway;
+use Ibexa\Core\FieldType\User\UserStorage\Gateway\DoctrineStorage;
+use Ibexa\Tests\Integration\Core\User\UserStorage\UserStorageGatewayTest;
 
 final class UserDoctrineStorageGatewayTest extends UserStorageGatewayTest
 {

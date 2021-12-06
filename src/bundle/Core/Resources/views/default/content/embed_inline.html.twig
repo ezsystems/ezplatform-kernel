@@ -1,0 +1,15 @@
+{%
+    set data_attributes_str = (data_attributes is defined)
+        ? ' ' ~ data_attributes|ibexa_data_attributes_serialize
+        : ''
+%}
+
+{% if objectParameters.doNotGenerateEmbedUrl is defined and objectParameters.doNotGenerateEmbedUrl %}
+    <span {% if class is defined %} class="{{ class }}"{% endif %}{{ data_attributes_str|raw }}>{{ content.name }}</span>
+{% else %}
+    {% if location is defined %}
+        <a href="{{ ibexa_path(location) }}"{% if class is defined %} class="{{ class }}"{% endif %}{{ data_attributes_str|raw }}>{{ content.name }}</a>
+    {% else %}
+        <a href="{{ ibexa_path(content) }}"{% if class is defined %} class="{{ class }}"{% endif %}{{ data_attributes_str|raw }}>{{ content.name }}</a>
+    {% endif %}
+{% endif %}

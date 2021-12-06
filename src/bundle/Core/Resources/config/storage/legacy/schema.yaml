@@ -1,0 +1,640 @@
+tables:
+    ezbinaryfile:
+        id:
+            contentobject_attribute_id: { type: integer, nullable: false, options: { default: '0' } }
+            version: { type: integer, nullable: false, options: { default: '0' } }
+        fields:
+            download_count: { type: integer, nullable: false, options: { default: '0' } }
+            filename: { type: string, nullable: false, length: 255, options: { default: '' } }
+            mime_type: { type: string, nullable: false, length: 255, options: { default: '' } }
+            original_filename: { type: string, nullable: false, length: 255, options: { default: '' } }
+    ezcobj_state:
+        indexes:
+            ezcobj_state_priority: { fields: [priority] }
+            ezcobj_state_lmask: { fields: [language_mask] }
+        uniqueConstraints:
+            ezcobj_state_identifier: { fields: [group_id, identifier] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            default_language_id: { type: bigint, nullable: false, options: { default: '0' } }
+            group_id: { type: integer, nullable: false, options: { default: '0' } }
+            identifier: { type: string, nullable: false, length: 45, options: { default: '' } }
+            language_mask: { type: bigint, nullable: false, options: { default: '0' } }
+            priority: { type: integer, nullable: false, options: { default: '0' } }
+    ezcobj_state_group:
+        indexes:
+            ezcobj_state_group_lmask: { fields: [language_mask] }
+        uniqueConstraints:
+            ezcobj_state_group_identifier: { fields: [identifier] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            default_language_id: { type: bigint, nullable: false, options: { default: '0' } }
+            identifier: { type: string, nullable: false, length: 45, options: { default: '' } }
+            language_mask: { type: bigint, nullable: false, options: { default: '0' } }
+    ezcobj_state_group_language:
+        id:
+            contentobject_state_group_id: { type: integer, nullable: false, options: { default: '0' } }
+            real_language_id: { type: bigint, nullable: false, options: { default: '0' } }
+        fields:
+            description: { type: text, nullable: false, length: 0 }
+            language_id: { type: bigint, nullable: false, options: { default: '0' } }
+            name: { type: string, nullable: false, length: 45, options: { default: '' } }
+    ezcobj_state_language:
+        id:
+            contentobject_state_id: { type: integer, nullable: false, options: { default: '0' } }
+            language_id: { type: bigint, nullable: false, options: { default: '0' } }
+        fields:
+            description: { type: text, nullable: false, length: 0 }
+            name: { type: string, nullable: false, length: 45, options: { default: '' } }
+    ezcobj_state_link:
+        id:
+            contentobject_id: { type: integer, nullable: false, options: { default: '0' } }
+            contentobject_state_id: { type: integer, nullable: false, options: { default: '0' } }
+    ezcontent_language:
+        indexes:
+            ezcontent_language_name: { fields: [name], options: { lengths: ['191'] } }
+        id:
+            id: { type: bigint, nullable: false, options: { default: '0' } }
+        fields:
+            disabled: { type: integer, nullable: false, options: { default: '0' } }
+            locale: { type: string, nullable: false, length: 20, options: { default: '' } }
+            name: { type: string, nullable: false, length: 255, options: { default: '' } }
+    ezuser:
+        uniqueConstraints:
+            ezuser_login: { fields: [login] }
+        id:
+            contentobject_id: { type: integer, nullable: false, options: { default: '0' } }
+        fields:
+            email: { type: string, nullable: false, length: 150, options: { default: '' } }
+            login: { type: string, nullable: false, length: 150, options: { default: '' } }
+            password_hash: { type: string, nullable: true, length: 255 }
+            password_hash_type: { type: integer, nullable: false, options: { default: '1' } }
+            password_updated_at: { type: integer, nullable: true }
+    ezcontentobject_tree:
+        indexes:
+            ezcontentobject_tree_p_node_id: { fields: [parent_node_id] }
+            ezcontentobject_tree_path_ident: { fields: [path_identification_string], options: { lengths: ['50'] } }
+            ezcontentobject_tree_contentobject_id_path_string: { fields: [path_string, contentobject_id], options: { lengths: ['191', null] } }
+            ezcontentobject_tree_co_id: { fields: [contentobject_id] }
+            ezcontentobject_tree_depth: { fields: [depth] }
+            ezcontentobject_tree_path: { fields: [path_string], options: { lengths: ['191'] } }
+            modified_subnode: { fields: [modified_subnode] }
+            ezcontentobject_tree_remote_id: { fields: [remote_id] }
+        id:
+            node_id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            contentobject_id: { type: integer, nullable: true }
+            contentobject_is_published: { type: integer, nullable: true }
+            contentobject_version: { type: integer, nullable: true }
+            depth: { type: integer, nullable: false, options: { default: '0' } }
+            is_hidden: { type: integer, nullable: false, options: { default: '0' } }
+            is_invisible: { type: integer, nullable: false, options: { default: '0' } }
+            main_node_id: { type: integer, nullable: true }
+            modified_subnode: { type: integer, nullable: true, options: { default: '0' } }
+            parent_node_id: { type: integer, nullable: false, options: { default: '0' } }
+            path_identification_string: { type: text, nullable: true, length: 0 }
+            path_string: { type: string, nullable: false, length: 255, options: { default: '' } }
+            priority: { type: integer, nullable: false, options: { default: '0' } }
+            remote_id: { type: string, nullable: false, length: 100, options: { default: '' } }
+            sort_field: { type: integer, nullable: true, options: { default: '1' } }
+            sort_order: { type: integer, nullable: true, options: { default: '1' } }
+    ezcontentbrowsebookmark:
+        indexes:
+            ezcontentbrowsebookmark_location: { fields: [node_id] }
+            ezcontentbrowsebookmark_user: { fields: [user_id] }
+            ezcontentbrowsebookmark_user_location: { fields: [user_id, node_id] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            node_id: { type: integer, nullable: false, options: { default: '0' } }
+            user_id: { type: integer, nullable: false, options: { default: '0' } }
+            name: { type: string, nullable: false, length: 255, options: { default: '' } }
+        foreignKeys:
+            ezcontentbrowsebookmark_location_fk: { fields: [node_id], foreignTable: ezcontentobject_tree, foreignFields: [node_id], options: { onDelete: CASCADE, onUpdate: 'NO ACTION' } }
+            ezcontentbrowsebookmark_user_fk: { fields: [user_id], foreignTable: ezuser, foreignFields: [contentobject_id], options: { onDelete: CASCADE, onUpdate: 'NO ACTION' } }
+    ezcontentclass:
+        indexes:
+            ezcontentclass_version: { fields: [version] }
+            ezcontentclass_identifier: { fields: [identifier, version] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+            version: { type: integer, nullable: false, options: { default: '0' } }
+        fields:
+            always_available: { type: integer, nullable: false, options: { default: '0' } }
+            contentobject_name: { type: string, nullable: true, length: 255 }
+            created: { type: integer, nullable: false, options: { default: '0' } }
+            creator_id: { type: integer, nullable: false, options: { default: '0' } }
+            identifier: { type: string, nullable: false, length: 50, options: { default: '' } }
+            initial_language_id: { type: bigint, nullable: false, options: { default: '0' } }
+            is_container: { type: integer, nullable: false, options: { default: '0' } }
+            language_mask: { type: bigint, nullable: false, options: { default: '0' } }
+            modified: { type: integer, nullable: false, options: { default: '0' } }
+            modifier_id: { type: integer, nullable: false, options: { default: '0' } }
+            remote_id: { type: string, nullable: false, length: 100, options: { default: '' } }
+            serialized_description_list: { type: text, nullable: true, length: 0 }
+            serialized_name_list: { type: text, nullable: true, length: 0 }
+            sort_field: { type: integer, nullable: false, options: { default: '1' } }
+            sort_order: { type: integer, nullable: false, options: { default: '1' } }
+            url_alias_name: { type: string, nullable: true, length: 255 }
+    ezcontentclass_attribute:
+        indexes:
+            ezcontentclass_attr_ccid: { fields: [contentclass_id] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+            version: { type: integer, nullable: false, options: { default: '0' } }
+        fields:
+            can_translate: { type: integer, nullable: true, options: { default: '1' } }
+            category: { type: string, nullable: false, length: 25, options: { default: '' } }
+            contentclass_id: { type: integer, nullable: false, options: { default: '0' } }
+            data_float1: { type: float, nullable: true, length: 0 }
+            data_float2: { type: float, nullable: true, length: 0 }
+            data_float3: { type: float, nullable: true, length: 0 }
+            data_float4: { type: float, nullable: true, length: 0 }
+            data_int1: { type: integer, nullable: true }
+            data_int2: { type: integer, nullable: true }
+            data_int3: { type: integer, nullable: true }
+            data_int4: { type: integer, nullable: true }
+            data_text1: { type: string, nullable: true, length: 255 }
+            data_text2: { type: string, nullable: true, length: 50 }
+            data_text3: { type: string, nullable: true, length: 50 }
+            data_text4: { type: string, nullable: true, length: 255 }
+            data_text5: { type: text, nullable: true, length: 0 }
+            data_type_string: { type: string, nullable: false, length: 50, options: { default: '' } }
+            identifier: { type: string, nullable: false, length: 50, options: { default: '' } }
+            is_information_collector: { type: integer, nullable: false, options: { default: '0' } }
+            is_required: { type: integer, nullable: false, options: { default: '0' } }
+            is_searchable: { type: integer, nullable: false, options: { default: '0' } }
+            is_thumbnail: { type: boolean, nullable: false, options: { default: '0' } }
+            placement: { type: integer, nullable: false, options: { default: '0' } }
+            serialized_data_text: { type: text, nullable: true, length: 0 }
+            serialized_description_list: { type: text, nullable: true, length: 0 }
+            serialized_name_list: { type: text, nullable: false, length: 0 }
+    ezcontentclass_attribute_ml:
+        indexes:
+            ezcontentclass_attribute_ml_lang_fk: { fields: [language_id] }
+        id:
+            contentclass_attribute_id: { type: integer, nullable: false }
+            version: { type: integer, nullable: false }
+            language_id: { type: bigint, nullable: false }
+        fields:
+            name: { type: string, nullable: false, length: 255 }
+            description: { type: text, nullable: true, length: 65535 }
+            data_text: { type: text, nullable: true, length: 65535 }
+            data_json: { type: text, nullable: true, length: 65535 }
+        foreignKeys:
+            ezcontentclass_attribute_ml_lang_fk: { fields: [language_id], foreignTable: ezcontent_language, foreignFields: [id], options: { onDelete: CASCADE, onUpdate: CASCADE } }
+    ezcontentclass_classgroup:
+        id:
+            contentclass_id: { type: integer, nullable: false, options: { default: '0' } }
+            contentclass_version: { type: integer, nullable: false, options: { default: '0' } }
+            group_id: { type: integer, nullable: false, options: { default: '0' } }
+        fields:
+            group_name: { type: string, nullable: true, length: 255 }
+    ezcontentclass_name:
+        id:
+            contentclass_id: { type: integer, nullable: false, options: { default: '0' } }
+            contentclass_version: { type: integer, nullable: false, options: { default: '0' } }
+            language_id: { type: bigint, nullable: false, options: { default: '0' } }
+        fields:
+            language_locale: { type: string, nullable: false, length: 20, options: { default: '' } }
+            name: { type: string, nullable: false, length: 255, options: { default: '' } }
+    ezcontentclassgroup:
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            created: { type: integer, nullable: false, options: { default: '0' } }
+            creator_id: { type: integer, nullable: false, options: { default: '0' } }
+            modified: { type: integer, nullable: false, options: { default: '0' } }
+            modifier_id: { type: integer, nullable: false, options: { default: '0' } }
+            name: { type: string, nullable: true, length: 255 }
+            is_system: { type: boolean, nullable: false, options: { default: '0' } }
+    ezcontentobject:
+        indexes:
+            ezcontentobject_classid: { fields: [contentclass_id] }
+            ezcontentobject_lmask: { fields: [language_mask] }
+            ezcontentobject_pub: { fields: [published] }
+            ezcontentobject_section: { fields: [section_id] }
+            ezcontentobject_currentversion: { fields: [current_version] }
+            ezcontentobject_owner: { fields: [owner_id] }
+            ezcontentobject_status: { fields: [status] }
+        uniqueConstraints:
+            ezcontentobject_remote_id: { fields: [remote_id] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            contentclass_id: { type: integer, nullable: false, options: { default: '0' } }
+            current_version: { type: integer, nullable: true }
+            initial_language_id: { type: bigint, nullable: false, options: { default: '0' } }
+            language_mask: { type: bigint, nullable: false, options: { default: '0' } }
+            modified: { type: integer, nullable: false, options: { default: '0' } }
+            name: { type: string, nullable: true, length: 255 }
+            owner_id: { type: integer, nullable: false, options: { default: '0' } }
+            published: { type: integer, nullable: false, options: { default: '0' } }
+            remote_id: { type: string, nullable: true, length: 100 }
+            section_id: { type: integer, nullable: false, options: { default: '0' } }
+            status: { type: integer, nullable: true, options: { default: '0' } }
+            is_hidden: { type: boolean, nullable: false, options: { default: '0' } }
+    ezcontentobject_attribute:
+        indexes:
+            ezcontentobject_attribute_co_id_ver_lang_code: { fields: [contentobject_id, version, language_code] }
+            ezcontentobject_classattr_id: { fields: [contentclassattribute_id] }
+            sort_key_string: { fields: [sort_key_string], options: { lengths: ['191'] } }
+            ezcontentobject_attribute_language_code: { fields: [language_code] }
+            sort_key_int: { fields: [sort_key_int] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+            version: { type: integer, nullable: false, options: { default: '0' } }
+        fields:
+            attribute_original_id: { type: integer, nullable: true, options: { default: '0' } }
+            contentclassattribute_id: { type: integer, nullable: false, options: { default: '0' } }
+            contentobject_id: { type: integer, nullable: false, options: { default: '0' } }
+            data_float: { type: float, nullable: true, length: 0 }
+            data_int: { type: integer, nullable: true }
+            data_text: { type: text, nullable: true, length: 0 }
+            data_type_string: { type: string, nullable: true, length: 50, options: { default: '' } }
+            language_code: { type: string, nullable: false, length: 20, options: { default: '' } }
+            language_id: { type: bigint, nullable: false, options: { default: '0' } }
+            sort_key_int: { type: integer, nullable: false, options: { default: '0' } }
+            sort_key_string: { type: string, nullable: false, length: 255, options: { default: '' } }
+    ezcontentobject_link:
+        indexes:
+            ezco_link_to_co_id: { fields: [to_contentobject_id] }
+            ezco_link_from: { fields: [from_contentobject_id, from_contentobject_version, contentclassattribute_id] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            contentclassattribute_id: { type: integer, nullable: false, options: { default: '0' } }
+            from_contentobject_id: { type: integer, nullable: false, options: { default: '0' } }
+            from_contentobject_version: { type: integer, nullable: false, options: { default: '0' } }
+            relation_type: { type: integer, nullable: false, options: { default: '1' } }
+            to_contentobject_id: { type: integer, nullable: false, options: { default: '0' } }
+    ezcontentobject_name:
+        indexes:
+            ezcontentobject_name_lang_id: { fields: [language_id] }
+            ezcontentobject_name_cov_id: { fields: [content_version] }
+            ezcontentobject_name_name: { fields: [name], options: { lengths: ['191'] } }
+        id:
+            contentobject_id: { type: integer, nullable: false, options: { default: '0' } }
+            content_version: { type: integer, nullable: false, options: { default: '0' } }
+            content_translation: { type: string, nullable: false, length: 20, options: { default: '' } }
+        fields:
+            language_id: { type: bigint, nullable: false, options: { default: '0' } }
+            name: { type: string, nullable: true, length: 255 }
+            real_translation: { type: string, nullable: true, length: 20 }
+    ezcontentobject_trash:
+        indexes:
+            ezcobj_trash_depth: { fields: [depth] }
+            ezcobj_trash_p_node_id: { fields: [parent_node_id] }
+            ezcobj_trash_path_ident: { fields: [path_identification_string], options: { lengths: ['50'] } }
+            ezcobj_trash_co_id: { fields: [contentobject_id] }
+            ezcobj_trash_modified_subnode: { fields: [modified_subnode] }
+            ezcobj_trash_path: { fields: [path_string], options: { lengths: ['191'] } }
+        id:
+            node_id: { type: integer, nullable: false, options: { default: '0' } }
+        fields:
+            contentobject_id: { type: integer, nullable: true }
+            contentobject_version: { type: integer, nullable: true }
+            depth: { type: integer, nullable: false, options: { default: '0' } }
+            is_hidden: { type: integer, nullable: false, options: { default: '0' } }
+            is_invisible: { type: integer, nullable: false, options: { default: '0' } }
+            main_node_id: { type: integer, nullable: true }
+            modified_subnode: { type: integer, nullable: true, options: { default: '0' } }
+            parent_node_id: { type: integer, nullable: false, options: { default: '0' } }
+            path_identification_string: { type: text, nullable: true, length: 0 }
+            path_string: { type: string, nullable: false, length: 255, options: { default: '' } }
+            priority: { type: integer, nullable: false, options: { default: '0' } }
+            remote_id: { type: string, nullable: false, length: 100, options: { default: '' } }
+            sort_field: { type: integer, nullable: true, options: { default: '1' } }
+            sort_order: { type: integer, nullable: true, options: { default: '1' } }
+            trashed: { type: integer, nullable: false, options: { default: '0' } }
+    ezcontentobject_version:
+        indexes:
+            ezcobj_version_status: { fields: [status] }
+            idx_object_version_objver: { fields: [contentobject_id, version] }
+            ezcontobj_version_obj_status: { fields: [contentobject_id, status] }
+            ezcobj_version_creator_id: { fields: [creator_id] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            contentobject_id: { type: integer, nullable: true }
+            created: { type: integer, nullable: false, options: { default: '0' } }
+            creator_id: { type: integer, nullable: false, options: { default: '0' } }
+            initial_language_id: { type: bigint, nullable: false, options: { default: '0' } }
+            language_mask: { type: bigint, nullable: false, options: { default: '0' } }
+            modified: { type: integer, nullable: false, options: { default: '0' } }
+            status: { type: integer, nullable: false, options: { default: '0' } }
+            user_id: { type: integer, nullable: false, options: { default: '0' } }
+            version: { type: integer, nullable: false, options: { default: '0' } }
+            workflow_event_pos: { type: integer, nullable: true, options: { default: '0' } }
+    ezdfsfile:
+        indexes:
+            ezdfsfile_name_trunk: { fields: [name_trunk], options: { lengths: ['191'] } }
+            ezdfsfile_expired_name: { fields: [expired, name], options: { lengths: [null, '191'] } }
+            ezdfsfile_name: { fields: [name], options: { lengths: ['191'] } }
+            ezdfsfile_mtime: { fields: [mtime] }
+        id:
+            name_hash: { type: string, nullable: false, length: 34, options: { default: '' } }
+        fields:
+            name: { type: text, nullable: false, length: 65535 }
+            name_trunk: { type: text, nullable: false, length: 65535 }
+            datatype: { type: string, nullable: false, length: 255, options: { default: application/octet-stream } }
+            scope: { type: string, nullable: false, length: 25, options: { default: '' } }
+            size: { type: bigint, nullable: false, options: { default: '0', unsigned: true } }
+            mtime: { type: integer, nullable: false, options: { default: '0' } }
+            expired: { type: boolean, nullable: false, options: { default: '0' } }
+            status: { type: boolean, nullable: false, options: { default: '0' } }
+    ezgmaplocation:
+        indexes:
+            latitude_longitude_key: { fields: [latitude, longitude] }
+        id:
+            contentobject_attribute_id: { type: integer, nullable: false, options: { default: '0' } }
+            contentobject_version: { type: integer, nullable: false, options: { default: '0' } }
+        fields:
+            latitude: { type: float, nullable: false, length: 0, options: { default: '0' } }
+            longitude: { type: float, nullable: false, length: 0, options: { default: '0' } }
+            address: { type: string, nullable: true, length: 150 }
+    ezimagefile:
+        indexes:
+            ezimagefile_file: { fields: [filepath], options: { lengths: ['191'] } }
+            ezimagefile_coid: { fields: [contentobject_attribute_id] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            contentobject_attribute_id: { type: integer, nullable: false, options: { default: '0' } }
+            filepath: { type: text, nullable: false, length: 0 }
+    ezkeyword:
+        indexes:
+            ezkeyword_keyword: { fields: [keyword], options: { lengths: ['191'] } }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            class_id: { type: integer, nullable: false, options: { default: '0' } }
+            keyword: { type: string, nullable: true, length: 255 }
+    ezkeyword_attribute_link:
+        indexes:
+            ezkeyword_attr_link_oaid: { fields: [objectattribute_id] }
+            ezkeyword_attr_link_kid_oaid: { fields: [keyword_id, objectattribute_id] }
+            ezkeyword_attr_link_oaid_ver: { fields: [objectattribute_id, version] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            keyword_id: { type: integer, nullable: false, options: { default: '0' } }
+            objectattribute_id: { type: integer, nullable: false, options: { default: '0' } }
+            version: { type: integer, nullable: false, options: { default: '0' } }
+    ezmedia:
+        id:
+            contentobject_attribute_id: { type: integer, nullable: false, options: { default: '0' } }
+            version: { type: integer, nullable: false, options: { default: '0' } }
+        fields:
+            controls: { type: string, nullable: true, length: 50 }
+            filename: { type: string, nullable: false, length: 255, options: { default: '' } }
+            has_controller: { type: integer, nullable: true, options: { default: '0' } }
+            height: { type: integer, nullable: true }
+            is_autoplay: { type: integer, nullable: true, options: { default: '0' } }
+            is_loop: { type: integer, nullable: true, options: { default: '0' } }
+            mime_type: { type: string, nullable: false, length: 50, options: { default: '' } }
+            original_filename: { type: string, nullable: false, length: 255, options: { default: '' } }
+            pluginspage: { type: string, nullable: true, length: 255 }
+            quality: { type: string, nullable: true, length: 50 }
+            width: { type: integer, nullable: true }
+    eznode_assignment:
+        indexes:
+            eznode_assignment_is_main: { fields: [is_main] }
+            eznode_assignment_coid_cov: { fields: [contentobject_id, contentobject_version] }
+            eznode_assignment_parent_node: { fields: [parent_node] }
+            eznode_assignment_co_version: { fields: [contentobject_version] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            contentobject_id: { type: integer, nullable: true }
+            contentobject_version: { type: integer, nullable: true }
+            from_node_id: { type: integer, nullable: true, options: { default: '0' } }
+            is_main: { type: integer, nullable: false, options: { default: '0' } }
+            op_code: { type: integer, nullable: false, options: { default: '0' } }
+            parent_node: { type: integer, nullable: true }
+            parent_remote_id: { type: string, nullable: false, length: 100, options: { default: '' } }
+            remote_id: { type: string, nullable: false, length: 100, options: { default: '0' } }
+            sort_field: { type: integer, nullable: true, options: { default: '1' } }
+            sort_order: { type: integer, nullable: true, options: { default: '1' } }
+            priority: { type: integer, nullable: false, options: { default: '0' } }
+            is_hidden: { type: integer, nullable: false, options: { default: '0' } }
+    eznotification:
+        indexes:
+            eznotification_owner_is_pending: { fields: [owner_id, is_pending] }
+            eznotification_owner: { fields: [owner_id] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            owner_id: { type: integer, nullable: false, options: { default: '0' } }
+            is_pending: { type: boolean, nullable: false, options: { default: '1' } }
+            type: { type: string, nullable: false, length: 128, options: { default: '' } }
+            created: { type: integer, nullable: false, options: { default: '0' } }
+            data: { type: text, nullable: true }
+    ezpackage:
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            install_date: { type: integer, nullable: false, options: { default: '0' } }
+            name: { type: string, nullable: false, length: 100, options: { default: '' } }
+            version: { type: string, nullable: false, length: 30, options: { default: '0' } }
+    ezpolicy:
+        indexes:
+            ezpolicy_role_id: { fields: [role_id] }
+            ezpolicy_original_id: { fields: [original_id] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            function_name: { type: string, nullable: true, length: 255 }
+            module_name: { type: string, nullable: true, length: 255 }
+            original_id: { type: integer, nullable: false, options: { default: '0' } }
+            role_id: { type: integer, nullable: true }
+    ezpolicy_limitation:
+        indexes:
+            policy_id: { fields: [policy_id] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            identifier: { type: string, nullable: false, length: 255, options: { default: '' } }
+            policy_id: { type: integer, nullable: true }
+    ezpolicy_limitation_value:
+        indexes:
+            ezpolicy_limit_value_limit_id: { fields: [limitation_id] }
+            ezpolicy_limitation_value_val: { fields: [value], options: { lengths: ['191'] } }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            limitation_id: { type: integer, nullable: true }
+            value: { type: string, nullable: true, length: 255 }
+    ezpreferences:
+        indexes:
+            ezpreferences_user_id_idx: { fields: [user_id, name] }
+            ezpreferences_name: { fields: [name] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            name: { type: string, nullable: true, length: 100 }
+            user_id: { type: integer, nullable: false, options: { default: '0' } }
+            value: { type: text, nullable: true, length: 0 }
+    ezrole:
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            is_new: { type: integer, nullable: false, options: { default: '0' } }
+            name: { type: string, nullable: false, length: 255, options: { default: '' } }
+            value: { type: string, nullable: true, length: 1, options: { fixed: true } }
+            version: { type: integer, nullable: true, options: { default: '0' } }
+    ezsearch_object_word_link:
+        indexes:
+            ezsearch_object_word_link_object: { fields: [contentobject_id] }
+            ezsearch_object_word_link_identifier: { fields: [identifier], options: { lengths: ['191'] } }
+            ezsearch_object_word_link_integer_value: { fields: [integer_value] }
+            ezsearch_object_word_link_word: { fields: [word_id] }
+            ezsearch_object_word_link_frequency: { fields: [frequency] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            contentclass_attribute_id: { type: integer, nullable: false, options: { default: '0' } }
+            contentclass_id: { type: integer, nullable: false, options: { default: '0' } }
+            contentobject_id: { type: integer, nullable: false, options: { default: '0' } }
+            frequency: { type: float, nullable: false, length: 0, options: { default: '0' } }
+            identifier: { type: string, nullable: false, length: 255, options: { default: '' } }
+            integer_value: { type: integer, nullable: false, options: { default: '0' } }
+            next_word_id: { type: integer, nullable: false, options: { default: '0' } }
+            placement: { type: integer, nullable: false, options: { default: '0' } }
+            prev_word_id: { type: integer, nullable: false, options: { default: '0' } }
+            published: { type: integer, nullable: false, options: { default: '0' } }
+            section_id: { type: integer, nullable: false, options: { default: '0' } }
+            word_id: { type: integer, nullable: false, options: { default: '0' } }
+            language_mask: { type: bigint, nullable: false, options: { default: '0' } }
+    ezsearch_word:
+        indexes:
+            ezsearch_word_word_i: { fields: [word] }
+            ezsearch_word_obj_count: { fields: [object_count] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            object_count: { type: integer, nullable: false, options: { default: '0' } }
+            word: { type: string, nullable: true, length: 150 }
+    ezsection:
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            identifier: { type: string, nullable: true, length: 255 }
+            locale: { type: string, nullable: true, length: 255 }
+            name: { type: string, nullable: true, length: 255 }
+            navigation_part_identifier: { type: string, nullable: true, length: 100, options: { default: ezcontentnavigationpart } }
+    ezsite_data:
+        id:
+            name: { type: string, nullable: false, length: 60, options: { default: '' } }
+        fields:
+            value: { type: text, nullable: false, length: 0 }
+    ezurl:
+        indexes:
+            ezurl_url: { fields: [url], options: { lengths: ['191'] } }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            created: { type: integer, nullable: false, options: { default: '0' } }
+            is_valid: { type: integer, nullable: false, options: { default: '1' } }
+            last_checked: { type: integer, nullable: false, options: { default: '0' } }
+            modified: { type: integer, nullable: false, options: { default: '0' } }
+            original_url_md5: { type: string, nullable: false, length: 32, options: { default: '' } }
+            url: { type: text, nullable: true, length: 0 }
+    ezurl_object_link:
+        indexes:
+            ezurl_ol_coa_id: { fields: [contentobject_attribute_id] }
+            ezurl_ol_url_id: { fields: [url_id] }
+            ezurl_ol_coa_version: { fields: [contentobject_attribute_version] }
+        fields:
+            contentobject_attribute_id: { type: integer, nullable: false, options: { default: '0' } }
+            contentobject_attribute_version: { type: integer, nullable: false, options: { default: '0' } }
+            url_id: { type: integer, nullable: false, options: { default: '0' } }
+    ezurlalias:
+        indexes:
+            ezurlalias_source_md5: { fields: [source_md5] }
+            ezurlalias_wcard_fwd: { fields: [is_wildcard, forward_to_id] }
+            ezurlalias_forward_to_id: { fields: [forward_to_id] }
+            ezurlalias_imp_wcard_fwd: { fields: [is_imported, is_wildcard, forward_to_id] }
+            ezurlalias_source_url: { fields: [source_url], options: { lengths: ['191'] } }
+            ezurlalias_desturl: { fields: [destination_url], options: { lengths: ['191'] } }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            destination_url: { type: text, nullable: false, length: 0 }
+            forward_to_id: { type: integer, nullable: false, options: { default: '0' } }
+            is_imported: { type: integer, nullable: false, options: { default: '0' } }
+            is_internal: { type: integer, nullable: false, options: { default: '1' } }
+            is_wildcard: { type: integer, nullable: false, options: { default: '0' } }
+            source_md5: { type: string, nullable: true, length: 32 }
+            source_url: { type: text, nullable: false, length: 0 }
+    ezurlalias_ml:
+        indexes:
+            ezurlalias_ml_actt_org_al: { fields: [action_type, is_original, is_alias] }
+            ezurlalias_ml_text_lang: { fields: [text, lang_mask, parent], options: { lengths: ['32', null, null] } }
+            ezurlalias_ml_par_act_id_lnk: { fields: [action, id, link, parent], options: { lengths: ['32', null, null, null] } }
+            ezurlalias_ml_par_lnk_txt: { fields: [parent, text, link], options: { lengths: [null, '32', null] } }
+            ezurlalias_ml_act_org: { fields: [action, is_original], options: { lengths: ['32', null] } }
+            ezurlalias_ml_text: { fields: [text, id, link], options: { lengths: ['32', null, null] } }
+            ezurlalias_ml_id: { fields: [id] }
+        id:
+            parent: { type: integer, nullable: false, options: { default: '0' } }
+            text_md5: { type: string, nullable: false, length: 32, options: { default: '' } }
+        fields:
+            action: { type: text, nullable: false, length: 0 }
+            action_type: { type: string, nullable: false, length: 32, options: { default: '' } }
+            alias_redirects: { type: integer, nullable: false, options: { default: '1' } }
+            id: { type: integer, nullable: false, options: { default: '0' } }
+            is_alias: { type: integer, nullable: false, options: { default: '0' } }
+            is_original: { type: integer, nullable: false, options: { default: '0' } }
+            lang_mask: { type: bigint, nullable: false, options: { default: '0' } }
+            link: { type: integer, nullable: false, options: { default: '0' } }
+            text: { type: text, nullable: false, length: 0 }
+    ezurlalias_ml_incr:
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+    ezurlwildcard:
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            destination_url: { type: text, nullable: false, length: 0 }
+            source_url: { type: text, nullable: false, length: 0 }
+            type: { type: integer, nullable: false, options: { default: '0' } }
+    ezuser_accountkey:
+        indexes:
+            hash_key: { fields: [hash_key] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            hash_key: { type: string, nullable: false, length: 32, options: { default: '' } }
+            time: { type: integer, nullable: false, options: { default: '0' } }
+            user_id: { type: integer, nullable: false, options: { default: '0' } }
+    ezuser_role:
+        indexes:
+            ezuser_role_role_id: { fields: [role_id] }
+            ezuser_role_contentobject_id: { fields: [contentobject_id] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            contentobject_id: { type: integer, nullable: true }
+            limit_identifier: { type: string, nullable: true, length: 255, options: { default: '' } }
+            limit_value: { type: string, nullable: true, length: 255, options: { default: '' } }
+            role_id: { type: integer, nullable: true }
+    ezuser_setting:
+        id:
+            user_id: { type: integer, nullable: false, options: { default: '0' } }
+        fields:
+            is_enabled: { type: integer, nullable: false, options: { default: '0' } }
+            max_login: { type: integer, nullable: true }
+    ibexa_setting:
+        indexes:
+            ibexa_setting_id: { fields: [id] }
+        uniqueConstraints:
+            ibexa_setting_group_identifier: { fields: [group, identifier] }
+        id:
+            id: { type: integer, nullable: false, options: { autoincrement: true } }
+        fields:
+            group: { type: string, nullable: false, length: 128 }
+            identifier: { type: string, nullable: false, length: 128 }
+            value: { type: json, nullable: false, length: 0 }

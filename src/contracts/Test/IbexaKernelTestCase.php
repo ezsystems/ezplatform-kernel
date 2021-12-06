@@ -9,20 +9,20 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\Core\Test;
 
 use Doctrine\DBAL\Connection;
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\ObjectStateService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\RoleService;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\SectionService;
-use eZ\Publish\API\Repository\Tests\LegacySchemaImporter;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\SPI\Persistence\TransactionHandler;
-use eZ\Publish\SPI\Tests\Persistence\FixtureImporter;
-use eZ\Publish\SPI\Tests\Persistence\YamlFixture;
+use Ibexa\Contracts\Core\Persistence\TransactionHandler;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\ObjectStateService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter;
+use Ibexa\Contracts\Core\Test\Persistence\Fixture\YamlFixture;
+use Ibexa\Tests\Core\Repository\LegacySchemaImporter;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -38,7 +38,6 @@ abstract class IbexaKernelTestCase extends KernelTestCase
 
     final protected static function loadSchema(): void
     {
-        /** @var \eZ\Publish\API\Repository\Tests\LegacySchemaImporter $schemaImporter */
         $schemaImporter = self::getContainer()->get(LegacySchemaImporter::class);
         foreach (static::getSchemaFiles() as $schemaFile) {
             $schemaImporter->importSchema($schemaFile);
@@ -50,12 +49,11 @@ abstract class IbexaKernelTestCase extends KernelTestCase
      */
     protected static function getSchemaFiles(): iterable
     {
-        yield self::$kernel->locateResource('@EzPublishCoreBundle/Resources/config/storage/legacy/schema.yaml');
+        yield self::$kernel->locateResource('@IbexaCoreBundle/Resources/config/storage/legacy/schema.yaml');
     }
 
     final protected static function loadFixtures(): void
     {
-        /** @var \eZ\Publish\SPI\Tests\Persistence\FixtureImporter $fixtureImporter */
         $fixtureImporter = self::getContainer()->get(FixtureImporter::class);
         foreach (static::getFixtures() as $fixture) {
             $fixtureImporter->import($fixture);
@@ -69,11 +67,11 @@ abstract class IbexaKernelTestCase extends KernelTestCase
     }
 
     /**
-     * @return iterable<\eZ\Publish\SPI\Tests\Persistence\Fixture>
+     * @return iterable<\Ibexa\Contracts\Core\Test\Persistence\Fixture>
      */
     protected static function getFixtures(): iterable
     {
-        yield new YamlFixture(dirname(__DIR__, 3) . '/eZ/Publish/API/Repository/Tests/_fixtures/Legacy/data/test_data.yaml');
+        yield new YamlFixture(dirname(__DIR__, 3) . '/tests/integration/Core/Repository/_fixtures/Legacy/data/test_data.yaml');
     }
 
     /**
@@ -108,7 +106,7 @@ abstract class IbexaKernelTestCase extends KernelTestCase
 
         $id = $id ?? $className;
 
-        return $kernel->getAliasServiceId($id);
+        return $kernel::getAliasServiceId($id);
     }
 
     protected static function getDoctrineConnection(): Connection

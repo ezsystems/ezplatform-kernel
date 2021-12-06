@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Repository\Mapper\ContentLocationMapper;
 
-use eZ\Publish\API\Repository\LocationService as ApiLocationService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\LocationList;
-use eZ\Publish\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\LocationService as ApiLocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
 use Ibexa\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper;
 use Ibexa\Core\Repository\Mapper\ContentLocationMapper\DecoratedLocationService;
+use Ibexa\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
 
 class DecoratedLocationServiceTest extends TestCase
@@ -21,7 +21,7 @@ class DecoratedLocationServiceTest extends TestCase
     /** @var \Ibexa\Core\Repository\Mapper\ContentLocationMapper\DecoratedLocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $innerLocationService;
 
     /** @var \Ibexa\Core\Repository\Mapper\ContentLocationMapper\ContentLocationMapper */

@@ -1,0 +1,8 @@
+{% set image_field_identifier = ibexa_content_field_identifier_image_asset() %}
+
+{% if image_field_identifier is not null %}
+    {{ ibexa_render_field(content, image_field_identifier, {
+        template: '@IbexaCore/content_fields.html.twig',
+        parameters: parameters
+    }) }}
+{% endif %}

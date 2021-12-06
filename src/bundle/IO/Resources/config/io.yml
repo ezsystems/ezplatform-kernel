@@ -1,0 +1,158 @@
+services:
+    ezpublish.core.io.command.migrate_files:
+        class: Ibexa\Bundle\IO\Command\MigrateFilesCommand
+        arguments:
+            - "%ez_io.metadata_handlers%"
+            - "%ez_io.binarydata_handlers%"
+            - "@ezpublish.core.io.migration.file_lister_registry"
+            - "@ezpublish.core.io.migration.file_migrator"
+        tags:
+            - { name: console.command }
+
+    ezpublish.core.io.migration.file_lister_registry:
+        class: Ibexa\Bundle\IO\Migration\FileListerRegistry\ConfigurableRegistry
+
+    ezpublish.core.io.migration.migration_handler:
+        class: Ibexa\Bundle\IO\Migration\MigrationHandler
+        arguments:
+            - "@ezpublish.core.io.metadata_handler.registry"
+            - "@ezpublish.core.io.binarydata_handler.registry"
+            - "@logger"
+
+    ezpublish.core.io.migration.file_lister.binary_file_lister:
+        class: Ibexa\Bundle\IO\Migration\FileLister\BinaryFileLister
+        parent: ezpublish.core.io.migration.migration_handler
+        arguments:
+            - "@ezpublish.core.io.migration.file_lister.file_iterator.binary_file_iterator"
+            - "%ezsettings.default.binary_dir%"
+        tags:
+            - { name: "ezpublish.core.io.migration.file_lister", identifier: "binary_file" }
+        lazy: true
+
+    ezpublish.core.io.migration.file_lister.media_file_lister:
+        class: Ibexa\Bundle\IO\Migration\FileLister\BinaryFileLister
+        parent: ezpublish.core.io.migration.migration_handler
+        arguments:
+            - "@ezpublish.core.io.migration.file_lister.file_iterator.media_file_iterator"
+            - "%ezsettings.default.binary_dir%"
+        tags:
+            - { name: "ezpublish.core.io.migration.file_lister", identifier: "media_file" }
+        lazy: true
+
+    ezpublish.core.io.migration.file_lister.image_file_lister:
+        class: Ibexa\Bundle\IO\Migration\FileLister\ImageFileLister
+        parent: ezpublish.core.io.migration.migration_handler
+        arguments:
+            - "@ezpublish.image_alias.variation_purger.legacy_storage_image_file.image_file_list"
+            - "@ezpublish.image_alias.variation_path_generator"
+            - "@liip_imagine.filter.configuration"
+            - "%ezsettings.default.image.published_images_dir%"
+        tags:
+            - { name: "ezpublish.core.io.migration.file_lister", identifier: "image_file" }
+        lazy: true
+
+    ezpublish.core.io.migration.file_lister.file_iterator.binary_file_iterator:
+        class: Ibexa\Bundle\IO\Migration\FileLister\FileIterator\LegacyStorageFileIterator
+        arguments:
+            - "@ezpublish.core.io.migration.file_lister.file_row_reader.binary_file_row_reader"
+
+    ezpublish.core.io.migration.file_lister.file_iterator.media_file_iterator:
+        class: Ibexa\Bundle\IO\Migration\FileLister\FileIterator\LegacyStorageFileIterator
+        arguments:
+            - "@ezpublish.core.io.migration.file_lister.file_row_reader.media_file_row_reader"
+
+    Ibexa\Bundle\IO\Migration\FileLister\FileRowReader\LegacyStorageFileRowReader:
+        arguments:
+            $connection: '@ezpublish.persistence.connection'
+
+    ezpublish.core.io.migration.file_lister.file_row_reader.binary_file_row_reader:
+        class: Ibexa\Bundle\IO\Migration\FileLister\FileRowReader\LegacyStorageBinaryFileRowReader
+        parent: Ibexa\Bundle\IO\Migration\FileLister\FileRowReader\LegacyStorageFileRowReader
+
+    ezpublish.core.io.migration.file_lister.file_row_reader.media_file_row_reader:
+        class: Ibexa\Bundle\IO\Migration\FileLister\FileRowReader\LegacyStorageMediaFileRowReader
+        parent: Ibexa\Bundle\IO\Migration\FileLister\FileRowReader\LegacyStorageFileRowReader
+
+    ezpublish.core.io.migration.file_migrator:
+        class: Ibexa\Bundle\IO\Migration\FileMigrator\FileMigrator
+        parent: ezpublish.core.io.migration.migration_handler
+
+    # Builds the binarydata and metadata handler based on the siteaccess config
+    ezpublish.core.io.metadata_handler:
+        class: Ibexa\Core\IO\IOBinarydataHandler\SiteAccessDependentMetadataHandler
+        arguments:
+            $configResolver: '@ezpublish.config.resolver'
+            $dataHandlerRegistry: '@ezpublish.core.io.metadata_handler.registry'
+
+    ezpublish.core.io.binarydata_handler:
+        class: Ibexa\Core\IO\IOBinarydataHandler\SiteAccessDependentBinaryDataHandler
+        arguments:
+            $configResolver: '@ezpublish.config.resolver'
+            $dataHandlerRegistry: '@ezpublish.core.io.binarydata_handler.registry'
+
+    ezpublish.core.io.metadata_handler.registry:
+        class: Ibexa\Bundle\IO\ApiLoader\HandlerRegistry
+
+    ezpublish.core.io.binarydata_handler.registry:
+        class: Ibexa\Bundle\IO\ApiLoader\HandlerRegistry
+
+    # Inject the siteaccess config into a few io services
+    ezpublish.core.io.flysystem.default_adapter:
+        class: Ibexa\Core\IO\Adapter\LocalAdapter
+        arguments:
+            - '@Ibexa\Core\IO\IOConfigProvider'
+            - '@ezpublish.config.resolver'
+
+    Ibexa\Bundle\IO\Flysystem\Adapter\SiteAccessAwareLocalAdapter:
+        arguments:
+            $configProcessor: '@Ibexa\Contracts\Core\SiteAccess\ConfigProcessor'
+            $config: '%ibexa.platform.io.nfs.adapter.config%'
+
+    ibexa.platform.io.nfs.adapter.site_access_aware:
+        alias: Ibexa\Bundle\IO\Flysystem\Adapter\SiteAccessAwareLocalAdapter
+
+    ezpublish.core.io.prefix_url_decorator:
+        class: Ibexa\Core\IO\UrlDecorator\AbsolutePrefix
+        arguments:
+            - '@Ibexa\Core\IO\IOConfigProvider'
+
+    # Base service for flysystem metadata handler
+    ezpublish.core.io.metadata_handler.flysystem:
+        abstract: true
+        class: Ibexa\Core\IO\IOMetadataHandler\Flysystem
+        arguments:
+            - ~
+
+    # Default flysystem metadata handler
+    ezpublish.core.io.metadata_handler.flysystem.default:
+        class: Ibexa\Core\IO\IOMetadataHandler\Flysystem
+        arguments:
+            - "@ezpublish.core.io.flysystem.default_filesystem"
+
+    # Base service for flysystem binarydata handler
+    ezpublish.core.io.binarydata_handler.flysystem:
+        abstract: true
+        class: Ibexa\Core\IO\IOBinarydataHandler\Flysystem
+        arguments:
+            - ~
+            - "@ezpublish.core.io.default_url_decorator"
+
+    # Default flysystem binarydata handler
+    ezpublish.core.io.binarydata_handler.flysystem.default:
+        class: Ibexa\Core\IO\IOBinarydataHandler\Flysystem
+        arguments:
+            - "@ezpublish.core.io.flysystem.default_filesystem"
+            - "@ezpublish.core.io.default_url_decorator"
+
+    ezpublish.core.io.image_fieldtype.legacy_url_decorator:
+        class: Ibexa\Core\IO\UrlDecorator\Prefix
+        arguments:
+            - '@Ibexa\Core\IO\IOConfigProvider'
+
+    ezpublish.core.io.stream_file_listener:
+        class: Ibexa\Bundle\IO\EventListener\StreamFileListener
+        arguments:
+            - '@ezpublish.fieldType.ezimage.io_service'
+            - '@Ibexa\Core\IO\IOConfigProvider'
+        tags:
+            - { name: kernel.event_subscriber }

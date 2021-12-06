@@ -1,0 +1,3 @@
+parameters:
+    kernel.environment: unit
+    kernel.project_dir: '.'

@@ -1,0 +1,61 @@
+services:
+    ezpublish.console.command.regenerate_url_aliases:
+        class: Ibexa\Bundle\Core\Command\RegenerateUrlAliasesCommand
+        arguments:
+            # intentionally passing inner repository to avoid sending Events due to performance issues
+            - '@ezpublish.api.inner_repository'
+            - '@?logger'
+        tags:
+            - { name: console.command }
+
+    ezplatform.core.command.debug_config_resolver:
+        class: Ibexa\Bundle\Core\Command\DebugConfigResolverCommand
+        arguments:
+            - "@ezpublish.config.resolver"
+            - "@ezpublish.siteaccess"
+        tags:
+            - { name: console.command }
+
+    ezplatform.core.command.check_urls:
+        class: Ibexa\Bundle\Core\Command\CheckURLsCommand
+        arguments:
+            - '@Ibexa\Contracts\Core\Repository\UserService'
+            - '@Ibexa\Contracts\Core\Repository\PermissionResolver'
+            - '@Ibexa\Contracts\Core\Repository\URLService'
+            - '@ezpublish.url_checker'
+        tags:
+            - { name: console.command }
+
+    Ibexa\Bundle\Core\Command\UpdateTimestampsToUTCCommand:
+        arguments:
+            - '@ezpublish.api.search_engine.legacy.connection'
+        tags:
+            - { name: console.command }
+
+    Ibexa\Bundle\Core\Command\ReindexCommand:
+        autowire: true
+        autoconfigure: true
+        arguments:
+            $searchIndexer: '@ezpublish.spi.search.indexer'
+            $locationHandler: '@ezpublish.spi.persistence.location_handler'
+            $siteaccess: '@ezpublish.siteaccess'
+            $env: '%kernel.environment%'
+            $projectDir: '%kernel.project_dir%'
+            $isDebug: '%kernel.debug%'
+        tags:
+            - { name: console.command }
+
+    Ibexa\Bundle\Core\Command\NormalizeImagesPathsCommand:
+        autowire: true
+        autoconfigure: true
+        arguments:
+            $connection: '@ezpublish.persistence.connection'
+            $imageGateway: '@ezpublish.fieldType.ezimage.storage_gateway'
+        tags:
+            - { name: console.command }
+
+    Ibexa\Bundle\Core\Command\SetSystemContentTypeGroupCommand:
+        autowire: true
+        autoconfigure: true
+        tags:
+            - { name: console.command }

@@ -1,0 +1,6472 @@
+<?php
+
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+namespace Ibexa\Tests\Core\Repository\Service\Mock;
+
+use Exception;
+use Ibexa\Contracts\Core\FieldType\FieldType;
+use Ibexa\Contracts\Core\FieldType\FieldType as SPIFieldType;
+use Ibexa\Contracts\Core\FieldType\Value as SPIValue;
+use Ibexa\Contracts\Core\Persistence\Content as SPIContent;
+use Ibexa\Contracts\Core\Persistence\Content\ContentInfo as SPIContentInfo;
+use Ibexa\Contracts\Core\Persistence\Content\CreateStruct as SPIContentCreateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\Field as SPIField;
+use Ibexa\Contracts\Core\Persistence\Content\Location as SPILocation;
+use Ibexa\Contracts\Core\Persistence\Content\MetadataUpdateStruct as SPIMetadataUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState as SPIObjectState;
+use Ibexa\Contracts\Core\Persistence\Content\ObjectState\Group as SPIObjectStateGroup;
+use Ibexa\Contracts\Core\Persistence\Content\UpdateStruct as SPIContentUpdateStruct;
+use Ibexa\Contracts\Core\Persistence\Content\VersionInfo as SPIVersionInfo;
+use Ibexa\Contracts\Core\Repository\ContentTypeService as APIContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as APINotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\LocationService as APILocationService;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct as APIContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo as APIContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType as APIContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition as APIFieldDefinition;
+use Ibexa\Core\Base\Exceptions\ContentFieldValidationException;
+use Ibexa\Core\Base\Exceptions\ContentValidationException;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\FieldType\Value;
+use Ibexa\Core\Repository\ContentService;
+use Ibexa\Core\Repository\Helper\NameSchemaService;
+use Ibexa\Core\Repository\Helper\RelationProcessor;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Core\Repository\Values\Content\ContentUpdateStruct;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
+use Ibexa\Core\Repository\Values\User\UserReference;
+use Ibexa\Tests\Core\Repository\Service\Mock\Base as BaseServiceMockTest;
+
+/**
+ * Mock test case for Content service.
+ */
+class ContentTest extends BaseServiceMockTest
+{
+    private const EMPTY_FIELD_VALUE = 'empty';
+
+    /**
+     * Test for the __construct() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::__construct
+     */
+    public function testConstructor(): void
+    {
+        $repositoryMock = $this->getRepositoryMock();
+        /** @var \Ibexa\Contracts\Core\Persistence\Handler $persistenceHandlerMock */
+        $persistenceHandlerMock = $this->getPersistenceMockHandler('Handler');
+        $contentDomainMapperMock = $this->getContentDomainMapperMock();
+        $relationProcessorMock = $this->getRelationProcessorMock();
+        $nameSchemaServiceMock = $this->getNameSchemaServiceMock();
+        $fieldTypeRegistryMock = $this->getFieldTypeRegistryMock();
+        $permissionServiceMock = $this->getPermissionServiceMock();
+        $contentMapper = $this->getContentMapper();
+        $contentValidatorStrategy = $this->getContentValidatorStrategy();
+        $contentFilteringHandlerMock = $this->getContentFilteringHandlerMock();
+        $settings = [
+            'default_version_archive_limit' => 10,
+            'remove_archived_versions_on_publish' => true,
+        ];
+
+        new ContentService(
+            $repositoryMock,
+            $persistenceHandlerMock,
+            $contentDomainMapperMock,
+            $relationProcessorMock,
+            $nameSchemaServiceMock,
+            $fieldTypeRegistryMock,
+            $permissionServiceMock,
+            $contentMapper,
+            $contentValidatorStrategy,
+            $contentFilteringHandlerMock,
+            $settings
+        );
+    }
+
+    /**
+     * Test for the loadVersionInfo() method, of published version.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersionInfoById
+     */
+    public function testLoadVersionInfoById()
+    {
+        $contentServiceMock = $this->getPartlyMockedContentService(['loadContentInfo']);
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandler */
+        $contentHandler = $this->getPersistenceMock()->contentHandler();
+        $domainMapperMock = $this->getContentDomainMapperMock();
+        $versionInfoMock = $this->createMock(APIVersionInfo::class);
+        $permissionResolver = $this->getPermissionResolverMock();
+
+        $versionInfoMock->expects($this->once())
+            ->method('isPublished')
+            ->willReturn(true);
+
+        $contentServiceMock->expects($this->never())
+            ->method('loadContentInfo');
+
+        $contentHandler->expects($this->once())
+            ->method('loadVersionInfo')
+            ->with(
+                $this->equalTo(42),
+                $this->equalTo(null)
+            )->will(
+                $this->returnValue(new SPIVersionInfo())
+            );
+
+        $domainMapperMock->expects($this->once())
+            ->method('buildVersionInfoDomainObject')
+            ->with(new SPIVersionInfo())
+            ->will($this->returnValue($versionInfoMock));
+
+        $permissionResolver->expects($this->once())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('read'),
+                $this->equalTo($versionInfoMock)
+            )->will($this->returnValue(true));
+
+        $result = $contentServiceMock->loadVersionInfoById(42);
+
+        $this->assertEquals($versionInfoMock, $result);
+    }
+
+    /**
+     * Test for the loadVersionInfo() method, of a draft.
+     *
+     * @depends testLoadVersionInfoById
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersionInfoById
+     */
+    public function testLoadVersionInfoByIdAndVersionNumber()
+    {
+        $permissionResolver = $this->getPermissionResolverMock();
+        $contentServiceMock = $this->getPartlyMockedContentService(['loadContentInfo']);
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandler */
+        $contentHandler = $this->getPersistenceMock()->contentHandler();
+        $domainMapperMock = $this->getContentDomainMapperMock();
+        $versionInfoMock = $this->createMock(APIVersionInfo::class);
+
+        $versionInfoMock->expects($this->any())
+            ->method('__get')
+            ->with('status')
+            ->willReturn(APIVersionInfo::STATUS_DRAFT);
+
+        $contentServiceMock->expects($this->never())
+            ->method('loadContentInfo');
+
+        $contentHandler->expects($this->once())
+            ->method('loadVersionInfo')
+            ->with(
+                $this->equalTo(42),
+                $this->equalTo(2)
+            )->willReturn(new SPIVersionInfo());
+
+        $domainMapperMock->expects($this->once())
+            ->method('buildVersionInfoDomainObject')
+            ->with(new SPIVersionInfo())
+            ->willReturn($versionInfoMock);
+
+        $permissionResolver->expects($this->once())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('versionread'),
+                $this->equalTo($versionInfoMock)
+            )->willReturn(true);
+
+        $result = $contentServiceMock->loadVersionInfoById(42, 2);
+
+        $this->assertEquals($versionInfoMock, $result);
+    }
+
+    /**
+     * Test for the loadVersionInfo() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersionInfoById
+     */
+    public function testLoadVersionInfoByIdThrowsNotFoundException()
+    {
+        $this->expectException(NotFoundException::class);
+
+        $contentServiceMock = $this->getPartlyMockedContentService(['loadContentInfo']);
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandler */
+        $contentHandler = $this->getPersistenceMock()->contentHandler();
+
+        $contentHandler->expects($this->once())
+            ->method('loadVersionInfo')
+            ->with(
+                $this->equalTo(42),
+                $this->equalTo(24)
+            )->will(
+                $this->throwException(
+                    new NotFoundException(
+                        'Content',
+                        [
+                            'contentId' => 42,
+                            'versionNo' => 24,
+                        ]
+                    )
+                )
+            );
+
+        $contentServiceMock->loadVersionInfoById(42, 24);
+    }
+
+    /**
+     * Test for the loadVersionInfo() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersionInfoById
+     */
+    public function testLoadVersionInfoByIdThrowsUnauthorizedExceptionNonPublishedVersion()
+    {
+        $this->expectException(UnauthorizedException::class);
+
+        $contentServiceMock = $this->getPartlyMockedContentService();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandler */
+        $contentHandler = $this->getPersistenceMock()->contentHandler();
+        $domainMapperMock = $this->getContentDomainMapperMock();
+        $versionInfoMock = $this->createMock(APIVersionInfo::class);
+        $permissionResolver = $this->getPermissionResolverMock();
+
+        $versionInfoMock->expects($this->any())
+            ->method('isPublished')
+            ->willReturn(false);
+
+        $contentHandler->expects($this->once())
+            ->method('loadVersionInfo')
+            ->with(
+                $this->equalTo(42),
+                $this->equalTo(24)
+            )->will(
+                $this->returnValue(new SPIVersionInfo())
+            );
+
+        $domainMapperMock->expects($this->once())
+            ->method('buildVersionInfoDomainObject')
+            ->with(new SPIVersionInfo())
+            ->will($this->returnValue($versionInfoMock));
+
+        $permissionResolver->expects($this->once())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('versionread'),
+                $this->equalTo($versionInfoMock)
+            )->will($this->returnValue(false));
+
+        $contentServiceMock->loadVersionInfoById(42, 24);
+    }
+
+    /**
+     * Test for the loadVersionInfo() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersionInfoById
+     */
+    public function testLoadVersionInfoByIdPublishedVersion()
+    {
+        $contentServiceMock = $this->getPartlyMockedContentService();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandler */
+        $contentHandler = $this->getPersistenceMock()->contentHandler();
+        $domainMapperMock = $this->getContentDomainMapperMock();
+        $versionInfoMock = $this->createMock(APIVersionInfo::class);
+        $permissionResolver = $this->getPermissionResolverMock();
+
+        $versionInfoMock->expects($this->once())
+            ->method('isPublished')
+            ->willReturn(true);
+
+        $contentHandler->expects($this->once())
+            ->method('loadVersionInfo')
+            ->with(
+                $this->equalTo(42),
+                $this->equalTo(24)
+            )->will(
+                $this->returnValue(new SPIVersionInfo())
+            );
+
+        $domainMapperMock->expects($this->once())
+            ->method('buildVersionInfoDomainObject')
+            ->with(new SPIVersionInfo())
+            ->will($this->returnValue($versionInfoMock));
+
+        $permissionResolver->expects($this->once())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('read'),
+                $this->equalTo($versionInfoMock)
+            )->will($this->returnValue(true));
+
+        $result = $contentServiceMock->loadVersionInfoById(42, 24);
+
+        $this->assertEquals($versionInfoMock, $result);
+    }
+
+    /**
+     * Test for the loadVersionInfo() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersionInfoById
+     */
+    public function testLoadVersionInfoByIdNonPublishedVersion()
+    {
+        $contentServiceMock = $this->getPartlyMockedContentService();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandler */
+        $contentHandler = $this->getPersistenceMock()->contentHandler();
+        $domainMapperMock = $this->getContentDomainMapperMock();
+        $versionInfoMock = $this->createMock(APIVersionInfo::class);
+        $permissionResolver = $this->getPermissionResolverMock();
+
+        $versionInfoMock->expects($this->once())
+            ->method('isPublished')
+            ->willReturn(false);
+
+        $contentHandler->expects($this->once())
+            ->method('loadVersionInfo')
+            ->with(
+                $this->equalTo(42),
+                $this->equalTo(24)
+            )->will(
+                $this->returnValue(new SPIVersionInfo())
+            );
+
+        $domainMapperMock->expects($this->once())
+            ->method('buildVersionInfoDomainObject')
+            ->with(new SPIVersionInfo())
+            ->will($this->returnValue($versionInfoMock));
+
+        $permissionResolver->expects($this->once())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('versionread'),
+                $this->equalTo($versionInfoMock)
+            )->will($this->returnValue(true));
+
+        $result = $contentServiceMock->loadVersionInfoById(42, 24);
+
+        $this->assertEquals($versionInfoMock, $result);
+    }
+
+    /**
+     * Test for the loadVersionInfo() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadVersionInfo
+     * @depends Ibexa\Tests\Core\Repository\Service\Mock\ContentTest::testLoadVersionInfoById
+     * @depends Ibexa\Tests\Core\Repository\Service\Mock\ContentTest::testLoadVersionInfoByIdThrowsNotFoundException
+     * @depends Ibexa\Tests\Core\Repository\Service\Mock\ContentTest::testLoadVersionInfoByIdThrowsUnauthorizedExceptionNonPublishedVersion
+     * @depends Ibexa\Tests\Core\Repository\Service\Mock\ContentTest::testLoadVersionInfoByIdPublishedVersion
+     * @depends Ibexa\Tests\Core\Repository\Service\Mock\ContentTest::testLoadVersionInfoByIdNonPublishedVersion
+     */
+    public function testLoadVersionInfo()
+    {
+        $expectedResult = $this->createMock(VersionInfo::class);
+
+        $contentServiceMock = $this->getPartlyMockedContentService(
+            ['loadVersionInfoById']
+        );
+        $contentServiceMock->expects(
+            $this->once()
+        )->method(
+            'loadVersionInfoById'
+        )->with(
+            $this->equalTo(42),
+            $this->equalTo(7)
+        )->will(
+            $this->returnValue($expectedResult)
+        );
+
+        $result = $contentServiceMock->loadVersionInfo(
+            new ContentInfo(['id' => 42]),
+            7
+        );
+
+        $this->assertEquals($expectedResult, $result);
+    }
+
+    public function testLoadContent()
+    {
+        $contentService = $this->getPartlyMockedContentService(['internalLoadContentById']);
+        $content = $this->createMock(APIContent::class);
+        $versionInfo = $this->createMock(APIVersionInfo::class);
+        $permissionResolver = $this->getPermissionResolverMock();
+
+        $content
+            ->expects($this->once())
+            ->method('getVersionInfo')
+            ->will($this->returnValue($versionInfo));
+        $versionInfo
+            ->expects($this->once())
+            ->method('isPublished')
+            ->willReturn(true);
+        $contentId = 123;
+        $contentService
+            ->expects($this->once())
+            ->method('internalLoadContentById')
+            ->with($contentId)
+            ->will($this->returnValue($content));
+
+        $permissionResolver
+            ->expects($this->once())
+            ->method('canUser')
+            ->with('content', 'read', $content)
+            ->will($this->returnValue(true));
+
+        $this->assertSame($content, $contentService->loadContent($contentId));
+    }
+
+    public function testLoadContentNonPublished()
+    {
+        $contentService = $this->getPartlyMockedContentService(['internalLoadContentById']);
+        $content = $this->createMock(APIContent::class);
+        $versionInfo = $this->createMock(APIVersionInfo::class);
+        $permissionResolver = $this->getPermissionResolverMock();
+
+        $content
+            ->expects($this->once())
+            ->method('getVersionInfo')
+            ->will($this->returnValue($versionInfo));
+        $contentId = 123;
+        $contentService
+            ->expects($this->once())
+            ->method('internalLoadContentById')
+            ->with($contentId)
+            ->will($this->returnValue($content));
+
+        $permissionResolver
+            ->expects($this->exactly(2))
+            ->method('canUser')
+            ->will(
+                $this->returnValueMap(
+                    [
+                        ['content', 'read', $content, [], true],
+                        ['content', 'versionread', $content, [], true],
+                    ]
+                )
+            );
+
+        $this->assertSame($content, $contentService->loadContent($contentId));
+    }
+
+    public function testLoadContentUnauthorized()
+    {
+        $this->expectException(UnauthorizedException::class);
+
+        $permissionResolver = $this->getPermissionResolverMock();
+
+        $contentService = $this->getPartlyMockedContentService(['internalLoadContentById']);
+        $content = $this->createMock(APIContent::class);
+        $contentId = 123;
+        $contentService
+            ->expects($this->once())
+            ->method('internalLoadContentById')
+            ->with($contentId)
+            ->will($this->returnValue($content));
+
+        $permissionResolver
+            ->expects($this->once())
+            ->method('canUser')
+            ->with('content', 'read', $content)
+            ->will($this->returnValue(false));
+
+        $contentService->loadContent($contentId);
+    }
+
+    public function testLoadContentNotPublishedStatusUnauthorized()
+    {
+        $this->expectException(UnauthorizedException::class);
+
+        $permissionResolver = $this->getPermissionResolverMock();
+        $contentService = $this->getPartlyMockedContentService(['internalLoadContentById']);
+        $content = $this->createMock(APIContent::class);
+        $versionInfo = $this
+            ->getMockBuilder(APIVersionInfo::class)
+            ->getMockForAbstractClass();
+        $content
+            ->expects($this->once())
+            ->method('getVersionInfo')
+            ->will($this->returnValue($versionInfo));
+        $contentId = 123;
+        $contentService
+            ->expects($this->once())
+            ->method('internalLoadContentById')
+            ->with($contentId)
+            ->will($this->returnValue($content));
+
+        $permissionResolver
+            ->expects($this->exactly(2))
+            ->method('canUser')
+            ->will(
+                $this->returnValueMap(
+                    [
+                        ['content', 'read', $content, [], true],
+                        ['content', 'versionread', $content, [], false],
+                    ]
+                )
+            );
+
+        $contentService->loadContent($contentId);
+    }
+
+    /**
+     * @dataProvider internalLoadContentProviderById
+     */
+    public function testInternalLoadContentById(int $id, ?array $languages, ?int $versionNo, bool $useAlwaysAvailable): void
+    {
+        if (!empty($languages) && $useAlwaysAvailable) {
+            $spiContentInfo = new SPIContentInfo(['id' => $id, 'alwaysAvailable' => false]);
+        } else {
+            $spiContentInfo = new SPIContentInfo(['id' => $id]);
+        }
+
+        $spiContent = new SPIContent([
+            'versionInfo' => new VersionInfo([
+                'contentInfo' => new ContentInfo([
+                    'id' => 42,
+                    'contentTypeId' => 123,
+                ]),
+            ]),
+        ]);
+
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandler */
+        $contentHandler = $this->getPersistenceMock()->contentHandler();
+        $contentHandler
+            ->expects($this->once())
+            ->method('loadContentInfo')
+            ->with($id)
+            ->will($this->returnValue($spiContentInfo));
+
+        $contentHandler
+            ->expects($this->once())
+            ->method('load')
+            ->with($id, $versionNo, $languages)
+            ->willReturn($spiContent);
+
+        $contentService = $this->getPartlyMockedContentService();
+
+        $expectedContent = $this->mockBuildContentDomainObject($spiContent, $languages);
+        $actualContent = $contentService->internalLoadContentById($id, $languages, $versionNo, $useAlwaysAvailable);
+
+        $this->assertSame($expectedContent, $actualContent);
+    }
+
+    /**
+     * @dataProvider internalLoadContentProviderByRemoteId
+     */
+    public function testInternalLoadContentByRemoteId(string $remoteId, ?array $languages, ?int $versionNo, bool $useAlwaysAvailable)
+    {
+        $realId = 123;
+
+        $spiContentInfo = new SPIContentInfo([
+            'currentVersionNo' => $versionNo ?: 7,
+            'id' => $realId,
+        ]);
+
+        $spiContent = new SPIContent([
+            'versionInfo' => new VersionInfo([
+                'contentInfo' => new ContentInfo(['id' => 42, 'contentTypeId' => 123]),
+            ]),
+        ]);
+
+        $contentService = $this->getPartlyMockedContentService();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandler */
+        $contentHandler = $this->getPersistenceMock()->contentHandler();
+        $contentHandler
+            ->expects($this->once())
+            ->method('loadContentInfoByRemoteId')
+            ->with($remoteId)
+            ->will($this->returnValue($spiContentInfo));
+
+        $contentHandler
+            ->expects($this->once())
+            ->method('load')
+            ->with($realId, $versionNo, $languages)
+            ->willReturn($spiContent);
+
+        $expectedContent = $this->mockBuildContentDomainObject($spiContent, $languages);
+
+        $actualContent = $contentService->internalLoadContentByRemoteId(
+            $remoteId,
+            $languages,
+            $versionNo,
+            $useAlwaysAvailable
+        );
+
+        $this->assertSame($expectedContent, $actualContent);
+    }
+
+    public function internalLoadContentProviderById(): array
+    {
+        return [
+            [123, null, null, false],
+            [123, null, 456, false],
+            [456, null, 123, true],
+            [456, null, 2, false],
+            [456, ['eng-GB'], 2, true],
+            [456, ['eng-GB', 'fre-FR'], null, false],
+            [456, ['eng-GB', 'fre-FR', 'nor-NO'], 2, false],
+        ];
+    }
+
+    public function internalLoadContentProviderByRemoteId(): array
+    {
+        return [
+            ['123', null, null, false],
+            ['someRemoteId', null, 456, false],
+            ['456', null, 123, false],
+            ['someRemoteId', null, 2, false],
+            ['someRemoteId', ['eng-GB'], 2, false],
+            ['456', ['eng-GB', 'fre-FR'], null, false],
+            ['someRemoteId', ['eng-GB', 'fre-FR', 'nor-NO'], 2, false],
+        ];
+    }
+
+    public function testInternalLoadContentByIdNotFound(): void
+    {
+        $this->expectException(NotFoundException::class);
+
+        $id = 123;
+        $versionNo = 7;
+        $languages = null;
+
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandler */
+        $contentHandler = $this->getPersistenceMock()->contentHandler();
+        $contentHandler
+            ->expects($this->once())
+            ->method('loadContentInfo')
+            ->with($id)
+            ->willReturn(new SPIContent\ContentInfo(['id' => $id]));
+
+        $contentHandler
+            ->expects($this->once())
+            ->method('load')
+            ->with($id, $versionNo, $languages)
+            ->will(
+                $this->throwException(
+                    $this->createMock(APINotFoundException::class)
+                )
+            );
+
+        $contentService = $this->getPartlyMockedContentService();
+        $contentService->internalLoadContentById($id, $languages, $versionNo);
+    }
+
+    public function testInternalLoadContentByRemoteIdNotFound(): void
+    {
+        $this->expectException(NotFoundException::class);
+
+        $remoteId = 'dca290623518d393126d3408b45af6ee';
+        $id = 123;
+        $versionNo = 7;
+        $languages = null;
+
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandler */
+        $contentHandler = $this->getPersistenceMock()->contentHandler();
+        $contentHandler
+            ->expects($this->once())
+            ->method('loadContentInfoByRemoteId')
+            ->with($remoteId)
+            ->willReturn(new SPIContent\ContentInfo(['id' => $id]));
+
+        $contentHandler
+            ->expects($this->once())
+            ->method('load')
+            ->with($id, $versionNo, $languages)
+            ->willThrowException(
+                $this->createMock(APINotFoundException::class)
+            );
+
+        $contentService = $this->getPartlyMockedContentService();
+        $contentService->internalLoadContentByRemoteId($remoteId, $languages, $versionNo);
+    }
+
+    /**
+     * Test for the loadContentByContentInfo() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentByContentInfo
+     */
+    public function testLoadContentByContentInfo()
+    {
+        $versionInfo = $this->createMock(APIVersionInfo::class);
+        $content = $this->createMock(APIContent::class);
+        $content->method('getVersionInfo')
+            ->will($this->returnValue($versionInfo));
+
+        $permissionResolver = $this->getPermissionResolverMock();
+        $permissionResolver->expects($this->any())
+            ->method('canUser')
+            ->will($this->returnValue(true));
+
+        $contentServiceMock = $this->getPartlyMockedContentService(
+            ['internalLoadContentById']
+        );
+
+        $contentServiceMock
+            ->method(
+                'internalLoadContentById'
+            )->with(
+                $this->equalTo(42),
+                $this->equalTo(['cro-HR']),
+                $this->equalTo(7),
+                $this->equalTo(false)
+            )->will(
+                $this->returnValue($content)
+            );
+
+        $result = $contentServiceMock->loadContentByContentInfo(
+            new ContentInfo(['id' => 42]),
+            ['cro-HR'],
+            7
+        );
+
+        $this->assertEquals($content, $result);
+    }
+
+    /**
+     * Test for the loadContentByVersionInfo() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::loadContentByVersionInfo
+     */
+    public function testLoadContentByVersionInfo()
+    {
+        $expectedResult = $this->createMock(Content::class);
+
+        $contentServiceMock = $this->getPartlyMockedContentService(
+            ['loadContent']
+        );
+        $contentServiceMock->expects(
+            $this->once()
+        )->method(
+            'loadContent'
+        )->with(
+            $this->equalTo(42),
+            $this->equalTo(['cro-HR']),
+            $this->equalTo(7),
+            $this->equalTo(false)
+        )->will(
+            $this->returnValue($expectedResult)
+        );
+
+        $result = $contentServiceMock->loadContentByVersionInfo(
+            new VersionInfo(
+                [
+                    'contentInfo' => new ContentInfo(['id' => 42]),
+                    'versionNo' => 7,
+                ]
+            ),
+            ['cro-HR']
+        );
+
+        $this->assertEquals($expectedResult, $result);
+    }
+
+    /**
+     * Test for the deleteContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteContent
+     */
+    public function testDeleteContentThrowsUnauthorizedException()
+    {
+        $this->expectException(UnauthorizedException::class);
+
+        $permissionResolver = $this->getPermissionResolverMock();
+        $contentService = $this->getPartlyMockedContentService(['internalLoadContentInfoById']);
+        $contentInfo = $this->createMock(APIContentInfo::class);
+
+        $contentInfo->expects($this->any())
+            ->method('__get')
+            ->willReturnMap(
+                [
+                    ['id', 42],
+                    ['currentVersionNo', 7],
+                ]
+            );
+
+        $persistenceHandlerMock = $this->getPersistenceMockHandler('Handler');
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandler */
+        $contentHandler = $this->getPersistenceMock()->contentHandler();
+
+        $contentHandler
+            ->expects($this->once())
+            ->method('loadVersionInfo')
+            ->with(
+                $this->equalTo(42),
+                $this->equalTo(7)
+            )->will(
+                $this->returnValue(new SPIVersionInfo())
+            );
+
+        $contentService->expects($this->once())
+            ->method('internalLoadContentInfoById')
+            ->with(42)
+            ->will($this->returnValue($contentInfo));
+
+        $permissionResolver->expects($this->once())
+            ->method('canUser')
+            ->with('content', 'remove')
+            ->will($this->returnValue(false));
+
+        /* @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo */
+        $contentService->deleteContent($contentInfo);
+    }
+
+    /**
+     * Test for the deleteContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteContent
+     */
+    public function testDeleteContent()
+    {
+        $repository = $this->getRepositoryMock();
+        $permissionResolver = $this->getPermissionResolverMock();
+
+        $permissionResolver->expects($this->once())
+            ->method('canUser')
+            ->with('content', 'remove')
+            ->will($this->returnValue(true));
+
+        $contentService = $this->getPartlyMockedContentService(['internalLoadContentInfoById']);
+        /** @var \PHPUnit\Framework\MockObject\MockObject $urlAliasHandler */
+        $urlAliasHandler = $this->getPersistenceMock()->urlAliasHandler();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $locationHandler */
+        $locationHandler = $this->getPersistenceMock()->locationHandler();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandler */
+        $contentHandler = $this->getPersistenceMock()->contentHandler();
+
+        $contentInfo = $this->createMock(APIContentInfo::class);
+
+        $contentService->expects($this->once())
+            ->method('internalLoadContentInfoById')
+            ->with(42)
+            ->will($this->returnValue($contentInfo));
+
+        $contentInfo->expects($this->any())
+            ->method('__get')
+            ->willReturnMap(
+                [
+                    ['id', 42],
+                    ['currentVersionNo', 7],
+                ]
+            );
+
+        $persistenceHandlerMock = $this->getPersistenceMockHandler('Handler');
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandler */
+        $contentHandler = $this->getPersistenceMock()->contentHandler();
+
+        $contentHandler
+            ->expects($this->once())
+            ->method('loadVersionInfo')
+            ->with(
+                $this->equalTo(42),
+                $this->equalTo(7)
+            )->will(
+                $this->returnValue(new SPIVersionInfo())
+            );
+
+        $repository->expects($this->once())->method('beginTransaction');
+
+        $spiLocations = [
+            new SPILocation(['id' => 1]),
+            new SPILocation(['id' => 2]),
+        ];
+        $locationHandler->expects($this->once())
+            ->method('loadLocationsByContent')
+            ->with(42)
+            ->will($this->returnValue($spiLocations));
+
+        $contentHandler->expects($this->once())
+            ->method('deleteContent')
+            ->with(42);
+
+        foreach ($spiLocations as $index => $spiLocation) {
+            $urlAliasHandler->expects($this->at($index))
+                ->method('locationDeleted')
+                ->with($spiLocation->id);
+        }
+
+        $repository->expects($this->once())->method('commit');
+
+        /* @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo */
+        $contentService->deleteContent($contentInfo);
+    }
+
+    /**
+     * Test for the deleteContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteContent
+     */
+    public function testDeleteContentWithRollback()
+    {
+        $this->expectException(\Exception::class);
+
+        $repository = $this->getRepositoryMock();
+        $permissionResolver = $this->getPermissionResolverMock();
+
+        $permissionResolver->expects($this->once())
+            ->method('canUser')
+            ->with('content', 'remove')
+            ->will($this->returnValue(true));
+
+        $contentService = $this->getPartlyMockedContentService(['internalLoadContentInfoById']);
+        /** @var \PHPUnit\Framework\MockObject\MockObject $locationHandler */
+        $locationHandler = $this->getPersistenceMock()->locationHandler();
+
+        $contentInfo = $this->createMock(APIContentInfo::class);
+
+        $contentService->expects($this->once())
+            ->method('internalLoadContentInfoById')
+            ->with(42)
+            ->will($this->returnValue($contentInfo));
+
+        $contentInfo->expects($this->any())
+            ->method('__get')
+            ->willReturnMap(
+                [
+                    ['id', 42],
+                    ['currentVersionNo', 7],
+                ]
+            );
+
+        $persistenceHandlerMock = $this->getPersistenceMockHandler('Handler');
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandler */
+        $contentHandler = $this->getPersistenceMock()->contentHandler();
+
+        $contentHandler
+            ->expects($this->once())
+            ->method('loadVersionInfo')
+            ->with(
+                $this->equalTo(42),
+                $this->equalTo(7)
+            )->will(
+                $this->returnValue(new SPIVersionInfo())
+            );
+
+        $repository->expects($this->once())->method('beginTransaction');
+
+        $locationHandler->expects($this->once())
+            ->method('loadLocationsByContent')
+            ->with(42)
+            ->will($this->throwException(new \Exception()));
+
+        $repository->expects($this->once())->method('rollback');
+
+        /* @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo */
+        $contentService->deleteContent($contentInfo);
+    }
+
+    /**
+     * Test for the deleteVersion() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::deleteVersion
+     */
+    public function testDeleteVersionThrowsBadStateExceptionLastVersion()
+    {
+        $this->expectException(BadStateException::class);
+
+        $repository = $this->getRepositoryMock();
+        $permissionResolver = $this->getPermissionResolverMock();
+
+        $permissionResolver
+            ->expects($this->once())
+            ->method('canUser')
+            ->with('content', 'versionremove')
+            ->will($this->returnValue(true));
+        $repository
+            ->expects($this->never())
+            ->method('beginTransaction');
+
+        $contentService = $this->getPartlyMockedContentService();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandler */
+        $contentHandler = $this->getPersistenceMock()->contentHandler();
+        $contentInfo = $this->createMock(APIContentInfo::class);
+        $versionInfo = $this->createMock(APIVersionInfo::class);
+
+        $contentInfo
+            ->expects($this->any())
+            ->method('__get')
+            ->with('id')
+            ->will($this->returnValue(42));
+
+        $versionInfo
+            ->expects($this->any())
+            ->method('__get')
+            ->will(
+                $this->returnValueMap(
+                    [
+                        ['versionNo', 123],
+                        ['contentInfo', $contentInfo],
+                    ]
+                )
+            );
+        $versionInfo
+            ->expects($this->once())
+            ->method('isPublished')
+            ->willReturn(false);
+
+        $contentHandler
+            ->expects($this->once())
+            ->method('listVersions')
+            ->with(42)
+            ->will($this->returnValue(['version']));
+
+        /* @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo */
+        $contentService->deleteVersion($versionInfo);
+    }
+
+    /**
+     * Test for the createContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
+     */
+    public function testCreateContentThrowsInvalidArgumentExceptionMainLanguageCodeNotSet()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Argument \'$contentCreateStruct\' is invalid: the \'mainLanguageCode\' property must be set');
+
+        $mockedService = $this->getPartlyMockedContentService();
+        $mockedService->createContent(new ContentCreateStruct(), []);
+    }
+
+    /**
+     * Test for the createContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
+     */
+    public function testCreateContentThrowsInvalidArgumentExceptionContentTypeNotSet()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Argument \'$contentCreateStruct\' is invalid: the \'contentType\' property must be set');
+
+        $mockedService = $this->getPartlyMockedContentService();
+        $mockedService->createContent(
+            new ContentCreateStruct(['mainLanguageCode' => 'eng-US']),
+            []
+        );
+    }
+
+    /**
+     * Test for the createContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
+     */
+    public function testCreateContentThrowsUnauthorizedException()
+    {
+        $this->expectException(UnauthorizedException::class);
+
+        $repositoryMock = $this->getRepositoryMock();
+
+        $permissionResolver = $this->getPermissionResolverMock();
+        $permissionResolver->expects($this->once())
+            ->method('getCurrentUserReference')
+            ->will($this->returnValue(new UserReference(169)));
+
+        $mockedService = $this->getPartlyMockedContentService();
+        $contentTypeServiceMock = $this->getContentTypeServiceMock();
+        $contentType = new ContentType(
+            [
+                'id' => 123,
+                'fieldDefinitions' => [],
+            ]
+        );
+        $contentCreateStruct = new ContentCreateStruct(
+            [
+                'ownerId' => 169,
+                'alwaysAvailable' => false,
+                'mainLanguageCode' => 'eng-US',
+                'contentType' => $contentType,
+            ]
+        );
+
+        $contentTypeServiceMock->expects($this->once())
+            ->method('loadContentType')
+            ->with($this->equalTo(123))
+            ->will($this->returnValue($contentType));
+
+        $repositoryMock->expects($this->once())
+            ->method('getContentTypeService')
+            ->will($this->returnValue($contentTypeServiceMock));
+
+        $permissionResolver->expects($this->once())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('create'),
+                $this->isInstanceOf(get_class($contentCreateStruct)),
+                $this->equalTo([])
+            )->will($this->returnValue(false));
+
+        $mockedService->createContent(
+            new ContentCreateStruct(
+                [
+                    'mainLanguageCode' => 'eng-US',
+                    'contentType' => $contentType,
+                ]
+            ),
+            []
+        );
+    }
+
+    /**
+     * Test for the createContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
+     * @exceptionMessage Argument '$contentCreateStruct' is invalid: Another content with remoteId 'faraday' exists
+     */
+    public function testCreateContentThrowsInvalidArgumentExceptionDuplicateRemoteId()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $repositoryMock = $this->getRepositoryMock();
+        $permissionResolverMock = $this->getPermissionResolverMock();
+        $permissionResolverMock
+            ->expects($this->once())
+            ->method('getCurrentUserReference')
+            ->willReturn($this->createMock(UserReference::class));
+
+        $mockedService = $this->getPartlyMockedContentService(['loadContentByRemoteId']);
+        $contentTypeServiceMock = $this->getContentTypeServiceMock();
+        $contentType = new ContentType(
+            [
+                'id' => 123,
+                'fieldDefinitions' => [],
+            ]
+        );
+        $contentCreateStruct = new ContentCreateStruct(
+            [
+                'ownerId' => 169,
+                'alwaysAvailable' => false,
+                'remoteId' => 'faraday',
+                'mainLanguageCode' => 'eng-US',
+                'contentType' => $contentType,
+            ]
+        );
+
+        $contentTypeServiceMock->expects($this->once())
+            ->method('loadContentType')
+            ->with($this->equalTo(123))
+            ->will($this->returnValue($contentType));
+
+        $repositoryMock->expects($this->once())
+            ->method('getContentTypeService')
+            ->will($this->returnValue($contentTypeServiceMock));
+
+        $permissionResolverMock->expects($this->once())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('create'),
+                $this->isInstanceOf(get_class($contentCreateStruct)),
+                $this->equalTo([])
+            )->will($this->returnValue(true));
+
+        $mockedService->expects($this->once())
+            ->method('loadContentByRemoteId')
+            ->with($contentCreateStruct->remoteId)
+            ->will($this->returnValue($this->createMock(Content::class)));
+
+        $mockedService->createContent(
+            new ContentCreateStruct(
+                [
+                    'remoteId' => 'faraday',
+                    'mainLanguageCode' => 'eng-US',
+                    'contentType' => $contentType,
+                ]
+            ),
+            []
+        );
+    }
+
+    /**
+     * @param string $mainLanguageCode
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $structFields
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[] $fieldDefinitions
+     *
+     * @return array
+     */
+    protected function mapStructFieldsForCreate($mainLanguageCode, $structFields, $fieldDefinitions)
+    {
+        $mappedFieldDefinitions = [];
+        foreach ($fieldDefinitions as $fieldDefinition) {
+            $mappedFieldDefinitions[$fieldDefinition->identifier] = $fieldDefinition;
+        }
+
+        $mappedStructFields = [];
+        foreach ($structFields as $structField) {
+            if ($structField->languageCode === null) {
+                $languageCode = $mainLanguageCode;
+            } else {
+                $languageCode = $structField->languageCode;
+            }
+
+            $mappedStructFields[$structField->fieldDefIdentifier][$languageCode] = (string)$structField->value;
+        }
+
+        return $mappedStructFields;
+    }
+
+    /**
+     * Returns full, possibly redundant array of field values, indexed by field definition
+     * identifier and language code.
+     *
+     * @param string $mainLanguageCode
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $structFields
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[] $fieldDefinitions
+     * @param array $languageCodes
+     *
+     * @return array
+     *
+     * @throws \RuntimeException Method is intended to be used only with consistent fixtures
+     */
+    protected function determineValuesForCreate(
+        $mainLanguageCode,
+        array $structFields,
+        array $fieldDefinitions,
+        array $languageCodes
+    ) {
+        $mappedStructFields = $this->mapStructFieldsForCreate(
+            $mainLanguageCode,
+            $structFields,
+            $fieldDefinitions
+        );
+
+        $values = [];
+
+        foreach ($fieldDefinitions as $fieldDefinition) {
+            $identifier = $fieldDefinition->identifier;
+            foreach ($languageCodes as $languageCode) {
+                if (!$fieldDefinition->isTranslatable) {
+                    if (isset($mappedStructFields[$identifier][$mainLanguageCode])) {
+                        $values[$identifier][$languageCode] = $mappedStructFields[$identifier][$mainLanguageCode];
+                    } else {
+                        $values[$identifier][$languageCode] = (string)$fieldDefinition->defaultValue;
+                    }
+                    continue;
+                }
+
+                if (isset($mappedStructFields[$identifier][$languageCode])) {
+                    $values[$identifier][$languageCode] = $mappedStructFields[$identifier][$languageCode];
+                    continue;
+                }
+
+                $values[$identifier][$languageCode] = (string)$fieldDefinition->defaultValue;
+            }
+        }
+
+        return $this->stubValues($values);
+    }
+
+    /**
+     * @param string $mainLanguageCode
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $structFields
+     *
+     * @return string[]
+     */
+    protected function determineLanguageCodesForCreate($mainLanguageCode, array $structFields)
+    {
+        $languageCodes = [];
+
+        foreach ($structFields as $field) {
+            if ($field->languageCode === null || isset($languageCodes[$field->languageCode])) {
+                continue;
+            }
+
+            $languageCodes[$field->languageCode] = true;
+        }
+
+        $languageCodes[$mainLanguageCode] = true;
+
+        return array_keys($languageCodes);
+    }
+
+    /**
+     * Asserts that calling createContent() with given API field set causes calling
+     * Handler::createContent() with given SPI field set.
+     *
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $structFields
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field[] $spiFields
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[] $fieldDefinitions
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct[] $locationCreateStructs
+     */
+    protected function assertForTestCreateContentNonRedundantFieldSet(
+        string $mainLanguageCode,
+        array $structFields,
+        array $spiFields,
+        array $fieldDefinitions,
+        array $locationCreateStructs = [],
+        bool $withObjectStates = false,
+        bool $execute = true
+    ): ContentCreateStruct {
+        $repositoryMock = $this->getRepositoryMock();
+        $mockedService = $this->getPartlyMockedContentService();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandlerMock */
+        $contentHandlerMock = $this->getPersistenceMock()->contentHandler();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $languageHandlerMock */
+        $languageHandlerMock = $this->getPersistenceMock()->contentLanguageHandler();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $objectStateHandlerMock */
+        $objectStateHandlerMock = $this->getPersistenceMock()->objectStateHandler();
+        $contentTypeServiceMock = $this->getContentTypeServiceMock();
+        $domainMapperMock = $this->getContentDomainMapperMock();
+        $relationProcessorMock = $this->getRelationProcessorMock();
+        $nameSchemaServiceMock = $this->getNameSchemaServiceMock();
+        $permissionResolverMock = $this->getPermissionResolverMock();
+        $fieldTypeMock = $this->createMock(SPIFieldType::class);
+        $languageCodes = $this->determineLanguageCodesForCreate($mainLanguageCode, $structFields);
+        $contentType = new ContentType(
+            [
+                'id' => 123,
+                'fieldDefinitions' => new FieldDefinitionCollection($fieldDefinitions),
+                'nameSchema' => '<nameSchema>',
+            ]
+        );
+        $contentCreateStruct = new ContentCreateStruct(
+            [
+                'fields' => $structFields,
+                'mainLanguageCode' => $mainLanguageCode,
+                'contentType' => $contentType,
+                'alwaysAvailable' => false,
+                'ownerId' => 169,
+                'sectionId' => 1,
+            ]
+        );
+
+        $languageHandlerMock->expects($this->any())
+            ->method('loadByLanguageCode')
+            ->with($this->isType('string'))
+            ->will(
+                $this->returnCallback(
+                    static function () {
+                        return new Language(['id' => 4242]);
+                    }
+                )
+            );
+
+        $repositoryMock->expects($this->once())->method('beginTransaction');
+
+        $contentTypeServiceMock->expects($this->once())
+            ->method('loadContentType')
+            ->with($this->equalTo($contentType->id))
+            ->will($this->returnValue($contentType));
+
+        $repositoryMock->expects($this->once())
+            ->method('getContentTypeService')
+            ->will($this->returnValue($contentTypeServiceMock));
+
+        $that = $this;
+        $permissionResolverMock->expects($this->once())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('create'),
+                $this->isInstanceOf(APIContentCreateStruct::class),
+                $this->equalTo($locationCreateStructs)
+            )->will(
+                $this->returnCallback(
+                    static function () use ($that, $contentCreateStruct) {
+                        $that->assertEquals($contentCreateStruct, func_get_arg(2));
+
+                        return true;
+                    }
+                )
+            );
+
+        $domainMapperMock->expects($this->once())
+            ->method('getUniqueHash')
+            ->with($this->isInstanceOf(APIContentCreateStruct::class))
+            ->will(
+                $this->returnCallback(
+                    static function ($object) use ($that, $contentCreateStruct) {
+                        $that->assertEquals($contentCreateStruct, $object);
+
+                        return 'hash';
+                    }
+                )
+            );
+
+        $fieldTypeMock->expects($this->any())
+            ->method('acceptValue')
+            ->will(
+                $this->returnCallback(
+                    static function ($valueString) {
+                        return new ValueStub($valueString);
+                    }
+                )
+            );
+
+        $fieldTypeMock
+            ->method('toHash')
+            ->willReturnCallback(static function (SPIValue $value) {
+                return ['value' => $value->value];
+            });
+
+        $fieldTypeMock->expects($this->any())
+            ->method('toPersistenceValue')
+            ->will(
+                $this->returnCallback(
+                    static function (ValueStub $value) {
+                        return (string)$value;
+                    }
+                )
+            );
+
+        $emptyValue = new ValueStub(self::EMPTY_FIELD_VALUE);
+        $fieldTypeMock->expects($this->any())
+            ->method('isEmptyValue')
+            ->will(
+                $this->returnCallback(
+                    static function (ValueStub $value) use ($emptyValue) {
+                        return (string)$emptyValue === (string)$value;
+                    }
+                )
+            );
+
+        $fieldTypeMock->expects($this->any())
+            ->method('validate')
+            ->will($this->returnValue([]));
+
+        $this->getFieldTypeRegistryMock()->expects($this->any())
+            ->method('getFieldType')
+            ->will($this->returnValue($fieldTypeMock));
+
+        $relationProcessorMock
+            ->expects($this->exactly(count($fieldDefinitions) * count($languageCodes)))
+            ->method('appendFieldRelations')
+            ->with(
+                $this->isType('array'),
+                $this->isType('array'),
+                $this->isInstanceOf(SPIFieldType::class),
+                $this->isInstanceOf(Value::class),
+                $this->anything()
+            );
+
+        $values = $this->determineValuesForCreate(
+            $mainLanguageCode,
+            $structFields,
+            $fieldDefinitions,
+            $languageCodes
+        );
+        $nameSchemaServiceMock->expects($this->once())
+            ->method('resolve')
+            ->with(
+                $this->equalTo($contentType->nameSchema),
+                $this->equalTo($contentType),
+                $this->equalTo($values),
+                $this->equalTo($languageCodes)
+            )->will($this->returnValue([]));
+
+        $relationProcessorMock->expects($this->any())
+            ->method('processFieldRelations')
+            ->with(
+                $this->isType('array'),
+                $this->equalTo(42),
+                $this->isType('int'),
+                $this->equalTo($contentType),
+                $this->equalTo([])
+            );
+
+        if (!$withObjectStates) {
+            $objectStateHandlerMock->expects($this->once())
+                ->method('loadAllGroups')
+                ->will($this->returnValue([]));
+        }
+
+        if ($execute) {
+            $spiContentCreateStruct = new SPIContentCreateStruct(
+                [
+                    'name' => [],
+                    'typeId' => 123,
+                    'sectionId' => 1,
+                    'ownerId' => 169,
+                    'remoteId' => 'hash',
+                    'fields' => $spiFields,
+                    'modified' => time(),
+                    'initialLanguageId' => 4242,
+                ]
+            );
+            $spiContentCreateStruct2 = clone $spiContentCreateStruct;
+            ++$spiContentCreateStruct2->modified;
+
+            $spiContent = new SPIContent(
+                [
+                    'versionInfo' => new SPIContent\VersionInfo(
+                        [
+                            'contentInfo' => new SPIContent\ContentInfo(['id' => 42]),
+                            'versionNo' => 7,
+                        ]
+                    ),
+                ]
+            );
+
+            $contentHandlerMock->expects($this->once())
+                ->method('create')
+                ->with($this->logicalOr($spiContentCreateStruct, $spiContentCreateStruct2))
+                ->will($this->returnValue($spiContent));
+
+            $repositoryMock->expects($this->once())->method('commit');
+            $domainMapperMock->expects($this->once())
+                ->method('buildContentDomainObject')
+                ->with(
+                    $this->isInstanceOf(SPIContent::class),
+                    $this->equalTo($contentType)
+                )
+                ->willReturn($this->createMock(APIContent::class));
+
+            $mockedService->createContent($contentCreateStruct, []);
+        }
+
+        return $contentCreateStruct;
+    }
+
+    public function providerForTestCreateContentNonRedundantFieldSet1()
+    {
+        $spiFields = [
+            new SPIField(
+                [
+                    'fieldDefinitionId' => 'fieldDefinitionId',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue'),
+                    'languageCode' => 'eng-US',
+                ]
+            ),
+        ];
+
+        return [
+            // 0. Without language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                ],
+                $spiFields,
+            ],
+            // 1. Without language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                ],
+                $spiFields,
+            ],
+        ];
+    }
+
+    /**
+     * Test for the createContent() method.
+     *
+     * Testing the simplest use case.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::cloneField
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getDefaultObjectStates
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
+     * @dataProvider providerForTestCreateContentNonRedundantFieldSet1
+     */
+    public function testCreateContentNonRedundantFieldSet1($mainLanguageCode, $structFields, $spiFields)
+    {
+        $fieldDefinitions = [
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => false,
+                    'identifier' => 'identifier',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub('someValue'),
+                ]
+            ),
+        ];
+
+        $this->assertForTestCreateContentNonRedundantFieldSet(
+            $mainLanguageCode,
+            $structFields,
+            $spiFields,
+            $fieldDefinitions
+        );
+    }
+
+    public function providerForTestCreateContentNonRedundantFieldSet2()
+    {
+        $spiFields = [
+            new SPIField(
+                [
+                    'fieldDefinitionId' => 'fieldDefinitionId1',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue1'),
+                    'languageCode' => 'eng-US',
+                ]
+            ),
+            new SPIField(
+                [
+                    'fieldDefinitionId' => 'fieldDefinitionId2',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue2'),
+                    'languageCode' => 'ger-DE',
+                ]
+            ),
+        ];
+
+        return [
+            // 0. With language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier2',
+                            'value' => new ValueStub('newValue2'),
+                            'languageCode' => 'ger-DE',
+                        ]
+                    ),
+                ],
+                $spiFields,
+            ],
+            // 1. Without language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier2',
+                            'value' => new ValueStub('newValue2'),
+                            'languageCode' => 'ger-DE',
+                        ]
+                    ),
+                ],
+                $spiFields,
+            ],
+        ];
+    }
+
+    /**
+     * Test for the createContent() method.
+     *
+     * Testing multiple languages with multiple translatable fields with empty default value.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::cloneField
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getDefaultObjectStates
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
+     * @dataProvider providerForTestCreateContentNonRedundantFieldSet2
+     */
+    public function testCreateContentNonRedundantFieldSet2($mainLanguageCode, $structFields, $spiFields)
+    {
+        $fieldDefinitions = [
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId1',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => true,
+                    'identifier' => 'identifier1',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                ]
+            ),
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId2',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => true,
+                    'identifier' => 'identifier2',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                ]
+            ),
+        ];
+
+        $this->assertForTestCreateContentNonRedundantFieldSet(
+            $mainLanguageCode,
+            $structFields,
+            $spiFields,
+            $fieldDefinitions
+        );
+    }
+
+    public function providerForTestCreateContentNonRedundantFieldSetComplex()
+    {
+        $spiFields0 = [
+            new SPIField(
+                [
+                    'fieldDefinitionId' => 'fieldDefinitionId2',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('defaultValue2'),
+                    'languageCode' => 'eng-US',
+                ]
+            ),
+            new SPIField(
+                [
+                    'fieldDefinitionId' => 'fieldDefinitionId4',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('defaultValue4'),
+                    'languageCode' => 'eng-US',
+                ]
+            ),
+        ];
+        $spiFields1 = [
+            new SPIField(
+                [
+                    'fieldDefinitionId' => 'fieldDefinitionId1',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue1'),
+                    'languageCode' => 'ger-DE',
+                ]
+            ),
+            new SPIField(
+                [
+                    'fieldDefinitionId' => 'fieldDefinitionId2',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('defaultValue2'),
+                    'languageCode' => 'ger-DE',
+                ]
+            ),
+            new SPIField(
+                [
+                    'fieldDefinitionId' => 'fieldDefinitionId2',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue2'),
+                    'languageCode' => 'eng-US',
+                ]
+            ),
+            new SPIField(
+                [
+                    'fieldDefinitionId' => 'fieldDefinitionId4',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue4'),
+                    'languageCode' => 'eng-US',
+                ]
+            ),
+        ];
+
+        return [
+            // 0. Creating by default values only
+            [
+                'eng-US',
+                [],
+                $spiFields0,
+            ],
+            // 1. Multiple languages with language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => 'ger-DE',
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier2',
+                            'value' => new ValueStub('newValue2'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier4',
+                            'value' => new ValueStub('newValue4'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                ],
+                $spiFields1,
+            ],
+            // 2. Multiple languages without language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => 'ger-DE',
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier2',
+                            'value' => new ValueStub('newValue2'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier4',
+                            'value' => new ValueStub('newValue4'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                ],
+                $spiFields1,
+            ],
+        ];
+    }
+
+    protected function fixturesForTestCreateContentNonRedundantFieldSetComplex()
+    {
+        return [
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId1',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => true,
+                    'identifier' => 'identifier1',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                ]
+            ),
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId2',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => true,
+                    'identifier' => 'identifier2',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub('defaultValue2'),
+                ]
+            ),
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId3',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => false,
+                    'identifier' => 'identifier3',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                ]
+            ),
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId4',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => false,
+                    'identifier' => 'identifier4',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub('defaultValue4'),
+                ]
+            ),
+        ];
+    }
+
+    /**
+     * Test for the createContent() method.
+     *
+     * Testing multiple languages with multiple translatable fields with empty default value.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::cloneField
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getDefaultObjectStates
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
+     * @dataProvider providerForTestCreateContentNonRedundantFieldSetComplex
+     */
+    public function testCreateContentNonRedundantFieldSetComplex($mainLanguageCode, $structFields, $spiFields)
+    {
+        $fieldDefinitions = $this->fixturesForTestCreateContentNonRedundantFieldSetComplex();
+
+        $this->assertForTestCreateContentNonRedundantFieldSet(
+            $mainLanguageCode,
+            $structFields,
+            $spiFields,
+            $fieldDefinitions
+        );
+    }
+
+    public function providerForTestCreateContentWithInvalidLanguage()
+    {
+        return [
+            [
+                'eng-GB',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue'),
+                            'languageCode' => 'Klingon',
+                        ]
+                    ),
+                ],
+            ],
+            [
+                'Klingon',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue'),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Test for the updateContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
+     * @dataProvider providerForTestCreateContentWithInvalidLanguage
+     */
+    public function testCreateContentWithInvalidLanguage($mainLanguageCode, $structFields)
+    {
+        $this->expectException(APINotFoundException::class);
+        $this->expectExceptionMessage('Could not find \'Language\' with identifier \'Klingon\'');
+
+        $repositoryMock = $this->getRepositoryMock();
+        $mockedService = $this->getPartlyMockedContentService();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $languageHandlerMock */
+        $languageHandlerMock = $this->getPersistenceMock()->contentLanguageHandler();
+        $contentTypeServiceMock = $this->getContentTypeServiceMock();
+        $domainMapperMock = $this->getContentDomainMapperMock();
+        $permissionResolver = $this->getPermissionResolverMock();
+
+        $fieldTypeMock = $this->createMock(FieldType::class);
+        $fieldTypeMock->expects($this->any())
+            ->method('acceptValue')
+            ->will(
+                $this->returnCallback(
+                    static function ($valueString) {
+                        return new ValueStub($valueString);
+                    }
+                )
+            );
+
+        $fieldTypeMock
+            ->method('toHash')
+            ->willReturnCallback(static function (SPIValue $value) {
+                return ['value' => $value->value];
+            });
+
+        $this->getFieldTypeRegistryMock()->expects($this->any())
+            ->method('getFieldType')
+            ->will($this->returnValue($fieldTypeMock));
+
+        $contentType = new ContentType(
+            [
+                'id' => 123,
+                'fieldDefinitions' => new FieldDefinitionCollection([
+                    new FieldDefinition([
+                        'id' => 'fieldDefinitionId',
+                        'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                        'isTranslatable' => false,
+                        'identifier' => 'identifier',
+                        'isRequired' => false,
+                        'defaultValue' => new ValueStub('someValue'),
+                    ]),
+                ]),
+            ]
+        );
+        $contentCreateStruct = new ContentCreateStruct(
+            [
+                'fields' => $structFields,
+                'mainLanguageCode' => $mainLanguageCode,
+                'contentType' => $contentType,
+                'alwaysAvailable' => false,
+                'ownerId' => 169,
+                'sectionId' => 1,
+            ]
+        );
+
+        $languageHandlerMock->expects($this->any())
+            ->method('loadByLanguageCode')
+            ->with($this->isType('string'))
+            ->will(
+                $this->returnCallback(
+                    static function ($languageCode) {
+                        if ($languageCode === 'Klingon') {
+                            throw new NotFoundException('Language', 'Klingon');
+                        }
+
+                        return new Language(['id' => 4242]);
+                    }
+                )
+            );
+
+        $contentTypeServiceMock->expects($this->once())
+            ->method('loadContentType')
+            ->with($this->equalTo($contentType->id))
+            ->will($this->returnValue($contentType));
+
+        $repositoryMock->expects($this->once())
+            ->method('getContentTypeService')
+            ->will($this->returnValue($contentTypeServiceMock));
+
+        $that = $this;
+        $permissionResolver->expects($this->any())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('create'),
+                $this->isInstanceOf(APIContentCreateStruct::class),
+                $this->equalTo([])
+            )->will(
+                $this->returnCallback(
+                    static function () use ($that, $contentCreateStruct) {
+                        $that->assertEquals($contentCreateStruct, func_get_arg(2));
+
+                        return true;
+                    }
+                )
+            );
+
+        $domainMapperMock->expects($this->once())
+            ->method('getUniqueHash')
+            ->with($this->isInstanceOf(APIContentCreateStruct::class))
+            ->will(
+                $this->returnCallback(
+                    static function ($object) use ($that, $contentCreateStruct) {
+                        $that->assertEquals($contentCreateStruct, $object);
+
+                        return 'hash';
+                    }
+                )
+            );
+
+        $mockedService->createContent($contentCreateStruct, []);
+    }
+
+    protected function assertForCreateContentContentValidationException(
+        $mainLanguageCode,
+        $structFields,
+        $fieldDefinitions = []
+    ) {
+        $repositoryMock = $this->getRepositoryMock();
+        $mockedService = $this->getPartlyMockedContentService(['loadContentByRemoteId']);
+        $contentTypeServiceMock = $this->getContentTypeServiceMock();
+        $permissionResolver = $this->getPermissionResolverMock();
+
+        $fieldTypeMock = $this->createMock(FieldType::class);
+        $fieldTypeMock->expects($this->any())
+            ->method('acceptValue')
+            ->will(
+                $this->returnCallback(
+                    static function ($valueString) {
+                        return new ValueStub($valueString);
+                    }
+                )
+            );
+
+        $fieldTypeMock
+            ->method('toHash')
+            ->willReturnCallback(static function (SPIValue $value) {
+                return ['value' => $value->value];
+            });
+
+        $this->getFieldTypeRegistryMock()->expects($this->any())
+            ->method('getFieldType')
+            ->will($this->returnValue($fieldTypeMock));
+
+        $contentType = new ContentType(
+            [
+                'id' => 123,
+                'fieldDefinitions' => new FieldDefinitionCollection($fieldDefinitions),
+            ]
+        );
+        $contentCreateStruct = new ContentCreateStruct(
+            [
+                'ownerId' => 169,
+                'alwaysAvailable' => false,
+                'remoteId' => 'faraday',
+                'mainLanguageCode' => $mainLanguageCode,
+                'fields' => $structFields,
+                'contentType' => $contentType,
+            ]
+        );
+
+        $contentTypeServiceMock->expects($this->once())
+            ->method('loadContentType')
+            ->with($this->equalTo(123))
+            ->will($this->returnValue($contentType));
+
+        $repositoryMock->expects($this->once())
+            ->method('getContentTypeService')
+            ->will($this->returnValue($contentTypeServiceMock));
+
+        $permissionResolver->expects($this->any())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('create'),
+                $this->isInstanceOf(get_class($contentCreateStruct)),
+                $this->equalTo([])
+            )->will($this->returnValue(true));
+
+        $mockedService->expects($this->any())
+            ->method('loadContentByRemoteId')
+            ->with($contentCreateStruct->remoteId)
+            ->will(
+                $this->throwException(new NotFoundException('Content', 'faraday'))
+            );
+
+        $mockedService->createContent($contentCreateStruct, []);
+    }
+
+    public function providerForTestCreateContentThrowsContentValidationExceptionFieldDefinition()
+    {
+        return [
+            [
+                'eng-GB',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue'),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Test for the createContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
+     * @dataProvider providerForTestCreateContentThrowsContentValidationExceptionFieldDefinition
+     */
+    public function testCreateContentThrowsContentValidationExceptionFieldDefinition($mainLanguageCode, $structFields)
+    {
+        $this->expectException(ContentValidationException::class);
+        $this->expectExceptionMessage('Field definition \'identifier\' does not exist in the given Content Type');
+
+        $this->assertForCreateContentContentValidationException(
+            $mainLanguageCode,
+            $structFields,
+            []
+        );
+    }
+
+    public function providerForTestCreateContentThrowsContentValidationExceptionTranslation()
+    {
+        return [
+            [
+                'eng-GB',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Test for the createContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
+     * @dataProvider providerForTestCreateContentThrowsContentValidationExceptionTranslation
+     */
+    public function testCreateContentThrowsContentValidationExceptionTranslation($mainLanguageCode, $structFields)
+    {
+        $this->expectException(ContentValidationException::class);
+        $this->expectExceptionMessage('You cannot set a value for the non-translatable Field definition \'identifier\' in language \'eng-US\'');
+
+        $fieldDefinitions = [
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId1',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => false,
+                    'identifier' => 'identifier',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                ]
+            ),
+        ];
+
+        $this->assertForCreateContentContentValidationException(
+            $mainLanguageCode,
+            $structFields,
+            $fieldDefinitions
+        );
+    }
+
+    /**
+     * Asserts behaviour necessary for testing ContentFieldValidationException because of required
+     * field being empty.
+     *
+     * @param string $mainLanguageCode
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $structFields
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[] $fieldDefinitions
+     *
+     * @return mixed
+     */
+    protected function assertForTestCreateContentRequiredField(
+        $mainLanguageCode,
+        array $structFields,
+        array $fieldDefinitions
+    ) {
+        $repositoryMock = $this->getRepositoryMock();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $languageHandlerMock */
+        $languageHandlerMock = $this->getPersistenceMock()->contentLanguageHandler();
+        $contentTypeServiceMock = $this->getContentTypeServiceMock();
+        $domainMapperMock = $this->getContentDomainMapperMock();
+        $fieldTypeMock = $this->createMock(SPIFieldType::class);
+        $permissionResolver = $this->getPermissionResolverMock();
+
+        $contentType = new ContentType(
+            [
+                'id' => 123,
+                'fieldDefinitions' => new FieldDefinitionCollection($fieldDefinitions),
+                'nameSchema' => '<nameSchema>',
+            ]
+        );
+        $contentCreateStruct = new ContentCreateStruct(
+            [
+                'fields' => $structFields,
+                'mainLanguageCode' => $mainLanguageCode,
+                'contentType' => $contentType,
+                'alwaysAvailable' => false,
+                'ownerId' => 169,
+                'sectionId' => 1,
+            ]
+        );
+
+        $languageHandlerMock->expects($this->any())
+            ->method('loadByLanguageCode')
+            ->with($this->isType('string'))
+            ->will(
+                $this->returnCallback(
+                    static function () {
+                        return new Language(['id' => 4242]);
+                    }
+                )
+            );
+
+        $contentTypeServiceMock->expects($this->once())
+            ->method('loadContentType')
+            ->with($this->equalTo($contentType->id))
+            ->will($this->returnValue($contentType));
+
+        $repositoryMock->expects($this->once())
+            ->method('getContentTypeService')
+            ->will($this->returnValue($contentTypeServiceMock));
+
+        $that = $this;
+        $permissionResolver->expects($this->once())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('create'),
+                $this->isInstanceOf(APIContentCreateStruct::class),
+                $this->equalTo([])
+            )->will(
+                $this->returnCallback(
+                    static function () use ($that, $contentCreateStruct) {
+                        $that->assertEquals($contentCreateStruct, func_get_arg(2));
+
+                        return true;
+                    }
+                )
+            );
+
+        $domainMapperMock->expects($this->once())
+            ->method('getUniqueHash')
+            ->with($this->isInstanceOf(APIContentCreateStruct::class))
+            ->will(
+                $this->returnCallback(
+                    static function ($object) use ($that, $contentCreateStruct) {
+                        $that->assertEquals($contentCreateStruct, $object);
+
+                        return 'hash';
+                    }
+                )
+            );
+
+        $fieldTypeMock->expects($this->any())
+            ->method('acceptValue')
+            ->will(
+                $this->returnCallback(
+                    static function ($valueString) {
+                        return new ValueStub($valueString);
+                    }
+                )
+            );
+
+        $fieldTypeMock
+            ->method('toHash')
+            ->willReturnCallback(static function (SPIValue $value) {
+                return ['value' => $value->value];
+            });
+
+        $emptyValue = new ValueStub(self::EMPTY_FIELD_VALUE);
+        $fieldTypeMock->expects($this->any())
+            ->method('isEmptyValue')
+            ->will(
+                $this->returnCallback(
+                    static function (ValueStub $value) use ($emptyValue) {
+                        return (string)$emptyValue === (string)$value;
+                    }
+                )
+            );
+
+        $fieldTypeMock->expects($this->any())
+            ->method('validate')
+            ->will($this->returnValue([]));
+
+        $this->getFieldTypeRegistryMock()->expects($this->any())
+            ->method('getFieldType')
+            ->will($this->returnValue($fieldTypeMock));
+
+        return $contentCreateStruct;
+    }
+
+    public function providerForTestCreateContentThrowsContentValidationExceptionRequiredField()
+    {
+        return [
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                            'languageCode' => null,
+                        ]
+                    ),
+                ],
+                'identifier',
+                'eng-US',
+            ],
+        ];
+    }
+
+    /**
+     * Test for the createContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
+     * @dataProvider providerForTestCreateContentThrowsContentValidationExceptionRequiredField
+     */
+    public function testCreateContentRequiredField(
+        $mainLanguageCode,
+        $structFields,
+        $identifier,
+        $languageCode
+    ) {
+        $this->expectException(ContentFieldValidationException::class);
+
+        $fieldDefinitions = [
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => true,
+                    'identifier' => 'identifier',
+                    'isRequired' => true,
+                    'defaultValue' => new ValueStub('defaultValue'),
+                ]
+            ),
+        ];
+        $contentCreateStruct = $this->assertForTestCreateContentRequiredField(
+            $mainLanguageCode,
+            $structFields,
+            $fieldDefinitions
+        );
+
+        $mockedService = $this->getPartlyMockedContentService();
+
+        try {
+            $mockedService->createContent($contentCreateStruct, []);
+        } catch (ContentValidationException $e) {
+            $this->assertEquals(
+                "Value for required field definition '{$identifier}' with language '{$languageCode}' is empty",
+                $e->getMessage()
+            );
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Asserts behaviour necessary for testing ContentFieldValidationException because of
+     * field not being valid.
+     *
+     * @param string $mainLanguageCode
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $structFields
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[] $fieldDefinitions
+     *
+     * @return mixed
+     */
+    protected function assertForTestCreateContentThrowsContentFieldValidationException(
+        $mainLanguageCode,
+        array $structFields,
+        array $fieldDefinitions
+    ) {
+        $repositoryMock = $this->getRepositoryMock();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $languageHandlerMock */
+        $languageHandlerMock = $this->getPersistenceMock()->contentLanguageHandler();
+        $contentTypeServiceMock = $this->getContentTypeServiceMock();
+        $domainMapperMock = $this->getContentDomainMapperMock();
+        $relationProcessorMock = $this->getRelationProcessorMock();
+        $fieldTypeMock = $this->createMock(SPIFieldType::class);
+        $languageCodes = $this->determineLanguageCodesForCreate($mainLanguageCode, $structFields);
+        $permissionResolver = $this->getPermissionResolverMock();
+
+        $contentType = new ContentType(
+            [
+                'id' => 123,
+                'fieldDefinitions' => new FieldDefinitionCollection($fieldDefinitions),
+                'nameSchema' => '<nameSchema>',
+            ]
+        );
+        $contentCreateStruct = new ContentCreateStruct(
+            [
+                'fields' => $structFields,
+                'mainLanguageCode' => $mainLanguageCode,
+                'contentType' => $contentType,
+                'alwaysAvailable' => false,
+                'ownerId' => 169,
+                'sectionId' => 1,
+            ]
+        );
+
+        $languageHandlerMock->expects($this->any())
+            ->method('loadByLanguageCode')
+            ->with($this->isType('string'))
+            ->will(
+                $this->returnCallback(
+                    static function () {
+                        return new Language(['id' => 4242]);
+                    }
+                )
+            );
+
+        $contentTypeServiceMock->expects($this->once())
+            ->method('loadContentType')
+            ->with($this->equalTo($contentType->id))
+            ->will($this->returnValue($contentType));
+
+        $repositoryMock->expects($this->once())
+            ->method('getContentTypeService')
+            ->will($this->returnValue($contentTypeServiceMock));
+
+        $that = $this;
+        $permissionResolver->expects($this->once())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('create'),
+                $this->isInstanceOf(APIContentCreateStruct::class),
+                $this->equalTo([])
+            )->will(
+                $this->returnCallback(
+                    static function () use ($that, $contentCreateStruct) {
+                        $that->assertEquals($contentCreateStruct, func_get_arg(2));
+
+                        return true;
+                    }
+                )
+            );
+
+        $domainMapperMock->expects($this->once())
+            ->method('getUniqueHash')
+            ->with($this->isInstanceOf(APIContentCreateStruct::class))
+            ->will(
+                $this->returnCallback(
+                    static function ($object) use ($that, $contentCreateStruct) {
+                        $that->assertEquals($contentCreateStruct, $object);
+
+                        return 'hash';
+                    }
+                )
+            );
+
+        $this->getFieldTypeRegistryMock()->expects($this->any())
+            ->method('getFieldType')
+            ->will($this->returnValue($fieldTypeMock));
+
+        $relationProcessorMock
+            ->expects($this->any())
+            ->method('appendFieldRelations')
+            ->with(
+                $this->isType('array'),
+                $this->isType('array'),
+                $this->isInstanceOf(SPIFieldType::class),
+                $this->isInstanceOf(Value::class),
+                $this->anything()
+            );
+
+        $fieldValues = $this->determineValuesForCreate(
+            $mainLanguageCode,
+            $structFields,
+            $fieldDefinitions,
+            $languageCodes
+        );
+        $allFieldErrors = [];
+        $emptyValue = new ValueStub(self::EMPTY_FIELD_VALUE);
+
+        $fieldTypeMock
+            ->method('acceptValue')
+            ->will(
+                $this->returnCallback(
+                    static function ($value) {
+                        return $value instanceof SPIValue
+                            ? $value
+                            : new ValueStub($value);
+                    }
+                )
+            );
+
+        $fieldTypeMock
+            ->method('isEmptyValue')
+            ->will(
+                $this->returnCallback(
+                    static function (ValueStub $value) use ($emptyValue) {
+                        return (string)$emptyValue === (string)$value;
+                    }
+                )
+            );
+
+        $fieldTypeMock
+            ->method('toHash')
+            ->willReturnCallback(static function (SPIValue $value) {
+                return ['value' => $value->value];
+            });
+
+        $emptyValue = new ValueStub(self::EMPTY_FIELD_VALUE);
+        foreach ($contentType->getFieldDefinitions() as $fieldDefinition) {
+            foreach ($fieldValues[$fieldDefinition->identifier] as $languageCode => $value) {
+                if ((string)$emptyValue === (string)$value) {
+                    continue;
+                }
+
+                $fieldTypeMock
+                    ->method('validate')
+                    ->will($this->returnArgument(1));
+
+                $allFieldErrors[$fieldDefinition->id][$languageCode] = $value;
+            }
+        }
+
+        return [$contentCreateStruct, $allFieldErrors];
+    }
+
+    public function providerForTestCreateContentThrowsContentFieldValidationException()
+    {
+        return $this->providerForTestCreateContentNonRedundantFieldSetComplex();
+    }
+
+    /**
+     * Test for the createContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
+     * @dataProvider providerForTestCreateContentThrowsContentFieldValidationException
+     */
+    public function testCreateContentThrowsContentFieldValidationException($mainLanguageCode, $structFields)
+    {
+        $this->expectException(ContentFieldValidationException::class);
+        $this->expectExceptionMessage('Content Fields did not validate');
+
+        $fieldDefinitions = $this->fixturesForTestCreateContentNonRedundantFieldSetComplex();
+        list($contentCreateStruct, $allFieldErrors) =
+            $this->assertForTestCreateContentThrowsContentFieldValidationException(
+                $mainLanguageCode,
+                $structFields,
+                $fieldDefinitions
+            );
+
+        $mockedService = $this->getPartlyMockedContentService();
+
+        try {
+            $mockedService->createContent($contentCreateStruct);
+        } catch (ContentFieldValidationException $e) {
+            $this->assertEquals($allFieldErrors, $e->getFieldErrors());
+            throw $e;
+        }
+    }
+
+    /**
+     * Test for the createContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::buildSPILocationCreateStructs
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
+     */
+    public function testCreateContentWithLocations()
+    {
+        $spiFields = [
+            new SPIField(
+                [
+                    'fieldDefinitionId' => 'fieldDefinitionId',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('defaultValue'),
+                    'languageCode' => 'eng-US',
+                ]
+            ),
+        ];
+        $fieldDefinitions = [
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => false,
+                    'identifier' => 'identifier',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub('defaultValue'),
+                ]
+            ),
+        ];
+
+        // Set up a simple case that will pass
+        $locationCreateStruct1 = new LocationCreateStruct(['parentLocationId' => 321]);
+        $locationCreateStruct2 = new LocationCreateStruct(['parentLocationId' => 654]);
+        $locationCreateStructs = [$locationCreateStruct1, $locationCreateStruct2];
+        $contentCreateStruct = $this->assertForTestCreateContentNonRedundantFieldSet(
+            'eng-US',
+            [],
+            $spiFields,
+            $fieldDefinitions,
+            $locationCreateStructs,
+            false,
+            // Do not execute
+            false
+        );
+
+        $repositoryMock = $this->getRepositoryMock();
+        $mockedService = $this->getPartlyMockedContentService();
+        $locationServiceMock = $this->getLocationServiceMock();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $handlerMock */
+        $handlerMock = $this->getPersistenceMock()->contentHandler();
+        $domainMapperMock = $this->getContentDomainMapperMock();
+        $spiLocationCreateStruct = new SPILocation\CreateStruct();
+        $parentLocation = new Location(['contentInfo' => new ContentInfo(['sectionId' => 1])]);
+
+        $locationServiceMock->expects($this->at(0))
+            ->method('loadLocation')
+            ->with($this->equalTo(321))
+            ->will($this->returnValue($parentLocation));
+
+        $locationServiceMock->expects($this->at(1))
+            ->method('loadLocation')
+            ->with($this->equalTo(654))
+            ->will($this->returnValue($parentLocation));
+
+        $repositoryMock->expects($this->atLeastOnce())
+            ->method('getLocationService')
+            ->will($this->returnValue($locationServiceMock));
+
+        $domainMapperMock->expects($this->at(1))
+            ->method('buildSPILocationCreateStruct')
+            ->with(
+                $this->equalTo($locationCreateStruct1),
+                $this->equalTo($parentLocation),
+                $this->equalTo(true),
+                $this->equalTo(null),
+                $this->equalTo(null),
+                $this->equalTo(false)
+            )->will($this->returnValue($spiLocationCreateStruct));
+
+        $domainMapperMock->expects($this->at(2))
+            ->method('buildSPILocationCreateStruct')
+            ->with(
+                $this->equalTo($locationCreateStruct2),
+                $this->equalTo($parentLocation),
+                $this->equalTo(false),
+                $this->equalTo(null),
+                $this->equalTo(null),
+                $this->equalTo(false)
+            )->will($this->returnValue($spiLocationCreateStruct));
+
+        $spiContentCreateStruct = new SPIContentCreateStruct(
+            [
+                'name' => [],
+                'typeId' => 123,
+                'sectionId' => 1,
+                'ownerId' => 169,
+                'remoteId' => 'hash',
+                'fields' => $spiFields,
+                'modified' => time(),
+                'initialLanguageId' => 4242,
+                'locations' => [$spiLocationCreateStruct, $spiLocationCreateStruct],
+            ]
+        );
+        $spiContentCreateStruct2 = clone $spiContentCreateStruct;
+        ++$spiContentCreateStruct2->modified;
+
+        $spiContent = new SPIContent(
+            [
+                'versionInfo' => new SPIContent\VersionInfo(
+                    [
+                        'contentInfo' => new SPIContent\ContentInfo(['id' => 42]),
+                        'versionNo' => 7,
+                    ]
+                ),
+            ]
+        );
+
+        $handlerMock->expects($this->once())
+            ->method('create')
+            ->with($this->logicalOr($spiContentCreateStruct, $spiContentCreateStruct2))
+            ->will($this->returnValue($spiContent));
+
+        $domainMapperMock->expects($this->once())
+            ->method('buildContentDomainObject')
+            ->with(
+                $this->isInstanceOf(SPIContent::class),
+                $this->isInstanceOf(APIContentType::class)
+            )
+            ->willReturn($this->createMock(APIContent::class));
+
+        $repositoryMock->expects($this->once())->method('commit');
+
+        // Execute
+        $mockedService->createContent($contentCreateStruct, $locationCreateStructs);
+    }
+
+    /**
+     * Test for the createContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::buildSPILocationCreateStructs
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
+     */
+    public function testCreateContentWithLocationsDuplicateUnderParent()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('You provided multiple LocationCreateStructs with the same parent Location \'321\'');
+
+        $fieldDefinitions = [
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => false,
+                    'identifier' => 'identifier',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub('defaultValue'),
+                ]
+            ),
+        ];
+
+        $repositoryMock = $this->getRepositoryMock();
+        $mockedService = $this->getPartlyMockedContentService();
+        $locationServiceMock = $this->getLocationServiceMock();
+        $contentTypeServiceMock = $this->getContentTypeServiceMock();
+        $domainMapperMock = $this->getContentDomainMapperMock();
+        $permissionResolver = $this->getPermissionResolverMock();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $languageHandlerMock */
+        $languageHandlerMock = $this->getPersistenceMock()->contentLanguageHandler();
+        $spiLocationCreateStruct = new SPILocation\CreateStruct();
+        $parentLocation = new Location(['id' => 321]);
+        $locationCreateStruct = new LocationCreateStruct(['parentLocationId' => 321]);
+        $locationCreateStructs = [$locationCreateStruct, clone $locationCreateStruct];
+        $contentType = new ContentType(
+            [
+                'id' => 123,
+                'fieldDefinitions' => new FieldDefinitionCollection($fieldDefinitions),
+                'nameSchema' => '<nameSchema>',
+            ]
+        );
+        $contentCreateStruct = new ContentCreateStruct(
+            [
+                'fields' => [
+                    new Field([
+                        'fieldDefIdentifier' => 'identifier',
+                        'value' => 123,
+                        'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                        'languageCode' => 'eng-US',
+                    ]),
+                ],
+                'mainLanguageCode' => 'eng-US',
+                'contentType' => $contentType,
+                'alwaysAvailable' => false,
+                'ownerId' => 169,
+                'sectionId' => 1,
+            ]
+        );
+
+        $languageHandlerMock->expects($this->any())
+            ->method('loadByLanguageCode')
+            ->with($this->isType('string'))
+            ->will(
+                $this->returnCallback(
+                    static function () {
+                        return new Language(['id' => 4242]);
+                    }
+                )
+            );
+
+        $fieldTypeMock = $this->createMock(FieldType::class);
+        $fieldTypeMock->expects($this->any())
+            ->method('acceptValue')
+            ->will(
+                $this->returnCallback(
+                    static function ($valueString) {
+                        return new ValueStub($valueString);
+                    }
+                )
+            );
+
+        $fieldTypeMock
+            ->method('toHash')
+            ->willReturnCallback(static function (SPIValue $value) {
+                return ['value' => $value->value];
+            });
+
+        $this->getFieldTypeRegistryMock()->expects($this->any())
+            ->method('getFieldType')
+            ->will($this->returnValue($fieldTypeMock));
+
+        $contentTypeServiceMock->expects($this->once())
+            ->method('loadContentType')
+            ->with($this->equalTo($contentType->id))
+            ->will($this->returnValue($contentType));
+
+        $repositoryMock->expects($this->once())
+            ->method('getContentTypeService')
+            ->will($this->returnValue($contentTypeServiceMock));
+
+        $that = $this;
+        $permissionResolver->expects($this->once())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('create'),
+                $this->isInstanceOf(APIContentCreateStruct::class),
+                $this->equalTo($locationCreateStructs)
+            )->will(
+                $this->returnCallback(
+                    static function () use ($that, $contentCreateStruct) {
+                        $that->assertEquals($contentCreateStruct, func_get_arg(2));
+
+                        return true;
+                    }
+                )
+            );
+
+        $domainMapperMock->expects($this->once())
+            ->method('getUniqueHash')
+            ->with($this->isInstanceOf(APIContentCreateStruct::class))
+            ->will(
+                $this->returnCallback(
+                    static function ($object) use ($that, $contentCreateStruct) {
+                        $that->assertEquals($contentCreateStruct, $object);
+
+                        return 'hash';
+                    }
+                )
+            );
+
+        $locationServiceMock->expects($this->once())
+            ->method('loadLocation')
+            ->with($this->equalTo(321))
+            ->will($this->returnValue($parentLocation));
+
+        $repositoryMock->expects($this->any())
+            ->method('getLocationService')
+            ->will($this->returnValue($locationServiceMock));
+
+        $domainMapperMock->expects($this->any())
+            ->method('buildSPILocationCreateStruct')
+            ->with(
+                $this->equalTo($locationCreateStruct),
+                $this->equalTo($parentLocation),
+                $this->equalTo(true),
+                $this->equalTo(null),
+                $this->equalTo(null),
+                $this->equalTo(false)
+            )->will($this->returnValue($spiLocationCreateStruct));
+
+        $fieldTypeMock = $this->createMock(SPIFieldType::class);
+        $fieldTypeMock
+            ->method('acceptValue')
+            ->will(
+                $this->returnCallback(
+                    static function ($valueString) {
+                        return new ValueStub($valueString);
+                    }
+                )
+            );
+
+        $this->getFieldTypeRegistryMock()
+            ->method('getFieldType')
+            ->will($this->returnValue($fieldTypeMock));
+
+        $mockedService->createContent(
+            $contentCreateStruct,
+            $locationCreateStructs
+        );
+    }
+
+    /**
+     * Test for the createContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getDefaultObjectStates
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
+     */
+    public function testCreateContentObjectStates()
+    {
+        $spiFields = [
+            new SPIField(
+                [
+                    'fieldDefinitionId' => 'fieldDefinitionId',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('defaultValue'),
+                    'languageCode' => 'eng-US',
+                ]
+            ),
+        ];
+        $fieldDefinitions = [
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => false,
+                    'identifier' => 'identifier',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub('defaultValue'),
+                ]
+            ),
+        ];
+        $objectStateGroups = [
+            new SPIObjectStateGroup(['id' => 10]),
+            new SPIObjectStateGroup(['id' => 20]),
+        ];
+
+        // Set up a simple case that will pass
+        $contentCreateStruct = $this->assertForTestCreateContentNonRedundantFieldSet(
+            'eng-US',
+            [],
+            $spiFields,
+            $fieldDefinitions,
+            [],
+            true,
+            // Do not execute
+            false
+        );
+        $timestamp = time();
+        $contentCreateStruct->modificationDate = new \DateTime("@{$timestamp}");
+
+        $repositoryMock = $this->getRepositoryMock();
+        $mockedService = $this->getPartlyMockedContentService();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $handlerMock */
+        $handlerMock = $this->getPersistenceMock()->contentHandler();
+        $domainMapperMock = $this->getContentDomainMapperMock();
+
+        $this->mockGetDefaultObjectStates();
+        $this->mockSetDefaultObjectStates();
+
+        $spiContentCreateStruct = new SPIContentCreateStruct(
+            [
+                'name' => [],
+                'typeId' => 123,
+                'sectionId' => 1,
+                'ownerId' => 169,
+                'remoteId' => 'hash',
+                'fields' => $spiFields,
+                'modified' => $timestamp,
+                'initialLanguageId' => 4242,
+                'locations' => [],
+            ]
+        );
+        $spiContentCreateStruct2 = clone $spiContentCreateStruct;
+        ++$spiContentCreateStruct2->modified;
+
+        $spiContent = new SPIContent(
+            [
+                'versionInfo' => new SPIContent\VersionInfo(
+                    [
+                        'contentInfo' => new SPIContent\ContentInfo(['id' => 42]),
+                        'versionNo' => 7,
+                    ]
+                ),
+            ]
+        );
+
+        $handlerMock->expects($this->once())
+            ->method('create')
+            ->with($this->equalTo($spiContentCreateStruct))
+            ->will($this->returnValue($spiContent));
+
+        $domainMapperMock->expects($this->once())
+            ->method('buildContentDomainObject')
+            ->with(
+                $this->isInstanceOf(SPIContent::class),
+                $this->isInstanceOf(APIContentType::class)
+            )
+            ->willReturn($this->createMock(APIContent::class));
+
+        $repositoryMock->expects($this->once())->method('commit');
+
+        // Execute
+        $mockedService->createContent($contentCreateStruct, []);
+    }
+
+    /**
+     * Test for the createContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForCreate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getDefaultObjectStates
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::createContent
+     * @dataProvider providerForTestCreateContentThrowsContentValidationExceptionTranslation
+     */
+    public function testCreateContentWithRollback()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Store failed');
+
+        $fieldDefinitions = [
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => false,
+                    'identifier' => 'identifier',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub('defaultValue'),
+                ]
+            ),
+        ];
+
+        // Setup a simple case that will pass
+        $contentCreateStruct = $this->assertForTestCreateContentNonRedundantFieldSet(
+            'eng-US',
+            [],
+            [],
+            $fieldDefinitions,
+            [],
+            false,
+            // Do not execute test
+            false
+        );
+
+        $repositoryMock = $this->getRepositoryMock();
+        $repositoryMock->expects($this->never())->method('commit');
+        $repositoryMock->expects($this->once())->method('rollback');
+
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandlerMock */
+        $contentHandlerMock = $this->getPersistenceMock()->contentHandler();
+        $contentHandlerMock->expects($this->once())
+            ->method('create')
+            ->with($this->anything())
+            ->will($this->throwException(new \Exception('Store failed')));
+
+        // Execute
+        $this->partlyMockedContentService->createContent($contentCreateStruct, []);
+    }
+
+    public function providerForTestUpdateContentThrowsBadStateException()
+    {
+        return [
+            [VersionInfo::STATUS_PUBLISHED],
+            [VersionInfo::STATUS_ARCHIVED],
+        ];
+    }
+
+    /**
+     * Test for the updateContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent
+     * @dataProvider providerForTestUpdateContentThrowsBadStateException
+     */
+    public function testUpdateContentThrowsBadStateException($status)
+    {
+        $this->expectException(BadStateException::class);
+
+        $versionInfo = new VersionInfo(
+            [
+                'contentInfo' => new ContentInfo(['id' => 42]),
+                'versionNo' => 7,
+                'status' => $status,
+            ]
+        );
+        $content = new Content(
+            [
+                'versionInfo' => $versionInfo,
+                'internalFields' => [],
+                'contentType' => new ContentType([]),
+            ]
+        );
+
+        $mockedService = $this->getPartlyMockedContentService(['loadContent', 'internalLoadContentById']);
+        $mockedService
+            ->method('loadContent')
+            ->with(
+                $this->equalTo(42),
+                $this->equalTo(null),
+                $this->equalTo(7)
+            )->will(
+                $this->returnValue($content)
+            );
+        $mockedService
+            ->method('internalLoadContentById')
+            ->will(
+                $this->returnValue($content)
+            );
+
+        $permissionResolverMock = $this->getPermissionResolverMock();
+        $permissionResolverMock
+            ->method('canUser')
+            ->will($this->returnValue(true));
+
+        $contentUpdateStruct = new ContentUpdateStruct();
+
+        $mockedService->updateContent($versionInfo, $contentUpdateStruct);
+    }
+
+    /**
+     * Test for the updateContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent
+     */
+    public function testUpdateContentThrowsUnauthorizedException()
+    {
+        $this->expectException(UnauthorizedException::class);
+
+        $permissionResolverMock = $this->getPermissionResolverMock();
+        $mockedService = $this->getPartlyMockedContentService(['loadContent']);
+        $contentUpdateStruct = new ContentUpdateStruct();
+        $versionInfo = new VersionInfo(
+            [
+                'contentInfo' => new ContentInfo(['id' => 42]),
+                'versionNo' => 7,
+                'status' => VersionInfo::STATUS_DRAFT,
+            ]
+        );
+        $content = new Content(
+            [
+                'versionInfo' => $versionInfo,
+                'internalFields' => [],
+                'contentType' => new ContentType([]),
+            ]
+        );
+
+        $mockedService->expects($this->once())
+            ->method('loadContent')
+            ->with(
+                $this->equalTo(42),
+                $this->equalTo(null),
+                $this->equalTo(7)
+            )->will(
+                $this->returnValue($content)
+            );
+
+        $permissionResolverMock->expects($this->once())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('edit'),
+                $this->equalTo($content),
+                $this->isType('array')
+            )->will($this->returnValue(false));
+
+        $mockedService->updateContent($versionInfo, $contentUpdateStruct);
+    }
+
+    /**
+     * @param string $initialLanguageCode
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $structFields
+     * @param string[] $existingLanguages
+     *
+     * @return string[]
+     */
+    protected function determineLanguageCodesForUpdate($initialLanguageCode, array $structFields, $existingLanguages)
+    {
+        $languageCodes = array_fill_keys($existingLanguages, true);
+        if ($initialLanguageCode !== null) {
+            $languageCodes[$initialLanguageCode] = true;
+        }
+
+        foreach ($structFields as $field) {
+            if ($field->languageCode === null || isset($languageCodes[$field->languageCode])) {
+                continue;
+            }
+
+            $languageCodes[$field->languageCode] = true;
+        }
+
+        return array_keys($languageCodes);
+    }
+
+    /**
+     * @param string $initialLanguageCode
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $structFields
+     * @param string $mainLanguageCode
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[] $fieldDefinitions
+     *
+     * @return array
+     */
+    protected function mapStructFieldsForUpdate($initialLanguageCode, $structFields, $mainLanguageCode, $fieldDefinitions)
+    {
+        $initialLanguageCode = $initialLanguageCode ?: $mainLanguageCode;
+
+        $mappedFieldDefinitions = [];
+        foreach ($fieldDefinitions as $fieldDefinition) {
+            $mappedFieldDefinitions[$fieldDefinition->identifier] = $fieldDefinition;
+        }
+
+        $mappedStructFields = [];
+        foreach ($structFields as $structField) {
+            $identifier = $structField->fieldDefIdentifier;
+
+            if ($structField->languageCode !== null) {
+                $languageCode = $structField->languageCode;
+            } elseif ($mappedFieldDefinitions[$identifier]->isTranslatable) {
+                $languageCode = $initialLanguageCode;
+            } else {
+                $languageCode = $mainLanguageCode;
+            }
+
+            $mappedStructFields[$identifier][$languageCode] = (string)$structField->value;
+        }
+
+        return $mappedStructFields;
+    }
+
+    /**
+     * Returns full, possibly redundant array of field values, indexed by field definition
+     * identifier and language code.
+     *
+     * @param string $initialLanguageCode
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $structFields
+     * @param \Ibexa\Core\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[] $fieldDefinitions
+     * @param array $languageCodes
+     *
+     * @return array
+     */
+    protected function determineValuesForUpdate(
+        $initialLanguageCode,
+        array $structFields,
+        Content $content,
+        array $fieldDefinitions,
+        array $languageCodes
+    ) {
+        $mainLanguageCode = $content->versionInfo->contentInfo->mainLanguageCode;
+
+        $mappedStructFields = $this->mapStructFieldsForUpdate(
+            $initialLanguageCode,
+            $structFields,
+            $mainLanguageCode,
+            $fieldDefinitions
+        );
+
+        $values = [];
+
+        foreach ($fieldDefinitions as $fieldDefinition) {
+            $identifier = $fieldDefinition->identifier;
+            foreach ($languageCodes as $languageCode) {
+                if (!$fieldDefinition->isTranslatable) {
+                    if (isset($mappedStructFields[$identifier][$mainLanguageCode])) {
+                        $values[$identifier][$languageCode] = $mappedStructFields[$identifier][$mainLanguageCode];
+                    } else {
+                        $values[$identifier][$languageCode] = (string)$content->fields[$identifier][$mainLanguageCode];
+                    }
+                    continue;
+                }
+
+                if (isset($mappedStructFields[$identifier][$languageCode])) {
+                    $values[$identifier][$languageCode] = $mappedStructFields[$identifier][$languageCode];
+                    continue;
+                }
+
+                if (isset($content->fields[$identifier][$languageCode])) {
+                    $values[$identifier][$languageCode] = (string)$content->fields[$identifier][$languageCode];
+                    continue;
+                }
+
+                $values[$identifier][$languageCode] = (string)$fieldDefinition->defaultValue;
+            }
+        }
+
+        return $this->stubValues($values);
+    }
+
+    protected function stubValues(array $fieldValues)
+    {
+        foreach ($fieldValues as &$languageValues) {
+            foreach ($languageValues as &$value) {
+                $value = new ValueStub($value);
+            }
+        }
+
+        return $fieldValues;
+    }
+
+    /**
+     * Asserts that calling updateContent() with given API field set causes calling
+     * Handler::updateContent() with given SPI field set.
+     *
+     * @param string $initialLanguageCode
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $structFields
+     * @param \Ibexa\Contracts\Core\Persistence\Content\Field[] $spiFields
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $existingFields
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[] $fieldDefinitions
+     * @param bool $execute
+     *
+     * @return mixed
+     */
+    protected function assertForTestUpdateContentNonRedundantFieldSet(
+        $initialLanguageCode,
+        array $structFields,
+        array $spiFields,
+        array $existingFields,
+        array $fieldDefinitions,
+        $execute = true
+    ) {
+        $repositoryMock = $this->getRepositoryMock();
+        $permissionResolverMock = $this->getPermissionResolverMock();
+        $permissionResolverMock
+            ->expects($this->once())
+            ->method('getCurrentUserReference')
+            ->willReturn(new UserReference(169));
+        $mockedService = $this->getPartlyMockedContentService(['internalLoadContentById', 'internalLoadRelations'], $permissionResolverMock);
+        $permissionResolverMock = $this->getPermissionResolverMock();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandlerMock */
+        $contentHandlerMock = $this->getPersistenceMock()->contentHandler();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $languageHandlerMock */
+        $languageHandlerMock = $this->getPersistenceMock()->contentLanguageHandler();
+        $contentTypeServiceMock = $this->getContentTypeServiceMock();
+        $domainMapperMock = $this->getContentDomainMapperMock();
+        $relationProcessorMock = $this->getRelationProcessorMock();
+        $nameSchemaServiceMock = $this->getNameSchemaServiceMock();
+        $fieldTypeMock = $this->createMock(SPIFieldType::class);
+        $existingLanguageCodes = array_map(
+            static function (Field $field) {
+                return $field->languageCode;
+            },
+            $existingFields
+        );
+        $languageCodes = $this->determineLanguageCodesForUpdate(
+            $initialLanguageCode,
+            $structFields,
+            $existingLanguageCodes
+        );
+        $versionInfo = new VersionInfo(
+            [
+                'contentInfo' => new ContentInfo(
+                    [
+                        'id' => 42,
+                        'contentTypeId' => 24,
+                        'mainLanguageCode' => 'eng-GB',
+                    ]
+                ),
+                'versionNo' => 7,
+                'languageCodes' => $existingLanguageCodes,
+                'status' => VersionInfo::STATUS_DRAFT,
+            ]
+        );
+
+        $contentType = new ContentType([
+            'fieldDefinitions' => new FieldDefinitionCollection($fieldDefinitions),
+        ]);
+
+        $content = new Content(
+            [
+                'versionInfo' => $versionInfo,
+                'internalFields' => $existingFields,
+                'contentType' => $contentType,
+            ]
+        );
+
+        $languageHandlerMock->expects($this->any())
+            ->method('loadByLanguageCode')
+            ->with($this->isType('string'))
+            ->will(
+                $this->returnCallback(
+                    static function () {
+                        return new Language(['id' => 4242]);
+                    }
+                )
+            );
+
+        $mockedService
+            ->method('internalLoadContentById')
+            ->with(
+                $this->equalTo(42),
+                $this->equalTo(null),
+                $this->equalTo(7)
+            )->will(
+                $this->returnValue($content)
+            );
+
+        $repositoryMock->expects($this->once())->method('beginTransaction');
+
+        $permissionResolverMock->expects($this->any())
+            ->method('canUser')
+            ->will($this->returnValue(true));
+
+        $contentTypeServiceMock->expects($this->once())
+            ->method('loadContentType')
+            ->with($this->equalTo(24))
+            ->will($this->returnValue($contentType));
+
+        $repositoryMock->expects($this->once())
+            ->method('getContentTypeService')
+            ->will($this->returnValue($contentTypeServiceMock));
+
+        $fieldTypeMock->expects($this->any())
+            ->method('acceptValue')
+            ->will(
+                $this->returnCallback(
+                    static function ($value) {
+                        return $value instanceof SPIValue
+                            ? $value
+                            : new ValueStub($value);
+                    }
+                )
+            );
+
+        $fieldTypeMock
+            ->method('toHash')
+            ->willReturnCallback(static function (SPIValue $value) {
+                return ['value' => $value->value];
+            });
+
+        $emptyValue = new ValueStub(self::EMPTY_FIELD_VALUE);
+        $fieldTypeMock->expects($this->any())
+            ->method('toPersistenceValue')
+            ->will(
+                $this->returnCallback(
+                    static function (ValueStub $value) {
+                        return (string)$value;
+                    }
+                )
+            );
+
+        $fieldTypeMock->expects($this->any())
+            ->method('isEmptyValue')
+            ->will(
+                $this->returnCallback(
+                    static function (SPIValue $value) use ($emptyValue) {
+                        return (string)$emptyValue === (string)$value;
+                    }
+                )
+            );
+
+        $fieldTypeMock->expects($this->any())
+            ->method('validate')
+            ->will($this->returnValue([]));
+
+        $this->getFieldTypeRegistryMock()->expects($this->any())
+            ->method('getFieldType')
+            ->will($this->returnValue($fieldTypeMock));
+
+        $relationProcessorMock
+            ->expects($this->exactly(count($fieldDefinitions) * count($languageCodes)))
+            ->method('appendFieldRelations')
+            ->with(
+                $this->isType('array'),
+                $this->isType('array'),
+                $this->isInstanceOf(SPIFieldType::class),
+                $this->isInstanceOf(Value::class),
+                $this->anything()
+            );
+
+        $values = $this->determineValuesForUpdate(
+            $initialLanguageCode,
+            $structFields,
+            $content,
+            $fieldDefinitions,
+            $languageCodes
+        );
+        $nameSchemaServiceMock->expects($this->once())
+            ->method('resolveNameSchema')
+            ->with(
+                $this->equalTo($content),
+                $this->equalTo($values),
+                $this->equalTo($languageCodes)
+            )->will($this->returnValue([]));
+
+        $existingRelations = ['RELATIONS!!!'];
+        $mockedService
+            ->method('internalLoadRelations')
+            ->with($content->versionInfo)
+            ->will($this->returnValue($existingRelations));
+        $relationProcessorMock->expects($this->any())
+            ->method('processFieldRelations')
+            ->with(
+                $this->isType('array'),
+                $this->equalTo(42),
+                $this->isType('int'),
+                $this->equalTo($contentType),
+                $this->equalTo($existingRelations)
+            );
+
+        $contentUpdateStruct = new ContentUpdateStruct(
+            [
+                'fields' => $structFields,
+                'initialLanguageCode' => $initialLanguageCode,
+            ]
+        );
+
+        if ($execute) {
+            $spiContentUpdateStruct = new SPIContentUpdateStruct(
+                [
+                    'creatorId' => 169,
+                    'fields' => $spiFields,
+                    'modificationDate' => time(),
+                    'initialLanguageId' => 4242,
+                ]
+            );
+
+            // During code coverage runs, timestamp might differ 1-3 seconds
+            $spiContentUpdateStructTs1 = clone $spiContentUpdateStruct;
+            ++$spiContentUpdateStructTs1->modificationDate;
+
+            $spiContentUpdateStructTs2 = clone $spiContentUpdateStructTs1;
+            ++$spiContentUpdateStructTs2->modificationDate;
+
+            $spiContentUpdateStructTs3 = clone $spiContentUpdateStructTs2;
+            ++$spiContentUpdateStructTs3->modificationDate;
+
+            $spiContent = new SPIContent(
+                [
+                    'versionInfo' => new SPIContent\VersionInfo(
+                        [
+                            'contentInfo' => new SPIContent\ContentInfo(['id' => 42]),
+                            'versionNo' => 7,
+                        ]
+                    ),
+                ]
+            );
+
+            $contentHandlerMock->expects($this->once())
+                ->method('updateContent')
+                ->with(
+                    42,
+                    7,
+                    $this->logicalOr($spiContentUpdateStruct, $spiContentUpdateStructTs1, $spiContentUpdateStructTs2, $spiContentUpdateStructTs3)
+                )
+                ->will($this->returnValue($spiContent));
+
+            $repositoryMock->expects($this->once())->method('commit');
+            $domainMapperMock
+                ->method('buildContentDomainObject')
+                ->with(
+                    $this->isInstanceOf(SPIContent::class),
+                    $this->isInstanceOf(APIContentType::class)
+                )
+                ->will($this->returnValue($content));
+
+            $mockedService->updateContent($content->versionInfo, $contentUpdateStruct);
+        }
+
+        return [$content->versionInfo, $contentUpdateStruct];
+    }
+
+    public function providerForTestUpdateContentNonRedundantFieldSet1()
+    {
+        $spiFields = [
+            new SPIField(
+                [
+                    'id' => '100',
+                    'fieldDefinitionId' => 'fieldDefinitionId',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue'),
+                    'languageCode' => 'eng-GB',
+                    'versionNo' => 7,
+                ]
+            ),
+        ];
+
+        return [
+            // With languages set
+            [
+                'eng-GB',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue'),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+                $spiFields,
+            ],
+            // Without languages set
+            [
+                null,
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                ],
+                $spiFields,
+            ],
+            // Adding new language without fields
+            [
+                'eng-US',
+                [],
+                [],
+            ],
+        ];
+    }
+
+    /**
+     * Test for the updateContent() method.
+     *
+     * Testing the simplest use case.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent
+     * @dataProvider providerForTestUpdateContentNonRedundantFieldSet1
+     */
+    public function testUpdateContentNonRedundantFieldSet1($initialLanguageCode, $structFields, $spiFields)
+    {
+        $existingFields = [
+            new Field(
+                [
+                    'id' => '100',
+                    'fieldDefIdentifier' => 'identifier',
+                    'value' => new ValueStub('id100'),
+                    'languageCode' => 'eng-GB',
+                ]
+            ),
+        ];
+
+        $fieldDefinitions = [
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => false,
+                    'identifier' => 'identifier',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub('defaultValue'),
+                ]
+            ),
+        ];
+
+        $this->assertForTestUpdateContentNonRedundantFieldSet(
+            $initialLanguageCode,
+            $structFields,
+            $spiFields,
+            $existingFields,
+            $fieldDefinitions
+        );
+    }
+
+    public function providerForTestUpdateContentNonRedundantFieldSet2()
+    {
+        $spiFields0 = [
+            new SPIField(
+                [
+                    'id' => '100',
+                    'fieldDefinitionId' => 'fieldDefinitionId',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue'),
+                    'languageCode' => 'eng-GB',
+                    'versionNo' => 7,
+                ]
+            ),
+        ];
+        $spiFields1 = [
+            new SPIField(
+                [
+                    'id' => null,
+                    'fieldDefinitionId' => 'fieldDefinitionId',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue'),
+                    'languageCode' => 'eng-US',
+                    'versionNo' => 7,
+                ]
+            ),
+        ];
+        $spiFields2 = [
+            new SPIField(
+                [
+                    'id' => 100,
+                    'fieldDefinitionId' => 'fieldDefinitionId',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue2'),
+                    'languageCode' => 'eng-GB',
+                    'versionNo' => 7,
+                ]
+            ),
+            new SPIField(
+                [
+                    'id' => null,
+                    'fieldDefinitionId' => 'fieldDefinitionId',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue1'),
+                    'languageCode' => 'eng-US',
+                    'versionNo' => 7,
+                ]
+            ),
+        ];
+
+        return [
+            // 0. With languages set
+            [
+                'eng-GB',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue'),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+                $spiFields0,
+            ],
+            // 1. Without languages set
+            [
+                null,
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                ],
+                $spiFields0,
+            ],
+            // 2. New language with language set
+            [
+                'eng-GB',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                ],
+                $spiFields1,
+            ],
+            // 3. New language without language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                ],
+                $spiFields1,
+            ],
+            // 4. New language and existing language with language set
+            [
+                'eng-GB',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue2'),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+                $spiFields2,
+            ],
+            // 5. New language and existing language without language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue2'),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+                $spiFields2,
+            ],
+            // 6. Adding new language without fields
+            [
+                'eng-US',
+                [],
+                [
+                    new SPIField(
+                        [
+                            'id' => null,
+                            'fieldDefinitionId' => 'fieldDefinitionId',
+                            'type' => 'fieldTypeIdentifier',
+                            'value' => new ValueStub('defaultValue'),
+                            'languageCode' => 'eng-US',
+                            'versionNo' => 7,
+                        ]
+                    ),
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Test for the updateContent() method.
+     *
+     * Testing with translatable field.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent
+     * @dataProvider providerForTestUpdateContentNonRedundantFieldSet2
+     */
+    public function testUpdateContentNonRedundantFieldSet2($initialLanguageCode, $structFields, $spiFields)
+    {
+        $existingFields = [
+            new Field(
+                [
+                    'id' => '100',
+                    'fieldDefIdentifier' => 'identifier',
+                    'value' => new ValueStub('id100'),
+                    'languageCode' => 'eng-GB',
+                ]
+            ),
+        ];
+
+        $fieldDefinitions = [
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => true,
+                    'identifier' => 'identifier',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub('defaultValue'),
+                ]
+            ),
+        ];
+
+        $this->assertForTestUpdateContentNonRedundantFieldSet(
+            $initialLanguageCode,
+            $structFields,
+            $spiFields,
+            $existingFields,
+            $fieldDefinitions
+        );
+    }
+
+    public function providerForTestUpdateContentNonRedundantFieldSet3()
+    {
+        $spiFields0 = [
+            new SPIField(
+                [
+                    'id' => null,
+                    'fieldDefinitionId' => 'fieldDefinitionId1',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue1'),
+                    'languageCode' => 'eng-US',
+                    'versionNo' => 7,
+                ]
+            ),
+        ];
+        $spiFields1 = [
+            new SPIField(
+                [
+                    'id' => 100,
+                    'fieldDefinitionId' => 'fieldDefinitionId1',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue2'),
+                    'languageCode' => 'eng-GB',
+                    'versionNo' => 7,
+                ]
+            ),
+            new SPIField(
+                [
+                    'id' => null,
+                    'fieldDefinitionId' => 'fieldDefinitionId1',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue1'),
+                    'languageCode' => 'eng-US',
+                    'versionNo' => 7,
+                ]
+            ),
+        ];
+        $spiFields2 = [
+            new SPIField(
+                [
+                    'id' => 100,
+                    'fieldDefinitionId' => 'fieldDefinitionId1',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue2'),
+                    'languageCode' => 'eng-GB',
+                    'versionNo' => 7,
+                ]
+            ),
+            new SPIField(
+                [
+                    'id' => null,
+                    'fieldDefinitionId' => 'fieldDefinitionId1',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue1'),
+                    'languageCode' => 'eng-US',
+                    'versionNo' => 7,
+                ]
+            ),
+            new SPIField(
+                [
+                    'id' => 101,
+                    'fieldDefinitionId' => 'fieldDefinitionId2',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue3'),
+                    'languageCode' => 'eng-GB',
+                    'versionNo' => 7,
+                ]
+            ),
+        ];
+        $spiFields3 = [
+            new SPIField(
+                [
+                    'id' => null,
+                    'fieldDefinitionId' => 'fieldDefinitionId1',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('defaultValue1'),
+                    'languageCode' => 'eng-US',
+                    'versionNo' => 7,
+                ]
+            ),
+        ];
+
+        return [
+            // 0. ew language with language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                ],
+                $spiFields0,
+            ],
+            // 1. New language without language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                ],
+                $spiFields0,
+            ],
+            // 2. New language and existing language with language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue2'),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+                $spiFields1,
+            ],
+            // 3. New language and existing language without language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue2'),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+                $spiFields1,
+            ],
+            // 4. New language and existing language with untranslatable field, with language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue2'),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier2',
+                            'value' => new ValueStub('newValue3'),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+                $spiFields2,
+            ],
+            // 5. New language and existing language with untranslatable field, without language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue2'),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier2',
+                            'value' => new ValueStub('newValue3'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                ],
+                $spiFields2,
+            ],
+            // 6. Adding new language without fields
+            [
+                'eng-US',
+                [],
+                $spiFields3,
+            ],
+        ];
+    }
+
+    /**
+     * Test for the updateContent() method.
+     *
+     * Testing with new language and untranslatable field.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent
+     * @dataProvider providerForTestUpdateContentNonRedundantFieldSet3
+     */
+    public function testUpdateContentNonRedundantFieldSet3($initialLanguageCode, $structFields, $spiFields)
+    {
+        $existingFields = [
+            new Field(
+                [
+                    'id' => '100',
+                    'fieldDefIdentifier' => 'identifier1',
+                    'value' => new ValueStub('id100'),
+                    'languageCode' => 'eng-GB',
+                ]
+            ),
+            new Field(
+                [
+                    'id' => '101',
+                    'fieldDefIdentifier' => 'identifier2',
+                    'value' => new ValueStub('id101'),
+                    'languageCode' => 'eng-GB',
+                ]
+            ),
+        ];
+
+        $fieldDefinitions = [
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId1',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => true,
+                    'identifier' => 'identifier1',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub('defaultValue1'),
+                ]
+            ),
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId2',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => false,
+                    'identifier' => 'identifier2',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub('defaultValue2'),
+                ]
+            ),
+        ];
+
+        $this->assertForTestUpdateContentNonRedundantFieldSet(
+            $initialLanguageCode,
+            $structFields,
+            $spiFields,
+            $existingFields,
+            $fieldDefinitions
+        );
+    }
+
+    public function providerForTestUpdateContentNonRedundantFieldSet4()
+    {
+        $spiFields0 = [
+            new SPIField(
+                [
+                    'id' => null,
+                    'fieldDefinitionId' => 'fieldDefinitionId1',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue1'),
+                    'languageCode' => 'eng-US',
+                    'versionNo' => 7,
+                ]
+            ),
+        ];
+        $spiFields1 = [
+            new SPIField(
+                [
+                    'id' => 100,
+                    'fieldDefinitionId' => 'fieldDefinitionId1',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                    'languageCode' => 'eng-GB',
+                    'versionNo' => 7,
+                ]
+            ),
+            new SPIField(
+                [
+                    'id' => null,
+                    'fieldDefinitionId' => 'fieldDefinitionId1',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue1'),
+                    'languageCode' => 'eng-US',
+                    'versionNo' => 7,
+                ]
+            ),
+        ];
+        $spiFields2 = [
+            new SPIField(
+                [
+                    'id' => 100,
+                    'fieldDefinitionId' => 'fieldDefinitionId1',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                    'languageCode' => 'eng-GB',
+                    'versionNo' => 7,
+                ]
+            ),
+        ];
+
+        return [
+            // 0. New translation with empty field by default
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                ],
+                $spiFields0,
+            ],
+            // 1. New translation with empty field by default, without language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                ],
+                $spiFields0,
+            ],
+            // 2. New translation with empty field given
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier2',
+                            'value' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                ],
+                $spiFields0,
+            ],
+            // 3. New translation with empty field given, without language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier2',
+                            'value' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                            'languageCode' => null,
+                        ]
+                    ),
+                ],
+                $spiFields0,
+            ],
+            // 4. Updating existing language with empty value
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+                $spiFields1,
+            ],
+            // 5. Updating existing language with empty value, without language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+                $spiFields1,
+            ],
+            // 6. Updating existing language with empty value and adding new language with empty value
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+                $spiFields2,
+            ],
+            // 7. Updating existing language with empty value and adding new language with empty value,
+            // without language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                            'languageCode' => null,
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+                $spiFields2,
+            ],
+            // 8. Adding new language with no fields given
+            [
+                'eng-US',
+                [],
+                [],
+            ],
+            // 9. Adding new language with fields
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                ],
+                [],
+            ],
+            // 10. Adding new language with fields, without language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                            'languageCode' => null,
+                        ]
+                    ),
+                ],
+                [],
+            ],
+        ];
+    }
+
+    /**
+     * Test for the updateContent() method.
+     *
+     * Testing with empty values.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent
+     * @dataProvider providerForTestUpdateContentNonRedundantFieldSet4
+     */
+    public function testUpdateContentNonRedundantFieldSet4($initialLanguageCode, $structFields, $spiFields)
+    {
+        $existingFields = [
+            new Field(
+                [
+                    'id' => '100',
+                    'fieldDefIdentifier' => 'identifier1',
+                    'value' => new ValueStub('id100'),
+                    'languageCode' => 'eng-GB',
+                ]
+            ),
+            new Field(
+                [
+                    'id' => '101',
+                    'fieldDefIdentifier' => 'identifier2',
+                    'value' => new ValueStub('id101'),
+                    'languageCode' => 'eng-GB',
+                ]
+            ),
+        ];
+
+        $fieldDefinitions = [
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId1',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => true,
+                    'identifier' => 'identifier1',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                ]
+            ),
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId2',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => true,
+                    'identifier' => 'identifier2',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                ]
+            ),
+        ];
+
+        $this->assertForTestUpdateContentNonRedundantFieldSet(
+            $initialLanguageCode,
+            $structFields,
+            $spiFields,
+            $existingFields,
+            $fieldDefinitions
+        );
+    }
+
+    /**
+     * @return array
+     *
+     * @todo add first field empty
+     */
+    public function providerForTestUpdateContentNonRedundantFieldSetComplex()
+    {
+        $spiFields0 = [
+            new SPIField(
+                [
+                    'id' => 100,
+                    'fieldDefinitionId' => 'fieldDefinitionId1',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue1-eng-GB'),
+                    'languageCode' => 'eng-GB',
+                    'versionNo' => 7,
+                ]
+            ),
+            new SPIField(
+                [
+                    'id' => null,
+                    'fieldDefinitionId' => 'fieldDefinitionId4',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue4'),
+                    'languageCode' => 'eng-US',
+                    'versionNo' => 7,
+                ]
+            ),
+        ];
+        $spiFields1 = [
+            new SPIField(
+                [
+                    'id' => 100,
+                    'fieldDefinitionId' => 'fieldDefinitionId1',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue1-eng-GB'),
+                    'languageCode' => 'eng-GB',
+                    'versionNo' => 7,
+                ]
+            ),
+            new SPIField(
+                [
+                    'id' => null,
+                    'fieldDefinitionId' => 'fieldDefinitionId2',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue2'),
+                    'languageCode' => 'eng-US',
+                    'versionNo' => 7,
+                ]
+            ),
+            new SPIField(
+                [
+                    'id' => null,
+                    'fieldDefinitionId' => 'fieldDefinitionId4',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('defaultValue4'),
+                    'languageCode' => 'eng-US',
+                    'versionNo' => 7,
+                ]
+            ),
+        ];
+        $spiFields2 = [
+            new SPIField(
+                [
+                    'id' => 100,
+                    'fieldDefinitionId' => 'fieldDefinitionId1',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue1-eng-GB'),
+                    'languageCode' => 'eng-GB',
+                    'versionNo' => 7,
+                ]
+            ),
+            new SPIField(
+                [
+                    'id' => null,
+                    'fieldDefinitionId' => 'fieldDefinitionId2',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('newValue2'),
+                    'languageCode' => 'eng-US',
+                    'versionNo' => 7,
+                ]
+            ),
+            new SPIField(
+                [
+                    'id' => null,
+                    'fieldDefinitionId' => 'fieldDefinitionId4',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('defaultValue4'),
+                    'languageCode' => 'ger-DE',
+                    'versionNo' => 7,
+                ]
+            ),
+            new SPIField(
+                [
+                    'id' => null,
+                    'fieldDefinitionId' => 'fieldDefinitionId4',
+                    'type' => 'fieldTypeIdentifier',
+                    'value' => new ValueStub('defaultValue4'),
+                    'languageCode' => 'eng-US',
+                    'versionNo' => 7,
+                ]
+            ),
+        ];
+
+        return [
+            // 0. Add new language and update existing
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier4',
+                            'value' => new ValueStub('newValue4'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1-eng-GB'),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+                $spiFields0,
+            ],
+            // 1. Add new language and update existing, without language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier4',
+                            'value' => new ValueStub('newValue4'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1-eng-GB'),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+                $spiFields0,
+            ],
+            // 2. Add new language and update existing variant
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier2',
+                            'value' => new ValueStub('newValue2'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1-eng-GB'),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+                $spiFields1,
+            ],
+            // 3. Add new language and update existing variant, without language set
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier2',
+                            'value' => new ValueStub('newValue2'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1-eng-GB'),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+                $spiFields1,
+            ],
+            // 4. Update with multiple languages
+            [
+                'ger-DE',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier2',
+                            'value' => new ValueStub('newValue2'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1-eng-GB'),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+                $spiFields2,
+            ],
+            // 5. Update with multiple languages without language set
+            [
+                'ger-DE',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier2',
+                            'value' => new ValueStub('newValue2'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier1',
+                            'value' => new ValueStub('newValue1-eng-GB'),
+                            'languageCode' => null,
+                        ]
+                    ),
+                ],
+                $spiFields2,
+            ],
+        ];
+    }
+
+    protected function fixturesForTestUpdateContentNonRedundantFieldSetComplex()
+    {
+        $existingFields = [
+            new Field(
+                [
+                    'id' => '100',
+                    'fieldDefIdentifier' => 'identifier1',
+                    'value' => new ValueStub('initialValue1'),
+                    'languageCode' => 'eng-GB',
+                ]
+            ),
+            new Field(
+                [
+                    'id' => '101',
+                    'fieldDefIdentifier' => 'identifier2',
+                    'value' => new ValueStub('initialValue2'),
+                    'languageCode' => 'eng-GB',
+                ]
+            ),
+            new Field(
+                [
+                    'id' => '102',
+                    'fieldDefIdentifier' => 'identifier3',
+                    'value' => new ValueStub('initialValue3'),
+                    'languageCode' => 'eng-GB',
+                ]
+            ),
+            new Field(
+                [
+                    'id' => '103',
+                    'fieldDefIdentifier' => 'identifier4',
+                    'value' => new ValueStub('initialValue4'),
+                    'languageCode' => 'eng-GB',
+                ]
+            ),
+        ];
+
+        $fieldDefinitions = [
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId1',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => false,
+                    'identifier' => 'identifier1',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                ]
+            ),
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId2',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => true,
+                    'identifier' => 'identifier2',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                ]
+            ),
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId3',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => false,
+                    'identifier' => 'identifier3',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub('defaultValue3'),
+                ]
+            ),
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId4',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => true,
+                    'identifier' => 'identifier4',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub('defaultValue4'),
+                ]
+            ),
+        ];
+
+        return [$existingFields, $fieldDefinitions];
+    }
+
+    /**
+     * Test for the updateContent() method.
+     *
+     * Testing more complex cases.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent
+     * @dataProvider providerForTestUpdateContentNonRedundantFieldSetComplex
+     */
+    public function testUpdateContentNonRedundantFieldSetComplex($initialLanguageCode, $structFields, $spiFields)
+    {
+        list($existingFields, $fieldDefinitions) = $this->fixturesForTestUpdateContentNonRedundantFieldSetComplex();
+
+        $this->assertForTestUpdateContentNonRedundantFieldSet(
+            $initialLanguageCode,
+            $structFields,
+            $spiFields,
+            $existingFields,
+            $fieldDefinitions
+        );
+    }
+
+    public function providerForTestUpdateContentWithInvalidLanguage()
+    {
+        return [
+            [
+                'eng-GB',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => $this->createMock(Value::class),
+                            'languageCode' => 'Klingon',
+                        ]
+                    ),
+                ],
+            ],
+            [
+                'Klingon',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => $this->createMock(Value::class),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Test for the updateContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent
+     * @dataProvider providerForTestUpdateContentWithInvalidLanguage
+     */
+    public function testUpdateContentWithInvalidLanguage($initialLanguageCode, $structFields)
+    {
+        $this->expectException(APINotFoundException::class);
+        $this->expectExceptionMessage('Could not find \'Language\' with identifier \'Klingon\'');
+
+        $permissionResolverMock = $this->getPermissionResolverMock();
+        $mockedService = $this->getPartlyMockedContentService(['loadContent', 'internalLoadContentById']);
+        $fieldTypeMock = $this->createMock(SPIFieldType::class);
+        /** @var \PHPUnit\Framework\MockObject\MockObject $languageHandlerMock */
+        $languageHandlerMock = $this->getPersistenceMock()->contentLanguageHandler();
+        $versionInfo = new VersionInfo(
+            [
+                'contentInfo' => new ContentInfo(
+                    [
+                        'id' => 42,
+                        'contentTypeId' => 24,
+                        'mainLanguageCode' => 'eng-GB',
+                    ]
+                ),
+                'versionNo' => 7,
+                'languageCodes' => ['eng-GB'],
+                'status' => VersionInfo::STATUS_DRAFT,
+            ]
+        );
+
+        $fieldValueMock = $this->createMock(Value::class);
+
+        $content = new Content(
+            [
+                'versionInfo' => $versionInfo,
+                'internalFields' => [
+                    new Field([
+                        'fieldDefIdentifier' => 'identifier',
+                        'value' => $fieldValueMock,
+                        'languageCode' => 'eng-GB',
+                    ]),
+                ],
+                'contentType' => new ContentType([
+                    'fieldDefinitions' => new FieldDefinitionCollection([
+                        new FieldDefinition([
+                            'identifier' => 'identifier',
+                            'defaultValue' => $fieldValueMock,
+                        ]),
+                    ]),
+                ]),
+            ]
+        );
+
+        $fieldTypeMock->expects($this->any())
+            ->method('acceptValue')->will($this->returnValue($fieldValueMock));
+
+        $this->getFieldTypeRegistryMock()->expects($this->any())
+            ->method('getFieldType')->will($this->returnValue($fieldTypeMock));
+
+        $languageHandlerMock->expects($this->any())
+            ->method('loadByLanguageCode')
+            ->with($this->isType('string'))
+            ->will(
+                $this->returnCallback(
+                    static function ($languageCode) {
+                        if ($languageCode === 'Klingon') {
+                            throw new NotFoundException('Language', 'Klingon');
+                        }
+
+                        return new Language(['id' => 4242]);
+                    }
+                )
+            );
+
+        $mockedService
+            ->method('loadContent')
+            ->with(
+                $this->equalTo(42),
+                $this->equalTo(null),
+                $this->equalTo(7)
+            )->will(
+                $this->returnValue($content)
+            );
+
+        $mockedService
+            ->method('internalLoadContentById')
+            ->will(
+                $this->returnValue($content)
+            );
+
+        $permissionResolverMock
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('edit'),
+                $this->equalTo($content),
+                $this->isType('array')
+            )->will($this->returnValue(true));
+
+        $contentUpdateStruct = new ContentUpdateStruct(
+            [
+                'fields' => $structFields,
+                'initialLanguageCode' => $initialLanguageCode,
+            ]
+        );
+
+        $mockedService->updateContent($content->versionInfo, $contentUpdateStruct);
+    }
+
+    protected function assertForUpdateContentContentValidationException(
+        $initialLanguageCode,
+        $structFields,
+        $fieldDefinitions = []
+    ) {
+        $permissionResolverMock = $this->getPermissionResolverMock();
+        $mockedService = $this->getPartlyMockedContentService(['internalLoadContentById', 'loadContent']);
+        /** @var \PHPUnit\Framework\MockObject\MockObject $languageHandlerMock */
+        $languageHandlerMock = $this->getPersistenceMock()->contentLanguageHandler();
+        $versionInfo = new VersionInfo(
+            [
+                'contentInfo' => new ContentInfo(
+                    [
+                        'id' => 42,
+                        'contentTypeId' => 24,
+                        'mainLanguageCode' => 'eng-GB',
+                    ]
+                ),
+                'versionNo' => 7,
+                'languageCodes' => ['eng-GB'],
+                'status' => VersionInfo::STATUS_DRAFT,
+            ]
+        );
+        $contentType = new ContentType([
+            'fieldDefinitions' => new FieldDefinitionCollection($fieldDefinitions),
+        ]);
+        $content = new Content(
+            [
+                'versionInfo' => $versionInfo,
+                'internalFields' => [],
+                'contentType' => $contentType,
+            ]
+        );
+
+        $fieldTypeMock = $this->createMock(FieldType::class);
+
+        $fieldTypeMock
+            ->method('acceptValue')
+            ->will(
+                $this->returnCallback(
+                    static function ($value) {
+                        return $value instanceof SPIValue
+                            ? $value
+                            : new ValueStub($value);
+                    }
+                )
+            );
+
+        $fieldTypeMock
+            ->method('toHash')
+            ->willReturnCallback(static function (SPIValue $value) {
+                return ['value' => $value->value];
+            });
+
+        $this->getFieldTypeRegistryMock()->expects($this->any())
+            ->method('getFieldType')->will($this->returnValue($fieldTypeMock));
+
+        $languageHandlerMock->expects($this->any())
+            ->method('loadByLanguageCode')
+            ->with($this->isType('string'))
+            ->will(
+                $this->returnCallback(
+                    static function ($languageCode) {
+                        if ($languageCode === 'Klingon') {
+                            throw new NotFoundException('Language', 'Klingon');
+                        }
+
+                        return new Language(['id' => 4242]);
+                    }
+                )
+            );
+
+        $mockedService
+            ->method('loadContent')
+            ->with(
+                $this->equalTo(42),
+                $this->equalTo(null),
+                $this->equalTo(7)
+            )->will(
+                $this->returnValue($content)
+            );
+
+        $mockedService
+            ->method('internalLoadContentById')
+            ->will(
+                $this->returnValue($content)
+            );
+
+        $permissionResolverMock->expects($this->any())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('edit'),
+                $this->equalTo($content),
+                $this->isType('array')
+            )->will($this->returnValue(true));
+
+        /*
+        $contentTypeServiceMock->expects($this->once())
+            ->method('loadContentType')
+            ->with($this->equalTo($contentType->id))
+            ->will($this->returnValue($contentType));
+        */
+
+        $contentUpdateStruct = new ContentUpdateStruct(
+            [
+                'fields' => $structFields,
+                'initialLanguageCode' => $initialLanguageCode,
+            ]
+        );
+
+        $mockedService->updateContent($content->versionInfo, $contentUpdateStruct);
+    }
+
+    public function providerForTestUpdateContentThrowsContentValidationExceptionFieldDefinition()
+    {
+        return [
+            [
+                'eng-GB',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue'),
+                            'languageCode' => 'eng-GB',
+                        ]
+                    ),
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Test for the updateContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent
+     * @dataProvider providerForTestUpdateContentThrowsContentValidationExceptionFieldDefinition
+     */
+    public function testUpdateContentThrowsContentValidationExceptionFieldDefinition($initialLanguageCode, $structFields)
+    {
+        $this->expectException(ContentValidationException::class);
+        $this->expectExceptionMessage('Field definition \'identifier\' does not exist in given Content Type');
+
+        $this->assertForUpdateContentContentValidationException(
+            $initialLanguageCode,
+            $structFields,
+            []
+        );
+    }
+
+    public function providerForTestUpdateContentThrowsContentValidationExceptionTranslation()
+    {
+        return [
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub('newValue'),
+                            'languageCode' => 'eng-US',
+                        ]
+                    ),
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Test for the updateContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent
+     * @dataProvider providerForTestUpdateContentThrowsContentValidationExceptionTranslation
+     */
+    public function testUpdateContentThrowsContentValidationExceptionTranslation($initialLanguageCode, $structFields)
+    {
+        $this->expectException(ContentValidationException::class);
+        $this->expectExceptionMessage('You cannot set a value for the non-translatable Field definition \'identifier\' in language \'eng-US\'');
+
+        $fieldDefinitions = [
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId1',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => false,
+                    'identifier' => 'identifier',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                ]
+            ),
+        ];
+
+        $this->assertForUpdateContentContentValidationException(
+            $initialLanguageCode,
+            $structFields,
+            $fieldDefinitions
+        );
+    }
+
+    public function assertForTestUpdateContentRequiredField(
+        $initialLanguageCode,
+        $structFields,
+        $existingFields,
+        $fieldDefinitions
+    ) {
+        $repositoryMock = $this->getRepositoryMock();
+        $permissionResolver = $this->getPermissionResolverMock();
+        $mockedService = $this->getPartlyMockedContentService(['internalLoadContentById', 'loadContent']);
+        /** @var \PHPUnit\Framework\MockObject\MockObject $languageHandlerMock */
+        $languageHandlerMock = $this->getPersistenceMock()->contentLanguageHandler();
+        $contentTypeServiceMock = $this->getContentTypeServiceMock();
+        $fieldTypeMock = $this->createMock(SPIFieldType::class);
+        $existingLanguageCodes = array_map(
+            static function (Field $field) {
+                return $field->languageCode;
+            },
+            $existingFields
+        );
+        $versionInfo = new VersionInfo(
+            [
+                'contentInfo' => new ContentInfo(
+                    [
+                        'id' => 42,
+                        'contentTypeId' => 24,
+                        'mainLanguageCode' => 'eng-GB',
+                    ]
+                ),
+                'versionNo' => 7,
+                'languageCodes' => $existingLanguageCodes,
+                'status' => VersionInfo::STATUS_DRAFT,
+            ]
+        );
+        $contentType = new ContentType([
+            'fieldDefinitions' => new FieldDefinitionCollection($fieldDefinitions),
+        ]);
+        $content = new Content(
+            [
+                'versionInfo' => $versionInfo,
+                'internalFields' => $existingFields,
+                'contentType' => $contentType,
+            ]
+        );
+
+        $languageHandlerMock->expects($this->any())
+            ->method('loadByLanguageCode')
+            ->with($this->isType('string'))
+            ->will(
+                $this->returnCallback(
+                    static function () {
+                        return new Language(['id' => 4242]);
+                    }
+                )
+            );
+
+        $mockedService
+            ->method('loadContent')
+            ->with(
+                $this->equalTo(42),
+                $this->equalTo(null),
+                $this->equalTo(7)
+            )->will(
+                $this->returnValue($content)
+            );
+
+        $mockedService
+            ->method('internalLoadContentById')
+            ->will(
+                $this->returnValue($content)
+            );
+
+        $permissionResolver->expects($this->any())
+            ->method('canUser')
+            ->with(
+                $this->equalTo('content'),
+                $this->equalTo('edit'),
+                $this->equalTo($content),
+                $this->isType('array')
+            )->will($this->returnValue(true));
+
+        $fieldTypeMock->expects($this->any())
+            ->method('acceptValue')
+            ->will(
+                $this->returnCallback(
+                    static function ($valueString) {
+                        return new ValueStub($valueString);
+                    }
+                )
+            );
+
+        $emptyValue = new ValueStub(self::EMPTY_FIELD_VALUE);
+        $fieldTypeMock->expects($this->any())
+            ->method('isEmptyValue')
+            ->will(
+                $this->returnCallback(
+                    static function (ValueStub $value) use ($emptyValue) {
+                        return (string)$emptyValue === (string)$value;
+                    }
+                )
+            );
+
+        $fieldTypeMock->expects($this->any())
+            ->method('validate')
+            ->with(
+                $this->isInstanceOf(APIFieldDefinition::class),
+                $this->isInstanceOf(Value::class)
+            );
+
+        $this->getFieldTypeRegistryMock()->expects($this->any())
+            ->method('getFieldType')
+            ->will($this->returnValue($fieldTypeMock));
+
+        $contentUpdateStruct = new ContentUpdateStruct(
+            [
+                'fields' => $structFields,
+                'initialLanguageCode' => $initialLanguageCode,
+            ]
+        );
+
+        return [$content->versionInfo, $contentUpdateStruct];
+    }
+
+    public function providerForTestUpdateContentRequiredField()
+    {
+        return [
+            [
+                'eng-US',
+                [
+                    new Field(
+                        [
+                            'fieldDefIdentifier' => 'identifier',
+                            'value' => new ValueStub(self::EMPTY_FIELD_VALUE),
+                            'languageCode' => null,
+                        ]
+                    ),
+                ],
+                'identifier',
+                'eng-US',
+            ],
+        ];
+    }
+
+    /**
+     * Test for the updateContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent
+     * @dataProvider providerForTestUpdateContentRequiredField
+     */
+    public function testUpdateContentRequiredField(
+        $initialLanguageCode,
+        $structFields,
+        $identifier,
+        $languageCode
+    ) {
+        $this->expectException(ContentFieldValidationException::class);
+
+        $existingFields = [
+            new Field(
+                [
+                    'id' => '100',
+                    'fieldDefIdentifier' => 'identifier',
+                    'value' => new ValueStub('initialValue'),
+                    'languageCode' => 'eng-GB',
+                ]
+            ),
+        ];
+        $fieldDefinitions = [
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => true,
+                    'identifier' => 'identifier',
+                    'isRequired' => true,
+                    'defaultValue' => new ValueStub('defaultValue'),
+                ]
+            ),
+        ];
+        list($versionInfo, $contentUpdateStruct) =
+            $this->assertForTestUpdateContentRequiredField(
+                $initialLanguageCode,
+                $structFields,
+                $existingFields,
+                $fieldDefinitions
+            );
+
+        try {
+            $this->partlyMockedContentService->updateContent($versionInfo, $contentUpdateStruct);
+        } catch (ContentValidationException $e) {
+            $this->assertEquals(
+                "Value for required field definition '{$identifier}' with language '{$languageCode}' is empty",
+                $e->getMessage()
+            );
+
+            throw $e;
+        }
+    }
+
+    public function assertForTestUpdateContentThrowsContentFieldValidationException(
+        $initialLanguageCode,
+        $structFields,
+        $existingFields,
+        $fieldDefinitions
+    ) {
+        $repositoryMock = $this->getRepositoryMock();
+        $permissionResolverMock = $this->getPermissionResolverMock();
+        $mockedService = $this->getPartlyMockedContentService(['internalLoadContentById', 'loadContent']);
+        /** @var \PHPUnit\Framework\MockObject\MockObject $languageHandlerMock */
+        $languageHandlerMock = $this->getPersistenceMock()->contentLanguageHandler();
+        $contentTypeServiceMock = $this->getContentTypeServiceMock();
+        $fieldTypeMock = $this->createMock(SPIFieldType::class);
+        $existingLanguageCodes = array_map(
+            static function (Field $field) {
+                return $field->languageCode;
+            },
+            $existingFields
+        );
+        $languageCodes = $this->determineLanguageCodesForUpdate(
+            $initialLanguageCode,
+            $structFields,
+            $existingLanguageCodes
+        );
+        $versionInfo = new VersionInfo(
+            [
+                'contentInfo' => new ContentInfo(
+                    [
+                        'id' => 42,
+                        'contentTypeId' => 24,
+                        'mainLanguageCode' => 'eng-GB',
+                    ]
+                ),
+                'versionNo' => 7,
+                'languageCodes' => $existingLanguageCodes,
+                'status' => VersionInfo::STATUS_DRAFT,
+            ]
+        );
+        $contentType = new ContentType([
+            'fieldDefinitions' => new FieldDefinitionCollection($fieldDefinitions),
+        ]);
+        $content = new Content(
+            [
+                'versionInfo' => $versionInfo,
+                'internalFields' => $existingFields,
+                'contentType' => $contentType,
+            ]
+        );
+
+        $languageHandlerMock->expects($this->any())
+            ->method('loadByLanguageCode')
+            ->with($this->isType('string'))
+            ->will(
+                $this->returnCallback(
+                    static function () {
+                        return new Language(['id' => 4242]);
+                    }
+                )
+            );
+
+        $mockedService
+            ->method('internalLoadContentById')
+            ->will(
+                $this->returnValue($content)
+            );
+
+        $mockedService
+            ->method('loadContent')
+            ->with(
+                $this->equalTo(42),
+                $this->equalTo(null),
+                $this->equalTo(7)
+            )
+            ->will(
+                $this->returnValue($content)
+            );
+
+        $permissionResolverMock
+            ->method('canUser')
+            ->will($this->returnValue(true));
+
+        $fieldValues = $this->determineValuesForUpdate(
+            $initialLanguageCode,
+            $structFields,
+            $content,
+            $fieldDefinitions,
+            $languageCodes
+        );
+        $allFieldErrors = [];
+        $emptyValue = new ValueStub(self::EMPTY_FIELD_VALUE);
+
+        $fieldTypeMock
+            ->method('acceptValue')
+            ->will(
+                $this->returnCallback(
+                    static function ($value) {
+                        return $value instanceof SPIValue
+                            ? $value
+                            : new ValueStub($value);
+                    }
+                )
+            );
+
+        $fieldTypeMock
+            ->method('isEmptyValue')
+            ->will(
+                $this->returnCallback(
+                    static function (ValueStub $value) use ($emptyValue) {
+                        return (string)$emptyValue === (string)$value;
+                    }
+                )
+            );
+
+        $fieldTypeMock
+            ->expects($this->any())
+            ->method('validate')
+            ->willReturnArgument(1);
+
+        $this->getFieldTypeRegistryMock()->expects($this->any())
+            ->method('getFieldType')
+            ->will($this->returnValue($fieldTypeMock));
+
+        $contentUpdateStruct = new ContentUpdateStruct(
+            [
+                'fields' => $structFields,
+                'initialLanguageCode' => $initialLanguageCode,
+            ]
+        );
+
+        return [$content->versionInfo, $contentUpdateStruct, $allFieldErrors];
+    }
+
+    public function providerForTestUpdateContentThrowsContentFieldValidationException()
+    {
+        $allFieldErrors = [
+            [
+                'fieldDefinitionId1' => [
+                    'eng-GB' => new ValueStub('newValue1-eng-GB'),
+                    'eng-US' => new ValueStub('newValue1-eng-GB'),
+                ],
+                'fieldDefinitionId2' => [
+                    'eng-GB' => new ValueStub('initialValue2'),
+                ],
+                'fieldDefinitionId3' => [
+                    'eng-GB' => new ValueStub('initialValue3'),
+                    'eng-US' => new ValueStub('initialValue3'),
+                ],
+                'fieldDefinitionId4' => [
+                    'eng-GB' => new ValueStub('initialValue4'),
+                    'eng-US' => new ValueStub('newValue4'),
+                ],
+            ],
+            [
+                'fieldDefinitionId1' => [
+                    'eng-GB' => new ValueStub('newValue1-eng-GB'),
+                    'eng-US' => new ValueStub('newValue1-eng-GB'),
+                ],
+                'fieldDefinitionId2' => [
+                    'eng-GB' => new ValueStub('initialValue2'),
+                ],
+                'fieldDefinitionId3' => [
+                    'eng-GB' => new ValueStub('initialValue3'),
+                    'eng-US' => new ValueStub('initialValue3'),
+                ],
+                'fieldDefinitionId4' => [
+                    'eng-GB' => new ValueStub('initialValue4'),
+                    'eng-US' => new ValueStub('newValue4'),
+                ],
+            ],
+            [
+                'fieldDefinitionId1' => [
+                    'eng-GB' => new ValueStub('newValue1-eng-GB'),
+                    'eng-US' => new ValueStub('newValue1-eng-GB'),
+                ],
+                'fieldDefinitionId2' => [
+                    'eng-GB' => new ValueStub('initialValue2'),
+                    'eng-US' => new ValueStub('newValue2'),
+                ],
+                'fieldDefinitionId3' => [
+                    'eng-GB' => new ValueStub('initialValue3'),
+                    'eng-US' => new ValueStub('initialValue3'),
+                ],
+                'fieldDefinitionId4' => [
+                    'eng-GB' => new ValueStub('initialValue4'),
+                    'eng-US' => new ValueStub('defaultValue4'),
+                ],
+            ],
+            [
+                'fieldDefinitionId1' => [
+                    'eng-GB' => new ValueStub('newValue1-eng-GB'),
+                    'eng-US' => new ValueStub('newValue1-eng-GB'),
+                ],
+                'fieldDefinitionId2' => [
+                    'eng-GB' => new ValueStub('initialValue2'),
+                    'eng-US' => new ValueStub('newValue2'),
+                ],
+                'fieldDefinitionId3' => [
+                    'eng-GB' => new ValueStub('initialValue3'),
+                    'eng-US' => new ValueStub('initialValue3'),
+                ],
+                'fieldDefinitionId4' => [
+                    'eng-GB' => new ValueStub('initialValue4'),
+                    'eng-US' => new ValueStub('defaultValue4'),
+                ],
+            ],
+            [
+                'fieldDefinitionId1' => [
+                    'eng-GB' => new ValueStub('newValue1-eng-GB'),
+                    'ger-DE' => new ValueStub('newValue1-eng-GB'),
+                    'eng-US' => new ValueStub('newValue1-eng-GB'),
+                ],
+                'fieldDefinitionId2' => [
+                    'eng-GB' => new ValueStub('initialValue2'),
+                    'eng-US' => new ValueStub('newValue2'),
+                ],
+                'fieldDefinitionId3' => [
+                    'eng-GB' => new ValueStub('initialValue3'),
+                    'ger-DE' => new ValueStub('initialValue3'),
+                    'eng-US' => new ValueStub('initialValue3'),
+                ],
+                'fieldDefinitionId4' => [
+                    'eng-GB' => new ValueStub('initialValue4'),
+                    'eng-US' => new ValueStub('defaultValue4'),
+                    'ger-DE' => new ValueStub('defaultValue4'),
+                ],
+            ],
+            [
+                'fieldDefinitionId1' => [
+                    'eng-US' => new ValueStub('newValue1-eng-GB'),
+                    'ger-DE' => new ValueStub('newValue1-eng-GB'),
+                ],
+                'fieldDefinitionId2' => [
+                    'eng-US' => new ValueStub('newValue2'),
+                ],
+                'fieldDefinitionId3' => [
+                    'ger-DE' => new ValueStub('initialValue3'),
+                    'eng-US' => new ValueStub('initialValue3'),
+                ],
+                'fieldDefinitionId4' => [
+                    'ger-DE' => new ValueStub('defaultValue4'),
+                    'eng-US' => new ValueStub('defaultValue4'),
+                ],
+            ],
+        ];
+
+        $data = $this->providerForTestUpdateContentNonRedundantFieldSetComplex();
+        $count = count($data);
+        for ($i = 0; $i < $count; ++$i) {
+            $data[$i][] = $allFieldErrors[$i];
+        }
+
+        return $data;
+    }
+
+    /**
+     * Test for the updateContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent
+     * @dataProvider providerForTestUpdateContentThrowsContentFieldValidationException
+     */
+    public function testUpdateContentThrowsContentFieldValidationException($initialLanguageCode, $structFields, $spiField, $allFieldErrors)
+    {
+        $this->expectException(ContentFieldValidationException::class);
+        $this->expectExceptionMessage('Content Fields did not validate');
+
+        list($existingFields, $fieldDefinitions) = $this->fixturesForTestUpdateContentNonRedundantFieldSetComplex();
+        list($versionInfo, $contentUpdateStruct) =
+            $this->assertForTestUpdateContentThrowsContentFieldValidationException(
+                $initialLanguageCode,
+                $structFields,
+                $existingFields,
+                $fieldDefinitions
+            );
+
+        try {
+            $this->partlyMockedContentService->updateContent($versionInfo, $contentUpdateStruct);
+        } catch (ContentFieldValidationException $e) {
+            $this->assertEquals($allFieldErrors, $e->getFieldErrors());
+            throw $e;
+        }
+    }
+
+    /**
+     * Test for the updateContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getLanguageCodesForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::mapFieldsForUpdate
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::updateContent
+     */
+    public function testUpdateContentTransactionRollback()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Store failed');
+
+        $existingFields = [
+            new Field(
+                [
+                    'id' => '100',
+                    'fieldDefIdentifier' => 'identifier',
+                    'value' => new ValueStub('initialValue'),
+                    'languageCode' => 'eng-GB',
+                ]
+            ),
+        ];
+
+        $fieldDefinitions = [
+            new FieldDefinition(
+                [
+                    'id' => 'fieldDefinitionId',
+                    'fieldTypeIdentifier' => 'fieldTypeIdentifier',
+                    'isTranslatable' => false,
+                    'identifier' => 'identifier',
+                    'isRequired' => false,
+                    'defaultValue' => new ValueStub('defaultValue'),
+                ]
+            ),
+        ];
+
+        // Setup a simple case that will pass
+        list($versionInfo, $contentUpdateStruct) = $this->assertForTestUpdateContentNonRedundantFieldSet(
+            'eng-US',
+            [],
+            [],
+            $existingFields,
+            $fieldDefinitions,
+            // Do not execute test
+            false
+        );
+
+        $repositoryMock = $this->getRepositoryMock();
+        $repositoryMock->expects($this->never())->method('commit');
+        $repositoryMock->expects($this->once())->method('rollback');
+
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandlerMock */
+        $contentHandlerMock = $this->getPersistenceMock()->contentHandler();
+        $contentHandlerMock->expects($this->once())
+            ->method('updateContent')
+            ->with(
+                $this->anything(),
+                $this->anything(),
+                $this->anything()
+            )->will($this->throwException(new \Exception('Store failed')));
+
+        // Execute
+        $this->partlyMockedContentService->updateContent($versionInfo, $contentUpdateStruct);
+    }
+
+    /**
+     * Test for the copyContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::copyContent
+     */
+    public function testCopyContentThrowsUnauthorizedException()
+    {
+        $this->expectException(UnauthorizedException::class);
+
+        $repository = $this->getRepositoryMock();
+        $contentService = $this->getPartlyMockedContentService(['internalLoadContentInfo']);
+        $contentInfo = $this->createMock(APIContentInfo::class);
+        $locationCreateStruct = new LocationCreateStruct();
+        $locationCreateStruct->parentLocationId = 1;
+        $location = new Location(['id' => $locationCreateStruct->parentLocationId]);
+        $locationServiceMock = $this->getLocationServiceMock();
+        $permissionResolver = $this->getPermissionResolverMock();
+
+        $repository->expects($this->once())
+            ->method('getLocationService')
+            ->will($this->returnValue($locationServiceMock));
+
+        $locationServiceMock->expects($this->once())
+            ->method('loadLocation')
+            ->with(
+                $locationCreateStruct->parentLocationId
+            )
+            ->will($this->returnValue($location));
+
+        $contentInfo->expects($this->any())
+            ->method('__get')
+            ->with('sectionId')
+            ->will($this->returnValue(42));
+
+        $permissionResolver
+            ->method('canUser')
+            ->with(
+                'content',
+                'create',
+                $contentInfo,
+                [$location]
+            )
+            ->will($this->returnValue(false));
+
+        /* @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo */
+        $contentService->copyContent($contentInfo, $locationCreateStruct);
+    }
+
+    /**
+     * Test for the copyContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::copyContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getDefaultObjectStates
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::internalPublishVersion
+     */
+    public function testCopyContent()
+    {
+        $repositoryMock = $this->getRepositoryMock();
+        $contentService = $this->getPartlyMockedContentService([
+            'internalLoadContentInfo',
+            'internalLoadContentById',
+            'loadContentByVersionInfo',
+            'getUnixTimestamp',
+        ]);
+        $locationServiceMock = $this->getLocationServiceMock();
+        $contentInfoMock = $this->createMock(APIContentInfo::class);
+        $locationCreateStruct = new LocationCreateStruct();
+        $locationCreateStruct->parentLocationId = 2;
+        $location = new Location(['id' => $locationCreateStruct->parentLocationId]);
+        $user = $this->getStubbedUser(14);
+
+        $permissionResolverMock = $this->getPermissionResolverMock();
+
+        $permissionResolverMock
+            ->method('getCurrentUserReference')
+            ->willReturn($user);
+
+        $repositoryMock
+            ->method('getPermissionResolver')
+            ->willReturn($permissionResolverMock);
+
+        $repositoryMock->expects($this->exactly(3))
+            ->method('getLocationService')
+            ->will($this->returnValue($locationServiceMock));
+
+        $locationServiceMock->expects($this->once())
+            ->method('loadLocation')
+            ->with($locationCreateStruct->parentLocationId)
+            ->will($this->returnValue($location));
+
+        $contentInfoMock->expects($this->any())
+            ->method('__get')
+            ->will(
+                $this->returnValueMap(
+                    [
+                        ['isHidden', true],
+                        ['id', 42],
+                    ]
+                )
+            );
+        $versionInfoMock = $this->createMock(APIVersionInfo::class);
+
+        $versionInfoMock->expects($this->any())
+            ->method('__get')
+            ->will(
+                $this->returnValueMap(
+                    [
+                        ['versionNo', 123],
+                    ]
+                )
+            );
+
+        $versionInfoMock->expects($this->once())
+            ->method('isDraft')
+            ->willReturn(true);
+
+        $versionInfoMock
+            ->method('getContentInfo')
+            ->will($this->returnValue($contentInfoMock));
+
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandlerMock */
+        $contentHandlerMock = $this->getPersistenceMock()->contentHandler();
+        $domainMapperMock = $this->getContentDomainMapperMock();
+
+        $repositoryMock->expects($this->once())->method('beginTransaction');
+        $repositoryMock->expects($this->once())->method('commit');
+
+        $permissionResolverMock
+            ->method('canUser')
+            ->willReturnMap(
+                [
+                    ['content', 'create', $contentInfoMock, [$location], true],
+                    ['content', 'manage_locations', $contentInfoMock, [$location], true],
+                ]
+            );
+
+        $spiContentInfo = new SPIContentInfo(['id' => 42]);
+        $spiVersionInfo = new SPIVersionInfo(
+            [
+                'contentInfo' => $spiContentInfo,
+                'creationDate' => 123456,
+            ]
+        );
+        $spiContent = new SPIContent(['versionInfo' => $spiVersionInfo]);
+        $contentHandlerMock->expects($this->once())
+            ->method('copy')
+            ->with(42, null)
+            ->will($this->returnValue($spiContent));
+
+        $this->mockGetDefaultObjectStates();
+        $this->mockSetDefaultObjectStates();
+
+        $domainMapperMock->expects($this->once())
+            ->method('buildVersionInfoDomainObject')
+            ->with($spiVersionInfo)
+            ->will($this->returnValue($versionInfoMock));
+
+        /* @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfoMock */
+        $content = $this->mockPublishVersion(123456, 126666, true);
+        $locationServiceMock->expects($this->once())
+            ->method('createLocation')
+            ->with(
+                $content->getVersionInfo()->getContentInfo(),
+                $locationCreateStruct
+            );
+
+        $contentService
+            ->method('internalLoadContentById')
+            ->with(
+                $content->id
+            )
+            ->will($this->returnValue($content));
+
+        $contentService->expects($this->once())
+            ->method('getUnixTimestamp')
+            ->will($this->returnValue(126666));
+
+        $contentService
+            ->method('loadContentByVersionInfo')
+            ->will($this->returnValue($content));
+
+        /* @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfoMock */
+        $contentService->copyContent($contentInfoMock, $locationCreateStruct, null);
+    }
+
+    /**
+     * Test for the copyContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::copyContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getDefaultObjectStates
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::internalPublishVersion
+     */
+    public function testCopyContentWithVersionInfo()
+    {
+        $repositoryMock = $this->getRepositoryMock();
+        $contentService = $this->getPartlyMockedContentService([
+            'internalLoadContentById',
+            'getUnixTimestamp',
+        ]);
+        $locationServiceMock = $this->getLocationServiceMock();
+        $contentInfoMock = $this->createMock(APIContentInfo::class);
+        $locationCreateStruct = new LocationCreateStruct();
+        $locationCreateStruct->parentLocationId = 2;
+        $location = new Location(['id' => $locationCreateStruct->parentLocationId]);
+        $user = $this->getStubbedUser(14);
+
+        $permissionResolverMock = $this->getPermissionResolverMock();
+
+        $permissionResolverMock
+            ->method('getCurrentUserReference')
+            ->willReturn($user);
+
+        $repositoryMock
+            ->method('getPermissionResolver')
+            ->willReturn($permissionResolverMock);
+
+        $repositoryMock->expects($this->exactly(3))
+            ->method('getLocationService')
+            ->will($this->returnValue($locationServiceMock));
+
+        $locationServiceMock->expects($this->once())
+            ->method('loadLocation')
+            ->with($locationCreateStruct->parentLocationId)
+            ->will($this->returnValue($location));
+
+        $contentInfoMock->expects($this->any())
+            ->method('__get')
+            ->will(
+                $this->returnValueMap([
+                    ['isHidden', true],
+                    ['id', 42],
+                ])
+            );
+
+        $versionInfoMock = $this->createMock(APIVersionInfo::class);
+
+        $versionInfoMock->expects($this->any())
+            ->method('__get')
+            ->will(
+                $this->returnValueMap(
+                    [
+                        ['versionNo', 123],
+                    ]
+                )
+            );
+        $versionInfoMock->expects($this->once())
+            ->method('isDraft')
+            ->willReturn(true);
+        $versionInfoMock
+            ->method('getContentInfo')
+            ->will($this->returnValue($contentInfoMock));
+
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandlerMock */
+        $contentHandlerMock = $this->getPersistenceMock()->contentHandler();
+        $domainMapperMock = $this->getContentDomainMapperMock();
+
+        $repositoryMock->expects($this->once())->method('beginTransaction');
+        $repositoryMock->expects($this->once())->method('commit');
+
+        $permissionResolverMock
+            ->method('canUser')
+            ->willReturnMap(
+                [
+                    ['content', 'create', $contentInfoMock, [$location], true],
+                    ['content', 'manage_locations', $contentInfoMock, [$location], true],
+                ]
+            );
+
+        $spiContentInfo = new SPIContentInfo(['id' => 42]);
+        $spiVersionInfo = new SPIVersionInfo(
+            [
+                'contentInfo' => $spiContentInfo,
+                'creationDate' => 123456,
+            ]
+        );
+        $spiContent = new SPIContent(['versionInfo' => $spiVersionInfo]);
+        $contentHandlerMock->expects($this->once())
+            ->method('copy')
+            ->with(42, 123)
+            ->will($this->returnValue($spiContent));
+
+        $this->mockGetDefaultObjectStates();
+        $this->mockSetDefaultObjectStates();
+
+        $domainMapperMock->expects($this->once())
+            ->method('buildVersionInfoDomainObject')
+            ->with($spiVersionInfo)
+            ->will($this->returnValue($versionInfoMock));
+
+        /* @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfoMock */
+        $content = $this->mockPublishVersion(123456, 126666, true);
+        $locationServiceMock->expects($this->once())
+            ->method('createLocation')
+            ->with(
+                $content->getVersionInfo()->getContentInfo(),
+                $locationCreateStruct
+            );
+
+        $contentService
+            ->method('internalLoadContentById')
+            ->with(
+                $content->id
+            )
+            ->will($this->returnValue($content));
+
+        $contentService->expects($this->once())
+            ->method('getUnixTimestamp')
+            ->will($this->returnValue(126666));
+
+        /* @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfoMock */
+        $contentService->copyContent($contentInfoMock, $locationCreateStruct, $versionInfoMock);
+    }
+
+    /**
+     * Test for the copyContent() method.
+     *
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::copyContent
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::getDefaultObjectStates
+     * @covers \Ibexa\Contracts\Core\Repository\ContentService::internalPublishVersion
+     */
+    public function testCopyContentWithRollback()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Handler threw an exception');
+
+        $repositoryMock = $this->getRepositoryMock();
+        $contentService = $this->getPartlyMockedContentService();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandlerMock */
+        $contentHandlerMock = $this->getPersistenceMock()->contentHandler();
+        $locationCreateStruct = new LocationCreateStruct();
+        $locationCreateStruct->parentLocationId = 2;
+        $location = new Location(['id' => $locationCreateStruct->parentLocationId]);
+        $locationServiceMock = $this->getLocationServiceMock();
+        $user = $this->getStubbedUser(14);
+
+        $permissionResolverMock = $this->getPermissionResolverMock();
+
+        $permissionResolverMock
+            ->method('getCurrentUserReference')
+            ->willReturn($user);
+
+        $repositoryMock
+            ->method('getPermissionResolver')
+            ->willReturn($permissionResolverMock);
+
+        $repositoryMock->expects($this->once())
+            ->method('getLocationService')
+            ->will($this->returnValue($locationServiceMock));
+
+        $locationServiceMock->expects($this->once())
+            ->method('loadLocation')
+            ->with($locationCreateStruct->parentLocationId)
+            ->will($this->returnValue($location));
+
+        $contentInfoMock = $this->createMock(APIContentInfo::class);
+        $contentInfoMock->expects($this->any())
+            ->method('__get')
+            ->with('id')
+            ->will($this->returnValue(42));
+
+        $this->mockGetDefaultObjectStates();
+
+        $repositoryMock->expects($this->once())->method('beginTransaction');
+        $repositoryMock->expects($this->once())->method('rollback');
+
+        $permissionResolverMock
+            ->method('canUser')
+            ->willReturnMap(
+                [
+                    ['content', 'create', $contentInfoMock, [$location], true],
+                    ['content', 'manage_locations', $contentInfoMock, [$location], true],
+                ]
+            );
+
+        $contentHandlerMock->expects($this->once())
+            ->method('copy')
+            ->with(42, null)
+            ->will($this->throwException(new Exception('Handler threw an exception')));
+
+        /* @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfoMock */
+        $contentService->copyContent($contentInfoMock, $locationCreateStruct, null);
+    }
+
+    /**
+     * Reusable method for setting exceptions on buildContentDomainObject usage.
+     *
+     * Plain usage as in when content type is loaded directly.
+     *
+     * @param \Ibexa\Contracts\Core\Persistence\Content $spiContent
+     * @param array $translations
+     * @param bool $useAlwaysAvailable
+     *
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Contracts\Core\Repository\Values\Content\Content
+     */
+    private function mockBuildContentDomainObject(SPIContent $spiContent, array $translations = null, bool $useAlwaysAvailable = null)
+    {
+        $contentTypeId = $spiContent->versionInfo->contentInfo->contentTypeId;
+        $contentTypeServiceMock = $this->getContentTypeServiceMock();
+        $repositoryMock = $this->getRepositoryMock();
+
+        $contentType = new ContentType([
+            'id' => $contentTypeId,
+            'fieldDefinitions' => new FieldDefinitionCollection([]),
+        ]);
+
+        $repositoryMock->expects($this->once())
+            ->method('getContentTypeService')
+            ->willReturn($contentTypeServiceMock);
+
+        $contentTypeServiceMock
+            ->method('loadContentType')
+            ->with($this->equalTo($contentTypeId))
+            ->willReturn($contentType);
+
+        $content = $this->createMock(APIContent::class);
+        $content->method('getContentType')
+            ->willReturn($contentType);
+
+        $this->getContentDomainMapperMock()
+            ->expects($this->once())
+            ->method('buildContentDomainObject')
+            ->with($spiContent, $contentType, $translations ?? [], $useAlwaysAvailable)
+            ->willReturn($content);
+
+        return $content;
+    }
+
+    protected function mockGetDefaultObjectStates()
+    {
+        /** @var \PHPUnit\Framework\MockObject\MockObject $objectStateHandlerMock */
+        $objectStateHandlerMock = $this->getPersistenceMock()->objectStateHandler();
+
+        $objectStateGroups = [
+            new SPIObjectStateGroup(['id' => 10]),
+            new SPIObjectStateGroup(['id' => 20]),
+        ];
+
+        /* @var \PHPUnit\Framework\MockObject\MockObject $objectStateHandlerMock */
+        $objectStateHandlerMock->expects($this->once())
+            ->method('loadAllGroups')
+            ->will($this->returnValue($objectStateGroups));
+
+        $objectStateHandlerMock->expects($this->at(1))
+            ->method('loadObjectStates')
+            ->with($this->equalTo(10))
+            ->will(
+                $this->returnValue(
+                    [
+                        new SPIObjectState(['id' => 11, 'groupId' => 10]),
+                        new SPIObjectState(['id' => 12, 'groupId' => 10]),
+                    ]
+                )
+            );
+
+        $objectStateHandlerMock->expects($this->at(2))
+            ->method('loadObjectStates')
+            ->with($this->equalTo(20))
+            ->will(
+                $this->returnValue(
+                    [
+                        new SPIObjectState(['id' => 21, 'groupId' => 20]),
+                        new SPIObjectState(['id' => 22, 'groupId' => 20]),
+                    ]
+                )
+            );
+    }
+
+    protected function mockSetDefaultObjectStates()
+    {
+        /** @var \PHPUnit\Framework\MockObject\MockObject $objectStateHandlerMock */
+        $objectStateHandlerMock = $this->getPersistenceMock()->objectStateHandler();
+
+        $defaultObjectStates = [
+            new SPIObjectState(['id' => 11, 'groupId' => 10]),
+            new SPIObjectState(['id' => 21, 'groupId' => 20]),
+        ];
+        foreach ($defaultObjectStates as $index => $objectState) {
+            $objectStateHandlerMock->expects($this->at($index + 3))
+                ->method('setContentState')
+                ->with(
+                    42,
+                    $objectState->groupId,
+                    $objectState->id
+                );
+        }
+    }
+
+    /**
+     * @param int|null $publicationDate
+     * @param int|null $modificationDate
+     * @param bool $isHidden
+     *
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
+     */
+    protected function mockPublishVersion($publicationDate = null, $modificationDate = null, $isHidden = false)
+    {
+        $versionInfoMock = $this->createMock(APIVersionInfo::class);
+        $contentInfoMock = $this->createMock(APIContentInfo::class);
+        /* @var \PHPUnit\Framework\MockObject\MockObject $contentHandlerMock */
+        $contentHandlerMock = $this->getPersistenceMock()->contentHandler();
+        $metadataUpdateStruct = new SPIMetadataUpdateStruct();
+
+        $spiContent = new SPIContent([
+            'versionInfo' => new VersionInfo([
+                'contentInfo' => new ContentInfo(['id' => 42, 'contentTypeId' => 123]),
+            ]),
+            'fields' => new FieldDefinitionCollection([]),
+        ]);
+
+        $contentMock = $this->mockBuildContentDomainObject($spiContent);
+        $contentMock->expects($this->any())
+            ->method('__get')
+            ->will(
+                $this->returnValueMap(
+                    [
+                        ['id', 42],
+                        ['contentInfo', $contentInfoMock],
+                        ['versionInfo', $versionInfoMock],
+                    ]
+                )
+            );
+        $contentMock->expects($this->any())
+            ->method('getVersionInfo')
+            ->will($this->returnValue($versionInfoMock));
+        $versionInfoMock->expects($this->any())
+            ->method('getContentInfo')
+            ->will($this->returnValue($contentInfoMock));
+        $versionInfoMock->expects($this->any())
+            ->method('__get')
+            ->will(
+                $this->returnValueMap(
+                    [
+                        ['languageCodes', ['eng-GB']],
+                    ]
+                )
+            );
+        $contentInfoMock->expects($this->any())
+            ->method('__get')
+            ->will(
+                $this->returnValueMap(
+                    [
+                        ['alwaysAvailable', true],
+                        ['mainLanguageCode', 'eng-GB'],
+                    ]
+                )
+            );
+
+        $currentTime = time();
+        if ($publicationDate === null && $versionInfoMock->versionNo === 1) {
+            $publicationDate = $currentTime;
+        }
+
+        // Account for 1 second of test execution time
+        $metadataUpdateStruct->publicationDate = $publicationDate;
+        $metadataUpdateStruct->modificationDate = $modificationDate ?? $currentTime;
+        $metadataUpdateStruct->isHidden = $isHidden;
+
+        $contentHandlerMock->expects($this->once())
+            ->method('publish')
+            ->with(
+                42,
+                123,
+                $metadataUpdateStruct
+            )
+            ->will($this->returnValue($spiContent));
+
+        /* @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $contentMock */
+        $this->mockPublishUrlAliasesForContent($contentMock);
+
+        return $contentMock;
+    }
+
+    /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     */
+    protected function mockPublishUrlAliasesForContent(APIContent $content)
+    {
+        $nameSchemaServiceMock = $this->getNameSchemaServiceMock();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $urlAliasHandlerMock */
+        $urlAliasHandlerMock = $this->getPersistenceMock()->urlAliasHandler();
+        $locationServiceMock = $this->getLocationServiceMock();
+        $location = $this->createMock(APILocation::class);
+
+        $location->expects($this->at(0))
+            ->method('__get')
+            ->with('id')
+            ->will($this->returnValue(123));
+        $location->expects($this->at(1))
+            ->method('__get')
+            ->with('parentLocationId')
+            ->will($this->returnValue(456));
+
+        $urlAliasNames = ['eng-GB' => 'hello'];
+        $nameSchemaServiceMock->expects($this->once())
+            ->method('resolveUrlAliasSchema')
+            ->with($content)
+            ->will($this->returnValue($urlAliasNames));
+
+        $locationServiceMock->expects($this->once())
+            ->method('loadLocations')
+            ->with($content->getVersionInfo()->getContentInfo())
+            ->will($this->returnValue([$location]));
+
+        $urlAliasHandlerMock->expects($this->once())
+            ->method('publishUrlAliasForLocation')
+            ->with(123, 456, 'hello', 'eng-GB', true, true);
+
+        $location->expects($this->at(2))
+            ->method('__get')
+            ->with('id')
+            ->will($this->returnValue(123));
+
+        $location->expects($this->at(3))
+            ->method('__get')
+            ->with('parentLocationId')
+            ->will($this->returnValue(456));
+
+        $urlAliasHandlerMock->expects($this->once())
+            ->method('archiveUrlAliasesForDeletedTranslations')
+            ->with(123, 456, ['eng-GB']);
+    }
+
+    protected $relationProcessorMock;
+
+    /**
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Repository\Helper\RelationProcessor
+     */
+    protected function getRelationProcessorMock()
+    {
+        if (!isset($this->relationProcessorMock)) {
+            $this->relationProcessorMock = $this->createMock(RelationProcessor::class);
+        }
+
+        return $this->relationProcessorMock;
+    }
+
+    protected $nameSchemaServiceMock;
+
+    /**
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Core\Repository\Helper\NameSchemaService
+     */
+    protected function getNameSchemaServiceMock()
+    {
+        if (!isset($this->nameSchemaServiceMock)) {
+            $this->nameSchemaServiceMock = $this->createMock(NameSchemaService::class);
+        }
+
+        return $this->nameSchemaServiceMock;
+    }
+
+    protected $contentTypeServiceMock;
+
+    /**
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Contracts\Core\Repository\ContentTypeService
+     */
+    protected function getContentTypeServiceMock()
+    {
+        if (!isset($this->contentTypeServiceMock)) {
+            $this->contentTypeServiceMock = $this->createMock(APIContentTypeService::class);
+        }
+
+        return $this->contentTypeServiceMock;
+    }
+
+    protected $locationServiceMock;
+
+    /**
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Contracts\Core\Repository\LocationService
+     */
+    protected function getLocationServiceMock()
+    {
+        if (!isset($this->locationServiceMock)) {
+            $this->locationServiceMock = $this->createMock(APILocationService::class);
+        }
+
+        return $this->locationServiceMock;
+    }
+
+    /** @var \Ibexa\Core\Repository\ContentService */
+    protected $partlyMockedContentService;
+
+    /**
+     * Returns the content service to test with $methods mocked.
+     *
+     * Injected Repository comes from {@see getRepositoryMock()} and persistence handler from {@see getPersistenceMock()}
+     *
+     * @param string[] $methods
+     *
+     * @return \Ibexa\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected function getPartlyMockedContentService(array $methods = null)
+    {
+        if (!isset($this->partlyMockedContentService)) {
+            $this->partlyMockedContentService = $this->getMockBuilder(ContentService::class)
+                ->setMethods($methods)
+                ->setConstructorArgs(
+                    [
+                        $this->getRepositoryMock(),
+                        $this->getPersistenceMock(),
+                        $this->getContentDomainMapperMock(),
+                        $this->getRelationProcessorMock(),
+                        $this->getNameSchemaServiceMock(),
+                        $this->getFieldTypeRegistryMock(),
+                        $this->getPermissionServiceMock(),
+                        $this->getContentMapper(),
+                        $this->getContentValidatorStrategy(),
+                        $this->getContentFilteringHandlerMock(),
+                        [],
+                    ]
+                )
+                ->getMock();
+        }
+
+        return $this->partlyMockedContentService;
+    }
+
+    /**
+     * @return \Ibexa\Contracts\Core\Repository\Repository|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected function getRepositoryMock(): Repository
+    {
+        $repositoryMock = parent::getRepositoryMock();
+        $repositoryMock
+            ->expects($this->any())
+            ->method('getPermissionResolver')
+            ->willReturn($this->getPermissionResolverMock());
+
+        return $repositoryMock;
+    }
+}
+
+class_alias(ContentTest::class, 'eZ\Publish\Core\Repository\Tests\Service\Mock\ContentTest');

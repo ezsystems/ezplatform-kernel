@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\Mapper\ContentLocationMapper;
 
-use eZ\Publish\API\Repository\LocationService as RepositoryLocationService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\LocationList;
-use eZ\Publish\SPI\Repository\Decorator\LocationServiceDecorator;
+use Ibexa\Contracts\Core\Repository\Decorator\LocationServiceDecorator;
+use Ibexa\Contracts\Core\Repository\LocationService as RepositoryLocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
 
 /**
  * Service decorator hooking ContentLocationMapper to load* calls.
@@ -117,7 +117,7 @@ final class DecoratedLocationService extends LocationServiceDecorator
     }
 
     /**
-     * @param iterable<\eZ\Publish\API\Repository\Values\Content\Location>
+     * @param iterable<\Ibexa\Contracts\Core\Repository\Values\Content\Location> $locationList
      */
     private function setLocationMappings(iterable $locationList): void
     {

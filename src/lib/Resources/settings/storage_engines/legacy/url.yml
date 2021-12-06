@@ -1,0 +1,30 @@
+services:
+    ezpublish.persistence.legacy.url.gateway.inner:
+        class: Ibexa\Core\Persistence\Legacy\URL\Gateway\DoctrineDatabase
+        arguments:
+            - '@ezpublish.persistence.connection'
+            - '@ezpublish.spi.persistence.legacy.url.criterion_converter'
+
+    ezpublish.persistence.legacy.url.gateway.exception_conversion:
+        class: Ibexa\Core\Persistence\Legacy\URL\Gateway\ExceptionConversion
+        arguments:
+            - '@ezpublish.persistence.legacy.url.gateway.inner'
+
+    # To disable exception conversion layer override this alias so that it points to inner gateway
+    ezpublish.persistence.legacy.url.gateway:
+        alias: ezpublish.persistence.legacy.url.gateway.exception_conversion
+
+    ezpublish.persistence.legacy.url.mapper:
+        class: Ibexa\Core\Persistence\Legacy\URL\Mapper
+
+    ezpublish.spi.persistence.legacy.url.handler:
+        class: Ibexa\Core\Persistence\Legacy\URL\Handler
+        arguments:
+            - "@ezpublish.persistence.legacy.url.gateway"
+            - "@ezpublish.persistence.legacy.url.mapper"
+        lazy: true
+
+    ezpublish.spi.persistence.legacy.url.criterion_converter:
+        class: Ibexa\Core\Persistence\Legacy\URL\Query\CriteriaConverter
+
+

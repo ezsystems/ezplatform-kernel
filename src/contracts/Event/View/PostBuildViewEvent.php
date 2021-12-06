@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Event\View;
 
-use eZ\Publish\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Symfony\View\View;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class PostBuildViewEvent extends Event
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\View */
+    /** @var \Ibexa\Core\MVC\Symfony\View\View */
     private $view;
 
     public function __construct(View $view)

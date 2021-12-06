@@ -22,20 +22,20 @@ env:
 matrix:
   fast_finish: true
   include:
-# 7.3
+# 7.4
     - name: "Kernel Behat Core tests"
-      php: 7.3
+      php: 7.4
       env:
         - COMPOSE_FILE="doc/docker/base-dev.yml:doc/docker/selenium.yml"
         - BEHAT_OPTS="--mode=standard --profile=core --tags=~@broken -c=behat_ibexa_oss.yaml"
         - APP_ENV=behat
         - APP_DEBUG=1
-        - PROJECT_VERSION=^3.3.x-dev
+        - PROJECT_VERSION=^4.0.x-dev
     - name: 'Solr 7.7.3 integration tests (using shared cores) with Redis cache pool'
-      php: 7.3
+      php: 7.4
       env: SOLR_VERSION="7.7.3" TEST_CONFIG="phpunit-integration-legacy-solr.xml" CUSTOM_CACHE_POOL="singleredis" CORES_SETUP="shared" SOLR_CONFIG="vendor/ezsystems/ezplatform-solr-search-engine/lib/Resources/config/solr/schema.xml vendor/ezsystems/ezplatform-solr-search-engine/lib/Resources/config/solr/custom-fields-types.xml vendor/ezsystems/ezplatform-solr-search-engine/lib/Resources/config/solr/language-fieldtypes.xml" JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre/"
     - name: 'MySQL integration tests'
-      php: 7.3
+      php: 7.4
       env: TEST_CONFIG="phpunit-integration-legacy.xml" DB="mysql" DATABASE="mysql://root@localhost/testdb"
 
 # test only master, stable branches and pull requests

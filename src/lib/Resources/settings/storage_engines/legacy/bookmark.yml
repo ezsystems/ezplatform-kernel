@@ -1,0 +1,19 @@
+services:
+    Ibexa\Core\Persistence\Legacy\Bookmark\Gateway\DoctrineDatabase:
+        arguments:
+            $connection: '@ezpublish.persistence.connection'
+
+    Ibexa\Core\Persistence\Legacy\Bookmark\Gateway\ExceptionConversion:
+        arguments:
+            $innerGateway: '@Ibexa\Core\Persistence\Legacy\Bookmark\Gateway\DoctrineDatabase'
+
+    Ibexa\Core\Persistence\Legacy\Bookmark\Mapper: ~
+
+    Ibexa\Core\Persistence\Legacy\Bookmark\Handler:
+        arguments:
+            $gateway: '@Ibexa\Core\Persistence\Legacy\Bookmark\Gateway\ExceptionConversion'
+            $mapper: '@Ibexa\Core\Persistence\Legacy\Bookmark\Mapper'
+        lazy: true
+
+    ezpublish.spi.persistence.legacy.bookmark.handler:
+        alias: 'Ibexa\Core\Persistence\Legacy\Bookmark\Handler'

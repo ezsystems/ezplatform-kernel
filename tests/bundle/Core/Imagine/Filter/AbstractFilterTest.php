@@ -1,0 +1,85 @@
+<?php
+
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+namespace Ibexa\Tests\Bundle\Core\Imagine\Filter;
+
+use Ibexa\Bundle\Core\Imagine\Filter\AbstractFilter;
+use PHPUnit\Framework\TestCase;
+
+class AbstractFilterTest extends TestCase
+{
+    /** @var \Ibexa\Bundle\Core\Imagine\Filter\AbstractFilter */
+    protected $filter;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->filter = $this->getFilter();
+    }
+
+    protected function getFilter()
+    {
+        return $this->getMockForAbstractClass(AbstractFilter::class);
+    }
+
+    public function testGetSetOptions()
+    {
+        $this->assertSame([], $this->filter->getOptions());
+        $options = ['foo' => 'bar', 'some' => ['thing']];
+        $this->filter->setOptions($options);
+        $this->assertSame($options, $this->filter->getOptions());
+    }
+
+    /**
+     * @dataProvider getSetOptionNoDefaulValueProvider
+     */
+    public function testGetSetOptionNoDefaultValue($optionName, $value)
+    {
+        $this->assertFalse($this->filter->hasOption($optionName));
+        $this->assertNull($this->filter->getOption($optionName));
+        $this->filter->setOption($optionName, $value);
+        $this->assertTrue($this->filter->hasOption($optionName));
+        $this->assertSame($value, $this->filter->getOption($optionName));
+    }
+
+    public function getSetOptionNoDefaulValueProvider()
+    {
+        return [
+            ['foo', 'bar'],
+            ['foo', '123'],
+            ['bar', 123],
+            ['bar', ['foo', 123]],
+            ['bool', true],
+            ['obj', new \stdClass()],
+        ];
+    }
+
+    /**
+     * @dataProvider getSetOptionWithDefaulValueProvider
+     */
+    public function testGetSetOptionWithDefaultValue($optionName, $value, $defaultValue)
+    {
+        $this->assertFalse($this->filter->hasOption($optionName));
+        $this->assertSame($defaultValue, $this->filter->getOption($optionName, $defaultValue));
+        $this->filter->setOption($optionName, $value);
+        $this->assertTrue($this->filter->hasOption($optionName));
+        $this->assertSame($value, $this->filter->getOption($optionName));
+    }
+
+    public function getSetOptionWithDefaulValueProvider()
+    {
+        return [
+            ['foo', 'bar', 'default'],
+            ['foo', '123', 'default2'],
+            ['bar', 123, 0],
+            ['bar', ['foo', 123], []],
+            ['bool', true, false],
+            ['obj', new \stdClass(), new \stdClass()],
+        ];
+    }
+}
+
+class_alias(AbstractFilterTest::class, 'eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\Filter\AbstractFilterTest');

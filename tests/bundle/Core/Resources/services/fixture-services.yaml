@@ -1,0 +1,26 @@
+services:
+    Ibexa\Tests\Core\Repository\LegacySchemaImporter:
+        alias: 'test.ibexa.schema_importer'
+
+    test.ibexa.schema_importer:
+        class: Ibexa\Tests\Core\Repository\LegacySchemaImporter
+        public: true
+        arguments:
+            - '@doctrine.dbal.default_connection'
+
+    Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter:
+        alias: 'test.ibexa.fixture_importer'
+
+    test.ibexa.fixture_importer:
+        class: Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter
+        public: true
+        arguments:
+            - '@doctrine.dbal.default_connection'
+
+    Ibexa\DoctrineSchema\Database\DbPlatform\SqliteDbPlatform:
+        calls:
+            - [setEventManager, ['@doctrine.dbal.default_connection.event_manager']]
+
+    Ibexa\DoctrineSchema\Database\DbPlatform\PostgreSqlDbPlatform:
+        calls:
+            - [ setEventManager, [ '@doctrine.dbal.default_connection.event_manager' ] ]

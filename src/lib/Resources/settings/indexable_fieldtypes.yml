@@ -1,0 +1,138 @@
+parameters:
+    # @todo drop once core dependencies stop relying on this parameter
+    ezpublish.fieldType.indexable.unindexed.class: Ibexa\Core\FieldType\Unindexed
+
+services:
+    ezpublish.fieldType.indexable.ezkeyword:
+        class: Ibexa\Core\FieldType\Keyword\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezkeyword}
+
+    ezpublish.fieldType.indexable.ezauthor:
+        class: Ibexa\Core\FieldType\Author\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezauthor}
+
+    ezpublish.fieldType.indexable.ezstring:
+        class: Ibexa\Core\FieldType\TextLine\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezstring}
+
+    ezpublish.fieldType.indexable.ezgmaplocation:
+        class: Ibexa\Core\FieldType\MapLocation\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezgmaplocation}
+
+    ezpublish.fieldType.indexable.ezcountry:
+        class: Ibexa\Core\FieldType\Country\SearchField
+        arguments:
+            - "%ezpublish.fieldType.ezcountry.data%"
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezcountry}
+
+    ezpublish.fieldType.indexable.ezdate:
+        class: Ibexa\Core\FieldType\Date\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezdate}
+
+    ezpublish.fieldType.indexable.ezinteger:
+        class: Ibexa\Core\FieldType\Integer\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezinteger}
+
+    ezpublish.fieldType.indexable.ezfloat:
+        class: Ibexa\Core\FieldType\Float\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezfloat}
+
+    ezpublish.fieldType.indexable.ezemail:
+        class: Ibexa\Core\FieldType\EmailAddress\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezemail}
+
+    ezpublish.fieldType.indexable.ezimage:
+        class: Ibexa\Core\FieldType\Image\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezimage}
+
+    ezpublish.fieldType.indexable.ezmedia:
+        class: Ibexa\Core\FieldType\Media\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezmedia}
+
+    ezpublish.fieldType.indexable.ezbinaryfile:
+        class: Ibexa\Core\FieldType\BinaryFile\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezbinaryfile}
+
+    ezpublish.fieldType.indexable.eztime:
+        class: Ibexa\Core\FieldType\Time\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: eztime}
+
+    ezpublish.fieldType.indexable.eztext:
+        class: Ibexa\Core\FieldType\TextBlock\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: eztext}
+
+    ezpublish.fieldType.indexable.ezboolean:
+        class: Ibexa\Core\FieldType\Checkbox\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezboolean}
+
+    ezpublish.fieldType.indexable.ezdatetime:
+        class: Ibexa\Core\FieldType\DateAndTime\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezdatetime}
+
+    ezpublish.fieldType.indexable.ezisbn:
+        class: Ibexa\Core\FieldType\ISBN\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezisbn}
+
+    ezpublish.fieldType.indexable.ezobjectrelation:
+        class: Ibexa\Core\FieldType\Relation\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezobjectrelation}
+
+    ezpublish.fieldType.indexable.ezselection:
+        class: Ibexa\Core\FieldType\Selection\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezselection}
+
+    ezpublish.fieldType.indexable.ezobjectrelationlist:
+        class: Ibexa\Core\FieldType\RelationList\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezobjectrelationlist}
+
+    ezpublish.fieldType.indexable.ezurl:
+        class: Ibexa\Core\FieldType\Url\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezurl}
+
+    ezpublish.fieldType.indexable.ezimageasset:
+        class: Ibexa\Core\FieldType\ImageAsset\SearchField
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezimageasset}
+
+
+    ezpublish.fieldType.indexable.unindexed:
+        class: Ibexa\Core\FieldType\Unindexed
+        tags:
+            - {name: ezplatform.field_type.indexable, alias: ezuser}
+            - {name: ezplatform.field_type.indexable, alias: ezenum}
+            - {name: ezplatform.field_type.indexable, alias: ezidentifier}
+            - {name: ezplatform.field_type.indexable, alias: ezinisetting}
+            - {name: ezplatform.field_type.indexable, alias: ezmatrix}
+            - {name: ezplatform.field_type.indexable, alias: ezmultioption}
+            - {name: ezplatform.field_type.indexable, alias: ezmultioption2}
+            - {name: ezplatform.field_type.indexable, alias: ezmultiprice}
+            - {name: ezplatform.field_type.indexable, alias: ezoption}
+            - {name: ezplatform.field_type.indexable, alias: ezpackage}
+            - {name: ezplatform.field_type.indexable, alias: ezproductcategory}
+            - {name: ezplatform.field_type.indexable, alias: ezrangeoption}
+            - {name: ezplatform.field_type.indexable, alias: ezsubtreesubscription}
+            - {name: ezplatform.field_type.indexable, alias: ezcomcomments}
+            - {name: ezplatform.field_type.indexable, alias: ezsurvey}
+            - {name: ezplatform.field_type.indexable, alias: eztags}
+            - {name: ezplatform.field_type.indexable, alias: ezrecommendation}

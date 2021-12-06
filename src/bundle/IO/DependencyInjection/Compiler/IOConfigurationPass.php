@@ -1,0 +1,127 @@
+<?php
+
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+namespace Ibexa\Bundle\IO\DependencyInjection\Compiler;
+
+use ArrayObject;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use Symfony\Component\DependencyInjection\ChildDefinition;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
+
+/**
+ * This compiler pass will create the metadata and binarydata IO handlers depending on container configuration.
+ *
+ * @todo Refactor into two passes, since they're very very close.
+ */
+class IOConfigurationPass implements CompilerPassInterface
+{
+    /** @var \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|\ArrayObject */
+    private $metadataHandlerFactories;
+
+    /** @var \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|\ArrayObject */
+    private $binarydataHandlerFactories;
+
+    public function __construct(
+        ArrayObject $metadataHandlerFactories = null,
+        ArrayObject $binarydataHandlerFactories = null
+    ) {
+        $this->metadataHandlerFactories = $metadataHandlerFactories;
+        $this->binarydataHandlerFactories = $binarydataHandlerFactories;
+    }
+
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     *
+     * @throws \LogicException
+     */
+    public function process(ContainerBuilder $container)
+    {
+        $ioMetadataHandlers = $container->hasParameter('ez_io.metadata_handlers') ?
+            $container->getParameter('ez_io.metadata_handlers') :
+            [];
+        $this->processHandlers(
+            $container,
+            $container->getDefinition('ezpublish.core.io.metadata_handler.registry'),
+            $ioMetadataHandlers,
+            $this->metadataHandlerFactories,
+            'ezpublish.core.io.metadata_handler.flysystem.default'
+        );
+
+        $ioBinarydataHandlers = $container->hasParameter('ez_io.binarydata_handlers') ?
+            $container->getParameter('ez_io.binarydata_handlers') :
+            [];
+        $this->processHandlers(
+            $container,
+            $container->getDefinition('ezpublish.core.io.binarydata_handler.registry'),
+            $ioBinarydataHandlers,
+            $this->binarydataHandlerFactories,
+            'ezpublish.core.io.binarydata_handler.flysystem.default'
+        );
+
+        // Unset parameters that are no longer required ?
+    }
+
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\Definition $factory The factory service that should receive the list of handlers
+     * @param array $configuredHandlers Handlers configuration declared via semantic config
+     * @param \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|\ArrayObject $factories Map of alias => handler service id
+     * @param string $defaultHandler default handler id
+     *
+     * @internal param $HandlerTypesMap
+     */
+    protected function processHandlers(
+        ContainerBuilder $container,
+        Definition $factory,
+        array $configuredHandlers,
+        ArrayObject $factories,
+        $defaultHandler
+    ) {
+        $handlers = ['default' => new Reference($defaultHandler)];
+
+        foreach ($configuredHandlers as $name => $config) {
+            $configurationFactory = $this->getFactory($factories, $config['type'], $container);
+
+            $parentHandlerId = $configurationFactory->getParentServiceId();
+            $handlerId = sprintf('%s.%s', $parentHandlerId, $name);
+            $handlerServiceDefinition = new ChildDefinition($parentHandlerId);
+            $definition = $container->setDefinition($handlerId, $handlerServiceDefinition);
+
+            $configurationFactory->configureHandler($definition, $config);
+
+            $handlers[$name] = new Reference($handlerId);
+        }
+
+        $factory->addMethodCall('setHandlersMap', [$handlers]);
+    }
+
+    /**
+     * Returns from $factories the factory for handler $type.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory[]|\ArrayObject $factories
+     * @param string $type
+     *
+     * @return \Ibexa\Bundle\IO\DependencyInjection\ConfigurationFactory
+     */
+    protected function getFactory(ArrayObject $factories, $type, ContainerBuilder $container)
+    {
+        if (!isset($factories[$type])) {
+            throw new InvalidConfigurationException("Unknown handler type $type");
+        }
+        if ($factories[$type] instanceof ContainerAwareInterface) {
+            $factories[$type]->setContainer($container);
+        }
+
+        return $factories[$type];
+    }
+}
+
+class_alias(IOConfigurationPass::class, 'eZ\Bundle\EzPublishIOBundle\DependencyInjection\Compiler\IOConfigurationPass');
