@@ -273,8 +273,8 @@ class UrlTest extends FieldTypeTest
     public function provideDataForGetName(): array
     {
         return [
-            [$this->getEmptyValueExpectation(), [], 'en_GB', ''],
-            [new UrlValue('', 'Url text'), [], 'en_GB', 'Url text'],
+            [$this->getEmptyValueExpectation(), '', [], 'en_GB'],
+            [new UrlValue('', 'Url text'), 'Url text', [], 'en_GB'],
         ];
     }
 }

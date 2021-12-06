@@ -73,11 +73,11 @@ abstract class Regex implements Matcher
 
         preg_match(
             "@{$this->regex}@",
-            $this->element,
+            (string)$this->element,
             $match
         );
 
-        $this->matchedSiteAccess = isset($match[$this->itemNumber]) ? $match[$this->itemNumber] : false;
+        $this->matchedSiteAccess = $match[$this->itemNumber] ?? false;
 
         return $this->matchedSiteAccess;
     }

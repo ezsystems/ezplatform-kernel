@@ -102,7 +102,7 @@ class ExternalStorageRegistryPass implements CompilerPassInterface
                 // Will throw a LogicException if no gateway is defined for this field type.
                 $storageHandlerDef = $container->findDefinition($id);
                 $storageHandlerClass = $storageHandlerDef->getClass();
-                if (preg_match('/^%([^%\s]+)%$/', $storageHandlerClass, $match)) {
+                if (preg_match('/^%([^%\s]+)%$/', (string)$storageHandlerClass, $match)) {
                     $storageHandlerClass = $container->getParameter($match[1]);
                 }
 

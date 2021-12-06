@@ -673,15 +673,15 @@ class MediaTest extends BinaryBaseTest
         return [
             [
                 new MediaValue(),
+                '',
                 [],
                 'en_GB',
-                '',
             ],
             [
                 new MediaValue(['fileName' => 'sindelfingen.jpg']),
+                'sindelfingen.jpg',
                 [],
                 'en_GB',
-                'sindelfingen.jpg',
             ],
         ];
     }
@@ -755,7 +755,7 @@ class MediaTest extends BinaryBaseTest
                     [
                         'id' => 'phppng.php',
                         'fileName' => 'phppng.php',
-                        'fileSize' => 'phppng.php',
+                        'fileSize' => 0.01,
                         'mimeType' => 'video/mp4',
                     ]
                 ),

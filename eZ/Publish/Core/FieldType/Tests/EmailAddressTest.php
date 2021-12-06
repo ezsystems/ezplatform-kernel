@@ -396,8 +396,8 @@ class EmailAddressTest extends FieldTypeTest
     public function provideDataForGetName(): array
     {
         return [
-            [new EmailAddressValue('john.doe@example.com'), [], 'en_GB', 'john.doe@example.com'],
-            [new EmailAddressValue('JANE.DOE@EXAMPLE.COM'), [], 'en_GB', 'jane.doe@example.com'],
+            [new EmailAddressValue('john.doe@example.com'), 'john.doe@example.com', [], 'en_GB'],
+            [new EmailAddressValue('JANE.DOE@EXAMPLE.COM'), 'jane.doe@example.com', [], 'en_GB'],
         ];
     }
 

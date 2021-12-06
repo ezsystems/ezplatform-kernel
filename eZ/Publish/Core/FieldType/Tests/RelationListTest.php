@@ -799,8 +799,12 @@ class RelationListTest extends FieldTypeTest
     /**
      * @dataProvider provideDataForGetName
      */
-    public function testGetName(SPIValue $value, array $fieldSettings = [], string $languageCode = 'en_GB', $expected)
-    {
+    public function testGetName(
+        SPIValue $value,
+        string $expected,
+        array $fieldSettings = [],
+        string $languageCode = 'en_GB'
+    ): void {
         $fieldDefinitionMock = $this->getFieldDefinitionMock($fieldSettings);
 
         $name = $this->getFieldTypeUnderTest()->getName($value, $fieldDefinitionMock, $languageCode);
@@ -811,9 +815,9 @@ class RelationListTest extends FieldTypeTest
     public function provideDataForGetName(): array
     {
         return [
-            [$this->getEmptyValueExpectation(), [], 'en_GB', ''],
-            [new Value([self::DESTINATION_CONTENT_ID_14, self::DESTINATION_CONTENT_ID_22]), [], 'en_GB', 'name_14_en_GB name_22_en_GB'],
-            [new Value([self::DESTINATION_CONTENT_ID_14, self::DESTINATION_CONTENT_ID_22]), [], 'de_DE', 'Name_14_de_DE Name_22_de_DE'],
+            [$this->getEmptyValueExpectation(), '', [], 'en_GB'],
+            [new Value([self::DESTINATION_CONTENT_ID_14, self::DESTINATION_CONTENT_ID_22]), 'name_14_en_GB name_22_en_GB', [], 'en_GB'],
+            [new Value([self::DESTINATION_CONTENT_ID_14, self::DESTINATION_CONTENT_ID_22]), 'Name_14_de_DE Name_22_de_DE', [], 'de_DE'],
         ];
     }
 }

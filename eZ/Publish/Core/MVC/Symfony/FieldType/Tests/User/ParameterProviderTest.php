@@ -44,6 +44,9 @@ class ParameterProviderTest extends TestCase
         $this->parameterProvider = new ParameterProvider($this->userService);
     }
 
+    /**
+     * @requires PHP < 8.1
+     */
     public function testGetViewParameters(): void
     {
         $passwordExpiresIn = 14;

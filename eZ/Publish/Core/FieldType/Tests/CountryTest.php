@@ -403,13 +403,13 @@ class CountryTest extends FieldTypeTest
     public function provideDataForGetName(): array
     {
         return [
-            [new CountryValue(), [], 'en_GB', ''],
-            [new CountryValue(['FR' => ['Name' => 'France']]), [], 'en_GB', 'France'],
+            [new CountryValue(), '', [], 'en_GB'],
+            [new CountryValue(['FR' => ['Name' => 'France']]), 'France', [], 'en_GB'],
             [
                 new CountryValue(['FR' => ['Name' => 'France'], 'DE' => ['Name' => 'Deutschland']]),
+                'France, Deutschland',
                 [],
                 'en_GB',
-                'France, Deutschland',
             ],
         ];
     }

@@ -149,7 +149,7 @@ class GenericTest extends FieldTypeTest
     public function provideDataForGetName(): array
     {
         return [
-            [new GenericFieldValueStub('This is a generic value.'), [], 'en_GB', 'This is a generic value.'],
+            [new GenericFieldValueStub('This is a generic value.'), 'This is a generic value.', [], 'en_GB'],
         ];
     }
 

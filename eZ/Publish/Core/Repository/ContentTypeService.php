@@ -785,30 +785,18 @@ class ContentTypeService implements ContentTypeServiceInterface
                 'identifier' => $contentTypeCreateStruct->identifier,
                 'name' => $contentTypeCreateStruct->names,
                 'status' => APIContentType::STATUS_DRAFT,
-                'description' => $contentTypeCreateStruct->descriptions === null ?
-                    [] :
-                    $contentTypeCreateStruct->descriptions,
+                'description' => $contentTypeCreateStruct->descriptions ?? [],
                 'created' => $timestamp,
                 'modified' => $timestamp,
                 'creatorId' => $contentTypeCreateStruct->creatorId,
                 'modifierId' => $contentTypeCreateStruct->creatorId,
                 'remoteId' => $contentTypeCreateStruct->remoteId,
-                'urlAliasSchema' => $contentTypeCreateStruct->urlAliasSchema === null ?
-                    '' :
-                    $contentTypeCreateStruct->urlAliasSchema,
-                'nameSchema' => $contentTypeCreateStruct->nameSchema === null ?
-                    '' :
-                    $contentTypeCreateStruct->nameSchema,
-                'isContainer' => $contentTypeCreateStruct->isContainer === null ?
-                    false :
-                    $contentTypeCreateStruct->isContainer,
+                'urlAliasSchema' => $contentTypeCreateStruct->urlAliasSchema ?? '',
+                'nameSchema' => $contentTypeCreateStruct->nameSchema ?? '',
+                'isContainer' => $contentTypeCreateStruct->isContainer ?? false,
                 'initialLanguageId' => $initialLanguageId,
-                'sortField' => $contentTypeCreateStruct->defaultSortField === null ?
-                    Location::SORT_FIELD_PUBLISHED :
-                    $contentTypeCreateStruct->defaultSortField,
-                'sortOrder' => $contentTypeCreateStruct->defaultSortOrder === null ?
-                    Location::SORT_ORDER_DESC :
-                    $contentTypeCreateStruct->defaultSortOrder,
+                'sortField' => $contentTypeCreateStruct->defaultSortField ?? Location::SORT_FIELD_PUBLISHED,
+                'sortOrder' => $contentTypeCreateStruct->defaultSortOrder ?? Location::SORT_ORDER_DESC,
                 'groupIds' => $groupIds,
                 'fieldDefinitions' => $spiFieldDefinitions,
                 'defaultAlwaysAvailable' => $contentTypeCreateStruct->defaultAlwaysAvailable,
@@ -859,10 +847,7 @@ class ContentTypeService implements ContentTypeServiceInterface
      */
     public function loadContentType(int $contentTypeId, array $prioritizedLanguages = []): ContentType
     {
-        $spiContentType = $this->contentTypeHandler->load(
-            $contentTypeId,
-            SPIContentType::STATUS_DEFINED
-        );
+        $spiContentType = $this->contentTypeHandler->load($contentTypeId);
 
         return $this->contentTypeDomainMapper->buildContentTypeDomainObject(
             $spiContentType,

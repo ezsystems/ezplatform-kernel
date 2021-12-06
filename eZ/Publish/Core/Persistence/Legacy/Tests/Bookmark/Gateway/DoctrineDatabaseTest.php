@@ -114,7 +114,7 @@ class DoctrineDatabaseTest extends TestCase
             });
 
             usort($rows, static function ($a, $b) {
-                return $a['id'] < $b['id'];
+                return $b['id'] <=> $a['id'];
             });
 
             return $rows;

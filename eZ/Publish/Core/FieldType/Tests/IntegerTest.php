@@ -420,8 +420,8 @@ class IntegerTest extends FieldTypeTest
     public function provideDataForGetName(): array
     {
         return [
-            [$this->getEmptyValueExpectation(), [], 'en_GB', ''],
-            [new IntegerValue(42), [], 'en_GB', '42'],
+            [$this->getEmptyValueExpectation(), '', [], 'en_GB'],
+            [new IntegerValue(42), '42', [], 'en_GB'],
         ];
     }
 

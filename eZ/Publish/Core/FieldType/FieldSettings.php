@@ -27,7 +27,7 @@ class FieldSettings extends ArrayObject
      * @param string|int $index
      * @param mixed $value
      */
-    public function offsetSet($index, $value)
+    public function offsetSet($index, $value): void
     {
         if (!parent::offsetExists($index)) {
             throw new PropertyReadOnlyException($index, __CLASS__);
@@ -45,6 +45,7 @@ class FieldSettings extends ArrayObject
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($index)
     {
         if (!parent::offsetExists($index)) {

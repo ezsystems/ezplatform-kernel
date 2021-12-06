@@ -522,8 +522,12 @@ abstract class FieldTypeTest extends TestCase
     /**
      * @dataProvider provideDataForGetName
      */
-    public function testGetName(SPIValue $value, array $fieldSettings = [], string $languageCode = 'en_GB', string $expected)
-    {
+    public function testGetName(
+        SPIValue $value,
+        string $expected,
+        array $fieldSettings = [],
+        string $languageCode = 'en_GB'
+    ): void {
         $fieldDefinitionMock = $this->getFieldDefinitionMock($fieldSettings);
 
         self::assertSame(
@@ -919,22 +923,18 @@ abstract class FieldTypeTest extends TestCase
         foreach ($fieldDefinitionData as $method => $data) {
             if ($method === 'validatorConfiguration') {
                 $fieldDefinitionMock
-                    ->expects($this->any())
                     ->method('getValidatorConfiguration')
-                    ->will($this->returnValue($data));
+                    ->willReturn($data);
             }
 
             if ($method === 'fieldSettings') {
                 $fieldDefinitionMock
-                    ->expects($this->any())
                     ->method('getFieldSettings')
-                    ->will($this->returnValue($data));
+                    ->willReturn($data);
             }
         }
 
-        $validationErrors = $fieldType->validate($fieldDefinitionMock, $value);
-
-        return $validationErrors;
+        return $fieldType->validate($fieldDefinitionMock, $value);
     }
 
     /**

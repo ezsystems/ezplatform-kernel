@@ -513,8 +513,8 @@ class BinaryFileTest extends BinaryBaseTest
     public function provideDataForGetName(): array
     {
         return [
-            [new BinaryFileValue(), [], 'en_GB', ''],
-            [new BinaryFileValue(['fileName' => 'sindelfingen.jpg']), [], 'en_GB', 'sindelfingen.jpg'],
+            [new BinaryFileValue(), '', [], 'en_GB'],
+            [new BinaryFileValue(['fileName' => 'sindelfingen.jpg']), 'sindelfingen.jpg', [], 'en_GB'],
         ];
     }
 
@@ -588,7 +588,7 @@ class BinaryFileTest extends BinaryBaseTest
                     [
                         'id' => 'phppng.php',
                         'fileName' => 'phppng.php',
-                        'fileSize' => 'phppng.php',
+                        'fileSize' => 0.01,
                         'downloadCount' => 0,
                         'mimeType' => 'image/jpeg',
                     ]
@@ -616,7 +616,7 @@ class BinaryFileTest extends BinaryBaseTest
                     [
                         'id' => 'phppng.PHP',
                         'fileName' => 'phppng.PHP',
-                        'fileSize' => 'phppng.PHP',
+                        'fileSize' => 0.01,
                         'downloadCount' => 0,
                         'mimeType' => 'image/jpeg',
                     ]

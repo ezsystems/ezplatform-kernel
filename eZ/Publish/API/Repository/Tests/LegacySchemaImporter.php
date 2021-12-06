@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace eZ\Publish\API\Repository\Tests;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Schema\Schema as DoctrineSchema;
 use EzSystems\DoctrineSchema\API\Exception\InvalidConfigurationException;
@@ -37,8 +36,6 @@ final class LegacySchemaImporter
      * Import database schema from Doctrine Schema Yaml configuration file.
      *
      * @param string $schemaFilePath Yaml schema configuration file path
-     *
-     * @throws \Doctrine\DBAL\ConnectionException
      */
     public function importSchema(string $schemaFilePath): void
     {
@@ -46,7 +43,6 @@ final class LegacySchemaImporter
             throw new RuntimeException("The schema file path {$schemaFilePath} does not exist");
         }
 
-        $this->connection->beginTransaction();
         $importer = new SchemaImporter();
         try {
             $databasePlatform = $this->connection->getDatabasePlatform();
@@ -64,10 +60,7 @@ final class LegacySchemaImporter
             foreach ($statements as $statement) {
                 $this->connection->exec($statement);
             }
-
-            $this->connection->commit();
-        } catch (InvalidConfigurationException | DBALException $e) {
-            $this->connection->rollBack();
+        } catch (InvalidConfigurationException $e) {
             throw new RuntimeException($e->getMessage(), 1, $e);
         }
     }

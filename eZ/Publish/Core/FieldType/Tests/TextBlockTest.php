@@ -348,8 +348,8 @@ class TextBlockTest extends FieldTypeTest
     public function provideDataForGetName(): array
     {
         return [
-            [$this->getEmptyValueExpectation(), [], 'en_GB', ''],
-            [new TextBlockValue('This is a piece of text'), [], 'en_GB', 'This is a piece of text'],
+            [$this->getEmptyValueExpectation(), '', [], 'en_GB'],
+            [new TextBlockValue('This is a piece of text'), 'This is a piece of text', [], 'en_GB'],
         ];
     }
 }

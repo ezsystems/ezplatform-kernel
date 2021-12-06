@@ -53,34 +53,35 @@ class LegacyStorageImageFileList implements ImageFileList
         $this->configResolver = $configResolver;
     }
 
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->item;
     }
 
-    public function next()
+    public function next(): void
     {
         $this->fetchRow();
     }
 
-    public function key()
+    public function key(): int
     {
         return $this->cursor;
     }
 
-    public function valid()
+    public function valid(): bool
     {
         return $this->cursor < $this->count();
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->cursor = -1;
         $this->rowReader->init();
         $this->fetchRow();
     }
 
-    public function count()
+    public function count(): int
     {
         return $this->rowReader->getCount();
     }
@@ -96,7 +97,7 @@ class LegacyStorageImageFileList implements ImageFileList
         ++$this->cursor;
         $imageId = $this->rowReader->getRow();
 
-        if (substr($imageId, 0, strlen($prefix)) === $prefix) {
+        if (0 === strncmp((string)$imageId, $prefix, strlen($prefix))) {
             $imageId = ltrim(substr($imageId, strlen($prefix)), '/');
         }
 

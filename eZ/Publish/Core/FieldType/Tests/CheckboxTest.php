@@ -293,8 +293,8 @@ class CheckboxTest extends FieldTypeTest
     public function provideDataForGetName(): array
     {
         return [
-            [new CheckboxValue(true), [], 'en_GB', '1'],
-            [new CheckboxValue(false), [], 'en_GB', '0'],
+            [new CheckboxValue(true), '1', [], 'en_GB'],
+            [new CheckboxValue(false), '0', [], 'en_GB'],
         ];
     }
 }

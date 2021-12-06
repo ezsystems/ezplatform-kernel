@@ -376,8 +376,8 @@ class TimeTest extends FieldTypeTest
     public function provideDataForGetName(): array
     {
         return [
-            [$this->getEmptyValueExpectation(), [], 'en_GB', ''],
-            [new TimeValue(200), [], 'en_GB', '12:03:20 am'],
+            [$this->getEmptyValueExpectation(), '', [], 'en_GB'],
+            [new TimeValue(200), '12:03:20 am', [], 'en_GB'],
         ];
     }
 }
