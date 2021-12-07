@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Integration\Installer;
+namespace Ibexa\Tests\Integration\RepositoryInstaller;
 
 use EzSystems\DoctrineSchemaBundle\DoctrineSchemaBundle;
 use EzSystems\PlatformInstallerBundle\EzSystemsPlatformInstallerBundle;
