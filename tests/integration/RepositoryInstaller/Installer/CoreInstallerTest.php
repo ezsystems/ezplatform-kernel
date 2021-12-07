@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace Ibexa\Tests\Integration\Installer\Installer;
+namespace Ibexa\Tests\Integration\Installer\RepositoryInstaller;
 
 use EzSystems\PlatformInstallerBundle\Installer\CoreInstaller;
-use Ibexa\Tests\Integration\Installer\TestCase;
+use Ibexa\Tests\Integration\RepositoryInstaller\TestCase;
 use Symfony\Component\Console\Output\NullOutput;
 
 final class CoreInstallerTest extends TestCase

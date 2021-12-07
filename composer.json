@@ -104,7 +104,7 @@
             "Ibexa\\Tests\\Integration\\Core\\": "tests/integration/Core",
             "Ibexa\\Tests\\Integration\\Debug\\": "tests/integration/Debug",
             "Ibexa\\Tests\\Integration\\IO\\": "tests/integration/IO",
-            "Ibexa\\Tests\\Integration\\Installer\\": "tests/integration/Installer",
+            "Ibexa\\Tests\\Integration\\RepositoryInstaller\\": "tests/integration/RepositoryInstaller",
             "Ibexa\\Tests\\Integration\\LegacySearchEngine\\": "tests/integration/LegacySearchEngine",
             "Ibexa\\Tests\\Core\\": "tests/lib"
         }
