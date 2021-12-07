@@ -10,7 +10,7 @@ use eZ\Publish\Core\Base\Exceptions\InvalidArgumentType;
 use eZ\Publish\Core\FieldType\BinaryBase\Type as BaseType;
 use eZ\Publish\Core\FieldType\ValidationError;
 use eZ\Publish\Core\FieldType\Value as BaseValue;
-use eZ\Publish\SPI\fieldType\Value as SPIValue;
+use eZ\Publish\SPI\FieldType\Value as SPIValue;
 use eZ\Publish\SPI\Persistence\Content\FieldValue;
 
 /**

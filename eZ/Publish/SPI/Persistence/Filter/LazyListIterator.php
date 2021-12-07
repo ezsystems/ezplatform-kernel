@@ -48,6 +48,7 @@ abstract class LazyListIterator implements IteratorAggregate
         return $this->totalCount;
     }
 
+    #[\ReturnTypeWillChange]
     public function getIterator(): iterable
     {
         if (0 === $this->totalCount) {
