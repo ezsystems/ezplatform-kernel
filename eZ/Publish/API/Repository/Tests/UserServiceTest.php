@@ -2265,6 +2265,39 @@ class UserServiceTest extends BaseTest
     }
 
     /**
+     * @covers \eZ\Publish\API\Repository\UserService::assignUserToUserGroup
+     */
+    public function testAssignUserToGroupWithLocationsValidation(): void
+    {
+        $repository = $this->getRepository();
+        $userService = $repository->getUserService();
+        $locationService = $repository->getLocationService();
+
+        $administratorGroupId = $this->generateId('group', 12);
+
+        $user = $this->createUserVersion1();
+
+        $group = $userService->loadUserGroup($administratorGroupId);
+        $groupLocation = $locationService->loadLocation($group->contentInfo->mainLocationId);
+
+        // Count number of child locations before assigning user to group
+        $count = $locationService->getLocationChildCount($groupLocation);
+        $expectedCount = $count + 1;
+
+        $userService->assignUserToUserGroup(
+            $user,
+            $group
+        );
+
+        $this->refreshSearch($repository);
+
+        // Count number of child locations after assigning the user to a group
+        $actualCount = $locationService->getLocationChildCount($groupLocation);
+
+        self::assertEquals($expectedCount, $actualCount);
+    }
+
+    /**
      * Test for the unAssignUssrFromUserGroup() method.
      *
      * @see \eZ\Publish\API\Repository\UserService::unAssignUssrFromUserGroup()
@@ -2359,6 +2392,48 @@ class UserServiceTest extends BaseTest
             $userService->loadUserGroup($editorsGroupId)
         );
         /* END: Use Case */
+    }
+
+    /**
+     * @covers \eZ\Publish\API\Repository\UserService::unAssignUserFromUserGroup
+     */
+    public function testUnAssignUserToGroupWithLocationValidation(): void
+    {
+        $repository = $this->getRepository();
+        $userService = $repository->getUserService();
+        $locationService = $repository->getLocationService();
+
+        $editorsGroupId = $this->generateId('group', 13);
+        $anonymousGroupId = $this->generateId('group', 42);
+
+        $user = $this->createUserVersion1();
+
+        $this->refreshSearch($repository);
+
+        $group = $userService->loadUserGroup($editorsGroupId);
+        $groupLocation = $locationService->loadLocation($group->contentInfo->mainLocationId);
+
+        // Count number of child locations before unassigning the user from a group
+        $count = $locationService->getLocationChildCount($groupLocation);
+        $expectedCount = $count - 1;
+
+        // Assigning user to a different group to avoid removing all groups from the user
+        $userService->assignUserToUserGroup(
+            $user,
+            $userService->loadUserGroup($anonymousGroupId)
+        );
+
+        $userService->unAssignUserFromUserGroup(
+            $user,
+            $userService->loadUserGroup($editorsGroupId)
+        );
+
+        $this->refreshSearch($repository);
+
+        // Count number of child locations after unassigning the user from a group
+        $actualCount = $locationService->getLocationChildCount($groupLocation);
+
+        self::assertEquals($expectedCount, $actualCount);
     }
 
     /**
