@@ -97,9 +97,11 @@ class StreamFileListenerTest extends TestCase
         );
     }
 
-    public function testRespondsToIoRequest()
+    /**
+     * @dataProvider providerForTestRespondsToIoRequest
+     */
+    public function testRespondsToIoRequest(string $uri, string $expectedFileId): void
     {
-        $uri = '/var/test/storage/images/image.png';
         $host = 'phoenix-rises.fm';
         $urlPrefix = "http://$host/var/test/storage";
         $this->configureIoUrlPrefix($urlPrefix);
@@ -107,19 +109,27 @@ class StreamFileListenerTest extends TestCase
 
         $event = $this->createEvent($request);
 
-        $binaryFile = new BinaryFile(['mtime' => new DateTime()]);
+        $binaryFile = new BinaryFile([
+            'id' => urldecode($uri),
+            'mtime' => new DateTime(),
+        ]);
+
+        $finalUri = sprintf('http://%s%s', $host, $uri);
 
         $this->ioServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadBinaryFileByUri')
-            ->with(sprintf('http://%s%s', $host, $uri))
-            ->will($this->returnValue($binaryFile));
+            ->with(urldecode($finalUri))
+            ->willReturn($binaryFile);
 
         $this->eventListener->onKernelRequest($event);
 
         self::assertTrue($event->hasResponse());
         $expectedResponse = new BinaryStreamResponse($binaryFile, $this->ioServiceMock);
         $response = $event->getResponse();
+
+        self::assertEquals($expectedFileId, $response->getFile()->id);
+
         // since symfony/symfony v3.2.7 Response sets Date header if not explicitly set
         // @see https://github.com/symfony/symfony/commit/e3d90db74773406fb8fdf07f36cb8ced4d187f62
         $expectedResponse->setDate($response->getDate());
@@ -127,6 +137,24 @@ class StreamFileListenerTest extends TestCase
             $expectedResponse,
             $response
         );
+    }
+
+    public function providerForTestRespondsToIoRequest(): array
+    {
+        return [
+            [
+                '/var/test/storage/images/image.png',
+                '/var/test/storage/images/image.png',
+            ],
+            [
+                '/var/test/storage/images/test%20me.png',
+                '/var/test/storage/images/test me.png',
+            ],
+            [
+                '/var/test/storage/images/test%20%20me%20again.png',
+                '/var/test/storage/images/test  me again.png',
+            ],
+        ];
     }
 
     private function configureIoUrlPrefix($urlPrefix)
