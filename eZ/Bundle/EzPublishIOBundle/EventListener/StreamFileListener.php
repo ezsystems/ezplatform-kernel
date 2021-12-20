@@ -60,13 +60,9 @@ class StreamFileListener implements EventSubscriberInterface
             return;
         }
 
-        $binaryFile = $this->ioService->loadBinaryFileByUri($uri);
+        $binaryFile = $this->ioService->loadBinaryFileByUri(urldecode($uri));
         if ($binaryFile instanceof MissingBinaryFile) {
-            // Try again with decoded URI
-            $binaryFile = $this->ioService->loadBinaryFileByUri(urldecode($uri));
-            if ($binaryFile instanceof MissingBinaryFile) {
-                throw new NotFoundHttpException("Could not find 'BinaryFile' with identifier '$uri'");
-            }
+            throw new NotFoundHttpException("Could not find 'BinaryFile' with identifier '$uri'");
         }
 
         $event->setResponse(

@@ -12,7 +12,6 @@ use eZ\Bundle\EzPublishIOBundle\EventListener\StreamFileListener;
 use eZ\Publish\Core\IO\IOConfigProvider;
 use eZ\Publish\Core\IO\IOServiceInterface;
 use eZ\Publish\Core\IO\Values\BinaryFile;
-use eZ\Publish\Core\IO\Values\MissingBinaryFile;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -101,7 +100,7 @@ class StreamFileListenerTest extends TestCase
     /**
      * @dataProvider providerForTestRespondsToIoRequest
      */
-    public function testRespondsToIoRequest(string $uri, string $fileId): void
+    public function testRespondsToIoRequest(string $uri, string $expectedFileId): void
     {
         $host = 'phoenix-rises.fm';
         $urlPrefix = "http://$host/var/test/storage";
@@ -111,31 +110,17 @@ class StreamFileListenerTest extends TestCase
         $event = $this->createEvent($request);
 
         $binaryFile = new BinaryFile([
-            'id' => $fileId,
+            'id' => urldecode($uri),
             'mtime' => new DateTime(),
         ]);
 
         $finalUri = sprintf('http://%s%s', $host, $uri);
 
-        // Special char detected
-        if (strpos($uri, '%20') !== false) {
-            $this->ioServiceMock
-                ->expects(self::at(0))
-                ->method('loadBinaryFileByUri')
-                ->with($finalUri)
-                ->willReturn(new MissingBinaryFile());
-            $this->ioServiceMock
-                ->expects(self::at(1))
-                ->method('loadBinaryFileByUri')
-                ->with(urldecode($finalUri))
-                ->willReturn($binaryFile);
-        } else {
-            $this->ioServiceMock
-                ->expects(self::at(0))
-                ->method('loadBinaryFileByUri')
-                ->with($finalUri)
-                ->willReturn($binaryFile);
-        }
+        $this->ioServiceMock
+            ->expects(self::once())
+            ->method('loadBinaryFileByUri')
+            ->with(urldecode($finalUri))
+            ->willReturn($binaryFile);
 
         $this->eventListener->onKernelRequest($event);
 
@@ -143,7 +128,7 @@ class StreamFileListenerTest extends TestCase
         $expectedResponse = new BinaryStreamResponse($binaryFile, $this->ioServiceMock);
         $response = $event->getResponse();
 
-        self::assertEquals($fileId, $response->getFile()->id);
+        self::assertEquals($expectedFileId, $response->getFile()->id);
 
         // since symfony/symfony v3.2.7 Response sets Date header if not explicitly set
         // @see https://github.com/symfony/symfony/commit/e3d90db74773406fb8fdf07f36cb8ced4d187f62
