@@ -54,7 +54,7 @@ final class VersionValidator implements ContentValidator
         $content = $context['content'];
 
         $contentType = $content->getContentType();
-        $languageCode = $content->versionInfo->initialLanguageCode;
+        $languageCodes = !empty($context['translations']) ? $context['translations'] : $content->versionInfo->languageCodes;
 
         $allFieldErrors = [];
 
@@ -67,25 +67,27 @@ final class VersionValidator implements ContentValidator
                 $fieldDefinition->fieldTypeIdentifier
             );
 
-            $fieldValue = $content->getField($fieldDefinition->identifier, $languageCode)->value ?? $fieldDefinition->defaultValue;
-            $fieldValue = $fieldType->acceptValue($fieldValue);
+            foreach ($languageCodes as $languageCode) {
+                $fieldValue = $content->getField($fieldDefinition->identifier)->value ?? $fieldDefinition->defaultValue;
+                $fieldValue = $fieldType->acceptValue($fieldValue);
 
-            if ($fieldType->isEmptyValue($fieldValue)) {
-                if ($fieldDefinition->isRequired) {
-                    $allFieldErrors[$fieldDefinition->identifier][$languageCode] = new ValidationError(
-                        "Value for required field definition '%identifier%' with language '%languageCode%' is empty",
-                        null,
-                        ['%identifier%' => $fieldDefinition->identifier, '%languageCode%' => $languageCode],
-                        'empty'
+                if ($fieldType->isEmptyValue($fieldValue)) {
+                    if ($fieldDefinition->isRequired) {
+                        $allFieldErrors[$fieldDefinition->identifier][$languageCode] = new ValidationError(
+                            "Value for required field definition '%identifier%' with language '%languageCode%' is empty",
+                            null,
+                            ['%identifier%' => $fieldDefinition->identifier, '%languageCode%' => $languageCode],
+                            'empty'
+                        );
+                    }
+                } else {
+                    $fieldErrors = $fieldType->validate(
+                        $fieldDefinition,
+                        $fieldValue
                     );
-                }
-            } else {
-                $fieldErrors = $fieldType->validate(
-                    $fieldDefinition,
-                    $fieldValue
-                );
-                if (!empty($fieldErrors)) {
-                    $allFieldErrors[$fieldDefinition->identifier][$languageCode] = $fieldErrors;
+                    if (!empty($fieldErrors)) {
+                        $allFieldErrors[$fieldDefinition->identifier][$languageCode] = $fieldErrors;
+                    }
                 }
             }
         }
