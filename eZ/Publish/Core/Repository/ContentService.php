@@ -638,7 +638,7 @@ class ContentService implements ContentServiceInterface
             throw new ContentFieldValidationException($errors);
         }
 
-        $spiLocationCreateStructs = $spiLocationCreateStructs = $this->buildSPILocationCreateStructs(
+        $spiLocationCreateStructs = $this->buildSPILocationCreateStructs(
             $locationCreateStructs,
             $contentCreateStruct->contentType
         );
@@ -1457,7 +1457,7 @@ class ContentService implements ContentServiceInterface
         $this->repository->beginTransaction();
         try {
             $this->copyTranslationsFromPublishedVersion($content->versionInfo, $translations);
-            $content = $this->internalPublishVersion($content->getVersionInfo(), null);
+            $content = $this->internalPublishVersion($content->getVersionInfo(), null, $translations);
             $this->repository->commit();
         } catch (Exception $e) {
             $this->repository->rollback();
@@ -1603,10 +1603,11 @@ class ContentService implements ContentServiceInterface
      *
      * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
      * @param int|null $publicationDate If null existing date is kept if there is one, otherwise current time is used.
+     * @param string[] $translations
      *
      * @return \eZ\Publish\API\Repository\Values\Content\Content
      */
-    protected function internalPublishVersion(APIVersionInfo $versionInfo, $publicationDate = null)
+    protected function internalPublishVersion(APIVersionInfo $versionInfo, $publicationDate = null, array $translations = Language::ALL)
     {
         if (!$versionInfo->isDraft()) {
             throw new BadStateException('$versionInfo', 'Only versions in draft status can be published.');
@@ -1625,6 +1626,7 @@ class ContentService implements ContentServiceInterface
                     null,
                     $versionInfo->versionNo
                 ),
+                'translations' => $translations,
             ]
         );
 
