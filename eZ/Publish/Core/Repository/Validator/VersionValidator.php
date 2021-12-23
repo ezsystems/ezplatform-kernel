@@ -68,7 +68,7 @@ final class VersionValidator implements ContentValidator
             );
 
             foreach ($languageCodes as $languageCode) {
-                $fieldValue = $content->getField($fieldDefinition->identifier)->value ?? $fieldDefinition->defaultValue;
+                $fieldValue = $content->getField($fieldDefinition->identifier, $languageCode)->value ?? $fieldDefinition->defaultValue;
                 $fieldValue = $fieldType->acceptValue($fieldValue);
 
                 if ($fieldType->isEmptyValue($fieldValue)) {
