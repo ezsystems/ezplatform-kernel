@@ -20,9 +20,11 @@ use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\SectionService;
 use eZ\Publish\API\Repository\Tests\LegacySchemaImporter;
 use eZ\Publish\API\Repository\UserService;
+use eZ\Publish\Core\Repository\Values\User\UserReference;
 use eZ\Publish\SPI\Persistence\TransactionHandler;
 use eZ\Publish\SPI\Tests\Persistence\FixtureImporter;
 use eZ\Publish\SPI\Tests\Persistence\YamlFixture;
+use LogicException;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -31,9 +33,16 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
  */
 abstract class IbexaKernelTestCase extends KernelTestCase
 {
+    private const FIXTURE_USER_ADMIN_ID = 14;
+    private const FIXTURE_USER_ANONYMOUS_ID = 10;
+
     protected static function getKernelClass(): string
     {
-        return IbexaTestKernel::class;
+        try {
+            return parent::getKernelClass();
+        } catch (LogicException $e) {
+            return IbexaTestKernel::class;
+        }
     }
 
     final protected static function loadSchema(): void
@@ -169,5 +178,15 @@ abstract class IbexaKernelTestCase extends KernelTestCase
     protected static function getSectionService(): SectionService
     {
         return self::getServiceByClassName(SectionService::class);
+    }
+
+    protected static function setAnonymousUser(): void
+    {
+        self::getPermissionResolver()->setCurrentUserReference(new UserReference(self::FIXTURE_USER_ANONYMOUS_ID));
+    }
+
+    protected static function setAdministratorUser(): void
+    {
+        self::getPermissionResolver()->setCurrentUserReference(new UserReference(self::FIXTURE_USER_ADMIN_ID));
     }
 }
