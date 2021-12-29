@@ -41,13 +41,6 @@ abstract class IbexaKernelTestCase extends KernelTestCase
         try {
             return parent::getKernelClass();
         } catch (LogicException $e) {
-            @trigger_error(sprintf(
-                'You should set the KERNEL_CLASS environment variable to the fully-qualified class name of your '
-                . 'Kernel in phpunit.xml / phpunit.xml.dist or override the "%1$s::createKernel()" or '
-                . '"%1$s::getKernelClass()" method.',
-                static::class
-            ), E_USER_DEPRECATED);
-
             return IbexaTestKernel::class;
         }
     }
