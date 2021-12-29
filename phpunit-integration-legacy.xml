@@ -17,6 +17,7 @@
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
         <ini name="error_reporting" value="-1" />
         <env name="DATABASE_URL" value="sqlite://:memory:" />
+        <env name="KERNEL_CLASS" value="Ibexa\Contracts\Core\Test\IbexaTestKernel"/>
     </php>
     <testsuites>
         <testsuite name="eZ\Publish\API\Repository">
