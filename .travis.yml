@@ -23,14 +23,6 @@ matrix:
   fast_finish: true
   include:
 # 7.3
-    - name: "Kernel Behat Core tests"
-      php: 7.3
-      env:
-        - COMPOSE_FILE="doc/docker/base-dev.yml:doc/docker/selenium.yml"
-        - BEHAT_OPTS="--mode=standard --profile=core --tags=~@broken -c=behat_ibexa_oss.yaml"
-        - APP_ENV=behat
-        - APP_DEBUG=1
-        - PROJECT_VERSION=^3.3.x-dev
     - name: 'Solr 7.7.3 integration tests (using shared cores) with Redis cache pool'
       php: 7.3
       env: SOLR_VERSION="7.7.3" TEST_CONFIG="phpunit-integration-legacy-solr.xml" CUSTOM_CACHE_POOL="singleredis" CORES_SETUP="shared" SOLR_CONFIG="vendor/ezsystems/ezplatform-solr-search-engine/lib/Resources/config/solr/schema.xml vendor/ezsystems/ezplatform-solr-search-engine/lib/Resources/config/solr/custom-fields-types.xml vendor/ezsystems/ezplatform-solr-search-engine/lib/Resources/config/solr/language-fieldtypes.xml" JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre/"
@@ -65,14 +57,12 @@ before_install:
 
 install:
   - if [ "$TEST_CONFIG" != "" -o "$BEHAT_OPTS" != "" ] ; then travis_retry composer install --no-progress --no-interaction --prefer-dist $COMPOSER_FLAGS; fi
-  - if [ "$BEHAT_OPTS" != "" ] ; then ./vendor/bin/prepare_project_edition.sh oss ${PROJECT_VERSION} ${COMPOSE_FILE} ; fi
   # Setup Solr search if asked for
   - if [ "$TEST_CONFIG" = "phpunit-integration-legacy-solr.xml" ] ; then ./vendor/ezsystems/ezplatform-solr-search-engine/bin/.travis/init_solr.sh; fi
 
 # execute phpunit or behat as the script command
 script:
   - if [ "$TEST_CONFIG" != "" ] ; then php -d date.timezone=$TEST_TIMEZONE -d memory_limit=-1 vendor/bin/phpunit -c $TEST_CONFIG ; fi
-  - if [ "$BEHAT_OPTS" != "" ] ; then cd "$HOME/build/project"; docker-compose exec --user www-data app sh -c "vendor/bin/ezbehat $BEHAT_OPTS" ; fi
 
 notifications:
   slack:
