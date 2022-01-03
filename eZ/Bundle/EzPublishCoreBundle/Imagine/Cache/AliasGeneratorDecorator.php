@@ -132,6 +132,6 @@ class AliasGeneratorDecorator implements VariationHandler, SiteAccessAware
 
     public function getVariationNameTag(): string
     {
-        return self::IMAGE_VARIATION_NAME_TAG;
+        return self::IMAGE_VARIATION_NAME_IDENTIFIER;
     }
 }
