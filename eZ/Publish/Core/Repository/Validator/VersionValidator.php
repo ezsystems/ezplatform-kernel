@@ -54,7 +54,7 @@ final class VersionValidator implements ContentValidator
         $content = $context['content'];
 
         $contentType = $content->getContentType();
-        $languageCodes = $content->versionInfo->languageCodes;
+        $languageCodes = !empty($context['translations']) ? $context['translations'] : $content->versionInfo->languageCodes;
 
         $allFieldErrors = [];
 
@@ -68,7 +68,7 @@ final class VersionValidator implements ContentValidator
             );
 
             foreach ($languageCodes as $languageCode) {
-                $fieldValue = $content->getField($fieldDefinition->identifier)->value ?? $fieldDefinition->defaultValue;
+                $fieldValue = $content->getField($fieldDefinition->identifier, $languageCode)->value ?? $fieldDefinition->defaultValue;
                 $fieldValue = $fieldType->acceptValue($fieldValue);
 
                 if ($fieldType->isEmptyValue($fieldValue)) {

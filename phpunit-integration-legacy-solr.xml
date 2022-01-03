@@ -18,7 +18,7 @@
         <env name="CORES_SETUP" value="dedicated" />
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
         <ini name="error_reporting" value="-1" />
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
+        <env name="KERNEL_CLASS" value="Ibexa\Contracts\Core\Test\IbexaTestKernel"/>
     </php>
     <testsuites>
         <testsuite name="eZ\Publish\API\Repository">
