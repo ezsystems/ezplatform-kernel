@@ -187,4 +187,9 @@ class UserGroup extends APIUserGroup
     {
         return $this->content->getThumbnail();
     }
+
+    public function getDefaultLanguageCode(): string
+    {
+        return $this->content->getDefaultLanguageCode();
+    }
 }
