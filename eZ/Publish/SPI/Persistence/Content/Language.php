@@ -16,7 +16,7 @@ class Language extends ValueObject
     /**
      * Language ID.
      *
-     * @var mixed
+     * @var int
      */
     public $id;
 
