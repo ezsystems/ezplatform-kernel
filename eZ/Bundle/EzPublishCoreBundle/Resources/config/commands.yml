@@ -51,5 +51,6 @@ services:
         arguments:
             $connection: '@ezpublish.persistence.connection'
             $imageGateway: '@ezpublish.fieldType.ezimage.storage_gateway'
+            $ioService: '@ezpublish.fieldType.ezimage.io_service'
         tags:
             - { name: console.command }
