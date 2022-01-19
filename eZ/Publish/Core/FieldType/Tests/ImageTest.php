@@ -683,8 +683,8 @@ class ImageTest extends FieldTypeTest
                 ),
                 [
                     new ValidationError(
-                        'The file size cannot exceed %size% byte.',
-                        'The file size cannot exceed %size% bytes.',
+                        'The file size cannot exceed %size% megabyte.',
+                        'The file size cannot exceed %size% megabytes.',
                         [
                             '%size%' => 0.01,
                         ],
@@ -750,8 +750,8 @@ class ImageTest extends FieldTypeTest
                     ),
                     new ValidationError('A valid image file is required.', null, [], 'id'),
                     new ValidationError(
-                        'The file size cannot exceed %size% byte.',
-                        'The file size cannot exceed %size% bytes.',
+                        'The file size cannot exceed %size% megabyte.',
+                        'The file size cannot exceed %size% megabytes.',
                         [
                             '%size%' => 0.01,
                         ],
