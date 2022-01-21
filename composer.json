@@ -110,7 +110,10 @@
         }
     },
     "config": {
-        "process-timeout": 3000
+        "process-timeout": 3000,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        }
     },
     "scripts": {
         "check-cs": "@fix-cs --dry-run",
