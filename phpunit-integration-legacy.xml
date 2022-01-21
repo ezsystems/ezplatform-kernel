@@ -74,9 +74,6 @@
         <testsuite name="eZ\Publish\Core\FieldType\Tests\Integration">
             <directory>eZ/Publish/Core/FieldType/Tests/Integration</directory>
         </testsuite>
-        <testsuite name="Ibexa\Tests\Integration\Core\Repository\Values\Content">
-            <file>tests/integration/Core/Repository/Values/Content/DefaultLanguageCodeForContentTest.php</file>
-        </testsuite>
         <testsuite name="gateway-integration">
             <file>eZ/Publish/SPI/Tests/Search/Content/IndexerGatewayTest.php</file>
         </testsuite>
