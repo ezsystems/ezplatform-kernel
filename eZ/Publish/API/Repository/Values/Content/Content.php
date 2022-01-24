@@ -108,4 +108,6 @@ abstract class Content extends ValueObject
     abstract public function getContentType(): ContentType;
 
     abstract public function getThumbnail(): ?Thumbnail;
+
+    abstract public function getDefaultLanguageCode(): string;
 }

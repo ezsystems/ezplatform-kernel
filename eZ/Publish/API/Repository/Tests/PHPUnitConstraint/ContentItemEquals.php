@@ -56,6 +56,11 @@ class ContentItemEquals extends AbstractPHPUnitConstraint
                 $this->expectedContent->getThumbnail(),
                 $content->getThumbnail()
             );
+            $this->compareStrings(
+                $comparatorFactory,
+                $this->expectedContent->getDefaultLanguageCode(),
+                $content->getDefaultLanguageCode()
+            );
             $this->compareArrays(
                 $comparatorFactory,
                 $this->expectedContent->fields,
@@ -122,6 +127,22 @@ class ContentItemEquals extends AbstractPHPUnitConstraint
         ComparatorFactory $comparatorFactory,
         array $expected,
         array $actual
+    ): void {
+        $comparator = $comparatorFactory->getComparatorFor(
+            $expected,
+            $actual
+        );
+
+        $comparator->assertEquals(
+            $expected,
+            $actual,
+        );
+    }
+
+    private function compareStrings(
+        ComparatorFactory $comparatorFactory,
+        ?string $expected,
+        ?string $actual
     ): void {
         $comparator = $comparatorFactory->getComparatorFor(
             $expected,

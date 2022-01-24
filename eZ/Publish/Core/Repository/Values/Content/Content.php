@@ -92,7 +92,7 @@ class Content extends APIContent
     public function getFieldValue(string $fieldDefIdentifier, ?string $languageCode = null): ?Value
     {
         if (null === $languageCode) {
-            $languageCode = $this->prioritizedFieldLanguageCode ?: $this->versionInfo->contentInfo->mainLanguageCode;
+            $languageCode = $this->getDefaultLanguageCode();
         }
 
         if (isset($this->fields[$fieldDefIdentifier][$languageCode])) {
@@ -118,7 +118,7 @@ class Content extends APIContent
         $fields = [];
 
         if (null === $languageCode) {
-            $languageCode = $this->prioritizedFieldLanguageCode ?: $this->versionInfo->contentInfo->mainLanguageCode;
+            $languageCode = $this->getDefaultLanguageCode();
         }
 
         foreach ($this->getFields() as $field) {
@@ -137,7 +137,7 @@ class Content extends APIContent
     public function getField(string $fieldDefIdentifier, ?string $languageCode = null): ?Field
     {
         if (null === $languageCode) {
-            $languageCode = $this->prioritizedFieldLanguageCode ?: $this->versionInfo->contentInfo->mainLanguageCode;
+            $languageCode = $this->getDefaultLanguageCode();
         }
 
         foreach ($this->getFields() as $field) {
@@ -148,6 +148,11 @@ class Content extends APIContent
         }
 
         return null;
+    }
+
+    public function getDefaultLanguageCode(): string
+    {
+        return $this->prioritizedFieldLanguageCode ?: $this->versionInfo->contentInfo->mainLanguageCode;
     }
 
     /**
