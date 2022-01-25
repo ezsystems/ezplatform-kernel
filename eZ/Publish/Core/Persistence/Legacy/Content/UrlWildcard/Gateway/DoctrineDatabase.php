@@ -180,7 +180,7 @@ final class DoctrineDatabase extends Gateway
     {
         $query = $this->connection->createQueryBuilder();
         $query
-            ->select('count(id)')
+            ->select($this->connection->getDatabasePlatform()->getCountExpression('id'))
             ->from(self::URL_WILDCARD_TABLE);
 
         return (int) $query->execute()->fetchColumn();
