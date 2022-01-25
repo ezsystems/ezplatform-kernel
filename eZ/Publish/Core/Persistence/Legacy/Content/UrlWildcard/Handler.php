@@ -192,6 +192,14 @@ class Handler implements BaseUrlWildcardHandler
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function countAll(): int
+    {
+        return $this->gateway->countAll();
+    }
+
+    /**
      * Tests if the given url matches against the given url wildcard.
      *
      * if the wildcard matches on the given url this method will return a ready

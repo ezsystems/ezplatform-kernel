@@ -95,4 +95,9 @@ interface URLWildcardService
      * @return \eZ\Publish\API\Repository\Values\Content\URLWildcardTranslationResult
      */
     public function translate(string $url): URLWildcardTranslationResult;
+
+    /**
+     * Counts URL Wildcards.
+     */
+    public function countAll(): int;
 }
