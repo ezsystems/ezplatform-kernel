@@ -185,4 +185,14 @@ class UrlWildcardHandler extends AbstractHandler implements UrlWildcardHandlerIn
 
         return $this->persistenceHandler->urlWildcardHandler()->exactSourceUrlExists($sourceUrl);
     }
+
+    /**
+     * @see \eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler::countAll()
+     */
+    public function countAll(): int
+    {
+        $this->logger->logCall(__METHOD__);
+
+        return $this->persistenceHandler->urlWildcardHandler()->countAll();
+    }
 }

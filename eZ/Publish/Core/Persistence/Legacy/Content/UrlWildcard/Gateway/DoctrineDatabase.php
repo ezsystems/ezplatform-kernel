@@ -176,6 +176,16 @@ final class DoctrineDatabase extends Gateway
         return false !== $result ? $result : [];
     }
 
+    public function countAll(): int
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->select($this->connection->getDatabasePlatform()->getCountExpression('id'))
+            ->from(self::URL_WILDCARD_TABLE);
+
+        return (int) $query->execute()->fetchColumn();
+    }
+
     private function trimUrl(string $url): string
     {
         return trim($url, '/');

@@ -98,4 +98,13 @@ final class ExceptionConversion extends Gateway
             throw DatabaseException::wrap($e);
         }
     }
+
+    public function countAll(): int
+    {
+        try {
+            return $this->innerGateway->countAll();
+        } catch (DBALException | PDOException $e) {
+            throw DatabaseException::wrap($e);
+        }
+    }
 }

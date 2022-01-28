@@ -83,4 +83,9 @@ interface Handler
      * @return bool
      */
     public function exactSourceUrlExists(string $sourceUrl): bool;
+
+    /**
+     * Counts URL Wildcards.
+     */
+    public function countAll(): int;
 }

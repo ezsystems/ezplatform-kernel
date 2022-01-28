@@ -208,6 +208,14 @@ class URLWildcardService implements URLWildcardServiceInterface
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function countAll(): int
+    {
+        return $this->urlWildcardHandler->countAll();
+    }
+
+    /**
      * Translates an url to an existing uri resource based on the
      * source/destination patterns of the url wildcard.
      *

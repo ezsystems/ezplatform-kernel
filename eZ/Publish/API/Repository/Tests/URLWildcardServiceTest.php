@@ -537,4 +537,22 @@ class URLWildcardServiceTest extends BaseTest
         $urlWildcardService->translate('/sindelfingen');
         /* END: Use Case */
     }
+
+    public function testCountAllReturnsZeroByDefault(): void
+    {
+        $repository = $this->getRepository();
+        $urlWildcardService = $repository->getURLWildcardService();
+
+        $this->assertSame(0, $urlWildcardService->countAll());
+    }
+
+    public function testCountAll(): void
+    {
+        $repository = $this->getRepository();
+        $urlWildcardService = $repository->getURLWildcardService();
+
+        $urlWildcardService->create('/articles/*', '/content/{1}');
+
+        $this->assertSame(1, $urlWildcardService->countAll());
+    }
 }

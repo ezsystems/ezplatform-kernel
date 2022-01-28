@@ -54,4 +54,6 @@ abstract class Gateway
      * Load the UrlWildcard by source url $sourceUrl.
      */
     abstract public function loadUrlWildcardBySourceUrl(string $sourceUrl): array;
+
+    abstract public function countAll(): int;
 }
