@@ -55,11 +55,11 @@ abstract class IbexaKernelTestCase extends KernelTestCase
     }
 
     /**
-     * @return array<string>
+     * @return iterable<string>
      */
     protected static function getSchemaFiles(): iterable
     {
-        yield self::$kernel->locateResource('@EzPublishCoreBundle/Resources/config/storage/legacy/schema.yaml');
+        yield from self::$kernel->getSchemaFiles();
     }
 
     final protected static function loadFixtures(): void
@@ -82,7 +82,7 @@ abstract class IbexaKernelTestCase extends KernelTestCase
      */
     protected static function getFixtures(): iterable
     {
-        yield new YamlFixture(dirname(__DIR__, 3) . '/eZ/Publish/API/Repository/Tests/_fixtures/Legacy/data/test_data.yaml');
+        yield from self::$kernel->getFixtures();
     }
 
     /**
