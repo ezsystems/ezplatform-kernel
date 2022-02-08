@@ -23,7 +23,6 @@ use eZ\Publish\API\Repository\UserService;
 use eZ\Publish\Core\Repository\Values\User\UserReference;
 use eZ\Publish\SPI\Persistence\TransactionHandler;
 use eZ\Publish\SPI\Tests\Persistence\FixtureImporter;
-use eZ\Publish\SPI\Tests\Persistence\YamlFixture;
 use LogicException;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
