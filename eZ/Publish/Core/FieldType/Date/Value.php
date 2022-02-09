@@ -13,6 +13,7 @@ use eZ\Publish\Core\FieldType\Value as BaseValue;
 
 /**
  * Value for Date field type.
+ * Date should always be represented in UTC.
  */
 class Value extends BaseValue
 {
@@ -74,10 +75,7 @@ class Value extends BaseValue
     public static function fromTimestamp($timestamp)
     {
         try {
-            $datetime = new DateTime();
-            $datetime->setTimestamp($timestamp);
-
-            return new static($datetime);
+            return new static(new DateTime("@{$timestamp}"));
         } catch (Exception $e) {
             throw new InvalidArgumentValue('$timestamp', $timestamp, __CLASS__, $e);
         }
