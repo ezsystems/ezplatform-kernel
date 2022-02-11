@@ -10,7 +10,7 @@ namespace eZ\Publish\Core\IO\Adapter;
 
 use eZ\Publish\Core\IO\IOConfigProvider;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use eZ\Publish\Core\MVC\Symfony\Event\ScopeChangeEvent;
 use eZ\Publish\SPI\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
 use League\Flysystem\Adapter\Local;
 use LogicException;
@@ -46,7 +46,7 @@ final class LocalAdapter extends Local implements ConfigScopeChangeSubscriber
      * Reconfigure Adapter due to SiteAccess change which implies
      * root dir and permissions could be different for new SiteAccess.
      */
-    public function onConfigScopeChange(SiteAccess $siteAccess): void
+    public function onConfigScopeChange(ScopeChangeEvent $event): void
     {
         $root = $this->ioConfigProvider->getRootDir();
         $root = is_link($root) ? realpath($root) : $root;

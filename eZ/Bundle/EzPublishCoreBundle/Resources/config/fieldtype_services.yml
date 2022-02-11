@@ -79,6 +79,7 @@ services:
     ezpublish.fieldType.ezimage.io_service.draft.config_scope_change_aware:
         class: eZ\Publish\Core\IO\ConfigScopeChangeAwareIOService
         decorates: ezpublish.fieldType.ezimage.io_service.draft
+        autoconfigure: true
         lazy: true
         arguments:
             $configResolver: '@ezpublish.config.resolver'
