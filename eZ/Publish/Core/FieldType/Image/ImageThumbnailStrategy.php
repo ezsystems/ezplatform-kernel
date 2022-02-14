@@ -43,12 +43,16 @@ class ImageThumbnailStrategy implements FieldTypeBasedThumbnailStrategy
 
     public function getThumbnail(Field $field, ?APIVersionInfo $versionInfo = null): ?Thumbnail
     {
-        /** @var \eZ\Publish\SPI\Variation\Values\ImageVariation $variation */
-        $variation = $this->variationHandler->getVariation(
-            $field,
-            $versionInfo ?? new VersionInfo(),
-            $this->variationName
-        );
+        try {
+            /** @var \eZ\Publish\SPI\Variation\Values\ImageVariation $variation */
+            $variation = $this->variationHandler->getVariation(
+                $field,
+                $versionInfo ?? new VersionInfo(),
+                $this->variationName
+            );
+        } catch (\Exception $e) {
+            return new Thumbnail();
+        }
 
         return new Thumbnail([
             'resource' => $variation->uri,
