@@ -51,7 +51,7 @@ class ImageThumbnailStrategy implements FieldTypeBasedThumbnailStrategy
                 $this->variationName
             );
         } catch (\Exception $e) {
-            return new Thumbnail();
+            return null;
         }
 
         return new Thumbnail([
