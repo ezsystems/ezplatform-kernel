@@ -7,6 +7,7 @@
 namespace eZ\Publish\Core\FieldType\Date;
 
 use DateTime;
+use DateTimeZone;
 use Exception;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
 use eZ\Publish\Core\FieldType\Value as BaseValue;
@@ -57,7 +58,7 @@ class Value extends BaseValue
     public static function fromString($dateString)
     {
         try {
-            return new static(new DateTime($dateString));
+            return new static(new DateTime($dateString, new DateTimeZone('UTC')));
         } catch (Exception $e) {
             throw new InvalidArgumentValue('$dateString', $dateString, __CLASS__, $e);
         }
