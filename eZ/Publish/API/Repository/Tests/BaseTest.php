@@ -24,6 +24,7 @@ use eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation;
 use eZ\Publish\API\Repository\Values\User\Limitation\SubtreeLimitation;
 use eZ\Publish\API\Repository\Values\User\User;
 use eZ\Publish\API\Repository\Values\User\UserGroup;
+use eZ\Publish\API\Repository\Values\User\UserReference;
 use eZ\Publish\API\Repository\Values\ValueObject;
 use PDOException;
 use PHPUnit\Framework\TestCase;
@@ -874,5 +875,10 @@ abstract class BaseTest extends TestCase
         );
 
         return $contentTypeService->loadContentTypeByIdentifier($identifier);
+    }
+
+    protected function loginAsUser(UserReference $user): void
+    {
+        $this->getRepository(false)->getPermissionResolver()->setCurrentUserReference($user);
     }
 }
