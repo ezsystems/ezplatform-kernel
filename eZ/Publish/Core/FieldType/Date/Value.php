@@ -7,12 +7,14 @@
 namespace eZ\Publish\Core\FieldType\Date;
 
 use DateTime;
+use DateTimeZone;
 use Exception;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
 use eZ\Publish\Core\FieldType\Value as BaseValue;
 
 /**
  * Value for Date field type.
+ * Date should always be represented in UTC.
  */
 class Value extends BaseValue
 {
@@ -56,7 +58,7 @@ class Value extends BaseValue
     public static function fromString($dateString)
     {
         try {
-            return new static(new DateTime($dateString));
+            return new static(new DateTime($dateString, new DateTimeZone('UTC')));
         } catch (Exception $e) {
             throw new InvalidArgumentValue('$dateString', $dateString, __CLASS__, $e);
         }
@@ -74,10 +76,7 @@ class Value extends BaseValue
     public static function fromTimestamp($timestamp)
     {
         try {
-            $datetime = new DateTime();
-            $datetime->setTimestamp($timestamp);
-
-            return new static($datetime);
+            return new static(new DateTime("@{$timestamp}"));
         } catch (Exception $e) {
             throw new InvalidArgumentValue('$timestamp', $timestamp, __CLASS__, $e);
         }
