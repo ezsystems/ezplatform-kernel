@@ -11,9 +11,10 @@ use eZ\Publish\Core\MVC\Symfony\Event\ScopeChangeEvent;
 use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessAware;
 use eZ\Publish\Core\MVC\Symfony\View\ViewManagerInterface;
+use eZ\Publish\SPI\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ConfigScopeListener implements EventSubscriberInterface
+class ConfigScopeListener implements EventSubscriberInterface, ConfigScopeChangeSubscriber
 {
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolvers;
@@ -40,7 +41,7 @@ class ConfigScopeListener implements EventSubscriberInterface
         ];
     }
 
-    public function onConfigScopeChange(ScopeChangeEvent $event)
+    public function onConfigScopeChange(ScopeChangeEvent $event): void
     {
         $siteAccess = $event->getSiteAccess();
 

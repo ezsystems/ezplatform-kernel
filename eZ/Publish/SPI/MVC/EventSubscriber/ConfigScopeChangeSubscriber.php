@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace eZ\Publish\SPI\MVC\EventSubscriber;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use eZ\Publish\Core\MVC\Symfony\Event\ScopeChangeEvent;
 
 /**
  * Lets implementing class react to config scope changes.
  */
 interface ConfigScopeChangeSubscriber
 {
-    public function onConfigScopeChange(SiteAccess $siteAccess): void;
+    public function onConfigScopeChange(ScopeChangeEvent $event): void;
 }

@@ -99,6 +99,7 @@ services:
     # Inject the siteaccess config into a few io services
     ezpublish.core.io.flysystem.default_adapter:
         class: eZ\Publish\Core\IO\Adapter\LocalAdapter
+        autoconfigure: true
         arguments:
             - '@eZ\Publish\Core\IO\IOConfigProvider'
             - '@ezpublish.config.resolver'
