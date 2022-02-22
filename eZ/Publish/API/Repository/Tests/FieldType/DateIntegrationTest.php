@@ -319,8 +319,8 @@ class DateIntegrationTest extends SearchBaseIntegrationTest
     {
         $timestamp = 123456;
 
-        $dateTime = new DateTime();
-        $dateTime->setTimestamp($timestamp)->setTime(0, 0, 0);
+        $dateTime = new DateTime("@{$timestamp}");
+        $dateTime->setTime(0, 0, 0);
 
         return [
             [
