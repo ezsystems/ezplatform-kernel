@@ -75,20 +75,22 @@ final class DateRangeAggregationTest extends AbstractAggregationTest
 
     protected function createFixturesForAggregation(Aggregation $aggregation): void
     {
+        $timezone = new DateTimeZone('+0000');
+
         $generator = new FieldAggregationFixtureGenerator($this->getRepository());
         $generator->setContentTypeIdentifier('content_type');
         $generator->setFieldDefinitionIdentifier('date_field');
         $generator->setFieldTypeIdentifier('ezdate');
         $generator->setValues([
-            new DateTime('2020-05-01 00:00:00'),
-            new DateTime('2020-06-30 00:00:00'),
-            new DateTime('2020-06-30 12:00:00'),
-            new DateTime('2020-07-01 00:00:00'),
-            new DateTime('2020-07-01 12:00:00'),
-            new DateTime('2020-07-30 12:00:00'),
-            new DateTime('2020-08-01 00:00:01'),
-            new DateTime('2020-08-01 00:00:02'),
-            new DateTime('2020-08-01 00:00:03'),
+            new DateTime('2020-05-01 00:00:00', $timezone),
+            new DateTime('2020-06-30 00:00:00', $timezone),
+            new DateTime('2020-06-30 12:00:00', $timezone),
+            new DateTime('2020-07-01 00:00:00', $timezone),
+            new DateTime('2020-07-01 12:00:00', $timezone),
+            new DateTime('2020-07-30 12:00:00', $timezone),
+            new DateTime('2020-08-01 00:00:01', $timezone),
+            new DateTime('2020-08-01 00:00:02', $timezone),
+            new DateTime('2020-08-01 00:00:03', $timezone),
         ]);
 
         $generator->execute();
