@@ -62,6 +62,7 @@
         "behat/behat": "^3.6.1",
         "jenner/simple_fork": "^1.2",
         "friends-of-behat/mink-extension": "^2.4",
+        "league/flysystem-memory": "^1.0",
         "ibexa/ci-scripts": "^0.1@dev",
         "ezsystems/ezplatform-code-style": "^2.0",
         "phpunit/phpunit": "^8.2",
