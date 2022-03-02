@@ -8,12 +8,16 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\FieldType\Image;
 
+use Exception;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\API\Repository\Values\Content\Thumbnail;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use eZ\Publish\Core\MVC\Exception\SourceImageNotFoundException;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
 use eZ\Publish\SPI\Variation\VariationHandler;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 class ImageThumbnailStrategy implements FieldTypeBasedThumbnailStrategy
 {
@@ -26,14 +30,19 @@ class ImageThumbnailStrategy implements FieldTypeBasedThumbnailStrategy
     /** @var string */
     private $variationName;
 
+    /** @var \Psr\Log\LoggerInterface */
+    private $logger;
+
     public function __construct(
         string $fieldTypeIdentifier,
         VariationHandler $variationHandler,
-        string $variationName
+        string $variationName,
+        LoggerInterface $logger = null
     ) {
         $this->fieldTypeIdentifier = $fieldTypeIdentifier;
         $this->variationHandler = $variationHandler;
         $this->variationName = $variationName;
+        $this->logger = null !== $logger ? $logger : new NullLogger();
     }
 
     public function getFieldTypeIdentifier(): string
@@ -50,7 +59,25 @@ class ImageThumbnailStrategy implements FieldTypeBasedThumbnailStrategy
                 $versionInfo ?? new VersionInfo(),
                 $this->variationName
             );
-        } catch (\Exception $e) {
+        } catch (SourceImageNotFoundException $e) {
+            $this->logger->warning(
+                sprintf(
+                    'Source image for thumbnail could not be found %s',
+                    $e->getMessage()
+                )
+            );
+
+            return null;
+        } catch (Exception $e) {
+            $this->logger->warning(
+                sprintf(
+                    'Thumbnail could not be generated for %s field and %s variation. Error: %s',
+                    $field->fieldTypeIdentifier,
+                    $this->variationName,
+                    $e->getMessage()
+                )
+            );
+
             return null;
         }
 
