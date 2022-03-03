@@ -16,11 +16,15 @@ use eZ\Publish\Core\MVC\Exception\SourceImageNotFoundException;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\FieldTypeBasedThumbnailStrategy;
 use eZ\Publish\SPI\Variation\VariationHandler;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-class ImageThumbnailStrategy implements FieldTypeBasedThumbnailStrategy
+class ImageThumbnailStrategy implements FieldTypeBasedThumbnailStrategy, LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     /** @var string */
     private $fieldTypeIdentifier;
 
@@ -30,19 +34,16 @@ class ImageThumbnailStrategy implements FieldTypeBasedThumbnailStrategy
     /** @var string */
     private $variationName;
 
-    /** @var \Psr\Log\LoggerInterface */
-    private $logger;
-
     public function __construct(
         string $fieldTypeIdentifier,
         VariationHandler $variationHandler,
         string $variationName,
-        LoggerInterface $logger = null
+        ?LoggerInterface $logger = null
     ) {
         $this->fieldTypeIdentifier = $fieldTypeIdentifier;
         $this->variationHandler = $variationHandler;
         $this->variationName = $variationName;
-        $this->logger = null !== $logger ? $logger : new NullLogger();
+        $this->logger = $logger ?: new NullLogger();
     }
 
     public function getFieldTypeIdentifier(): string
@@ -60,22 +61,34 @@ class ImageThumbnailStrategy implements FieldTypeBasedThumbnailStrategy
                 $this->variationName
             );
         } catch (SourceImageNotFoundException $e) {
-            $this->logger->warning(
-                sprintf(
-                    'Source image for thumbnail could not be found %s',
-                    $e->getMessage()
-                )
-            );
+            $contentDetails = isset($versionInfo->contentInfo) && isset($versionInfo->versionNo)
+                ? sprintf(' Content: %d, Version No: %d', $versionInfo->contentInfo->id, $versionInfo->versionNo)
+                : '';
 
-            return null;
-        } catch (Exception $e) {
             $this->logger->warning(
                 sprintf(
-                    'Thumbnail could not be generated for %s field and %s variation. Error: %s',
+                    'Thumbnail source image generated for %s field and %s variation could not be found (%s).',
                     $field->fieldTypeIdentifier,
                     $this->variationName,
                     $e->getMessage()
                 )
+                . $contentDetails
+            );
+
+            return null;
+        } catch (Exception $e) {
+            $contentDetails = isset($versionInfo->contentInfo) && isset($versionInfo->versionNo)
+                ? sprintf(' Content: %d, Version No: %d', $versionInfo->contentInfo->id, $versionInfo->versionNo)
+                : '';
+
+            $this->logger->warning(
+                sprintf(
+                    'Thumbnail could not be generated for %s field and %s variation due to %s.',
+                    $field->fieldTypeIdentifier,
+                    $this->variationName,
+                    $e->getMessage()
+                )
+                . $contentDetails
             );
 
             return null;
