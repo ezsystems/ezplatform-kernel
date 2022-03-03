@@ -13,7 +13,7 @@ use eZ\Publish\Core\IO\IOServiceInterface;
 use eZ\Publish\Core\IO\Values\BinaryFile;
 use eZ\Publish\Core\IO\Values\BinaryFileCreateStruct;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use eZ\Publish\Core\MVC\Symfony\Event\ScopeChangeEvent;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigScopeChangeAwareIOServiceTest extends TestCase
@@ -309,12 +309,12 @@ final class ConfigScopeChangeAwareIOServiceTest extends TestCase
 
     public function testOnConfigScopeChange(): void
     {
-        $siteAccess = $this->createMock(SiteAccess::class);
+        $event = $this->createMock(ScopeChangeEvent::class);
         $this->innerIOService
             ->expects($this->once())
             ->method('setPrefix')
             ->with(self::PREFIX);
 
-        $this->ioService->onConfigScopeChange($siteAccess);
+        $this->ioService->onConfigScopeChange($event);
     }
 }

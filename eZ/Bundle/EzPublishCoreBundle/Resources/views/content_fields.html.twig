@@ -80,7 +80,7 @@
 {% block ezdate_field %}
 {% apply spaceless %}
     {% if not ez_field_is_empty( content, field ) %}
-        {% set field_value = field.value.date|format_date( 'short', locale=parameters.locale ) %}
+        {% set field_value = field.value.date|format_date( 'short', locale=parameters.locale, timezone='UTC' ) %}
         {{ block( 'simple_block_field' ) }}
     {% endif %}
 {% endapply %}

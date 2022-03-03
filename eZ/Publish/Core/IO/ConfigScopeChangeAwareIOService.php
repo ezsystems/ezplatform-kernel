@@ -11,7 +11,7 @@ namespace eZ\Publish\Core\IO;
 use eZ\Publish\Core\IO\Values\BinaryFile;
 use eZ\Publish\Core\IO\Values\BinaryFileCreateStruct;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use eZ\Publish\Core\MVC\Symfony\Event\ScopeChangeEvent;
 use eZ\Publish\SPI\MVC\EventSubscriber\ConfigScopeChangeSubscriber;
 
 class ConfigScopeChangeAwareIOService implements IOServiceInterface, ConfigScopeChangeSubscriber
@@ -113,7 +113,7 @@ class ConfigScopeChangeAwareIOService implements IOServiceInterface, ConfigScope
         $this->innerIOService->deleteDirectory($path);
     }
 
-    public function onConfigScopeChange(SiteAccess $siteAccess): void
+    public function onConfigScopeChange(ScopeChangeEvent $event): void
     {
         $this->setPrefix($this->configResolver->getParameter($this->prefixParameterName));
     }
