@@ -43,7 +43,7 @@ class ImageThumbnailStrategy implements FieldTypeBasedThumbnailStrategy, LoggerA
         $this->fieldTypeIdentifier = $fieldTypeIdentifier;
         $this->variationHandler = $variationHandler;
         $this->variationName = $variationName;
-        $this->logger = $logger ?: new NullLogger();
+        $this->logger = $logger ?? new NullLogger();
     }
 
     public function getFieldTypeIdentifier(): string
@@ -68,7 +68,10 @@ class ImageThumbnailStrategy implements FieldTypeBasedThumbnailStrategy, LoggerA
                     $this->variationName,
                     $e->getMessage(),
                     $this->generateContentDetailsMessage($versionInfo)
-                )
+                ),
+                [
+                    'exception' => $e,
+                ]
             );
 
             return null;
@@ -80,7 +83,10 @@ class ImageThumbnailStrategy implements FieldTypeBasedThumbnailStrategy, LoggerA
                     $this->variationName,
                     $e->getMessage(),
                     $this->generateContentDetailsMessage($versionInfo)
-                )
+                ),
+                [
+                    'exception' => $e,
+                ]
             );
 
             return null;
