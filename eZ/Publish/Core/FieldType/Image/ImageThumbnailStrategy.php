@@ -61,34 +61,26 @@ class ImageThumbnailStrategy implements FieldTypeBasedThumbnailStrategy, LoggerA
                 $this->variationName
             );
         } catch (SourceImageNotFoundException $e) {
-            $contentDetails = isset($versionInfo->contentInfo) && isset($versionInfo->versionNo)
-                ? sprintf(' Content: %d, Version No: %d', $versionInfo->contentInfo->id, $versionInfo->versionNo)
-                : '';
-
             $this->logger->warning(
                 sprintf(
-                    'Thumbnail source image generated for %s field and %s variation could not be found (%s).',
+                    'Thumbnail source image generated for %s field and %s variation could not be found (%s). %s',
                     $field->fieldTypeIdentifier,
                     $this->variationName,
-                    $e->getMessage()
+                    $e->getMessage(),
+                    $this->generateContentDetailsMessage($versionInfo)
                 )
-                . $contentDetails
             );
 
             return null;
         } catch (Exception $e) {
-            $contentDetails = isset($versionInfo->contentInfo) && isset($versionInfo->versionNo)
-                ? sprintf(' Content: %d, Version No: %d', $versionInfo->contentInfo->id, $versionInfo->versionNo)
-                : '';
-
             $this->logger->warning(
                 sprintf(
-                    'Thumbnail could not be generated for %s field and %s variation due to %s.',
+                    'Thumbnail could not be generated for %s field and %s variation due to %s. %s',
                     $field->fieldTypeIdentifier,
                     $this->variationName,
-                    $e->getMessage()
+                    $e->getMessage(),
+                    $this->generateContentDetailsMessage($versionInfo)
                 )
-                . $contentDetails
             );
 
             return null;
@@ -100,5 +92,12 @@ class ImageThumbnailStrategy implements FieldTypeBasedThumbnailStrategy, LoggerA
             'height' => $variation->height,
             'mimeType' => $variation->mimeType,
         ]);
+    }
+
+    private function generateContentDetailsMessage(?APIVersionInfo $versionInfo)
+    {
+        return $versionInfo !== null
+            ? sprintf(' Content: %d, Version No: %d', $versionInfo->getContentInfo()->id, $versionInfo->versionNo)
+            : '';
     }
 }
