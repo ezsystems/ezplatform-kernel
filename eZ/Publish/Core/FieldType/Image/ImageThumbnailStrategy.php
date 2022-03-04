@@ -97,7 +97,7 @@ class ImageThumbnailStrategy implements FieldTypeBasedThumbnailStrategy, LoggerA
     private function generateContentDetailsMessage(?APIVersionInfo $versionInfo)
     {
         return $versionInfo !== null
-            ? sprintf(' Content: %d, Version No: %d', $versionInfo->getContentInfo()->id, $versionInfo->versionNo)
+            ? sprintf('Content: %d, Version No: %d', $versionInfo->getContentInfo()->id, $versionInfo->versionNo)
             : '';
     }
 }
