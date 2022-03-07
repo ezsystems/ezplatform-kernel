@@ -110,14 +110,7 @@ class DoctrineDatabase extends Gateway
             } else {
                 $integerValue = 0;
             }
-            $text = $this->transformationProcessor->transform(
-                $fullTextValue->value,
-                !empty($fullTextValue->transformationRules)
-                    ? $fullTextValue->transformationRules
-                    : $this->fullTextSearchConfiguration['commands']
-            );
-            //Not all words are lower case after the transform process
-            $text = $this->transformationProcessor->transformByGroup($text, 'lowercase');
+            $text = $this->transformationProcessor->transformByGroup($fullTextValue->value, 'lowercase');
             // split by non-words
             $wordArray = $fullTextValue->splitFlag ? preg_split('/\W/u', $text, -1, PREG_SPLIT_NO_EMPTY) : [$text];
             foreach ($wordArray as $word) {

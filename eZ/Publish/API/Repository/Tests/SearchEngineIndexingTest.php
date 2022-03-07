@@ -837,23 +837,6 @@ class SearchEngineIndexingTest extends BaseTest
     }
 
     /**
-     * Check if FullText indexing works for special cases of text.
-     *
-     * @param string $text Content Item field value text (to be indexed)
-     * @param string $searchForText text based on which Content Item should be found
-     * @param array $ignoreForSetupFactories list of SetupFactories to be ignored
-     * @dataProvider getLegacySpecialFullTextCases
-     */
-    public function testLegacyIndexingSpecialFullTextCases($text, $searchForText)
-    {
-        if (!$this->isLegacySearchEngineSetup()) {
-            return;
-        }
-
-        $this->testIndexingSpecialFullTextCases($text, $searchForText);
-    }
-
-    /**
      * Data Provider for {@see testIndexingSpecialFullTextCases()} method.
      *
      * @return array
@@ -871,19 +854,10 @@ class SearchEngineIndexingTest extends BaseTest
             ['Folder1.', 'Folder1.'],
             ['whitespaces', "     whitespaces  \n \t "],
             ["it's", "it's"],
-        ];
-    }
-
-    /**
-     * Data Provider for {@see testLegacyIndexingSpecialFullTextCases()} method.
-     */
-    public function getLegacySpecialFullTextCases(): array
-    {
-        return [
-            ['MAKİNEİÇ', 'makIneIc'],
-            ['DIŞ', 'DIŞ'],
-            ['TİC', 'tIc'],
-            ['ŞTİ.', 'stI'],
+            ['MAKİNEİÇ', 'makİneİç'],
+            ['DIŞ', 'diş'],
+            ['TİC', 'tİc'],
+            ['ŞTİ.', 'ştİ'],
             ['ʻ', 'ʻ'],
         ];
     }
