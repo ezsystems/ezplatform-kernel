@@ -853,6 +853,7 @@ class SearchEngineIndexingTest extends BaseTest
             ['with boundary.', 'with boundary'],
             ['Folder1.', 'Folder1.'],
             ['whitespaces', "     whitespaces  \n \t "],
+            ['with_underscore', 'with_underscore'],
             ["it's", "it's"],
             ['MAKİNEİÇ', 'makİneİç'],
             ['DIŞ', 'diş'],
