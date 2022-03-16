@@ -1,3 +1,9 @@
+parameters:
+    # Constant authentication execution time in seconds (float). Blocks timing attacks.
+    # Must be larger than expected real execution time, with a good margin.
+    # If set to zero, constant time authentication is disabled. Do not do this on production environments.
+    ibexa.security.authentication.constant_auth_time: !php/const eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Compiler\SecurityPass::CONSTANT_AUTH_TIME_DEFAULT
+
 services:
     ezpublish.security.user_provider.username:
         class: eZ\Publish\Core\MVC\Symfony\Security\User\UsernameProvider
