@@ -855,6 +855,11 @@ class SearchEngineIndexingTest extends BaseTest
             ['whitespaces', "     whitespaces  \n \t "],
             ["it's", "it's"],
             ['with_underscore', 'with_underscore'],
+            ['MAKİNEİÇ', 'makİneİç'],
+            ['DIŞ', 'diş'],
+            ['TİC', 'tİc'],
+            ['ŞTİ.', 'ştİ'],
+            ['ʻ', 'ʻ'],
         ];
     }
 
