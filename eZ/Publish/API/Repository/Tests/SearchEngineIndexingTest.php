@@ -1160,7 +1160,6 @@ class SearchEngineIndexingTest extends BaseTest
 
     /**
      * Will create if not exists a simple content type for test purposes with just one required field.
-     *
      */
     protected function createTestContentType(
         string $identifier = 'name',
@@ -1196,7 +1195,6 @@ class SearchEngineIndexingTest extends BaseTest
 
         return $contentTypeService->loadContentTypeByIdentifier($contentTypeIdentifier);
     }
-
 
     /**
      * Will create and publish an content with a filed with a given content name in location provided into
@@ -1242,7 +1240,6 @@ class SearchEngineIndexingTest extends BaseTest
     ): Content {
         $contentService = $this->getRepository()->getContentService();
         $locationService = $this->getRepository()->getLocationService();
-
 
         $rootContentStruct = $contentService->newContentCreateStruct($testableContentType, 'eng-GB');
         $rootContentStruct->setField($fieldDefIdentifier, $contentName);
