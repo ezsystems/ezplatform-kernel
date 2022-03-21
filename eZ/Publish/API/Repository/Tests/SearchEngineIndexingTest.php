@@ -1159,22 +1159,23 @@ class SearchEngineIndexingTest extends BaseTest
     }
 
     /**
-     * Will create if not exists a simple content type for test purposes with just one required field name.
+     * Will create if not exists a simple content type for test purposes with just one required field.
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType
      */
-    protected function createTestContentType()
-    {
+    protected function createTestContentType(
+        string $identifier = 'name',
+        string $fieldTypeIdentifier = 'ezstring',
+        string $contentTypeIdentifier = 'test-type'
+    ): ContentType {
         $repository = $this->getRepository();
         $contentTypeService = $repository->getContentTypeService();
-        $contentTypeIdentifier = 'test-type';
         try {
             return $contentTypeService->loadContentTypeByIdentifier($contentTypeIdentifier);
         } catch (NotFoundException $e) {
             // continue creation process
         }
 
-        $nameField = $contentTypeService->newFieldDefinitionCreateStruct('name', 'ezstring');
+        $nameField = $contentTypeService->newFieldDefinitionCreateStruct($identifier, $fieldTypeIdentifier);
         $nameField->fieldGroup = 'main';
         $nameField->position = 1;
         $nameField->isTranslatable = true;
@@ -1196,41 +1197,6 @@ class SearchEngineIndexingTest extends BaseTest
         return $contentTypeService->loadContentTypeByIdentifier($contentTypeIdentifier);
     }
 
-    /**
-     * Will create if not exists a simple content type with email field for test purposes with just one required field email.
-     */
-    protected function createTestContentTypeWithEmailField(): ContentType
-    {
-        $repository = $this->getRepository();
-        $contentTypeService = $repository->getContentTypeService();
-        $contentTypeIdentifier = 'test-email-type';
-        try {
-            return $contentTypeService->loadContentTypeByIdentifier($contentTypeIdentifier);
-        } catch (NotFoundException $e) {
-            // continue creation process
-        }
-
-        $nameField = $contentTypeService->newFieldDefinitionCreateStruct('email', 'ezemail');
-        $nameField->fieldGroup = 'main';
-        $nameField->position = 1;
-        $nameField->isTranslatable = true;
-        $nameField->isSearchable = true;
-        $nameField->isRequired = true;
-
-        $contentTypeStruct = $contentTypeService->newContentTypeCreateStruct($contentTypeIdentifier);
-        $contentTypeStruct->mainLanguageCode = 'eng-GB';
-        $contentTypeStruct->creatorId = 14;
-        $contentTypeStruct->creationDate = new DateTime();
-        $contentTypeStruct->names = ['eng-GB' => 'Test Content Type With Email Field'];
-        $contentTypeStruct->addFieldDefinition($nameField);
-
-        $contentTypeGroup = $contentTypeService->loadContentTypeGroupByIdentifier('Content');
-
-        $contentTypeDraft = $contentTypeService->createContentType($contentTypeStruct, [$contentTypeGroup]);
-        $contentTypeService->publishContentTypeDraft($contentTypeDraft);
-
-        return $contentTypeService->loadContentTypeByIdentifier($contentTypeIdentifier);
-    }
 
     /**
      * Will create and publish an content with a filed with a given content name in location provided into
@@ -1243,23 +1209,9 @@ class SearchEngineIndexingTest extends BaseTest
      */
     protected function createContentWithName($contentName, array $parentLocationIdList = [])
     {
-        $contentService = $this->getRepository()->getContentService();
-        $locationService = $this->getRepository()->getLocationService();
-
         $testableContentType = $this->createTestContentType();
 
-        $rootContentStruct = $contentService->newContentCreateStruct($testableContentType, 'eng-GB');
-        $rootContentStruct->setField('name', $contentName);
-
-        $parentLocationList = [];
-        foreach ($parentLocationIdList as $locationID) {
-            $parentLocationList[] = $locationService->newLocationCreateStruct($locationID);
-        }
-
-        $contentDraft = $contentService->createContent($rootContentStruct, $parentLocationList);
-        $publishedContent = $contentService->publishVersion($contentDraft->getVersionInfo());
-
-        return $publishedContent;
+        return $this->createContent($testableContentType, $contentName, 'name', $parentLocationIdList);
     }
 
     /**
@@ -1277,13 +1229,23 @@ class SearchEngineIndexingTest extends BaseTest
      */
     protected function createContentEmailWithAddress(string $address, array $parentLocationIdList = []): Content
     {
+        $testableContentType = $this->createTestContentType('email', 'ezemail', 'test-email-type');
+
+        return $this->createContent($testableContentType, $address, 'email', $parentLocationIdList);
+    }
+
+    protected function createContent(
+        ContentType $testableContentType,
+        string $contentName,
+        string $fieldDefIdentifier,
+        array $parentLocationIdList
+    ): Content {
         $contentService = $this->getRepository()->getContentService();
         $locationService = $this->getRepository()->getLocationService();
 
-        $testableContentType = $this->createTestContentTypeWithEmailField();
 
         $rootContentStruct = $contentService->newContentCreateStruct($testableContentType, 'eng-GB');
-        $rootContentStruct->setField('email', $address);
+        $rootContentStruct->setField($fieldDefIdentifier, $contentName);
 
         $parentLocationList = [];
         foreach ($parentLocationIdList as $locationID) {
