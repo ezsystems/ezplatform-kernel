@@ -9,10 +9,12 @@ namespace eZ\Publish\API\Repository\Tests;
 use DateTime;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\SearchService;
+use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 
 /**
  * Test case for indexing operations with a search engine.
@@ -837,6 +839,48 @@ class SearchEngineIndexingTest extends BaseTest
     }
 
     /**
+     * Check if FullText indexing works for email addresses.
+     *
+     * @dataProvider getEmailAddressesCases
+     */
+    public function testIndexingEmailFieldCases(string $email, string $searchForText)
+    {
+        $repository = $this->getRepository();
+        $searchService = $repository->getSearchService();
+
+        $content = $this->createContentEmailWithAddress($email, [2]);
+        $this->refreshSearch($repository);
+
+        $criterion = new Criterion\FullText($searchForText);
+        $query = new Query(['filter' => $criterion]);
+        $result = $searchService->findContent($query);
+
+        // for some cases there might be more than one hit, so check if proper one was found
+        foreach ($result->searchHits as $searchHit) {
+            if ($content->contentInfo->id === $searchHit->valueObject->versionInfo->contentInfo->id) {
+                return;
+            }
+        }
+        $this->fail('Failed to find required Content in search results');
+    }
+
+    /**
+     * Data Provider for {@see testIndexingSpecialFullTextCases()} method.
+     *
+     * @return array
+     */
+    public function getEmailAddressesCases()
+    {
+        return [
+            ['test@TEST.com', 'test@test.com'],
+            ['TEST3@TEST.com', 'test3@test.com'],
+            ['TeSt1@TEST.com', 'test1@test.com'],
+            ['TeSt2@TesT.com', 'test2@test.com'],
+            ['test4@test.com', 'test4@test.com'],
+        ];
+    }
+
+    /**
      * Data Provider for {@see testIndexingSpecialFullTextCases()} method.
      *
      * @return array
@@ -1153,6 +1197,42 @@ class SearchEngineIndexingTest extends BaseTest
     }
 
     /**
+     * Will create if not exists a simple content type with email field for test purposes with just one required field email.
+     */
+    protected function createTestContentTypeWithEmailField(): ContentType
+    {
+        $repository = $this->getRepository();
+        $contentTypeService = $repository->getContentTypeService();
+        $contentTypeIdentifier = 'test-email-type';
+        try {
+            return $contentTypeService->loadContentTypeByIdentifier($contentTypeIdentifier);
+        } catch (NotFoundException $e) {
+            // continue creation process
+        }
+
+        $nameField = $contentTypeService->newFieldDefinitionCreateStruct('email', 'ezemail');
+        $nameField->fieldGroup = 'main';
+        $nameField->position = 1;
+        $nameField->isTranslatable = true;
+        $nameField->isSearchable = true;
+        $nameField->isRequired = true;
+
+        $contentTypeStruct = $contentTypeService->newContentTypeCreateStruct($contentTypeIdentifier);
+        $contentTypeStruct->mainLanguageCode = 'eng-GB';
+        $contentTypeStruct->creatorId = 14;
+        $contentTypeStruct->creationDate = new DateTime();
+        $contentTypeStruct->names = ['eng-GB' => 'Test Content Type With Email Field'];
+        $contentTypeStruct->addFieldDefinition($nameField);
+
+        $contentTypeGroup = $contentTypeService->loadContentTypeGroupByIdentifier('Content');
+
+        $contentTypeDraft = $contentTypeService->createContentType($contentTypeStruct, [$contentTypeGroup]);
+        $contentTypeService->publishContentTypeDraft($contentTypeDraft);
+
+        return $contentTypeService->loadContentTypeByIdentifier($contentTypeIdentifier);
+    }
+
+    /**
      * Will create and publish an content with a filed with a given content name in location provided into
      * $parentLocationIdList.
      *
@@ -1180,6 +1260,39 @@ class SearchEngineIndexingTest extends BaseTest
         $publishedContent = $contentService->publishVersion($contentDraft->getVersionInfo());
 
         return $publishedContent;
+    }
+
+    /**
+     * Will create and publish an content with an email filed with a given content name in location provided into
+     * $parentLocationIdList.
+     *
+     * @param string $address
+     * @param int[] $parentLocationIdList
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     */
+    protected function createContentEmailWithAddress(string $address, array $parentLocationIdList = []): Content
+    {
+        $contentService = $this->getRepository()->getContentService();
+        $locationService = $this->getRepository()->getLocationService();
+
+        $testableContentType = $this->createTestContentTypeWithEmailField();
+
+        $rootContentStruct = $contentService->newContentCreateStruct($testableContentType, 'eng-GB');
+        $rootContentStruct->setField('email', $address);
+
+        $parentLocationList = [];
+        foreach ($parentLocationIdList as $locationID) {
+            $parentLocationList[] = $locationService->newLocationCreateStruct($locationID);
+        }
+
+        $contentDraft = $contentService->createContent($rootContentStruct, $parentLocationList);
+
+        return $contentService->publishVersion($contentDraft->getVersionInfo());
     }
 
     /**
