@@ -13,10 +13,12 @@ use Doctrine\DBAL\Connection;
 use eZ\Bundle\EzPublishCoreBundle\EzPublishCoreBundle;
 use eZ\Bundle\EzPublishLegacySearchEngineBundle\EzPublishLegacySearchEngineBundle;
 use eZ\Publish\API\Repository;
+use eZ\Publish\Core\IO\Adapter\LocalAdapter;
 use eZ\Publish\SPI\Persistence\TransactionHandler;
 use eZ\Publish\SPI\Tests\Persistence\YamlFixture;
 use FOS\JsRoutingBundle\FOSJsRoutingBundle;
 use JMS\TranslationBundle\JMSTranslationBundle;
+use League\Flysystem\Memory\MemoryAdapter;
 use Liip\ImagineBundle\LiipImagineBundle;
 use Psr\Log\NullLogger;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
@@ -150,6 +152,7 @@ class IbexaTestKernel extends Kernel
         $this->loadServices($loader);
 
         $loader->load(static function (ContainerBuilder $container): void {
+            self::prepareIOServices($container);
             self::createPublicAliasesForServicesUnderTest($container);
             self::setUpTestLogger($container);
         });
@@ -193,6 +196,11 @@ class IbexaTestKernel extends Kernel
     private static function getResourcesPath(): string
     {
         return dirname(__DIR__, 3) . '/eZ/Bundle/EzPublishCoreBundle/Tests/Resources';
+    }
+
+    private static function prepareIOServices(ContainerBuilder $container): void
+    {
+        $container->setDefinition(LocalAdapter::class, new Definition(MemoryAdapter::class));
     }
 
     private static function createPublicAliasesForServicesUnderTest(ContainerBuilder $container): void
