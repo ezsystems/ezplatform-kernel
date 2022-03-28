@@ -116,6 +116,7 @@ class DoctrineDatabase extends Gateway
                     ? $fullTextValue->transformationRules
                     : $this->fullTextSearchConfiguration['commands']
             );
+
             // split by non-words
             $wordArray = $fullTextValue->splitFlag ? preg_split('/\W/u', $text, -1, PREG_SPLIT_NO_EMPTY) : [$text];
             foreach ($wordArray as $word) {
@@ -244,6 +245,7 @@ class DoctrineDatabase extends Gateway
 
         for ($i = 0; $i < count($indexArray); ++$i) {
             $indexWord = $indexArray[$i]['Word'];
+            $indexWord = $this->transformationProcessor->transformByGroup($indexWord, 'lowercase');
             $contentFieldId = $indexArray[$i]['ContentClassAttributeID'];
             $identifier = $indexArray[$i]['identifier'];
             $integerValue = $indexArray[$i]['integer_value'];
@@ -257,6 +259,7 @@ class DoctrineDatabase extends Gateway
 
             if (isset($indexArray[$i + 1])) {
                 $nextIndexWord = $indexArray[$i + 1]['Word'];
+                $nextIndexWord = $this->transformationProcessor->transformByGroup($nextIndexWord, 'lowercase');
                 $nextWordId = $wordIDArray[$nextIndexWord];
             } else {
                 $nextWordId = 0;
