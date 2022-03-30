@@ -184,6 +184,7 @@ class QueryControllerContext extends RawMinkContext implements Context
         );
 
         $this->visitPath($urlAlias->path);
+        usleep(500000);
 
         if ($this->getSession()->getStatusCode() !== 200) {
             $page = $this->getSession()->getPage();
@@ -310,6 +311,7 @@ class QueryControllerContext extends RawMinkContext implements Context
         );
 
         $this->visitPath($urlAlias->path . "?$pageParam=$pageNumber");
+        usleep(500000);
 
         if ($this->getSession()->getStatusCode() !== 200) {
             $page = $this->getSession()->getPage();
