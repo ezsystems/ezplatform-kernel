@@ -56,11 +56,6 @@ parameters:
 			path: eZ/Bundle/EzPublishCoreBundle/Features/Context/ContentTypeContext.php
 
 		-
-			message: "#^Access to an undefined property eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\Features\\\\Context\\\\QueryControllerContext\\:\\:\\$repository\\.$#"
-			count: 7
-			path: eZ/Bundle/EzPublishCoreBundle/Features/Context/QueryControllerContext.php
-
-		-
 			message: "#^Method eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\Features\\\\Context\\\\UserContext\\:\\:ensureUserExists\\(\\) invoked with 2 parameters, 3\\-4 required\\.$#"
 			count: 1
 			path: eZ/Bundle/EzPublishCoreBundle/Features/Context/UserContext.php

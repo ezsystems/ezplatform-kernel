@@ -17,7 +17,17 @@ core:
                 - eZ\Bundle\EzPublishCoreBundle\Features\Context\ExceptionContext
         query_controller:
             paths:
-                - vendor/ezsystems/ezplatform-kernel/eZ/Bundle/EzPublishCoreBundle/Features/QueryController
+                - vendor/ezsystems/ezplatform-kernel/eZ/Bundle/EzPublishCoreBundle/Features/QueryController/query_controller.feature
             contexts:
+                - Behat\MinkExtension\Context\MinkContext
                 - eZ\Bundle\EzPublishCoreBundle\Features\Context\QueryControllerContext
-                - eZ\Bundle\EzPublishCoreBundle\Features\Context\YamlConfigurationContext
+                - EzSystems\Behat\API\Context\ContentContext
+                - EzSystems\Behat\API\Context\TestContext
+        setup:
+            paths:
+                - vendor/ezsystems/ezplatform-kernel/eZ/Bundle/EzPublishCoreBundle/Features/QueryController/setup.feature
+            contexts:
+                - EzSystems\Behat\API\Context\ContentContext
+                - EzSystems\Behat\API\Context\TestContext
+                - EzSystems\Behat\Core\Context\ConfigurationContext
+                - EzSystems\Behat\Core\Context\FileContext

@@ -16,10 +16,7 @@ services:
         arguments:
             $kernel: '@kernel'
 
-    eZ\Bundle\EzPublishCoreBundle\Features\Context\QueryControllerContext:
-        public: true
-        arguments:
-            $repository: '@ezpublish.api.repository'
+    eZ\Bundle\EzPublishCoreBundle\Features\Context\QueryControllerContext: ~
 
     eZ\Bundle\EzPublishCoreBundle\Features\Context\ContentTypeContext:
         public: true
