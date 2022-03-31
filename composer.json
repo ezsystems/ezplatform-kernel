@@ -126,6 +126,7 @@
             "Composer\\Config::disableProcessTimeout",
             "phpunit -c phpunit-integration-legacy.xml"
         ],
+        "test-integration-solr": "phpunit -c phpunit-integration-legacy-solr.xml",
         "test": [
             "@unit",
             "@integration"

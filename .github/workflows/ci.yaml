@@ -166,7 +166,7 @@ jobs:
                 with:
                     php-version: ${{ matrix.php }}
                     coverage: none
-                    extensions: pdo_mysql, gd
+                    extensions: pdo_mysql, gd, redis
                     tools: cs2pr
 
             -   uses: "ramsey/composer-install@v1"
@@ -181,3 +181,59 @@ jobs:
                 env:
                     DATABASE_URL: "mysql://mysql:mysql@127.0.0.1:${{ job.services.mysql.ports[3306] }}/testdb"
                     DATABASE: "mysql://mysql:mysql@127.0.0.1:${{ job.services.mysql.ports[3306] }}/testdb"
+
+    solr-integration:
+        name: "Solr integration tests"
+        runs-on: "ubuntu-20.04"
+        timeout-minutes: 30
+        permissions:
+            packages: read
+            contents: read
+        services:
+            redis:
+                image: redis
+                ports:
+                    - 6379:6379
+                options: 
+                    --memory=60m
+            solr:
+                image: ghcr.io/ibexa/core/solr
+                ports:
+                    - 8983:8983
+                options: >-
+                    --health-cmd "solr status"
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 10
+        strategy:
+            fail-fast: false
+            matrix:
+                php:
+                    - '7.4'
+                    - '8.0'
+                    - '8.1'
+        steps:   
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+
+            - name: Setup PHP Action
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+                  coverage: none
+            
+            - name: Add solr dependency
+              run: composer require --no-update "ezsystems/ezplatform-solr-search-engine:^3.3@dev"
+
+            - uses: "ramsey/composer-install@v1"
+              with:
+                  dependency-versions: "highest"
+
+            - name: Run integration test suite
+              run: composer test-integration-solr
+              env:
+                    CUSTOM_CACHE_POOL: singleredis
+                    CACHE_HOST: 127.0.0.1
+                    CORES_SETUP: single
+
