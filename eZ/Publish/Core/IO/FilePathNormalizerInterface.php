@@ -13,5 +13,5 @@ namespace eZ\Publish\Core\IO;
  */
 interface FilePathNormalizerInterface
 {
-    public function normalizePath(string $filePath): string;
+    public function normalizePath(string $filePath, bool $doHash = true): string;
 }

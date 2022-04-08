@@ -18,6 +18,7 @@ use eZ\Publish\Core\IO\Values\BinaryFileCreateStruct;
 use eZ\Publish\Core\IO\Values\MissingBinaryFile;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -34,6 +35,8 @@ final class NormalizeImagesPathsCommand extends Command
 - Manually clear SPI/HTTP cache after running this command.
 EOT;
 
+    private const SKIP_HASHING_COMMAND_PARAMETER = 'no-hash';
+
     protected static $defaultName = 'ibexa:images:normalize-paths';
 
     /** @var \eZ\Publish\Core\FieldType\Image\ImageStorage\Gateway */
@@ -47,6 +50,9 @@ EOT;
 
     /** @var \eZ\Publish\Core\IO\IOServiceInterface */
     private $ioService;
+
+    /** @var bool */
+    private $skipHashing;
 
     public function __construct(
         ImageStorageGateway $imageGateway,
@@ -68,6 +74,12 @@ EOT;
 
         $this
             ->setDescription('Normalizes stored paths for images.')
+            ->addOption(
+                self::SKIP_HASHING_COMMAND_PARAMETER,
+                null,
+                InputOption::VALUE_NONE,
+                'Skip filenames hashing'
+            )
             ->setHelp(
                 <<<EOT
 The command <info>%command.name%</info> normalizes paths for images.
@@ -80,12 +92,18 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+
         $io->title('Normalize image paths');
 
         $io->writeln([
             'Determining the number of images that require path normalization.',
             'It may take some time.',
         ]);
+
+        $this->skipHashing = $input->getOption(self::SKIP_HASHING_COMMAND_PARAMETER);
+        $this->skipHashing
+            ? $io->caution('Images\'s filenames will not be hashed.')
+            : $io->caution('Images\'s filenames will be hashed with format {hash}-{sanitized name}.');
 
         $imagePathsToNormalize = $this->getImagePathsToNormalize($io);
 
@@ -222,7 +240,7 @@ EOT
 
         return !empty($processedPaths)
             ? $processedPaths[0]['newPath']
-            : $this->filePathNormalizer->normalizePath($filePath);
+            : $this->filePathNormalizer->normalizePath($filePath, !$this->skipHashing);
     }
 
     private function getImagePathsToNormalize(SymfonyStyle $io): array
