@@ -102,8 +102,8 @@ EOT
 
         $this->skipHashing = $input->getOption(self::SKIP_HASHING_COMMAND_PARAMETER);
         $this->skipHashing
-            ? $io->caution('Images\'s filenames will not be hashed.')
-            : $io->caution('Images\'s filenames will be hashed with format {hash}-{sanitized name}.');
+            ? $io->caution('Images\' filenames will not be hashed.')
+            : $io->caution('Images\' filenames will be hashed with format {hash}-{sanitized name}.');
 
         $imagePathsToNormalize = $this->getImagePathsToNormalize($io);
 
