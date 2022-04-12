@@ -29,7 +29,7 @@ final class Flysystem implements FilePathNormalizerInterface
         $fileName = pathinfo($filePath, PATHINFO_BASENAME);
         $directory = pathinfo($filePath, PATHINFO_DIRNAME);
 
-        $fileName = $this->slugConverter->convert($fileName);
+        $fileName = $this->slugConverter->convert($fileName, '_1', 'urlalias');
 
         $hash = $doHash
             ? (preg_match(self::HASH_PATTERN, $fileName) ? '' : bin2hex(random_bytes(6)) . '-')
