@@ -24,14 +24,16 @@ final class Flysystem implements FilePathNormalizerInterface
         $this->slugConverter = $slugConverter;
     }
 
-    public function normalizePath(string $filePath): string
+    public function normalizePath(string $filePath, bool $doHash = true): string
     {
         $fileName = pathinfo($filePath, PATHINFO_BASENAME);
         $directory = pathinfo($filePath, PATHINFO_DIRNAME);
 
-        $fileName = $this->slugConverter->convert($fileName);
+        $fileName = $this->slugConverter->convert($fileName, '_1', 'urlalias');
 
-        $hash = preg_match(self::HASH_PATTERN, $fileName) ? '' : bin2hex(random_bytes(6)) . '-';
+        $hash = $doHash
+            ? (preg_match(self::HASH_PATTERN, $fileName) ? '' : bin2hex(random_bytes(6)) . '-')
+            : '';
 
         $filePath = $directory . \DIRECTORY_SEPARATOR . $hash . $fileName;
 
