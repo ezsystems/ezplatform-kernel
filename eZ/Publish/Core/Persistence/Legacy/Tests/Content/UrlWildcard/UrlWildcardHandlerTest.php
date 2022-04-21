@@ -13,6 +13,8 @@ use eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Handler;
 use eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Mapper;
 use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
+use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter;
+use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\MatchAll;
 
 /**
  * Test case for UrlWildcard Handler.
@@ -245,7 +247,8 @@ class UrlWildcardHandlerTest extends TestCase
     protected function getHandler(): UrlWildcard\Handler
     {
         if (!isset($this->urlWildcardHandler)) {
-            $this->gateway = new DoctrineDatabase($this->getDatabaseConnection());
+            $criteriaConverter = new CriteriaConverter([new MatchAll()]);
+            $this->gateway = new DoctrineDatabase($this->getDatabaseConnection(), $criteriaConverter);
             $this->mapper = new Mapper();
 
             $this->urlWildcardHandler = new Handler(

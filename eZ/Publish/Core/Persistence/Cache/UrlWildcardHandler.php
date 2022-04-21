@@ -10,6 +10,7 @@ use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundExcepti
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
 use eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler as UrlWildcardHandlerInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\URLWildcardQuery;
 
 class UrlWildcardHandler extends AbstractHandler implements UrlWildcardHandlerInterface
 {
@@ -130,6 +131,16 @@ class UrlWildcardHandler extends AbstractHandler implements UrlWildcardHandlerIn
         $this->logger->logCall(__METHOD__, ['offset' => $offset, 'limit' => $limit]);
 
         return $this->persistenceHandler->urlWildcardHandler()->loadAll($offset, $limit);
+    }
+
+    /**
+     * @see \eZ\Publish\SPI\Persistence\Content\UrlWildcard\Handler::find
+     */
+    public function find(URLWildcardQuery $query): array
+    {
+        $this->logger->logCall(__METHOD__, ['query' => $query]);
+
+        return $this->persistenceHandler->urlWildcardHandler()->find($query);
     }
 
     /**

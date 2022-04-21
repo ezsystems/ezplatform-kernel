@@ -7,6 +7,7 @@
 namespace eZ\Publish\SPI\Persistence\Content\UrlWildcard;
 
 use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\URLWildcardQuery;
 
 /**
  * The UrlWildcard Handler interface provides nice urls with wildcards management.
@@ -63,6 +64,13 @@ interface Handler
      * @return \eZ\Publish\SPI\Persistence\Content\UrlWildcard[]
      */
     public function loadAll($offset = 0, $limit = -1);
+
+    /**
+     * Find URLWildcards.
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     */
+    public function find(URLWildcardQuery $query): array;
 
     /**
      * Performs lookup for given (source) URL.
