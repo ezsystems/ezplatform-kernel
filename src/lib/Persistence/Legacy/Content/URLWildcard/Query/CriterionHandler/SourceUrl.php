@@ -12,14 +12,14 @@ use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
 use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter;
 use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler;
 
-final class DestinationUrl implements CriterionHandler
+final class SourceUrl implements CriterionHandler
 {
     /**
      * {@inheritdoc}
      */
     public function accept(Criterion $criterion): bool
     {
-        return $criterion instanceof Criterion\DestinationUrl;
+        return $criterion instanceof Criterion\SourceUrl;
     }
 
     /**
@@ -30,13 +30,13 @@ final class DestinationUrl implements CriterionHandler
         QueryBuilder $queryBuilder,
         Criterion $criterion
     ) {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion\DestinationUrl $criterion */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion\SourceUrl $criterion */
         return $queryBuilder->expr()->like(
-            'destination_url',
+            'source_url',
             $queryBuilder->createNamedParameter(
-                '%' . $criterion->destinationUrl . '%',
+                '%' . $criterion->sourceUrl . '%',
                 ParameterType::STRING,
-                ':destination_url'
+                ':source_url'
             )
         );
     }

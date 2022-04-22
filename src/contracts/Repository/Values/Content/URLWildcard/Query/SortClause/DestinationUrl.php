@@ -14,6 +14,6 @@ final class DestinationUrl extends SortClause
 {
     public function __construct(string $sortDirection = self::SORT_ASC)
     {
-        parent::__construct('destinationUrl', $sortDirection);
+        parent::__construct('destination_url', $sortDirection);
     }
 }

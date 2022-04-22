@@ -6,6 +6,7 @@
  */
 namespace eZ\Publish\Core\Base\Container\Compiler\Search\Legacy;
 
+use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -58,6 +59,12 @@ class CriteriaConverterPass implements CompilerPassInterface
             $urlCriteriaHandlers = $container->findTaggedServiceIds('ezpublish.persistence.legacy.url.criterion_handler');
 
             $this->addHandlers($urlCriteriaConverter, $urlCriteriaHandlers);
+        }
+
+        if ($container->hasDefinition(CriteriaConverter::class)) {
+            $urlWildcardCriteriaConverter = $container->getDefinition(CriteriaConverter::class);
+            $urlWildcardCriteriaHandlers = $container->findTaggedServiceIds('ibexa.storage.legacy.url_wildcard.criterion.handler');
+            $this->addHandlers($urlWildcardCriteriaConverter, $urlWildcardCriteriaHandlers);
         }
     }
 

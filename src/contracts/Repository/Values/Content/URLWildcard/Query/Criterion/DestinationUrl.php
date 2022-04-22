@@ -18,14 +18,14 @@ final class DestinationUrl extends Matcher
      *
      * @var string
      */
-    public $alias;
+    public $destinationUrl;
 
-    public function __construct(string $alias)
+    public function __construct(string $destinationUrl)
     {
-        if ($alias === '') {
-            throw new \InvalidArgumentException('URL alias cannot be empty.');
+        if ($destinationUrl === '') {
+            throw new \InvalidArgumentException('URLWildcard destination url cannot be empty.');
         }
 
-        $this->alias = $alias;
+        $this->destinationUrl = $destinationUrl;
     }
 }
