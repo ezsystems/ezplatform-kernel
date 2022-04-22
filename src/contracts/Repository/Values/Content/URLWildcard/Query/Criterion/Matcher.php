@@ -10,6 +10,6 @@ namespace Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Crite
 
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
 
-abstract class Matcher extends Criterion
+abstract class Matcher implements Criterion
 {
 }

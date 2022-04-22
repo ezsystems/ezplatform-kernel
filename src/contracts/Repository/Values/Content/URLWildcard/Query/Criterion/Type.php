@@ -11,7 +11,7 @@ namespace Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Crite
 /**
  * Matches URLWildcards based on type.
  */
-class Type extends Matcher
+final class Type extends Matcher
 {
     /**
      * @var bool

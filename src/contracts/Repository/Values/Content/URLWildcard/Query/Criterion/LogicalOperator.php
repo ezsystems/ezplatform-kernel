@@ -11,7 +11,7 @@ namespace Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Crite
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
 use InvalidArgumentException;
 
-abstract class LogicalOperator extends Criterion
+abstract class LogicalOperator implements Criterion
 {
     /**
      * The set of criteria combined by the logical operator.

@@ -10,9 +10,10 @@ namespace Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 
 use ArrayIterator;
 use eZ\Publish\API\Repository\Values\ValueObject;
+use IteratorAggregate;
 use Traversable;
 
-class SearchResult extends ValueObject implements \IteratorAggregate
+class SearchResult extends ValueObject implements IteratorAggregate
 {
     /**
      * The total number of URLs.

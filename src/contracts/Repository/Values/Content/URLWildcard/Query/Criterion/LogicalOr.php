@@ -8,6 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
 
-class LogicalOr extends LogicalOperator
+final class LogicalOr extends LogicalOperator
 {
 }

@@ -9,12 +9,12 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
 
 /**
- * Matches URLWildcards which contains the alias.
+ * Matches URLWildcards which contains the destination Url.
  */
-class Alias extends Matcher
+final class DestinationUrl extends Matcher
 {
     /**
-     * String which needs to part of URLWildcard alias e.g. ez.no.
+     * String which needs to part of URLWildcard destination Url e.g. ez.no.
      *
      * @var string
      */

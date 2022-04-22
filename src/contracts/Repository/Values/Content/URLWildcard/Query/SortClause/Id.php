@@ -10,13 +10,8 @@ namespace Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\SortC
 
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\SortClause;
 
-class Id extends SortClause
+final class Id extends SortClause
 {
-    /**
-     * Constructs a new Id SortClause.
-     *
-     * @param string $sortDirection
-     */
     public function __construct(string $sortDirection = self::SORT_ASC)
     {
         parent::__construct('id', $sortDirection);

@@ -24,5 +24,4 @@ services:
             - "@ezpublish.persistence.legacy.url_wildcard.mapper"
         lazy: true
 
-    Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter:
-        class: Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter
+    Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter: ~

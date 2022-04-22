@@ -10,7 +10,7 @@ namespace Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\SortC
 
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\SortClause;
 
-class DestinationUrl extends SortClause
+final class DestinationUrl extends SortClause
 {
     public function __construct(string $sortDirection = self::SORT_ASC)
     {

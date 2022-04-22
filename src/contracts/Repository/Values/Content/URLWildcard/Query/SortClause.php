@@ -35,7 +35,6 @@ abstract class SortClause
     /**
      * Constructs a new SortClause on $sortTarget in direction $sortDirection.
      *
-     * @param string $sortTarget
      * @param string $sortDirection one of SortClause::SORT_ASC or SortClause::SORT_DESC
      *
      * @throws \InvalidArgumentException if the given sort order isn't one of SortClause::SORT_ASC or SortClause::SORT_DESC

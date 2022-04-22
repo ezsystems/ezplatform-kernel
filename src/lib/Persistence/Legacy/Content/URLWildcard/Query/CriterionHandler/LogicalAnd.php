@@ -6,17 +6,18 @@
  */
 namespace Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler;
 
+use Doctrine\DBAL\Query\Expression\CompositeExpression;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
 use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter;
 use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler;
 
-class LogicalAnd implements CriterionHandler
+final class LogicalAnd implements CriterionHandler
 {
     /**
      * {@inheritdoc}
      */
-    public function accept(Criterion $criterion)
+    public function accept(Criterion $criterion): bool
     {
         return $criterion instanceof Criterion\LogicalAnd;
     }
@@ -26,7 +27,7 @@ class LogicalAnd implements CriterionHandler
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
      */
-    public function handle(CriteriaConverter $converter, QueryBuilder $queryBuilder, Criterion $criterion)
+    public function handle(CriteriaConverter $converter, QueryBuilder $queryBuilder, Criterion $criterion): CompositeExpression
     {
         $subexpressions = [];
         foreach ($criterion->criteria as $subCriterion) {

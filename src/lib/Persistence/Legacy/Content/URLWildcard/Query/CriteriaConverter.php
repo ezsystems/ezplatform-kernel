@@ -10,14 +10,14 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
 
-class CriteriaConverter
+final class CriteriaConverter
 {
     /**
      * Criterion handlers.
      *
      * @var \Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler[]
      */
-    protected $handlers;
+    private $handlers;
 
     /**
      * Construct from an optional array of Criterion handlers.
@@ -34,7 +34,7 @@ class CriteriaConverter
      *
      * @param \Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler $handler
      */
-    public function addHandler(CriterionHandler $handler)
+    public function addHandler(CriterionHandler $handler): void
     {
         $this->handlers[] = $handler;
     }

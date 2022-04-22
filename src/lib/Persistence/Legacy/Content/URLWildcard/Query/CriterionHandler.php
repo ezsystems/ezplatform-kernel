@@ -13,12 +13,8 @@ interface CriterionHandler
 {
     /**
      * Check if this criterion handler accepts to handle the given criterion.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion $criterion
-     *
-     * @return bool
      */
-    public function accept(Criterion $criterion);
+    public function accept(Criterion $criterion): bool;
 
     /**
      * Generate query expression for a Criterion this handler accepts.
