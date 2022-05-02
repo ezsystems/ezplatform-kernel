@@ -20,6 +20,7 @@ use FOS\JsRoutingBundle\FOSJsRoutingBundle;
 use JMS\TranslationBundle\JMSTranslationBundle;
 use League\Flysystem\Memory\MemoryAdapter;
 use Liip\ImagineBundle\LiipImagineBundle;
+use LogicException;
 use Psr\Log\NullLogger;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
@@ -200,6 +201,14 @@ class IbexaTestKernel extends Kernel
 
     private static function prepareIOServices(ContainerBuilder $container): void
     {
+        if (!class_exists(MemoryAdapter::class)) {
+            throw new LogicException(sprintf(
+                'Missing %s class. Ensure that %s package is installed as a dev dependency',
+                MemoryAdapter::class,
+                'league/flysystem-memory',
+            ));
+        }
+
         $container->setDefinition(LocalAdapter::class, new Definition(MemoryAdapter::class));
     }
 
