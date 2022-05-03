@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension;
 
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 use Twig\Extension\AbstractExtension;
@@ -21,9 +22,13 @@ class QueryRenderingExtension extends AbstractExtension
     /** @var \Symfony\Component\HttpKernel\Fragment\FragmentHandler */
     private $fragmentHandler;
 
-    public function __construct(FragmentHandler $fragmentHandler)
+    /** @var \Symfony\Component\HttpFoundation\RequestStack */
+    private $requestStack;
+
+    public function __construct(FragmentHandler $fragmentHandler, RequestStack $requestStack)
     {
         $this->fragmentHandler = $fragmentHandler;
+        $this->requestStack = $requestStack;
     }
 
     public function getFunctions(): array
@@ -57,9 +62,15 @@ class QueryRenderingExtension extends AbstractExtension
 
     private function createControllerReference(array $options): ControllerReference
     {
-        return new ControllerReference('ez_query_render::renderQuery', [
-            'options' => $options,
-        ]);
+        $pageParam = isset($options['pagination']['page_param']) ? $options['pagination']['page_param'] : 'page';
+
+        return new ControllerReference(
+            'ez_query_render::renderQuery',
+            [
+                'options' => $options,
+            ],
+            [$pageParam => $this->requestStack->getCurrentRequest()->get($pageParam)],
+        );
     }
 
     /**
