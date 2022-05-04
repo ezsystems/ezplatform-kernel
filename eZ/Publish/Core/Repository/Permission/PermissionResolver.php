@@ -445,21 +445,6 @@ class PermissionResolver implements PermissionResolverInterface
             return $isTargetAware ? [] : null;
         }
 
-        // BC: for TargetAware Limitations return only instances of Target, for others return only non-Target instances
-        $targets = array_filter(
-            $targets,
-            static function ($target) use ($isTargetAware) {
-                $isTarget = $target instanceof Target;
-
-                return $isTargetAware ? $isTarget : !$isTarget;
-            }
-        );
-
-        // BC: treat empty targets after filtering as if they were empty the whole time
-        if (!$isTargetAware && empty($targets)) {
-            return null;
-        }
-
         return $targets;
     }
 }

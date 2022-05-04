@@ -12,6 +12,7 @@ use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\CriterionInterface;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
@@ -152,13 +153,15 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
             $targets = [];
         }
 
-        // the main focus here is an intent to update to a new Version
+        // the main focus here is an intent to update to a new Version and validate if target is Location by any chance
         foreach ($targets as $target) {
-            if (!$target instanceof Target\Version) {
+            if ($target instanceof Target\Version) {
+                $accessVote = $this->evaluateVersionTarget($target, $value);
+            } elseif ($target instanceof Location) {
+                $accessVote = self::ACCESS_GRANTED;
+            } else {
                 continue;
             }
-
-            $accessVote = $this->evaluateVersionTarget($target, $value);
 
             // continue evaluation of targets if there was no explicit grant/deny
             if ($accessVote === self::ACCESS_ABSTAIN) {
