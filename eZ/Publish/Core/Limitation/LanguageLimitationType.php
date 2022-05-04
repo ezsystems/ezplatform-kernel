@@ -157,7 +157,7 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
         foreach ($targets as $target) {
             if ($target instanceof Target\Version) {
                 $accessVote = $this->evaluateVersionTarget($target, $value);
-            } elseif ($target instanceof Location) {
+            } elseif ($target instanceof Location && count($targets) === 1) {
                 $accessVote = self::ACCESS_GRANTED;
             } else {
                 continue;
