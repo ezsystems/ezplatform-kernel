@@ -26,7 +26,7 @@ class ContentFieldValidationException extends APIContentFieldValidationException
      *  $fieldErrors["43"]["eng-GB"]->getTranslatableMessage();
      * </code>
      *
-     * @var \eZ\Publish\Core\FieldType\ValidationError[]
+     * @var array<array-key, array<string, \eZ\Publish\Core\FieldType\ValidationError>>
      */
     protected $errors;
 
@@ -35,7 +35,7 @@ class ContentFieldValidationException extends APIContentFieldValidationException
      *
      * Also sets the given $fieldErrors to the internal property, retrievable by getFieldErrors()
      *
-     * @param \eZ\Publish\Core\FieldType\ValidationError[] $errors
+     * @param array<array-key, array<string, \eZ\Publish\Core\FieldType\ValidationError>> $errors
      */
     public function __construct(array $errors)
     {
@@ -47,7 +47,7 @@ class ContentFieldValidationException extends APIContentFieldValidationException
     /**
      * Returns an array of field validation error messages.
      *
-     * @return \eZ\Publish\Core\FieldType\ValidationError[]
+     * @return array<array-key, array<string, \eZ\Publish\Core\FieldType\ValidationError>>
      */
     public function getFieldErrors()
     {
