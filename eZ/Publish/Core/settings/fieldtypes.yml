@@ -355,7 +355,8 @@ services:
         class: eZ\Publish\Core\FieldType\Relation\Type
         parent: ezpublish.fieldType
         arguments:
-            - "@ezpublish.spi.persistence.cache.contentHandler"
+            $handler: '@ezpublish.spi.persistence.cache.contentHandler'
+            $targetContentValidator: '@Ibexa\Core\Repository\Validator\TargetContentValidatorInterface'
         tags:
             - {name: ezplatform.field_type, alias: ezobjectrelation}
 
@@ -393,7 +394,8 @@ services:
         class: eZ\Publish\Core\FieldType\RelationList\Type
         parent: ezpublish.fieldType
         arguments:
-            - "@ezpublish.spi.persistence.cache.contentHandler"
+            $handler: '@ezpublish.spi.persistence.cache.contentHandler'
+            $targetContentValidator: '@Ibexa\Core\Repository\Validator\TargetContentValidatorInterface'
         tags:
             - {name: ezplatform.field_type, alias: ezobjectrelationlist}
 

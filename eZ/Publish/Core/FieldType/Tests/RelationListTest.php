@@ -15,6 +15,7 @@ use eZ\Publish\Core\FieldType\ValidationError;
 use eZ\Publish\SPI\FieldType\Value as SPIValue;
 use eZ\Publish\SPI\Persistence\Content\Handler as SPIContentHandler;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Ibexa\Core\Repository\Validator\TargetContentValidatorInterface;
 
 class RelationListTest extends FieldTypeTest
 {
@@ -24,9 +25,14 @@ class RelationListTest extends FieldTypeTest
     /** @var \eZ\Publish\SPI\Persistence\Content\Handler */
     private $contentHandler;
 
+    /** @var \Ibexa\Core\Repository\Validator\TargetContentValidatorInterface|\PHPUnit\Framework\MockObject\MockObject */
+    private $targetContentValidator;
+
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->targetContentValidator = $this->createMock(TargetContentValidatorInterface::class);
 
         $versionInfo14 = new VersionInfo([
             'versionNo' => 1,
@@ -88,7 +94,10 @@ class RelationListTest extends FieldTypeTest
      */
     protected function createFieldTypeUnderTest()
     {
-        $fieldType = new RelationList($this->contentHandler);
+        $fieldType = new RelationList(
+            $this->contentHandler,
+            $this->targetContentValidator
+        );
         $fieldType->setTransformationProcessor($this->getTransformationProcessorMock());
 
         return $fieldType;
@@ -775,6 +784,76 @@ class RelationListTest extends FieldTypeTest
                 ],
             ],
         ];
+    }
+
+    public function testValidateNotExistingContentRelations(): void
+    {
+        $invalidDestinationContentId = (int) 'invalid';
+        $invalidDestinationContentId2 = (int) 'invalid-second';
+
+        $this->targetContentValidator
+            ->expects(self::exactly(2))
+            ->method('validate')
+            ->withConsecutive([$invalidDestinationContentId], [$invalidDestinationContentId2])
+            ->willReturnOnConsecutiveCalls(
+                $this->generateValidationError($invalidDestinationContentId),
+                $this->generateValidationError($invalidDestinationContentId2)
+            );
+
+        $validationErrors = $this->doValidate([], new Value([$invalidDestinationContentId, $invalidDestinationContentId2]));
+
+        self::assertIsArray($validationErrors);
+        self::assertCount(2, $validationErrors);
+    }
+
+    public function testValidateInvalidContentType(): void
+    {
+        $destinationContentId = 12;
+        $destinationContentId2 = 13;
+        $allowedContentTypes = ['article', 'folder'];
+
+        $this->targetContentValidator
+            ->method('validate')
+            ->withConsecutive(
+                [$destinationContentId, $allowedContentTypes],
+                [$destinationContentId2, $allowedContentTypes]
+            )
+            ->willReturnOnConsecutiveCalls(
+                $this->generateContentTypeValidationError('test'),
+                $this->generateContentTypeValidationError('test')
+            );
+
+        $validationErrors = $this->doValidate(
+            ['fieldSettings' => ['selectionContentTypes' => $allowedContentTypes]],
+            new Value([$destinationContentId, $destinationContentId2])
+        );
+
+        self::assertIsArray($validationErrors);
+        self::assertCount(2, $validationErrors);
+    }
+
+    private function generateValidationError(string $contentId): ValidationError
+    {
+        return new ValidationError(
+            'Content with identifier %contentId% is not a valid relation target',
+            null,
+            [
+                '%contentId%' => $contentId,
+            ],
+            'targetContentId'
+        );
+    }
+
+    private function generateContentTypeValidationError(string $contentTypeIdentifier): ValidationError
+    {
+        return new ValidationError(
+            'Content Type %contentTypeIdentifier% is not a valid relation target',
+            null,
+            [
+                '%contentTypeIdentifier%' => $contentTypeIdentifier,
+            ],
+            'targetContentId'
+        );
     }
 
     /**
