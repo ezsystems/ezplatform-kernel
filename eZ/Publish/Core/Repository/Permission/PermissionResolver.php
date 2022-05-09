@@ -20,6 +20,7 @@ use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\Repository\Mapper\RoleDomainMapper;
 use eZ\Publish\Core\Repository\Values\User\UserReference;
+use eZ\Publish\SPI\Limitation\Target;
 use eZ\Publish\SPI\Limitation\TargetAwareType;
 use eZ\Publish\SPI\Limitation\Type as LimitationType;
 use eZ\Publish\SPI\Persistence\User\Handler as UserHandler;
@@ -442,6 +443,21 @@ class PermissionResolver implements PermissionResolverInterface
         // BC: null for empty targets is still expected by some Limitations, so needs to be preserved
         if (null === $targets) {
             return $isTargetAware ? [] : null;
+        }
+
+        // BC: for TargetAware Limitations return only instances of Target, for others return only non-Target instances
+        $targets = array_filter(
+            $targets,
+            static function ($target) use ($isTargetAware) {
+                $isTarget = $target instanceof Target;
+
+                return $isTargetAware ? $isTarget : !$isTarget;
+            }
+        );
+
+        // BC: treat empty targets after filtering as if they were empty the whole time
+        if (!$isTargetAware && empty($targets)) {
+            return null;
         }
 
         return $targets;
