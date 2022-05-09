@@ -44,6 +44,7 @@ use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
 use eZ\Publish\SPI\Persistence\Filter\Location\Handler as LocationFilteringHandler;
 use eZ\Publish\SPI\Persistence\Handler;
 use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Limitation\Target\DestinationLocation as DestinationLocationTarget;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -461,7 +462,10 @@ class LocationService implements LocationServiceInterface
             throw new UnauthorizedException('content', 'manage_locations', ['contentId' => $contentInfo->id]);
         }
 
-        if (!$this->permissionResolver->canUser('content', 'create', $contentInfo, [$parentLocation])) {
+        $locationTarget = (new DestinationLocationTarget(
+            ['id' => $parentLocation->id, 'targetContentInfo' => $contentInfo]
+        ));
+        if (!$this->permissionResolver->canUser('content', 'create', $contentInfo, [$parentLocation, $locationTarget])) {
             throw new UnauthorizedException('content', 'create', ['locationId' => $parentLocation->id]);
         }
 

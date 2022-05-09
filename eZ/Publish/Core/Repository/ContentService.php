@@ -64,6 +64,7 @@ use eZ\Publish\SPI\Persistence\Filter\Content\Handler as ContentFilteringHandler
 use eZ\Publish\SPI\Persistence\Handler;
 use eZ\Publish\SPI\Repository\Validator\ContentValidator;
 use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Limitation\Target\DestinationLocation as DestinationLocationTarget;
 use function sprintf;
 
 /**
@@ -1813,7 +1814,16 @@ class ContentService implements ContentServiceInterface
         $destinationLocation = $this->repository->getLocationService()->loadLocation(
             $destinationLocationCreateStruct->parentLocationId
         );
-        if (!$this->permissionResolver->canUser('content', 'create', $contentInfo, [$destinationLocation])) {
+
+        $locationTarget = (new DestinationLocationTarget(
+            ['id' => $destinationLocation->id, 'targetContentInfo' => $contentInfo]
+        ));
+        if (!$this->permissionResolver->canUser(
+            'content',
+            'create',
+            $contentInfo,
+            [$destinationLocation, $locationTarget],
+        )) {
             throw new UnauthorizedException(
                 'content',
                 'create',

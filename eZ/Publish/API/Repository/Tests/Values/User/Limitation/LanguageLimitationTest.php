@@ -12,6 +12,7 @@ use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
 use eZ\Publish\API\Repository\Tests\BaseTest;
 use eZ\Publish\API\Repository\Values\Content\Content;
+use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
 use eZ\Publish\API\Repository\Values\User\Limitation\LanguageLimitation;
 use eZ\Publish\API\Repository\Values\User\User;
 use eZ\Publish\SPI\Limitation\Target\Builder\VersionBuilder;
@@ -66,6 +67,7 @@ class LanguageLimitationTest extends BaseTest
                 ['module' => 'content', 'function' => 'create', 'limitations' => $limitations],
                 ['module' => 'content', 'function' => 'edit', 'limitations' => $limitations],
                 ['module' => 'content', 'function' => 'publish', 'limitations' => $limitations],
+                ['module' => 'content', 'function' => 'manage_locations'],
             ]
         );
     }
@@ -488,6 +490,30 @@ class LanguageLimitationTest extends BaseTest
         $this->expectException(UnauthorizedException::class);
         $this->expectExceptionMessage("The User does not have the 'publish' 'content' permission");
         $contentService->publishVersion($draft->versionInfo, [self::GER_DE, self::ENG_GB]);
+    }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     */
+    public function testCopyContentWithLanguageLimitationDifferentThanInitialLanguageCode(): void
+    {
+        $repository = $this->getRepository();
+        $contentService = $repository->getContentService();
+        $permissionResolver = $repository->getPermissionResolver();
+
+        $draft = $this->createMultilingualFolderDraft($contentService);
+        $content = $contentService->publishVersion($draft->getVersionInfo());
+
+        $permissionResolver->setCurrentUserReference(
+            $this->createEditorUserWithLanguageLimitation([self::GER_DE])
+        );
+
+        $locationCreateStruct = new LocationCreateStruct(['parentLocationId' => 2]);
+        $content = $contentService->copyContent($content->contentInfo, $locationCreateStruct);
+
+        self::assertInstanceOf(Content::class, $content);
     }
 
     /**

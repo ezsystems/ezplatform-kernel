@@ -12,7 +12,6 @@ use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\CriterionInterface;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
@@ -28,6 +27,7 @@ use eZ\Publish\SPI\Limitation\TargetAwareType as SPITargetAwareLimitationType;
 use eZ\Publish\SPI\Persistence\Content\Handler as SPIPersistenceContentHandler;
 use eZ\Publish\SPI\Persistence\Content\Language\Handler as SPIPersistenceLanguageHandler;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo as SPIVersionInfo;
+use Ibexa\Contracts\Core\Limitation\Target\DestinationLocation as DestinationLocationTarget;
 
 /**
  * LanguageLimitation is a Content limitation.
@@ -153,12 +153,16 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
             $targets = [];
         }
 
-        // the main focus here is an intent to update to a new Version and validate if target is Location by any chance
+        // the main focus here is an intent to update to a new Version and if not, validate if target is Location
         foreach ($targets as $target) {
+            if (!$target instanceof Target) {
+                continue;
+            }
+
             if ($target instanceof Target\Version) {
                 $accessVote = $this->evaluateVersionTarget($target, $value);
-            } elseif ($target instanceof Location && count($targets) === 1) {
-                $accessVote = self::ACCESS_GRANTED;
+            } elseif ($target instanceof DestinationLocationTarget) {
+                $accessVote = $this->evaluateLocationTarget($target, $value);
             } else {
                 continue;
             }
@@ -190,12 +194,8 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
         if ($object instanceof Content) {
             $object = $object->getVersionInfo();
         } elseif ($object instanceof ContentInfo) {
-            try {
-                $object = $this->persistenceContentHandler->loadVersionInfo(
-                    $object->id,
-                    $object->currentVersionNo
-                );
-            } catch (NotFoundException $e) {
+            $object = $this->loadVersionInfo($object);
+            if ($object === null) {
                 return self::ACCESS_DENIED;
             }
         }
@@ -210,6 +210,18 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
         }
 
         return $accessVote;
+    }
+
+    private function loadVersionInfo(ContentInfo $contentInfo): ?SPIVersionInfo
+    {
+        try {
+            return $this->persistenceContentHandler->loadVersionInfo(
+                $contentInfo->id,
+                $contentInfo->currentVersionNo
+            );
+        } catch (NotFoundException $e) {
+            return null;
+        }
     }
 
     /**
@@ -256,6 +268,17 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
         }
 
         return $accessVote;
+    }
+
+    private function evaluateLocationTarget(
+        DestinationLocationTarget $location,
+        APILimitationValue $value
+    ): ?bool {
+        $versionInfo = $this->loadVersionInfo($location->targetContentInfo);
+
+        return array_intersect($versionInfo->languageCodes, $value->limitationValues)
+            ? self::ACCESS_GRANTED
+            : self::ACCESS_ABSTAIN;
     }
 
     /**
