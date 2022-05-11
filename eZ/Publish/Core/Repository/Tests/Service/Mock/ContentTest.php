@@ -5777,9 +5777,7 @@ class ContentTest extends BaseServiceMockTest
             ->with('sectionId')
             ->will(self::returnValue(42));
 
-        $destinationLocationTarget = (new DestinationLocation(
-            ['id' => $locationCreateStruct->parentLocationId, 'targetContentInfo' => $contentInfo]
-        ));
+        $destinationLocationTarget = (new DestinationLocation($locationCreateStruct->parentLocationId, $contentInfo));
         $permissionResolver
             ->method('canUser')
             ->with(
