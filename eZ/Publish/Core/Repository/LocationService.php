@@ -148,7 +148,13 @@ class LocationService implements LocationServiceInterface
         }
 
         // check create permission on target
-        if (!$this->permissionResolver->canUser('content', 'create', $loadedSubtree->getContentInfo(), [$loadedTargetLocation])) {
+        $locationTarget = (new DestinationLocationTarget($targetParentLocation->id, $loadedSubtree->contentInfo));
+        if (!$this->permissionResolver->canUser(
+            'content',
+            'create',
+            $loadedSubtree->getContentInfo(),
+            [$loadedTargetLocation, $locationTarget]
+        )) {
             throw new UnauthorizedException('content', 'create', ['locationId' => $loadedTargetLocation->id]);
         }
 
@@ -633,7 +639,13 @@ class LocationService implements LocationServiceInterface
      */
     public function hideLocation(APILocation $location): APILocation
     {
-        if (!$this->permissionResolver->canUser('content', 'hide', $location->getContentInfo(), [$location])) {
+        $locationTarget = (new DestinationLocationTarget($location->id, $location->contentInfo));
+        if (!$this->permissionResolver->canUser(
+            'content',
+            'hide',
+            $location->getContentInfo(),
+            [$location, $locationTarget]
+        )) {
             throw new UnauthorizedException('content', 'hide', ['locationId' => $location->id]);
         }
 
@@ -663,7 +675,13 @@ class LocationService implements LocationServiceInterface
      */
     public function unhideLocation(APILocation $location): APILocation
     {
-        if (!$this->permissionResolver->canUser('content', 'hide', $location->getContentInfo(), [$location])) {
+        $locationTarget = (new DestinationLocationTarget($location->id, $location->contentInfo));
+        if (!$this->permissionResolver->canUser(
+            'content',
+            'hide',
+            $location->getContentInfo(),
+            [$location, $locationTarget]
+        )) {
             throw new UnauthorizedException('content', 'hide', ['locationId' => $location->id]);
         }
 
@@ -708,7 +726,13 @@ class LocationService implements LocationServiceInterface
         }
 
         // check create permission on target location
-        if (!$this->permissionResolver->canUser('content', 'create', $location->getContentInfo(), [$newParentLocation])) {
+        $locationTarget = (new DestinationLocationTarget($newParentLocation->id, $location->contentInfo));
+        if (!$this->permissionResolver->canUser(
+            'content',
+            'create',
+            $location->getContentInfo(),
+            [$newParentLocation, $locationTarget]
+        )) {
             throw new UnauthorizedException('content', 'create', ['locationId' => $newParentLocation->id]);
         }
 

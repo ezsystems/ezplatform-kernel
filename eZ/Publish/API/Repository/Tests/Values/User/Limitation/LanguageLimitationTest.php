@@ -67,6 +67,7 @@ class LanguageLimitationTest extends BaseTest
                 ['module' => 'content', 'function' => 'create', 'limitations' => $limitations],
                 ['module' => 'content', 'function' => 'edit', 'limitations' => $limitations],
                 ['module' => 'content', 'function' => 'publish', 'limitations' => $limitations],
+                ['module' => 'content', 'function' => 'hide', 'limitations' => $limitations],
                 ['module' => 'content', 'function' => 'manage_locations'],
             ]
         );
@@ -493,11 +494,113 @@ class LanguageLimitationTest extends BaseTest
     }
 
     /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
     public function testCopyContentWithLanguageLimitationDifferentThanInitialLanguageCode(): void
+    {
+        $repository = $this->getRepository();
+        $contentService = $repository->getContentService();
+
+        $content = $this->prepareDataForLocationRelatedTests();
+
+        $locationCreateStruct = new LocationCreateStruct(['parentLocationId' => 2]);
+        $content = $contentService->copyContent($content->contentInfo, $locationCreateStruct);
+
+        self::assertNotSame(self::GER_DE, $content->getVersionInfo()->initialLanguageCode);
+
+        $clonedContent = $contentService->loadContent($content->id);
+
+        self::assertSame($content->getVersionInfo()->languageCodes, $clonedContent->getVersionInfo()->languageCodes);
+    }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     */
+    public function testCopySubtreeWithLanguageLimitationDifferentThanInitialLanguageCode(): void
+    {
+        $repository = $this->getRepository();
+        $locationService = $repository->getLocationService();
+
+        $content = $this->prepareDataForLocationRelatedTests();
+
+        $contentLocation = $locationService->loadLocation($content->contentInfo->mainLocationId);
+        $targetLocation = $locationService->loadLocation(2);
+        $location = $locationService->copySubtree($contentLocation, $targetLocation);
+
+        $clonedContent = $locationService->loadLocation($location->id)->getContent();
+
+        self::assertSame($content->getVersionInfo()->languageCodes, $clonedContent->getVersionInfo()->languageCodes);
+    }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     */
+    public function testMoveSubtreeWithLanguageLimitationDifferentThanInitialLanguageCode(): void
+    {
+        $repository = $this->getRepository();
+        $locationService = $repository->getLocationService();
+        $contentService = $repository->getContentService();
+
+        $content = $this->prepareDataForLocationRelatedTests();
+
+        $contentLocation = $locationService->loadLocation($content->contentInfo->mainLocationId);
+        $targetLocation = $locationService->loadLocation(52);
+        $locationService->moveSubtree($contentLocation, $targetLocation);
+
+        $movedContent = $contentService->loadContent($content->id);
+
+        self::assertSame($content->getVersionInfo()->languageCodes, $movedContent->getVersionInfo()->languageCodes);
+    }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     */
+    public function testHideUnhideLocationWithLanguageLimitationDifferentThanInitialLanguageCode(): void
+    {
+        $repository = $this->getRepository();
+        $locationService = $repository->getLocationService();
+
+        $content = $this->prepareDataForLocationRelatedTests();
+
+        $location = $locationService->loadLocation($content->contentInfo->mainLocationId);
+        $locationService->hideLocation($location);
+
+        $hiddenLocation = $locationService->loadLocation($location->id);
+
+        self::assertSame(
+            $content->getVersionInfo()->languageCodes,
+            $hiddenLocation->getContent()->getVersionInfo()->languageCodes
+        );
+
+        $visibleLocation = $locationService->unhideLocation($hiddenLocation);
+
+        self::assertSame(
+            $content->getVersionInfo()->languageCodes,
+            $visibleLocation->getContent()->getVersionInfo()->languageCodes
+        );
+    }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
+     */
+    private function prepareDataForLocationRelatedTests(): Content
     {
         $repository = $this->getRepository();
         $contentService = $repository->getContentService();
@@ -510,14 +613,7 @@ class LanguageLimitationTest extends BaseTest
             $this->createEditorUserWithLanguageLimitation([self::GER_DE])
         );
 
-        $locationCreateStruct = new LocationCreateStruct(['parentLocationId' => 2]);
-        $content = $contentService->copyContent($content->contentInfo, $locationCreateStruct);
-
-        self::assertNotSame(self::GER_DE, $content->getVersionInfo()->initialLanguageCode);
-
-        $clonedContent = $contentService->loadContent($content->id);
-
-        self::assertSame($content->getVersionInfo()->languageCodes, $clonedContent->getVersionInfo()->languageCodes);
+        return $content;
     }
 
     /**
