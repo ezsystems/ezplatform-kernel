@@ -513,7 +513,11 @@ class LanguageLimitationTest extends BaseTest
         $locationCreateStruct = new LocationCreateStruct(['parentLocationId' => 2]);
         $content = $contentService->copyContent($content->contentInfo, $locationCreateStruct);
 
-        self::assertInstanceOf(Content::class, $content);
+        self::assertNotSame(self::GER_DE, $content->getVersionInfo()->initialLanguageCode);
+
+        $clonedContent = $contentService->loadContent($content->id);
+
+        self::assertSame($content->getVersionInfo()->languageCodes, $clonedContent->getVersionInfo()->languageCodes);
     }
 
     /**

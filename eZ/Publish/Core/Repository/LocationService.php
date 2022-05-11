@@ -462,9 +462,7 @@ class LocationService implements LocationServiceInterface
             throw new UnauthorizedException('content', 'manage_locations', ['contentId' => $contentInfo->id]);
         }
 
-        $locationTarget = (new DestinationLocationTarget(
-            ['id' => $parentLocation->id, 'targetContentInfo' => $contentInfo]
-        ));
+        $locationTarget = (new DestinationLocationTarget($parentLocation->id, $contentInfo));
         if (!$this->permissionResolver->canUser('content', 'create', $contentInfo, [$parentLocation, $locationTarget])) {
             throw new UnauthorizedException('content', 'create', ['locationId' => $parentLocation->id]);
         }

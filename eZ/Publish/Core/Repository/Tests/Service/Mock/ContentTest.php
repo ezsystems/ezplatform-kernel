@@ -5873,9 +5873,7 @@ class ContentTest extends BaseServiceMockTest
         $repositoryMock->expects($this->once())->method('beginTransaction');
         $repositoryMock->expects($this->once())->method('commit');
 
-        $destinationLocationTarget = (new DestinationLocation(
-            ['id' => $locationCreateStruct->parentLocationId, 'targetContentInfo' => $contentInfoMock]
-        ));
+        $destinationLocationTarget = (new DestinationLocation($locationCreateStruct->parentLocationId, $contentInfoMock));
         $permissionResolverMock
             ->method('canUser')
             ->withConsecutive(
@@ -6007,9 +6005,7 @@ class ContentTest extends BaseServiceMockTest
         $repositoryMock->expects($this->once())->method('beginTransaction');
         $repositoryMock->expects($this->once())->method('commit');
 
-        $destinationLocationTarget = (new DestinationLocation(
-            ['id' => $locationCreateStruct->parentLocationId, 'targetContentInfo' => $contentInfoMock]
-        ));
+        $destinationLocationTarget = (new DestinationLocation($locationCreateStruct->parentLocationId, $contentInfoMock));
         $permissionResolverMock
             ->method('canUser')
             ->withConsecutive(
@@ -6115,9 +6111,7 @@ class ContentTest extends BaseServiceMockTest
         $repositoryMock->expects($this->once())->method('beginTransaction');
         $repositoryMock->expects($this->once())->method('rollback');
 
-        $destinationLocationTarget = (new DestinationLocation(
-            ['id' => $locationCreateStruct->parentLocationId, 'targetContentInfo' => $contentInfoMock]
-        ));
+        $destinationLocationTarget = (new DestinationLocation($locationCreateStruct->parentLocationId, $contentInfoMock));
         $permissionResolverMock
             ->method('canUser')
             ->withConsecutive(

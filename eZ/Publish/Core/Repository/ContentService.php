@@ -1815,9 +1815,7 @@ class ContentService implements ContentServiceInterface
             $destinationLocationCreateStruct->parentLocationId
         );
 
-        $locationTarget = (new DestinationLocationTarget(
-            ['id' => $destinationLocation->id, 'targetContentInfo' => $contentInfo]
-        ));
+        $locationTarget = (new DestinationLocationTarget($destinationLocation->id, $contentInfo));
         if (!$this->permissionResolver->canUser(
             'content',
             'create',

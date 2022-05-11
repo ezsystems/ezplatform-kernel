@@ -274,7 +274,7 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
         DestinationLocationTarget $location,
         APILimitationValue $value
     ): ?bool {
-        $versionInfo = $this->loadVersionInfo($location->targetContentInfo);
+        $versionInfo = $this->loadVersionInfo($location->getTargetContentInfo());
 
         return array_intersect($versionInfo->languageCodes, $value->limitationValues)
             ? self::ACCESS_GRANTED
