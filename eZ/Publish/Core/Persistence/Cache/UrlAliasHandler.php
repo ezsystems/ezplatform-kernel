@@ -6,6 +6,7 @@
  */
 namespace eZ\Publish\Core\Persistence\Cache;
 
+use eZ\Publish\API\Repository\Exceptions\BadStateException;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\SPI\Persistence\Content\UrlAlias;
@@ -64,7 +65,12 @@ class UrlAliasHandler extends AbstractInMemoryPersistenceHandler implements UrlA
             $updatePathIdentificationString
         );
 
-        $existingLocationAliases = $urlAliasHandler->listURLAliasesForLocation($locationId);
+        try {
+            $existingLocationAliases = $urlAliasHandler->listURLAliasesForLocation($locationId);
+        } catch (BadStateException $e) {
+            $existingLocationAliases = [];
+        }
+
         $existingLocationAliasesTags = [];
         foreach ($existingLocationAliases ?? [] as $existingAlias) {
             $existingLocationAliasesTags[] = $this->cacheIdentifierGenerator->generateKey(
