@@ -72,8 +72,8 @@ class UrlAliasHandler extends AbstractInMemoryPersistenceHandler implements UrlA
         }
 
         $existingLocationAliasesTags = [];
-        foreach ($existingLocationAliases ?? [] as $existingAlias) {
-            $existingLocationAliasesTags[] = $this->cacheIdentifierGenerator->generateKey(
+        foreach ($existingLocationAliases as $existingAlias) {
+            $existingLocationAliasesTags[] = $this->cacheIdentifierGenerator->generateTag(
                 self::URL_ALIAS_IDENTIFIER,
                 [$existingAlias->id]
             );

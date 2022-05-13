@@ -1465,14 +1465,15 @@ class URLAliasServiceTest extends BaseTest
 
         $folderNames = ['eng-GB' => 'foo'];
         $folder = $this->createFolder($folderNames, 2);
+        $destinationFolder = $this->createFolder($folderNames, 2);
 
         $location = $locationService->loadLocation($folder->contentInfo->mainLocationId);
-        $newLocation = $locationService->loadLocation(43);
+        $destinationFolderLocation = $locationService->loadLocation($destinationFolder->contentInfo->mainLocationId);
 
-        $locationService->moveSubtree($location, $newLocation);
+        $locationService->moveSubtree($location, $destinationFolderLocation);
 
         $urlAliasService->lookup('foo');
-        $urlAliasService->lookup('media/foo');
+        $urlAliasService->lookup('foo2/foo');
 
         $newFolder = ['eng-GB' => 'foo'];
         $this->createFolder($newFolder, 2);
