@@ -1457,6 +1457,32 @@ class URLAliasServiceTest extends BaseTest
         $urlAliasService->refreshSystemUrlAliasesForLocation($nestedFolderLocation);
     }
 
+    public function testOverrideHistoryUrlAliasAtTheSameLocation(): void
+    {
+        $repository = $this->getRepository();
+        $urlAliasService = $repository->getURLAliasService();
+        $locationService = $repository->getLocationService();
+
+        $folderNames = ['eng-GB' => 'foo'];
+        $folder = $this->createFolder($folderNames, 2);
+        $destinationFolder = $this->createFolder($folderNames, 2);
+
+        $location = $locationService->loadLocation($folder->contentInfo->mainLocationId);
+        $destinationFolderLocation = $locationService->loadLocation($destinationFolder->contentInfo->mainLocationId);
+
+        $locationService->moveSubtree($location, $destinationFolderLocation);
+
+        $urlAliasService->lookup('foo');
+        $urlAliasService->lookup('foo2/foo');
+
+        $newFolder = ['eng-GB' => 'foo'];
+        $this->createFolder($newFolder, 2);
+
+        $newAlias = $urlAliasService->lookup('foo');
+
+        self::assertFalse($newAlias->isHistory);
+    }
+
     /**
      * Lookup given URL and check if it is archived and points to the given Location Id.
      *
