@@ -494,99 +494,215 @@ class LanguageLimitationTest extends BaseTest
     }
 
     /**
+     * @dataProvider providerForPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations
+     *
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    public function testCopyContentWithTranslationsDifferentThanLanguageLimitation(): void
-    {
+    public function testCopyContentWithLanguageLimitationAndDifferentContentTranslations(
+        array $limitationValues,
+        bool $containsAllTranslations
+    ): void {
         $repository = $this->getRepository();
         $contentService = $repository->getContentService();
 
-        $content = $this->testPrepareDataForTestsWithTranslationsDifferentThanLanguageLimitation();
+        $content = $this->testPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations(
+            $limitationValues,
+            $containsAllTranslations
+        );
 
         $locationCreateStruct = new LocationCreateStruct(['parentLocationId' => 2]);
 
-        self::expectException(UnauthorizedException::class);
+        if ($containsAllTranslations) {
+            $clonedContent = $contentService->copyContent($content->contentInfo, $locationCreateStruct);
 
-        $contentService->copyContent($content->contentInfo, $locationCreateStruct);
+            self::assertSame($content->getVersionInfo()->languageCodes, $clonedContent->getVersionInfo()->languageCodes);
+        } else {
+            self::expectException(UnauthorizedException::class);
+
+            $contentService->copyContent($content->contentInfo, $locationCreateStruct);
+        }
     }
 
     /**
+     * @dataProvider providerForPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations
+     *
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    public function testCopySubtreeWithTranslationsDifferentThanLanguageLimitation(): void
-    {
+    public function testCopySubtreeWithLanguageLimitationAndDifferentContentTranslations(
+        array $limitationValues,
+        bool $containsAllTranslations
+    ): void {
         $repository = $this->getRepository();
         $locationService = $repository->getLocationService();
 
-        $content = $this->testPrepareDataForTestsWithTranslationsDifferentThanLanguageLimitation();
+        $content = $this->testPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations(
+            $limitationValues,
+            $containsAllTranslations
+        );
 
         $contentLocation = $locationService->loadLocation($content->contentInfo->mainLocationId);
         $targetLocation = $locationService->loadLocation(2);
 
-        self::expectException(UnauthorizedException::class);
+        if ($containsAllTranslations) {
+            $location = $locationService->copySubtree($contentLocation, $targetLocation);
 
-        $locationService->copySubtree($contentLocation, $targetLocation);
+            self::assertSame(
+                $content->getVersionInfo()->languageCodes,
+                $location->getContent()->getVersionInfo()->languageCodes
+            );
+        } else {
+            self::expectException(UnauthorizedException::class);
+
+            $locationService->copySubtree($contentLocation, $targetLocation);
+        }
     }
 
     /**
+     * @dataProvider providerForPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations
+     *
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    public function testMoveSubtreeWithTranslationsDifferentThanLanguageLimitation(): void
-    {
+    public function testMoveSubtreeWithLanguageLimitationAndDifferentContentTranslations(
+        array $limitationValues,
+        bool $containsAllTranslations
+    ): void {
         $repository = $this->getRepository();
         $locationService = $repository->getLocationService();
         $contentService = $repository->getContentService();
 
         $targetContent = $this->createMultilingualFolderDraft($contentService);
-        $content = $this->testPrepareDataForTestsWithTranslationsDifferentThanLanguageLimitation();
+        $content = $this->testPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations(
+            $limitationValues,
+            $containsAllTranslations
+        );
 
         $contentLocation = $locationService->loadLocation($content->contentInfo->mainLocationId);
         $targetLocation = $locationService->loadLocation($targetContent->contentInfo->mainLocationId);
 
-        self::expectException(UnauthorizedException::class);
+        if ($containsAllTranslations) {
+            $locationService->moveSubtree($contentLocation, $targetLocation);
+            $targetLocation = $locationService->loadLocation($targetLocation->id);
 
-        $locationService->moveSubtree($contentLocation, $targetLocation);
+            self::assertSame(
+                $content->getVersionInfo()->languageCodes,
+                $targetLocation->getContent()->getVersionInfo()->languageCodes
+            );
+        } else {
+            self::expectException(UnauthorizedException::class);
+
+            $locationService->moveSubtree($contentLocation, $targetLocation);
+        }
     }
 
     /**
+     * @dataProvider providerForPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations
+     *
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    public function testHideLocationWithTranslationsDifferentThanLanguageLimitation(): void
-    {
+    public function testHideLocationWithLanguageLimitationAndDifferentContentTranslations(
+        array $limitationValues,
+        bool $containsAllTranslations
+    ): void {
         $repository = $this->getRepository();
         $locationService = $repository->getLocationService();
 
-        $content = $this->testPrepareDataForTestsWithTranslationsDifferentThanLanguageLimitation();
+        $content = $this->testPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations(
+            $limitationValues,
+            $containsAllTranslations
+        );
 
         $location = $locationService->loadLocation($content->contentInfo->mainLocationId);
 
-        self::expectException(UnauthorizedException::class);
+        if ($containsAllTranslations) {
+            $locationService->hideLocation($location);
+            $hiddenLocation = $locationService->loadLocation($location->id);
 
-        $locationService->hideLocation($location);
+            self::assertSame(
+                $content->getVersionInfo()->languageCodes,
+                $hiddenLocation->getContent()->getVersionInfo()->languageCodes
+            );
+        } else {
+            self::expectException(UnauthorizedException::class);
+
+            $locationService->hideLocation($location);
+        }
     }
 
     /**
+     * @dataProvider providerForPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     */
+    public function testHideAndUnhideLocationWithLanguageLimitationAndDifferentContentTranslations(
+        array $limitationValues,
+        bool $containsAllTranslations
+    ): void {
+        $repository = $this->getRepository();
+        $locationService = $repository->getLocationService();
+
+        $content = $this->testPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations(
+            $limitationValues,
+            $containsAllTranslations
+        );
+
+        $location = $locationService->loadLocation($content->contentInfo->mainLocationId);
+
+        if ($containsAllTranslations) {
+            $locationService->hideLocation($location);
+            $hiddenLocation = $locationService->loadLocation($location->id);
+
+            self::assertSame(
+                $content->getVersionInfo()->languageCodes,
+                $hiddenLocation->getContent()->getVersionInfo()->languageCodes
+            );
+
+            $locationService->unhideLocation($location);
+            $revealedLocation = $locationService->loadLocation($location->id);
+
+            self::assertSame(
+                $content->getVersionInfo()->languageCodes,
+                $revealedLocation->getContent()->getVersionInfo()->languageCodes
+            );
+        } else {
+            self::expectException(UnauthorizedException::class);
+
+            $locationService->hideLocation($location);
+
+            self::expectException(UnauthorizedException::class);
+
+            $locationService->unhideLocation($location);
+        }
+    }
+
+    /**
+     * @dataProvider providerForPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations
+     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
      */
-    public function testPrepareDataForTestsWithTranslationsDifferentThanLanguageLimitation(): Content
-    {
+    public function testPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations(
+        array $limitationValues,
+        bool $containsAllTranslations
+    ): Content {
         $repository = $this->getRepository();
         $contentService = $repository->getContentService();
         $permissionResolver = $repository->getPermissionResolver();
@@ -594,61 +710,23 @@ class LanguageLimitationTest extends BaseTest
         $draft = $this->createMultilingualFolderDraft($contentService);
         $content = $contentService->publishVersion($draft->getVersionInfo());
 
-        $limitationLanguages = [self::GER_DE];
-
-        // Validate that limitation value doesn't contain all version's languages
-        self::assertNotEmpty(array_diff($content->getVersionInfo()->languageCodes, $limitationLanguages));
+        $containsAllTranslations
+            ? self::assertEmpty(array_diff($content->getVersionInfo()->languageCodes, $limitationValues))
+            : self::assertNotEmpty(array_diff($content->getVersionInfo()->languageCodes, $limitationValues));
 
         $permissionResolver->setCurrentUserReference(
-            $this->createEditorUserWithLanguageLimitation($limitationLanguages)
+            $this->createEditorUserWithLanguageLimitation($limitationValues)
         );
 
         return $content;
     }
 
-    public function testCopyMoveHideAndUnhideContentWithLanguageLimitationsContainingAllTranslations(): void
+    public function providerForPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations(): array
     {
-        $repository = $this->getRepository();
-        $contentService = $repository->getContentService();
-        $locationService = $repository->getLocationService();
-        $permissionResolver = $repository->getPermissionResolver();
-
-        $draft = $this->createMultilingualFolderDraft($contentService);
-        $content = $contentService->publishVersion($draft->getVersionInfo());
-
-        $limitationLanguages = [self::GER_DE, self::ENG_US, self::ENG_GB];
-
-        // Validate that limitation value contains all version's languages
-        self::assertEmpty(array_diff($content->getVersionInfo()->languageCodes, $limitationLanguages));
-
-        $permissionResolver->setCurrentUserReference(
-            $this->createEditorUserWithLanguageLimitation($limitationLanguages)
-        );
-
-        // Copy
-        $locationCreateStruct = new LocationCreateStruct(['parentLocationId' => 2]);
-        $clonedContent = $contentService->copyContent($content->contentInfo, $locationCreateStruct);
-
-        self::assertSame($content->getVersionInfo()->languageCodes, $clonedContent->getVersionInfo()->languageCodes);
-
-        // Move
-        $targetContent = $this->createMultilingualFolderDraft($contentService);
-        $contentLocation = $locationService->loadLocation($content->contentInfo->mainLocationId);
-        $targetLocation = $locationService->loadLocation($targetContent->contentInfo->mainLocationId);
-
-        $locationService->moveSubtree($contentLocation, $targetLocation);
-
-        self::assertSame($content->getVersionInfo()->languageCodes, $targetContent->getVersionInfo()->languageCodes);
-
-        // Hide
-        $hiddenLocation = $locationService->hideLocation($targetLocation);
-        $hiddenLocationContent = $hiddenLocation->getContent();
-        self::assertSame($content->getVersionInfo()->languageCodes, $hiddenLocationContent->getVersionInfo()->languageCodes);
-
-        // Unhide
-        $revealedLocation = $locationService->unhideLocation($hiddenLocation);
-        $revealedLocationContent = $revealedLocation->getContent();
-        self::assertSame($content->getVersionInfo()->languageCodes, $revealedLocationContent->getVersionInfo()->languageCodes);
+        return [
+            [[self::GER_DE], false],
+            [[self::GER_DE, self::ENG_US, self::ENG_GB], true],
+        ];
     }
 
     /**
