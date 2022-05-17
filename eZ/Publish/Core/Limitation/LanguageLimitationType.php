@@ -149,7 +149,7 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
         ValueObject $object,
         array $targets = null
     ): ?bool {
-        if (null == $targets) {
+        if (null === $targets) {
             $targets = [];
         }
 
@@ -194,7 +194,7 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
         if ($object instanceof Content) {
             $object = $object->getVersionInfo();
         } elseif ($object instanceof ContentInfo) {
-            $object = $this->loadVersionInfo($object);
+            $object = $this->tryLoadingVersionInfo($object);
             if ($object === null) {
                 return self::ACCESS_DENIED;
             }
@@ -204,7 +204,7 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
         if ($object instanceof ContentCreateStruct) {
             $accessVote = $this->evaluateContentCreateStruct($object, $value);
         } elseif ($object instanceof VersionInfo || $object instanceof SPIVersionInfo) {
-            $accessVote = in_array($object->initialLanguageCode, $value->limitationValues)
+            $accessVote = in_array($object->initialLanguageCode, $value->limitationValues, true)
                 ? self::ACCESS_GRANTED
                 : self::ACCESS_DENIED;
         }
@@ -212,7 +212,7 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
         return $accessVote;
     }
 
-    private function loadVersionInfo(ContentInfo $contentInfo): ?SPIVersionInfo
+    private function tryLoadingVersionInfo(ContentInfo $contentInfo): ?SPIVersionInfo
     {
         try {
             return $this->persistenceContentHandler->loadVersionInfo(
@@ -274,12 +274,12 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
         DestinationLocationTarget $location,
         APILimitationValue $value
     ): ?bool {
-        $versionInfo = $this->loadVersionInfo($location->getTargetContentInfo());
+        $versionInfo = $this->tryLoadingVersionInfo($location->getTargetContentInfo());
         if ($versionInfo === null) {
             return self::ACCESS_DENIED;
         }
 
-        return array_intersect($versionInfo->languageCodes, $value->limitationValues)
+        return !array_diff($versionInfo->languageCodes, $value->limitationValues)
             ? self::ACCESS_GRANTED
             : self::ACCESS_ABSTAIN;
     }

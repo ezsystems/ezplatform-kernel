@@ -147,39 +147,7 @@ class LocationService implements LocationServiceInterface
             throw new InvalidArgumentException('targetParentLocation', 'Cannot copy subtree to its own descendant Location');
         }
 
-        // check create permission on target
-        $locationTarget = (new DestinationLocationTarget($targetParentLocation->id, $loadedSubtree->contentInfo));
-        if (!$this->permissionResolver->canUser(
-            'content',
-            'create',
-            $loadedSubtree->getContentInfo(),
-            [$loadedTargetLocation, $locationTarget]
-        )) {
-            throw new UnauthorizedException('content', 'create', ['locationId' => $loadedTargetLocation->id]);
-        }
-
-        // Check read access to whole source subtree
-        $contentReadCriterion = $this->permissionCriterionResolver->getPermissionsCriterion('content', 'read');
-        if ($contentReadCriterion === false) {
-            throw new UnauthorizedException('content', 'read');
-        } elseif ($contentReadCriterion !== true) {
-            // Query if there are any content in subtree current user don't have access to
-            $query = new Query(
-                [
-                    'limit' => 0,
-                    'filter' => new CriterionLogicalAnd(
-                        [
-                            new CriterionSubtree($loadedSubtree->pathString),
-                            new CriterionLogicalNot($contentReadCriterion),
-                        ]
-                    ),
-                ]
-            );
-            $result = $this->repository->getSearchService()->findContent($query, [], false);
-            if ($result->totalCount > 0) {
-                throw new UnauthorizedException('content', 'read');
-            }
-        }
+        $this->checkCreatePermissionOnSubtreeTarget($targetParentLocation, $loadedSubtree, $loadedTargetLocation);
 
         $this->repository->beginTransaction();
         try {
@@ -725,39 +693,7 @@ class LocationService implements LocationServiceInterface
             );
         }
 
-        // check create permission on target location
-        $locationTarget = (new DestinationLocationTarget($newParentLocation->id, $location->contentInfo));
-        if (!$this->permissionResolver->canUser(
-            'content',
-            'create',
-            $location->getContentInfo(),
-            [$newParentLocation, $locationTarget]
-        )) {
-            throw new UnauthorizedException('content', 'create', ['locationId' => $newParentLocation->id]);
-        }
-
-        // Check read access to whole source subtree
-        $contentReadCriterion = $this->permissionCriterionResolver->getPermissionsCriterion('content', 'read');
-        if ($contentReadCriterion === false) {
-            throw new UnauthorizedException('content', 'read');
-        } elseif ($contentReadCriterion !== true) {
-            // Query if there are any content in subtree current user don't have access to
-            $query = new Query(
-                [
-                    'limit' => 0,
-                    'filter' => new CriterionLogicalAnd(
-                        [
-                            new CriterionSubtree($location->pathString),
-                            new CriterionLogicalNot($contentReadCriterion),
-                        ]
-                    ),
-                ]
-            );
-            $result = $this->repository->getSearchService()->findContent($query, [], false);
-            if ($result->totalCount > 0) {
-                throw new UnauthorizedException('content', 'read');
-            }
-        }
+        $this->checkCreatePermissionOnSubtreeTarget($newParentLocation, $location, $newParentLocation);
 
         $this->repository->beginTransaction();
         try {
@@ -992,5 +928,48 @@ class LocationService implements LocationServiceInterface
                 'locations' => $locations,
             ]
         );
+    }
+
+    private function checkCreatePermissionOnSubtreeTarget(APILocation $targetParentLocation, APILocation $loadedSubtree, APILocation $loadedTargetLocation): void
+    {
+        $locationTarget = (new DestinationLocationTarget($targetParentLocation->id, $loadedSubtree->contentInfo));
+        if (!$this->permissionResolver->canUser(
+            'content',
+            'create',
+            $loadedSubtree->getContentInfo(),
+            [$loadedTargetLocation, $locationTarget]
+        )) {
+            throw new UnauthorizedException(
+                'content',
+                'create',
+                ['locationId' => $loadedTargetLocation->id]
+            );
+        }
+
+        // Check read access to whole source subtree
+        $contentReadCriterion = $this->permissionCriterionResolver->getPermissionsCriterion(
+            'content',
+            'read'
+        );
+        if ($contentReadCriterion === false) {
+            throw new UnauthorizedException('content', 'read');
+        } elseif ($contentReadCriterion !== true) {
+            // Query if there are any content in subtree current user don't have access to
+            $query = new Query(
+                [
+                    'limit' => 0,
+                    'filter' => new CriterionLogicalAnd(
+                        [
+                            new CriterionSubtree($loadedSubtree->pathString),
+                            new CriterionLogicalNot($contentReadCriterion),
+                        ]
+                    ),
+                ]
+            );
+            $result = $this->repository->getSearchService()->findContent($query, [], false);
+            if ($result->totalCount > 0) {
+                throw new UnauthorizedException('content', 'read');
+            }
+        }
     }
 }

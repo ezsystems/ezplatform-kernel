@@ -499,21 +499,18 @@ class LanguageLimitationTest extends BaseTest
      * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    public function testCopyContentWithLanguageLimitationDifferentThanInitialLanguageCode(): void
+    public function testCopyContentWithTranslationsDifferentThanLanguageLimitation(): void
     {
         $repository = $this->getRepository();
         $contentService = $repository->getContentService();
 
-        $content = $this->prepareDataForLocationRelatedTests();
+        $content = $this->testPrepareDataForTestsWithTranslationsDifferentThanLanguageLimitation();
 
         $locationCreateStruct = new LocationCreateStruct(['parentLocationId' => 2]);
-        $content = $contentService->copyContent($content->contentInfo, $locationCreateStruct);
 
-        self::assertNotSame(self::GER_DE, $content->getVersionInfo()->initialLanguageCode);
+        self::expectException(UnauthorizedException::class);
 
-        $clonedContent = $contentService->loadContent($content->id);
-
-        self::assertSame($content->getVersionInfo()->languageCodes, $clonedContent->getVersionInfo()->languageCodes);
+        $contentService->copyContent($content->contentInfo, $locationCreateStruct);
     }
 
     /**
@@ -523,20 +520,19 @@ class LanguageLimitationTest extends BaseTest
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    public function testCopySubtreeWithLanguageLimitationDifferentThanInitialLanguageCode(): void
+    public function testCopySubtreeWithTranslationsDifferentThanLanguageLimitation(): void
     {
         $repository = $this->getRepository();
         $locationService = $repository->getLocationService();
 
-        $content = $this->prepareDataForLocationRelatedTests();
+        $content = $this->testPrepareDataForTestsWithTranslationsDifferentThanLanguageLimitation();
 
         $contentLocation = $locationService->loadLocation($content->contentInfo->mainLocationId);
         $targetLocation = $locationService->loadLocation(2);
-        $location = $locationService->copySubtree($contentLocation, $targetLocation);
 
-        $clonedContent = $locationService->loadLocation($location->id)->getContent();
+        self::expectException(UnauthorizedException::class);
 
-        self::assertSame($content->getVersionInfo()->languageCodes, $clonedContent->getVersionInfo()->languageCodes);
+        $locationService->copySubtree($contentLocation, $targetLocation);
     }
 
     /**
@@ -546,21 +542,21 @@ class LanguageLimitationTest extends BaseTest
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    public function testMoveSubtreeWithLanguageLimitationDifferentThanInitialLanguageCode(): void
+    public function testMoveSubtreeWithTranslationsDifferentThanLanguageLimitation(): void
     {
         $repository = $this->getRepository();
         $locationService = $repository->getLocationService();
         $contentService = $repository->getContentService();
 
-        $content = $this->prepareDataForLocationRelatedTests();
+        $targetContent = $this->createMultilingualFolderDraft($contentService);
+        $content = $this->testPrepareDataForTestsWithTranslationsDifferentThanLanguageLimitation();
 
         $contentLocation = $locationService->loadLocation($content->contentInfo->mainLocationId);
-        $targetLocation = $locationService->loadLocation(52);
+        $targetLocation = $locationService->loadLocation($targetContent->contentInfo->mainLocationId);
+
+        self::expectException(UnauthorizedException::class);
+
         $locationService->moveSubtree($contentLocation, $targetLocation);
-
-        $movedContent = $contentService->loadContent($content->id);
-
-        self::assertSame($content->getVersionInfo()->languageCodes, $movedContent->getVersionInfo()->languageCodes);
     }
 
     /**
@@ -569,29 +565,18 @@ class LanguageLimitationTest extends BaseTest
      * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    public function testHideUnhideLocationWithLanguageLimitationDifferentThanInitialLanguageCode(): void
+    public function testHideLocationWithTranslationsDifferentThanLanguageLimitation(): void
     {
         $repository = $this->getRepository();
         $locationService = $repository->getLocationService();
 
-        $content = $this->prepareDataForLocationRelatedTests();
+        $content = $this->testPrepareDataForTestsWithTranslationsDifferentThanLanguageLimitation();
 
         $location = $locationService->loadLocation($content->contentInfo->mainLocationId);
+
+        self::expectException(UnauthorizedException::class);
+
         $locationService->hideLocation($location);
-
-        $hiddenLocation = $locationService->loadLocation($location->id);
-
-        self::assertSame(
-            $content->getVersionInfo()->languageCodes,
-            $hiddenLocation->getContent()->getVersionInfo()->languageCodes
-        );
-
-        $visibleLocation = $locationService->unhideLocation($hiddenLocation);
-
-        self::assertSame(
-            $content->getVersionInfo()->languageCodes,
-            $visibleLocation->getContent()->getVersionInfo()->languageCodes
-        );
     }
 
     /**
@@ -600,7 +585,7 @@ class LanguageLimitationTest extends BaseTest
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
      */
-    private function prepareDataForLocationRelatedTests(): Content
+    public function testPrepareDataForTestsWithTranslationsDifferentThanLanguageLimitation(): Content
     {
         $repository = $this->getRepository();
         $contentService = $repository->getContentService();
@@ -609,11 +594,61 @@ class LanguageLimitationTest extends BaseTest
         $draft = $this->createMultilingualFolderDraft($contentService);
         $content = $contentService->publishVersion($draft->getVersionInfo());
 
+        $limitationLanguages = [self::GER_DE];
+
+        // Validate that limitation value doesn't contain all version's languages
+        self::assertNotEmpty(array_diff($content->getVersionInfo()->languageCodes, $limitationLanguages));
+
         $permissionResolver->setCurrentUserReference(
-            $this->createEditorUserWithLanguageLimitation([self::GER_DE])
+            $this->createEditorUserWithLanguageLimitation($limitationLanguages)
         );
 
         return $content;
+    }
+
+    public function testCopyMoveHideAndUnhideContentWithLanguageLimitationsContainingAllTranslations(): void
+    {
+        $repository = $this->getRepository();
+        $contentService = $repository->getContentService();
+        $locationService = $repository->getLocationService();
+        $permissionResolver = $repository->getPermissionResolver();
+
+        $draft = $this->createMultilingualFolderDraft($contentService);
+        $content = $contentService->publishVersion($draft->getVersionInfo());
+
+        $limitationLanguages = [self::GER_DE, self::ENG_US, self::ENG_GB];
+
+        // Validate that limitation value contains all version's languages
+        self::assertEmpty(array_diff($content->getVersionInfo()->languageCodes, $limitationLanguages));
+
+        $permissionResolver->setCurrentUserReference(
+            $this->createEditorUserWithLanguageLimitation($limitationLanguages)
+        );
+
+        // Copy
+        $locationCreateStruct = new LocationCreateStruct(['parentLocationId' => 2]);
+        $clonedContent = $contentService->copyContent($content->contentInfo, $locationCreateStruct);
+
+        self::assertSame($content->getVersionInfo()->languageCodes, $clonedContent->getVersionInfo()->languageCodes);
+
+        // Move
+        $targetContent = $this->createMultilingualFolderDraft($contentService);
+        $contentLocation = $locationService->loadLocation($content->contentInfo->mainLocationId);
+        $targetLocation = $locationService->loadLocation($targetContent->contentInfo->mainLocationId);
+
+        $locationService->moveSubtree($contentLocation, $targetLocation);
+
+        self::assertSame($content->getVersionInfo()->languageCodes, $targetContent->getVersionInfo()->languageCodes);
+
+        // Hide
+        $hiddenLocation = $locationService->hideLocation($targetLocation);
+        $hiddenLocationContent = $hiddenLocation->getContent();
+        self::assertSame($content->getVersionInfo()->languageCodes, $hiddenLocationContent->getVersionInfo()->languageCodes);
+
+        // Unhide
+        $revealedLocation = $locationService->unhideLocation($hiddenLocation);
+        $revealedLocationContent = $revealedLocation->getContent();
+        self::assertSame($content->getVersionInfo()->languageCodes, $revealedLocationContent->getVersionInfo()->languageCodes);
     }
 
     /**

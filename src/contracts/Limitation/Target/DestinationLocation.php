@@ -18,22 +18,22 @@ use eZ\Publish\SPI\Persistence\ValueObject;
 final class DestinationLocation extends ValueObject implements Target
 {
     /** @var int */
-    private $id;
+    private $locationId;
 
     /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo */
     private $targetContentInfo;
 
-    public function __construct(int $id, ContentInfo $targetContentInfo, array $properties = [])
+    public function __construct(int $locationId, ContentInfo $targetContentInfo, array $properties = [])
     {
-        $this->id = $id;
+        $this->locationId = $locationId;
         $this->targetContentInfo = $targetContentInfo;
 
         parent::__construct($properties);
     }
 
-    public function getId(): int
+    public function getLocationId(): int
     {
-        return $this->id;
+        return $this->locationId;
     }
 
     public function getTargetContentInfo(): ContentInfo
