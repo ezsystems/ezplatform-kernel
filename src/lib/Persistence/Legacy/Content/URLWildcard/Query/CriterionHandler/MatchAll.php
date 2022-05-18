@@ -15,17 +15,11 @@ use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler;
 
 final class MatchAll implements CriterionHandler
 {
-    /**
-     * {@inheritdoc}
-     */
     public function accept(Criterion $criterion): bool
     {
         return $criterion instanceof Criterion\MatchAll;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function handle(
         CriteriaConverter $converter,
         QueryBuilder $queryBuilder,

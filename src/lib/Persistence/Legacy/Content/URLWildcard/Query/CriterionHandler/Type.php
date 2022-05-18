@@ -16,17 +16,11 @@ use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler;
 
 final class Type implements CriterionHandler
 {
-    /**
-     * {@inheritdoc}
-     */
     public function accept(Criterion $criterion): bool
     {
         return $criterion instanceof Criterion\Type;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function handle(
         CriteriaConverter $converter,
         QueryBuilder $queryBuilder,

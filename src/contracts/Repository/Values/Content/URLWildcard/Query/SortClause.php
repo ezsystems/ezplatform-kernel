@@ -27,7 +27,7 @@ abstract class SortClause
     /**
      * @param string $sortDirection one of SortClause::SORT_ASC|SortClause::SORT_DESC
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException if the given sort order isn't one of SortClause::SORT_ASC or SortClause::SORT_DESC
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the given sort order isn't one of SortClause::SORT_ASC or SortClause::SORT_DESC
      */
     public function __construct(string $sortTarget, string $sortDirection)
     {
