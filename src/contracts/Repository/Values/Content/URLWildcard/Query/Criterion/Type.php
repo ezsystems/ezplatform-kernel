@@ -13,13 +13,11 @@ namespace Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Crite
  */
 final class Type extends Matcher
 {
-    /**
-     * @var bool
-     */
-    public $isDirect;
+    /** @var bool */
+    public $forward;
 
-    public function __construct(bool $isDirect)
+    public function __construct(bool $forward)
     {
-        $this->isDirect = $isDirect;
+        $this->forward = $forward;
     }
 }

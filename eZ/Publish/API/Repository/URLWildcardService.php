@@ -87,9 +87,8 @@ interface URLWildcardService
     public function loadAll(int $offset = 0, int $limit = -1): iterable;
 
     /**
-     * Find URLWildcards.
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      */
     public function findUrlWildcards(URLWildcardQuery $query): SearchResult;
 

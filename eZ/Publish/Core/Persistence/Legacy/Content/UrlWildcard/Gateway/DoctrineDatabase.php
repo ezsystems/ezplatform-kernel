@@ -38,11 +38,7 @@ final class DoctrineDatabase extends Gateway
     /** @var \Doctrine\DBAL\Connection */
     private $connection;
 
-    /**
-     * Criteria converter.
-     *
-     * @var \Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter
-     */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter */
     protected $criteriaConverter;
 
     public const SORT_DIRECTION_MAP = [
@@ -244,7 +240,7 @@ final class DoctrineDatabase extends Gateway
     {
         $query = $this->connection->createQueryBuilder();
         $query
-            ->select('COUNT(DISTINCT url_wildcard.id)')
+            ->select($this->connection->getDatabasePlatform()->getCountExpression('url_wildcard.id'))
             ->from(self::URL_WILDCARD_TABLE, 'url_wildcard')
             ->where($this->criteriaConverter->convertCriteria($query, $criterion));
 

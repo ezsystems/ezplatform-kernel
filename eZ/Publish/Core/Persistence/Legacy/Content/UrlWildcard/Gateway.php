@@ -62,7 +62,13 @@ abstract class Gateway
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException if Criterion is not applicable to its target
      */
-    abstract public function find(Criterion $criterion, int $offset, int $limit, array $sortClauses = [], bool $doCount = true): array;
+    abstract public function find(
+        Criterion $criterion,
+        int $offset,
+        int $limit,
+        array $sortClauses = [],
+        bool $doCount = true
+    ): array;
 
     /**
      * Load the UrlWildcard by source url $sourceUrl.

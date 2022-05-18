@@ -1,40 +1,5 @@
 services:
-    Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\LogicalAnd:
-        class: Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\LogicalAnd
-        tags:
-            - { name: ibexa.storage.legacy.url_wildcard.criterion.handler }
-    
-    Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\LogicalOr:
-        class: Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\LogicalOr
-        tags:
-            - { name: ibexa.storage.legacy.url_wildcard.criterion.handler }
-    
-    Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\LogicalNot:
-        class: Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\LogicalNot
-        tags:
-            - { name: ibexa.storage.legacy.url_wildcard.criterion.handler }
-    
-    Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\MatchAll:
-        class: Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\MatchAll
-        tags:
-            - { name: ibexa.storage.legacy.url_wildcard.criterion.handler }
-    
-    Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\MatchNone:
-        class: Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\MatchNone
-        tags:
-            - { name: ibexa.storage.legacy.url_wildcard.criterion.handler }
-
-    Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\DestinationUrl:
-        class: Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\DestinationUrl
-        tags:
-            - { name: ibexa.storage.legacy.url_wildcard.criterion.handler }
-    
-    Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\Type:
-        class: Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\Type
-        tags:
-            - { name: ibexa.storage.legacy.url_wildcard.criterion.handler }
-
-    Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\SourceUrl:
-        class: Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\SourceUrl
+    Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\:
+        resource: '../../../../../../src/lib/Persistence/Legacy/Content/URLWildcard/Query/CriterionHandler/*'
         tags:
             - { name: ibexa.storage.legacy.url_wildcard.criterion.handler }

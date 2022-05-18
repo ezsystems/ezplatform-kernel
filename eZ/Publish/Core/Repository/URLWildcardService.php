@@ -210,9 +210,6 @@ class URLWildcardService implements URLWildcardServiceInterface
         return $urlWildcards;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findUrlWildcards(URLWildcardQuery $query): SearchResult
     {
         if ($query->offset !== null && !is_numeric($query->offset)) {
@@ -236,9 +233,6 @@ class URLWildcardService implements URLWildcardServiceInterface
         ]);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function countAll(): int
     {
         return $this->urlWildcardHandler->countAll();

@@ -4,6 +4,8 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
+
 namespace Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query;
 
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -12,36 +14,18 @@ use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
 
 final class CriteriaConverter
 {
-    /**
-     * Criterion handlers.
-     *
-     * @var \Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler[]
-     */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler[] */
     private $handlers;
 
     /**
-     * Construct from an optional array of Criterion handlers.
-     *
      * @param \Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler[] $handlers
      */
-    public function __construct(array $handlers = [])
+    public function __construct(iterable $handlers = [])
     {
         $this->handlers = $handlers;
     }
 
     /**
-     * Adds handler.
-     *
-     * @param \Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler $handler
-     */
-    public function addHandler(CriterionHandler $handler): void
-    {
-        $this->handlers[] = $handler;
-    }
-
-    /**
-     * Generic converter of criteria into query fragments.
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException if Criterion is not applicable to its target
      *
      * @return \Doctrine\DBAL\Query\Expression\CompositeExpression|string

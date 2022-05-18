@@ -4,6 +4,8 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
+
 namespace Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler;
 
 use Doctrine\DBAL\ParameterType;
@@ -34,7 +36,7 @@ final class Type implements CriterionHandler
         return $queryBuilder->expr()->eq(
             'type',
             $queryBuilder->createNamedParameter(
-                (int)$criterion->isDirect,
+                $criterion->forward ? 1 : 2,
                 ParameterType::INTEGER,
                 ':type'
             )

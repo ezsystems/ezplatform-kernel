@@ -13,11 +13,7 @@ namespace Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Crite
  */
 final class SourceUrl extends Matcher
 {
-    /**
-     * String which needs to part of URLWildcard source Url e.g. ez.no.
-     *
-     * @var string
-     */
+    /** @var string */
     public $sourceUrl;
 
     public function __construct(string $sourceUrl)

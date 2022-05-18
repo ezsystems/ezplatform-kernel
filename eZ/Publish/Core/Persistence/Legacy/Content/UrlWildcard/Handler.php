@@ -140,9 +140,6 @@ class Handler implements BaseUrlWildcardHandler
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function find(URLWildcardQuery $query): array
     {
         $results = $this->gateway->find(
