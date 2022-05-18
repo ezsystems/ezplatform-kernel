@@ -28,7 +28,7 @@ class CriterionTest extends BaseTest
         $urlWildcards = [
             [
                 'source' => 'test',
-                'destination' => 'contentTest',
+                'destination' => 'content-test',
                 'forward' => true,
             ],
             [
@@ -94,7 +94,7 @@ class CriterionTest extends BaseTest
         $expectedWildcardUrls = [
             [
                 'sourceUrl' => '/test',
-                'destinationUrl' => '/contentTest',
+                'destinationUrl' => '/content-test',
                 'forward' => true,
             ],
             [
@@ -197,7 +197,7 @@ class CriterionTest extends BaseTest
     public function testDestinationUrl(): void
     {
         $expectedWildcardUrls = [
-            '/contentTest',
+            '/content-test',
             '/content test',
             '/no/forward test url',
         ];
