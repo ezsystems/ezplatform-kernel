@@ -68,23 +68,14 @@ class FieldNameGenerator
      * types, or names.
      *
      * Only the field with the name 'id' remains untouched.
-     *
-     * @param string $name
-     * @param \eZ\Publish\SPI\Search\FieldType $type
-     *
-     * @return string
      */
-    public function getTypedName($name, FieldType $type)
+    public function getTypedName(string $name, FieldType $type): string
     {
         if ($name === 'id') {
             return $name;
         }
 
-        $typeName = $type->type;
-
-        if (isset($this->fieldNameMapping[$typeName])) {
-            $typeName = $this->fieldNameMapping[$typeName];
-        }
+        $typeName = $this->fieldNameMapping[$type->getType()] ?? $type->getType();
 
         return $name . '_' . $typeName;
     }
