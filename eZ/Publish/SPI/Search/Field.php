@@ -36,16 +36,14 @@ class Field extends ValueObject
     /**
      * Type of the search field.
      *
-     * @var FieldType
+     * @var \eZ\Publish\SPI\Search\FieldType
      */
     protected $type;
 
     /**
-     * Construct from name and value.
-     *
      * @param string $name
      * @param mixed $value
-     * @param FieldType $type
+     * @param \eZ\Publish\SPI\Search\FieldType $type
      */
     public function __construct($name, $value, FieldType $type)
     {

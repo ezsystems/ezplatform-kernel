@@ -18,34 +18,21 @@ use InvalidArgumentException;
  */
 class DateMapper extends FieldValueMapper
 {
-    /**
-     * Check if field can be mapped.
-     *
-     * @param \eZ\Publish\SPI\Search\Field $field
-     *
-     * @return mixed
-     */
-    public function canMap(Field $field)
+    public function canMap(Field $field): bool
     {
-        return $field->type instanceof DateField;
+        return $field->getType() instanceof DateField;
     }
 
-    /**
-     * Map field value to a proper search engine representation.
-     *
-     * @param \eZ\Publish\SPI\Search\Field $field
-     *
-     * @return mixed
-     */
     public function map(Field $field)
     {
-        if (is_numeric($field->value)) {
-            $date = new DateTime("@{$field->value}");
+        $value = $field->getValue();
+        if (is_numeric($value)) {
+            $date = new DateTime("@{$value}");
         } else {
             try {
-                $date = new DateTime($field->value);
+                $date = new DateTime($value);
             } catch (Exception $e) {
-                throw new InvalidArgumentException('Invalid date provided: ' . $field->value);
+                throw new InvalidArgumentException('Invalid date provided: ' . $value);
             }
         }
 

@@ -15,31 +15,18 @@ use eZ\Publish\SPI\Search\FieldType\GeoLocationField;
  */
 class GeoLocationMapper extends FieldValueMapper
 {
-    /**
-     * Check if field can be mapped.
-     *
-     * @param \eZ\Publish\SPI\Search\Field $field
-     *
-     * @return bool
-     */
-    public function canMap(Field $field)
+    public function canMap(Field $field): bool
     {
-        return $field->type instanceof GeoLocationField;
+        return $field->getType() instanceof GeoLocationField;
     }
 
-    /**
-     * Map field value to a proper search engine representation.
-     *
-     * @param \eZ\Publish\SPI\Search\Field $field
-     *
-     * @return mixed|null Returns null on empty value
-     */
     public function map(Field $field)
     {
-        if ($field->value['latitude'] === null || $field->value['longitude'] === null) {
+        $value = $field->getValue();
+        if ($value['latitude'] === null || $value['longitude'] === null) {
             return null;
         }
 
-        return sprintf('%F,%F', $field->value['latitude'], $field->value['longitude']);
+        return sprintf('%F,%F', $value['latitude'], $value['longitude']);
     }
 }

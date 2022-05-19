@@ -34,24 +34,12 @@ class Aggregate extends FieldValueMapper
         }
     }
 
-    /**
-     * Adds mapper.
-     *
-     * @param \eZ\Publish\Core\Search\Common\FieldValueMapper $mapper
-     */
-    public function addMapper(FieldValueMapper $mapper)
+    public function addMapper(FieldValueMapper $mapper): void
     {
         $this->mappers[] = $mapper;
     }
 
-    /**
-     * Check if field can be mapped.
-     *
-     * @param \eZ\Publish\SPI\Search\Field $field
-     *
-     * @return bool
-     */
-    public function canMap(Field $field)
+    public function canMap(Field $field): bool
     {
         return true;
     }
@@ -74,7 +62,7 @@ class Aggregate extends FieldValueMapper
         }
 
         throw new NotImplementedException(
-            'No mapper available for: ' . get_class($field->type)
+            'No mapper available for: ' . get_class($field->getType())
         );
     }
 }

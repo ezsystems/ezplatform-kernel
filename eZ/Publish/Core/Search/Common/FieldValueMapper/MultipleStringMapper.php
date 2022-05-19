@@ -14,19 +14,14 @@ use eZ\Publish\SPI\Search\FieldType;
  */
 class MultipleStringMapper extends StringMapper
 {
-    /**
-     * Check if field can be mapped.
-     *
-     * @param \eZ\Publish\SPI\Search\Field $field
-     *
-     * @return bool
-     */
-    public function canMap(Field $field)
+    public function canMap(Field $field): bool
     {
+        $searchFieldType = $field->getType();
+
         return
-            $field->type instanceof FieldType\MultipleStringField ||
-            $field->type instanceof FieldType\TextField ||
-            $field->type instanceof FieldType\FullTextField;
+            $searchFieldType instanceof FieldType\MultipleStringField ||
+            $searchFieldType instanceof FieldType\TextField ||
+            $searchFieldType instanceof FieldType\FullTextField;
     }
 
     /**
@@ -40,7 +35,7 @@ class MultipleStringMapper extends StringMapper
     {
         $values = [];
 
-        foreach ((array)$field->value as $value) {
+        foreach ((array)$field->getValue() as $value) {
             $values[] = $this->convert($value);
         }
 
