@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusExce
 
 class PasswordExpiredException extends CustomUserMessageAccountStatusException
 {
-    public function __construct(string $message = '')
+    public function __construct(string $message = 'User account has expired.')
     {
         parent::__construct($message);
     }
