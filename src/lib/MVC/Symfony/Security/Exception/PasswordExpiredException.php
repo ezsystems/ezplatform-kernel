@@ -8,7 +8,7 @@ namespace Ibexa\Core\MVC\Symfony\Security\Exception;
 
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 
-class PasswordExpiredException extends CustomUserMessageAccountStatusException
+final class PasswordExpiredException extends CustomUserMessageAccountStatusException
 {
     public function __construct(string $message = 'User account has expired.')
     {
