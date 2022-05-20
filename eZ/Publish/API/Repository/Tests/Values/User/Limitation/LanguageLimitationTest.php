@@ -721,6 +721,9 @@ class LanguageLimitationTest extends BaseTest
         return $content;
     }
 
+    /**
+     * @return iterable<array{array<string>, bool}>
+     */
     public function providerForPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations(): array
     {
         return [
