@@ -25,14 +25,17 @@ abstract class SortClause
     public $target;
 
     /**
-     * @param string $sortDirection one of SortClause::SORT_ASC|SortClause::SORT_DESC
+     * @phpstan-param SortClause::SORT_* $sortDirection
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the given sort order isn't one of SortClause::SORT_ASC or SortClause::SORT_DESC
      */
     public function __construct(string $sortTarget, string $sortDirection)
     {
         if ($sortDirection !== self::SORT_ASC && $sortDirection !== self::SORT_DESC) {
-            throw new InvalidArgumentException($sortDirection, 'Sort direction must be either SortClause::SORT_ASC or SortClause::SORT_DESC');
+            throw new InvalidArgumentException(
+                $sortDirection,
+                'Sort direction must be either SortClause::SORT_ASC or SortClause::SORT_DESC'
+            );
         }
 
         $this->direction = $sortDirection;

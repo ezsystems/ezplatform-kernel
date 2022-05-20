@@ -20,6 +20,9 @@ final class MatchAll implements CriterionHandler
         return $criterion instanceof Criterion\MatchAll;
     }
 
+    /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion\MatchAll $criterion
+     */
     public function handle(
         CriteriaConverter $converter,
         QueryBuilder $queryBuilder,

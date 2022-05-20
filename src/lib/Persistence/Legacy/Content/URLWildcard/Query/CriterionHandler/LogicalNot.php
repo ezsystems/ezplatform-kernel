@@ -21,7 +21,7 @@ final class LogicalNot implements CriterionHandler
     }
 
     /**
-     * {@inheritdoc}
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion\LogicalNot $criterion
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
      */

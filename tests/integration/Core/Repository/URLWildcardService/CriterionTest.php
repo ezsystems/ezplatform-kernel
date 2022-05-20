@@ -42,51 +42,50 @@ class CriterionTest extends BaseTest
         $repository = $this->getRepository();
         $searchResult = $repository->getURLWildcardService()->findUrlWildcards($query);
 
-        $this->assertInstanceOf(SearchResult::class, $searchResult);
-        $this->assertSame($expectedTotalCount, $searchResult->totalCount);
-        $this->assertCount($expectedTotalCount, $searchResult->items);
+        self::assertSame($expectedTotalCount, $searchResult->totalCount);
+        self::assertCount($expectedTotalCount, $searchResult->items);
 
         return $searchResult;
     }
 
     private function getUrlWildcard(bool $isAbsolute = false): array
     {
-        $slash = $isAbsolute ? '/' : '';
+        $prefix = $isAbsolute ? '/' : '';
 
         return [
             [
-                'sourceUrl' => $slash . 'test',
-                'destinationUrl' => $slash . 'content-test',
+                'sourceUrl' => $prefix . 'test',
+                'destinationUrl' => $prefix . 'content-test',
                 'forward' => true,
             ],
             [
-                'sourceUrl' => $slash . 'test test',
-                'destinationUrl' => $slash . 'content test',
+                'sourceUrl' => $prefix . 'test test',
+                'destinationUrl' => $prefix . 'content test',
                 'forward' => true,
             ],
             [
-                'sourceUrl' => $slash . 'ibexa-dxp',
-                'destinationUrl' => $slash . 'ibexa-1-2-3',
+                'sourceUrl' => $prefix . 'ibexa-dxp',
+                'destinationUrl' => $prefix . 'ibexa-1-2-3',
                 'forward' => true,
             ],
             [
-                'sourceUrl' => $slash . 'nice-url-seo',
-                'destinationUrl' => $slash . '1/2/3/4',
+                'sourceUrl' => $prefix . 'nice-url-seo',
+                'destinationUrl' => $prefix . '1/2/3/4',
                 'forward' => false,
             ],
             [
-                'sourceUrl' => $slash . 'no-forward test url',
-                'destinationUrl' => $slash . 'no/forward test url',
+                'sourceUrl' => $prefix . 'no-forward test url',
+                'destinationUrl' => $prefix . 'no/forward test url',
                 'forward' => false,
             ],
             [
-                'sourceUrl' => $slash . 'Twitter',
-                'destinationUrl' => $slash . 'a/b/c',
+                'sourceUrl' => $prefix . 'Twitter',
+                'destinationUrl' => $prefix . 'a/b/c',
                 'forward' => false,
             ],
             [
-                'sourceUrl' => $slash . 'facebook',
-                'destinationUrl' => $slash . '2/3/facebook',
+                'sourceUrl' => $prefix . 'facebook',
+                'destinationUrl' => $prefix . '2/3/facebook',
                 'forward' => true,
             ],
         ];
@@ -107,7 +106,7 @@ class CriterionTest extends BaseTest
                 'forward' => $item->forward,
             ];
 
-            $this->assertContains($wildcard, $expectedWildcardUrls);
+            self::assertContains($wildcard, $expectedWildcardUrls);
         }
     }
 
@@ -208,7 +207,7 @@ class CriterionTest extends BaseTest
         $this->checkWildcardUrl($searchResult->items, $expectedWildcardUrls);
     }
 
-    public function testInvalidLimitThrowsInvalidArgumentException()
+    public function testInvalidLimitThrowsInvalidArgumentException(): void
     {
         $query = new URLWildcardQuery();
         $query->filter = new Criterion\MatchAll();
@@ -221,7 +220,7 @@ class CriterionTest extends BaseTest
         $urlWildcardService->findUrlWildcards($query);
     }
 
-    public function testInvalidOffsetThrowsInvalidArgumentException()
+    public function testInvalidOffsetThrowsInvalidArgumentException(): void
     {
         $query = new URLWildcardQuery();
         $query->filter = new Criterion\MatchAll();
@@ -264,8 +263,11 @@ class CriterionTest extends BaseTest
     public function testLogicalInvalidCriterion(): void
     {
         $this->expectException(InvalidCriterionArgumentException::class);
-        $this->expectExceptionMessage("You provided eZ\Publish\API\Repository\Values\URL\Query\Criterion\VisibleOnly at index '1', but only instances of 'Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion' are accepted");
-
+        $this->expectExceptionMessage(
+            'You provided eZ\Publish\API\Repository\Values\URL\Query\Criterion\VisibleOnly ' .
+            "at index '1', but only instances of " .
+            "'Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion' are accepted"
+        );
         $query = new URLWildcardQuery();
         $query->filter = new Criterion\LogicalAnd([
             new Criterion\SourceUrl('test'),
@@ -281,9 +283,9 @@ class CriterionTest extends BaseTest
     {
         foreach ($items as $item) {
             if ($sourceUrl) {
-                $this->assertContains($item->sourceUrl, $expectedWildcardUrls);
+                self::assertContains($item->sourceUrl, $expectedWildcardUrls);
             } else {
-                $this->assertContains($item->destinationUrl, $expectedWildcardUrls);
+                self::assertContains($item->destinationUrl, $expectedWildcardUrls);
             }
         }
     }

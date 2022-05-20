@@ -234,6 +234,12 @@ final class DoctrineDatabase extends Gateway
     }
 
     /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion $criterion
+     *
+     * @return int
+     *
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
      * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
      */
     protected function doCount(Criterion $criterion): int
@@ -244,9 +250,12 @@ final class DoctrineDatabase extends Gateway
             ->from(self::URL_WILDCARD_TABLE, 'url_wildcard')
             ->where($this->criteriaConverter->convertCriteria($query, $criterion));
 
-        return (int)$query->execute()->fetchColumn();
+        return (int)$query->execute()->fetchOne();
     }
 
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     */
     private function getQuerySortingDirection(string $direction): string
     {
         if (!isset(self::SORT_DIRECTION_MAP[$direction])) {
