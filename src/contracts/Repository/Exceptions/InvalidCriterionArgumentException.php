@@ -12,7 +12,7 @@ use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
 
 final class InvalidCriterionArgumentException extends InvalidArgumentException
 {
-    public function __construct($key, $criterion)
+    public function __construct($key, $criterion, string $expectedCriterionFQCN)
     {
         if ($criterion === null) {
             $type = 'null';
@@ -24,6 +24,6 @@ final class InvalidCriterionArgumentException extends InvalidArgumentException
             $type = gettype($criterion) . ", with value: '{$criterion}'";
         }
 
-        parent::__construct("You provided {$type} at index '{$key}', but only Criterion objects are accepted");
+        parent::__construct("You provided {$type} at index '{$key}', but only instances of '{$expectedCriterionFQCN}' are accepted");
     }
 }

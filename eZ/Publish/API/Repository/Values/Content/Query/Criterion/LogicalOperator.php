@@ -36,7 +36,7 @@ abstract class LogicalOperator extends Criterion
     {
         foreach ($criteria as $key => $criterion) {
             if (!$criterion instanceof Criterion) {
-                throw new InvalidCriterionArgumentException($key, $criterion);
+                throw new InvalidCriterionArgumentException($key, $criterion, Criterion::class);
             }
 
             $this->criteria[] = $criterion;

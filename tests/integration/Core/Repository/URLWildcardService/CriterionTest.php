@@ -9,6 +9,9 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Integration\Core\Repository\URLWildcardService;
 
 use eZ\Publish\API\Repository\Tests\BaseTest;
+use eZ\Publish\API\Repository\Values\URL\Query\Criterion as CriterionURL;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\SearchResult;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\URLWildcardQuery;
@@ -203,6 +206,71 @@ class CriterionTest extends BaseTest
 
         $searchResult = $this->findUrlWildcards($query, count($expectedWildcardUrls));
         $this->checkWildcardUrl($searchResult->items, $expectedWildcardUrls);
+    }
+
+    public function testInvalidLimitThrowsInvalidArgumentException()
+    {
+        $query = new URLWildcardQuery();
+        $query->filter = new Criterion\MatchAll();
+        $query->limit = 'invalid!';
+
+        $repository = $this->getRepository();
+        $urlWildcardService = $repository->getURLWildcardService();
+
+        $this->expectException(InvalidArgumentValue::class);
+        $urlWildcardService->findUrlWildcards($query);
+    }
+
+    public function testInvalidOffsetThrowsInvalidArgumentException()
+    {
+        $query = new URLWildcardQuery();
+        $query->filter = new Criterion\MatchAll();
+        $query->offset = 'invalid!';
+
+        $repository = $this->getRepository();
+        $urlWildcardService = $repository->getURLWildcardService();
+
+        $this->expectException(InvalidArgumentValue::class);
+        $urlWildcardService->findUrlWildcards($query);
+    }
+
+    public function testSourceAndDestination(): void
+    {
+        $search = 'test';
+        $expectedWildcardUrlsSource = [
+            '/test',
+            '/test test',
+            '/no-forward test url',
+        ];
+
+        $expectedWildcardUrlsDestination = [
+            '/content-test',
+            '/content test',
+            '/no/forward test url',
+        ];
+
+        $query = new URLWildcardQuery();
+        $query->filter = new Criterion\LogicalAnd([
+            new Criterion\SourceUrl($search),
+            new Criterion\DestinationUrl($search),
+        ]);
+
+        $searchResult = $this->findUrlWildcards($query, count($expectedWildcardUrlsSource));
+
+        $this->checkWildcardUrl($searchResult->items, $expectedWildcardUrlsSource);
+        $this->checkWildcardUrl($searchResult->items, $expectedWildcardUrlsDestination, false);
+    }
+
+    public function testLogicalInvalidCriterion(): void
+    {
+        $this->expectException(InvalidCriterionArgumentException::class);
+        $this->expectExceptionMessage("You provided eZ\Publish\API\Repository\Values\URL\Query\Criterion\VisibleOnly at index '1', but only instances of 'Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion' are accepted");
+
+        $query = new URLWildcardQuery();
+        $query->filter = new Criterion\LogicalAnd([
+            new Criterion\SourceUrl('test'),
+            new CriterionURL\VisibleOnly(),
+        ]);
     }
 
     /**
