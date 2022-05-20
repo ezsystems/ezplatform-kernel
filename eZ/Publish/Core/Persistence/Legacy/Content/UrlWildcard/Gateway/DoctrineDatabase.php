@@ -188,7 +188,7 @@ final class DoctrineDatabase extends Gateway
         }
 
         if ($limit < 0) {
-            throw new InvalidArgumentException('The limit need be higher than 0');
+            throw new InvalidArgumentException('$limit', 'The limit need be higher than 0');
         }
 
         $query = $this->buildLoadUrlWildcardDataQuery();
