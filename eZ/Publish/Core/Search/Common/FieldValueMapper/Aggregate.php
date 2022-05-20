@@ -23,6 +23,13 @@ class Aggregate extends FieldValueMapper
     protected $mappers = [];
 
     /**
+     * Array of simple mappers mapping specific Field (by its FQCN).
+     *
+     * @var array<string, \eZ\Publish\Core\Search\Common\FieldValueMapper>
+     */
+    protected $simpleMappers = [];
+
+    /**
      * Construct from optional mapper array.
      *
      * @param \eZ\Publish\Core\Search\Common\FieldValueMapper[] $mappers
@@ -34,9 +41,13 @@ class Aggregate extends FieldValueMapper
         }
     }
 
-    public function addMapper(FieldValueMapper $mapper): void
+    public function addMapper(FieldValueMapper $mapper, ?string $searchTypeFQCN = null): void
     {
-        $this->mappers[] = $mapper;
+        if (null !== $searchTypeFQCN) {
+            $this->simpleMappers[$searchTypeFQCN] = $mapper;
+        } else {
+            $this->mappers[] = $mapper;
+        }
     }
 
     public function canMap(Field $field): bool
@@ -55,9 +66,20 @@ class Aggregate extends FieldValueMapper
      */
     public function map(Field $field)
     {
+        $mapper = $this->simpleMappers[get_class($field->getType())]
+            ?? $this->findMapper($field);
+
+        return $mapper->map($field);
+    }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
+     */
+    private function findMapper(Field $field): FieldValueMapper
+    {
         foreach ($this->mappers as $mapper) {
             if ($mapper->canMap($field)) {
-                return $mapper->map($field);
+                return $mapper;
             }
         }
 
