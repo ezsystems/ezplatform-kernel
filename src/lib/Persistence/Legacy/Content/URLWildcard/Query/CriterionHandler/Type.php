@@ -16,6 +16,9 @@ use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler;
 
 final class Type implements CriterionHandler
 {
+    private const FORWARD = 1;
+    private const DIRECT = 2;
+
     public function accept(Criterion $criterion): bool
     {
         return $criterion instanceof Criterion\Type;
@@ -30,7 +33,7 @@ final class Type implements CriterionHandler
         return $queryBuilder->expr()->eq(
             'type',
             $queryBuilder->createNamedParameter(
-                $criterion->forward ? 1 : 2,
+                $criterion->forward ? self::FORWARD : self::DIRECT,
                 ParameterType::INTEGER,
                 ':type'
             )

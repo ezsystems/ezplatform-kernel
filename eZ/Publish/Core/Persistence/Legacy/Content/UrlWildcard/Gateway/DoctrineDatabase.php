@@ -187,15 +187,18 @@ final class DoctrineDatabase extends Gateway
             ];
         }
 
+        if ($limit < 0) {
+            throw new InvalidArgumentException('The limit need be higher than 0');
+        }
+
         $query = $this->buildLoadUrlWildcardDataQuery();
         $query
             ->where($this->criteriaConverter->convertCriteria($query, $criterion))
-            ->setMaxResults($limit > 0 ? $limit : PHP_INT_MAX)
+            ->setMaxResults($limit)
             ->setFirstResult($offset);
 
         foreach ($sortClauses as $sortClause) {
-            $column = sprintf('%s', $sortClause->target);
-            $query->addOrderBy($column, $this->getQuerySortingDirection($sortClause->direction));
+            $query->addOrderBy($sortClause->target, $this->getQuerySortingDirection($sortClause->direction));
         }
 
         $statement = $query->execute();
@@ -262,7 +265,7 @@ final class DoctrineDatabase extends Gateway
             throw new InvalidArgumentException(
                 '$sortClause->direction',
                 sprintf(
-                    'Unsupported "%s" sorting directions, use one of the SortClause::SORT_* constants instead',
+                    'Unsupported "%s" sorting direction, use one of the SortClause::SORT_* constants instead',
                     $direction
                 )
             );
