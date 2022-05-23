@@ -2329,13 +2329,19 @@ class ContentService implements ContentServiceInterface
      *
      * Content hidden by this API can be revealed by revealContent API.
      *
-     * @see revealContent
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     public function hideContent(ContentInfo $contentInfo): void
     {
-        if (!$this->permissionResolver->canUser('content', 'hide', $contentInfo)) {
+        $locationTarget = (new DestinationLocationTarget($contentInfo->mainLocationId, $contentInfo));
+        if (!$this->permissionResolver->canUser(
+            'content',
+            'hide',
+            $contentInfo,
+            [$locationTarget]
+        )) {
             throw new UnauthorizedException('content', 'hide', ['contentId' => $contentInfo->id]);
         }
 
@@ -2363,13 +2369,19 @@ class ContentService implements ContentServiceInterface
      * Reveals Content hidden by hideContent API.
      * Locations which were hidden before hiding Content will remain hidden.
      *
-     * @see hideContent
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     public function revealContent(ContentInfo $contentInfo): void
     {
-        if (!$this->permissionResolver->canUser('content', 'hide', $contentInfo)) {
+        $locationTarget = (new DestinationLocationTarget($contentInfo->mainLocationId, $contentInfo));
+        if (!$this->permissionResolver->canUser(
+            'content',
+            'hide',
+            $contentInfo,
+            [$locationTarget]
+        )) {
             throw new UnauthorizedException('content', 'hide', ['contentId' => $contentInfo->id]);
         }
 

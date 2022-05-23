@@ -650,12 +650,13 @@ class LanguageLimitationTest extends BaseTest
      * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    public function testHideAndUnhideLocationWithLanguageLimitationAndDifferentContentTranslations(
+    public function testHideAndUnhideLocationAndContentWithLanguageLimitationAndDifferentContentTranslations(
         array $limitationValues,
         bool $containsAllTranslations
     ): void {
         $repository = $this->getRepository();
         $locationService = $repository->getLocationService();
+        $contentService = $repository->getContentService();
 
         $content = $this->testPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations(
             $limitationValues,
@@ -680,6 +681,18 @@ class LanguageLimitationTest extends BaseTest
                 $content->getVersionInfo()->languageCodes,
                 $revealedLocation->getContent()->getVersionInfo()->languageCodes
             );
+
+            $contentService->hideContent($content->contentInfo);
+
+            $content = $contentService->loadContent($content->id);
+
+            self::assertTrue($content->contentInfo->isHidden);
+
+            $contentService->revealContent($content->contentInfo);
+
+            $content = $contentService->loadContent($content->id);
+
+            self::assertFalse($content->contentInfo->isHidden);
         } else {
             self::expectException(UnauthorizedException::class);
 
@@ -688,6 +701,14 @@ class LanguageLimitationTest extends BaseTest
             self::expectException(UnauthorizedException::class);
 
             $locationService->unhideLocation($location);
+
+            self::expectException(UnauthorizedException::class);
+
+            $contentService->hideContent($content->contentInfo);
+
+            self::expectException(UnauthorizedException::class);
+
+            $contentService->revealContent($content->contentInfo);
         }
     }
 

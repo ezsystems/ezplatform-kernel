@@ -281,7 +281,7 @@ class LanguageLimitationType implements SPITargetAwareLimitationType
 
         return empty(array_diff($versionInfo->languageCodes, $value->limitationValues))
             ? self::ACCESS_GRANTED
-            : self::ACCESS_ABSTAIN;
+            : self::ACCESS_DENIED;
     }
 
     /**
