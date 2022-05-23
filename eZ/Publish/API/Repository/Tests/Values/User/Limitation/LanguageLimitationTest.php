@@ -650,6 +650,45 @@ class LanguageLimitationTest extends BaseTest
      * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
+    public function testSwapLocationWithLanguageLimitationAndDifferentContentTranslations(
+        array $limitationValues,
+        bool $containsAllTranslations
+    ): void {
+        $repository = $this->getRepository();
+        $locationService = $repository->getLocationService();
+
+        $content = $this->testPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations(
+            $limitationValues,
+            $containsAllTranslations
+        );
+
+        $location = $locationService->loadLocation($content->contentInfo->mainLocationId);
+        $location2 = $locationService->loadLocation(2);
+
+        if ($containsAllTranslations) {
+            $locationService->swapLocation($location2, $location);
+
+            $location = $locationService->loadLocation($location2->id);
+
+            self::assertSame(
+                $content->getVersionInfo()->languageCodes,
+                $location->getContent()->getVersionInfo()->languageCodes
+            );
+        } else {
+            self::expectException(UnauthorizedException::class);
+
+            $locationService->swapLocation($location, $location2);
+        }
+    }
+
+    /**
+     * @dataProvider providerForPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     */
     public function testHideAndUnhideLocationWithLanguageLimitationAndDifferentContentTranslations(
         array $limitationValues,
         bool $containsAllTranslations

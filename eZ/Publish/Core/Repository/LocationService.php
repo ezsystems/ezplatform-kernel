@@ -571,11 +571,24 @@ class LocationService implements LocationServiceInterface
     {
         $loadedLocation1 = $this->loadLocation($location1->id);
         $loadedLocation2 = $this->loadLocation($location2->id);
+        $locationTarget1 = (new DestinationLocationTarget($loadedLocation1->id, $loadedLocation1->contentInfo));
+        $locationTarget2 = (new DestinationLocationTarget($loadedLocation2->id, $loadedLocation2->contentInfo));
 
-        if (!$this->permissionResolver->canUser('content', 'edit', $loadedLocation1->getContentInfo(), [$loadedLocation1])) {
+        if (!$this->permissionResolver->canUser(
+            'content',
+            'edit',
+            $loadedLocation1->getContentInfo(),
+            [$loadedLocation1, $locationTarget1]
+        )) {
             throw new UnauthorizedException('content', 'edit', ['locationId' => $loadedLocation1->id]);
         }
-        if (!$this->permissionResolver->canUser('content', 'edit', $loadedLocation2->getContentInfo(), [$loadedLocation2])) {
+
+        if (!$this->permissionResolver->canUser(
+            'content',
+            'edit',
+            $loadedLocation2->getContentInfo(),
+            [$loadedLocation2, $locationTarget2]
+        )) {
             throw new UnauthorizedException('content', 'edit', ['locationId' => $loadedLocation2->id]);
         }
 
