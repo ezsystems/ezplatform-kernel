@@ -650,7 +650,7 @@ class LanguageLimitationTest extends BaseTest
      * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    public function testHideAndUnhideLocationAndContentWithLanguageLimitationAndDifferentContentTranslations(
+    public function testHideAndUnhideLocationWithLanguageLimitationAndDifferentContentTranslations(
         array $limitationValues,
         bool $containsAllTranslations
     ): void {
@@ -681,7 +681,38 @@ class LanguageLimitationTest extends BaseTest
                 $content->getVersionInfo()->languageCodes,
                 $revealedLocation->getContent()->getVersionInfo()->languageCodes
             );
+        } else {
+            self::expectException(UnauthorizedException::class);
 
+            $locationService->hideLocation($location);
+
+            self::expectException(UnauthorizedException::class);
+
+            $locationService->unhideLocation($location);
+        }
+    }
+
+    /**
+     * @dataProvider providerForPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     */
+    public function testHideAndRevealContentWithLanguageLimitationAndDifferentContentTranslations(
+        array $limitationValues,
+        bool $containsAllTranslations
+    ): void {
+        $repository = $this->getRepository();
+        $contentService = $repository->getContentService();
+
+        $content = $this->testPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations(
+            $limitationValues,
+            $containsAllTranslations
+        );
+
+        if ($containsAllTranslations) {
             $contentService->hideContent($content->contentInfo);
 
             $content = $contentService->loadContent($content->id);
@@ -694,14 +725,6 @@ class LanguageLimitationTest extends BaseTest
 
             self::assertFalse($content->contentInfo->isHidden);
         } else {
-            self::expectException(UnauthorizedException::class);
-
-            $locationService->hideLocation($location);
-
-            self::expectException(UnauthorizedException::class);
-
-            $locationService->unhideLocation($location);
-
             self::expectException(UnauthorizedException::class);
 
             $contentService->hideContent($content->contentInfo);
