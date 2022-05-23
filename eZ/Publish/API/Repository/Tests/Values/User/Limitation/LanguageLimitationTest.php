@@ -656,7 +656,6 @@ class LanguageLimitationTest extends BaseTest
     ): void {
         $repository = $this->getRepository();
         $locationService = $repository->getLocationService();
-        $contentService = $repository->getContentService();
 
         $content = $this->testPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations(
             $limitationValues,
