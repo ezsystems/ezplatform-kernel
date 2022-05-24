@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace eZ\Publish\SPI\Limitation\Target\Builder;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;

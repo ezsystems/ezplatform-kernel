@@ -139,7 +139,7 @@ class LanguageLimitationIntegrationTest extends BaseLimitationIntegrationTest
             'edit',
             $limitations,
             $contentInfo,
-            [$location]
+            [$location, $content->getVersionInfo()]
         );
     }
 

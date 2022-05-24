@@ -54,6 +54,7 @@ use eZ\Publish\SPI\Persistence\Content\ObjectState as SPIObjectState;
 use eZ\Publish\SPI\Persistence\Content\ObjectState\Group as SPIObjectStateGroup;
 use eZ\Publish\SPI\Persistence\Content\UpdateStruct as SPIContentUpdateStruct;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo as SPIVersionInfo;
+use Ibexa\Contracts\Core\Limitation\Target\DestinationLocation;
 
 /**
  * Mock test case for Content service.
@@ -5760,31 +5761,32 @@ class ContentTest extends BaseServiceMockTest
         $locationServiceMock = $this->getLocationServiceMock();
         $permissionResolver = $this->getPermissionResolverMock();
 
-        $repository->expects($this->once())
+        $repository->expects(self::once())
             ->method('getLocationService')
-            ->will($this->returnValue($locationServiceMock));
+            ->will(self::returnValue($locationServiceMock));
 
-        $locationServiceMock->expects($this->once())
+        $locationServiceMock->expects(self::once())
             ->method('loadLocation')
             ->with(
                 $locationCreateStruct->parentLocationId
             )
-            ->will($this->returnValue($location));
+            ->will(self::returnValue($location));
 
-        $contentInfo->expects($this->any())
+        $contentInfo->expects(self::any())
             ->method('__get')
             ->with('sectionId')
-            ->will($this->returnValue(42));
+            ->will(self::returnValue(42));
 
+        $destinationLocationTarget = (new DestinationLocation($locationCreateStruct->parentLocationId, $contentInfo));
         $permissionResolver
             ->method('canUser')
             ->with(
                 'content',
                 'create',
                 $contentInfo,
-                [$location]
+                [$location, $destinationLocationTarget]
             )
-            ->will($this->returnValue(false));
+            ->will(self::returnValue(false));
 
         /* @var \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo */
         $contentService->copyContent($contentInfo, $locationCreateStruct);
@@ -5869,14 +5871,14 @@ class ContentTest extends BaseServiceMockTest
         $repositoryMock->expects($this->once())->method('beginTransaction');
         $repositoryMock->expects($this->once())->method('commit');
 
+        $destinationLocationTarget = (new DestinationLocation($locationCreateStruct->parentLocationId, $contentInfoMock));
         $permissionResolverMock
             ->method('canUser')
-            ->willReturnMap(
-                [
-                    ['content', 'create', $contentInfoMock, [$location], true],
-                    ['content', 'manage_locations', $contentInfoMock, [$location], true],
-                ]
-            );
+            ->withConsecutive(
+                ['content', 'create', $contentInfoMock, [$location, $destinationLocationTarget]],
+                ['content', 'manage_locations', $contentInfoMock, [$location]],
+            )
+            ->willReturnOnConsecutiveCalls(true, true);
 
         $spiContentInfo = new SPIContentInfo(['id' => 42]);
         $spiVersionInfo = new SPIVersionInfo(
@@ -6001,14 +6003,14 @@ class ContentTest extends BaseServiceMockTest
         $repositoryMock->expects($this->once())->method('beginTransaction');
         $repositoryMock->expects($this->once())->method('commit');
 
+        $destinationLocationTarget = (new DestinationLocation($locationCreateStruct->parentLocationId, $contentInfoMock));
         $permissionResolverMock
             ->method('canUser')
-            ->willReturnMap(
-                [
-                    ['content', 'create', $contentInfoMock, [$location], true],
-                    ['content', 'manage_locations', $contentInfoMock, [$location], true],
-                ]
-            );
+            ->withConsecutive(
+                ['content', 'create', $contentInfoMock, [$location, $destinationLocationTarget]],
+                ['content', 'manage_locations', $contentInfoMock, [$location]],
+            )
+            ->willReturnOnConsecutiveCalls(true, true);
 
         $spiContentInfo = new SPIContentInfo(['id' => 42]);
         $spiVersionInfo = new SPIVersionInfo(
@@ -6107,14 +6109,14 @@ class ContentTest extends BaseServiceMockTest
         $repositoryMock->expects($this->once())->method('beginTransaction');
         $repositoryMock->expects($this->once())->method('rollback');
 
+        $destinationLocationTarget = (new DestinationLocation($locationCreateStruct->parentLocationId, $contentInfoMock));
         $permissionResolverMock
             ->method('canUser')
-            ->willReturnMap(
-                [
-                    ['content', 'create', $contentInfoMock, [$location], true],
-                    ['content', 'manage_locations', $contentInfoMock, [$location], true],
-                ]
-            );
+            ->withConsecutive(
+                ['content', 'create', $contentInfoMock, [$location, $destinationLocationTarget]],
+                ['content', 'manage_locations', $contentInfoMock, [$location]],
+            )
+            ->willReturnOnConsecutiveCalls(true, true);
 
         $contentHandlerMock->expects($this->once())
             ->method('copy')

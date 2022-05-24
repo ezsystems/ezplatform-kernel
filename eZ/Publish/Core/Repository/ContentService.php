@@ -64,6 +64,7 @@ use eZ\Publish\SPI\Persistence\Filter\Content\Handler as ContentFilteringHandler
 use eZ\Publish\SPI\Persistence\Handler;
 use eZ\Publish\SPI\Repository\Validator\ContentValidator;
 use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use Ibexa\Contracts\Core\Limitation\Target\DestinationLocation as DestinationLocationTarget;
 use function sprintf;
 
 /**
@@ -1813,7 +1814,14 @@ class ContentService implements ContentServiceInterface
         $destinationLocation = $this->repository->getLocationService()->loadLocation(
             $destinationLocationCreateStruct->parentLocationId
         );
-        if (!$this->permissionResolver->canUser('content', 'create', $contentInfo, [$destinationLocation])) {
+
+        $locationTarget = (new DestinationLocationTarget($destinationLocation->id, $contentInfo));
+        if (!$this->permissionResolver->canUser(
+            'content',
+            'create',
+            $contentInfo,
+            [$destinationLocation, $locationTarget],
+        )) {
             throw new UnauthorizedException(
                 'content',
                 'create',
@@ -2321,13 +2329,19 @@ class ContentService implements ContentServiceInterface
      *
      * Content hidden by this API can be revealed by revealContent API.
      *
-     * @see revealContent
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     public function hideContent(ContentInfo $contentInfo): void
     {
-        if (!$this->permissionResolver->canUser('content', 'hide', $contentInfo)) {
+        $locationTarget = (new DestinationLocationTarget($contentInfo->mainLocationId, $contentInfo));
+        if (!$this->permissionResolver->canUser(
+            'content',
+            'hide',
+            $contentInfo,
+            [$locationTarget]
+        )) {
             throw new UnauthorizedException('content', 'hide', ['contentId' => $contentInfo->id]);
         }
 
@@ -2355,13 +2369,19 @@ class ContentService implements ContentServiceInterface
      * Reveals Content hidden by hideContent API.
      * Locations which were hidden before hiding Content will remain hidden.
      *
-     * @see hideContent
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     public function revealContent(ContentInfo $contentInfo): void
     {
-        if (!$this->permissionResolver->canUser('content', 'hide', $contentInfo)) {
+        $locationTarget = (new DestinationLocationTarget($contentInfo->mainLocationId, $contentInfo));
+        if (!$this->permissionResolver->canUser(
+            'content',
+            'hide',
+            $contentInfo,
+            [$locationTarget]
+        )) {
             throw new UnauthorizedException('content', 'hide', ['contentId' => $contentInfo->id]);
         }
 
