@@ -91,8 +91,13 @@ final class ExceptionConversion extends Gateway
         }
     }
 
-    public function find(Criterion $criterion, int $offset, int $limit, array $sortClauses = [], bool $doCount = true): array
-    {
+    public function find(
+        Criterion $criterion,
+        int $offset,
+        int $limit,
+        array $sortClauses = [],
+        bool $doCount = true
+    ): array {
         try {
             return $this->innerGateway->find($criterion, $offset, $limit, $sortClauses, $doCount);
         } catch (DBALException | PDOException $e) {

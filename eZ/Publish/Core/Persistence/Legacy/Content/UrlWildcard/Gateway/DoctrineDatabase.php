@@ -173,8 +173,13 @@ final class DoctrineDatabase extends Gateway
         return $stmt->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
-    public function find(Criterion $criterion, int $offset, int $limit, array $sortClauses = [], bool $doCount = true): array
-    {
+    public function find(
+        Criterion $criterion,
+        int $offset,
+        int $limit,
+        array $sortClauses = [],
+        bool $doCount = true
+    ): array {
         $count = $doCount ? $this->doCount($criterion) : null;
         if (!$doCount && $limit === 0) {
             throw new RuntimeException('Invalid query. Cannot disable count and request 0 items at the same time');
@@ -238,8 +243,6 @@ final class DoctrineDatabase extends Gateway
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion $criterion
-     *
-     * @return int
      *
      * @throws \Doctrine\DBAL\Driver\Exception
      * @throws \Doctrine\DBAL\Exception

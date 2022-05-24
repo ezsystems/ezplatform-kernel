@@ -30,7 +30,7 @@ class CriterionTest extends BaseTest
         $repository = $this->getRepository();
         $urlWildcardService = $repository->getURLWildcardService();
 
-        foreach ($this->getUrlWildcard() as $urlWildcard) {
+        foreach ($this->getUrlWildcards() as $urlWildcard) {
             $urlWildcardService->create($urlWildcard['sourceUrl'], $urlWildcard['destinationUrl'], $urlWildcard['forward']);
         }
     }
@@ -48,7 +48,7 @@ class CriterionTest extends BaseTest
         return $searchResult;
     }
 
-    private function getUrlWildcard(bool $isAbsolute = false): array
+    private function getUrlWildcards(bool $isAbsolute = false): array
     {
         $prefix = $isAbsolute ? '/' : '';
 
@@ -96,7 +96,7 @@ class CriterionTest extends BaseTest
         $query = new URLWildcardQuery();
         $query->filter = new Criterion\MatchAll();
 
-        $expectedWildcardUrls = $this->getUrlWildcard(true);
+        $expectedWildcardUrls = $this->getUrlWildcards(true);
         $searchResult = $this->findUrlWildcards($query, count($expectedWildcardUrls));
 
         foreach ($searchResult->items as $item) {
