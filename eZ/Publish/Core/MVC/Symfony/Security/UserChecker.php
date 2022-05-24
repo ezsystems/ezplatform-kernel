@@ -10,7 +10,7 @@ namespace eZ\Publish\Core\MVC\Symfony\Security;
 
 use eZ\Publish\API\Repository\UserService;
 use eZ\Publish\Core\MVC\Symfony\Security\UserInterface as EzUserInterface;
-use Symfony\Component\Security\Core\Exception\CredentialsExpiredException;
+use Ibexa\Core\MVC\Symfony\Security\Exception\PasswordExpiredException;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -46,7 +46,7 @@ final class UserChecker implements UserCheckerInterface
         }
 
         if ($this->userService->getPasswordInfo($user->getAPIUser())->isPasswordExpired()) {
-            $exception = new CredentialsExpiredException('User account has expired.');
+            $exception = new PasswordExpiredException('User account has expired.');
             $exception->setUser($user);
 
             throw $exception;

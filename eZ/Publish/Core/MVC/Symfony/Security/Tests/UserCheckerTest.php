@@ -17,8 +17,8 @@ use eZ\Publish\Core\MVC\Symfony\Security\UserChecker;
 use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use eZ\Publish\Core\Repository\Values\User\User as APIUser;
+use Ibexa\Core\MVC\Symfony\Security\Exception\PasswordExpiredException;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Security\Core\Exception\CredentialsExpiredException;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 use Throwable;
 
@@ -156,7 +156,7 @@ final class UserCheckerTest extends TestCase
                 )
             );
 
-        $this->expectException(CredentialsExpiredException::class);
+        $this->expectException(PasswordExpiredException::class);
         $this->expectExceptionMessage('User account has expired.');
 
         $this->userChecker->checkPostAuth(new User($apiUser));
