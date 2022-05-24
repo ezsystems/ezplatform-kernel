@@ -966,7 +966,9 @@ class LocationService implements LocationServiceInterface
         );
         if ($contentReadCriterion === false) {
             throw new UnauthorizedException('content', 'read');
-        } elseif ($contentReadCriterion !== true) {
+        }
+
+        if ($contentReadCriterion !== true) {
             // Query if there are any content in subtree current user don't have access to
             $query = new Query(
                 [

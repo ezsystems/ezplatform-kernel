@@ -520,7 +520,7 @@ class LanguageLimitationTest extends BaseTest
 
             self::assertSame($content->getVersionInfo()->languageCodes, $clonedContent->getVersionInfo()->languageCodes);
         } else {
-            self::expectException(UnauthorizedException::class);
+            $this->expectException(UnauthorizedException::class);
 
             $contentService->copyContent($content->contentInfo, $locationCreateStruct);
         }
@@ -558,7 +558,7 @@ class LanguageLimitationTest extends BaseTest
                 $location->getContent()->getVersionInfo()->languageCodes
             );
         } else {
-            self::expectException(UnauthorizedException::class);
+            $this->expectException(UnauthorizedException::class);
 
             $locationService->copySubtree($contentLocation, $targetLocation);
         }
@@ -599,7 +599,7 @@ class LanguageLimitationTest extends BaseTest
                 $targetLocation->getContent()->getVersionInfo()->languageCodes
             );
         } else {
-            self::expectException(UnauthorizedException::class);
+            $this->expectException(UnauthorizedException::class);
 
             $locationService->moveSubtree($contentLocation, $targetLocation);
         }
@@ -638,7 +638,7 @@ class LanguageLimitationTest extends BaseTest
                 $location->getContent()->getVersionInfo()->languageCodes
             );
         } else {
-            self::expectException(UnauthorizedException::class);
+            $this->expectException(UnauthorizedException::class);
 
             $locationService->swapLocation($location, $location2);
         }
@@ -675,7 +675,7 @@ class LanguageLimitationTest extends BaseTest
                 $hiddenLocation->getContent()->getVersionInfo()->languageCodes
             );
         } else {
-            self::expectException(UnauthorizedException::class);
+            $this->expectException(UnauthorizedException::class);
 
             $locationService->hideLocation($location);
         }
@@ -712,7 +712,7 @@ class LanguageLimitationTest extends BaseTest
                 $revealedLocation->getContent()->getVersionInfo()->languageCodes
             );
         } else {
-            self::expectException(UnauthorizedException::class);
+            $this->expectException(UnauthorizedException::class);
 
             $locationService->unhideLocation($location);
         }
@@ -745,7 +745,7 @@ class LanguageLimitationTest extends BaseTest
 
             self::assertTrue($content->contentInfo->isHidden);
         } else {
-            self::expectException(UnauthorizedException::class);
+            $this->expectException(UnauthorizedException::class);
 
             $contentService->hideContent($content->contentInfo);
         }
@@ -778,7 +778,7 @@ class LanguageLimitationTest extends BaseTest
 
             self::assertFalse($content->contentInfo->isHidden);
         } else {
-            self::expectException(UnauthorizedException::class);
+            $this->expectException(UnauthorizedException::class);
 
             $contentService->revealContent($content->contentInfo);
         }
