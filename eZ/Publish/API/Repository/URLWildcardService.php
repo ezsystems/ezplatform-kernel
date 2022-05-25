@@ -11,6 +11,8 @@ namespace eZ\Publish\API\Repository;
 use eZ\Publish\API\Repository\Values\Content\URLWildcard;
 use eZ\Publish\API\Repository\Values\Content\URLWildcardTranslationResult;
 use eZ\Publish\API\Repository\Values\Content\URLWildcardUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\URLWildcardQuery;
 
 /**
  * URLAlias service.
@@ -83,6 +85,12 @@ interface URLWildcardService
      * @return \eZ\Publish\API\Repository\Values\Content\UrlWildcard[]
      */
     public function loadAll(int $offset = 0, int $limit = -1): iterable;
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     */
+    public function findUrlWildcards(URLWildcardQuery $query): SearchResult;
 
     /**
      * Translates an url to an existing uri resource based on the

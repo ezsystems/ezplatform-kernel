@@ -12,8 +12,13 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway;
 use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\SortClause;
+use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter;
+use RuntimeException;
 
 /**
  * URL wildcard gateway implementation using the Doctrine database.
@@ -33,9 +38,18 @@ final class DoctrineDatabase extends Gateway
     /** @var \Doctrine\DBAL\Connection */
     private $connection;
 
-    public function __construct(Connection $connection)
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter */
+    protected $criteriaConverter;
+
+    public const SORT_DIRECTION_MAP = [
+        SortClause::SORT_ASC => 'ASC',
+        SortClause::SORT_DESC => 'DESC',
+    ];
+
+    public function __construct(Connection $connection, CriteriaConverter $criteriaConverter)
     {
         $this->connection = $connection;
+        $this->criteriaConverter = $criteriaConverter;
     }
 
     public function insertUrlWildcard(UrlWildcard $urlWildcard): int
@@ -159,6 +173,47 @@ final class DoctrineDatabase extends Gateway
         return $stmt->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
+    public function find(
+        Criterion $criterion,
+        int $offset,
+        int $limit,
+        array $sortClauses = [],
+        bool $doCount = true
+    ): array {
+        $count = $doCount ? $this->doCount($criterion) : null;
+        if (!$doCount && $limit === 0) {
+            throw new RuntimeException('Invalid query. Cannot disable count and request 0 items at the same time');
+        }
+
+        if ($limit === 0 || ($count !== null && $count <= $offset)) {
+            return [
+                'count' => $count,
+                'rows' => [],
+            ];
+        }
+
+        if ($limit < 0) {
+            throw new InvalidArgumentException('$limit', 'The limit need be higher than 0');
+        }
+
+        $query = $this->buildLoadUrlWildcardDataQuery();
+        $query
+            ->where($this->criteriaConverter->convertCriteria($query, $criterion))
+            ->setMaxResults($limit)
+            ->setFirstResult($offset);
+
+        foreach ($sortClauses as $sortClause) {
+            $query->addOrderBy($sortClause->target, $this->getQuerySortingDirection($sortClause->direction));
+        }
+
+        $statement = $query->execute();
+
+        return [
+            'count' => $count,
+            'rows' => $statement->fetchAllAssociative(),
+        ];
+    }
+
     public function loadUrlWildcardBySourceUrl(string $sourceUrl): array
     {
         $query = $this->buildLoadUrlWildcardDataQuery();
@@ -184,6 +239,42 @@ final class DoctrineDatabase extends Gateway
             ->from(self::URL_WILDCARD_TABLE);
 
         return (int) $query->execute()->fetchColumn();
+    }
+
+    /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion $criterion
+     *
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
+     */
+    protected function doCount(Criterion $criterion): int
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->select($this->connection->getDatabasePlatform()->getCountExpression('url_wildcard.id'))
+            ->from(self::URL_WILDCARD_TABLE, 'url_wildcard')
+            ->where($this->criteriaConverter->convertCriteria($query, $criterion));
+
+        return (int)$query->execute()->fetchOne();
+    }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     */
+    private function getQuerySortingDirection(string $direction): string
+    {
+        if (!isset(self::SORT_DIRECTION_MAP[$direction])) {
+            throw new InvalidArgumentException(
+                '$sortClause->direction',
+                sprintf(
+                    'Unsupported "%s" sorting direction, use one of the SortClause::SORT_* constants instead',
+                    $direction
+                )
+            );
+        }
+
+        return self::SORT_DIRECTION_MAP[$direction];
     }
 
     private function trimUrl(string $url): string

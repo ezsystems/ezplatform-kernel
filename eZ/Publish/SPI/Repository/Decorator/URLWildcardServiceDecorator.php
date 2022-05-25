@@ -12,6 +12,8 @@ use eZ\Publish\API\Repository\URLWildcardService;
 use eZ\Publish\API\Repository\Values\Content\URLWildcard;
 use eZ\Publish\API\Repository\Values\Content\URLWildcardTranslationResult;
 use eZ\Publish\API\Repository\Values\Content\URLWildcardUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\URLWildcardQuery;
 
 abstract class URLWildcardServiceDecorator implements URLWildcardService
 {
@@ -53,6 +55,11 @@ abstract class URLWildcardServiceDecorator implements URLWildcardService
         int $limit = -1
     ): iterable {
         return $this->innerService->loadAll($offset, $limit);
+    }
+
+    public function findUrlWildcards(URLWildcardQuery $query): SearchResult
+    {
+        return $this->innerService->findUrlWildcards($query);
     }
 
     public function translate(string $url): URLWildcardTranslationResult

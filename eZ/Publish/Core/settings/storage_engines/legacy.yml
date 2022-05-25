@@ -15,6 +15,7 @@ imports:
     - {resource: storage_engines/legacy/url_wildcard.yml}
     - {resource: storage_engines/legacy/url.yml}
     - {resource: storage_engines/legacy/url_criterion_handlers.yml}
+    - {resource: storage_engines/legacy/url_wildcard_criterion_handlers.yml}
     - {resource: storage_engines/legacy/user.yml}
     - {resource: storage_engines/legacy/notification.yml}
     - {resource: storage_engines/legacy/user_preference.yml}
