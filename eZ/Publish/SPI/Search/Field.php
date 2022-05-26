@@ -49,8 +49,27 @@ class Field extends ValueObject
      */
     public function __construct($name, $value, FieldType $type)
     {
+        parent::__construct();
         $this->name = $name;
         $this->value = $value;
         $this->type = $type;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    public function getType(): FieldType
+    {
+        return $this->type;
     }
 }
