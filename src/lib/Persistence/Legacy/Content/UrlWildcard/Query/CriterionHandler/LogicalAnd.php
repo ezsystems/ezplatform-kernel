@@ -6,36 +6,33 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler;
+namespace Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Query\CriterionHandler;
 
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
-use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter;
-use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler;
+use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Query\CriteriaConverter;
+use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Query\CriterionHandler;
 
-final class LogicalOr implements CriterionHandler
+final class LogicalAnd implements CriterionHandler
 {
     public function accept(Criterion $criterion): bool
     {
-        return $criterion instanceof Criterion\LogicalOr;
+        return $criterion instanceof Criterion\LogicalAnd;
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion\LogicalOr $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion\LogicalAnd $criterion
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
      */
-    public function handle(
-        CriteriaConverter $converter,
-        QueryBuilder $queryBuilder,
-        Criterion $criterion
-    ): CompositeExpression {
+    public function handle(CriteriaConverter $converter, QueryBuilder $queryBuilder, Criterion $criterion): CompositeExpression
+    {
         $subexpressions = [];
         foreach ($criterion->criteria as $subCriterion) {
             $subexpressions[] = $converter->convertCriteria($queryBuilder, $subCriterion);
         }
 
-        return $queryBuilder->expr()->or(...$subexpressions);
+        return $queryBuilder->expr()->and(...$subexpressions);
     }
 }

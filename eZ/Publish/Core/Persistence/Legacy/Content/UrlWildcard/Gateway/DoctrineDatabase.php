@@ -17,7 +17,7 @@ use eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway;
 use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\SortClause;
-use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter;
+use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Query\CriteriaConverter;
 use RuntimeException;
 
 /**
@@ -38,7 +38,7 @@ final class DoctrineDatabase extends Gateway
     /** @var \Doctrine\DBAL\Connection */
     private $connection;
 
-    /** @var \Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Query\CriteriaConverter */
     protected $criteriaConverter;
 
     public const SORT_DIRECTION_MAP = [

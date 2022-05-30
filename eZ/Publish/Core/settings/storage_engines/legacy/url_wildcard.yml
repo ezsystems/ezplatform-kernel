@@ -3,7 +3,7 @@ services:
         class: eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\DoctrineDatabase
         arguments:
             - '@ezpublish.api.storage_engine.legacy.connection'
-            - '@Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter'
+            - '@Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Query\CriteriaConverter'
 
     ezpublish.persistence.legacy.url_wildcard.gateway.exception_conversion:
         class: eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Gateway\ExceptionConversion
@@ -24,6 +24,6 @@ services:
             - "@ezpublish.persistence.legacy.url_wildcard.mapper"
         lazy: true
 
-    Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter:
+    Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Query\CriteriaConverter:
         arguments:
             $handlers: !tagged_iterator ibexa.storage.legacy.url_wildcard.criterion.handler

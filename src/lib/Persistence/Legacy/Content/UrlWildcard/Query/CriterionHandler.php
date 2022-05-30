@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query;
+namespace Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Query;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;

@@ -6,28 +6,28 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler;
+namespace Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Query\CriterionHandler;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
-use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter;
-use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler;
+use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Query\CriteriaConverter;
+use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Query\CriterionHandler;
 
-final class MatchNone implements CriterionHandler
+final class MatchAll implements CriterionHandler
 {
     public function accept(Criterion $criterion): bool
     {
-        return $criterion instanceof Criterion\MatchNone;
+        return $criterion instanceof Criterion\MatchAll;
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion\MatchNone $criterion
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion\MatchAll $criterion
      */
     public function handle(
         CriteriaConverter $converter,
         QueryBuilder $queryBuilder,
         Criterion $criterion
     ): string {
-        return '1 = 0';
+        return '1 = 1';
     }
 }

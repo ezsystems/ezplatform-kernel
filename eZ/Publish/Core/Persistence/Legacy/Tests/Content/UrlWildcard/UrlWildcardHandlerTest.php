@@ -13,8 +13,8 @@ use eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Handler;
 use eZ\Publish\Core\Persistence\Legacy\Content\UrlWildcard\Mapper;
 use eZ\Publish\Core\Persistence\Legacy\Tests\TestCase;
 use eZ\Publish\SPI\Persistence\Content\UrlWildcard;
-use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriteriaConverter;
-use Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\MatchAll;
+use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Query\CriteriaConverter;
+use Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Query\CriterionHandler\MatchAll;
 
 /**
  * Test case for UrlWildcard Handler.
