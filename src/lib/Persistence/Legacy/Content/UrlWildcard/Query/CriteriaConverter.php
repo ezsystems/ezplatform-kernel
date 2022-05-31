@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query;
+namespace Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Query;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
@@ -14,11 +14,11 @@ use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
 
 final class CriteriaConverter
 {
-    /** @var \Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler[] */
+    /** @var \Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Query\CriterionHandler[] */
     private $handlers;
 
     /**
-     * @param \Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler[] $handlers
+     * @param \Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Query\CriterionHandler[] $handlers
      */
     public function __construct(iterable $handlers = [])
     {

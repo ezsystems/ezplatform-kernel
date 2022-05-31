@@ -1,5 +1,5 @@
 services:
-    Ibexa\Core\Persistence\Legacy\Content\URLWildcard\Query\CriterionHandler\:
-        resource: '../../../../../../src/lib/Persistence/Legacy/Content/URLWildcard/Query/CriterionHandler/*'
+    Ibexa\Core\Persistence\Legacy\Content\UrlWildcard\Query\CriterionHandler\:
+        resource: '../../../../../../src/lib/Persistence/Legacy/Content/UrlWildcard/Query/CriterionHandler/*'
         tags:
             - { name: ibexa.storage.legacy.url_wildcard.criterion.handler }
