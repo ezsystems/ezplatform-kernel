@@ -97,6 +97,14 @@ services:
     ezpublish.fieldType.validator.image:
         class: eZ\Publish\Core\FieldType\Validator\ImageValidator
 
+    # ImageAsset
+    Ibexa\Core\FieldType\ImageAsset\ContentImageAssetMapperStrategy:
+        arguments:
+            $assetMapper: '@eZ\Publish\Core\FieldType\ImageAsset\AssetMapper'
+            $contentService: '@ezpublish.api.service.content'
+        tags:
+            - { name: ibexa.fieldtype.image_asset.mapper_strategy, priority: 0 }
+
     # BinaryFile
     ezpublish.fieldType.ezbinaryfile.io_service:
         parent: ezpublish.core.io.service
