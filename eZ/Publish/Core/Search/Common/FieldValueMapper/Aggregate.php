@@ -41,6 +41,9 @@ class Aggregate extends FieldValueMapper
         }
     }
 
+    /**
+     * @param class-string<\eZ\Publish\SPI\Search\Field>|null $searchTypeFQCN
+     */
     public function addMapper(FieldValueMapper $mapper, ?string $searchTypeFQCN = null): void
     {
         if (null !== $searchTypeFQCN) {
