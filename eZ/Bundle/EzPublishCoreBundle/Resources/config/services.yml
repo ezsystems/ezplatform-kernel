@@ -217,9 +217,13 @@ services:
     eZ\Publish\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactoryInterface:
         alias: eZ\Publish\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactory
 
-    ezpublish.fields_groups.list:
-        class: eZ\Publish\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList
-        factory: ["@ezpublish.fields_groups.list.repository_settings_factory", "build"]
+    eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList: '@ezpublish.fields_groups.list'
+
+    ezpublish.fields_groups.list: '@eZ\Publish\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList'
+
+    eZ\Publish\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList:
+        lazy: eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList
+        factory: [ "@ezpublish.fields_groups.list.repository_settings_factory", "build" ]
         arguments:
             - "@translator"
 
