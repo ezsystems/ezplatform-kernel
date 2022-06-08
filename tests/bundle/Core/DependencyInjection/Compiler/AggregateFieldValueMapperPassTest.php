@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
-class AggregateFieldValueMapperPassTest extends AbstractCompilerPassTestCase
+final class AggregateFieldValueMapperPassTest extends AbstractCompilerPassTestCase
 {
     protected function setUp(): void
     {
