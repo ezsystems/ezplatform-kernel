@@ -26,3 +26,5 @@ services:
     eZ\Publish\API\Repository\PermissionService: '@eZ\Publish\Core\Repository\Permission\CachedPermissionService'
     eZ\Publish\API\Repository\PermissionResolver: '@eZ\Publish\API\Repository\PermissionService'
     eZ\Publish\API\Repository\PermissionCriterionResolver: '@eZ\Publish\Core\Repository\Permission\PermissionCriterionResolver'
+
+    eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList: '@ezpublish.fields_groups.list'

@@ -217,8 +217,6 @@ services:
     eZ\Publish\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactoryInterface:
         alias: eZ\Publish\Core\Pagination\Pagerfanta\AdapterFactory\SearchHitAdapterFactory
 
-    eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList: '@ezpublish.fields_groups.list'
-
     ezpublish.fields_groups.list: '@eZ\Publish\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList'
 
     eZ\Publish\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList:
