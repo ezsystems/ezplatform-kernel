@@ -14,7 +14,7 @@ use eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 
-class MultilingualContentSearchIndexingTest extends BaseTest
+final class MultilingualContentSearchIndexingTest extends BaseTest
 {
     private const MODIFIED_TRANSLATION = 'pol-PL';
 
