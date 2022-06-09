@@ -3239,6 +3239,135 @@ class LocationServiceTest extends BaseTest
     }
 
     /**
+     * Test that is_visible is set correct for children when moving a location where a child is hidden by content (not by location).
+     *
+     * @covers \eZ\Publish\API\Repository\LocationService::moveSubtree
+     */
+    public function testMoveSubtreeKeepsContentHiddenOnChildrenAndParent(): void
+    {
+        $repository = $this->getRepository();
+
+        $mediaLocationId = $this->generateId('location', 43);
+
+        $locationService = $repository->getLocationService();
+        $contentService = $repository->getContentService();
+
+        $sourceFolderContent = $this->publishContentWithParentLocation('SourceFolder', $mediaLocationId); // media/SourceFolder
+        $subFolderContent1 = $this->publishContentWithParentLocation('subFolderContent1', $sourceFolderContent->contentInfo->mainLocationId);
+        $subFolderContent2 = $this->publishContentWithParentLocation('subFolderContent2', $sourceFolderContent->contentInfo->mainLocationId);
+        $targetFolderContent = $this->publishContentWithParentLocation('targetFolder', $mediaLocationId); // media/SourceFolder
+
+        $contentService->hideContent($subFolderContent1->contentInfo);
+
+        // Move media/SourceFolder to media/TargetFolder/
+        $locationService->moveSubtree(
+            $sourceFolderContent->contentInfo->getMainLocation(),
+            $targetFolderContent->contentInfo->getMainLocation()
+        );
+
+        $movedLocation = $locationService->loadLocation($sourceFolderContent->contentInfo->mainLocationId);
+        $newParentLocation = $locationService->loadLocation($targetFolderContent->contentInfo->mainLocationId);
+
+        // Assert Moved Location remains visible ( only child is hidden )
+        $this->assertPropertiesCorrect(
+            [
+                'hidden' => false,
+                'invisible' => false,
+                'depth' => $newParentLocation->depth + 1,
+                'parentLocationId' => $newParentLocation->id,
+                'pathString' => $newParentLocation->pathString . $this->parseId('location', $movedLocation->id) . '/',
+            ],
+            $movedLocation
+        );
+        self::assertFalse($movedLocation->getContentInfo()->isHidden);
+
+        // Assert children of Moved location
+        $childrenLocations = [
+            $subFolderContent1->contentInfo->getMainLocation(),
+            $subFolderContent2->contentInfo->getMainLocation(),
+        ];
+        foreach ($childrenLocations as $childLocation) {
+            $this->assertPropertiesCorrect(
+                [
+                    'hidden' => $childLocation === $subFolderContent1->contentInfo->getMainLocation(), // Only SubFolderContent1 should be hidden,
+                    'invisible' => $childLocation === $subFolderContent1->contentInfo->getMainLocation(), // Only SubFolderContent1 should be hidden
+                    'depth' => $movedLocation->depth + 1,
+                    'parentLocationId' => $movedLocation->id,
+                    'pathString' => $movedLocation->pathString . $this->parseId('location', $childLocation->id) . '/',
+                ],
+                $childLocation
+            );
+            self::assertEquals($childLocation === $subFolderContent1->contentInfo->getMainLocation(), $childLocation->getContentInfo()->isHidden);
+        }
+    }
+
+    /**
+     * Test that is_visible is set correct for children when moving a content which is hidden (location is not hidden).
+     *
+     * @covers \eZ\Publish\API\Repository\LocationService::moveSubtree
+     */
+    public function testMoveSubtreeKeepsContentHiddenOnChildren(): void
+    {
+        $repository = $this->getRepository();
+
+        $sourceLocationId = $this->createFolder(
+            [
+                'eng-GB' => 'SourceParentFolder',
+            ],
+            2
+        )->getVersionInfo()->getContentInfo()->mainLocationId;
+
+        $locationService = $repository->getLocationService();
+        $contentService = $repository->getContentService();
+
+        $sourceFolderContent = $this->publishContentWithParentLocation('SourceFolder', $sourceLocationId); // media/SourceFolder
+        $subFolderContent1 = $this->publishContentWithParentLocation('subFolderContent1', $sourceFolderContent->contentInfo->mainLocationId);
+        $subFolderContent2 = $this->publishContentWithParentLocation('subFolderContent2', $sourceFolderContent->contentInfo->mainLocationId);
+        $targetFolderContent = $this->publishContentWithParentLocation('targetFolder', $sourceLocationId); // media/SourceFolder
+
+        $contentService->hideContent($sourceFolderContent->contentInfo);
+
+        // Move media/SourceFolder to media/TargetFolder/
+        $locationService->moveSubtree(
+            $sourceFolderContent->contentInfo->getMainLocation(),
+            $targetFolderContent->contentInfo->getMainLocation()
+        );
+
+        $movedLocation = $locationService->loadLocation($sourceFolderContent->contentInfo->mainLocationId);
+        $newParentLocation = $locationService->loadLocation($targetFolderContent->contentInfo->mainLocationId);
+
+        // Assert Moved Location
+        $this->assertPropertiesCorrect(
+            [
+                'hidden' => true,
+                'invisible' => true,
+                'depth' => $newParentLocation->depth + 1,
+                'parentLocationId' => $newParentLocation->id,
+                'pathString' => $newParentLocation->pathString . $this->parseId('location', $movedLocation->id) . '/',
+            ],
+            $movedLocation
+        );
+
+        self::assertTrue($movedLocation->getContentInfo()->isHidden);
+
+        // Assert children of Moved location
+        $childLocations = [$subFolderContent1->contentInfo->getMainLocation(), $subFolderContent2->contentInfo->getMainLocation()];
+        foreach ($childLocations as $childLocation) {
+            $this->assertPropertiesCorrect(
+                [
+                    'hidden' => false,
+                    'invisible' => true,
+                    'depth' => $movedLocation->depth + 1,
+                    'parentLocationId' => $movedLocation->id,
+                    'pathString' => $movedLocation->pathString . $this->parseId('location', $childLocation->id) . '/',
+                ],
+                $childLocation
+            );
+            self::assertFalse($childLocation->getContentInfo()->isHidden);
+        }
+    }
+
+    /**
      * Loads properties from all locations in the $location's subtree.
      *
      * @param \eZ\Publish\API\Repository\Values\Content\Location $location
