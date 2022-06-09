@@ -292,9 +292,14 @@ final class DoctrineDatabase extends Gateway
         return $statement->fetchAll();
     }
 
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     * @throws \Doctrine\DBAL\Driver\Exception
+     */
     public function moveSubtreeNodes(array $sourceNodeData, array $destinationNodeData): void
     {
         $fromPathString = $sourceNodeData['path_string'];
+        $contentObjectId = $sourceNodeData['contentobject_id'];
 
         $rows = $this->getSubtreeNodesData($fromPathString);
 
@@ -304,7 +309,7 @@ final class DoctrineDatabase extends Gateway
             array_slice(explode('/', $sourceNodeData['path_identification_string']), 0, -1)
         );
 
-        $hiddenNodeIds = $this->getHiddenNodeIds($rows);
+        $hiddenNodeIds = $this->getHiddenNodeIds($contentObjectId);
         foreach ($rows as $row) {
             // Prefixing ensures correct replacement when old parent is root node
             $newPathString = str_replace(
@@ -338,28 +343,41 @@ final class DoctrineDatabase extends Gateway
         }
     }
 
-    private function getHiddenNodeIds(array $rows): array
+    /**
+     * @param int $contentObjectId
+     *
+     * @return int[]
+     *
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    private function getHiddenNodeIds(int $contentObjectId): array
     {
-        return array_map(
-            static function (array $row) {
-                return (int)$row['node_id'];
-            },
-            array_filter(
-                $rows,
-                static function (array $row) {
-                    return !empty($row['is_hidden']);
-                }
-            )
-        );
+        $query = $this->buildHiddenSubtreeQuery('node_id');
+        $expr = $query->expr();
+        $query
+            ->andWhere(
+                $expr->eq(
+                    'id',
+                    $query->createPositionalParameter(
+                        $contentObjectId,
+                        ParameterType::INTEGER
+                    )
+                )
+            );
+        $statement = $query->execute();
+
+        $result = $statement->fetchFirstColumn();
+
+        return array_map('intval', $result);
     }
 
     /**
      * @param int[] $hiddenNodeIds
      */
-    private function isHiddenByParent(string $pathString, array $hiddenNodeIds): bool
+    private function isHiddenByParentOrSelf(string $pathString, array $hiddenNodeIds): bool
     {
         $parentNodeIds = array_map('intval', explode('/', trim($pathString, '/')));
-        array_pop($parentNodeIds); // remove self
         foreach ($parentNodeIds as $parentNodeId) {
             if (in_array($parentNodeId, $hiddenNodeIds, true)) {
                 return true;
@@ -420,7 +438,7 @@ final class DoctrineDatabase extends Gateway
             $query->set(
                 'is_invisible',
                 $query->createPositionalParameter(
-                    $this->isHiddenByParent($newPathString, $hiddenNodeIds) ? 1 : 0,
+                    $this->isHiddenByParentOrSelf($newPathString, $hiddenNodeIds) ? 1 : 0,
                     ParameterType::INTEGER
                 )
             );
