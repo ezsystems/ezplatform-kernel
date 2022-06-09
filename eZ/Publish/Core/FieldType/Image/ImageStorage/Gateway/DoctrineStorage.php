@@ -83,6 +83,34 @@ class DoctrineStorage extends Gateway
         return $statement->fetchColumn();
     }
 
+    public function hasImageReference($uri, $fieldId): bool
+    {
+        // legacy stores the path to the image without a leading /
+        $path = $this->redecorator->redecorateFromSource($uri);
+
+        $selectQuery = $this->connection->createQueryBuilder();
+        $selectQuery
+            ->select('COUNT(' . $this->connection->quoteIdentifier('id') . ')')
+            ->from($this->connection->quoteIdentifier(self::IMAGE_FILE_TABLE))
+            ->where(
+                $selectQuery->expr()->and(
+                    $selectQuery->expr()->eq(
+                        $this->connection->quoteIdentifier('contentobject_attribute_id'),
+                        ':fieldId'
+                    ),
+                    $selectQuery->expr()->eq(
+                        $this->connection->quoteIdentifier('filepath'),
+                        ':path'
+                    )
+                )
+            )
+            ->setParameter(':fieldId', $fieldId, PDO::PARAM_INT)
+            ->setParameter(':path', $path);
+
+        $statement = $selectQuery->execute();
+        return ((int) $statement->fetchColumn()) > 0;
+    }
+
     /**
      * Store a reference to the image in $path for $fieldId.
      *

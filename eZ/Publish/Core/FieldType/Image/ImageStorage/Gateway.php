@@ -24,6 +24,15 @@ abstract class Gateway extends StorageGateway
     abstract public function getNodePathString(VersionInfo $versionInfo);
 
     /**
+     * return true if image reference already exists (avoid image duplication for the same contentobject_attribute_id) false otherwise
+     *
+     * @param string $uri File IO uri
+     * @param mixed $fieldId
+     * @return bool
+     */
+    abstract public function hasImageReference($uri, $fieldId): bool;
+
+    /**
      * Stores a reference to the image in $path for $fieldId.
      *
      * @param string $uri File IO uri
