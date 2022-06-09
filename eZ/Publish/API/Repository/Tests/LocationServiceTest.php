@@ -3323,7 +3323,7 @@ class LocationServiceTest extends BaseTest
         $sourceFolderContent = $this->publishContentWithParentLocation('SourceFolder', $sourceLocationId); // media/SourceFolder
         $subFolderContent1 = $this->publishContentWithParentLocation('subFolderContent1', $sourceFolderContent->contentInfo->mainLocationId);
         $subFolderContent2 = $this->publishContentWithParentLocation('subFolderContent2', $sourceFolderContent->contentInfo->mainLocationId);
-        $targetFolderContent = $this->publishContentWithParentLocation('targetFolder', $sourceLocationId); // media/SourceFolder
+        $targetFolderContent = $this->publishContentWithParentLocation('targetFolder', $sourceLocationId); // media/TargetFolder
 
         $contentService->hideContent($sourceFolderContent->contentInfo);
 
