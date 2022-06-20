@@ -343,7 +343,7 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
                             sprintf(
                                 'Child indexer process returned: %s - %s',
                                 $process->getExitCodeText(),
-                                $process->getOutput()
+                                $process->getErrorOutput()
                             )
                         );
                     }
