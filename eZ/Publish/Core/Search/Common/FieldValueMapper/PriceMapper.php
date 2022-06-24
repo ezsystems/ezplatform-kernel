@@ -15,16 +15,9 @@ use eZ\Publish\SPI\Search\FieldType\PriceField;
  */
 class PriceMapper extends FieldValueMapper
 {
-    /**
-     * Check if field can be mapped.
-     *
-     * @param \eZ\Publish\SPI\Search\Field $field
-     *
-     * @return bool
-     */
-    public function canMap(Field $field)
+    public function canMap(Field $field): bool
     {
-        return $field->type instanceof PriceField;
+        return $field->getType() instanceof PriceField;
     }
 
     /**
@@ -36,6 +29,6 @@ class PriceMapper extends FieldValueMapper
      */
     public function map(Field $field)
     {
-        return (float)$field->value;
+        return (float)$field->getValue();
     }
 }

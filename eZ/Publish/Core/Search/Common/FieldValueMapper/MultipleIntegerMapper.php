@@ -14,30 +14,16 @@ use eZ\Publish\SPI\Search\FieldType\MultipleIntegerField;
  */
 class MultipleIntegerMapper extends IntegerMapper
 {
-    /**
-     * Check if field can be mapped.
-     *
-     * @param \eZ\Publish\SPI\Search\Field $field
-     *
-     * @return bool
-     */
-    public function canMap(Field $field)
+    public function canMap(Field $field): bool
     {
-        return $field->type instanceof MultipleIntegerField;
+        return $field->getType() instanceof MultipleIntegerField;
     }
 
-    /**
-     * Map field value to a proper search engine representation.
-     *
-     * @param \eZ\Publish\SPI\Search\Field $field
-     *
-     * @return array
-     */
     public function map(Field $field)
     {
         $values = [];
 
-        foreach ((array)$field->value as $value) {
+        foreach ((array)$field->getValue() as $value) {
             $values[] = $this->convert($value);
         }
 

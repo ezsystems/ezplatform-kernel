@@ -2,72 +2,74 @@ services:
     ezpublish.search.common.field_value_mapper.boolean:
         class: eZ\Publish\Core\Search\Common\FieldValueMapper\BooleanMapper
         tags:
-            - {name: ezpublish.search.common.field_value_mapper}
+            - { name: ezpublish.search.common.field_value_mapper, maps: eZ\Publish\SPI\Search\FieldType\BooleanField }
 
     ezpublish.search.common.field_value_mapper.date:
         class: eZ\Publish\Core\Search\Common\FieldValueMapper\DateMapper
         tags:
-            - {name: ezpublish.search.common.field_value_mapper}
+            - { name: ezpublish.search.common.field_value_mapper, maps: eZ\Publish\SPI\Search\FieldType\DateField }
 
     ezpublish.search.common.field_value_mapper.document:
         class: eZ\Publish\Core\Search\Common\FieldValueMapper\DocumentMapper
         tags:
-            - {name: ezpublish.search.common.field_value_mapper}
+            - { name: ezpublish.search.common.field_value_mapper, maps: eZ\Publish\SPI\Search\FieldType\DocumentField }
 
     ezpublish.search.common.field_value_mapper.geo_location:
         class: eZ\Publish\Core\Search\Common\FieldValueMapper\GeoLocationMapper
         tags:
-            - {name: ezpublish.search.common.field_value_mapper}
+            - { name: ezpublish.search.common.field_value_mapper, maps: eZ\Publish\SPI\Search\FieldType\GeoLocationField }
 
     ezpublish.search.common.field_value_mapper.float:
         class: eZ\Publish\Core\Search\Common\FieldValueMapper\FloatMapper
         tags:
-            - {name: ezpublish.search.common.field_value_mapper}
+            - { name: ezpublish.search.common.field_value_mapper, maps: eZ\Publish\SPI\Search\FieldType\FloatField }
 
     ezpublish.search.common.field_value_mapper.identifier:
         class: eZ\Publish\Core\Search\Common\FieldValueMapper\IdentifierMapper
         tags:
-            - {name: ezpublish.search.common.field_value_mapper}
+            - { name: ezpublish.search.common.field_value_mapper, maps: eZ\Publish\SPI\Search\FieldType\IdentifierField }
 
     ezpublish.search.common.field_value_mapper.multiple_integer:
         class: eZ\Publish\Core\Search\Common\FieldValueMapper\MultipleIntegerMapper
         tags:
-            - {name: ezpublish.search.common.field_value_mapper}
+            - { name: ezpublish.search.common.field_value_mapper, maps: eZ\Publish\SPI\Search\FieldType\MultipleIntegerField }
 
     ezpublish.search.common.field_value_mapper.integer:
         class: eZ\Publish\Core\Search\Common\FieldValueMapper\IntegerMapper
         tags:
-            - {name: ezpublish.search.common.field_value_mapper}
+            - { name: ezpublish.search.common.field_value_mapper, maps: eZ\Publish\SPI\Search\FieldType\IntegerField }
 
     ezpublish.search.common.field_value_mapper.multiple_boolean:
         class: eZ\Publish\Core\Search\Common\FieldValueMapper\MultipleBooleanMapper
         tags:
-            - {name: ezpublish.search.common.field_value_mapper}
+            - { name: ezpublish.search.common.field_value_mapper, maps: eZ\Publish\SPI\Search\FieldType\MultipleBooleanField }
 
     ezpublish.search.common.field_value_mapper.multiple_identifier:
         class: eZ\Publish\Core\Search\Common\FieldValueMapper\MultipleIdentifierMapper
         tags:
-            - {name: ezpublish.search.common.field_value_mapper}
+            - { name: ezpublish.search.common.field_value_mapper, maps: eZ\Publish\SPI\Search\FieldType\MultipleIdentifierField }
 
     ezpublish.search.common.field_value_mapper.multiple_string:
         class: eZ\Publish\Core\Search\Common\FieldValueMapper\MultipleStringMapper
         tags:
-            - {name: ezpublish.search.common.field_value_mapper}
+            - { name: ezpublish.search.common.field_value_mapper, maps: eZ\Publish\SPI\Search\FieldType\MultipleStringField }
+            - { name: ezpublish.search.common.field_value_mapper, maps: eZ\Publish\SPI\Search\FieldType\TextField }
+            - { name: ezpublish.search.common.field_value_mapper, maps: eZ\Publish\SPI\Search\FieldType\FullTextField }
 
     ezpublish.search.common.field_value_mapper.price:
         class: eZ\Publish\Core\Search\Common\FieldValueMapper\PriceMapper
         tags:
-            - {name: ezpublish.search.common.field_value_mapper}
+            - { name: ezpublish.search.common.field_value_mapper, maps: eZ\Publish\SPI\Search\FieldType\PriceField }
 
     ezpublish.search.common.field_value_mapper.string:
         class: eZ\Publish\Core\Search\Common\FieldValueMapper\StringMapper
         tags:
-            - {name: ezpublish.search.common.field_value_mapper}
+            - { name: ezpublish.search.common.field_value_mapper, maps: eZ\Publish\SPI\Search\FieldType\StringField }
 
     eZ\Publish\Core\Search\Common\FieldValueMapper\RemoteIdentifierMapper:
         tags:
-            - {name: ezpublish.search.common.field_value_mapper}
+            - { name: ezpublish.search.common.field_value_mapper, maps: eZ\Publish\SPI\Search\FieldType\RemoteIdentifierField }
 
     eZ\Publish\Core\Search\Common\FieldValueMapper\MultipleRemoteIdentifierMapper:
         tags:
-            - {name: ezpublish.search.common.field_value_mapper}
+            - { name: ezpublish.search.common.field_value_mapper, maps: eZ\Publish\SPI\Search\FieldType\MultipleRemoteIdentifierField }

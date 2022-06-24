@@ -11,7 +11,7 @@ use eZ\Publish\SPI\Persistence\ValueObject;
 /**
  * Base class for document field definitions.
  *
- * @property-read string $type The type name of the facet
+ * @property-read string $type [deprecated] The type name of the facet, deprecated - use {@see \eZ\Publish\SPI\Search\FieldType::getType} instead.
  */
 abstract class FieldType extends ValueObject
 {
@@ -56,4 +56,9 @@ abstract class FieldType extends ValueObject
      * @var bool
      */
     public $inResult = true;
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
 }

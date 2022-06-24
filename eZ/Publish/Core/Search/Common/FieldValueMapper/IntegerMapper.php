@@ -15,38 +15,22 @@ use eZ\Publish\SPI\Search\FieldType\IntegerField;
  */
 class IntegerMapper extends FieldValueMapper
 {
-    /**
-     * Check if field can be mapped.
-     *
-     * @param \eZ\Publish\SPI\Search\Field $field
-     *
-     * @return bool
-     */
-    public function canMap(Field $field)
+    public function canMap(Field $field): bool
     {
-        return $field->type instanceof IntegerField;
+        return $field->getType() instanceof IntegerField;
     }
 
-    /**
-     * Map field value to a proper search engine representation.
-     *
-     * @param \eZ\Publish\SPI\Search\Field $field
-     *
-     * @return mixed
-     */
     public function map(Field $field)
     {
-        return $this->convert($field->value);
+        return $this->convert($field->getValue());
     }
 
     /**
      * Convert to a proper search engine representation.
      *
      * @param mixed $value
-     *
-     * @return int
      */
-    protected function convert($value)
+    protected function convert($value): int
     {
         return (int)$value;
     }

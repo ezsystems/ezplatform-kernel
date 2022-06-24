@@ -18,35 +18,22 @@ class StringMapper extends FieldValueMapper
     public const REPLACE_WITH_SPACE_PATTERN = '([\x09\x0B\x0C]+)';
     public const REMOVE_PATTERN = '([\x00-\x08\x0E-\x1F]+)';
 
-    /**
-     * Check if field can be mapped.
-     *
-     * @return bool
-     */
-    public function canMap(Field $field)
+    public function canMap(Field $field): bool
     {
-        return
-            $field->type instanceof FieldType\StringField;
+        return $field->getType() instanceof FieldType\StringField;
     }
 
-    /**
-     * Map field value to a proper search engine representation.
-     *
-     * @return mixed
-     */
     public function map(Field $field)
     {
-        return $this->convert($field->value);
+        return $this->convert($field->getValue());
     }
 
     /**
      * Convert to a proper search engine representation.
      *
      * @param mixed $value
-     *
-     * @return string
      */
-    protected function convert($value)
+    protected function convert($value): string
     {
         // Replace tab, vertical tab, form-feed chars to single space.
         $value = preg_replace(

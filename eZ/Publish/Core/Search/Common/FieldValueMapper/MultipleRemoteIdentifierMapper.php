@@ -14,23 +14,16 @@ use eZ\Publish\SPI\Search\FieldType\MultipleRemoteIdentifierField;
  */
 final class MultipleRemoteIdentifierMapper extends RemoteIdentifierMapper
 {
-    /**
-     * Check if field can be mapped.
-     *
-     * @param \eZ\Publish\SPI\Search\Field $field
-     *
-     * @return bool
-     */
     public function canMap(Field $field): bool
     {
-        return $field->type instanceof MultipleRemoteIdentifierField;
+        return $field->getType() instanceof MultipleRemoteIdentifierField;
     }
 
     public function map(Field $field)
     {
         $values = [];
 
-        foreach ($field->value as $value) {
+        foreach ($field->getValue() as $value) {
             $values[] = $this->convert($value);
         }
 

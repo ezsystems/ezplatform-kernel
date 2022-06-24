@@ -15,27 +15,13 @@ use eZ\Publish\SPI\Search\FieldType\BooleanField;
  */
 class BooleanMapper extends FieldValueMapper
 {
-    /**
-     * Check if field can be mapped.
-     *
-     * @param \eZ\Publish\SPI\Search\Field $field
-     *
-     * @return bool
-     */
-    public function canMap(Field $field)
+    public function canMap(Field $field): bool
     {
-        return $field->type instanceof BooleanField;
+        return $field->getType() instanceof BooleanField;
     }
 
-    /**
-     * Map field value to a proper search engine representation.
-     *
-     * @param \eZ\Publish\SPI\Search\Field $field
-     *
-     * @return mixed
-     */
     public function map(Field $field)
     {
-        return (bool)$field->value;
+        return (bool)$field->getValue();
     }
 }

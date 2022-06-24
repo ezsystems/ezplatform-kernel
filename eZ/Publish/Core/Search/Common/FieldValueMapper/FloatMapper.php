@@ -15,27 +15,13 @@ use eZ\Publish\SPI\Search\FieldType\FloatField;
  */
 class FloatMapper extends FieldValueMapper
 {
-    /**
-     * Check if field can be mapped.
-     *
-     * @param \eZ\Publish\SPI\Search\Field $field
-     *
-     * @return bool
-     */
-    public function canMap(Field $field)
+    public function canMap(Field $field): bool
     {
-        return $field->type instanceof FloatField;
+        return $field->getType() instanceof FloatField;
     }
 
-    /**
-     * Map field value to a proper search engine representation.
-     *
-     * @param \eZ\Publish\SPI\Search\Field $field
-     *
-     * @return mixed
-     */
     public function map(Field $field)
     {
-        return sprintf('%F', (float)$field->value);
+        return sprintf('%F', (float)$field->getValue());
     }
 }

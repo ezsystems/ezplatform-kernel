@@ -15,27 +15,27 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class AggregateFieldValueMapperPass implements CompilerPassInterface
 {
+    public const SERVICE_ID = 'ezpublish.search.common.field_value_mapper.aggregate';
+    public const TAG = 'ezpublish.search.common.field_value_mapper';
+
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
-        if (!$container->hasDefinition('ezpublish.search.common.field_value_mapper.aggregate')) {
+        if (!$container->hasDefinition(self::SERVICE_ID)) {
             return;
         }
 
-        $aggregateFieldValueMapperDefinition = $container->getDefinition(
-            'ezpublish.search.common.field_value_mapper.aggregate'
-        );
-
-        $taggedServiceIds = $container->findTaggedServiceIds(
-            'ezpublish.search.common.field_value_mapper'
-        );
-        foreach ($taggedServiceIds as $id => $attributes) {
-            $aggregateFieldValueMapperDefinition->addMethodCall(
-                'addMapper',
-                [new Reference($id)]
-            );
+        $aggregateFieldValueMapperDefinition = $container->getDefinition(self::SERVICE_ID);
+        $taggedServiceIds = $container->findTaggedServiceIds(self::TAG);
+        foreach ($taggedServiceIds as $id => $tags) {
+            foreach ($tags as $tagAttributes) {
+                $aggregateFieldValueMapperDefinition->addMethodCall(
+                    'addMapper',
+                    [new Reference($id), $tagAttributes['maps'] ?? null]
+                );
+            }
         }
     }
 }
