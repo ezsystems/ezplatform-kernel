@@ -24,21 +24,7 @@ final class MultilingualContentSearchIndexingTest extends BaseTest
         self::MODIFIED_TRANSLATION => 'Polish (Poland)',
         'nor-NO' => 'Norwegian (Norway)',
         'ger-DE' => 'German (Germany)',
-        'afr-AF' => 'Afrikaans (South Africa)',
-        'ben-BN' => 'Bengali (Bangladesh)',
-        'cha-CH' => 'Chamorro (Guam)',
-        'cro-HR' => 'Croatian (Croatia)',
-        'cze-CS' => 'Czech (Czechia)',
-        'dan-DA' => 'Danish (Denmark)',
-        'esp-ES' => 'Spanish (Spain)',
-        'esp-MX' => 'Spanish (Mexico)',
-        'fra-CA' => 'French (Canada)',
-        'fra-FR' => 'French (France)',
-        'nld-NL' => 'Dutch (Netherlands)',
         'por-PT' => 'Portuguese (Portugal)',
-        'slo-SK' => 'Slovak (Slovak Republic)',
-        'ukr-UA' => 'Ukrainian (Ukraine)',
-        'zho-ZH' => 'Chinese (China)',
     ];
 
     /**
