@@ -66,6 +66,9 @@
         <testsuite name="eZ\Publish\API\Repository\Tests\Regression">
             <directory>eZ/Publish/API/Repository/Tests/Regression/</directory>
         </testsuite>
+        <testsuite name="ibexa-core-integration-tests">
+            <directory>tests/integration/Core</directory>
+        </testsuite>
     </testsuites>
     <filter>
         <whitelist>
