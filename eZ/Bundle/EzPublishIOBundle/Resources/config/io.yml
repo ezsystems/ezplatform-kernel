@@ -157,3 +157,12 @@ services:
             - '@eZ\Publish\Core\IO\IOConfigProvider'
         tags:
             - { name: kernel.event_subscriber }
+
+    Ibexa\Bundle\IO\EventListener\StreamFileSiteAccessListener:
+        arguments:
+            - '@ezpublish.config.resolver'
+            - '@ezpublish.siteaccess_router'
+            - '@ezpublish.siteaccess_service'
+            - '%ezpublish.siteaccess.list%'
+        tags:
+            - { name: kernel.event_subscriber }
