@@ -1,9 +1,14 @@
 --TEST--
-"ez_render_location_query_esi" function
+"ez_render_content_query_b" function
 --TEMPLATE--
-{{ ez_render_location_query_esi({
+{{ ez_render_content_query({
     'query': {
         'query_type': 'LatestBlogPost',
+    },
+   'pagination': {
+        'enabled': true,
+        'limit': 5,
+        'page_param' : 'current_page'
     },
     'template': 'latest_blog_post.html.twig',
 }) }}
@@ -22,15 +27,21 @@ array (
         array (
           'query_type' => 'LatestBlogPost',
         ),
+        'pagination' => 
+        array (
+          'enabled' => true,
+          'limit' => 5,
+          'page_param' => 'current_page',
+        ),
         'template' => 'latest_blog_post.html.twig',
       ),
     ),
      'query' => 
     array (
-      'page' => 1,
+      'current_page' => 1,
     ),
   )),
-  1 => 'esi',
+  1 => 'inline',
   2 => 
   array (
   ),
