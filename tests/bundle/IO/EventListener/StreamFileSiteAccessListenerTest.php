@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-final class StreamFileSiteAccessListenerTest extends TestCase
+class StreamFileSiteAccessListenerTest extends TestCase
 {
     /** @var \Ibexa\Bundle\IO\EventListener\StreamFileSiteAccessListener */
     private $eventListener;
@@ -119,7 +119,7 @@ final class StreamFileSiteAccessListenerTest extends TestCase
         self::assertSame('admin2', $this->siteAccessService->getCurrent()->name);
     }
 
-    protected function createEvent(Request $request): RequestEvent
+    private function createEvent(Request $request): RequestEvent
     {
         return new RequestEvent(
             $this->createMock(HttpKernelInterface::class),
