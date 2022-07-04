@@ -79,16 +79,18 @@ abstract class Handler
             if (count($criterion->value) > 1) {
                 throw new InvalidArgumentException('$criterion->value', "Too many arguments for unary operator '$criterion->operator'");
             }
+
             $criterion->value = reset($criterion->value);
         }
 
         switch ($criterion->operator) {
             case Criterion\Operator::IN:
+                $values = array_map([$this, 'prepareParameter'], $criterion->value);
                 $filter = $subQuery->expr()->in(
                     $column,
                     $outerQuery->createNamedParameter(
-                        array_map([$this, 'prepareParameter'], $criterion->value),
-                        Connection::PARAM_STR_ARRAY
+                        $values,
+                        $this->getParamArrayType($values)
                     )
                 );
                 break;
@@ -163,7 +165,7 @@ abstract class Handler
      *
      * @return mixed
      */
-    protected function prepareParameter($value)
+    private function prepareParameter($value)
     {
         if (is_string($value)) {
             return $this->lowerCase($value);
@@ -174,7 +176,7 @@ abstract class Handler
         return $value;
     }
 
-    protected function createNamedParameter(QueryBuilder $outerQuery, string $column, $value): ?string
+    private function createNamedParameter(QueryBuilder $outerQuery, string $column, $value): ?string
     {
         switch ($column) {
             case 'sort_key_string':
@@ -196,11 +198,35 @@ abstract class Handler
         );
     }
 
-    protected function isOperatorUnary(string $operator): bool
+    private function isOperatorUnary(string $operator): bool
     {
         return !in_array($operator, [
             Criterion\Operator::IN,
             Criterion\Operator::BETWEEN,
         ]);
+    }
+
+    /**
+     * @param array<int, mixed> $values
+     *
+     * @throws \eZ\Publish\API\Exception\InvalidArgumentException If value contain unhandled or more than one parameter type
+     */
+    private function getParamArrayType(array $values): int
+    {
+        $types = array_unique(array_map('gettype', $values));
+
+        if (count($types) > 1) {
+            throw new InvalidArgumentException('$values', "Cannot mix parameter types: " . implode(', ', $types));
+        }
+
+        switch ($types[0]) {
+            case 'integer':
+            case 'boolean':
+                return Connection::PARAM_INT_ARRAY;
+            case 'string':
+                return Connection::PARAM_STR_ARRAY;
+        }
+
+        throw new InvalidArgumentException('$values', "Unhandled parameter type: " . $types[0]);
     }
 }
