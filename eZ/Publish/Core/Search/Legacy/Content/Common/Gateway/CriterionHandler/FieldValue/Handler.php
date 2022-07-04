@@ -161,9 +161,9 @@ abstract class Handler
     }
 
     /**
-     * @param mixed $value
+     * @param scalar|array<scalar> $value
      *
-     * @return mixed
+     * @return scalar|array<scalar>
      */
     private function prepareParameter($value)
     {
@@ -207,7 +207,7 @@ abstract class Handler
     }
 
     /**
-     * @param array<int, mixed> $values
+     * @param array<int, scalar> $values
      *
      * @throws \eZ\Publish\API\Exception\InvalidArgumentException If value contain unhandled or more than one parameter type
      */
