@@ -47,7 +47,11 @@ class DownloadController extends Controller
     public function downloadBinaryFileAction($contentId, $fieldIdentifier, $filename, Request $request)
     {
         if ($request->query->has('version')) {
-            $content = $this->contentService->loadContent($contentId, null, $request->query->get('version'));
+            $version = $request->query->get('version');
+            if (!is_int($version)) {
+                throw new NotFoundException('File', $filename);
+            }
+            $content = $this->contentService->loadContent($contentId, null, $version);
         } else {
             $content = $this->contentService->loadContent($contentId);
         }
