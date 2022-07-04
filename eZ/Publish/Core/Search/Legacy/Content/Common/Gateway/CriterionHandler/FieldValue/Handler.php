@@ -203,7 +203,7 @@ abstract class Handler
         return !in_array($operator, [
             Criterion\Operator::IN,
             Criterion\Operator::BETWEEN,
-        ]);
+        ], true);
     }
 
     /**
