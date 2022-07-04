@@ -216,7 +216,7 @@ abstract class Handler
         $types = array_unique(array_map('gettype', $values));
 
         if (count($types) > 1) {
-            throw new InvalidArgumentException('$values', "Cannot mix parameter types: " . implode(', ', $types));
+            throw new InvalidArgumentException('$values', 'Cannot mix parameter types: ' . implode(', ', $types));
         }
 
         switch ($types[0]) {
@@ -227,6 +227,6 @@ abstract class Handler
                 return Connection::PARAM_STR_ARRAY;
         }
 
-        throw new InvalidArgumentException('$values', "Unhandled parameter type: " . $types[0]);
+        throw new InvalidArgumentException('$values', 'Unhandled parameter type: ' . $types[0]);
     }
 }
