@@ -7,9 +7,11 @@
 namespace eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriterionHandler\FieldValue;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Operator as CriterionOperator;
+use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\Persistence\TransformationProcessor;
 use RuntimeException;
 
@@ -64,6 +66,7 @@ abstract class Handler
      *
      * @return \Doctrine\DBAL\Query\Expression\CompositeExpression|string
      *
+     * @throws \eZ\Publish\API\Exception\InvalidArgumentException If passed more than 1 argument to unary operator.
      * @throws \RuntimeException If operator is not handled.
      */
     public function handle(
@@ -72,12 +75,19 @@ abstract class Handler
         Criterion $criterion,
         string $column
     ) {
+        if (is_array($criterion->value) && $this->isOperatorUnary($criterion->operator)) {
+            if (count($criterion->value) > 1) {
+                throw new InvalidArgumentException('$criterion->value', "Too many arguments for unary operator '$criterion->operator'");
+            }
+            $criterion->value = reset($criterion->value);
+        }
+
         switch ($criterion->operator) {
             case Criterion\Operator::IN:
                 $filter = $subQuery->expr()->in(
                     $column,
                     $outerQuery->createNamedParameter(
-                        array_map([$this, 'lowerCase'], $criterion->value),
+                        array_map([$this, 'prepareParameter'], $criterion->value),
                         Connection::PARAM_STR_ARRAY
                     )
                 );
@@ -99,7 +109,7 @@ abstract class Handler
                 $operatorFunction = $this->comparatorMap[$criterion->operator];
                 $filter = $subQuery->expr()->{$operatorFunction}(
                     $column,
-                    $outerQuery->createNamedParameter($this->lowerCase($criterion->value))
+                    $this->createNamedParameter($outerQuery, $column, $criterion->value)
                 );
                 break;
 
@@ -146,5 +156,51 @@ abstract class Handler
     protected function lowerCase(string $string): string
     {
         return $this->transformationProcessor->transformByGroup($string, 'lowercase');
+    }
+
+    /**
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    protected function prepareParameter($value)
+    {
+        if (is_string($value)) {
+            return $this->lowerCase($value);
+        } elseif (is_array($value)) {
+            return array_map([$this, 'prepareParameter'], $value);
+        }
+
+        return $value;
+    }
+
+    protected function createNamedParameter(QueryBuilder $outerQuery, string $column, $value): ?string
+    {
+        switch ($column) {
+            case 'sort_key_string':
+                $parameterValue = $this->prepareParameter($value);
+                $parameterType = ParameterType::STRING;
+                break;
+            case 'sort_key_integer':
+                $parameterValue = (int)$value;
+                $parameterType = ParameterType::INTEGER;
+                break;
+            default:
+                $parameterValue = $value;
+                $parameterType = null;
+        }
+
+        return $outerQuery->createNamedParameter(
+            $parameterValue,
+            $parameterType
+        );
+    }
+
+    protected function isOperatorUnary(string $operator): bool
+    {
+        return !in_array($operator, [
+            Criterion\Operator::IN,
+            Criterion\Operator::BETWEEN,
+        ]);
     }
 }
