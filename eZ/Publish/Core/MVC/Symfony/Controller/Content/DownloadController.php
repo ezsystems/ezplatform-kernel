@@ -41,8 +41,11 @@ class DownloadController extends Controller
      * @param string $filename
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \eZ\Bundle\EzPublishIOBundle\BinaryStreamResponse
-     * @return \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @return BinaryStreamResponse
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue
      */
     public function downloadBinaryFileAction($contentId, $fieldIdentifier, $filename, Request $request)
     {
