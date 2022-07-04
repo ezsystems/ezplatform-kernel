@@ -41,7 +41,7 @@ class DownloadController extends Controller
      * @param string $filename
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return BinaryStreamResponse
+     * @return \eZ\Bundle\EzPublishIOBundle\BinaryStreamResponse
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
