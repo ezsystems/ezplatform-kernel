@@ -45,7 +45,7 @@ class DownloadController extends Controller
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      */
     public function downloadBinaryFileAction($contentId, $fieldIdentifier, $filename, Request $request)
     {
