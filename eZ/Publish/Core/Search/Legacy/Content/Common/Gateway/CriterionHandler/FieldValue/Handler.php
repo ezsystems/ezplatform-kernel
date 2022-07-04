@@ -221,6 +221,7 @@ abstract class Handler
 
         switch ($types[0]) {
             case 'integer':
+            case 'double':
             case 'boolean':
                 return Connection::PARAM_INT_ARRAY;
             case 'string':
