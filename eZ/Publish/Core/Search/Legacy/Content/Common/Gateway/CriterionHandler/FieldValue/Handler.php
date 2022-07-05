@@ -169,7 +169,9 @@ abstract class Handler
     {
         if (is_string($value)) {
             return $this->lowerCase($value);
-        } elseif (is_array($value)) {
+        }
+
+        if (is_array($value)) {
             return array_map([$this, 'prepareParameter'], $value);
         }
 
@@ -211,7 +213,7 @@ abstract class Handler
      */
     private function getParamArrayType(array $values): int
     {
-        if (count($values) === 0) {
+        if (empty($values)) {
             throw new InvalidArgumentException('$values', 'Array cannot be empty');
         }
 
