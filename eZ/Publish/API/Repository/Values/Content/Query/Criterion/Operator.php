@@ -46,6 +46,5 @@ abstract class Operator
             ],
             true
         );
-
     }
 }
