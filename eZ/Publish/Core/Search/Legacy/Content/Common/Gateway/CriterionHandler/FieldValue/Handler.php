@@ -66,7 +66,7 @@ abstract class Handler
      *
      * @return \Doctrine\DBAL\Query\Expression\CompositeExpression|string
      *
-     * @throws \eZ\Publish\API\Exception\InvalidArgumentException If passed more than 1 argument to unary operator.
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException If passed more than 1 argument to unary operator.
      * @throws \RuntimeException If operator is not handled.
      */
     public function handle(
@@ -208,26 +208,27 @@ abstract class Handler
 
     /**
      * @param array<int, scalar> $values
-     *
-     * @throws \eZ\Publish\API\Exception\InvalidArgumentException If value contain unhandled or more than one parameter type
      */
     private function getParamArrayType(array $values): int
     {
-        $types = array_unique(array_map('gettype', $values));
-
-        if (count($types) > 1) {
-            throw new InvalidArgumentException('$values', 'Cannot mix parameter types: ' . implode(', ', $types));
+        if (count($values) === 0) {
+            throw new InvalidArgumentException('$values', 'Array cannot be empty');
         }
 
-        switch ($types[0]) {
-            case 'integer':
-            case 'double':
-            case 'boolean':
-                return Connection::PARAM_INT_ARRAY;
-            case 'string':
-                return Connection::PARAM_STR_ARRAY;
+        $types = [];
+        foreach ($values as $value) {
+            if (is_bool($value) || ($value !== 0 && is_int($value))) {
+                // Ignore 0 as ambiguous (float vs int)
+                $types[] = Connection::PARAM_INT_ARRAY;
+            } else {
+                // Floats are considered strings
+                $types[] = Connection::PARAM_STR_ARRAY;
+            }
         }
 
-        throw new InvalidArgumentException('$values', 'Unhandled parameter type: ' . $types[0]);
+        $arrayValueTypes = array_unique($types);
+
+        // Fallback to Connection::PARAM_STR_ARRAY
+        return $arrayValueTypes[0] ?? Connection::PARAM_STR_ARRAY;
     }
 }
