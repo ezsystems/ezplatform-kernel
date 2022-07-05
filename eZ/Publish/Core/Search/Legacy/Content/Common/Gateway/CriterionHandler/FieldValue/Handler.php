@@ -75,7 +75,7 @@ abstract class Handler
         Criterion $criterion,
         string $column
     ) {
-        if (is_array($criterion->value) && $this->isOperatorUnary($criterion->operator)) {
+        if (is_array($criterion->value) && Criterion\Operator::isUnary($criterion->operator)) {
             if (count($criterion->value) > 1) {
                 throw new InvalidArgumentException('$criterion->value', "Too many arguments for unary operator '$criterion->operator'");
             }
@@ -198,14 +198,6 @@ abstract class Handler
             $parameterValue,
             $parameterType
         );
-    }
-
-    private function isOperatorUnary(string $operator): bool
-    {
-        return !in_array($operator, [
-            Criterion\Operator::IN,
-            Criterion\Operator::BETWEEN,
-        ], true);
     }
 
     /**

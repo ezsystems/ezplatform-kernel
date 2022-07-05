@@ -30,4 +30,22 @@ abstract class Operator
      */
     public const LIKE = 'like';
     public const CONTAINS = 'contains';
+
+    public static function isUnary(string $operator): bool
+    {
+        return in_array(
+            $operator,
+            [
+                self::EQ,
+                self::GT,
+                self::GTE,
+                self::LT,
+                self::LTE,
+                self::LIKE,
+                self::CONTAINS,
+            ],
+            true
+        );
+
+    }
 }
