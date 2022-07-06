@@ -75,7 +75,11 @@ class DownloadController extends Controller
         }
 
         $response = new BinaryStreamResponse($this->ioService->loadBinaryFile($field->value->id), $this->ioService);
-        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename, md5($filename));
+        $response->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $filename,
+            bin2hex(random_bytes(8))
+        );
 
         return $response;
     }
