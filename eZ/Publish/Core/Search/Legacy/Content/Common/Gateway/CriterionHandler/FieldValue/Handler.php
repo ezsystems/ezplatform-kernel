@@ -185,7 +185,7 @@ abstract class Handler
                 $parameterValue = $this->prepareParameter($value);
                 $parameterType = ParameterType::STRING;
                 break;
-            case 'sort_key_integer':
+            case 'sort_key_int':
                 $parameterValue = (int)$value;
                 $parameterType = ParameterType::INTEGER;
                 break;
