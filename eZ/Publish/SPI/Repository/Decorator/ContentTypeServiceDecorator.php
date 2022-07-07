@@ -154,9 +154,10 @@ abstract class ContentTypeServiceDecorator implements ContentTypeService
 
     public function addFieldDefinition(
         ContentTypeDraft $contentTypeDraft,
-        FieldDefinitionCreateStruct $fieldDefinitionCreateStruct
+        FieldDefinitionCreateStruct $fieldDefinitionCreateStruct,
+        bool $ignoreOwnership = false
     ): void {
-        $this->innerService->addFieldDefinition($contentTypeDraft, $fieldDefinitionCreateStruct);
+        $this->innerService->addFieldDefinition($contentTypeDraft, $fieldDefinitionCreateStruct, $ignoreOwnership);
     }
 
     public function removeFieldDefinition(
@@ -169,14 +170,20 @@ abstract class ContentTypeServiceDecorator implements ContentTypeService
     public function updateFieldDefinition(
         ContentTypeDraft $contentTypeDraft,
         FieldDefinition $fieldDefinition,
-        FieldDefinitionUpdateStruct $fieldDefinitionUpdateStruct
+        FieldDefinitionUpdateStruct $fieldDefinitionUpdateStruct,
+        bool $ignoreOwnership = false
     ): void {
-        $this->innerService->updateFieldDefinition($contentTypeDraft, $fieldDefinition, $fieldDefinitionUpdateStruct);
+        $this->innerService->updateFieldDefinition(
+            $contentTypeDraft,
+            $fieldDefinition,
+            $fieldDefinitionUpdateStruct,
+            $ignoreOwnership
+        );
     }
 
-    public function publishContentTypeDraft(ContentTypeDraft $contentTypeDraft): void
+    public function publishContentTypeDraft(ContentTypeDraft $contentTypeDraft, bool $ignoreOwnership = false): void
     {
-        $this->innerService->publishContentTypeDraft($contentTypeDraft);
+        $this->innerService->publishContentTypeDraft($contentTypeDraft, $ignoreOwnership);
     }
 
     public function newContentTypeGroupCreateStruct(string $identifier): ContentTypeGroupCreateStruct

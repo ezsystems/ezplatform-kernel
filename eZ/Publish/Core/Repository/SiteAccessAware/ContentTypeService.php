@@ -156,9 +156,12 @@ class ContentTypeService implements ContentTypeServiceInterface
         $this->service->unassignContentTypeGroup($contentType, $contentTypeGroup);
     }
 
-    public function addFieldDefinition(ContentTypeDraft $contentTypeDraft, FieldDefinitionCreateStruct $fieldDefinitionCreateStruct): void
-    {
-        $this->service->addFieldDefinition($contentTypeDraft, $fieldDefinitionCreateStruct);
+    public function addFieldDefinition(
+        ContentTypeDraft $contentTypeDraft,
+        FieldDefinitionCreateStruct $fieldDefinitionCreateStruct,
+        bool $ignoreOwnership = false
+    ): void {
+        $this->service->addFieldDefinition($contentTypeDraft, $fieldDefinitionCreateStruct, $ignoreOwnership);
     }
 
     public function removeFieldDefinition(ContentTypeDraft $contentTypeDraft, FieldDefinition $fieldDefinition): void
@@ -166,14 +169,23 @@ class ContentTypeService implements ContentTypeServiceInterface
         $this->service->removeFieldDefinition($contentTypeDraft, $fieldDefinition);
     }
 
-    public function updateFieldDefinition(ContentTypeDraft $contentTypeDraft, FieldDefinition $fieldDefinition, FieldDefinitionUpdateStruct $fieldDefinitionUpdateStruct): void
-    {
-        $this->service->updateFieldDefinition($contentTypeDraft, $fieldDefinition, $fieldDefinitionUpdateStruct);
+    public function updateFieldDefinition(
+        ContentTypeDraft $contentTypeDraft,
+        FieldDefinition $fieldDefinition,
+        FieldDefinitionUpdateStruct $fieldDefinitionUpdateStruct,
+        bool $ignoreOwnership = false
+    ): void {
+        $this->service->updateFieldDefinition(
+            $contentTypeDraft,
+            $fieldDefinition,
+            $fieldDefinitionUpdateStruct,
+            $ignoreOwnership
+        );
     }
 
-    public function publishContentTypeDraft(ContentTypeDraft $contentTypeDraft): void
+    public function publishContentTypeDraft(ContentTypeDraft $contentTypeDraft, bool $ignoreOwnership = false): void
     {
-        $this->service->publishContentTypeDraft($contentTypeDraft);
+        $this->service->publishContentTypeDraft($contentTypeDraft, $ignoreOwnership);
     }
 
     public function newContentTypeGroupCreateStruct(string $identifier): ContentTypeGroupCreateStruct

@@ -1258,14 +1258,17 @@ class ContentTypeService implements ContentTypeServiceInterface
      * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
      * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct $fieldDefinitionCreateStruct
      */
-    public function addFieldDefinition(APIContentTypeDraft $contentTypeDraft, FieldDefinitionCreateStruct $fieldDefinitionCreateStruct): void
-    {
+    public function addFieldDefinition(
+        APIContentTypeDraft $contentTypeDraft,
+        FieldDefinitionCreateStruct $fieldDefinitionCreateStruct,
+        bool $ignoreOwnership = false
+    ): void {
         if (!$this->permissionResolver->canUser('class', 'update', $contentTypeDraft)) {
             throw new UnauthorizedException('ContentType', 'update');
         }
 
         $this->validateInputFieldDefinitionCreateStruct($fieldDefinitionCreateStruct);
-        $loadedContentTypeDraft = $this->loadContentTypeDraft($contentTypeDraft->id);
+        $loadedContentTypeDraft = $this->loadContentTypeDraft($contentTypeDraft->id, $ignoreOwnership);
 
         if ($loadedContentTypeDraft->hasFieldDefinition($fieldDefinitionCreateStruct->identifier)) {
             throw new InvalidArgumentException(
@@ -1385,13 +1388,17 @@ class ContentTypeService implements ContentTypeServiceInterface
      * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition $fieldDefinition the field definition which should be updated
      * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionUpdateStruct $fieldDefinitionUpdateStruct
      */
-    public function updateFieldDefinition(APIContentTypeDraft $contentTypeDraft, APIFieldDefinition $fieldDefinition, FieldDefinitionUpdateStruct $fieldDefinitionUpdateStruct): void
-    {
+    public function updateFieldDefinition(
+        APIContentTypeDraft $contentTypeDraft,
+        APIFieldDefinition $fieldDefinition,
+        FieldDefinitionUpdateStruct $fieldDefinitionUpdateStruct,
+        bool $ignoreOwnership = false
+    ): void {
         if (!$this->permissionResolver->canUser('class', 'update', $contentTypeDraft)) {
             throw new UnauthorizedException('ContentType', 'update');
         }
 
-        $loadedContentTypeDraft = $this->loadContentTypeDraft($contentTypeDraft->id);
+        $loadedContentTypeDraft = $this->loadContentTypeDraft($contentTypeDraft->id, $ignoreOwnership);
         $foundFieldId = false;
         foreach ($loadedContentTypeDraft->fieldDefinitions as $existingFieldDefinition) {
             if ($existingFieldDefinition->id == $fieldDefinition->id) {
@@ -1441,14 +1448,14 @@ class ContentTypeService implements ContentTypeServiceInterface
      *
      * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
      */
-    public function publishContentTypeDraft(APIContentTypeDraft $contentTypeDraft): void
+    public function publishContentTypeDraft(APIContentTypeDraft $contentTypeDraft, bool $ignoreOwnership = false): void
     {
         if (!$this->permissionResolver->canUser('class', 'update', $contentTypeDraft)) {
             throw new UnauthorizedException('ContentType', 'update');
         }
 
         try {
-            $loadedContentTypeDraft = $this->loadContentTypeDraft($contentTypeDraft->id);
+            $loadedContentTypeDraft = $this->loadContentTypeDraft($contentTypeDraft->id, $ignoreOwnership);
         } catch (APINotFoundException $e) {
             throw new BadStateException(
                 '$contentTypeDraft',

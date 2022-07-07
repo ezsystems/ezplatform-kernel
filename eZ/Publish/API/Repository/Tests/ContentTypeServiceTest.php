@@ -1720,6 +1720,95 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
         $contentTypeService->addFieldDefinition($userContentTypeDraft, $fieldDefCreate);
         /* END: Use Case */
     }
+    
+    /**
+     * Test for the addFieldDefinition() method.
+     *
+     * @see \eZ\Publish\API\Repository\ContentTypeService::addFieldDefinition()
+     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentType
+     */
+    public function testAddFieldDefinitionThrowsNotFoundExceptionOwnedBySomeoneElse(): void
+    {
+        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectExceptionMessage('Could not find \'The Content Type is owned by someone else\' with identifier \'37\'');
+        
+        $repository = $this->getRepository();
+        $contentTypeService = $repository->getContentTypeService();
+        
+        /* BEGIN: Use Case */
+        $contentTypeDraft = $this->createContentTypeDraft([], 10);
+        
+        $fieldDefCreate = $contentTypeService->newFieldDefinitionCreateStruct('tags', 'ezstring');
+        $fieldDefCreate->names = [
+            'eng-GB' => 'Tags',
+            'ger-DE' => 'Schlagworte',
+        ];
+        $fieldDefCreate->descriptions = [
+            'eng-GB' => 'Tags of the blog post',
+            'ger-DE' => 'Schlagworte des Blog-Eintrages',
+        ];
+        $fieldDefCreate->fieldGroup = 'blog-meta';
+        $fieldDefCreate->position = 1;
+        $fieldDefCreate->isTranslatable = true;
+        $fieldDefCreate->isRequired = true;
+        $fieldDefCreate->isInfoCollector = false;
+        $fieldDefCreate->validatorConfiguration = [
+            'StringLengthValidator' => [
+                'minStringLength' => 0,
+                'maxStringLength' => 0,
+            ],
+        ];
+        $fieldDefCreate->fieldSettings = [];
+        $fieldDefCreate->isSearchable = true;
+        $fieldDefCreate->defaultValue = 'default tags';
+        
+        $contentTypeService->addFieldDefinition($contentTypeDraft, $fieldDefCreate);
+        /* END: Use Case */
+        
+    }
+    
+    /**
+     * Test for the addFieldDefinition() method.
+     *
+     * @see \eZ\Publish\API\Repository\ContentTypeService::addFieldDefinition()
+     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testCreateContentType
+     */
+    public function testAddFieldDefinitionWithIgnoreOwnership(): void
+    {
+        $repository = $this->getRepository();
+        $contentTypeService = $repository->getContentTypeService();
+        
+        /* BEGIN: Use Case */
+        $contentTypeDraft = $this->createContentTypeDraft([], 10);
+        
+        $fieldDefCreate = $contentTypeService->newFieldDefinitionCreateStruct('tags', 'ezstring');
+        $fieldDefCreate->names = [
+            'eng-GB' => 'Tags',
+            'ger-DE' => 'Schlagworte',
+        ];
+        $fieldDefCreate->descriptions = [
+            'eng-GB' => 'Tags of the blog post',
+            'ger-DE' => 'Schlagworte des Blog-Eintrages',
+        ];
+        $fieldDefCreate->fieldGroup = 'blog-meta';
+        $fieldDefCreate->position = 1;
+        $fieldDefCreate->isTranslatable = true;
+        $fieldDefCreate->isRequired = true;
+        $fieldDefCreate->isInfoCollector = false;
+        $fieldDefCreate->validatorConfiguration = [
+            'StringLengthValidator' => [
+                'minStringLength' => 0,
+                'maxStringLength' => 0,
+            ],
+        ];
+        $fieldDefCreate->fieldSettings = [];
+        $fieldDefCreate->isSearchable = true;
+        $fieldDefCreate->defaultValue = 'default tags';
+        
+        $contentTypeService->addFieldDefinition($contentTypeDraft, $fieldDefCreate, true);
+        /* END: Use Case */
+        
+    }
 
     /**
      * Test for the ContentTypeService::createContentType() method.
@@ -2498,6 +2587,101 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
             $loadedDraft,
             $bodyField,
             $bodyUpdateStruct
+        );
+        /* END: Use Case */
+    }
+    
+    
+    /**
+     * Test for the updateFieldDefinition() method.
+     *
+     * @see \eZ\Publish\API\Repository\ContentTypeService::updateFieldDefinition()
+     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeDraft
+     */
+    public function testUpdateFieldDefinitionThrowsNotFoundExceptionOwnedBySomeoneElse(): void
+    {
+        $this->expectException(\eZ\Publish\API\Repository\Exceptions\NotFoundException::class);
+        $this->expectExceptionMessage('Could not find \'The Content Type is owned by someone else\' with identifier \'37\'');
+        
+        $repository = $this->getRepository();
+        $contentTypeService = $repository->getContentTypeService();
+        
+        /* BEGIN: Use Case */
+        $contentTypeDraft = $this->createContentTypeDraft([], 10);
+        
+        $bodyField = $contentTypeDraft->getFieldDefinition('body');
+        
+        $bodyUpdateStruct = $contentTypeService->newFieldDefinitionUpdateStruct();
+        $bodyUpdateStruct->identifier = 'blog-body';
+        $bodyUpdateStruct->names = [
+            'eng-GB' => 'Blog post body',
+            'ger-DE' => 'Blog-Eintrags-Textkörper',
+        ];
+        $bodyUpdateStruct->descriptions = [
+            'eng-GB' => 'Blog post body of the blog post',
+            'ger-DE' => 'Blog-Eintrags-Textkörper des Blog-Eintrages',
+        ];
+        $bodyUpdateStruct->fieldGroup = 'updated-blog-content';
+        $bodyUpdateStruct->position = 3;
+        $bodyUpdateStruct->isTranslatable = false;
+        $bodyUpdateStruct->isRequired = false;
+        $bodyUpdateStruct->isInfoCollector = true;
+        $bodyUpdateStruct->validatorConfiguration = [];
+        $bodyUpdateStruct->fieldSettings = [
+            'textRows' => 60,
+        ];
+        $bodyUpdateStruct->isSearchable = false;
+        
+        $contentTypeService->updateFieldDefinition(
+            $contentTypeDraft,
+            $bodyField,
+            $bodyUpdateStruct
+        );
+        /* END: Use Case */
+    }
+    
+    /**
+     * Test for the updateFieldDefinition() method.
+     *
+     * @see \eZ\Publish\API\Repository\ContentTypeService::updateFieldDefinition()
+     * @depends eZ\Publish\API\Repository\Tests\ContentTypeServiceTest::testLoadContentTypeDraft
+     */
+    public function testUpdateFieldDefinitionWithIgnoreOwnership(): void
+    {
+        $repository = $this->getRepository();
+        $contentTypeService = $repository->getContentTypeService();
+        
+        /* BEGIN: Use Case */
+        $contentTypeDraft = $this->createContentTypeDraft([], 10);
+        
+        $bodyField = $contentTypeDraft->getFieldDefinition('body');
+        
+        $bodyUpdateStruct = $contentTypeService->newFieldDefinitionUpdateStruct();
+        $bodyUpdateStruct->identifier = 'blog-body';
+        $bodyUpdateStruct->names = [
+            'eng-GB' => 'Blog post body',
+            'ger-DE' => 'Blog-Eintrags-Textkörper',
+        ];
+        $bodyUpdateStruct->descriptions = [
+            'eng-GB' => 'Blog post body of the blog post',
+            'ger-DE' => 'Blog-Eintrags-Textkörper des Blog-Eintrages',
+        ];
+        $bodyUpdateStruct->fieldGroup = 'updated-blog-content';
+        $bodyUpdateStruct->position = 3;
+        $bodyUpdateStruct->isTranslatable = false;
+        $bodyUpdateStruct->isRequired = false;
+        $bodyUpdateStruct->isInfoCollector = true;
+        $bodyUpdateStruct->validatorConfiguration = [];
+        $bodyUpdateStruct->fieldSettings = [
+            'textRows' => 60,
+        ];
+        $bodyUpdateStruct->isSearchable = false;
+        
+        $contentTypeService->updateFieldDefinition(
+            $contentTypeDraft,
+            $bodyField,
+            $bodyUpdateStruct,
+            true
         );
         /* END: Use Case */
     }

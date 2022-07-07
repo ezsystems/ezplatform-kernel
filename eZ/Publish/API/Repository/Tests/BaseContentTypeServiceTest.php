@@ -7,6 +7,7 @@
 namespace eZ\Publish\API\Repository\Tests;
 
 use eZ\Publish\API\Repository\Values\Content\Location;
+use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft;
 
 /**
  * Base class for content type specific tests.
@@ -18,18 +19,18 @@ abstract class BaseContentTypeServiceTest extends BaseTest
      *
      * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct[] $additionalFieldDefinitionsCreateStruct
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\ContentTypeFieldDefinitionValidationException
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
-    protected function createContentTypeDraft(array $additionalFieldDefinitionsCreateStruct = [])
-    {
+    protected function createContentTypeDraft(
+        array $additionalFieldDefinitionsCreateStruct = [],
+        int $creatorId = 14
+    ): ContentTypeDraft {
         $repository = $this->getRepository();
 
-        $creatorId = $this->generateId('user', 14);
+        $creatorId = $this->generateId('user', $creatorId);
         /* BEGIN: Inline */
         $contentTypeService = $repository->getContentTypeService();
 

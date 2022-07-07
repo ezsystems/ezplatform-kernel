@@ -295,7 +295,8 @@ class ContentTypeService extends ContentTypeServiceDecorator
 
     public function addFieldDefinition(
         ContentTypeDraft $contentTypeDraft,
-        FieldDefinitionCreateStruct $fieldDefinitionCreateStruct
+        FieldDefinitionCreateStruct $fieldDefinitionCreateStruct,
+        bool $ignoreOwnership = false
     ): void {
         $eventData = [
             $contentTypeDraft,
@@ -309,7 +310,7 @@ class ContentTypeService extends ContentTypeServiceDecorator
             return;
         }
 
-        $this->innerService->addFieldDefinition($contentTypeDraft, $fieldDefinitionCreateStruct);
+        $this->innerService->addFieldDefinition($contentTypeDraft, $fieldDefinitionCreateStruct, $ignoreOwnership);
 
         $this->eventDispatcher->dispatch(
             new AddFieldDefinitionEvent(...$eventData)
@@ -342,7 +343,8 @@ class ContentTypeService extends ContentTypeServiceDecorator
     public function updateFieldDefinition(
         ContentTypeDraft $contentTypeDraft,
         FieldDefinition $fieldDefinition,
-        FieldDefinitionUpdateStruct $fieldDefinitionUpdateStruct
+        FieldDefinitionUpdateStruct $fieldDefinitionUpdateStruct,
+        bool $ignoreOwnership = false
     ): void {
         $eventData = [
             $contentTypeDraft,
@@ -357,14 +359,19 @@ class ContentTypeService extends ContentTypeServiceDecorator
             return;
         }
 
-        $this->innerService->updateFieldDefinition($contentTypeDraft, $fieldDefinition, $fieldDefinitionUpdateStruct);
+        $this->innerService->updateFieldDefinition(
+            $contentTypeDraft,
+            $fieldDefinition,
+            $fieldDefinitionUpdateStruct,
+            $ignoreOwnership
+        );
 
         $this->eventDispatcher->dispatch(
             new UpdateFieldDefinitionEvent(...$eventData)
         );
     }
 
-    public function publishContentTypeDraft(ContentTypeDraft $contentTypeDraft): void
+    public function publishContentTypeDraft(ContentTypeDraft $contentTypeDraft, bool $ignoreOwnership = false): void
     {
         $eventData = [$contentTypeDraft];
 
@@ -375,7 +382,7 @@ class ContentTypeService extends ContentTypeServiceDecorator
             return;
         }
 
-        $this->innerService->publishContentTypeDraft($contentTypeDraft);
+        $this->innerService->publishContentTypeDraft($contentTypeDraft, $ignoreOwnership);
 
         $this->eventDispatcher->dispatch(
             new PublishContentTypeDraftEvent(...$eventData)
