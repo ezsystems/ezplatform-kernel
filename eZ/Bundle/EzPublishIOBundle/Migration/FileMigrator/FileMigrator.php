@@ -16,6 +16,21 @@ final class FileMigrator extends MigrationHandler implements FileMigratorInterfa
 {
     public function migrateFile(BinaryFile $binaryFile)
     {
+        if (!$this->migrateBinaryFile($binaryFile) || !$this->migrateMetadata($binaryFile)) {
+            return false;
+        }
+
+        $this->logInfo("Successfully migrated: '{$binaryFile->id}'");
+
+        return true;
+    }
+
+    private function migrateBinaryFile(BinaryFile $binaryFile): bool
+    {
+        if (get_class($this->fromBinarydataHandler) === get_class($this->toBinarydataHandler)) {
+            return true;
+        }
+
         try {
             $binaryFileResource = $this->fromBinarydataHandler->getResource($binaryFile->id);
         } catch (BinaryFileNotFoundException $e) {
@@ -36,6 +51,15 @@ final class FileMigrator extends MigrationHandler implements FileMigratorInterfa
             return false;
         }
 
+        return true;
+    }
+
+    private function migrateMetadata(BinaryFile $binaryFile): bool
+    {
+        if (get_class($this->fromMetadataHandler) === get_class($this->toMetadataHandler)) {
+            return true;
+        }
+
         $metadataCreateStruct = new BinaryFileCreateStruct();
         $metadataCreateStruct->id = $binaryFile->id;
         $metadataCreateStruct->size = $binaryFile->size;
@@ -49,8 +73,6 @@ final class FileMigrator extends MigrationHandler implements FileMigratorInterfa
 
             return false;
         }
-
-        $this->logInfo("Successfully migrated: '{$binaryFile->id}'");
 
         return true;
     }
