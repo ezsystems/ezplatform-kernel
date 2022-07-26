@@ -53,7 +53,7 @@ class Collection extends Handler
                 $value = str_replace('*', '%', $this->prepareLikeString($criterion->value));
 
                 $singleValueExpr = 'like';
-            // No break here, rest is handled by shared code with ::CONTAINS below
+                // No break here, rest is handled by shared code with ::CONTAINS below
 
             case Criterion\Operator::CONTAINS:
                 $value = isset($value) ? $value : $this->prepareLikeString($criterion->value);

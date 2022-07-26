@@ -229,12 +229,12 @@ class URLAliasService implements URLAliasServiceInterface
 
         foreach ($spiUrlAliasList as $spiUrlAlias) {
             if (
-            !$this->isUrlAliasLoadable(
-                $spiUrlAlias,
-                $languageCode,
-                $showAllTranslations,
-                $prioritizedLanguages
-            )
+                !$this->isUrlAliasLoadable(
+                    $spiUrlAlias,
+                    $languageCode,
+                    $showAllTranslations,
+                    $prioritizedLanguages
+                )
             ) {
                 continue;
             }
