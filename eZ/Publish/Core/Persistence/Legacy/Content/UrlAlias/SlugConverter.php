@@ -355,8 +355,8 @@ class SlugConverter
                 );
                 break;
             default:
-                // Nothing
-        }
+            // Nothing
+            }
 
         return $text;
     }

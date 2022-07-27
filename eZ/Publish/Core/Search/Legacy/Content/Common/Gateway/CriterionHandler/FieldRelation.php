@@ -94,7 +94,7 @@ class FieldRelation extends FieldBase
 
                     return $queryBuilder->expr()->andX(...$subRequest);
                 }
-            // Intentionally omitting break
+                // Intentionally omitting break
 
             case Criterion\Operator::IN:
                 $subSelect = $this->buildQueryForInOperator(

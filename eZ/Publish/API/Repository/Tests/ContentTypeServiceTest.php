@@ -2184,7 +2184,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
             $contentVersion1Archived,
             $contentVersion1Published,
             $contentVersion2Draft
-            ) = $data;
+        ) = $data;
 
         $this->assertTrue(
             isset($contentVersion1Archived->fields['byline']),

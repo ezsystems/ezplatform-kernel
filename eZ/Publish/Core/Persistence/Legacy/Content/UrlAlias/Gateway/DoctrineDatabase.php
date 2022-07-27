@@ -1376,7 +1376,7 @@ final class DoctrineDatabase extends Gateway
         return $existingAliasesQueryBuilder
             ->select('tmp.id')
             ->from(
-            // nest sub-query to avoid same-table update error
+                // nest sub-query to avoid same-table update error
                 '(' . $innerQueryBuilder->select('id')->from(
                     $this->connection->quoteIdentifier($this->table)
                 )->getSQL() . ')',
