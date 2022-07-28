@@ -27,7 +27,7 @@ final class FileMigrator extends MigrationHandler implements FileMigratorInterfa
 
     private function migrateBinaryFile(BinaryFile $binaryFile): bool
     {
-        if (get_class($this->fromBinarydataHandler) === get_class($this->toBinarydataHandler)) {
+        if ($this->fromBinarydataHandler === $this->toBinarydataHandler) {
             return true;
         }
 
@@ -56,7 +56,7 @@ final class FileMigrator extends MigrationHandler implements FileMigratorInterfa
 
     private function migrateMetadata(BinaryFile $binaryFile): bool
     {
-        if (get_class($this->fromMetadataHandler) === get_class($this->toMetadataHandler)) {
+        if ($this->fromMetadataHandler === $this->toMetadataHandler) {
             return true;
         }
 
