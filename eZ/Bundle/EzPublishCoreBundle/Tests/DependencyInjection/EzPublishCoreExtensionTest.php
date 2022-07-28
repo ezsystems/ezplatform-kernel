@@ -11,6 +11,7 @@ use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Commo
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Content;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\ServiceTags;
+use eZ\Bundle\EzPublishCoreBundle\Features\Context\QueryControllerContext;
 use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\Filter\CustomCriterionQueryBuilder;
 use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\Filter\CustomSortClauseQueryBuilder;
 use eZ\Bundle\EzPublishCoreBundle\Tests\DependencyInjection\Stub\QueryTypeBundle\QueryType\TestQueryType;
@@ -851,6 +852,19 @@ class EzPublishCoreExtensionTest extends AbstractExtensionTestCase
             CustomSortClauseQueryBuilder::class,
             ServiceTags::FILTERING_SORT_CLAUSE_QUERY_BUILDER,
         ];
+    }
+
+    public function testDoesNotLoadTestServicesByDefault(): void
+    {
+        $this->load();
+        $this->assertContainerBuilderNotHasService(QueryControllerContext::class);
+    }
+
+    public function testLoadsTestServicesWhenParameterIsSpecified(): void
+    {
+        $this->container->setParameter('ibexa.testing.browser.enabled', true);
+        $this->load();
+        $this->assertContainerBuilderHasService(QueryControllerContext::class);
     }
 
     /**
