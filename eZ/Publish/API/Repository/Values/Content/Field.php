@@ -26,7 +26,7 @@ class Field extends ValueObject
      *
      * @todo may be not needed
      *
-     * @var mixed
+     * @var int
      */
     protected $id;
 
@@ -57,4 +57,32 @@ class Field extends ValueObject
      * @var string
      */
     protected $fieldTypeIdentifier;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getFieldDefinitionIdentifier(): string
+    {
+        return $this->fieldDefIdentifier;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    public function getLanguageCode(): string
+    {
+        return $this->languageCode;
+    }
+
+    public function getFieldTypeIdentifier(): string
+    {
+        return $this->fieldTypeIdentifier;
+    }
 }

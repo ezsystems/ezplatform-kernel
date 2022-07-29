@@ -141,8 +141,10 @@ class Content extends APIContent
         }
 
         foreach ($this->getFields() as $field) {
-            if ($field->fieldDefIdentifier === $fieldDefIdentifier
-                && $field->languageCode === $languageCode) {
+            if (
+                $field->getFieldDefinitionIdentifier() === $fieldDefIdentifier
+                && $field->getLanguageCode() === $languageCode
+            ) {
                 return $field;
             }
         }
@@ -152,7 +154,8 @@ class Content extends APIContent
 
     public function getDefaultLanguageCode(): string
     {
-        return $this->prioritizedFieldLanguageCode ?: $this->versionInfo->contentInfo->mainLanguageCode;
+        return $this->prioritizedFieldLanguageCode
+            ?? $this->versionInfo->getContentInfo()->getMainLanguageCode();
     }
 
     /**
@@ -170,10 +173,10 @@ class Content extends APIContent
     {
         switch ($property) {
             case 'id':
-                return $this->versionInfo->contentInfo->id;
+                return $this->versionInfo->getContentInfo()->id;
 
             case 'contentInfo':
-                return $this->versionInfo->contentInfo;
+                return $this->versionInfo->getContentInfo();
 
             case 'thumbnail':
                 return $this->getThumbnail();
