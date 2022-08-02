@@ -40,3 +40,4 @@ ez_content_download_field_id:
     defaults: { _controller: ezpublish.controller.content.download_redirection:redirectToContentDownloadAction }
     requirements:
         contentId: '\d+'
+        fieldId: '\d+'
