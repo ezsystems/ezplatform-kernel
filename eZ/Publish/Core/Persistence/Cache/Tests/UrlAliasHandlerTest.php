@@ -34,10 +34,13 @@ class UrlAliasHandlerTest extends AbstractInMemoryCacheHandlerTest
                 [
                     ['url_alias_location', [44], false],
                     ['url_alias_location_path', [44], false],
+                    ['url_alias', ['44-abc'], false],
                     ['url_alias_not_found', [], false],
                 ],
                 null,
-                ['urlal-44', 'urlalp-44', 'urlanf'],
+                ['urlal-44', 'urlalp-44', 'urla-44-abc', 'urlanf'],
+                null,
+                '44-abc',
             ],
             [
                 'createCustomUrlAlias',

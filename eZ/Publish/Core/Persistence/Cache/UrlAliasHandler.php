@@ -41,7 +41,7 @@ class UrlAliasHandler extends AbstractInMemoryPersistenceHandler implements UrlA
         $languageCode,
         $alwaysAvailable = false,
         $updatePathIdentificationString = false
-    ) {
+    ): string {
         $this->logger->logCall(
             __METHOD__,
             [
@@ -53,7 +53,7 @@ class UrlAliasHandler extends AbstractInMemoryPersistenceHandler implements UrlA
             ]
         );
 
-        $this->persistenceHandler->urlAliasHandler()->publishUrlAliasForLocation(
+        $urlAliasIdentity = $this->persistenceHandler->urlAliasHandler()->publishUrlAliasForLocation(
             $locationId,
             $parentLocationId,
             $name,
@@ -65,8 +65,11 @@ class UrlAliasHandler extends AbstractInMemoryPersistenceHandler implements UrlA
         $this->cache->invalidateTags([
             $this->cacheIdentifierGenerator->generateTag(self::URL_ALIAS_LOCATION_IDENTIFIER, [$locationId]),
             $this->cacheIdentifierGenerator->generateTag(self::URL_ALIAS_LOCATION_PATH_IDENTIFIER, [$locationId]),
+            $this->cacheIdentifierGenerator->generateTag(self::URL_ALIAS_IDENTIFIER, [$urlAliasIdentity]),
             $this->cacheIdentifierGenerator->generateTag(self::URL_ALIAS_NOT_FOUND_IDENTIFIER),
         ]);
+
+        return $urlAliasIdentity;
     }
 
     /**

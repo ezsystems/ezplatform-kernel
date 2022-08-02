@@ -137,10 +137,10 @@ class Handler implements UrlAliasHandlerInterface
         $languageCode,
         $alwaysAvailable = false,
         $updatePathIdentificationString = false
-    ) {
+    ): string {
         $languageId = $this->languageHandler->loadByLanguageCode($languageCode)->id;
 
-        $this->internalPublishUrlAliasForLocation(
+        return $this->internalPublishUrlAliasForLocation(
             $locationId,
             $parentLocationId,
             $name,
@@ -172,7 +172,7 @@ class Handler implements UrlAliasHandlerInterface
         $alwaysAvailable = false,
         $updatePathIdentificationString = false,
         $newId = null
-    ) {
+    ): string {
         $parentId = $this->getRealAliasId($parentLocationId);
         $name = $this->slugConverter->convert($name, 'location_' . $locationId);
         $uniqueCounter = $this->slugConverter->getUniqueCounterValue($name, $parentId == 0);
@@ -300,6 +300,8 @@ class Handler implements UrlAliasHandlerInterface
         if ($cleanup) {
             $this->gateway->cleanupAfterPublish($action, $languageId, $newId, $parentId, $newTextMD5);
         }
+
+        return $this->mapper->generateIdentityKey($parentId, $newTextMD5);
     }
 
     /**

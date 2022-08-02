@@ -28,7 +28,13 @@ interface Handler
      * @param string $languageCode
      * @param bool $alwaysAvailable
      */
-    public function publishUrlAliasForLocation($locationId, $parentLocationId, $name, $languageCode, $alwaysAvailable = false);
+    public function publishUrlAliasForLocation(
+        $locationId,
+        $parentLocationId,
+        $name,
+        $languageCode,
+        $alwaysAvailable = false
+    ): string;
 
     /**
      * Create a user chosen $alias pointing to $locationId in $languageCode.

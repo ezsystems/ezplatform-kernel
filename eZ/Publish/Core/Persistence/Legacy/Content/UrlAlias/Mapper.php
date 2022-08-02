@@ -43,7 +43,7 @@ class Mapper
         $urlAlias = new UrlAlias();
 
         list($type, $destination) = $this->matchTypeAndDestination($data['action']);
-        $urlAlias->id = $data['parent'] . '-' . $data['text_md5'];
+        $urlAlias->id = $this->generateIdentityKey((int)$data['parent'], $data['text_md5']);
         $urlAlias->pathData = $this->normalizePathData($data['raw_path_data']);
         $urlAlias->languageCodes = $this->languageMaskGenerator->extractLanguageCodesFromMask($data['lang_mask']);
         $urlAlias->alwaysAvailable = $this->languageMaskGenerator->isAlwaysAvailable($data['lang_mask']);
@@ -88,6 +88,11 @@ class Mapper
         }
 
         return $this->languageMaskGenerator->extractLanguageCodesFromMask($languageMask);
+    }
+
+    public function generateIdentityKey(int $parentId, string $hash): string
+    {
+        return sprintf('%d-%s', $parentId, $hash);
     }
 
     /**
