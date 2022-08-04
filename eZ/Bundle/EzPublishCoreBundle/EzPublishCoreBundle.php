@@ -41,6 +41,8 @@ use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Security\HttpBasicFactory;
 use eZ\Publish\Core\Base\Container\Compiler\FieldTypeRegistryPass;
 use eZ\Publish\Core\Base\Container\Compiler\GenericFieldTypeConverterPass;
 use eZ\Publish\Core\Base\Container\Compiler\Persistence\FieldTypeRegistryPass as PersistenceFieldTypeRegistryPass;
+use eZ\Publish\Core\Base\Container\Compiler\Search\AggregateFieldValueMapperPass;
+use eZ\Publish\Core\Base\Container\Compiler\Search\FieldRegistryPass;
 use eZ\Publish\Core\Base\Container\Compiler\Storage\ExternalStorageRegistryPass;
 use eZ\Publish\Core\Base\Container\Compiler\Storage\Legacy\FieldValueConverterRegistryPass;
 use eZ\Publish\Core\Base\Container\Compiler\Storage\Legacy\RoleLimitationConverterPass;
@@ -63,6 +65,8 @@ class EzPublishCoreBundle extends Bundle
         $container->addCompilerPass(new RegisterStorageEnginePass());
         $container->addCompilerPass(new RegisterSearchEnginePass());
         $container->addCompilerPass(new RegisterSearchEngineIndexerPass());
+        $container->addCompilerPass(new AggregateFieldValueMapperPass());
+        $container->addCompilerPass(new FieldRegistryPass());
         $container->addCompilerPass(new ContentViewPass());
         $container->addCompilerPass(new LocationViewPass());
         $container->addCompilerPass(new RouterPass());
