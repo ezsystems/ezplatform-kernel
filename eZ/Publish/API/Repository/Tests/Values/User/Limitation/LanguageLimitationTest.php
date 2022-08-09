@@ -13,6 +13,7 @@ use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
 use eZ\Publish\API\Repository\Tests\BaseTest;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
+use eZ\Publish\API\Repository\Values\Content\LocationUpdateStruct;
 use eZ\Publish\API\Repository\Values\User\Limitation\LanguageLimitation;
 use eZ\Publish\API\Repository\Values\User\User;
 use eZ\Publish\SPI\Limitation\Target\Builder\VersionBuilder;
@@ -781,6 +782,44 @@ class LanguageLimitationTest extends BaseTest
             $this->expectException(UnauthorizedException::class);
 
             $contentService->revealContent($content->contentInfo);
+        }
+    }
+
+    /**
+     * @dataProvider providerForPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     */
+    public function testUpdateLocationWithLanguageLimitationAndDifferentContentTranslations(
+        array $limitationValues,
+        bool $containsAllTranslations
+    ): void {
+        $repository = $this->getRepository();
+        $locationService = $repository->getLocationService();
+
+        $content = $this->testPrepareDataForTestsWithLanguageLimitationAndDifferentContentTranslations(
+            $limitationValues,
+            $containsAllTranslations
+        );
+
+        $location = $locationService->loadLocation($content->contentInfo->mainLocationId);
+
+        $locationUpdateStruct = new LocationUpdateStruct();
+        $newPriority = 3;
+        $locationUpdateStruct->priority = $newPriority;
+
+        if ($containsAllTranslations) {
+            $locationService->updateLocation($location, $locationUpdateStruct);
+            $updatedLocation = $locationService->loadLocation($location->id);
+
+            self::assertEquals($newPriority, $updatedLocation->priority);
+        } else {
+            $this->expectException(UnauthorizedException::class);
+
+            $locationService->updateLocation($location, $locationUpdateStruct);
         }
     }
 
