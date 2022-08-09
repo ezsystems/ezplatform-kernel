@@ -53,7 +53,9 @@ class UrlAliasHandler extends AbstractInMemoryPersistenceHandler implements UrlA
             ]
         );
 
-        $urlAliasIdentity = $this->persistenceHandler->urlAliasHandler()->publishUrlAliasForLocation(
+        $urlAliasHandler = $this->persistenceHandler->urlAliasHandler();
+
+        $urlAliasIdentity = $urlAliasHandler->publishUrlAliasForLocation(
             $locationId,
             $parentLocationId,
             $name,
