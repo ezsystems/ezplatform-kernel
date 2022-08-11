@@ -69,6 +69,8 @@ use Symfony\Component\HttpKernel\Kernel;
  */
 class IbexaTestKernel extends Kernel
 {
+    public const LEGACY_KERNEL_ROOT_DIR_PARAM_NAME = 'ezpublish.kernel.root_dir';
+
     /**
      * @var iterable<class-string>
      */
@@ -86,6 +88,7 @@ class IbexaTestKernel extends Kernel
         Repository\SearchService::class,
         Repository\SectionService::class,
         Repository\UserService::class,
+        Repository\URLAliasService::class,
     ];
 
     /**
@@ -147,6 +150,7 @@ class IbexaTestKernel extends Kernel
     {
         $loader->load(static function (ContainerBuilder $container): void {
             $container->setParameter('ibexa.core.test.resource_dir', self::getResourcesPath());
+            $container->setParameter(self::LEGACY_KERNEL_ROOT_DIR_PARAM_NAME, dirname(__DIR__, 3));
         });
 
         $this->loadConfiguration($loader);

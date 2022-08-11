@@ -19,6 +19,7 @@ use eZ\Publish\API\Repository\RoleService;
 use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\SectionService;
 use eZ\Publish\API\Repository\Tests\LegacySchemaImporter;
+use eZ\Publish\API\Repository\URLAliasService;
 use eZ\Publish\API\Repository\UserService;
 use eZ\Publish\Core\Repository\Values\User\UserReference;
 use eZ\Publish\SPI\Persistence\TransactionHandler;
@@ -177,6 +178,11 @@ abstract class IbexaKernelTestCase extends KernelTestCase
     protected static function getSectionService(): SectionService
     {
         return self::getServiceByClassName(SectionService::class);
+    }
+
+    protected static function getUrlAliasService(): URLAliasService
+    {
+        return self::getServiceByClassName(URLAliasService::class);
     }
 
     protected static function setAnonymousUser(): void
