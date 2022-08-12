@@ -9,6 +9,7 @@ namespace eZ\Publish\Core\Base\Exceptions;
 use eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException as APIContentFieldValidationException;
 use eZ\Publish\Core\Base\Translatable;
 use eZ\Publish\Core\Base\TranslatableBase;
+use eZ\Publish\Core\FieldType\ValidationError;
 
 /**
  * This Exception is thrown on create or update content one or more given fields are not valid.
@@ -30,6 +31,9 @@ class ContentFieldValidationException extends APIContentFieldValidationException
      */
     protected $errors;
 
+    /** @var string|null */
+    protected $target;
+
     /**
      * Generates: Content fields did not validate.
      *
@@ -37,11 +41,17 @@ class ContentFieldValidationException extends APIContentFieldValidationException
      *
      * @param array<array-key, array<string, \eZ\Publish\Core\FieldType\ValidationError>> $errors
      */
-    public function __construct(array $errors)
+    public function __construct(array $errors, ?string $target = null)
     {
         $this->errors = $errors;
-        $this->setMessageTemplate('Content Fields did not validate: %errors%');
-        $this->setParameters(['%errors%' => $this->generateErrorsMessage()]);
+        $this->target = $target;
+
+        $this->setMessageTemplate('Content Fields %contentInfo%did not validate: %errors%');
+        $this->setParameters([
+            '%errors%' => $this->generateValidationErrorsMessages(),
+            '%contentInfo%' => $this->target !== null ? sprintf('of Content "%s" ', $this->target) : '',
+        ]);
+
         parent::__construct($this->getBaseTranslation());
     }
 
@@ -55,15 +65,26 @@ class ContentFieldValidationException extends APIContentFieldValidationException
         return $this->errors;
     }
 
-    private function generateErrorsMessage(): string
+    private function generateValidationErrorsMessages(): string
     {
         $message = '';
         foreach ($this->getFieldErrors() as $validationErrors) {
             foreach ($validationErrors as $validationError) {
-                $message .= sprintf("\n-%s", $validationError->getTranslatableMessage());
+                if (is_array($validationError)) {
+                    foreach ($validationError as $item) {
+                        $message .= $this->generateValidationErrorMessage($item);
+                    }
+                } else {
+                    $message .= $this->generateValidationErrorMessage($validationError);
+                }
             }
         }
 
         return $message;
+    }
+
+    private function generateValidationErrorMessage(ValidationError $validationError): string
+    {
+        return sprintf("\n- %s", $validationError->getTranslatableMessage());
     }
 }

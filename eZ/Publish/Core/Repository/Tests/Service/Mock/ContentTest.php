@@ -5198,13 +5198,11 @@ class ContentTest extends BaseServiceMockTest
         $structFields,
         $existingFields,
         $fieldDefinitions
-    ) {
-        $repositoryMock = $this->getRepositoryMock();
+    ): array {
         $permissionResolver = $this->getPermissionResolverMock();
         $mockedService = $this->getPartlyMockedContentService(['internalLoadContentById', 'loadContent']);
         /** @var \PHPUnit\Framework\MockObject\MockObject $languageHandlerMock */
         $languageHandlerMock = $this->getPersistenceMock()->contentLanguageHandler();
-        $contentTypeServiceMock = $this->getContentTypeServiceMock();
         $fieldTypeMock = $this->createMock(SPIFieldType::class);
         $existingLanguageCodes = array_map(
             static function (Field $field) {
@@ -5224,6 +5222,10 @@ class ContentTest extends BaseServiceMockTest
                 'versionNo' => 7,
                 'languageCodes' => $existingLanguageCodes,
                 'status' => VersionInfo::STATUS_DRAFT,
+                'names' => [
+                    'eng-GB' => 'Test',
+                ],
+                'initialLanguageCode' => 'eng-GB',
             ]
         );
         $contentType = new ContentType([
@@ -5237,11 +5239,11 @@ class ContentTest extends BaseServiceMockTest
             ]
         );
 
-        $languageHandlerMock->expects($this->any())
+        $languageHandlerMock->expects(self::any())
             ->method('loadByLanguageCode')
-            ->with($this->isType('string'))
+            ->with(self::isType('string'))
             ->will(
-                $this->returnCallback(
+                self::returnCallback(
                     static function () {
                         return new Language(['id' => 4242]);
                     }
@@ -5251,32 +5253,32 @@ class ContentTest extends BaseServiceMockTest
         $mockedService
             ->method('loadContent')
             ->with(
-                $this->equalTo(42),
-                $this->equalTo(null),
-                $this->equalTo(7)
+                self::equalTo(42),
+                self::equalTo(null),
+                self::equalTo(7)
             )->will(
-                $this->returnValue($content)
+                self::returnValue($content)
             );
 
         $mockedService
             ->method('internalLoadContentById')
             ->will(
-                $this->returnValue($content)
+                self::returnValue($content)
             );
 
-        $permissionResolver->expects($this->any())
+        $permissionResolver->expects(self::any())
             ->method('canUser')
             ->with(
-                $this->equalTo('content'),
-                $this->equalTo('edit'),
-                $this->equalTo($content),
-                $this->isType('array')
-            )->will($this->returnValue(true));
+                self::equalTo('content'),
+                self::equalTo('edit'),
+                self::equalTo($content),
+                self::isType('array')
+            )->will(self::returnValue(true));
 
-        $fieldTypeMock->expects($this->any())
+        $fieldTypeMock->expects(self::any())
             ->method('acceptValue')
             ->will(
-                $this->returnCallback(
+                self::returnCallback(
                     static function ($valueString) {
                         return new ValueStub($valueString);
                     }
@@ -5284,24 +5286,24 @@ class ContentTest extends BaseServiceMockTest
             );
 
         $emptyValue = new ValueStub(self::EMPTY_FIELD_VALUE);
-        $fieldTypeMock->expects($this->any())
+        $fieldTypeMock->expects(self::any())
             ->method('isEmptyValue')
             ->will(
-                $this->returnCallback(
+                self::returnCallback(
                     static function (ValueStub $value) use ($emptyValue) {
                         return (string)$emptyValue === (string)$value;
                     }
                 )
             );
 
-        $fieldTypeMock->expects($this->any())
+        $fieldTypeMock->expects(self::any())
             ->method('validate')
             ->with(
-                $this->isInstanceOf(APIFieldDefinition::class),
-                $this->isInstanceOf(Value::class)
+                self::isInstanceOf(APIFieldDefinition::class),
+                self::isInstanceOf(Value::class)
             );
 
-        $this->getFieldTypeRegistryMock()->expects($this->any())
+        $this->getFieldTypeRegistryMock()->expects(self::any())
             ->method('getFieldType')
             ->will($this->returnValue($fieldTypeMock));
 
@@ -5423,6 +5425,10 @@ class ContentTest extends BaseServiceMockTest
                 'versionNo' => 7,
                 'languageCodes' => $existingLanguageCodes,
                 'status' => VersionInfo::STATUS_DRAFT,
+                'names' => [
+                    'eng-GB' => 'Test',
+                ],
+                'initialLanguageCode' => 'eng-GB',
             ]
         );
         $contentType = new ContentType([
@@ -5602,7 +5608,7 @@ class ContentTest extends BaseServiceMockTest
         $allFieldErrors
     ): void {
         $this->expectException(\eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException::class);
-        $this->expectExceptionMessage('Content Fields did not validate');
+        $this->expectExceptionMessage('Content Fields of Content "Test" did not validate');
         list($existingFields, $fieldDefinitions) = $this->fixturesForTestUpdateContentNonRedundantFieldSetComplex();
         list($versionInfo, $contentUpdateStruct) =
             $this->assertForTestUpdateContentThrowsContentFieldValidationException(
