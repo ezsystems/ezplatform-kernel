@@ -41,7 +41,16 @@ class Content extends APIContent
     protected $contentType;
 
     /** @var \eZ\Publish\API\Repository\Values\Content\Field[] An array of {@link Field} */
-    private $internalFields = [];
+    private $internalFields;
+
+    /**
+     * In-memory cache of Field Definition Identifier and Language Code mapped to a Field instance.
+     *
+     * <code>$fieldDefinitionTranslationMap[$fieldDefIdentifier][$languageCode] = $field</code>
+     *
+     * @var array<string, array<string, \eZ\Publish\API\Repository\Values\Content\Field>>
+     */
+    private $fieldDefinitionTranslationMap = [];
 
     /**
      * The first matched field language among user provided prioritized languages.
@@ -57,10 +66,17 @@ class Content extends APIContent
 
     public function __construct(array $data = [])
     {
-        foreach ($data as $propertyName => $propertyValue) {
-            $this->$propertyName = $propertyValue;
-        }
+        parent::__construct([]);
+
+        $this->thumbnail = $data['thumbnail'] ?? null;
+        $this->versionInfo = $data['versionInfo'] ?? null;
+        $this->contentType = $data['contentType'] ?? null;
+        $this->internalFields = $data['internalFields'] ?? [];
+        $this->prioritizedFieldLanguageCode = $data['prioritizedFieldLanguageCode'] ?? null;
+
         foreach ($this->internalFields as $field) {
+            $this->fieldDefinitionTranslationMap[$field->fieldDefIdentifier][$field->languageCode] = $field;
+            // kept for BC due to property-read magic getter
             $this->fields[$field->fieldDefIdentifier][$field->languageCode] = $field->value;
         }
     }
@@ -95,11 +111,11 @@ class Content extends APIContent
             $languageCode = $this->getDefaultLanguageCode();
         }
 
-        if (isset($this->fields[$fieldDefIdentifier][$languageCode])) {
-            return $this->fields[$fieldDefIdentifier][$languageCode];
+        if (!isset($this->fieldDefinitionTranslationMap[$fieldDefIdentifier][$languageCode])) {
+            return null;
         }
 
-        return null;
+        return $this->fieldDefinitionTranslationMap[$fieldDefIdentifier][$languageCode]->getValue();
     }
 
     /**
@@ -121,10 +137,13 @@ class Content extends APIContent
             $languageCode = $this->getDefaultLanguageCode();
         }
 
-        foreach ($this->getFields() as $field) {
-            if ($field->languageCode !== $languageCode) {
-                continue;
+        $filteredFields = array_filter(
+            $this->internalFields,
+            static function (Field $field) use ($languageCode) {
+                return $field->languageCode === $languageCode;
             }
+        );
+        foreach ($filteredFields as $field) {
             $fields[$field->fieldDefIdentifier] = $field;
         }
 
@@ -140,16 +159,7 @@ class Content extends APIContent
             $languageCode = $this->getDefaultLanguageCode();
         }
 
-        foreach ($this->getFields() as $field) {
-            if (
-                $field->getFieldDefinitionIdentifier() === $fieldDefIdentifier
-                && $field->getLanguageCode() === $languageCode
-            ) {
-                return $field;
-            }
-        }
-
-        return null;
+        return $this->fieldDefinitionTranslationMap[$fieldDefIdentifier][$languageCode] ?? null;
     }
 
     public function getDefaultLanguageCode(): string
