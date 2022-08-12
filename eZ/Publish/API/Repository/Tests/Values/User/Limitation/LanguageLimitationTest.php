@@ -812,8 +812,7 @@ class LanguageLimitationTest extends BaseTest
         $locationUpdateStruct->priority = $newPriority;
 
         if ($containsAllTranslations) {
-            $locationService->updateLocation($location, $locationUpdateStruct);
-            $updatedLocation = $locationService->loadLocation($location->id);
+            $updatedLocation = $locationService->updateLocation($location, $locationUpdateStruct);
 
             self::assertEquals($newPriority, $updatedLocation->priority);
         } else {
