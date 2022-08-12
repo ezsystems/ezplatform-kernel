@@ -67,15 +67,15 @@ class ContentFieldValidationException extends APIContentFieldValidationException
 
     private function generateValidationErrorsMessages(): string
     {
-        $validationErrors = $this->collectValidationErrors();
+        $validationErrors = $this->collectValidationErrorsMessages();
 
         return "\n- " . implode("\n- ", $validationErrors);
     }
 
     /**
-     * @return array<\eZ\Publish\Core\FieldType\ValidationError>
+     * @return array<string>
      */
-    private function collectValidationErrors(): array
+    private function collectValidationErrorsMessages(): array
     {
         $messages = [];
         foreach ($this->getFieldErrors() as $validationErrors) {
