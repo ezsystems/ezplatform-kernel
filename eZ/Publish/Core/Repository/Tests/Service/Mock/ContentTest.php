@@ -2196,6 +2196,20 @@ class ContentTest extends BaseServiceMockTest
         \PHPUnit\Framework\MockObject\MockObject $repositoryMock,
         ContentType $contentType
     ): void {
+        $this->loadByLanguageCodeMock($languageHandlerMock);
+
+        $contentTypeServiceMock->expects(self::once())
+            ->method('loadContentType')
+            ->with(self::equalTo($contentType->id))
+            ->will(self::returnValue($contentType));
+
+        $repositoryMock->expects(self::once())
+            ->method('getContentTypeService')
+            ->will(self::returnValue($contentTypeServiceMock));
+    }
+
+    private function loadByLanguageCodeMock(\PHPUnit\Framework\MockObject\MockObject $languageHandlerMock): void
+    {
         $languageHandlerMock->expects(self::any())
             ->method('loadByLanguageCode')
             ->with(self::isType('string'))
@@ -2206,15 +2220,6 @@ class ContentTest extends BaseServiceMockTest
                     }
                 )
             );
-
-        $contentTypeServiceMock->expects(self::once())
-            ->method('loadContentType')
-            ->with(self::equalTo($contentType->id))
-            ->will(self::returnValue($contentType));
-
-        $repositoryMock->expects(self::once())
-            ->method('getContentTypeService')
-            ->will(self::returnValue($contentTypeServiceMock));
     }
 
     /**
@@ -5127,23 +5132,11 @@ class ContentTest extends BaseServiceMockTest
         );
     }
 
-    public function assertForTestUpdateContentRequiredField(
-        $initialLanguageCode,
-        $structFields,
-        $existingFields,
-        $fieldDefinitions
-    ): array {
-        $permissionResolver = $this->getPermissionResolverMock();
-        $mockedService = $this->getPartlyMockedContentService(['internalLoadContentById', 'loadContent']);
-        /** @var \PHPUnit\Framework\MockObject\MockObject $languageHandlerMock */
-        $languageHandlerMock = $this->getPersistenceMock()->contentLanguageHandler();
-        $fieldTypeMock = $this->createMock(SPIFieldType::class);
-        $existingLanguageCodes = array_map(
-            static function (Field $field) {
-                return $field->languageCode;
-            },
-            $existingFields
-        );
+    private function prepareContentForTestCreateAndUpdateContent(
+        array $existingLanguageCodes,
+        array $fieldDefinitions,
+        array $existingFields
+    ): Content {
         $versionInfo = new VersionInfo(
             [
                 'contentInfo' => new ContentInfo(
@@ -5165,24 +5158,40 @@ class ContentTest extends BaseServiceMockTest
         $contentType = new ContentType([
             'fieldDefinitions' => new FieldDefinitionCollection($fieldDefinitions),
         ]);
-        $content = new Content(
+
+        return new Content(
             [
                 'versionInfo' => $versionInfo,
                 'internalFields' => $existingFields,
                 'contentType' => $contentType,
             ]
         );
+    }
 
-        $languageHandlerMock->expects(self::any())
-            ->method('loadByLanguageCode')
-            ->with(self::isType('string'))
-            ->will(
-                self::returnCallback(
-                    static function () {
-                        return new Language(['id' => 4242]);
-                    }
-                )
-            );
+    public function assertForTestUpdateContentRequiredField(
+        $initialLanguageCode,
+        $structFields,
+        $existingFields,
+        $fieldDefinitions
+    ): array {
+        $permissionResolver = $this->getPermissionResolverMock();
+        $mockedService = $this->getPartlyMockedContentService(['internalLoadContentById', 'loadContent']);
+        /** @var \PHPUnit\Framework\MockObject\MockObject $languageHandlerMock */
+        $languageHandlerMock = $this->getPersistenceMock()->contentLanguageHandler();
+        $fieldTypeMock = $this->createMock(SPIFieldType::class);
+        $existingLanguageCodes = array_map(
+            static function (Field $field) {
+                return $field->languageCode;
+            },
+            $existingFields
+        );
+        $content = $this->prepareContentForTestCreateAndUpdateContent(
+            $existingLanguageCodes,
+            $fieldDefinitions,
+            $existingFields
+        );
+
+        $this->loadByLanguageCodeMock($languageHandlerMock);
 
         $mockedService
             ->method('loadContent')
@@ -5321,7 +5330,6 @@ class ContentTest extends BaseServiceMockTest
     ): array {
         $permissionResolverMock = $this->getPermissionResolverMock();
         $mockedService = $this->getPartlyMockedContentService(['internalLoadContentById', 'loadContent']);
-        /** @var \PHPUnit\Framework\MockObject\MockObject $languageHandlerMock */
         $languageHandlerMock = $this->getPersistenceMock()->contentLanguageHandler();
         $fieldTypeMock = $this->createMock(SPIFieldType::class);
         $existingLanguageCodes = array_map(
@@ -5330,45 +5338,9 @@ class ContentTest extends BaseServiceMockTest
             },
             $existingFields
         );
-        $versionInfo = new VersionInfo(
-            [
-                'contentInfo' => new ContentInfo(
-                    [
-                        'id' => 42,
-                        'contentTypeId' => 24,
-                        'mainLanguageCode' => 'eng-GB',
-                    ]
-                ),
-                'versionNo' => 7,
-                'languageCodes' => $existingLanguageCodes,
-                'status' => VersionInfo::STATUS_DRAFT,
-                'names' => [
-                    'eng-GB' => 'Test',
-                ],
-                'initialLanguageCode' => 'eng-GB',
-            ]
-        );
-        $contentType = new ContentType([
-            'fieldDefinitions' => new FieldDefinitionCollection($fieldDefinitions),
-        ]);
-        $content = new Content(
-            [
-                'versionInfo' => $versionInfo,
-                'internalFields' => $existingFields,
-                'contentType' => $contentType,
-            ]
-        );
+        $content = $this->prepareContentForTestCreateAndUpdateContent($existingLanguageCodes, $fieldDefinitions, $existingFields);
 
-        $languageHandlerMock->expects(self::any())
-            ->method('loadByLanguageCode')
-            ->with(self::isType('string'))
-            ->will(
-                self::returnCallback(
-                    static function () {
-                        return new Language(['id' => 4242]);
-                    }
-                )
-            );
+        $this->loadByLanguageCodeMock($languageHandlerMock);
 
         $mockedService
             ->method('internalLoadContentById')
