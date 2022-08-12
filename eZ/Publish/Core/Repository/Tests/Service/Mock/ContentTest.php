@@ -1341,29 +1341,16 @@ class ContentTest extends BaseServiceMockTest
             $mainLanguageCode
         );
 
-        $languageHandlerMock->expects(self::any())
-            ->method('loadByLanguageCode')
-            ->with(self::isType('string'))
-            ->will(
-                self::returnCallback(
-                    static function () {
-                        return new Language(['id' => 4242]);
-                    }
-                )
-            );
+        $this->commonContentCreateMocks(
+            $languageHandlerMock,
+            $contentTypeServiceMock,
+            $repositoryMock,
+            $contentType
+        );
 
         $repositoryMock->expects(self::once())->method('beginTransaction');
-
-        $contentTypeServiceMock->expects(self::once())
-            ->method('loadContentType')
-            ->with(self::equalTo($contentType->id))
-            ->will(self::returnValue($contentType));
-
-        $repositoryMock->expects(self::once())
-            ->method('getContentTypeService')
-            ->will(self::returnValue($contentTypeServiceMock));
-
         $that = $this;
+
         $permissionResolverMock->expects(self::once())
             ->method('canUser')
             ->with(
@@ -2203,6 +2190,33 @@ class ContentTest extends BaseServiceMockTest
         return [$contentType, $contentCreateStruct];
     }
 
+    private function commonContentCreateMocks(
+        \PHPUnit\Framework\MockObject\MockObject $languageHandlerMock,
+        \PHPUnit\Framework\MockObject\MockObject $contentTypeServiceMock,
+        \PHPUnit\Framework\MockObject\MockObject $repositoryMock,
+        ContentType $contentType
+    ): void {
+        $languageHandlerMock->expects(self::any())
+            ->method('loadByLanguageCode')
+            ->with(self::isType('string'))
+            ->will(
+                self::returnCallback(
+                    static function () {
+                        return new Language(['id' => 4242]);
+                    }
+                )
+            );
+
+        $contentTypeServiceMock->expects(self::once())
+            ->method('loadContentType')
+            ->with(self::equalTo($contentType->id))
+            ->will(self::returnValue($contentType));
+
+        $repositoryMock->expects(self::once())
+            ->method('getContentTypeService')
+            ->will(self::returnValue($contentTypeServiceMock));
+    }
+
     /**
      * Asserts behaviour necessary for testing ContentFieldValidationException because of required
      * field being empty.
@@ -2232,25 +2246,12 @@ class ContentTest extends BaseServiceMockTest
             $mainLanguageCode
         );
 
-        $languageHandlerMock->expects(self::any())
-            ->method('loadByLanguageCode')
-            ->with(self::isType('string'))
-            ->will(
-                self::returnCallback(
-                    static function () {
-                        return new Language(['id' => 4242]);
-                    }
-                )
-            );
-
-        $contentTypeServiceMock->expects(self::once())
-            ->method('loadContentType')
-            ->with(self::equalTo($contentType->id))
-            ->will(self::returnValue($contentType));
-
-        $repositoryMock->expects(self::once())
-            ->method('getContentTypeService')
-            ->will(self::returnValue($contentTypeServiceMock));
+        $this->commonContentCreateMocks(
+            $languageHandlerMock,
+            $contentTypeServiceMock,
+            $repositoryMock,
+            $contentType
+        );
 
         $that = $this;
         $permissionResolver->expects(self::once())
@@ -2397,25 +2398,12 @@ class ContentTest extends BaseServiceMockTest
             ]
         );
 
-        $languageHandlerMock->expects(self::any())
-            ->method('loadByLanguageCode')
-            ->with(self::isType('string'))
-            ->will(
-                self::returnCallback(
-                    static function () {
-                        return new Language(['id' => 4242]);
-                    }
-                )
-            );
-
-        $contentTypeServiceMock->expects(self::once())
-            ->method('loadContentType')
-            ->with(self::equalTo($contentType->id))
-            ->will(self::returnValue($contentType));
-
-        $repositoryMock->expects(self::once())
-            ->method('getContentTypeService')
-            ->will(self::returnValue($contentTypeServiceMock));
+        $this->commonContentCreateMocks(
+            $languageHandlerMock,
+            $contentTypeServiceMock,
+            $repositoryMock,
+            $contentType
+        );
 
         $that = $this;
         $permissionResolver->expects(self::once())
