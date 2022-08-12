@@ -5422,53 +5422,57 @@ class ContentTest extends BaseServiceMockTest
 
     public function providerForTestUpdateContentThrowsContentFieldValidationException()
     {
+        $newValue1engGBValidationError = new ValidationError('newValue1-eng-GB');
+        $newValue2ValidationError = new ValidationError('newValue2');
+        $newValue4ValidationError = new ValidationError('newValue4');
+
         $allFieldErrors = [
             [
                 'fieldDefinitionId1' => [
-                    'eng-GB' => new ValidationError('newValue1-eng-GB'),
-                    'eng-US' => new ValidationError('newValue1-eng-GB'),
+                    'eng-GB' => $newValue1engGBValidationError,
+                    'eng-US' => $newValue1engGBValidationError,
                 ],
                 'fieldDefinitionId4' => [
-                    'eng-GB' => new ValidationError('newValue4'),
-                    'eng-US' => new ValidationError('newValue4'),
+                    'eng-GB' => $newValue4ValidationError,
+                    'eng-US' => $newValue4ValidationError,
                 ],
             ],
             [
                 'fieldDefinitionId1' => [
-                    'eng-GB' => new ValidationError('newValue1-eng-GB'),
-                    'eng-US' => new ValidationError('newValue1-eng-GB'),
+                    'eng-GB' => $newValue1engGBValidationError,
+                    'eng-US' => $newValue1engGBValidationError,
                 ],
             ],
             [
                 'fieldDefinitionId1' => [
-                    'eng-GB' => new ValidationError('newValue1-eng-GB'),
-                    'eng-US' => new ValidationError('newValue1-eng-GB'),
+                    'eng-GB' => $newValue1engGBValidationError,
+                    'eng-US' => $newValue1engGBValidationError,
                 ],
                 'fieldDefinitionId2' => [
-                    'eng-GB' => new ValidationError('newValue2'),
-                    'eng-US' => new ValidationError('newValue2'),
+                    'eng-GB' => $newValue2ValidationError,
+                    'eng-US' => $newValue2ValidationError,
                 ],
             ],
             [
                 'fieldDefinitionId1' => [
-                    'eng-GB' => new ValidationError('newValue1-eng-GB'),
-                    'eng-US' => new ValidationError('newValue1-eng-GB'),
+                    'eng-GB' => $newValue1engGBValidationError,
+                    'eng-US' => $newValue1engGBValidationError,
                 ],
             ],
             [
                 'fieldDefinitionId1' => [
-                    'eng-GB' => new ValidationError('newValue1-eng-GB'),
-                    'ger-DE' => new ValidationError('newValue1-eng-GB'),
-                    'eng-US' => new ValidationError('newValue1-eng-GB'),
+                    'eng-GB' => $newValue1engGBValidationError,
+                    'ger-DE' => $newValue1engGBValidationError,
+                    'eng-US' => $newValue1engGBValidationError,
                 ],
                 'fieldDefinitionId2' => [
-                    'eng-GB' => new ValidationError('newValue2'),
-                    'eng-US' => new ValidationError('newValue2'),
+                    'eng-GB' => $newValue2ValidationError,
+                    'eng-US' => $newValue2ValidationError,
                 ],
             ],
             [
                 'fieldDefinitionId2' => [
-                    'eng-US' => new ValidationError('newValue2'),
+                    'eng-US' => $newValue2ValidationError,
                 ],
             ],
         ];
