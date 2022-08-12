@@ -1318,7 +1318,7 @@ class ContentTest extends BaseServiceMockTest
         array $locationCreateStructs = [],
         $withObjectStates = false,
         $execute = true
-    ) {
+    ): ContentCreateStruct {
         $repositoryMock = $this->getRepositoryMock();
         $mockedService = $this->getPartlyMockedContentService();
         /** @var \PHPUnit\Framework\MockObject\MockObject $contentHandlerMock */
@@ -1334,56 +1334,45 @@ class ContentTest extends BaseServiceMockTest
         $permissionResolverMock = $this->getPermissionResolverMock();
         $fieldTypeMock = $this->createMock(SPIFieldType::class);
         $languageCodes = $this->determineLanguageCodesForCreate($mainLanguageCode, $structFields);
-        $contentType = new ContentType(
-            [
-                'id' => 123,
-                'fieldDefinitions' => new FieldDefinitionCollection($fieldDefinitions),
-                'nameSchema' => '<nameSchema>',
-            ]
-        );
-        $contentCreateStruct = new ContentCreateStruct(
-            [
-                'fields' => $structFields,
-                'mainLanguageCode' => $mainLanguageCode,
-                'contentType' => $contentType,
-                'alwaysAvailable' => false,
-                'ownerId' => 169,
-                'sectionId' => 1,
-            ]
+
+        list($contentType, $contentCreateStruct) = $this->provideCommonCreateContentObjects(
+            $fieldDefinitions,
+            $structFields,
+            $mainLanguageCode
         );
 
-        $languageHandlerMock->expects($this->any())
+        $languageHandlerMock->expects(self::any())
             ->method('loadByLanguageCode')
-            ->with($this->isType('string'))
+            ->with(self::isType('string'))
             ->will(
-                $this->returnCallback(
+                self::returnCallback(
                     static function () {
                         return new Language(['id' => 4242]);
                     }
                 )
             );
 
-        $repositoryMock->expects($this->once())->method('beginTransaction');
+        $repositoryMock->expects(self::once())->method('beginTransaction');
 
-        $contentTypeServiceMock->expects($this->once())
+        $contentTypeServiceMock->expects(self::once())
             ->method('loadContentType')
-            ->with($this->equalTo($contentType->id))
-            ->will($this->returnValue($contentType));
+            ->with(self::equalTo($contentType->id))
+            ->will(self::returnValue($contentType));
 
-        $repositoryMock->expects($this->once())
+        $repositoryMock->expects(self::once())
             ->method('getContentTypeService')
-            ->will($this->returnValue($contentTypeServiceMock));
+            ->will(self::returnValue($contentTypeServiceMock));
 
         $that = $this;
-        $permissionResolverMock->expects($this->once())
+        $permissionResolverMock->expects(self::once())
             ->method('canUser')
             ->with(
-                $this->equalTo('content'),
-                $this->equalTo('create'),
-                $this->isInstanceOf(APIContentCreateStruct::class),
-                $this->equalTo($locationCreateStructs)
+                self::equalTo('content'),
+                self::equalTo('create'),
+                self::isInstanceOf(APIContentCreateStruct::class),
+                self::equalTo($locationCreateStructs)
             )->will(
-                $this->returnCallback(
+                self::returnCallback(
                     static function () use ($that, $contentCreateStruct) {
                         $that->assertEquals($contentCreateStruct, func_get_arg(2));
 
@@ -1392,73 +1381,39 @@ class ContentTest extends BaseServiceMockTest
                 )
             );
 
-        $domainMapperMock->expects($this->once())
-            ->method('getUniqueHash')
-            ->with($this->isInstanceOf(APIContentCreateStruct::class))
-            ->will(
-                $this->returnCallback(
-                    static function ($object) use ($that, $contentCreateStruct) {
-                        $that->assertEquals($contentCreateStruct, $object);
+        $this->getUniqueHashDomainMapperMock($domainMapperMock, $that, $contentCreateStruct);
+        $this->acceptFieldTypeValueMock($fieldTypeMock);
+        $this->toHashFieldTypeMock($fieldTypeMock);
 
-                        return 'hash';
-                    }
-                )
-            );
-
-        $fieldTypeMock->expects($this->any())
-            ->method('acceptValue')
-            ->will(
-                $this->returnCallback(
-                    static function ($valueString) {
-                        return new ValueStub($valueString);
-                    }
-                )
-            );
-
-        $fieldTypeMock
-            ->method('toHash')
-            ->willReturnCallback(static function (SPIValue $value) {
-                return ['value' => $value->value];
-            });
-
-        $fieldTypeMock->expects($this->any())
+        $fieldTypeMock->expects(self::any())
             ->method('toPersistenceValue')
             ->will(
-                $this->returnCallback(
+                self::returnCallback(
                     static function (ValueStub $value) {
                         return (string)$value;
                     }
                 )
             );
 
-        $emptyValue = new ValueStub(self::EMPTY_FIELD_VALUE);
-        $fieldTypeMock->expects($this->any())
-            ->method('isEmptyValue')
-            ->will(
-                $this->returnCallback(
-                    static function (ValueStub $value) use ($emptyValue) {
-                        return (string)$emptyValue === (string)$value;
-                    }
-                )
-            );
+        $this->isEmptyValueFieldTypeMock($fieldTypeMock);
 
-        $fieldTypeMock->expects($this->any())
+        $fieldTypeMock->expects(self::any())
             ->method('validate')
-            ->will($this->returnValue([]));
+            ->will(self::returnValue([]));
 
-        $this->getFieldTypeRegistryMock()->expects($this->any())
+        $this->getFieldTypeRegistryMock()->expects(self::any())
             ->method('getFieldType')
-            ->will($this->returnValue($fieldTypeMock));
+            ->will(self::returnValue($fieldTypeMock));
 
         $relationProcessorMock
-            ->expects($this->exactly(count($fieldDefinitions) * count($languageCodes)))
+            ->expects(self::exactly(count($fieldDefinitions) * count($languageCodes)))
             ->method('appendFieldRelations')
             ->with(
-                $this->isType('array'),
-                $this->isType('array'),
-                $this->isInstanceOf(SPIFieldType::class),
-                $this->isInstanceOf(Value::class),
-                $this->anything()
+                self::isType('array'),
+                self::isType('array'),
+                self::isInstanceOf(SPIFieldType::class),
+                self::isInstanceOf(Value::class),
+                self::anything()
             );
 
         $values = $this->determineValuesForCreate(
@@ -1467,29 +1422,29 @@ class ContentTest extends BaseServiceMockTest
             $fieldDefinitions,
             $languageCodes
         );
-        $nameSchemaServiceMock->expects($this->once())
+        $nameSchemaServiceMock->expects(self::once())
             ->method('resolve')
             ->with(
-                $this->equalTo($contentType->nameSchema),
-                $this->equalTo($contentType),
-                $this->equalTo($values),
-                $this->equalTo($languageCodes)
-            )->will($this->returnValue([]));
+                self::equalTo($contentType->nameSchema),
+                self::equalTo($contentType),
+                self::equalTo($values),
+                self::equalTo($languageCodes)
+            )->will(self::returnValue([]));
 
-        $relationProcessorMock->expects($this->any())
+        $relationProcessorMock->expects(self::any())
             ->method('processFieldRelations')
             ->with(
-                $this->isType('array'),
-                $this->equalTo(42),
-                $this->isType('int'),
-                $this->equalTo($contentType),
-                $this->equalTo([])
+                self::isType('array'),
+                self::equalTo(42),
+                self::isType('int'),
+                self::equalTo($contentType),
+                self::equalTo([])
             );
 
         if (!$withObjectStates) {
-            $objectStateHandlerMock->expects($this->once())
+            $objectStateHandlerMock->expects(self::once())
                 ->method('loadAllGroups')
-                ->will($this->returnValue([]));
+                ->will(self::returnValue([]));
         }
 
         if ($execute) {
@@ -1519,19 +1474,19 @@ class ContentTest extends BaseServiceMockTest
                 ]
             );
 
-            $contentHandlerMock->expects($this->once())
+            $contentHandlerMock->expects(self::once())
                 ->method('create')
-                ->with($this->logicalOr($spiContentCreateStruct, $spiContentCreateStruct2))
-                ->will($this->returnValue($spiContent));
+                ->with(self::logicalOr($spiContentCreateStruct, $spiContentCreateStruct2))
+                ->will(self::returnValue($spiContent));
 
-            $repositoryMock->expects($this->once())->method('commit');
-            $domainMapperMock->expects($this->once())
+            $repositoryMock->expects(self::once())->method('commit');
+            $domainMapperMock->expects(self::once())
                 ->method('buildContentDomainObject')
                 ->with(
-                    $this->isInstanceOf(SPIContent::class),
-                    $this->equalTo($contentType)
+                    self::isInstanceOf(SPIContent::class),
+                    self::equalTo($contentType)
                 )
-                ->willReturn($this->createMock(APIContent::class));
+                ->willReturn(self::createMock(APIContent::class));
 
             $mockedService->createContent($contentCreateStruct, []);
         }
@@ -1973,25 +1928,10 @@ class ContentTest extends BaseServiceMockTest
         $permissionResolver = $this->getPermissionResolverMock();
 
         $fieldTypeMock = $this->createMock(FieldType::class);
-        $fieldTypeMock->expects($this->any())
-            ->method('acceptValue')
-            ->will(
-                $this->returnCallback(
-                    static function ($valueString) {
-                        return new ValueStub($valueString);
-                    }
-                )
-            );
 
-        $fieldTypeMock
-            ->method('toHash')
-            ->willReturnCallback(static function (SPIValue $value) {
-                return ['value' => $value->value];
-            });
-
-        $this->getFieldTypeRegistryMock()->expects($this->any())
-            ->method('getFieldType')
-            ->will($this->returnValue($fieldTypeMock));
+        $this->acceptFieldTypeValueMock($fieldTypeMock);
+        $this->toHashFieldTypeMock($fieldTypeMock);
+        $this->getFieldTypeFieldTypeRegistryMock($fieldTypeMock);
 
         $contentType = new ContentType(
             [
@@ -2098,15 +2038,8 @@ class ContentTest extends BaseServiceMockTest
                 )
             );
 
-        $fieldTypeMock
-            ->method('toHash')
-            ->willReturnCallback(static function (SPIValue $value) {
-                return ['value' => $value->value];
-            });
-
-        $this->getFieldTypeRegistryMock()->expects($this->any())
-            ->method('getFieldType')
-            ->will($this->returnValue($fieldTypeMock));
+        $this->toHashFieldTypeMock($fieldTypeMock);
+        $this->getFieldTypeFieldTypeRegistryMock($fieldTypeMock);
 
         $contentType = new ContentType(
             [
@@ -2243,28 +2176,12 @@ class ContentTest extends BaseServiceMockTest
     }
 
     /**
-     * Asserts behaviour necessary for testing ContentFieldValidationException because of required
-     * field being empty.
-     *
      * @param string $mainLanguageCode
      * @param \eZ\Publish\API\Repository\Values\Content\Field[] $structFields
      * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition[] $fieldDefinitions
-     *
-     * @return mixed
      */
-    protected function assertForTestCreateContentRequiredField(
-        $mainLanguageCode,
-        array $structFields,
-        array $fieldDefinitions
-    ) {
-        $repositoryMock = $this->getRepositoryMock();
-        /** @var \PHPUnit\Framework\MockObject\MockObject $languageHandlerMock */
-        $languageHandlerMock = $this->getPersistenceMock()->contentLanguageHandler();
-        $contentTypeServiceMock = $this->getContentTypeServiceMock();
-        $domainMapperMock = $this->getContentDomainMapperMock();
-        $fieldTypeMock = $this->createMock(SPIFieldType::class);
-        $permissionResolver = $this->getPermissionResolverMock();
-
+    private function provideCommonCreateContentObjects(array $fieldDefinitions, array $structFields, $mainLanguageCode): array
+    {
         $contentType = new ContentType(
             [
                 'id' => 123,
@@ -2283,36 +2200,68 @@ class ContentTest extends BaseServiceMockTest
             ]
         );
 
-        $languageHandlerMock->expects($this->any())
+        return [$contentType, $contentCreateStruct];
+    }
+
+    /**
+     * Asserts behaviour necessary for testing ContentFieldValidationException because of required
+     * field being empty.
+     *
+     * @param string $mainLanguageCode
+     * @param \eZ\Publish\API\Repository\Values\Content\Field[] $structFields
+     * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition[] $fieldDefinitions
+     *
+     * @return mixed
+     */
+    protected function assertForTestCreateContentRequiredField(
+        $mainLanguageCode,
+        array $structFields,
+        array $fieldDefinitions
+    ): ContentCreateStruct {
+        $repositoryMock = $this->getRepositoryMock();
+        /** @var \PHPUnit\Framework\MockObject\MockObject $languageHandlerMock */
+        $languageHandlerMock = $this->getPersistenceMock()->contentLanguageHandler();
+        $contentTypeServiceMock = $this->getContentTypeServiceMock();
+        $domainMapperMock = $this->getContentDomainMapperMock();
+        $fieldTypeMock = $this->createMock(SPIFieldType::class);
+        $permissionResolver = $this->getPermissionResolverMock();
+
+        list($contentType, $contentCreateStruct) = $this->provideCommonCreateContentObjects(
+            $fieldDefinitions,
+            $structFields,
+            $mainLanguageCode
+        );
+
+        $languageHandlerMock->expects(self::any())
             ->method('loadByLanguageCode')
-            ->with($this->isType('string'))
+            ->with(self::isType('string'))
             ->will(
-                $this->returnCallback(
+                self::returnCallback(
                     static function () {
                         return new Language(['id' => 4242]);
                     }
                 )
             );
 
-        $contentTypeServiceMock->expects($this->once())
+        $contentTypeServiceMock->expects(self::once())
             ->method('loadContentType')
-            ->with($this->equalTo($contentType->id))
-            ->will($this->returnValue($contentType));
+            ->with(self::equalTo($contentType->id))
+            ->will(self::returnValue($contentType));
 
-        $repositoryMock->expects($this->once())
+        $repositoryMock->expects(self::once())
             ->method('getContentTypeService')
-            ->will($this->returnValue($contentTypeServiceMock));
+            ->will(self::returnValue($contentTypeServiceMock));
 
         $that = $this;
-        $permissionResolver->expects($this->once())
+        $permissionResolver->expects(self::once())
             ->method('canUser')
             ->with(
-                $this->equalTo('content'),
-                $this->equalTo('create'),
-                $this->isInstanceOf(APIContentCreateStruct::class),
-                $this->equalTo([])
+                self::equalTo('content'),
+                self::equalTo('create'),
+                self::isInstanceOf(APIContentCreateStruct::class),
+                self::equalTo([])
             )->will(
-                $this->returnCallback(
+                self::returnCallback(
                     static function () use ($that, $contentCreateStruct) {
                         $that->assertEquals($contentCreateStruct, func_get_arg(2));
 
@@ -2321,53 +2270,20 @@ class ContentTest extends BaseServiceMockTest
                 )
             );
 
-        $domainMapperMock->expects($this->once())
-            ->method('getUniqueHash')
-            ->with($this->isInstanceOf(APIContentCreateStruct::class))
-            ->will(
-                $this->returnCallback(
-                    static function ($object) use ($that, $contentCreateStruct) {
-                        $that->assertEquals($contentCreateStruct, $object);
+        $this->getUniqueHashDomainMapperMock($domainMapperMock, $that, $contentCreateStruct);
 
-                        return 'hash';
-                    }
-                )
-            );
+        $this->acceptFieldTypeValueMock($fieldTypeMock);
+        $this->toHashFieldTypeMock($fieldTypeMock);
 
-        $fieldTypeMock->expects($this->any())
-            ->method('acceptValue')
-            ->will(
-                $this->returnCallback(
-                    static function ($valueString) {
-                        return new ValueStub($valueString);
-                    }
-                )
-            );
+        $this->isEmptyValueFieldTypeMock($fieldTypeMock);
 
-        $fieldTypeMock
-            ->method('toHash')
-            ->willReturnCallback(static function (SPIValue $value) {
-                return ['value' => $value->value];
-            });
-
-        $emptyValue = new ValueStub(self::EMPTY_FIELD_VALUE);
-        $fieldTypeMock->expects($this->any())
-            ->method('isEmptyValue')
-            ->will(
-                $this->returnCallback(
-                    static function (ValueStub $value) use ($emptyValue) {
-                        return (string)$emptyValue === (string)$value;
-                    }
-                )
-            );
-
-        $fieldTypeMock->expects($this->any())
+        $fieldTypeMock->expects(self::any())
             ->method('validate')
-            ->will($this->returnValue([]));
+            ->will(self::returnValue([]));
 
-        $this->getFieldTypeRegistryMock()->expects($this->any())
+        $this->getFieldTypeRegistryMock()->expects(self::any())
             ->method('getFieldType')
-            ->will($this->returnValue($fieldTypeMock));
+            ->will(self::returnValue($fieldTypeMock));
 
         return $contentCreateStruct;
     }
@@ -2519,18 +2435,7 @@ class ContentTest extends BaseServiceMockTest
                 )
             );
 
-        $domainMapperMock->expects(self::once())
-            ->method('getUniqueHash')
-            ->with(self::isInstanceOf(APIContentCreateStruct::class))
-            ->will(
-                self::returnCallback(
-                    static function ($object) use ($that, $contentCreateStruct) {
-                        $that->assertEquals($contentCreateStruct, $object);
-
-                        return 'hash';
-                    }
-                )
-            );
+        $this->getUniqueHashDomainMapperMock($domainMapperMock, $that, $contentCreateStruct);
 
         $this->getFieldTypeRegistryMock()->expects(self::any())
             ->method('getFieldType')
@@ -2578,11 +2483,7 @@ class ContentTest extends BaseServiceMockTest
                 )
             );
 
-        $fieldTypeMock
-            ->method('toHash')
-            ->willReturnCallback(static function (SPIValue $value) {
-                return ['value' => $value->value];
-            });
+        $this->toHashFieldTypeMock($fieldTypeMock);
 
         $emptyValue = new ValueStub(self::EMPTY_FIELD_VALUE);
         foreach ($contentType->getFieldDefinitions() as $fieldDefinition) {
@@ -2777,6 +2678,68 @@ class ContentTest extends BaseServiceMockTest
         $mockedService->createContent($contentCreateStruct, $locationCreateStructs);
     }
 
+    private function acceptFieldTypeValueMock(\PHPUnit\Framework\MockObject\MockObject $fieldTypeMock): void
+    {
+        $fieldTypeMock->expects(self::any())
+            ->method('acceptValue')
+            ->will(
+                self::returnCallback(
+                    static function ($valueString) {
+                        return new ValueStub($valueString);
+                    }
+                )
+            );
+    }
+
+    private function toHashFieldTypeMock(\PHPUnit\Framework\MockObject\MockObject $fieldTypeMock): void
+    {
+        $fieldTypeMock
+            ->method('toHash')
+            ->willReturnCallback(static function (SPIValue $value) {
+                return ['value' => $value->value];
+            });
+    }
+
+    private function getFieldTypeFieldTypeRegistryMock(\PHPUnit\Framework\MockObject\MockObject $fieldTypeMock): void
+    {
+        $this->getFieldTypeRegistryMock()->expects(self::any())
+            ->method('getFieldType')
+            ->will(self::returnValue($fieldTypeMock));
+    }
+
+    private function isEmptyValueFieldTypeMock(\PHPUnit\Framework\MockObject\MockObject $fieldTypeMock): void
+    {
+        $emptyValue = new ValueStub(self::EMPTY_FIELD_VALUE);
+        $fieldTypeMock->expects(self::any())
+            ->method('isEmptyValue')
+            ->will(
+                self::returnCallback(
+                    static function (ValueStub $value) use ($emptyValue) {
+                        return (string)$emptyValue === (string)$value;
+                    }
+                )
+            );
+    }
+
+    private function getUniqueHashDomainMapperMock(
+        \PHPUnit\Framework\MockObject\MockObject $domainMapperMock,
+        self $that,
+        ContentCreateStruct $contentCreateStruct
+    ): void {
+        $domainMapperMock->expects(self::once())
+            ->method('getUniqueHash')
+            ->with(self::isInstanceOf(APIContentCreateStruct::class))
+            ->will(
+                self::returnCallback(
+                    static function ($object) use ($that, $contentCreateStruct) {
+                        $that->assertEquals($contentCreateStruct, $object);
+
+                        return 'hash';
+                    }
+                )
+            );
+    }
+
     /**
      * Test for the createContent() method.
      *
@@ -2862,15 +2825,8 @@ class ContentTest extends BaseServiceMockTest
                 )
             );
 
-        $fieldTypeMock
-            ->method('toHash')
-            ->willReturnCallback(static function (SPIValue $value) {
-                return ['value' => $value->value];
-            });
-
-        $this->getFieldTypeRegistryMock()->expects($this->any())
-            ->method('getFieldType')
-            ->will($this->returnValue($fieldTypeMock));
+        $this->toHashFieldTypeMock($fieldTypeMock);
+        $this->getFieldTypeFieldTypeRegistryMock($fieldTypeMock);
 
         $contentTypeServiceMock->expects($this->once())
             ->method('loadContentType')
@@ -3475,11 +3431,7 @@ class ContentTest extends BaseServiceMockTest
                 )
             );
 
-        $fieldTypeMock
-            ->method('toHash')
-            ->willReturnCallback(static function (SPIValue $value) {
-                return ['value' => $value->value];
-            });
+        $this->toHashFieldTypeMock($fieldTypeMock);
 
         $emptyValue = new ValueStub(self::EMPTY_FIELD_VALUE);
         $fieldTypeMock->expects($this->any())
@@ -3506,9 +3458,7 @@ class ContentTest extends BaseServiceMockTest
             ->method('validate')
             ->will($this->returnValue([]));
 
-        $this->getFieldTypeRegistryMock()->expects($this->any())
-            ->method('getFieldType')
-            ->will($this->returnValue($fieldTypeMock));
+        $this->getFieldTypeFieldTypeRegistryMock($fieldTypeMock);
 
         $relationProcessorMock
             ->expects($this->exactly(count($fieldDefinitions) * count($languageCodes)))
@@ -5038,11 +4988,7 @@ class ContentTest extends BaseServiceMockTest
                 )
             );
 
-        $fieldTypeMock
-            ->method('toHash')
-            ->willReturnCallback(static function (SPIValue $value) {
-                return ['value' => $value->value];
-            });
+        $this->toHashFieldTypeMock($fieldTypeMock);
 
         $this->getFieldTypeRegistryMock()->expects($this->any())
             ->method('getFieldType')->will($this->returnValue($fieldTypeMock));
@@ -5275,26 +5221,9 @@ class ContentTest extends BaseServiceMockTest
                 self::isType('array')
             )->will(self::returnValue(true));
 
-        $fieldTypeMock->expects(self::any())
-            ->method('acceptValue')
-            ->will(
-                self::returnCallback(
-                    static function ($valueString) {
-                        return new ValueStub($valueString);
-                    }
-                )
-            );
+        $this->acceptFieldTypeValueMock($fieldTypeMock);
 
-        $emptyValue = new ValueStub(self::EMPTY_FIELD_VALUE);
-        $fieldTypeMock->expects(self::any())
-            ->method('isEmptyValue')
-            ->will(
-                self::returnCallback(
-                    static function (ValueStub $value) use ($emptyValue) {
-                        return (string)$emptyValue === (string)$value;
-                    }
-                )
-            );
+        $this->isEmptyValueFieldTypeMock($fieldTypeMock);
 
         $fieldTypeMock->expects(self::any())
             ->method('validate')
