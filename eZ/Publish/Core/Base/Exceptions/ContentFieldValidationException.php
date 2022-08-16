@@ -9,7 +9,6 @@ namespace eZ\Publish\Core\Base\Exceptions;
 use eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException as APIContentFieldValidationException;
 use eZ\Publish\Core\Base\Translatable;
 use eZ\Publish\Core\Base\TranslatableBase;
-use eZ\Publish\Core\FieldType\ValidationError;
 
 /**
  * This Exception is thrown on create or update content one or more given fields are not valid.
@@ -17,6 +16,8 @@ use eZ\Publish\Core\FieldType\ValidationError;
 class ContentFieldValidationException extends APIContentFieldValidationException implements Translatable
 {
     use TranslatableBase;
+
+    private const MAX_MESSAGES_NUMBER = 32;
 
     /**
      * Contains an array of field ValidationError objects indexed with FieldDefinition id and language code.
@@ -46,13 +47,18 @@ class ContentFieldValidationException extends APIContentFieldValidationException
         $this->errors = $errors;
         $this->contentName = $contentName;
 
-        $this->setMessageTemplate('Content Fields %contentName%did not validate: %errors%');
+        $this->setMessageTemplate('Content %contentName%fields did not validate: %errors%');
         $this->setParameters([
             '%errors%' => $this->generateValidationErrorsMessages(),
-            '%contentName%' => $this->contentName !== null ? sprintf('of Content "%s" ', $this->contentName) : '',
+            '%contentName%' => $this->contentName !== null ? sprintf('"%s" ', $this->contentName) : '',
         ]);
 
         parent::__construct($this->getBaseTranslation());
+    }
+
+    public static function createNewWithMultiline(array $errors, ?string $contentName = null): self
+    {
+        return new self($errors, $contentName);
     }
 
     /**
@@ -67,15 +73,21 @@ class ContentFieldValidationException extends APIContentFieldValidationException
 
     private function generateValidationErrorsMessages(): string
     {
-        $validationErrors = $this->collectValidationErrorsMessages();
+        $validationErrors = $this->collectValidationErrors();
+        $maxMessagesNumber = self::MAX_MESSAGES_NUMBER;
+
+        if (count($validationErrors) > $maxMessagesNumber) {
+            array_splice($validationErrors, $maxMessagesNumber);
+            $validationErrors[] = sprintf('Limit: %d of validation errors has been exceeded.', $maxMessagesNumber);
+        }
 
         return "\n- " . implode("\n- ", $validationErrors);
     }
 
     /**
-     * @return array<string>
+     * @return array<\eZ\Publish\Core\FieldType\ValidationError>
      */
-    private function collectValidationErrorsMessages(): array
+    private function collectValidationErrors(): array
     {
         $messages = [];
         foreach ($this->getFieldErrors() as $validationErrors) {

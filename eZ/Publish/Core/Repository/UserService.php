@@ -762,7 +762,7 @@ class UserService implements UserServiceInterface
 
         $errors = $this->passwordValidator->validatePassword($newPassword, $userFieldDefinition);
         if (!empty($errors)) {
-            throw new ContentFieldValidationException($errors, $loadedUser->getName());
+            throw ContentFieldValidationException::createNewWithMultiline($errors, $loadedUser->getName());
         }
 
         $passwordHashAlgorithm = (int) $loadedUser->hashAlgorithm;
