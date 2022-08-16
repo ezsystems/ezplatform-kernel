@@ -500,7 +500,6 @@ class LocationService implements LocationServiceInterface
      * Updates $location in the content repository.
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the remoteId exists already
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user is not allowed to update this location
