@@ -42,23 +42,30 @@ class ContentFieldValidationException extends APIContentFieldValidationException
      *
      * @param array<array-key, array<string, \eZ\Publish\Core\FieldType\ValidationError>> $errors
      */
-    public function __construct(array $errors, ?string $contentName = null)
+    public function __construct(array $errors)
     {
         $this->errors = $errors;
-        $this->contentName = $contentName;
-
-        $this->setMessageTemplate('Content %contentName%fields did not validate: %errors%');
-        $this->setParameters([
-            '%errors%' => $this->generateValidationErrorsMessages(),
-            '%contentName%' => $this->contentName !== null ? sprintf('"%s" ', $this->contentName) : '',
-        ]);
-
+        $this->setMessageTemplate('Content fields did not validate');
         parent::__construct($this->getBaseTranslation());
     }
 
+    /**
+     * Generates: Content fields did not validate exception with additional information on affected fields.
+     *
+     * @param array<array-key, array<string, \eZ\Publish\Core\FieldType\ValidationError>> $errors
+     */
     public static function createNewWithMultiline(array $errors, ?string $contentName = null): self
     {
-        return new self($errors, $contentName);
+        $exception = new self($errors);
+        $exception->contentName = $contentName;
+
+        $exception->setMessageTemplate('Content %contentName% fields did not validate: %errors%');
+        $exception->setParameters([
+            '%errors%' => $exception->generateValidationErrorsMessages(),
+            '%contentName%' => $exception->contentName !== null ? $exception->contentName : '',
+        ]);
+
+        return $exception;
     }
 
     /**

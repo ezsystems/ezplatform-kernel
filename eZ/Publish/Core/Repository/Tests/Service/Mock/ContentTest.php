@@ -5501,7 +5501,7 @@ class ContentTest extends BaseServiceMockTest
         $allFieldErrors
     ): void {
         $this->expectException(\eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException::class);
-        $this->expectExceptionMessage('Content "Test" fields did not validate');
+        $this->expectExceptionMessage('Content fields did not validate');
         list($existingFields, $fieldDefinitions) = $this->fixturesForTestUpdateContentNonRedundantFieldSetComplex();
         list($versionInfo, $contentUpdateStruct) =
             $this->assertForTestUpdateContentThrowsContentFieldValidationException(
