@@ -28,28 +28,40 @@ class Language extends ValueObject
     /**
      * The language id (auto generated).
      *
-     * @var mixed
+     * @var int
      */
     protected $id;
 
-    /**
-     * the languageCode code.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $languageCode;
 
     /**
-     * Human readable name of the language.
+     * Human-readable name of the language.
      *
      * @var string
      */
     protected $name;
 
-    /**
-     * Indicates if the language is enabled or not.
-     *
-     * @var bool
-     */
+    /** @var bool */
     protected $enabled;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getLanguageCode(): string
+    {
+        return $this->languageCode;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
+    }
 }

@@ -24,45 +24,24 @@ class UrlAliasHandlerTest extends AbstractInMemoryCacheHandlerTest
         return SPIUrlAliasHandler::class;
     }
 
-    public function testPublishUrlAliasForLocation(): void
-    {
-        $this->loggerMock->expects(self::once())->method('logCall');
-
-        $innerHandlerMock = $this->createMock($this->getHandlerClassName());
-        $this->persistenceHandlerMock
-            ->expects(self::once())
-            ->method('urlAliasHandler')
-            ->willReturn($innerHandlerMock);
-
-        $innerHandlerMock
-            ->expects(self::once())
-            ->method('publishUrlAliasForLocation')
-            ->with(44, 2, 'name', 'eng-GB', true, false);
-
-        $innerHandlerMock
-            ->expects(self::once())
-            ->method('listURLAliasesForLocation')
-            ->with(44)
-            ->willReturn([]);
-
-        $this->cacheIdentifierGeneratorMock
-            ->expects(self::exactly(3))
-            ->method('generateTag')
-            ->withConsecutive(
-                ['url_alias_location', [44], false],
-                ['url_alias_location_path', [44], false],
-                ['url_alias_not_found', [], false]
-            )
-            ->willReturnOnConsecutiveCalls('urlal-44', 'urlalp-44', 'urlanf');
-
-        $handler = $this->persistenceCacheHandler->urlAliasHandler();
-        $handler->publishUrlAliasForLocation(44, 2, 'name', 'eng-GB', true, false);
-    }
-
     public function providerForUnCachedMethods(): array
     {
         // string $method, array $arguments, array? $tagGeneratingArguments, array? $keyGeneratingArguments, array? $tags, array? $key, ?mixed $returnValue
         return [
+            [
+                'publishUrlAliasForLocation',
+                [44, 2, 'name', 'eng-GB', true, false],
+                [
+                    ['url_alias_location', [44], false],
+                    ['url_alias_location_path', [44], false],
+                    ['url_alias', ['44-abc'], false],
+                    ['url_alias_not_found', [], false],
+                ],
+                null,
+                ['urlal-44', 'urlalp-44', 'urla-44-abc', 'urlanf'],
+                null,
+                '44-abc',
+            ],
             [
                 'createCustomUrlAlias',
                 [44, '1/2/44', true, null, false],

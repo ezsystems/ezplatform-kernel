@@ -200,6 +200,11 @@ class ContentInfo extends ValueObject
         return $this->mainLanguage;
     }
 
+    public function getMainLanguageCode(): string
+    {
+        return $this->mainLanguageCode;
+    }
+
     public function getMainLocation(): ?Location
     {
         return $this->mainLocation;
