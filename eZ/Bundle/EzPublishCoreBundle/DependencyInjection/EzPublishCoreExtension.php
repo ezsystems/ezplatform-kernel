@@ -91,8 +91,7 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
 
         $configuration = $this->getConfiguration($configs, $container);
 
-        $environment = $container->getParameter('kernel.environment');
-        if (in_array($environment, ['behat', 'test'])) {
+        if ($this->shouldLoadTestServices($container)) {
             $loader->load('feature_contexts.yml');
         }
 
@@ -667,5 +666,11 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
 
         $container->registerForAutoconfiguration(FilteringSortClauseQueryBuilder::class)
             ->addTag(ServiceTags::FILTERING_SORT_CLAUSE_QUERY_BUILDER);
+    }
+
+    private function shouldLoadTestServices(ContainerBuilder $container): bool
+    {
+        return $container->hasParameter('ibexa.testing.browser.enabled')
+            && true === $container->getParameter('ibexa.testing.browser.enabled');
     }
 }
