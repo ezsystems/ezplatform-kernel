@@ -64,6 +64,7 @@ class ContentFieldValidationException extends APIContentFieldValidationException
             '%errors%' => $exception->generateValidationErrorsMessages(),
             '%contentName%' => $exception->contentName !== null ? $exception->contentName : '',
         ]);
+        $exception->message = $exception->getBaseTranslation();
 
         return $exception;
     }
