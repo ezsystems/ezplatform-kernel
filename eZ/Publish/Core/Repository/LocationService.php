@@ -499,13 +499,10 @@ class LocationService implements LocationServiceInterface
     /**
      * Updates $location in the content repository.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to update this location
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException   if if set the remoteId exists already
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
-     * @param \eZ\Publish\API\Repository\Values\Content\LocationUpdateStruct $locationUpdateStruct
-     *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location the updated Location
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the remoteId exists already
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user is not allowed to update this location
      */
     public function updateLocation(APILocation $location, LocationUpdateStruct $locationUpdateStruct): APILocation
     {
@@ -537,7 +534,13 @@ class LocationService implements LocationServiceInterface
             }
         }
 
-        if (!$this->permissionResolver->canUser('content', 'edit', $loadedLocation->getContentInfo(), [$loadedLocation])) {
+        $locationTarget = (new DestinationLocationTarget($loadedLocation->id, $loadedLocation->contentInfo));
+        if (!$this->permissionResolver->canUser(
+            'content',
+            'edit',
+            $loadedLocation->getContentInfo(),
+            [$loadedLocation, $locationTarget]
+        )) {
             throw new UnauthorizedException('content', 'edit', ['locationId' => $loadedLocation->id]);
         }
 
