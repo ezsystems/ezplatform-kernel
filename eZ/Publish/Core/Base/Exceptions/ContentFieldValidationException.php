@@ -17,6 +17,8 @@ class ContentFieldValidationException extends APIContentFieldValidationException
 {
     use TranslatableBase;
 
+    private const MAX_MESSAGES_NUMBER = 32;
+
     /**
      * Contains an array of field ValidationError objects indexed with FieldDefinition id and language code.
      *
@@ -30,6 +32,9 @@ class ContentFieldValidationException extends APIContentFieldValidationException
      */
     protected $errors;
 
+    /** @var string|null */
+    protected $contentName;
+
     /**
      * Generates: Content fields did not validate.
      *
@@ -40,8 +45,28 @@ class ContentFieldValidationException extends APIContentFieldValidationException
     public function __construct(array $errors)
     {
         $this->errors = $errors;
-        $this->setMessageTemplate('Content Fields did not validate');
+        $this->setMessageTemplate('Content fields did not validate');
         parent::__construct($this->getBaseTranslation());
+    }
+
+    /**
+     * Generates: Content fields did not validate exception with additional information on affected fields.
+     *
+     * @param array<array-key, array<string, \eZ\Publish\Core\FieldType\ValidationError>> $errors
+     */
+    public static function createNewWithMultiline(array $errors, ?string $contentName = null): self
+    {
+        $exception = new self($errors);
+        $exception->contentName = $contentName;
+
+        $exception->setMessageTemplate('Content "%contentName%" fields did not validate: %errors%');
+        $exception->setParameters([
+            '%errors%' => $exception->generateValidationErrorsMessages(),
+            '%contentName%' => $exception->contentName !== null ? $exception->contentName : '',
+        ]);
+        $exception->message = $exception->getBaseTranslation();
+
+        return $exception;
     }
 
     /**
@@ -52,5 +77,39 @@ class ContentFieldValidationException extends APIContentFieldValidationException
     public function getFieldErrors()
     {
         return $this->errors;
+    }
+
+    private function generateValidationErrorsMessages(): string
+    {
+        $validationErrors = $this->collectValidationErrors();
+        $maxMessagesNumber = self::MAX_MESSAGES_NUMBER;
+
+        if (count($validationErrors) > $maxMessagesNumber) {
+            array_splice($validationErrors, $maxMessagesNumber);
+            $validationErrors[] = sprintf('Limit: %d of validation errors has been exceeded.', $maxMessagesNumber);
+        }
+
+        return "\n- " . implode("\n- ", $validationErrors);
+    }
+
+    /**
+     * @return array<\eZ\Publish\Core\FieldType\ValidationError>
+     */
+    private function collectValidationErrors(): array
+    {
+        $messages = [];
+        foreach ($this->getFieldErrors() as $validationErrors) {
+            foreach ($validationErrors as $validationError) {
+                if (is_array($validationError)) {
+                    foreach ($validationError as $item) {
+                        $messages[] = $item->getTranslatableMessage();
+                    }
+                } else {
+                    $messages[] = $validationError->getTranslatableMessage();
+                }
+            }
+        }
+
+        return $messages;
     }
 }

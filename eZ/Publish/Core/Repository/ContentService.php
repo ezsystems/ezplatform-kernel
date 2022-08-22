@@ -1282,7 +1282,7 @@ class ContentService implements ContentServiceInterface
         );
 
         if (!empty($errors)) {
-            throw new ContentFieldValidationException($errors);
+            throw ContentFieldValidationException::createNewWithMultiline($errors, $content->getName());
         }
 
         $mainLanguageCode = $content->contentInfo->mainLanguageCode;
@@ -1632,7 +1632,7 @@ class ContentService implements ContentServiceInterface
         );
 
         if (!empty($errors)) {
-            throw new ContentFieldValidationException($errors);
+            throw ContentFieldValidationException::createNewWithMultiline($errors, $versionInfo->getContentInfo()->name);
         }
 
         $contentInfo = $versionInfo->getContentInfo();
