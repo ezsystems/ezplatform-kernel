@@ -35,7 +35,7 @@ final class StaticSiteAccessProvider implements SiteAccessProviderInterface
         array $siteAccessList,
         array $groupsBySiteAccess = []
     ) {
-        $this->siteAccessList = $siteAccessList;
+        $this->siteAccessList = array_unique($siteAccessList);
         $this->groupsBySiteAccess = $groupsBySiteAccess;
     }
 
