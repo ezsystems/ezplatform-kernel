@@ -139,7 +139,7 @@ class Content extends APIContent
 
         $filteredFields = array_filter(
             $this->internalFields,
-            static function (Field $field) use ($languageCode) {
+            static function (Field $field) use ($languageCode): bool {
                 return $field->languageCode === $languageCode;
             }
         );
