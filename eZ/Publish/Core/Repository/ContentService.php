@@ -955,6 +955,7 @@ class ContentService implements ContentServiceInterface
                     $updatePathIdentificationString ? $languageCode === $content->contentInfo->mainLanguageCode : false
                 );
             }
+
             // archive URL aliases of Translations that got deleted
             $urlAliasHandler->archiveUrlAliasesForDeletedTranslations(
                 $location->id,

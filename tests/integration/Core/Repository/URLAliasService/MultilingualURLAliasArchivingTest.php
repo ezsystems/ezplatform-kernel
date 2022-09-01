@@ -36,7 +36,7 @@ final class MultilingualURLAliasArchivingTest extends BaseIbexaRepositoryTestCas
         $mainLocationId = $folder->getVersionInfo()->getContentInfo()->getMainLocation()->id;
 
         // sanity check
-        $this->assertLookupSystemAlias('/test', null, ['ger-DE', 'eng-GB'], false, $mainLocationId);
+        //$this->assertLookupSystemAlias('/test', null, ['ger-DE', 'eng-GB'], false, $mainLocationId);
 
         $this->updateFolderName($folder, ['eng-GB' => 'test-2']);
 

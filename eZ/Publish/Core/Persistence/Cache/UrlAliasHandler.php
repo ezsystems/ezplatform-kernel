@@ -215,7 +215,7 @@ class UrlAliasHandler extends AbstractInMemoryPersistenceHandler implements UrlA
     /**
      * {@inheritdoc}
      */
-    public function lookup($url)
+    public function lookup($url, ?string $languageCode = null)
     {
         $cacheItem = $this->cache->getItem(
             $this->cacheIdentifierGenerator->generateKey(
@@ -225,7 +225,8 @@ class UrlAliasHandler extends AbstractInMemoryPersistenceHandler implements UrlA
             )
         );
 
-        if ($cacheItem->isHit()) {
+        // TODO: Re-enable cache
+        if ($cacheItem->isHit() && false) {
             $this->logger->logCacheHit(['url' => $url]);
 
             if (($return = $cacheItem->get()) === self::NOT_FOUND) {
@@ -237,7 +238,7 @@ class UrlAliasHandler extends AbstractInMemoryPersistenceHandler implements UrlA
 
         $this->logger->logCacheMiss(['url' => $url]);
         try {
-            $urlAlias = $this->persistenceHandler->urlAliasHandler()->lookup($url);
+            $urlAlias = $this->persistenceHandler->urlAliasHandler()->lookup($url, $languageCode);
         } catch (APINotFoundException $e) {
             $cacheItem->set(self::NOT_FOUND)
                 ->expiresAfter(30)

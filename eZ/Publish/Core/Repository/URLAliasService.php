@@ -10,6 +10,7 @@ namespace eZ\Publish\Core\Repository;
 
 use Exception;
 use eZ\Publish\API\Repository\Exceptions\ForbiddenException;
+use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
 use eZ\Publish\API\Repository\LanguageResolver;
 use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
@@ -638,26 +639,33 @@ class URLAliasService implements URLAliasServiceInterface
     /**
      * looks up the URLAlias for the given url.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the path does not exist or is not valid for the given language
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the path exceeded maximum depth level
-     *
      * @param string $url
      * @param string|null $languageCode
      *
      * @return \eZ\Publish\API\Repository\Values\Content\URLAlias
+     *@throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the path exceeded maximum depth level
+     *
+     * @throws APINotFoundException if the path does not exist or is not valid for the given language
      */
     public function lookup(string $url, ?string $languageCode = null): URLAlias
     {
         $url = $this->cleanUrl($url);
 
-        $spiUrlAlias = $this->urlAliasHandler->lookup($url);
+        $prioritizedLanguages = $this->languageResolver->getPrioritizedLanguages($languageCode === null ? null : [ $languageCode ]);
+        foreach ($prioritizedLanguages as $languageCode) {
+            try {
+                $spiUrlAlias = $this->urlAliasHandler->lookup($url, $languageCode);
+            } catch (APINotFoundException $e) {
+                continue;
+            }
 
-        list($path, $languageCodes) = $this->matchPath($spiUrlAlias, $url, $languageCode);
-        if ($path === false || !$this->isPathLoadable($spiUrlAlias->pathData, $languageCodes)) {
-            throw new NotFoundException('URLAlias', $url);
+            list($path, $languageCodes) = $this->matchPath($spiUrlAlias, $url, $languageCode);
+            if ($path !== false && $this->isPathLoadable($spiUrlAlias->pathData, $languageCodes)) {
+                return $this->buildUrlAliasDomainObject($spiUrlAlias, $path);
+            }
         }
 
-        return $this->buildUrlAliasDomainObject($spiUrlAlias, $path);
+        throw new NotFoundException('URLAlias', $url);
     }
 
     /**
@@ -665,7 +673,7 @@ class URLAliasService implements URLAliasServiceInterface
      *
      * If $languageCode is null the method returns the url alias in the most prioritized language.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if no url alias exist for the given language
+     * @throws APINotFoundException if no url alias exist for the given language
      *
      * @param \eZ\Publish\API\Repository\Values\Content\Location $location
      * @param string|null $languageCode
@@ -718,7 +726,7 @@ class URLAliasService implements URLAliasServiceInterface
     /**
      * Loads URL alias by given $id.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws APINotFoundException
      *
      * @param string $id
      *

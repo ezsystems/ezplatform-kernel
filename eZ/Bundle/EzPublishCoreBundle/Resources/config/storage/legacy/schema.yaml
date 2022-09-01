@@ -580,6 +580,7 @@ tables:
         id:
             parent: { type: integer, nullable: false, options: { default: '0' } }
             text_md5: { type: string, nullable: false, length: 32, options: { default: '' } }
+            lang_mask: { type: bigint, nullable: false, options: { default: '0' } }
         fields:
             action: { type: text, nullable: false, length: 0 }
             action_type: { type: string, nullable: false, length: 32, options: { default: '' } }
@@ -587,7 +588,6 @@ tables:
             id: { type: integer, nullable: false, options: { default: '0' } }
             is_alias: { type: integer, nullable: false, options: { default: '0' } }
             is_original: { type: integer, nullable: false, options: { default: '0' } }
-            lang_mask: { type: bigint, nullable: false, options: { default: '0' } }
             link: { type: integer, nullable: false, options: { default: '0' } }
             text: { type: text, nullable: false, length: 0 }
     ezurlalias_ml_incr:
