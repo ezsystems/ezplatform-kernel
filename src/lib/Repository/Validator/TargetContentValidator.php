@@ -8,10 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Core\Repository\Validator;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\Core\FieldType\ValidationError;
 
 /**
@@ -21,25 +19,21 @@ use eZ\Publish\Core\FieldType\ValidationError;
  */
 final class TargetContentValidator implements TargetContentValidatorInterface
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
-    private $contentService;
+    /** @var \eZ\Publish\API\Repository\Repository */
+    private $repository;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    public function __construct(
-        ContentService $contentService,
-        ContentTypeService $contentTypeService
-    ) {
-        $this->contentService = $contentService;
-        $this->contentTypeService = $contentTypeService;
+    public function __construct(Repository $repository)
+    {
+        $this->repository = $repository;
     }
 
     public function validate(int $value, array $allowedContentTypes = []): ?ValidationError
     {
         try {
-            $contentInfo = $this->contentService->loadContentInfo($value);
-            $contentType = $this->contentTypeService->loadContentType($contentInfo->contentTypeId);
+            $contentInfo = $this->repository->sudo(static function (Repository $repository) use ($value) {
+                return $repository->getContentService()->loadContentInfo($value);
+            });
+            $contentType = $this->repository->getContentTypeService()->loadContentType($contentInfo->contentTypeId);
 
             if (!empty($allowedContentTypes) && !in_array($contentType->identifier, $allowedContentTypes, true)) {
                 return new ValidationError(
@@ -51,13 +45,11 @@ final class TargetContentValidator implements TargetContentValidatorInterface
                     'targetContentId'
                 );
             }
-        } catch (NotFoundException | UnauthorizedException $e) {
+        } catch (NotFoundException $e) {
             return new ValidationError(
-                'Content with identifier %contentId% is not a valid relation target',
+                'Content is not a valid relation target',
                 null,
-                [
-                    '%contentId%' => $value,
-                ],
+                [],
                 'targetContentId'
             );
         }
