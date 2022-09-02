@@ -59,30 +59,39 @@ class LegacyDFSCluster implements IOMetadataHandler
         }
 
         $path = (string)$this->addPrefix($binaryFileCreateStruct->id);
+        $params = [
+            'name' => $path,
+            'name_hash' => md5($path),
+            'name_trunk' => $this->getNameTrunk($binaryFileCreateStruct),
+            'mtime' => $binaryFileCreateStruct->mtime->getTimestamp(),
+            'size' => $binaryFileCreateStruct->size,
+            'scope' => $this->getScope($binaryFileCreateStruct),
+            'datatype' => $binaryFileCreateStruct->mimeType,
+        ];
 
-        try {
-            /*
-             * @todo what might go wrong here ? Can another process be trying to insert the same image ?
-             *       what happens if somebody did ?
-             **/
-            $stmt = $this->db->prepare(
-                <<<SQL
+        if ($this->db->getDatabasePlatform()->getName() === 'postgresql') {
+            $sql = <<<SQL
+INSERT INTO ezdfsfile
+  (name, name_hash, name_trunk, mtime, size, scope, datatype)
+  VALUES (:name, :name_hash, :name_trunk, :mtime, :size, :scope, :datatype)
+ON CONFLICT (name_hash) DO UPDATE
+  SET datatype=:datatype, scope=:scope, size=:size, mtime=:mtime
+  WHERE ezdfsfile.name_hash=:name_hash
+SQL;
+        } else {
+            $sql = <<<SQL
 INSERT INTO ezdfsfile
   (name, name_hash, name_trunk, mtime, size, scope, datatype)
   VALUES (:name, :name_hash, :name_trunk, :mtime, :size, :scope, :datatype)
 ON DUPLICATE KEY UPDATE
   datatype=VALUES(datatype), scope=VALUES(scope), size=VALUES(size),
   mtime=VALUES(mtime)
-SQL
-            );
-            $stmt->bindValue('name', $path);
-            $stmt->bindValue('name_hash', md5($path));
-            $stmt->bindValue('name_trunk', $this->getNameTrunk($binaryFileCreateStruct));
-            $stmt->bindValue('mtime', $binaryFileCreateStruct->mtime->getTimestamp());
-            $stmt->bindValue('size', $binaryFileCreateStruct->size);
-            $stmt->bindValue('scope', $this->getScope($binaryFileCreateStruct));
-            $stmt->bindValue('datatype', $binaryFileCreateStruct->mimeType);
-            $stmt->execute();
+SQL;
+        }
+
+
+        try {
+            $this->db->executeStatement($sql, $params);
         } catch (DBALException $e) {
             throw new RuntimeException("A DBAL error occured while writing $path", 0, $e);
         }
@@ -126,15 +135,32 @@ SQL
     {
         $path = (string)$this->addPrefix($spiBinaryFileId);
 
-        $stmt = $this->db->prepare('SELECT * FROM ezdfsfile WHERE name_hash LIKE ? AND expired != 1 AND mtime > 0');
-        $stmt->bindValue(1, md5($path));
-        $stmt->execute();
+        $qb = $this->db->createQueryBuilder();
+        $result = $qb
+            ->select(
+                'e.name_hash',
+                'e.name',
+                'e.name_trunk',
+                'e.datatype',
+                'e.scope',
+                'e.size',
+                'e.mtime',
+                'e.expired',
+                'e.status',
+            )
+            ->from('ezdfsfile', 'e')
+            ->andWhere('e.name_hash = :name_hash')
+            ->andWhere('e.expired != true')
+            ->andWhere('e.mtime > 0')
+            ->setParameter('name_hash', md5($path))
+            ->execute()
+        ;
 
-        if ($stmt->rowCount() == 0) {
+        if ($result->rowCount() === 0) {
             throw new BinaryFileNotFoundException($path);
         }
 
-        $row = $stmt->fetch(\PDO::FETCH_ASSOC) + ['id' => $spiBinaryFileId];
+        $row = $result->fetchAssociative() + ['id' => $spiBinaryFileId];
 
         return $this->mapArrayToSPIBinaryFile($row);
     }
@@ -153,11 +179,28 @@ SQL
     {
         $path = (string)$this->addPrefix($spiBinaryFileId);
 
-        $stmt = $this->db->prepare('SELECT name FROM ezdfsfile WHERE name_hash LIKE ? and mtime > 0 and expired != 1');
-        $stmt->bindValue(1, md5($path));
-        $stmt->execute();
+        $qb = $this->db->createQueryBuilder();
+        $result = $qb
+            ->select(
+                'e.name_hash',
+                'e.name',
+                'e.name_trunk',
+                'e.datatype',
+                'e.scope',
+                'e.size',
+                'e.mtime',
+                'e.expired',
+                'e.status',
+            )
+            ->from('ezdfsfile', 'e')
+            ->andWhere('e.name_hash = :name_hash')
+            ->andWhere('e.expired != true')
+            ->andWhere('e.mtime > 0')
+            ->setParameter('name_hash', md5($path))
+            ->execute()
+        ;
 
-        return $stmt->rowCount() == 1;
+        return $result->rowCount() === 1;
     }
 
     /**
@@ -223,15 +266,22 @@ SQL
 
     public function getMimeType($spiBinaryFileId)
     {
-        $stmt = $this->db->prepare('SELECT * FROM ezdfsfile WHERE name_hash LIKE ? AND expired != 1 AND mtime > 0');
-        $stmt->bindValue(1, md5($this->addPrefix($spiBinaryFileId)));
-        $stmt->execute();
+        $qb = $this->db->createQueryBuilder();
+        $result = $qb
+            ->select('e.datatype')
+            ->from('ezdfsfile', 'e')
+            ->andWhere('e.name_hash = :name_hash')
+            ->andWhere('e.expired != true')
+            ->andWhere('e.mtime > 0')
+            ->setParameter('name_hash', md5($this->addPrefix($spiBinaryFileId)))
+            ->execute()
+        ;
 
-        if ($stmt->rowCount() == 0) {
+        if ($result->rowCount() == 0) {
             throw new BinaryFileNotFoundException($spiBinaryFileId);
         }
 
-        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $row = $result->fetchAssociative();
 
         return $row['datatype'];
     }
