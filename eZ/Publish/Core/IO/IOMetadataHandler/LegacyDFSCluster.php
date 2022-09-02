@@ -89,7 +89,6 @@ ON DUPLICATE KEY UPDATE
 SQL;
         }
 
-
         try {
             $this->db->executeStatement($sql, $params);
         } catch (DBALException $e) {
