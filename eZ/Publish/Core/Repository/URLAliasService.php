@@ -645,7 +645,7 @@ class URLAliasService implements URLAliasServiceInterface
      * @return \eZ\Publish\API\Repository\Values\Content\URLAlias
      *@throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the path exceeded maximum depth level
      *
-     * @throws APINotFoundException if the path does not exist or is not valid for the given language
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the path does not exist or is not valid for the given language
      */
     public function lookup(string $url, ?string $languageCode = null): URLAlias
     {
@@ -673,7 +673,7 @@ class URLAliasService implements URLAliasServiceInterface
      *
      * If $languageCode is null the method returns the url alias in the most prioritized language.
      *
-     * @throws APINotFoundException if no url alias exist for the given language
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if no url alias exist for the given language
      *
      * @param \eZ\Publish\API\Repository\Values\Content\Location $location
      * @param string|null $languageCode
@@ -726,7 +726,7 @@ class URLAliasService implements URLAliasServiceInterface
     /**
      * Loads URL alias by given $id.
      *
-     * @throws APINotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      *
      * @param string $id
      *
