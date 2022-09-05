@@ -120,8 +120,8 @@ class LegacyDFSCluster implements IOMetadataHandler
     {
         $path = (string)$this->addPrefix($spiBinaryFileId);
 
-        $qb = $this->db->createQueryBuilder();
-        $result = $qb
+        $queryBuilder = $this->db->createQueryBuilder();
+        $result = $queryBuilder
             ->select(
                 'e.name_hash',
                 'e.name',
@@ -164,8 +164,8 @@ class LegacyDFSCluster implements IOMetadataHandler
     {
         $path = (string)$this->addPrefix($spiBinaryFileId);
 
-        $qb = $this->db->createQueryBuilder();
-        $result = $qb
+        $queryBuilder = $this->db->createQueryBuilder();
+        $result = $queryBuilder
             ->select(
                 'e.name_hash',
                 'e.name',
@@ -251,8 +251,8 @@ class LegacyDFSCluster implements IOMetadataHandler
 
     public function getMimeType($spiBinaryFileId)
     {
-        $qb = $this->db->createQueryBuilder();
-        $result = $qb
+        $queryBuilder = $this->db->createQueryBuilder();
+        $result = $queryBuilder
             ->select('e.datatype')
             ->from('ezdfsfile', 'e')
             ->andWhere('e.name_hash = :name_hash')
