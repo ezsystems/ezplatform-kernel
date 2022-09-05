@@ -263,7 +263,6 @@ final class DoctrineDatabase extends Gateway
         $query
             ->select(
                 'parent',
-                'text',
                 'text_md5',
                 'lang_mask'
             )
