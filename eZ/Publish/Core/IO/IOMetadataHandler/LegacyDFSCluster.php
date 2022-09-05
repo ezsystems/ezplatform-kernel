@@ -8,14 +8,13 @@ namespace eZ\Publish\Core\IO\IOMetadataHandler;
 
 use DateTime;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException;
 use eZ\Publish\Core\IO\IOMetadataHandler;
 use eZ\Publish\Core\IO\UrlDecorator;
 use eZ\Publish\SPI\IO\BinaryFile as SPIBinaryFile;
 use eZ\Publish\SPI\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
-use RuntimeException;
 
 /**
  * Manages IO metadata in a mysql table, ezdfsfile.
@@ -69,30 +68,17 @@ class LegacyDFSCluster implements IOMetadataHandler
             'datatype' => $binaryFileCreateStruct->mimeType,
         ];
 
-        if ($this->db->getDatabasePlatform()->getName() === 'postgresql') {
-            $sql = <<<SQL
-INSERT INTO ezdfsfile
-  (name, name_hash, name_trunk, mtime, size, scope, datatype)
-  VALUES (:name, :name_hash, :name_trunk, :mtime, :size, :scope, :datatype)
-ON CONFLICT (name_hash) DO UPDATE
-  SET datatype=:datatype, scope=:scope, size=:size, mtime=:mtime
-  WHERE ezdfsfile.name_hash=:name_hash
-SQL;
-        } else {
-            $sql = <<<SQL
-INSERT INTO ezdfsfile
-  (name, name_hash, name_trunk, mtime, size, scope, datatype)
-  VALUES (:name, :name_hash, :name_trunk, :mtime, :size, :scope, :datatype)
-ON DUPLICATE KEY UPDATE
-  datatype=VALUES(datatype), scope=VALUES(scope), size=VALUES(size),
-  mtime=VALUES(mtime)
-SQL;
-        }
-
         try {
-            $this->db->executeStatement($sql, $params);
-        } catch (DBALException $e) {
-            throw new RuntimeException("A DBAL error occured while writing $path", 0, $e);
+            $this->db->insert('ezdfsfile', $params);
+        } catch (Exception $e) {
+            $this->db->update('ezdfsfile', [
+                'mtime' => $params['mtime'],
+                'size' => $params['size'],
+                'scope' => $params['scope'],
+                'datatype' => $params['datatype'],
+            ], [
+                'name_hash' => $params['name_hash'],
+            ]);
         }
 
         return $this->mapSPIBinaryFileCreateStructToSPIBinaryFile($binaryFileCreateStruct);
@@ -110,11 +96,11 @@ SQL;
         $path = (string)$this->addPrefix($spiBinaryFileId);
 
         // Unlike the legacy cluster, the file is directly deleted. It was inherited from the DB cluster anyway
-        $stmt = $this->db->prepare('DELETE FROM ezdfsfile WHERE name_hash LIKE :name_hash');
-        $stmt->bindValue('name_hash', md5($path));
-        $stmt->execute();
+        $affectedRows = (int)$this->db->delete('ezdfsfile', [
+            'name_hash' => md5($path),
+        ]);
 
-        if ($stmt->rowCount() != 1) {
+        if ($affectedRows !== 1) {
             // Is this really necessary ?
             throw new BinaryFileNotFoundException($path);
         }
@@ -224,7 +210,7 @@ SQL;
      */
     protected function getScope(SPIBinaryFileCreateStruct $binaryFileCreateStruct)
     {
-        list($filePrefix) = explode('/', $binaryFileCreateStruct->id);
+        [$filePrefix] = explode('/', $binaryFileCreateStruct->id);
 
         switch ($filePrefix) {
             case 'images':
