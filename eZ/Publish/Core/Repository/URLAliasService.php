@@ -643,15 +643,15 @@ class URLAliasService implements URLAliasServiceInterface
      * @param string|null $languageCode
      *
      * @return \eZ\Publish\API\Repository\Values\Content\URLAlias
-     *@throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the path exceeded maximum depth level
      *
+     *@throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the path exceeded maximum depth level
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException if the path does not exist or is not valid for the given language
      */
     public function lookup(string $url, ?string $languageCode = null): URLAlias
     {
         $url = $this->cleanUrl($url);
 
-        $prioritizedLanguages = $this->languageResolver->getPrioritizedLanguages($languageCode === null ? null : [ $languageCode ]);
+        $prioritizedLanguages = $this->languageResolver->getPrioritizedLanguages($languageCode === null ? null : [$languageCode]);
         foreach ($prioritizedLanguages as $languageCode) {
             try {
                 $spiUrlAlias = $this->urlAliasHandler->lookup($url, $languageCode);
