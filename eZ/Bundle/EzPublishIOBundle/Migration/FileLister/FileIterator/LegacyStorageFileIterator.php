@@ -33,6 +33,7 @@ final class LegacyStorageFileIterator implements FileIteratorInterface
         $this->rowReader = $rowReader;
     }
 
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->item;
@@ -43,6 +44,7 @@ final class LegacyStorageFileIterator implements FileIteratorInterface
         $this->fetchRow();
     }
 
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->cursor;
