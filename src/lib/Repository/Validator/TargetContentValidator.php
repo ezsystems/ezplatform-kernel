@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Core\Repository\Validator;
 
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\Core\FieldType\ValidationError;
+use eZ\Publish\SPI\Persistence\Content;
 
 /**
  * Validator for checking existence of content and its content type.
@@ -19,21 +19,26 @@ use eZ\Publish\Core\FieldType\ValidationError;
  */
 final class TargetContentValidator implements TargetContentValidatorInterface
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
-    private $repository;
+    /** @var \eZ\Publish\SPI\Persistence\Content\Handler */
+    private $contentHandler;
 
-    public function __construct(Repository $repository)
+    /** @var \eZ\Publish\SPI\Persistence\Content\Type\Handler */
+    private $contentTypeHandler;
+
+    public function __construct(
+        Content\Handler $contentHandler,
+        Content\Type\Handler $contentTypeHandler
+    )
     {
-        $this->repository = $repository;
+        $this->contentHandler = $contentHandler;
+        $this->contentTypeHandler = $contentTypeHandler;
     }
 
     public function validate(int $value, array $allowedContentTypes = []): ?ValidationError
     {
         try {
-            $contentInfo = $this->repository->sudo(static function (Repository $repository) use ($value) {
-                return $repository->getContentService()->loadContentInfo($value);
-            });
-            $contentType = $this->repository->getContentTypeService()->loadContentType($contentInfo->contentTypeId);
+            $content = $this->contentHandler->load($value);
+            $contentType = $this->contentTypeHandler->load($content->versionInfo->contentInfo->contentTypeId);
 
             if (!empty($allowedContentTypes) && !in_array($contentType->identifier, $allowedContentTypes, true)) {
                 return new ValidationError(
