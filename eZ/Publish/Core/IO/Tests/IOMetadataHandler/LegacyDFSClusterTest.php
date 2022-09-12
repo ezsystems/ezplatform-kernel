@@ -10,6 +10,9 @@ use DateTime;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Statement;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\DBAL\Result;
+use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
+use eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException;
 use eZ\Publish\Core\IO\IOMetadataHandler\LegacyDFSCluster;
 use eZ\Publish\Core\IO\UrlDecorator;
 use eZ\Publish\SPI\IO\BinaryFile as SPIBinaryFile;
@@ -18,28 +21,39 @@ use PHPUnit\Framework\TestCase;
 
 class LegacyDFSClusterTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\IO\IOMetadataHandler|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \eZ\Publish\Core\IO\IOMetadataHandler&\PHPUnit\Framework\MockObject\MockObject */
     private $handler;
 
-    /** @var \Doctrine\DBAL\Connection|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Doctrine\DBAL\Connection&\PHPUnit\Framework\MockObject\MockObject */
     private $dbalMock;
 
-    /** @var \eZ\Publish\Core\IO\UrlDecorator|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Doctrine\DBAL\Query\QueryBuilder&\PHPUnit\Framework\MockObject\MockObject */
+    private $qbMock;
+
+    /** @var \eZ\Publish\Core\IO\UrlDecorator&\PHPUnit\Framework\MockObject\MockObject */
     private $urlDecoratorMock;
 
     protected function setUp(): void
     {
         $this->dbalMock = $this->createMock(Connection::class);
+
+        $this->qbMock = $this->getMockBuilder(QueryBuilder::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->dbalMock->method('createQueryBuilder')->willReturn($this->qbMock);
         $this->urlDecoratorMock = $this->createMock(UrlDecorator::class);
 
         $this->handler = new LegacyDFSCluster(
             $this->dbalMock,
-            $this->urlDecoratorMock,
-            ['prefix' => 'var/test']
+            $this->urlDecoratorMock
         );
     }
 
-    public function providerCreate()
+    /**
+     * @return iterable<array{string, string, int, \DateTime, \DateTime}>
+     */
+    public function providerCreate(): iterable
     {
         return [
             ['prefix/my/file.png', 'image/png', 123, new DateTime('@1307155200'), new DateTime('@1307155200')],
@@ -51,13 +65,12 @@ class LegacyDFSClusterTest extends TestCase
     /**
      * @dataProvider providerCreate
      */
-    public function testCreate($id, $mimeType, $size, $mtime, $mtimeExpected)
+    public function testCreate(string $id, string $mimeType, int $size, \DateTime $mtime, \DateTime $mtimeExpected): void
     {
         $this->dbalMock
-            ->expects($this->once())
-            ->method('prepare')
-            ->with($this->anything())
-            ->will($this->returnValue($this->createDbalStatementMock()));
+            ->expects(self::once())
+            ->method('insert')
+            ->with('ezdfsfile');
 
         $spiCreateStruct = new SPIBinaryFileCreateStruct();
         $spiCreateStruct->id = $id;
@@ -67,18 +80,15 @@ class LegacyDFSClusterTest extends TestCase
 
         $spiBinary = $this->handler->create($spiCreateStruct);
 
-        $this->assertInstanceOf(SPIBinaryFile::class, $spiBinary);
-
-        $this->assertEquals($mtimeExpected, $spiBinary->mtime);
+        self::assertInstanceOf(SPIBinaryFile::class, $spiBinary);
+        self::assertEquals($mtimeExpected, $spiBinary->mtime);
     }
 
-    public function testCreateInvalidArgument()
+    public function testCreateInvalidArgument(): void
     {
-        $this->expectException(\eZ\Publish\API\Repository\Exceptions\InvalidArgumentException::class);
-
         $this->dbalMock
-            ->expects($this->never())
-            ->method('prepare');
+            ->expects(self::never())
+            ->method('insert');
 
         $spiCreateStruct = new SPIBinaryFileCreateStruct();
         $spiCreateStruct->id = 'prefix/my/file.png';
@@ -86,63 +96,36 @@ class LegacyDFSClusterTest extends TestCase
         $spiCreateStruct->size = 123;
         $spiCreateStruct->mtime = 1307155242; // Invalid, should be a DateTime
 
+        $this->expectException(InvalidArgumentException::class);
         $this->handler->create($spiCreateStruct);
     }
 
-    public function testDelete()
+    public function testDelete(): void
     {
-        $statement = $this->createDbalStatementMock();
-        $statement
-            ->expects($this->once())
-            ->method('rowCount')
-            ->will($this->returnValue(1));
-
         $this->dbalMock
-            ->expects($this->once())
-            ->method('prepare')
-            ->with($this->anything())
-            ->will($this->returnValue($statement));
+            ->expects(self::once())
+            ->method('delete')
+            ->with('ezdfsfile')
+            ->willReturn(1);
 
         $this->handler->delete('prefix/my/file.png');
     }
 
-    public function testDeleteNotFound()
+    public function testDeleteNotFound(): void
     {
-        $this->expectException(\eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException::class);
-
-        $statement = $this->createDbalStatementMock();
-        $statement
-            ->expects($this->once())
-            ->method('rowCount')
-            ->will($this->returnValue(0));
-
         $this->dbalMock
-            ->expects($this->once())
-            ->method('prepare')
-            ->with($this->anything())
-            ->will($this->returnValue($statement));
+            ->expects(self::once())
+            ->method('delete')
+            ->with('ezdfsfile')
+            ->willReturn(0);
 
+        $this->expectException(BinaryFileNotFoundException::class);
         $this->handler->delete('prefix/my/file.png');
     }
 
-    public function testLoad()
+    public function testLoad(): void
     {
-        $statement = $this->createDbalStatementMock();
-        $statement
-            ->expects($this->once())
-            ->method('rowCount')
-            ->will($this->returnValue(1));
-
-        $statement
-            ->expects($this->once())
-            ->method('fetch')
-            ->will($this->returnValue(['size' => 123, 'datatype' => 'image/png', 'mtime' => 1307155200]));
-
-        $this->dbalMock
-            ->expects($this->once())
-            ->method('prepare')
-            ->with($this->anything())
-            ->will($this->returnValue($statement));
+        $this->setupQueryBuilderLoad(1, ['size' => 123, 'datatype' => 'image/png', 'mtime' => 1307155200]);
 
         $expectedSpiBinaryFile = new SPIBinaryFile();
         $expectedSpiBinaryFile->id = 'prefix/my/file.png';
@@ -156,99 +139,60 @@ class LegacyDFSClusterTest extends TestCase
         );
     }
 
-    public function testLoadNotFound()
+    public function testLoadNotFound(): void
     {
-        $this->expectException(\eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException::class);
+        $this->setupQueryBuilderLoad(0, null);
 
-        $statement = $this->createDbalStatementMock();
-        $statement
-            ->expects($this->once())
-            ->method('rowCount')
-            ->will($this->returnValue(0));
-
-        $this->dbalMock
-            ->expects($this->once())
-            ->method('prepare')
-            ->with($this->anything())
-            ->will($this->returnValue($statement));
-
+        $this->expectException(BinaryFileNotFoundException::class);
         $this->handler->load('prefix/my/file.png');
     }
 
-    public function testExists()
+    public function testExists(): void
     {
-        $statement = $this->createDbalStatementMock();
-        $statement
-            ->expects($this->once())
-            ->method('rowCount')
-            ->will($this->returnValue(1));
-
-        $this->dbalMock
-            ->expects($this->once())
-            ->method('prepare')
-            ->with($this->anything())
-            ->will($this->returnValue($statement));
+        $this->setupQueryBuilderLoad(1, null);
 
         self::assertTrue($this->handler->exists('prefix/my/file.png'));
     }
 
-    public function testExistsNot()
+    public function testExistsNot(): void
     {
-        $statement = $this->createDbalStatementMock();
-        $statement
-            ->expects($this->once())
-            ->method('rowCount')
-            ->will($this->returnValue(0));
-
-        $this->dbalMock
-            ->expects($this->once())
-            ->method('prepare')
-            ->with($this->anything())
-            ->will($this->returnValue($statement));
+        $this->setupQueryBuilderLoad(0, null);
 
         self::assertFalse($this->handler->exists('prefix/my/file.png'));
     }
 
-    public function testDeletedirectory()
+    public function testDeletedirectory(): void
     {
         $this->urlDecoratorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('decorate')
-            ->will($this->returnValue('prefix/images/_alias/subfolder'));
+            ->willReturn('prefix/images/_alias/subfolder');
 
-        $queryBuilderMock = $this
-            ->getMockBuilder(QueryBuilder::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $queryBuilderMock->expects($this->at(0))
+        $this->qbMock
+            ->expects(self::once())
             ->method('delete')
             ->with('ezdfsfile')
-            ->willReturn($queryBuilderMock);
+            ->willReturnSelf();
 
-        $queryBuilderMock->expects($this->at(1))
+        $this->qbMock
+            ->expects(self::once())
             ->method('where')
             ->with('name LIKE :spiPath ESCAPE :esc')
-            ->willReturn($queryBuilderMock);
+            ->willReturnSelf();
 
-        $queryBuilderMock->expects($this->at(2))
+        $this->qbMock
+            ->expects(self::exactly(2))
             ->method('setParameter')
-            ->with(':esc', '\\')
-            ->willReturn($queryBuilderMock);
+            ->withConsecutive(
+                [':esc', '\\'],
+                [':spiPath', 'prefix/images/\_alias/subfolder/%'],
+            )
+            ->willReturnSelf();
 
-        $queryBuilderMock->expects($this->at(3))
-            ->method('setParameter')
-            ->with(':spiPath', 'prefix/images/\_alias/subfolder/%')
-            ->willReturn($queryBuilderMock);
-
-        $queryBuilderMock->expects($this->once())
+        $this->qbMock
+            ->expects(self::once())
             ->method('execute')
             ->willReturn(1);
-
-        $this->dbalMock
-            ->expects($this->once())
-            ->method('createQueryBuilder')
-            ->willReturn($queryBuilderMock);
 
         $this->handler->deleteDirectory('images/_alias/subfolder/');
     }
@@ -259,5 +203,50 @@ class LegacyDFSClusterTest extends TestCase
     protected function createDbalStatementMock()
     {
         return $this->createMock(Statement::class);
+    }
+
+    /**
+     * @param array<mixed>|null $result
+     */
+    private function setupQueryBuilderLoad(int $rowCount, ?array $result): void
+    {
+        $resultMock = $this->createMock(Result::class);
+        $resultMock
+            ->expects(self::once())
+            ->method('rowCount')
+            ->willReturn($rowCount);
+
+        if ($result === null) {
+            $resultMock
+                ->expects(self::never())
+                ->method('fetchAssociative');
+        } else {
+            $resultMock
+                ->expects(self::once())
+                ->method('fetchAssociative')
+                ->willReturn($result);
+        }
+
+        $this->qbMock
+            ->expects(self::once())
+            ->method('select')
+            ->willReturnSelf();
+
+        $this->qbMock
+            ->expects(self::once())
+            ->method('from')
+            ->willReturnSelf();
+
+        $this->qbMock
+            ->method('andWhere')
+            ->willReturnSelf();
+
+        $this->qbMock
+            ->method('setParameter')
+            ->willReturnSelf();
+
+        $this->qbMock
+            ->method('execute')
+            ->willReturn($resultMock);
     }
 }
