@@ -23,7 +23,7 @@ class PoliciesConfigBuilder extends ContainerConfigBuilder
         foreach ($config as $module => $functionArray) {
             foreach ($functionArray as $function => $limitationCollection) {
                 if (null !== $limitationCollection && $this->policyExists($previousPolicyMap, $module, $function)) {
-                    $limitations = array_merge_recursive($previousPolicyMap[$module][$function], array_fill_keys((array)$limitationCollection, true));
+                    $limitations = array_merge_recursive($previousPolicyMap[$module][$function] ?? [], array_fill_keys((array)$limitationCollection, true));
                 } else {
                     $limitations = array_fill_keys((array)$limitationCollection, true);
                 }
