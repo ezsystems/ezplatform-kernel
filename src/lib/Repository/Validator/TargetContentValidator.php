@@ -28,8 +28,7 @@ final class TargetContentValidator implements TargetContentValidatorInterface
     public function __construct(
         Content\Handler $contentHandler,
         Content\Type\Handler $contentTypeHandler
-    )
-    {
+    ) {
         $this->contentHandler = $contentHandler;
         $this->contentTypeHandler = $contentTypeHandler;
     }
@@ -52,9 +51,11 @@ final class TargetContentValidator implements TargetContentValidatorInterface
             }
         } catch (NotFoundException $e) {
             return new ValidationError(
-                'Content is not a valid relation target',
+                'Content with identifier %contentId% is not a valid relation target',
                 null,
-                [],
+                [
+                    '%contentId%' => $value,
+                ],
                 'targetContentId'
             );
         }
