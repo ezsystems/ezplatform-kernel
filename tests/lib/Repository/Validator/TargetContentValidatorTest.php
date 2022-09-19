@@ -8,35 +8,29 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Core\Repository\Validator;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
+use eZ\Publish\SPI\Persistence\Content;
 use Ibexa\Core\Repository\Validator\TargetContentValidator;
 use PHPUnit\Framework\TestCase;
 
 final class TargetContentValidatorTest extends TestCase
 {
-    /** @var \eZ\Publish\API\Repository\ContentService|\PHPUnit_Framework_MockObject_MockObject */
-    private $contentService;
+    /** @var \eZ\Publish\SPI\Persistence\Content\Handler|\PHPUnit_Framework_MockObject_MockObject */
+    private $contentHandler;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService|\PHPUnit_Framework_MockObject_MockObject */
-    private $contentTypeService;
+    /** @var \eZ\Publish\SPI\Persistence\Content\Type\Handler|\PHPUnit_Framework_MockObject_MockObject */
+    private $contentTypeHandler;
 
     /** @var \Ibexa\Core\Repository\Validator\TargetContentValidator */
     private $targetContentValidator;
 
     public function setUp(): void
     {
-        $this->contentService = $this->createMock(ContentService::class);
-        $this->contentTypeService = $this->createMock(ContentTypeService::class);
+        $this->contentHandler = $this->createMock(Content\Handler::class);
+        $this->contentTypeHandler = $this->createMock(Content\Type\Handler::class);
 
-        $this->targetContentValidator = new TargetContentValidator(
-            $this->contentService,
-            $this->contentTypeService
-        );
+        $this->targetContentValidator = new TargetContentValidator($this->contentHandler, $this->contentTypeHandler);
     }
 
     public function testValidateWithValidContent(): void
@@ -66,18 +60,20 @@ final class TargetContentValidatorTest extends TestCase
     private function setupContentTypeValidation(int $contentId): void
     {
         $contentTypeId = 55;
-        $contentInfo = new ContentInfo(['id' => $contentId, 'contentTypeId' => $contentTypeId]);
-        $contentType = new ContentType(['identifier' => 'article']);
+        $contentInfo = new Content\ContentInfo(['contentTypeId' => $contentTypeId]);
+        $versionInfo = new Content\VersionInfo(['contentInfo' => $contentInfo]);
+        $content = new Content(['versionInfo' => $versionInfo]);
+        $contentType = new Content\Type(['id' => $contentTypeId, 'identifier' => 'article']);
 
-        $this->contentService
+        $this->contentHandler
             ->expects(self::once())
-            ->method('loadContentInfo')
+            ->method('load')
             ->with($contentId)
-            ->willReturn($contentInfo);
+            ->willReturn($content);
 
-        $this->contentTypeService
+        $this->contentTypeHandler
             ->expects(self::once())
-            ->method('loadContentType')
+            ->method('load')
             ->with($contentInfo->contentTypeId)
             ->willReturn($contentType);
     }
@@ -86,9 +82,8 @@ final class TargetContentValidatorTest extends TestCase
     {
         $id = 0;
 
-        $this->contentService
-            ->expects(self::once())
-            ->method('loadContentInfo')
+        $this->contentHandler
+            ->method('load')
             ->with($id)
             ->willThrowException($this->createMock(NotFoundException::class));
 

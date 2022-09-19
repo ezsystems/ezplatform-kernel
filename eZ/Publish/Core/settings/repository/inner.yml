@@ -255,8 +255,8 @@ services:
 
     Ibexa\Core\Repository\Validator\TargetContentValidator:
         arguments:
-            $contentService: '@ezpublish.api.service.content'
-            $contentTypeService: '@ezpublish.api.service.content_type'
+            $contentHandler: '@ezpublish.spi.persistence.content_handler'
+            $contentTypeHandler: '@ezpublish.spi.persistence.content_type_handler'
 
     Ibexa\Core\Repository\Validator\TargetContentValidatorInterface:
         alias: Ibexa\Core\Repository\Validator\TargetContentValidator
