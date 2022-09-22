@@ -349,7 +349,7 @@ abstract class FieldType extends SPIFieldType implements Comparable
      */
     public function isEmptyValue(SPIValue $value)
     {
-        return $value === null || $value == $this->getEmptyValue();
+        return $value == $this->getEmptyValue();
     }
 
     /**
