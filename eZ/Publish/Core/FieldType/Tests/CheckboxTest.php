@@ -318,4 +318,9 @@ class CheckboxTest extends FieldTypeTest
         yield [new CheckboxValue(true)];
         yield [new CheckboxValue(false)];
     }
+
+    public function testEmptyValueIsEmpty(): void
+    {
+        self::markTestSkipped('Value of Checkbox fieldtype is never considered empty');
+    }
 }
