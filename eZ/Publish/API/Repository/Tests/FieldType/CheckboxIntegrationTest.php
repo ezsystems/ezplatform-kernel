@@ -387,18 +387,16 @@ class CheckboxIntegrationTest extends SearchBaseIntegrationTest
         self::assertSame($isActive, $value->bool);
     }
 
-    public function testAddFieldDefinition()
+    public function testAddFieldDefinition(): void
     {
+        $fieldTypeService = $this->getRepository()->getFieldTypeService();
         $content = $this->addFieldDefinition();
 
-        $this->assertCount(2, $content->getFields());
-
-        $this->assertFalse(
-            $this->getRepository()->getFieldTypeService()->getFieldType(
-                $this->getTypeName()
-            )->isEmptyValue(
-                $content->getFieldValue('data')
-            )
+        self::assertCount(2, $content->getFields());
+        self::assertFalse(
+            $fieldTypeService
+                ->getFieldType($this->getTypeName())
+                ->isEmptyValue($content->getFieldValue('data'))
         );
     }
 

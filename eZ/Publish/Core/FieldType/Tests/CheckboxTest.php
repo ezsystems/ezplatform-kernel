@@ -301,7 +301,7 @@ class CheckboxTest extends FieldTypeTest
     /**
      * @dataProvider provideForValueIsNeverEmpty
      */
-    public function testValueIsNeverEmpty(CheckboxValue $value)
+    public function testValueIsNeverEmpty(CheckboxValue $value): void
     {
         $fieldType = $this->getFieldTypeUnderTest();
 
