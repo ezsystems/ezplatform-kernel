@@ -12,7 +12,7 @@ use eZ\Publish\SPI\Persistence\Setting\Setting;
 /**
  * @see \eZ\Publish\SPI\Persistence\Setting\Handler
  */
-final class SettingHandler extends AbstractHandler implements SettingHandlerInterface
+final class SettingHandler extends AbstractInMemoryPersistenceHandler implements SettingHandlerInterface
 {
     private const SETTING_IDENTIFIER = 'setting';
 
