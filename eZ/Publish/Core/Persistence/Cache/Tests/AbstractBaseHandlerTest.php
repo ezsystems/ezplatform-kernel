@@ -102,7 +102,7 @@ abstract class AbstractBaseHandlerTest extends TestCase
             new CacheNotificationHandler(...$cacheAbstractHandlerArguments),
             new CacheUserPreferenceHandler(...$cacheInMemoryHandlerArguments),
             new CacheUrlWildcardHandler(...$cacheAbstractHandlerArguments),
-            new CacheSettingHandler(...$cacheAbstractHandlerArguments),
+            new CacheSettingHandler(...$cacheInMemoryHandlerArguments),
             $this->loggerMock
         );
 
