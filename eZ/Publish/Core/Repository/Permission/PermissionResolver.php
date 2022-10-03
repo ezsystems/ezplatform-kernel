@@ -405,7 +405,7 @@ class PermissionResolver implements PermissionResolverInterface
      *         }
      *     );
      *
-     * @param \Closure $callback
+     * @param \callable(\eZ\Publish\API\Repository\Repository): mixed $callback
      * @param \eZ\Publish\API\Repository\Repository $outerRepository
      *
      * @throws \RuntimeException Thrown on recursive sudo() use.
