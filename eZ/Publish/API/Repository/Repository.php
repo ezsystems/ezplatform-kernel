@@ -25,14 +25,15 @@ interface Repository
      *         }
      *     );
      *
+     * @template T
      *
-     * @param callable $callback
+     * @param callable(\eZ\Publish\API\Repository\Repository): T $callback
      * @param \eZ\Publish\API\Repository\Repository|null $outerRepository Optional, mostly for internal use but allows to
      *                                                   specify Repository to pass to closure.
      *
      * @throws \Exception Re-throws exceptions thrown inside $callback
      *
-     * @return mixed
+     * @return T
      */
     public function sudo(callable $callback, ?Repository $outerRepository = null);
 
