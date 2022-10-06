@@ -34,21 +34,29 @@ final class ContentFilteringAdapterTest extends TestCase
     {
         $expectedNumberOfItems = 10;
 
+        $filter = new Filter();
+        $filter->sliceBy(5, 0);
+
+        // Make sure that count query doesn't fetch results
         $this->contentService
-            ->method('find')
+            ->expects(self::never())
+            ->method('find');
+
+        $this->contentService
+            ->method('count')
             ->with(
-                (new Filter())->sliceBy(0, 0), // Make sure that count query doesn't fetch results
+                $filter,
                 self::EXAMPLE_LANGUAGE_FILTER
             )
-            ->willReturn($this->createExpectedContentList($expectedNumberOfItems));
+            ->willReturn($expectedNumberOfItems);
 
         $adapter = new ContentFilteringAdapter(
             $this->contentService,
-            (new Filter())->sliceBy(10, 0),
+            $filter,
             self::EXAMPLE_LANGUAGE_FILTER
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             $expectedNumberOfItems,
             $adapter->getNbResults()
         );

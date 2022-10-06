@@ -157,6 +157,9 @@ class ContentServiceTest extends AbstractServiceTest
 
             ['find', [$filter], new ContentList(1, [$content]), 1],
             ['find', [$filter, self::LANG_ARG], new ContentList(1, [$content]), 1],
+
+            ['count', [$filter], 0, 1],
+            ['count', [$filter, self::LANG_ARG], 0, 1],
         ];
     }
 }

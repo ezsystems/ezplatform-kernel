@@ -21,4 +21,6 @@ interface Handler
      * @return \eZ\Publish\SPI\Persistence\Filter\Location\LazyLocationListIterator
      */
     public function find(Filter $filter): iterable;
+
+    public function count(Filter $filter): int;
 }

@@ -257,4 +257,13 @@ interface LocationService
      *        for a SiteAccess in a current context will be used.
      */
     public function find(Filter $filter, ?array $languages = null): LocationList;
+
+    /**
+     * Count total number of items returned by {@see find} method.
+     *
+     * @param string[] $languages a list of language codes to be added as additional constraints.
+     *        If skipped, by default, unless SiteAccessAware layer has been disabled, languages set
+     *        for a SiteAccess in a current context will be used.
+     */
+    public function count(Filter $filter, ?array $languages = null): int;
 }

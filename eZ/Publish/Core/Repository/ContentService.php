@@ -2503,4 +2503,27 @@ class ContentService implements ContentServiceInterface
 
         return new ContentList($contentItemsIterator->getTotalCount(), $contentItems);
     }
+
+    public function count(Filter $filter, ?array $languages = null): int
+    {
+        $filter = clone $filter;
+        if (!empty($languages)) {
+            $filter->andWithCriterion(new LanguageCode($languages));
+        }
+
+        $permissionCriterion = $this->permissionResolver->getQueryPermissionsCriterion();
+        if ($permissionCriterion instanceof Criterion\MatchNone) {
+            return 0;
+        }
+
+        if (!$permissionCriterion instanceof Criterion\MatchAll) {
+            if (!$permissionCriterion instanceof FilteringCriterion) {
+                return 0;
+            }
+
+            $filter->andWithCriterion($permissionCriterion);
+        }
+
+        return $this->contentFilteringHandler->count($filter);
+    }
 }

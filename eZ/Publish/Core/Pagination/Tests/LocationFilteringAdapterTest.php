@@ -34,21 +34,29 @@ final class LocationFilteringAdapterTest extends TestCase
     {
         $expectedNumberOfItems = 10;
 
+        $filter = new Filter();
+        $filter->sliceBy(5, 0);
+
+        // Make sure that count query doesn't fetch results
         $this->locationService
-            ->method('find')
+            ->expects(self::never())
+            ->method('find');
+
+        $this->locationService
+            ->method('count')
             ->with(
-                (new Filter())->sliceBy(0, 0), // Make sure that count query doesn't fetch results
+                $filter,
                 self::EXAMPLE_LANGUAGE_FILTER
             )
-            ->willReturn($this->createExpectedLocationList($expectedNumberOfItems));
+            ->willReturn($expectedNumberOfItems);
 
         $adapter = new LocationFilteringAdapter(
             $this->locationService,
-            (new Filter())->sliceBy(10, 0),
+            $filter,
             self::EXAMPLE_LANGUAGE_FILTER
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             $expectedNumberOfItems,
             $adapter->getNbResults()
         );

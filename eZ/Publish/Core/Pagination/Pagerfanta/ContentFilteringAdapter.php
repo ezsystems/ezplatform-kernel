@@ -42,13 +42,7 @@ final class ContentFilteringAdapter implements AdapterInterface
     public function getNbResults(): int
     {
         if ($this->totalCount === null) {
-            $countFilter = clone $this->filter;
-            $countFilter->sliceBy(0, 0);
-
-            $this->totalCount = $this->contentService->find(
-                $countFilter,
-                $this->languageFilter
-            )->getTotalCount();
+            $this->totalCount = $this->contentService->count($this->filter, $this->languageFilter);
         }
 
         return $this->totalCount;

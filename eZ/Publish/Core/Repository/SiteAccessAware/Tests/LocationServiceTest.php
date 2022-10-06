@@ -99,6 +99,9 @@ class LocationServiceTest extends AbstractServiceTest
 
             ['find', [$filter], $locationList, 1],
             ['find', [$filter, self::LANG_ARG], $locationList, 1],
+
+            ['count', [$filter], 0, 1],
+            ['count', [$filter, self::LANG_ARG], 0, 1],
         ];
     }
 }

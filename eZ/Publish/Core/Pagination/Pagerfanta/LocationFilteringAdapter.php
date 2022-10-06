@@ -39,13 +39,7 @@ final class LocationFilteringAdapter implements AdapterInterface
     public function getNbResults(): int
     {
         if ($this->totalCount === null) {
-            $countFilter = clone $this->filter;
-            $countFilter->sliceBy(0, 0);
-
-            $this->totalCount = $this->locationService->find(
-                $countFilter,
-                $this->languageFilter
-            )->getTotalCount();
+            $this->totalCount = $this->locationService->count($this->filter, $this->languageFilter);
         }
 
         return $this->totalCount;

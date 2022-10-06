@@ -946,6 +946,29 @@ class LocationService implements LocationServiceInterface
         );
     }
 
+    public function count(Filter $filter, ?array $languages = null): int
+    {
+        $filter = clone $filter;
+        if (!empty($languages)) {
+            $filter->andWithCriterion(new LanguageCode($languages));
+        }
+
+        $permissionCriterion = $this->permissionCriterionResolver->getQueryPermissionsCriterion();
+        if ($permissionCriterion instanceof Criterion\MatchNone) {
+            return 0;
+        }
+
+        if (!$permissionCriterion instanceof Criterion\MatchAll) {
+            if (!$permissionCriterion instanceof FilteringCriterion) {
+                return 0;
+            }
+
+            $filter->andWithCriterion($permissionCriterion);
+        }
+
+        return $this->locationFilteringHandler->count($filter);
+    }
+
     private function checkCreatePermissionOnSubtreeTarget(APILocation $targetParentLocation, APILocation $loadedSubtree, APILocation $loadedTargetLocation): void
     {
         $locationTarget = (new DestinationLocationTarget($targetParentLocation->id, $loadedSubtree->contentInfo));
