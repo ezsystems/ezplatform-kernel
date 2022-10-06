@@ -48,6 +48,11 @@ class Type extends FieldType
         return new Value(false);
     }
 
+    public function isEmptyValue(SPIValue $value): bool
+    {
+        return false;
+    }
+
     /**
      * Inspects given $inputValue and potentially converts it into a dedicated value object.
      *

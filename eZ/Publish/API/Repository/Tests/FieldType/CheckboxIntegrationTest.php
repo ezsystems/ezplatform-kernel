@@ -306,22 +306,17 @@ class CheckboxIntegrationTest extends SearchBaseIntegrationTest
 
     public function providerForTestIsEmptyValue()
     {
-        return [
-            [new CheckboxValue()],
-            [new CheckboxValue(null)],
-            [new CheckboxValue(false)],
-        ];
+        return [];
     }
 
     public function providerForTestIsNotEmptyValue()
     {
         return [
-            [
-                $this->getValidCreationFieldData(),
-            ],
-            [
-                new CheckboxValue(true),
-            ],
+            [$this->getValidCreationFieldData()],
+            [new CheckboxValue(true)],
+            [new CheckboxValue()],
+            [new CheckboxValue(null)],
+            [new CheckboxValue(false)],
         ];
     }
 
@@ -390,6 +385,19 @@ class CheckboxIntegrationTest extends SearchBaseIntegrationTest
         $value = $contentItem->getField('is_active')->value;
         /** @var \eZ\Publish\Core\FieldType\Checkbox\Value $value */
         self::assertSame($isActive, $value->bool);
+    }
+
+    public function testAddFieldDefinition(): void
+    {
+        $fieldTypeService = $this->getRepository()->getFieldTypeService();
+        $content = $this->addFieldDefinition();
+
+        self::assertCount(2, $content->getFields());
+        self::assertFalse(
+            $fieldTypeService
+                ->getFieldType($this->getTypeName())
+                ->isEmptyValue($content->getFieldValue('data'))
+        );
     }
 
     protected function createCheckboxContentItems(Repository $repository): void
