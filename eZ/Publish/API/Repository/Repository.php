@@ -16,7 +16,7 @@ interface Repository
     /**
      * Allows API execution to be performed with full access, sand-boxed.
      *
-     * The closure sandbox will do a catch all on exceptions and rethrow after
+     * The closure sandbox will do a "catch-all" on all exceptions and rethrow after
      * re-setting the sudo flag.
      *
      * Example use:
@@ -28,10 +28,8 @@ interface Repository
      * @template T
      *
      * @param callable(\eZ\Publish\API\Repository\Repository): T $callback
-     * @param \eZ\Publish\API\Repository\Repository|null $outerRepository Optional, mostly for internal use but allows to
-     *                                                   specify Repository to pass to closure.
-     *
-     * @throws \Exception Re-throws exceptions thrown inside $callback
+     * @param \eZ\Publish\API\Repository\Repository|null $outerRepository Optional, mostly
+     *        for internal use but allows to specify Repository to pass to closure.
      *
      * @return T
      */
