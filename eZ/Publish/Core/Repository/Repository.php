@@ -334,9 +334,6 @@ class Repository implements RepositoryInterface
         $this->passwordValidator = $passwordValidator;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function sudo(callable $callback, ?RepositoryInterface $outerRepository = null)
     {
         return $this->getPermissionResolver()->sudo($callback, $outerRepository ?? $this);
