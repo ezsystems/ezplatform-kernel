@@ -21,7 +21,6 @@ use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
 use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\LocationList;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\LocationUpdateStruct;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
@@ -284,11 +283,12 @@ class LocationService implements LocationServiceInterface
         return $locations;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function loadLocationChildren(APILocation $location, int $offset = 0, int $limit = 25, ?array $prioritizedLanguages = null): LocationList
-    {
+    public function loadLocationChildren(
+        APILocation $location,
+        int $offset = 0,
+        int $limit = 25,
+        ?array $prioritizedLanguages = null
+    ): LocationList {
         if (!$this->contentDomainMapper->isValidLocationSortField($location->sortField)) {
             throw new InvalidArgumentValue('sortField', $location->sortField, 'Location');
         }
@@ -305,18 +305,12 @@ class LocationService implements LocationServiceInterface
             throw new InvalidArgumentValue('limit', $limit);
         }
 
-        $childLocations = [];
-        $searchResult = $this->searchChildrenLocations($location, $offset, $limit, $prioritizedLanguages ?: []);
-        foreach ($searchResult->searchHits as $searchHit) {
-            $childLocations[] = $searchHit->valueObject;
-        }
+        $filter = $this->buildLocationChildrenFilter($location);
+        $filter
+            ->withLimit($limit)
+            ->withOffset($offset);
 
-        return new LocationList(
-            [
-                'locations' => $childLocations,
-                'totalCount' => $searchResult->totalCount,
-            ]
-        );
+        return $this->find($filter, $prioritizedLanguages);
     }
 
     /**
@@ -364,38 +358,22 @@ class LocationService implements LocationServiceInterface
     }
 
     /**
-     * Returns the number of children which are readable by the current user of a location object.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
-     *
-     * @return int
+     * Returns the number of children which are readable by the current user of a Location object.
      */
     public function getLocationChildCount(APILocation $location): int
     {
-        $searchResult = $this->searchChildrenLocations($location, 0, 0);
+        $filter = $this->buildLocationChildrenFilter($location);
 
-        return $searchResult->totalCount;
+        return $this->count($filter);
     }
 
-    /**
-     * Searches children locations of the provided parent location id.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \eZ\Publish\API\Repository\Values\Content\Search\SearchResult
-     */
-    protected function searchChildrenLocations(APILocation $location, $offset = 0, $limit = -1, array $prioritizedLanguages = null)
+    protected function buildLocationChildrenFilter(APILocation $location): Filter
     {
-        $query = new LocationQuery([
-            'filter' => new Criterion\ParentLocationId($location->id),
-            'offset' => $offset >= 0 ? (int)$offset : 0,
-            'limit' => $limit >= 0 ? (int)$limit : null,
-            'sortClauses' => $location->getSortClauses(),
-        ]);
+        $filter = new Filter();
+        $filter
+            ->withCriterion(new Criterion\ParentLocationId($location->id));
 
-        return $this->repository->getSearchService()->findLocations($query, ['languages' => $prioritizedLanguages]);
+        return $filter;
     }
 
     /**

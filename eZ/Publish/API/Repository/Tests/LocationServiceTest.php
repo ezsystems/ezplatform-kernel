@@ -1149,30 +1149,22 @@ class LocationServiceTest extends BaseTest
     }
 
     /**
-     * Test for the loadLocationChildren() method.
-     *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location[]
-     *
-     * @see \eZ\Publish\API\Repository\LocationService::loadLocationChildren($location, $offset)
-     * @depends eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocationChildren
+     * @covers \eZ\Publish\API\Repository\LocationService::loadLocationChildren
      */
-    public function testLoadLocationChildrenWithOffset()
+    public function testLoadLocationChildrenWithOffset(): LocationList
     {
         $repository = $this->getRepository();
 
         $locationId = $this->generateId('location', 5);
-        /* BEGIN: Use Case */
         // $locationId is the ID of an existing location
         $locationService = $repository->getLocationService();
 
         $location = $locationService->loadLocation($locationId);
 
         $childLocations = $locationService->loadLocationChildren($location, 2);
-        /* END: Use Case */
 
-        $this->assertInstanceOf('\\eZ\\Publish\\API\\Repository\\Values\\Content\\LocationList', $childLocations);
-        $this->assertIsArray($childLocations->locations);
-        $this->assertIsInt($childLocations->totalCount);
+        self::assertIsIterable($childLocations);
+        self::assertIsInt($childLocations->totalCount);
 
         return $childLocations;
     }
@@ -1182,59 +1174,50 @@ class LocationServiceTest extends BaseTest
      *
      * @param \eZ\Publish\API\Repository\Values\Content\LocationList $locations
      *
-     * @see \eZ\Publish\API\Repository\LocationService::loadLocationChildren($location, $offset)
-     * @depends eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocationChildrenWithOffset
+     * @covers \eZ\Publish\API\Repository\LocationService::loadLocationChildren
+     *
+     * @depends testLoadLocationChildrenWithOffset
      */
-    public function testLoadLocationChildrenDataWithOffset(LocationList $locations)
+    public function testLoadLocationChildrenDataWithOffset(LocationList $locations): void
     {
-        $this->assertCount(3, $locations->locations);
-        $this->assertEquals(5, $locations->getTotalCount());
+        self::assertCount(3, $locations->locations);
+        self::assertEquals(5, $locations->getTotalCount());
 
+        $actualLocationIds = [];
         foreach ($locations->locations as $location) {
-            $this->assertInstanceOf(
-                '\\eZ\\Publish\\API\\Repository\\Values\\Content\\Location',
-                $location
-            );
+            self::assertInstanceOf(Location::class, $location);
+            $actualLocationIds[] = $location->id;
         }
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 $this->generateId('location', 14),
                 $this->generateId('location', 44),
                 $this->generateId('location', 61),
             ],
-            array_map(
-                static function (Location $location) {
-                    return $location->id;
-                },
-                $locations->locations
-            )
+            $actualLocationIds
         );
     }
 
     /**
      * Test for the loadLocationChildren() method.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location[]
+     * @covers \eZ\Publish\API\Repository\LocationService::loadLocationChildren
      *
-     * @see \eZ\Publish\API\Repository\LocationService::loadLocationChildren($location, $offset, $limit)
      * @depends eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocationChildren
      */
-    public function testLoadLocationChildrenWithOffsetAndLimit()
+    public function testLoadLocationChildrenWithOffsetAndLimit(): LocationList
     {
         $repository = $this->getRepository();
 
         $locationId = $this->generateId('location', 5);
-        /* BEGIN: Use Case */
         // $locationId is the ID of an existing location
         $locationService = $repository->getLocationService();
 
         $location = $locationService->loadLocation($locationId);
 
         $childLocations = $locationService->loadLocationChildren($location, 2, 2);
-        /* END: Use Case */
 
-        $this->assertInstanceOf('\\eZ\\Publish\\API\\Repository\\Values\\Content\\LocationList', $childLocations);
         $this->assertIsArray($childLocations->locations);
         $this->assertIsInt($childLocations->totalCount);
 
@@ -1242,23 +1225,19 @@ class LocationServiceTest extends BaseTest
     }
 
     /**
-     * Test for the loadLocationChildren() method.
+     * @covers \eZ\Publish\API\Repository\LocationService::loadLocationChildren
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location[] $locations
-     *
-     * @see \eZ\Publish\API\Repository\LocationService::loadLocationChildren($location, $offset, $limit)
-     * @depends eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocationChildrenWithOffsetAndLimit
+     * @depends testLoadLocationChildrenWithOffsetAndLimit
      */
-    public function testLoadLocationChildrenDataWithOffsetAndLimit(LocationList $locations)
+    public function testLoadLocationChildrenDataWithOffsetAndLimit(LocationList $locations): void
     {
         $this->assertCount(2, $locations->locations);
         $this->assertEquals(5, $locations->getTotalCount());
 
+        $actualLocationIds = [];
         foreach ($locations->locations as $location) {
-            $this->assertInstanceOf(
-                '\\eZ\\Publish\\API\\Repository\\Values\\Content\\Location',
-                $location
-            );
+            self::assertInstanceOf(Location::class, $location);
+            $actualLocationIds[] = $location->id;
         }
 
         $this->assertEquals(
@@ -1266,12 +1245,7 @@ class LocationServiceTest extends BaseTest
                 $this->generateId('location', 14),
                 $this->generateId('location', 44),
             ],
-            array_map(
-                static function (Location $location) {
-                    return $location->id;
-                },
-                $locations->locations
-            )
+            $actualLocationIds
         );
     }
 
