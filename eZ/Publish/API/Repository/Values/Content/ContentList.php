@@ -9,13 +9,14 @@ declare(strict_types=1);
 namespace eZ\Publish\API\Repository\Values\Content;
 
 use ArrayIterator;
+use Ibexa\Contracts\Core\Repository\Collections\TotalCountAwareInterface;
 use IteratorAggregate;
 use Traversable;
 
 /**
  * A filtered Content items list iterator.
  */
-final class ContentList implements IteratorAggregate
+final class ContentList implements IteratorAggregate, TotalCountAwareInterface
 {
     /** @var int */
     private $totalCount;
