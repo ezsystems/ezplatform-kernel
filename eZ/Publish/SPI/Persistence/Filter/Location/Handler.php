@@ -18,7 +18,7 @@ use eZ\Publish\API\Repository\Values\Filter\Filter;
 interface Handler
 {
     /**
-     * @return \eZ\Publish\SPI\Persistence\Content\LocationWithContentInfo[]
+     * @return \eZ\Publish\SPI\Persistence\Filter\Location\LazyLocationListIterator
      */
     public function find(Filter $filter): iterable;
 }
