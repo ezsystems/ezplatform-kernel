@@ -111,6 +111,10 @@ class ImageStorage extends GatewayBasedStorage
             );
 
             $field->value->externalData = null;
+
+            if (!$this->gateway->getImageReference($field->value->data['uri'], $field->id)) {
+                $this->gateway->storeImageReference($field->value->data['uri'], $field->id);
+            }
         } else { // existing image from another version
             if ($field->value->data === null) {
                 // Store empty value only with content meta data
@@ -128,9 +132,6 @@ class ImageStorage extends GatewayBasedStorage
             $field->value->externalData = null;
         }
 
-        $this->gateway->storeImageReference($field->value->data['uri'], $field->id);
-
-        // Data has been updated and needs to be stored!
         return true;
     }
 

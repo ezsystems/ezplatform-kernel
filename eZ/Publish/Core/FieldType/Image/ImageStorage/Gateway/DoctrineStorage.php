@@ -456,4 +456,38 @@ class DoctrineStorage extends Gateway
             ->execute()
         ;
     }
+
+    /**
+     * @throws \eZ\Publish\Core\IO\Exception\InvalidBinaryFileIdException
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function getImageReference(string $uri, int $fieldId): int
+    {
+        $path = $this->redecorator->redecorateFromSource($uri);
+
+        $selectQuery = $this->connection->createQueryBuilder();
+        $selectQuery
+            ->select(1)
+            ->from($this->connection->quoteIdentifier(self::IMAGE_FILE_TABLE))
+            ->where(
+                $selectQuery->expr()->eq(
+                    $this->connection->quoteIdentifier('filepath'),
+                    ':path'
+                )
+            )
+            ->andWhere(
+                $selectQuery->expr()->eq(
+                    $this->connection->quoteIdentifier('contentobject_attribute_id'),
+                    ':fieldId'
+                )
+            )
+            ->setParameter(':path', $path)
+            ->setParameter(':fieldId', $fieldId)
+        ;
+
+        $statement = $selectQuery->execute();
+
+        return (bool)$statement->fetchOne();
+    }
 }
