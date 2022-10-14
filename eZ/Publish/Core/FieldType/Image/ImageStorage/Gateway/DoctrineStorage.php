@@ -462,7 +462,7 @@ class DoctrineStorage extends Gateway
      * @throws \Doctrine\DBAL\Driver\Exception
      * @throws \Doctrine\DBAL\Exception
      */
-    public function getImageReference(string $uri, int $fieldId): int
+    public function getImageReference(string $uri, int $fieldId): bool
     {
         $path = $this->redecorator->redecorateFromSource($uri);
 
