@@ -51,7 +51,7 @@ final class ImageStorageTest extends BaseCoreFieldTypeIntegrationTest
     /** @var \eZ\Publish\Core\IO\IOServiceInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $ioService;
 
-    /** @var \eZ\Publish\Core\FieldType\Image\ImageStorage|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \eZ\Publish\Core\FieldType\Image\ImageStorage */
     private $storage;
 
     protected function setUp(): void
@@ -66,20 +66,15 @@ final class ImageStorageTest extends BaseCoreFieldTypeIntegrationTest
         $this->aliasCleaner = $this->createMock(AliasCleanerInterface::class);
         $this->filePathNormalizer = $this->createMock(FilePathNormalizerInterface::class);
         $this->ioService = $this->createMock(IOServiceInterface::class);
-        $this->storage = $this->getMockBuilder(ImageStorage::class)
-            ->onlyMethods([])
-            ->setConstructorArgs(
-                [
-                    $this->gateway,
-                    $this->ioService,
-                    $this->pathGenerator,
-                    $this->imageSizeMetadataHandler,
-                    $this->deprecationWarner,
-                    $this->aliasCleaner,
-                    $this->filePathNormalizer,
-                ]
-            )
-            ->getMock();
+        $this->storage = new ImageStorage(
+            $this->gateway,
+            $this->ioService,
+            $this->pathGenerator,
+            $this->imageSizeMetadataHandler,
+            $this->deprecationWarner,
+            $this->aliasCleaner,
+            $this->filePathNormalizer,
+        );
     }
 
     public function testHasFieldData(): void
@@ -116,7 +111,7 @@ final class ImageStorageTest extends BaseCoreFieldTypeIntegrationTest
     /**
      * @dataProvider providerOfFieldData
      *
-     * @depends testStoreFieldDataDuringCreate
+     * @depends      testStoreFieldDataDuringCreate
      */
     public function testStoreFieldDataDuringUpdate(VersionInfo $versionInfo, Field $field): void
     {
@@ -166,7 +161,7 @@ final class ImageStorageTest extends BaseCoreFieldTypeIntegrationTest
         return $binaryFile;
     }
 
-    public function providerOfFieldData(): array
+    public function providerOfFieldData(): iterable
     {
         $path = __DIR__ . '/image.jpg';
 
@@ -200,8 +195,6 @@ final class ImageStorageTest extends BaseCoreFieldTypeIntegrationTest
             'versionNo' => 1,
         ]);
 
-        return [
-            [$versionInfo, $field],
-        ];
+        yield [$versionInfo, $field];
     }
 }

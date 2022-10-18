@@ -462,7 +462,7 @@ class DoctrineStorage extends Gateway
      * @throws \Doctrine\DBAL\Driver\Exception
      * @throws \Doctrine\DBAL\Exception
      */
-    public function getImageReference(string $uri, int $fieldId): bool
+    public function hasImageReference(string $uri, int $fieldId): bool
     {
         $path = $this->redecorator->redecorateFromSource($uri);
 
@@ -479,11 +479,11 @@ class DoctrineStorage extends Gateway
             ->andWhere(
                 $selectQuery->expr()->eq(
                     $this->connection->quoteIdentifier('contentobject_attribute_id'),
-                    ':fieldId'
+                    ':field_id'
                 )
             )
             ->setParameter(':path', $path)
-            ->setParameter(':fieldId', $fieldId)
+            ->setParameter(':field_id', $fieldId)
         ;
 
         $statement = $selectQuery->execute();

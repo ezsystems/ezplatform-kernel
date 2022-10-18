@@ -112,7 +112,7 @@ class ImageStorage extends GatewayBasedStorage
 
             $field->value->externalData = null;
 
-            if (!$this->gateway->getImageReference($field->value->data['uri'], $field->id)) {
+            if (!$this->gateway->hasImageReference($field->value->data['uri'], $field->id)) {
                 $this->gateway->storeImageReference($field->value->data['uri'], $field->id);
             }
         } else { // existing image from another version

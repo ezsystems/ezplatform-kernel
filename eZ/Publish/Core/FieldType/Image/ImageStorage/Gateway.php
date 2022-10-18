@@ -79,5 +79,5 @@ abstract class Gateway extends StorageGateway
 
     abstract public function countDistinctImagesData(): int;
 
-    abstract public function getImageReference(string $uri, int $fieldId): bool;
+    abstract public function hasImageReference(string $uri, int $fieldId): bool;
 }
