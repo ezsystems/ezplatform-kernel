@@ -31,4 +31,9 @@ class CompoundMatcherNormalizer extends AbstractPropertyWhitelistNormalizer
     {
         return $data instanceof Matcher\Compound;
     }
+
+    public function supportsDenormalization($data, string $type, string $format = null)
+    {
+        return $type === Matcher\Compound::class;
+    }
 }

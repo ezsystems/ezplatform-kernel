@@ -51,4 +51,22 @@ final class CompoundMatcherNormalizerTest extends TestCase
         $this->assertTrue($normalizer->supportsNormalization($this->createMock(Compound::class)));
         $this->assertFalse($normalizer->supportsNormalization($this->createMock(Matcher::class)));
     }
+
+    public function testSupportsDenormalization(): void
+    {
+        $normalizer = new CompoundMatcherNormalizer();
+
+        $data = json_encode(
+            [
+                'subMatchers' => [
+                    'foo' => ['data' => 'foo'],
+                ],
+                'config' => [],
+                'matchersMap' => [],
+            ]
+        );
+
+        $this->assertTrue($normalizer->supportsDenormalization($data, Compound::class, 'json'));
+        $this->assertFalse($normalizer->supportsDenormalization($data, Matcher::class, 'json'));
+    }
 }
