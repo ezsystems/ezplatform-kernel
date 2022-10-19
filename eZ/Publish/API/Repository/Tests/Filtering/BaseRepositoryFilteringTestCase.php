@@ -18,6 +18,7 @@ use eZ\Publish\API\Repository\Values\Filter\Filter;
 use eZ\Publish\API\Repository\Values\User\Limitation;
 use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
 use eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Contracts\Core\Repository\Collections\TotalCountAwareInterface;
 use IteratorAggregate;
 
 /**
@@ -25,6 +26,10 @@ use IteratorAggregate;
  */
 abstract class BaseRepositoryFilteringTestCase extends BaseTest
 {
+    private const PAGINATION_EXPECTED_TOTAL_COUNT = 5;
+    private const PAGINATION_LIMIT = 3;
+    private const PAGINATION_OFFSET = 2;
+
     /** @var \eZ\Publish\API\Repository\Tests\Filtering\TestContentProvider */
     protected $contentProvider;
 
@@ -91,6 +96,36 @@ abstract class BaseRepositoryFilteringTestCase extends BaseTest
         $list = $this->find($filter, []);
 
         self::assertCount(0, $list);
+    }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\Exception
+     */
+    public function testFindPaginated(): void
+    {
+        $parentFolder = $this->createFolder([TestContentProvider::ENG_US => 'Parent Folder'], 2);
+        $parentLocationId = $parentFolder->contentInfo->mainLocationId;
+        for ($i = 0; $i < self::PAGINATION_EXPECTED_TOTAL_COUNT; ++$i) {
+            $this->createFolder(
+                [
+                    TestContentProvider::ENG_US => 'Folder ' . ($i + 1),
+                ],
+                $parentLocationId
+            );
+        }
+
+        $filter = new Filter();
+        $filter
+            ->withCriterion(
+                new Criterion\ParentLocationId($parentLocationId)
+            )
+            ->withLimit(self::PAGINATION_LIMIT)
+            ->withOffset(self::PAGINATION_OFFSET);
+
+        $list = $this->find($filter, []);
+        self::assertInstanceOf(TotalCountAwareInterface::class, $list);
+        self::assertSame(self::PAGINATION_EXPECTED_TOTAL_COUNT, $list->getTotalCount());
+        self::assertCount(self::PAGINATION_LIMIT, $list);
     }
 
     /**

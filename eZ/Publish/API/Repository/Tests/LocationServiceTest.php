@@ -1122,7 +1122,7 @@ class LocationServiceTest extends BaseTest
     public function testLoadLocationChildrenData(LocationList $locations)
     {
         $this->assertCount(5, $locations->locations);
-        $this->assertEquals(5, $locations->totalCount);
+        $this->assertEquals(5, $locations->getTotalCount());
 
         foreach ($locations->locations as $location) {
             $this->assertInstanceOf(
@@ -1188,7 +1188,7 @@ class LocationServiceTest extends BaseTest
     public function testLoadLocationChildrenDataWithOffset(LocationList $locations)
     {
         $this->assertCount(3, $locations->locations);
-        $this->assertEquals(5, $locations->totalCount);
+        $this->assertEquals(5, $locations->getTotalCount());
 
         foreach ($locations->locations as $location) {
             $this->assertInstanceOf(
@@ -1252,7 +1252,7 @@ class LocationServiceTest extends BaseTest
     public function testLoadLocationChildrenDataWithOffsetAndLimit(LocationList $locations)
     {
         $this->assertCount(2, $locations->locations);
-        $this->assertEquals(5, $locations->totalCount);
+        $this->assertEquals(5, $locations->getTotalCount());
 
         foreach ($locations->locations as $location) {
             $this->assertInstanceOf(

@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository;
 
-use function count;
 use Exception;
 use eZ\Publish\API\Repository\ContentTypeService;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException as APINotFoundException;
@@ -929,7 +928,8 @@ class LocationService implements LocationServiceInterface
         }
 
         $locations = [];
-        foreach ($this->locationFilteringHandler->find($filter) as $locationWithContentInfo) {
+        $locationListIterator = $this->locationFilteringHandler->find($filter);
+        foreach ($locationListIterator as $locationWithContentInfo) {
             $spiContentInfo = $locationWithContentInfo->getContentInfo();
             $locations[] = $this->contentDomainMapper->buildLocationWithContent(
                 $locationWithContentInfo->getLocation(),
@@ -940,7 +940,7 @@ class LocationService implements LocationServiceInterface
 
         return new LocationList(
             [
-                'totalCount' => count($locations),
+                'totalCount' => $locationListIterator->getTotalCount(),
                 'locations' => $locations,
             ]
         );

@@ -45,7 +45,7 @@ final class LocationFilteringAdapter implements AdapterInterface
             $this->totalCount = $this->locationService->find(
                 $countFilter,
                 $this->languageFilter
-            )->totalCount;
+            )->getTotalCount();
         }
 
         return $this->totalCount;
@@ -58,7 +58,7 @@ final class LocationFilteringAdapter implements AdapterInterface
 
         $results = $this->locationService->find($selectFilter, $this->languageFilter);
         if ($this->totalCount === null) {
-            $this->totalCount = $results->totalCount;
+            $this->totalCount = $results->getTotalCount();
         }
 
         return $results;
