@@ -27,7 +27,7 @@ use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
 final class ImageStorageTest extends BaseCoreFieldTypeIntegrationTest
 {
-    /** @var \eZ\Publish\Core\FieldType\Image\ImageStorage\Gateway|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \eZ\Publish\Core\FieldType\Image\ImageStorage\Gateway */
     private $gateway;
 
     /** @var \eZ\Publish\Core\IO\UrlRedecoratorInterface|\PHPUnit\Framework\MockObject\MockObject */
@@ -82,6 +82,9 @@ final class ImageStorageTest extends BaseCoreFieldTypeIntegrationTest
         self::assertTrue($this->storage->hasFieldData());
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function getContext(): array
     {
         return ['identifier' => 'LegacyStorage'];
@@ -105,13 +108,13 @@ final class ImageStorageTest extends BaseCoreFieldTypeIntegrationTest
 
         $this->storage->storeFieldData($versionInfo, $field, $this->getContext());
 
-        self::assertEquals(1, $this->gateway->countImageReferences($binaryFile->uri));
+        self::assertSame(1, $this->gateway->countImageReferences($binaryFile->uri));
     }
 
     /**
      * @dataProvider providerOfFieldData
      *
-     * @depends      testStoreFieldDataDuringCreate
+     * @depends testStoreFieldDataDuringCreate
      */
     public function testStoreFieldDataDuringUpdate(VersionInfo $versionInfo, Field $field): void
     {
@@ -125,7 +128,49 @@ final class ImageStorageTest extends BaseCoreFieldTypeIntegrationTest
 
         $this->storage->storeFieldData($versionInfo, $field, $this->getContext());
 
-        self::assertEquals(1, $this->gateway->countImageReferences($binaryFile->uri));
+        self::assertSame(1, $this->gateway->countImageReferences($binaryFile->uri));
+    }
+
+    /**
+     * @dataProvider providerOfFieldData
+     *
+     * @depends testStoreFieldDataDuringUpdate
+     */
+    public function testStoreFieldDataDuringUpdateWithDifferentImage(VersionInfo $versionInfo, Field $field): void
+    {
+        $versionInfo->versionNo = 2;
+        $field->versionNo = 2;
+
+        $path = __DIR__ . '/image.jpg';
+        $newFieldValue = new FieldValue([
+            'externalData' => [
+                'id' => null,
+                'path' => $path,
+                'inputUri' => $path,
+                'fileName' => 'image2.jpg',
+                'fileSize' => '12',
+                'mimeType' => 'image/jpeg',
+                'width' => null,
+                'height' => null,
+                'alternativeText' => null,
+                'imageId' => null,
+                'uri' => null,
+                'additionalData' => [],
+            ],
+        ]);
+        $field->value = $newFieldValue;
+
+        $binaryFile = $this->runCommonStoreFieldDataMocks($field);
+
+        $this->redecorator
+            ->expects(self::exactly(3))
+            ->method('redecorateFromSource')
+            ->with($binaryFile->uri)
+            ->willReturn($binaryFile->uri);
+
+        $this->storage->storeFieldData($versionInfo, $field, $this->getContext());
+
+        self::assertSame(1, $this->gateway->countImageReferences($binaryFile->uri));
     }
 
     private function runCommonStoreFieldDataMocks(Field $field): BinaryFile
@@ -161,6 +206,12 @@ final class ImageStorageTest extends BaseCoreFieldTypeIntegrationTest
         return $binaryFile;
     }
 
+    /**
+     * @return iterable<array{
+     *     eZ\Publish\SPI\Persistence\Content\VersionInfo,
+     *     eZ\Publish\SPI\Persistence\Content\Field
+     * }>
+     */
     public function providerOfFieldData(): iterable
     {
         $path = __DIR__ . '/image.jpg';
