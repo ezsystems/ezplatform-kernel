@@ -1517,10 +1517,20 @@ class ContentService implements ContentServiceInterface
         }
 
         foreach ($versions as $versionInfo) {
+            $draftContent = $this->loadContentByVersionInfo($versionInfo);
+            $draftFieldValues = $fieldValues;
+            foreach ($draftContent->getFields() as $draftField) {
+                if ($draftField->languageCode === $currentVersionLanguageCode) {
+                    continue;
+                }
+                $fieldDefinition = $contentType->getFieldDefinition($draftField->fieldDefIdentifier);
+                $draftFieldValues[$fieldDefinition->identifier][$draftField->languageCode] = $draftField->getValue();
+            }
+
             $updateStruct = new SPIContentUpdateStruct();
             $updateStruct->name = $this->nameSchemaService->resolveNameSchema(
                 $content,
-                $fieldValues,
+                $draftFieldValues,
                 $versionInfo->languageCodes,
                 $contentType
             );
