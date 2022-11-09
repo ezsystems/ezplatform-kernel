@@ -32,6 +32,8 @@ class ExpireUserPasswordsCommand extends Command
 
     public const DEFAULT_BATCH_SIZE = 50;
 
+    public const DEFAULT_PASSWORD_TTL = 00;
+
     public const BEFORE_RUNNING_HINTS = <<<EOT
 <error>Before you continue:</error>
 - Make sure to back up your database.
@@ -93,6 +95,13 @@ EOT;
                 'Number of users to process at once',
                 self::DEFAULT_BATCH_SIZE
             )
+            ->addOption(
+                'password-ttl',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'After how many days passwords expire. Set when Content Type needs to be updated.',
+                self::DEFAULT_PASSWORD_TTL
+            )
             ->setHelp(
                 <<<EOT
 The command <info>%command.name%</info> expires passwords of specific users. 
@@ -110,6 +119,7 @@ EOT
         $userIds = $input->getOption('user-id');
         $userGroupIds = $input->getOption('user-group-id');
         $force = $input->getOption('force');
+        $passwordTTL = $input->getOption('password-ttl');
 
         if (!empty($userIds) && !empty($userGroupIds)) {
             throw new InvalidArgumentException('You cannot use --user-id and --user-group-id options at once.');
@@ -194,7 +204,7 @@ EOT
 
                         //  enforce CT to use password expiration feature
                         $validatorConfiguration['PasswordValueValidator']['requireNewPassword'] = true;
-                        $fieldSettings['PasswordTTL'] = 90;
+                        $fieldSettings['PasswordTTL'] = (int) $passwordTTL;
 
                         $this->updateContentType(
                             $contentType,
