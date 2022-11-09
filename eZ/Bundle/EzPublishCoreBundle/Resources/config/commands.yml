@@ -59,6 +59,6 @@ services:
         autowire: true
         autoconfigure: true
         arguments:
-            $userHandler: '@ezpublish.spi.persistence.legacy.user.handler'
+            $userHandler: '@ezpublish.spi.persistence.user_handler'
         tags:
             - { name: console.command }
