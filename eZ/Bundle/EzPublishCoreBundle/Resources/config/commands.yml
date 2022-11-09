@@ -54,3 +54,11 @@ services:
             $ioService: '@ezpublish.fieldType.ezimage.io_service'
         tags:
             - { name: console.command }
+
+    Ibexa\Bundle\Core\Command\ExpireUserPasswordsCommand:
+        autowire: true
+        autoconfigure: true
+        arguments:
+            $userHandler: '@ezpublish.spi.persistence.legacy.user.handler'
+        tags:
+            - { name: console.command }
