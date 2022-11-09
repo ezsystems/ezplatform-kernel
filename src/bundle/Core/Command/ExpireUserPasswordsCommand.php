@@ -84,9 +84,8 @@ EOT;
             ->addOption(
                 'force',
                 null,
-                InputOption::VALUE_OPTIONAL,
-                'Perform setting user passwords as expired',
-                false
+                InputOption::VALUE_NONE,
+                'Perform setting user passwords as expired'
             )
             ->addOption(
                 'batch-size',
@@ -238,21 +237,21 @@ EOT
             throw $e;
         }
 
+        $output->writeln(sprintf(
+            '<info>Expired passwords of %d user(s)</info>',
+            $processedUsersCount
+        ));
+
         if ($force) {
             $this->repository->commit();
         } else {
             $this->repository->rollback();
 
             $output->writeln(
-                '<warning>No changes made. If you want to proceed rerun '
-                . 'this command with --force flag.</warning>'
+                '<info>No changes made. If you want to proceed rerun '
+                . 'this command with --force flag.</info>'
             );
         }
-
-        $output->writeln(sprintf(
-            '<info>Expired passwords of %d user(s)</info>',
-            $processedUsersCount
-        ));
 
         return Command::SUCCESS;
     }
