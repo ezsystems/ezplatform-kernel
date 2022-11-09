@@ -27,9 +27,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class ExpireUserPasswordsCommand extends Command
 {
-    public const REQUIRE_NEW_PASSWORD_VALUE = true;
-
     protected static $defaultName = 'ibexa:user:expire-password';
+
+    public const REQUIRE_NEW_PASSWORD_VALUE = true;
 
     public const DEFAULT_BATCH_SIZE = 50;
 
