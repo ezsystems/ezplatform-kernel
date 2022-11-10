@@ -128,3 +128,15 @@ services:
         class: eZ\Publish\Core\Limitation\BlockingLimitationType
         arguments: ['AntiSpam']
         tags: [{name: ezpublish.limitationType, alias: AntiSpam}]
+
+    Ibexa\Core\Limitation\MemberOfLimitationType:
+        arguments:
+            $persistence: '@ezpublish.api.persistence_handler'
+        tags:
+            - { name: ezpublish.limitationType, alias: MemberOf }
+
+    Ibexa\Core\Limitation\RoleLimitationType:
+        arguments:
+            $persistence: '@ezpublish.api.persistence_handler'
+        tags:
+            - { name: ezpublish.limitationType, alias: Role }

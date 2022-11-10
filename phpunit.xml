@@ -76,6 +76,9 @@
     <testsuite name="eZ\Publish\API\Repository\Iterator">
       <directory>eZ/Publish/API/Repository/Tests/Iterator</directory>
     </testsuite>
+    <testsuite name="Ibexa\Tests\Core\">
+        <directory>tests/lib</directory>
+    </testsuite>
   </testsuites>
   <filter>
     <whitelist>
