@@ -420,6 +420,10 @@ EOT
      */
     private function doesContentTypeNeedUpdate(ContentType $contentType, array $processedContentTypes): bool
     {
+        if (in_array($contentType->identifier, $processedContentTypes, true)) {
+            return false;
+        }
+
         $fields = $contentType->getFieldDefinitionsOfType(self::USER_FIELDTYPE_IDENTIFIER);
         $count = $fields->count();
 
@@ -439,8 +443,7 @@ EOT
 
         $isUpdateNeeded = !$validatorConfiguration['PasswordValueValidator']['requireNewPassword']
             || 0 === $fieldSettings['PasswordTTL'];
-        $isContentTypeAlreadyProcessed = in_array($contentType->identifier, $processedContentTypes, true);
 
-        return $isUpdateNeeded && !$isContentTypeAlreadyProcessed;
+        return $isUpdateNeeded;
     }
 }
