@@ -31,6 +31,7 @@ use RuntimeException;
 trait IbexaKernelTestTrait
 {
     private static $anonymousUserId = 10;
+
     private static $adminUserId = 10;
 
     final protected static function loadSchema(): void
