@@ -11,6 +11,8 @@ ezpublish:
               'eng': 'eng'
               'ku6"H': 'ku6"H'
           match: ~
+          groups:
+              admin_group: []
     repositories:
         default:
             storage: ~
