@@ -32,7 +32,7 @@ trait IbexaKernelTestTrait
 {
     private static $anonymousUserId = 10;
 
-    private static $adminUserId = 10;
+    private static $adminUserId = 14;
 
     final protected static function loadSchema(): void
     {
