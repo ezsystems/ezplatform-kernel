@@ -229,27 +229,4 @@ class IbexaTestKernel extends Kernel
     {
         $container->setDefinition('logger', new Definition(NullLogger::class));
     }
-
-    /**
-     * Creates synthetic services in container, allowing compilation of container when some services are missing.
-     * Additionally, those services can be replaced with mock implementations at runtime, allowing integration testing.
-     *
-     * You can set them up in KernelTestCase by calling `self::getContainer()->set($id, $this->createMock($class));`
-     *
-     * @phpstan-param class-string $class
-     */
-    protected static function addSyntheticService(ContainerBuilder $container, string $class, ?string $id = null): void
-    {
-        $id = $id ?? $class;
-        if ($container->has($id)) {
-            throw new LogicException(sprintf(
-                'Expected test kernel to not contain "%s" service. A real service should not be overwritten by a mock',
-                $id,
-            ));
-        }
-
-        $definition = new Definition($class);
-        $definition->setSynthetic(true);
-        $container->setDefinition($id, $definition);
-    }
 }
