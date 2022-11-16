@@ -30,10 +30,6 @@ use RuntimeException;
  */
 trait IbexaKernelTestTrait
 {
-    private static $anonymousUserId = 10;
-
-    private static $adminUserId = 14;
-
     final protected static function loadSchema(): void
     {
         $schemaImporter = self::getContainer()->get(LegacySchemaImporter::class);
@@ -169,11 +165,13 @@ trait IbexaKernelTestTrait
 
     protected static function setAnonymousUser(): void
     {
-        self::getPermissionResolver()->setCurrentUserReference(new UserReference(self::$anonymousUserId));
+        $anonymousUserId = 10;
+        self::getPermissionResolver()->setCurrentUserReference(new UserReference($anonymousUserId));
     }
 
     protected static function setAdministratorUser(): void
     {
-        self::getPermissionResolver()->setCurrentUserReference(new UserReference(self::$adminUserId));
+        $adminUserId = 14;
+        self::getPermissionResolver()->setCurrentUserReference(new UserReference($adminUserId));
     }
 }
