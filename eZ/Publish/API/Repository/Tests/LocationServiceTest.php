@@ -1256,7 +1256,7 @@ class LocationServiceTest extends BaseTest
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
-    public function testLoadLocationChildrenDataWithSortingClause(): void
+    public function testLoadLocationChildrenRespectsParentSortingClauses(): void
     {
         $repository = $this->getRepository();
         $locationService = $repository->getLocationService();
