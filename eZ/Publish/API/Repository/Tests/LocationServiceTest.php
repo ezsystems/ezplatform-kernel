@@ -1250,6 +1250,54 @@ class LocationServiceTest extends BaseTest
     }
 
     /**
+     * @covers \eZ\Publish\API\Repository\LocationService::loadLocationChildren
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     */
+    public function testLoadLocationChildrenDataWithSortingClause(): void
+    {
+        $repository = $this->getRepository();
+        $locationService = $repository->getLocationService();
+
+        $parentLocation = $locationService->loadLocation(5);
+
+        // Update Location in order to change sort clauses to Name DESC
+        $locationUpdateStruct = $locationService->newLocationUpdateStruct();
+        $locationUpdateStruct->sortField = Location::SORT_FIELD_NAME;
+        $locationUpdateStruct->sortOrder = Location::SORT_ORDER_DESC;
+        $parentLocation = $locationService->updateLocation(
+            $parentLocation,
+            $locationUpdateStruct
+        );
+
+        $children = $locationService->loadLocationChildren($parentLocation);
+        $namesWithDefaultSorting = [];
+        foreach ($children as $child) {
+            $namesWithDefaultSorting[] = $child->getContentInfo()->name;
+        }
+
+        // Update Location in order to change sort clauses to NAME ASC
+        $locationUpdateStruct = $locationService->newLocationUpdateStruct();
+        $locationUpdateStruct->sortField = Location::SORT_FIELD_NAME;
+        $locationUpdateStruct->sortOrder = Location::SORT_ORDER_ASC;
+        $parentLocation = $locationService->updateLocation(
+            $parentLocation,
+            $locationUpdateStruct
+        );
+
+        $children = $locationService->loadLocationChildren($parentLocation);
+
+        $namesWithContentSorting = [];
+        foreach ($children as $child) {
+            $namesWithContentSorting[] = $child->getContentInfo()->name;
+        }
+
+        self::assertNotEquals($namesWithDefaultSorting, $namesWithContentSorting);
+    }
+
+    /**
      * Test for the newLocationUpdateStruct() method.
      *
      * @covers \eZ\Publish\API\Repository\LocationService::newLocationUpdateStruct
