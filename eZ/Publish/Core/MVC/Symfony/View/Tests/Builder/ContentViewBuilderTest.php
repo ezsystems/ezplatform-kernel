@@ -26,6 +26,7 @@ use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -221,7 +222,84 @@ class ContentViewBuilderTest extends TestCase
         $this->contentViewBuilder->buildView($parameters);
     }
 
-    public function testBuildViewWithContentWhichDoesNotBelongsToLocation(): void
+    public function testBuildEmbedViewWithNullMainRequest(): void
+    {
+        $contentId = 120;
+        $content = new Content([
+            'versionInfo' => new VersionInfo([
+                'contentInfo' => new ContentInfo(['id' => $contentId]),
+                'status' => VersionInfo::STATUS_PUBLISHED,
+            ]),
+        ]);
+
+        $parameters = [
+            'viewType' => 'embed',
+            '_controller' => 'ez_content:embedAction',
+            'contentId' => $contentId,
+        ];
+
+        $this->requestStack
+            ->expects(self::once())
+            ->method('getMainRequest')
+            ->willReturn(null);
+
+        $this->repository
+            ->expects(self::once())
+            ->method('sudo')
+            ->willReturn($content);
+
+        $this->permissionResolver
+            ->expects(self::any())
+            ->method('canUser')
+            ->willReturn(true);
+
+        $this->contentViewBuilder->buildView($parameters);
+    }
+
+    public function testBuildEmbedViewWithNotNullMainRequest(): void
+    {
+        $contentId = 120;
+        $languageCode = 'ger-DE';
+
+        $content = new Content([
+            'versionInfo' => new VersionInfo([
+                'contentInfo' => new ContentInfo(['id' => $contentId]),
+                'status' => VersionInfo::STATUS_PUBLISHED,
+            ]),
+        ]);
+
+        $parameters = [
+            'viewType' => 'embed',
+            '_controller' => 'ez_content:embedAction',
+            'contentId' => $contentId,
+        ];
+
+        $request = $this->createMock(Request::class);
+        $request
+            ->expects(self::once())
+            ->method('get')
+            ->with('languageCode')
+            ->willReturn($languageCode);
+
+        $this->requestStack
+            ->expects(self::once())
+            ->method('getMainRequest')
+            ->willReturn($request);
+
+        $this->repository
+            ->expects(self::once())
+            ->method('sudo')
+            ->willReturn($content);
+
+        $this->permissionResolver
+            ->expects(self::any())
+            ->method('canUser')
+            ->willReturn(true);
+
+        $this->contentViewBuilder->buildView($parameters);
+    }
+
+    public function testBuildViewWithContentWhichDoesNotBelongToLocation(): void
     {
         $location = new Location(
             [
@@ -295,8 +373,6 @@ class ContentViewBuilderTest extends TestCase
         $this->repository
             ->method('getContentService')
             ->willReturn($contentServiceMock);
-
-        $this->contentViewBuilder->buildView($parameters);
 
         $expectedView = new ContentView(null, [], 'full');
         $expectedView->setContent($content);
