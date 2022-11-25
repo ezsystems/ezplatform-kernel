@@ -251,7 +251,7 @@ class ContentViewBuilderTest extends TestCase
             ->willReturn($content);
 
         $this->permissionResolver
-            ->expects(self::any())
+            ->expects(self::exactly(3))
             ->method('canUser')
             ->willReturn(true);
 
@@ -299,7 +299,7 @@ class ContentViewBuilderTest extends TestCase
             ->willReturn($content);
 
         $this->permissionResolver
-            ->expects(self::any())
+            ->expects(self::exactly(3))
             ->method('canUser')
             ->willReturn(true);
 

@@ -124,9 +124,7 @@ class ContentViewBuilder implements ViewBuilder
                 throw new InvalidArgumentException('Content', 'Could not load any content from the parameters');
             }
 
-            $mainRequest = $this->requestStack->getMainRequest();
-            $requestLanguageCode = $mainRequest === null ? null : $mainRequest->attributes->get('languageCode');
-            $languageCode = $parameters['languageCode'] ?? $requestLanguageCode;
+            $languageCode = $parameters['languageCode'] ?? $this->resolveMainRequestLanguageCode();
 
             $content = $view->isEmbed() ? $this->loadEmbeddedContent($contentId, $location, $languageCode) : $this->loadContent($contentId, $languageCode);
         }
@@ -168,6 +166,13 @@ class ContentViewBuilder implements ViewBuilder
         $this->viewConfigurator->configure($view);
 
         return $view;
+    }
+
+    private function resolveMainRequestLanguageCode(): ?string
+    {
+        $mainRequest = $this->requestStack->getMainRequest();
+
+        return $mainRequest === null ? null : $mainRequest->attributes->get('languageCode');
     }
 
     /**
