@@ -1249,6 +1249,136 @@ class LocationServiceTest extends BaseTest
         );
     }
 
+    public function providerForLoadLocationChildrenRespectsParentSortingClauses(): iterable
+    {
+        yield 'Name_ASC' => [
+            Location::SORT_FIELD_NAME,
+            Location::SORT_ORDER_ASC,
+            ['A', 'B', 'C', 'Test'],
+        ];
+
+        yield 'Name_DESC' => [
+            Location::SORT_FIELD_NAME,
+            Location::SORT_ORDER_DESC,
+            ['Test', 'C', 'B', 'A'],
+        ];
+
+        yield 'Priority_ASC' => [
+            Location::SORT_FIELD_PRIORITY,
+            Location::SORT_ORDER_ASC,
+            ['A', 'C', 'B', 'Test'],
+        ];
+
+        yield 'Priority_DESC' => [
+            Location::SORT_FIELD_PRIORITY,
+            Location::SORT_ORDER_DESC,
+            ['Test', 'B', 'C', 'A'],
+        ];
+
+        yield 'Path_ASC' => [
+            Location::SORT_FIELD_PATH,
+            Location::SORT_ORDER_ASC,
+            ['A', 'C', 'B', 'Test'],
+        ];
+
+        yield 'Path_DESC' => [
+            Location::SORT_FIELD_PATH,
+            Location::SORT_ORDER_DESC,
+            ['Test', 'B', 'C', 'A'],
+        ];
+    }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\Exception
+     */
+    private function createStructureForTestLoadLocationChildrenRespectsParentSortingClauses(): Location
+    {
+        $repository = $this->getRepository();
+        $locationService = $repository->getLocationService();
+        $contentService = $repository->getContentService();
+        $contentTypeService = $repository->getContentTypeService();
+
+        // Firstly, create a container folder
+        $rootLocation = $locationService->loadLocation(1);
+        $createStruct = $contentService->newContentCreateStruct(
+            $contentTypeService->loadContentTypeByIdentifier('folder'),
+            'eng-GB'
+        );
+        $createStruct->setField('name', 'Parent folder');
+        $content = $contentService->publishVersion(
+            $contentService->createContent(
+                $createStruct,
+                [$locationService->newLocationCreateStruct($rootLocation->id)]
+            )->versionInfo
+        );
+
+        // Secondly, create child folders that would be sorted later on
+        $contentNames = ['A', 'C', 'B', 'Test'];
+        $priority = 1;
+        foreach ($contentNames as $contentName) {
+            $rootLocation = $locationService->loadLocation($content->contentInfo->mainLocationId);
+            $createStruct = $contentService->newContentCreateStruct(
+                $contentTypeService->loadContentTypeByIdentifier('folder'),
+                'eng-GB'
+            );
+            $createStruct->setField('name', $contentName);
+
+            $locationCreateStruct = $locationService->newLocationCreateStruct($rootLocation->id);
+            $locationCreateStruct->priority = $priority;
+            $contentService->publishVersion(
+                $contentService->createContent(
+                    $createStruct,
+                    [$locationCreateStruct]
+                )->versionInfo
+            );
+
+            ++$priority;
+        }
+
+        $location = $locationService->loadLocation($content->contentInfo->mainLocationId);
+        $childrenLocations = $locationService->loadLocationChildren($location);
+
+        self::assertCount(count($contentNames), $childrenLocations);
+
+        return $location;
+    }
+
+    /**
+     * @covers \eZ\Publish\API\Repository\LocationService::loadLocationChildren
+     *
+     * @dataProvider providerForLoadLocationChildrenRespectsParentSortingClauses
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\Exception
+     */
+    public function testLoadLocationChildrenRespectsParentSortingClauses(
+        int $sortField,
+        int $sortOrder,
+        array $expectedChildrenNames
+    ): void {
+        $repository = $this->getRepository();
+        $locationService = $repository->getLocationService();
+
+        $location = $this->createStructureForTestLoadLocationChildrenRespectsParentSortingClauses();
+
+        // Update Location in order to change sort clause
+        $locationUpdateStruct = $locationService->newLocationUpdateStruct();
+        $locationUpdateStruct->sortField = $sortField;
+        $locationUpdateStruct->sortOrder = $sortOrder;
+        $location = $locationService->updateLocation(
+            $location,
+            $locationUpdateStruct
+        );
+
+        $childrenNames = array_map(
+            static function (Location $location) {
+                return $location->getContentInfo()->name;
+            },
+            iterator_to_array($locationService->loadLocationChildren($location))
+        );
+
+        self::assertSame($expectedChildrenNames, $childrenNames);
+    }
+
     /**
      * Test for the newLocationUpdateStruct() method.
      *

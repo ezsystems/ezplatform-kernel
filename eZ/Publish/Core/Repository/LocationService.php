@@ -42,6 +42,7 @@ use eZ\Publish\SPI\Persistence\Content\Location\UpdateStruct;
 use eZ\Publish\SPI\Persistence\Filter\Location\Handler as LocationFilteringHandler;
 use eZ\Publish\SPI\Persistence\Handler;
 use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
+use eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause;
 use Ibexa\Contracts\Core\Limitation\Target\DestinationLocation as DestinationLocationTarget;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -283,6 +284,10 @@ class LocationService implements LocationServiceInterface
         return $locations;
     }
 
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
+     */
     public function loadLocationChildren(
         APILocation $location,
         int $offset = 0,
@@ -309,6 +314,13 @@ class LocationService implements LocationServiceInterface
         $filter
             ->withLimit($limit)
             ->withOffset($offset);
+
+        $sortClauses = $location->getSortClauses();
+        foreach ($sortClauses as $sortClause) {
+            if ($sortClause instanceof FilteringSortClause) {
+                $filter->withSortClause($sortClause);
+            }
+        }
 
         return $this->find($filter, $prioritizedLanguages);
     }
