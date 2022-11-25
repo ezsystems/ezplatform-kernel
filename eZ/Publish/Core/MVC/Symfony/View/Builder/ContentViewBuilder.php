@@ -125,7 +125,7 @@ class ContentViewBuilder implements ViewBuilder
             }
 
             $mainRequest = $this->requestStack->getMainRequest();
-            $requestLanguageCode = $mainRequest === null ? null : $mainRequest->get('languageCode');
+            $requestLanguageCode = $mainRequest === null ? null : $mainRequest->attributes->get('languageCode');
             $languageCode = $parameters['languageCode'] ?? $requestLanguageCode;
 
             $content = $view->isEmbed() ? $this->loadEmbeddedContent($contentId, $location, $languageCode) : $this->loadContent($contentId, $languageCode);

@@ -26,6 +26,8 @@ use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -274,12 +276,17 @@ class ContentViewBuilderTest extends TestCase
             'contentId' => $contentId,
         ];
 
-        $request = $this->createMock(Request::class);
-        $request
+        $attributes = $this->createMock(ParameterBag::class);
+        $attributes
             ->expects(self::once())
             ->method('get')
             ->with('languageCode')
             ->willReturn($languageCode);
+
+        $request = new Request();
+        $reflectionClass = new ReflectionClass($request);
+        $reflectionProperty = $reflectionClass->getProperty('attributes');
+        $reflectionProperty->setValue($request, $attributes);
 
         $this->requestStack
             ->expects(self::once())
