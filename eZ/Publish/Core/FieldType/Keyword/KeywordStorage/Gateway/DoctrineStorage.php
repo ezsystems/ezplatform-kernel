@@ -7,7 +7,6 @@
 namespace eZ\Publish\Core\FieldType\Keyword\KeywordStorage\Gateway;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use eZ\Publish\Core\FieldType\Keyword\KeywordStorage\Gateway;
 use eZ\Publish\SPI\Persistence\Content\Field;
@@ -102,6 +101,7 @@ class DoctrineStorage extends Gateway
     protected function getAssignedKeywords(int $fieldId, int $versionNo): array
     {
         $query = $this->connection->createQueryBuilder();
+        $expr = $query->expr();
         $query
             ->select($this->connection->quoteIdentifier('keyword'))
             ->from($this->connection->quoteIdentifier(self::KEYWORD_TABLE), 'kwd')
@@ -109,30 +109,28 @@ class DoctrineStorage extends Gateway
                 'kwd',
                 $this->connection->quoteIdentifier(self::KEYWORD_ATTRIBUTE_LINK_TABLE),
                 'attr',
-                $query->expr()->eq(
+                $expr->eq(
                     $this->connection->quoteIdentifier('kwd.id'),
                     $this->connection->quoteIdentifier('attr.keyword_id')
                 )
             )
             ->where(
-                $query->expr()->eq(
+                $expr->eq(
                     $this->connection->quoteIdentifier('attr.objectattribute_id'),
-                    ':fieldId'
+                    ':field_id'
                 )
             )
             ->andWhere(
-                $query->expr()->eq(
+                $expr->eq(
                     $this->connection->quoteIdentifier('attr.version'),
-                    ':versionNo'
+                    ':version_no'
                 )
             )
-            ->setParameter('fieldId', $fieldId, ParameterType::INTEGER)
-            ->setParameter('versionNo', $versionNo, ParameterType::INTEGER)
-        ;
+            ->orderBy('kwd.id')
+            ->setParameter('field_id', $fieldId, ParameterType::INTEGER)
+            ->setParameter('version_no', $versionNo, ParameterType::INTEGER);
 
-        $statement = $query->execute();
-
-        return $statement->fetchAll(FetchMode::COLUMN);
+        return $query->execute()->fetchFirstColumn();
     }
 
     /**
