@@ -167,7 +167,7 @@ class IbexaTestKernel extends Kernel
         $loader->load(self::getResourcesPath() . '/config/doctrine.php');
         $loader->load(self::getResourcesPath() . '/config/ezpublish.yaml');
         $loader->load(self::getResourcesPath() . '/config/framework.yaml');
-        $loader->load(self::getResourcesPath() . '/config/security.yaml');
+        $this->loadSecurity($loader);
     }
 
     /**
@@ -176,6 +176,14 @@ class IbexaTestKernel extends Kernel
     protected function loadServices(LoaderInterface $loader): void
     {
         $loader->load(self::getResourcesPath() . '/services/fixture-services.yaml');
+    }
+
+    /**
+     * @throws \Exception
+     */
+    protected function loadSecurity(LoaderInterface $loader): void
+    {
+        $loader->load(self::getResourcesPath() . '/config/security.yaml');
     }
 
     /**
