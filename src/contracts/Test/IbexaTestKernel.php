@@ -150,7 +150,6 @@ class IbexaTestKernel extends Kernel
         });
 
         $this->loadConfiguration($loader);
-        $this->loadSecurity($loader);
         $this->loadServices($loader);
 
         $loader->load(static function (ContainerBuilder $container): void {
@@ -168,6 +167,7 @@ class IbexaTestKernel extends Kernel
         $loader->load(self::getResourcesPath() . '/config/doctrine.php');
         $loader->load(self::getResourcesPath() . '/config/ezpublish.yaml');
         $loader->load(self::getResourcesPath() . '/config/framework.yaml');
+        $this->loadSecurity($loader);
     }
 
     /**
