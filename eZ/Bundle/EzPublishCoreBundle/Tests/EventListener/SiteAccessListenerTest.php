@@ -7,27 +7,16 @@
 namespace eZ\Bundle\EzPublishCoreBundle\Tests\EventListener;
 
 use eZ\Bundle\EzPublishCoreBundle\EventListener\SiteAccessListener;
-use eZ\Bundle\EzPublishCoreBundle\Routing\DefaultRouter;
 use eZ\Publish\Core\MVC\Symfony\Event\PostSiteAccessMatchEvent;
 use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use eZ\Publish\Core\MVC\Symfony\SiteAccessGroup;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class SiteAccessListenerTest extends TestCase
 {
-    /** @var \Symfony\Component\DependencyInjection\ContainerInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $container;
-
-    /** @var \eZ\Bundle\EzPublishCoreBundle\Routing\DefaultRouter|\PHPUnit\Framework\MockObject\MockObject */
-    private $router;
-
-    /** @var \eZ\Publish\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator|\PHPUnit\Framework\MockObject\MockObject */
-    private $generator;
-
     /** @var \eZ\Bundle\EzPublishCoreBundle\EventListener\SiteAccessListener */
     private $listener;
 
@@ -38,9 +27,7 @@ class SiteAccessListenerTest extends TestCase
     {
         parent::setUp();
         $this->defaultSiteaccess = new SiteAccess('default');
-        $this->container = $this->createMock(ContainerInterface::class);
-        $this->router = $this->createMock(DefaultRouter::class);
-        $this->generator = $this->createMock(UrlAliasGenerator::class);
+        $this->defaultSiteaccess->groups = [new SiteAccessGroup('test_group')];
         $this->listener = new SiteAccessListener($this->defaultSiteaccess);
     }
 
@@ -100,12 +87,13 @@ class SiteAccessListenerTest extends TestCase
         $event = new PostSiteAccessMatchEvent($siteAccess, $request, HttpKernelInterface::MASTER_REQUEST);
 
         $this->listener->onSiteAccessMatch($event);
-        $this->assertSame($expectedSemanticPathinfo, $request->attributes->get('semanticPathinfo'));
-        $this->assertSame($expectedVPArray, $request->attributes->get('viewParameters'));
-        $this->assertSame($expectedVPString, $request->attributes->get('viewParametersString'));
-        $this->assertSame($this->defaultSiteaccess->name, $siteAccess->name);
-        $this->assertSame($this->defaultSiteaccess->matchingType, $siteAccess->matchingType);
-        $this->assertSame($this->defaultSiteaccess->matcher, $siteAccess->matcher);
+        self::assertSame($expectedSemanticPathinfo, $request->attributes->get('semanticPathinfo'));
+        self::assertSame($expectedVPArray, $request->attributes->get('viewParameters'));
+        self::assertSame($expectedVPString, $request->attributes->get('viewParametersString'));
+        self::assertSame($this->defaultSiteaccess->name, $siteAccess->name);
+        self::assertSame($this->defaultSiteaccess->matchingType, $siteAccess->matchingType);
+        self::assertSame($this->defaultSiteaccess->matcher, $siteAccess->matcher);
+        self::assertSame($this->defaultSiteaccess->groups, $siteAccess->groups);
     }
 
     /**
@@ -122,11 +110,12 @@ class SiteAccessListenerTest extends TestCase
         $event = new PostSiteAccessMatchEvent($siteAccess, $request, HttpKernelInterface::SUB_REQUEST);
 
         $this->listener->onSiteAccessMatch($event);
-        $this->assertSame($semanticPathinfo, $request->attributes->get('semanticPathinfo'));
-        $this->assertSame($expectedViewParameters, $request->attributes->get('viewParameters'));
-        $this->assertSame($vpString, $request->attributes->get('viewParametersString'));
-        $this->assertSame($this->defaultSiteaccess->name, $siteAccess->name);
-        $this->assertSame($this->defaultSiteaccess->matchingType, $siteAccess->matchingType);
-        $this->assertSame($this->defaultSiteaccess->matcher, $siteAccess->matcher);
+        self::assertSame($semanticPathinfo, $request->attributes->get('semanticPathinfo'));
+        self::assertSame($expectedViewParameters, $request->attributes->get('viewParameters'));
+        self::assertSame($vpString, $request->attributes->get('viewParametersString'));
+        self::assertSame($this->defaultSiteaccess->name, $siteAccess->name);
+        self::assertSame($this->defaultSiteaccess->matchingType, $siteAccess->matchingType);
+        self::assertSame($this->defaultSiteaccess->matcher, $siteAccess->matcher);
+        self::assertSame($this->defaultSiteaccess->groups, $siteAccess->groups);
     }
 }
