@@ -61,6 +61,6 @@ class ExceptionContext extends RawMinkContext implements Context, SnippetAccepti
      */
     public function anAccessDeniedExceptionIsThrown($exceptionString)
     {
-        $this->assertSession()->elementExists('css', "abbr[title='$exceptionString']");
+        $this->assertSession()->elementExists('xpath', "//abbr[@title='$exceptionString']");
     }
 }
