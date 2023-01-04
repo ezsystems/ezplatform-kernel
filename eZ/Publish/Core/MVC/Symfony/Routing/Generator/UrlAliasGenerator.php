@@ -143,7 +143,7 @@ class UrlAliasGenerator extends Generator
     public function isUriPrefixExcluded($uri)
     {
         foreach ($this->excludedUriPrefixes as $excludedPrefix) {
-            $excludedPrefix = '/' . trim($excludedPrefix, '/');
+            $excludedPrefix = '/' . ltrim($excludedPrefix, '/');
             if (mb_stripos($uri, $excludedPrefix) === 0) {
                 return true;
             }
