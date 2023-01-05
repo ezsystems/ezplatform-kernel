@@ -39,7 +39,8 @@ final class ProxyDomainMapper implements ProxyDomainMapperInterface
     public function createContentProxy(
         int $contentId,
         array $prioritizedLanguages = Language::ALL,
-        bool $useAlwaysAvailable = true
+        bool $useAlwaysAvailable = true,
+        ?int $versionNo = null
     ): Content {
         $initializer = function (
             &$wrappedObject,
@@ -47,12 +48,12 @@ final class ProxyDomainMapper implements ProxyDomainMapperInterface
             $method,
             array $parameters,
             &$initializer
-        ) use ($contentId, $prioritizedLanguages, $useAlwaysAvailable): bool {
+        ) use ($contentId, $prioritizedLanguages, $useAlwaysAvailable, $versionNo): bool {
             $initializer = null;
             $wrappedObject = $this->repository->getContentService()->loadContent(
                 $contentId,
                 $prioritizedLanguages,
-                null,
+                $versionNo,
                 $useAlwaysAvailable
             );
 
