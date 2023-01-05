@@ -534,17 +534,11 @@ final class DoctrineDatabase extends Gateway
             'parent',
             $query->createPositionalParameter($newParentId, ParameterType::INTEGER)
         )->where(
-            $query->expr()->andX(
-                $query->expr()->eq(
-                    'is_alias',
-                    $query->createPositionalParameter(0, ParameterType::INTEGER)
-                ),
-                $query->expr()->eq(
-                    'parent',
-                    $query->createPositionalParameter(
-                        $oldParentId,
-                        ParameterType::INTEGER
-                    )
+            $query->expr()->eq(
+                'parent',
+                $query->createPositionalParameter(
+                    $oldParentId,
+                    ParameterType::INTEGER
                 )
             )
         );
