@@ -170,6 +170,8 @@ class SiteAccessMatchListener implements EventSubscriberInterface
     }
 
     /**
+     * @param array<array{'name': string}> $serializedGroups
+     *
      * @return \eZ\Publish\Core\MVC\Symfony\SiteAccessGroup[]
      */
     private function buildGroups(

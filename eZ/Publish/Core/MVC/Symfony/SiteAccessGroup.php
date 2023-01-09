@@ -30,6 +30,9 @@ final class SiteAccessGroup implements JsonSerializable
         return $this->name;
     }
 
+    /**
+     * @return array{'name': string}
+     */
     public function jsonSerialize(): array
     {
         return [
