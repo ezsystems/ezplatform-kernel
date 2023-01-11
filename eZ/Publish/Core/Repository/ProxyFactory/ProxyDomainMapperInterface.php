@@ -22,7 +22,12 @@ use eZ\Publish\API\Repository\Values\User\User;
  */
 interface ProxyDomainMapperInterface
 {
-    public function createContentProxy(int $contentId, array $prioritizedLanguages = Language::ALL, bool $useAlwaysAvailable = true): Content;
+    public function createContentProxy(
+        int $contentId,
+        array $prioritizedLanguages = Language::ALL,
+        bool $useAlwaysAvailable = true,
+        ?int $versionNo = null
+    ): Content;
 
     public function createContentInfoProxy(int $contentId): ContentInfo;
 
