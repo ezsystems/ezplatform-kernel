@@ -184,7 +184,7 @@ class RouterURIElementTest extends RouterBaseTest
             new SiteAccessSetting('first_sa.foo', true),
             new SiteAccessSetting('test', true),
             new SiteAccessSetting('foo', true),
-            new SiteAccessSetting('default_sa', true),
+            new SiteAccessSetting(self::DEFAULT_SA_NAME, true),
         ];
     }
 }

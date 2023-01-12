@@ -320,6 +320,7 @@ class RouterTest extends RouterBaseTest
             new SiteAccessSetting(self::HEADERBASED_SA_NAME, true),
             new SiteAccessSetting(self::ENV_SA_NAME, true),
             new SiteAccessSetting(self::UNDEFINED_SA_NAME, false),
+            new SiteAccessSetting(self::DEFAULT_SA_NAME, true),
         ];
     }
 }

@@ -214,6 +214,7 @@ class RouterURIElement2Test extends RouterBaseTest
             new SiteAccessSetting('first_sa_foo', true),
             new SiteAccessSetting('second_sa_foo', true),
             new SiteAccessSetting('foo_baz', true),
+            new SiteAccessSetting(self::DEFAULT_SA_NAME, true),
         ];
     }
 }
