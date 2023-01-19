@@ -158,7 +158,7 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
                     - Refresh (add/update/remove) index on a set of content ID's:
                       <comment>ibexa:reindex --content-ids=2,34,68</comment>
                     
-                    - Refresh (add/update) index of a subtree for a single location ID:
+                    - Refresh (add/update) index of a subtree for a single Location ID:
                       <comment>ibexa:reindex --subtree=45</comment>
                     
                     - Refresh (add/update) index, disabling the use of child proccesses and initial purging,
