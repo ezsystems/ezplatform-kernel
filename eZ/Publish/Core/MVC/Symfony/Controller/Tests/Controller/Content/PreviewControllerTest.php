@@ -42,7 +42,7 @@ class PreviewControllerTest extends TestCase
     /** @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $authorizationChecker;
 
-    /** @var \eZ\Publish\Core\Helper\PreviewLocationProvider|\PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\MVC\Symfony\View\CustomLocationControllerChecker */
+    /** @var \eZ\Publish\Core\Helper\PreviewLocationProvider|\PHPUnit\Framework\MockObject\MockObject */
     protected $locationProvider;
 
     /** @var \eZ\Publish\Core\MVC\Symfony\View\CustomLocationControllerChecker|\PHPUnit\Framework\MockObject\MockObject */
