@@ -103,12 +103,13 @@ services:
     ezpublish.controller.content.preview.core:
         class: eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController
         arguments:
-            - "@ezpublish.api.service.content"
-            - "@http_kernel"
-            - "@ezpublish.content_preview_helper"
-            - "@security.authorization_checker"
-            - "@ezpublish.content_preview.location_provider"
-            - "@ezpublish.view.custom_location_controller_checker"
+            $contentService: '@ezpublish.api.service.content'
+            $locationService: '@ezpublish.api.service.location'
+            $kernel: '@http_kernel'
+            $previewHelper: '@ezpublish.content_preview_helper'
+            $authorizationChecker: '@security.authorization_checker'
+            $locationProvider: '@ezpublish.content_preview.location_provider'
+            $controllerChecker: '@ezpublish.view.custom_location_controller_checker'
         tags:
             - { name: controller.service_arguments }
 

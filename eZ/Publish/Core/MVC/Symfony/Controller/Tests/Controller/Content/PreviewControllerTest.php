@@ -7,6 +7,7 @@
 namespace eZ\Publish\Core\MVC\Symfony\Controller\Tests\Controller\Content;
 
 use eZ\Publish\API\Repository\ContentService;
+use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Location;
@@ -26,21 +27,25 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class PreviewControllerTest extends TestCase
 {
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var \eZ\Publish\API\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject */
     protected $contentService;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var \eZ\Publish\API\Repository\LocationService|\PHPUnit\Framework\MockObject\MockObject */
+    protected $locationService;
+
+    /** @var \eZ\Publish\Core\Helper\PreviewLocationProvider|\PHPUnit\Framework\MockObject\MockObject */
     protected $httpKernel;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var \eZ\Publish\Core\Helper\ContentPreviewHelper|\PHPUnit\Framework\MockObject\MockObject */
     protected $previewHelper;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface|\PHPUnit\Framework\MockObject\MockObject */
     protected $authorizationChecker;
 
     /** @var \eZ\Publish\Core\Helper\PreviewLocationProvider|\PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\MVC\Symfony\View\CustomLocationControllerChecker */
     protected $locationProvider;
 
+    /** @var \eZ\Publish\Core\MVC\Symfony\View\CustomLocationControllerChecker|\PHPUnit\Framework\MockObject\MockObject */
     protected $controllerChecker;
 
     protected function setUp(): void
@@ -48,6 +53,7 @@ class PreviewControllerTest extends TestCase
         parent::setUp();
 
         $this->contentService = $this->createMock(ContentService::class);
+        $this->locationService = $this->createMock(LocationService::class);
         $this->httpKernel = $this->createMock(HttpKernelInterface::class);
         $this->previewHelper = $this->createMock(ContentPreviewHelper::class);
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
@@ -55,21 +61,17 @@ class PreviewControllerTest extends TestCase
         $this->controllerChecker = $this->createMock(CustomLocationControllerChecker::class);
     }
 
-    /**
-     * @return \eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController
-     */
-    protected function getPreviewController()
+    protected function getPreviewController(): PreviewController
     {
-        $controller = new PreviewController(
+        return new PreviewController(
             $this->contentService,
+            $this->locationService,
             $this->httpKernel,
             $this->previewHelper,
             $this->authorizationChecker,
             $this->locationProvider,
             $this->controllerChecker
         );
-
-        return $controller;
     }
 
     public function testPreviewUnauthorized()
@@ -272,6 +274,83 @@ class PreviewControllerTest extends TestCase
         $this->assertSame(
             $expectedResponse,
             $controller->previewContentAction($request, $contentId, $versionNo, $lang)
+        );
+    }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException
+     */
+    public function testPreviewWithLocationId(): void
+    {
+        $contentId = 123;
+        $lang = 'eng-GB';
+        $versionNo = 3;
+        $locationId = 456;
+        $content = $this->createMock(Content::class);
+        $location = $this->getMockBuilder(Location::class)
+            ->setConstructorArgs([['id' => $locationId]])
+            ->getMockForAbstractClass();
+
+        $this->contentService
+            ->expects(self::once())
+            ->method('loadContent')
+            ->with($contentId, [$lang], $versionNo)
+            ->willReturn($content);
+
+        $this->locationService
+            ->expects(self::once())
+            ->method('loadLocation')
+            ->with($locationId)
+            ->willReturn($location);
+
+        $this->authorizationChecker
+            ->expects(self::once())
+            ->method('isGranted')
+            ->with(new AuthorizationAttribute('content', 'versionread', ['valueObject' => $content]))
+            ->willReturn(true);
+
+        $previousSiteAccessName = 'foo';
+        $previousSiteAccess = new SiteAccess($previousSiteAccessName);
+        $request = $this->getMockBuilder(Request::class)
+            ->onlyMethods(['duplicate'])
+            ->getMock();
+
+        $this->previewHelper
+            ->expects(self::once())
+            ->method('getOriginalSiteAccess')
+            ->willReturn($previousSiteAccess);
+
+        $this->previewHelper
+            ->expects(self::once())
+            ->method('restoreConfigScope');
+
+        $duplicatedRequest = $this->getDuplicatedRequest($location, $content, $previousSiteAccess);
+        $request
+            ->expects(self::once())
+            ->method('duplicate')
+            ->willReturn($duplicatedRequest);
+
+        $expectedResponse = new Response();
+        $this->httpKernel
+            ->expects(self::once())
+            ->method('handle')
+            ->with($duplicatedRequest, HttpKernelInterface::SUB_REQUEST)
+            ->willReturn($expectedResponse);
+
+        $controller = $this->getPreviewController();
+
+        self::assertSame(
+            $expectedResponse,
+            $controller->previewContentAction(
+                $request,
+                $contentId,
+                $versionNo,
+                $lang,
+                null,
+                $locationId
+            )
         );
     }
 

@@ -7,7 +7,9 @@
     {% endif %}
     <title>{{ title|default( 'Home' ) }}</title>
     <meta name="generator" content="Ibexa DXP"/>
-    {% if content is defined and content.contentInfo.mainLocationId %}
+    {% if content is defined and location is defined and location is not null %}
+        <link rel="canonical" href="{{ ez_path(location) }}" />
+    {% elseif content is defined and content.contentInfo.mainLocationId %}
         <link rel="canonical" href="{{ ez_path(content) }}" />
     {% endif %}
 </head>
