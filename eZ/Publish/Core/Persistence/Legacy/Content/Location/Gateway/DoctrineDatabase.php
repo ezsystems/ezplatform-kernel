@@ -237,6 +237,21 @@ final class DoctrineDatabase extends Gateway
             : $results;
     }
 
+    public function getSubtreeSize(string $path): int
+    {
+        $query = $this->createNodeQueryBuilder([$this->dbPlatform->getCountExpression('node_id')]);
+        $query->andWhere(
+            $query->expr()->like(
+                't.path_string',
+                $query->createPositionalParameter(
+                    $path . '%',
+                )
+            )
+        );
+
+        return (int) $query->execute()->fetchOne();
+    }
+
     /**
      * Return constraint which limits the given $query to the subtree starting at $rootLocationId.
      */

@@ -87,6 +87,11 @@ abstract class LocationServiceDecorator implements LocationService
         return $this->innerService->getLocationChildCount($location);
     }
 
+    public function getSubtreeSize(Location $location): int
+    {
+        return $this->innerService->getSubtreeSize($location);
+    }
+
     public function createLocation(
         ContentInfo $contentInfo,
         LocationCreateStruct $locationCreateStruct

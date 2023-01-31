@@ -42,6 +42,8 @@ class LocationServiceTest extends AbstractServiceTest
 
             ['getLocationChildCount', [$location], 100],
 
+            ['getSubtreeSize', [$location], 100],
+
             ['createLocation', [$contentInfo, $locationCreateStruct], $location],
 
             ['updateLocation', [$location, $locationUpdateStruct], $location],

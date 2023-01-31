@@ -110,6 +110,8 @@ interface Handler
      */
     public function copySubtree($sourceId, $destinationParentId);
 
+    public function getSubtreeSize(string $path): int;
+
     /**
      * Moves location identified by $sourceId into new parent identified by $destinationParentId.
      *
