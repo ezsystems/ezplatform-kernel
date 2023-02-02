@@ -120,6 +120,7 @@ class RouterSpecialPortsTest extends RouterBaseTest
             new SiteAccessSetting('third_sa', true),
             new SiteAccessSetting('fourth_sa', true),
             new SiteAccessSetting('fifth_sa', true),
+            new SiteAccessSetting(self::DEFAULT_SA_NAME, true),
         ];
     }
 }

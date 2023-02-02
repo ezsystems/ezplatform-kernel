@@ -130,6 +130,7 @@ class RouterHostTextTest extends RouterBaseTest
             new SiteAccessSetting('fourth_sa', true),
             new SiteAccessSetting('fifth_sa', true),
             new SiteAccessSetting('example', true),
+            new SiteAccessSetting(self::DEFAULT_SA_NAME, true),
         ];
     }
 }

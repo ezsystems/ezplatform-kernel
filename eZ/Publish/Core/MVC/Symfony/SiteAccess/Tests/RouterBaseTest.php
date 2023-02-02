@@ -20,6 +20,8 @@ abstract class RouterBaseTest extends TestCase
     protected const ENV_SA_NAME = 'env_sa';
     protected const HEADERBASED_SA_NAME = 'headerbased_sa';
 
+    protected const DEFAULT_SA_NAME = 'default_sa';
+
     /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\MatcherBuilder */
     protected $matcherBuilder;
 

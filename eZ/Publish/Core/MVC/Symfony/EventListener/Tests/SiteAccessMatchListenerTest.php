@@ -14,6 +14,7 @@ use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\Router;
+use eZ\Publish\Core\MVC\Symfony\SiteAccessGroup;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -63,7 +64,9 @@ class SiteAccessMatchListenerTest extends TestCase
         $siteAccess = new SiteAccess(
             'test',
             'matching_type',
-            $matcher
+            $matcher,
+            null,
+            [new SiteAccessGroup('test_group')]
         );
         $request = new Request();
         $request->attributes->set('serialized_siteaccess', json_encode($siteAccess));

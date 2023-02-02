@@ -196,8 +196,7 @@ class Router implements SiteAccessRouterInterface, SiteAccessAware
         }
 
         $this->logger->notice('Siteaccess not matched against configuration, returning default siteaccess.');
-        $this->siteAccess = new $this->siteAccessClass($this->defaultSiteAccess);
-        $this->siteAccess->matchingType = SiteAccess::DEFAULT_MATCHING_TYPE;
+        $this->siteAccess = $this->siteAccessProvider->getSiteAccess($this->defaultSiteAccess);
 
         return $this->siteAccess;
     }

@@ -52,12 +52,14 @@ class SiteAccess extends ValueObject implements JsonSerializable
         string $name,
         string $matchingType = self::DEFAULT_MATCHING_TYPE,
         $matcher = null,
-        ?string $provider = null
+        ?string $provider = null,
+        array $groups = []
     ) {
         $this->name = $name;
         $this->matchingType = $matchingType;
         $this->matcher = $matcher;
         $this->provider = $provider;
+        $this->groups = $groups;
     }
 
     public function __toString()
@@ -74,6 +76,7 @@ class SiteAccess extends ValueObject implements JsonSerializable
             'matchingType' => $this->matchingType,
             'matcher' => $matcher,
             'provider' => $this->provider,
+            'groups' => $this->groups,
         ];
     }
 }

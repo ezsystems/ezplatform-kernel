@@ -15,6 +15,7 @@ use eZ\Publish\Core\MVC\Symfony\MVCEvents;
 use eZ\Publish\Core\MVC\Symfony\Routing\SimplifiedRequest;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\Router as SiteAccessRouter;
+use eZ\Publish\Core\MVC\Symfony\SiteAccessGroup;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,7 +81,9 @@ class SiteAccessMatchListener implements EventSubscriberInterface
                     $request->attributes->get('serialized_siteaccess_sub_matchers')
                 );
             }
-
+            $siteAccess->groups = $this->buildGroups(
+                $siteAccess->groups
+            );
             $request->attributes->set(
                 'siteaccess',
                 $siteAccess
@@ -164,6 +167,22 @@ class SiteAccessMatchListener implements EventSubscriberInterface
         }
 
         return $matcher;
+    }
+
+    /**
+     * @param array<array{'name': string}> $serializedGroups
+     *
+     * @return \eZ\Publish\Core\MVC\Symfony\SiteAccessGroup[]
+     */
+    private function buildGroups(
+        array $serializedGroups
+    ): array {
+        return array_map(
+            static function (array $serializedGroup): SiteAccessGroup {
+                return new SiteAccessGroup($serializedGroup['name']);
+            },
+            $serializedGroups
+        );
     }
 
     /**

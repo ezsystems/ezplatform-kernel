@@ -8,7 +8,9 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\MVC\Symfony;
 
-final class SiteAccessGroup
+use JsonSerializable;
+
+final class SiteAccessGroup implements JsonSerializable
 {
     /** @var string */
     private $name;
@@ -26,5 +28,15 @@ final class SiteAccessGroup
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return array{'name': string}
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'name' => $this->name,
+        ];
     }
 }

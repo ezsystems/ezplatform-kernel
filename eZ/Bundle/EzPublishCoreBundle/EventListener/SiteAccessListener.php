@@ -42,6 +42,7 @@ class SiteAccessListener implements EventSubscriberInterface
         $siteAccess->name = $matchedSiteAccess->name;
         $siteAccess->matchingType = $matchedSiteAccess->matchingType;
         $siteAccess->matcher = $matchedSiteAccess->matcher;
+        $siteAccess->groups = $matchedSiteAccess->groups;
 
         // We already have semanticPathinfo (sub-request)
         if ($request->attributes->has('semanticPathinfo')) {
