@@ -10,6 +10,7 @@ use Exception;
 use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
 use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
+use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\Core\Helper\ContentPreviewHelper;
@@ -33,6 +34,12 @@ class PreviewController
     /** @var \eZ\Publish\API\Repository\ContentService */
     private $contentService;
 
+    /** @var \eZ\Publish\API\Repository\LocationService */
+    private $locationService;
+
+    /** @var \eZ\Publish\Core\Helper\PreviewLocationProvider */
+    private $locationProvider;
+
     /** @var \Symfony\Component\HttpKernel\HttpKernelInterface */
     private $kernel;
 
@@ -47,6 +54,7 @@ class PreviewController
 
     public function __construct(
         ContentService $contentService,
+        LocationService $locationService,
         HttpKernelInterface $kernel,
         ContentPreviewHelper $previewHelper,
         AuthorizationCheckerInterface $authorizationChecker,
@@ -54,6 +62,7 @@ class PreviewController
         CustomLocationControllerChecker $controllerChecker
     ) {
         $this->contentService = $contentService;
+        $this->locationService = $locationService;
         $this->kernel = $kernel;
         $this->previewHelper = $previewHelper;
         $this->authorizationChecker = $authorizationChecker;
@@ -63,14 +72,24 @@ class PreviewController
 
     /**
      * @throws \eZ\Publish\API\Repository\Exceptions\NotImplementedException If Content is missing location as this is not supported in current version
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
-    public function previewContentAction(Request $request, $contentId, $versionNo, $language, $siteAccessName = null)
-    {
+    public function previewContentAction(
+        Request $request,
+        $contentId,
+        $versionNo,
+        $language,
+        $siteAccessName = null,
+        ?int $locationId = null
+    ) {
         $this->previewHelper->setPreviewActive(true);
 
         try {
             $content = $this->contentService->loadContent($contentId, [$language], $versionNo);
-            $location = $this->locationProvider->loadMainLocationByContent($content);
+            $location = $locationId !== null
+                ? $this->locationService->loadLocation($locationId)
+                : $this->locationProvider->loadMainLocationByContent($content);
 
             if (!$location instanceof Location) {
                 throw new NotImplementedException('Preview for content without Locations');

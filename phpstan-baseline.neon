@@ -416,11 +416,6 @@ parameters:
 			path: eZ/Publish/Core/FieldType/User/UserStorage.php
 
 		-
-			message: "#^Access to an undefined property eZ\\\\Publish\\\\Core\\\\MVC\\\\Symfony\\\\Controller\\\\Content\\\\PreviewController\\:\\:\\$locationProvider\\.$#"
-			count: 2
-			path: eZ/Publish/Core/MVC/Symfony/Controller/Content/PreviewController.php
-
-		-
 			message: "#^Method eZ\\\\Publish\\\\Core\\\\MVC\\\\Symfony\\\\Matcher\\\\ContentBased\\\\Id\\\\LocationRemote\\:\\:matchContentInfo\\(\\) should return bool but return statement is missing\\.$#"
 			count: 1
 			path: eZ/Publish/Core/MVC/Symfony/Matcher/ContentBased/Id/LocationRemote.php
