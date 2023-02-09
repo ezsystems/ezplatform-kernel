@@ -4,11 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Tests\Imagine\VariationPathGenerator;
+declare(strict_types=1);
+
+namespace Ibexa\Tests\Core\Imagine\VariationPathGenerator;
 
 use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\FilterConfiguration;
 use eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator;
-use eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator\WebpFormatVariationPathGenerator;
+use Ibexa\Core\Imagine\VariationPathGenerator\WebpFormatVariationPathGenerator;
 use PHPUnit\Framework\TestCase;
 
 final class WebpFormatVariationPathGeneratorTest extends TestCase
@@ -25,7 +27,7 @@ final class WebpFormatVariationPathGeneratorTest extends TestCase
         $this->filterConfiguration = $this->createMock(FilterConfiguration::class);
     }
 
-    public function testGetVariationPath()
+    public function testGetVariationPath(): void
     {
         $this->innerVariationPathGenerator
             ->method('getVariationPath')
@@ -49,7 +51,7 @@ final class WebpFormatVariationPathGeneratorTest extends TestCase
         );
     }
 
-    public function testGetVariationNonWebpVariation()
+    public function testGetVariationNonWebpVariation(): void
     {
         $this->innerVariationPathGenerator
             ->method('getVariationPath')

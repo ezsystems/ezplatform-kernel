@@ -4,7 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator;
+declare(strict_types=1);
+
+namespace Ibexa\Core\Imagine\VariationPathGenerator;
 
 use eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator;
 use Liip\ImagineBundle\Imagine\Filter\FilterConfiguration;
