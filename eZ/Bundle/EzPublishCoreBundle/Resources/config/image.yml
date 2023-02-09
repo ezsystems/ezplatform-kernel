@@ -285,7 +285,7 @@ services:
     ezpublish.image_alias.variation_path_generator.alias_directory:
         class: eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator\AliasDirectoryVariationPathGenerator
 
-    Ibexa\Core\Imagine\VariationPathGenerator\WebpFormatVariationPathGenerator:
+    Ibexa\Bundle\Core\Imagine\VariationPathGenerator\WebpFormatVariationPathGenerator:
         decorates: ezpublish.image_alias.variation_path_generator
         arguments:
             $innerVariationPathGenerator: '@.inner'

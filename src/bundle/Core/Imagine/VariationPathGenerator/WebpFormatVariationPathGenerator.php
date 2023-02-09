@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Core\Imagine\VariationPathGenerator;
+namespace Ibexa\Bundle\Core\Imagine\VariationPathGenerator;
 
 use eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator;
 use Liip\ImagineBundle\Imagine\Filter\FilterConfiguration;

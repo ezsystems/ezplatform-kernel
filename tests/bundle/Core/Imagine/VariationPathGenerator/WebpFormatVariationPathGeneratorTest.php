@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Core\Imagine\VariationPathGenerator;
+namespace Ibexa\Tests\Bundle\Core\Imagine\VariationPathGenerator;
 
 use eZ\Bundle\EzPublishCoreBundle\Imagine\Filter\FilterConfiguration;
 use eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator;
-use Ibexa\Core\Imagine\VariationPathGenerator\WebpFormatVariationPathGenerator;
+use Ibexa\Bundle\Core\Imagine\VariationPathGenerator\WebpFormatVariationPathGenerator;
 use PHPUnit\Framework\TestCase;
 
 final class WebpFormatVariationPathGeneratorTest extends TestCase
