@@ -115,7 +115,7 @@
         "process-timeout": 3000,
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
-            "php-http/discovery": true
+            "*/*": false
         }
     },
     "scripts": {
