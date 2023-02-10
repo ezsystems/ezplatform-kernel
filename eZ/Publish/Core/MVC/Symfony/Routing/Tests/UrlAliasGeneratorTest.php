@@ -145,6 +145,7 @@ class UrlAliasGeneratorTest extends TestCase
             ['/SHARED/contenT/bar', true],
             ['/SomeThing/bidule/chose', false],
             ['/SomeThing/in-the-way/truc/', true],
+            ['/SomeThing/in-the-way-suffixed/', false],
             ['/CMS/eZ-Publish', false],
             ['/Lyon/Best/city', false],
         ];
