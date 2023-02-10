@@ -30,7 +30,7 @@ final class WebpFormatVariationPathGenerator implements VariationPathGenerator
         $this->filterConfiguration = $filterConfiguration;
     }
 
-    public function getVariationPath($originalPath, $filter)
+    public function getVariationPath(string $originalPath, string $filter): string
     {
         $variationPath = $this->innerVariationPathGenerator->getVariationPath($originalPath, $filter);
         $filterConfig = $this->filterConfiguration->get($filter);
