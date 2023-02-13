@@ -126,6 +126,13 @@ interface LocationService
     public function getLocationChildCount(Location $location): int;
 
     /**
+     * Return the subtree size of a given location.
+     *
+     * Warning! This method is not permission aware by design.
+     */
+    public function getSubtreeSize(Location $location): int;
+
+    /**
      * Creates the new $location in the content repository for the given content.
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException If the current user user is not allowed to create this location

@@ -106,6 +106,15 @@ final class ExceptionConversion extends Gateway
         }
     }
 
+    public function getSubtreeSize(string $path): int
+    {
+        try {
+            return $this->innerGateway->getSubtreeSize($path);
+        } catch (DBALException | PDOException $e) {
+            throw DatabaseException::wrap($e);
+        }
+    }
+
     public function getChildren(int $locationId): array
     {
         try {
