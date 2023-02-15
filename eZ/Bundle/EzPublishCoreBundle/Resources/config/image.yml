@@ -285,5 +285,11 @@ services:
     ezpublish.image_alias.variation_path_generator.alias_directory:
         class: eZ\Bundle\EzPublishCoreBundle\Imagine\VariationPathGenerator\AliasDirectoryVariationPathGenerator
 
+    Ibexa\Bundle\Core\Imagine\VariationPathGenerator\WebpFormatVariationPathGenerator:
+        decorates: ezpublish.image_alias.variation_path_generator
+        arguments:
+            $innerVariationPathGenerator: '@.inner'
+            $filterConfiguration: '@liip_imagine.filter.configuration'
+
     # SPI Aliases
     eZ\Publish\SPI\Variation\VariationHandler: '@ezpublish.image_alias.imagine.variation.imagine_alias_generator'
