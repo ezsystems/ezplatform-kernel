@@ -1098,7 +1098,7 @@ class UserServiceTest extends BaseTest
             /* END: Use Case */
         } catch (ContentFieldValidationException $e) {
             // Exception is caught, as there is no other way to check exception properties.
-            $this->assertValidationErrorOccurs($e, 'The user login \'%login%\' is used by another user. You must enter a unique login.');
+            $this->assertValidationErrorOccurs($e, 'The user login \'admin\' is used by another user. You must enter a unique login.');
 
             /* END: Use Case */
             return;
@@ -1156,7 +1156,7 @@ class UserServiceTest extends BaseTest
             $userService->createUser($userCreate, [$group]);
         } catch (ContentFieldValidationException $e) {
             // Exception is caught, as there is no other way to check exception properties.
-            $this->assertValidationErrorOccurs($e, 'Email \'%email%\' is used by another user. You must enter a unique email.');
+            $this->assertValidationErrorOccurs($e, 'Email \'unique@email.com\' is used by another user. You must enter a unique email.');
 
             return;
         }
@@ -1305,7 +1305,7 @@ class UserServiceTest extends BaseTest
                 $e,
                 [
                     'User password must include at least one special character',
-                    'User password must be at least %length% characters long',
+                    'User password must be at least 8 characters long',
                     'User password must include at least one upper case letter',
                     'User password must include at least one number',
                 ]
@@ -2021,7 +2021,7 @@ class UserServiceTest extends BaseTest
         } catch (ContentFieldValidationException $e) {
             // Exception is caught, as there is no other way to check exception properties.
             $this->assertValidationErrorOccurs($e, 'User password must include at least one special character');
-            $this->assertValidationErrorOccurs($e, 'User password must be at least %length% characters long');
+            $this->assertValidationErrorOccurs($e, 'User password must be at least 8 characters long');
             $this->assertValidationErrorOccurs($e, 'User password must include at least one upper case letter');
             $this->assertValidationErrorOccurs($e, 'User password must include at least one number');
 
