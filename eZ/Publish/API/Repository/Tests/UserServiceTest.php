@@ -3102,6 +3102,77 @@ class UserServiceTest extends BaseTest
         );
     }
 
+    public function getDataForTestPasswordUpdateRespectsAllValidationSettings(): iterable
+    {
+        $oldPassword = 'P@blish123!';
+
+        yield 'require at least one upper case character' => [
+            $oldPassword,
+            'p@blish123!',
+            'User password must include at least one upper case letter',
+        ];
+
+        yield 'require at least one lower case character' => [
+            $oldPassword,
+            'P@BLISH123!',
+            'User password must include at least one lower case letter',
+        ];
+
+        yield 'require at least one numeric character' => [
+            $oldPassword,
+            'P@blishONETWOTHREE!',
+            'User password must include at least one number',
+        ];
+
+        yield 'require at least one non-alphanumeric character' => [
+            $oldPassword,
+            'Publish123',
+            'User password must include at least one special character',
+        ];
+
+        yield 'require min. length >= 8 chars' => [
+            $oldPassword,
+            'P@b123!',
+            'User password must be at least 8 characters long',
+        ];
+
+        yield 'require new password' => [
+            $oldPassword,
+            $oldPassword,
+            'New password cannot be the same as old password',
+        ];
+    }
+
+    /**
+     * @dataProvider getDataForTestPasswordUpdateRespectsAllValidationSettings
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\Exception
+     * @throws \Exception
+     */
+    public function testUpdateUserPasswordPerformsValidation(
+        string $oldPassword,
+        string $newPassword,
+        string $expectedExceptionMessage
+    ): void {
+        $userService = $this->getRepository()->getUserService();
+
+        $contentType = $this->createUserContentTypeWithStrongPassword();
+        $user = $this->createTestUserWithPassword($oldPassword, $contentType);
+
+        try {
+            $userService->updateUserPassword($user, $newPassword);
+
+            self::fail(
+                sprintf(
+                    'Failed to get validation exception with message "%s"',
+                    $expectedExceptionMessage
+                )
+            );
+        } catch (ContentFieldValidationException $e) {
+            $this->assertValidationErrorOccurs($e, $expectedExceptionMessage);
+        }
+    }
+
     /**
      * Data provider for testValidatePassword.
      *
