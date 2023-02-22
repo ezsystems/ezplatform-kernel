@@ -65,7 +65,9 @@ services:
     eZ\Publish\API\Repository\PasswordHashService:
         alias: eZ\Publish\Core\Repository\User\PasswordHashService
 
-    eZ\Publish\Core\Repository\User\PasswordValidator: ~
+    eZ\Publish\Core\Repository\User\PasswordValidator:
+        arguments:
+            $passwordHashService: '@eZ\Publish\Core\Repository\User\PasswordHashService'
 
     eZ\Publish\Core\Repository\User\PasswordValidatorInterface:
         alias: eZ\Publish\Core\Repository\User\PasswordValidator
