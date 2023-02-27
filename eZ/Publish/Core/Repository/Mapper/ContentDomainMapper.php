@@ -129,7 +129,9 @@ class ContentDomainMapper extends ProxyAwareDomainMapper implements LoggerAwareI
 
         $contentInfo = $versionInfo->getContentInfo();
         $mainLocation = $contentInfo->getMainLocation();
-        if ($mainLocation === null && $this->locationHandler->countAllLocations() > 0) {
+        $contentLocations = $this->locationHandler->loadLocationsByContent($contentInfo->id);
+
+        if ($mainLocation === null && count($contentLocations) > 0) {
             $this->logger->error(
                 sprintf(
                     'Main location for content of ID = %d doesn\'t exist yet it has locations assigned.',
