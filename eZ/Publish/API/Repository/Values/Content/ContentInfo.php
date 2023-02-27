@@ -214,4 +214,9 @@ class ContentInfo extends ValueObject
     {
         return $this->owner;
     }
+
+    public function getMainLocationId(): ?int
+    {
+        return $this->mainLocationId;
+    }
 }
