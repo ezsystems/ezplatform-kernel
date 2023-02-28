@@ -3487,7 +3487,6 @@ class LocationServiceTest extends BaseTest
     {
         $repository = $this->getRepository();
         $locationService = $repository->getLocationService();
-        $contentService = $repository->getContentService();
         $permissionResolver = $repository->getPermissionResolver();
 
         $folder = $this->publishContentWithParentLocation('Parent folder', 2);
