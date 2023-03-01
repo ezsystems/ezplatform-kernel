@@ -10,6 +10,9 @@ namespace eZ\Publish\API\Repository\Tests\PHPUnitConstraint;
 
 use eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException;
 use PHPUnit\Framework\Constraint\Constraint as AbstractPHPUnitConstraint;
+use RecursiveArrayIterator;
+use RecursiveIteratorIterator;
+use Traversable;
 
 /**
  * PHPUnit's constraint checking that all the given validation error messages occur in the asserted
@@ -63,13 +66,21 @@ class AllValidationErrorsOccur extends AbstractPHPUnitConstraint
         return iterator_to_array($this->extractTranslatable($exception->getFieldErrors()));
     }
 
-    private function extractTranslatable(array $fieldErrors): \Traversable
+    /**
+     * @param array<int, <string, array<\eZ\Publish\SPI\FieldType\ValidationError>>> $fieldErrors
+     *
+     * @return \Traversable<string> translated message string
+     */
+    private function extractTranslatable(array $fieldErrors): Traversable
     {
-        // structure: [<fieldId> => [<languageCode> => array<ValidationError>]]
-        foreach (array_merge(...$fieldErrors) as $errorsPerTranslation) {
-            foreach ($errorsPerTranslation as $fieldError) {
-                yield (string)$fieldError->getTranslatableMessage();
-            }
+        $recursiveIterator = new RecursiveIteratorIterator(
+            new RecursiveArrayIterator(
+                $fieldErrors,
+                RecursiveArrayIterator::CHILD_ARRAYS_ONLY
+            )
+        );
+        foreach ($recursiveIterator as $validationError) {
+            yield (string)$validationError->getTranslatableMessage();
         }
     }
 
