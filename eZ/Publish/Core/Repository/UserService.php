@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Repository;
 
-use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
@@ -43,12 +42,10 @@ use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue;
 use eZ\Publish\Core\Base\Exceptions\MissingUserFieldTypeException;
 use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
-use eZ\Publish\Core\FieldType\User\Type as UserType;
 use eZ\Publish\Core\FieldType\User\Value as UserValue;
 use eZ\Publish\Core\FieldType\ValidationError;
 use eZ\Publish\Core\Repository\User\Exception\UnsupportedPasswordHashType;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
-use eZ\Publish\Core\Repository\Validator\UserPasswordValidator;
 use eZ\Publish\Core\Repository\Values\User\User;
 use eZ\Publish\Core\Repository\Values\User\UserCreateStruct;
 use eZ\Publish\Core\Repository\Values\User\UserGroup;
@@ -736,15 +733,6 @@ class UserService implements UserServiceInterface
         return $this->loadUser($loadedUser->id);
     }
 
-    /**
-     * Validates and updates just the user's password.
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\Core\Repository\User\Exception\UnsupportedPasswordHashType
-     */
     public function updateUserPassword(APIUser $user, string $newPassword): APIUser
     {
         $loadedUser = $this->loadUser($user->id);
@@ -760,9 +748,18 @@ class UserService implements UserServiceInterface
             throw new MissingUserFieldTypeException($loadedUser->getContentType(), self::USER_FIELD_TYPE_NAME);
         }
 
-        $errors = $this->passwordValidator->validatePassword($newPassword, $userFieldDefinition);
+        $errors = $this->passwordValidator->validatePassword(
+            $newPassword,
+            $userFieldDefinition,
+            $user
+        );
         if (!empty($errors)) {
-            throw ContentFieldValidationException::createNewWithMultiline($errors, $loadedUser->getName());
+            // Note: @deprecated this should rather throw a list wrapper of `ValidationError`s
+            throw ContentFieldValidationException::createNewWithMultiline(
+                // build errors array as expected by ContentFieldValidationException
+                [$userFieldDefinition->id => [$userFieldDefinition->mainLanguageCode => $errors]],
+                $loadedUser->getName()
+            );
         }
 
         $passwordHashAlgorithm = (int) $loadedUser->hashAlgorithm;
@@ -1203,8 +1200,6 @@ class UserService implements UserServiceInterface
      */
     public function validatePassword(string $password, PasswordValidationContext $context = null): array
     {
-        $errors = [];
-
         if ($context === null) {
             $contentType = $this->repository->getContentTypeService()->loadContentType(
                 $this->settings['userClassID']
@@ -1221,23 +1216,11 @@ class UserService implements UserServiceInterface
             throw new MissingUserFieldTypeException($context->contentType, self::USER_FIELD_TYPE_NAME);
         }
 
-        $configuration = $userFieldDefinition->getValidatorConfiguration();
-        if (isset($configuration['PasswordValueValidator'])) {
-            $errors = (new UserPasswordValidator($configuration['PasswordValueValidator']))->validate($password);
-        }
-
-        if ($context->user !== null) {
-            $isPasswordTTLEnabled = $this->getPasswordInfo($context->user)->hasExpirationDate();
-            $isNewPasswordRequired = $configuration['PasswordValueValidator']['requireNewPassword'] ?? false;
-
-            if (($isPasswordTTLEnabled || $isNewPasswordRequired) &&
-                $this->comparePasswordHashForAPIUser($context->user, $password)
-            ) {
-                $errors[] = new ValidationError('New password cannot be the same as old password', null, [], 'password');
-            }
-        }
-
-        return $errors;
+        return $this->passwordValidator->validatePassword(
+            $password,
+            $userFieldDefinition,
+            $context->user
+        );
     }
 
     /**
@@ -1303,34 +1286,9 @@ class UserService implements UserServiceInterface
 
     public function getPasswordInfo(APIUser $user): PasswordInfo
     {
-        $passwordUpdatedAt = $user->passwordUpdatedAt;
-        if ($passwordUpdatedAt === null) {
-            return new PasswordInfo();
-        }
-
         $definition = $this->getUserFieldDefinition($user->getContentType());
-        if ($definition === null) {
-            return new PasswordInfo();
-        }
 
-        $expirationDate = null;
-        $expirationWarningDate = null;
-
-        $passwordTTL = (int)$definition->fieldSettings[UserType::PASSWORD_TTL_SETTING];
-        if ($passwordTTL > 0) {
-            if ($passwordUpdatedAt instanceof DateTime) {
-                $passwordUpdatedAt = DateTimeImmutable::createFromMutable($passwordUpdatedAt);
-            }
-
-            $expirationDate = $passwordUpdatedAt->add(new DateInterval(sprintf('P%dD', $passwordTTL)));
-
-            $passwordTTLWarning = (int)$definition->fieldSettings[UserType::PASSWORD_TTL_WARNING_SETTING];
-            if ($passwordTTLWarning > 0) {
-                $expirationWarningDate = $expirationDate->sub(new DateInterval(sprintf('P%dD', $passwordTTLWarning)));
-            }
-        }
-
-        return new PasswordInfo($expirationDate, $expirationWarningDate);
+        return $this->passwordValidator->getPasswordInfo($user, $definition);
     }
 
     private function getUserFieldDefinition(ContentType $contentType): ?FieldDefinition

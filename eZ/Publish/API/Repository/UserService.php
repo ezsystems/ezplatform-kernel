@@ -247,10 +247,14 @@ interface UserService
     public function updateUser(User $user, UserUpdateStruct $userUpdateStruct): User;
 
     /**
-     * Updates user's password.
+     * Validates and updates just the user's password.
      *
+     * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException
      * @throws \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException if new password does not pass validation
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to update the user
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Exception
      */
     public function updateUserPassword(User $user, string $newPassword): User;
 

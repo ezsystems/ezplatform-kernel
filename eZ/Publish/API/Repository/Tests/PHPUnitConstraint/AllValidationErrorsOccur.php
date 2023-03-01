@@ -9,11 +9,10 @@ declare(strict_types=1);
 namespace eZ\Publish\API\Repository\Tests\PHPUnitConstraint;
 
 use eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException;
-use eZ\Publish\API\Repository\Translatable;
 use PHPUnit\Framework\Constraint\Constraint as AbstractPHPUnitConstraint;
 
 /**
- * PHPUnit constraint checking that all the given validation error messages occur in the asserted
+ * PHPUnit's constraint checking that all the given validation error messages occur in the asserted
  * ContentFieldValidationException.
  *
  * @see \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException
@@ -61,22 +60,17 @@ class AllValidationErrorsOccur extends AbstractPHPUnitConstraint
      */
     private function extractAllFieldErrorMessages(ContentFieldValidationException $exception): array
     {
-        $allFieldErrors = [];
-        foreach ($exception->getFieldErrors() as $errors) {
-            foreach ($errors as $fieldErrors) {
-                $allFieldErrors = array_merge(
-                    $allFieldErrors,
-                    array_map(
-                        static function (Translatable $translatableFieldError) {
-                            return $translatableFieldError->getTranslatableMessage()->message;
-                        },
-                        $fieldErrors
-                    )
-                );
+        return iterator_to_array($this->extractTranslatable($exception->getFieldErrors()));
+    }
+
+    private function extractTranslatable(array $fieldErrors): \Traversable
+    {
+        // structure: [<fieldId> => [<languageCode> => array<ValidationError>]]
+        foreach (array_merge(...$fieldErrors) as $errorsPerTranslation) {
+            foreach ($errorsPerTranslation as $fieldError) {
+                yield (string)$fieldError->getTranslatableMessage();
             }
         }
-
-        return $allFieldErrors;
     }
 
     /**
