@@ -131,7 +131,7 @@ class UserServiceTest extends BaseTest
      * Test for the loadUserGroup() method.
      *
      * @see \eZ\Publish\API\Repository\UserService::loadUserGroup()
-     * @depends eZ\Publish\API\Repository\Tests\UserServiceTest::testLoadUserGroup
+     * @depends testLoadUserGroup
      */
     public function testLoadUserGroupThrowsNotFoundException()
     {
