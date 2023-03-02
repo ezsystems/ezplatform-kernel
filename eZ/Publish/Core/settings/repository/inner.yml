@@ -192,6 +192,8 @@ services:
             $thumbnailStrategy: '@eZ\Publish\Core\Repository\Strategy\ContentThumbnail\ThumbnailChainStrategy'
         calls:
             - [setLogger, ['@?logger']]
+        tags:
+            - { name: 'monolog.logger', channel: 'ibexa.core' }
 
     eZ\Publish\Core\Repository\Mapper\RoleDomainMapper:
         arguments:

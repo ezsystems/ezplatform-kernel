@@ -82,8 +82,8 @@ class ContentDomainMapper extends ProxyAwareDomainMapper implements LoggerAwareI
         LanguageHandler $contentLanguageHandler,
         FieldTypeRegistry $fieldTypeRegistry,
         ThumbnailStrategy $thumbnailStrategy,
-        ?ProxyDomainMapperInterface $proxyFactory = null,
-        ?LoggerInterface $logger = null
+        ?LoggerInterface $logger = null,
+        ?ProxyDomainMapperInterface $proxyFactory = null
     ) {
         $this->contentHandler = $contentHandler;
         $this->locationHandler = $locationHandler;
@@ -129,12 +129,12 @@ class ContentDomainMapper extends ProxyAwareDomainMapper implements LoggerAwareI
 
         $contentInfo = $versionInfo->getContentInfo();
         $mainLocation = $contentInfo->getMainLocation();
-        $contentLocations = $this->locationHandler->loadLocationsByContent($contentInfo->id);
 
-        if ($mainLocation === null && count($contentLocations) > 0) {
+        // For performance reasons 'countLocationsByContent' is moved to if
+        if ($mainLocation === null && $this->locationHandler->countLocationsByContent($contentInfo->id) > 0) {
             $this->logger->error(
                 sprintf(
-                    'Main location for content of ID = %d doesn\'t exist yet it has locations assigned.',
+                    'Main location for content of ID = %d doesn\'t exist yet this content has locations assigned.',
                     $contentInfo->id
                 )
             );
