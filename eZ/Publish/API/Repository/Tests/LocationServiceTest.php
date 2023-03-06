@@ -3478,10 +3478,7 @@ class LocationServiceTest extends BaseTest
      *
      * @covers \eZ\Publish\API\Repository\LocationService::moveSubtree
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\Exception
      */
     public function testMoveSubtreeContentWithMultipleLocationsAndOneOfThemInaccessible(): void
     {
@@ -3490,11 +3487,12 @@ class LocationServiceTest extends BaseTest
         $permissionResolver = $repository->getPermissionResolver();
 
         $folder = $this->publishContentWithParentLocation('Parent folder', 2);
+        $accessibleFolder = $this->publishContentWithParentLocation('Accessible folder', 2);
         $subFolder = $this->publishContentWithParentLocation(
             'Sub folder',
             $folder->contentInfo->mainLocationId
         );
-        $targetContent = $this->publishContentWithParentLocation(
+        $contentToBeMoved = $this->publishContentWithParentLocation(
             'Target folder',
             $subFolder->contentInfo->mainLocationId
         );
@@ -3502,12 +3500,12 @@ class LocationServiceTest extends BaseTest
 
         // Add second location (parent 'Forbidden folder') to 'Target content' in folder that user won't have access to
         $locationService->createLocation(
-            $targetContent->contentInfo,
+            $contentToBeMoved->contentInfo,
             $locationService->newLocationCreateStruct($forbiddenContent->contentInfo->mainLocationId)
         );
 
         $folderLocation = $locationService->loadLocation($folder->contentInfo->mainLocationId);
-        $mediaLocation = $locationService->loadLocation(43);
+        $accessibleFolderLocation = $locationService->loadLocation($accessibleFolder->contentInfo->mainLocationId);
 
         // Set user that cannot access 'Forbidden folder'
         $user = $this->createUserWithPolicies(
@@ -3516,21 +3514,25 @@ class LocationServiceTest extends BaseTest
                 ['module' => 'content', 'function' => 'read'],
                 ['module' => 'content', 'function' => 'create'],
             ],
-            new SubtreeLimitation(['limitationValues' => [$folderLocation->pathString, $mediaLocation->pathString]])
+            new SubtreeLimitation(
+                ['limitationValues' => [
+                        $folderLocation->getPathString(),
+                        $accessibleFolderLocation->getPathString(),
+                    ],
+                ]
+            )
         );
-        $repository->getPermissionResolver()->setCurrentUserReference($user);
-
         $permissionResolver->setCurrentUserReference($user);
 
         // Move Parent folder/Sub folder/Target folder to location of ID = 2
         $locationService->moveSubtree(
-            $targetContent->contentInfo->getMainLocation(),
-            $mediaLocation
+            $contentToBeMoved->contentInfo->getMainLocation(),
+            $accessibleFolderLocation
         );
 
-        $targetContentMainLocation = $locationService->loadLocation($targetContent->contentInfo->mainLocationId);
+        $targetContentMainLocation = $locationService->loadLocation($contentToBeMoved->contentInfo->mainLocationId);
 
-        self::assertSame($targetContentMainLocation->parentLocationId, $mediaLocation->id);
+        self::assertSame($targetContentMainLocation->parentLocationId, $accessibleFolderLocation->id);
     }
 
     public function testGetSubtreeSize(): Location

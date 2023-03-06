@@ -15,7 +15,7 @@ use eZ\Publish\API\Repository\Values\ValueObject;
 /**
  * This class provides all version independent information of the Content object.
  *
- * @property-read int $id The unique id of the Content object
+ * @property-read int $id @deprecated Use {@see ContentInfo::getId} instead. The unique id of the Content object
  * @property-read int $contentTypeId The unique id of the Content Type object the Content object is an instance of
  * @property-read string $name the computed name (via name schema) in the main language of the Content object
  * @property-read int $sectionId the section to which the Content object is assigned
@@ -213,5 +213,10 @@ class ContentInfo extends ValueObject
     public function getOwner(): User
     {
         return $this->owner;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 }

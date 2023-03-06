@@ -1007,10 +1007,10 @@ class LocationService implements LocationServiceInterface
                     'limit' => 0,
                     'filter' => new CriterionLogicalAnd(
                         [
-                            new CriterionSubtree($loadedSubtree->pathString),
+                            new CriterionSubtree($loadedSubtree->getPathString()),
                             new CriterionLogicalNot($contentReadCriterion),
                             // Do not take the same content into consideration as it can have more than one location
-                            new CriterionLogicalNot(new Criterion\ContentId($loadedSubtree->contentId)),
+                            new CriterionLogicalNot(new Criterion\ContentId($loadedSubtree->getContentInfo()->getId())),
                         ]
                     ),
                 ]
