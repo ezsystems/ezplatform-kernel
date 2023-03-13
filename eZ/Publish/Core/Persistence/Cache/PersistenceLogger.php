@@ -8,18 +8,11 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Cache;
 
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
-
 /**
  * Log un-cached & cached use of SPI Persistence.
  */
-class PersistenceLogger implements LoggerAwareInterface
+class PersistenceLogger
 {
-    use LoggerAwareTrait;
-
     public const NAME = 'PersistenceLogger';
 
     /** @var int[] */
@@ -43,10 +36,9 @@ class PersistenceLogger implements LoggerAwareInterface
      * @param bool $logCalls Flag to enable logging of calls or not, provides extra debug info about calls made to SPI
      *                       level, including where they come form. However, this uses quite a bit of memory.
      */
-    public function __construct(bool $logCalls = true, ?LoggerInterface $logger = null)
+    public function __construct(bool $logCalls = true)
     {
         $this->logCalls = $logCalls;
-        $this->logger = $logger ?? new NullLogger();
     }
 
     /**
@@ -256,19 +248,5 @@ class PersistenceLogger implements LoggerAwareInterface
     public function getLoadedUnCachedHandlers(): array
     {
         return $this->unCachedHandlers;
-    }
-
-    /**
-     * @param array<string> $cacheIndices
-     */
-    public function logNoIndexAndPrefixMatch(array $cacheIndices, string $keyPrefix): void
-    {
-        $this->logger->error(
-            sprintf(
-                'There is no corresponding cache index for key prefix %s. Cache indexes are as follows: %s.',
-                $keyPrefix,
-                implode(', ', $cacheIndices)
-            )
-        );
     }
 }
