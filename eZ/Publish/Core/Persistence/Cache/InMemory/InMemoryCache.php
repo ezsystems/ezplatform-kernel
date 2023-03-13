@@ -116,7 +116,7 @@ class InMemoryCache
      */
     public function setMulti(array $objects, callable $objectIndexes, string $listIndex = null): void
     {
-        // If objects accounts for more then 20% of our limit, assume it's bulk load and skip saving in-memory
+        // If objects accounts for more than 20% of our limit, assume it's bulk load and skip saving in-memory
         if ($this->enabled === false || \count($objects) >= $this->limit / 5) {
             return;
         }
@@ -127,7 +127,7 @@ class InMemoryCache
         }
 
         $expiryTime = microtime(true) + $this->ttl;
-        // if set add objects to cache on list index (typically a "all" key)
+        // if set add objects to cache on list index (typically an "all" key)
         if ($listIndex) {
             $this->cache[$listIndex] = $objects;
             $this->cacheExpiryTime[$listIndex] = $expiryTime;

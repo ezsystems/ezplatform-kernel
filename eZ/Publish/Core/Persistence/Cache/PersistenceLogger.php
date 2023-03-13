@@ -8,11 +8,18 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Cache;
 
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+
 /**
  * Log un-cached & cached use of SPI Persistence.
  */
-class PersistenceLogger
+class PersistenceLogger implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     public const NAME = 'PersistenceLogger';
 
     /** @var int[] */
@@ -34,11 +41,12 @@ class PersistenceLogger
 
     /**
      * @param bool $logCalls Flag to enable logging of calls or not, provides extra debug info about calls made to SPI
-     *                       level, including where they come form. However this uses quite a bit of memory.
+     *                       level, including where they come form. However, this uses quite a bit of memory.
      */
-    public function __construct(bool $logCalls = true)
+    public function __construct(bool $logCalls = true, ?LoggerInterface $logger = null)
     {
         $this->logCalls = $logCalls;
+        $this->logger = $logger ?? new NullLogger();
     }
 
     /**
@@ -71,10 +79,10 @@ class PersistenceLogger
     /**
      * Log Cache miss, gets info it needs by backtrace if needed.
      *
-     * @since 7.5
-     *
      * @param array $arguments
      * @param int $traceOffset
+     *
+     * @since 7.5
      */
     public function logCacheMiss(array $arguments = [], int $traceOffset = 2): void
     {
@@ -95,12 +103,12 @@ class PersistenceLogger
     /**
      * Log a Cache hit, gets info it needs by backtrace if needed.
      *
-     * @since 7.5
-     *
      * @param array $arguments
      * @param int $traceOffset
      * @param bool $inMemory Denotes is cache hit was from memory (php variable), as opposed to from cache pool which
      *                       is usually disk or remote cache service.
+     *
+     * @since 7.5
      */
     public function logCacheHit(array $arguments = [], int $traceOffset = 2, bool $inMemory = false): void
     {
@@ -248,5 +256,19 @@ class PersistenceLogger
     public function getLoadedUnCachedHandlers(): array
     {
         return $this->unCachedHandlers;
+    }
+
+    /**
+     * @param array<string> $cacheIndices
+     */
+    public function logNoIndexAndPrefixMatch(array $cacheIndices, string $keyPrefix): void
+    {
+        $this->logger->error(
+            sprintf(
+                'There is no corresponding cache index for key prefix %s. Cache indexes are as follows: %s.',
+                $keyPrefix,
+                implode(', ', $cacheIndices)
+            )
+        );
     }
 }

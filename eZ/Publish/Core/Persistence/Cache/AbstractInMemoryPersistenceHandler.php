@@ -9,6 +9,7 @@ namespace eZ\Publish\Core\Persistence\Cache;
 use eZ\Publish\Core\Persistence\Cache\Adapter\TransactionAwareAdapterInterface;
 use eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache;
 use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
+use Ibexa\Core\Persistence\Cache\CacheIndicesValidatorInterface;
 use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
 use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierSanitizer;
 use Ibexa\Core\Persistence\Cache\LocationPathConverter;
@@ -50,9 +51,10 @@ abstract class AbstractInMemoryPersistenceHandler extends AbstractInMemoryHandle
         PersistenceHandler $persistenceHandler,
         CacheIdentifierGeneratorInterface $cacheIdentifierGenerator,
         CacheIdentifierSanitizer $cacheIdentifierSanitizer,
-        LocationPathConverter $locationPathConverter
+        LocationPathConverter $locationPathConverter,
+        CacheIndicesValidatorInterface $cacheIndicesValidator
     ) {
-        parent::__construct($cache, $logger, $inMemory);
+        parent::__construct($cache, $logger, $inMemory, $cacheIndicesValidator);
 
         $this->persistenceHandler = $persistenceHandler;
         $this->cacheIdentifierGenerator = $cacheIdentifierGenerator;
