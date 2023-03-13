@@ -9,7 +9,6 @@ namespace Ibexa\Core\Persistence\Cache;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 /**
  * @internal
@@ -20,7 +19,7 @@ final class CacheIndicesValidator implements CacheIndicesValidatorInterface, Log
 
     public function __construct(?LoggerInterface $logger = null)
     {
-        $this->logger = $logger ?? new NullLogger();
+        $this->logger = $logger;
     }
 
     /**
@@ -28,6 +27,10 @@ final class CacheIndicesValidator implements CacheIndicesValidatorInterface, Log
      */
     public function validate(string $keyPrefix, $object, callable $cacheIndices): void
     {
+        if ($this->logger === null) {
+            return;
+        }
+
         $cacheIndicesUnpacked = $cacheIndices($object);
 
         foreach ($cacheIndicesUnpacked as $cacheIndex) {
