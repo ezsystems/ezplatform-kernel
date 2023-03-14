@@ -52,7 +52,7 @@ abstract class AbstractInMemoryPersistenceHandler extends AbstractInMemoryHandle
         CacheIdentifierGeneratorInterface $cacheIdentifierGenerator,
         CacheIdentifierSanitizer $cacheIdentifierSanitizer,
         LocationPathConverter $locationPathConverter,
-        CacheIndicesValidatorInterface $cacheIndicesValidator
+        ?CacheIndicesValidatorInterface $cacheIndicesValidator = null
     ) {
         parent::__construct($cache, $logger, $inMemory, $cacheIndicesValidator);
 

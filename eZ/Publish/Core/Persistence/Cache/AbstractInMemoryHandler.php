@@ -43,7 +43,7 @@ abstract class AbstractInMemoryHandler
         TransactionAwareAdapterInterface $cache,
         PersistenceLogger $logger,
         InMemoryCache $inMemory,
-        CacheIndicesValidatorInterface $cacheIndicesValidator
+        ?CacheIndicesValidatorInterface $cacheIndicesValidator = null
     ) {
         $this->cache = $cache;
         $this->logger = $logger;
@@ -99,7 +99,9 @@ abstract class AbstractInMemoryHandler
 
         $object = $backendLoader($id);
 
-        $this->cacheIndicesValidator->validate($keyPrefix, $object, $cacheIndexes);
+        if ($this->cacheIndicesValidator !== null) {
+            $this->cacheIndicesValidator->validate($keyPrefix, $object, $cacheIndexes);
+        }
 
         $this->inMemory->setMulti([$object], $cacheIndexes);
         $this->cache->save(

@@ -4,6 +4,8 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
+
 namespace Ibexa\Core\Persistence\Cache;
 
 use Psr\Log\LoggerAwareInterface;
@@ -17,8 +19,7 @@ final class CacheIndicesValidator implements CacheIndicesValidatorInterface, Log
 {
     use LoggerAwareTrait;
 
-    public function __construct(?LoggerInterface $logger = null)
-    {
+    public function __construct(?LoggerInterface $logger = null) {
         $this->logger = $logger;
     }
 
@@ -41,7 +42,7 @@ final class CacheIndicesValidator implements CacheIndicesValidatorInterface, Log
 
         $this->logger->error(
             sprintf(
-                'There is no corresponding cache index for key prefix %s. Cache indexes are as follows: %s.',
+                'There is no corresponding cache index for key prefix %s. Cache indices are as follows: %s.',
                 $keyPrefix,
                 implode(', ', $cacheIndicesUnpacked)
             )
