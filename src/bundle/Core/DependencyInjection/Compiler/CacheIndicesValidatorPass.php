@@ -27,12 +27,10 @@ final class CacheIndicesValidatorPass implements CompilerPassInterface
             return;
         }
 
-        $loggerDefinition = $container->getDefinition('monolog.logger');
-
         $definition = new Definition(CacheIndicesValidator::class);
         $definition->addTag('monolog.logger', ['channel' => 'ibexa.core']);
         $definition->setMethodCalls([
-            ['setLogger', [$loggerDefinition]],
+            ['setLogger', [new Reference('logger')]],
         ]);
 
         $container->setDefinition(CacheIndicesValidator::class, $definition);
