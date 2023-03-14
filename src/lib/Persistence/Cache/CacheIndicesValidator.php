@@ -19,7 +19,8 @@ final class CacheIndicesValidator implements CacheIndicesValidatorInterface, Log
 {
     use LoggerAwareTrait;
 
-    public function __construct(?LoggerInterface $logger = null) {
+    public function __construct(?LoggerInterface $logger = null)
+    {
         $this->logger = $logger;
     }
 

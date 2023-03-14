@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\Reference;
 final class CacheIndicesValidatorPass implements CompilerPassInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
@@ -47,12 +47,14 @@ final class CacheIndicesValidatorPass implements CompilerPassInterface
         $abstractInMemoryHandlerDefinition = $container
             ->getDefinition('ezpublish.spi.persistence.cache.abstractInMemoryHandler');
         $abstractInMemoryHandlerDefinition->setArgument(
-            '$cacheIndicesValidator', new Reference(CacheIndicesValidatorInterface::class)
+            '$cacheIndicesValidator',
+            new Reference(CacheIndicesValidatorInterface::class)
         );
         $abstractInMemoryPersistenceHandlerDefinition = $container
             ->getDefinition('ezpublish.spi.persistence.cache.abstractInMemoryPersistenceHandler');
         $abstractInMemoryPersistenceHandlerDefinition->setArgument(
-            '$cacheIndicesValidator', new Reference(CacheIndicesValidatorInterface::class)
+            '$cacheIndicesValidator',
+            new Reference(CacheIndicesValidatorInterface::class)
         );
     }
 }
