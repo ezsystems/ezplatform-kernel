@@ -219,7 +219,7 @@ class ContentInfo extends ValueObject
     {
         return $this->mainLocationId;
     }
-    
+
     public function getId(): int
     {
         return $this->id;
