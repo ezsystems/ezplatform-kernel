@@ -9,11 +9,13 @@ declare(strict_types=1);
 namespace eZ\Publish\API\Repository\Tests\PHPUnitConstraint;
 
 use eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException;
-use eZ\Publish\API\Repository\Translatable;
 use PHPUnit\Framework\Constraint\Constraint as AbstractPHPUnitConstraint;
+use RecursiveArrayIterator;
+use RecursiveIteratorIterator;
+use Traversable;
 
 /**
- * PHPUnit constraint checking that all the given validation error messages occur in the asserted
+ * PHPUnit's constraint checking that all the given validation error messages occur in the asserted
  * ContentFieldValidationException.
  *
  * @see \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException
@@ -61,22 +63,25 @@ class AllValidationErrorsOccur extends AbstractPHPUnitConstraint
      */
     private function extractAllFieldErrorMessages(ContentFieldValidationException $exception): array
     {
-        $allFieldErrors = [];
-        foreach ($exception->getFieldErrors() as $errors) {
-            foreach ($errors as $fieldErrors) {
-                $allFieldErrors = array_merge(
-                    $allFieldErrors,
-                    array_map(
-                        static function (Translatable $translatableFieldError) {
-                            return $translatableFieldError->getTranslatableMessage()->message;
-                        },
-                        $fieldErrors
-                    )
-                );
-            }
-        }
+        return iterator_to_array($this->extractTranslatable($exception->getFieldErrors()));
+    }
 
-        return $allFieldErrors;
+    /**
+     * @param array<int, <string, array<\eZ\Publish\SPI\FieldType\ValidationError>>> $fieldErrors
+     *
+     * @return \Traversable<string> translated message string
+     */
+    private function extractTranslatable(array $fieldErrors): Traversable
+    {
+        $recursiveIterator = new RecursiveIteratorIterator(
+            new RecursiveArrayIterator(
+                $fieldErrors,
+                RecursiveArrayIterator::CHILD_ARRAYS_ONLY
+            )
+        );
+        foreach ($recursiveIterator as $validationError) {
+            yield (string)$validationError->getTranslatableMessage();
+        }
     }
 
     /**
