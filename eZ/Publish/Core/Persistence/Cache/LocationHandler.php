@@ -503,9 +503,6 @@ class LocationHandler extends AbstractInMemoryPersistenceHandler implements Loca
         return implode('|', $translations) . '|' . (int)$useAlwaysAvailable;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function countLocationsByContent(int $contentId): int
     {
         $this->logger->logCall(__METHOD__, ['contentId' => $contentId]);
