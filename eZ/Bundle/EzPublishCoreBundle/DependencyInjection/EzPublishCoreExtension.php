@@ -399,6 +399,11 @@ class EzPublishCoreExtension extends Extension implements PrependExtensionInterf
 
             $container->setParameter('ezpublish.http_cache.purge_type', $purgeType);
         }
+
+        $debugParam = 'kernel.debug';
+        if ($container->hasParameter($debugParam) && $container->getParameter($debugParam) === true) {
+            $loader->load('debug/cache_validator.yaml');
+        }
     }
 
     /**

@@ -275,6 +275,7 @@ services:
             - '@Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface'
             - '@Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierSanitizer'
             - '@Ibexa\Core\Persistence\Cache\LocationPathConverter'
+            - '@?Ibexa\Core\Persistence\Cache\CacheIndicesValidatorInterface'
 
     ezpublish.spi.persistence.cache.sectionHandler:
         class: eZ\Publish\Core\Persistence\Cache\SectionHandler

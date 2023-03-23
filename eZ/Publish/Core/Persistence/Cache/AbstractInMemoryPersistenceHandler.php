@@ -33,17 +33,6 @@ abstract class AbstractInMemoryPersistenceHandler extends AbstractInMemoryHandle
     /** @var \Ibexa\Core\Persistence\Cache\LocationPathConverter */
     protected $locationPathConverter;
 
-    /**
-     * Setups current handler with everything needed.
-     *
-     * @param \eZ\Publish\Core\Persistence\Cache\Adapter\TransactionAwareAdapterInterface $cache
-     * @param \eZ\Publish\Core\Persistence\Cache\PersistenceLogger $logger
-     * @param \eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache $inMemory
-     * @param \eZ\Publish\SPI\Persistence\Handler $persistenceHandler
-     * @param \Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface $cacheIdentifierGenerator
-     * @param \Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierSanitizer $cacheIdentifierSanitizer
-     * @param \Ibexa\Core\Persistence\Cache\LocationPathConverter $locationPathConverter
-     */
     public function __construct(
         TransactionAwareAdapterInterface $cache,
         PersistenceLogger $logger,

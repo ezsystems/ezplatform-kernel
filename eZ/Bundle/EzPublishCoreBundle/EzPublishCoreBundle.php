@@ -47,7 +47,6 @@ use eZ\Publish\Core\Base\Container\Compiler\Storage\ExternalStorageRegistryPass;
 use eZ\Publish\Core\Base\Container\Compiler\Storage\Legacy\FieldValueConverterRegistryPass;
 use eZ\Publish\Core\Base\Container\Compiler\Storage\Legacy\RoleLimitationConverterPass;
 use eZ\Publish\SPI\MVC\View\VariableProvider;
-use Ibexa\Bundle\Core\DependencyInjection\Compiler\CacheIndicesValidatorPass;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -87,7 +86,6 @@ class EzPublishCoreBundle extends Bundle
         $container->addCompilerPass(new LazyDoctrineRepositoriesPass(), PassConfig::TYPE_BEFORE_REMOVING);
         $container->addCompilerPass(new EntityManagerFactoryServiceLocatorPass());
         $container->addCompilerPass(new InjectEntityManagerMappingsPass());
-        $container->addCompilerPass(new CacheIndicesValidatorPass());
 
         // Storage passes
         $container->addCompilerPass(new ExternalStorageRegistryPass());
