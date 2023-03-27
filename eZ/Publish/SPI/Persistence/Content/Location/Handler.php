@@ -252,4 +252,9 @@ interface Handler
      * @return \eZ\Publish\SPI\Persistence\Content\Location[]
      */
     public function loadAllLocations($offset, $limit);
+
+    /**
+     * Counts locations for a given content represented by its id.
+     */
+    public function countLocationsByContent(int $contentId): int;
 }

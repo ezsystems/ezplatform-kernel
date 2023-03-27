@@ -608,4 +608,12 @@ class Handler implements BaseLocationHandler
 
         return $this->locationMapper->createLocationsFromRows($rows);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function countLocationsByContent(int $contentId): int
+    {
+        return $this->locationGateway->countLocationsByContentId($contentId);
+    }
 }

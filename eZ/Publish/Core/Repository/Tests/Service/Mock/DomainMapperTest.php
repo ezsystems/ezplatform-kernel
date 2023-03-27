@@ -21,6 +21,7 @@ use eZ\Publish\SPI\Persistence\Content\ContentInfo;
 use eZ\Publish\SPI\Persistence\Content\ContentInfo as SPIContentInfo;
 use eZ\Publish\SPI\Persistence\Content\Location;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo as SPIVersionInfo;
+use Psr\Log\LoggerInterface;
 
 /**
  * Mock test case for internal ContentDomainMapper.
@@ -276,6 +277,7 @@ class DomainMapperTest extends BaseServiceMockTest
             $this->getLanguageHandlerMock(),
             $this->getFieldTypeRegistryMock(),
             $this->getThumbnailStrategy(),
+            $this->getLoggerMock(),
             $this->getProxyFactoryMock()
         );
     }
@@ -307,5 +309,10 @@ class DomainMapperTest extends BaseServiceMockTest
     protected function getProxyFactoryMock(): ProxyDomainMapperInterface
     {
         return $this->createMock(ProxyDomainMapperInterface::class);
+    }
+
+    protected function getLoggerMock(): LoggerInterface
+    {
+        return $this->createMock(LoggerInterface::class);
     }
 }

@@ -636,6 +636,7 @@ class ContentService implements ContentServiceInterface
         );
 
         if (!empty($errors)) {
+            dump($errors);
             throw new ContentFieldValidationException($errors);
         }
 

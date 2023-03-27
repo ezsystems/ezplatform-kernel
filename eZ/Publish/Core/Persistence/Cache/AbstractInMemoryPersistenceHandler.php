@@ -9,6 +9,7 @@ namespace eZ\Publish\Core\Persistence\Cache;
 use eZ\Publish\Core\Persistence\Cache\Adapter\TransactionAwareAdapterInterface;
 use eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache;
 use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
+use Ibexa\Core\Persistence\Cache\CacheIndicesValidatorInterface;
 use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
 use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierSanitizer;
 use Ibexa\Core\Persistence\Cache\LocationPathConverter;
@@ -32,17 +33,6 @@ abstract class AbstractInMemoryPersistenceHandler extends AbstractInMemoryHandle
     /** @var \Ibexa\Core\Persistence\Cache\LocationPathConverter */
     protected $locationPathConverter;
 
-    /**
-     * Setups current handler with everything needed.
-     *
-     * @param \eZ\Publish\Core\Persistence\Cache\Adapter\TransactionAwareAdapterInterface $cache
-     * @param \eZ\Publish\Core\Persistence\Cache\PersistenceLogger $logger
-     * @param \eZ\Publish\Core\Persistence\Cache\InMemory\InMemoryCache $inMemory
-     * @param \eZ\Publish\SPI\Persistence\Handler $persistenceHandler
-     * @param \Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface $cacheIdentifierGenerator
-     * @param \Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierSanitizer $cacheIdentifierSanitizer
-     * @param \Ibexa\Core\Persistence\Cache\LocationPathConverter $locationPathConverter
-     */
     public function __construct(
         TransactionAwareAdapterInterface $cache,
         PersistenceLogger $logger,
@@ -50,9 +40,10 @@ abstract class AbstractInMemoryPersistenceHandler extends AbstractInMemoryHandle
         PersistenceHandler $persistenceHandler,
         CacheIdentifierGeneratorInterface $cacheIdentifierGenerator,
         CacheIdentifierSanitizer $cacheIdentifierSanitizer,
-        LocationPathConverter $locationPathConverter
+        LocationPathConverter $locationPathConverter,
+        ?CacheIndicesValidatorInterface $cacheIndicesValidator = null
     ) {
-        parent::__construct($cache, $logger, $inMemory);
+        parent::__construct($cache, $logger, $inMemory, $cacheIndicesValidator);
 
         $this->persistenceHandler = $persistenceHandler;
         $this->cacheIdentifierGenerator = $cacheIdentifierGenerator;

@@ -29,6 +29,7 @@ use eZ\Publish\Core\Persistence\Cache\UrlWildcardHandler as CacheUrlWildcardHand
 use eZ\Publish\Core\Persistence\Cache\UserHandler as CacheUserHandler;
 use eZ\Publish\Core\Persistence\Cache\UserPreferenceHandler as CacheUserPreferenceHandler;
 use eZ\Publish\SPI\Persistence\Handler;
+use Ibexa\Core\Persistence\Cache\CacheIndicesValidatorInterface;
 use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface;
 use Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierSanitizer;
 use Ibexa\Core\Persistence\Cache\LocationPathConverter;
@@ -67,6 +68,9 @@ abstract class AbstractBaseHandlerTest extends TestCase
     /** @var \Ibexa\Core\Persistence\Cache\LocationPathConverter */
     protected $locationPathConverter;
 
+    /** @var \Ibexa\Core\Persistence\Cache\CacheIndicesValidatorInterface */
+    protected $cacheIndicesValidator;
+
     /**
      * Setup the HandlerTest.
      */
@@ -81,6 +85,7 @@ abstract class AbstractBaseHandlerTest extends TestCase
         $this->cacheIdentifierGeneratorMock = $this->createMock(CacheIdentifierGeneratorInterface::class);
         $this->cacheIdentifierSanitizer = new CacheIdentifierSanitizer();
         $this->locationPathConverter = new LocationPathConverter();
+        $this->cacheIndicesValidator = $this->createMock(CacheIndicesValidatorInterface::class);
 
         $cacheAbstractHandlerArguments = $this->provideAbstractCacheHandlerArguments();
         $cacheInMemoryHandlerArguments = $this->provideInMemoryCacheHandlerArguments();
@@ -178,6 +183,7 @@ abstract class AbstractBaseHandlerTest extends TestCase
             $this->cacheIdentifierGeneratorMock,
             $this->cacheIdentifierSanitizer,
             $this->locationPathConverter,
+            $this->cacheIndicesValidator,
         ];
     }
 }

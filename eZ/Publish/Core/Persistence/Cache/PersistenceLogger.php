@@ -34,7 +34,7 @@ class PersistenceLogger
 
     /**
      * @param bool $logCalls Flag to enable logging of calls or not, provides extra debug info about calls made to SPI
-     *                       level, including where they come form. However this uses quite a bit of memory.
+     *                       level, including where they come form. However, this uses quite a bit of memory.
      */
     public function __construct(bool $logCalls = true)
     {
@@ -71,10 +71,10 @@ class PersistenceLogger
     /**
      * Log Cache miss, gets info it needs by backtrace if needed.
      *
-     * @since 7.5
-     *
      * @param array $arguments
      * @param int $traceOffset
+     *
+     * @since 7.5
      */
     public function logCacheMiss(array $arguments = [], int $traceOffset = 2): void
     {
@@ -95,12 +95,12 @@ class PersistenceLogger
     /**
      * Log a Cache hit, gets info it needs by backtrace if needed.
      *
-     * @since 7.5
-     *
      * @param array $arguments
      * @param int $traceOffset
      * @param bool $inMemory Denotes is cache hit was from memory (php variable), as opposed to from cache pool which
      *                       is usually disk or remote cache service.
+     *
+     * @since 7.5
      */
     public function logCacheHit(array $arguments = [], int $traceOffset = 2, bool $inMemory = false): void
     {
