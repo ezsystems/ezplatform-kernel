@@ -41,7 +41,7 @@ parameters:
         location: 'l-%s'
         location_path: 'lp-%s'
         location_remote_id: 'lri'
-        location_subtree: 'ls'
+        location_subtree: 'ls-%s'
         content_locations_with_parent_for_draft_suffix: 'cl-%s-pfd'
         notification: 'n-%s'
         notification_count: 'nc-%s'
@@ -135,7 +135,7 @@ parameters:
         location: 'l-%s'
         location_path: 'lp-%s'
         location_remote_id: 'lri'
-        location_subtree: 'ls'
+        location_subtree: 'ls-%s'
         content_locations_with_parent_for_draft_suffix: 'cl-%s-pfd'
         notification: 'n-%s'
         notification_count: 'nc-%s'
@@ -275,6 +275,7 @@ services:
             - '@Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierGeneratorInterface'
             - '@Ibexa\Core\Persistence\Cache\Identifier\CacheIdentifierSanitizer'
             - '@Ibexa\Core\Persistence\Cache\LocationPathConverter'
+            - '@?Ibexa\Core\Persistence\Cache\CacheIndicesValidatorInterface'
 
     ezpublish.spi.persistence.cache.sectionHandler:
         class: eZ\Publish\Core\Persistence\Cache\SectionHandler

@@ -1,0 +1,9 @@
+services:
+    Ibexa\Core\Persistence\Cache\CacheIndicesValidatorInterface:
+        alias: Ibexa\Core\Persistence\Cache\CacheIndicesValidator
+
+    Ibexa\Core\Persistence\Cache\CacheIndicesValidator:
+        calls:
+            - [ setLogger, [ '@?logger' ] ]
+        tags:
+            - { name: 'monolog.logger', channel: 'ibexa.core' }
