@@ -69,6 +69,7 @@ class LocationHandlerTest extends AbstractInMemoryCacheHandlerTest
             ['removeSubtree', [12], [['location_path', [12], false]], null, ['lp-12']],
             ['setSectionForSubtree', [12, 2], [['location_path', [12], false]], null, ['lp-12']],
             ['changeMainLocation', [4, 12], [['content', [4], false]], null, ['c-4']],
+            ['countLocationsByContent', [4]],
         ];
     }
 

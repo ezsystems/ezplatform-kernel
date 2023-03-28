@@ -36,14 +36,20 @@ use eZ\Publish\SPI\Persistence\Content\Type as SPIContentType;
 use eZ\Publish\SPI\Persistence\Content\Type\Handler as TypeHandler;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo as SPIVersionInfo;
 use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\ThumbnailStrategy;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * ContentDomainMapper is an internal service.
  *
  * @internal Meant for internal use by Repository.
  */
-class ContentDomainMapper extends ProxyAwareDomainMapper
+class ContentDomainMapper extends ProxyAwareDomainMapper implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     public const MAX_LOCATION_PRIORITY = 2147483647;
     public const MIN_LOCATION_PRIORITY = -2147483648;
 
@@ -76,6 +82,7 @@ class ContentDomainMapper extends ProxyAwareDomainMapper
         LanguageHandler $contentLanguageHandler,
         FieldTypeRegistry $fieldTypeRegistry,
         ThumbnailStrategy $thumbnailStrategy,
+        ?LoggerInterface $logger = null,
         ?ProxyDomainMapperInterface $proxyFactory = null
     ) {
         $this->contentHandler = $contentHandler;
@@ -85,6 +92,7 @@ class ContentDomainMapper extends ProxyAwareDomainMapper
         $this->contentLanguageHandler = $contentLanguageHandler;
         $this->fieldTypeRegistry = $fieldTypeRegistry;
         $this->thumbnailStrategy = $thumbnailStrategy;
+        $this->logger = $logger ?? new NullLogger();
         parent::__construct($proxyFactory);
     }
 
@@ -118,6 +126,19 @@ class ContentDomainMapper extends ProxyAwareDomainMapper
         $internalFields = $this->buildDomainFields($spiContent->fields, $contentType, $prioritizedLanguages, $fieldAlwaysAvailableLanguage);
 
         $versionInfo = $this->buildVersionInfoDomainObject($spiContent->versionInfo, $prioritizedLanguages);
+
+        $contentInfo = $versionInfo->getContentInfo();
+        $mainLocation = $contentInfo->getMainLocation();
+
+        // For performance reasons 'countLocationsByContent' is moved to if
+        if ($mainLocation === null && $this->locationHandler->countLocationsByContent($contentInfo->getId()) > 0) {
+            $this->logger->error(
+                sprintf(
+                    'Main location for content of ID = %d doesn\'t exist yet this content has locations assigned.',
+                    $contentInfo->getId()
+                )
+            );
+        }
 
         return new Content(
             [
