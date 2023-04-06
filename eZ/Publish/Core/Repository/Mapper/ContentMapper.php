@@ -300,7 +300,7 @@ class ContentMapper
 
             $fieldType = $this->fieldTypeRegistry->getFieldType($fieldDefinition->fieldTypeIdentifier);
 
-            $field = $content->getField($updatedField->fieldDefIdentifier);
+            $field = $content->getField($updatedField->fieldDefIdentifier, $updatedField->getLanguageCode());
             $updatedFieldValue = $this->getFieldValueForUpdate(
                 $updatedField,
                 $field,

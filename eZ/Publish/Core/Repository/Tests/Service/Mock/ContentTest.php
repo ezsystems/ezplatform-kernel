@@ -27,6 +27,8 @@ use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition as APIFieldDefi
 use eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException;
 use eZ\Publish\Core\Base\Exceptions\ContentValidationException;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
+use eZ\Publish\Core\FieldType\TextLine\Type;
+use eZ\Publish\Core\FieldType\TextLine\Value as TextLineValue;
 use eZ\Publish\Core\FieldType\ValidationError;
 use eZ\Publish\Core\FieldType\Value;
 use eZ\Publish\Core\Repository\ContentService;
@@ -45,6 +47,7 @@ use eZ\Publish\Core\Repository\Values\User\UserReference;
 use eZ\Publish\SPI\FieldType\FieldType;
 use eZ\Publish\SPI\FieldType\FieldType as SPIFieldType;
 use eZ\Publish\SPI\FieldType\Value as SPIValue;
+use eZ\Publish\SPI\Limitation\Target\Builder\VersionBuilder;
 use eZ\Publish\SPI\Persistence\Content as SPIContent;
 use eZ\Publish\SPI\Persistence\Content\ContentInfo as SPIContentInfo;
 use eZ\Publish\SPI\Persistence\Content\CreateStruct as SPIContentCreateStruct;
@@ -1027,7 +1030,7 @@ class ContentTest extends BaseServiceMockTest
             ->with(42)
             ->will($this->returnValue(['version']));
 
-        /* @var \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo */
+        /* @var APIVersionInfo $versionInfo */
         $contentService->deleteVersion($versionInfo);
     }
 
@@ -3166,6 +3169,109 @@ class ContentTest extends BaseServiceMockTest
                 $this->equalTo($content),
                 $this->isType('array')
             )->will($this->returnValue(false));
+
+        $mockedService->updateContent($versionInfo, $contentUpdateStruct);
+    }
+
+    /**
+     * @covers \eZ\Publish\Core\Repository\ContentService::updateContent
+     */
+    public function testUpdateContentGetsProperFieldsToUpdate(): void
+    {
+        $mockedService = $this->getPartlyMockedContentService(['loadContent']);
+        $permissionResolverMock = $this->getPermissionResolverMock();
+
+        $contentId = 42;
+        $versionNo = 7;
+
+        $updatedField = new Field(
+            [
+                'value' => new TextLineValue('updated one'),
+                'languageCode' => 'fre-FR',
+                'fieldDefIdentifier' => 'name',
+                'fieldTypeIdentifier' => 'ezstring',
+            ]
+        );
+        $updatedField2 = new Field(
+            [
+                'value' => new TextLineValue('two'),
+                'languageCode' => 'fre-FR',
+                'fieldDefIdentifier' => 'name',
+                'fieldTypeIdentifier' => 'ezstring',
+            ]
+        );
+
+        $contentUpdateStruct = new ContentUpdateStruct([
+            'initialLanguageCode' => 'fre-FR',
+            'fields' => [
+                $updatedField,
+                $updatedField2,
+            ],
+        ]);
+
+        $versionInfo = new VersionInfo(
+            [
+                'contentInfo' => new ContentInfo(['id' => $contentId, 'mainLanguageCode' => 'eng-GB']),
+                'versionNo' => $versionNo,
+                'status' => APIVersionInfo::STATUS_DRAFT,
+            ]
+        );
+
+        $content = new Content(
+            [
+                'versionInfo' => $versionInfo,
+                'internalFields' => [
+                    new Field(
+                        [
+                            'value' => new TextLineValue('one'),
+                            'languageCode' => 'eng-GB',
+                            'fieldDefIdentifier' => 'name',
+                            'fieldTypeIdentifier' => 'ezstring',
+                        ]
+                    ),
+                    $updatedField2,
+                ],
+                'contentType' => new ContentType([
+                    'fieldDefinitions' => new FieldDefinitionCollection([
+                        new FieldDefinition([
+                            'identifier' => 'name',
+                            'fieldTypeIdentifier' => 'ezstring',
+                        ]),
+                    ]),
+                ]),
+            ]
+        );
+
+        $mockedService->expects(self::once())
+            ->method('loadContent')
+            ->with($contentId, null, $versionNo)
+            ->willReturn($content);
+
+        $this->getFieldTypeRegistryMock()->expects(self::any())
+            ->method('getFieldType')
+            ->willReturn(new Type());
+
+        $permissionResolverMock->expects(self::once())
+            ->method('canUser')
+            ->with(
+                'content',
+                'edit',
+                $content,
+                [
+                    (new VersionBuilder())
+                        ->updateFields([
+                            $updatedField,
+                        ])
+                        ->updateFieldsTo(
+                            $contentUpdateStruct->initialLanguageCode,
+                            $contentUpdateStruct->fields
+                        )
+                        ->build(),
+                ]
+            )
+            ->willReturn(false);
+
+        $this->expectException(UnauthorizedException::class);
 
         $mockedService->updateContent($versionInfo, $contentUpdateStruct);
     }
@@ -5743,7 +5849,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($spiVersionInfo)
             ->will($this->returnValue($versionInfoMock));
 
-        /* @var \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfoMock */
+        /* @var APIVersionInfo $versionInfoMock */
         $content = $this->mockPublishVersion(123456, 126666, true);
         $locationServiceMock->expects($this->once())
             ->method('createLocation')
@@ -5875,7 +5981,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($spiVersionInfo)
             ->will($this->returnValue($versionInfoMock));
 
-        /* @var \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfoMock */
+        /* @var APIVersionInfo $versionInfoMock */
         $content = $this->mockPublishVersion(123456, 126666, true);
         $locationServiceMock->expects($this->once())
             ->method('createLocation')
