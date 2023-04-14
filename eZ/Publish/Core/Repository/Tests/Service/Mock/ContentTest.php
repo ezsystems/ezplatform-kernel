@@ -1030,7 +1030,7 @@ class ContentTest extends BaseServiceMockTest
             ->with(42)
             ->will($this->returnValue(['version']));
 
-        /* @var APIVersionInfo $versionInfo */
+        /* @var \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo */
         $contentService->deleteVersion($versionInfo);
     }
 
@@ -5849,7 +5849,7 @@ class ContentTest extends BaseServiceMockTest
             ->with($spiVersionInfo)
             ->will($this->returnValue($versionInfoMock));
 
-        /* @var APIVersionInfo $versionInfoMock */
+        /* @var \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfoMock */
         $content = $this->mockPublishVersion(123456, 126666, true);
         $locationServiceMock->expects($this->once())
             ->method('createLocation')
