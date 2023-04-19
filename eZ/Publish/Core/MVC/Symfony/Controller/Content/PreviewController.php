@@ -130,8 +130,7 @@ EOF;
                 throw $e;
             }
         }
-        $response->headers->remove('cache-control');
-        $response->headers->remove('expires');
+        $response->setPrivate();
 
         $this->previewHelper->restoreConfigScope();
         $this->previewHelper->setPreviewActive(false);
