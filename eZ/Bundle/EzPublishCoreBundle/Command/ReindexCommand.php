@@ -148,7 +148,7 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
             )->addOption(
                 'content-type',
                 null,
-                InputOption::VALUE_OPTIONAL,
+                InputOption::VALUE_REQUIRED,
                 'Content type identifier to refresh (deleted/updated/added). Implies "no-purge", cannot be combined with "since", "subtree" or "content-ids"'
             )->setHelp(
                 <<<EOT
