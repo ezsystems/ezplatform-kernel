@@ -63,6 +63,22 @@ final class IndexerGateway implements SPIIndexerGateway
         return (int)$query->execute()->fetchOne();
     }
 
+    public function getContentWithContentTypeIdentifier(string $contentTypeIdentifier, int $iterationCount): Generator
+    {
+        $query = $this->buildQueryForContentWithContentTypeIdentifier($contentTypeIdentifier);
+
+        yield from $this->fetchIteration($query->execute(), $iterationCount);
+    }
+
+    public function countContentWithContentTypeIdentifier(string $contentTypeIdentifier): int
+    {
+        $query = $this->buildCountingQuery(
+            $this->buildQueryForContentWithContentTypeIdentifier($contentTypeIdentifier)
+        );
+
+        return (int)$query->execute()->fetchOne();
+    }
+
     public function getAllContent(int $iterationCount): Generator
     {
         $query = $this->buildQueryForAllContent();
@@ -99,6 +115,18 @@ final class IndexerGateway implements SPIIndexerGateway
             ->andWhere('t.path_string LIKE :path')
             ->setParameter('status', ContentInfo::STATUS_PUBLISHED, ParameterType::INTEGER)
             ->setParameter('path', $locationPath . '%', ParameterType::STRING);
+    }
+
+    private function buildQueryForContentWithContentTypeIdentifier(string $contentTypeIdentifier): QueryBuilder
+    {
+        return $this->connection->createQueryBuilder()
+            ->select('DISTINCT c.id')
+            ->from('ezcontentobject', 'c')
+            ->innerJoin('c', 'ezcontentclass', 'cc', 'cc.id = c.contentclass_id')
+            ->where('c.status = :status')
+            ->andWhere('cc.identifier LIKE :identifier')
+            ->setParameter('status', ContentInfo::STATUS_PUBLISHED, ParameterType::INTEGER)
+            ->setParameter('identifier', $contentTypeIdentifier, ParameterType::STRING);
     }
 
     private function buildQueryForAllContent(): QueryBuilder

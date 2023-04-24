@@ -128,23 +128,28 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
                 'since',
                 null,
                 InputOption::VALUE_OPTIONAL,
-                'Refresh changes since a time provided in any format understood by DateTime. Implies "no-purge", cannot be combined with "content-ids" or "subtree"'
+                'Refresh changes since a time provided in any format understood by DateTime. Implies "no-purge", cannot be combined with "content-ids", "subtree" or "content-type"'
             )->addOption(
                 'content-ids',
                 null,
                 InputOption::VALUE_OPTIONAL,
-                'Comma-separated list of content ID\'s to refresh (deleted/updated/added). Implies "no-purge", cannot be combined with "since" or "subtree"'
+                'Comma-separated list of content ID\'s to refresh (deleted/updated/added). Implies "no-purge", cannot be combined with "since", "subtree" or "content-type"'
             )->addOption(
                 'subtree',
                 null,
                 InputOption::VALUE_OPTIONAL,
-                'Location ID whose subtree will be indexed (including the Location itself). Implies "no-purge", cannot be combined with "since" or "content-ids"'
+                'Location ID whose subtree will be indexed (including the Location itself). Implies "no-purge", cannot be combined with "since", "content-ids" or "content-type"'
             )->addOption(
                 'processes',
                 null,
                 InputOption::VALUE_OPTIONAL,
                 'Number of child processes to run in parallel for iterations, if set to "auto" it will set to number of CPU cores -1, set to "1" or "0" to disable',
                 'auto'
+            )->addOption(
+                'content-type',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'Content type identifier to refresh (deleted/updated/added). Implies "no-purge", cannot be combined with "since", "subtree" or "content-ids"'
             )->setHelp(
                 <<<EOT
                     The command <info>%command.name%</info> indexes the current configured database in the configured search engine index.
@@ -255,6 +260,10 @@ class ReindexCommand extends Command implements BackwardCompatibleCommand
             $location = $this->locationHandler->load($locationId);
             $count = $this->gateway->countContentInSubtree($location->pathString);
             $generator = $this->gateway->getContentInSubtree($location->pathString, $iterationCount);
+            $purge = false;
+        } elseif ($contentType = $input->getOption('content-type')) {
+            $count = $this->gateway->countContentWithContentTypeIdentifier($contentType);
+            $generator = $this->gateway->getContentWithContentTypeIdentifier($contentType, $iterationCount);
             $purge = false;
         } else {
             $count = $this->gateway->countAllContent();
