@@ -43,9 +43,9 @@ interface IndexerGateway
     /**
      * @throws \Doctrine\DBAL\Exception
      *
-     * @return \Generator list of Content IDs for each iteration
+     * @return iterable<int> list of Content IDs for each iteration
      */
-    public function getContentWithContentTypeIdentifier(string $contentTypeIdentifier, int $iterationCount): Generator;
+    public function getContentWithContentTypeIdentifier(string $contentTypeIdentifier, int $iterationCount): iterable;
 
     /**
      * @throws \Doctrine\DBAL\Exception
