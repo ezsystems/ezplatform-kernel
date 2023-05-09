@@ -9,6 +9,7 @@ namespace eZ\Publish\Core\Persistence\Cache;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\SPI\Persistence\Content\Location\Trash\Handler as TrashHandlerInterface;
 use eZ\Publish\SPI\Persistence\Content\Relation;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
 /**
  * @see \eZ\Publish\SPI\Persistence\Content\Location\Trash\Handler
@@ -17,6 +18,8 @@ class TrashHandler extends AbstractHandler implements TrashHandlerInterface
 {
     private const EMPTY_TRASH_BULK_SIZE = 100;
     private const CONTENT_IDENTIFIER = 'content';
+    private const CONTENT_VERSION_IDENTIFIER = 'content_version';
+    private const LOCATION_IDENTIFIER = 'location';
     private const LOCATION_PATH_IDENTIFIER = 'location_path';
 
     /**
@@ -37,8 +40,9 @@ class TrashHandler extends AbstractHandler implements TrashHandlerInterface
         $this->logger->logCall(__METHOD__, ['locationId' => $locationId]);
 
         $location = $this->persistenceHandler->locationHandler()->load($locationId);
-        $reverseRelations = $this->persistenceHandler->contentHandler()->loadRelations($location->contentId);
-
+        $contentId = $location->contentId;
+        $reverseRelations = $this->persistenceHandler->contentHandler()->loadRelations($contentId);
+        $versions = $this->persistenceHandler->contentHandler()->listVersions($contentId);
         $return = $this->persistenceHandler->trashHandler()->trashSubtree($locationId);
 
         $relationTags = [];
@@ -51,12 +55,21 @@ class TrashHandler extends AbstractHandler implements TrashHandlerInterface
             }, $reverseRelations);
         }
 
+        $versionTags = array_map(function (VersionInfo $versionInfo) use ($contentId) {
+            return  $this->cacheIdentifierGenerator->generateTag(
+                self::CONTENT_VERSION_IDENTIFIER,
+                [$contentId, $versionInfo->versionNo]
+            );
+        }, $versions);
+
         $tags = array_merge(
             [
-                $this->cacheIdentifierGenerator->generateTag(self::CONTENT_IDENTIFIER, [$location->contentId]),
+                $this->cacheIdentifierGenerator->generateTag(self::CONTENT_IDENTIFIER, [$contentId]),
                 $this->cacheIdentifierGenerator->generateTag(self::LOCATION_PATH_IDENTIFIER, [$locationId]),
+                $this->cacheIdentifierGenerator->generateTag(self::LOCATION_IDENTIFIER, [$locationId]),
             ],
-            $relationTags
+            $relationTags,
+            $versionTags
         );
         $this->cache->invalidateTags(array_values(array_unique($tags)));
 
@@ -126,6 +139,7 @@ class TrashHandler extends AbstractHandler implements TrashHandlerInterface
 
                 $tags[$this->cacheIdentifierGenerator->generateTag(self::CONTENT_IDENTIFIER, [$trashedItem->contentId])] = true;
                 $tags[$this->cacheIdentifierGenerator->generateTag(self::LOCATION_PATH_IDENTIFIER, [$trashedItem->id])] = true;
+
             }
             $offset += self::EMPTY_TRASH_BULK_SIZE;
             // Once offset is larger than total count we can exit
