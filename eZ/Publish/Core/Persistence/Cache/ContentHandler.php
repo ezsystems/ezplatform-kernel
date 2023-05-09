@@ -330,7 +330,6 @@ class ContentHandler extends AbstractInMemoryPersistenceHandler implements Conte
         $content = $this->persistenceHandler->contentHandler()->updateContent($contentId, $versionNo, $struct);
         $locations = $this->persistenceHandler->locationHandler()->loadLocationsByContent($contentId);
 
-
         $locationTags = array_map(function (Content\Location $location) {
             return $this->cacheIdentifierGenerator->generateTag(self::LOCATION_IDENTIFIER, [$location->id]);
         }, $locations);
