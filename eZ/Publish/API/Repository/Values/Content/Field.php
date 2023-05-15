@@ -47,7 +47,7 @@ class Field extends ValueObject
     /**
      * the language code.
      *
-     * @var string
+     * @var string|null
      */
     protected $languageCode;
 
@@ -76,7 +76,7 @@ class Field extends ValueObject
         return $this->value;
     }
 
-    public function getLanguageCode(): string
+    public function getLanguageCode(): ?string
     {
         return $this->languageCode;
     }
