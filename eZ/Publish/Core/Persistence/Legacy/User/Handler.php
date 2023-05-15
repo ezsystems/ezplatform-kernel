@@ -410,6 +410,18 @@ class Handler implements BaseUserHandler
     }
 
     /**
+     * Loads all roles without policies.
+     *
+     * @return \eZ\Publish\SPI\Persistence\User\Role[]
+     */
+    public function listRoles(): array
+    {
+        $data = $this->roleGateway->listRoles();
+
+        return $this->mapper->mapRoles($data, true);
+    }
+
+    /**
      * Update role (draft).
      *
      * @param \eZ\Publish\SPI\Persistence\User\RoleUpdateStruct $role
@@ -648,6 +660,25 @@ class Handler implements BaseUserHandler
         }
 
         return $this->mapper->mapRoleAssignments($data);
+    }
+
+    /**
+     * @return \eZ\Publish\SPI\Persistence\User\RoleAssignment[]
+     */
+    public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(int $roleId, int $offset, int $limit): array
+    {
+        $data = $this->roleGateway->loadRoleAssignmentsByRoleIdWithOffsetAndLimit($roleId, $offset, $limit);
+
+        if (empty($data)) {
+            return [];
+        }
+
+        return $this->mapper->mapRoleAssignments($data);
+    }
+
+    public function countRoleAssignments(int $roleId): int
+    {
+        return $this->roleGateway->countRoleAssignments($roleId);
     }
 
     /**

@@ -173,6 +173,34 @@ class DoctrineDatabaseTest extends TestCase
     }
 
     /**
+     * @covers \eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway\DoctrineDatabase::loadRoleAssignmentsByRoleIdWithOffsetAndLimit
+     */
+    public function testLoadRoleAssignmentsByRoleIdWithOffsetAndLimit(): void
+    {
+        $gateway = $this->getDatabaseGateway();
+
+        self::assertEquals(
+            [
+                [
+                    'contentobject_id' => '11',
+                    'id' => '28',
+                    'limit_identifier' => '',
+                    'limit_value' => '',
+                    'role_id' => '1',
+                ],
+                [
+                    'contentobject_id' => '42',
+                    'id' => '31',
+                    'limit_identifier' => '',
+                    'limit_value' => '',
+                    'role_id' => '1',
+                ],
+            ],
+            $gateway->loadRoleAssignmentsByRoleIdWithOffsetAndLimit(1, 0, 2)
+        );
+    }
+
+    /**
      * Returns a ready to test DoctrineDatabase gateway.
      *
      * @return \eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway\DoctrineDatabase

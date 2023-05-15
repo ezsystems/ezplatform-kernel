@@ -187,6 +187,13 @@ interface Handler
     public function loadRoles();
 
     /**
+     * Loads all roles without policies.
+     *
+     * @return \eZ\Publish\SPI\Persistence\User\Role[]
+     */
+    public function listRoles(): array;
+
+    /**
      * Loads role assignment for specified assignment ID.
      *
      * @param mixed $roleAssignmentId
@@ -207,6 +214,18 @@ interface Handler
      * @return \eZ\Publish\SPI\Persistence\User\RoleAssignment[]
      */
     public function loadRoleAssignmentsByRoleId($roleId);
+
+    /**
+     * Loads Role's assignments based on provided $offset and $limit arguments.
+     *
+     * @return \eZ\Publish\SPI\Persistence\User\RoleAssignment[]
+     */
+    public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(int $roleId, int $offset, int $limit): array;
+
+    /**
+     * Count Role's assignments taking into consideration related and existing user and user group objects.
+     */
+    public function countRoleAssignments(int $roleId): int;
 
     /**
      * Loads roles assignments to a user/group.

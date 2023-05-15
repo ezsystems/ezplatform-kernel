@@ -660,6 +660,29 @@ class RoleService implements RoleServiceInterface
     }
 
     /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     */
+    public function listRoles(): iterable
+    {
+        $roles = array_map(
+            function ($spiRole) {
+                return $this->roleDomainMapper->buildDomainRoleObject($spiRole);
+            },
+            $this->userHandler->listRoles()
+        );
+
+        return array_values(
+            array_filter(
+                $roles,
+                function ($role) {
+                    return $this->permissionResolver->canUser('role', 'read', $role);
+                }
+            )
+        );
+    }
+
+    /**
      * Deletes the given role.
      *
      * @param \eZ\Publish\API\Repository\Values\User\Role $role
@@ -865,10 +888,6 @@ class RoleService implements RoleServiceInterface
     }
 
     /**
-     * Returns the assigned user and user groups to this role.
-     *
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
-     *
      * @return \eZ\Publish\API\Repository\Values\User\RoleAssignment[]
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
@@ -881,25 +900,58 @@ class RoleService implements RoleServiceInterface
             throw new UnauthorizedException('role', 'read');
         }
 
-        $userService = $this->repository->getUserService();
-        $spiRoleAssignments = $this->userHandler->loadRoleAssignmentsByRoleId($role->id);
-        $roleAssignments = [];
+        $persistenceRoleAssignments = $this->userHandler->loadRoleAssignmentsByRoleId($role->id);
 
-        foreach ($spiRoleAssignments as $spiRoleAssignment) {
+        return $this->buildRoleAssignmentsFromPersistence($role, $persistenceRoleAssignments);
+    }
+
+    /**
+     * @return \eZ\Publish\API\Repository\Values\User\RoleAssignment[]
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to read a role
+     */
+    public function loadRoleAssignments(APIRole $role, int $offset = 0, int $limit = -1): iterable
+    {
+        if (!$this->permissionResolver->canUser('role', 'read', $role)) {
+            throw new UnauthorizedException('role', 'read');
+        }
+
+        $persistenceRoleAssignments = $this->userHandler->loadRoleAssignmentsByRoleIdWithOffsetAndLimit(
+            $role->id,
+            $offset,
+            $limit
+        );
+
+        return $this->buildRoleAssignmentsFromPersistence($role, $persistenceRoleAssignments);
+    }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     */
+    private function buildRoleAssignmentsFromPersistence(
+        APIRole $role,
+        array $persistenceRoleAssignments
+    ): array {
+        $userService = $this->repository->getUserService();
+
+        $roleAssignments = [];
+        foreach ($persistenceRoleAssignments as $persistenceRoleAssignment) {
             // First check if the Role is assigned to a User
             // If no User is found, see if it belongs to a UserGroup
             try {
-                $user = $userService->loadUser($spiRoleAssignment->contentId);
+                $user = $userService->loadUser($persistenceRoleAssignment->contentId);
                 $roleAssignments[] = $this->roleDomainMapper->buildDomainUserRoleAssignmentObject(
-                    $spiRoleAssignment,
+                    $persistenceRoleAssignment,
                     $user,
                     $role
                 );
             } catch (APINotFoundException $e) {
                 try {
-                    $userGroup = $userService->loadUserGroup($spiRoleAssignment->contentId);
+                    $userGroup = $userService->loadUserGroup($persistenceRoleAssignment->contentId);
                     $roleAssignments[] = $this->roleDomainMapper->buildDomainUserGroupRoleAssignmentObject(
-                        $spiRoleAssignment,
+                        $persistenceRoleAssignment,
                         $userGroup,
                         $role
                     );
@@ -910,6 +962,22 @@ class RoleService implements RoleServiceInterface
         }
 
         return $roleAssignments;
+    }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to read a role
+     */
+    public function countRoleAssignments(APIRole $role): int
+    {
+        if (!$this->permissionResolver->canUser('role', 'read', $role)) {
+            throw new UnauthorizedException('role', 'read');
+        }
+
+        // Skipping building domain user role assignment object as done in `buildRoleAssignmentsFromPersistence`
+        // due to inner joining user content which is sufficient in this case
+        return $this->userHandler->countRoleAssignments($role->id);
     }
 
     /**

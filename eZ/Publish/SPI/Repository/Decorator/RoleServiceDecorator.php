@@ -118,6 +118,11 @@ abstract class RoleServiceDecorator implements RoleService
         return $this->innerService->loadRoles();
     }
 
+    public function listRoles(): iterable
+    {
+        return $this->innerService->listRoles();
+    }
+
     public function deleteRole(Role $role): void
     {
         $this->innerService->deleteRole($role);
@@ -147,6 +152,16 @@ abstract class RoleServiceDecorator implements RoleService
     public function getRoleAssignments(Role $role): iterable
     {
         return $this->innerService->getRoleAssignments($role);
+    }
+
+    public function loadRoleAssignments(Role $role, int $offset = 0, int $limit = -1): iterable
+    {
+        return $this->innerService->loadRoleAssignments($role, $offset, $limit);
+    }
+
+    public function countRoleAssignments(Role $role): int
+    {
+        return $this->innerService->countRoleAssignments($role);
     }
 
     public function getRoleAssignmentsForUser(

@@ -208,6 +208,30 @@ final class DoctrineDatabase extends Gateway
         return $statement->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function listRoles(int $status = Role::STATUS_DEFINED): array
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->select(
+                'r.id AS ezrole_id',
+                'r.name AS ezrole_name',
+                'r.version AS ezrole_version',
+            )
+            ->from(self::ROLE_TABLE, 'r')
+            ->andWhere(
+                $this->buildRoleDraftQueryConstraint($status, $query)
+            )
+        ;
+
+        $statement = $query->execute();
+
+        return $statement->fetchAllAssociative();
+    }
+
     public function loadRolesForContentObjects(
         array $contentIds,
         int $status = Role::STATUS_DEFINED
@@ -332,6 +356,67 @@ final class DoctrineDatabase extends Gateway
         $statement = $query->execute();
 
         return $statement->fetchAll(FetchMode::ASSOCIATIVE);
+    }
+
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(int $roleId, int $offset, int $limit): array
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select(
+            'id',
+            'contentobject_id',
+            'limit_identifier',
+            'limit_value',
+            'role_id'
+        )->from(
+            self::USER_ROLE_TABLE
+        )->where(
+            $query->expr()->eq(
+                'role_id',
+                $query->createPositionalParameter($roleId, ParameterType::INTEGER)
+            )
+        )
+        ->setFirstResult($offset);
+
+        if ($limit > 0) {
+            $query->setMaxResults($limit);
+        }
+
+        return $query
+            ->execute()
+            ->fetchAllAssociative();
+    }
+
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function countRoleAssignments(int $roleId): int
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query
+            ->select($this->connection->getDatabasePlatform()->getCountExpression('user_role.id'))
+            ->innerJoin(
+                'user_role',
+                self::CONTENT_OBJECT_TABLE,
+                'content_object',
+                'user_role.contentobject_id = content_object.id'
+            )
+            ->from(
+                self::USER_ROLE_TABLE,
+                'user_role'
+            )->where(
+                $query->expr()->eq(
+                    'role_id',
+                    $query->createPositionalParameter($roleId, ParameterType::INTEGER)
+                )
+            );
+
+        return (int)$query->execute()->fetchOne();
     }
 
     public function loadPoliciesByUserId(int $userId): array

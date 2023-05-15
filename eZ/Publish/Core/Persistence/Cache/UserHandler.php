@@ -456,6 +456,13 @@ class UserHandler extends AbstractInMemoryPersistenceHandler implements UserHand
         return $this->persistenceHandler->userHandler()->loadRoles();
     }
 
+    public function listRoles(): array
+    {
+        $this->logger->logCall(__METHOD__);
+
+        return $this->persistenceHandler->userHandler()->listRoles();
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -493,6 +500,30 @@ class UserHandler extends AbstractInMemoryPersistenceHandler implements UserHand
             },
             [$roleId]
         );
+    }
+
+    public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(int $roleId, int $offset, int $limit): array
+    {
+        $this->logger->logCall(__METHOD__, [
+            'userId' => $roleId,
+            'offset' => $offset,
+            'limit' => $limit,
+        ]);
+
+        return $this->persistenceHandler
+            ->userHandler()
+            ->loadRoleAssignmentsByRoleIdWithOffsetAndLimit($roleId, $offset, $limit);
+    }
+
+    public function countRoleAssignments(int $roleId): int
+    {
+        $this->logger->logCall(__METHOD__, [
+            'userId' => $roleId,
+        ]);
+
+        return $this->persistenceHandler
+            ->userHandler()
+            ->countRoleAssignments($roleId);
     }
 
     /**

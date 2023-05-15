@@ -24,6 +24,7 @@ abstract class Gateway
     public const POLICY_LIMITATION_TABLE = 'ezpolicy_limitation';
     public const POLICY_LIMITATION_VALUE_TABLE = 'ezpolicy_limitation_value';
     public const USER_ROLE_TABLE = 'ezuser_role';
+    public const CONTENT_OBJECT_TABLE = 'ezcontentobject';
 
     public const ROLE_SEQ = 'ezrole_id_seq';
     public const POLICY_SEQ = 'ezpolicy_id_seq';
@@ -73,6 +74,13 @@ abstract class Gateway
     abstract public function loadRoles(int $status = Role::STATUS_DEFINED): array;
 
     /**
+     * Load all roles without policies.
+     *
+     * @param int $status One of Role::STATUS_DEFINED|Role::STATUS_DRAFT
+     */
+    abstract public function listRoles(int $status = Role::STATUS_DEFINED): array;
+
+    /**
      * Load all roles associated with the given Content items.
      *
      * @param int[] $contentIds
@@ -100,6 +108,20 @@ abstract class Gateway
      * Load a Role assignments for given Role ID.
      */
     abstract public function loadRoleAssignmentsByRoleId(int $roleId): array;
+
+    /**
+     * Load a Role assignments for given Role ID with provided $offset and $limit arguments.
+     */
+    abstract public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(
+        int $roleId,
+        int $offset,
+        int $limit
+    ): array;
+
+    /**
+     * Count Role's assignments taking into consideration related and existing user and user group objects.
+     */
+    abstract public function countRoleAssignments(int $roleId): int;
 
     /**
      * Return User Policies data associated with User.

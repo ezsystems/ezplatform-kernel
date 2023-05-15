@@ -220,6 +220,16 @@ interface RoleService
     public function loadRoles(): iterable;
 
     /**
+     * Loads all roles without policies, excluding the ones the current user is not allowed to read.
+     *
+     * @return \eZ\Publish\API\Repository\Values\User\Role[]
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     */
+    public function listRoles(): iterable;
+
+    /**
      * Deletes the given role.
      *
      * @param \eZ\Publish\API\Repository\Values\User\Role $role
@@ -276,6 +286,30 @@ interface RoleService
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to read a role
      */
     public function getRoleAssignments(Role $role): iterable;
+
+    /**
+     * Returns the assigned users and user groups to this role with $offset and $limit arguments.
+     *
+     * @return \eZ\Publish\API\Repository\Values\User\RoleAssignment[]
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to read a role
+     */
+    public function loadRoleAssignments(
+        Role $role,
+        int $offset = 0,
+        int $limit = -1
+    ): iterable;
+
+    /**
+     * Returns the number of users and user groups assigned to this role.
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to read a role
+     */
+    public function countRoleAssignments(Role $role): int;
 
     /**
      * Returns UserRoleAssignments assigned to the given User, excluding the ones the current user is not allowed to read.

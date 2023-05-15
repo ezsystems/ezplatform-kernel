@@ -108,11 +108,9 @@ class Mapper
     /**
      * Map role data to a role.
      *
-     * @param array $data
-     *
      * @return \eZ\Publish\SPI\Persistence\User\Role
      */
-    public function mapRole(array $data)
+    public function mapRole(array $data, bool $skipPolicies = false)
     {
         $role = new Role();
 
@@ -126,7 +124,9 @@ class Mapper
             }
         }
 
-        $role->policies = $this->mapPolicies($data);
+        if (!$skipPolicies) {
+            $role->policies = $this->mapPolicies($data);
+        }
 
         return $role;
     }
@@ -134,11 +134,9 @@ class Mapper
     /**
      * Map data for a set of roles.
      *
-     * @param array $data
-     *
      * @return \eZ\Publish\SPI\Persistence\User\Role[]
      */
-    public function mapRoles(array $data)
+    public function mapRoles(array $data, bool $skipPolicies = false)
     {
         $roleData = [];
         foreach ($data as $row) {
@@ -147,7 +145,7 @@ class Mapper
 
         $roles = [];
         foreach ($roleData as $data) {
-            $roles[] = $this->mapRole($data);
+            $roles[] = $this->mapRole($data, $skipPolicies);
         }
 
         return $roles;
