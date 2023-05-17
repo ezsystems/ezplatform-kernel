@@ -118,11 +118,6 @@ abstract class RoleServiceDecorator implements RoleService
         return $this->innerService->loadRoles();
     }
 
-    public function listRoles(): iterable
-    {
-        return $this->innerService->listRoles();
-    }
-
     public function deleteRole(Role $role): void
     {
         $this->innerService->deleteRole($role);

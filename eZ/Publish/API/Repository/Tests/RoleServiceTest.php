@@ -957,36 +957,6 @@ class RoleServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\RoleService::listRoles()
-     *
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testLoadRoles
-     */
-    public function testListRoles(): void
-    {
-        $repository = $this->getRepository();
-        $roleService = $repository->getRoleService();
-
-        $roles = $roleService->listRoles();
-
-        $roleNames = [];
-        foreach ($roles as $role) {
-            $roleNames[] = $role->identifier;
-            self::assertEmpty($role->getPolicies());
-        }
-
-        self::assertEqualsCanonicalizing(
-            [
-                'Administrator',
-                'Anonymous',
-                'Editor',
-                'Member',
-                'Partner',
-            ],
-            $roleNames
-        );
-    }
-
-    /**
      * Test for the newRoleUpdateStruct() method.
      *
      * @see \eZ\Publish\API\Repository\RoleService::newRoleUpdateStruct()

@@ -187,13 +187,6 @@ interface Handler
     public function loadRoles();
 
     /**
-     * Loads all roles without policies.
-     *
-     * @return \eZ\Publish\SPI\Persistence\User\Role[]
-     */
-    public function listRoles(): array;
-
-    /**
      * Loads role assignment for specified assignment ID.
      *
      * @param mixed $roleAssignmentId

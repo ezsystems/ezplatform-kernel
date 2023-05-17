@@ -220,16 +220,6 @@ interface RoleService
     public function loadRoles(): iterable;
 
     /**
-     * Loads all roles without policies, excluding the ones the current user is not allowed to read.
-     *
-     * @return \eZ\Publish\API\Repository\Values\User\Role[]
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     */
-    public function listRoles(): iterable;
-
-    /**
      * Deletes the given role.
      *
      * @param \eZ\Publish\API\Repository\Values\User\Role $role

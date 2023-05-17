@@ -410,18 +410,6 @@ class Handler implements BaseUserHandler
     }
 
     /**
-     * Loads all roles without policies.
-     *
-     * @return \eZ\Publish\SPI\Persistence\User\Role[]
-     */
-    public function listRoles(): array
-    {
-        $data = $this->roleGateway->listRoles();
-
-        return $this->mapper->mapRoles($data, true);
-    }
-
-    /**
      * Update role (draft).
      *
      * @param \eZ\Publish\SPI\Persistence\User\RoleUpdateStruct $role

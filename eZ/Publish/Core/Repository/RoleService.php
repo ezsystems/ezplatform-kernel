@@ -660,29 +660,6 @@ class RoleService implements RoleServiceInterface
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     */
-    public function listRoles(): iterable
-    {
-        $roles = array_map(
-            function ($spiRole) {
-                return $this->roleDomainMapper->buildDomainRoleObject($spiRole);
-            },
-            $this->userHandler->listRoles()
-        );
-
-        return array_values(
-            array_filter(
-                $roles,
-                function ($role) {
-                    return $this->permissionResolver->canUser('role', 'read', $role);
-                }
-            )
-        );
-    }
-
-    /**
      * Deletes the given role.
      *
      * @param \eZ\Publish\API\Repository\Values\User\Role $role

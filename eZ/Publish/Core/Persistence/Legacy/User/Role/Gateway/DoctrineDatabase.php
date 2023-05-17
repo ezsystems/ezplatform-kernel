@@ -208,30 +208,6 @@ final class DoctrineDatabase extends Gateway
         return $statement->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
-    /**
-     * @throws \Doctrine\DBAL\Driver\Exception
-     * @throws \Doctrine\DBAL\Exception
-     */
-    public function listRoles(int $status = Role::STATUS_DEFINED): array
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query
-            ->select(
-                'r.id AS ezrole_id',
-                'r.name AS ezrole_name',
-                'r.version AS ezrole_version',
-            )
-            ->from(self::ROLE_TABLE, 'r')
-            ->andWhere(
-                $this->buildRoleDraftQueryConstraint($status, $query)
-            )
-        ;
-
-        $statement = $query->execute();
-
-        return $statement->fetchAllAssociative();
-    }
-
     public function loadRolesForContentObjects(
         array $contentIds,
         int $status = Role::STATUS_DEFINED

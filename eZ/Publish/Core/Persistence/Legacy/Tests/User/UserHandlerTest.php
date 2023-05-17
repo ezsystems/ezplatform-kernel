@@ -559,23 +559,6 @@ class UserHandlerTest extends TestCase
         );
     }
 
-    public function testListRoles(): void
-    {
-        $handler = $this->getUserHandler();
-
-        self::assertEquals(
-            [],
-            $handler->listRoles()
-        );
-
-        $role = $this->createTestRole($handler);
-
-        self::assertEquals(
-            [$role],
-            $handler->listRoles()
-        );
-    }
-
     public function testUpdateRole()
     {
         $handler = $this->getUserHandler();

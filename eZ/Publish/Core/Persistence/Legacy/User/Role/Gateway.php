@@ -74,13 +74,6 @@ abstract class Gateway
     abstract public function loadRoles(int $status = Role::STATUS_DEFINED): array;
 
     /**
-     * Load all roles without policies.
-     *
-     * @param int $status One of Role::STATUS_DEFINED|Role::STATUS_DRAFT
-     */
-    abstract public function listRoles(int $status = Role::STATUS_DEFINED): array;
-
-    /**
      * Load all roles associated with the given Content items.
      *
      * @param int[] $contentIds

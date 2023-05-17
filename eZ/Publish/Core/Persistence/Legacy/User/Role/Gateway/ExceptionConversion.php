@@ -94,15 +94,6 @@ final class ExceptionConversion extends Gateway
         }
     }
 
-    public function listRoles(int $status = Role::STATUS_DEFINED): array
-    {
-        try {
-            return $this->innerGateway->listRoles();
-        } catch (DBALException | PDOException $e) {
-            throw DatabaseException::wrap($e);
-        }
-    }
-
     public function loadRolesForContentObjects(
         array $contentIds,
         int $status = Role::STATUS_DEFINED

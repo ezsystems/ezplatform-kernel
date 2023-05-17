@@ -456,13 +456,6 @@ class UserHandler extends AbstractInMemoryPersistenceHandler implements UserHand
         return $this->persistenceHandler->userHandler()->loadRoles();
     }
 
-    public function listRoles(): array
-    {
-        $this->logger->logCall(__METHOD__);
-
-        return $this->persistenceHandler->userHandler()->listRoles();
-    }
-
     /**
      * {@inheritdoc}
      */
