@@ -653,7 +653,7 @@ class Handler implements BaseUserHandler
     /**
      * @return \eZ\Publish\SPI\Persistence\User\RoleAssignment[]
      */
-    public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(int $roleId, int $offset, int $limit): array
+    public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(int $roleId, int $offset, ?int $limit): array
     {
         $data = $this->roleGateway->loadRoleAssignmentsByRoleIdWithOffsetAndLimit($roleId, $offset, $limit);
 

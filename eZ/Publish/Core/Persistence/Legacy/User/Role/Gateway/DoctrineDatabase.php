@@ -338,7 +338,7 @@ final class DoctrineDatabase extends Gateway
      * @throws \Doctrine\DBAL\Driver\Exception
      * @throws \Doctrine\DBAL\Exception
      */
-    public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(int $roleId, int $offset, int $limit): array
+    public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(int $roleId, int $offset, ?int $limit): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select(
@@ -357,7 +357,7 @@ final class DoctrineDatabase extends Gateway
         )
         ->setFirstResult($offset);
 
-        if ($limit > 0) {
+        if ($limit !== null) {
             $query->setMaxResults($limit);
         }
 

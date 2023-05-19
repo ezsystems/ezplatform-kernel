@@ -495,7 +495,7 @@ class UserHandler extends AbstractInMemoryPersistenceHandler implements UserHand
         );
     }
 
-    public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(int $roleId, int $offset, int $limit): array
+    public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(int $roleId, int $offset, ?int $limit): array
     {
         $this->logger->logCall(__METHOD__, [
             'userId' => $roleId,

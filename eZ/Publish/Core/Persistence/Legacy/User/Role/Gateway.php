@@ -108,7 +108,7 @@ abstract class Gateway
     abstract public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(
         int $roleId,
         int $offset,
-        int $limit
+        ?int $limit
     ): array;
 
     /**

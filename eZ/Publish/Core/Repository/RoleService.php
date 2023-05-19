@@ -882,14 +882,7 @@ class RoleService implements RoleServiceInterface
         return $this->buildRoleAssignmentsFromPersistence($role, $persistenceRoleAssignments);
     }
 
-    /**
-     * @return \eZ\Publish\API\Repository\Values\User\RoleAssignment[]
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the authenticated user is not allowed to read a role
-     */
-    public function loadRoleAssignments(APIRole $role, int $offset = 0, int $limit = -1): iterable
+    public function loadRoleAssignments(APIRole $role, int $offset = 0, ?int $limit = null): iterable
     {
         if (!$this->permissionResolver->canUser('role', 'read', $role)) {
             throw new UnauthorizedException('role', 'read');

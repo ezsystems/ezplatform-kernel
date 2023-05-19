@@ -289,7 +289,7 @@ interface RoleService
     public function loadRoleAssignments(
         Role $role,
         int $offset = 0,
-        int $limit = -1
+        ?int $limit = null
     ): iterable;
 
     /**

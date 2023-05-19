@@ -1898,8 +1898,6 @@ class RoleServiceTest extends BaseTest
 
     /**
      * @covers \eZ\Publish\API\Repository\RoleService::countRoleAssignments()
-     *
-     * @depends eZ\Publish\API\Repository\Tests\RoleServiceTest::testCountRoleAssignments
      */
     public function testCountRoleAssignmentsWithDeletedUser(): void
     {
