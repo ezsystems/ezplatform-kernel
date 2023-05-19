@@ -898,6 +898,8 @@ class RoleService implements RoleServiceInterface
     }
 
     /**
+     * @param array<int, \eZ\Publish\SPI\Persistence\User\RoleAssignment> $persistenceRoleAssignments
+     *
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     private function buildRoleAssignmentsFromPersistence(
