@@ -1907,19 +1907,24 @@ class RoleServiceTest extends BaseTest
 
         $role = $roleService->loadRoleByIdentifier('Editor');
         $roleAssignments = $roleService->loadRoleAssignments($role);
-        $currentCount = count($roleAssignments);
+        $expectedCount = count($roleAssignments);
 
         // Adding user should add '1' to the assignments count
         $newUser = $this->createUser('login', 'Test', 'Test');
-
         $roleService->assignRoleToUser($role, $newUser);
+        $expectedCount = $expectedCount + 1;
+
+        $roleAssignments = $roleService->loadRoleAssignments($role);
+
+        self::assertEquals($expectedCount, count($roleAssignments));
 
         // Removing user should subtract '1' from the assignments count
         $userService->deleteUser($newUser);
+        $expectedCount = $expectedCount - 1;
 
-        $newCount = $roleService->countRoleAssignments($role);
+        $roleAssignments = $roleService->loadRoleAssignments($role);
 
-        self::assertEquals($currentCount, $newCount);
+        self::assertEquals($expectedCount, count($roleAssignments));
     }
 
     /**
