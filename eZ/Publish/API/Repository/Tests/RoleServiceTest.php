@@ -1924,7 +1924,7 @@ class RoleServiceTest extends BaseTest
 
         $roleAssignments = $roleService->loadRoleAssignments($role);
 
-        self::assertEquals($expectedCount, count($roleAssignments));
+        self::assertCount($expectedCount, $roleAssignments);
     }
 
     /**

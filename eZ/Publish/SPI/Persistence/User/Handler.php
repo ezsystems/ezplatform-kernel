@@ -216,7 +216,7 @@ interface Handler
     public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(int $roleId, int $offset, ?int $limit): array;
 
     /**
-     * Count Role's assignments taking into consideration related and existing user and user group objects.
+     * Counts Role's assignments taking into consideration related and existing user and user group objects.
      */
     public function countRoleAssignments(int $roleId): int;
 
