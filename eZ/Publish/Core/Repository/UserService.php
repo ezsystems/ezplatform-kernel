@@ -617,7 +617,13 @@ class UserService implements UserServiceInterface
 
         $this->repository->beginTransaction();
         try {
-            $affectedLocationIds = $this->repository->getContentService()->deleteContent($loadedUser->getVersionInfo()->getContentInfo());
+            foreach ($this->userHandler->loadRoleAssignmentsByGroupId($user->id) as $roleAssignment) {
+                $this->userHandler->removeRoleAssignment($roleAssignment->id);
+            }
+
+            $affectedLocationIds = $this->repository->getContentService()->deleteContent(
+                $loadedUser->getVersionInfo()->getContentInfo()
+            );
 
             // User\Handler::delete call is currently used to clear cache only
             $this->userHandler->delete($loadedUser->id);
