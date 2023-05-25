@@ -756,11 +756,29 @@ class UserHandler extends AbstractInMemoryPersistenceHandler implements UserHand
      */
     public function removeRoleAssignment($roleAssignmentId)
     {
-        $this->logger->logCall(__METHOD__, ['assignment' => $roleAssignmentId]);
+        $roleAssignment = $this->persistenceHandler->userHandler()->loadRoleAssignment($roleAssignmentId);
+
+        $this->logger->logCall(
+            __METHOD__,
+            [
+                'assignment' => $roleAssignmentId,
+                'contentId' => $roleAssignment->contentId,
+                'roleId' => $roleAssignment->roleId,
+            ]
+        );
+
         $return = $this->persistenceHandler->userHandler()->removeRoleAssignment($roleAssignmentId);
 
         $this->cache->invalidateTags([
             $this->cacheIdentifierGenerator->generateTag(self::ROLE_ASSIGNMENT_IDENTIFIER, [$roleAssignmentId]),
+            $this->cacheIdentifierGenerator->generateTag(
+                self::ROLE_ASSIGNMENT_GROUP_LIST_IDENTIFIER,
+                [$roleAssignment->contentId]
+            ),
+            $this->cacheIdentifierGenerator->generateTag(
+                self::ROLE_ASSIGNMENT_ROLE_LIST_IDENTIFIER,
+                [$roleAssignment->roleId]
+            ),
         ]);
 
         return $return;
