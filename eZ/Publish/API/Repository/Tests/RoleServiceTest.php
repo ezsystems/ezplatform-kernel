@@ -8,6 +8,7 @@ namespace eZ\Publish\API\Repository\Tests;
 
 use Exception;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use eZ\Publish\API\Repository\RoleService;
 use eZ\Publish\API\Repository\Values\User\Limitation;
 use eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation;
 use eZ\Publish\API\Repository\Values\User\Limitation\LanguageLimitation;
@@ -15,8 +16,10 @@ use eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation;
 use eZ\Publish\API\Repository\Values\User\Limitation\SubtreeLimitation;
 use eZ\Publish\API\Repository\Values\User\Policy;
 use eZ\Publish\API\Repository\Values\User\Role;
+use eZ\Publish\API\Repository\Values\User\RoleAssignment;
 use eZ\Publish\API\Repository\Values\User\RoleCopyStruct;
 use eZ\Publish\API\Repository\Values\User\RoleCreateStruct;
+use eZ\Publish\API\Repository\Values\User\User;
 use eZ\Publish\API\Repository\Values\User\UserRoleAssignment;
 
 /**
@@ -1899,7 +1902,7 @@ class RoleServiceTest extends BaseTest
     /**
      * @covers \eZ\Publish\API\Repository\RoleService::countRoleAssignments()
      */
-    public function testCountRoleAssignmentsWithDeletedUser(): void
+    public function testLoadRoleAssignmentsWithDeletedUser(): void
     {
         $repository = $this->getRepository();
         $roleService = $repository->getRoleService();
@@ -1912,15 +1915,15 @@ class RoleServiceTest extends BaseTest
         // Adding user should add '1' to the assignments count
         $newUser = $this->createUser('login', 'Test', 'Test');
         $roleService->assignRoleToUser($role, $newUser);
-        $expectedCount = $expectedCount + 1;
+        ++$expectedCount;
 
         $roleAssignments = $roleService->loadRoleAssignments($role);
 
-        self::assertEquals($expectedCount, count($roleAssignments));
+        self::assertCount($expectedCount, $roleAssignments);
 
         // Removing user should subtract '1' from the assignments count
         $userService->deleteUser($newUser);
-        $expectedCount = $expectedCount - 1;
+        --$expectedCount;
 
         $roleAssignments = $roleService->loadRoleAssignments($role);
 
@@ -1928,24 +1931,43 @@ class RoleServiceTest extends BaseTest
     }
 
     /**
-     * @covers \eZ\Publish\API\Repository\RoleService::countRoleAssignments()
+     * @throws \eZ\Publish\API\Repository\Exceptions\Exception
      */
-    public function testCountRoleAssignments(): void
+    public function testCountRoleAssignmentsAfterRemovingRoleAssignment(): void
     {
         $repository = $this->getRepository();
         $roleService = $repository->getRoleService();
 
         $role = $roleService->loadRoleByIdentifier('Editor');
-        $roleAssignments = $roleService->loadRoleAssignments($role);
-        $currentCount = count($roleAssignments);
-
         $newUser = $this->createUser('login', 'Test', 'Test');
+        $roleService->assignRoleToUser($role, $newUser);
+        $roleAssignmentsCount = $roleService->countRoleAssignments($role);
 
+        $userRoleAssignment = $this->loadRoleAssignmentForUser($roleService, $role, $newUser);
+        $roleService->removeRoleAssignment($userRoleAssignment);
+
+        self::assertEquals($roleAssignmentsCount - 1, $roleService->countRoleAssignments($role));
+    }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\Exception
+     */
+    public function testCountRoleAssignmentsAfterDeletingUser(): void
+    {
+        $repository = $this->getRepository();
+        $roleService = $repository->getRoleService();
+        $userService = $repository->getUserService();
+
+        $role = $roleService->loadRoleByIdentifier('Editor');
+        $newUser = $this->createUser('login', 'Test', 'Test');
         $roleService->assignRoleToUser($role, $newUser);
 
-        $newCount = $roleService->countRoleAssignments($role);
+        $roleAssignmentsCount = $roleService->countRoleAssignments($role);
 
-        self::assertEquals($currentCount + 1, $newCount);
+        $userService->deleteUser($newUser);
+        $afterUserDeleteCount = $roleService->countRoleAssignments($role);
+
+        self::assertEquals($roleAssignmentsCount - 1, $afterUserDeleteCount);
     }
 
     /**
@@ -3034,5 +3056,20 @@ class RoleServiceTest extends BaseTest
         /* END: Inline */
 
         return $userGroup;
+    }
+
+    private function loadRoleAssignmentForUser(RoleService $roleService, Role $role, User $newUser): UserRoleAssignment
+    {
+        [$userRoleAssignment] = array_values(
+            array_filter(
+                (array)$roleService->getRoleAssignments($role),
+                static function (RoleAssignment $roleAssignment) use ($newUser) {
+                    return $roleAssignment instanceof UserRoleAssignment
+                        && $roleAssignment->getUser()->login === $newUser->login;
+                }
+            )
+        );
+
+        return $userRoleAssignment;
     }
 }
