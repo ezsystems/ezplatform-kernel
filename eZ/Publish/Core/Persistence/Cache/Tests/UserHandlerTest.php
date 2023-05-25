@@ -6,6 +6,7 @@
  */
 namespace eZ\Publish\Core\Persistence\Cache\Tests;
 
+use eZ\Publish\Core\Persistence\Cache\UserHandler;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Handler as SPILocationHandler;
 use eZ\Publish\SPI\Persistence\Content\Location;
 use eZ\Publish\SPI\Persistence\User;
@@ -159,7 +160,6 @@ class UserHandlerTest extends AbstractInMemoryCacheHandlerTest
                 null,
                 ['ragl-14', 'rarl-9'],
             ],
-            ['removeRoleAssignment', [11], [['role_assignment', [11], false]], null, ['ra-11']],
         ];
     }
 
@@ -616,5 +616,47 @@ class UserHandlerTest extends AbstractInMemoryCacheHandlerTest
 
         $handler = $this->persistenceCacheHandler->userHandler();
         $handler->assignRole($contentId, $roleId);
+    }
+
+    public function testRemoveRoleAssignment(): void
+    {
+        $handler = $this->persistenceCacheHandler->userHandler();
+        $methodName = 'removeRoleAssignment';
+
+        $innerHandler = $this->createMock(SPIUserHandler::class);
+        $this->persistenceHandlerMock->method('userHandler')->willReturn($innerHandler);
+        $roleAssignmentId = 1;
+        $contentId = 2;
+        $roleId = 3;
+        $innerHandler
+            ->method('loadRoleAssignment')
+            ->willReturn(
+                new RoleAssignment(['id' => $roleAssignmentId, 'contentId' => $contentId, 'roleId' => $roleId])
+            );
+
+        $this->loggerMock->method('logCall')->with(
+            UserHandler::class . "::$methodName",
+            [
+                'assignment' => $roleAssignmentId,
+                'contentId' => $contentId,
+                'roleId' => $roleId,
+            ]
+        );
+        $innerHandler->method($methodName)->with($roleAssignmentId);
+
+        $tags = [
+            "ra-$roleAssignmentId",
+            "ragl-$contentId",
+            "rarl-$roleId",
+        ];
+        $this->cacheIdentifierGeneratorMock
+            ->expects(self::exactly(count($tags)))
+            ->method('generateTag')
+            ->withConsecutive(['role_assignment'], ['role_assignment_group_list'], ['role_assignment_role_list'])
+            ->willReturnOnConsecutiveCalls(...$tags);
+
+        $this->cacheMock->method('invalidateTags')->with($tags);
+
+        $handler->removeRoleAssignment($roleAssignmentId);
     }
 }
