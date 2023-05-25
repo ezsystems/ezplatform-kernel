@@ -241,11 +241,11 @@ class UserHandlerTest extends AbstractInMemoryCacheHandlerTest
             [
                 'countRoleAssignments',
                 [9],
-                'ibx-ra-9-count',
+                'ibx-rac-9',
                 null,
                 null,
-                [['role_assignment_by_role_count', [9], true]],
-                ['ibx-ra-9-count'],
+                [['role_assignment_by_role_count', [], true]],
+                ['ibx-rac'],
                 1,
             ],
             [
@@ -434,16 +434,16 @@ class UserHandlerTest extends AbstractInMemoryCacheHandlerTest
             [
                 'countRoleAssignments',
                 [9],
-                'ibx-ra-9-count',
+                'ibx-rac-9',
                 [
                     ['role_assignment_role_list', [9], false],
                     ['role', [9], false],
                 ],
-                ['rarl-9', 'r-9', 'ra-11', 'ragl-14', 'rarl-9'],
+                ['rac-9', 'r-9'],
                 [
-                    ['role_assignment_by_role_count', [9], true],
+                    ['role_assignment_by_role_count', [], true],
                 ],
-                ['ibx-ra-9-count'],
+                ['ibx-rac'],
                 1,
             ],
             [
