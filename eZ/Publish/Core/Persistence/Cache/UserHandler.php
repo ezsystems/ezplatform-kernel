@@ -751,10 +751,7 @@ class UserHandler extends AbstractInMemoryPersistenceHandler implements UserHand
         return $return;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function removeRoleAssignment($roleAssignmentId)
+    public function removeRoleAssignment($roleAssignmentId): void
     {
         $roleAssignment = $this->persistenceHandler->userHandler()->loadRoleAssignment($roleAssignmentId);
 
@@ -767,7 +764,7 @@ class UserHandler extends AbstractInMemoryPersistenceHandler implements UserHand
             ]
         );
 
-        $return = $this->persistenceHandler->userHandler()->removeRoleAssignment($roleAssignmentId);
+        $this->persistenceHandler->userHandler()->removeRoleAssignment($roleAssignmentId);
 
         $this->cache->invalidateTags([
             $this->cacheIdentifierGenerator->generateTag(self::ROLE_ASSIGNMENT_IDENTIFIER, [$roleAssignmentId]),
@@ -780,7 +777,5 @@ class UserHandler extends AbstractInMemoryPersistenceHandler implements UserHand
                 [$roleAssignment->roleId]
             ),
         ]);
-
-        return $return;
     }
 }
