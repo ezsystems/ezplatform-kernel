@@ -527,62 +527,25 @@ class UserHandler extends AbstractInMemoryPersistenceHandler implements UserHand
 
     public function countRoleAssignments(int $roleId): int
     {
-        $cacheItem = $this->cache->getItem(
-            $this->cacheIdentifierGenerator->generateKey(
-                self::ROLE_ASSIGNMENTS_COUNT,
-                [$roleId],
-                true
-            )
-        );
-
-        if ($cacheItem->isHit()) {
-            $this->logger->logCacheHit(['roleId' => $roleId]);
-
-            return $cacheItem->get();
-        }
-
-        $this->logger->logCacheMiss(
-            ['roleId' => $roleId]
-        );
-
-        $userHandler = $this->persistenceHandler->userHandler();
-        $count = $userHandler->countRoleAssignments($roleId);
-
-        // Build tags for every role assignment
-        $roleAssignments = $userHandler->loadRoleAssignmentsByRoleId($roleId);
-
-        $roleAssignmentTagsClosure = $this->getRoleAssignmentTags;
-        $roleAssignmentTags = array_map(
-            static function (RoleAssignment $roleAssignment) use ($roleAssignmentTagsClosure): array {
-                return $roleAssignmentTagsClosure($roleAssignment);
+        /** @var int */
+        return $this->getCacheValue(
+            $roleId,
+            $this->cacheIdentifierGenerator->generateKey(self::ROLE_ASSIGNMENTS_COUNT, [], true) . '-',
+            function (int $roleId): int {
+                return $this->persistenceHandler->userHandler()->countRoleAssignments($roleId);
             },
-            $roleAssignments ?: []
-        );
-
-        $tags = [];
-        foreach ($roleAssignmentTags as $roleAssignmentTagArray) {
-            foreach ($roleAssignmentTagArray as $tag) {
-                $tags[] = $tag;
+            function () use ($roleId): array {
+                return [
+                    $this->cacheIdentifierGenerator->generateTag(self::ROLE_ASSIGNMENT_ROLE_LIST_IDENTIFIER, [$roleId]),
+                    $this->cacheIdentifierGenerator->generateTag(self::ROLE_IDENTIFIER, [$roleId]),
+                ];
+            },
+            function () use ($roleId): array {
+                return [
+                    $this->cacheIdentifierGenerator->generateKey(self::ROLE_IDENTIFIER, [$roleId], true),
+                ];
             }
-        }
-
-        $tags = array_merge(
-            [
-                $this->cacheIdentifierGenerator->generateTag(
-                    self::ROLE_ASSIGNMENT_ROLE_LIST_IDENTIFIER,
-                    [$roleId]
-                ),
-                $this->cacheIdentifierGenerator->generateTag(self::ROLE_IDENTIFIER, [$roleId]),
-            ],
-            $tags
         );
-
-        $cacheItem->set($count);
-        $cacheItem->tag($tags);
-
-        $this->cache->save($cacheItem);
-
-        return $count;
     }
 
     /**
