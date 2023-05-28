@@ -542,7 +542,7 @@ class UserHandler extends AbstractInMemoryPersistenceHandler implements UserHand
             },
             function () use ($roleId): array {
                 return [
-                    $this->cacheIdentifierGenerator->generateKey(self::ROLE_IDENTIFIER, [$roleId], true),
+                    $this->cacheIdentifierGenerator->generateKey(self::ROLE_ASSIGNMENTS_COUNT, [$roleId], true),
                 ];
             }
         );
