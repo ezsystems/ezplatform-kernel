@@ -284,8 +284,13 @@ class UserService implements UserServiceInterface
 
         $this->repository->beginTransaction();
         try {
+            foreach ($this->userHandler->loadRoleAssignmentsByGroupId($userGroup->id) as $roleAssignment) {
+                $this->userHandler->removeRoleAssignment($roleAssignment->id);
+            }
             //@todo: what happens to sub user groups and users below sub user groups
-            $affectedLocationIds = $this->repository->getContentService()->deleteContent($loadedUserGroup->getVersionInfo()->getContentInfo());
+            $affectedLocationIds = $this->repository->getContentService()->deleteContent(
+                $loadedUserGroup->getVersionInfo()->getContentInfo()
+            );
             $this->repository->commit();
         } catch (Exception $e) {
             $this->repository->rollback();
