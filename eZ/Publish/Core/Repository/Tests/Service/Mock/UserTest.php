@@ -8,8 +8,11 @@ namespace eZ\Publish\Core\Repository\Tests\Service\Mock;
 
 use eZ\Publish\API\Repository\ContentService as APIContentService;
 use eZ\Publish\API\Repository\PasswordHashService;
+use eZ\Publish\API\Repository\UserService as APIUserService;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo as APIContentInfo;
 use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use eZ\Publish\API\Repository\Values\User\User;
 use eZ\Publish\API\Repository\Values\User\User as APIUser;
 use eZ\Publish\Core\Repository\Tests\Service\Mock\Base as BaseServiceMockTest;
 use eZ\Publish\Core\Repository\User\PasswordValidatorInterface;
@@ -22,6 +25,8 @@ use PHPUnit\Framework\MockObject\MockObject;
  */
 class UserTest extends BaseServiceMockTest
 {
+    private const MOCKED_USER_ID = 42;
+
     /**
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -34,24 +39,17 @@ class UserTest extends BaseServiceMockTest
         $userHandler = $this->getPersistenceMock()->userHandler();
 
         $user = $this->createMock(APIUser::class);
-        $loadedUser = $this->createMock(APIUser::class);
-        $versionInfo = $this->createMock(APIVersionInfo::class);
         $contentInfo = $this->createMock(APIContentInfo::class);
 
-        $userId = 42;
-        $user->method('__get')->with('id')->willReturn($userId);
-        $versionInfo->method('getContentInfo')->willReturn($contentInfo);
-        $loadedUser->method('getVersionInfo')->willReturn($versionInfo);
-        $loadedUser->method('__get')->with('id')->willReturn($userId);
-        $userService->method('loadUser')->with($userId)->willReturn($loadedUser);
+        $this->configureUserContentMocks($user, $contentInfo, $userService);
+
+        $this->mockRoleAssignmentRemoval($userHandler, self::MOCKED_USER_ID);
 
         $repository->expects(self::once())->method('beginTransaction');
 
-        $this->mockRoleAssignmentRemoval($userHandler, $userId);
-
         $contentService->expects(self::once())->method('deleteContent')->with($contentInfo);
         $repository->expects(self::once())->method('getContentService')->willReturn($contentService);
-        $userHandler->expects(self::once())->method('delete')->with($userId);
+        $userHandler->expects(self::once())->method('delete')->with(self::MOCKED_USER_ID);
 
         $repository->expects(self::once())->method('commit');
 
@@ -72,25 +70,19 @@ class UserTest extends BaseServiceMockTest
         $userHandler = $this->getPersistenceMock()->userHandler();
 
         $user = $this->createMock(APIUser::class);
-        $loadedUser = $this->createMock(APIUser::class);
-        $versionInfo = $this->createMock(APIVersionInfo::class);
         $contentInfo = $this->createMock(APIContentInfo::class);
 
-        $userId = 42;
-        $user->method('__get')->with('id')->willReturn($userId);
-        $versionInfo->method('getContentInfo')->willReturn($contentInfo);
-        $loadedUser->method('getVersionInfo')->willReturn($versionInfo);
-        $userService->method('loadUser')->with($userId)->willReturn($loadedUser);
+        $this->configureUserContentMocks($user, $contentInfo, $userService);
+
+        $this->mockRoleAssignmentRemoval($userHandler, self::MOCKED_USER_ID);
 
         $repository->expects(self::once())->method('beginTransaction');
-
-        $this->mockRoleAssignmentRemoval($userHandler, $userId);
 
         $exception = new \Exception();
         $contentService->expects(self::once())
             ->method('deleteContent')
             ->with($contentInfo)
-            ->will($this->throwException($exception));
+            ->willThrowException($exception);
 
         $repository->expects(self::once())->method('getContentService')->willReturn($contentService);
 
@@ -118,12 +110,12 @@ class UserTest extends BaseServiceMockTest
      *
      * @param string[] $methods
      *
-     * @return \eZ\Publish\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject
+     * @return \eZ\Publish\API\Repository\UserService&\PHPUnit\Framework\MockObject\MockObject
      */
-    protected function getPartlyMockedUserService(array $methods = null)
+    protected function getPartlyMockedUserService(array $methods = null): APIUserService
     {
         return $this->getMockBuilder(UserService::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->setConstructorArgs(
                 [
                     $this->getRepositoryMock(),
@@ -135,5 +127,22 @@ class UserTest extends BaseServiceMockTest
                 ]
             )
             ->getMock();
+    }
+
+    /**
+     * @param \eZ\Publish\API\Repository\Values\User\User&\PHPUnit\Framework\MockObject\MockObject $user
+     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo&\PHPUnit\Framework\MockObject\MockObject $contentInfo
+     * @param \eZ\Publish\API\Repository\UserService&\PHPUnit\Framework\MockObject\MockObject $userService
+     */
+    private function configureUserContentMocks(User $user, ContentInfo $contentInfo, APIUserService $userService): void
+    {
+        $loadedUser = $this->createMock(APIUser::class);
+        $versionInfo = $this->createMock(APIVersionInfo::class);
+
+        $user->method('__get')->with('id')->willReturn(self::MOCKED_USER_ID);
+        $versionInfo->method('getContentInfo')->willReturn($contentInfo);
+        $loadedUser->method('getVersionInfo')->willReturn($versionInfo);
+        $loadedUser->method('__get')->with('id')->willReturn(self::MOCKED_USER_ID);
+        $userService->method('loadUser')->with(self::MOCKED_USER_ID)->willReturn($loadedUser);
     }
 }
