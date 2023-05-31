@@ -36,7 +36,6 @@ class UserHandler extends AbstractInMemoryPersistenceHandler implements UserHand
     private const LOCATION_PATH_IDENTIFIER = 'location_path';
     private const ROLE_ASSIGNMENT_WITH_BY_ROLE_SUFFIX_IDENTIFIER = 'role_assignment_with_by_role_suffix';
     private const ROLE_ASSIGNMENT_WITH_BY_ROLE_SUFFIX_OFFSET_LIMIT_IDENTIFIER = 'role_assignment_with_by_role_offset_limit_suffix';
-    private const ROLE_ASSIGNMENTS_COUNT = 'role_assignment_by_role_count';
     private const ROLE_ASSIGNMENT_WITH_BY_GROUP_INHERITED_SUFFIX_IDENTIFIER = 'role_assignment_with_by_group_inherited_suffix';
     private const ROLE_ASSIGNMENT_WITH_BY_GROUP_SUFFIX_IDENTIFIER = 'role_assignment_with_by_group_suffix';
     private const USER_WITH_ACCOUNT_KEY_SUFFIX_IDENTIFIER = 'user_with_account_key_suffix';
@@ -527,25 +526,11 @@ class UserHandler extends AbstractInMemoryPersistenceHandler implements UserHand
 
     public function countRoleAssignments(int $roleId): int
     {
-        /** @var int */
-        return $this->getCacheValue(
-            $roleId,
-            $this->cacheIdentifierGenerator->generateKey(self::ROLE_ASSIGNMENTS_COUNT, [], true) . '-',
-            function (int $roleId): int {
-                return $this->persistenceHandler->userHandler()->countRoleAssignments($roleId);
-            },
-            function () use ($roleId): array {
-                return [
-                    $this->cacheIdentifierGenerator->generateTag(self::ROLE_ASSIGNMENT_ROLE_LIST_IDENTIFIER, [$roleId]),
-                    $this->cacheIdentifierGenerator->generateTag(self::ROLE_IDENTIFIER, [$roleId]),
-                ];
-            },
-            function () use ($roleId): array {
-                return [
-                    $this->cacheIdentifierGenerator->generateKey(self::ROLE_ASSIGNMENTS_COUNT, [$roleId], true),
-                ];
-            }
-        );
+        $this->logger->logCall(__METHOD__, ['roleId' => $roleId]);
+
+        return $this->persistenceHandler
+            ->userHandler()
+            ->countRoleAssignments($roleId);
     }
 
     /**

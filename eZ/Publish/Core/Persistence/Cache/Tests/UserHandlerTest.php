@@ -109,6 +109,7 @@ class UserHandlerTest extends AbstractInMemoryCacheHandlerTest
                 null,
                 false,
             ],
+            ['countRoleAssignments', [9], null, [], null, [], 1],
             ['createRole', [new RoleCreateStruct()]],
             ['createRoleDraft', [new RoleCreateStruct()]],
             ['loadRole', [9, 1]],
@@ -237,16 +238,6 @@ class UserHandlerTest extends AbstractInMemoryCacheHandlerTest
                 [['role_assignment_with_by_role_offset_limit_suffix', [9, 0, 10], true]],
                 ['ibx-ra-9-bro-0-10'],
                 [$roleAssignment],
-            ],
-            [
-                'countRoleAssignments',
-                [9],
-                'ibx-rac-9',
-                null,
-                null,
-                [['role_assignment_by_role_count', [], true]],
-                ['ibx-rac'],
-                1,
             ],
             [
                 'loadRoleAssignmentsByGroupId',
@@ -430,21 +421,6 @@ class UserHandlerTest extends AbstractInMemoryCacheHandlerTest
                 ],
                 ['ibx-ra-9-bro-0-10'],
                 [$roleAssignment],
-            ],
-            [
-                'countRoleAssignments',
-                [9],
-                'ibx-rac-9',
-                [
-                    ['role_assignment_role_list', [9], false],
-                    ['role', [9], false],
-                ],
-                ['rac-9', 'r-9'],
-                [
-                    ['role_assignment_by_role_count', [], true],
-                ],
-                ['ibx-rac'],
-                1,
             ],
             [
                 'loadRoleAssignmentsByGroupId',
