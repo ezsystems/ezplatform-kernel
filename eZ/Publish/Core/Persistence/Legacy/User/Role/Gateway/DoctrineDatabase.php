@@ -348,7 +348,8 @@ final class DoctrineDatabase extends Gateway
             'user_role.limit_value',
             'user_role.role_id'
         )->from(
-            self::USER_ROLE_TABLE, 'user_role'
+            self::USER_ROLE_TABLE,
+            'user_role'
         )->innerJoin(
             'user_role',
             self::CONTENT_OBJECT_TABLE,
