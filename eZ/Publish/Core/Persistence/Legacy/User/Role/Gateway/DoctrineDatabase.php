@@ -342,13 +342,18 @@ final class DoctrineDatabase extends Gateway
     {
         $query = $this->connection->createQueryBuilder();
         $query->select(
-            'id',
-            'contentobject_id',
-            'limit_identifier',
-            'limit_value',
-            'role_id'
+            'user_role.id',
+            'user_role.contentobject_id',
+            'user_role.limit_identifier',
+            'user_role.limit_value',
+            'user_role.role_id'
         )->from(
-            self::USER_ROLE_TABLE
+            self::USER_ROLE_TABLE, 'user_role'
+        )->innerJoin(
+            'user_role',
+            self::CONTENT_OBJECT_TABLE,
+            'content_object',
+            'user_role.contentobject_id = content_object.id'
         )->where(
             $query->expr()->eq(
                 'role_id',
