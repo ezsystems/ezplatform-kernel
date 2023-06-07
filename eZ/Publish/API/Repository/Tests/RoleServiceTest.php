@@ -3063,7 +3063,7 @@ class RoleServiceTest extends BaseTest
         [$userRoleAssignment] = array_values(
             array_filter(
                 (array)$roleService->getRoleAssignments($role),
-                static function (RoleAssignment $roleAssignment) use ($newUser) {
+                static function (RoleAssignment $roleAssignment) use ($newUser): bool {
                     return $roleAssignment instanceof UserRoleAssignment
                         && $roleAssignment->getUser()->login === $newUser->login;
                 }
