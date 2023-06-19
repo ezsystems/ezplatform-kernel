@@ -132,6 +132,24 @@ final class ExceptionConversion extends Gateway
         }
     }
 
+    public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(int $roleId, int $offset, ?int $limit): array
+    {
+        try {
+            return $this->innerGateway->loadRoleAssignmentsByRoleIdWithOffsetAndLimit($roleId, $offset, $limit);
+        } catch (DBALException | PDOException $e) {
+            throw DatabaseException::wrap($e);
+        }
+    }
+
+    public function countRoleAssignments(int $roleId): int
+    {
+        try {
+            return $this->innerGateway->countRoleAssignments($roleId);
+        } catch (DBALException | PDOException $e) {
+            throw DatabaseException::wrap($e);
+        }
+    }
+
     public function loadPoliciesByUserId(int $userId): array
     {
         try {

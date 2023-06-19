@@ -651,6 +651,25 @@ class Handler implements BaseUserHandler
     }
 
     /**
+     * @return \eZ\Publish\SPI\Persistence\User\RoleAssignment[]
+     */
+    public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(int $roleId, int $offset, ?int $limit): array
+    {
+        $data = $this->roleGateway->loadRoleAssignmentsByRoleIdWithOffsetAndLimit($roleId, $offset, $limit);
+
+        if (empty($data)) {
+            return [];
+        }
+
+        return $this->mapper->mapRoleAssignments($data);
+    }
+
+    public function countRoleAssignments(int $roleId): int
+    {
+        return $this->roleGateway->countRoleAssignments($roleId);
+    }
+
+    /**
      * Loads roles assignments to a user/group.
      *
      * Role Assignments with same roleId and limitationIdentifier will be merged together into one.

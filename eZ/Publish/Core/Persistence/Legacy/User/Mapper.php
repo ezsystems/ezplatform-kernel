@@ -108,8 +108,6 @@ class Mapper
     /**
      * Map role data to a role.
      *
-     * @param array $data
-     *
      * @return \eZ\Publish\SPI\Persistence\User\Role
      */
     public function mapRole(array $data)
@@ -133,8 +131,6 @@ class Mapper
 
     /**
      * Map data for a set of roles.
-     *
-     * @param array $data
      *
      * @return \eZ\Publish\SPI\Persistence\User\Role[]
      */

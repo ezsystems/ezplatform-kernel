@@ -12,6 +12,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
+use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
 use eZ\Publish\Core\Persistence\Legacy\User\Role\Gateway;
 use eZ\Publish\SPI\Persistence\User\Policy;
 use eZ\Publish\SPI\Persistence\User\Role;
@@ -332,6 +333,72 @@ final class DoctrineDatabase extends Gateway
         $statement = $query->execute();
 
         return $statement->fetchAll(FetchMode::ASSOCIATIVE);
+    }
+
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(int $roleId, int $offset, ?int $limit): array
+    {
+        $query = $this
+            ->buildLoadRoleAssignmentsQuery(
+                [
+                    'user_role.id',
+                    'user_role.contentobject_id',
+                    'user_role.limit_identifier',
+                    'user_role.limit_value',
+                    'user_role.role_id',
+                ],
+                $roleId
+            )
+            ->setFirstResult($offset);
+
+        if ($limit !== null) {
+            $query->setMaxResults($limit);
+        }
+
+        return $query
+            ->execute()
+            ->fetchAllAssociative();
+    }
+
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function countRoleAssignments(int $roleId): int
+    {
+        $query = $this->buildLoadRoleAssignmentsQuery(
+            [$this->connection->getDatabasePlatform()->getCountExpression('user_role.id')],
+            $roleId
+        );
+
+        return (int)$query->execute()->fetchOne();
+    }
+
+    /**
+     * @param array<string> $columns
+     */
+    private function buildLoadRoleAssignmentsQuery(array $columns, int $roleId): QueryBuilder
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->select(...$columns)
+            ->from(self::USER_ROLE_TABLE, 'user_role')
+            ->innerJoin(
+                'user_role',
+                ContentGateway::CONTENT_ITEM_TABLE,
+                'content_object',
+                'user_role.contentobject_id = content_object.id'
+            )->where(
+                $query->expr()->eq(
+                    'role_id',
+                    $query->createPositionalParameter($roleId, ParameterType::INTEGER)
+                )
+            );
+
+        return $query;
     }
 
     public function loadPoliciesByUserId(int $userId): array

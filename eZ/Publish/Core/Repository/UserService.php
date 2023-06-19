@@ -284,8 +284,13 @@ class UserService implements UserServiceInterface
 
         $this->repository->beginTransaction();
         try {
+            foreach ($this->userHandler->loadRoleAssignmentsByGroupId($userGroup->id) as $roleAssignment) {
+                $this->userHandler->removeRoleAssignment($roleAssignment->id);
+            }
             //@todo: what happens to sub user groups and users below sub user groups
-            $affectedLocationIds = $this->repository->getContentService()->deleteContent($loadedUserGroup->getVersionInfo()->getContentInfo());
+            $affectedLocationIds = $this->repository->getContentService()->deleteContent(
+                $loadedUserGroup->getVersionInfo()->getContentInfo()
+            );
             $this->repository->commit();
         } catch (Exception $e) {
             $this->repository->rollback();
@@ -617,7 +622,13 @@ class UserService implements UserServiceInterface
 
         $this->repository->beginTransaction();
         try {
-            $affectedLocationIds = $this->repository->getContentService()->deleteContent($loadedUser->getVersionInfo()->getContentInfo());
+            foreach ($this->userHandler->loadRoleAssignmentsByGroupId($user->id) as $roleAssignment) {
+                $this->userHandler->removeRoleAssignment($roleAssignment->id);
+            }
+
+            $affectedLocationIds = $this->repository->getContentService()->deleteContent(
+                $loadedUser->getVersionInfo()->getContentInfo()
+            );
 
             // User\Handler::delete call is currently used to clear cache only
             $this->userHandler->delete($loadedUser->id);

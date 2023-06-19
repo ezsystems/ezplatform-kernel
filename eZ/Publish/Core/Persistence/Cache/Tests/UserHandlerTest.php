@@ -6,6 +6,7 @@
  */
 namespace eZ\Publish\Core\Persistence\Cache\Tests;
 
+use eZ\Publish\Core\Persistence\Cache\UserHandler;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Handler as SPILocationHandler;
 use eZ\Publish\SPI\Persistence\Content\Location;
 use eZ\Publish\SPI\Persistence\User;
@@ -108,6 +109,7 @@ class UserHandlerTest extends AbstractInMemoryCacheHandlerTest
                 null,
                 false,
             ],
+            ['countRoleAssignments', [9], null, [], null, [], 1],
             ['createRole', [new RoleCreateStruct()]],
             ['createRoleDraft', [new RoleCreateStruct()]],
             ['loadRole', [9, 1]],
@@ -159,7 +161,6 @@ class UserHandlerTest extends AbstractInMemoryCacheHandlerTest
                 null,
                 ['ragl-14', 'rarl-9'],
             ],
-            ['removeRoleAssignment', [11], [['role_assignment', [11], false]], null, ['ra-11']],
         ];
     }
 
@@ -227,7 +228,17 @@ class UserHandlerTest extends AbstractInMemoryCacheHandlerTest
                 $role,
             ],
             ['loadRoleAssignment', [11], 'ibx-ra-11', null, null, [['role_assignment', [], true]], ['ibx-ra'], $roleAssignment],
-            ['loadRoleAssignmentsByRoleId', [9], 'ibx-ra-9-bro', null, null, [['role_assignment_with_by_role_suffix', [9], true]], ['ibx-ra-9-bro'], [$roleAssignment]],
+            ['loadRoleAssignmentsByRoleId', [$role->id], 'ibx-ra-9-bro', null, null, [['role_assignment_with_by_role_suffix', [9], true]], ['ibx-ra-9-bro'], [$roleAssignment]],
+            [
+                'loadRoleAssignmentsByRoleIdWithOffsetAndLimit',
+                [9, 0, 10],
+                'ibx-ra-9-bro-0-10',
+                null,
+                null,
+                [['role_assignment_with_by_role_offset_limit_suffix', [9, 0, 10], true]],
+                ['ibx-ra-9-bro-0-10'],
+                [$roleAssignment],
+            ],
             [
                 'loadRoleAssignmentsByGroupId',
                 [14],
@@ -391,6 +402,24 @@ class UserHandlerTest extends AbstractInMemoryCacheHandlerTest
                     ['role_assignment_with_by_role_suffix', [9], true],
                 ],
                 ['ibx-ra-9-bro'],
+                [$roleAssignment],
+            ],
+            [
+                'loadRoleAssignmentsByRoleIdWithOffsetAndLimit',
+                [9, 0, 10],
+                'ibx-ra-9-bro-0-10',
+                [
+                    ['role_assignment_role_list', [9], false],
+                    ['role', [9], false],
+                    ['role_assignment', [11], false],
+                    ['role_assignment_group_list', [14], false],
+                    ['role_assignment_role_list', [9], false],
+                ],
+                ['rarl-9', 'r-9', 'ra-11', 'ragl-14', 'rarl-9'],
+                [
+                    ['role_assignment_with_by_role_offset_limit_suffix', [9, 0, 10], true],
+                ],
+                ['ibx-ra-9-bro-0-10'],
                 [$roleAssignment],
             ],
             [
@@ -563,5 +592,47 @@ class UserHandlerTest extends AbstractInMemoryCacheHandlerTest
 
         $handler = $this->persistenceCacheHandler->userHandler();
         $handler->assignRole($contentId, $roleId);
+    }
+
+    public function testRemoveRoleAssignment(): void
+    {
+        $handler = $this->persistenceCacheHandler->userHandler();
+        $methodName = 'removeRoleAssignment';
+
+        $innerHandler = $this->createMock(SPIUserHandler::class);
+        $this->persistenceHandlerMock->method('userHandler')->willReturn($innerHandler);
+        $roleAssignmentId = 1;
+        $contentId = 2;
+        $roleId = 3;
+        $innerHandler
+            ->method('loadRoleAssignment')
+            ->willReturn(
+                new RoleAssignment(['id' => $roleAssignmentId, 'contentId' => $contentId, 'roleId' => $roleId])
+            );
+
+        $this->loggerMock->method('logCall')->with(
+            UserHandler::class . "::$methodName",
+            [
+                'assignment' => $roleAssignmentId,
+                'contentId' => $contentId,
+                'roleId' => $roleId,
+            ]
+        );
+        $innerHandler->method($methodName)->with($roleAssignmentId);
+
+        $tags = [
+            "ra-$roleAssignmentId",
+            "ragl-$contentId",
+            "rarl-$roleId",
+        ];
+        $this->cacheIdentifierGeneratorMock
+            ->expects(self::exactly(count($tags)))
+            ->method('generateTag')
+            ->withConsecutive(['role_assignment'], ['role_assignment_group_list'], ['role_assignment_role_list'])
+            ->willReturnOnConsecutiveCalls(...$tags);
+
+        $this->cacheMock->method('invalidateTags')->with($tags);
+
+        $handler->removeRoleAssignment($roleAssignmentId);
     }
 }

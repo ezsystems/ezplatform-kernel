@@ -35,6 +35,7 @@ class UserHandler extends AbstractInMemoryPersistenceHandler implements UserHand
     private const BY_IDENTIFIER_SUFFIX = 'by_identifier_suffix';
     private const LOCATION_PATH_IDENTIFIER = 'location_path';
     private const ROLE_ASSIGNMENT_WITH_BY_ROLE_SUFFIX_IDENTIFIER = 'role_assignment_with_by_role_suffix';
+    private const ROLE_ASSIGNMENT_WITH_BY_ROLE_SUFFIX_OFFSET_LIMIT_IDENTIFIER = 'role_assignment_with_by_role_offset_limit_suffix';
     private const ROLE_ASSIGNMENT_WITH_BY_GROUP_INHERITED_SUFFIX_IDENTIFIER = 'role_assignment_with_by_group_inherited_suffix';
     private const ROLE_ASSIGNMENT_WITH_BY_GROUP_SUFFIX_IDENTIFIER = 'role_assignment_with_by_group_suffix';
     private const USER_WITH_ACCOUNT_KEY_SUFFIX_IDENTIFIER = 'user_with_account_key_suffix';
@@ -495,6 +496,43 @@ class UserHandler extends AbstractInMemoryPersistenceHandler implements UserHand
         );
     }
 
+    public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(int $roleId, int $offset, ?int $limit): array
+    {
+        return $this->getListCacheValue(
+            $this->cacheIdentifierGenerator->generateKey(
+                self::ROLE_ASSIGNMENT_WITH_BY_ROLE_SUFFIX_OFFSET_LIMIT_IDENTIFIER,
+                [$roleId, $offset, $limit],
+                true
+            ),
+            function () use ($roleId, $offset, $limit): array {
+                return $this->persistenceHandler
+                    ->userHandler()
+                    ->loadRoleAssignmentsByRoleIdWithOffsetAndLimit($roleId, $offset, $limit);
+            },
+            $this->getRoleAssignmentTags,
+            $this->getRoleAssignmentKeys,
+            function () use ($roleId): array {
+                return [
+                    $this->cacheIdentifierGenerator->generateTag(
+                        self::ROLE_ASSIGNMENT_ROLE_LIST_IDENTIFIER,
+                        [$roleId]
+                    ),
+                    $this->cacheIdentifierGenerator->generateTag(self::ROLE_IDENTIFIER, [$roleId]),
+                ];
+            },
+            [$roleId, $offset, $limit]
+        );
+    }
+
+    public function countRoleAssignments(int $roleId): int
+    {
+        $this->logger->logCall(__METHOD__, ['roleId' => $roleId]);
+
+        return $this->persistenceHandler
+            ->userHandler()
+            ->countRoleAssignments($roleId);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -698,18 +736,31 @@ class UserHandler extends AbstractInMemoryPersistenceHandler implements UserHand
         return $return;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function removeRoleAssignment($roleAssignmentId)
+    public function removeRoleAssignment($roleAssignmentId): void
     {
-        $this->logger->logCall(__METHOD__, ['assignment' => $roleAssignmentId]);
-        $return = $this->persistenceHandler->userHandler()->removeRoleAssignment($roleAssignmentId);
+        $roleAssignment = $this->persistenceHandler->userHandler()->loadRoleAssignment($roleAssignmentId);
+
+        $this->logger->logCall(
+            __METHOD__,
+            [
+                'assignment' => $roleAssignmentId,
+                'contentId' => $roleAssignment->contentId,
+                'roleId' => $roleAssignment->roleId,
+            ]
+        );
+
+        $this->persistenceHandler->userHandler()->removeRoleAssignment($roleAssignmentId);
 
         $this->cache->invalidateTags([
             $this->cacheIdentifierGenerator->generateTag(self::ROLE_ASSIGNMENT_IDENTIFIER, [$roleAssignmentId]),
+            $this->cacheIdentifierGenerator->generateTag(
+                self::ROLE_ASSIGNMENT_GROUP_LIST_IDENTIFIER,
+                [$roleAssignment->contentId]
+            ),
+            $this->cacheIdentifierGenerator->generateTag(
+                self::ROLE_ASSIGNMENT_ROLE_LIST_IDENTIFIER,
+                [$roleAssignment->roleId]
+            ),
         ]);
-
-        return $return;
     }
 }

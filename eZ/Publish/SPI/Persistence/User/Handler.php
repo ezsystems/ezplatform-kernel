@@ -209,6 +209,18 @@ interface Handler
     public function loadRoleAssignmentsByRoleId($roleId);
 
     /**
+     * Loads Role's assignments based on provided $offset and $limit arguments.
+     *
+     * @return \eZ\Publish\SPI\Persistence\User\RoleAssignment[]
+     */
+    public function loadRoleAssignmentsByRoleIdWithOffsetAndLimit(int $roleId, int $offset, ?int $limit): array;
+
+    /**
+     * Counts Role's assignments taking into consideration related and existing user and user group objects.
+     */
+    public function countRoleAssignments(int $roleId): int;
+
+    /**
      * Loads roles assignments to a user/group.
      *
      * Role Assignments with same roleId and limitationIdentifier will be merged together into one.
