@@ -6685,4 +6685,33 @@ class ContentServiceTest extends BaseContentServiceTest
 
         return $contentWithReverseRelations;
     }
+
+    /**
+     * @covers \eZ\Publish\API\Repository\ContentService::LoadVersionInfoListByContentInfo
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     */
+    public function testLoadVersionInfoListByContentInfo(): void
+    {
+        $folder1 = $this->createFolder(['eng-GB' => 'Folder1'], 2);
+        $folder2 = $this->createFolder(['eng-GB' => 'Folder2'], 2);
+
+        $versionInfoList = $this->contentService->loadVersionInfoListByContentInfo([
+            $folder1->contentInfo,
+            $folder2->contentInfo,
+        ]);
+
+        self::assertCount(2, $versionInfoList);
+
+        foreach ($versionInfoList as $versionInfo) {
+            $loadedVersionInfo = $this->contentService->loadVersionInfo(
+                $versionInfo->getContentInfo(),
+                $versionInfo->versionNo
+            );
+            self::assertEquals($loadedVersionInfo, $versionInfo);
+        }
+    }
 }

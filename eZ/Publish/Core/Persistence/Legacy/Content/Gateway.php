@@ -459,4 +459,12 @@ abstract class Gateway
         int $versionNo,
         string $languageCode
     ): void;
+
+    /**
+     * @param array<int> $contentIds
+     *
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    abstract public function loadVersionInfoList(array $contentIds): array;
 }

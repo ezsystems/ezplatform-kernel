@@ -1466,6 +1466,63 @@ class ContentHandlerTest extends TestCase
     }
 
     /**
+     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::loadVersionInfoList
+     *
+     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     */
+    public function testLoadVersionInfoList(): void
+    {
+        $handler = $this->getContentHandler();
+        $gatewayMock = $this->getGatewayMock();
+        $mapperMock = $this->getMapperMock();
+
+        $contentIds = [2, 3];
+        $versionInfo1 = new VersionInfo([
+            'contentInfo' => new ContentInfo(['id' => 2]),
+        ]);
+        $versionInfo2 = new VersionInfo([
+            'contentInfo' => new ContentInfo(['id' => 3]),
+        ]);
+
+        $versionRows = [
+            ['ezcontentobject_id' => 2, 'ezcontentobject_version_version' => 2],
+            ['ezcontentobject_id' => 3, 'ezcontentobject_version_version' => 1],
+        ];
+
+        $gatewayMock->expects(self::once())
+            ->method('loadVersionInfoList')
+            ->with($contentIds)
+            ->willReturn($versionRows);
+
+        $nameDataRows = [
+            ['ezcontentobject_name_contentobject_id' => 2, 'ezcontentobject_name_content_version' => 2],
+            ['ezcontentobject_name_contentobject_id' => 3, 'ezcontentobject_name_content_version' => 1],
+        ];
+
+        $gatewayMock->expects(self::once())
+            ->method('loadVersionedNameData')
+            ->with([['id' => 2, 'version' => 2], ['id' => 3, 'version' => 1]])
+            ->willReturn($nameDataRows);
+
+        $mapperMock->expects(self::once())
+            ->method('extractVersionInfoListFromRows')
+            ->with($versionRows)
+            ->willReturn([
+                $versionInfo1,
+                $versionInfo2,
+            ]);
+
+        $expected = [
+            2 => $versionInfo1,
+            3 => $versionInfo2,
+        ];
+
+        $result = $handler->loadVersionInfoList($contentIds);
+
+        self::assertEquals($expected, $result);
+    }
+
+    /**
      * Returns the handler to test.
      *
      * @return \eZ\Publish\Core\Persistence\Legacy\Content\Handler

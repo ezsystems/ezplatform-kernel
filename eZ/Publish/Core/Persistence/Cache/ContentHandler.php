@@ -580,4 +580,37 @@ class ContentHandler extends AbstractInMemoryPersistenceHandler implements Conte
 
         return $getContentInfoTagsFn($contentInfo, $tags);
     }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     */
+    public function loadVersionInfoList(array $contentIds): array
+    {
+        return $this->getMultipleCacheValues(
+            $contentIds,
+            $this->cacheIdentifierGenerator->generateKey(
+                self::CONTENT_VERSION_INFO_IDENTIFIER,
+                [],
+                true
+            ) . '-',
+            function (array $cacheMissIds): array {
+                return $this->persistenceHandler->contentHandler()->loadVersionInfoList($cacheMissIds);
+            },
+            function (VersionInfo $versionInfo): array {
+                return $this->getCacheTagsForVersion($versionInfo);
+            },
+            function (VersionInfo $versionInfo) {
+                return [
+                    $this->cacheIdentifierGenerator->generateKey(
+                        self::CONTENT_VERSION_INFO_IDENTIFIER,
+                        [$versionInfo->contentInfo->id],
+                        true
+                    ),
+                ];
+            },
+            '',
+            ['content' => $contentIds]
+        );
+    }
 }

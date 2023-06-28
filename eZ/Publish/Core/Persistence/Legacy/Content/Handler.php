@@ -904,4 +904,31 @@ class Handler implements BaseContentHandler
         // reload entire Version w/o removed Translation
         return $this->load($contentId, $versionNo);
     }
+
+    /**
+     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     */
+    public function loadVersionInfoList(array $contentIds): array
+    {
+        $rows = $this->contentGateway->loadVersionInfoList($contentIds);
+        $mappedRows = array_map(
+            static fn ($row) => [
+                'id' => $row['ezcontentobject_id'],
+                'version' => $row['ezcontentobject_version_version'],
+            ],
+            $rows,
+        );
+
+        $versionInfoList = $this->mapper->extractVersionInfoListFromRows(
+            $rows,
+            $this->contentGateway->loadVersionedNameData($mappedRows)
+        );
+
+        $versionInfoListById = [];
+        foreach ($versionInfoList as $versionInfo) {
+            $versionInfoListById[$versionInfo->contentInfo->id] = $versionInfo;
+        }
+
+        return $versionInfoListById;
+    }
 }

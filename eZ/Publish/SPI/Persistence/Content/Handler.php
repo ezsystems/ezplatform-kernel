@@ -364,4 +364,14 @@ interface Handler
      * @return \eZ\Publish\SPI\Persistence\Content The Content Draft w/o removed Translation
      */
     public function deleteTranslationFromDraft($contentId, $versionNo, $languageCode);
+
+    /**
+     * @param array<int> $contentIds
+     *
+     * @return array<\eZ\Publish\SPI\Persistence\Content\VersionInfo>
+     *
+     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     */
+    public function loadVersionInfoList(array $contentIds): array;
 }

@@ -2526,4 +2526,22 @@ class ContentService implements ContentServiceInterface
 
         return $this->contentFilteringHandler->count($filter);
     }
+
+    public function loadVersionInfoListByContentInfo(array $contentInfoList): array
+    {
+        $contentIds = array_column($contentInfoList, 'id');
+        $persistenceVersionInfos = $this->persistenceHandler
+            ->contentHandler()
+            ->loadVersionInfoList($contentIds);
+
+        $versionInfoList = [];
+        foreach ($persistenceVersionInfos as $persistenceVersionInfo) {
+            $versionInfo = $this->contentDomainMapper->buildVersionInfoDomainObject($persistenceVersionInfo);
+            if ($this->permissionResolver->canUser('content', 'read', $versionInfo)) {
+                $versionInfoList[$versionInfo->getContentInfo()->getId()] = $versionInfo;
+            }
+        }
+
+        return $versionInfoList;
+    }
 }

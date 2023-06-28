@@ -286,4 +286,9 @@ class ContentService implements ContentServiceInterface
             $this->languageResolver->getPrioritizedLanguages($languages)
         );
     }
+
+    public function loadVersionInfoListByContentInfo(array $contentInfoList): array
+    {
+        return $this->service->loadVersionInfoListByContentInfo($contentInfoList);
+    }
 }

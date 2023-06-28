@@ -69,7 +69,7 @@ class TranslationHelper
      *
      * @return string
      */
-    private function getTranslatedContentNameByVersionInfo(VersionInfo $versionInfo, $forcedLanguage = null)
+    public function getTranslatedContentNameByVersionInfo(VersionInfo $versionInfo, $forcedLanguage = null)
     {
         foreach ($this->getLanguages($forcedLanguage) as $lang) {
             $translatedName = $versionInfo->getName($lang);

@@ -275,4 +275,9 @@ abstract class ContentServiceDecorator implements ContentService
     {
         return $this->innerService->count($filter, $languages);
     }
+
+    public function loadVersionInfoListByContentInfo(array $contentInfoList): array
+    {
+        return $this->innerService->loadVersionInfoListByContentInfo($contentInfoList);
+    }
 }
