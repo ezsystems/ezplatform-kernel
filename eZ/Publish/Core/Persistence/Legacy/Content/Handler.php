@@ -912,10 +912,12 @@ class Handler implements BaseContentHandler
     {
         $rows = $this->contentGateway->loadVersionInfoList($contentIds);
         $mappedRows = array_map(
-            static fn ($row) => [
-                'id' => $row['ezcontentobject_id'],
-                'version' => $row['ezcontentobject_version_version'],
-            ],
+            static function ($row) {
+                return [
+                    'id' => $row['ezcontentobject_id'],
+                    'version' => $row['ezcontentobject_version_version'],
+                ];
+            },
             $rows,
         );
 

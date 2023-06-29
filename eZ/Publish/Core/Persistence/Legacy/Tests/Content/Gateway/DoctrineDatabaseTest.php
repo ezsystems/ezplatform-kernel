@@ -2132,7 +2132,7 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
 
         $results = $gateway->loadVersionInfoList([11]);
 
-        $orig = include __DIR__ . '/../_fixtures/extract_version_info_from_rows_multiple_versions.php';
+        $orig = include_once __DIR__ . '/../_fixtures/extract_version_info_from_rows_multiple_versions.php';
 
         $this->assertEquals(
             [$orig[1]],
