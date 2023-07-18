@@ -906,13 +906,13 @@ class Handler implements BaseContentHandler
     }
 
     /**
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
     public function loadVersionInfoList(array $contentIds): array
     {
         $rows = $this->contentGateway->loadVersionInfoList($contentIds);
         $mappedRows = array_map(
-            static function ($row) {
+            static function (array $row): array {
                 return [
                     'id' => $row['ezcontentobject_id'],
                     'version' => $row['ezcontentobject_version_version'],

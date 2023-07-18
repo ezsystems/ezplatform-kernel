@@ -80,6 +80,11 @@ class ContentService implements ContentServiceInterface
         return $this->service->loadVersionInfoById($contentId, $versionNo);
     }
 
+    public function loadVersionInfoListByContentInfo(array $contentInfoList): array
+    {
+        return $this->service->loadVersionInfoListByContentInfo($contentInfoList);
+    }
+
     public function loadContentByContentInfo(ContentInfo $contentInfo, array $languages = null, ?int $versionNo = null, bool $useAlwaysAvailable = true): Content
     {
         return $this->service->loadContentByContentInfo(
@@ -285,10 +290,5 @@ class ContentService implements ContentServiceInterface
             $filter,
             $this->languageResolver->getPrioritizedLanguages($languages)
         );
-    }
-
-    public function loadVersionInfoListByContentInfo(array $contentInfoList): array
-    {
-        return $this->service->loadVersionInfoListByContentInfo($contentInfoList);
     }
 }

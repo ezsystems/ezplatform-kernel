@@ -302,6 +302,43 @@ class ContentService implements ContentServiceInterface
         return $versionInfo;
     }
 
+    public function loadVersionInfoListByContentInfo(array $contentInfoList): array
+    {
+        foreach ($contentInfoList as $idx => $contentInfo) {
+            if (!$contentInfo instanceof ContentInfo) {
+                throw new InvalidArgumentException(
+                    '$contentInfoList',
+                    sprintf(
+                        'Element at position %d is not an instance of %s',
+                        $idx,
+                        $contentInfo
+                    )
+                );
+            }
+        }
+
+        $contentIds = array_map(
+            static function (ContentInfo $contentInfo): int {
+                return $contentInfo->getId();
+            },
+            $contentInfoList
+        );
+
+        $persistenceVersionInfos = $this->persistenceHandler
+            ->contentHandler()
+            ->loadVersionInfoList($contentIds);
+
+        $versionInfoList = [];
+        foreach ($persistenceVersionInfos as $persistenceVersionInfo) {
+            $versionInfo = $this->contentDomainMapper->buildVersionInfoDomainObject($persistenceVersionInfo);
+            if ($this->permissionResolver->canUser('content', 'read', $versionInfo)) {
+                $versionInfoList[$versionInfo->getContentInfo()->getId()] = $versionInfo;
+            }
+        }
+
+        return $versionInfoList;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -2525,23 +2562,5 @@ class ContentService implements ContentServiceInterface
         }
 
         return $this->contentFilteringHandler->count($filter);
-    }
-
-    public function loadVersionInfoListByContentInfo(array $contentInfoList): array
-    {
-        $contentIds = array_column($contentInfoList, 'id');
-        $persistenceVersionInfos = $this->persistenceHandler
-            ->contentHandler()
-            ->loadVersionInfoList($contentIds);
-
-        $versionInfoList = [];
-        foreach ($persistenceVersionInfos as $persistenceVersionInfo) {
-            $versionInfo = $this->contentDomainMapper->buildVersionInfoDomainObject($persistenceVersionInfo);
-            if ($this->permissionResolver->canUser('content', 'read', $versionInfo)) {
-                $versionInfoList[$versionInfo->getContentInfo()->getId()] = $versionInfo;
-            }
-        }
-
-        return $versionInfoList;
     }
 }

@@ -580,11 +580,7 @@ class ContentHandler extends AbstractInMemoryPersistenceHandler implements Conte
 
         return $getContentInfoTagsFn($contentInfo, $tags);
     }
-
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     */
+    
     public function loadVersionInfoList(array $contentIds): array
     {
         return $this->getMultipleCacheValues(

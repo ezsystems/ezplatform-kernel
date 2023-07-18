@@ -147,6 +147,7 @@ class IbexaTestKernel extends Kernel
     {
         $loader->load(static function (ContainerBuilder $container): void {
             $container->setParameter('ibexa.core.test.resource_dir', self::getResourcesPath());
+            $container->setParameter('ezpublish.kernel.root_dir', dirname(__DIR__, 3));
         });
 
         $this->loadConfiguration($loader);

@@ -65,6 +65,11 @@ abstract class ContentServiceDecorator implements ContentService
         return $this->innerService->loadVersionInfoById($contentId, $versionNo);
     }
 
+    public function loadVersionInfoListByContentInfo(array $contentInfoList): array
+    {
+        return $this->innerService->loadVersionInfoListByContentInfo($contentInfoList);
+    }
+
     public function loadContentByContentInfo(
         ContentInfo $contentInfo,
         array $languages = null,
@@ -274,10 +279,5 @@ abstract class ContentServiceDecorator implements ContentService
     public function count(Filter $filter, ?array $languages = null): int
     {
         return $this->innerService->count($filter, $languages);
-    }
-
-    public function loadVersionInfoListByContentInfo(array $contentInfoList): array
-    {
-        return $this->innerService->loadVersionInfoListByContentInfo($contentInfoList);
     }
 }

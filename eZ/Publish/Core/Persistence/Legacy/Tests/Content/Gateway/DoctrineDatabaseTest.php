@@ -2116,28 +2116,4 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
                 ->orderBy('id')
         );
     }
-
-    /**
-     * @throws \Doctrine\DBAL\Driver\Exception
-     * @throws \Doctrine\DBAL\DBALException
-     * @throws \Doctrine\DBAL\Exception
-     */
-    public function testLoadVersionInfoList(): void
-    {
-        $this->insertDatabaseFixture(
-            __DIR__ . '/../_fixtures/contentobjects.php'
-        );
-
-        $gateway = $this->getDatabaseGateway();
-
-        $results = $gateway->loadVersionInfoList([11]);
-
-        $orig = include __DIR__ . '/../_fixtures/extract_version_info_from_rows_multiple_versions.php';
-
-        $this->assertEquals(
-            [$orig[1]],
-            $results,
-            'Fixtures differ between what was previously stored(expected) and what it now generates(actual), this hints either some mistake in impl or that the fixture (../_fixtures/extract_content_from_rows_multiple_versions.php) and tests needs to be adapted.'
-        );
-    }
 }

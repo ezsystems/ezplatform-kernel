@@ -100,6 +100,19 @@ interface ContentService
     public function loadVersionInfoById(int $contentId, ?int $versionNo = null): VersionInfo;
 
     /**
+     * Bulk-load VersionInfo items by the list of ContentInfo Value Objects.
+     *
+     * @param array<\eZ\Publish\API\Repository\Values\Content\ContentInfo> $contentInfoList
+     *
+     * @return array<int, \eZ\Publish\API\Repository\Values\Content\VersionInfo> List of VersionInfo items with Content Ids as keys
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     */
+    public function loadVersionInfoListByContentInfo(array $contentInfoList): array;
+
+    /**
      * Loads content in a version for the given content info object.
      *
      * If no version number is given, the method returns the current version
@@ -577,17 +590,4 @@ interface ContentService
      *        for a SiteAccess in a current context will be used.
      */
     public function count(Filter $filter, ?array $languages = null): int;
-
-    /**
-     * Bulk-load VersionInfo items by the list of ContentInfo Value Objects.
-     *
-     * @param array<\eZ\Publish\API\Repository\Values\Content\ContentInfo> $contentInfoList
-     *
-     * @return array<int, \eZ\Publish\API\Repository\Values\Content\VersionInfo> List of VersionInfo items with Content Ids as keys
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     */
-    public function loadVersionInfoListByContentInfo(array $contentInfoList): array;
 }

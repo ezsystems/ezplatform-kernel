@@ -1468,7 +1468,7 @@ class ContentHandlerTest extends TestCase
     /**
      * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::loadVersionInfoList
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
     public function testLoadVersionInfoList(): void
     {

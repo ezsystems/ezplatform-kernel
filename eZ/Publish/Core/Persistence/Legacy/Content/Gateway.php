@@ -463,8 +463,7 @@ abstract class Gateway
     /**
      * @param array<int> $contentIds
      *
-     * @throws \Doctrine\DBAL\Driver\Exception
-     * @throws \Doctrine\DBAL\Exception
+     * @throws \eZ\Publish\Core\Base\Exceptions\DatabaseException
      */
     abstract public function loadVersionInfoList(array $contentIds): array;
 }
