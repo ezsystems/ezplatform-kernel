@@ -580,7 +580,7 @@ class ContentHandler extends AbstractInMemoryPersistenceHandler implements Conte
 
         return $getContentInfoTagsFn($contentInfo, $tags);
     }
-    
+
     public function loadVersionInfoList(array $contentIds): array
     {
         return $this->getMultipleCacheValues(
