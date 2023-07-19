@@ -62,15 +62,12 @@ class TranslationHelper
 
     /**
      * Returns content name, translated, from a VersionInfo object.
-     * By default this method uses prioritized languages, unless $forcedLanguage is provided.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
-     * @param string $forcedLanguage
-     *
-     * @return string
+     * By default, this method uses prioritized languages, unless $forcedLanguage is provided.
      */
-    public function getTranslatedContentNameByVersionInfo(VersionInfo $versionInfo, $forcedLanguage = null)
-    {
+    public function getTranslatedContentNameByVersionInfo(
+        VersionInfo $versionInfo,
+        ?string $forcedLanguage = null
+    ): string {
         foreach ($this->getLanguages($forcedLanguage) as $lang) {
             $translatedName = $versionInfo->getName($lang);
             if ($translatedName !== null) {
