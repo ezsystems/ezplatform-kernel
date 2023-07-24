@@ -261,6 +261,7 @@ tables:
         indexes:
             ezco_link_to_co_id: { fields: [to_contentobject_id] }
             ezco_link_from: { fields: [from_contentobject_id, from_contentobject_version, contentclassattribute_id] }
+            ezco_link_cca_id: { fields: [contentclassattribute_id] }
         id:
             id: { type: integer, nullable: false, options: { autoincrement: true } }
         fields:
