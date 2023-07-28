@@ -114,7 +114,9 @@ class RepositoryAuthenticationProvider extends DaoAuthenticationProvider impleme
 
         $remainingTime = $this->constantAuthTime - (microtime(true) - $startTime);
         if ($remainingTime > 0) {
-            usleep($remainingTime * 1000000);
+            $microseconds = $remainingTime * 1000000;
+
+            usleep((int)$microseconds);
         } elseif ($this->logger) {
             $this->logger->warning(
                 sprintf(
