@@ -473,4 +473,25 @@ class ContentServiceDecoratorTest extends TestCase
 
         $decoratedService->newContentUpdateStruct(...$parameters);
     }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     */
+    public function testLoadVersionInfoListByContentInfoDecorator(): void
+    {
+        $serviceMock = $this->createServiceMock();
+        $decoratedService = $this->createDecorator($serviceMock);
+
+        $argument = [$this->createMock(ContentInfo::class)];
+
+        $serviceMock
+            ->expects(self::once())
+            ->method('loadVersionInfoListByContentInfo')
+            ->with($argument)
+            ->willReturn([]);
+
+        $decoratedService->loadVersionInfoListByContentInfo($argument);
+    }
 }

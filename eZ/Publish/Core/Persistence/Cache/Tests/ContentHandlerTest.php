@@ -97,6 +97,7 @@ class ContentHandlerTest extends AbstractInMemoryCacheHandlerTest
             ['loadVersionInfo', [2, 1], 'ibx-cvi-2-1', null, null, [['content_version_info', [2], true]], ['ibx-cvi-2'], $version],
             ['loadVersionInfo', [2], 'ibx-cvi-2', null, null, [['content_version_info', [2], true]], ['ibx-cvi-2'], $version],
             ['listVersions', [2], 'ibx-c-2-vl', null, null, [['content_version_list', [2], true]], ['ibx-c-2-vl'], [$version]],
+            ['loadVersionInfoList', [[2]], 'ibx-cvi-2', null, null, [['content_version_info', [], true]], ['ibx-cvi'], [2 => $version], true],
         ];
     }
 
@@ -299,6 +300,22 @@ class ContentHandlerTest extends AbstractInMemoryCacheHandlerTest
                 ],
                 ['ibx-c-2-vl'],
                 [$version],
+            ],
+            [
+                'loadVersionInfoList',
+                [[2]],
+                'ibx-cvi-2',
+                [
+                    ['content_version', [2, 1], false],
+                    ['content', [2], false],
+                ],
+                ['c-2-v-1', 'c-2'],
+                [
+                    ['content_version_info', [], true],
+                ],
+                ['ibx-cvi'],
+                [2 => $version],
+                true,
             ],
         ];
     }

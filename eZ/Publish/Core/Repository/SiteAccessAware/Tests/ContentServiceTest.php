@@ -124,6 +124,8 @@ class ContentServiceTest extends AbstractServiceTest
             ['newContentMetadataUpdateStruct', [], $contentMetaStruct],
             ['newContentUpdateStruct', [], $contentUpdateStruct],
             ['validate', [$contentUpdateStruct, []], []],
+
+            ['loadVersionInfoListByContentInfo', [[$contentInfo]], [$versionInfo]],
         ];
     }
 

@@ -459,4 +459,11 @@ abstract class Gateway
         int $versionNo,
         string $languageCode
     ): void;
+
+    /**
+     * @param array<int> $contentIds
+     *
+     * @throws \eZ\Publish\Core\Base\Exceptions\DatabaseException
+     */
+    abstract public function loadVersionInfoList(array $contentIds): array;
 }
