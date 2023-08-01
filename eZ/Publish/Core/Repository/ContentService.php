@@ -1506,6 +1506,71 @@ class ContentService implements ContentServiceInterface
         return $content;
     }
 
+    protected function copyNonTranslatableFieldsFromPublishedVersion(APIContent $currentVersionContent): void
+    {
+        $versionInfo = $currentVersionContent->getVersionInfo();
+        $contentType = $currentVersionContent->getContentType();
+
+        $mainContent = $this->internalLoadContentById($versionInfo->getContentInfo()->getId());
+        $mainContentFieldsInMainLanguage = $mainContent->getFieldsByLanguage(
+            $mainContent->getVersionInfo()->getContentInfo()->getMainLanguageCode()
+        );
+
+        $fieldValues = [];
+        $spiFields = [];
+        foreach ($currentVersionContent->getFields() as $field) {
+            $fieldDefinition = $contentType->getFieldDefinition($field->fieldDefIdentifier);
+            $fieldValues[$fieldDefinition->identifier][$field->languageCode] = $field->getValue();
+
+            if (
+                $fieldDefinition->isTranslatable
+                || $field->languageCode === $versionInfo->initialLanguageCode
+            ) {
+                continue;
+            }
+
+            $fieldType = $this->fieldTypeRegistry->getFieldType(
+                $fieldDefinition->fieldTypeIdentifier
+            );
+
+            $newValue = $mainContentFieldsInMainLanguage[$field->fieldDefIdentifier]->value;
+            $fieldValues[$fieldDefinition->identifier][$field->languageCode] = $newValue;
+
+            $spiFields[] = new SPIField(
+                [
+                    'id' => $field->id,
+                    'fieldDefinitionId' => $fieldDefinition->id,
+                    'type' => $fieldDefinition->fieldTypeIdentifier,
+                    'value' => $fieldType->toPersistenceValue($newValue),
+                    'languageCode' => $field->languageCode,
+                    'versionNo' => $versionInfo->versionNo,
+                ]
+            );
+        }
+
+        $updateStruct = new SPIContentUpdateStruct();
+        $updateStruct->name = $this->nameSchemaService->resolveNameSchema(
+            $currentVersionContent,
+            $fieldValues,
+            $versionInfo->languageCodes,
+            $contentType
+        );
+        $updateStruct->initialLanguageId = $this->persistenceHandler
+            ->contentLanguageHandler()
+            ->loadByLanguageCode(
+                $versionInfo->initialLanguageCode
+            )->id;
+        $updateStruct->creatorId = $versionInfo->creatorId;
+        $updateStruct->modificationDate = time();
+        $updateStruct->fields = $spiFields;
+
+        $this->persistenceHandler->contentHandler()->updateContent(
+            $versionInfo->getContentInfo()->getId(),
+            $versionInfo->versionNo,
+            $updateStruct
+        );
+    }
+
     /**
      * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
      */
