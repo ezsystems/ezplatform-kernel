@@ -311,7 +311,7 @@ class ContentService implements ContentServiceInterface
                     sprintf(
                         'Element at position %d is not an instance of %s',
                         $idx,
-                        $contentInfo
+                        ContentInfo::class
                     )
                 );
             }
