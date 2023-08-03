@@ -62,7 +62,7 @@ class QueryRenderingExtension extends AbstractExtension
 
     private function createControllerReference(array $options): ControllerReference
     {
-        $pageParam = isset($options['pagination']['page_param']) ? $options['pagination']['page_param'] : 'page';
+        $pageParam = $options['pagination']['page_param'] ?? 'page';
 
         return new ControllerReference(
             'ez_query_render::renderQuery',
