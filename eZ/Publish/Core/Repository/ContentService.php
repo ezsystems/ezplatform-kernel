@@ -1507,7 +1507,7 @@ class ContentService implements ContentServiceInterface
     }
 
     /**
-     * @throws eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
      */
     protected function copyNonTranslatableFieldsFromPublishedVersion(APIContent $currentVersionContent): void
     {

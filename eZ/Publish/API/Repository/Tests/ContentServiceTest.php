@@ -6534,8 +6534,8 @@ class ContentServiceTest extends BaseContentServiceTest
 
         $typeCreate->mainLanguageCode = 'eng-GB';
         $typeCreate->remoteId = '1234567890abcdef';
-        $typeCreate->urlAliasSchema = 'url|scheme';
-        $typeCreate->nameSchema = 'name|scheme';
+        $typeCreate->urlAliasSchema = '<title>';
+        $typeCreate->nameSchema = '<title>';
         $typeCreate->names = [
             'eng-GB' => 'Nontranslatable content type',
         ];
