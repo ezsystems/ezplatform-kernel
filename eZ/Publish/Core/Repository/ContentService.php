@@ -1520,7 +1520,7 @@ class ContentService implements ContentServiceInterface
         if (
             !$publishedVersionInfo->isPublished()
             ||
-            ($versionInfo->versionNo >= $publishedVersionInfo->versionNo && empty($translations))
+            ($versionInfo->versionNo >= $publishedVersionInfo->versionNo)
         ) {
             return;
         }
