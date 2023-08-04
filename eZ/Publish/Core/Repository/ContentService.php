@@ -1516,11 +1516,10 @@ class ContentService implements ContentServiceInterface
             $mainContent->getVersionInfo()->getContentInfo()->getMainLanguageCode()
         );
 
-        $fieldValues = [];
-        $spiFields = [];
+        $updateStruct = $this->newContentUpdateStruct();
+        $updateStruct->initialLanguageCode = $versionInfo->initialLanguageCode;
         foreach ($currentVersionContent->getFields() as $field) {
             $fieldDefinition = $contentType->getFieldDefinition($field->fieldDefIdentifier);
-            $fieldValues[$fieldDefinition->identifier][$field->languageCode] = $field->getValue();
 
             if (
                 $fieldDefinition->isTranslatable
@@ -1529,46 +1528,16 @@ class ContentService implements ContentServiceInterface
                 continue;
             }
 
-            $fieldType = $this->fieldTypeRegistry->getFieldType(
-                $fieldDefinition->fieldTypeIdentifier
-            );
-
             $newValue = $mainContentFieldsInMainLanguage[$field->fieldDefIdentifier]->value;
-            $fieldValues[$fieldDefinition->identifier][$field->languageCode] = $newValue;
 
-            $spiFields[] = new SPIField(
-                [
-                    'id' => $field->id,
-                    'fieldDefinitionId' => $fieldDefinition->id,
-                    'type' => $fieldDefinition->fieldTypeIdentifier,
-                    'value' => $fieldType->toPersistenceValue($newValue),
-                    'languageCode' => $field->languageCode,
-                    'versionNo' => $versionInfo->versionNo,
-                ]
+            $updateStruct->setField(
+                $fieldDefinition->identifier,
+                $newValue,
+                $field->languageCode
             );
         }
 
-        $updateStruct = new SPIContentUpdateStruct();
-        $updateStruct->name = $this->nameSchemaService->resolveNameSchema(
-            $currentVersionContent,
-            $fieldValues,
-            $versionInfo->languageCodes,
-            $contentType
-        );
-        $updateStruct->initialLanguageId = $this->persistenceHandler
-            ->contentLanguageHandler()
-            ->loadByLanguageCode(
-                $versionInfo->initialLanguageCode
-            )->id;
-        $updateStruct->creatorId = $versionInfo->creatorId;
-        $updateStruct->modificationDate = time();
-        $updateStruct->fields = $spiFields;
-
-        $this->persistenceHandler->contentHandler()->updateContent(
-            $versionInfo->getContentInfo()->getId(),
-            $versionInfo->versionNo,
-            $updateStruct
-        );
+        $this->internalUpdateContent($versionInfo, $updateStruct, []);
     }
 
     /**
