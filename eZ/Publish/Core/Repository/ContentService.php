@@ -1561,6 +1561,10 @@ class ContentService implements ContentServiceInterface
             );
         }
 
+        if (count($persistenceFields) === 0) {
+            return;
+        }
+
         $updateStruct = new SPIContentUpdateStruct();
         $updateStruct->name = $this->nameSchemaService->resolveNameSchema(
             $currentVersionContent,
