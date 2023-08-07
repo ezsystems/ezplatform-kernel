@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Integration\Core\Repository\ContentService;
 
 use Datetime;
+use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct;
 use eZ\Publish\Core\Repository\Values\Content\ContentUpdateStruct;
 use Ibexa\Tests\Integration\Core\RepositoryTestCase;
 
@@ -20,7 +21,11 @@ final class CopyNonTranslatableFieldsFromPublishedVersionTest extends Repository
     private const GER_DE = 'ger-DE';
     private const ENG_US = 'eng-US';
     private const CONTENT_TYPE_IDENTIFIER = 'nontranslatable';
+    private const TEXT_LINE_FIELD_TYPE_IDENTIFIER = 'ezstring';
 
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\Exception
+     */
     public function testCopyNonTranslatableFieldsFromPublishedVersionToDraft(): void
     {
         $this->createNonTranslatableContentType();
@@ -99,58 +104,70 @@ final class CopyNonTranslatableFieldsFromPublishedVersionTest extends Repository
         $typeCreate->creatorId = $permissionResolver->getCurrentUserReference()->getUserId();
         $typeCreate->creationDate = new DateTime();
 
-        $titleFieldCreate = $contentTypeService->newFieldDefinitionCreateStruct('title', 'ezstring');
-        $titleFieldCreate->names = [
-            'eng-GB' => 'Title',
-        ];
-        $titleFieldCreate->descriptions = [
-            'eng-GB' => 'Title',
-        ];
-        $titleFieldCreate->fieldGroup = 'content';
-        $titleFieldCreate->position = 1;
-        $titleFieldCreate->isTranslatable = true;
-        $titleFieldCreate->isRequired = true;
-        $titleFieldCreate->isInfoCollector = false;
-        $titleFieldCreate->validatorConfiguration = [
-            'StringLengthValidator' => [
-                'minStringLength' => 0,
-                'maxStringLength' => 0,
-            ],
-        ];
-        $titleFieldCreate->fieldSettings = [];
-        $titleFieldCreate->isSearchable = true;
-        $titleFieldCreate->defaultValue = 'default title';
+        $fieldDefinitionPosition = 1;
+        $typeCreate->addFieldDefinition(
+            $this->buildFieldDefinitionCreateStructForNonTranslatableContentType(
+                $fieldDefinitionPosition,
+                'title',
+                ['eng-GB' => 'Title'],
+                true,
+                true,
+                'default title'
+            )
+        );
 
-        $typeCreate->addFieldDefinition($titleFieldCreate);
-
-        $bodyFieldCreate = $contentTypeService->newFieldDefinitionCreateStruct('body', 'ezstring');
-        $bodyFieldCreate->names = [
-            'eng-GB' => 'Body',
-        ];
-        $bodyFieldCreate->descriptions = [
-            'eng-GB' => 'Body',
-        ];
-        $bodyFieldCreate->fieldGroup = 'content';
-        $bodyFieldCreate->position = 2;
-        $bodyFieldCreate->isTranslatable = false;
-        $bodyFieldCreate->isRequired = false;
-        $bodyFieldCreate->isInfoCollector = false;
-        $bodyFieldCreate->validatorConfiguration = [
-            'StringLengthValidator' => [
-                'minStringLength' => 0,
-                'maxStringLength' => 0,
-            ],
-        ];
-        $bodyFieldCreate->fieldSettings = [];
-        $bodyFieldCreate->isSearchable = true;
-        $bodyFieldCreate->defaultValue = null;
-
-        $typeCreate->addFieldDefinition($bodyFieldCreate);
+        $typeCreate->addFieldDefinition(
+            $this->buildFieldDefinitionCreateStructForNonTranslatableContentType(
+                ++$fieldDefinitionPosition,
+                'body',
+                ['eng-GB' => 'Body'],
+                false,
+                false
+            )
+        );
 
         $contentTypeDraft = $contentTypeService->createContentType(
             $typeCreate,
             [$contentTypeService->loadContentTypeGroupByIdentifier('Media')],
         );
         $contentTypeService->publishContentTypeDraft($contentTypeDraft);
+    }
+
+    /**
+     * @param array<string, string> $names
+     */
+    private function buildFieldDefinitionCreateStructForNonTranslatableContentType(
+        int $position,
+        string $fieldIdentifier,
+        array $names,
+        bool $isTranslatable,
+        bool $isRequired,
+        ?string $defaultValue = null
+    ): FieldDefinitionCreateStruct {
+        $contentTypeService = self::getContentTypeService();
+
+        $fieldDefinitionCreateStruct = $contentTypeService->newFieldDefinitionCreateStruct(
+            $fieldIdentifier,
+            self::TEXT_LINE_FIELD_TYPE_IDENTIFIER
+        );
+
+        $fieldDefinitionCreateStruct->names = $names;
+        $fieldDefinitionCreateStruct->descriptions = $names;
+        $fieldDefinitionCreateStruct->fieldGroup = 'content';
+        $fieldDefinitionCreateStruct->position = $position;
+        $fieldDefinitionCreateStruct->isTranslatable = $isTranslatable;
+        $fieldDefinitionCreateStruct->isRequired = $isRequired;
+        $fieldDefinitionCreateStruct->isInfoCollector = false;
+        $fieldDefinitionCreateStruct->validatorConfiguration = [
+            'StringLengthValidator' => [
+                'minStringLength' => 0,
+                'maxStringLength' => 0,
+            ],
+        ];
+        $fieldDefinitionCreateStruct->fieldSettings = [];
+        $fieldDefinitionCreateStruct->isSearchable = true;
+        $fieldDefinitionCreateStruct->defaultValue = $defaultValue;
+
+        return $fieldDefinitionCreateStruct;
     }
 }
