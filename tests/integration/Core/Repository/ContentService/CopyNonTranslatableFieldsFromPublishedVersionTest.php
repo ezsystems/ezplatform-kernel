@@ -67,7 +67,7 @@ final class CopyNonTranslatableFieldsFromPublishedVersionTest extends Repository
             'fields' => $contentDraft->getFields(),
         ]);
 
-        $expectedBodyValue = 'Nontranslatable value';
+        $expectedBodyValue = 'Non-translatable value';
         $contentUpdateStruct->setField('title', 'Title v2', self::ENG_US);
         $contentUpdateStruct->setField('body', $expectedBodyValue, self::ENG_US);
 
@@ -96,7 +96,7 @@ final class CopyNonTranslatableFieldsFromPublishedVersionTest extends Repository
         $typeCreate->urlAliasSchema = '<title>';
         $typeCreate->nameSchema = '<title>';
         $typeCreate->names = [
-            'eng-GB' => 'Nontranslatable content type',
+            'eng-GB' => 'Non-translatable content type',
         ];
         $typeCreate->descriptions = [
             'eng-GB' => '',
