@@ -2972,29 +2972,6 @@ class UserServiceTest extends BaseTest
     }
 
     /**
-     * Test trying to load User by invalid Token.
-     *
-     * @covers \eZ\Publish\API\Repository\UserService::loadUserByToken
-     */
-    public function testLoadUserByTokenThrowsNotFoundException()
-    {
-        $this->expectException(NotFoundException::class);
-
-        $repository = $this->getRepository();
-        $userService = $repository->getUserService();
-
-        $user = $this->createUserVersion1();
-
-        $userTokenUpdateStruct = new UserTokenUpdateStruct();
-        $userTokenUpdateStruct->hashKey = md5('hash');
-        $userTokenUpdateStruct->time = new DateTime();
-
-        $userService->updateUserToken($user, $userTokenUpdateStruct);
-
-        $userService->loadUserByToken('not_existing_token');
-    }
-
-    /**
      * Test updating User Token.
      *
      * @covers \eZ\Publish\API\Repository\UserService::updateUserToken()
@@ -3043,6 +3020,20 @@ class UserServiceTest extends BaseTest
 
         // should throw NotFoundException now
         $userService->loadUserByToken($userToken);
+    }
+
+    /**
+     * Test trying to load User by invalid Token.
+     *
+     * @covers \eZ\Publish\API\Repository\UserService::loadUserByToken
+     */
+    public function testLoadUserByTokenThrowsNotFoundException(): void
+    {
+        $repository = $this->getRepository();
+        $userService = $repository->getUserService();
+
+        $this->expectException(NotFoundException::class);
+        $userService->loadUserByToken('not_existing_token');
     }
 
     /**
