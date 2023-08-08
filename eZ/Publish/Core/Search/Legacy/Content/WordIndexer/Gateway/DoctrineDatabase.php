@@ -98,6 +98,7 @@ class DoctrineDatabase extends Gateway
         $wordCount = 0;
         $placement = 0;
 
+        $this->connection->beginTransaction();
         // Remove previously indexed content if exists to avoid keeping in index removed field values
         $this->remove($fullTextData->id);
         foreach ($fullTextData->values as $fullTextValue) {
@@ -156,7 +157,6 @@ class DoctrineDatabase extends Gateway
         }
 
         $wordIDArray = $this->buildWordIDArray(array_keys($indexArrayOnlyWords));
-        $this->connection->beginTransaction();
         for ($arrayCount = 0; $arrayCount < $wordCount; $arrayCount += 1000) {
             $placement = $this->indexWords(
                 $fullTextData,
