@@ -3027,7 +3027,7 @@ class UserServiceTest extends BaseTest
      *
      * @covers \eZ\Publish\API\Repository\UserService::loadUserByToken
      */
-    public function testLoadUserByTokenThrowsNotFoundException()
+    public function testLoadUserByTokenThrowsNotFoundException(): void
     {
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
