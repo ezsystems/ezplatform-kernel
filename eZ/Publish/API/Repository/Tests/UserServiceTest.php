@@ -3029,11 +3029,10 @@ class UserServiceTest extends BaseTest
      */
     public function testLoadUserByTokenThrowsNotFoundException()
     {
-        $this->expectException(NotFoundException::class);
-
         $repository = $this->getRepository();
         $userService = $repository->getUserService();
 
+        $this->expectException(NotFoundException::class);
         $userService->loadUserByToken('not_existing_token');
     }
 
