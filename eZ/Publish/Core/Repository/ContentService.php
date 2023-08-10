@@ -1495,6 +1495,7 @@ class ContentService implements ContentServiceInterface
         $this->repository->beginTransaction();
         try {
             $this->copyTranslationsFromPublishedVersion($content->versionInfo, $translations);
+            $this->copyNonTranslatableFieldsFromPublishedVersion($content);
             $content = $this->internalPublishVersion($content->getVersionInfo(), null, $translations);
             $this->repository->commit();
         } catch (Exception $e) {
@@ -1503,6 +1504,87 @@ class ContentService implements ContentServiceInterface
         }
 
         return $content;
+    }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     */
+    protected function copyNonTranslatableFieldsFromPublishedVersion(APIContent $currentVersionContent): void
+    {
+        $versionInfo = $currentVersionContent->getVersionInfo();
+        $contentType = $currentVersionContent->getContentType();
+
+        $publishedContent = $this->internalLoadContentById($versionInfo->getContentInfo()->getId());
+        $publishedVersionInfo = $publishedContent->getVersionInfo();
+
+        if (
+            !$publishedVersionInfo->isPublished()
+            || ($versionInfo->versionNo >= $publishedVersionInfo->versionNo)
+        ) {
+            return;
+        }
+
+        $publishedContentFieldsInMainLanguage = $publishedContent->getFieldsByLanguage(
+            $publishedContent->getVersionInfo()->getContentInfo()->getMainLanguageCode()
+        );
+
+        $fieldValues = [];
+        $persistenceFields = [];
+        foreach ($currentVersionContent->getFields() as $field) {
+            $fieldDefinition = $contentType->getFieldDefinition($field->fieldDefIdentifier);
+            $fieldValues[$fieldDefinition->identifier][$field->languageCode] = $field->getValue();
+
+            if (
+                $fieldDefinition->isTranslatable
+                || $field->languageCode === $versionInfo->initialLanguageCode
+            ) {
+                continue;
+            }
+
+            $fieldType = $this->fieldTypeRegistry->getFieldType(
+                $fieldDefinition->fieldTypeIdentifier
+            );
+
+            $newValue = $publishedContentFieldsInMainLanguage[$field->fieldDefIdentifier]->getValue();
+            $fieldValues[$fieldDefinition->identifier][$field->languageCode] = $newValue;
+
+            $persistenceFields[] = new SPIField(
+                [
+                    'id' => $field->id,
+                    'fieldDefinitionId' => $fieldDefinition->id,
+                    'type' => $fieldDefinition->fieldTypeIdentifier,
+                    'value' => $fieldType->toPersistenceValue($newValue),
+                    'languageCode' => $field->languageCode,
+                    'versionNo' => $versionInfo->versionNo,
+                ]
+            );
+        }
+
+        if (count($persistenceFields) === 0) {
+            return;
+        }
+
+        $updateStruct = new SPIContentUpdateStruct();
+        $updateStruct->name = $this->nameSchemaService->resolveNameSchema(
+            $currentVersionContent,
+            $fieldValues,
+            $versionInfo->languageCodes,
+            $contentType
+        );
+        $updateStruct->initialLanguageId = $this->persistenceHandler
+            ->contentLanguageHandler()
+            ->loadByLanguageCode(
+                $versionInfo->initialLanguageCode
+            )->id;
+        $updateStruct->creatorId = $versionInfo->creatorId;
+        $updateStruct->modificationDate = time();
+        $updateStruct->fields = $persistenceFields;
+
+        $this->persistenceHandler->contentHandler()->updateContent(
+            $versionInfo->getContentInfo()->getId(),
+            $versionInfo->versionNo,
+            $updateStruct
+        );
     }
 
     /**
