@@ -55,7 +55,7 @@ class TrashHandler extends AbstractHandler implements TrashHandlerInterface
             }, $reverseRelations);
         }
 
-        $versionTags = array_map(function (VersionInfo $versionInfo) use ($contentId) {
+        $versionTags = array_map(function (VersionInfo $versionInfo) use ($contentId): string {
             return  $this->cacheIdentifierGenerator->generateTag(
                 self::CONTENT_VERSION_IDENTIFIER,
                 [$contentId, $versionInfo->versionNo]
