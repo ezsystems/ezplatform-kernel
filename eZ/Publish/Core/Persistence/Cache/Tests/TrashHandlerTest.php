@@ -122,10 +122,10 @@ class TrashHandlerTest extends AbstractCacheHandlerTest
         $versionNo = 1;
 
         $tags = [
-            'lp-' . $locationId,
-            'l-' . $locationId,
             'c-' . $contentId . '-v-' . $versionNo,
             'c-' . $contentId,
+            'lp-' . $locationId,
+            'l-' . $locationId,
         ];
 
         $handlerMethodName = $this->getHandlerMethodName();
@@ -168,7 +168,6 @@ class TrashHandlerTest extends AbstractCacheHandlerTest
             ->method('trashSubtree')
             ->with($locationId)
             ->willReturn(null);
-
         $this->cacheIdentifierGeneratorMock
             ->expects($this->exactly(4))
             ->method('generateTag')

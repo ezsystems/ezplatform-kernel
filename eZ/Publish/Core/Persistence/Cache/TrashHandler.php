@@ -63,14 +63,15 @@ class TrashHandler extends AbstractHandler implements TrashHandlerInterface
         }, $versions);
 
         $tags = array_merge(
+            $versionTags,
+            $relationTags,
             [
                 $this->cacheIdentifierGenerator->generateTag(self::CONTENT_IDENTIFIER, [$contentId]),
                 $this->cacheIdentifierGenerator->generateTag(self::LOCATION_PATH_IDENTIFIER, [$locationId]),
                 $this->cacheIdentifierGenerator->generateTag(self::LOCATION_IDENTIFIER, [$locationId]),
             ],
-            $relationTags,
-            $versionTags
         );
+
         $this->cache->invalidateTags(array_values(array_unique($tags)));
 
         return $return;
