@@ -56,9 +56,13 @@ class ParentContentType extends MultipleValued
         if (!$view instanceof LocationValueView) {
             return false;
         }
-        $parent = $this->loadParentLocation(
-            $view->getLocation()->parentLocationId
-        );
+        try {
+            $parent = $this->loadParentLocation(
+                $view->getLocation()->parentLocationId
+            );
+        } catch (\eZ\Publish\API\Repository\Exceptions\NotFoundException $e) {
+            return false;
+        }
 
         return isset($this->values[$parent->getContentInfo()->contentTypeId]);
     }
