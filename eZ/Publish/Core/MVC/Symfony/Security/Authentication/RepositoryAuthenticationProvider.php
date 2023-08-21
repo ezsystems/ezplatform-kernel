@@ -24,6 +24,8 @@ class RepositoryAuthenticationProvider extends DaoAuthenticationProvider impleme
 {
     use LoggerAwareTrait;
 
+    private const USLEEP_MULTIPLIER = 1000000;
+
     /** @var float|null */
     private $constantAuthTime;
 
@@ -114,7 +116,9 @@ class RepositoryAuthenticationProvider extends DaoAuthenticationProvider impleme
 
         $remainingTime = $this->constantAuthTime - (microtime(true) - $startTime);
         if ($remainingTime > 0) {
-            usleep($remainingTime * 1000000);
+            $microseconds = $remainingTime * self::USLEEP_MULTIPLIER;
+
+            usleep((int)$microseconds);
         } elseif ($this->logger) {
             $this->logger->warning(
                 sprintf(

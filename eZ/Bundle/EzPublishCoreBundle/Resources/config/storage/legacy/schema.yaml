@@ -242,6 +242,7 @@ tables:
             sort_key_string: { fields: [sort_key_string], options: { lengths: ['191'] } }
             ezcontentobject_attribute_language_code: { fields: [language_code] }
             sort_key_int: { fields: [sort_key_int] }
+            ezcontentobject_attribute_co_id_ver: { fields: [contentobject_id, version] }
         id:
             id: { type: integer, nullable: false, options: { autoincrement: true } }
             version: { type: integer, nullable: false, options: { default: '0' } }
@@ -547,6 +548,7 @@ tables:
             ezurl_ol_coa_id: { fields: [contentobject_attribute_id] }
             ezurl_ol_url_id: { fields: [url_id] }
             ezurl_ol_coa_version: { fields: [contentobject_attribute_version] }
+            ezurl_ol_coa_id_cav: { fields: [contentobject_attribute_id, contentobject_attribute_version] }
         fields:
             contentobject_attribute_id: { type: integer, nullable: false, options: { default: '0' } }
             contentobject_attribute_version: { type: integer, nullable: false, options: { default: '0' } }
