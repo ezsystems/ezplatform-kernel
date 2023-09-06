@@ -32,7 +32,7 @@ class SessionInitByPostListener implements EventSubscriberInterface
             $session = $request->getSession();
         }
 
-        if (!$session || $event->getRequestType() !== HttpKernelInterface::MAIN_REQUEST) {
+        if (null === $session || $event->getRequestType() !== HttpKernelInterface::MAIN_REQUEST) {
             return;
         }
 
