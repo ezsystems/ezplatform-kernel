@@ -911,6 +911,11 @@ class Handler implements BaseContentHandler
     public function loadVersionInfoList(array $contentIds): array
     {
         $rows = $this->contentGateway->loadVersionInfoList($contentIds);
+
+        if (empty($rows)) {
+            return [];
+        }
+
         $mappedRows = array_map(
             static function (array $row): array {
                 return [

@@ -42,4 +42,18 @@ final class LoadVersionInfoTest extends RepositoryTestCase
             self::assertEquals($loadedVersionInfo, $versionInfo);
         }
     }
+
+    public function testLoadVersionInfoListByContentInfoForTopLevelNode(): void
+    {
+        $contentService = self::getContentService();
+        $locationService = self::getLocationService();
+
+        $location = $locationService->loadLocation(1);
+
+        $versionInfoList = $contentService->loadVersionInfoListByContentInfo(
+            [$location->getContentInfo()]
+        );
+
+        self::assertCount(0, $versionInfoList);
+    }
 }
