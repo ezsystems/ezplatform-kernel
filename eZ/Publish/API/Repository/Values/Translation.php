@@ -12,6 +12,8 @@ namespace eZ\Publish\API\Repository\Values;
  * Base class fro translation messages.
  *
  * Use its extensions: Translation\Singular, Translation\Plural.
+ *
+ * @implements \Stringable
  */
 abstract class Translation extends ValueObject
 {
