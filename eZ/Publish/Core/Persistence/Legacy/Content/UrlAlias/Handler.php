@@ -234,7 +234,6 @@ class Handler implements UrlAliasHandlerInterface
             // 2. existing location or custom alias entry
             // 3. history entry
             if (
-                $row['action'] === Gateway::NOP_ACTION ||
                 $row['action'] === $action ||
                 (int)$row['is_original'] === 0
             ) {

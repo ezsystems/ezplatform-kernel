@@ -603,7 +603,7 @@ final class DoctrineDatabase extends Gateway
             $values['is_original'] = 1;
         }
         if ($values['action'] === self::NOP_ACTION) {
-            $values['is_original'] = 0;
+            $values['is_original'] = 1;
         }
 
         $query = $this->connection->createQueryBuilder();
