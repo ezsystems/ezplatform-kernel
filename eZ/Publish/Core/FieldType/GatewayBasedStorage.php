@@ -87,7 +87,7 @@ abstract class GatewayBasedStorage implements FieldStorage
         );
 
         if (!isset($this->gateways[$context['identifier']])) {
-            throw new \OutOfBoundsException("No gateway for ${context['identifier']} available.");
+            throw new \OutOfBoundsException("No gateway for {$context['identifier']} available.");
         }
 
         $gateway = $this->gateways[$context['identifier']];

@@ -841,7 +841,7 @@ class ContentTypeServiceTest extends BaseContentTypeServiceTest
                     $this->assertEquals(
                         $typeCreate->$propertyName,
                         $contentType->$propertyName,
-                        "Did not assert that property '${propertyName}' is equal on struct and resulting value object"
+                        "Did not assert that property '{$propertyName}' is equal on struct and resulting value object"
                     );
                     break;
             }
