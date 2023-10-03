@@ -93,7 +93,8 @@
             "Ibexa\\Bundle\\LegacySearchEngine\\": "src/bundle/LegacySearchEngine",
             "Ibexa\\Contracts\\Core\\": "src/contracts",
             "Ibexa\\Core\\": "src/lib"
-        }
+        },
+        "classmap": ["tests/integration/Core/RepositoryTestCase.php"]
     },
     "autoload-dev": {
         "psr-4": {
