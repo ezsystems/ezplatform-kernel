@@ -74,21 +74,15 @@ class Handler implements BaseTrashHandler
         $this->contentHandler = $contentHandler;
     }
 
-    /**
-     * Loads the data for the trashed location identified by $id.
-     * $id is the same as original location (which has been previously trashed).
-     *
-     * @param int $id
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location\Trashed
-     */
-    public function loadTrashItem($id)
+    public function loadTrashItem(int $id, array $trashedLocationsContentMap = []): Trashed
     {
         $data = $this->locationGateway->loadTrashByLocation($id);
 
-        return $this->locationMapper->createLocationFromRow($data, null, new Trashed());
+        return $this->locationMapper->createLocationFromRow(
+            $data,
+            null,
+            new Trashed(['removedLocationContentIdMap' => $trashedLocationsContentMap]),
+        );
     }
 
     /**
@@ -109,6 +103,7 @@ class Handler implements BaseTrashHandler
         $locationRows = $this->locationGateway->getSubtreeContent($locationId);
         $isLocationRemoved = false;
         $parentLocationId = null;
+        $trashedLocationsContentMap = [];
 
         foreach ($locationRows as $locationRow) {
             if ($locationRow['node_id'] == $locationId) {
@@ -117,6 +112,7 @@ class Handler implements BaseTrashHandler
 
             if ($this->locationGateway->countLocationsByContentId($locationRow['contentobject_id']) == 1) {
                 $this->locationGateway->trashLocation($locationRow['node_id']);
+                $trashedLocationsContentMap[$locationRow['node_id']] = $locationRow['contentobject_id'];
             } else {
                 if ($locationRow['node_id'] == $locationId) {
                     $isLocationRemoved = true;
@@ -143,7 +139,7 @@ class Handler implements BaseTrashHandler
             $this->locationHandler->markSubtreeModified($parentLocationId, time());
         }
 
-        return $isLocationRemoved ? null : $this->loadTrashItem($locationId);
+        return $isLocationRemoved ? null : $this->loadTrashItem($locationId, $trashedLocationsContentMap);
     }
 
     /**

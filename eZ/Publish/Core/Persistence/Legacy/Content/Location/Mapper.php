@@ -25,7 +25,7 @@ class Mapper
      * @param string $prefix
      * @param \eZ\Publish\SPI\Persistence\Content\Location|null $location
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Location
+     * @return \eZ\Publish\SPI\Persistence\Content\Location|\eZ\Publish\SPI\Persistence\Content\Location\Trashed
      */
     public function createLocationFromRow(array $data, $prefix = '', ?Location $location = null)
     {
