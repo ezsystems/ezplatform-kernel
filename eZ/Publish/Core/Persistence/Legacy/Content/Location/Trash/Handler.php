@@ -74,15 +74,21 @@ class Handler implements BaseTrashHandler
         $this->contentHandler = $contentHandler;
     }
 
-    public function loadTrashItem(int $id, array $trashedLocationsContentMap = []): Trashed
+    /**
+     * Loads the data for the trashed location identified by $id.
+     * $id is the same as original location (which has been previously trashed).
+     *
+     * @param int $id
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     *
+     * @return \eZ\Publish\SPI\Persistence\Content\Location\Trashed
+     */
+    public function loadTrashItem($id)
     {
         $data = $this->locationGateway->loadTrashByLocation($id);
 
-        return $this->locationMapper->createLocationFromRow(
-            $data,
-            null,
-            new Trashed(['removedLocationContentIdMap' => $trashedLocationsContentMap]),
-        );
+        return $this->locationMapper->createLocationFromRow($data, null, new Trashed());
     }
 
     /**
@@ -139,7 +145,14 @@ class Handler implements BaseTrashHandler
             $this->locationHandler->markSubtreeModified($parentLocationId, time());
         }
 
-        return $isLocationRemoved ? null : $this->loadTrashItem($locationId, $trashedLocationsContentMap);
+        if ($isLocationRemoved === true) {
+            return null;
+        }
+
+        $trashItem = $this->loadTrashItem($locationId);
+        $trashItem->removedLocationContentIdMap = $trashedLocationsContentMap;
+
+        return $trashItem;
     }
 
     /**

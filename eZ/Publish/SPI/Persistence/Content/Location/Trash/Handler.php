@@ -7,8 +7,6 @@
 namespace eZ\Publish\SPI\Persistence\Content\Location\Trash;
 
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\SPI\Persistence\Content\Location;
-use eZ\Publish\SPI\Persistence\Content\Location\Trashed;
 
 /**
  * The Trash Handler interface defines operations on Location elements in the storage engine.
@@ -19,11 +17,13 @@ interface Handler
      * Loads the data for the trashed location identified by $id.
      * $id is the same as original location (which has been previously trashed).
      *
-     * @param array<int, int> $trashedLocationsContentMap
+     * @param int $id
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     *
+     * @return \eZ\Publish\SPI\Persistence\Content\Location\Trashed
      */
-    public function loadTrashItem(int $id, array $trashedLocationsContentMap = []): Trashed;
+    public function loadTrashItem($id);
 
     /**
      * Sends a subtree starting to $locationId to the trash

@@ -7,7 +7,6 @@
 namespace eZ\Publish\Core\Persistence\Cache;
 
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\SPI\Persistence\Content\Location;
 use eZ\Publish\SPI\Persistence\Content\Location\Trash\Handler as TrashHandlerInterface;
 use eZ\Publish\SPI\Persistence\Content\Relation;
 
@@ -20,11 +19,14 @@ class TrashHandler extends AbstractHandler implements TrashHandlerInterface
     private const CONTENT_IDENTIFIER = 'content';
     private const LOCATION_PATH_IDENTIFIER = 'location_path';
 
-    public function loadTrashItem(int $id, array $trashedLocationsContentMap = []): Location\Trashed
+    /**
+     * {@inheritdoc}
+     */
+    public function loadTrashItem($id)
     {
         $this->logger->logCall(__METHOD__, ['id' => $id]);
 
-        return $this->persistenceHandler->trashHandler()->loadTrashItem($id, $trashedLocationsContentMap);
+        return $this->persistenceHandler->trashHandler()->loadTrashItem($id);
     }
 
     /**
