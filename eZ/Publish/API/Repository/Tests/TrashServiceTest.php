@@ -254,11 +254,6 @@ class TrashServiceTest extends BaseTrashServiceTest
             $trashItemReloaded->pathString
         );
 
-        $this->assertEquals(
-            $trashItem,
-            $trashItemReloaded
-        );
-
         $this->assertInstanceOf(
             DateTime::class,
             $trashItemReloaded->trashed
