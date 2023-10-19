@@ -316,7 +316,7 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
 
                 $location = $parameters['location'] ?? $this->locationService->loadLocation(
                     $parameters['locationId'],
-                    isset($parameters['forcedLanguage']) ? [$parameters['forcedLanguage']] : null
+                    isset($parameters['forcedLanguageCode']) ? [$parameters['forcedLanguageCode']] : null
                 );
                 unset($parameters['location'], $parameters['locationId'], $parameters['viewType'], $parameters['layout']);
 

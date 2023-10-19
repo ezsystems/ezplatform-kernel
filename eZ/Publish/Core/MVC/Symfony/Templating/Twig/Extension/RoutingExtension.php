@@ -114,15 +114,25 @@ class RoutingExtension extends AbstractExtension
     {
         if ($object instanceof Location) {
             $routeName = UrlAliasRouter::URL_ALIAS_ROUTE_NAME;
+            $forcedLanguageCode = $this->getForcedLanguageCodeBasedOnPreview();
+            if ($forcedLanguageCode !== null) {
+                $parameters += [
+                    'forcedLanguageCode' => $forcedLanguageCode,
+                ];
+            }
             $parameters += [
                 'locationId' => $object->id,
-                'forcedLanguage' => $this->getForcedLanguageCodeBasedOnPreview(),
             ];
         } elseif ($object instanceof Content || $object instanceof ContentInfo) {
             $routeName = UrlAliasRouter::URL_ALIAS_ROUTE_NAME;
+            $forcedLanguageCode = $this->getForcedLanguageCodeBasedOnPreview();
+            if ($forcedLanguageCode !== null) {
+                $parameters += [
+                    'forcedLanguageCode' => $forcedLanguageCode,
+                ];
+            }
             $parameters += [
                 'contentId' => $object->id,
-                'forcedLanguage' => $this->getForcedLanguageCodeBasedOnPreview(),
             ];
         } elseif ($object instanceof RouteReference) {
             $routeName = $object->getRoute();
@@ -142,7 +152,7 @@ class RoutingExtension extends AbstractExtension
      */
     private function getForcedLanguageCodeBasedOnPreview(): ?string
     {
-        if ($this->contentPreviewHelper->isPreviewActive() === false) {
+        if ($this->contentPreviewHelper->isPreviewActive() !== true) {
             return null;
         }
 

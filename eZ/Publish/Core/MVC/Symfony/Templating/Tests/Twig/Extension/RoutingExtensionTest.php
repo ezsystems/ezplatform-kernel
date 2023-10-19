@@ -8,9 +8,11 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension;
 
+use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
+use eZ\Publish\Core\Helper\ContentPreviewHelper;
 use eZ\Publish\Core\MVC\Symfony\Routing\Generator\RouteReferenceGenerator;
 use eZ\Publish\Core\MVC\Symfony\Routing\Generator\RouteReferenceGeneratorInterface;
 use eZ\Publish\Core\MVC\Symfony\Routing\RouteReference;
@@ -32,7 +34,9 @@ final class RoutingExtensionTest extends IntegrationTestCase
         return [
             new RoutingExtension(
                 $this->getRouteReferenceGenerator(),
-                $this->getUrlGenerator()
+                $this->getUrlGenerator(),
+                $this->createMock(ContentPreviewHelper::class),
+                $this->createMock(LocationService::class),
             ),
         ];
     }
