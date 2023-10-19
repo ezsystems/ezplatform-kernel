@@ -19,4 +19,7 @@ class Trashed extends Location
      * @var mixed Trashed timestamp.
      */
     public $trashed;
+
+    /** @var array<int, int> Location ID to a Content ID map of removed items */
+    public $removedLocationContentIdMap = [];
 }

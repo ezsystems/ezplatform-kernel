@@ -109,6 +109,7 @@ class Handler implements BaseTrashHandler
         $locationRows = $this->locationGateway->getSubtreeContent($locationId);
         $isLocationRemoved = false;
         $parentLocationId = null;
+        $removedLocationsContentMap = [];
 
         foreach ($locationRows as $locationRow) {
             if ($locationRow['node_id'] == $locationId) {
@@ -117,6 +118,7 @@ class Handler implements BaseTrashHandler
 
             if ($this->locationGateway->countLocationsByContentId($locationRow['contentobject_id']) == 1) {
                 $this->locationGateway->trashLocation($locationRow['node_id']);
+                $removedLocationsContentMap[(int)$locationRow['node_id']] = (int)$locationRow['contentobject_id'];
             } else {
                 if ($locationRow['node_id'] == $locationId) {
                     $isLocationRemoved = true;
@@ -143,7 +145,14 @@ class Handler implements BaseTrashHandler
             $this->locationHandler->markSubtreeModified($parentLocationId, time());
         }
 
-        return $isLocationRemoved ? null : $this->loadTrashItem($locationId);
+        if ($isLocationRemoved === true) {
+            return null;
+        }
+
+        $trashItem = $this->loadTrashItem($locationId);
+        $trashItem->removedLocationContentIdMap = $removedLocationsContentMap;
+
+        return $trashItem;
     }
 
     /**

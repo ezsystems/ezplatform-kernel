@@ -254,11 +254,6 @@ class TrashServiceTest extends BaseTrashServiceTest
             $trashItemReloaded->pathString
         );
 
-        $this->assertEquals(
-            $trashItem,
-            $trashItemReloaded
-        );
-
         $this->assertInstanceOf(
             DateTime::class,
             $trashItemReloaded->trashed
@@ -1039,6 +1034,31 @@ class TrashServiceTest extends BaseTrashServiceTest
             12345,
             12363
         ));
+    }
+
+    public function testTrashProperlyAssignsRemovedLocationContentMapToTrashItem(): void
+    {
+        $repository = $this->getRepository();
+        $trashService = $repository->getTrashService();
+        $locationService = $repository->getLocationService();
+
+        $folder1 = $this->createFolder(['eng-GB' => 'Folder1'], 2);
+        $folder2 = $this->createFolder(['eng-GB' => 'Folder2'], $folder1->contentInfo->getMainLocationId());
+        $folder3 = $this->createFolder(['eng-GB' => 'Folder2'], $folder2->contentInfo->getMainLocationId());
+
+        $folderLocation = $locationService->loadLocation($folder1->contentInfo->getMainLocationId());
+
+        $trashItem = $trashService->trash($folderLocation);
+        $removedLocationContentMap = $trashItem->getRemovedLocationContentIdMap();
+
+        self::assertSame(
+            [
+                $folderLocation->id => $folder1->id,
+                $folder2->contentInfo->getMainLocationId() => $folder2->id,
+                $folder3->contentInfo->getMainLocationId() => $folder3->id,
+            ],
+            $removedLocationContentMap,
+        );
     }
 
     /**

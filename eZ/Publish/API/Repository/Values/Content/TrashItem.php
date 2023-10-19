@@ -19,4 +19,15 @@ abstract class TrashItem extends Location
      * @var \DateTime
      */
     protected $trashed;
+
+    /** @var array<int, int> */
+    protected $removedLocationContentIdMap = [];
+
+    /**
+     * @return array<int, int>
+     */
+    public function getRemovedLocationContentIdMap(): array
+    {
+        return $this->removedLocationContentIdMap;
+    }
 }

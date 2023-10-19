@@ -377,7 +377,10 @@ class TrashService implements TrashServiceInterface
                 'depth' => $spiTrashItem->depth,
                 'sortField' => $spiTrashItem->sortField,
                 'sortOrder' => $spiTrashItem->sortOrder,
-                'trashed' => isset($spiTrashItem->trashed) ? new DateTime('@' . $spiTrashItem->trashed) : new DateTime('@0'),
+                'trashed' => isset($spiTrashItem->trashed)
+                    ? new DateTime('@' . $spiTrashItem->trashed)
+                    : new DateTime('@0'),
+                'removedLocationContentIdMap' => $spiTrashItem->removedLocationContentIdMap,
                 'parentLocation' => $this->proxyDomainMapper->createLocationProxy($spiTrashItem->parentId),
             ]
         );
