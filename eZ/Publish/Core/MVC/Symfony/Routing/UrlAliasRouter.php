@@ -318,21 +318,36 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
                     $parameters['locationId'],
                     isset($parameters['forcedLanguageCode']) ? [$parameters['forcedLanguageCode']] : null
                 );
-                unset($parameters['location'], $parameters['locationId'], $parameters['viewType'], $parameters['layout']);
+                unset(
+                    $parameters['location'],
+                    $parameters['locationId'],
+                    $parameters['viewType'],
+                    $parameters['layout'],
+                    $parameters['forcedLanguageCode'],
+                );
 
                 return $this->generator->generate($location, $parameters, $referenceType);
             }
 
             if (isset($parameters['contentId'])) {
                 $contentInfo = $this->contentService->loadContentInfo($parameters['contentId']);
-                unset($parameters['contentId'], $parameters['viewType'], $parameters['layout']);
+                $location = $this->locationService->loadLocation(
+                    $contentInfo->mainLocationId,
+                    isset($parameters['forcedLanguageCode']) ? [$parameters['forcedLanguageCode']] : null
+                );
+                unset(
+                    $parameters['contentId'],
+                    $parameters['viewType'],
+                    $parameters['layout'],
+                    $parameters['forcedLanguageCode'],
+                );
 
                 if (empty($contentInfo->mainLocationId)) {
                     throw new LogicException('Cannot generate a UrlAlias route for content without main Location.');
                 }
 
                 return $this->generator->generate(
-                    $this->locationService->loadLocation($contentInfo->mainLocationId),
+                    $location,
                     $parameters,
                     $referenceType
                 );
