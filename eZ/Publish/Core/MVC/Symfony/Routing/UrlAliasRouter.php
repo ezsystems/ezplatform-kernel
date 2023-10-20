@@ -314,40 +314,22 @@ class UrlAliasRouter implements ChainedRouterInterface, RequestMatcherInterface
                     );
                 }
 
-                $location = $parameters['location'] ?? $this->locationService->loadLocation(
-                    $parameters['locationId'],
-                    isset($parameters['forcedLanguageCode']) ? [$parameters['forcedLanguageCode']] : null
-                );
-                unset(
-                    $parameters['location'],
-                    $parameters['locationId'],
-                    $parameters['viewType'],
-                    $parameters['layout'],
-                    $parameters['forcedLanguageCode'],
-                );
+                $location = isset($parameters['location']) ? $parameters['location'] : $this->locationService->loadLocation($parameters['locationId']);
+                unset($parameters['location'], $parameters['locationId'], $parameters['viewType'], $parameters['layout']);
 
                 return $this->generator->generate($location, $parameters, $referenceType);
             }
 
             if (isset($parameters['contentId'])) {
                 $contentInfo = $this->contentService->loadContentInfo($parameters['contentId']);
-                $location = $this->locationService->loadLocation(
-                    $contentInfo->mainLocationId,
-                    isset($parameters['forcedLanguageCode']) ? [$parameters['forcedLanguageCode']] : null
-                );
-                unset(
-                    $parameters['contentId'],
-                    $parameters['viewType'],
-                    $parameters['layout'],
-                    $parameters['forcedLanguageCode'],
-                );
+                unset($parameters['contentId'], $parameters['viewType'], $parameters['layout']);
 
                 if (empty($contentInfo->mainLocationId)) {
                     throw new LogicException('Cannot generate a UrlAlias route for content without main Location.');
                 }
 
                 return $this->generator->generate(
-                    $location,
+                    $this->locationService->loadLocation($contentInfo->mainLocationId),
                     $parameters,
                     $referenceType
                 );

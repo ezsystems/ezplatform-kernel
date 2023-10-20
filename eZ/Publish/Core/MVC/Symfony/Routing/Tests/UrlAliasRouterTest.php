@@ -777,7 +777,7 @@ class UrlAliasRouterTest extends TestCase
 
     public function testGenerateWithContentIdWithMissingMainLocation()
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(\LogicException::class);
 
         $contentId = 456;
         $contentInfo = new ContentInfo(['id' => $contentId, 'mainLocationId' => null]);
@@ -793,73 +793,6 @@ class UrlAliasRouterTest extends TestCase
             UrlAliasRouter::URL_ALIAS_ROUTE_NAME,
             $parameters + ['contentId' => $contentId],
             $referenceType
-        );
-    }
-
-    public function testGenerateForLocationIdWithForcedLanguageCode(): void
-    {
-        $locationId = 22;
-        $languageCode = 'ger-DE';
-        $location = new Location(['id' => $locationId]);
-        $parameters = ['forcedLanguageCode' => $languageCode];
-        $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH;
-        $generatedLink = '/foo/bar';
-
-        $this->locationService
-            ->expects(self::once())
-            ->method('loadLocation')
-            ->with($locationId, [$languageCode])
-            ->willReturn($location);
-        $this->urlALiasGenerator
-            ->expects(self::once())
-            ->method('generate')
-            ->with($location, [], $referenceType)
-            ->willReturn($generatedLink);
-
-        self::assertSame(
-            $generatedLink,
-            $this->router->generate(
-                UrlAliasRouter::URL_ALIAS_ROUTE_NAME,
-                $parameters + ['locationId' => $locationId],
-                $referenceType
-            )
-        );
-    }
-
-    public function testGenerateForContentIdWithForcedLanguageCode(): void
-    {
-        $locationId = 23;
-        $contentId = 34;
-        $languageCode = 'ger-DE';
-        $location = new Location(['id' => $locationId]);
-        $contentInfo = new ContentInfo(['id' => $contentId, 'mainLocationId' => $locationId]);
-        $parameters = ['forcedLanguageCode' => $languageCode];
-        $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH;
-        $generatedLink = '/foo/bar';
-
-        $this->contentService
-            ->expects(self::once())
-            ->method('loadContentInfo')
-            ->with($contentId)
-            ->will(self::returnValue($contentInfo));
-        $this->locationService
-            ->expects(self::once())
-            ->method('loadLocation')
-            ->with($contentInfo->mainLocationId, [$languageCode])
-            ->willReturn($location);
-        $this->urlALiasGenerator
-            ->expects(self::once())
-            ->method('generate')
-            ->with($location, [], $referenceType)
-            ->willReturn($generatedLink);
-
-        self::assertSame(
-            $generatedLink,
-            $this->router->generate(
-                UrlAliasRouter::URL_ALIAS_ROUTE_NAME,
-                $parameters + ['contentId' => $contentId],
-                $referenceType
-            )
         );
     }
 }

@@ -9,46 +9,43 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension;
 
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\Helper\ContentPreviewHelper;
 use eZ\Publish\Core\MVC\Symfony\Routing\Generator\RouteReferenceGeneratorInterface;
 use eZ\Publish\Core\MVC\Symfony\Routing\RouteReference;
 use eZ\Publish\Core\MVC\Symfony\Routing\UrlAliasRouter;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Throwable;
 use Twig\Extension\AbstractExtension;
 use Twig\Node\Expression\ArrayExpression;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Node;
 use Twig\TwigFunction;
 
-class RoutingExtension extends AbstractExtension
+class RoutingExtension extends AbstractExtension implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     /** @var \eZ\Publish\Core\MVC\Symfony\Routing\Generator\RouteReferenceGeneratorInterface */
     private $routeReferenceGenerator;
 
     /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
     private $urlGenerator;
 
-    /** @var \eZ\Publish\Core\Helper\ContentPreviewHelper */
-    private $contentPreviewHelper;
-
-    /** @var \eZ\Publish\API\Repository\LocationService */
-    private $locationService;
-
     public function __construct(
         RouteReferenceGeneratorInterface $routeReferenceGenerator,
         UrlGeneratorInterface $urlGenerator,
-        ContentPreviewHelper $contentPreviewHelper,
-        LocationService $locationService
+        ?LoggerInterface $logger = null
     ) {
         $this->routeReferenceGenerator = $routeReferenceGenerator;
         $this->urlGenerator = $urlGenerator;
-        $this->contentPreviewHelper = $contentPreviewHelper;
-        $this->locationService = $locationService;
+        $this->logger = $logger ?? new NullLogger();
     }
 
     public function getFunctions(): array
@@ -87,50 +84,45 @@ class RoutingExtension extends AbstractExtension
         return $this->routeReferenceGenerator->generate($resource, $params);
     }
 
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     */
     public function getPath(object $name, array $parameters = [], bool $relative = false): string
     {
         $referenceType = $relative ? UrlGeneratorInterface::RELATIVE_PATH : UrlGeneratorInterface::ABSOLUTE_PATH;
 
-        return $this->generateUrlForObject($name, $parameters, $referenceType);
+        return $this->tryGeneratingUrlForObject($name, $parameters, $referenceType);
     }
 
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     */
     public function getUrl(object $name, array $parameters = [], bool $schemeRelative = false): string
     {
         $referenceType = $schemeRelative ? UrlGeneratorInterface::NETWORK_PATH : UrlGeneratorInterface::ABSOLUTE_URL;
 
-        return $this->generateUrlForObject($name, $parameters, $referenceType);
+        return $this->tryGeneratingUrlForObject($name, $parameters, $referenceType);
     }
 
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     */
+    private function tryGeneratingUrlForObject(object $object, array $parameters, int $referenceType): string
+    {
+        try {
+            return $this->generateUrlForObject($object, $parameters, $referenceType);
+        } catch (NotFoundException $e) {
+            return '';
+        } catch (Throwable $e) {
+            $this->logger->warning(
+                'Url could not be generated.',
+                ['exception' => $e]
+            );
+
+            return '';
+        }
+    }
+
     private function generateUrlForObject(object $object, array $parameters, int $referenceType): string
     {
         if ($object instanceof Location) {
             $routeName = UrlAliasRouter::URL_ALIAS_ROUTE_NAME;
-            $forcedLanguageCode = $this->getForcedLanguageCodeBasedOnPreview();
-            if ($forcedLanguageCode !== null) {
-                $parameters += [
-                    'forcedLanguageCode' => $forcedLanguageCode,
-                ];
-            }
             $parameters += [
                 'locationId' => $object->id,
             ];
         } elseif ($object instanceof Content || $object instanceof ContentInfo) {
             $routeName = UrlAliasRouter::URL_ALIAS_ROUTE_NAME;
-            $forcedLanguageCode = $this->getForcedLanguageCodeBasedOnPreview();
-            if ($forcedLanguageCode !== null) {
-                $parameters += [
-                    'forcedLanguageCode' => $forcedLanguageCode,
-                ];
-            }
             $parameters += [
                 'contentId' => $object->id,
             ];
@@ -145,38 +137,6 @@ class RoutingExtension extends AbstractExtension
         }
 
         return $this->urlGenerator->generate($routeName, $parameters, $referenceType);
-    }
-
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     */
-    private function getForcedLanguageCodeBasedOnPreview(): ?string
-    {
-        if ($this->contentPreviewHelper->isPreviewActive() !== true) {
-            return null;
-        }
-
-        $previewedContent = $this->contentPreviewHelper->getPreviewedContent();
-        $versionInfo = $previewedContent->getVersionInfo();
-        $contentInfo = $versionInfo->getContentInfo();
-        $alwaysAvailable = $versionInfo->getContentInfo()->alwaysAvailable;
-        if ($alwaysAvailable) {
-            return null;
-        }
-
-        $previewedLocation = $this->contentPreviewHelper->getPreviewedLocation();
-        try {
-            $this->locationService->loadLocation(
-                $previewedLocation->id,
-                [$versionInfo->initialLanguageCode],
-                true
-            );
-
-            return null;
-        } catch (NotFoundException $e) {
-            // Use initial language as a forced language
-            return $contentInfo->getMainLanguageCode();
-        }
     }
 
     /**
