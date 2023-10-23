@@ -124,8 +124,7 @@ services:
         class: eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\RoutingExtension
         arguments: ["@ezpublish.route_reference.generator", "@router"]
         tags:
-            - { name: twig.extension }
-            - { name: 'monolog.logger', channel: 'ibexa.core' }
+            - {name: twig.extension}
 
     eZ\Publish\Core\MVC\Symfony\Templating\Twig\ResourceProvider:
         arguments:

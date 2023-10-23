@@ -15,23 +15,16 @@ use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\Core\MVC\Symfony\Routing\Generator\RouteReferenceGeneratorInterface;
 use eZ\Publish\Core\MVC\Symfony\Routing\RouteReference;
 use eZ\Publish\Core\MVC\Symfony\Routing\UrlAliasRouter;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Throwable;
 use Twig\Extension\AbstractExtension;
 use Twig\Node\Expression\ArrayExpression;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Node;
 use Twig\TwigFunction;
 
-class RoutingExtension extends AbstractExtension implements LoggerAwareInterface
+class RoutingExtension extends AbstractExtension
 {
-    use LoggerAwareTrait;
-
     /** @var \eZ\Publish\Core\MVC\Symfony\Routing\Generator\RouteReferenceGeneratorInterface */
     private $routeReferenceGenerator;
 
@@ -40,12 +33,10 @@ class RoutingExtension extends AbstractExtension implements LoggerAwareInterface
 
     public function __construct(
         RouteReferenceGeneratorInterface $routeReferenceGenerator,
-        UrlGeneratorInterface $urlGenerator,
-        ?LoggerInterface $logger = null
+        UrlGeneratorInterface $urlGenerator
     ) {
         $this->routeReferenceGenerator = $routeReferenceGenerator;
         $this->urlGenerator = $urlGenerator;
-        $this->logger = $logger ?? new NullLogger();
     }
 
     public function getFunctions(): array
@@ -103,13 +94,6 @@ class RoutingExtension extends AbstractExtension implements LoggerAwareInterface
         try {
             return $this->generateUrlForObject($object, $parameters, $referenceType);
         } catch (NotFoundException $e) {
-            return '';
-        } catch (Throwable $e) {
-            $this->logger->warning(
-                'Url could not be generated.',
-                ['exception' => $e]
-            );
-
             return '';
         }
     }
