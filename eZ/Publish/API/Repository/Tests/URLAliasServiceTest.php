@@ -1605,50 +1605,45 @@ class URLAliasServiceTest extends BaseTest
         $repository = $this->getRepository();
         $locationService = $repository->getLocationService();
         $urlAliasService = $repository->getURLAliasService();
-        $contentTypeService = $repository->getContentTypeService();
         $contentService = $repository->getContentService();
 
         $languageCode = 'eng-GB';
-        $contentType = $contentTypeService->loadContentTypeByIdentifier('folder');
 
         // 1. Create parent folder
-        $folderCreateStruct = $contentService->newContentCreateStruct($contentType, $languageCode);
-        $folderCreateStruct->setField('name', 'A');
-        $folderDraft = $contentService->createContent($folderCreateStruct, [
-            $locationService->newLocationCreateStruct(2),
-        ]);
-        $folder = $contentService->publishVersion($folderDraft->getVersionInfo());
-        $folderLocation = $locationService->loadLocation($folder->contentInfo->getMainLocationId());
+        $folder = $this->createFolder([$languageCode => 'a'], 2);
+        $folderLocationId = $folder->contentInfo->getMainLocationId();
 
         // 2. Create child folder
-        $childCreateStruct = $contentService->newContentCreateStruct($contentType, $languageCode);
-        $childCreateStruct->setField('title', 'B');
-        $childDraft = $contentService->createContent($folderCreateStruct, [
-            $locationService->newLocationCreateStruct($folderLocation->id),
-        ]);
-        $child = $contentService->publishVersion($childDraft->getVersionInfo());
-        $childLocation = $locationService->loadLocation($child->contentInfo->getMainLocationId());
+        $child = $this->createFolder([$languageCode => 'b'], $folderLocationId);
+        $childLocationId = $child->contentInfo->getMainLocationId();
+        $childLocation = $locationService->loadLocation($childLocationId);
 
         // 3. Create custom URL alias for child folder
         $urlAliasService->createUrlAlias($childLocation, '/c/b', $languageCode);
         $lookup = $urlAliasService->lookup('/c/b');
 
         self::assertSame('/c/b', $lookup->path);
+        self::assertSame($childLocationId, $lookup->destination);
 
         // 4. Rename "A" to "C"
         $folderDraft = $contentService->createContentDraft($folder->contentInfo);
         $folderUpdateStruct = $contentService->newContentUpdateStruct();
-        $folderUpdateStruct->setField('name', 'C');
+        $folderUpdateStruct->setField('name', 'c');
         $renamedFolder = $contentService->updateContent($folderDraft->getVersionInfo(), $folderUpdateStruct);
         $contentService->publishVersion($renamedFolder->getVersionInfo());
 
         // Loading aliases shouldn't throw a `BadStateException`
-        $urlAliasService->listLocationAliases($childLocation);
+        $childLocationAliases = $urlAliasService->listLocationAliases($childLocation);
+
+        self::assertCount(1, $childLocationAliases);
+        self::assertSame('/c/b', $childLocationAliases[0]->path);
 
         // Renamed content should have '/c2' path alias
-        $lookupRenamed = $urlAliasService->lookup('C2');
+        $lookupRenamed = $urlAliasService->lookup('c2');
+        $originalLookup = $urlAliasService->lookup('/c/b');
 
-        self::assertSame('/C2', $lookupRenamed->path);
+        self::assertSame($childLocationId, $originalLookup->destination);
+        self::assertSame('/c2', $lookupRenamed->path);
     }
 
     /**
