@@ -9,6 +9,7 @@ namespace eZ\Bundle\EzPublishCoreBundle\Tests\Converter;
 use eZ\Bundle\EzPublishCoreBundle\Converter\LocationParamConverter;
 use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\API\Repository\Values\Content\Location;
+use eZ\Publish\Core\Helper\ContentPreviewHelper;
 use Symfony\Component\HttpFoundation\Request;
 
 class LocationParamConverterTest extends AbstractParamConverterTest
@@ -22,11 +23,15 @@ class LocationParamConverterTest extends AbstractParamConverterTest
 
     private $locationServiceMock;
 
+    /** @var \eZ\Publish\Core\Helper\ContentPreviewHelper&\PHPUnit\Framework\MockObject\MockObject */
+    private $contentPreviewHelperMock;
+
     protected function setUp(): void
     {
         $this->locationServiceMock = $this->createMock(LocationService::class);
+        $this->contentPreviewHelperMock = $this->createMock(ContentPreviewHelper::class);
 
-        $this->converter = new LocationParamConverter($this->locationServiceMock);
+        $this->converter = new LocationParamConverter($this->locationServiceMock, $this->contentPreviewHelperMock);
     }
 
     public function testSupports()
