@@ -1603,7 +1603,6 @@ class URLAliasServiceTest extends BaseTest
     public function testRenamingParentContentDoesntBreakChildAlias(): void
     {
         $repository = $this->getRepository();
-        $locationService = $repository->getLocationService();
         $urlAliasService = $repository->getURLAliasService();
         $contentService = $repository->getContentService();
 
