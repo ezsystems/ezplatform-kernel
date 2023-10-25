@@ -1615,8 +1615,8 @@ class URLAliasServiceTest extends BaseTest
 
         // 2. Create child folder
         $child = $this->createFolder([$languageCode => 'b'], $folderLocationId);
-        $childLocationId = $child->contentInfo->getMainLocationId();
-        $childLocation = $locationService->loadLocation($childLocationId);
+        $childLocation = $child->getVersionInfo()->getContentInfo()->getMainLocation();
+        $childLocationId = $childLocation->id;
 
         // 3. Create custom URL alias for child folder
         $urlAliasService->createUrlAlias($childLocation, '/c/b', $languageCode);
