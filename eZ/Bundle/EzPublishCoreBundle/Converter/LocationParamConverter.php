@@ -7,15 +7,22 @@
 namespace eZ\Bundle\EzPublishCoreBundle\Converter;
 
 use eZ\Publish\API\Repository\LocationService;
+use eZ\Publish\API\Repository\Values\Content\Language;
+use eZ\Publish\API\Repository\Values\Content\Location;
+use eZ\Publish\Core\Helper\ContentPreviewHelper;
 
 class LocationParamConverter extends RepositoryParamConverter
 {
     /** @var \eZ\Publish\API\Repository\LocationService */
     private $locationService;
 
-    public function __construct(LocationService $locationService)
+    /** @var \eZ\Publish\Core\Helper\ContentPreviewHelper */
+    private $contentPreviewHelper;
+
+    public function __construct(LocationService $locationService, ContentPreviewHelper $contentPreviewHelper)
     {
         $this->locationService = $locationService;
+        $this->contentPreviewHelper = $contentPreviewHelper;
     }
 
     protected function getSupportedClass()
@@ -28,8 +35,14 @@ class LocationParamConverter extends RepositoryParamConverter
         return 'locationId';
     }
 
-    protected function loadValueObject($id)
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     */
+    protected function loadValueObject($id): Location
     {
-        return $this->locationService->loadLocation($id);
+        $prioritizedLanguages = $this->contentPreviewHelper->isPreviewActive() ? Language::ALL : null;
+
+        return $this->locationService->loadLocation($id, $prioritizedLanguages);
     }
 }

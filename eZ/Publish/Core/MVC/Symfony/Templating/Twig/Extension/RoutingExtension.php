@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension;
 
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Location;
@@ -78,14 +79,23 @@ class RoutingExtension extends AbstractExtension
     {
         $referenceType = $relative ? UrlGeneratorInterface::RELATIVE_PATH : UrlGeneratorInterface::ABSOLUTE_PATH;
 
-        return $this->generateUrlForObject($name, $parameters, $referenceType);
+        return $this->tryGeneratingUrlForObject($name, $parameters, $referenceType);
     }
 
     public function getUrl(object $name, array $parameters = [], bool $schemeRelative = false): string
     {
         $referenceType = $schemeRelative ? UrlGeneratorInterface::NETWORK_PATH : UrlGeneratorInterface::ABSOLUTE_URL;
 
-        return $this->generateUrlForObject($name, $parameters, $referenceType);
+        return $this->tryGeneratingUrlForObject($name, $parameters, $referenceType);
+    }
+
+    private function tryGeneratingUrlForObject(object $object, array $parameters, int $referenceType): string
+    {
+        try {
+            return $this->generateUrlForObject($object, $parameters, $referenceType);
+        } catch (NotFoundException $e) {
+            return '';
+        }
     }
 
     private function generateUrlForObject(object $object, array $parameters, int $referenceType): string

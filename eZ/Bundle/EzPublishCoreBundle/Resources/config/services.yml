@@ -191,7 +191,8 @@ services:
     ezpublish.param_converter.location:
         class: eZ\Bundle\EzPublishCoreBundle\Converter\LocationParamConverter
         arguments:
-            - "@ezpublish.siteaccessaware.service.location"
+            $locationService: '@ezpublish.siteaccessaware.service.location'
+            $contentPreviewHelper: '@ezpublish.content_preview_helper'
         tags:
             - { name: request.param_converter, priority: "%ezpublish.param_converter.location.priority%", converter: ez_location_converter }
 
