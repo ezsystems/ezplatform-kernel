@@ -27,9 +27,12 @@ class SessionInitByPostListener implements EventSubscriberInterface
     public function onSiteAccessMatch(PostSiteAccessMatchEvent $event)
     {
         $request = $event->getRequest();
-        $session = $request->getSession();
+        $session = null;
+        if ($request->hasSession()) {
+            $session = $request->getSession();
+        }
 
-        if (!$session || $event->getRequestType() !== HttpKernelInterface::MAIN_REQUEST) {
+        if (null === $session || $event->getRequestType() !== HttpKernelInterface::MAIN_REQUEST) {
             return;
         }
 

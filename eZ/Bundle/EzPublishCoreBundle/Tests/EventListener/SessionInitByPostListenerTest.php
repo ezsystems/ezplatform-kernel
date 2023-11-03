@@ -117,4 +117,12 @@ class SessionInitByPostListenerTest extends TestCase
 
         $this->listener->onSiteAccessMatch($event);
     }
+
+    public function testOnSiteAccessMatchNoSession(): void
+    {
+        $request = new Request();
+
+        $event = new PostSiteAccessMatchEvent(new SiteAccess('test'), $request, HttpKernelInterface::MAIN_REQUEST);
+        $this->listener->onSiteAccessMatch($event);
+    }
 }
