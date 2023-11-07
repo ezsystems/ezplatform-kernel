@@ -9,6 +9,7 @@ namespace eZ\Publish\Core\Repository\SiteAccessAware;
 use eZ\Publish\API\Repository\LanguageResolver;
 use eZ\Publish\API\Repository\ObjectStateService as ObjectStateServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
 use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateCreateStruct;
 use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
@@ -127,9 +128,13 @@ class ObjectStateService implements ObjectStateServiceInterface
         $this->service->deleteObjectState($objectState);
     }
 
-    public function setContentState(ContentInfo $contentInfo, ObjectStateGroup $objectStateGroup, ObjectState $objectState): void
-    {
-        $this->service->setContentState($contentInfo, $objectStateGroup, $objectState);
+    public function setContentState(
+        ContentInfo $contentInfo,
+        ObjectStateGroup $objectStateGroup,
+        ObjectState $objectState,
+        ?Location $location = null
+    ): void {
+        $this->service->setContentState($contentInfo, $objectStateGroup, $objectState, $location);
     }
 
     public function getContentState(ContentInfo $contentInfo, ObjectStateGroup $objectStateGroup): ObjectState

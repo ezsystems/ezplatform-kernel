@@ -127,11 +127,11 @@ class NewObjectStateLimitationType extends AbstractPersistenceLimitationType imp
             return false;
         }
 
-        foreach ($targets as $target) {
-            if (!$target instanceof ObjectState && !$target instanceof SPIObjectState) {
-                throw new InvalidArgumentException('$targets', 'Must contain ObjectState objects');
-            }
+        $targets = array_filter($targets, static function ($target) {
+            return $target instanceof ObjectState || $target instanceof SPIObjectState;
+        });
 
+        foreach ($targets as $target) {
             if (!in_array($target->id, $value->limitationValues)) {
                 return false;
             }

@@ -12,6 +12,7 @@ use eZ\Publish\API\Repository\ObjectStateService as ObjectStateServiceInterface;
 use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\ObjectState\ObjectState as APIObjectState;
 use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateCreateStruct;
 use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup as APIObjectStateGroup;
@@ -463,14 +464,15 @@ class ObjectStateService implements ObjectStateServiceInterface
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the object state does not belong to the given group
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to change the object state
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectState $objectState
      */
-    public function setContentState(ContentInfo $contentInfo, APIObjectStateGroup $objectStateGroup, APIObjectState $objectState): void
-    {
-        if (!$this->permissionResolver->canUser('state', 'assign', $contentInfo, [$objectState])) {
+    public function setContentState(
+        ContentInfo $contentInfo,
+        APIObjectStateGroup $objectStateGroup,
+        APIObjectState $objectState,
+        ?Location $location = null
+    ): void {
+        $targets = $location !== null ? [$location, $objectState] : [$objectState];
+        if (!$this->permissionResolver->canUser('state', 'assign', $contentInfo, $targets)) {
             throw new UnauthorizedException('state', 'assign', ['contentId' => $contentInfo->id]);
         }
 

@@ -7,6 +7,7 @@
 namespace eZ\Publish\API\Repository;
 
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
 use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateCreateStruct;
 use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
@@ -172,12 +173,13 @@ interface ObjectStateService
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException if the object state does not belong to the given group
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException if the user is not allowed to change the object state
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectState $objectState
      */
-    public function setContentState(ContentInfo $contentInfo, ObjectStateGroup $objectStateGroup, ObjectState $objectState): void;
+    public function setContentState(
+        ContentInfo $contentInfo,
+        ObjectStateGroup $objectStateGroup,
+        ObjectState $objectState,
+        ?Location $location = null
+    ): void;
 
     /**
      * Gets the object-state of object identified by $contentId.

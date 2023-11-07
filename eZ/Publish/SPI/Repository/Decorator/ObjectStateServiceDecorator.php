@@ -10,6 +10,7 @@ namespace eZ\Publish\SPI\Repository\Decorator;
 
 use eZ\Publish\API\Repository\ObjectStateService;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
 use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateCreateStruct;
 use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
@@ -121,9 +122,10 @@ abstract class ObjectStateServiceDecorator implements ObjectStateService
     public function setContentState(
         ContentInfo $contentInfo,
         ObjectStateGroup $objectStateGroup,
-        ObjectState $objectState
+        ObjectState $objectState,
+        ?Location $location = null
     ): void {
-        $this->innerService->setContentState($contentInfo, $objectStateGroup, $objectState);
+        $this->innerService->setContentState($contentInfo, $objectStateGroup, $objectState, $location);
     }
 
     public function getContentState(

@@ -26,6 +26,7 @@ use eZ\Publish\API\Repository\Events\ObjectState\UpdateObjectStateEvent;
 use eZ\Publish\API\Repository\Events\ObjectState\UpdateObjectStateGroupEvent;
 use eZ\Publish\API\Repository\ObjectStateService as ObjectStateServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
 use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateCreateStruct;
 use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
@@ -214,7 +215,8 @@ class ObjectStateService extends ObjectStateServiceDecorator
     public function setContentState(
         ContentInfo $contentInfo,
         ObjectStateGroup $objectStateGroup,
-        ObjectState $objectState
+        ObjectState $objectState,
+        ?Location $location = null
     ): void {
         $eventData = [
             $contentInfo,
@@ -229,7 +231,7 @@ class ObjectStateService extends ObjectStateServiceDecorator
             return;
         }
 
-        $this->innerService->setContentState($contentInfo, $objectStateGroup, $objectState);
+        $this->innerService->setContentState($contentInfo, $objectStateGroup, $objectState, $location);
 
         $this->eventDispatcher->dispatch(
             new SetContentStateEvent(...$eventData)
