@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Integration\Core;
 
 use eZ\Publish\API\Repository\Values\Content\Content;
+use eZ\Publish\API\Repository\Values\User\Role;
+use eZ\Publish\API\Repository\Values\User\User;
 use Ibexa\Contracts\Core\Test\IbexaKernelTestCase;
 use InvalidArgumentException;
 
@@ -69,5 +71,75 @@ abstract class RepositoryTestCase extends IbexaKernelTestCase
                 $locationService->newLocationCreateStruct($parentLocationId),
             ]
         );
+    }
+
+    /**
+     * @param array<mixed> $policiesData
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\LimitationValidationException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     */
+    public function createRoleWithPolicies(string $roleName, array $policiesData): Role
+    {
+        $roleService = self::getRoleService();
+
+        $roleCreateStruct = $roleService->newRoleCreateStruct($roleName);
+        foreach ($policiesData as $policyData) {
+            $policyCreateStruct = $roleService->newPolicyCreateStruct(
+                $policyData['module'],
+                $policyData['function']
+            );
+
+            if (isset($policyData['limitations'])) {
+                foreach ($policyData['limitations'] as $limitation) {
+                    $policyCreateStruct->addLimitation($limitation);
+                }
+            }
+
+            $roleCreateStruct->addPolicy($policyCreateStruct);
+        }
+
+        $roleDraft = $roleService->createRole($roleCreateStruct);
+
+        $roleService->publishRoleDraft($roleDraft);
+
+        return $roleService->loadRole($roleDraft->id);
+    }
+
+    /**
+     * @param array<array<array-key, array<string|array<\eZ\Publish\API\Repository\Values\User\Limitation>>>> $policiesData
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\LimitationValidationException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ContentFieldValidationException
+     * @throws \eZ\Publish\API\Repository\Exceptions\ContentValidationException
+     */
+    public function createUserWithPolicies(string $login, array $policiesData): User
+    {
+        $roleService = self::getRoleService();
+        $userService = self::getUserService();
+
+        $userCreateStruct = $userService->newUserCreateStruct(
+            $login,
+            "{$login}@test.dev",
+            $login,
+            'eng-GB'
+        );
+
+        $userCreateStruct->setField('first_name', $login);
+        $userCreateStruct->setField('last_name', $login);
+        $user = $userService->createUser($userCreateStruct, []);
+
+        $role = $this->createRoleWithPolicies(
+            uniqid('role_for_' . $login . '_', true),
+            $policiesData
+        );
+        $roleService->assignRoleToUser($role, $user);
+
+        return $user;
     }
 }
