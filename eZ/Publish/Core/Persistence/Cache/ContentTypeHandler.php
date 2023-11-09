@@ -26,9 +26,10 @@ class ContentTypeHandler extends AbstractInMemoryPersistenceHandler implements C
     private const TYPE_IDENTIFIER = 'type';
     private const TYPE_GROUP_IDENTIFIER = 'type_group';
     private const CONTENT_TYPE_IDENTIFIER = 'content_type';
+    private const CONTENT_TYPE_WITH_ID_SUFFIX_IDENTIFIER = 'content_type_with_id_suffix';
+    private const CONTENT_TYPE_WITH_BY_REMOTE_SUFFIX_IDENTIFIER = 'content_type_with_by_remote_suffix';
     private const CONTENT_TYPE_GROUP_IDENTIFIER = 'content_type_group';
     private const CONTENT_TYPE_GROUP_WITH_ID_SUFFIX_IDENTIFIER = 'content_type_group_with_id_suffix';
-    private const CONTENT_TYPE_GROUP_WITH_BY_REMOTE_SUFFIX_IDENTIFIER = 'content_type_group_with_by_remote_suffix';
     private const CONTENT_TYPE_GROUP_LIST_IDENTIFIER = 'content_type_group_list';
     private const BY_IDENTIFIER_SUFFIX = 'by_identifier_suffix';
     private const CONTENT_TYPE_LIST_BY_GROUP_IDENTIFIER = 'content_type_list_by_group';
@@ -83,12 +84,12 @@ class ContentTypeHandler extends AbstractInMemoryPersistenceHandler implements C
                 $this->cacheIdentifierGenerator->generateKey(self::CONTENT_TYPE_IDENTIFIER, [$type->id], true),
                 $this->cacheIdentifierGenerator->generateKey(self::CONTENT_TYPE_IDENTIFIER, [$type->id], true) . '-' . $status,
                 $this->cacheIdentifierGenerator->generateKey(
-                    self::CONTENT_TYPE_GROUP_WITH_ID_SUFFIX_IDENTIFIER,
+                    self::CONTENT_TYPE_WITH_ID_SUFFIX_IDENTIFIER,
                     [$this->cacheIdentifierSanitizer->escapeForCacheKey($type->identifier)],
                     true
                 ),
                 $this->cacheIdentifierGenerator->generateKey(
-                    self::CONTENT_TYPE_GROUP_WITH_BY_REMOTE_SUFFIX_IDENTIFIER,
+                    self::CONTENT_TYPE_WITH_BY_REMOTE_SUFFIX_IDENTIFIER,
                     [$this->cacheIdentifierSanitizer->escapeForCacheKey($type->remoteId)],
                     true
                 ),
