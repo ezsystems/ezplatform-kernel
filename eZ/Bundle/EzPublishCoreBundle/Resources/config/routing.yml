@@ -152,7 +152,9 @@ services:
 
     ezpublish.preview_request_listener:
         class: eZ\Bundle\EzPublishCoreBundle\EventListener\PreviewRequestListener
-        arguments: ["@request_stack"]
+        arguments:
+            $requestStack: '@request_stack'
+            $contentPreviewHelper: '@ezpublish.content_preview_helper'
         tags:
             - { name: kernel.event_subscriber }
 

@@ -6,6 +6,7 @@
  */
 namespace eZ\Bundle\EzPublishCoreBundle\EventListener;
 
+use eZ\Publish\Core\Helper\ContentPreviewHelper;
 use eZ\Publish\Core\MVC\Symfony\Controller\Content\PreviewController;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -18,9 +19,13 @@ class PreviewRequestListener implements EventSubscriberInterface
     /** @var \Symfony\Component\HttpFoundation\RequestStack */
     private $requestStack;
 
-    public function __construct(RequestStack $requestStack)
+    /** @var \eZ\Publish\Core\Helper\ContentPreviewHelper */
+    private $contentPreviewHelper;
+
+    public function __construct(RequestStack $requestStack, ContentPreviewHelper $contentPreviewHelper)
     {
         $this->requestStack = $requestStack;
+        $this->contentPreviewHelper = $contentPreviewHelper;
     }
 
     public static function getSubscribedEvents(): array
@@ -35,6 +40,8 @@ class PreviewRequestListener implements EventSubscriberInterface
      */
     public function onKernelRequest(RequestEvent $event): void
     {
+        $this->contentPreviewHelper->setPreviewActive(true);
+
         if ($event->getRequestType() === HttpKernelInterface::MASTER_REQUEST) {
             return;
         }
