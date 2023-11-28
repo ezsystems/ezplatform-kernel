@@ -16,6 +16,8 @@ use eZ\Publish\SPI\Persistence\Content\FieldValue;
 use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
 use eZ\Publish\SPI\Persistence\Content\Relation;
 use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
+use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
 /**
@@ -40,15 +42,24 @@ class Mapper
     protected $languageHandler;
 
     /**
+     * @var \eZ\Publish\SPI\Persistence\Content\Type\Handler
+     */
+    private $contentTypeHandler;
+
+    /**
      * Creates a new mapper.
      *
      * @param \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry $converterRegistry
      * @param \eZ\Publish\SPI\Persistence\Content\Language\Handler $languageHandler
      */
-    public function __construct(Registry $converterRegistry, LanguageHandler $languageHandler)
-    {
+    public function __construct(
+        Registry $converterRegistry,
+        LanguageHandler $languageHandler,
+        ContentTypeHandler $contentTypeHandler
+    ) {
         $this->converterRegistry = $converterRegistry;
         $this->languageHandler = $languageHandler;
+        $this->contentTypeHandler = $contentTypeHandler;
     }
 
     /**
@@ -182,18 +193,24 @@ class Mapper
     public function extractContentFromRows(array $rows, array $nameRows, $prefix = 'ezcontentobject_')
     {
         $versionedNameData = [];
+        $languageCodes = [];
+
         foreach ($nameRows as $row) {
-            $contentId = (int)$row['ezcontentobject_name_contentobject_id'];
-            $versionNo = (int)$row['ezcontentobject_name_content_version'];
-            $versionedNameData[$contentId][$versionNo][$row['ezcontentobject_name_content_translation']] = $row['ezcontentobject_name_name'];
+            $contentId = (int)$row["{$prefix}name_contentobject_id"];
+            $versionNo = (int)$row["{$prefix}name_content_version"];
+            $versionedNameData[$contentId][$versionNo][$row["{$prefix}name_content_translation"]] = $row["{$prefix}name_name"];
+            $languageCodes[] = $row["{$prefix}name_content_translation"];
         }
 
         $contentInfos = [];
         $versionInfos = [];
         $fields = [];
+        $fieldDefinitions = [];
 
         foreach ($rows as $row) {
             $contentId = (int)$row["{$prefix}id"];
+            $versionId = (int)$row["{$prefix}version_id"];
+            $contentTypeId = (int)$row["{$prefix}contentclass_id"];
             if (!isset($contentInfos[$contentId])) {
                 $contentInfos[$contentId] = $this->extractContentInfoFromRow($row, $prefix);
             }
@@ -201,14 +218,25 @@ class Mapper
                 $versionInfos[$contentId] = [];
             }
 
-            $versionId = (int)$row['ezcontentobject_version_id'];
+            if (!isset($fieldDefinitions[$contentId][$versionId])) {
+                $contentType = $this->contentTypeHandler->load($contentTypeId);
+                foreach ($contentType->fieldDefinitions as $fieldDefinition) {
+                    foreach ($languageCodes as $languageCode) {
+                        $fieldDefinitions[$contentId][$versionId][$languageCode][$fieldDefinition->id] = $fieldDefinition;
+                    }
+                }
+            }
+
             if (!isset($versionInfos[$contentId][$versionId])) {
                 $versionInfos[$contentId][$versionId] = $this->extractVersionInfoFromRow($row);
             }
 
-            $fieldId = (int)$row['ezcontentobject_attribute_id'];
-            if (!isset($fields[$contentId][$versionId][$fieldId])) {
+            $fieldId = (int)$row["{$prefix}attribute_id"];
+            $fieldDefinitionId = (int)$row["{$prefix}attribute_contentclassattribute_id"];
+            $languageCode = $row["{$prefix}attribute_language_code"];
+            if (!isset($fields[$contentId][$versionId][$fieldId]) && isset($fieldDefinitions[$contentId][$versionId][$languageCode][$fieldDefinitionId])) {
                 $fields[$contentId][$versionId][$fieldId] = $this->extractFieldFromRow($row);
+                unset($fieldDefinitions[$contentId][$versionId][$languageCode][$fieldDefinitionId]);
             }
         }
 
@@ -227,6 +255,17 @@ class Mapper
                 $content->versionInfo->names = $names;
                 $content->versionInfo->contentInfo = $contentInfo;
                 $content->fields = array_values($fields[$contentId][$versionId]);
+
+                /** @var string $languageCode */
+                foreach ($fieldDefinitions[$contentId][$versionId] as $languageCode => $versionFieldDefinitions) {
+                    foreach ($versionFieldDefinitions as $fieldDefinition) {
+                        $content->fields[] = $this->createEmptyField(
+                            $fieldDefinition,
+                            $languageCode
+                        );
+                    }
+                }
+
                 $results[] = $content;
             }
         }
@@ -251,7 +290,6 @@ class Mapper
         $contentInfo->contentTypeId = (int)$row["{$prefix}contentclass_id"];
         $contentInfo->sectionId = (int)$row["{$prefix}section_id"];
         $contentInfo->currentVersionNo = (int)$row["{$prefix}current_version"];
-        $contentInfo->isPublished = ($row["{$prefix}status"] == ContentInfo::STATUS_PUBLISHED);
         $contentInfo->ownerId = (int)$row["{$prefix}owner_id"];
         $contentInfo->publicationDate = (int)$row["{$prefix}published"];
         $contentInfo->modificationDate = (int)$row["{$prefix}modified"];
@@ -577,5 +615,16 @@ class Mapper
         $relation->type = $struct->type;
 
         return $relation;
+    }
+
+    private function createEmptyField(FieldDefinition $fieldDefinition, string $languageCode): Field
+    {
+        $field = new Field();
+        $field->fieldDefinitionId = $fieldDefinition->id;
+        $field->type = $fieldDefinition->fieldType;
+        $field->value = $fieldDefinition->defaultValue;
+        $field->languageCode = $languageCode;
+
+        return $field;
     }
 }

@@ -129,4 +129,60 @@ $field->versionNo = 2;
 
 $content->fields[] = $field;
 
+$field = new Field();
+$field->fieldDefinitionId = 183;
+$field->type = 'ezstring';
+$field->value = new FieldValue();
+$field->languageCode = 'eng-GB';
+
+$content->fields[] = $field;
+
+$field = new Field();
+$field->fieldDefinitionId = 184;
+$field->type = 'ezstring';
+$field->value = new FieldValue();
+$field->languageCode = 'eng-GB';
+
+$content->fields[] = $field;
+
+$field = new Field();
+$field->fieldDefinitionId = 185;
+$field->type = 'ezauthor';
+$field->value = new FieldValue();
+$field->languageCode = 'eng-GB';
+
+$content->fields[] = $field;
+
+$field = new Field();
+$field->fieldDefinitionId = 188;
+$field->type = 'ezboolean';
+$field->value = new FieldValue();
+$field->languageCode = 'eng-GB';
+
+$content->fields[] = $field;
+
+$field = new Field();
+$field->fieldDefinitionId = 189;
+$field->type = 'ezimage';
+$field->value = new FieldValue();
+$field->languageCode = 'eng-GB';
+
+$content->fields[] = $field;
+
+$field = new Field();
+$field->fieldDefinitionId = 191;
+$field->type = 'ezdatetime';
+$field->value = new FieldValue();
+$field->languageCode = 'eng-GB';
+
+$content->fields[] = $field;
+
+$field = new Field();
+$field->fieldDefinitionId = 192;
+$field->type = 'ezdatetime';
+$field->value = new FieldValue();
+$field->languageCode = 'eng-GB';
+
+$content->fields[] = $field;
+
 return $content;

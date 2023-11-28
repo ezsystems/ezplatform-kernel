@@ -101,6 +101,7 @@ class StorageHandlerTest extends TestCase
             ->will($this->returnValue($storageMock));
 
         $field = new Field();
+        $field->id = 123;
         $field->type = 'foobar';
         $field->value = new FieldValue();
 

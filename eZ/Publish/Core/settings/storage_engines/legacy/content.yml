@@ -9,6 +9,7 @@ services:
         arguments:
             - "@ezpublish.persistence.legacy.field_value_converter.registry"
             - "@ezpublish.spi.persistence.legacy.language.handler"
+            - '@ezpublish.spi.persistence.legacy.content_type.handler'
 
     ezpublish.persistence.legacy.content.gateway.inner:
         class: eZ\Publish\Core\Persistence\Legacy\Content\Gateway\DoctrineDatabase
