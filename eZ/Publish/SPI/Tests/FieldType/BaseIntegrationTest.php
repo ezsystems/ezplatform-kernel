@@ -445,10 +445,11 @@ abstract class BaseIntegrationTest extends TestCase
     {
         $this->assertSame(
             $this->getTypeName(),
-            $content->fields[2]->type
+            $content->fields[1]->type
         );
 
-        return $content->fields[2];
+
+        return $content->fields[1];
     }
 
     /**
@@ -506,10 +507,10 @@ abstract class BaseIntegrationTest extends TestCase
     {
         $this->assertSame(
             $this->getTypeName(),
-            $content->fields[2]->type
+            $content->fields[1]->type
         );
 
-        return $content->fields[2];
+        return $content->fields[1];
     }
 
     /**

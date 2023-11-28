@@ -30,7 +30,7 @@ final class GatewayFactoryTest extends TestCase
     public function setUp(): void
     {
         $gateways = [
-            'sqlite' => new SqliteGateway($this->createMock(Connection::class)),
+            'sqlite' => new SqliteGateway(),
         ];
 
         $this->factory = new GatewayFactory(

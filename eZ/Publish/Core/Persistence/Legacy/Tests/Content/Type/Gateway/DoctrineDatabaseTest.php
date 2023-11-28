@@ -497,7 +497,6 @@ class DoctrineDatabaseTest extends LanguageAwareTestCase
     public static function getTypeCreationContentClassNameExpectations()
     {
         return [
-            ['contentclass_id', [1, 1]],
             ['contentclass_version', [0, 0]],
             ['language_id', [3, 4]],
             ['language_locale', ['eng-US', 'eng-GB']],

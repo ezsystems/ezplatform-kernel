@@ -113,7 +113,7 @@ abstract class TestCase extends BaseTestCase
             $factory = new SharedGateway\GatewayFactory(
                 new SharedGateway\DatabasePlatform\FallbackGateway($connection),
                 [
-                    'sqlite' => new SharedGateway\DatabasePlatform\SqliteGateway($connection),
+                    'sqlite' => new SharedGateway\DatabasePlatform\SqliteGateway(),
                 ]
             );
 

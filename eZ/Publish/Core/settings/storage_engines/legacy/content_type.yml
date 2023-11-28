@@ -38,7 +38,6 @@ services:
         class: eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler\DoctrineDatabase
         arguments:
             - "@ezpublish.persistence.legacy.content_type.gateway"
-            - "@ezpublish.persistence.legacy.content_type.content_updater"
 
     ezpublish.persistence.legacy.content_type.update_handler:
         alias: ezpublish.persistence.legacy.content_type.update_handler.basic
