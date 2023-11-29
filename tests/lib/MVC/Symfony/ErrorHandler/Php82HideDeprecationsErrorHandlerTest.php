@@ -7,8 +7,8 @@
 namespace Ibexa\Tests\Core\MVC\Symfony\ErrorHandler;
 
 use Ibexa\Core\MVC\Symfony\ErrorHandler\Php82HideDeprecationsErrorHandler;
-use PHPUnit\Framework\TestCase;
 use const PHP_VERSION_ID;
+use PHPUnit\Framework\TestCase;
 
 final class Php82HideDeprecationsErrorHandlerTest extends TestCase
 {
