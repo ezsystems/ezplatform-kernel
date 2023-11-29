@@ -14,40 +14,38 @@ final class Php82HideDeprecationsErrorHandlerTest extends TestCase
 {
     private int $originalErrorReporting;
 
-    /** @var callable|null */
-    private $originalErrorHandler;
-
     protected function setUp(): void
     {
         $this->originalErrorReporting = error_reporting();
-        set_error_handler(
-            $this->originalErrorHandler = set_error_handler(
-                static function () {}
-            )
-        );
     }
 
     protected function tearDown(): void
     {
         error_reporting($this->originalErrorReporting);
-        set_error_handler($this->originalErrorHandler);
+        restore_error_handler();
     }
 
-    public function testRegister(): void
+    public function testRegisterDebug(): void
     {
         if (PHP_VERSION_ID < 80200) {
             $this->markTestSkipped('Does not affect versions below PHP 8.2.0');
         }
 
-        $errorHandler = new Php82HideDeprecationsErrorHandler();
+        Php82HideDeprecationsErrorHandler::register(true);
+        $errorReporting = error_reporting();
 
-        $errorHandler::register(true);
-        $debugErrorReporting = error_reporting();
+        $this->assertSame(E_ALL & ~E_DEPRECATED, $errorReporting);
+    }
 
-        $errorHandler::register(false);
-        $noDebugErrorReporting = error_reporting();
+    public function testRegisterNoDebug(): void
+    {
+        if (PHP_VERSION_ID < 80200) {
+            $this->markTestSkipped('Does not affect versions below PHP 8.2.0');
+        }
 
-        $this->assertSame(E_ALL & ~E_DEPRECATED, $debugErrorReporting);
-        $this->assertSame(E_ALL & ~E_DEPRECATED, $noDebugErrorReporting);
+        Php82HideDeprecationsErrorHandler::register(false);
+        $errorReporting = error_reporting();
+
+        $this->assertSame(E_ALL & ~E_DEPRECATED, $errorReporting);
     }
 }
