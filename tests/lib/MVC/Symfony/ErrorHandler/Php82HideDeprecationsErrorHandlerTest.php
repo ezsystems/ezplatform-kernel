@@ -12,7 +12,8 @@ use const PHP_VERSION_ID;
 
 final class Php82HideDeprecationsErrorHandlerTest extends TestCase
 {
-    private int $originalErrorReporting;
+    /** @var int */
+    private $originalErrorReporting;
 
     protected function setUp(): void
     {
