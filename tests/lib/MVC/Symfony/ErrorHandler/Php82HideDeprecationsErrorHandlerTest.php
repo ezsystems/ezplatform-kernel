@@ -4,12 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
+
 namespace Ibexa\Tests\Core\MVC\Symfony\ErrorHandler;
 
-use Ibexa\Core\MVC\Symfony\ErrorHandler\Php82HideDeprecationsErrorHandler;
-use const PHP_VERSION_ID;
+use Ibexa\Contracts\Core\MVC\Symfony\ErrorHandler\Php82HideDeprecationsErrorHandler;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @requires PHP >= 8.2.0
+ */
 final class Php82HideDeprecationsErrorHandlerTest extends TestCase
 {
     /** @var int */
@@ -28,10 +32,6 @@ final class Php82HideDeprecationsErrorHandlerTest extends TestCase
 
     public function testRegisterDebug(): void
     {
-        if (PHP_VERSION_ID < 80200) {
-            $this->markTestSkipped('Does not affect versions below PHP 8.2.0');
-        }
-
         Php82HideDeprecationsErrorHandler::register(true);
         $errorReporting = error_reporting();
 
@@ -40,10 +40,6 @@ final class Php82HideDeprecationsErrorHandlerTest extends TestCase
 
     public function testRegisterNoDebug(): void
     {
-        if (PHP_VERSION_ID < 80200) {
-            $this->markTestSkipped('Does not affect versions below PHP 8.2.0');
-        }
-
         Php82HideDeprecationsErrorHandler::register(false);
         $errorReporting = error_reporting();
 
