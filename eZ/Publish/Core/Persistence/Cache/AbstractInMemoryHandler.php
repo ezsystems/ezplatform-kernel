@@ -183,7 +183,7 @@ abstract class AbstractInMemoryHandler
      * Load items from in-memory cache, symfony cache pool or backend in that order.
      * If not cached the returned objects will be placed in cache.
      *
-     * Cache items must be stored with a key in the following format "${keyPrefix}${id}", like "ez-content-info-${id}",
+     * Cache items must be stored with a key in the following format "{$keyPrefix}{$id}", like "ez-content-info-{$id}",
      * in order for this method to be able to prefix key on id's and also extract key prefix afterwards.
      *
      * @param array $ids
