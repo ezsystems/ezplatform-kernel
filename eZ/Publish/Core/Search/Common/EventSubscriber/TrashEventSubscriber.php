@@ -7,6 +7,7 @@
 namespace eZ\Publish\Core\Search\Common\EventSubscriber;
 
 use eZ\Publish\API\Repository\Events\Trash\DeleteTrashItemEvent;
+use eZ\Publish\API\Repository\Events\Trash\EmptyTrashEvent;
 use eZ\Publish\API\Repository\Events\Trash\RecoverEvent;
 use eZ\Publish\API\Repository\Events\Trash\TrashEvent;
 use eZ\Publish\API\Repository\Values\Content\TrashItem;
@@ -16,17 +17,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class TrashEventSubscriber extends AbstractSearchEventSubscriber implements EventSubscriberInterface
 {
-    public function __construct(SearchHandler $searchHandler, PersistenceHandler $persistenceHandler)
-    {
-        parent::__construct($searchHandler, $persistenceHandler);
-    }
-
     public static function getSubscribedEvents(): array
     {
         return [
             RecoverEvent::class => 'onRecover',
             TrashEvent::class => 'onTrash',
             DeleteTrashItemEvent::class => 'onDeleteTrashItem',
+            EmptyTrashEvent::class => 'onEmptyTrashEvent',
         ];
     }
 
@@ -58,6 +55,23 @@ class TrashEventSubscriber extends AbstractSearchEventSubscriber implements Even
             $persistenceContent = $contentHandler->load($contentId);
 
             $this->searchHandler->indexContent($persistenceContent);
+        }
+    }
+
+    public function onEmptyTrashEvent(EmptyTrashEvent $event): void
+    {
+        $contentHandler = $this->persistenceHandler->contentHandler();
+
+        $results = $event->getResultList()->getIterator();
+
+        /** @var \eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult $result */
+        foreach ($results as $result) {
+            $reverseRelationContentIds = $result->reverseRelationContentIds;
+            foreach ($reverseRelationContentIds as $contentId) {
+                $persistenceContent = $contentHandler->load($contentId);
+
+                $this->searchHandler->indexContent($persistenceContent);
+            }
         }
     }
 }
