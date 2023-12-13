@@ -11,8 +11,6 @@ use eZ\Publish\API\Repository\Events\Trash\EmptyTrashEvent;
 use eZ\Publish\API\Repository\Events\Trash\RecoverEvent;
 use eZ\Publish\API\Repository\Events\Trash\TrashEvent;
 use eZ\Publish\API\Repository\Values\Content\TrashItem;
-use eZ\Publish\SPI\Persistence\Handler as PersistenceHandler;
-use eZ\Publish\SPI\Search\Handler as SearchHandler;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class TrashEventSubscriber extends AbstractSearchEventSubscriber implements EventSubscriberInterface
