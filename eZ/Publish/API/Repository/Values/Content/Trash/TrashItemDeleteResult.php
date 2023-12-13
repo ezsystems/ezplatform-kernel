@@ -24,4 +24,7 @@ class TrashItemDeleteResult extends ValueObject
      * @var bool
      */
     public $contentRemoved = false;
+
+    /** @var array<int> */
+    public $reverseRelationContentIds = [];
 }
