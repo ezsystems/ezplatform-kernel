@@ -448,7 +448,6 @@ abstract class BaseIntegrationTest extends TestCase
             $content->fields[1]->type
         );
 
-
         return $content->fields[1];
     }
 
