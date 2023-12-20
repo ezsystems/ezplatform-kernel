@@ -181,15 +181,15 @@ class MapperTest extends LanguageAwareTestCase
             'ezimage',
             'ezdatetime',
             'ezkeyword',
-        ], count($rowsFixture));
+        ], count($rowsFixture) - 1);
 
         $mapper = new Mapper($reg, $this->getLanguageHandler(), $contentTypeHandlerMock);
         $result = $mapper->extractContentFromRows($rowsFixture, $nameRowsFixture);
 
+        $expected = [$this->getContentExtractReference()];
+
         $this->assertEquals(
-            [
-                $this->getContentExtractReference(),
-            ],
+            $expected,
             $result
         );
     }
@@ -215,17 +215,12 @@ class MapperTest extends LanguageAwareTestCase
             'ezdatetime',
             'ezkeyword',
             'eznumber',
-        ], count($rowsFixture));
+        ], count($rowsFixture) - 1);
 
         $mapper = new Mapper($reg, $this->getLanguageHandler(), $contentTypeHandlerMock);
         $result = $mapper->extractContentFromRows($rowsFixture, $nameRowsFixture);
 
         $expectedContent = $this->getContentExtractReference();
-        $expectedContent->fields[] = new Field([
-            'type' => 'eznumber',
-            'languageCode' => 'eng-GB',
-            'value' => new FieldValue(),
-        ]);
         $expectedContent->fields[] = new Field([
             'type' => 'eznumber',
             'languageCode' => 'eng-US',
@@ -263,7 +258,7 @@ class MapperTest extends LanguageAwareTestCase
             'ezimage',
             'ezdatetime',
             'ezkeyword',
-        ], count($rowsFixture) - 1);
+        ], count($rowsFixture) - 2);
 
         $mapper = new Mapper($reg, $this->getLanguageHandler(), $contentTypeHandlerMock);
         $result = $mapper->extractContentFromRows($rowsFixture, $nameRowsFixture);

@@ -158,7 +158,7 @@ class NonRedundantFieldSetTest extends BaseNonRedundantFieldSetTest
 
         $this->assertCount(1, $content->versionInfo->languageCodes);
         $this->assertContains('eng-US', $content->versionInfo->languageCodes);
-        $this->assertCount(8, $content->getFields());
+        $this->assertCount(4, $content->getFields());
 
         // eng-US
         $this->assertContains('eng-US', $content->versionInfo->languageCodes);
@@ -167,12 +167,8 @@ class NonRedundantFieldSetTest extends BaseNonRedundantFieldSetTest
         $this->assertEquals($emptyValue, $content->getFieldValue('field3', 'eng-US'));
         $this->assertEquals($emptyValue, $content->getFieldValue('field4', 'eng-US'));
 
-        // ger-DE is not stored and fields are virtual
+        // ger-DE is not stored
         $this->assertNotContains('ger-DE', $content->versionInfo->languageCodes);
-        $this->assertNull($content->getField('field1', 'ger-DE')->id);
-        $this->assertNull($content->getField('field2', 'ger-DE')->id);
-        $this->assertNull($content->getField('field3', 'ger-DE')->id);
-        $this->assertNull($content->getField('field4', 'ger-DE')->id);
     }
 
     /**
@@ -272,7 +268,7 @@ class NonRedundantFieldSetTest extends BaseNonRedundantFieldSetTest
 
         $this->assertCount(1, $content->versionInfo->languageCodes);
         $this->assertContains('eng-US', $content->versionInfo->languageCodes);
-        $this->assertCount(8, $content->getFields());
+        $this->assertCount(4, $content->getFields());
 
         // eng-US
         $this->assertEquals($emptyValue, $content->getFieldValue('field1', 'eng-US'));
@@ -280,12 +276,8 @@ class NonRedundantFieldSetTest extends BaseNonRedundantFieldSetTest
         $this->assertEquals($emptyValue, $content->getFieldValue('field3', 'eng-US'));
         $this->assertEquals('default value 4', $content->getFieldValue('field4', 'eng-US'));
 
-        // ger-DE is not stored and fields are virtual
+        // ger-DE is not stored
         $this->assertNotContains('ger-DE', $content->versionInfo->languageCodes);
-        $this->assertNull($content->getField('field1', 'ger-DE')->id);
-        $this->assertNull($content->getField('field2', 'ger-DE')->id);
-        $this->assertNull($content->getField('field3', 'ger-DE')->id);
-        $this->assertNull($content->getField('field4', 'ger-DE')->id);
     }
 
     /**

@@ -208,7 +208,6 @@ class Mapper
 
         $fieldDefinitions = $this->loadCachedVersionFieldDefinitionsPerLanguage(
             $rows,
-            $languageCodes,
             $prefix
         );
 
@@ -294,21 +293,23 @@ class Mapper
      */
     private function loadCachedVersionFieldDefinitionsPerLanguage(
         array $rows,
-        array $languageCodes,
         string $prefix
     ): array {
         $fieldDefinitions = [];
         $contentTypes = [];
+        $allLanguages = $this->loadAllLanguagesWithIdKey();
 
         foreach ($rows as $row) {
             $contentId = (int)$row["{$prefix}id"];
             $versionId = (int)$row["{$prefix}version_id"];
             $contentTypeId = (int)$row["{$prefix}contentclass_id"];
+            $languageMask = (int)$row["{$prefix}version_language_mask"];
 
             if (!isset($fieldDefinitions[$contentId][$versionId])) {
                 $contentType = $contentTypes[$contentTypeId] = $contentTypes[$contentTypeId]
                     ?? $this->contentTypeHandler->load($contentTypeId);
                 foreach ($contentType->fieldDefinitions as $fieldDefinition) {
+                    $languageCodes = $this->extractLanguageCodesFromMask($languageMask, $allLanguages);
                     foreach ($languageCodes as $languageCode) {
                         $id = $fieldDefinition->id;
                         $fieldDefinitions[$contentId][$versionId][$languageCode][$id] = $fieldDefinition;
