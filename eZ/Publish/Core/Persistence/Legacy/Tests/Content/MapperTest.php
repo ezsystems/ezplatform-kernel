@@ -246,10 +246,13 @@ class MapperTest extends LanguageAwareTestCase
         $nameRowsFixture = $this->getNamesExtractFixture();
 
         $contentType = $this->getContentTypeFromRows($rowsFixture);
-        $contentType->fieldDefinitions = array_filter($contentType->fieldDefinitions, static function (Content\Type\FieldDefinition $fieldDefinition) {
-            // ref. fixtures, ezauthor
-            return $fieldDefinition->id !== 185;
-        });
+        $contentType->fieldDefinitions = array_filter(
+            $contentType->fieldDefinitions,
+            static function (Content\Type\FieldDefinition $fieldDefinition) {
+                // ref. fixtures, ezauthor
+                return $fieldDefinition->id !== 185;
+            }
+        );
 
         $contentTypeHandlerMock = $this->getContentTypeHandler();
         $contentTypeHandlerMock->method('load')->willReturn($contentType);
@@ -324,24 +327,24 @@ class MapperTest extends LanguageAwareTestCase
     }
 
     /**
-     * @param string[] $fields
+     * @param string[] $fieldTypeIdentifiers
      */
     private function getFieldRegistry(
-        array $fields = [],
-        int $expectedConverterCalls = null
+        array $fieldTypeIdentifiers = [],
+        ?int $expectedConverterCalls = null
     ): Registry {
-        $convMock = $this->createMock(Converter::class);
-        $convMock->expects(
+        $converterMock = $this->createMock(Converter::class);
+        $converterMock->expects(
             $expectedConverterCalls === null
-            ? $this->any()
-            : $this->exactly($expectedConverterCalls)
+            ? self::any()
+            : self::exactly($expectedConverterCalls)
         )
             ->method('toFieldValue')
-            ->will($this->returnValue(new FieldValue()));
+            ->willReturn(new FieldValue());
 
         $converters = [];
-        foreach ($fields as $field) {
-            $converters[$field] = $convMock;
+        foreach ($fieldTypeIdentifiers as $fieldTypeIdentifier) {
+            $converters[$fieldTypeIdentifier] = $converterMock;
         }
 
         return new Registry($converters);
