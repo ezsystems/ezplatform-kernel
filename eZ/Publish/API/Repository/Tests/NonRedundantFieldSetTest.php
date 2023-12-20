@@ -152,7 +152,7 @@ class NonRedundantFieldSetTest extends BaseNonRedundantFieldSetTest
      *
      * @param \eZ\Publish\API\Repository\Values\Content\Content $content
      */
-    public function testCreateContentEmptyValuesTranslationVirtualFields(Content $content)
+    public function testCreateContentEmptyValuesTranslationVirtualFields(Content $content): void
     {
         $emptyValue = $this->getRepository()->getFieldTypeService()->getFieldType('ezstring')->getEmptyValue();
 
@@ -266,7 +266,7 @@ class NonRedundantFieldSetTest extends BaseNonRedundantFieldSetTest
      *
      * @param \eZ\Publish\API\Repository\Values\Content\Content $content
      */
-    public function testCreateContentTwoLanguagesSecondTranslationVirtualFields(Content $content)
+    public function testCreateContentTwoLanguagesSecondTranslationVirtualFields(Content $content): void
     {
         $emptyValue = $this->getRepository()->getFieldTypeService()->getFieldType('ezstring')->getEmptyValue();
 

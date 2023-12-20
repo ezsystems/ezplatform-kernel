@@ -148,7 +148,7 @@ class FieldHandler
      *
      * @param \eZ\Publish\SPI\Persistence\Content $content
      */
-    public function createExistingFieldsInNewVersion(Content $content)
+    public function createExistingFieldsInNewVersion(Content $content): void
     {
         foreach ($content->fields as $field) {
             if ($field->id === null) {
