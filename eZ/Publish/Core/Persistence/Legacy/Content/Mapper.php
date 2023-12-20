@@ -319,7 +319,7 @@ class Mapper
             $contentTypeId = (int)$row["{$prefix}contentclass_id"];
             $languageMask = (int)$row["{$prefix}version_language_mask"];
 
-            if (!isset($fieldDefinitions[$contentId][$versionId])) {
+            if (isset($fieldDefinitions[$contentId][$versionId])) {
                 continue;
             }
 
