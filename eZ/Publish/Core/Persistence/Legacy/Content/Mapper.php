@@ -24,6 +24,12 @@ use eZ\Publish\SPI\Persistence\Content\VersionInfo;
  * Mapper for Content Handler.
  *
  * Performs mapping of Content objects.
+ *
+ * @phpstan-type TVersionedLanguageFieldDefinitionsMap array<int, array<int, array<string, array<int, \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition>>>>
+ * @phpstan-type TVersionedFieldMap array<int, array<int, array<int, \eZ\Publish\SPI\Persistence\Content\Field>>>
+ * @phpstan-type TVersionedNameMap array<int, array<int, array<string, array<int, string>>>>
+ * @phpstan-type TContentInfoMap array<int, \eZ\Publish\SPI\Persistence\Content\ContentInfo>
+ * @phpstan-type TVersionInfoMap array<int, array<int, \eZ\Publish\SPI\Persistence\Content\VersionInfo>>
  */
 class Mapper
 {
@@ -193,13 +199,12 @@ class Mapper
         string $prefix = 'ezcontentobject_'
     ): array {
         $versionedNameData = [];
-        $languageCodes = [];
 
         foreach ($nameRows as $row) {
             $contentId = (int)$row["{$prefix}name_contentobject_id"];
             $versionNo = (int)$row["{$prefix}name_content_version"];
-            $versionedNameData[$contentId][$versionNo][$row["{$prefix}name_content_translation"]] = $row["{$prefix}name_name"];
-            $languageCodes[] = $row["{$prefix}name_content_translation"];
+            $languageCode = $row["{$prefix}name_content_translation"];
+            $versionedNameData[$contentId][$versionNo][$languageCode] = $row["{$prefix}name_name"];
         }
 
         $contentInfos = [];
@@ -249,21 +254,27 @@ class Mapper
     }
 
     /**
+     * @phpstan-param TContentInfoMap $contentInfos
+     * @phpstan-param TVersionInfoMap $versionInfos
+     * @phpstan-param TVersionedFieldMap $fields
+     * @phpstan-param TVersionedLanguageFieldDefinitionsMap $missingFieldDefinitions
+     * @phpstan-param TVersionedNameMap $versionedNames
+     *
      * @return \eZ\Publish\SPI\Persistence\Content[]
      */
     private function buildContentObjects(
         array $contentInfos,
         array $versionInfos,
         array $fields,
-        array $fieldDefinitions,
-        array $versionedNameData
+        array $missingFieldDefinitions,
+        array $versionedNames
     ): array {
         $results = [];
 
         foreach ($contentInfos as $contentId => $contentInfo) {
             foreach ($versionInfos[$contentId] as $versionId => $versionInfo) {
                 // Fallback to just main language name if versioned name data is missing
-                $names = $versionedNameData[$contentId][$versionInfo->versionNo]
+                $names = $versionedNames[$contentId][$versionInfo->versionNo]
                     ?? [$contentInfo->mainLanguageCode => $contentInfo->name];
 
                 $content = new Content();
@@ -272,7 +283,8 @@ class Mapper
                 $content->versionInfo->contentInfo = $contentInfo;
                 $content->fields = array_values($fields[$contentId][$versionId]);
 
-                foreach ($fieldDefinitions[$contentId][$versionId] as $languageCode => $versionFieldDefinitions) {
+                $missingVersionFieldDefinitions = $missingFieldDefinitions[$contentId][$versionId];
+                foreach ($missingVersionFieldDefinitions as $languageCode => $versionFieldDefinitions) {
                     foreach ($versionFieldDefinitions as $fieldDefinition) {
                         $content->fields[] = $this->createEmptyField(
                             $fieldDefinition,
@@ -289,6 +301,8 @@ class Mapper
     }
 
     /**
+     * @phpstan-return TVersionedLanguageFieldDefinitionsMap
+     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
     private function loadCachedVersionFieldDefinitionsPerLanguage(
@@ -306,14 +320,16 @@ class Mapper
             $languageMask = (int)$row["{$prefix}version_language_mask"];
 
             if (!isset($fieldDefinitions[$contentId][$versionId])) {
-                $contentType = $contentTypes[$contentTypeId] = $contentTypes[$contentTypeId]
-                    ?? $this->contentTypeHandler->load($contentTypeId);
-                foreach ($contentType->fieldDefinitions as $fieldDefinition) {
-                    $languageCodes = $this->extractLanguageCodesFromMask($languageMask, $allLanguages);
-                    foreach ($languageCodes as $languageCode) {
-                        $id = $fieldDefinition->id;
-                        $fieldDefinitions[$contentId][$versionId][$languageCode][$id] = $fieldDefinition;
-                    }
+                continue;
+            }
+
+            $languageCodes = $this->extractLanguageCodesFromMask($languageMask, $allLanguages);
+            $contentType = $contentTypes[$contentTypeId] = $contentTypes[$contentTypeId]
+                ?? $this->contentTypeHandler->load($contentTypeId);
+            foreach ($contentType->fieldDefinitions as $fieldDefinition) {
+                foreach ($languageCodes as $languageCode) {
+                    $id = $fieldDefinition->id;
+                    $fieldDefinitions[$contentId][$versionId][$languageCode][$id] = $fieldDefinition;
                 }
             }
         }
