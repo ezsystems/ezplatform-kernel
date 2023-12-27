@@ -6,6 +6,8 @@
  */
 namespace eZ\Publish\Core\Search\Common\EventSubscriber;
 
+use eZ\Publish\API\Repository\Events\Trash\DeleteTrashItemEvent;
+use eZ\Publish\API\Repository\Events\Trash\EmptyTrashEvent;
 use eZ\Publish\API\Repository\Events\Trash\RecoverEvent;
 use eZ\Publish\API\Repository\Events\Trash\TrashEvent;
 use eZ\Publish\API\Repository\Values\Content\TrashItem;
@@ -18,6 +20,8 @@ class TrashEventSubscriber extends AbstractSearchEventSubscriber implements Even
         return [
             RecoverEvent::class => 'onRecover',
             TrashEvent::class => 'onTrash',
+            DeleteTrashItemEvent::class => 'onDeleteTrashItem',
+            EmptyTrashEvent::class => 'onEmptyTrashEvent',
         ];
     }
 
@@ -38,5 +42,34 @@ class TrashEventSubscriber extends AbstractSearchEventSubscriber implements Even
             $event->getLocation()->id,
             $event->getLocation()->contentId
         );
+    }
+
+    public function onDeleteTrashItem(DeleteTrashItemEvent $event): void
+    {
+        $contentHandler = $this->persistenceHandler->contentHandler();
+
+        $reverseRelationContentIds = $event->getResult()->reverseRelationContentIds;
+        foreach ($reverseRelationContentIds as $contentId) {
+            $persistenceContent = $contentHandler->load($contentId);
+
+            $this->searchHandler->indexContent($persistenceContent);
+        }
+    }
+
+    public function onEmptyTrashEvent(EmptyTrashEvent $event): void
+    {
+        $contentHandler = $this->persistenceHandler->contentHandler();
+
+        $results = $event->getResultList()->getIterator();
+
+        /** @var \eZ\Publish\API\Repository\Values\Content\Trash\TrashItemDeleteResult $result */
+        foreach ($results as $result) {
+            $reverseRelationContentIds = $result->reverseRelationContentIds;
+            foreach ($reverseRelationContentIds as $contentId) {
+                $persistenceContent = $contentHandler->load($contentId);
+
+                $this->searchHandler->indexContent($persistenceContent);
+            }
+        }
     }
 }

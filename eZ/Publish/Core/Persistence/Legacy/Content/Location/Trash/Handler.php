@@ -246,11 +246,14 @@ class Handler implements BaseTrashHandler
         $result->trashItemId = $trashItem->id;
         $result->contentId = $trashItem->contentId;
 
+        $reverseRelations = $this->contentHandler->loadReverseRelations($trashItem->contentId);
+
         $this->locationGateway->removeElementFromTrash($trashItem->id);
 
         if ($this->locationGateway->countLocationsByContentId($trashItem->contentId) < 1) {
             $this->contentHandler->deleteContent($trashItem->contentId);
             $result->contentRemoved = true;
+            $result->reverseRelationContentIds = array_column($reverseRelations, 'sourceContentId');
         }
 
         return $result;

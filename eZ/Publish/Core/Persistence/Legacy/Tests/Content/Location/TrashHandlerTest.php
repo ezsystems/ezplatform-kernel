@@ -329,7 +329,7 @@ class TrashHandlerTest extends TestCase
     /**
      * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Trash\Handler::emptyTrash
      */
-    public function testEmptyTrash()
+    public function testEmptyTrash(): void
     {
         $handler = $this->getTrashHandler();
 
@@ -354,48 +354,51 @@ class TrashHandlerTest extends TestCase
         $iLocation = 0;
 
         $this->locationGateway
-            ->expects($this->at($i++))
+            ->expects(self::at($i++))
             ->method('countTrashed')
             ->willReturn(2);
 
         $this->locationGateway
-            ->expects($this->at($i++))
+            ->expects(self::at($i++))
             ->method('listTrashed')
-            ->will(
-                $this->returnValue($expectedTrashed)
-            );
+            ->willReturn($expectedTrashed);
 
         $trashedItemIds = [];
         $trashedContentIds = [];
 
         foreach ($expectedTrashed as $trashedElement) {
             $this->locationMapper
-                ->expects($this->at($iLocation++))
+                ->expects(self::at($iLocation++))
                 ->method('createLocationFromRow')
-                ->will(
-                    $this->returnValue(
-                        new Trashed(
-                            [
-                                'id' => $trashedElement['node_id'],
-                                'contentId' => $trashedElement['contentobject_id'],
-                                'pathString' => $trashedElement['path_string'],
-                            ]
-                        )
+                ->willReturn(
+                    new Trashed(
+                        [
+                            'id' => $trashedElement['node_id'],
+                            'contentId' => $trashedElement['contentobject_id'],
+                            'pathString' => $trashedElement['path_string'],
+                        ]
                     )
                 );
+
+            $this->contentHandler
+                ->expects(self::at($iContent++))
+                ->method('loadReverseRelations')
+                ->with($trashedElement['contentobject_id'])
+                ->willReturn([]);
+
             $this->locationGateway
-                ->expects($this->at($i++))
+                ->expects(self::at($i++))
                 ->method('removeElementFromTrash')
                 ->with($trashedElement['node_id']);
 
             $this->locationGateway
-                ->expects($this->at($i++))
+                ->expects(self::at($i++))
                 ->method('countLocationsByContentId')
                 ->with($trashedElement['contentobject_id'])
-                ->will($this->returnValue(0));
+                ->willReturn(0);
 
             $this->contentHandler
-                ->expects($this->at($iContent++))
+                ->expects(self::at($iContent++))
                 ->method('deleteContent')
                 ->with($trashedElement['contentobject_id']);
 
@@ -405,75 +408,78 @@ class TrashHandlerTest extends TestCase
 
         $returnValue = $handler->emptyTrash();
 
-        $this->assertInstanceOf(TrashItemDeleteResultList::class, $returnValue);
+        self::assertInstanceOf(TrashItemDeleteResultList::class, $returnValue);
 
         foreach ($returnValue->items as $key => $trashItemDeleteResult) {
-            $this->assertEquals($trashItemDeleteResult->trashItemId, $trashedItemIds[$key]);
-            $this->assertEquals($trashItemDeleteResult->contentId, $trashedContentIds[$key]);
-            $this->assertTrue($trashItemDeleteResult->contentRemoved);
+            self::assertEquals($trashItemDeleteResult->trashItemId, $trashedItemIds[$key]);
+            self::assertEquals($trashItemDeleteResult->contentId, $trashedContentIds[$key]);
+            self::assertTrue($trashItemDeleteResult->contentRemoved);
         }
     }
 
     /**
      * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Location\Trash\Handler::deleteTrashItem
      */
-    public function testDeleteTrashItemNoMoreLocations()
+    public function testDeleteTrashItemNoMoreLocations(): void
     {
         $handler = $this->getTrashHandler();
 
         $trashItemId = 69;
         $contentId = 67;
+
         $this->locationGateway
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadTrashByLocation')
             ->with($trashItemId)
-            ->will(
-                $this->returnValue(
+            ->willReturn(
+                [
+                    'node_id' => $trashItemId,
+                    'contentobject_id' => $contentId,
+                    'path_string' => '/1/2/69',
+                ]
+            );
+
+        $this->locationMapper
+            ->expects(self::once())
+            ->method('createLocationFromRow')
+            ->willReturn(
+                new Trashed(
                     [
-                        'node_id' => $trashItemId,
-                        'contentobject_id' => $contentId,
-                        'path_string' => '/1/2/69',
+                        'id' => $trashItemId,
+                        'contentId' => $contentId,
+                        'pathString' => '/1/2/69',
                     ]
                 )
             );
 
-        $this->locationMapper
-            ->expects($this->once())
-            ->method('createLocationFromRow')
-            ->will(
-                $this->returnValue(
-                    new Trashed(
-                        [
-                            'id' => $trashItemId,
-                            'contentId' => $contentId,
-                            'pathString' => '/1/2/69',
-                        ]
-                    )
-                )
-            );
+        $this->contentHandler
+            ->expects(self::once())
+            ->method('loadReverseRelations')
+            ->with($contentId)
+            ->willReturn([]);
 
         $this->locationGateway
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('removeElementFromTrash')
             ->with($trashItemId);
 
         $this->locationGateway
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('countLocationsByContentId')
             ->with($contentId)
-            ->will($this->returnValue(0));
+            ->willReturn(0);
 
         $this->contentHandler
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('deleteContent')
             ->with($contentId);
 
         $trashItemDeleteResult = $handler->deleteTrashItem($trashItemId);
 
-        $this->assertInstanceOf(TrashItemDeleteResult::class, $trashItemDeleteResult);
-        $this->assertEquals($trashItemId, $trashItemDeleteResult->trashItemId);
-        $this->assertEquals($contentId, $trashItemDeleteResult->contentId);
-        $this->assertTrue($trashItemDeleteResult->contentRemoved);
+        self::assertInstanceOf(TrashItemDeleteResult::class, $trashItemDeleteResult);
+        self::assertEquals($trashItemId, $trashItemDeleteResult->trashItemId);
+        self::assertEquals($contentId, $trashItemDeleteResult->contentId);
+        self::assertTrue($trashItemDeleteResult->contentRemoved);
     }
 
     /**

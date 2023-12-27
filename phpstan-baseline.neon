@@ -281,11 +281,6 @@ parameters:
 			path: eZ/Publish/API/Repository/Tests/SearchServiceTranslationLanguageFallbackTest.php
 
 		-
-			message: "#^Undefined variable\\: \\$loader$#"
-			count: 3
-			path: eZ/Publish/API/Repository/Tests/SetupFactory/Legacy.php
-
-		-
 			message: "#^Method eZ\\\\Publish\\\\API\\\\Repository\\\\Tests\\\\URLWildcardServiceAuthorizationTest\\:\\:testCreateThrowsUnauthorizedException\\(\\) should return eZ\\\\Publish\\\\API\\\\Repository\\\\Values\\\\Content\\\\URLWildcard but return statement is missing\\.$#"
 			count: 1
 			path: eZ/Publish/API/Repository/Tests/URLWildcardServiceAuthorizationTest.php
@@ -504,11 +499,6 @@ parameters:
 			message: "#^Method eZ\\\\Publish\\\\Core\\\\Persistence\\\\Legacy\\\\Content\\\\Type\\\\Handler\\:\\:addFieldDefinition\\(\\) should return eZ\\\\Publish\\\\SPI\\\\Persistence\\\\Content\\\\Type\\\\FieldDefinition but return statement is missing\\.$#"
 			count: 1
 			path: eZ/Publish/Core/Persistence/Legacy/Content/Type/Handler.php
-
-		-
-			message: "#^Undefined variable\\: \\$loader$#"
-			count: 2
-			path: eZ/Publish/Core/Persistence/Legacy/Tests/HandlerTest.php
 
 		-
 			message: "#^Class eZ\\\\Publish\\\\SPI\\\\Persistence\\\\Content\\\\UrlAlias referenced with incorrect case\\: eZ\\\\Publish\\\\SPI\\\\Persistence\\\\Content\\\\URLAlias\\.$#"
