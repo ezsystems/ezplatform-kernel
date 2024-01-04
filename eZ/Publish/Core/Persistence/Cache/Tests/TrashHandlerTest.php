@@ -13,6 +13,7 @@ use eZ\Publish\SPI\Persistence\Content\Location;
 use eZ\Publish\SPI\Persistence\Content\Location\Trash\Handler as TrashHandler;
 use eZ\Publish\SPI\Persistence\Content\Location\Trashed;
 use eZ\Publish\SPI\Persistence\Content\Relation;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
 /**
  * Test case for Persistence\Cache\SectionHandler.
@@ -118,10 +119,13 @@ class TrashHandlerTest extends AbstractCacheHandlerTest
     {
         $locationId = 6;
         $contentId = 42;
+        $versionNo = 1;
 
         $tags = [
+            'c-' . $contentId . '-v-' . $versionNo,
             'c-' . $contentId,
             'lp-' . $locationId,
+            'l-' . $locationId,
         ];
 
         $handlerMethodName = $this->getHandlerMethodName();
@@ -144,6 +148,16 @@ class TrashHandlerTest extends AbstractCacheHandlerTest
             ->method('locationHandler')
             ->willReturn($locationHandlerMock);
 
+        $contentHandlerMock
+            ->expects($this->once())
+            ->method('listVersions')
+            ->with($contentId)
+            ->willReturn(
+                [
+                    new VersionInfo(['versionNo' => $versionNo]),
+                ]
+            );
+
         $this->persistenceHandlerMock
             ->expects($this->once())
             ->method($handlerMethodName)
@@ -154,13 +168,14 @@ class TrashHandlerTest extends AbstractCacheHandlerTest
             ->method('trashSubtree')
             ->with($locationId)
             ->willReturn(null);
-
         $this->cacheIdentifierGeneratorMock
-            ->expects($this->exactly(2))
+            ->expects($this->exactly(4))
             ->method('generateTag')
             ->withConsecutive(
+                ['content_version', [$contentId, $versionNo], false],
                 ['content', [$contentId], false],
-                ['location_path', [$locationId], false]
+                ['location_path', [$locationId], false],
+                ['location', [$locationId], false]
             )
             ->willReturnOnConsecutiveCalls(...$tags);
 
