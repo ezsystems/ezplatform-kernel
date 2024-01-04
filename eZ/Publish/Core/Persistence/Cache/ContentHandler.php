@@ -333,7 +333,7 @@ class ContentHandler extends AbstractInMemoryPersistenceHandler implements Conte
         $locationTags = array_map(function (Content\Location $location): string {
             return $this->cacheIdentifierGenerator->generateTag(self::LOCATION_IDENTIFIER, [$location->id]);
         }, $locations);
-        $locationPathTags = array_map(function (Content\Location $location) {
+        $locationPathTags = array_map(function (Content\Location $location): string {
             return $this->cacheIdentifierGenerator->generateTag(self::LOCATION_PATH_IDENTIFIER, [$location->id]);
         }, $locations);
 
