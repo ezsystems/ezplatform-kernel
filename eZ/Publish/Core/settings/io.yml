@@ -35,7 +35,7 @@ services:
             - "@ezpublish.core.io.default_url_decorator"
 
     ezpublish.core.io.flysystem.base_filesystem:
-        class: League\Flysystem\Filesystem
+        class: eZ\Publish\Core\IO\Filesystem
         abstract: true
 
     ezpublish.core.io.flysystem.default_filesystem:
