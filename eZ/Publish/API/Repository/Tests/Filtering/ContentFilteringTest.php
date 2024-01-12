@@ -12,11 +12,14 @@ use function array_map;
 use function count;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\ContentList;
+use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
 use eZ\Publish\API\Repository\Values\Filter\Filter;
+use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateCreateStruct;
+use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroupCreateStruct;
 use eZ\Publish\Core\FieldType\Keyword;
 use eZ\Publish\SPI\Repository\Values\Filter\FilteringSortClause;
 use IteratorAggregate;
@@ -27,6 +30,13 @@ use function sprintf;
  */
 final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->getSetupFactory()->getRepository(true);
+        $this->contentProvider = new TestContentProvider($this->getRepository(true), $this);
+    }
+
     /**
      * Test that special cases of Location Sort Clauses are working correctly.
      *
@@ -330,6 +340,64 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
         $contentList = $this->find($filter, []);
         self::assertCount(1, $contentList);
         self::assertSame(57, $contentList->getIterator()[0]->id);
+    }
+
+    public function testObjectStateIdCriterionOnMultipleObjectStates(): void
+    {
+        $contentService = $this->getRepository()->getContentService();
+        $contentTypeService = $this->getRepository()->getContentTypeService();
+        $locationService = $this->getRepository()->getLocationService();
+        $objectStateService = $this->getRepository()->getObjectStateService();
+
+        // Create additional Object States
+        $objectStateGroupStruct = new ObjectStateGroupCreateStruct();
+        $objectStateGroupStruct->identifier = 'domain';
+        $objectStateGroupStruct->names = ['eng-GB' => 'Domain'];
+        $objectStateGroupStruct->defaultLanguageCode = 'eng-GB';
+        $objectStateGroup = $objectStateService->createObjectStateGroup($objectStateGroupStruct);
+
+        $objectStateCreateStruct = new ObjectStateCreateStruct();
+        $objectStateCreateStruct->identifier = 'public';
+        $objectStateCreateStruct->names = ['eng-GB' => 'Public'];
+        $objectStateCreateStruct->defaultLanguageCode = 'eng-GB';
+        $objectStatePublic = $objectStateService->createObjectState($objectStateGroup, $objectStateCreateStruct);
+
+        $objectStateCreateStruct->identifier = 'private';
+        $objectStateCreateStruct->names = ['eng-GB' => 'Private'];
+        $objectStatePrivate = $objectStateService->createObjectState($objectStateGroup, $objectStateCreateStruct);
+
+        // Create a new content object and assign object state "Private" to it:
+        $contentCreate = $contentService->newContentCreateStruct(
+            $contentTypeService->loadContentTypeByIdentifier('folder'),
+            'eng-GB'
+        );
+        $contentCreate->setField('name', 'Private Folder');
+        $content = $contentService->createContent(
+            $contentCreate,
+            [$locationService->newLocationCreateStruct(2)]
+        );
+        $contentService->publishVersion(
+            $content->getVersionInfo()
+        );
+        $objectStateService->setContentState($content->contentInfo, $objectStateGroup, $objectStatePrivate);
+
+        $filter = new Filter();
+        $filter
+            ->withCriterion(new Criterion\LogicalAnd([
+                new Criterion\ParentLocationId(2),
+                new Criterion\LogicalAnd([
+                    new Criterion\ObjectStateId(1),
+                    new Criterion\ObjectStateId(4),
+                ]),
+            ]));
+
+        $results = $this->find($filter);
+
+        self::assertEquals(1, $results->getTotalCount(), 'Expected to find only one object which has state "not_locked" and "private"');
+        /** @var \eZ\Publish\API\Repository\Values\Content\Location $result */
+        foreach ($results as $result) {
+            self::assertEquals($result->id, $content->id, 'Expected to find "Private Folder"');
+        }
     }
 
     public function getListOfSupportedSortClauses(): iterable
