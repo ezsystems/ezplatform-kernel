@@ -29,9 +29,7 @@ final class ObjectStateIdQueryBuilder implements CriterionQueryBuilder
         FilteringQueryBuilder $queryBuilder,
         FilteringCriterion $criterion
     ): ?string {
-        static $counter = 1;
-        $tableAlias = 'object_state_link_' . $counter;
-        ++$counter;
+        $tableAlias = uniqid('osl_');
 
         /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion\ObjectStateId $criterion */
         $queryBuilder
