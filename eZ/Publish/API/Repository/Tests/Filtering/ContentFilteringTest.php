@@ -32,9 +32,9 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
 {
     protected function setUp(): void
     {
-        parent::setUp();
         $this->getSetupFactory()->getRepository(true);
         $this->contentProvider = new TestContentProvider($this->getRepository(true), $this);
+        parent::setUp();
     }
 
     /**
@@ -360,7 +360,7 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
         $objectStateCreateStruct->identifier = 'public';
         $objectStateCreateStruct->names = ['eng-GB' => 'Public'];
         $objectStateCreateStruct->defaultLanguageCode = 'eng-GB';
-        $objectStatePublic = $objectStateService->createObjectState($objectStateGroup, $objectStateCreateStruct);
+        $objectStateService->createObjectState($objectStateGroup, $objectStateCreateStruct);
 
         $objectStateCreateStruct->identifier = 'private';
         $objectStateCreateStruct->names = ['eng-GB' => 'Private'];
@@ -393,7 +393,12 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
 
         $results = $this->find($filter);
 
-        self::assertEquals(1, $results->getTotalCount(), 'Expected to find only one object which has state "not_locked" and "private"');
+        self::assertEquals(
+            1,
+            $results->getTotalCount(),
+            'Expected to find only one object which has state "not_locked" and "private"'
+        );
+
         /** @var \eZ\Publish\API\Repository\Values\Content\Location $result */
         foreach ($results as $result) {
             self::assertEquals($result->id, $content->id, 'Expected to find "Private Folder"');
