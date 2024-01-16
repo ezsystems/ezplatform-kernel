@@ -32,8 +32,6 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
 {
     protected function setUp(): void
     {
-        $this->getSetupFactory()->getRepository(true);
-        $this->contentProvider = new TestContentProvider($this->getRepository(true), $this);
         parent::setUp();
     }
 
@@ -387,7 +385,7 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
                 new Criterion\ParentLocationId(2),
                 new Criterion\LogicalAnd([
                     new Criterion\ObjectStateId(1),
-                    new Criterion\ObjectStateId(4),
+                    new Criterion\ObjectStateId($objectStatePrivate->id),
                 ]),
             ]));
 
