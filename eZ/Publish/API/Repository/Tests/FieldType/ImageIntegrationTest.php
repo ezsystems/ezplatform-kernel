@@ -6,6 +6,8 @@
  */
 namespace eZ\Publish\API\Repository\Tests\FieldType;
 
+use Doctrine\DBAL\ParameterType;
+use DOMDocument;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\Core\FieldType\Image\Value as ImageValue;
@@ -758,6 +760,68 @@ class ImageIntegrationTest extends FileSearchBaseIntegrationTest
             $this->uriExistsOnIO($originalFileUri),
             "Asserting image file {$originalFileUri} has been removed"
         );
+    }
+
+    public function testDeleteImageWithCorruptedName(): void
+    {
+        $content = $this->publishNewImage(
+            __METHOD__,
+            new ImageValue(
+                [
+                    'inputUri' => __DIR__ . '/_fixtures/image.jpg',
+                    'fileName' => 'image.jpg',
+                    'fileSize' => filesize(__DIR__ . '/_fixtures/image.jpg'),
+                    'alternativeText' => 'Alternative',
+                ]
+            ),
+            [2]
+        );
+
+        $imageFieldDefinition = $content->getContentType()->getFieldDefinition('image');
+
+        $connection = $this->getRawDatabaseConnection();
+        $contentObjectAttributeTable = 'ezcontentobject_attribute';
+        $corruptedChar = '­';
+
+        $query = $connection->createQueryBuilder();
+        $query
+            ->select('data_text')
+            ->from($contentObjectAttributeTable)
+            ->andWhere('contentclassattribute_id = :contentclassattribute_id')
+            ->andWhere('version = :version')
+            ->andWhere('contentobject_id = :contentobject_id')
+            ->setParameter('contentclassattribute_id', $imageFieldDefinition->id, ParameterType::INTEGER)
+            ->setParameter('version', $content->getVersionInfo()->versionNo, ParameterType::INTEGER)
+            ->setParameter('contentobject_id', $content->id, ParameterType::INTEGER);
+        $result = $query->execute();
+        $row = $result->fetchAssociative();
+
+        $document = new DOMDocument('1.0', 'utf-8');
+        $document->loadXML($row['data_text']);
+        $elements = $document->getElementsByTagName('ezimage');
+        $element = $elements->item(0);
+        $element->setAttribute('filename', $element->getAttribute('filename') . $corruptedChar);
+        $element->setAttribute('url', $element->getAttribute('url') . $corruptedChar);
+
+        $query = $connection->createQueryBuilder();
+        $query
+            ->update($contentObjectAttributeTable)
+            ->set('data_text', ':data_text')
+            ->setParameter('data_text', $document->saveXML(), ParameterType::STRING)
+            ->andWhere('contentclassattribute_id = :contentclassattribute_id')
+            ->andWhere('version = :version')
+            ->andWhere('contentobject_id = :contentobject_id')
+            ->setParameter('contentclassattribute_id', $imageFieldDefinition->id, ParameterType::INTEGER)
+            ->setParameter('version', $content->getVersionInfo()->versionNo, ParameterType::INTEGER)
+            ->setParameter('contentobject_id', $content->id, ParameterType::INTEGER);
+        $query->execute();
+
+        $repository = $this->getRepository(false);
+        $contentService = $repository->getContentService();
+
+        $contentService->deleteContent($content->getVersionInfo()->getContentInfo());
+
+        // Expect no League\Flysystem\CorruptedPathDetected thrown
     }
 
     /**
