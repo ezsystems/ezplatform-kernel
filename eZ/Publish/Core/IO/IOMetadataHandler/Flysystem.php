@@ -11,6 +11,7 @@ use eZ\Publish\Core\IO\Exception\BinaryFileNotFoundException;
 use eZ\Publish\Core\IO\IOMetadataHandler;
 use eZ\Publish\SPI\IO\BinaryFile as SPIBinaryFile;
 use eZ\Publish\SPI\IO\BinaryFileCreateStruct as SPIBinaryFileCreateStruct;
+use League\Flysystem\CorruptedPathDetected;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FilesystemInterface;
 
@@ -47,7 +48,7 @@ class Flysystem implements IOMetadataHandler
     {
         try {
             $info = $this->filesystem->getMetadata($spiBinaryFileId);
-        } catch (FileNotFoundException $e) {
+        } catch (FileNotFoundException|CorruptedPathDetected $e) {
             throw new BinaryFileNotFoundException($spiBinaryFileId);
         }
 
@@ -64,7 +65,11 @@ class Flysystem implements IOMetadataHandler
 
     public function exists($spiBinaryFileId)
     {
-        return $this->filesystem->has($spiBinaryFileId);
+        try {
+            return $this->filesystem->has($spiBinaryFileId);
+        } catch (CorruptedPathDetected $e) {
+            return false;
+        }
     }
 
     public function getMimeType($spiBinaryFileId)

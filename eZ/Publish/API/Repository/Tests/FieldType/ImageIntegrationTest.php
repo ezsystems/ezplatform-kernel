@@ -6,9 +6,12 @@
  */
 namespace eZ\Publish\API\Repository\Tests\FieldType;
 
+use Doctrine\DBAL\ParameterType;
+use DOMDocument;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\Core\FieldType\Image\Value as ImageValue;
+use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
 
 /**
  * Integration test for use field type.
@@ -758,6 +761,108 @@ class ImageIntegrationTest extends FileSearchBaseIntegrationTest
             $this->uriExistsOnIO($originalFileUri),
             "Asserting image file {$originalFileUri} has been removed"
         );
+    }
+
+    public function testDeleteImageWithCorruptedName(): void
+    {
+        $content = $this->publishNewImage(
+            __METHOD__,
+            new ImageValue(
+                [
+                    'inputUri' => __DIR__ . '/_fixtures/image.jpg',
+                    'fileName' => 'image.jpg',
+                    'fileSize' => filesize(__DIR__ . '/_fixtures/image.jpg'),
+                    'alternativeText' => 'Alternative',
+                ]
+            ),
+            [2]
+        );
+
+        $imageFieldDefinition = $content->getContentType()->getFieldDefinition('image');
+
+        $record = $this->fetchXML(
+            $content->id,
+            $content->getVersionInfo()->versionNo,
+            $imageFieldDefinition->id
+        );
+
+        $document = $this->corruptImageFieldXML($record);
+
+        $this->updateXML(
+            $content->id,
+            $content->getVersionInfo()->versionNo,
+            $imageFieldDefinition->id,
+            $document
+        );
+
+        $repository = $this->getRepository(false);
+        $contentService = $repository->getContentService();
+
+        $contentService->deleteContent($content->getVersionInfo()->getContentInfo());
+
+        // Expect no League\Flysystem\CorruptedPathDetected thrown
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    private function fetchXML(int $contentId, int $versionNo, int $fieldDefinitionId): array
+    {
+        $connection = $this->getRawDatabaseConnection();
+
+        $query = $connection->createQueryBuilder();
+        $query
+            ->select('data_text')
+            ->from(Gateway::CONTENT_FIELD_TABLE)
+            ->andWhere('contentclassattribute_id = :contentclassattribute_id')
+            ->andWhere('version = :version')
+            ->andWhere('contentobject_id = :contentobject_id')
+            ->setParameter('contentclassattribute_id', $fieldDefinitionId, ParameterType::INTEGER)
+            ->setParameter('version', $versionNo, ParameterType::INTEGER)
+            ->setParameter('contentobject_id', $contentId, ParameterType::INTEGER);
+        $result = $query->execute();
+
+        return $result->fetchAssociative();
+    }
+
+    /**
+     * @param array<string,mixed> $row
+     */
+    private function corruptImageFieldXML(array $row): DOMDocument
+    {
+        $corruptedChar = '­';
+
+        $document = new DOMDocument('1.0', 'utf-8');
+        $document->loadXML($row['data_text']);
+        $elements = $document->getElementsByTagName('ezimage');
+        $element = $elements->item(0);
+        $element->setAttribute('filename', $element->getAttribute('filename') . $corruptedChar);
+        $element->setAttribute('url', $element->getAttribute('url') . $corruptedChar);
+
+        return $document;
+    }
+
+    private function updateXML(
+        int $contentId,
+        int $versionNo,
+        int $fieldDefinitionId,
+        DOMDocument $document
+    ): void {
+        $connection = $this->getRawDatabaseConnection();
+
+        $query = $connection->createQueryBuilder();
+        $query
+            ->update(Gateway::CONTENT_FIELD_TABLE)
+            ->set('data_text', ':data_text')
+            ->setParameter('data_text', $document->saveXML(), ParameterType::STRING)
+            ->andWhere('contentclassattribute_id = :contentclassattribute_id')
+            ->andWhere('version = :version')
+            ->andWhere('contentobject_id = :contentobject_id')
+            ->setParameter('contentclassattribute_id', $fieldDefinitionId, ParameterType::INTEGER)
+            ->setParameter('version', $versionNo, ParameterType::INTEGER)
+            ->setParameter('contentobject_id', $contentId, ParameterType::INTEGER);
+
+        $query->execute();
     }
 
     /**

@@ -11,6 +11,7 @@ use eZ\Publish\Core\IO\IOBinarydataHandler;
 use eZ\Publish\Core\IO\UrlDecorator;
 use eZ\Publish\SPI\IO\BinaryFileCreateStruct;
 use League\Flysystem\AdapterInterface;
+use League\Flysystem\CorruptedPathDetected;
 use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException as FlysystemNotFoundException;
 use League\Flysystem\FilesystemInterface;
@@ -56,7 +57,7 @@ class Flysystem implements IOBinaryDataHandler
     {
         try {
             $this->filesystem->delete($spiBinaryFileId);
-        } catch (FlysystemNotFoundException $e) {
+        } catch (FlysystemNotFoundException|CorruptedPathDetected $e) {
             throw new BinaryFileNotFoundException($spiBinaryFileId, $e);
         }
     }
