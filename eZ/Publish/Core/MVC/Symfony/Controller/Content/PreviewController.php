@@ -59,7 +59,8 @@ class PreviewController
     /** @var \eZ\Publish\Core\MVC\Symfony\View\CustomLocationControllerChecker */
     private $controllerChecker;
 
-    private bool $debugMode;
+    /** @var bool */
+    private $debugMode;
 
     public function __construct(
         ContentService $contentService,
@@ -70,7 +71,7 @@ class PreviewController
         PreviewLocationProvider $locationProvider,
         CustomLocationControllerChecker $controllerChecker,
         bool $debugMode,
-        ?LoggerInterface $logger = null,
+        ?LoggerInterface $logger = null
     ) {
         $this->contentService = $contentService;
         $this->locationService = $locationService;
