@@ -46,6 +46,13 @@ abstract class Gateway extends StorageGateway
     abstract public function insertUrl($url);
 
     /**
+     * Return a list of URLs used by the given field and version.
+     *
+     * @return bool[] An array of URLs, with urls as keys
+     */
+    abstract public function getUrlsFromUrlLink(int $fieldId, int $versionNo): array;
+
+    /**
      * Creates link to URL with $urlId for field with $fieldId in $versionNo.
      *
      * @param int|string $urlId
