@@ -380,7 +380,11 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
         $contentService->publishVersion(
             $content->getVersionInfo()
         );
-        $objectStateService->setContentState($content->contentInfo, $objectStateGroup, $objectStatePrivate);
+        $objectStateService->setContentState(
+            $content->getVersionInfo()->getContentInfo(),
+            $objectStateGroup,
+            $objectStatePrivate
+        );
 
         $filter = new Filter();
         $filter
@@ -400,7 +404,6 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
             'Expected to find only one object which has state "not_locked" and "private"'
         );
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $result */
         foreach ($results as $result) {
             self::assertEquals($result->id, $content->id, 'Expected to find "Private Folder"');
         }
