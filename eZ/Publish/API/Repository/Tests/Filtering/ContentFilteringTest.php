@@ -30,11 +30,6 @@ use function sprintf;
  */
 final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-    }
-
     /**
      * Test that special cases of Location Sort Clauses are working correctly.
      *
