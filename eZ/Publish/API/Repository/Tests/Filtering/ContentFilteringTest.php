@@ -340,6 +340,9 @@ final class ContentFilteringTest extends BaseRepositoryFilteringTestCase
         self::assertSame(57, $contentList->getIterator()[0]->id);
     }
 
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\Exception
+     */
     public function testObjectStateIdCriterionOnMultipleObjectStates(): void
     {
         $contentService = $this->getRepository()->getContentService();
