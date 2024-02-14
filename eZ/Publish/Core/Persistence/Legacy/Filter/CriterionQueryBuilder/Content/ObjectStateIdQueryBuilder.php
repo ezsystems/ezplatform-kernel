@@ -33,7 +33,7 @@ final class ObjectStateIdQueryBuilder implements CriterionQueryBuilder
 
         /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion\ObjectStateId $criterion */
         $queryBuilder
-            ->joinOnce(
+            ->join(
                 'content',
                 Gateway::OBJECT_STATE_LINK_TABLE,
                 $tableAlias,
