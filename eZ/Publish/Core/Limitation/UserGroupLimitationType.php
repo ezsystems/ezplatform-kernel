@@ -6,6 +6,7 @@
  */
 namespace eZ\Publish\Core\Limitation;
 
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
@@ -189,10 +190,15 @@ class UserGroupLimitationType extends AbstractPersistenceLimitationType implemen
         }
 
         $groupIds = [];
-        $currentUserLocations = $this->persistence->locationHandler()->loadLocationsByContent($currentUser->getUserId());
-        if (!empty($currentUserLocations)) {
-            foreach ($currentUserLocations as $currentUserLocation) {
-                $groupIds[] = $currentUserLocation->parentId;
+        $locationHandler = $this->persistence->locationHandler();
+        $currentUserLocations = $locationHandler->loadLocationsByContent($currentUser->getUserId());
+        foreach ($currentUserLocations as $currentUserLocation) {
+            try {
+                $parentLocation = $locationHandler->load($currentUserLocation->parentId);
+                $groupIds[] = $parentLocation->contentId;
+            } catch (NotFoundException $e) {
+                // there is no need for any action - carrying on with checking other user locations
+                continue;
             }
         }
 
