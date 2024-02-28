@@ -26,7 +26,7 @@ parameters:
             delete: ~
 
         state:
-            assign: { Class: true, Section: true, Owner: true, Group: true, Node: true, Subtree: true, State: true, NewState: true }
+            assign: { Class: true, Section: true, Owner: true, Group: true, State: true, NewState: true }
             administrate: ~
 
         role:
