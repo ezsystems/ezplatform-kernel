@@ -36,7 +36,7 @@
         "symfony/expression-language": "^5.3.0",
         "symfony/validator": "^5.3.0",
         "symfony/var-dumper": "^5.3.0",
-        "ezsystems/doctrine-dbal-schema": "^1.0@dev",
+        "ezsystems/doctrine-dbal-schema": "^1.0",
         "symfony-cmf/routing": "^2.3",
         "guzzlehttp/guzzle": "^6.5",
         "php-http/guzzle6-adapter": "^2.0",
@@ -63,7 +63,7 @@
         "jenner/simple_fork": "^1.2",
         "friends-of-behat/mink-extension": "^2.4",
         "league/flysystem-memory": "^1.0",
-        "ibexa/ci-scripts": "^0.1@dev",
+        "ibexa/ci-scripts": "^0.1",
         "ezsystems/ezplatform-code-style": "^2.0",
         "phpunit/phpunit": "^8.2",
         "matthiasnoback/symfony-dependency-injection-test": "^4.1",
@@ -95,7 +95,9 @@
             "Ibexa\\Contracts\\Core\\": "src/contracts",
             "Ibexa\\Core\\": "src/lib"
         },
-        "classmap": ["tests/integration/Core/RepositoryTestCase.php"]
+        "classmap": [
+            "tests/integration/Core/RepositoryTestCase.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
