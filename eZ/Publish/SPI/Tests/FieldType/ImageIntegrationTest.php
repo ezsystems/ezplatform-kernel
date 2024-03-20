@@ -9,6 +9,7 @@ namespace eZ\Publish\SPI\Tests\FieldType;
 use eZ\Publish\Core\Base\Utils\DeprecationWarnerInterface;
 use eZ\Publish\Core\FieldType;
 use eZ\Publish\Core\FieldType\Image\AliasCleanerInterface;
+use eZ\Publish\Core\FieldType\Validator\FileExtensionBlackListValidator;
 use eZ\Publish\Core\IO;
 use eZ\Publish\Core\Persistence\Legacy;
 use eZ\Publish\SPI\Persistence\Content;
@@ -47,6 +48,9 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
 
     /** @var \eZ\Publish\Core\IO\FilePathNormalizer\Flysystem */
     private $filePathNormalizer;
+
+    /** @var \eZ\Publish\Core\FieldType\Validator\FileExtensionBlackListValidator&\PHPUnit\Framework\MockObject\MockObject */
+    private $fileExtensionBlackListValidator;
 
     /**
      * Returns the storage identifier prefix used by the file service.
@@ -99,7 +103,8 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
                 new IO\MetadataHandler\ImageSize(),
                 $this->getDeprecationWarnerMock(),
                 $this->getAliasCleanerMock(),
-                $this->getFilePathNormalizerMock()
+                $this->getFilePathNormalizerMock(),
+                $this->getFileExtensionBlackListValidatorMock()
             )
         );
     }
@@ -136,6 +141,16 @@ class ImageIntegrationTest extends FileBaseIntegrationTest
         }
 
         return $this->filePathNormalizer;
+    }
+
+    private function getFileExtensionBlackListValidatorMock(): FileExtensionBlackListValidator
+    {
+        if (!isset($this->fileExtensionBlackListValidator)) {
+            $this->fileExtensionBlackListValidator = $this->createMock(FileExtensionBlackListValidator::class);
+            $this->fileExtensionBlackListValidator->expects(self::any())->method('validateFileExtension');
+        }
+
+        return $this->fileExtensionBlackListValidator;
     }
 
     /**

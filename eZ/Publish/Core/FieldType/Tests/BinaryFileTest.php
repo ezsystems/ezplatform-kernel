@@ -595,7 +595,7 @@ class BinaryFileTest extends BinaryBaseTest
                 ),
                 [
                     new ValidationError(
-                        'A valid file is required. Following file extensions are on the blacklist: %extensionsBlackList%',
+                        'A valid file is required. The following file extensions are not allowed: %extensionsBlackList%',
                         null,
                         ['%extensionsBlackList%' => implode(', ', $this->blackListedExtensions)],
                         'fileExtensionBlackList'
@@ -623,7 +623,7 @@ class BinaryFileTest extends BinaryBaseTest
                 ),
                 [
                     new ValidationError(
-                        'A valid file is required. Following file extensions are on the blacklist: %extensionsBlackList%',
+                        'A valid file is required. The following file extensions are not allowed: %extensionsBlackList%',
                         null,
                         ['%extensionsBlackList%' => implode(', ', $this->blackListedExtensions)],
                         'fileExtensionBlackList'

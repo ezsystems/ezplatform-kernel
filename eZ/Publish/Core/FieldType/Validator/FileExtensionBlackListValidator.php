@@ -47,22 +47,39 @@ class FileExtensionBlackListValidator extends Validator
      */
     public function validate(BaseValue $value)
     {
+        $this->errors = [];
+
+        $this->validateFileExtension($value->fileName);
+
+        return empty($this->errors);
+    }
+
+    public function validateFileExtension(string $fileName): void
+    {
         if (
-            pathinfo($value->fileName, PATHINFO_BASENAME) !== $value->fileName ||
-            in_array(strtolower(pathinfo($value->fileName, PATHINFO_EXTENSION)), $this->constraints['extensionsBlackList'], true)
+            pathinfo($fileName, PATHINFO_BASENAME) !== $fileName
+            || in_array(
+                strtolower(pathinfo($fileName, PATHINFO_EXTENSION)),
+                $this->constraints['extensionsBlackList'],
+                true
+            )
         ) {
             $this->errors[] = new ValidationError(
-                'A valid file is required. Following file extensions are on the blacklist: %extensionsBlackList%',
+                'A valid file is required. The following file extensions are not allowed: %extensionsBlackList%',
                 null,
                 [
                     '%extensionsBlackList%' => implode(', ', $this->constraints['extensionsBlackList']),
                 ],
                 'fileExtensionBlackList'
             );
-
-            return false;
         }
+    }
 
-        return true;
+    /**
+     * @return array<\eZ\Publish\SPI\FieldType\ValidationError>
+     */
+    public function getErrors(): array
+    {
+        return $this->errors;
     }
 }

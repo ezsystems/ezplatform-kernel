@@ -7,6 +7,7 @@
 namespace eZ\Publish\SPI\Tests\FieldType;
 
 use eZ\Publish\Core\FieldType;
+use eZ\Publish\Core\FieldType\Validator\FileExtensionBlackListValidator;
 use eZ\Publish\Core\IO\MimeTypeDetector\FileInfo;
 use eZ\Publish\Core\Persistence\Legacy;
 use eZ\Publish\SPI\Persistence\Content;
@@ -38,6 +39,9 @@ use RecursiveIteratorIterator;
  */
 class MediaIntegrationTest extends FileBaseIntegrationTest
 {
+    /** @var \eZ\Publish\Core\FieldType\Validator\FileExtensionBlackListValidator&\PHPUnit\Framework\MockObject\MockObject */
+    private $fileExtensionBlackListValidator;
+
     /**
      * Returns the storage identifier prefix used by the file service.
      *
@@ -70,6 +74,8 @@ class MediaIntegrationTest extends FileBaseIntegrationTest
         ]);
         $fieldType->setTransformationProcessor($this->getTransformationProcessor());
 
+        $this->fileExtensionBlackListValidator = $this->createMock(FileExtensionBlackListValidator::class);
+
         return $this->getHandler(
             'ezmedia',
             $fieldType,
@@ -78,7 +84,8 @@ class MediaIntegrationTest extends FileBaseIntegrationTest
                 new FieldType\Media\MediaStorage\Gateway\DoctrineStorage($this->getDatabaseConnection()),
                 $this->ioService = self::$container->get('ezpublish.fieldType.ezbinaryfile.io_service'),
                 $legacyPathGenerator = new FieldType\BinaryBase\PathGenerator\LegacyPathGenerator(),
-                new FileInfo()
+                new FileInfo(),
+                $this->fileExtensionBlackListValidator
             )
         );
     }

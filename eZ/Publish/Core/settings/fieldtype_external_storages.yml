@@ -2,10 +2,11 @@ services:
     ezpublish.fieldType.ezbinaryfile.externalStorage:
         class: eZ\Publish\Core\FieldType\BinaryFile\BinaryFileStorage
         arguments:
-            - "@ezpublish.fieldType.ezbinaryfile.storage_gateway"
-            - "@ezpublish.fieldType.ezbinaryfile.io_service"
-            - "@ezpublish.fieldType.ezbinaryfile.pathGenerator"
-            - "@ezpublish.core.io.mimeTypeDetector"
+            $gateway: '@ezpublish.fieldType.ezbinaryfile.storage_gateway'
+            $ioService: '@ezpublish.fieldType.ezbinaryfile.io_service'
+            $pathGenerator: '@ezpublish.fieldType.ezbinaryfile.pathGenerator'
+            $mimeTypeDetector: '@ezpublish.core.io.mimeTypeDetector'
+            $fileExtensionBlackListValidator: '@ezpublish.fieldType.validator.black_list'
         tags:
             - {name: ezplatform.field_type.external_storage_handler, alias: ezbinaryfile}
 
@@ -19,6 +20,7 @@ services:
             $deprecationWarner: '@ezpublish.utils.deprecation_warner'
             $aliasCleaner: '@eZ\Publish\Core\FieldType\Image\AliasCleanerInterface'
             $filePathNormalizer: '@eZ\Publish\Core\IO\FilePathNormalizerInterface'
+            $fileExtensionBlackListValidator: '@ezpublish.fieldType.validator.black_list'
         tags:
             - {name: ezplatform.field_type.external_storage_handler, alias: ezimage}
 
@@ -31,10 +33,11 @@ services:
     ezpublish.fieldType.ezmedia.externalStorage:
         class: eZ\Publish\Core\FieldType\Media\MediaStorage
         arguments:
-            - "@ezpublish.fieldType.ezmedia.storage_gateway"
-            - "@ezpublish.fieldType.ezbinaryfile.io_service"
-            - "@ezpublish.fieldType.ezbinaryfile.pathGenerator"
-            - "@ezpublish.core.io.mimeTypeDetector"
+            $gateway: '@ezpublish.fieldType.ezmedia.storage_gateway'
+            $ioService: '@ezpublish.fieldType.ezbinaryfile.io_service'
+            $pathGenerator: '@ezpublish.fieldType.ezbinaryfile.pathGenerator'
+            $mimeTypeDetector: '@ezpublish.core.io.mimeTypeDetector'
+            $fileExtensionBlackListValidator: '@ezpublish.fieldType.validator.black_list'
         tags:
             - {name: ezplatform.field_type.external_storage_handler, alias: ezmedia}
 

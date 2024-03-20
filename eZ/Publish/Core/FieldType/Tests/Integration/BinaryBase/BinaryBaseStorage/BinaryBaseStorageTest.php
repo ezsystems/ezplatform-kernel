@@ -13,6 +13,7 @@ use eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage;
 use eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage\Gateway;
 use eZ\Publish\Core\FieldType\BinaryFile\BinaryFileStorage\Gateway\DoctrineStorage;
 use eZ\Publish\Core\FieldType\Tests\Integration\BaseCoreFieldTypeIntegrationTest;
+use eZ\Publish\Core\FieldType\Validator\FileExtensionBlackListValidator;
 use eZ\Publish\Core\IO\IOServiceInterface;
 use eZ\Publish\Core\IO\Values\BinaryFile;
 use eZ\Publish\Core\IO\Values\BinaryFileCreateStruct;
@@ -36,6 +37,9 @@ class BinaryBaseStorageTest extends BaseCoreFieldTypeIntegrationTest
     /** @var \eZ\Publish\Core\FieldType\BinaryBase\BinaryBaseStorage|\PHPUnit\Framework\MockObject\MockObject */
     protected $storage;
 
+    /** @var \eZ\Publish\Core\FieldType\Validator\FileExtensionBlackListValidator&\PHPUnit\Framework\MockObject\MockObject */
+    protected $fileExtensionBlackListValidatorMock;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -43,6 +47,9 @@ class BinaryBaseStorageTest extends BaseCoreFieldTypeIntegrationTest
         $this->gateway = $this->getStorageGateway();
         $this->pathGeneratorMock = $this->createMock(PathGenerator::class);
         $this->ioServiceMock = $this->createMock(IOServiceInterface::class);
+        $this->fileExtensionBlackListValidatorMock = $this->createMock(
+            FileExtensionBlackListValidator::class
+        );
         $this->storage = $this->getMockBuilder(BinaryBaseStorage::class)
             ->onlyMethods([])
             ->setConstructorArgs(
@@ -51,6 +58,7 @@ class BinaryBaseStorageTest extends BaseCoreFieldTypeIntegrationTest
                     $this->ioServiceMock,
                     $this->pathGeneratorMock,
                     $this->createMock(MimeTypeDetector::class),
+                    $this->fileExtensionBlackListValidatorMock,
                 ]
             )
             ->getMock();

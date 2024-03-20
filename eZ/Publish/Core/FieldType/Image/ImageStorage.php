@@ -6,8 +6,10 @@
  */
 namespace eZ\Publish\Core\FieldType\Image;
 
+use eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException;
 use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
 use eZ\Publish\Core\Base\Utils\DeprecationWarnerInterface as DeprecationWarner;
+use eZ\Publish\Core\FieldType\Validator\FileExtensionBlackListValidator;
 use eZ\Publish\Core\IO\FilePathNormalizerInterface;
 use eZ\Publish\Core\IO\IOServiceInterface;
 use eZ\Publish\Core\IO\MetadataHandler;
@@ -42,6 +44,9 @@ class ImageStorage extends GatewayBasedStorage
     /** @var \eZ\Publish\Core\IO\FilePathNormalizerInterface */
     protected $filePathNormalizer;
 
+    /** @var \eZ\Publish\Core\FieldType\Validator\FileExtensionBlackListValidator */
+    protected $fileExtensionBlackListValidator;
+
     public function __construct(
         StorageGateway $gateway,
         IOServiceInterface $ioService,
@@ -49,7 +54,8 @@ class ImageStorage extends GatewayBasedStorage
         MetadataHandler $imageSizeMetadataHandler,
         DeprecationWarner $deprecationWarner,
         AliasCleanerInterface $aliasCleaner,
-        FilePathNormalizerInterface $filePathNormalizer
+        FilePathNormalizerInterface $filePathNormalizer,
+        FileExtensionBlackListValidator $fileExtensionBlackListValidator
     ) {
         parent::__construct($gateway);
         $this->ioService = $ioService;
@@ -58,8 +64,15 @@ class ImageStorage extends GatewayBasedStorage
         $this->deprecationWarner = $deprecationWarner;
         $this->aliasCleaner = $aliasCleaner;
         $this->filePathNormalizer = $filePathNormalizer;
+        $this->fileExtensionBlackListValidator = $fileExtensionBlackListValidator;
     }
 
+    /**
+     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentValue
+     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\Core\Base\Exceptions\ContentFieldValidationException
+     */
     public function storeFieldData(VersionInfo $versionInfo, Field $field, array $context)
     {
         $contentMetaData = [
@@ -70,6 +83,17 @@ class ImageStorage extends GatewayBasedStorage
 
         // new image
         if (isset($field->value->externalData)) {
+            $this->fileExtensionBlackListValidator->validateFileExtension($field->value->externalData['fileName']);
+            if (!empty($errors = $this->fileExtensionBlackListValidator->getErrors())) {
+                $preparedErrors = [];
+                $preparedErrors[$field->fieldDefinitionId][$field->languageCode] = $errors;
+
+                throw ContentFieldValidationException::createNewWithMultiline(
+                    $preparedErrors,
+                    $versionInfo->contentInfo->name
+                );
+            }
+
             $targetPath = sprintf(
                 '%s/%s',
                 $this->pathGenerator->getStoragePathForField(
