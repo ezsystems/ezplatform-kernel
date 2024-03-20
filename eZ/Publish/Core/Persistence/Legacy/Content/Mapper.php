@@ -686,9 +686,19 @@ class Mapper
         $field = new Field();
         $field->fieldDefinitionId = $fieldDefinition->id;
         $field->type = $fieldDefinition->fieldType;
-        $field->value = $fieldDefinition->defaultValue;
+        $field->value = $this->getDefaultValue($fieldDefinition);
         $field->languageCode = $languageCode;
 
         return $field;
+    }
+
+    private function getDefaultValue(FieldDefinition $fieldDefinition): FieldValue
+    {
+        $fieldValue = new FieldValue();
+
+        $converter = $this->converterRegistry->getConverter($fieldDefinition->fieldType);
+        $converter->toFieldValue(new StorageFieldValue(), $fieldValue);
+
+        return $fieldValue;
     }
 }
