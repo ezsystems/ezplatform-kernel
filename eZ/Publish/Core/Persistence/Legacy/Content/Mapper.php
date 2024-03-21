@@ -694,11 +694,25 @@ class Mapper
 
     private function getDefaultValue(FieldDefinition $fieldDefinition): FieldValue
     {
-        $fieldValue = new FieldValue();
+        $value = clone $fieldDefinition->defaultValue;
+        $storageValue = $this->getDefaultStorageValue();
 
         $converter = $this->converterRegistry->getConverter($fieldDefinition->fieldType);
-        $converter->toFieldValue(new StorageFieldValue(), $fieldValue);
+        $converter->toStorageValue($value, $storageValue);
+        $converter->toFieldValue($storageValue, $value);
 
-        return $fieldValue;
+        return $value;
+    }
+
+    private function getDefaultStorageValue(): StorageFieldValue
+    {
+        $storageValue = new StorageFieldValue();
+        $storageValue->dataFloat = null;
+        $storageValue->dataInt = null;
+        $storageValue->dataText = '';
+        $storageValue->sortKeyInt = 0;
+        $storageValue->sortKeyString = '';
+
+        return $storageValue;
     }
 }
