@@ -16,12 +16,44 @@ use eZ\Publish\SPI\Persistence\Content\FieldValue;
 use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
 use eZ\Publish\SPI\Persistence\Content\Relation;
 use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
+use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
+use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
 /**
  * Mapper for Content Handler.
  *
  * Performs mapping of Content objects.
+ *
+ * @phpstan-type TVersionedLanguageFieldDefinitionsMap array<
+       int, array<
+           int, array<
+               string, array<
+                   int, \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition,
+               >
+           >
+       >
+   >
+ * @phpstan-type TVersionedFieldMap array<
+     int, array<
+          int, array<
+              int, \eZ\Publish\SPI\Persistence\Content\Field,
+          >
+      >
+  >
+ * @phpstan-type TVersionedNameMap array<
+     int, array<
+         int, array<
+             string, array<int, string>
+         >
+     >
+ >
+ * @phpstan-type TContentInfoMap array<int, \eZ\Publish\SPI\Persistence\Content\ContentInfo>
+ * @phpstan-type TVersionInfoMap array<
+     int, array<
+         int, \eZ\Publish\SPI\Persistence\Content\VersionInfo,
+     >
+ >
  */
 class Mapper
 {
@@ -40,15 +72,18 @@ class Mapper
     protected $languageHandler;
 
     /**
-     * Creates a new mapper.
-     *
-     * @param \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry $converterRegistry
-     * @param \eZ\Publish\SPI\Persistence\Content\Language\Handler $languageHandler
+     * @var \eZ\Publish\SPI\Persistence\Content\Type\Handler
      */
-    public function __construct(Registry $converterRegistry, LanguageHandler $languageHandler)
-    {
+    private $contentTypeHandler;
+
+    public function __construct(
+        Registry $converterRegistry,
+        LanguageHandler $languageHandler,
+        ContentTypeHandler $contentTypeHandler
+    ) {
         $this->converterRegistry = $converterRegistry;
         $this->languageHandler = $languageHandler;
+        $this->contentTypeHandler = $contentTypeHandler;
     }
 
     /**
@@ -176,62 +211,154 @@ class Mapper
      *
      * @param array $rows
      * @param array $nameRows
+     * @param string $prefix
      *
      * @return \eZ\Publish\SPI\Persistence\Content[]
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
-    public function extractContentFromRows(array $rows, array $nameRows, $prefix = 'ezcontentobject_')
-    {
+    public function extractContentFromRows(
+        array $rows,
+        array $nameRows,
+        string $prefix = 'ezcontentobject_'
+    ): array {
         $versionedNameData = [];
+
         foreach ($nameRows as $row) {
-            $contentId = (int)$row['ezcontentobject_name_contentobject_id'];
-            $versionNo = (int)$row['ezcontentobject_name_content_version'];
-            $versionedNameData[$contentId][$versionNo][$row['ezcontentobject_name_content_translation']] = $row['ezcontentobject_name_name'];
+            $contentId = (int)$row["{$prefix}name_contentobject_id"];
+            $versionNo = (int)$row["{$prefix}name_content_version"];
+            $languageCode = $row["{$prefix}name_content_translation"];
+            $versionedNameData[$contentId][$versionNo][$languageCode] = $row["{$prefix}name_name"];
         }
 
         $contentInfos = [];
         $versionInfos = [];
         $fields = [];
 
+        $fieldDefinitions = $this->loadCachedVersionFieldDefinitionsPerLanguage(
+            $rows,
+            $prefix
+        );
+
         foreach ($rows as $row) {
             $contentId = (int)$row["{$prefix}id"];
+            $versionId = (int)$row["{$prefix}version_id"];
+
             if (!isset($contentInfos[$contentId])) {
                 $contentInfos[$contentId] = $this->extractContentInfoFromRow($row, $prefix);
             }
+
             if (!isset($versionInfos[$contentId])) {
                 $versionInfos[$contentId] = [];
             }
 
-            $versionId = (int)$row['ezcontentobject_version_id'];
             if (!isset($versionInfos[$contentId][$versionId])) {
                 $versionInfos[$contentId][$versionId] = $this->extractVersionInfoFromRow($row);
             }
 
-            $fieldId = (int)$row['ezcontentobject_attribute_id'];
-            if (!isset($fields[$contentId][$versionId][$fieldId])) {
+            $fieldId = (int)$row["{$prefix}attribute_id"];
+            $fieldDefinitionId = (int)$row["{$prefix}attribute_contentclassattribute_id"];
+            $languageCode = $row["{$prefix}attribute_language_code"];
+
+            if (!isset($fields[$contentId][$versionId][$fieldId])
+                && isset($fieldDefinitions[$contentId][$versionId][$languageCode][$fieldDefinitionId])
+            ) {
                 $fields[$contentId][$versionId][$fieldId] = $this->extractFieldFromRow($row);
+                unset($fieldDefinitions[$contentId][$versionId][$languageCode][$fieldDefinitionId]);
             }
         }
 
+        return $this->buildContentObjects(
+            $contentInfos,
+            $versionInfos,
+            $fields,
+            $fieldDefinitions,
+            $versionedNameData
+        );
+    }
+
+    /**
+     * @phpstan-param TContentInfoMap $contentInfos
+     * @phpstan-param TVersionInfoMap $versionInfos
+     * @phpstan-param TVersionedFieldMap $fields
+     * @phpstan-param TVersionedLanguageFieldDefinitionsMap $missingFieldDefinitions
+     * @phpstan-param TVersionedNameMap $versionedNames
+     *
+     * @return \eZ\Publish\SPI\Persistence\Content[]
+     */
+    private function buildContentObjects(
+        array $contentInfos,
+        array $versionInfos,
+        array $fields,
+        array $missingFieldDefinitions,
+        array $versionedNames
+    ): array {
         $results = [];
+
         foreach ($contentInfos as $contentId => $contentInfo) {
             foreach ($versionInfos[$contentId] as $versionId => $versionInfo) {
                 // Fallback to just main language name if versioned name data is missing
-                if (isset($versionedNameData[$contentId][$versionInfo->versionNo])) {
-                    $names = $versionedNameData[$contentId][$versionInfo->versionNo];
-                } else {
-                    $names = [$contentInfo->mainLanguageCode => $contentInfo->name];
-                }
+                $names = $versionedNames[$contentId][$versionInfo->versionNo]
+                    ?? [$contentInfo->mainLanguageCode => $contentInfo->name];
 
                 $content = new Content();
                 $content->versionInfo = $versionInfo;
                 $content->versionInfo->names = $names;
                 $content->versionInfo->contentInfo = $contentInfo;
                 $content->fields = array_values($fields[$contentId][$versionId]);
+
+                $missingVersionFieldDefinitions = $missingFieldDefinitions[$contentId][$versionId];
+                foreach ($missingVersionFieldDefinitions as $languageCode => $versionFieldDefinitions) {
+                    foreach ($versionFieldDefinitions as $fieldDefinition) {
+                        $content->fields[] = $this->createEmptyField(
+                            $fieldDefinition,
+                            $languageCode
+                        );
+                    }
+                }
+
                 $results[] = $content;
             }
         }
 
         return $results;
+    }
+
+    /**
+     * @phpstan-return TVersionedLanguageFieldDefinitionsMap
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     */
+    private function loadCachedVersionFieldDefinitionsPerLanguage(
+        array $rows,
+        string $prefix
+    ): array {
+        $fieldDefinitions = [];
+        $contentTypes = [];
+        $allLanguages = $this->loadAllLanguagesWithIdKey();
+
+        foreach ($rows as $row) {
+            $contentId = (int)$row["{$prefix}id"];
+            $versionId = (int)$row["{$prefix}version_id"];
+            $contentTypeId = (int)$row["{$prefix}contentclass_id"];
+            $languageMask = (int)$row["{$prefix}version_language_mask"];
+
+            if (isset($fieldDefinitions[$contentId][$versionId])) {
+                continue;
+            }
+
+            $languageCodes = $this->extractLanguageCodesFromMask($languageMask, $allLanguages);
+            $contentTypes[$contentTypeId] = $contentTypes[$contentTypeId] ?? $this->contentTypeHandler->load($contentTypeId);
+            $contentType = $contentTypes[$contentTypeId];
+            foreach ($contentType->fieldDefinitions as $fieldDefinition) {
+                foreach ($languageCodes as $languageCode) {
+                    $id = $fieldDefinition->id;
+                    $fieldDefinitions[$contentId][$versionId][$languageCode][$id] = $fieldDefinition;
+                }
+            }
+        }
+
+        return $fieldDefinitions;
     }
 
     /**
@@ -251,7 +378,6 @@ class Mapper
         $contentInfo->contentTypeId = (int)$row["{$prefix}contentclass_id"];
         $contentInfo->sectionId = (int)$row["{$prefix}section_id"];
         $contentInfo->currentVersionNo = (int)$row["{$prefix}current_version"];
-        $contentInfo->isPublished = ($row["{$prefix}status"] == ContentInfo::STATUS_PUBLISHED);
         $contentInfo->ownerId = (int)$row["{$prefix}owner_id"];
         $contentInfo->publicationDate = (int)$row["{$prefix}published"];
         $contentInfo->modificationDate = (int)$row["{$prefix}modified"];
@@ -577,5 +703,40 @@ class Mapper
         $relation->type = $struct->type;
 
         return $relation;
+    }
+
+    private function createEmptyField(FieldDefinition $fieldDefinition, string $languageCode): Field
+    {
+        $field = new Field();
+        $field->fieldDefinitionId = $fieldDefinition->id;
+        $field->type = $fieldDefinition->fieldType;
+        $field->value = $this->getDefaultValue($fieldDefinition);
+        $field->languageCode = $languageCode;
+
+        return $field;
+    }
+
+    private function getDefaultValue(FieldDefinition $fieldDefinition): FieldValue
+    {
+        $value = clone $fieldDefinition->defaultValue;
+        $storageValue = $this->getDefaultStorageValue();
+
+        $converter = $this->converterRegistry->getConverter($fieldDefinition->fieldType);
+        $converter->toStorageValue($value, $storageValue);
+        $converter->toFieldValue($storageValue, $value);
+
+        return $value;
+    }
+
+    private function getDefaultStorageValue(): StorageFieldValue
+    {
+        $storageValue = new StorageFieldValue();
+        $storageValue->dataFloat = null;
+        $storageValue->dataInt = null;
+        $storageValue->dataText = '';
+        $storageValue->sortKeyInt = 0;
+        $storageValue->sortKeyString = '';
+
+        return $storageValue;
     }
 }

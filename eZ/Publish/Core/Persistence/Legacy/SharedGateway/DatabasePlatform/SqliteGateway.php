@@ -8,8 +8,6 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Legacy\SharedGateway\DatabasePlatform;
 
-use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\FetchMode;
 use eZ\Publish\Core\Base\Exceptions\DatabaseException;
 use eZ\Publish\Core\Persistence\Legacy\SharedGateway\Gateway;
 
@@ -20,39 +18,19 @@ final class SqliteGateway implements Gateway
      */
     private const FATAL_ERROR_CODE = 7;
 
-    /** @var \Doctrine\DBAL\Connection */
-    private $connection;
-
-    /** @var \Doctrine\DBAL\Platforms\AbstractPlatform */
-    private $databasePlatform;
-
-    /** @var int[] */
+    /** @var array<string, int> */
     private $lastInsertedIds = [];
-
-    /**
-     * @throws \Doctrine\DBAL\DBALException
-     */
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection;
-        $this->databasePlatform = $connection->getDatabasePlatform();
-    }
 
     public function getColumnNextIntegerValue(
         string $tableName,
         string $columnName,
         string $sequenceName
     ): ?int {
-        $query = $this->connection->createQueryBuilder();
-        $query
-            ->select($this->databasePlatform->getMaxExpression($columnName))
-            ->from($tableName);
+        $lastId = $this->lastInsertedIds[$sequenceName] ?? 0;
+        $nextId = (int)hrtime(true);
 
-        $lastId = (int)$query->execute()->fetch(FetchMode::COLUMN);
-
-        $this->lastInsertedIds[$sequenceName] = $lastId + 1;
-
-        return $this->lastInsertedIds[$sequenceName];
+        // $lastId === $nextId shouldn't happen using high-resolution time, but better safe than sorry
+        return $this->lastInsertedIds[$sequenceName] = $lastId === $nextId ? $nextId + 1 : $nextId;
     }
 
     /**

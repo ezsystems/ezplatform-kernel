@@ -148,9 +148,13 @@ class FieldHandler
      *
      * @param \eZ\Publish\SPI\Persistence\Content $content
      */
-    public function createExistingFieldsInNewVersion(Content $content)
+    public function createExistingFieldsInNewVersion(Content $content): void
     {
         foreach ($content->fields as $field) {
+            if ($field->id === null) {
+                // Virtual field with default value, skip creating field as it has no id
+                continue;
+            }
             $this->createExistingFieldInNewVersion($field, $content);
         }
     }

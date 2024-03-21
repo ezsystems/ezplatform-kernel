@@ -24,9 +24,10 @@ class Field extends ValueObject
     /**
      * The field id.
      *
-     * @todo may be not needed
+     * Value of `null` indicates the field is virtual
+     * and is not persisted (yet).
      *
-     * @var int
+     * @var int|null
      */
     protected $id;
 
@@ -58,7 +59,7 @@ class Field extends ValueObject
      */
     protected $fieldTypeIdentifier;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -84,5 +85,13 @@ class Field extends ValueObject
     public function getFieldTypeIdentifier(): string
     {
         return $this->fieldTypeIdentifier;
+    }
+
+    /**
+     * @phpstan-assert-if-true !null $this->getId()
+     */
+    public function isVirtual(): bool
+    {
+        return null === $this->id;
     }
 }

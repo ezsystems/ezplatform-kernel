@@ -101,6 +101,7 @@ class StorageHandlerTest extends TestCase
             ->will($this->returnValue($storageMock));
 
         $field = new Field();
+        $field->id = 123;
         $field->type = 'foobar';
         $field->value = new FieldValue();
 
@@ -126,6 +127,34 @@ class StorageHandlerTest extends TestCase
             ->method('getStorage')
             ->with($this->equalTo('foobar'))
             ->will($this->returnValue($storageMock));
+
+        $field = new Field();
+        $field->id = 123;
+        $field->type = 'foobar';
+        $field->value = new FieldValue();
+
+        $handler = $this->getStorageHandler();
+        $handler->getFieldData($this->getVersionInfoMock(), $field);
+    }
+
+    /**
+     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler::getFieldData
+     */
+    public function testGetFieldDataNotAvailableForVirtualField()
+    {
+        $storageMock = $this->getStorageMock();
+        $storageRegistryMock = $this->getStorageRegistryMock();
+
+        $storageMock->expects(self::never())
+            ->method('hasFieldData');
+
+        $storageMock->expects(self::never())
+            ->method('getFieldData');
+
+        $storageRegistryMock->expects(self::once())
+            ->method('getStorage')
+            ->with(self::equalTo('foobar'))
+            ->willReturn($storageMock);
 
         $field = new Field();
         $field->type = 'foobar';
