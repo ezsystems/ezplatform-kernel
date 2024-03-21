@@ -215,7 +215,7 @@ class MapperTest extends LanguageAwareTestCase
             'ezdatetime',
             'ezkeyword',
             'eznumber',
-        ], count($rowsFixture) - 1);
+        ], count($rowsFixture));
 
         $mapper = new Mapper($reg, $this->getLanguageHandler(), $contentTypeHandlerMock);
         $result = $mapper->extractContentFromRows($rowsFixture, $nameRowsFixture);
