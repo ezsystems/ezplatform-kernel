@@ -264,9 +264,11 @@ class MapperTest extends LanguageAwareTestCase
         $result = $mapper->extractContentFromRows($rowsFixture, $nameRowsFixture);
 
         $expectedContent = $this->getContentExtractReference();
-        $expectedContent->fields = array_values(array_filter($expectedContent->fields, static function (Field $field) {
-            return $field->fieldDefinitionId !== 185;
-        }));
+        $expectedContent->fields = array_values(
+            array_filter($expectedContent->fields, static function (Field $field): bool {
+                return $field->fieldDefinitionId !== 185;
+            })
+        );
 
         $this->assertEquals(
             [
@@ -331,8 +333,8 @@ class MapperTest extends LanguageAwareTestCase
         $converterMock = $this->createMock(Converter::class);
         $converterMock->expects(
             $expectedConverterCalls === null
-            ? self::any()
-            : self::exactly($expectedConverterCalls)
+                ? self::any()
+                : self::exactly($expectedConverterCalls)
         )
             ->method('toFieldValue')
             ->willReturn(new FieldValue());
@@ -735,7 +737,7 @@ class MapperTest extends LanguageAwareTestCase
     }
 
     /**
-     * @return Content\Type\Handler|\PHPUnit\Framework\MockObject\MockObject
+     * @return \eZ\Publish\SPI\Persistence\Content\Type\Handler&\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getContentTypeHandler()
     {

@@ -153,7 +153,7 @@ class StorageHandlerTest extends TestCase
 
         $storageRegistryMock->expects(self::once())
             ->method('getStorage')
-            ->with($this->equalTo('foobar'))
+            ->with(self::equalTo('foobar'))
             ->willReturn($storageMock);
 
         $field = new Field();
