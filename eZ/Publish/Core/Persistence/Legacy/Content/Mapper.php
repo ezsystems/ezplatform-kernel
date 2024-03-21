@@ -348,7 +348,8 @@ class Mapper
             }
 
             $languageCodes = $this->extractLanguageCodesFromMask($languageMask, $allLanguages);
-            $contentType = $contentTypes[$contentTypeId] ??= $this->contentTypeHandler->load($contentTypeId);
+            $contentTypes[$contentTypeId] = $contentTypes[$contentTypeId] ?? $this->contentTypeHandler->load($contentTypeId);
+            $contentType = $contentTypes[$contentTypeId];
             foreach ($contentType->fieldDefinitions as $fieldDefinition) {
                 foreach ($languageCodes as $languageCode) {
                     $id = $fieldDefinition->id;
