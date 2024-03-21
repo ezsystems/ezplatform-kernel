@@ -243,7 +243,7 @@ class MapperTest extends LanguageAwareTestCase
         $contentType = $this->getContentTypeFromRows($rowsFixture);
         $contentType->fieldDefinitions = array_filter(
             $contentType->fieldDefinitions,
-            static function (Content\Type\FieldDefinition $fieldDefinition) {
+            static function (Content\Type\FieldDefinition $fieldDefinition): bool {
                 // ref. fixtures, ezauthor
                 return $fieldDefinition->id !== 185;
             }
