@@ -25,11 +25,35 @@ use eZ\Publish\SPI\Persistence\Content\VersionInfo;
  *
  * Performs mapping of Content objects.
  *
- * @phpstan-type TVersionedLanguageFieldDefinitionsMap array<int, array<int, array<string, array<int, \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition>>>>
- * @phpstan-type TVersionedFieldMap array<int, array<int, array<int, \eZ\Publish\SPI\Persistence\Content\Field>>>
- * @phpstan-type TVersionedNameMap array<int, array<int, array<string, array<int, string>>>>
+ * @phpstan-type TVersionedLanguageFieldDefinitionsMap array<
+       int, array<
+           int, array<
+               string, array<
+                   int, \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition,
+               >
+           >
+       >
+   >
+ * @phpstan-type TVersionedFieldMap array<
+     int, array<
+          int, array<
+              int, \eZ\Publish\SPI\Persistence\Content\Field,
+          >
+      >
+  >
+ * @phpstan-type TVersionedNameMap array<
+     int, array<
+         int, array<
+             string, array<int, string>
+         >
+     >
+ >
  * @phpstan-type TContentInfoMap array<int, \eZ\Publish\SPI\Persistence\Content\ContentInfo>
- * @phpstan-type TVersionInfoMap array<int, array<int, \eZ\Publish\SPI\Persistence\Content\VersionInfo>>
+ * @phpstan-type TVersionInfoMap array<
+     int, array<
+         int, \eZ\Publish\SPI\Persistence\Content\VersionInfo,
+     >
+ >
  */
 class Mapper
 {
@@ -324,8 +348,7 @@ class Mapper
             }
 
             $languageCodes = $this->extractLanguageCodesFromMask($languageMask, $allLanguages);
-            $contentType = $contentTypes[$contentTypeId] = $contentTypes[$contentTypeId]
-                ?? $this->contentTypeHandler->load($contentTypeId);
+            $contentType = $contentTypes[$contentTypeId] ??= $this->contentTypeHandler->load($contentTypeId);
             foreach ($contentType->fieldDefinitions as $fieldDefinition) {
                 foreach ($languageCodes as $languageCode) {
                     $id = $fieldDefinition->id;

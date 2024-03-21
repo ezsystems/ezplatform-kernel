@@ -151,7 +151,7 @@ class FieldHandler
     public function createExistingFieldsInNewVersion(Content $content): void
     {
         foreach ($content->fields as $field) {
-            if ($field->id === null) {
+            if ($field->getId() === null) {
                 // Virtual field with default value, skip creating field as it has no id
                 continue;
             }

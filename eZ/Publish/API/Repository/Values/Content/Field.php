@@ -87,6 +87,9 @@ class Field extends ValueObject
         return $this->fieldTypeIdentifier;
     }
 
+    /**
+     * @phpstan-assert-if-true !null $this->getId()
+     */
     public function isVirtual(): bool
     {
         return null === $this->id;
