@@ -29,21 +29,19 @@ final class ObjectStateIdQueryBuilder implements CriterionQueryBuilder
         FilteringQueryBuilder $queryBuilder,
         FilteringCriterion $criterion
     ): ?string {
-        $tableAlias = uniqid('osl_');
-
         /** @var \eZ\Publish\API\Repository\Values\Content\Query\Criterion\ObjectStateId $criterion */
         $queryBuilder
-            ->join(
+            ->joinOnce(
                 'content',
                 Gateway::OBJECT_STATE_LINK_TABLE,
-                $tableAlias,
-                'content.id = ' . $tableAlias . '.contentobject_id',
+                'object_state_link',
+                'content.id = object_state_link.contentobject_id',
             );
 
         $value = (array)$criterion->value;
 
         return $queryBuilder->expr()->in(
-            $tableAlias . '.contentobject_state_id',
+            'object_state_link.contentobject_state_id',
             $queryBuilder->createNamedParameter($value, Connection::PARAM_INT_ARRAY)
         );
     }

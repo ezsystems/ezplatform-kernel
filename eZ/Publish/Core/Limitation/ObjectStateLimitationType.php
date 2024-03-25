@@ -225,13 +225,7 @@ class ObjectStateLimitationType extends AbstractPersistenceLimitationType implem
             return new Criterion\ObjectStateId($groupedLimitationValues[0]);
         }
 
-        // limitations from different groups require logical AND between them
-        $criterions = [];
-        foreach ($groupedLimitationValues as $limitationGroup) {
-            $criterions[] = new Criterion\ObjectStateId($limitationGroup);
-        }
-
-        return new Criterion\LogicalAnd($criterions);
+        return new Criterion\ObjectStateId($value->limitationValues);
     }
 
     /**
