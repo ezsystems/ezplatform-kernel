@@ -110,6 +110,8 @@ services:
             $authorizationChecker: '@security.authorization_checker'
             $locationProvider: '@ezpublish.content_preview.location_provider'
             $controllerChecker: '@ezpublish.view.custom_location_controller_checker'
+            $debugMode: '%kernel.debug%'
+            $logger: '@logger'
         tags:
             - { name: controller.service_arguments }
 

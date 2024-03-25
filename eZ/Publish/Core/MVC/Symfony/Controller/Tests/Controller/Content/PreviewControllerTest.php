@@ -70,7 +70,9 @@ class PreviewControllerTest extends TestCase
             $this->previewHelper,
             $this->authorizationChecker,
             $this->locationProvider,
-            $this->controllerChecker
+            $this->controllerChecker,
+            false,
+            null
         );
     }
 
