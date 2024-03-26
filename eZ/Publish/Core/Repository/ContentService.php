@@ -1517,10 +1517,7 @@ class ContentService implements ContentServiceInterface
         $publishedContent = $this->internalLoadContentById($versionInfo->getContentInfo()->getId());
         $publishedVersionInfo = $publishedContent->getVersionInfo();
 
-        if (
-            !$publishedVersionInfo->isPublished()
-            || ($versionInfo->versionNo >= $publishedVersionInfo->versionNo)
-        ) {
+        if (!$publishedVersionInfo->isPublished()) {
             return;
         }
 
