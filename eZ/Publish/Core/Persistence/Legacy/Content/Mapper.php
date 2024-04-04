@@ -57,6 +57,8 @@ use eZ\Publish\SPI\Persistence\Content\VersionInfo;
  */
 class Mapper
 {
+    const EMPTY_FIELD_ID = -1;
+
     /**
      * FieldValue converter registry.
      *
@@ -76,14 +78,21 @@ class Mapper
      */
     private $contentTypeHandler;
 
+    /**
+     * @var StorageRegistry
+     */
+    private $storageRegistry;
+
     public function __construct(
         Registry $converterRegistry,
         LanguageHandler $languageHandler,
-        ContentTypeHandler $contentTypeHandler
+        ContentTypeHandler $contentTypeHandler,
+        StorageRegistry $storageRegistry
     ) {
         $this->converterRegistry = $converterRegistry;
         $this->languageHandler = $languageHandler;
         $this->contentTypeHandler = $contentTypeHandler;
+        $this->storageRegistry = $storageRegistry;
     }
 
     /**
@@ -310,10 +319,19 @@ class Mapper
                 $missingVersionFieldDefinitions = $missingFieldDefinitions[$contentId][$versionId];
                 foreach ($missingVersionFieldDefinitions as $languageCode => $versionFieldDefinitions) {
                     foreach ($versionFieldDefinitions as $fieldDefinition) {
-                        $content->fields[] = $this->createEmptyField(
+                        $emptyField = $this->createEmptyField(
+                            $versionInfo,
                             $fieldDefinition,
                             $languageCode
                         );
+
+                        $externalStorage = $this->storageRegistry->getStorage($fieldDefinition->fieldType);
+                        if ($externalStorage->hasFieldData()) {
+                            $externalStorage->getFieldData($versionInfo, $emptyField, []);
+                        }
+
+                        $emptyField->id = null;
+                        $content->fields[] = $emptyField;
                     }
                 }
 
@@ -705,13 +723,15 @@ class Mapper
         return $relation;
     }
 
-    private function createEmptyField(FieldDefinition $fieldDefinition, string $languageCode): Field
+    private function createEmptyField(VersionInfo $versionInfo, FieldDefinition $fieldDefinition, string $languageCode): Field
     {
         $field = new Field();
+        $field->id = self::EMPTY_FIELD_ID;
         $field->fieldDefinitionId = $fieldDefinition->id;
         $field->type = $fieldDefinition->fieldType;
         $field->value = $this->getDefaultValue($fieldDefinition);
         $field->languageCode = $languageCode;
+        $field->versionNo = $versionInfo->versionNo;
 
         return $field;
     }
