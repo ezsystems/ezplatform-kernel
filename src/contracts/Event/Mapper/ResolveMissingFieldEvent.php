@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
 namespace Ibexa\Contracts\Core\Event\Mapper;
 
 use eZ\Publish\SPI\Persistence\Content;
@@ -9,10 +13,10 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 final class ResolveMissingFieldEvent extends Event
 {
-    /** @var Content */
+    /** @var \eZ\Publish\SPI\Persistence\Content */
     private $content;
 
-    /** @var FieldDefinition */
+    /** @var \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition */
     private $fieldDefinition;
 
     /** @var string */
@@ -21,7 +25,7 @@ final class ResolveMissingFieldEvent extends Event
     /** @var array */
     private $context;
 
-    /** @var Field|null */
+    /** @var \eZ\Publish\SPI\Persistence\Content\Field|null */
     private $field;
 
     public function __construct(

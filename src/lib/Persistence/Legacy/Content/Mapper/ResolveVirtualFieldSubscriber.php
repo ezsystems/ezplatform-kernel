@@ -23,13 +23,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ResolveVirtualFieldSubscriber implements EventSubscriberInterface
 {
-    /** @var ConverterRegistry */
+    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry */
     private $converterRegistry;
 
-    /** @var StorageRegistry */
+    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\StorageRegistry */
     private $storageRegistry;
 
-    /** @var ContentGateway */
+    /** @var \eZ\Publish\Core\Persistence\Legacy\Content\Gateway */
     private $contentGateway;
 
     public function __construct(
@@ -48,7 +48,7 @@ final class ResolveVirtualFieldSubscriber implements EventSubscriberInterface
             ResolveMissingFieldEvent::class => [
                 ['persistExternalStorageField', -100],
                 ['resolveVirtualField', 0],
-            ]
+            ],
         ];
     }
 
@@ -108,7 +108,7 @@ final class ResolveVirtualFieldSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @throws NotFound
+     * @throws \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\Exception\NotFound
      */
     private function createEmptyField(
         VersionInfo $versionInfo,
@@ -126,7 +126,7 @@ final class ResolveVirtualFieldSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @throws NotFound
+     * @throws \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\Exception\NotFound
      */
     private function getDefaultValue(FieldDefinition $fieldDefinition): FieldValue
     {

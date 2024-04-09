@@ -22,6 +22,8 @@ use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct as LocationCreateSt
 use eZ\Publish\SPI\Persistence\Content\Relation as SPIRelation;
 use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Test case for Mapper.
@@ -149,7 +151,12 @@ class MapperTest extends LanguageAwareTestCase
         $field->type = 'some-type';
         $field->value = new FieldValue();
 
-        $mapper = new Mapper($reg, $this->getLanguageHandler(), $this->getContentTypeHandler());
+        $mapper = new Mapper(
+            $reg,
+            $this->getLanguageHandler(),
+            $this->getContentTypeHandler(),
+            $this->getEventDispatcher(),
+        );
         $res = $mapper->convertToStorageValue($field);
 
         $this->assertInstanceOf(
@@ -183,7 +190,12 @@ class MapperTest extends LanguageAwareTestCase
             'ezkeyword',
         ], count($rowsFixture) - 1);
 
-        $mapper = new Mapper($reg, $this->getLanguageHandler(), $contentTypeHandlerMock);
+        $mapper = new Mapper(
+            $reg,
+            $this->getLanguageHandler(),
+            $contentTypeHandlerMock,
+            $this->getEventDispatcher()
+        );
         $result = $mapper->extractContentFromRows($rowsFixture, $nameRowsFixture);
 
         $expected = [$this->getContentExtractReference()];
@@ -217,7 +229,12 @@ class MapperTest extends LanguageAwareTestCase
             'eznumber',
         ], count($rowsFixture));
 
-        $mapper = new Mapper($reg, $this->getLanguageHandler(), $contentTypeHandlerMock);
+        $mapper = new Mapper(
+            $reg,
+            $this->getLanguageHandler(),
+            $contentTypeHandlerMock,
+            $this->getEventDispatcher()
+        );
         $result = $mapper->extractContentFromRows($rowsFixture, $nameRowsFixture);
 
         $expectedContent = $this->getContentExtractReference();
@@ -260,7 +277,12 @@ class MapperTest extends LanguageAwareTestCase
             'ezkeyword',
         ], count($rowsFixture) - 2);
 
-        $mapper = new Mapper($reg, $this->getLanguageHandler(), $contentTypeHandlerMock);
+        $mapper = new Mapper(
+            $reg,
+            $this->getLanguageHandler(),
+            $contentTypeHandlerMock,
+            $this->getEventDispatcher()
+        );
         $result = $mapper->extractContentFromRows($rowsFixture, $nameRowsFixture);
 
         $expectedContent = $this->getContentExtractReference();
@@ -296,7 +318,12 @@ class MapperTest extends LanguageAwareTestCase
         $contentTypeHandlerMock = $this->getContentTypeHandler();
         $contentTypeHandlerMock->method('load')->willReturn($contentType);
 
-        $mapper = new Mapper($reg, $this->getLanguageHandler(), $contentTypeHandlerMock);
+        $mapper = new Mapper(
+            $reg,
+            $this->getLanguageHandler(),
+            $contentTypeHandlerMock,
+            $this->getEventDispatcher()
+        );
         $result = $mapper->extractContentFromRows($rowsFixture, $nameRowsFixture);
 
         $this->assertCount(
@@ -477,7 +504,8 @@ class MapperTest extends LanguageAwareTestCase
         $mapper = new Mapper(
             $this->getValueConverterRegistryMock(),
             $this->getLanguageHandler(),
-            $this->getContentTypeHandler()
+            $this->getContentTypeHandler(),
+            $this->getEventDispatcher()
         );
         self::assertEquals($contentInfoReference, $mapper->extractContentInfoFromRow($fixtures, $prefix));
     }
@@ -638,7 +666,8 @@ class MapperTest extends LanguageAwareTestCase
         return new Mapper(
             $this->getValueConverterRegistryMock(),
             $this->getLanguageHandler(),
-            $this->getContentTypeHandler()
+            $this->getContentTypeHandler(),
+            $this->getEventDispatcher()
         );
     }
 
@@ -674,6 +703,11 @@ class MapperTest extends LanguageAwareTestCase
         $struct->type = RelationValue::COMMON;
 
         return $struct;
+    }
+
+    protected function getEventDispatcher(): EventDispatcherInterface
+    {
+        return new EventDispatcher();
     }
 
     /**

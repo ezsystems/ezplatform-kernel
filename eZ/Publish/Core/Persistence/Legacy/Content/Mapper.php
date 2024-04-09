@@ -58,7 +58,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  */
 class Mapper
 {
-    const EMPTY_FIELD_ID = -1;
+    public const EMPTY_FIELD_ID = -1;
 
     /**
      * FieldValue converter registry.
@@ -80,7 +80,7 @@ class Mapper
     private $contentTypeHandler;
 
     /**
-     * @var EventDispatcherInterface
+     * @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface
      */
     private $eventDispatcher;
 
@@ -329,10 +329,9 @@ class Mapper
                         );
 
                         $field = $event->getField();
-                        if ($field !== null)  {
+                        if ($field !== null) {
                             $content->fields[] = $field;
                         }
-
                     }
                 }
 
