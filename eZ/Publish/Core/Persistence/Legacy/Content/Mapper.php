@@ -16,9 +16,10 @@ use eZ\Publish\SPI\Persistence\Content\FieldValue;
 use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
 use eZ\Publish\SPI\Persistence\Content\Relation;
 use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
-use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
 use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Event\Mapper\ResolveMissingFieldEvent;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Mapper for Content Handler.
@@ -79,20 +80,20 @@ class Mapper
     private $contentTypeHandler;
 
     /**
-     * @var StorageRegistry
+     * @var EventDispatcherInterface
      */
-    private $storageRegistry;
+    private $eventDispatcher;
 
     public function __construct(
         Registry $converterRegistry,
         LanguageHandler $languageHandler,
         ContentTypeHandler $contentTypeHandler,
-        StorageRegistry $storageRegistry
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->converterRegistry = $converterRegistry;
         $this->languageHandler = $languageHandler;
         $this->contentTypeHandler = $contentTypeHandler;
-        $this->storageRegistry = $storageRegistry;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -319,19 +320,19 @@ class Mapper
                 $missingVersionFieldDefinitions = $missingFieldDefinitions[$contentId][$versionId];
                 foreach ($missingVersionFieldDefinitions as $languageCode => $versionFieldDefinitions) {
                     foreach ($versionFieldDefinitions as $fieldDefinition) {
-                        $emptyField = $this->createEmptyField(
-                            $versionInfo,
-                            $fieldDefinition,
-                            $languageCode
+                        $event = $this->eventDispatcher->dispatch(
+                            new ResolveMissingFieldEvent(
+                                $content,
+                                $fieldDefinition,
+                                $languageCode
+                            )
                         );
 
-                        $externalStorage = $this->storageRegistry->getStorage($fieldDefinition->fieldType);
-                        if ($externalStorage->hasFieldData()) {
-                            $externalStorage->getFieldData($versionInfo, $emptyField, []);
+                        $field = $event->getField();
+                        if ($field !== null)  {
+                            $content->fields[] = $field;
                         }
 
-                        $emptyField->id = null;
-                        $content->fields[] = $emptyField;
                     }
                 }
 
@@ -721,42 +722,5 @@ class Mapper
         $relation->type = $struct->type;
 
         return $relation;
-    }
-
-    private function createEmptyField(VersionInfo $versionInfo, FieldDefinition $fieldDefinition, string $languageCode): Field
-    {
-        $field = new Field();
-        $field->id = self::EMPTY_FIELD_ID;
-        $field->fieldDefinitionId = $fieldDefinition->id;
-        $field->type = $fieldDefinition->fieldType;
-        $field->value = $this->getDefaultValue($fieldDefinition);
-        $field->languageCode = $languageCode;
-        $field->versionNo = $versionInfo->versionNo;
-
-        return $field;
-    }
-
-    private function getDefaultValue(FieldDefinition $fieldDefinition): FieldValue
-    {
-        $value = clone $fieldDefinition->defaultValue;
-        $storageValue = $this->getDefaultStorageValue();
-
-        $converter = $this->converterRegistry->getConverter($fieldDefinition->fieldType);
-        $converter->toStorageValue($value, $storageValue);
-        $converter->toFieldValue($storageValue, $value);
-
-        return $value;
-    }
-
-    private function getDefaultStorageValue(): StorageFieldValue
-    {
-        $storageValue = new StorageFieldValue();
-        $storageValue->dataFloat = null;
-        $storageValue->dataInt = null;
-        $storageValue->dataText = '';
-        $storageValue->sortKeyInt = 0;
-        $storageValue->sortKeyString = '';
-
-        return $storageValue;
     }
 }
