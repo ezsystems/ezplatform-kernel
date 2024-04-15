@@ -87,7 +87,7 @@ final class CopyNonTranslatableFieldsFromPublishedVersionTest extends Repository
     /**
      * @throws \eZ\Publish\API\Repository\Exceptions\Exception
      */
-    public function testCopyNonTranslatableFieldsFromPublishedVersionToLatestVersion(): void
+    public function testCopyNonTranslatableFieldsTwoParallelDrafts(): void
     {
         $this->createNonTranslatableContentType();
 
@@ -138,6 +138,66 @@ final class CopyNonTranslatableFieldsFromPublishedVersionTest extends Repository
         $bodyFieldValue = $mainPublishedContent->getField('body')->getValue();
 
         self::assertSame('Nontranslatable body v2', $bodyFieldValue->text);
+    }
+
+    /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\Exception
+     */
+    public function testCopyNonTranslatableFieldsOverridesNonMainLanguageDrafts(): void
+    {
+        $this->createNonTranslatableContentType();
+
+        $contentService = self::getContentService();
+        $contentTypeService = self::getContentTypeService();
+        $locationService = self::getLocationService();
+
+        // Creating start content in eng-US language
+        $contentType = $contentTypeService->loadContentTypeByIdentifier(self::CONTENT_TYPE_IDENTIFIER);
+        $mainLanguageCode = self::ENG_US;
+        $contentCreateStruct = $contentService->newContentCreateStruct($contentType, $mainLanguageCode);
+        $contentCreateStruct->setField('title', 'Test title');
+        $contentCreateStruct->setField('body', 'Test body');
+
+        $contentDraft = $contentService->createContent(
+            $contentCreateStruct,
+            [
+                $locationService->newLocationCreateStruct(2),
+            ]
+        );
+        $publishedContent = $contentService->publishVersion($contentDraft->getVersionInfo());
+
+        // Creating a draft in ger-DE language with the only field updated being 'title'
+        $gerDraft = $contentService->createContentDraft($publishedContent->contentInfo);
+
+        $contentUpdateStruct = new ContentUpdateStruct([
+            'initialLanguageCode' => self::GER_DE,
+            'fields' => $contentDraft->getFields(),
+        ]);
+
+        $contentUpdateStruct->setField('title', 'Folder GER', self::GER_DE);
+        $gerContent = $contentService->updateContent($gerDraft->getVersionInfo(), $contentUpdateStruct);
+        $publishedContent = $contentService->publishVersion($gerContent->getVersionInfo());
+
+        // Updating non-translatable field in eng-US language (allowed) and publishing it
+        $engContent = $contentService->createContentDraft($publishedContent->contentInfo);
+
+        $contentUpdateStruct = new ContentUpdateStruct([
+            'initialLanguageCode' => self::ENG_US,
+            'fields' => $contentDraft->getFields(),
+        ]);
+
+        $expectedBodyValue = 'Non-translatable value';
+        $contentUpdateStruct->setField('title', 'Title v2', self::ENG_US);
+        $contentUpdateStruct->setField('body', $expectedBodyValue, self::ENG_US);
+
+        $engContent = $contentService->updateContent($engContent->getVersionInfo(), $contentUpdateStruct);
+        $contentService->publishVersion($engContent->getVersionInfo());
+
+        // Loading content in ger-DE language
+        $mainPublishedContent = $contentService->loadContent($engContent->id, ['ger-DE']);
+        $bodyFieldValue = $mainPublishedContent->getField('body')->getValue();
+
+        self::assertSame($expectedBodyValue, $bodyFieldValue->text);
     }
 
     private function createNonTranslatableContentType(): void
