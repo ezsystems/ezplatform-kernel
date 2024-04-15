@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Tests\Integration\Core\Repository\ContentService;
 
 use DateTime;
+use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct;
 use eZ\Publish\Core\Repository\Values\Content\ContentUpdateStruct;
 use Ibexa\Tests\Integration\Core\RepositoryTestCase;
@@ -31,21 +32,9 @@ final class CopyNonTranslatableFieldsFromPublishedVersionTest extends Repository
         $this->createNonTranslatableContentType();
 
         $contentService = self::getContentService();
-        $contentTypeService = self::getContentTypeService();
-        $locationService = self::getLocationService();
 
         // Creating start content in eng-US language
-        $contentType = $contentTypeService->loadContentTypeByIdentifier(self::CONTENT_TYPE_IDENTIFIER);
-        $mainLanguageCode = self::ENG_US;
-        $contentCreateStruct = $contentService->newContentCreateStruct($contentType, $mainLanguageCode);
-        $contentCreateStruct->setField('title', 'Test title');
-
-        $contentDraft = $contentService->createContent(
-            $contentCreateStruct,
-            [
-                $locationService->newLocationCreateStruct(2),
-            ]
-        );
+        $contentDraft = $this->createEngDraft();
         $publishedContent = $contentService->publishVersion($contentDraft->getVersionInfo());
 
         // Creating a draft in ger-DE language with the only field updated being 'title'
@@ -92,22 +81,9 @@ final class CopyNonTranslatableFieldsFromPublishedVersionTest extends Repository
         $this->createNonTranslatableContentType();
 
         $contentService = self::getContentService();
-        $contentTypeService = self::getContentTypeService();
-        $locationService = self::getLocationService();
 
         // Creating start content in eng-US language
-        $contentType = $contentTypeService->loadContentTypeByIdentifier(self::CONTENT_TYPE_IDENTIFIER);
-        $mainLanguageCode = self::ENG_US;
-        $contentCreateStruct = $contentService->newContentCreateStruct($contentType, $mainLanguageCode);
-        $contentCreateStruct->setField('title', 'Test title');
-        $contentCreateStruct->setField('body', 'Nontranslatable body');
-
-        $contentDraft = $contentService->createContent(
-            $contentCreateStruct,
-            [
-                $locationService->newLocationCreateStruct(2),
-            ]
-        );
+        $contentDraft = $this->createEngDraft();
         $publishedContent = $contentService->publishVersion($contentDraft->getVersionInfo());
 
         // Creating two drafts at the same time
@@ -148,22 +124,9 @@ final class CopyNonTranslatableFieldsFromPublishedVersionTest extends Repository
         $this->createNonTranslatableContentType();
 
         $contentService = self::getContentService();
-        $contentTypeService = self::getContentTypeService();
-        $locationService = self::getLocationService();
 
         // Creating start content in eng-US language
-        $contentType = $contentTypeService->loadContentTypeByIdentifier(self::CONTENT_TYPE_IDENTIFIER);
-        $mainLanguageCode = self::ENG_US;
-        $contentCreateStruct = $contentService->newContentCreateStruct($contentType, $mainLanguageCode);
-        $contentCreateStruct->setField('title', 'Test title');
-        $contentCreateStruct->setField('body', 'Test body');
-
-        $contentDraft = $contentService->createContent(
-            $contentCreateStruct,
-            [
-                $locationService->newLocationCreateStruct(2),
-            ]
-        );
+        $contentDraft = $this->createEngDraft();
         $publishedContent = $contentService->publishVersion($contentDraft->getVersionInfo());
 
         // Creating a draft in ger-DE language with the only field updated being 'title'
@@ -198,6 +161,26 @@ final class CopyNonTranslatableFieldsFromPublishedVersionTest extends Repository
         $bodyFieldValue = $mainPublishedContent->getField('body')->getValue();
 
         self::assertSame($expectedBodyValue, $bodyFieldValue->text);
+    }
+
+    private function createEngDraft(): Content
+    {
+        $contentService = self::getContentService();
+        $contentTypeService = self::getContentTypeService();
+        $locationService = self::getLocationService();
+
+        $contentType = $contentTypeService->loadContentTypeByIdentifier(self::CONTENT_TYPE_IDENTIFIER);
+        $mainLanguageCode = self::ENG_US;
+        $contentCreateStruct = $contentService->newContentCreateStruct($contentType, $mainLanguageCode);
+        $contentCreateStruct->setField('title', 'Test title');
+        $contentCreateStruct->setField('body', 'Test body');
+
+        return $contentService->createContent(
+            $contentCreateStruct,
+            [
+                $locationService->newLocationCreateStruct(2),
+            ]
+        );
     }
 
     private function createNonTranslatableContentType(): void
