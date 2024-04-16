@@ -8,12 +8,17 @@ namespace eZ\Publish\Core\Search\Legacy\Tests\Content;
 
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
+use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageRegistry;
 use eZ\Publish\Core\Persistence\Legacy\Content\Type\Gateway\DoctrineDatabase as ContentTypeGateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler as ContentTypeHandler;
 use eZ\Publish\Core\Persistence\Legacy\Content\Type\Mapper as ContentTypeMapper;
 use eZ\Publish\Core\Persistence\Legacy\Content\Type\Update\Handler as ContentTypeUpdateHandler;
 use eZ\Publish\Core\Persistence\Legacy\Tests\Content\LanguageAwareTestCase;
 use eZ\Publish\SPI\Persistence\Content\Type\Handler as SPIContentTypeHandler;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Abstract test suite for legacy search.
@@ -112,5 +117,19 @@ class AbstractTestCase extends LanguageAwareTestCase
         }
 
         return $this->converterRegistry;
+    }
+
+    protected function getEventDispatcher(): EventDispatcherInterface
+    {
+        $eventDispatcher = new EventDispatcher();
+        $eventDispatcher->addSubscriber(
+            new ResolveVirtualFieldSubscriber(
+                $this->getConverterRegistry(),
+                new StorageRegistry([]),
+                $this->createMock(Gateway::class)
+            )
+        );
+
+        return $eventDispatcher;
     }
 }

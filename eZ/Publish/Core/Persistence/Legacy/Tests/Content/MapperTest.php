@@ -6,15 +6,14 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content;
 
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageRegistry;
-use Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber;
 use function count;
 use eZ\Publish\API\Repository\Values\Content\Relation as RelationValue;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry as Registry;
+use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Mapper;
 use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageRegistry;
 use eZ\Publish\SPI\Persistence\Content;
 use eZ\Publish\SPI\Persistence\Content\ContentInfo;
 use eZ\Publish\SPI\Persistence\Content\CreateStruct;
@@ -25,6 +24,7 @@ use eZ\Publish\SPI\Persistence\Content\Location\CreateStruct as LocationCreateSt
 use eZ\Publish\SPI\Persistence\Content\Relation as SPIRelation;
 use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -715,7 +715,7 @@ class MapperTest extends LanguageAwareTestCase
 
     protected function getEventDispatcher(): EventDispatcherInterface
     {
-        $eventDispatcher =  new EventDispatcher();
+        $eventDispatcher = new EventDispatcher();
         $eventDispatcher->addSubscriber(
             new ResolveVirtualFieldSubscriber(
                 $this->getValueConverterRegistryMock(),

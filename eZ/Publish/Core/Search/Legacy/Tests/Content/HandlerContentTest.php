@@ -13,17 +13,12 @@ use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use eZ\Publish\Core\Persistence;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldHandler;
-use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Mapper as LocationMapper;
 use eZ\Publish\Core\Persistence\Legacy\Content\Mapper as ContentMapper;
-use eZ\Publish\Core\Persistence\Legacy\Content\StorageRegistry;
 use eZ\Publish\Core\Search\Legacy\Content;
 use eZ\Publish\Core\Search\Legacy\Content\Location\Gateway as LocationGateway;
 use eZ\Publish\SPI\Persistence\Content\ContentInfo;
 use eZ\Publish\SPI\Persistence\Content\Type;
-use Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber;
-use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Content Search test case for ContentSearchHandler.
@@ -1450,19 +1445,5 @@ class HandlerContentTest extends AbstractTestCase
         $this->expectException(NotFoundException::class);
 
         $this->getContentTypeHandler()->getFieldDefinition(0, Type::STATUS_DEFINED);
-    }
-
-    private function getEventDispatcher(): EventDispatcherInterface
-    {
-        $eventDispatcher =  new EventDispatcher();
-        $eventDispatcher->addSubscriber(
-            new ResolveVirtualFieldSubscriber(
-                $this->getConverterRegistry(),
-                new StorageRegistry([]),
-                $this->createMock(Gateway::class)
-            )
-        );
-
-        return $eventDispatcher;
     }
 }
