@@ -19,6 +19,7 @@ use eZ\Publish\SPI\Persistence\Content\FieldValue;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 use Ibexa\Contracts\Core\Event\Mapper\ResolveMissingFieldEvent;
+use Ibexa\Contracts\FieldType\DefaultDataFieldStorage;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ResolveVirtualFieldSubscriber implements EventSubscriberInterface
@@ -47,6 +48,7 @@ final class ResolveVirtualFieldSubscriber implements EventSubscriberInterface
         return [
             ResolveMissingFieldEvent::class => [
                 ['persistExternalStorageField', -100],
+                ['resolveVirtualExternalStorageField', -80],
                 ['resolveVirtualField', 0],
             ],
         ];
@@ -73,6 +75,9 @@ final class ResolveVirtualFieldSubscriber implements EventSubscriberInterface
         }
     }
 
+    /**
+     * @throws \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\Exception\NotFound
+     */
     public function persistExternalStorageField(ResolveMissingFieldEvent $event): void
     {
         $field = $event->getField();
@@ -98,13 +103,61 @@ final class ResolveVirtualFieldSubscriber implements EventSubscriberInterface
             $this->getDefaultStorageValue()
         );
 
-        $storage->getFieldData(
+        $result = $storage->storeFieldData(
             $content->versionInfo,
             $field,
             $event->getContext()
         );
 
+        if ($result === true) {
+            $storageValue = new StorageFieldValue();
+            $converter = $this->converterRegistry->getConverter($fieldDefinition->fieldType);
+            $converter->toStorageValue(
+                $field->value,
+                $storageValue
+            );
+
+            $this->contentGateway->updateField(
+                $field,
+                $storageValue
+            );
+        }
+
         $event->setField($field);
+    }
+
+    public function resolveVirtualExternalStorageField(ResolveMissingFieldEvent $event): void
+    {
+        $field = $event->getField();
+
+        if ($field && $field->id !== null) {
+            // Not a virtual field
+            return;
+        }
+
+        $fieldDefinition = $event->getFieldDefinition();
+        $storage = $this->storageRegistry->getStorage($fieldDefinition->fieldType);
+
+        if ($storage instanceof NullStorage) {
+            // Not an external storage
+            return;
+        }
+
+        if (!$storage instanceof DefaultDataFieldStorage) {
+            return;
+        }
+
+        $content = $event->getContent();
+
+        $storage->getDefaultFieldData(
+            $content->versionInfo,
+            $field
+        );
+
+        $event->setField($field);
+
+        // Do not persist the external storage field
+        $event->stopPropagation();
     }
 
     /**
