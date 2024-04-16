@@ -6,6 +6,9 @@
  */
 namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content;
 
+use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageRegistry;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber;
 use function count;
 use eZ\Publish\API\Repository\Values\Content\Relation as RelationValue;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
@@ -227,7 +230,7 @@ class MapperTest extends LanguageAwareTestCase
             'ezdatetime',
             'ezkeyword',
             'eznumber',
-        ], count($rowsFixture));
+        ], count($rowsFixture) - 1);
 
         $mapper = new Mapper(
             $reg,
@@ -242,6 +245,7 @@ class MapperTest extends LanguageAwareTestCase
             'type' => 'eznumber',
             'languageCode' => 'eng-US',
             'value' => new FieldValue(),
+            'versionNo' => 2,
         ]);
 
         $this->assertEquals(
@@ -682,6 +686,10 @@ class MapperTest extends LanguageAwareTestCase
             $this->valueConverterRegistryMock = $this->getMockBuilder(Registry::class)
                 ->setMethods([])
                 ->getMock();
+
+            $this->valueConverterRegistryMock
+                ->method('getConverter')
+                ->willReturn($this->createMock(Converter::class));
         }
 
         return $this->valueConverterRegistryMock;
@@ -707,7 +715,16 @@ class MapperTest extends LanguageAwareTestCase
 
     protected function getEventDispatcher(): EventDispatcherInterface
     {
-        return new EventDispatcher();
+        $eventDispatcher =  new EventDispatcher();
+        $eventDispatcher->addSubscriber(
+            new ResolveVirtualFieldSubscriber(
+                $this->getValueConverterRegistryMock(),
+                new StorageRegistry([]),
+                $this->createMock(Gateway::class)
+            )
+        );
+
+        return $eventDispatcher;
     }
 
     /**
