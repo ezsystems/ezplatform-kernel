@@ -33,6 +33,7 @@ services:
             - ['addSubscriber', ['@eZ\Publish\Core\Search\Common\EventSubscriber\SectionEventSubscriber']]
             - ['addSubscriber', ['@eZ\Publish\Core\Search\Common\EventSubscriber\TrashEventSubscriber']]
             - ['addSubscriber', ['@eZ\Publish\Core\Search\Common\EventSubscriber\UserEventSubscriber']]
+            - ['addSubscriber', ['@Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber']]
 
     Doctrine\Common\EventManager: ~
 

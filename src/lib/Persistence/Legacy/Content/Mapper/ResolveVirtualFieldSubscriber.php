@@ -103,25 +103,33 @@ final class ResolveVirtualFieldSubscriber implements EventSubscriberInterface
             $this->getDefaultStorageValue()
         );
 
-        $result = $storage->storeFieldData(
+        if ($field->value->data !== null) {
+            $result = $storage->storeFieldData(
+                $content->versionInfo,
+                $field,
+                []
+            );
+
+            if ($result === true) {
+                $storageValue = new StorageFieldValue();
+                $converter = $this->converterRegistry->getConverter($fieldDefinition->fieldType);
+                $converter->toStorageValue(
+                    $field->value,
+                    $storageValue
+                );
+
+                $this->contentGateway->updateField(
+                    $field,
+                    $storageValue
+                );
+            }
+        }
+
+        $storage->getFieldData(
             $content->versionInfo,
             $field,
-            $event->getContext()
+            []
         );
-
-        if ($result === true) {
-            $storageValue = new StorageFieldValue();
-            $converter = $this->converterRegistry->getConverter($fieldDefinition->fieldType);
-            $converter->toStorageValue(
-                $field->value,
-                $storageValue
-            );
-
-            $this->contentGateway->updateField(
-                $field,
-                $storageValue
-            );
-        }
 
         $event->setField($field);
     }
