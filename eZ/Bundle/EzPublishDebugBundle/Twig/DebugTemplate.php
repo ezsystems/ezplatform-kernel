@@ -7,6 +7,7 @@
 namespace eZ\Bundle\EzPublishDebugBundle\Twig;
 
 use Symfony\Component\Filesystem\Filesystem;
+use Twig\Source;
 use Twig\Template;
 
 /**
@@ -19,7 +20,7 @@ class DebugTemplate extends Template
 {
     private $fileSystem;
 
-    public function display(array $context, array $blocks = [])
+    public function display(array $context, array $blocks = []): void
     {
         $this->fileSystem = $this->fileSystem ?: new Filesystem();
 
@@ -65,34 +66,25 @@ class DebugTemplate extends Template
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getTemplateName()
+    public function getTemplateName(): string
+    {
+        return '';
+    }
+
+    public function getSourceContext(): Source
+    {
+        return new Source('', '');
+    }
+
+    protected function doDisplay(array $context, array $blocks = []): string
     {
         return '';
     }
 
     /**
-     * {@inheritdoc}
+     * @return array<mixed>
      */
-    public function getSourceContext()
-    {
-        return '';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function doDisplay(array $context, array $blocks = [])
-    {
-        return '';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDebugInfo()
+    public function getDebugInfo(): array
     {
         return [];
     }
