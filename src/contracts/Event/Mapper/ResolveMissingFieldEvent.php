@@ -22,12 +22,15 @@ final class ResolveMissingFieldEvent extends Event
     /** @var string */
     private $languageCode;
 
-    /** @var array */
+    /** @var array<mixed> */
     private $context;
 
     /** @var \eZ\Publish\SPI\Persistence\Content\Field|null */
     private $field;
 
+    /**
+     * @param array<mixed> $context
+     */
     public function __construct(
         Content $content,
         FieldDefinition $fieldDefinition,
@@ -56,6 +59,9 @@ final class ResolveMissingFieldEvent extends Event
         return $this->languageCode;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function getContext(): array
     {
         return $this->context;

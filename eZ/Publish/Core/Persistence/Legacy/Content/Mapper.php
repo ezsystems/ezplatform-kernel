@@ -27,39 +27,37 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  * Performs mapping of Content objects.
  *
  * @phpstan-type TVersionedLanguageFieldDefinitionsMap array<
-       int, array<
-           int, array<
-               string, array<
-                   int, \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition,
-               >
-           >
-       >
-   >
+ *     int, array<
+ *         int, array<
+ *             string, array<
+ *                 int, \eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition,
+ *             >
+ *         >
+ *     >
+ * >
  * @phpstan-type TVersionedFieldMap array<
-     int, array<
-          int, array<
-              int, \eZ\Publish\SPI\Persistence\Content\Field,
-          >
-      >
-  >
+ *     int, array<
+ *         int, array<
+ *             int, \eZ\Publish\SPI\Persistence\Content\Field,
+ *         >
+ *     >
+ * >
  * @phpstan-type TVersionedNameMap array<
-     int, array<
-         int, array<
-             string, array<int, string>
-         >
-     >
- >
+ *     int, array<
+ *         int, array<
+ *             string, array<int, string>
+ *         >
+ *     >
+ * >
  * @phpstan-type TContentInfoMap array<int, \eZ\Publish\SPI\Persistence\Content\ContentInfo>
  * @phpstan-type TVersionInfoMap array<
-     int, array<
-         int, \eZ\Publish\SPI\Persistence\Content\VersionInfo,
-     >
- >
+ *     int, array<
+ *         int, \eZ\Publish\SPI\Persistence\Content\VersionInfo,
+ *     >
+ * >
  */
 class Mapper
 {
-    public const EMPTY_FIELD_ID = -1;
-
     /**
      * FieldValue converter registry.
      *

@@ -16,6 +16,8 @@ use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
 /**
  * Test case for Content Handler.
+ *
+ * @covers \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler
  */
 class StorageHandlerTest extends TestCase
 {
@@ -47,10 +49,7 @@ class StorageHandlerTest extends TestCase
      */
     protected $versionInfoMock;
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler::storeFieldData
-     */
-    public function testStoreFieldData()
+    public function testStoreFieldData(): void
     {
         $storageMock = $this->getStorageMock();
         $storageRegistryMock = $this->getStorageRegistryMock();
@@ -76,10 +75,7 @@ class StorageHandlerTest extends TestCase
         $handler->storeFieldData($this->getVersionInfoMock(), $field);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler::getFieldData
-     */
-    public function testGetFieldDataAvailable()
+    public function testGetFieldDataAvailable(): void
     {
         $storageMock = $this->getStorageMock();
         $storageRegistryMock = $this->getStorageRegistryMock();
@@ -109,10 +105,7 @@ class StorageHandlerTest extends TestCase
         $handler->getFieldData($this->getVersionInfoMock(), $field);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler::getFieldData
-     */
-    public function testGetFieldDataNotAvailable()
+    public function testGetFieldDataNotAvailable(): void
     {
         $storageMock = $this->getStorageMock();
         $storageRegistryMock = $this->getStorageRegistryMock();
@@ -137,10 +130,7 @@ class StorageHandlerTest extends TestCase
         $handler->getFieldData($this->getVersionInfoMock(), $field);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler::getFieldData
-     */
-    public function testGetFieldDataNotAvailableForVirtualField()
+    public function testGetFieldDataNotAvailableForVirtualField(): void
     {
         $storageMock = $this->getStorageMock();
         $storageRegistryMock = $this->getStorageRegistryMock();
@@ -164,10 +154,7 @@ class StorageHandlerTest extends TestCase
         $handler->getFieldData($this->getVersionInfoMock(), $field);
     }
 
-    /**
-     * @covers \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler::deleteFieldData
-     */
-    public function testDeleteFieldData()
+    public function testDeleteFieldData(): void
     {
         $storageMock = $this->getStorageMock();
         $storageRegistryMock = $this->getStorageRegistryMock();
@@ -194,7 +181,7 @@ class StorageHandlerTest extends TestCase
      *
      * @return \eZ\Publish\Core\Persistence\Legacy\Content\StorageHandler
      */
-    protected function getStorageHandler()
+    protected function getStorageHandler(): StorageHandler
     {
         if (!isset($this->storageHandler)) {
             $this->storageHandler = new StorageHandler(
@@ -209,9 +196,9 @@ class StorageHandlerTest extends TestCase
     /**
      * Returns a context mock.
      *
-     * @return array
+     * @return int[]
      */
-    protected function getContextMock()
+    protected function getContextMock(): array
     {
         return [23, 42];
     }
@@ -221,7 +208,7 @@ class StorageHandlerTest extends TestCase
      *
      * @return \eZ\Publish\Core\Persistence\Legacy\Content\StorageRegistry
      */
-    protected function getStorageRegistryMock()
+    protected function getStorageRegistryMock(): StorageRegistry
     {
         if (!isset($this->storageRegistryMock)) {
             $this->storageRegistryMock = $this->getMockBuilder(StorageRegistry::class)
@@ -238,7 +225,7 @@ class StorageHandlerTest extends TestCase
      *
      * @return \eZ\Publish\SPI\FieldType\FieldStorage
      */
-    protected function getStorageMock()
+    protected function getStorageMock(): FieldStorage
     {
         if (!isset($this->storageMock)) {
             $this->storageMock = $this->createMock(FieldStorage::class);
@@ -247,7 +234,7 @@ class StorageHandlerTest extends TestCase
         return $this->storageMock;
     }
 
-    protected function getVersionInfoMock()
+    protected function getVersionInfoMock(): VersionInfo
     {
         if (!isset($this->versionInfoMock)) {
             $this->versionInfoMock = $this->createMock(VersionInfo::class);

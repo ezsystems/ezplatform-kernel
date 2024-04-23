@@ -1,0 +1,381 @@
+<?php
+
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+declare(strict_types=1);
+
+namespace Ibexa\Tests\Core\Persistence\Legacy\Content\Mapper;
+
+use eZ\Publish\Core\FieldType\NullStorage;
+use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
+use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry;
+use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
+use eZ\Publish\Core\Persistence\Legacy\Content\StorageRegistry;
+use eZ\Publish\SPI\FieldType\FieldStorage;
+use eZ\Publish\SPI\Persistence\Content;
+use eZ\Publish\SPI\Persistence\Content\Field;
+use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
+use eZ\Publish\SPI\Persistence\Content\VersionInfo;
+use Ibexa\Contracts\Core\Event\Mapper\ResolveMissingFieldEvent;
+use Ibexa\Contracts\Core\FieldType\DefaultDataFieldStorage;
+use Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\Stopwatch\Stopwatch;
+
+final class ResolveVirtualFieldSubscriberTest extends TestCase
+{
+    private function getContent(): Content
+    {
+        $versionInfo = $this->getVersionInfo();
+
+        $content = new Content();
+        $content->versionInfo = $versionInfo;
+        $content->fields = [];
+
+        return $content;
+    }
+
+    private function getVersionInfo(): VersionInfo
+    {
+        $versionInfo = new VersionInfo();
+        $versionInfo->versionNo = 123;
+
+        return $versionInfo;
+    }
+
+    public function testResolveVirtualField(): void
+    {
+        $converterRegistry = $this->createMock(ConverterRegistry::class);
+        $converterRegistry->method('getConverter')
+            ->willReturn($this->createMock(Converter::class));
+
+        $storageRegistry = $this->createMock(StorageRegistry::class);
+        $storageRegistry->method('getStorage')
+            ->willReturn(new NullStorage());
+
+        $contentGateway = $this->createMock(ContentGateway::class);
+        $contentGateway->expects($this->never())
+            ->method('insertNewField');
+
+        $eventDispatcher = new TraceableEventDispatcher(
+            new EventDispatcher(),
+            new Stopwatch()
+        );
+
+        $eventDispatcher->addSubscriber(
+            new ResolveVirtualFieldSubscriber(
+                $converterRegistry,
+                $storageRegistry,
+                $contentGateway
+            )
+        );
+
+        $content = $this->getContent();
+        $fieldDefinition = new FieldDefinition([
+            'id' => 123,
+            'identifier' => 'example_field',
+            'fieldType' => 'some_type',
+            'defaultValue' => new Content\FieldValue(),
+        ]);
+
+        $event = new ResolveMissingFieldEvent(
+            $content,
+            $fieldDefinition,
+            'eng-GB'
+        );
+
+        $event = $eventDispatcher->dispatch($event);
+
+        $expected = new Content\Field([
+            'id' => null,
+            'fieldDefinitionId' => 123,
+            'type' => 'some_type',
+            'value' => new Content\FieldValue(),
+            'languageCode' => 'eng-GB',
+            'versionNo' => 123,
+        ]);
+
+        self::assertEquals(
+            $expected,
+            $event->getField()
+        );
+
+        self::assertCount(3, $eventDispatcher->getCalledListeners());
+        self::assertEquals(
+            [
+                'Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber::resolveVirtualField',
+                'Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber::resolveVirtualExternalStorageField',
+                'Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber::persistExternalStorageField',
+            ],
+            array_column($eventDispatcher->getCalledListeners(), 'pretty')
+        );
+    }
+
+    public function testResolveVirtualExternalStorageField(): void
+    {
+        $converterRegistry = $this->createMock(ConverterRegistry::class);
+        $converterRegistry->method('getConverter')
+            ->willReturn($this->createMock(Converter::class));
+
+        $storageRegistry = $this->createMock(StorageRegistry::class);
+        $storageRegistry->method('getStorage')
+            ->willReturn(new class() implements FieldStorage, DefaultDataFieldStorage {
+                public function getDefaultFieldData(VersionInfo $versionInfo, Field $field): void
+                {
+                    $field->value->externalData = [
+                        'some_default' => 'external_data',
+                    ];
+                }
+
+                public function storeFieldData(VersionInfo $versionInfo, Field $field, array $context): void
+                {
+                }
+
+                public function getFieldData(VersionInfo $versionInfo, Field $field, array $context): void
+                {
+                }
+
+                public function deleteFieldData(VersionInfo $versionInfo, array $fieldIds, array $context): void
+                {
+                }
+
+                public function hasFieldData(): void
+                {
+                }
+
+                public function getIndexData(VersionInfo $versionInfo, Field $field, array $context): void
+                {
+                }
+            });
+
+        $eventDispatcher = new TraceableEventDispatcher(
+            new EventDispatcher(),
+            new Stopwatch()
+        );
+
+        $eventDispatcher->addSubscriber(
+            new ResolveVirtualFieldSubscriber(
+                $converterRegistry,
+                $storageRegistry,
+                $this->createMock(ContentGateway::class)
+            )
+        );
+
+        $content = $this->getContent();
+        $fieldDefinition = new FieldDefinition([
+            'id' => 123,
+            'identifier' => 'example_field',
+            'fieldType' => 'external_type_virtual',
+            'defaultValue' => new Content\FieldValue(),
+        ]);
+
+        $event = new ResolveMissingFieldEvent(
+            $content,
+            $fieldDefinition,
+            'eng-GB'
+        );
+
+        $event = $eventDispatcher->dispatch($event);
+
+        $expected = new Content\Field([
+            'id' => null,
+            'fieldDefinitionId' => 123,
+            'type' => 'external_type_virtual',
+            'value' => new Content\FieldValue([
+                'externalData' => [
+                    'some_default' => 'external_data',
+                ],
+            ]),
+            'languageCode' => 'eng-GB',
+            'versionNo' => 123,
+        ]);
+
+        self::assertEquals(
+            $expected,
+            $event->getField()
+        );
+
+        self::assertCount(1, $eventDispatcher->getNotCalledListeners());
+        self::assertEquals(
+            'Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber::persistExternalStorageField',
+            $eventDispatcher->getNotCalledListeners()[0]['pretty']
+        );
+    }
+
+    public function testPersistEmptyExternalStorageField(): void
+    {
+        $converterRegistry = $this->createMock(ConverterRegistry::class);
+        $converterRegistry->method('getConverter')
+            ->willReturn($this->createMock(Converter::class));
+
+        $storage = $this->createMock(FieldStorage::class);
+        $storage->expects($this->never())
+            ->method('storeFieldData');
+
+        $storage->expects($this->once())
+            ->method('getFieldData')
+            ->willReturnCallback(static function (VersionInfo $versionInfo, Field $field) {
+                $field->value->externalData = [
+                    'some_default' => 'external_data',
+                ];
+            });
+
+        $storageRegistry = $this->createMock(StorageRegistry::class);
+        $storageRegistry->method('getStorage')
+            ->willReturn($storage);
+
+        $contentGateway = $this->createMock(ContentGateway::class);
+        $contentGateway->expects($this->once())
+            ->method('insertNewField')
+            ->willReturn(567);
+
+        $eventDispatcher = new TraceableEventDispatcher(
+            new EventDispatcher(),
+            new Stopwatch()
+        );
+
+        $eventDispatcher->addSubscriber(
+            new ResolveVirtualFieldSubscriber(
+                $converterRegistry,
+                $storageRegistry,
+                $contentGateway,
+            )
+        );
+
+        $content = $this->getContent();
+        $fieldDefinition = new FieldDefinition([
+            'id' => 123,
+            'identifier' => 'example_field',
+            'fieldType' => 'external_type',
+            'defaultValue' => new Content\FieldValue(),
+        ]);
+
+        $event = new ResolveMissingFieldEvent(
+            $content,
+            $fieldDefinition,
+            'eng-GB'
+        );
+
+        $event = $eventDispatcher->dispatch($event);
+
+        $expected = new Content\Field([
+            'id' => 567,
+            'fieldDefinitionId' => 123,
+            'type' => 'external_type',
+            'value' => new Content\FieldValue([
+                'externalData' => [
+                    'some_default' => 'external_data',
+                ],
+            ]),
+            'languageCode' => 'eng-GB',
+            'versionNo' => 123,
+        ]);
+
+        self::assertEquals(
+            $expected,
+            $event->getField()
+        );
+
+        self::assertCount(3, $eventDispatcher->getCalledListeners());
+        self::assertEquals(
+            [
+                'Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber::resolveVirtualField',
+                'Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber::resolveVirtualExternalStorageField',
+                'Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber::persistExternalStorageField',
+            ],
+            array_column($eventDispatcher->getCalledListeners(), 'pretty')
+        );
+    }
+
+    public function testPersistExternalStorageField(): void
+    {
+        $converterRegistry = $this->createMock(ConverterRegistry::class);
+        $converterRegistry->method('getConverter')
+            ->willReturn($this->createMock(Converter::class));
+
+        $storage = $this->createMock(FieldStorage::class);
+        $storage->expects($this->once())
+            ->method('storeFieldData')
+            ->willReturnCallback(static function (VersionInfo $versionInfo, Field $field) {
+                $field->value->externalData = $field->value->data;
+            });
+
+        $storage->expects($this->once())
+            ->method('getFieldData');
+
+        $storageRegistry = $this->createMock(StorageRegistry::class);
+        $storageRegistry->method('getStorage')
+            ->willReturn($storage);
+
+        $contentGateway = $this->createMock(ContentGateway::class);
+        $contentGateway->expects($this->once())
+            ->method('insertNewField')
+            ->willReturn(456);
+
+        $eventDispatcher = new TraceableEventDispatcher(
+            new EventDispatcher(),
+            new Stopwatch()
+        );
+
+        $eventDispatcher->addSubscriber(
+            new ResolveVirtualFieldSubscriber(
+                $converterRegistry,
+                $storageRegistry,
+                $contentGateway,
+            )
+        );
+
+        $content = $this->getContent();
+        $fieldDefinition = new FieldDefinition([
+            'id' => 123,
+            'identifier' => 'example_field',
+            'fieldType' => 'external_type',
+            'defaultValue' => new Content\FieldValue([
+                'data' => ['some_data' => 'to_be_stored'],
+            ]),
+        ]);
+
+        $event = new ResolveMissingFieldEvent(
+            $content,
+            $fieldDefinition,
+            'eng-GB'
+        );
+
+        $event = $eventDispatcher->dispatch($event);
+
+        $expected = new Content\Field([
+            'id' => 456,
+            'fieldDefinitionId' => 123,
+            'type' => 'external_type',
+            'value' => new Content\FieldValue([
+                'data' => [
+                    'some_data' => 'to_be_stored',
+                ],
+                'externalData' => [
+                    'some_data' => 'to_be_stored',
+                ],
+            ]),
+            'languageCode' => 'eng-GB',
+            'versionNo' => 123,
+        ]);
+
+        self::assertEquals(
+            $expected,
+            $event->getField()
+        );
+
+        self::assertCount(3, $eventDispatcher->getCalledListeners());
+        self::assertEquals(
+            [
+                'Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber::resolveVirtualField',
+                'Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber::resolveVirtualExternalStorageField',
+                'Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber::persistExternalStorageField',
+            ],
+            array_column($eventDispatcher->getCalledListeners(), 'pretty')
+        );
+    }
+}

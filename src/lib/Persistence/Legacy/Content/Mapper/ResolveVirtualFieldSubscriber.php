@@ -19,7 +19,7 @@ use eZ\Publish\SPI\Persistence\Content\FieldValue;
 use eZ\Publish\SPI\Persistence\Content\Type\FieldDefinition;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 use Ibexa\Contracts\Core\Event\Mapper\ResolveMissingFieldEvent;
-use Ibexa\Contracts\FieldType\DefaultDataFieldStorage;
+use Ibexa\Contracts\Core\FieldType\DefaultDataFieldStorage;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ResolveVirtualFieldSubscriber implements EventSubscriberInterface
@@ -82,7 +82,7 @@ final class ResolveVirtualFieldSubscriber implements EventSubscriberInterface
     {
         $field = $event->getField();
 
-        if ($field && $field->id !== null) {
+        if ($field !== null && $field->id !== null) {
             // Not a virtual field
             return;
         }
@@ -138,7 +138,7 @@ final class ResolveVirtualFieldSubscriber implements EventSubscriberInterface
     {
         $field = $event->getField();
 
-        if ($field && $field->id !== null) {
+        if ($field !== null && $field->id !== null) {
             // Not a virtual field
             return;
         }
@@ -169,7 +169,7 @@ final class ResolveVirtualFieldSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @throws \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\Exception\NotFound
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
     private function createEmptyField(
         VersionInfo $versionInfo,
@@ -187,7 +187,7 @@ final class ResolveVirtualFieldSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @throws \eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter\Exception\NotFound
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
     private function getDefaultValue(FieldDefinition $fieldDefinition): FieldValue
     {

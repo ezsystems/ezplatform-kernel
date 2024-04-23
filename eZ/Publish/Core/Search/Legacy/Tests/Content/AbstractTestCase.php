@@ -125,7 +125,7 @@ class AbstractTestCase extends LanguageAwareTestCase
         $eventDispatcher->addSubscriber(
             new ResolveVirtualFieldSubscriber(
                 $this->getConverterRegistry(),
-                new StorageRegistry([]),
+                $this->createMock(StorageRegistry::class),
                 $this->createMock(Gateway::class)
             )
         );

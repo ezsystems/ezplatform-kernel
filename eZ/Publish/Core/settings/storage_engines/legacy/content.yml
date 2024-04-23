@@ -14,9 +14,9 @@ services:
 
     Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber:
         arguments:
-            - "@ezpublish.persistence.legacy.field_value_converter.registry"
-            - "@ezpublish.persistence.external_storage_registry"
-            - "@ezpublish.persistence.legacy.content.gateway"
+            $converterRegistry: "@ezpublish.persistence.legacy.field_value_converter.registry"
+            $storageRegistry: "@ezpublish.persistence.external_storage_registry"
+            $contentGateway: "@ezpublish.persistence.legacy.content.gateway"
         tags:
             - { name: kernel.event_subscriber }
 

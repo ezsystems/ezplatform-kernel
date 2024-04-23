@@ -8,6 +8,7 @@ namespace eZ\Publish\Core\Persistence\Legacy\Tests\Content;
 
 use function count;
 use eZ\Publish\API\Repository\Values\Content\Relation as RelationValue;
+use eZ\Publish\Core\Persistence\Legacy\Bookmark\Handler;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\ConverterRegistry as Registry;
 use eZ\Publish\Core\Persistence\Legacy\Content\Gateway;
@@ -97,8 +98,8 @@ class MapperTest extends LanguageAwareTestCase
             ],
             $versionInfo
         );
-        $this->assertGreaterThanOrEqual($time, $versionInfo->creationDate);
-        $this->assertGreaterThanOrEqual($time, $versionInfo->modificationDate);
+        self::assertGreaterThanOrEqual($time, $versionInfo->creationDate);
+        self::assertGreaterThanOrEqual($time, $versionInfo->modificationDate);
     }
 
     /**
@@ -162,7 +163,7 @@ class MapperTest extends LanguageAwareTestCase
         );
         $res = $mapper->convertToStorageValue($field);
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             StorageFieldValue::class,
             $res
         );
@@ -203,7 +204,7 @@ class MapperTest extends LanguageAwareTestCase
 
         $expected = [$this->getContentExtractReference()];
 
-        $this->assertEquals(
+        self::assertEquals(
             $expected,
             $result
         );
@@ -248,7 +249,7 @@ class MapperTest extends LanguageAwareTestCase
             'versionNo' => 2,
         ]);
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 $expectedContent,
             ],
@@ -296,7 +297,7 @@ class MapperTest extends LanguageAwareTestCase
             })
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 $expectedContent,
             ],
@@ -330,25 +331,25 @@ class MapperTest extends LanguageAwareTestCase
         );
         $result = $mapper->extractContentFromRows($rowsFixture, $nameRowsFixture);
 
-        $this->assertCount(
+        self::assertCount(
             2,
             $result
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             11,
             $result[0]->versionInfo->contentInfo->id
         );
-        $this->assertEquals(
+        self::assertEquals(
             11,
             $result[1]->versionInfo->contentInfo->id
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             1,
             $result[0]->versionInfo->versionNo
         );
-        $this->assertEquals(
+        self::assertEquals(
             2,
             $result[1]->versionInfo->versionNo
         );
@@ -390,7 +391,7 @@ class MapperTest extends LanguageAwareTestCase
 
         $struct = $mapper->createCreateStructFromContent($content);
 
-        $this->assertInstanceOf(CreateStruct::class, $struct);
+        self::assertInstanceOf(CreateStruct::class, $struct);
 
         return [
             'original' => $content,
@@ -429,7 +430,7 @@ class MapperTest extends LanguageAwareTestCase
      */
     public function testCreateCreateStructFromContentParentLocationsEmpty($data)
     {
-        $this->assertEquals(
+        self::assertEquals(
             [],
             $data['result']->locations
         );
@@ -441,7 +442,7 @@ class MapperTest extends LanguageAwareTestCase
      */
     public function testCreateCreateStructFromContentFieldCount($data)
     {
-        $this->assertEquals(
+        self::assertEquals(
             count($data['original']->fields),
             count($data['result']->fields)
         );
@@ -454,7 +455,7 @@ class MapperTest extends LanguageAwareTestCase
     public function testCreateCreateStructFromContentFieldsNoId($data)
     {
         foreach ($data['result']->fields as $field) {
-            $this->assertNull($field->id);
+            self::assertNull($field->id);
         }
     }
 
@@ -466,7 +467,7 @@ class MapperTest extends LanguageAwareTestCase
 
         $res = $mapper->extractRelationsFromRows($rows);
 
-        $this->assertEquals(
+        self::assertEquals(
             $this->getRelationExtractReference(),
             $res
         );
@@ -485,7 +486,7 @@ class MapperTest extends LanguageAwareTestCase
 
         $struct = $mapper->createCreateStructFromContent($content, true);
 
-        $this->assertInstanceOf(CreateStruct::class, $struct);
+        self::assertInstanceOf(CreateStruct::class, $struct);
         $this->assertStructsEqual($content->versionInfo->contentInfo, $struct, ['sectionId', 'ownerId']);
         self::assertNotEquals($content->versionInfo->contentInfo->remoteId, $struct->remoteId);
         self::assertSame($content->versionInfo->contentInfo->contentTypeId, $struct->typeId);
@@ -719,7 +720,7 @@ class MapperTest extends LanguageAwareTestCase
         $eventDispatcher->addSubscriber(
             new ResolveVirtualFieldSubscriber(
                 $this->getValueConverterRegistryMock(),
-                new StorageRegistry([]),
+                $this->createMock(StorageRegistry::class),
                 $this->createMock(Gateway::class)
             )
         );
@@ -790,7 +791,7 @@ class MapperTest extends LanguageAwareTestCase
     /**
      * @return \eZ\Publish\SPI\Persistence\Content\Type\Handler&\PHPUnit\Framework\MockObject\MockObject
      */
-    protected function getContentTypeHandler()
+    protected function getContentTypeHandler(): Content\Type\Handler
     {
         return $this->createMock(Content\Type\Handler::class);
     }
