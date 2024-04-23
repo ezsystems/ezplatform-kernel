@@ -61,11 +61,7 @@ final class ResolveVirtualFieldSubscriberTest extends TestCase
         $contentGateway->expects($this->never())
             ->method('insertNewField');
 
-        $eventDispatcher = new TraceableEventDispatcher(
-            new EventDispatcher(),
-            new Stopwatch()
-        );
-
+        $eventDispatcher = $this->getEventDispatcher();
         $eventDispatcher->addSubscriber(
             new ResolveVirtualFieldSubscriber(
                 $converterRegistry,
@@ -123,6 +119,7 @@ final class ResolveVirtualFieldSubscriberTest extends TestCase
 
         $storageRegistry = $this->createMock(StorageRegistry::class);
         $storageRegistry->method('getStorage')
+            // Multiple interface mocks are deprecated in PHPUnit 9+
             ->willReturn(new class() implements FieldStorage, DefaultDataFieldStorage {
                 public function getDefaultFieldData(VersionInfo $versionInfo, Field $field): void
                 {
@@ -133,42 +130,47 @@ final class ResolveVirtualFieldSubscriberTest extends TestCase
 
                 public function storeFieldData(VersionInfo $versionInfo, Field $field, array $context): void
                 {
+                    // Mock
                 }
 
                 public function getFieldData(VersionInfo $versionInfo, Field $field, array $context): void
                 {
+                    // Mock
                 }
 
                 public function deleteFieldData(VersionInfo $versionInfo, array $fieldIds, array $context): void
                 {
+                    // Mock
                 }
 
                 public function hasFieldData(): void
                 {
+                    // Mock
                 }
 
                 public function getIndexData(VersionInfo $versionInfo, Field $field, array $context): void
                 {
+                    // Mock
                 }
             });
 
-        $eventDispatcher = new TraceableEventDispatcher(
-            new EventDispatcher(),
-            new Stopwatch()
-        );
+        $contentGateway = $this->createMock(ContentGateway::class);
+        $contentGateway->expects($this->never())
+            ->method('insertNewField');
 
+        $eventDispatcher = $this->getEventDispatcher();
         $eventDispatcher->addSubscriber(
             new ResolveVirtualFieldSubscriber(
                 $converterRegistry,
                 $storageRegistry,
-                $this->createMock(ContentGateway::class)
+                $contentGateway
             )
         );
 
         $content = $this->getContent();
         $fieldDefinition = new FieldDefinition([
-            'id' => 123,
-            'identifier' => 'example_field',
+            'id' => 678,
+            'identifier' => 'example_external_field',
             'fieldType' => 'external_type_virtual',
             'defaultValue' => new Content\FieldValue(),
         ]);
@@ -183,7 +185,7 @@ final class ResolveVirtualFieldSubscriberTest extends TestCase
 
         $expected = new Content\Field([
             'id' => null,
-            'fieldDefinitionId' => 123,
+            'fieldDefinitionId' => 678,
             'type' => 'external_type_virtual',
             'value' => new Content\FieldValue([
                 'externalData' => [
@@ -233,11 +235,7 @@ final class ResolveVirtualFieldSubscriberTest extends TestCase
             ->method('insertNewField')
             ->willReturn(567);
 
-        $eventDispatcher = new TraceableEventDispatcher(
-            new EventDispatcher(),
-            new Stopwatch()
-        );
-
+        $eventDispatcher = $this->getEventDispatcher();
         $eventDispatcher->addSubscriber(
             new ResolveVirtualFieldSubscriber(
                 $converterRegistry,
@@ -316,11 +314,7 @@ final class ResolveVirtualFieldSubscriberTest extends TestCase
             ->method('insertNewField')
             ->willReturn(456);
 
-        $eventDispatcher = new TraceableEventDispatcher(
-            new EventDispatcher(),
-            new Stopwatch()
-        );
-
+        $eventDispatcher = $this->getEventDispatcher();
         $eventDispatcher->addSubscriber(
             new ResolveVirtualFieldSubscriber(
                 $converterRegistry,
@@ -376,6 +370,14 @@ final class ResolveVirtualFieldSubscriberTest extends TestCase
                 'Ibexa\Core\Persistence\Legacy\Content\Mapper\ResolveVirtualFieldSubscriber::persistExternalStorageField',
             ],
             array_column($eventDispatcher->getCalledListeners(), 'pretty')
+        );
+    }
+
+    private function getEventDispatcher(): TraceableEventDispatcher
+    {
+        return new TraceableEventDispatcher(
+            new EventDispatcher(),
+            new Stopwatch()
         );
     }
 }
