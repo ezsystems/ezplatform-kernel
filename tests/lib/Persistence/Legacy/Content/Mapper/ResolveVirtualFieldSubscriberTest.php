@@ -85,42 +85,19 @@ final class ResolveVirtualFieldSubscriberTest extends TestCase
         $contentGateway = $this->createMock(ContentGateway::class);
         $contentGateway->expects($this->never())->method('insertNewField');
 
-        $storageRegistry = $this->createMock(StorageRegistry::class);
-        $storageRegistry->method('getStorage')
-            // Multiple interface mocks are deprecated in PHPUnit 9+
-            ->willReturn(new class() implements FieldStorage, DefaultDataFieldStorage {
-                public function getDefaultFieldData(VersionInfo $versionInfo, Field $field): void
-                {
+        $defaultFieldStorageMock = $this->createMock(DefaultDataFieldStorage::class);
+        $defaultFieldStorageMock
+            ->method('getDefaultFieldData')
+            ->willReturnCallback(
+                static function (VersionInfo $versionInfo, Field $field): void {
                     $field->value->externalData = [
                         'some_default' => 'external_data',
                     ];
                 }
-
-                public function storeFieldData(VersionInfo $versionInfo, Field $field, array $context): void
-                {
-                    // Mock
-                }
-
-                public function getFieldData(VersionInfo $versionInfo, Field $field, array $context): void
-                {
-                    // Mock
-                }
-
-                public function deleteFieldData(VersionInfo $versionInfo, array $fieldIds, array $context): void
-                {
-                    // Mock
-                }
-
-                public function hasFieldData(): void
-                {
-                    // Mock
-                }
-
-                public function getIndexData(VersionInfo $versionInfo, Field $field, array $context): void
-                {
-                    // Mock
-                }
-            });
+            );
+        $storageRegistry = $this->createMock(StorageRegistry::class);
+        $storageRegistry->method('getStorage')
+            ->willReturn($defaultFieldStorageMock);
 
         $eventDispatcher = $this->getEventDispatcher(
             $converterRegistry,
