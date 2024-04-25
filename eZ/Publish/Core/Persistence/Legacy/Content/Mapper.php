@@ -217,8 +217,8 @@ class Mapper
      *
      *      "$tableName_$columnName"
      *
-     * @param array $rows
-     * @param array $nameRows
+     * @param array<array<string, scalar>> $rows
+     * @param array<array<string, scalar>> $nameRows
      * @param string $prefix
      *
      * @return \eZ\Publish\SPI\Persistence\Content[]
