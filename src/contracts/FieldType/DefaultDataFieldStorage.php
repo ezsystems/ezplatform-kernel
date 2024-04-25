@@ -8,10 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Core\FieldType;
 
+use eZ\Publish\SPI\FieldType\FieldStorage;
 use eZ\Publish\SPI\Persistence\Content\Field;
 use eZ\Publish\SPI\Persistence\Content\VersionInfo;
 
-interface DefaultDataFieldStorage
+interface DefaultDataFieldStorage extends FieldStorage
 {
     /**
      * Populates <code>$field</code> value property with default data based on the external data.
