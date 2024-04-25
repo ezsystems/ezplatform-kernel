@@ -32,11 +32,11 @@ final class ResolveVirtualFieldSubscriberTest extends TestCase
     {
         $converterRegistry = $this->getConverterRegistry();
 
-        $storageRegistry = $this->createMock(StorageRegistry::class);
-        $storageRegistry->method('getStorage')->willReturn(new NullStorage());
-
         $contentGateway = $this->createMock(ContentGateway::class);
         $contentGateway->expects($this->never())->method('insertNewField');
+
+        $storageRegistry = $this->createMock(StorageRegistry::class);
+        $storageRegistry->method('getStorage')->willReturn(new NullStorage());
 
         $eventDispatcher = $this->getEventDispatcher(
             $converterRegistry,
@@ -45,16 +45,12 @@ final class ResolveVirtualFieldSubscriberTest extends TestCase
         );
 
         $event = $eventDispatcher->dispatch(
-            new ResolveMissingFieldEvent(
-                $this->getContent(),
-                new FieldDefinition([
-                    'id' => 123,
-                    'identifier' => 'example_field',
-                    'fieldType' => 'some_type',
-                    'defaultValue' => new Content\FieldValue(),
-                ]),
-                'eng-GB'
-            )
+            $this->getEvent([
+                'id' => 123,
+                'identifier' => 'example_field',
+                'fieldType' => 'some_type',
+                'defaultValue' => new Content\FieldValue(),
+            ])
         );
 
         $expected = new Content\Field([
@@ -85,6 +81,9 @@ final class ResolveVirtualFieldSubscriberTest extends TestCase
     public function testResolveVirtualExternalStorageField(): void
     {
         $converterRegistry = $this->getConverterRegistry();
+
+        $contentGateway = $this->createMock(ContentGateway::class);
+        $contentGateway->expects($this->never())->method('insertNewField');
 
         $storageRegistry = $this->createMock(StorageRegistry::class);
         $storageRegistry->method('getStorage')
@@ -123,9 +122,6 @@ final class ResolveVirtualFieldSubscriberTest extends TestCase
                 }
             });
 
-        $contentGateway = $this->createMock(ContentGateway::class);
-        $contentGateway->expects($this->never())->method('insertNewField');
-
         $eventDispatcher = $this->getEventDispatcher(
             $converterRegistry,
             $storageRegistry,
@@ -133,16 +129,12 @@ final class ResolveVirtualFieldSubscriberTest extends TestCase
         );
 
         $event = $eventDispatcher->dispatch(
-            new ResolveMissingFieldEvent(
-                $this->getContent(),
-                new FieldDefinition([
-                    'id' => 678,
-                    'identifier' => 'example_external_field',
-                    'fieldType' => 'external_type_virtual',
-                    'defaultValue' => new Content\FieldValue(),
-                ]),
-                'eng-GB'
-            )
+            $this->getEvent([
+                'id' => 678,
+                'identifier' => 'example_external_field',
+                'fieldType' => 'external_type_virtual',
+                'defaultValue' => new Content\FieldValue(),
+            ])
         );
 
         $expected = new Content\Field([
@@ -199,16 +191,12 @@ final class ResolveVirtualFieldSubscriberTest extends TestCase
         );
 
         $event = $eventDispatcher->dispatch(
-            new ResolveMissingFieldEvent(
-                $this->getContent(),
-                new FieldDefinition([
-                    'id' => 123,
-                    'identifier' => 'example_field',
-                    'fieldType' => 'external_type',
-                    'defaultValue' => new Content\FieldValue(),
-                ]),
-                'eng-GB'
-            )
+            $this->getEvent([
+                'id' => 123,
+                'identifier' => 'example_field',
+                'fieldType' => 'external_type',
+                'defaultValue' => new Content\FieldValue(),
+            ])
         );
 
         $expected = new Content\Field([
@@ -267,18 +255,14 @@ final class ResolveVirtualFieldSubscriberTest extends TestCase
         );
 
         $event = $eventDispatcher->dispatch(
-            new ResolveMissingFieldEvent(
-                $this->getContent(),
-                new FieldDefinition([
-                    'id' => 123,
-                    'identifier' => 'example_field',
-                    'fieldType' => 'external_type',
-                    'defaultValue' => new Content\FieldValue([
-                        'data' => ['some_data' => 'to_be_stored'],
-                    ]),
+            $this->getEvent([
+                'id' => 123,
+                'identifier' => 'example_field',
+                'fieldType' => 'external_type',
+                'defaultValue' => new Content\FieldValue([
+                    'data' => ['some_data' => 'to_be_stored'],
                 ]),
-                'eng-GB'
-            )
+            ])
         );
 
         $expected = new Content\Field([
@@ -359,5 +343,17 @@ final class ResolveVirtualFieldSubscriberTest extends TestCase
             ->willReturn($this->createMock(Converter::class));
 
         return $converterRegistry;
+    }
+
+    /**
+     * @param array<string, mixed> $fieldDefinition
+     */
+    private function getEvent(array $fieldDefinition): ResolveMissingFieldEvent
+    {
+        return new ResolveMissingFieldEvent(
+            $this->getContent(),
+            new FieldDefinition($fieldDefinition),
+            'eng-GB'
+        );
     }
 }
