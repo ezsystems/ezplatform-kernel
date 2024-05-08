@@ -10,6 +10,7 @@ namespace Ibexa\Tests\Integration\Core\Repository\ContentService;
 
 use DateTime;
 use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct;
+use eZ\Publish\Core\FieldType\TextLine;
 use eZ\Publish\Core\Repository\Values\Content\ContentUpdateStruct;
 use Ibexa\Tests\Integration\Core\RepositoryTestCase;
 
@@ -67,11 +68,13 @@ final class CopyTranslationsFromPublishedVersionTest extends RepositoryTestCase
         $usContent = $contentService->updateContent($usDraft->getVersionInfo(), $contentUpdateStruct);
         $publishedUsContent = $contentService->publishVersion($usContent->getVersionInfo(), [self::US_LANGUAGE_CODE]);
 
-        $gerFieldValueInUsContent = $publishedUsContent->getField('title', self::GER_LANGUAGE_CODE)
-            ->getValue()
-            ->text;
+        $usFieldValueInUsContent = $publishedUsContent->getField('title', self::US_LANGUAGE_CODE)->getValue();
+        self::assertInstanceOf(TextLine\Value::class, $usFieldValueInUsContent);
+        self::assertSame('', $usFieldValueInUsContent->text);
 
-        self::assertSame('', $gerFieldValueInUsContent);
+        $gerFieldValueInUsContent = $publishedUsContent->getField('title', self::GER_LANGUAGE_CODE)->getValue();
+        self::assertInstanceOf(TextLine\Value::class, $gerFieldValueInUsContent);
+        self::assertSame('', $gerFieldValueInUsContent->text);
     }
 
     private function createContentType(): void

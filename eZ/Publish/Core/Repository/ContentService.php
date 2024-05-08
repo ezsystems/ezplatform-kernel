@@ -1295,7 +1295,7 @@ class ContentService implements ContentServiceInterface
         APIVersionInfo $versionInfo,
         APIContentUpdateStruct $contentUpdateStruct,
         ?array $fieldIdentifiersToValidate = null,
-        bool $doAddEmpty = false
+        bool $copyEmptyField = false
     ): Content {
         $contentUpdateStruct = clone $contentUpdateStruct;
 
@@ -1386,7 +1386,7 @@ class ContentService implements ContentServiceInterface
                 );
                 $fieldValues[$fieldDefinition->identifier][$languageCode] = $fieldValue;
 
-                if ($isRetained || $isCopied || ($isLanguageNew && $isEmpty && !$doAddEmpty) || $isProcessed) {
+                if ($isRetained || $isCopied || ($isLanguageNew && $isEmpty && !$copyEmptyField) || $isProcessed) {
                     continue;
                 }
 
