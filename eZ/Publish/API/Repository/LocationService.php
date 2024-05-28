@@ -97,6 +97,10 @@ interface LocationService
     /**
      * Loads children which are readable by the current user of a location object sorted by sortField and sortOrder.
      *
+     * Use this method with caution. It performs heavy queries on the database.
+     * Consider using {@see \eZ\Publish\API\Repository\SearchService::findLocations()} with
+     * {@see \eZ\Publish\Core\QueryType\BuiltIn\ChildrenQueryType} as an alternative.
+     *
      * @param \eZ\Publish\API\Repository\Values\Content\Location $location
      * @param int $offset the start offset for paging
      * @param int $limit the number of locations returned
