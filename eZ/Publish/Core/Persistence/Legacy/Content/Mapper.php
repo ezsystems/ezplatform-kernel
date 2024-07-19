@@ -313,9 +313,10 @@ class Mapper
                 $content->versionInfo = $versionInfo;
                 $content->versionInfo->names = $names;
                 $content->versionInfo->contentInfo = $contentInfo;
-                $content->fields = array_values($fields[$contentId][$versionId]);
+                $content->fields = array_values($fields[$contentId][$versionId] ?? []);
 
-                $missingVersionFieldDefinitions = $missingFieldDefinitions[$contentId][$versionId];
+                $missingVersionFieldDefinitions = $missingFieldDefinitions[$contentId][$versionId] ?? [];
+
                 foreach ($missingVersionFieldDefinitions as $languageCode => $versionFieldDefinitions) {
                     foreach ($versionFieldDefinitions as $fieldDefinition) {
                         $event = $this->eventDispatcher->dispatch(
