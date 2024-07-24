@@ -320,7 +320,9 @@ class Handler implements BaseContentHandler
             $this->contentGateway->loadVersionedNameData([[
                 'id' => $id,
                 'version' => $rows[0]['ezcontentobject_version_version'],
-            ]])
+            ]]),
+            'ezcontentobject_',
+            $translations
         );
         $content = $contentObjects[0];
         unset($rows, $contentObjects);
@@ -371,7 +373,9 @@ class Handler implements BaseContentHandler
             try {
                 $contentList = $this->mapper->extractContentFromRows(
                     $contentItemsRow,
-                    $contentItemNameData[$contentId]
+                    $contentItemNameData[$contentId],
+                    'ezcontentobject_',
+                    $translations
                 );
                 $contentItems[$contentId] = $contentList[0];
             } catch (Exception $e) {
