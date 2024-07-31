@@ -109,7 +109,10 @@ class ContentHandlerTest extends TestCase
      */
     protected $contentTypeHandlerMock;
 
-    protected LanguageHandler $languageHandlerMock;
+    /**
+     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler
+     */
+    protected $languageHandlerMock;
 
     /**
      * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::create

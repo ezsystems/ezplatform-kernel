@@ -85,7 +85,10 @@ class Handler implements BaseContentHandler
      */
     protected $treeHandler;
 
-    protected LanguageHandler $languageHandler;
+    /**
+     * @var \eZ\Publish\SPI\Persistence\Content\Language\Handler
+     */
+    protected $languageHandler;
 
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
