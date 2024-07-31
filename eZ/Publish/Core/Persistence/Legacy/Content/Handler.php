@@ -15,6 +15,7 @@ use eZ\Publish\SPI\Persistence\Content;
 use eZ\Publish\SPI\Persistence\Content\CreateStruct;
 use eZ\Publish\SPI\Persistence\Content\Field;
 use eZ\Publish\SPI\Persistence\Content\Handler as BaseContentHandler;
+use eZ\Publish\SPI\Persistence\Content\Language\Handler as LanguageHandler;
 use eZ\Publish\SPI\Persistence\Content\MetadataUpdateStruct;
 use eZ\Publish\SPI\Persistence\Content\Relation\CreateStruct as RelationCreateStruct;
 use eZ\Publish\SPI\Persistence\Content\Type\Handler as ContentTypeHandler;
@@ -84,6 +85,8 @@ class Handler implements BaseContentHandler
      */
     protected $treeHandler;
 
+    protected LanguageHandler $languageHandler;
+
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
@@ -109,6 +112,7 @@ class Handler implements BaseContentHandler
         UrlAliasGateway $urlAliasGateway,
         ContentTypeHandler $contentTypeHandler,
         TreeHandler $treeHandler,
+        LanguageHandler $languageHandler,
         LoggerInterface $logger = null
     ) {
         $this->contentGateway = $contentGateway;
@@ -119,6 +123,7 @@ class Handler implements BaseContentHandler
         $this->urlAliasGateway = $urlAliasGateway;
         $this->contentTypeHandler = $contentTypeHandler;
         $this->treeHandler = $treeHandler;
+        $this->languageHandler = $languageHandler;
         $this->logger = null !== $logger ? $logger : new NullLogger();
     }
 
@@ -274,6 +279,14 @@ class Handler implements BaseContentHandler
 
         // Clone fields from previous version and append them to the new one
         $this->fieldHandler->createExistingFieldsInNewVersion($content);
+
+        // Persist virtual fields
+        $contentType = $this->contentTypeHandler->load($content->versionInfo->contentInfo->contentTypeId);
+        $this->fieldHandler->updateFields($content, new UpdateStruct([
+            'initialLanguageId' => $this->languageHandler->loadByLanguageCode(
+                $content->versionInfo->initialLanguageCode
+            )->id,
+        ]), $contentType);
 
         // Create relations for new version
         $relations = $this->contentGateway->loadRelations($contentId, $srcVersion);

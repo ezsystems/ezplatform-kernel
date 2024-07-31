@@ -345,6 +345,8 @@ class Mapper
     }
 
     /**
+     * @param string[]|null $translations
+     *
      * @phpstan-return TVersionedLanguageFieldDefinitionsMap
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
@@ -374,7 +376,8 @@ class Mapper
             $contentType = $contentTypes[$contentTypeId];
             foreach ($contentType->fieldDefinitions as $fieldDefinition) {
                 foreach ($languageCodes as $languageCode) {
-                    $id = $fieldDefinition->id;
+                    $id = (int)$fieldDefinition->id;
+                    $languageCode = (string)$languageCode;
                     $fieldDefinitions[$contentId][$versionId][$languageCode][$id] = $fieldDefinition;
                 }
             }

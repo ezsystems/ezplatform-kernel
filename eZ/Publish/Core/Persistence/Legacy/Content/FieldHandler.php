@@ -332,7 +332,7 @@ class FieldHandler
                 if (isset($updateFieldMap[$fieldDefinition->id][$languageCode])) {
                     $field = clone $updateFieldMap[$fieldDefinition->id][$languageCode];
                     $field->versionNo = $content->versionInfo->versionNo;
-                    if (isset($field->id) && array_key_exists($field->languageCode, $existingLanguageCodes)) {
+                    if (null !== $field->id && array_key_exists($field->languageCode, $existingLanguageCodes)) {
                         $this->updateField($field, $content);
                         $updatedFields[$fieldDefinition->id][$languageCode] = $field;
                     } else {
@@ -358,6 +358,14 @@ class FieldHandler
                     // also update copied field data
                     // Register for processing after all given fields are updated
                     $nonTranslatableCopiesUpdateSet[$fieldDefinition->id][] = $languageCode;
+                } elseif (isset($contentFieldMap[$fieldDefinition->id][$languageCode])) {
+                    $field = clone $contentFieldMap[$fieldDefinition->id][$languageCode];
+                    $field->versionNo = $content->versionInfo->versionNo;
+                    // Persist virtual field
+                    if (null === $field->id) {
+                        $this->updateField($field, $content);
+                        $updatedFields[$fieldDefinition->id][$languageCode] = $field;
+                    }
                 }
 
                 // If no above conditions were met - do nothing
@@ -417,7 +425,7 @@ class FieldHandler
      * @param \eZ\Publish\SPI\Persistence\Content\Field[] $fields
      * @param array $languageCodes
      *
-     * @return \eZ\Publish\SPI\Persistence\Content\Field[][]
+     * @return array<int, array<string, \eZ\Publish\SPI\Persistence\Content\Field>>
      */
     protected function getFieldMap(array $fields, &$languageCodes = null)
     {
