@@ -363,8 +363,7 @@ class FieldHandler
                     $field->versionNo = $content->versionInfo->versionNo;
                     // Persist virtual field
                     if (null === $field->id) {
-                        $this->updateField($field, $content);
-                        $updatedFields[$fieldDefinition->id][$languageCode] = $field;
+                        $this->createNewField($field, $content);
                     }
                 }
 
