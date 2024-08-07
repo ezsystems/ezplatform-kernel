@@ -263,6 +263,8 @@ class Handler implements BaseContentHandler
      * @param string|null $languageCode
      *
      * @return \eZ\Publish\SPI\Persistence\Content
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
     public function createDraftFromVersion($contentId, $srcVersion, $userId, ?string $languageCode = null)
     {

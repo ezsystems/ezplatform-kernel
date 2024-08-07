@@ -110,9 +110,9 @@ class ContentHandlerTest extends TestCase
     protected $contentTypeHandlerMock;
 
     /**
-     * @var \eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler
+     * @var \PHPUnit\Framework\MockObject\MockObject&\eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler
      */
-    protected $languageHandlerMock;
+    private $languageHandlerMock;
 
     /**
      * @covers \eZ\Publish\Core\Persistence\Legacy\Content\Handler::create
@@ -1617,7 +1617,7 @@ class ContentHandlerTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler
+     * @return \PHPUnit\Framework\MockObject\MockObject&\eZ\Publish\Core\Persistence\Legacy\Content\Language\Handler
      */
     protected function getLanguageHandlerMock(): LanguageHandler
     {
