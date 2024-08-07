@@ -332,7 +332,7 @@ class FieldHandler
                 if (isset($updateFieldMap[$fieldDefinition->id][$languageCode])) {
                     $field = clone $updateFieldMap[$fieldDefinition->id][$languageCode];
                     $field->versionNo = $content->versionInfo->versionNo;
-                    if (null !== $field->id && array_key_exists($field->languageCode, $existingLanguageCodes)) {
+                    if (isset($field->id) && array_key_exists($field->languageCode, $existingLanguageCodes)) {
                         $this->updateField($field, $content);
                         $updatedFields[$fieldDefinition->id][$languageCode] = $field;
                     } else {
