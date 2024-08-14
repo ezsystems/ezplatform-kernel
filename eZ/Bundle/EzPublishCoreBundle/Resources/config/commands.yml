@@ -62,3 +62,11 @@ services:
             $userHandler: '@ezpublish.spi.persistence.user_handler'
         tags:
             - { name: console.command }
+
+    Ibexa\Bundle\Core\Command\VirtualFieldDuplicateFixCommand:
+        autowire: true
+        autoconfigure: true
+        arguments:
+            $connection: '@ezpublish.persistence.connection'
+        tags:
+            - { name: console.command }
