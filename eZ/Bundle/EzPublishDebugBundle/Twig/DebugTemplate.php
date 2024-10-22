@@ -76,9 +76,9 @@ class DebugTemplate extends Template
         return new Source('', '');
     }
 
-    protected function doDisplay(array $context, array $blocks = []): string
+    protected function doDisplay(array $context, array $blocks = []): iterable
     {
-        return '';
+        return [];
     }
 
     /**
