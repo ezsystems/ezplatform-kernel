@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension;
 
 use eZ\Publish\Core\MVC\Symfony\Templating\Twig\Extension\QueryRenderingExtension;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 
 final class QueryRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
@@ -22,8 +24,18 @@ final class QueryRenderingExtensionTest extends FileSystemTwigIntegrationTestCas
                 return var_export($args, true);
             });
 
+        $currentRequest = $this->createMock(Request::class);
+        $currentRequest
+            ->method('get')
+            ->willReturn(1);
+
+        $requestStack = $this->createMock(RequestStack::class);
+        $requestStack
+            ->method('getCurrentRequest')
+            ->willReturn($currentRequest);
+
         return [
-            new QueryRenderingExtension($fragmentHandler),
+            new QueryRenderingExtension($fragmentHandler, $requestStack),
         ];
     }
 
