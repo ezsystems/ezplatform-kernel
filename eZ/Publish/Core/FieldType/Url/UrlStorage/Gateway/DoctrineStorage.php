@@ -130,6 +130,44 @@ class DoctrineStorage extends Gateway
     }
 
     /**
+     * Return a list of URLs used by the given field and version.
+     *
+     * string[] An array of URLs
+     */
+    public function getUrlsFromUrlLink(int $fieldId, int $versionNo): array
+    {
+        $selectQuery = $this->connection->createQueryBuilder();
+        $selectQuery
+            ->select($this->connection->quoteIdentifier('url.url'))
+            ->from($this->connection->quoteIdentifier(self::URL_TABLE), 'url')
+            ->innerJoin(
+                'url',
+                $this->connection->quoteIdentifier(self::URL_LINK_TABLE),
+                'link',
+                'url.id = link.url_id'
+            )
+            ->where(
+                $selectQuery->expr()->eq(
+                    'link.contentobject_attribute_id',
+                    ':contentobject_attribute_id'
+                )
+            )
+            ->andWhere(
+                $selectQuery->expr()->eq(
+                    'link.contentobject_attribute_version',
+                    ':contentobject_attribute_version'
+                )
+            )
+            ->setParameter(':contentobject_attribute_id', $fieldId, ParameterType::INTEGER)
+            ->setParameter(':contentobject_attribute_version', $versionNo, ParameterType::INTEGER);
+
+        $statement = $selectQuery->execute();
+        $rows = $statement->fetchFirstColumn();
+
+        return $rows;
+    }
+
+    /**
      * Create link to URL with $urlId for field with $fieldId in $versionNo.
      *
      * @param int $urlId
