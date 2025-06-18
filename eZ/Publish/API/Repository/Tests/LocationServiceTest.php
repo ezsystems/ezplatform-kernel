@@ -3561,7 +3561,7 @@ class LocationServiceTest extends BaseTest
         $location = $folder->getVersionInfo()->getContentInfo()->getMainLocation();
         self::assertSame(1, $locationService->getSubtreeSize($location));
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 10; ++$i) {
             $this->createFolder(['eng-GB' => 'Child ' . $i], $location->id);
         }
 
@@ -3570,7 +3570,7 @@ class LocationServiceTest extends BaseTest
         return $location;
     }
 
-     public function testGetSubtreeSizeWithInvalidLimitHasNoEffect(): Location
+    public function testGetSubtreeSizeWithInvalidLimitHasNoEffect(): Location
     {
         $repository = $this->getRepository();
         $locationService = $repository->getLocationService();
@@ -3579,10 +3579,9 @@ class LocationServiceTest extends BaseTest
         $location = $folder->getVersionInfo()->getContentInfo()->getMainLocation();
         self::assertSame(1, $locationService->getSubtreeSize($location));
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 10; ++$i) {
             $this->createFolder(['eng-GB' => 'Child ' . $i], $location->id);
         }
-
 
         self::assertSame(11, $locationService->getSubtreeSize($location, -2));
 

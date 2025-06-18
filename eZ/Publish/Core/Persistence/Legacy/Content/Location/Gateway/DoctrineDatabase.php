@@ -241,9 +241,9 @@ final class DoctrineDatabase extends Gateway
     {
         $useLimit = $limit !== null && $limit > 0;
 
-        $query = $this->createNodeQueryBuilder([$useLimit ? 'node_id': $this->dbPlatform->getCountExpression('node_id')]);
+        $query = $this->createNodeQueryBuilder([$useLimit ? 'node_id' : $this->dbPlatform->getCountExpression('node_id')]);
         $query->andWhere(
-              $query->expr()->like(
+            $query->expr()->like(
                 't.path_string',
                 $query->createPositionalParameter(
                     $path . '%',
@@ -256,9 +256,10 @@ final class DoctrineDatabase extends Gateway
             $outerQuery = $this
                 ->connection
                 ->createQueryBuilder()
-                ->select($this->dbPlatform->getCountExpression( '*'))
-                ->from('(' . $query->getSQL() . ')', 't')  
+                ->select($this->dbPlatform->getCountExpression('*'))
+                ->from('(' . $query->getSQL() . ')', 't')
                 ->setParameters($query->getParameters());
+
             return (int) $outerQuery->execute()->fetchOne();
         }
 
