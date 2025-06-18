@@ -237,17 +237,30 @@ final class DoctrineDatabase extends Gateway
             : $results;
     }
 
-    public function getSubtreeSize(string $path): int
+    public function getSubtreeSize(string $path, ?int $limit = null): int
     {
-        $query = $this->createNodeQueryBuilder([$this->dbPlatform->getCountExpression('node_id')]);
+        $useLimit = $limit !== null && $limit > 0;
+
+        $query = $this->createNodeQueryBuilder([$useLimit ? 'node_id': $this->dbPlatform->getCountExpression('node_id')]);
         $query->andWhere(
-            $query->expr()->like(
+              $query->expr()->like(
                 't.path_string',
                 $query->createPositionalParameter(
                     $path . '%',
-                )
+                ),
             )
         );
+
+        if ($useLimit) {
+            $query->setMaxResults($limit);
+            $outerQuery = $this
+                ->connection
+                ->createQueryBuilder()
+                ->select($this->dbPlatform->getCountExpression( '*'))
+                ->from('(' . $query->getSQL() . ')', 't')  
+                ->setParameters($query->getParameters());
+            return (int) $outerQuery->execute()->fetchOne();
+        }
 
         return (int) $query->execute()->fetchOne();
     }

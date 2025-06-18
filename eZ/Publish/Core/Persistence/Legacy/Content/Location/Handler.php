@@ -346,9 +346,9 @@ class Handler implements BaseLocationHandler
         return $copiedSubtreeRootLocation;
     }
 
-    public function getSubtreeSize(string $path): int
+    public function getSubtreeSize(string $path, ?int $limit = null): int
     {
-        return $this->locationGateway->getSubtreeSize($path);
+        return $this->locationGateway->getSubtreeSize($path, $limit);
     }
 
     /**

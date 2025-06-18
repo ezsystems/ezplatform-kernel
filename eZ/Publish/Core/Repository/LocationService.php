@@ -379,10 +379,11 @@ class LocationService implements LocationServiceInterface
         return $this->count($filter);
     }
 
-    public function getSubtreeSize(APILocation $location): int
+    public function getSubtreeSize(APILocation $location, ?int $limit = null): int
     {
         return $this->persistenceHandler->locationHandler()->getSubtreeSize(
-            $location->getPathString()
+            $location->getPathString(),
+            $limit
         );
     }
 

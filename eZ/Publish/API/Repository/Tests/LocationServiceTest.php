@@ -3552,6 +3552,43 @@ class LocationServiceTest extends BaseTest
         return $location;
     }
 
+    public function testGetSubtreeSizeWithLimit(): Location
+    {
+        $repository = $this->getRepository();
+        $locationService = $repository->getLocationService();
+
+        $folder = $this->createFolder(['eng-GB' => 'Parent Folder'], 2);
+        $location = $folder->getVersionInfo()->getContentInfo()->getMainLocation();
+        self::assertSame(1, $locationService->getSubtreeSize($location));
+
+        for ($i = 1; $i <= 10; $i++) {
+            $this->createFolder(['eng-GB' => 'Child ' . $i], $location->id);
+        }
+
+        self::assertSame(3, $locationService->getSubtreeSize($location, 3));
+
+        return $location;
+    }
+
+     public function testGetSubtreeSizeWithInvalidLimitHasNoEffect(): Location
+    {
+        $repository = $this->getRepository();
+        $locationService = $repository->getLocationService();
+
+        $folder = $this->createFolder(['eng-GB' => 'Parent Folder'], 2);
+        $location = $folder->getVersionInfo()->getContentInfo()->getMainLocation();
+        self::assertSame(1, $locationService->getSubtreeSize($location));
+
+        for ($i = 1; $i <= 10; $i++) {
+            $this->createFolder(['eng-GB' => 'Child ' . $i], $location->id);
+        }
+
+
+        self::assertSame(11, $locationService->getSubtreeSize($location, -2));
+
+        return $location;
+    }
+
     /**
      * Loads properties from all locations in the $location's subtree.
      *

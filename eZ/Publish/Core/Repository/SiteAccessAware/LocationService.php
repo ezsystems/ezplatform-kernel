@@ -109,9 +109,9 @@ class LocationService implements LocationServiceInterface
         return $this->service->getLocationChildCount($location);
     }
 
-    public function getSubtreeSize(Location $location): int
+    public function getSubtreeSize(Location $location, ?int $limit = null): int
     {
-        return $this->service->getSubtreeSize($location);
+        return $this->service->getSubtreeSize($location, $limit);
     }
 
     public function createLocation(ContentInfo $contentInfo, LocationCreateStruct $locationCreateStruct): Location

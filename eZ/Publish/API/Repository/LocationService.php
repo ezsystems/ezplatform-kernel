@@ -133,8 +133,11 @@ interface LocationService
      * Return the subtree size of a given location.
      *
      * Warning! This method is not permission aware by design.
+     * 
+     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param int|null $limit Optional limit to the number of locations to count. (Can be used to limit the number of locations counted in large subtrees.)
      */
-    public function getSubtreeSize(Location $location): int;
+    public function getSubtreeSize(Location $location, ?int $limit = null): int;
 
     /**
      * Creates the new $location in the content repository for the given content.
