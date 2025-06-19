@@ -17,15 +17,16 @@ use Doctrine\DBAL\Query\QueryBuilder;
 trait LimitedCountQueryTrait
 {
     /**
-     * Takes a QueryBuilder and wraps it in a count query. 
+     * Takes a QueryBuilder and wraps it in a count query.
      * This performs the following transformation to the passed query
      * SELECT DISTINCT COUNT(DISTINCT someField) FROM XXX WHERE YYY;
      * To
-     * SELECT COUNT(*) FROM (SELECT DISTINCT someField FROM XXX WHERE YYY LIMIT N) AS csub;
-     * 
+     * SELECT COUNT(*) FROM (SELECT DISTINCT someField FROM XXX WHERE YYY LIMIT N) AS csub;.
+     *
      * @param \Doctrine\DBAL\Query\QueryBuilder $queryBuilder
      * @param string $countableField
      * @param mixed $limit
+     *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
     protected function wrapCountQuery(
@@ -35,7 +36,7 @@ trait LimitedCountQueryTrait
     ): QueryBuilder {
         $useLimit = $limit !== null && $limit > 0;
 
-        if(!$useLimit) {
+        if (!$useLimit) {
             return $queryBuilder;
         }
 
@@ -44,6 +45,7 @@ trait LimitedCountQueryTrait
             ->getSQL();
 
         $countQuery = $this->connection->createQueryBuilder();
+
         return $countQuery
             ->select(
                 $queryBuilder->getConnection()->getDatabasePlatform()->getCountExpression('*')

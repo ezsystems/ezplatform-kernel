@@ -372,11 +372,11 @@ class LocationService implements LocationServiceInterface
     /**
      * Returns the number of children which are readable by the current user of a Location object.
      */
-    public function getLocationChildCount(APILocation $location, ?int $limit =  null): int
+    public function getLocationChildCount(APILocation $location, ?int $limit = null): int
     {
         $filter = $this->buildLocationChildrenFilter($location);
 
-        return $this->count($filter,null, $limit);
+        return $this->count($filter, null, $limit);
     }
 
     public function getSubtreeSize(APILocation $location, ?int $limit = null): int

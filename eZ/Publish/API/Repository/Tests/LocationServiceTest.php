@@ -1114,7 +1114,7 @@ class LocationServiceTest extends BaseTest
         );
     }
 
-     /**
+    /**
      * Test for the getLocationChildCount() method with a limitation on the number of children.
      *
      * @see \eZ\Publish\API\Repository\LocationService::getLocationChildCount()

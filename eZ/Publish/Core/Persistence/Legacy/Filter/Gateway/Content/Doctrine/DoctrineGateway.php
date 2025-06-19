@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Content\Doctrine;
 
-use eZ\Publish\Core\Persistence\Legacy\Traits\Doctrine\LimitedCountQueryTrait;
 use function array_filter;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -19,6 +18,7 @@ use eZ\Publish\Core\Base\Exceptions\DatabaseException;
 use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
 use eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Gateway;
+use eZ\Publish\Core\Persistence\Legacy\Traits\Doctrine\LimitedCountQueryTrait;
 use eZ\Publish\SPI\Persistence\Filter\CriterionVisitor;
 use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
 use eZ\Publish\SPI\Persistence\Filter\SortClauseVisitor;
@@ -94,7 +94,7 @@ final class DoctrineGateway implements Gateway
     {
         $query = $this->buildQuery(
             [$this->getDatabasePlatform()->getCountExpression('DISTINCT content.id')],
-             $criterion
+            $criterion
         );
 
         $query = $this->wrapCountQuery(
