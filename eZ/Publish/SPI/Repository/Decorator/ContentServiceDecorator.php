@@ -276,8 +276,8 @@ abstract class ContentServiceDecorator implements ContentService
         return $this->innerService->find($filter, $languages);
     }
 
-    public function count(Filter $filter, ?array $languages = null, ?int $limit = $limit): int
+    public function count(Filter $filter, ?array $languages = null, ?int $limit = null): int
     {
-        return $this->innerService->count($filter, $languages);
+        return $this->innerService->count($filter, $languages, $limit);
     }
 }

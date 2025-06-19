@@ -16,6 +16,7 @@ use eZ\Publish\Core\Base\Exceptions\NotFoundException as NotFound;
 use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Language\MaskGenerator;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway;
+use eZ\Publish\Core\Persistence\Legacy\Traits\Doctrine\LimitedCountQueryTrait;
 use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\CriteriaConverter;
 use eZ\Publish\Core\Search\Legacy\Content\Common\Gateway\SortClauseConverter;
 use eZ\Publish\SPI\Persistence\Content\ContentInfo;
@@ -35,6 +36,8 @@ use function time;
  */
 final class DoctrineDatabase extends Gateway
 {
+    use LimitedCountQueryTrait;
+
     /** @var \Doctrine\DBAL\Connection */
     private $connection;
 
@@ -239,9 +242,7 @@ final class DoctrineDatabase extends Gateway
 
     public function getSubtreeSize(string $path, ?int $limit = null): int
     {
-        $useLimit = $limit !== null && $limit > 0;
-
-        $query = $this->createNodeQueryBuilder([$useLimit ? 'node_id' : $this->dbPlatform->getCountExpression('node_id')]);
+        $query = $this->createNodeQueryBuilder([$this->dbPlatform->getCountExpression('node_id')]);
         $query->andWhere(
             $query->expr()->like(
                 't.path_string',
@@ -251,17 +252,11 @@ final class DoctrineDatabase extends Gateway
             )
         );
 
-        if ($useLimit) {
-            $query->setMaxResults($limit);
-            $outerQuery = $this
-                ->connection
-                ->createQueryBuilder()
-                ->select($this->dbPlatform->getCountExpression('*'))
-                ->from('(' . $query->getSQL() . ')', 't')
-                ->setParameters($query->getParameters());
-
-            return (int) $outerQuery->execute()->fetchOne();
-        }
+        $query = $this->wrapCountQuery(
+            $query,
+            't.node_id',
+            $limit
+        );
 
         return (int) $query->execute()->fetchOne();
     }

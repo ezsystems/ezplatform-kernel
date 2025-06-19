@@ -17,6 +17,7 @@ use eZ\Publish\Core\Base\Exceptions\DatabaseException;
 use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
 use eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Gateway;
+use eZ\Publish\Core\Persistence\Legacy\Traits\Doctrine\LimitedCountQueryTrait;
 use eZ\Publish\SPI\Persistence\Filter\CriterionVisitor;
 use eZ\Publish\SPI\Persistence\Filter\Doctrine\FilteringQueryBuilder;
 use eZ\Publish\SPI\Persistence\Filter\SortClauseVisitor;
@@ -27,6 +28,8 @@ use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
  */
 final class DoctrineGateway implements Gateway
 {
+    use LimitedCountQueryTrait;
+
     /** @var \Doctrine\DBAL\Connection */
     private $connection;
 
@@ -57,30 +60,15 @@ final class DoctrineGateway implements Gateway
 
     public function count(FilteringCriterion $criterion, ?int $limit = null): int
     {
-        $useLimit = $limit !== null && $limit > 0;
         $query = $this->buildQuery($criterion);
 
-        $query->select(
-            $useLimit ?
-            'location.node_id' :
-             $this->getDatabasePlatform()->getCountExpression('DISTINCT location.node_id')
+        $query->select($this->getDatabasePlatform()->getCountExpression('DISTINCT location.node_id'));
+
+        $query = $this->wrapCountQuery(
+            $query,
+            'location.node_id',
+            $limit
         );
-
-
-        if ($useLimit) {
-            $query->setMaxResults($limit);
-            $outerQuery = $this->connection->createQueryBuilder();
-            $outerQuery
-                ->select(
-                    $this->getDatabasePlatform()->getCountExpression('*')
-                )
-                ->from('(' . $query->getSQL() . ')', 'subquery')
-                ->setParameters($query->getParameters(), $query->getParameterTypes())
-            ;
-            
-           
-            return (int)$outerQuery->execute()->fetch(FetchMode::COLUMN);
-        }
 
         return (int)$query->execute()->fetch(FetchMode::COLUMN);
     }

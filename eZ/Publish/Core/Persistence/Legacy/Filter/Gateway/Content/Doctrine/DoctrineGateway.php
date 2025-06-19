@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace eZ\Publish\Core\Persistence\Legacy\Filter\Gateway\Content\Doctrine;
 
+use eZ\Publish\Core\Persistence\Legacy\Traits\Doctrine\LimitedCountQueryTrait;
 use function array_filter;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -31,6 +32,8 @@ use Traversable;
  */
 final class DoctrineGateway implements Gateway
 {
+    use LimitedCountQueryTrait;
+
     public const COLUMN_MAP = [
         // Content Info
         'content_id' => 'content.id',
@@ -89,30 +92,16 @@ final class DoctrineGateway implements Gateway
 
     public function count(FilteringCriterion $criterion, ?int $limit = null): int
     {
-        $useLimit = $limit !== null && $limit > 0;
-
         $query = $this->buildQuery(
-            [$useLimit ?
-            'content.id' :
-             $this->getDatabasePlatform()->getCountExpression('DISTINCT content.id')],
+            [$this->getDatabasePlatform()->getCountExpression('DISTINCT content.id')],
              $criterion
         );
 
-
-        if ($useLimit) {
-            $query->setMaxResults($limit);
-            $outerQuery = $this->connection->createQueryBuilder();
-            $outerQuery
-                ->select(
-                    $this->getDatabasePlatform()->getCountExpression('*')
-                )
-                ->from('(' . $query->getSQL() . ')', 'subquery')
-                ->setParameters($query->getParameters(), $query->getParameterTypes())
-            ;
-            
-           
-            return (int)$outerQuery->execute()->fetch(FetchMode::COLUMN);
-        }
+        $query = $this->wrapCountQuery(
+            $query,
+            'content.id',
+            $limit
+        );
 
         return (int)$query->execute()->fetch(FetchMode::COLUMN);
     }
