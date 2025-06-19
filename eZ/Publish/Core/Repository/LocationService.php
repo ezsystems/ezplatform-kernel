@@ -372,11 +372,11 @@ class LocationService implements LocationServiceInterface
     /**
      * Returns the number of children which are readable by the current user of a Location object.
      */
-    public function getLocationChildCount(APILocation $location): int
+    public function getLocationChildCount(APILocation $location, ?int $limit =  null): int
     {
         $filter = $this->buildLocationChildrenFilter($location);
 
-        return $this->count($filter);
+        return $this->count($filter,null, $limit);
     }
 
     public function getSubtreeSize(APILocation $location, ?int $limit = null): int
@@ -944,7 +944,7 @@ class LocationService implements LocationServiceInterface
         );
     }
 
-    public function count(Filter $filter, ?array $languages = null): int
+    public function count(Filter $filter, ?array $languages = null, ?int $limit = null): int
     {
         $filter = clone $filter;
         if (!empty($languages)) {
@@ -964,7 +964,7 @@ class LocationService implements LocationServiceInterface
             $filter->andWithCriterion($permissionCriterion);
         }
 
-        return $this->locationFilteringHandler->count($filter);
+        return $this->locationFilteringHandler->count($filter, $limit);
     }
 
     /**

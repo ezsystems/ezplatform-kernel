@@ -284,11 +284,12 @@ class ContentService implements ContentServiceInterface
         );
     }
 
-    public function count(Filter $filter, ?array $languages = null): int
+    public function count(Filter $filter, ?array $languages = null, ?int $limit = null): int
     {
         return $this->service->count(
             $filter,
-            $this->languageResolver->getPrioritizedLanguages($languages)
+            $this->languageResolver->getPrioritizedLanguages($languages),
+            $limit
         );
     }
 }

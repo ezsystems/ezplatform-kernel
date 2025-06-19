@@ -104,9 +104,9 @@ class LocationService implements LocationServiceInterface
         );
     }
 
-    public function getLocationChildCount(Location $location): int
+    public function getLocationChildCount(Location $location, ?int $limit = null ): int
     {
-        return $this->service->getLocationChildCount($location);
+        return $this->service->getLocationChildCount($location, $limit);
     }
 
     public function getSubtreeSize(Location $location, ?int $limit = null): int
@@ -192,11 +192,12 @@ class LocationService implements LocationServiceInterface
         );
     }
 
-    public function count(Filter $filter, ?array $languages = null): int
+    public function count(Filter $filter, ?array $languages = null, ?int $limit = null): int
     {
         return $this->service->count(
             $filter,
-            $this->languageResolver->getPrioritizedLanguages($languages)
+            $this->languageResolver->getPrioritizedLanguages($languages),
+            $limit
         );
     }
 }

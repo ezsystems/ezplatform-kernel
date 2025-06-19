@@ -87,12 +87,32 @@ final class DoctrineGateway implements Gateway
         }
     }
 
-    public function count(FilteringCriterion $criterion): int
+    public function count(FilteringCriterion $criterion, ?int $limit = null): int
     {
+        $useLimit = $limit !== null && $limit > 0;
+
         $query = $this->buildQuery(
-            [$this->getDatabasePlatform()->getCountExpression('DISTINCT content.id')],
-            $criterion
+            [$useLimit ?
+            'content.id' :
+             $this->getDatabasePlatform()->getCountExpression('DISTINCT content.id')],
+             $criterion
         );
+
+
+        if ($useLimit) {
+            $query->setMaxResults($limit);
+            $outerQuery = $this->connection->createQueryBuilder();
+            $outerQuery
+                ->select(
+                    $this->getDatabasePlatform()->getCountExpression('*')
+                )
+                ->from('(' . $query->getSQL() . ')', 'subquery')
+                ->setParameters($query->getParameters(), $query->getParameterTypes())
+            ;
+            
+           
+            return (int)$outerQuery->execute()->fetch(FetchMode::COLUMN);
+        }
 
         return (int)$query->execute()->fetch(FetchMode::COLUMN);
     }

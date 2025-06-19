@@ -18,9 +18,9 @@ use eZ\Publish\SPI\Repository\Values\Filter\FilteringCriterion;
 interface Gateway
 {
     /**
-     * Return number of matched rows for the given Criteria (a total count w/o pagination constraints).
+     * Return number of matched rows for the given Criteria (a total count w/o pagination constraints unless an upper limit is applied).
      */
-    public function count(FilteringCriterion $criterion): int;
+    public function count(FilteringCriterion $criterion, ?int $limit = null): int;
 
     /**
      * Return iterator for raw Repository data for the given Query result filtered by the given Criteria,

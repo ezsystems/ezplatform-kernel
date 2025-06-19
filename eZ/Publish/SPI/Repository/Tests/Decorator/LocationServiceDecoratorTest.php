@@ -151,7 +151,7 @@ class LocationServiceDecoratorTest extends TestCase
         $serviceMock = $this->createServiceMock();
         $decoratedService = $this->createDecorator($serviceMock);
 
-        $parameters = [$this->createMock(Location::class)];
+        $parameters = [$this->createMock(Location::class), 8];
 
         $serviceMock->expects($this->once())->method('getLocationChildCount')->with(...$parameters);
 

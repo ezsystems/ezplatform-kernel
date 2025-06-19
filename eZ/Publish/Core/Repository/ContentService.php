@@ -2626,7 +2626,7 @@ class ContentService implements ContentServiceInterface
         return new ContentList($contentItemsIterator->getTotalCount(), $contentItems);
     }
 
-    public function count(Filter $filter, ?array $languages = null): int
+    public function count(Filter $filter, ?array $languages = null, ?int $limit = null): int
     {
         $filter = clone $filter;
         if (!empty($languages)) {
@@ -2646,6 +2646,6 @@ class ContentService implements ContentServiceInterface
             $filter->andWithCriterion($permissionCriterion);
         }
 
-        return $this->contentFilteringHandler->count($filter);
+        return $this->contentFilteringHandler->count($filter, $limit);
     }
 }

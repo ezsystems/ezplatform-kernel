@@ -12,6 +12,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Exception;
 use eZ\Publish\Core\Base\Exceptions\DatabaseException;
 use eZ\Publish\Core\Persistence\Legacy\Content\Gateway as ContentGateway;
 use eZ\Publish\Core\Persistence\Legacy\Content\Location\Gateway as LocationGateway;
@@ -54,11 +55,32 @@ final class DoctrineGateway implements Gateway
         }
     }
 
-    public function count(FilteringCriterion $criterion): int
+    public function count(FilteringCriterion $criterion, ?int $limit = null): int
     {
+        $useLimit = $limit !== null && $limit > 0;
         $query = $this->buildQuery($criterion);
 
-        $query->select($this->getDatabasePlatform()->getCountExpression('DISTINCT location.node_id'));
+        $query->select(
+            $useLimit ?
+            'location.node_id' :
+             $this->getDatabasePlatform()->getCountExpression('DISTINCT location.node_id')
+        );
+
+
+        if ($useLimit) {
+            $query->setMaxResults($limit);
+            $outerQuery = $this->connection->createQueryBuilder();
+            $outerQuery
+                ->select(
+                    $this->getDatabasePlatform()->getCountExpression('*')
+                )
+                ->from('(' . $query->getSQL() . ')', 'subquery')
+                ->setParameters($query->getParameters(), $query->getParameterTypes())
+            ;
+            
+           
+            return (int)$outerQuery->execute()->fetch(FetchMode::COLUMN);
+        }
 
         return (int)$query->execute()->fetch(FetchMode::COLUMN);
     }

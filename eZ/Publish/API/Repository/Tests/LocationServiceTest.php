@@ -1114,6 +1114,26 @@ class LocationServiceTest extends BaseTest
         );
     }
 
+     /**
+     * Test for the getLocationChildCount() method with a limitation on the number of children.
+     *
+     * @see \eZ\Publish\API\Repository\LocationService::getLocationChildCount()
+     * @depends eZ\Publish\API\Repository\Tests\LocationServiceTest::testLoadLocation
+     */
+    public function testGetLocationChildCountWithLimitation()
+    {
+        // $locationId is the ID of an existing location
+        $locationService = $this->getRepository()->getLocationService();
+
+        $this->assertSame(
+            2,
+            $locationService->getLocationChildCount(
+                $locationService->loadLocation($this->generateId('location', 5)),
+                2
+            )
+        );
+    }
+
     /**
      * Test for the loadLocationChildren() method.
      *
